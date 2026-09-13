@@ -1,0 +1,2 @@
+# The root game imports this directory as an isolated Godot project only.
+# Its own project is run with --path probes/cycle by tools/run_m0a.ps1.

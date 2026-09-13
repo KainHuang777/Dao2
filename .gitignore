@@ -1,0 +1,9 @@
+.godot/
+build/
+node_modules/
+.env
+.env.*
+!.env.example
+tools/godot/*.zip
+tools/godot/*.tpz
+tools/godot/4.7.2/

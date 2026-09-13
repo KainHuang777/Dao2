@@ -1,0 +1,98 @@
+{
+  "fixture_id": "m0-b-v1",
+  "generated_at": "2026-09-14",
+  "source": {
+    "path": "E:\\Python\\test1",
+    "git_commit": null,
+    "git_status": "unavailable: directory is not a Git work tree",
+    "package": "cultivation-game@0.46.6",
+    "reference_runner": "E:\\Python\\test1\\node_modules\\.bin\\vitest.cmd v4.1.10"
+  },
+  "source_data_profile": {
+    "buildings": { "rows": 49, "sha256": "DF6B841034C170B66967BB094541EAD768A699CD33D5B38BCCFB89E6E63B8E5E" },
+    "eras": { "rows": 12, "sha256": "E71F03ABD8755993FF874B5CBD2C9ED7B428423BC455D3C44950EB715DECA404" },
+    "resources": { "rows": 62, "sha256": "41B3E762C40EEB813885A08BD078E5C848C70683428E562D826971843EDC74DE" },
+    "skills": { "rows": 35, "sha256": "C45F39DC1AA43661BC4834C32FFF5C5A432305D1D2381886A982BA86B082710D" },
+    "storage": { "rows": 11, "sha256": "A3D7AD8E07DCEF03E235AACD34F49D587606B6E84A85F379A253EEB12AC6F62B" }
+  },
+  "inputs": {
+    "building_cost": {
+      "base_cost": { "money": 100, "wood": 40 },
+      "levels": [0, 20, 21, 50],
+      "discounted": { "level": 51, "cost_factor": 1.25, "cost_reduction": 0.15, "intuition_level": 4 }
+    },
+    "lifespan_eras": [
+      { "eraId": 1, "lifespan": 80 },
+      { "eraId": 2, "lifespan": 120 },
+      { "eraId": 3, "lifespan": 540 }
+    ]
+  },
+  "expected": {
+    "building_cost": {
+      "level_0": { "money": "100", "wood": "40" },
+      "level_20": { "money": "3273", "wood": "1309" },
+      "level_21": { "money": "4193", "wood": "1677" },
+      "level_50": { "money": "4627274", "wood": "1850909" },
+      "level_51_discounted": { "money": "61239616", "wood": "24495846" }
+    },
+    "training": {
+      "cumulative_10_1_5_level_0": 0,
+      "cumulative_10_1_5_level_3": 47.5,
+      "single_10_1_5_level_4": 33.75,
+      "bonused_100": 36,
+      "clamped_100": 1
+    },
+    "capacity": {
+      "below_tolerance": [
+        { "resourceKey": "lingli", "required": 500, "current": "499.89" }
+      ],
+      "at_tolerance": []
+    },
+    "amount": [
+      { "input": "0", "string": "0", "json": "0" },
+      { "input": "123.45", "string": "123.45", "json": "123.45" },
+      { "input": "1e100", "string": "1e100", "json": "1e100" },
+      { "input": "1e1000000", "string": "1e1000000", "json": "1e1000000" },
+      { "input": "ee5", "string": "1e100000", "json": "1e100000" }
+    ],
+    "lifespan": {
+      "era_1": 4800,
+      "era_2_talent_pill": 13500,
+      "era_4_fallback": 68400
+    },
+    "reincarnation": {
+      "normal": { "daoHeart": 12, "daoProof": 2 },
+      "advanced": { "daoHeart": 12, "daoProof": 4 },
+      "era_floor": { "daoHeart": 25, "daoProof": 0 },
+      "start": [0, 399, 799, 799],
+      "contribution": 29,
+      "resource_grant": 300,
+      "resource_inheritance": 299
+    },
+    "onboarding": {
+      "new_game": {
+        "isOnboardingActive": true,
+        "resourceIds": ["lingli"],
+        "visibleBuildingIds": ["hut"],
+        "nextObjective": { "kind": "building", "id": "hut" }
+      },
+      "hut_2": {
+        "isOnboardingActive": true,
+        "resourceIds": ["lingli", "money", "wood"],
+        "visibleBuildingIds": ["hut", "wooden_house", "storage_lingli", "storage_money"],
+        "nextObjective": { "kind": "building", "id": "wooden_house" }
+      },
+      "early_chain": {
+        "isOnboardingActive": true,
+        "resourceIds": ["lingli", "money", "wood", "stone_low", "spirit_grass_low", "foundation_pill"],
+        "visibleBuildingIds": ["hut", "wooden_house", "storage_lingli", "storage_money", "forest_farm", "stone_mine", "storage_stone", "herb_farm", "storage_wood", "storage_herb"],
+        "nextObjective": null
+      }
+    },
+    "seeded_random": [
+      { "seed": "dao2-fixture", "first": [0.7489550774917006, 0.46562447026371956, 0.49396236101165414, 0.3885596215259284], "state": 2514220282, "resumed": 0.12220142688602209 },
+      { "seed": "修仙問道", "first": [0.5595582802779973, 0.70795922819525, 0.5246702418662608, 0.6356218243017793], "state": 2658883845, "resumed": 0.2593673411756754 },
+      { "seed": 12345, "first": [0.9797282677609473, 0.3067522644996643, 0.484205421525985, 0.817934412509203], "state": 3031308301, "resumed": 0.5094283693470061 }
+    ]
+  }
+}
