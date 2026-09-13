@@ -1,0 +1,9 @@
+{
+  "fixture_id": "m0-c-v2",
+  "base_fixture": "m0-c-v1.json",
+  "corrections": {
+    "arithmetic": {
+      "clamp": "1e1000000"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "fixture_id": "m0-c-v3",
+  "base_fixture": "m0-c-v1.json",
+  "canonical_serialization": {
+    "1.5e100": "1.5e100",
+    "plus_equal": "2e100"
+  },
+  "corrected_contract": {
+    "clamp": "1e1000000"
+  }
+}

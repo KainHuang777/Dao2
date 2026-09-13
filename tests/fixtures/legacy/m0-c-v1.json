@@ -1,0 +1,47 @@
+{
+  "fixture_id": "m0-c-v1",
+  "generated_at": "2026-09-14",
+  "source": {
+    "decimal": "E:\\Python\\test1\\src\\utils\\break_eternity.js",
+    "decimal_sha256": "F2BBE00B98FBFCED35CBBD62BA013B159B7FF02789C9A1A9AC5CDE2B10808753",
+    "rng": "E:\\Python\\test1\\src\\balance\\simulation\\SeededRandom.ts",
+    "algorithm": "xfnv1a UTF-16 + Mulberry32"
+  },
+  "amounts": [
+    {"input":"0","string":"0","components":{"sign":0,"layer":0,"mag":0}},
+    {"input":"-3.5","string":"-3.5","components":{"sign":-1,"layer":0,"mag":3.5}},
+    {"input":"123.45","string":"123.45","components":{"sign":1,"layer":0,"mag":123.45}},
+    {"input":"1e100","string":"1e100","components":{"sign":1,"layer":1,"mag":100}},
+    {"input":"1.5e100","string":"1.5000000000000004e100","components":{"sign":1,"layer":1,"mag":100.17609125905568}},
+    {"input":"1e1000000","string":"1e1000000","components":{"sign":1,"layer":1,"mag":1000000}},
+    {"input":"ee5","string":"1e100000","components":{"sign":1,"layer":1,"mag":100000}},
+    {"input":"ee20","string":"ee20","components":{"sign":1,"layer":2,"mag":20}},
+    {"input":"eee20","string":"eee20","components":{"sign":1,"layer":3,"mag":20}},
+    {"input":"1e-100","string":"1e-100","components":{"sign":1,"layer":1,"mag":-100}}
+  ],
+  "invalid_amounts": [
+    {"input":"","error":"EMPTY"},
+    {"input":"NaN","error":"NON_FINITE"},
+    {"input":"Infinity","error":"NON_FINITE"},
+    {"input":"1e","error":"INVALID_FORMAT"},
+    {"input":"e5","error":"INVALID_FORMAT"}
+  ],
+  "arithmetic": {
+    "plus_equal":"2.0000000000000004e100",
+    "plus_dominant":"1e100",
+    "minus":"1e99",
+    "times":"1e120",
+    "divided_by":"1e80",
+    "power":"1e200",
+    "log10":"100",
+    "floor_negative":"-4",
+    "clamp":"1e100"
+  },
+  "seeded_random": [
+    {"seed":"dao2-fixture","first":[0.7489550774917006,0.46562447026371956,0.49396236101165414,0.3885596215259284],"state":2514220282,"resumed":0.12220142688602209,"int_range":3,"trial":false,"weighted":"herb"},
+    {"seed":"修仙問道","first":[0.5595582802779973,0.70795922819525,0.5246702418662608,0.6356218243017793],"state":2658883845,"resumed":0.2593673411756754,"int_range":4,"trial":false,"weighted":"herb"},
+    {"seed":"𠮷","first":[0.7399495609570295,0.32872979738749564,0.11200329335406423,0.025625585578382015],"state":4271533295,"resumed":0.4236749126575887,"int_range":5,"trial":false,"weighted":"herb"},
+    {"seed":0,"first":[0.3588899802416563,0.10590326134115458,0.675290479324758,0.9179345588199794],"state":1390764429,"resumed":0.10157715040259063,"int_range":3,"trial":true,"weighted":"wood"},
+    {"seed":12345,"first":[0.9797282677609473,0.3067522644996643,0.484205421525985,0.817934412509203],"state":3031308301,"resumed":0.5094283693470061,"int_range":6,"trial":true,"weighted":"wood"}
+  ]
+}
