@@ -1,0 +1,9 @@
+[
+  { "id": "lingli", "type": "basic", "max": 100, "rate": 0, "unlocked": true },
+  { "id": "money", "type": "basic", "max": 200, "rate": 0, "unlocked": true },
+  { "id": "wood", "type": "basic", "max": 100, "rate": 0, "unlocked": true },
+  { "id": "stone_low", "type": "basic", "max": 100, "rate": 0, "unlocked": true },
+  { "id": "black_copper", "type": "basic", "max": 300, "rate": 0, "unlocked": true },
+  { "id": "spirit_grass_low", "type": "basic", "max": 50, "rate": 0, "unlocked": true },
+  { "id": "foundation_pill", "type": "crafted", "max": 200, "rate": 0, "unlocked": false }
+]

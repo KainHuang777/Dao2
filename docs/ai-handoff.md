@@ -52,6 +52,18 @@ if ($LASTEXITCODE -ne 0) { throw 'Storage/font probe failed' }
 if ($LASTEXITCODE -ne 0) { throw 'Abode state test failed' }
 & $daoEngine --headless --path . --script res://tests/living_abode_runner.gd
 if ($LASTEXITCODE -ne 0) { throw 'Abode scene test failed' }
+& $daoEngine --headless --path . --script res://tests/m0c_compat_v3_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M0-C compat test failed' }
+& $daoEngine --headless --path . --script res://tests/m1a_core_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M1-A core test failed' }
+& $daoEngine --headless --path . --script res://tests/m1b_time_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M1-B time test failed' }
+& $daoEngine --headless --path . --script res://tests/m1c_persistence_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M1-C persistence test failed' }
+& $daoEngine --headless --path . --script res://tests/m1d_offline_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M1-D offline test failed' }
+& $daoEngine --headless --path . --script res://tests/m1e_import_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M1-E legacy import test failed' }
 & $daoEngine --headless --path . --quit-after 3
 if ($LASTEXITCODE -ne 0) { throw 'Main scene startup failed' }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null

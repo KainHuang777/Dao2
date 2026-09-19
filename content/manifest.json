@@ -1,0 +1,13 @@
+{
+  "manifest_version": 1,
+  "era": 1,
+  "resource_files": [
+    "resources/era1.json"
+  ],
+  "building_files": [
+    "buildings/era1.json"
+  ],
+  "era_files": [
+    "eras/era1.json"
+  ]
+}

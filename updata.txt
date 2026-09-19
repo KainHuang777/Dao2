@@ -1,0 +1,10 @@
+[2026-09-19] M1 Full Delivery (M1-A to M1-E) Verification & Baseline Commit
+- Verified all M1 test suites (m1a_core_runner, m1b_time_runner, m1c_persistence_runner, m1d_offline_runner, m1e_import_runner) along with baseline runners (test_runner, abode_state_runner, living_abode_runner, m0c_compat_v3_runner). All 9 runners passed with exit code 0.
+- Verified Godot headless startup (--quit-after 3) and Web release export (--export-release Web build/web/index.html).
+- Delivered M1-A: GameState, ContentLoader, era1 content (resources, buildings), building costs, command processor, GameSession application layer.
+- Delivered M1-B: GameClock, TimeAdvancer, cultivation progress, lifespan calculations, era1 progression parameters.
+- Delivered M1-C: SaveCodec, SaveSlots, SaveManager, FileStorageAdapter, WebStorageAdapter, SaveControls UI.
+- Delivered M1-D: OfflineSettlement (24h cap, cursor tracking, idempotency), OfflineCoordinator, OfflineSummary UI.
+- Delivered M1-E: LegacyImporter with 9 legacy fixtures, compatibility matrix docs, safe slot import without overwriting active state.
+- Configured OpenCode fusion subagents and commands under .opencode/.
+- Updated documentation (ai-handoff.md, development-status.md, rule-differences.md, legacy-compatibility.md, m1 verification docs).

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "hut",
+    "era": 1,
+    "max_level": 2,
+    "cost_factor": 1.5,
+    "prereq": null,
+    "base_cost": { "lingli": 20 },
+    "effect_weight": 1,
+    "effects": { "lingli": 0.3 }
+  },
+  {
+    "id": "wooden_house",
+    "era": 1,
+    "max_level": 50,
+    "cost_factor": 1.6,
+    "prereq": { "building": "hut", "level": 2 },
+    "base_cost": { "money": 20, "lingli": 30 },
+    "effect_weight": 2,
+    "effects": { "money": 0.2, "money_max": 50 }
+  },
+  {
+    "id": "storage_lingli",
+    "era": 1,
+    "max_level": 30,
+    "cost_factor": 1.25,
+    "prereq": { "building": "herb_farm", "level": 3 },
+    "base_cost": { "money": 50, "wood": 20 },
+    "effect_weight": null,
+    "effects": { "lingli_max": 100 }
+  },
+  {
+    "id": "storage_money",
+    "era": 1,
+    "max_level": 30,
+    "cost_factor": 1.4,
+    "prereq": null,
+    "base_cost": { "money": 100, "wood": 50 },
+    "effect_weight": null,
+    "effects": { "money_max": 500 }
+  },
+  {
+    "id": "forest_farm",
+    "era": 1,
+    "max_level": 100,
+    "cost_factor": 1.5,
+    "prereq": { "building": "wooden_house", "level": 2 },
+    "base_cost": { "money": 20, "lingli": 20 },
+    "effect_weight": 0.3,
+    "effects": { "wood": 0.1 }
+  },
+  {
+    "id": "stone_mine",
+    "era": 1,
+    "max_level": 100,
+    "cost_factor": 1.5,
+    "prereq": { "building": "forest_farm", "level": 3 },
+    "base_cost": { "wood": 10, "money": 20 },
+    "effect_weight": 0.3,
+    "effects": { "stone_low": 0.1, "black_copper": 0.05 }
+  },
+  {
+    "id": "storage_stone",
+    "era": 1,
+    "max_level": 30,
+    "cost_factor": 1.4,
+    "prereq": null,
+    "base_cost": { "money": 40, "stone_low": 10 },
+    "effect_weight": null,
+    "effects": { "stone_low_max": 200 }
+  },
+  {
+    "id": "herb_farm",
+    "era": 1,
+    "max_level": 100,
+    "cost_factor": 2,
+    "prereq": { "building": "stone_mine", "level": 3 },
+    "base_cost": { "stone_low": 10, "wood": 20 },
+    "effect_weight": 0.1,
+    "effects": { "spirit_grass_low": 0.1 }
+  },
+  {
+    "id": "storage_wood",
+    "era": 1,
+    "max_level": 30,
+    "cost_factor": 1.4,
+    "prereq": null,
+    "base_cost": { "money": 30, "wood": 10 },
+    "effect_weight": null,
+    "effects": { "wood_max": 200 }
+  },
+  {
+    "id": "storage_herb",
+    "era": 1,
+    "max_level": 30,
+    "cost_factor": 1.4,
+    "prereq": null,
+    "base_cost": { "money": 60, "wood": 30 },
+    "effect_weight": null,
+    "effects": { "spirit_grass_low_max": 100 }
+  }
+]
