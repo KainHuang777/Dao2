@@ -80,6 +80,15 @@ func to_components() -> Dictionary:
 func serialize() -> String:
 	return to_display_string()
 
+func to_float() -> float:
+	if sign == 0:
+		return 0.0
+	if layer == 0:
+		return float(sign) * mag
+	if layer == 1:
+		return float(sign) * pow(10.0, mag)
+	return INF if sign > 0 else -INF
+
 func to_display_string() -> String:
 	if sign == 0:
 		return "0"

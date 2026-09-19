@@ -23,7 +23,8 @@
 | M1-C | DONE（CLI／桌面路徑；瀏覽器儲存未驗證） | 2026-09-16 交付 SaveCodec、兩世代槽位、checksum、File／Web storage adapter、SaveManager、匯出／匯入 UI 與 `tests/m1c_persistence_runner.gd`（exit 0）；詳見 `docs/verification/m1-c.md`。IndexedDB 落盤、兩分頁互斥、瀏覽器重載未驗證。 |
 | M1-D | DONE（CLI／桌面路徑；瀏覽器、跨程序未驗證） | 2026-09-16 以 fusion 編排交付離線結算（24h 上限、游標提交、不雙領）、協調器、摘要 UI 與 `tests/m1d_offline_runner.gd`（exit 0）；詳見 `docs/verification/m1-d.md`。 |
 | M1-E | DONE（CLI／桌面路徑；瀏覽器 UI 與真實 corpus 未驗證） | 2026-09-16 交付 `LegacyImporter`、9 個隔離樣本、支援矩陣 `docs/legacy-compatibility.md` 與 `tests/m1e_import_runner.gd`（exit 0）；預覽差異、新槽提交、原文保留、`backfill_policy="none"`。詳見 `docs/verification/m1-e.md`。 |
-| M2-A/B/C/D | TODO | 現有美術與互動可重用，正式經濟接入、首升境、Godot 九界一瞥及完整畫質／裝置驗收待做 |
+| M2-A | DONE（CLI／桌面路徑；實機觸控與裝置驗收待 M2-D） | 2026-09-19 交付主場景接入 GameSession/SaveManager、10建築配置、Onboarding連鎖解鎖、聚氣引靈（gather）、雙Runner（living_abode_runner & m2a_abode_runner 通過）；詳見 `docs/verification/m2-a.md`。 |
+| M2-B/C/D | TODO | 首次升境（M2-B）、Godot九界一瞥（M2-C）及完整畫質／裝置驗收（M2-D）待做 |
 | M3-A/B | TODO | 多世循環與舊系統矩陣 |
 | M4-A/B | TODO | 第二界可玩差異、正式尺度與法則資料 |
 | M5-A/B | TODO | 按需生成、封存與逐界內容 |
@@ -32,19 +33,20 @@
 
 ## 已知限制與檢查線索
 
-1. 展示 state 用 float、每幀 delta 推進，未含容量、正式解鎖、壽元、輪迴、離線或快照。
+1. 主場景已完整切換至 GameSession 與 SaveManager；展示數值與 float process 已由正式 Tick 與 AmountCompat 取代。
 2. 目前場景測試直接呼叫函式；2026-09-13 已額外在桌面 Web 實測建築命中、HUD、拖曳、滾輪、歸家及遠景。雙指／實體觸控、拖出 HUD 後釋放和不同手機 DPI 仍待 M2-D 前補證。
 3. 主場景已改為 1280×720 桌面橫版設計，完整 CLI／Web 匯出與瀏覽器畫面已於本輪重驗。手機直式適配、360 CSS px 可讀性與44px觸控區仍需在 M2-D 前量測，不能由桌面畫面推定通過。
 4. region 是重用地形的視覺示範，没有新據點經濟；飛劍／靈流已有動畫程式，但視覺強度、位置對齊與手機效能待實測。
 5. all_resources 匯出會帶入 src/效果圖 和 tests；正式發布前需明確排除開發／參考內容，保留來源原圖。
-6. 正式資料目錄與 domain/simulation/application/persistence 仍是文件設計，不是已存在的架構。
-7. 2026-09-13 檢查時尚不是 Git repository；2026-09-15 已確認建立（master、兩個提交、工作樹乾淨）。引擎與模板仍被 .gitignore 排除。
+6. 2026-09-19 M1 全量 Commit 595cea6，M2-A 順利交付並通過 10 項 Runner 驗證。
 
 ## 下一個動作
 
-M1-E 已完成（CLI／桌面路徑；瀏覽器 UI 與真實 corpus 未驗證）。M1 五項子任務（M1-A～M1-E）全部交付。下一個主線依 ROADMAP 進入 M2（正式洞府接入；M2-A 相依 M1-A/B/C/D 與 M0-A 桌面操作）。實體觸控 M0-A 證據記入 M2-D 前的裝置驗收，不得忘記。
+M2-A 已完成（CLI／桌面路徑；實機觸控待 M2-D）。下一個主線依 ROADMAP 進入 M2-B（首次升境與可重播演出；相依 M2-A）。由舊依賴資料補齊第一個升境必需功法、配方、材料，實現首度境界突破演出。
 
 ## 本輪交付
+
+2026-09-19 M2-A：重構 `src/abode/living_abode.gd` 徹底接入 `GameSession`、`SaveManager`、`OfflineCoordinator` 與 `Onboarding`；擴充 `src/abode/abode_building.gd` 支援未建造狀態；修復 `web_storage_adapter.gd` 關鍵字衝突並增補 `AmountCompat.to_float()`；更新 `tests/living_abode_runner.gd` 並新增 `tests/m2a_abode_runner.gd`（exit 0，6 階段驗證全通）；全量 10 項 Runner、Headless 啟動與 Web 匯出全部 PASS。詳見 `docs/verification/m2-a.md`。
 
 2026-09-13：新增 ROADMAP、AGENTS、AI handoff 與本狀態檔，更新 README 和舊規劃入口。只修改文件，未改遊戲程式或再次跑遊戲測試；已核對現有檔案與測試入口，並檢查新增文件 UTF-8、相對連結和 Roadmap 任務覆蓋。
 2026-09-13 M0-A：新增 `tools/run_m0a.ps1`、隔離周天 probe、兩個 Godot source-scan ignore 及鏡頭觀察記錄。完整 CLI 匯入／runner／雙 Web export 成功；桌面瀏覽器實測周天保存 1→2→3、洞府選取／升級／藥圃停復／低特效／遠景／歸家／拖曳／滾輪。詳見 [M0-A 驗收紀錄](verification/m0-a.md)。實體 touch/pinch 與效能未測，故 M0-A 保持 IN_PROGRESS。

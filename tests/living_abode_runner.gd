@@ -11,8 +11,8 @@ func _run() -> void:
 	var abode = LivingAbodeScene.instantiate()
 	root.add_child(abode)
 	await process_frame
-	if abode.buildings.size() != 3:
-		_fail("The living abode must expose three independently selectable buildings")
+	if not (abode.buildings.has("hut") and abode.buildings.has("garden") and abode.buildings.has("altar")):
+		_fail("The living abode must expose hut, garden, and altar buildings")
 		return
 	var viewport: Vector2 = abode.get_viewport_rect().size
 	if viewport.x < 1200 or viewport.y < 700:
@@ -21,6 +21,10 @@ func _run() -> void:
 	if abode.header.size.x < 320 or abode.info_panel.position.x <= viewport.x * 0.55:
 		_fail("Landscape HUD must keep state at left and detail at right")
 		return
+	abode.buildings["hut"].visible = true
+	abode.session.state.buildings["hut"] = 1
+	abode.state.qi = 100.0
+	abode._refresh_hud()
 	abode._pick_world(abode.buildings["hut"].position)
 	if abode.selected_id != "hut" or not abode.info_panel.visible:
 		_fail("Selecting the hut must open its detail panel")
@@ -30,6 +34,9 @@ func _run() -> void:
 	if abode.state.levels["hut"] != 2 or abode.state.qi >= qi_before:
 		_fail("The selected building upgrade must update the independent state")
 		return
+	abode.buildings["garden"].visible = true
+	abode.session.state.buildings["herb_farm"] = 1
+	abode._refresh_hud()
 	abode._pick_world(abode.buildings["garden"].position)
 	abode._toggle_garden()
 	if abode.state.garden_running:

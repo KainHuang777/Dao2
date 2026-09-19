@@ -1,9 +1,6 @@
 extends Node2D
-## Native Godot scene prototype: art props, camera, simulation and HUD are separate.
-const StateScript = preload("res://src/abode/abode_state.gd")
-const CameraScript = preload("res://src/abode/abode_camera.gd")
-const BuildingScript = preload("res://src/abode/abode_building.gd")
-const FlowScript = preload("res://src/abode/abode_flows.gd")
+## Living Abode Controller: bridges Godot scene with GameSession, CommandProcessor, TimeAdvancer, and SaveManager.
+
 const FONT: Font = preload("res://assets/fonts/NotoSerifTC-VF.ttf")
 const TERRAIN: Texture2D = preload("res://assets/abode/terrain.png")
 const SKY: Texture2D = preload("res://assets/abode/sky.png")
@@ -11,9 +8,130 @@ const HUT: Texture2D = preload("res://assets/abode/hut.png")
 const GARDEN: Texture2D = preload("res://assets/abode/garden.png")
 const ALTAR: Texture2D = preload("res://assets/abode/altar.png")
 
-var state = StateScript.new()
-var camera = CameraScript.new()
-var flow = FlowScript.new()
+const CameraScript = preload("res://src/abode/abode_camera.gd")
+const BuildingScript = preload("res://src/abode/abode_building.gd")
+const FlowScript = preload("res://src/abode/abode_flows.gd")
+
+const BUILDING_NAMES := {
+	"hut": "茅屋",
+	"wooden_house": "木屋",
+	"forest_farm": "林場",
+	"stone_mine": "採石場",
+	"herb_farm": "靈植場",
+	"storage_lingli": "聚靈壇",
+	"storage_money": "靈石庫",
+	"storage_wood": "木料庫",
+	"storage_stone": "石材庫",
+	"storage_herb": "靈草庫",
+}
+
+const RESOURCE_NAMES := {
+	"lingli": "靈氣",
+	"money": "靈石",
+	"wood": "木材",
+	"stone_low": "石材",
+	"black_copper": "黑銅",
+	"spirit_grass_low": "靈草",
+	"foundation_pill": "築基丹",
+}
+
+const BUILDING_DESCRIPTIONS := {
+	"hut": "窗內一盞燈，是你的修行根基。初期手動引氣，升級後持續產出靈氣並提供容納空間。",
+	"wooden_house": "簡樸居所。安身立命，產出並儲存靈石錢幣。",
+	"forest_farm": "造林伐木，持續產出修築洞府必備之原木。",
+	"stone_mine": "鑿岩掘礦，產出石材與黑銅，為洞府奠定基石。",
+	"herb_farm": "靈田自行萌芽吐納，孕育低階靈草。可手動暫停或恢復生息。",
+	"storage_lingli": "聚天地之精華，大幅擴充靈氣儲量上限。",
+	"storage_money": "深藏靈石寶庫，提升金錢上限。",
+	"storage_wood": "堆積木材原木，提升木料庫容上限。",
+	"storage_stone": "堆疊沉積石料，提升石材存儲上限。",
+}
+
+static func _parse_amount(raw: Variant) -> AmountCompat:
+	if raw is AmountCompat:
+		return raw
+	var res: Dictionary = AmountCompat.try_parse(str(raw))
+	if bool(res.get("ok", false)):
+		return res["value"]
+	return AmountCompat.zero()
+
+class AbodeStateCompat extends RefCounted:
+	var session: GameSession
+	var garden_running: bool = true
+	var elapsed: float = 0.0
+
+	func _init(p_session: GameSession) -> void:
+		session = p_session
+
+	var qi: float:
+		get:
+			if session != null and session.state != null and session.state.resources.has("lingli"):
+				return session.state.resources["lingli"].value.to_float()
+			return 0.0
+		set(val):
+			if session != null and session.state != null and session.state.resources.has("lingli"):
+				session.state.resources["lingli"].value = AmountCompat.from_number(val)
+
+	var herbs: float:
+		get:
+			if session != null and session.state != null and session.state.resources.has("spirit_grass_low"):
+				return session.state.resources["spirit_grass_low"].value.to_float()
+			return 0.0
+
+	var levels: Dictionary:
+		get:
+			var dict: Dictionary = {}
+			if session != null and session.state != null:
+				for k in session.state.buildings:
+					dict[k] = session.state.buildings[k]
+			dict["garden"] = dict.get("herb_farm", 0)
+			dict["altar"] = dict.get("storage_lingli", 0)
+			return dict
+
+	static func _parse_amount(raw: Variant) -> AmountCompat:
+		if raw is AmountCompat:
+			return raw
+		var res: Dictionary = AmountCompat.try_parse(str(raw))
+		if bool(res.get("ok", false)):
+			return res["value"]
+		return AmountCompat.zero()
+
+	func advance(delta: float) -> void:
+		elapsed += delta
+
+	func qi_rate() -> float:
+		if session == null:
+			return 0.0
+		var view: Dictionary = session.get_view()
+		if view.resources.has("lingli"):
+			return _parse_amount(view.resources["lingli"].rate).to_float()
+		return 0.0
+
+	func cost(id: String) -> float:
+		var target_id := "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
+		var view: Dictionary = session.get_view()
+		if view.buildings.has(target_id):
+			var costs: Dictionary = view.buildings[target_id].costs
+			if costs.has("lingli"):
+				return _parse_amount(costs["lingli"]).to_float()
+		return 0.0
+
+	func upgrade(id: String) -> bool:
+		var target_id := "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
+		var cmd := {
+			"command_id": "compat_upg_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
+			"type": "upgrade_building",
+			"expected_revision": session.state.revision,
+			"payload": {"building_id": target_id}
+		}
+		var res: Dictionary = session.submit(cmd)
+		return bool(res.get("ok", false))
+
+var session: GameSession
+var content: GameContent
+var state: AbodeStateCompat
+var camera: CameraScript = CameraScript.new()
+var flow: FlowScript = FlowScript.new()
 var buildings: Dictionary = {}
 var selected_id: String = ""
 var reduced: bool = false
@@ -22,6 +140,7 @@ var region_layer: Node2D
 var home_marker: Label
 var sky: TextureRect
 var shade: ColorRect
+
 var hud: Control
 var header: PanelContainer
 var info_panel: PanelContainer
@@ -30,61 +149,132 @@ var footer: Label
 var hint: Label
 var hint_panel: Panel
 var title_label: Label
+var realm_label: Label
 var resource_label: Label
 var crumb: Label
 var detail_title: Label
 var detail_body: Label
+var gather_button: Button
 var upgrade_button: Button
 var pause_button: Button
 var overview_button: Button
 var motion_button: Button
+var save_button: Button
 var zoom_label: Label
+
+var save_controls: Control = null
+var offline_summary: Control = null
 var update_elapsed: float = 0.0
+var auto_save_elapsed: float = 0.0
 var intro_shown: bool = false
 
 func _ready() -> void:
+	_init_core()
 	_build_background()
 	_build_region()
+
 	var ground := Sprite2D.new()
 	ground.name = "獨立地形"
 	ground.texture = TERRAIN
 	ground.scale = Vector2.ONE * 1200.0 / TERRAIN.get_width()
 	add_child(ground)
+
 	var props := Node2D.new()
 	props.name = "可互動建築"
 	props.y_sort_enabled = true
 	add_child(props)
-	_add_building(props, "hut", "茅屋", HUT, Vector2(-245, -210), 280)
-	_add_building(props, "garden", "藥圃", GARDEN, Vector2(300, -98), 245)
-	_add_building(props, "altar", "聚靈陣", ALTAR, Vector2(-8, -70), 215)
+
+	_setup_buildings(props)
+
 	flow.name = "獨立飛劍與靈氣"
 	flow.z_index = 3
 	add_child(flow)
-	home_marker = _label("你的洞府 · 靈氣仍在運轉", 65, Color("ffe5a3"))
+
+	home_marker = _label("你的洞府 · 靈氣生生不息", 65, Color("ffe5a3"))
 	home_marker.position = Vector2(-420, 410)
 	home_marker.size.x = 840
 	home_marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	home_marker.z_index = 5
 	add_child(home_marker)
+
 	camera.name = "世界鏡頭"
 	add_child(camera)
 	camera.world_clicked.connect(_pick_world)
+
 	_build_hud()
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 	_refresh_hud()
+
 	print("ABODE_READY: native Camera2D, 3 independent buildings, autonomous state and flying swords")
+
+func _init_core() -> void:
+	var content_loaded: Dictionary = ContentLoader.load_directory("res://content")
+	if bool(content_loaded.get("ok", false)):
+		content = content_loaded["content"]
+	else:
+		content = GameContent.new()
+
+	var adapter: StorageAdapter = null
+	if OS.has_feature("web"):
+		adapter = WebStorageAdapter.new("dao2_saves")
+	else:
+		adapter = FileStorageAdapter.new(SaveManager.DEFAULT_SAVE_DIR)
+
+	SaveManager.configure(content, adapter)
+
+	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
+	var offline_res: Dictionary = OfflineCoordinator.settle(now_ms)
+
+	var loaded_state: GameState = SaveManager.current_state()
+	if loaded_state != null and loaded_state.revision > 0:
+		session = GameSession.new()
+		session.content = content
+		session.clock = GameClock.create(loaded_state.total_elapsed_seconds)
+		session.state = loaded_state
+	else:
+		session = GameSession.create_new_game(content)
+
+	state = AbodeStateCompat.new(session)
+
+	if offline_res.get("committed", false):
+		call_deferred("_display_offline_summary", offline_res.get("report", {}))
+
+func _setup_buildings(props: Node2D) -> void:
+	_add_building(props, "hut", "茅屋", HUT, Vector2(-245, -210), 280)
+	_add_building(props, "wooden_house", "木屋", HUT, Vector2(-360, -30), 240)
+	_add_building(props, "forest_farm", "林場", GARDEN, Vector2(-120, -280), 230)
+	_add_building(props, "stone_mine", "採石場", ALTAR, Vector2(120, -260), 220)
+	_add_building(props, "herb_farm", "靈植場", GARDEN, Vector2(300, -98), 245)
+
+	_add_building(props, "storage_lingli", "聚靈壇", ALTAR, Vector2(-8, -70), 215)
+	_add_building(props, "storage_money", "靈石庫", HUT, Vector2(-190, 80), 180)
+	_add_building(props, "storage_wood", "木料庫", HUT, Vector2(-60, 130), 180)
+	_add_building(props, "storage_stone", "石材庫", ALTAR, Vector2(80, 120), 180)
+	_add_building(props, "storage_herb", "靈草庫", GARDEN, Vector2(210, 60), 180)
+
+	buildings["garden"] = buildings["herb_farm"]
+	buildings["altar"] = buildings["storage_lingli"]
+
+func _add_building(parent: Node2D, id: String, display_name: String, texture: Texture2D, point: Vector2, width: float) -> void:
+	var building: Node2D = BuildingScript.new()
+	building.position = point
+	building.setup(id, display_name, texture, width, FONT)
+	parent.add_child(building)
+	buildings[id] = building
 
 func _build_background() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = -10
 	add_child(layer)
+
 	sky = TextureRect.new()
 	sky.texture = SKY
 	sky.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	sky.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	sky.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(sky)
+
 	shade = ColorRect.new()
 	shade.color = Color(0.015, 0.085, 0.13, 0.24)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -95,7 +285,13 @@ func _build_region() -> void:
 	region_layer.name = "山域遠景"
 	region_layer.z_index = -2
 	add_child(region_layer)
-	var locations: Array[Vector2] = [Vector2(-1260, -1070), Vector2(1500, -920), Vector2(420, -2020), Vector2(-1580, 830)]
+
+	var locations: Array[Vector2] = [
+		Vector2(-1260, -1070),
+		Vector2(1500, -920),
+		Vector2(420, -2020),
+		Vector2(-1580, 830)
+	]
 	var titles: Array[String] = ["雲外山域", "靈界方向 · 未開放", "天外仍有天地", "人界群山"]
 	for i in locations.size():
 		var island := Sprite2D.new()
@@ -104,11 +300,13 @@ func _build_region() -> void:
 		island.scale = Vector2.ONE * (0.40 + i * 0.035)
 		island.modulate = Color(0.60, 0.79, 0.78, 0.8)
 		region_layer.add_child(island)
+
 		var label := _label(titles[i], 65, Color("d1dfd1"))
 		label.position = locations[i] + Vector2(-400, 300)
 		label.size.x = 800
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		region_layer.add_child(label)
+
 		var path := Line2D.new()
 		path.width = 5.0
 		path.default_color = Color(0.86, 0.78, 0.48, 0.40)
@@ -117,13 +315,6 @@ func _build_region() -> void:
 			path.add_point(Vector2.ZERO.lerp(locations[i], t) + Vector2(120 * sin(t * PI), -110 * sin(t * PI)))
 		path.z_index = -1
 		region_layer.add_child(path)
-
-func _add_building(parent: Node2D, id: String, display_name: String, texture: Texture2D, point: Vector2, width: float) -> void:
-	var building = BuildingScript.new()
-	building.position = point
-	building.setup(id, display_name, texture, width, FONT)
-	parent.add_child(building)
-	buildings[id] = building
 
 func _label(text: String, font_size: int, color: Color = Color("eee4c9"), outline_size: int = 2) -> Label:
 	var result := Label.new()
@@ -153,7 +344,7 @@ func _button(text: String, action: Callable) -> Button:
 	button.text = text
 	button.custom_minimum_size = Vector2(132, 64)
 	button.add_theme_font_override("font", FONT)
-	button.add_theme_font_size_override("font_size", 26)
+	button.add_theme_font_size_override("font_size", 24)
 	button.add_theme_color_override("font_color", Color("f4e7be"))
 	button.add_theme_stylebox_override("normal", _style())
 	button.add_theme_stylebox_override("hover", _style(Color(0.10, 0.25, 0.24, 0.99)))
@@ -164,81 +355,126 @@ func _button(text: String, action: Callable) -> Button:
 func _view_button(text: String, action: Callable, width: float) -> Button:
 	var button := _button(text, action)
 	button.custom_minimum_size = Vector2(width, 56)
-	button.add_theme_font_size_override("font_size", 26)
+	button.add_theme_font_size_override("font_size", 24)
 	return button
 
 func _build_hud() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 10
 	add_child(layer)
+
 	hud = Control.new()
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(hud)
+
 	header = PanelContainer.new()
 	header.add_theme_stylebox_override("panel", _style(Color(0.012, 0.055, 0.08, 0.97)))
 	hud.add_child(header)
+
 	var header_box := VBoxContainer.new()
-	header_box.add_theme_constant_override("separation", 7)
+	header_box.add_theme_constant_override("separation", 6)
 	header.add_child(header_box)
+
 	crumb = _label("人界 / 無名山域 / 你的洞府", 19, Color("c0d8cc"), 1)
 	header_box.add_child(crumb)
-	title_label = _label("一方洞府，自有生息", 36, Color("fff0ca"), 2)
+
+	title_label = _label("一方洞府，自有生息", 34, Color("fff0ca"), 2)
 	header_box.add_child(title_label)
-	resource_label = _label("", 24, Color("e4f0dc"), 1)
+
+	realm_label = _label("練氣 · 1層", 20, Color("fce2a6"), 1)
+	header_box.add_child(realm_label)
+
+	resource_label = _label("", 21, Color("e4f0dc"), 1)
 	header_box.add_child(resource_label)
+
 	var viewbar := HBoxContainer.new()
 	viewbar.name = "Viewbar"
 	viewbar.add_theme_constant_override("separation", 8)
 	hud.add_child(viewbar)
+
 	viewbar.add_child(_view_button("＋", func(): camera.change_zoom(1.25), 58))
 	viewbar.add_child(_view_button("－", func(): camera.change_zoom(0.8), 58))
 	viewbar.add_child(_view_button("歸家", _return_home, 104))
+
 	zoom_label = _label("", 19, Color("e4e7c8"), 1)
 	viewbar.add_child(zoom_label)
+
 	toolbar = HBoxContainer.new()
 	toolbar.add_theme_constant_override("separation", 12)
 	hud.add_child(toolbar)
+
 	overview_button = _button("神識展開", _toggle_overview)
 	toolbar.add_child(overview_button)
+
 	motion_button = _button("低特效", _toggle_motion)
 	toolbar.add_child(motion_button)
+
+	save_button = _button("存檔管理", _toggle_save_controls)
+	toolbar.add_child(save_button)
+
 	toolbar.add_child(_button("操作說明", _show_help))
+
 	hint_panel = Panel.new()
 	hint_panel.add_theme_stylebox_override("panel", _style(Color(0.008, 0.035, 0.05, 0.91)))
 	hud.add_child(hint_panel)
+
 	hint = _label("拖曳山河 · 滾輪 / 雙指縮放 · 點選建築", 18, Color("f2e8c7"), 1)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	hint_panel.add_child(hint)
-	hint_panel.visible = false
-	footer = _label("展示原型 · 本次進度不存檔", 16, Color("dce6dc"), 1)
+	hint_panel.visible = true
+
+	footer = _label("正式核心接入 · 自動存檔運轉中", 16, Color("dce6dc"), 1)
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hud.add_child(footer)
+
 	info_panel = PanelContainer.new()
 	info_panel.add_theme_stylebox_override("panel", _style(Color(0.008, 0.045, 0.07, 0.98)))
 	info_panel.visible = false
 	hud.add_child(info_panel)
+
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 12)
 	info_panel.add_child(box)
+
 	var title_row := HBoxContainer.new()
 	box.add_child(title_row)
-	detail_title = _label("", 30, Color("fff0c8"), 2)
+
+	detail_title = _label("", 28, Color("fff0c8"), 2)
 	detail_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title_row.add_child(detail_title)
 	title_row.add_child(_button("收起", _close_detail))
-	detail_body = _label("", 22, Color("eaf2ea"), 1)
+
+	detail_body = _label("", 21, Color("eaf2ea"), 1)
 	detail_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(detail_body)
+
 	var action_row := HBoxContainer.new()
 	action_row.add_theme_constant_override("separation", 10)
 	box.add_child(action_row)
+
+	gather_button = _button("聚氣引靈", _gather_lingli)
+	action_row.add_child(gather_button)
+
 	upgrade_button = _button("", _upgrade_selected)
 	upgrade_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	action_row.add_child(upgrade_button)
+
 	pause_button = _button("暫停藥圃", _toggle_garden)
 	action_row.add_child(pause_button)
+
+	var save_ctrl_script = preload("res://src/presentation/save_controls.gd")
+	save_controls = save_ctrl_script.new()
+	save_controls.visible = false
+	save_controls.position = Vector2(300, 100)
+	hud.add_child(save_controls)
+
+	var offline_sum_script = preload("res://src/presentation/offline_summary.gd")
+	offline_summary = offline_sum_script.new()
+	offline_summary.visible = false
+	offline_summary.position = Vector2(300, 100)
+	hud.add_child(offline_summary)
 
 func _layout() -> void:
 	var vp: Vector2 = get_viewport_rect().size
@@ -246,52 +482,115 @@ func _layout() -> void:
 	sky.position = Vector2(-75, -75)
 	sky.size = vp + Vector2(150, 150)
 	shade.size = vp
+
 	header.position = Vector2(28, 28)
-	header.size = Vector2(350, 192)
-	hud.get_node("Viewbar").position = Vector2(28, 234)
+	header.size = Vector2(380, 210)
+
+	hud.get_node("Viewbar").position = Vector2(28, 250)
+
 	toolbar.position = Vector2(28, vp.y - 84)
-	toolbar.size = Vector2(460, 64)
-	hint_panel.position = Vector2(500, vp.y - 154)
-	hint_panel.size = Vector2(500, 56)
+	toolbar.size = Vector2(600, 64)
+
+	hint_panel.position = Vector2(28, vp.y - 154)
+	hint_panel.size = Vector2(620, 56)
 	hint.position = Vector2(12, 4)
 	hint.size = hint_panel.size - Vector2(24, 8)
+
 	footer.position = Vector2(vp.x - 330, vp.y - 56)
 	footer.size = Vector2(302, 22)
-	info_panel.position = Vector2(vp.x - 390, 28)
-	info_panel.size = Vector2(362, 316)
+
+	info_panel.position = Vector2(vp.x - 420, 28)
+	info_panel.size = Vector2(392, 340)
 
 func _process(delta: float) -> void:
 	state.advance(delta)
+	session.advance_time(delta)
+
+	var view: Dictionary = session.get_view()
+
 	flow.garden_running = state.garden_running
-	flow.intensity = float(state.levels["altar"])
+	var altar_level: int = int(view.buildings.get("storage_lingli", {}).get("level", 0))
+	flow.intensity = float(altar_level) + float(view.buildings.get("hut", {}).get("level", 0))
 	flow.reduced_motion = reduced
-	for id in buildings:
-		buildings[id].level = int(state.levels[id])
-		buildings[id].selected = id == selected_id
-		buildings[id].running = state.garden_running if id == "garden" else true
-		buildings[id].reduced_motion = reduced
+
+	_update_buildings_visual(view)
+
 	var distant: float = clampf((0.42 - camera.zoom.x) / 0.18, 0.0, 1.0)
 	region_layer.modulate.a = distant
 	home_marker.modulate.a = distant
+
 	for building in buildings.values():
-		building.caption.modulate.a = 1.0 - distant
+		if building.has_node("caption"):
+			building.caption.modulate.a = 1.0 - distant
+
 	sky.position = Vector2(-75, -75) - camera.position * 0.016
 	shade.color.a = 0.18 + distant * 0.34
+
 	update_elapsed += delta
 	if update_elapsed >= 0.25:
-		update_elapsed = 0
+		update_elapsed = 0.0
 		_refresh_hud()
-	if state.elapsed > 7 and not intro_shown:
+
+	auto_save_elapsed += delta
+	if auto_save_elapsed >= 15.0:
+		auto_save_elapsed = 0.0
+		_save_game()
+
+	if state.elapsed > 7.0 and not intro_shown:
 		intro_shown = true
-		hint.text = "洞府已自行運轉。試著「神識展開」，找回你的起點。"
+		if view.next_objective != null:
+			hint.text = "洞府運轉中。當前指引：提升【%s】。" % BUILDING_NAMES.get(String(view.next_objective.id), String(view.next_objective.id))
+
+func _update_buildings_visual(view: Dictionary) -> void:
+	for id in buildings:
+		var target_id: String = "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
+		var b_view: Dictionary = view.buildings.get(target_id, {})
+		var b_node = buildings[id]
+		var is_vis: bool = bool(b_view.get("visible", false))
+
+		b_node.visible = is_vis
+		b_node.level = int(b_view.get("level", 0))
+		b_node.selected = (id == selected_id or target_id == selected_id)
+		b_node.running = state.garden_running if (target_id == "herb_farm") else true
+		b_node.reduced_motion = reduced
 
 func _refresh_hud() -> void:
-	resource_label.text = "靈氣 %d  · +%.0f／秒\n靈草 %d  · +%d／秒" % [int(state.qi), state.qi_rate(), int(state.herbs), int(state.levels["garden"]) if state.garden_running else 0]
+	var view: Dictionary = session.get_view()
+	_update_buildings_visual(view)
+
+	var era_info: Dictionary = view.get("era", {})
+	var era_name: String = era_info.get("name", "練氣")
+	var cur_level: int = int(view.get("level", 1))
+	var train_sec: float = float(view.get("training_seconds", 0.0))
+	var req_sec: float = float(view.get("next_level_required_seconds", 0.0))
+	var max_life: float = float(view.get("max_lifespan_seconds", 0.0))
+	var elapsed_sec: float = float(view.get("total_elapsed_seconds", 0.0))
+	var remain_life: float = maxf(0.0, max_life - elapsed_sec)
+
+	realm_label.text = "%s · %d層  (修煉 %.0f/%.0f 秒) · 壽元剩餘 %.0f 祀" % [
+		era_name, cur_level, train_sec, req_sec, remain_life / 60.0
+	]
+
+	var res_lines := []
+	var res_order := ["lingli", "money", "wood", "stone_low", "black_copper", "spirit_grass_low", "foundation_pill"]
+	for r_id in res_order:
+		if view.resources.has(r_id) and bool(view.resources[r_id].visible):
+			var r_data: Dictionary = view.resources[r_id]
+			var val: float = _parse_amount(r_data.value).to_float()
+			var cap: float = _parse_amount(r_data.cap).to_float()
+			var rate: float = _parse_amount(r_data.rate).to_float()
+			var r_name: String = RESOURCE_NAMES.get(r_id, r_id)
+			var rate_str := (" · +%.1f/s" % rate) if rate > 0.0 else ""
+			res_lines.append("%s %d/%d%s" % [r_name, int(val), int(cap), rate_str])
+
+	resource_label.text = "\n".join(res_lines)
+
 	zoom_label.text = "%d%%" % int(camera.zoom.x * 100)
 	region_visible = camera.target_zoom < 0.34
 	overview_button.text = "回到洞府" if region_visible else "神識展開"
 	crumb.text = "人界 / 山域總覽 · 遠景尚未開放" if region_visible else "人界 / 無名山域 / 你的洞府"
 	title_label.text = "群山之間，認得自己的燈火" if region_visible else "一方洞府，自有生息"
+
 	if selected_id != "" and info_panel.visible:
 		_refresh_detail()
 
@@ -302,39 +601,80 @@ func _pick_world(point: Vector2) -> void:
 		else:
 			hint.text = "遠處是未開放的山域。點自己的洞府，可回到近景。"
 		return
+
 	var ids: Array = buildings.keys()
 	ids.reverse()
 	for id in ids:
-		if buildings[id].contains_point(point):
-			selected_id = id
+		if buildings[id].visible and buildings[id].contains_point(point):
+			selected_id = "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
 			info_panel.visible = true
 			_refresh_detail()
 			print("ABODE_SELECT: ", id)
 			return
+
 	_close_detail()
 
 func _refresh_detail() -> void:
-	var names: Dictionary = {"hut": "茅屋", "garden": "藥圃", "altar": "聚靈陣"}
-	var descriptions: Dictionary = {
-		"hut": "窗內一盞燈，是你的修行根基。升級提高靈氣供給，飛劍持續往返聚靈陣。",
-		"garden": "靈草自行生長。暫停後停止產出，這條供給線上的飛劍也會停駐。",
-		"altar": "靈氣沿供給路線匯聚。升級提高修行供給，陣紋與飛劍流動會更明顯。"
-	}
-	detail_title.text = "%s · %d階" % [names[selected_id], int(state.levels[selected_id])]
-	detail_body.text = descriptions[selected_id]
-	upgrade_button.text = "升級 · %d 靈氣" % int(state.cost(selected_id))
-	upgrade_button.disabled = state.qi < state.cost(selected_id) or int(state.levels[selected_id]) >= 5
-	if int(state.levels[selected_id]) >= 5:
-		upgrade_button.text = "本次示範已滿階"
-	pause_button.visible = selected_id == "garden"
+	var view: Dictionary = session.get_view()
+	var b_id := selected_id
+	if not view.buildings.has(b_id):
+		return
+
+	var b_data: Dictionary = view.buildings[b_id]
+	var b_name: String = BUILDING_NAMES.get(b_id, b_id)
+	var cur_lvl: int = int(b_data.level)
+	var lvl_cap: int = int(b_data.level_cap)
+
+	detail_title.text = "%s · %s" % [b_name, "未建造" if cur_lvl == 0 else str(cur_lvl) + "階"]
+	detail_body.text = BUILDING_DESCRIPTIONS.get(b_id, "")
+
+	gather_button.visible = (b_id == "hut")
+
+	if cur_lvl >= lvl_cap:
+		upgrade_button.text = "已達當前上限"
+		upgrade_button.disabled = true
+	else:
+		var cost_strs := []
+		for r_id in b_data.costs:
+			var req_val: float = _parse_amount(b_data.costs[r_id]).to_float()
+			var r_name: String = RESOURCE_NAMES.get(r_id, r_id)
+			cost_strs.append("%d %s" % [int(req_val), r_name])
+		var cost_text := " · ".join(cost_strs)
+		upgrade_button.text = ("建造 · %s" if cur_lvl == 0 else "升級 · %s") % cost_text
+		upgrade_button.disabled = not bool(b_data.affordable)
+
+	pause_button.visible = (b_id == "herb_farm")
 	pause_button.text = "恢復藥圃" if not state.garden_running else "暫停藥圃"
 
-func _upgrade_selected() -> void:
-	if state.upgrade(selected_id):
-		buildings[selected_id].pulse_upgrade()
-		hint.text = "升級完成。產出已提高，切換鏡頭也會繼續運作。"
+func _gather_lingli() -> void:
+	var cmd := {
+		"command_id": "gather_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
+		"type": "gather",
+		"expected_revision": session.state.revision,
+		"payload": {"resource_id": "lingli"}
+	}
+	var res: Dictionary = session.submit(cmd)
+	if bool(res.get("ok", false)):
+		hint.text = "聚氣吐納，靈氣＋1。"
 		_refresh_hud()
-		print("ABODE_UPGRADE: ", selected_id, " level=", state.levels[selected_id])
+
+func _upgrade_selected() -> void:
+	if selected_id == "":
+		return
+	var cmd := {
+		"command_id": "upg_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
+		"type": "upgrade_building",
+		"expected_revision": session.state.revision,
+		"payload": {"building_id": selected_id}
+	}
+	var res: Dictionary = session.submit(cmd)
+	if bool(res.get("ok", false)):
+		if buildings.has(selected_id):
+			buildings[selected_id].pulse_upgrade()
+		hint.text = "建造／升級完成！產出與洞府生息已擴展。"
+		_save_game()
+		_refresh_hud()
+		print("ABODE_UPGRADE: ", selected_id, " level=", session.state.buildings.get(selected_id, 0))
 
 func _toggle_garden() -> void:
 	state.garden_running = not state.garden_running
@@ -358,7 +698,7 @@ func _toggle_overview() -> void:
 func _return_home() -> void:
 	_close_detail()
 	camera.focus_home()
-	hint.text = "回到洞府。試著點藥圃，觀察暫停與恢復供給。"
+	hint.text = "回到洞府。點選建築可查看營造、引氣或升階。"
 	print("ABODE_HOME")
 
 func _toggle_motion() -> void:
@@ -366,6 +706,27 @@ func _toggle_motion() -> void:
 	camera.reduced_motion = reduced
 	motion_button.text = "標準特效" if reduced else "低特效"
 	print("ABODE_MOTION reduced=", reduced)
+
+func _toggle_save_controls() -> void:
+	if save_controls:
+		save_controls.visible = not save_controls.visible
+
+func _display_offline_summary(report: Dictionary) -> void:
+	if offline_summary and not report.is_empty():
+		offline_summary.show_report(report)
+
+func _save_game() -> void:
+	if session == null or session.state == null:
+		return
+	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
+	var sim_tick: int = int(floor(session.state.total_elapsed_seconds / 60.0))
+	var meta: Dictionary = {
+		"save_id": "local",
+		"saved_at_utc_ms": str(now_ms),
+		"settled_until_utc_ms": str(now_ms),
+		"sim_tick": str(sim_tick),
+	}
+	SaveManager.save(session.state, meta)
 
 func _show_help() -> void:
 	hint.text = "滑鼠拖曳／單指平移；滾輪／雙指縮放。\n點建築看供給；M 展開山域，Home 歸家。"

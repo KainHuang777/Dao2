@@ -64,6 +64,8 @@ if ($LASTEXITCODE -ne 0) { throw 'M1-C persistence test failed' }
 if ($LASTEXITCODE -ne 0) { throw 'M1-D offline test failed' }
 & $daoEngine --headless --path . --script res://tests/m1e_import_runner.gd
 if ($LASTEXITCODE -ne 0) { throw 'M1-E legacy import test failed' }
+& $daoEngine --headless --path . --script res://tests/m2a_abode_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M2-A abode test failed' }
 & $daoEngine --headless --path . --quit-after 3
 if ($LASTEXITCODE -ne 0) { throw 'Main scene startup failed' }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null

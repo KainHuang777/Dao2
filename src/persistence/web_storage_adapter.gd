@@ -89,8 +89,8 @@ var _persistent_confirmed := false
 var _bridge: Object = null
 var _wrapper_installed := false
 
-func _init(namespace: String = DEFAULT_NAMESPACE) -> void:
-	_namespace = namespace
+func _init(p_namespace: String = DEFAULT_NAMESPACE) -> void:
+	_namespace = p_namespace
 
 func read(key: String) -> Dictionary:
 	if not OS.has_feature("web"):

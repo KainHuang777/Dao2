@@ -47,6 +47,8 @@ func setup(id: String, display_name: String, art: Texture2D, width: float, font:
 	add_child(caption)
 
 func contains_point(world_point: Vector2) -> bool:
+	if not visible:
+		return false
 	return Rect2(Vector2(-body_size.x * 0.45, -body_size.y * 0.82), Vector2(body_size.x * 0.9, body_size.y * 0.86)).has_point(to_local(world_point))
 
 func pulse_upgrade() -> void:
@@ -55,11 +57,18 @@ func pulse_upgrade() -> void:
 func _process(delta: float) -> void:
 	clock_time += delta
 	upgrade_flash = maxf(0, upgrade_flash - delta * 0.8)
-	caption.text = "%s · %d階%s" % [title, level, "" if running else " · 停駐"]
+	var status_text := ""
+	if level == 0:
+		status_text = "未建造"
+	else:
+		status_text = "%d階%s" % [level, "" if running else " · 停駐"]
+	caption.text = "%s · %s" % [title, status_text]
 	var pulse: float = 0.0 if reduced_motion else sin(clock_time * 1.6) * 0.018
-	if building_id == "garden" and running:
+	if (building_id == "garden" or building_id == "herb_farm") and running and level > 0:
 		sprite.scale = base_scale * Vector2(1.0 + pulse * 0.3, 1.0 + pulse)
-	sprite.modulate = Color(1.0 + upgrade_flash * 0.45, 1.0 + upgrade_flash * 0.3, 1.0 + upgrade_flash * 0.1, 1.0) if running else Color(0.65, 0.72, 0.73)
+	var base_alpha: float = 1.0 if level > 0 else 0.72
+	var flash_color: Color = Color(1.0 + upgrade_flash * 0.45, 1.0 + upgrade_flash * 0.3, 1.0 + upgrade_flash * 0.1, base_alpha)
+	sprite.modulate = flash_color if running else Color(0.65, 0.72, 0.73, base_alpha)
 	queue_redraw()
 
 func _draw() -> void:
