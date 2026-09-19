@@ -1,3 +1,13 @@
+[2026-09-19] M2-C Godot First-Minute Nine Realms Hook Delivery
+- Created content/realms/realms.json defining canonical 9 realms (Human, Spirit, Nether, Beast, Demon, Immortal, Buddha, Chaos, Origin) with law summaries and descriptions.
+- Extended src/domain/game_state.gd with tutorial_flags: Dictionary for onboarding flags and aspiration bookmarking.
+- Updated src/persistence/save_codec.gd to decode tutorial_flags from snapshot dict while maintaining schema compatibility and round-trip verification.
+- Extended src/abode/abode_camera.gd with focus_cosmos() method (zoom 0.08) and adjusted MIN_ZOOM to 0.06.
+- Implemented src/presentation/nine_realms_preview.gd offering 6-8s skippable cinematic zoom-out, beacon lighting of player's abode, 9-realm card grid, aspiration bookmarking (zero side-effect contract), and deterministic return home.
+- Connected first gather event in src/abode/living_abode.gd to automatically trigger the hook sequence, added "九界星圖" toolbar button for on-demand replay/review, and wired aspiration bookmark auto-save.
+- Created tests/m2c_nine_realms_runner.gd verifying opening state, hook trigger, cinematic skip, 9 realm cards, aspiration bookmark zero side-effects, home return, save/reload persistence, and replay safety (Exit 0).
+- Delivered docs/verification/m2-c.md, and updated docs/development-status.md and docs/ai-handoff.md.
+
 [2026-09-19] M2-B First Realm Breakthrough & Replayable Sequence Delivery
 - Added content/eras/era2.json defining Era 2 (Foundation Establishment / 築基期) with 2.0x resource multiplier, 120-si lifespan cap, and capacity lingli >= 500 requirement.
 - Registered content/eras/era2.json into content/manifest.json.

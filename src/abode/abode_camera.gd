@@ -2,7 +2,7 @@ extends Camera2D
 signal world_clicked(point: Vector2)
 signal view_changed()
 
-const MIN_ZOOM: float = 0.16
+const MIN_ZOOM: float = 0.06
 const MAX_ZOOM: float = 1.6
 var target_zoom: float = 0.70
 var target_position: Vector2 = Vector2(0, -40)
@@ -43,6 +43,13 @@ func focus_region() -> void:
 	target_position = Vector2(80, -390)
 	target_zoom = 0.18
 	print("ABODE_CAMERA_REGION")
+	view_changed.emit()
+
+func focus_cosmos() -> void:
+	zoom_anchor_active = false
+	target_position = Vector2(0, -100)
+	target_zoom = 0.08
+	print("ABODE_CAMERA_COSMOS")
 	view_changed.emit()
 
 func change_zoom(factor: float, anchor: Vector2 = Vector2(-1, -1)) -> void:

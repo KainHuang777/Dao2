@@ -1,0 +1,74 @@
+[
+  {
+    "id": "realm_human",
+    "name": "人界",
+    "title": "凡塵微光 · 修仙伊始",
+    "description": "凡塵微光，萬靈繁衍生息之地。以一方洞府為基，吸納五行微靈，築百代仙基。",
+    "law_summary": "五行恆定 · 洞府自足",
+    "status": "active"
+  },
+  {
+    "id": "realm_spirit",
+    "name": "靈界",
+    "title": "天地靈潮 · 五行洞天",
+    "description": "天道靈機充沛，九幽靈脈交匯。五行靈潮盛衰變換，造就洞天福地與奇花異草。",
+    "law_summary": "靈潮汐動 · 洞天互通",
+    "status": "locked"
+  },
+  {
+    "id": "realm_nether",
+    "name": "幽冥界",
+    "title": "九幽輪迴 · 生死參悟",
+    "description": "黃泉冥土，百代魂歸之所。參透陰陽生死，以幽冥死氣鍛造無上神魂與輪迴宿命。",
+    "law_summary": "輪迴因果 · 魂火不滅",
+    "status": "locked"
+  },
+  {
+    "id": "realm_beast",
+    "name": "萬妖界",
+    "title": "洪荒百族 · 血脈神通",
+    "description": "萬山荒莽，大妖咆哮於天際。修煉肉身極致，吞吐日月精華，喚醒太古洪荒血脈。",
+    "law_summary": "肉身橫煉 · 血脈傳承",
+    "status": "locked"
+  },
+  {
+    "id": "realm_demon",
+    "name": "天魔界",
+    "title": "無相幻境 · 道心試煉",
+    "description": "天魔無形無相，化作七情六慾。歷經萬重執念幻象，鍛造金剛不壞之無瑕道心。",
+    "law_summary": "執念幻化 · 道心淬煉",
+    "status": "locked"
+  },
+  {
+    "id": "realm_immortal",
+    "name": "仙界",
+    "title": "純陽九霄 · 飛升仙班",
+    "description": "九天雲海之上，仙宮巍峨，純陽之氣無窮無盡。褪盡凡胎，與天地同壽，列入真仙之班。",
+    "law_summary": "純陽無極 · 長生久視",
+    "status": "locked"
+  },
+  {
+    "id": "realm_buddha",
+    "name": "佛界",
+    "title": "三千淨土 · 因果菩提",
+    "description": "梵音悠遠，三千世界皆為淨土。以慈悲願力照徹十方，參破虛妄，照見本來面目。",
+    "law_summary": "因果無礙 · 功德金身",
+    "status": "locked"
+  },
+  {
+    "id": "realm_chaos",
+    "name": "混沌界",
+    "title": "大道初分 · 鴻蒙未定",
+    "description": "混沌未闢，乾坤未明，陰陽五行融為一體。於暴烈亂流中截取開天闢地之玄機。",
+    "law_summary": "逆轉五行 · 混沌重鑄",
+    "status": "locked"
+  },
+  {
+    "id": "realm_origin",
+    "name": "太初界",
+    "title": "創世之源 · 虛無終極",
+    "description": "萬法起源，歸於無極。修士神識達此境者，可撥動宇宙法則，塑造自創之全新天地。",
+    "law_summary": "宇宙造化 · 創世神念",
+    "status": "locked"
+  }
+]

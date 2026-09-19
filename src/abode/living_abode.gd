@@ -164,7 +164,9 @@ var zoom_label: Label
 var level_up_button: Button
 var breakthrough_button: Button
 var replay_breakthrough_button: Button
+var nine_realms_button: Button
 
+var nine_realms_preview: Control = null
 var breakthrough_seq: Control = null
 var save_controls: Control = null
 var offline_summary: Control = null
@@ -440,6 +442,9 @@ func _build_hud() -> void:
 	replay_breakthrough_button.visible = false
 	toolbar.add_child(replay_breakthrough_button)
 
+	nine_realms_button = _button("九界星圖", _open_nine_realms_overview)
+	toolbar.add_child(nine_realms_button)
+
 	toolbar.add_child(_button("操作說明", _show_help))
 
 	hint_panel = Panel.new()
@@ -507,6 +512,11 @@ func _build_hud() -> void:
 	var bt_seq_script = preload("res://src/presentation/breakthrough_sequence.gd")
 	breakthrough_seq = bt_seq_script.new()
 	hud.add_child(breakthrough_seq)
+
+	var nr_script = preload("res://src/presentation/nine_realms_preview.gd")
+	nine_realms_preview = nr_script.new()
+	nine_realms_preview.aspiration_changed.connect(_on_nine_realms_aspiration_changed)
+	hud.add_child(nine_realms_preview)
 
 func _layout() -> void:
 	var vp: Vector2 = get_viewport_rect().size
@@ -717,6 +727,10 @@ func _gather_lingli() -> void:
 	if bool(res.get("ok", false)):
 		hint.text = "聚氣吐納，靈氣＋1。"
 		_refresh_hud()
+		if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
+			session.state.tutorial_flags["seen_nine_realms_hook"] = true
+			_save_game()
+			trigger_nine_realms_hook(false)
 
 func _level_up_cultivation() -> void:
 	var cmd := {
@@ -749,6 +763,27 @@ func _breakthrough_era() -> void:
 func _replay_breakthrough() -> void:
 	if breakthrough_seq != null:
 		breakthrough_seq.play("練氣期", "築基期")
+
+func trigger_nine_realms_hook(is_replay: bool = false) -> void:
+	if nine_realms_preview == null:
+		return
+	var current_aspire: String = String(session.state.tutorial_flags.get("aspired_realm", ""))
+	nine_realms_preview.play_hook(camera, current_aspire, Callable(self, "_on_nine_realms_closed"), reduced, is_replay)
+
+func _open_nine_realms_overview() -> void:
+	if nine_realms_preview == null:
+		return
+	var current_aspire: String = String(session.state.tutorial_flags.get("aspired_realm", ""))
+	nine_realms_preview.show_overview(camera, current_aspire, Callable(self, "_on_nine_realms_closed"))
+
+func _on_nine_realms_aspiration_changed(realm_id: String) -> void:
+	if session and session.state:
+		session.state.tutorial_flags["aspired_realm"] = realm_id
+		_save_game()
+		hint.text = "已標記心之所向，大道在前，且行眼前事。"
+
+func _on_nine_realms_closed() -> void:
+	_refresh_hud()
 
 func _upgrade_selected() -> void:
 	if selected_id == "":

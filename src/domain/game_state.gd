@@ -9,6 +9,7 @@ var training_seconds: float = 0.0
 var total_elapsed_seconds: float = 0.0
 var resources: Dictionary = {}
 var buildings: Dictionary = {}
+var tutorial_flags: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -18,6 +19,7 @@ func duplicate_state() -> GameState:
 	copy.onboarding_version = onboarding_version
 	copy.training_seconds = training_seconds
 	copy.total_elapsed_seconds = total_elapsed_seconds
+	copy.tutorial_flags = tutorial_flags.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -50,4 +52,5 @@ func to_snapshot_dict() -> Dictionary:
 		"total_elapsed_seconds": total_elapsed_seconds,
 		"resources": resource_snapshot,
 		"buildings": building_snapshot,
+		"tutorial_flags": tutorial_flags.duplicate(true),
 	}

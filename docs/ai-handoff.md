@@ -68,6 +68,8 @@ if ($LASTEXITCODE -ne 0) { throw 'M1-E legacy import test failed' }
 if ($LASTEXITCODE -ne 0) { throw 'M2-A abode test failed' }
 & $daoEngine --headless --path . --script res://tests/m2b_breakthrough_runner.gd
 if ($LASTEXITCODE -ne 0) { throw 'M2-B breakthrough test failed' }
+& $daoEngine --headless --path . --script res://tests/m2c_nine_realms_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M2-C nine realms test failed' }
 & $daoEngine --headless --path . --quit-after 3
 if ($LASTEXITCODE -ne 0) { throw 'Main scene startup failed' }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null

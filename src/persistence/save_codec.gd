@@ -171,6 +171,10 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.total_elapsed_seconds = _to_float(snapshot_dict["total_elapsed_seconds"])
 	state.resources = resources
 	state.buildings = buildings
+	if snapshot_dict.has("tutorial_flags"):
+		if not (snapshot_dict["tutorial_flags"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:tutorial_flags"}
+		state.tutorial_flags = (snapshot_dict["tutorial_flags"] as Dictionary).duplicate(true)
 	return {"ok": true, "state": state, "error": ""}
 
 static func _is_int(value: Variant) -> bool:
