@@ -14,7 +14,11 @@ func _init() -> void:
 	call_deferred("_run")
 
 func _run() -> void:
-	print("=== Running M2-A Formal Abode Acceptance Test ===")
+	var LivingAbodeScript = preload("res://src/abode/living_abode.gd")
+	LivingAbodeScript.save_dir_override = "user://m2a_test_saves"
+	var test_adapter := FileStorageAdapter.new("user://m2a_test_saves")
+	var test_slots := SaveSlots.new(test_adapter)
+	test_slots.reset()
 
 	# 1. Blank Opening
 	var abode = LivingAbodeScene.instantiate()
@@ -137,6 +141,8 @@ func _run() -> void:
 		return
 
 	reloaded.queue_free()
+	test_slots.reset()
+	LivingAbodeScript.save_dir_override = ""
 	print("PASS: M2-A abode blank opening, manual start, auto production, chained unlocks, save/reload, and determinism.")
 	quit(0)
 

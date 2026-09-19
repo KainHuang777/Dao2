@@ -8,6 +8,12 @@ func _init() -> void:
 	call_deferred("_run")
 
 func _run() -> void:
+	var LivingAbodeScript = preload("res://src/abode/living_abode.gd")
+	LivingAbodeScript.save_dir_override = "user://living_abode_test_saves"
+	var adapter := FileStorageAdapter.new("user://living_abode_test_saves")
+	var slots := SaveSlots.new(adapter)
+	slots.reset()
+
 	var abode = LivingAbodeScene.instantiate()
 	root.add_child(abode)
 	await process_frame
@@ -25,7 +31,7 @@ func _run() -> void:
 	abode.session.state.buildings["hut"] = 1
 	abode.state.qi = 100.0
 	abode._refresh_hud()
-	abode._pick_world(abode.buildings["hut"].position)
+	abode._pick_world(abode.buildings["hut"].position + Vector2(0, -60))
 	if abode.selected_id != "hut" or not abode.info_panel.visible:
 		_fail("Selecting the hut must open its detail panel")
 		return
@@ -37,7 +43,7 @@ func _run() -> void:
 	abode.buildings["garden"].visible = true
 	abode.session.state.buildings["herb_farm"] = 1
 	abode._refresh_hud()
-	abode._pick_world(abode.buildings["garden"].position)
+	abode._pick_world(abode.buildings["garden"].position + Vector2(0, -50))
 	abode._toggle_garden()
 	if abode.state.garden_running:
 		_fail("The garden detail action must pause its production line")
@@ -50,8 +56,10 @@ func _run() -> void:
 	if not is_equal_approx(abode.camera.target_zoom, 0.70):
 		_fail("Returning home must restore the local abode camera scale")
 		return
-	print("PASS: living abode selects buildings, upgrades, pauses production, and changes scale.")
 	abode.queue_free()
+	slots.reset()
+	LivingAbodeScript.save_dir_override = ""
+	print("PASS: living abode selects buildings, upgrades, pauses production, and changes scale.")
 	quit(0)
 
 func _fail(message: String) -> void:

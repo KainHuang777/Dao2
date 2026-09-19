@@ -161,7 +161,11 @@ var overview_button: Button
 var motion_button: Button
 var save_button: Button
 var zoom_label: Label
+var level_up_button: Button
+var breakthrough_button: Button
+var replay_breakthrough_button: Button
 
+var breakthrough_seq: Control = null
 var save_controls: Control = null
 var offline_summary: Control = null
 var update_elapsed: float = 0.0
@@ -208,6 +212,8 @@ func _ready() -> void:
 
 	print("ABODE_READY: native Camera2D, 3 independent buildings, autonomous state and flying swords")
 
+static var save_dir_override: String = ""
+
 func _init_core() -> void:
 	var content_loaded: Dictionary = ContentLoader.load_directory("res://content")
 	if bool(content_loaded.get("ok", false)):
@@ -216,7 +222,9 @@ func _init_core() -> void:
 		content = GameContent.new()
 
 	var adapter: StorageAdapter = null
-	if OS.has_feature("web"):
+	if save_dir_override != "":
+		adapter = FileStorageAdapter.new(save_dir_override)
+	elif OS.has_feature("web"):
 		adapter = WebStorageAdapter.new("dao2_saves")
 	else:
 		adapter = FileStorageAdapter.new(SaveManager.DEFAULT_SAVE_DIR)
@@ -384,6 +392,22 @@ func _build_hud() -> void:
 	realm_label = _label("練氣 · 1層", 20, Color("fce2a6"), 1)
 	header_box.add_child(realm_label)
 
+	var realm_action_box := HBoxContainer.new()
+	realm_action_box.add_theme_constant_override("separation", 8)
+	header_box.add_child(realm_action_box)
+
+	level_up_button = _button("修為晉階", _level_up_cultivation)
+	level_up_button.custom_minimum_size = Vector2(120, 44)
+	level_up_button.add_theme_font_size_override("font_size", 20)
+	level_up_button.visible = false
+	realm_action_box.add_child(level_up_button)
+
+	breakthrough_button = _button("突破至築基期", _breakthrough_era)
+	breakthrough_button.custom_minimum_size = Vector2(180, 44)
+	breakthrough_button.add_theme_font_size_override("font_size", 20)
+	breakthrough_button.visible = false
+	realm_action_box.add_child(breakthrough_button)
+
 	resource_label = _label("", 21, Color("e4f0dc"), 1)
 	header_box.add_child(resource_label)
 
@@ -411,6 +435,10 @@ func _build_hud() -> void:
 
 	save_button = _button("存檔管理", _toggle_save_controls)
 	toolbar.add_child(save_button)
+
+	replay_breakthrough_button = _button("重溫突破", _replay_breakthrough)
+	replay_breakthrough_button.visible = false
+	toolbar.add_child(replay_breakthrough_button)
 
 	toolbar.add_child(_button("操作說明", _show_help))
 
@@ -475,6 +503,10 @@ func _build_hud() -> void:
 	offline_summary.visible = false
 	offline_summary.position = Vector2(300, 100)
 	hud.add_child(offline_summary)
+
+	var bt_seq_script = preload("res://src/presentation/breakthrough_sequence.gd")
+	breakthrough_seq = bt_seq_script.new()
+	hud.add_child(breakthrough_seq)
 
 func _layout() -> void:
 	var vp: Vector2 = get_viewport_rect().size
@@ -571,6 +603,34 @@ func _refresh_hud() -> void:
 		era_name, cur_level, train_sec, req_sec, remain_life / 60.0
 	]
 
+	var can_lvl: bool = bool(view.get("can_level_up", false))
+	level_up_button.visible = can_lvl
+	if can_lvl:
+		var cost_dict: Dictionary = view.get("level_up_costs", {})
+		var cost_strs := []
+		for r_id in cost_dict:
+			var req_val: float = _parse_amount(cost_dict[r_id]).to_float()
+			cost_strs.append("%d %s" % [int(req_val), RESOURCE_NAMES.get(r_id, r_id)])
+		level_up_button.text = "修為晉階（消耗 %s）" % (" · ".join(cost_strs) if cost_strs.size() > 0 else "功滿")
+
+	var cur_era: int = int(view.get("era_id", 1))
+	breakthrough_button.visible = (cur_level >= 10 and cur_era == 1)
+	if breakthrough_button.visible:
+		var can_bt: bool = bool(view.get("can_breakthrough", false))
+		breakthrough_button.disabled = not can_bt
+		if can_bt:
+			breakthrough_button.text = "★ 突破至築基期 ★"
+		else:
+			var req_caps: Dictionary = view.get("breakthrough_requirements", {})
+			var req_lingli: int = int(req_caps.get("lingli", 500))
+			var cur_cap: int = int(_parse_amount(view.resources.get("lingli", {}).get("cap", 0)).to_float())
+			breakthrough_button.text = "突破需靈氣容量 %d（當前 %d）" % [req_lingli, cur_cap]
+
+	replay_breakthrough_button.visible = (cur_era >= 2)
+	if cur_era >= 2:
+		shade.color = Color(0.04, 0.08, 0.16, 0.22)
+		home_marker.text = "你的洞府 · 築基功成 祥雲瑞靄"
+
 	var res_lines := []
 	var res_order := ["lingli", "money", "wood", "stone_low", "black_copper", "spirit_grass_low", "foundation_pill"]
 	for r_id in res_order:
@@ -657,6 +717,38 @@ func _gather_lingli() -> void:
 	if bool(res.get("ok", false)):
 		hint.text = "聚氣吐納，靈氣＋1。"
 		_refresh_hud()
+
+func _level_up_cultivation() -> void:
+	var cmd := {
+		"command_id": "lvl_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
+		"type": "level_up_cultivation",
+		"expected_revision": session.state.revision,
+		"payload": {}
+	}
+	var res: Dictionary = session.submit(cmd)
+	if bool(res.get("ok", false)):
+		hint.text = "修為突破一層！洞府靈息更為充沛。"
+		_save_game()
+		_refresh_hud()
+
+func _breakthrough_era() -> void:
+	var cmd := {
+		"command_id": "bt_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
+		"type": "breakthrough_era",
+		"expected_revision": session.state.revision,
+		"payload": {}
+	}
+	var res: Dictionary = session.submit(cmd)
+	if bool(res.get("ok", false)):
+		hint.text = "破關築基，天地共感，壽元大增！"
+		_save_game()
+		_refresh_hud()
+		if breakthrough_seq != null:
+			breakthrough_seq.play("練氣期", "築基期")
+
+func _replay_breakthrough() -> void:
+	if breakthrough_seq != null:
+		breakthrough_seq.play("練氣期", "築基期")
 
 func _upgrade_selected() -> void:
 	if selected_id == "":

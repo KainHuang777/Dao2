@@ -1,7 +1,7 @@
 class_name GameSession
 extends RefCounted
 
-const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building"]
+const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building", "level_up_cultivation", "breakthrough_era"]
 const COMMAND_REGISTRY_LIMIT := 256
 
 var content: GameContent
@@ -127,8 +127,32 @@ func get_view() -> Dictionary:
 	var max_lifespan := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id)
 	var next_required := 0.0
 	var era_view := {}
+	var can_level_up := false
+	var can_breakthrough := false
+	var level_up_costs := {}
+	var breakthrough_req := {}
 	if era_def != null:
-		next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+		if state.level < int(era_def.max_level):
+			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+			var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
+			can_level_up = (state.training_seconds >= next_required)
+			for r_id in costs:
+				level_up_costs[r_id] = costs[r_id].serialize()
+				var res_entry: Dictionary = state.resources.get(r_id, {})
+				if res_entry.is_empty() or res_entry.value.add(AmountCompat.from_number(0.000001)).compare_to(costs[r_id]) < 0:
+					can_level_up = false
+		else:
+			var next_era = content.era(state.era_id + 1)
+			if next_era != null:
+				var upg: Dictionary = era_def.get("upgrade_requirements", {})
+				var upg_caps: Dictionary = upg.get("capacity", {})
+				breakthrough_req = upg_caps
+				can_breakthrough = true
+				for r_id in upg_caps:
+					var req_val: float = float(upg_caps[r_id])
+					var cur_cap: AmountCompat = caps.get(r_id, AmountCompat.zero())
+					if cur_cap.compare_to(AmountCompat.from_number(req_val)) < 0:
+						can_breakthrough = false
 		era_view = {
 			"id": int(era_def.id),
 			"name": String(era_def.name),
@@ -146,6 +170,10 @@ func get_view() -> Dictionary:
 		"total_elapsed_seconds": state.total_elapsed_seconds,
 		"next_level_required_seconds": next_required,
 		"max_lifespan_seconds": max_lifespan,
+		"can_level_up": can_level_up,
+		"can_breakthrough": can_breakthrough,
+		"level_up_costs": level_up_costs,
+		"breakthrough_requirements": breakthrough_req,
 		"era": era_view,
 		"resources": resources,
 		"buildings": buildings,
@@ -176,6 +204,8 @@ func _is_valid_shape(command: Dictionary) -> bool:
 			var building_id = payload.get("building_id")
 			if typeof(building_id) != TYPE_STRING or String(building_id).is_empty():
 				return false
+		"level_up_cultivation", "breakthrough_era":
+			return true
 	return true
 
 func _remember(command_id: String, result: Dictionary) -> void:

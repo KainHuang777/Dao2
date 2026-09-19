@@ -1,3 +1,14 @@
+[2026-09-19] M2-B First Realm Breakthrough & Replayable Sequence Delivery
+- Added content/eras/era2.json defining Era 2 (Foundation Establishment / 築基期) with 2.0x resource multiplier, 120-si lifespan cap, and capacity lingli >= 500 requirement.
+- Registered content/eras/era2.json into content/manifest.json.
+- Extended src/simulation/command_processor.gd to handle level_up_cultivation (training progress and minor levels 1-9) and breakthrough_era (strictly checking caps["lingli"] >= 500 without deducting inventory).
+- Extended src/application/game_session.gd to expose level_up_cultivation() and breakthrough_era() convenience methods.
+- Implemented src/presentation/breakthrough_sequence.gd offering full audiovisual animation (skies, aura, cloudscapes, divine beams), instant skip option, and replayable mode without double-granting rewards.
+- Integrated cultivation progress bar, level-up and breakthrough buttons into src/abode/living_abode.gd, and dynamically updated sky clouds and altar halos upon Era 2 attainment.
+- Added save_dir_override to living_abode.gd and isolated test directories across living_abode_runner, m2a_abode_runner, and m2b_breakthrough_runner.
+- Created tests/m2b_breakthrough_runner.gd verifying minor level up, capacity gating, inventory preservation, sequence skip/replay idempotency, and save/reload consistency (Exit 0).
+- Delivered docs/verification/m2-b.md, and updated docs/development-status.md and docs/ai-handoff.md.
+
 [2026-09-19] M2-A Formal Abode Integration & Onboarding Delivery
 - Refactored src/abode/living_abode.gd to connect Godot abode scene with formal GameSession, Onboarding rules, SaveManager, and OfflineCoordinator.
 - Replaced float delta simulation with GameSession commands (gather, upgrade_building) and tick-based TimeAdvancer.

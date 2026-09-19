@@ -11,6 +11,10 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_gather(content, state, command.payload)
 		"upgrade_building":
 			return _apply_upgrade(content, state, command.payload)
+		"level_up_cultivation":
+			return _apply_level_up(content, state, command.payload)
+		"breakthrough_era":
+			return _apply_breakthrough(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 static func level_cap(definition: Dictionary) -> int:
@@ -91,6 +95,72 @@ static func _apply_upgrade(content: GameContent, state: GameState, payload: Dict
 		if not (visible_id in unlock_before.buildings):
 			changed_ids.append(visible_id)
 	return {"ok": true, "events": events, "changed_ids": changed_ids}
+
+static func _apply_level_up(content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
+	var era_def: Variant = content.era(state.era_id)
+	if era_def == null:
+		return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
+	if state.level >= int(era_def.max_level):
+		return _failure("MAX_LEVEL_REACHED", {"era_id": state.era_id, "level": state.level})
+	var req_time := Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+	if state.training_seconds < req_time - AFFORD_TOLERANCE:
+		return _failure("INSUFFICIENT_TRAINING", {"required": req_time, "available": state.training_seconds})
+	var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
+	for resource_id in costs:
+		var entry: Dictionary = state.resources.get(resource_id, {})
+		if entry.is_empty():
+			return _failure("MISSING_RESOURCE_ENTRY", {"resource_id": resource_id})
+		var available: AmountCompat = entry.value.add(AmountCompat.from_number(AFFORD_TOLERANCE))
+		if available.compare_to(costs[resource_id]) < 0:
+			return _failure("INSUFFICIENT_RESOURCE", {
+				"resource_id": resource_id,
+				"required": costs[resource_id].serialize(),
+				"available": entry.value.serialize()
+			})
+	for resource_id in costs:
+		var entry: Dictionary = state.resources[resource_id]
+		var after: AmountCompat = entry.value.subtract(costs[resource_id])
+		if after.compare_to(AmountCompat.from_number(ZERO_SNAP)) < 0:
+			after = AmountCompat.zero()
+		entry.value = after
+	state.level += 1
+	state.training_seconds = 0.0
+	return {
+		"ok": true,
+		"events": [{"kind": "cultivation_leveled_up", "era_id": state.era_id, "new_level": state.level}],
+		"changed_ids": ["cultivation_level"]
+	}
+
+static func _apply_breakthrough(content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
+	var era_def: Variant = content.era(state.era_id)
+	if era_def == null:
+		return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
+	var next_era: Variant = content.era(state.era_id + 1)
+	if next_era == null:
+		return _failure("NO_NEXT_ERA", {"current_era": state.era_id})
+	if state.level < int(era_def.max_level):
+		return _failure("ERA_NOT_MAX_LEVEL", {"required": int(era_def.max_level), "current": state.level})
+	var upgrade_req: Dictionary = era_def.get("upgrade_requirements", {})
+	var req_caps: Dictionary = upgrade_req.get("capacity", {})
+	var cur_caps: Dictionary = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	for r_id in req_caps:
+		var needed: float = float(req_caps[r_id])
+		var current_cap: AmountCompat = cur_caps.get(r_id, AmountCompat.zero())
+		if current_cap.compare_to(AmountCompat.from_number(needed)) < 0:
+			return _failure("INSUFFICIENT_CAPACITY", {
+				"resource_id": r_id,
+				"required_capacity": needed,
+				"current_capacity": current_cap.to_float()
+			})
+	var from_era := state.era_id
+	state.era_id += 1
+	state.level = 1
+	state.training_seconds = 0.0
+	return {
+		"ok": true,
+		"events": [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}],
+		"changed_ids": ["era_id", "cultivation_level"]
+	}
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:
 	var result := {"ok": false, "error": error, "events": [], "changed_ids": []}

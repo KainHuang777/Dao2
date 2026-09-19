@@ -24,12 +24,32 @@
 | M1-D | DONE（CLI／桌面路徑；瀏覽器、跨程序未驗證） | 2026-09-16 以 fusion 編排交付離線結算（24h 上限、游標提交、不雙領）、協調器、摘要 UI 與 `tests/m1d_offline_runner.gd`（exit 0）；詳見 `docs/verification/m1-d.md`。 |
 | M1-E | DONE（CLI／桌面路徑；瀏覽器 UI 與真實 corpus 未驗證） | 2026-09-16 交付 `LegacyImporter`、9 個隔離樣本、支援矩陣 `docs/legacy-compatibility.md` 與 `tests/m1e_import_runner.gd`（exit 0）；預覽差異、新槽提交、原文保留、`backfill_policy="none"`。詳見 `docs/verification/m1-e.md`。 |
 | M2-A | DONE（CLI／桌面路徑；實機觸控與裝置驗收待 M2-D） | 2026-09-19 交付主場景接入 GameSession/SaveManager、10建築配置、Onboarding連鎖解鎖、聚氣引靈（gather）、雙Runner（living_abode_runner & m2a_abode_runner 通過）；詳見 `docs/verification/m2-a.md`。 |
-| M2-B/C/D | TODO | 首次升境（M2-B）、Godot九界一瞥（M2-C）及完整畫質／裝置驗收（M2-D）待做 |
+| M2-B | DONE（CLI／桌面路徑；全量 11 個 Runner 通過） | 2026-09-19 交付首次升境規則、Era 2（築基期）定義、小階修煉積累、大境界突破容量門檻（不扣庫存）、突破演出場景控制器（可跳過／可重播不重發）、洞府天象反饋與 `m2b_breakthrough_runner.gd`（exit 0）；詳見 `docs/verification/m2-b.md`。 |
+| M2-C/D | TODO | Godot九界一瞥（M2-C）及完整畫質／裝置驗收（M2-D）待做 |
 | M3-A/B | TODO | 多世循環與舊系統矩陣 |
 | M4-A/B | TODO | 第二界可玩差異、正式尺度與法則資料 |
 | M5-A/B | TODO | 按需生成、封存與逐界內容 |
 
 目前無已確認的外部阻塞；未選定基準手機與實機測量仍待安排。不因這一項未知而停掉可做的 CLI／fixture 工作。
+
+## 已知限制與檢查線索
+
+1. 主場景已完整切換至 GameSession 與 SaveManager；展示數值與 float process 已由正式 Tick 與 AmountCompat 取代。
+2. 目前場景測試直接呼叫函式；2026-09-13 已額外在桌面 Web 實測建築命中、HUD、拖曳、滾輪、歸家及遠景。雙指／實體觸控、拖出 HUD 後釋放和不同手機 DPI 仍待 M2-D 前補證。
+3. 主場景已改為 1280×720 桌面橫版設計，完整 CLI／Web 匯出與瀏覽器畫面已於本輪重驗。手機直式適配、360 CSS px 可讀性與44px觸控區仍需在 M2-D 前量測，不能由桌面畫面推定通過。
+4. region 是重用地形的視覺示範，没有新據點經濟；飛劍／靈流已有動畫程式，但視覺強度、位置對齊與手機效能待實測。
+5. all_resources 匯出會帶入 src/效果圖 和 tests；正式發布前需明確排除開發／參考內容，保留來源原圖。
+6. 2026-09-19 M1 全量 Commit 595cea6，M2-A 順利交付並提交 0f460e0，M2-B 通過全量 11 項 Runner 驗證。
+
+## 下一個動作
+
+M2-B 已完成（CLI／桌面路徑；全量 11 個 Runner 通過）。下一個主線依 ROADMAP 進入 M2-C（Godot 第一分鐘九界鉤子；相依 M2-B）。實現首次引氣事件、6–8 秒可跳過神識抽遠、九界預覽與返回洞府。
+
+## 本輪交付
+
+2026-09-19 M2-B：新增 `content/eras/era2.json`（築基期）並註冊至 `content/manifest.json`；擴充 `src/simulation/command_processor.gd` 與 `src/application/game_session.gd` 支援 `level_up_cultivation` 與 `breakthrough_era`（容量門檻嚴格防護、突破不扣庫存）；新增 `src/presentation/breakthrough_sequence.gd`（突破演出：天地異象、可跳過、可重播不重發獎勵）；主場景 `src/abode/living_abode.gd` 整合修煉晉階與突破按鈕、掛載突破演出、築基後浮現天幕祥雲與聚靈壇光環；新增 `tests/m2b_breakthrough_runner.gd`（exit 0，小階累積、突破契約、演出跳過與重播、存檔重載全通）；全量 11 項 Runner、Headless 啟動與 Web 匯出全部 PASS。詳見 `docs/verification/m2-b.md`。
+
+2026-09-19 M2-A：重構 `src/abode/living_abode.gd` 徹底接入 `GameSession`、`SaveManager`、`OfflineCoordinator` 與 `Onboarding`；擴充 `src/abode/abode_building.gd` 支援未建造狀態；修復 `web_storage_adapter.gd` 關鍵字衝突並增補 `AmountCompat.to_float()`；更新 `tests/living_abode_runner.gd` 並新增 `tests/m2a_abode_runner.gd`（exit 0，6 階段驗證全通）；全量 10 項 Runner、Headless 啟動與 Web 匯出全部 PASS。詳見 `docs/verification/m2-a.md`。
 
 ## 已知限制與檢查線索
 

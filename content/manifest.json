@@ -8,6 +8,7 @@
     "buildings/era1.json"
   ],
   "era_files": [
-    "eras/era1.json"
+    "eras/era1.json",
+    "eras/era2.json"
   ]
 }
