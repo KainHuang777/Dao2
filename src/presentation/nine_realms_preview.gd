@@ -150,7 +150,7 @@ func _build_ui() -> void:
 	_grid_container.add_theme_constant_override("v_separation", 16)
 	scroll.add_child(_grid_container)
 
-	_rebuild_realm_cards()
+	_build_realm_cards()
 
 	var footer := HBoxContainer.new()
 	footer.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -164,28 +164,13 @@ func _build_ui() -> void:
 	_close_btn.pressed.connect(_on_close_pressed)
 	footer.add_child(_close_btn)
 
-func _rebuild_realm_cards() -> void:
-	for child in _grid_container.get_children():
-		_grid_container.remove_child(child)
-		child.queue_free()
+var _card_nodes: Dictionary = {}
 
+func _build_realm_cards() -> void:
 	for realm in _realms_data:
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(330, 130)
 		var card_style := StyleBoxFlat.new()
-		var is_human: bool = (realm.id == "realm_human")
-		var is_aspired: bool = (realm.id == _current_aspired_realm)
-
-		if is_human:
-			card_style.bg_color = Color(0.04, 0.12, 0.11, 0.90)
-			card_style.border_color = Color(0.40, 0.85, 0.65, 0.80)
-		elif is_aspired:
-			card_style.bg_color = Color(0.12, 0.10, 0.04, 0.90)
-			card_style.border_color = Color(0.95, 0.80, 0.25, 0.90)
-		else:
-			card_style.bg_color = Color(0.02, 0.05, 0.07, 0.85)
-			card_style.border_color = Color(0.20, 0.35, 0.40, 0.50)
-
 		card_style.set_border_width_all(1)
 		card_style.set_corner_radius_all(6)
 		card_style.content_margin_left = 12
@@ -205,20 +190,10 @@ func _rebuild_realm_cards() -> void:
 		name_lbl.text = realm.name
 		name_lbl.add_theme_font_override("font", FONT)
 		name_lbl.add_theme_font_size_override("font_size", 18)
-		name_lbl.add_theme_color_override("font_color", Color("ffd166") if is_aspired else Color("ffffff"))
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		top_row.add_child(name_lbl)
 
 		var status_lbl := Label.new()
-		if is_human:
-			status_lbl.text = "【當前洞府】"
-			status_lbl.add_theme_color_override("font_color", Color("6ee7b7"))
-		elif is_aspired:
-			status_lbl.text = "【心之所向】"
-			status_lbl.add_theme_color_override("font_color", Color("fcd34d"))
-		else:
-			status_lbl.text = "【神識遠眺 · 未解鎖】"
-			status_lbl.add_theme_color_override("font_color", Color("94a3b8"))
 		status_lbl.add_theme_font_override("font", FONT)
 		status_lbl.add_theme_font_size_override("font_size", 13)
 		top_row.add_child(status_lbl)
@@ -239,20 +214,67 @@ func _rebuild_realm_cards() -> void:
 		desc_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		card_vbox.add_child(desc_lbl)
 
+		var is_human: bool = (realm.id == "realm_human")
+		var aspire_btn: Button = null
 		if not is_human:
 			var action_row := HBoxContainer.new()
 			action_row.alignment = BoxContainer.ALIGNMENT_END
 			card_vbox.add_child(action_row)
 
-			var aspire_btn := Button.new()
-			aspire_btn.text = "★ 已標記嚮往" if is_aspired else "標記嚮往"
-			aspire_btn.disabled = is_aspired
+			aspire_btn = Button.new()
 			aspire_btn.add_theme_font_override("font", FONT)
 			aspire_btn.add_theme_font_size_override("font_size", 13)
-			aspire_btn.pressed.connect(func(): _on_aspire_pressed(realm.id))
+			var r_id: String = realm.id
+			aspire_btn.pressed.connect(func(): _on_aspire_pressed(r_id))
 			action_row.add_child(aspire_btn)
 
+		_card_nodes[realm.id] = {
+			"card": card,
+			"style": card_style,
+			"name_lbl": name_lbl,
+			"status_lbl": status_lbl,
+			"aspire_btn": aspire_btn
+		}
 		_grid_container.add_child(card)
+
+	_update_realm_cards()
+
+func _update_realm_cards() -> void:
+	for realm in _realms_data:
+		var entry: Dictionary = _card_nodes.get(realm.id, {})
+		if entry.is_empty():
+			continue
+		var is_human: bool = (realm.id == "realm_human")
+		var is_aspired: bool = (realm.id == _current_aspired_realm)
+		var style: StyleBoxFlat = entry["style"]
+		var status_lbl: Label = entry["status_lbl"]
+		var name_lbl: Label = entry["name_lbl"]
+		var aspire_btn: Button = entry["aspire_btn"]
+
+		if is_human:
+			style.bg_color = Color(0.04, 0.12, 0.11, 0.90)
+			style.border_color = Color(0.40, 0.85, 0.65, 0.80)
+			name_lbl.add_theme_color_override("font_color", Color("ffffff"))
+			status_lbl.text = "【當前洞府】"
+			status_lbl.add_theme_color_override("font_color", Color("6ee7b7"))
+		elif is_aspired:
+			style.bg_color = Color(0.12, 0.10, 0.04, 0.90)
+			style.border_color = Color(0.95, 0.80, 0.25, 0.90)
+			name_lbl.add_theme_color_override("font_color", Color("ffd166"))
+			status_lbl.text = "【心之所向】"
+			status_lbl.add_theme_color_override("font_color", Color("fcd34d"))
+			if aspire_btn:
+				aspire_btn.text = "★ 已標記嚮往"
+				aspire_btn.disabled = true
+		else:
+			style.bg_color = Color(0.02, 0.05, 0.07, 0.85)
+			style.border_color = Color(0.20, 0.35, 0.40, 0.50)
+			name_lbl.add_theme_color_override("font_color", Color("ffffff"))
+			status_lbl.text = "【神識遠眺 · 未解鎖】"
+			status_lbl.add_theme_color_override("font_color", Color("94a3b8"))
+			if aspire_btn:
+				aspire_btn.text = "標記嚮往"
+				aspire_btn.disabled = false
 
 func _process(delta: float) -> void:
 	if not _is_cinematic_playing:
@@ -301,7 +323,7 @@ func show_overview(camera: Camera2D, aspired_realm: String, on_close: Callable) 
 	_cinematic_container.visible = false
 	_overview_panel.visible = true
 	_bg_overlay.color.a = 0.75
-	_rebuild_realm_cards()
+	_update_realm_cards()
 	if _camera:
 		_camera.focus_cosmos()
 
@@ -317,12 +339,12 @@ func _finish_cinematic() -> void:
 	if _camera:
 		_camera.target_zoom = 0.08
 		_camera.target_position = Vector2(0, -100)
-	_rebuild_realm_cards()
+	_update_realm_cards()
 	print("NINE_REALMS_CINEMATIC_DONE")
 
 func _on_aspire_pressed(realm_id: String) -> void:
 	_current_aspired_realm = realm_id
-	_rebuild_realm_cards()
+	_update_realm_cards()
 	aspiration_changed.emit(realm_id)
 	print("NINE_REALMS_ASPIRE: ", realm_id)
 

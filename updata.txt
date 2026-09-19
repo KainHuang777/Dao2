@@ -1,3 +1,8 @@
+[2026-09-20] Web Test Server Automation Delivery
+- Created start_web_server.bat in project root and tools/start_web_server.ps1 for easy manual testing on fixed origin (http://127.0.0.1:4175).
+- Automatically verifies build/web/index.html and triggers headless Web export if missing.
+- Automatically launches default browser at fixed origin http://127.0.0.1:4175/index.html to facilitate browser-level storage and settlement verification.
+
 [2026-09-19] M2-C Godot First-Minute Nine Realms Hook Delivery
 - Created content/realms/realms.json defining canonical 9 realms (Human, Spirit, Nether, Beast, Demon, Immortal, Buddha, Chaos, Origin) with law summaries and descriptions.
 - Extended src/domain/game_state.gd with tutorial_flags: Dictionary for onboarding flags and aspiration bookmarking.
