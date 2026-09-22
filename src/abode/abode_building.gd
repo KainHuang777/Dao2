@@ -25,11 +25,11 @@ func setup(id: String, display_name: String, art: Texture2D, width: float, font:
 	sprite.position = Vector2(0, -width * 0.42)
 	add_child(sprite)
 	caption = Label.new()
-	caption.position = Vector2(-145, 14)
-	caption.size = Vector2(290, 48)
+	caption.position = Vector2(-105, 16)
+	caption.size = Vector2(210, 44)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	caption.add_theme_font_override("font", font)
-	caption.add_theme_font_size_override("font_size", 28)
+	caption.add_theme_font_size_override("font_size", 26)
 	caption.add_theme_color_override("font_color", Color("f6e6b9"))
 	caption.add_theme_color_override("font_outline_color", Color("07161c"))
 	caption.add_theme_constant_override("outline_size", 2)
@@ -49,7 +49,9 @@ func setup(id: String, display_name: String, art: Texture2D, width: float, font:
 func contains_point(world_point: Vector2) -> bool:
 	if not visible:
 		return false
-	return Rect2(Vector2(-body_size.x * 0.45, -body_size.y * 0.82), Vector2(body_size.x * 0.9, body_size.y * 0.86)).has_point(to_local(world_point))
+	var hit_width: float = 110.0 if level == 0 else body_size.x * 0.9
+	var hit_height: float = 90.0 if level == 0 else body_size.y * 0.75
+	return Rect2(Vector2(-hit_width * 0.5, -hit_height + 12.0), Vector2(hit_width, hit_height)).has_point(to_local(world_point))
 
 func pulse_upgrade() -> void:
 	upgrade_flash = 1.0
@@ -59,16 +61,17 @@ func _process(delta: float) -> void:
 	upgrade_flash = maxf(0, upgrade_flash - delta * 0.8)
 	var status_text := ""
 	if level == 0:
-		status_text = "未建造"
+		status_text = "待建"
 	else:
-		status_text = "%d階%s" % [level, "" if running else " · 停駐"]
+		status_text = "%d階%s" % [level, "" if running else "·停"]
 	caption.text = "%s · %s" % [title, status_text]
+	caption.visible = level > 0
 	var pulse: float = 0.0 if reduced_motion else sin(clock_time * 1.6) * 0.018
 	if (building_id == "garden" or building_id == "herb_farm") and running and level > 0:
 		sprite.scale = base_scale * Vector2(1.0 + pulse * 0.3, 1.0 + pulse)
-	var base_alpha: float = 1.0 if level > 0 else 0.72
-	var flash_color: Color = Color(1.0 + upgrade_flash * 0.45, 1.0 + upgrade_flash * 0.3, 1.0 + upgrade_flash * 0.1, base_alpha)
-	sprite.modulate = flash_color if running else Color(0.65, 0.72, 0.73, base_alpha)
+	sprite.visible = level > 0
+	var flash_color: Color = Color(1.0 + upgrade_flash * 0.45, 1.0 + upgrade_flash * 0.3, 1.0 + upgrade_flash * 0.1, 1.0)
+	sprite.modulate = flash_color if running else Color(0.65, 0.72, 0.73, 1.0)
 	queue_redraw()
 
 func _draw() -> void:

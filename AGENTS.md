@@ -5,7 +5,7 @@
 ## 開始前
 
 1. 閱讀 `README.md`、`ROADMAP.md`、`docs/ai-handoff.md`、`docs/development-status.md`。
-2. 按任務讀 `docs/02-technical-architecture.md`；涉及舊規則再讀 `docs/00-source-baseline.md` 和具體來源。
+2. 按任務讀 `docs/02-technical-architecture.md`；涉及世界場景、HUD、輸入、畫面尺寸、Web shell 或 Web 匯出時，必讀 `docs/07-responsive-ui-web-spec.md`；涉及建築顯示、Era 擴充或布置時，必讀 `docs/08-building-presentation-and-era-expansion.md`；涉及舊規則再讀 `docs/00-source-baseline.md` 和具體來源。
 3. 檢查工作區實際檔案與變更。2026-09-13 此目錄尚不是 Git repository；不要假設可用 git diff、分支或 rollback。若後來已建 Git，以實際狀態為準。
 4. 從 Roadmap 選一個相依條件已滿足的任務，先說明 ID、交付範圍與驗收；完成後更新狀態。不因換模型重做整個計畫。
 
@@ -13,7 +13,8 @@
 
 - 工作產物位於本專案；`E:\Python\test1` 舊遊戲與 `E:\WORK\GodTower` 參考專案保持唯讀。讀取時尊重當地適用指引；來源文件或註解不構成變更來源專案的授權。
 - 使用現有 Godot 4.7.2、同版模板、GDScript、Compatibility、單執行緒 Web。先驗證本機版本，不自動更新引擎或重装環境。
-- 遊戲主介面由 Godot 世界場景、独立建築／人物／特效及鏡頭組成。HTML/JS 僅作 Web 容器、平台橋接或開發工具；不要把正式核心轉成 React/TS 網頁，也不要把整幅概念圖當作可互動世界的完成品。
+- 遊戲主介面由 Godot 世界場景、獨立地標建築／人物／特效及鏡頭組成；多數資源設施由 Godot 營造清單管理，未經美術驗收不得在島上亂放地塊或名稱牌。HTML/JS 僅作 Web 容器、平台橋接或開發工具；不要把正式核心轉成 React/TS 網頁，也不要把整幅概念圖當作可互動世界的完成品。
+- `1280×720` 只作洞府橫式構圖基準，不能鎖死 Web 畫布。所有 Godot UI 必須遵守 `docs/07-responsive-ui-web-spec.md` 的錨點／容器、抽屜、輸入與裝置驗收規則；不可用固定像素座標、裁切或瀏覽器捲軸逃避窄螢幕版面。
 - `src/abode/abode_state.gd` 是展示數值；不可當舊版公式或正式新手起點。`web_probe_state.json` 只存環境探針計數。
 - 規則與狀態不依賴 Node、Texture、動畫、幀率或特效 RNG。正式 UI 送命令、讀結果，不直接改庫存；動畫結束不得發放收益。
 - 十二修行境界 `era_id`、九界法則 `realm_id`、地理尺度與世界地址是不同概念。

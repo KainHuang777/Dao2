@@ -117,6 +117,9 @@ func _run() -> void:
 
 	# Lifespan verification: era 1 (80) + era 2 (120) = 200 祀 = 12000s
 	view = session.get_view()
+	if not bool(view.buildings["hut"].visible) or not bool(view.buildings["storage_lingli"].visible):
+		_fail("Earlier-era buildings must remain manageable after the Era 2 breakthrough")
+		return
 	var max_life: float = float(view.max_lifespan_seconds)
 	if not is_equal_approx(max_life, 12000.0):
 		_fail("Total lifespan for Era 2 must be 12000 seconds (200 祀), got: %f" % max_life)
@@ -158,6 +161,15 @@ func _run() -> void:
 	if reloaded.session.state.era_id != 2:
 		_fail("Reloaded abode must preserve era_id 2, got: %d" % reloaded.session.state.era_id)
 		return
+	reloaded._layout_for_size(Vector2(360, 640))
+	reloaded._refresh_hud()
+	if reloaded.replay_breakthrough_button.visible or reloaded.more_menu.get_popup().is_item_disabled(reloaded.more_menu.get_popup().get_item_index(5)):
+		_fail("Era 2 replay must remain available through the portrait More menu")
+		return
+
+	reloaded._layout_for_size(Vector2(1280, 720))
+	reloaded._refresh_hud()
+
 	if not reloaded.replay_breakthrough_button.visible:
 		_fail("Replay breakthrough button must be visible in Era 2")
 		return

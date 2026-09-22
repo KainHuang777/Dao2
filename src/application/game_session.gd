@@ -99,7 +99,9 @@ func get_view() -> Dictionary:
 		var definition: Dictionary = content.buildings[building_id]
 		var level := int(state.buildings.get(building_id, 0))
 		var cap := CommandProcessor.level_cap(definition)
-		var visible: bool = unlock.active and (building_id in unlock.buildings)
+		# Onboarding gates the first era only. Existing buildings and earlier-era
+		# definitions remain manageable after cultivation advances.
+		var visible: bool = level > 0 or (unlock.active and (building_id in unlock.buildings)) or (not unlock.active and int(definition.era) <= state.era_id)
 		var costs := {}
 		var affordable := false
 		if level < cap:

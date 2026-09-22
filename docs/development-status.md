@@ -1,6 +1,6 @@
 # 開發狀態與交接紀錄
 
-更新：2026-09-16。此檔描述實際進度；順序與 DoD 見根目錄 ROADMAP。下列歷史通過結果來自本對話先前的工具／使用者驗證，本次 Roadmap 整理沒有重新執行 Godot 或瀏覽器。
+更新：2026-09-20。此檔描述實際進度；順序與 DoD 見根目錄 ROADMAP。歷史結果保留原日期；本輪 Godot CLI 與 Web export 結果另列於 M2-D。
 
 ## 目前可用成果
 
@@ -26,7 +26,7 @@
 | M2-A | DONE（CLI／桌面路徑；實機觸控與裝置驗收待 M2-D） | 2026-09-19 交付主場景接入 GameSession/SaveManager、10建築配置、Onboarding連鎖解鎖、聚氣引靈（gather）、雙Runner（living_abode_runner & m2a_abode_runner 通過）；詳見 `docs/verification/m2-a.md`。 |
 | M2-B | DONE（CLI／桌面路徑；全量 11 個 Runner 通過） | 2026-09-19 交付首次升境規則、Era 2（築基期）定義、小階修煉積累、大境界突破容量門檻（不扣庫存）、突破演出場景控制器（可跳過／可重播不重發）、洞府天象反饋與 `m2b_breakthrough_runner.gd`（exit 0）；詳見 `docs/verification/m2-b.md`。 |
 | M2-C | DONE（CLI／桌面路徑；全量 12 個 Runner 通過） | 2026-09-19 交付第一分鐘九界鉤子、引氣事件觸發、6–8 秒可跳過相機抽遠、九界法則願景預覽、標記嚮往（零副作用契約）、返回洞府、存檔持久化防重複與 `m2c_nine_realms_runner.gd`（exit 0）；詳見 `docs/verification/m2-c.md`。 |
-| M2-D | TODO | 完整畫質／實體手機觸控／360 CSS px 排版與首切片放行待做 |
+| M2-D | IN_PROGRESS（CLI／Web 匯出通過；AGY 營造清單重測待辦） | AGY 否決了十地塊浮島方案；現改成茅屋地標＋營造清單，並修正 Era 2 先前建築消失。Godot CLI 通過，仍待 AGY 驗證真實清單操作、地形、CSS 清晰度、觸控與效能。 |
 | M3-A/B | TODO | 多世循環與舊系統矩陣 |
 | M4-A/B | TODO | 第二界可玩差異、正式尺度與法則資料 |
 | M5-A/B | TODO | 按需生成、封存與逐界內容 |
@@ -44,9 +44,18 @@
 
 ## 下一個動作
 
-M2-C 已完成（CLI／桌面路徑；全量 12 個 Runner 通過）。下一個主線依 ROADMAP 進入 M2-D（視覺、裝置與首切片放行；相依 M2-A/B/C）。量測 FPS、記憶體成長、冷啟動、實機排版與首切片放行。
+M2-D 已完成新營造清單的 CLI 與 Web 匯出驗證。請在 AGY 由新檔從營造清單選茅屋、引氣、建造與升至 2 階，確認木屋／聚靈壇／靈石庫只在清單可管理、島面無漂浮地基和文字牌；再測直式清單捲動／收起、築基後既有建築、資源總覽及原先九界／文字問題。記錄 CSS viewport、瀏覽器縮放與截圖，續完成 M2-D 裝置及效能驗收。
 
 ## 本輪交付
+
+2026-09-20 M2-D 營造呈現修訂：AGY 第二張測試圖顯示上一版十地塊的加號與名稱牌缺少圖形化空地、部分貼近崖壁；該方案已廢止。新增 `src/presentation/building_catalog.gd`、`docs/08-building-presentation-and-era-expansion.md`，修改 `src/abode/living_abode.gd`／`abode_building.gd`：未建建築由清單操作，建成茅屋才進世界，其他一般資源設施留在清單；同一 `GameSession`／建築 ID／存檔規則不變。修正 `src/application/game_session.gd` 於 Era 2 隱藏已建／早期建築的顯示錯誤。更新 `AGENTS.md`、README、Roadmap、`docs/07-responsive-ui-web-spec.md`、AI 交接與 M2-D 驗證，以及六個受影響 runner。Godot import、七個相關 runner 與 Web export 均 exit 0。未通過項：Codex CUA 瀏覽器啟動失敗、headless Edge 只截到 Godot 載入畫面；AGY 實際清單、地景、滑鼠／觸控、手機及效能待驗。下一個任務仍是 M2-D AGY／裝置驗收；聚靈壇世界地標必須等專屬圖與預備地基，不自動排到島上。
+
+2026-09-20 M2-D 資源與建築畫面（已否決的中間方案，保留歷史）：AGY 截圖顯示茅屋 2 階後左上資源列撐破面板，待建木屋／庫房用完整圖擠到崖邊。修改 `src/abode/living_abode.gd`，將左上限為單行摘要，完整列表改入可捲動且可關閉的 Godot 資源面板；狀態高度推開縮放鍵，短橫式無空間時收起該列，十個地塊重排在草地上。修改 `src/abode/abode_building.gd`，待建只畫可選地基，建成才顯示完整圖，保持可讀底牌與不互蓋的命中區。更新 `tests/m2d_responsive_ui_runner.gd`、`docs/07-responsive-ui-web-spec.md`、`docs/verification/m2-d.md`。Godot import、七個相關 runner 與 Web export 均 exit 0；本機 Web 頁 HTTP 200。未通過項：AGY 實際草地配置、滑鼠／觸控命中、CSS 字級與效能尚無新證據。下一個任務仍為 M2-D 的 AGY 視覺及裝置驗收；正式建築美術與新浮島分區另按需求排程。
+
+2026-09-20 M2-D 文字可讀性：新增 `src/presentation/ui_typography.gd`，以現有可變字型的 `wght` 600／700 建立 Godot 共同字體角色與面板樣式；主 HUD、建築底牌、九界卡片與突破畫面接入，九界正文／狀態／操作從 12–13 提高至 16–18，存檔與離線摘要增加深色實底。突破直式版以視窗重排文字與按鈕；修正築基後重溫入口在直式版擠回 toolbar 的問題。更新 `docs/07-responsive-ui-web-spec.md` 與 `docs/verification/m2-d.md` 的字級／字重／對比／預渲染邊界及 AGY 重測項。Godot 4.7.2 import、六個受影響 runner 與 Web export 均 exit 0；本機 Web 頁面回應 HTTP 200；瀏覽器視覺工具兩次啟動失敗，實際辨識度待 AGY 驗證。
+
+2026-09-20 M2-D 實作：`project.godot` 明確設為 `stretch/aspect="expand"`；`living_abode.gd` 改為寬式、緊湊橫式及直式 HUD，使用可換行的操作容器，直式將低特效、存檔、九界與說明收進「更多」，建築詳情採底部抽屜。存檔、離線摘要與九界預覽可依可視區域縮放，九界直式改為單欄卡片。AGY 回報九界彈窗溢出後，`nine_realms_preview.gd` 改為固定標題／關閉列與獨立可捲動內容區；`tests/m2d_responsive_ui_runner.gd` 增 `360×480` 短可視區斷言，確認關閉控制仍在畫面內。實測 Godot 4.7.2 import、儲存／字型、洞府、響應式與 M2-D slice runner，以及 Web export 全部通過；AGY 的真實瀏覽器／觸控／效能與九界修正重測待驗證。
+2026-09-20 M2-D 規格：新增 `docs/07-responsive-ui-web-spec.md` 與待填寫的 `docs/verification/m2-d.md`，固定 Godot 世界與 Web canvas 邊界、`1280×720` 構圖基準、`canvas_items`／`expand`、寬式／緊湊橫式／直式面板行為、觸控輸入隔離與最低瀏覽器／實機測試矩陣；並在 `AGENTS.md`、README、Roadmap、技術架構與 AI 交接指南建立必讀入口。未修改 Godot 場景、project/export 設定或 Web shell，未執行遊戲測試；本次文件變更不構成 M2-D 驗收通過。
 
 2026-09-19 M2-C：新增 `content/realms/realms.json`（九界法則願景定義）；擴充 `src/domain/game_state.gd` 與 `src/persistence/save_codec.gd` 支援 `tutorial_flags` 存檔持久化；相機 `src/abode/abode_camera.gd` 增加 `focus_cosmos()`（0.08 抽遠）；新增 `src/presentation/nine_realms_preview.gd`（神識抽遠、即時跳過、九界卡片網格、標記嚮往零副作用、收回神識返回洞府）；主場景 `src/abode/living_abode.gd` 首次引氣自動觸發鉤子、toolbar 提供「九界星圖」隨時重溫；新增 `tests/m2c_nine_realms_runner.gd`（exit 0，開局觸發、跳過、九界資料、標記零副作用、返回洞府、存檔重載不重複、重播無二次獎勵全通）；全量 12 項 Runner、Headless 啟動與 Web 匯出全部 PASS。詳見 `docs/verification/m2-c.md`。
 
@@ -68,6 +77,7 @@ M2-C 已完成（CLI／桌面路徑；全量 12 個 Runner 通過）。下一個
 M2-A 已完成（CLI／桌面路徑；實機觸控待 M2-D）。下一個主線依 ROADMAP 進入 M2-B（首次升境與可重播演出；相依 M2-A）。由舊依賴資料補齊第一個升境必需功法、配方、材料，實現首度境界突破演出。
 
 ## 本輪交付
+
 
 2026-09-19 M2-A：重構 `src/abode/living_abode.gd` 徹底接入 `GameSession`、`SaveManager`、`OfflineCoordinator` 與 `Onboarding`；擴充 `src/abode/abode_building.gd` 支援未建造狀態；修復 `web_storage_adapter.gd` 關鍵字衝突並增補 `AmountCompat.to_float()`；更新 `tests/living_abode_runner.gd` 並新增 `tests/m2a_abode_runner.gd`（exit 0，6 階段驗證全通）；全量 10 項 Runner、Headless 啟動與 Web 匯出全部 PASS。詳見 `docs/verification/m2-a.md`。
 

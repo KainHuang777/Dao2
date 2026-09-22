@@ -1,3 +1,22 @@
+[2026-09-21] Interactive Spirit Tree & Wood Chopping on Abode Island
+- Created src/abode/abode_tree.gd representing an interactive Spirit Tree on the island with contains_point detection, elastic shake animations, floating "+1 木材" label effects, and denial feedback.
+- Integrated spirit_tree into the world scene (Vector2(130, -190)) in src/abode/living_abode.gd and wired click detection in _pick_world.
+- Implemented _chop_spirit_tree() executing canonical gather command with resource_id="wood", respecting onboarding unlock prerequisites (unlocked after hut level 1) and storage capacity clamps.
+- Updated tests/living_abode_runner.gd to test spirit tree clicking and wood collection directly from the world scene. All 6 runners and Web release export exit with code 0.
+
+[2026-09-21] Building Catalog Direct Resource Panel Toggle Button
+- Added a direct "資源" button to the title bar of src/presentation/building_catalog.gd to the left of the density toggle button.
+- Connected resource_toggle_requested signal to _toggle_resources in src/abode/living_abode.gd, allowing users to toggle or view the resource overview directly from within the building catalogue while waiting for construction and upgrade thresholds.
+- Updated tests/m2d_responsive_ui_runner.gd to exercise opening resource panel directly through the catalogue title bar button. All runners and Web export exit code 0.
+
+[2026-09-21] Concurrent Building Catalog & Resource Panel Layout with Typography Density Controls
+- Decoupled visibility toggles between resource_panel and building_catalog in src/abode/living_abode.gd, allowing both panels to be displayed concurrently without mutually exclusive auto-closing.
+- Updated building selection from catalogue to keep building_catalog open while opening building detail drawer, enabling continuous inspection and upgrade operations.
+- Implemented side-by-side non-overlapping layout in wide/landscape mode (resource panel on left ~320px, building catalogue adjacent ~420px, building detail on right, and unobstructed center world view). Implemented vertical dual-split layout in portrait mode.
+- Added one-touch typography density control ("緊湊" / "標準") to both building_catalog and resource_panel, dynamically synchronizing font sizes (16px vs 19-20px), line separation, button heights (40px vs 54px), and label row spacing.
+- Adjusted building_catalog title bar and dialog margins to fit within safe margins across narrow 360 CSS px viewports.
+- Updated tests/m2d_responsive_ui_runner.gd with assertions for concurrent panels, non-overlapping positions, catalogue persistence upon item selection, and density synchronization. All 6 runners and Web release export exit with code 0.
+
 [2026-09-20] Web Test Server Automation Delivery
 - Created start_web_server.bat in project root and tools/start_web_server.ps1 for easy manual testing on fixed origin (http://127.0.0.1:4175).
 - Automatically verifies build/web/index.html and triggers headless Web export if missing.

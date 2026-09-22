@@ -1,6 +1,8 @@
 class_name SaveControls
 extends Control
 
+var _background: Panel
+var _column: VBoxContainer
 var _share_text: TextEdit
 var _legacy_text: TextEdit
 var _status_label: Label
@@ -8,40 +10,68 @@ var _status_label: Label
 func _ready() -> void:
 	_build_ui()
 
+func set_layout_bounds(bounds: Rect2) -> void:
+	position = bounds.position
+	size = bounds.size
+	if _background != null:
+		_background.size = size
+	if _column != null:
+		_column.position = Vector2(16, 16)
+		_column.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
+
 func _build_ui() -> void:
-	var column := VBoxContainer.new()
-	column.name = "SaveColumn"
-	column.position = Vector2(16, 16)
-	add_child(column)
-	var buttons := HBoxContainer.new()
+	_background = Panel.new()
+	_background.add_theme_stylebox_override("panel", UiTypography.dialog_surface())
+	_background.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(_background)
+	_column = VBoxContainer.new()
+	_column.name = "SaveColumn"
+	_column.add_theme_constant_override("separation", 10)
+	add_child(_column)
+	var buttons := HFlowContainer.new()
 	buttons.name = "SaveButtons"
-	column.add_child(buttons)
+	buttons.add_theme_constant_override("h_separation", 8)
+	buttons.add_theme_constant_override("v_separation", 8)
+	_column.add_child(buttons)
 	var export_button := Button.new()
 	export_button.name = "ExportButton"
 	export_button.text = "匯出存檔"
+	export_button.custom_minimum_size = Vector2(112, 44)
 	export_button.pressed.connect(_on_export_pressed)
 	buttons.add_child(export_button)
 	var import_button := Button.new()
 	import_button.name = "ImportButton"
 	import_button.text = "匯入存檔"
+	import_button.custom_minimum_size = Vector2(112, 44)
 	import_button.pressed.connect(_on_import_pressed)
 	buttons.add_child(import_button)
+	var close_button := Button.new()
+	close_button.name = "CloseButton"
+	close_button.text = "關閉"
+	close_button.custom_minimum_size = Vector2(88, 44)
+	close_button.pressed.connect(func(): visible = false)
+	buttons.add_child(close_button)
 	_share_text = TextEdit.new()
 	_share_text.name = "ShareText"
-	_share_text.custom_minimum_size = Vector2(360, 120)
-	column.add_child(_share_text)
+	_share_text.custom_minimum_size = Vector2(0, 120)
+	_share_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_column.add_child(_share_text)
 	var legacy_button := Button.new()
 	legacy_button.name = "LegacyImportButton"
 	legacy_button.text = "舊檔匯入"
+	legacy_button.custom_minimum_size = Vector2(112, 44)
 	legacy_button.pressed.connect(_on_legacy_import_pressed)
-	column.add_child(legacy_button)
+	_column.add_child(legacy_button)
 	_legacy_text = TextEdit.new()
 	_legacy_text.name = "LegacyText"
-	_legacy_text.custom_minimum_size = Vector2(360, 120)
-	column.add_child(_legacy_text)
+	_legacy_text.custom_minimum_size = Vector2(0, 120)
+	_legacy_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_column.add_child(_legacy_text)
 	_status_label = Label.new()
 	_status_label.name = "StatusLabel"
-	column.add_child(_status_label)
+	_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_column.add_child(_status_label)
+	set_layout_bounds(Rect2(position, size))
 
 func _on_export_pressed() -> void:
 	var encoded := SaveManager.export_share_string()

@@ -36,7 +36,8 @@ func _run() -> void:
 		return
 
 	# 2. First Gather triggers hook
-	abode._pick_world(abode.buildings["hut"].position)
+	abode._toggle_building_catalog()
+	abode._select_building_from_catalog("hut")
 	abode._gather_lingli()
 
 	if not state.tutorial_flags.get("seen_nine_realms_hook", false):

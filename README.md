@@ -11,7 +11,7 @@
 3. [AI 交接指南](docs/ai-handoff.md)：現有檔案、可重跑命令與可直接貼用的接手提示。
 4. [開發狀態](docs/development-status.md)：已實測／未完成／下一項工作。
 
-桌面 Web 的 **M0-A 原型驗收** 已完成，紀錄見 [M0-A 驗收](docs/verification/m0-a.md)；實體觸控／雙指會在 M2-D 補測。下一個主線為 **M0-B 固定舊版 fixture**，再建立 Amount／RNG 契約。周天計數已由獨立 probe 驗證保存，小洞府目前重載仍會重置，兩者是獨立探針。
+桌面 Web 的 **M0-A 原型驗收** 已完成，紀錄見 [M0-A 驗收](docs/verification/m0-a.md)；實體觸控／雙指會在 M2-D 補測。M0-B、M0-C 與 M1、M2-A～M2-C 已有各自驗收紀錄；下一個主線是 **M2-D 視覺、裝置與首切片放行**，先依 [響應式介面與 Web 畫布規格](docs/07-responsive-ui-web-spec.md) 實作並驗證桌面與手機版型。周天計數由獨立 probe 驗證保存，洞府存檔由 M1-C 起接入，兩者是獨立驗證路徑。
 
 ## 專題設計參考
 
@@ -24,6 +24,8 @@
 5. [塔防圖譜承接與具體視覺設計](docs/04-meridian-visual-integration.md)：工筆人物、經脈／五行、洞府與九界的整合，以及護山試煉提案。
 6. [Godot 環境與最小 Web 專案探針](docs/05-godot-environment-probe.md)：4.7.2 可攜式環境、Web export 與實際驗證結果。
 7. [第一分鐘的視覺與九界鉤子](docs/06-first-minute-visual-direction.md)：初入洞府、天外一瞥、後期九界的介面方向與 Godot 落地邊界。可直接開啟 [互動視覺原型](docs/visual-prototype/index.html) 體驗。
+8. [響應式介面與 Web 畫布規格](docs/07-responsive-ui-web-spec.md)：Godot 世界與 UI 的尺寸、抽屜、輸入及桌面／手機 Web 驗收規則。
+9. [建築呈現與修行境界擴充規格](docs/08-building-presentation-and-era-expansion.md)：資源設施清單、少量場景地標、Era 擴充與自由布置的前置條件。
 
 方向基線：Godot 4.7.2／GDScript／Compatibility／單執行緒 Web 起步；以 2D 分層美術與 2.5D 視差呈現宏觀世界。先驗證一界的玩法與畫面，再以資料內容擴展九界與宇宙。
 

@@ -83,12 +83,12 @@ func _run() -> void:
 		return
 
 	# Unlocks wooden_house and storage_lingli
-	if not abode.buildings.has("wooden_house") or not abode.buildings["wooden_house"].visible:
-		_fail("wooden_house must be unlocked at hut level 2")
+	if not abode.building_catalog.rows["wooden_house"].visible or abode.buildings["wooden_house"].visible:
+		_fail("wooden_house must unlock in the catalogue without an unplanned island prop")
 		return
 
-	if not abode.buildings.has("storage_lingli") or not abode.buildings["storage_lingli"].visible:
-		_fail("storage_lingli must be unlocked at hut level 2")
+	if not abode.building_catalog.rows["storage_lingli"].visible or abode.buildings["storage_lingli"].visible:
+		_fail("storage_lingli must unlock in the catalogue without an unplanned island prop")
 		return
 
 	# =========================================================

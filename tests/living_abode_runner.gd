@@ -17,6 +17,8 @@ func _run() -> void:
 	var abode = LivingAbodeScene.instantiate()
 	root.add_child(abode)
 	await process_frame
+	# Headless expand reports a square root viewport; exercise the desktop contract explicitly.
+	abode._layout_for_size(Vector2(1280, 720))
 	if not (abode.buildings.has("hut") and abode.buildings.has("garden") and abode.buildings.has("altar")):
 		_fail("The living abode must expose hut, garden, and altar buildings")
 		return
@@ -40,10 +42,26 @@ func _run() -> void:
 	if abode.state.levels["hut"] != 2 or abode.state.qi >= qi_before:
 		_fail("The selected building upgrade must update the independent state")
 		return
-	abode.buildings["garden"].visible = true
+	# Test spirit tree clicking and chopping wood directly from the world
+	var wood_before: float = abode.session.state.resources["wood"].value.to_float()
+	abode._pick_world(abode.spirit_tree.position + Vector2(0, -30))
+	var wood_after: float = abode.session.state.resources["wood"].value.to_float()
+	if wood_after <= wood_before:
+		_fail("Clicking spirit tree must chop and gather wood")
+		return
 	abode.session.state.buildings["herb_farm"] = 1
 	abode._refresh_hud()
-	abode._pick_world(abode.buildings["garden"].position + Vector2(0, -50))
+	if abode.buildings["garden"].visible:
+		_fail("Routine herb farm must not appear as an unplanned island prop")
+		return
+	abode._toggle_building_catalog()
+	if not abode.building_catalog.visible or not abode.building_catalog.rows["herb_farm"].visible:
+		_fail("The herb farm must be accessible in the building catalogue")
+		return
+	abode._select_building_from_catalog("herb_farm")
+	if abode.selected_id != "herb_farm" or not abode.info_panel.visible:
+		_fail("Selecting a catalogue building must open its detail panel")
+		return
 	abode._toggle_garden()
 	if abode.state.garden_running:
 		_fail("The garden detail action must pause its production line")

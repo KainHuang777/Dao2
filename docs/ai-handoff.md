@@ -8,6 +8,8 @@
 2. `ROADMAP.md`：產品目的、任務 ID、相依與完成定義。
 3. `docs/development-status.md`：實際進度與證據，找到當前未完成工作。
 4. 按任務讀 docs/02 技術架構、docs/00 舊規則來源；美術任務讀 docs/04、06。
+5. 涉及世界場景、HUD、輸入、畫面尺寸、Web shell 或 Web 匯出時，閱讀 `docs/07-responsive-ui-web-spec.md`；它規定 `1280×720` 構圖基準、Godot 響應式版型與瀏覽器證據，不可用固定畫布取代適配。
+6. 涉及新建築、修行境界（Era）擴充、島面與可布置空間時，閱讀 `docs/08-building-presentation-and-era-expansion.md`；多數建築進營造清單，只有有圖形化地基與獨立美術的少數地標可進世界場景。
 
 如果工具不自動讀 AGENTS.md，請在首個提示明確要求閱讀。歷史文件 docs/03 保留初期推理與案例，開發順序以根目錄 Roadmap 為準。不要因舊文有「下一步建立環境」而重裝。
 
@@ -120,4 +122,4 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 ## 可直接貼给下一個 AI 的提示
 
-> 請接續 E:\WORK\Dao2 的修仙問道 v2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md、docs/verification/m0-a.md 與 docs/verification/m0-b.md，核對實際程式與最新狀態。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。M0-A 的桌面 Web 驗收已完成，實體 touch/pinch 留在 M2-D；M0-B 已固定來源與代表性 fixture；接著執行 M0-C Amount 與 RNG 相容探針。舊碼 E:\Python\test1 和 GodTower 唯讀。不要把展示數值當原作經濟，不重做環境、不直接展開完整九界。交付實際檔案、命令與結果，更新開發狀態；未驗證項明確標示，不以 headless 測試宣稱觸控或畫質通過。
+> 請接續 E:\WORK\Dao2 的修仙問道 v2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md、docs/02-technical-architecture.md 與 docs/07-responsive-ui-web-spec.md，核對實際程式與最新狀態。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。M0-B、M0-C、M1 與 M2-A～M2-C 已有 CLI／桌面證據；目前主線為 M2-D，先完成 Godot 響應式版型與瀏覽器／實機驗收，不能以 runner 推定觸控、CSS 尺寸或畫質通過。舊碼 E:\Python\test1 和 GodTower 唯讀。不要把展示數值當原作經濟，不重做環境、不直接展開完整九界。交付實際檔案、命令與結果，更新開發狀態；未驗證項明確標示。

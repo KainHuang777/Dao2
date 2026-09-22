@@ -89,6 +89,8 @@ Dao2/
 
 `GameShell` 組成：WorldViewport → SceneRouter；CanvasLayer → TopStatus、GoalCard、BottomNavigation、DetailDrawer、ModalHost；EffectDirector 讀取事件。切換場景不會建立新 GameState，也不會停掉其他已啟用產線的規則推進。
 
+所有正式 Godot 畫面尺寸、`CanvasLayer`／`Control` 版面、Web canvas、觸控與瀏覽器驗收依 [響應式介面與 Web 畫布規格](07-responsive-ui-web-spec.md) 執行。`1280×720` 只作構圖基準；世界和 UI 不得以固定瀏覽器尺寸或生成 HTML 實作。
+
 ## 4. 指令、狀態與資料契約
 
 所有玩家行為使用 `Command{command_id,type,payload,expected_revision}`。Session 檢查 revision 與前置條件，成功回傳 `CommandResult{new_revision,events,changed_ids}`，失敗回傳具名原因，如 `INSUFFICIENT_RESOURCE`、`CAPACITY_REQUIREMENT`、`LIFESPAN_EXHAUSTED`。失敗指令不扣料。

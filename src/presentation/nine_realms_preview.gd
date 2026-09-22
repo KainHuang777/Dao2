@@ -19,10 +19,14 @@ var _cinematic_container: Control
 var _cinematic_label: Label
 var _skip_btn: Button
 
-var _overview_panel: PanelContainer
+var _overview_panel: Panel
+var _content_root: Control
+var _header_box: VBoxContainer
+var _footer: HBoxContainer
 var _title_label: Label
 var _subtitle_label: Label
 var _grid_container: GridContainer
+var _scroll: ScrollContainer
 var _close_btn: Button
 
 var _camera: Camera2D
@@ -39,6 +43,8 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_load_realms_data()
 	_build_ui()
+	resized.connect(_layout_for_viewport)
+	_layout_for_viewport()
 	visible = false
 
 func _load_realms_data() -> void:
@@ -81,7 +87,7 @@ func _build_ui() -> void:
 	_cinematic_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
 	_cinematic_label.position = Vector2(-400, -160)
 	_cinematic_label.size = Vector2(800, 80)
-	_cinematic_label.add_theme_font_override("font", FONT)
+	_cinematic_label.add_theme_font_override("font", UiTypography.body_font())
 	_cinematic_label.add_theme_font_size_override("font_size", 22)
 	_cinematic_label.add_theme_color_override("font_color", Color("e2f0e8"))
 	_cinematic_label.add_theme_color_override("font_outline_color", Color(0.01, 0.02, 0.03, 0.95))
@@ -93,83 +99,126 @@ func _build_ui() -> void:
 	_skip_btn.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_skip_btn.position = Vector2(-220, 24)
 	_skip_btn.size = Vector2(190, 44)
-	_skip_btn.add_theme_font_override("font", FONT)
-	_skip_btn.add_theme_font_size_override("font_size", 16)
+	_skip_btn.add_theme_font_override("font", UiTypography.body_font())
+	_skip_btn.add_theme_font_size_override("font_size", 18)
 	_skip_btn.pressed.connect(skip_cinematic)
 	_cinematic_container.add_child(_skip_btn)
 
 	# --- Overview Panel ---
-	_overview_panel = PanelContainer.new()
-	_overview_panel.set_anchors_preset(Control.PRESET_CENTER)
-	_overview_panel.custom_minimum_size = Vector2(1100, 620)
+	# Keep the header and close control outside the scroll viewport.  Long realm
+	# content may scroll, but closing the overlay must always remain possible.
+	_overview_panel = Panel.new()
+	_overview_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_overview_panel.custom_minimum_size = Vector2.ZERO
 	_overview_panel.position = Vector2(-550, -310)
 	var panel_style := StyleBoxFlat.new()
 	panel_style.bg_color = Color(0.015, 0.05, 0.07, 0.96)
 	panel_style.border_color = Color(0.78, 0.68, 0.38, 0.85)
 	panel_style.set_border_width_all(2)
 	panel_style.set_corner_radius_all(8)
-	panel_style.content_margin_left = 28
-	panel_style.content_margin_right = 28
-	panel_style.content_margin_top = 20
-	panel_style.content_margin_bottom = 20
 	_overview_panel.add_theme_stylebox_override("panel", panel_style)
 	add_child(_overview_panel)
 
-	var v_box := VBoxContainer.new()
-	v_box.add_theme_constant_override("separation", 14)
-	_overview_panel.add_child(v_box)
+	_content_root = Control.new()
+	_content_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_overview_panel.add_child(_content_root)
 
-	var header := HBoxContainer.new()
-	v_box.add_child(header)
-
-	var title_box := VBoxContainer.new()
-	header.add_child(title_box)
+	_header_box = VBoxContainer.new()
+	_header_box.add_theme_constant_override("separation", 4)
+	_header_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_content_root.add_child(_header_box)
 
 	_title_label = Label.new()
 	_title_label.text = "九界諸天 · 神識星圖"
-	_title_label.add_theme_font_override("font", FONT)
+	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	_title_label.add_theme_font_size_override("font_size", 26)
 	_title_label.add_theme_color_override("font_color", Color("fce2a6"))
-	title_box.add_child(_title_label)
+	_header_box.add_child(_title_label)
 
 	_subtitle_label = Label.new()
 	_subtitle_label.text = "天地有九界，法則各異。此時神識初開，可標記心儀道途，待得修為精深，方可踏破虛空。"
-	_subtitle_label.add_theme_font_override("font", FONT)
-	_subtitle_label.add_theme_font_size_override("font_size", 14)
-	_subtitle_label.add_theme_color_override("font_color", Color("a8c8b8"))
-	title_box.add_child(_subtitle_label)
+	_subtitle_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_subtitle_label.add_theme_font_override("font", UiTypography.body_font())
+	_subtitle_label.add_theme_font_size_override("font_size", 16)
+	_subtitle_label.add_theme_color_override("font_color", Color("e8f3ec"))
+	_header_box.add_child(_subtitle_label)
 
-	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(1040, 440)
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	v_box.add_child(scroll)
+	_scroll = ScrollContainer.new()
+	_scroll.custom_minimum_size = Vector2.ZERO
+	_scroll.mouse_filter = Control.MOUSE_FILTER_STOP
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_content_root.add_child(_scroll)
 
 	_grid_container = GridContainer.new()
 	_grid_container.columns = 3
 	_grid_container.add_theme_constant_override("h_separation", 16)
 	_grid_container.add_theme_constant_override("v_separation", 16)
-	scroll.add_child(_grid_container)
+	_scroll.add_child(_grid_container)
 
 	_build_realm_cards()
 
-	var footer := HBoxContainer.new()
-	footer.alignment = BoxContainer.ALIGNMENT_CENTER
-	v_box.add_child(footer)
+	_footer = HBoxContainer.new()
+	_footer.alignment = BoxContainer.ALIGNMENT_CENTER
+	_footer.mouse_filter = Control.MOUSE_FILTER_STOP
+	_content_root.add_child(_footer)
 
 	_close_btn = Button.new()
 	_close_btn.text = "收回神識 · 回到洞府"
 	_close_btn.custom_minimum_size = Vector2(240, 46)
-	_close_btn.add_theme_font_override("font", FONT)
+	_close_btn.add_theme_font_override("font", UiTypography.emphasis_font())
 	_close_btn.add_theme_font_size_override("font_size", 18)
 	_close_btn.pressed.connect(_on_close_pressed)
-	footer.add_child(_close_btn)
+	_footer.add_child(_close_btn)
 
+func _layout_for_viewport() -> void:
+	var vp: Vector2 = size
+	if vp.x <= 0.0 or vp.y <= 0.0 or _overview_panel == null:
+		return
+	var portrait: bool = vp.x < 640.0 or vp.x / vp.y < 1.25
+	var margin: float = 12.0 if portrait else 28.0
+	var panel_size := Vector2(minf(1100.0, vp.x - margin * 2.0), minf(620.0, vp.y - margin * 2.0))
+	_overview_panel.custom_minimum_size = Vector2.ZERO
+	_overview_panel.position = (vp - panel_size) * 0.5
+	_overview_panel.size = panel_size
+
+	var side_margin: float = 16.0 if portrait else 28.0
+	var top_margin: float = 16.0 if portrait else 20.0
+	var bottom_margin: float = 16.0 if portrait else 20.0
+	var header_height: float = 112.0 if portrait else 78.0
+	var footer_height: float = 46.0
+	var section_gap: float = 10.0
+	var inner_width: float = maxf(0.0, panel_size.x - side_margin * 2.0)
+	var scroll_height: float = maxf(72.0, panel_size.y - top_margin - header_height - section_gap * 2.0 - footer_height - bottom_margin)
+
+	_content_root.position = Vector2.ZERO
+	_content_root.size = panel_size
+	_header_box.position = Vector2(side_margin, top_margin)
+	_header_box.size = Vector2(inner_width, header_height)
+	_title_label.add_theme_font_size_override("font_size", 24 if portrait else 28)
+	_subtitle_label.add_theme_font_size_override("font_size", 16)
+	_scroll.position = Vector2(side_margin, top_margin + header_height + section_gap)
+	_scroll.size = Vector2(inner_width, scroll_height)
+	_scroll.custom_minimum_size = Vector2.ZERO
+	_footer.position = Vector2(side_margin, panel_size.y - bottom_margin - footer_height)
+	_footer.size = Vector2(inner_width, footer_height)
+
+	_cinematic_label.position = Vector2(-minf(400.0, vp.x * 0.45), -150)
+	_cinematic_label.size = Vector2(minf(800.0, vp.x * 0.90), 92)
+	_cinematic_label.add_theme_font_size_override("font_size", 18 if portrait else 22)
+	_skip_btn.position = Vector2(-minf(210.0, vp.x - 24.0), 16)
+	_skip_btn.size = Vector2(minf(190.0, vp.x - 32.0), 44)
+	if _grid_container != null:
+		_grid_container.columns = 1 if vp.x < 620.0 else (2 if vp.x < 940.0 else 3)
+		for entry in _card_nodes.values():
+			var card: PanelContainer = entry.get("card", null)
+			if card != null:
+				card.custom_minimum_size = Vector2(0, 210)
 var _card_nodes: Dictionary = {}
 
 func _build_realm_cards() -> void:
 	for realm in _realms_data:
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(330, 130)
+		card.custom_minimum_size = Vector2(0, 210)
 		var card_style := StyleBoxFlat.new()
 		card_style.set_border_width_all(1)
 		card_style.set_corner_radius_all(6)
@@ -188,29 +237,30 @@ func _build_realm_cards() -> void:
 
 		var name_lbl := Label.new()
 		name_lbl.text = realm.name
-		name_lbl.add_theme_font_override("font", FONT)
-		name_lbl.add_theme_font_size_override("font_size", 18)
+		name_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
+		name_lbl.add_theme_font_size_override("font_size", 20)
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		top_row.add_child(name_lbl)
 
 		var status_lbl := Label.new()
-		status_lbl.add_theme_font_override("font", FONT)
-		status_lbl.add_theme_font_size_override("font_size", 13)
+		status_lbl.add_theme_font_override("font", UiTypography.body_font())
+		status_lbl.add_theme_font_size_override("font_size", 16)
 		top_row.add_child(status_lbl)
 
 		var law_lbl := Label.new()
 		law_lbl.text = realm.title + " · " + realm.law_summary
-		law_lbl.add_theme_font_override("font", FONT)
-		law_lbl.add_theme_font_size_override("font_size", 13)
-		law_lbl.add_theme_color_override("font_color", Color("a5b4fc"))
+		law_lbl.add_theme_font_override("font", UiTypography.body_font())
+		law_lbl.add_theme_font_size_override("font_size", 17)
+		law_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		law_lbl.add_theme_color_override("font_color", Color("d9e3ff"))
 		card_vbox.add_child(law_lbl)
 
 		var desc_lbl := Label.new()
 		desc_lbl.text = realm.description
 		desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		desc_lbl.add_theme_font_override("font", FONT)
-		desc_lbl.add_theme_font_size_override("font_size", 12)
-		desc_lbl.add_theme_color_override("font_color", Color("cbd5e1"))
+		desc_lbl.add_theme_font_override("font", UiTypography.body_font())
+		desc_lbl.add_theme_font_size_override("font_size", 16)
+		desc_lbl.add_theme_color_override("font_color", Color("eef4fa"))
 		desc_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		card_vbox.add_child(desc_lbl)
 
@@ -222,8 +272,9 @@ func _build_realm_cards() -> void:
 			card_vbox.add_child(action_row)
 
 			aspire_btn = Button.new()
-			aspire_btn.add_theme_font_override("font", FONT)
-			aspire_btn.add_theme_font_size_override("font_size", 13)
+			aspire_btn.add_theme_font_override("font", UiTypography.emphasis_font())
+			aspire_btn.add_theme_font_size_override("font_size", 18)
+			aspire_btn.custom_minimum_size = Vector2(150, 44)
 			var r_id: String = realm.id
 			aspire_btn.pressed.connect(func(): _on_aspire_pressed(r_id))
 			action_row.add_child(aspire_btn)
@@ -271,7 +322,7 @@ func _update_realm_cards() -> void:
 			style.border_color = Color(0.20, 0.35, 0.40, 0.50)
 			name_lbl.add_theme_color_override("font_color", Color("ffffff"))
 			status_lbl.text = "【神識遠眺 · 未解鎖】"
-			status_lbl.add_theme_color_override("font_color", Color("94a3b8"))
+			status_lbl.add_theme_color_override("font_color", Color("d5e2ec"))
 			if aspire_btn:
 				aspire_btn.text = "標記嚮往"
 				aspire_btn.disabled = false

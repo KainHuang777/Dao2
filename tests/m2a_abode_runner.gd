@@ -37,8 +37,8 @@ func _run() -> void:
 		_fail("Blank opening must start with 0 lingli, got: %f" % qi_amount)
 		return
 
-	if not abode.buildings.has("hut") or not abode.buildings["hut"].visible:
-		_fail("Hut must be visible at start")
+	if not abode.building_catalog.rows["hut"].visible or abode.buildings["hut"].visible:
+		_fail("Unbuilt hut must be in the catalogue without an unplanned world marker")
 		return
 
 	if abode.buildings.has("wooden_house") and abode.buildings["wooden_house"].visible:
@@ -50,9 +50,10 @@ func _run() -> void:
 		return
 
 	# 2. Manual Start (Gather)
-	abode._pick_world(abode.buildings["hut"].position)
+	abode._toggle_building_catalog()
+	abode._select_building_from_catalog("hut")
 	if abode.selected_id != "hut" or not abode.info_panel.visible:
-		_fail("Picking hut must open info panel")
+		_fail("Selecting hut in the catalogue must open info panel")
 		return
 
 	if not abode.upgrade_button.disabled:
@@ -127,8 +128,8 @@ func _run() -> void:
 	if reloaded.session.state.buildings.get("hut", 0) != 2:
 		_fail("Reloaded abode must preserve hut level 2, got: %d" % reloaded.session.state.buildings.get("hut", 0))
 		return
-	if not reloaded.buildings["wooden_house"].visible:
-		_fail("Reloaded abode must preserve unlocked wooden house visibility")
+	if not reloaded.building_catalog.rows["wooden_house"].visible or reloaded.buildings["wooden_house"].visible:
+		_fail("Reloaded wooden house must remain in the catalogue without an unplanned island sprite")
 		return
 
 	# 6. Motion Toggle Production Determinism
