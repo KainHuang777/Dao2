@@ -1,4 +1,15 @@
+[2026-09-22] M3-A Reincarnation & Samsara Lifecycle Delivery
+- Extended GameState with meta-progress persistence fields: reincarnation_count, highest_era, dao_heart (AmountCompat), dao_proof, and talents.
+- Added backward-compatible serialization and decoding for reincarnation and talent fields in SaveCodec.
+- Created src/simulation/reincarnation_rules.gd implementing canonical reincarnation reward formulas (B/10, era floor 0/15/20/25, dao proof B/50 and B/30), qualification gating (lifespan exhaustion or era >= 2), state reset, and starting resource inheritance (40% on rebirth 1, 80% on rebirth >= 2, +10% per talent level).
+- Created src/simulation/talent_system.gd implementing initial Dao Heart talents (resource_inheritance, lifespan_extension, innate_dao_body), dao heart consumption, and multiplier calculations.
+- Integrated "reincarnate" and "learn_talent" commands into CommandProcessor, GameSession, and KNOWN_COMMAND_TYPES.
+- Connected talent lifespan bonus and global dao heart production multiplier to TimeAdvancer and GameSession.get_view().
+- Created tests/m3a_reincarnation_runner.gd verifying golden fixture parity against m0-b-v1.json, eligibility gating, reincarnation execution, state reset/meta preserve, talent learning, multipliers, and save roundtrip persistence (Exit 0).
+- All 15 Godot test runners and Web release export passed with exit code 0.
+
 [2026-09-21] Interactive Spirit Tree & Wood Chopping on Abode Island
+
 - Created src/abode/abode_tree.gd representing an interactive Spirit Tree on the island with contains_point detection, elastic shake animations, floating "+1 木材" label effects, and denial feedback.
 - Integrated spirit_tree into the world scene (Vector2(130, -190)) in src/abode/living_abode.gd and wired click detection in _pick_world.
 - Implemented _chop_spirit_tree() executing canonical gather command with resource_id="wood", respecting onboarding unlock prerequisites (unlocked after hut level 1) and storage capacity clamps.

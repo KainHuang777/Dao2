@@ -27,9 +27,11 @@
 | M2-B | DONE（CLI／桌面路徑；全量 11 個 Runner 通過） | 2026-09-19 交付首次升境規則、Era 2（築基期）定義、小階修煉積累、大境界突破容量門檻（不扣庫存）、突破演出場景控制器（可跳過／可重播不重發）、洞府天象反饋與 `m2b_breakthrough_runner.gd`（exit 0）；詳見 `docs/verification/m2-b.md`。 |
 | M2-C | DONE（CLI／桌面路徑；全量 12 個 Runner 通過） | 2026-09-19 交付第一分鐘九界鉤子、引氣事件觸發、6–8 秒可跳過相機抽遠、九界法則願景預覽、標記嚮往（零副作用契約）、返回洞府、存檔持久化防重複與 `m2c_nine_realms_runner.gd`（exit 0）；詳見 `docs/verification/m2-c.md`。 |
 | M2-D | IN_PROGRESS（CLI／Web 匯出通過；AGY 營造清單重測待辦） | AGY 否決了十地塊浮島方案；現改成茅屋地標＋營造清單，並修正 Era 2 先前建築消失。Godot CLI 通過，仍待 AGY 驗證真實清單操作、地形、CSS 清晰度、觸控與效能。 |
-| M3-A/B | TODO | 多世循環與舊系統矩陣 |
+| M3-A | DONE（核心 Domain／Simulation／Persistence 閉環通過） | 2026-09-22 交付輪迴轉世規則（道心保底、道證換算、起手傳承）、資格門檻、首批道心天賦、命令處理、壽元加成與存檔持久化；`tests/m3a_reincarnation_runner.gd` 與全量 15 個 Runner 通過（exit 0）。輪迴/天賦 UI 面板待後續呈現。 |
+| M3-B | TODO | 舊系統矩陣（丹藥、天時、宗門、機緣、靈獸、成就） |
 | M4-A/B | TODO | 第二界可玩差異、正式尺度與法則資料 |
 | M5-A/B | TODO | 按需生成、封存與逐界內容 |
+
 
 目前無已確認的外部阻塞；未選定基準手機與實機測量仍待安排。不因這一項未知而停掉可做的 CLI／fixture 工作。
 
@@ -48,7 +50,10 @@ M2-D 已完成新營造清單的 CLI 與 Web 匯出驗證。請在 AGY 由新檔
 
 ## 本輪交付
 
+2026-09-22 M3-A 輪迴轉世機制閉環：擴充 `GameState` 跨世持久化欄位（`reincarnation_count`、`highest_era`、`dao_heart`、`dao_proof`、`talents`），並在 `SaveCodec` 實現向後相容解碼。新增 `src/simulation/reincarnation_rules.gd`，嚴格對齊唯讀來源黃金測資（建築等級總和 $B$、道心 $B/10$、保底 0/15/20/25、道證 $B/50$ 與 $B/30$、起始資源傳承比率 40%/80%）；新增 `src/simulation/talent_system.gd` 實現道心天賦購買（資源傳承、長生久視、先天道體）與全局產率/壽元倍率；`CommandProcessor` 接入 `reincarnate` 與 `learn_talent`；`TimeAdvancer` 接入天賦壽元與產率加成；`GameSession` 暴露輪迴預覽、便利命令與完整視圖。新增 `tests/m3a_reincarnation_runner.gd`（exit 0，黃金測資比對、資格門檻、狀態重置與傳承、天賦生效、存檔往返全數 PASS）。全量 15 項 Runner 與 Web export 均 exit 0。
+
 2026-09-20 M2-D 營造呈現修訂：AGY 第二張測試圖顯示上一版十地塊的加號與名稱牌缺少圖形化空地、部分貼近崖壁；該方案已廢止。新增 `src/presentation/building_catalog.gd`、`docs/08-building-presentation-and-era-expansion.md`，修改 `src/abode/living_abode.gd`／`abode_building.gd`：未建建築由清單操作，建成茅屋才進世界，其他一般資源設施留在清單；同一 `GameSession`／建築 ID／存檔規則不變。修正 `src/application/game_session.gd` 於 Era 2 隱藏已建／早期建築的顯示錯誤。更新 `AGENTS.md`、README、Roadmap、`docs/07-responsive-ui-web-spec.md`、AI 交接與 M2-D 驗證，以及六個受影響 runner。Godot import、七個相關 runner 與 Web export 均 exit 0。未通過項：Codex CUA 瀏覽器啟動失敗、headless Edge 只截到 Godot 載入畫面；AGY 實際清單、地景、滑鼠／觸控、手機及效能待驗。下一個任務仍是 M2-D AGY／裝置驗收；聚靈壇世界地標必須等專屬圖與預備地基，不自動排到島上。
+
 
 2026-09-20 M2-D 資源與建築畫面（已否決的中間方案，保留歷史）：AGY 截圖顯示茅屋 2 階後左上資源列撐破面板，待建木屋／庫房用完整圖擠到崖邊。修改 `src/abode/living_abode.gd`，將左上限為單行摘要，完整列表改入可捲動且可關閉的 Godot 資源面板；狀態高度推開縮放鍵，短橫式無空間時收起該列，十個地塊重排在草地上。修改 `src/abode/abode_building.gd`，待建只畫可選地基，建成才顯示完整圖，保持可讀底牌與不互蓋的命中區。更新 `tests/m2d_responsive_ui_runner.gd`、`docs/07-responsive-ui-web-spec.md`、`docs/verification/m2-d.md`。Godot import、七個相關 runner 與 Web export 均 exit 0；本機 Web 頁 HTTP 200。未通過項：AGY 實際草地配置、滑鼠／觸控命中、CSS 字級與效能尚無新證據。下一個任務仍為 M2-D 的 AGY 視覺及裝置驗收；正式建築美術與新浮島分區另按需求排程。
 

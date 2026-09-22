@@ -10,6 +10,11 @@ var total_elapsed_seconds: float = 0.0
 var resources: Dictionary = {}
 var buildings: Dictionary = {}
 var tutorial_flags: Dictionary = {}
+var reincarnation_count: int = 0
+var highest_era: int = 1
+var dao_heart: AmountCompat = AmountCompat.zero()
+var dao_proof: int = 0
+var talents: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -20,6 +25,11 @@ func duplicate_state() -> GameState:
 	copy.training_seconds = training_seconds
 	copy.total_elapsed_seconds = total_elapsed_seconds
 	copy.tutorial_flags = tutorial_flags.duplicate(true)
+	copy.reincarnation_count = reincarnation_count
+	copy.highest_era = highest_era
+	copy.dao_heart = dao_heart.duplicate_amount() if dao_heart != null else AmountCompat.zero()
+	copy.dao_proof = dao_proof
+	copy.talents = talents.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -53,4 +63,10 @@ func to_snapshot_dict() -> Dictionary:
 		"resources": resource_snapshot,
 		"buildings": building_snapshot,
 		"tutorial_flags": tutorial_flags.duplicate(true),
+		"reincarnation_count": reincarnation_count,
+		"highest_era": highest_era,
+		"dao_heart": dao_heart.serialize() if dao_heart != null else "0",
+		"dao_proof": dao_proof,
+		"talents": talents.duplicate(true),
 	}
+

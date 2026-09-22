@@ -23,7 +23,9 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 		var era_multiplier := 1.0
 		if era_def != null:
 			era_multiplier = float(era_def.resource_multiplier)
-		var rates := Production.compute_rates(content, state.buildings, era_multiplier)
+		var multipliers := TalentSystem.compute_multipliers(state)
+		var total_res_multiplier := era_multiplier * float(multipliers.global_production_multiplier)
+		var rates := Production.compute_rates(content, state.buildings, total_res_multiplier)
 		var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
 		for resource_id in state.resources:
 			var entry: Dictionary = state.resources[resource_id]
@@ -41,7 +43,8 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 				if not changed_set.has(key):
 					changed_set[key] = true
 					changed_ids.append(key)
-		state.training_seconds += float(SECONDS_PER_TICK)
+		var training_speed := 1.0 + float(multipliers.cultivation_speed_bonus)
+		state.training_seconds += float(SECONDS_PER_TICK) * training_speed
 		if era_def != null:
 			var required := float(Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0))
 			var max_level := int(era_def.max_level)
@@ -56,7 +59,7 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 						changed_set["level"] = true
 						changed_ids.append("level")
 		state.total_elapsed_seconds += float(SECONDS_PER_TICK)
-		var max_seconds := float(Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id))
+		var max_seconds := float(Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(multipliers.lifespan_bonus)))
 		if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 			events.append({
 				"kind": "lifespan_exhausted",

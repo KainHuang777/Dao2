@@ -15,7 +15,12 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_level_up(content, state, command.payload)
 		"breakthrough_era":
 			return _apply_breakthrough(content, state, command.payload)
+		"reincarnate":
+			return _apply_reincarnate(content, state, command.payload)
+		"learn_talent":
+			return _apply_learn_talent(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
+
 
 static func level_cap(definition: Dictionary) -> int:
 	return mini(int(definition.max_level), GLOBAL_BASE_LEVEL_CAP)
@@ -161,6 +166,16 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 		"events": [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}],
 		"changed_ids": ["era_id", "cultivation_level"]
 	}
+
+static func _apply_reincarnate(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var mode: String = String(payload.get("mode", "normal"))
+	return ReincarnationRules.apply_reincarnation(state, content, mode)
+
+static func _apply_learn_talent(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var talent_id: String = String(payload.get("talent_id", ""))
+	if talent_id.is_empty():
+		return _failure("EMPTY_TALENT_ID", {})
+	return TalentSystem.learn(state, talent_id)
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:
 	var result := {"ok": false, "error": error, "events": [], "changed_ids": []}

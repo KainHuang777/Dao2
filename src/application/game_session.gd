@@ -1,7 +1,7 @@
 class_name GameSession
 extends RefCounted
 
-const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building", "level_up_cultivation", "breakthrough_era"]
+const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building", "level_up_cultivation", "breakthrough_era", "reincarnate", "learn_talent"]
 const COMMAND_REGISTRY_LIMIT := 256
 
 var content: GameContent
@@ -126,7 +126,8 @@ func get_view() -> Dictionary:
 			"affordable": affordable,
 		}
 	var era_def = content.era(state.era_id)
-	var max_lifespan := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id)
+	var talent_lifespan_bonus := float(state.talents.get("lifespan_extension", 0)) * 0.1
+	var max_lifespan := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus)
 	var next_required := 0.0
 	var era_view := {}
 	var can_level_up := false
@@ -180,7 +181,46 @@ func get_view() -> Dictionary:
 		"resources": resources,
 		"buildings": buildings,
 		"next_objective": unlock.next_objective,
+		"reincarnation_count": state.reincarnation_count,
+		"highest_era": state.highest_era,
+		"dao_heart": state.dao_heart.serialize() if state.dao_heart != null else "0",
+		"dao_proof": state.dao_proof,
+		"talents": state.talents.duplicate(true),
+		"multipliers": TalentSystem.compute_multipliers(state),
+		"reincarnation_preview": get_reincarnation_preview(),
 	}
+
+func reincarnate(mode: String = "normal") -> Dictionary:
+	return submit({
+		"command_id": "reincarnate_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "reincarnate",
+		"expected_revision": state.revision,
+		"payload": {"mode": mode},
+	})
+
+func learn_talent(talent_id: String) -> Dictionary:
+	return submit({
+		"command_id": "learn_talent_" + talent_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "learn_talent",
+		"expected_revision": state.revision,
+		"payload": {"talent_id": talent_id},
+	})
+
+func get_reincarnation_preview(mode: String = "normal") -> Dictionary:
+	var b_sum := ReincarnationRules.building_level_sum(state.buildings)
+	var reward := ReincarnationRules.compute_reward(b_sum, state.era_id, mode)
+	var check := ReincarnationRules.check_eligibility(state, content)
+	return {
+		"eligible": bool(check.get("can_reincarnate", false)),
+		"reason": String(check.get("reason", "")),
+		"building_sum": b_sum,
+		"dao_heart": (reward["dao_heart"] as AmountCompat).serialize(),
+		"dao_proof": reward["dao_proof"],
+		"era_floor": reward["era_floor"],
+		"current_reincarnation_count": state.reincarnation_count,
+		"next_reincarnation_count": state.reincarnation_count + 1,
+	}
+
 
 func _is_valid_shape(command: Dictionary) -> bool:
 	if typeof(command) != TYPE_DICTIONARY:
@@ -206,9 +246,15 @@ func _is_valid_shape(command: Dictionary) -> bool:
 			var building_id = payload.get("building_id")
 			if typeof(building_id) != TYPE_STRING or String(building_id).is_empty():
 				return false
-		"level_up_cultivation", "breakthrough_era":
+		"level_up_cultivation", "breakthrough_era", "reincarnate":
+			return true
+		"learn_talent":
+			var talent_id = payload.get("talent_id")
+			if typeof(talent_id) != TYPE_STRING or String(talent_id).is_empty():
+				return false
 			return true
 	return true
+
 
 func _remember(command_id: String, result: Dictionary) -> void:
 	if not _results.has(command_id):

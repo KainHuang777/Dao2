@@ -175,7 +175,32 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["tutorial_flags"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:tutorial_flags"}
 		state.tutorial_flags = (snapshot_dict["tutorial_flags"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("reincarnation_count"):
+		if not _is_int(snapshot_dict["reincarnation_count"]):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:reincarnation_count"}
+		state.reincarnation_count = _to_int(snapshot_dict["reincarnation_count"])
+	if snapshot_dict.has("highest_era"):
+		if not _is_int(snapshot_dict["highest_era"]):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:highest_era"}
+		state.highest_era = _to_int(snapshot_dict["highest_era"])
+	if snapshot_dict.has("dao_heart"):
+		var raw_dh = snapshot_dict["dao_heart"]
+		if raw_dh is String:
+			var dh_result := AmountCompat.try_parse(raw_dh)
+			if bool(dh_result.get("ok", false)):
+				state.dao_heart = dh_result["value"]
+		elif _is_number(raw_dh):
+			state.dao_heart = AmountCompat.from_number(_to_float(raw_dh))
+	if snapshot_dict.has("dao_proof"):
+		if not _is_int(snapshot_dict["dao_proof"]):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:dao_proof"}
+		state.dao_proof = _to_int(snapshot_dict["dao_proof"])
+	if snapshot_dict.has("talents"):
+		if not (snapshot_dict["talents"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:talents"}
+		state.talents = (snapshot_dict["talents"] as Dictionary).duplicate(true)
 	return {"ok": true, "state": state, "error": ""}
+
 
 static func _is_int(value: Variant) -> bool:
 	if value is int:
