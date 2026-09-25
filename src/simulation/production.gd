@@ -8,7 +8,7 @@ static func compute_rates(content: GameContent, buildings: Dictionary, resource_
 	var rates := {}
 	for resource_id in content.resource_ids:
 		var definition: Dictionary = content.resources[resource_id]
-		rates[resource_id] = AmountCompat.from_number(float(definition.rate) * resource_multiplier)
+		rates[resource_id] = AmountCompat.from_number(float(definition.rate))
 	for building_id in content.building_ids:
 		var definition: Dictionary = content.buildings[building_id]
 		var level := int(buildings.get(building_id, 0))
@@ -26,6 +26,8 @@ static func compute_rates(content: GameContent, buildings: Dictionary, resource_
 						rates[resource_id] = rates[resource_id].add(scaled)
 			elif rates.has(String(key)):
 				rates[key] = rates[key].add(scaled)
+	for resource_id in rates:
+		rates[resource_id] = rates[resource_id].multiply(AmountCompat.from_number(resource_multiplier))
 	return rates
 
 static func compute_caps(content: GameContent, buildings: Dictionary, era_id: int, onboarding_version: int) -> Dictionary:

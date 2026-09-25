@@ -1,0 +1,109 @@
+extends SceneTree
+
+const SCENE_PATH := "res://scenes/living_abode.tscn"
+const TEST_SAVE_DIR := "user://m3a_reincarnation_ui_test_saves"
+var _failed: bool = false
+
+func _init() -> void:
+	_run()
+
+func _run() -> void:
+	var abode_script = load("res://src/abode/living_abode.gd")
+	abode_script.save_dir_override = TEST_SAVE_DIR
+	var slots := SaveSlots.new(FileStorageAdapter.new(TEST_SAVE_DIR))
+	slots.reset()
+
+	var abode = load(SCENE_PATH).instantiate()
+	root.add_child(abode)
+	await process_frame
+
+	print("--- Running M3-A Reincarnation UI Runner ---")
+
+	# 1. 初始狀態與面板開關
+	abode._layout_for_size(Vector2(1280, 720))
+	_expect(abode.more_menu.visible and not abode.reincarnation_button.visible, "wide desktop toolbar must place reincarnation in More")
+	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be closed initially")
+
+	abode._on_more_menu_pressed(6)
+	_expect(abode.reincarnation_panel.visible, "More menu reincarnation action must open the panel")
+	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled for new game (Era 1, full lifespan)")
+	_expect(abode.reincarnation_panel._eligibility_label.text.find("需突破至築基期") >= 0, "eligibility label must explain requirement")
+
+	# 2. 分頁切換至道心天賦
+	abode.reincarnation_panel._talents_button.pressed.emit()
+	_expect(abode.reincarnation_panel._talents_box.visible and not abode.reincarnation_panel._reincarnate_box.visible, "switching tab must show talents box and hide reincarnate box")
+
+	var row_inher: PanelContainer = abode.reincarnation_panel._talent_rows.get("resource_inheritance", null)
+	_expect(row_inher != null, "resource_inheritance talent row must exist")
+	var btn_learn: Button = row_inher.find_child("LearnButton", true, false)
+	_expect(btn_learn != null and btn_learn.disabled, "learn button must be disabled when dao heart is 0")
+
+	# 3. 道心注入與天賦參悟
+	abode.session.state.dao_heart = AmountCompat.from_number(50.0)
+	abode._refresh_hud()
+	_expect(not btn_learn.disabled, "learn button must be enabled when player has 50 dao heart (cost=5)")
+
+	btn_learn.pressed.emit()
+	_expect(int(abode.session.state.talents.get("resource_inheritance", 0)) == 1, "resource_inheritance level must become 1")
+	_expect(abode.session.state.dao_heart.to_float() == 45.0, "dao heart must be deducted from 50 to 45")
+	var name_label: Label = row_inher.find_child("TalentName", true, false)
+	_expect(name_label.text.find("[1 / 10 階]") >= 0, "talent row label must reflect new level [1 / 10 階]")
+
+	# 4. 達成轉世資格與轉世執行
+	abode.reincarnation_panel._reincarnate_button.pressed.emit()
+	_expect(abode.reincarnation_panel._reincarnate_box.visible, "switching back must show reincarnate box")
+
+	# 模擬築基並建造部分建築
+	abode.session.state.era_id = 2
+	abode.session.state.buildings["hut"] = 3
+	abode.session.state.buildings["wooden_house"] = 2
+	abode._refresh_hud()
+
+	_expect(abode.more_menu.text.find("★") >= 0 and abode.more_menu.get_popup().get_item_text(abode.more_menu.get_popup().get_item_index(6)).find("★") >= 0, "eligible reincarnation must highlight the visible More entry")
+	_expect(not abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be enabled when era >= 2")
+	_expect(abode.reincarnation_panel._eligibility_label.text.find("築基期") >= 0, "eligibility label must display era qualification")
+
+	# 執行轉世
+	abode.reincarnation_panel._reincarnate_action_button.pressed.emit()
+	await process_frame
+
+	_expect(abode.session.state.reincarnation_count == 1, "reincarnation count must be 1 after reincarnating")
+	_expect(abode.session.state.era_id == 1, "era must reset to 1 (练气期)")
+	_expect(abode.session.state.buildings.is_empty(), "island buildings must be reset to empty")
+	# 45 (剩餘) + 15 (二階保底) = 60
+	_expect(abode.session.state.dao_heart.to_float() == 60.0, "dao heart must be updated to 60 (45 remaining + 15 floor)")
+	# 第 1 世傳承比例：基礎 40% + 資源傳承天賦 1 階 10% = 50%
+	var lingli_val: float = abode.session.state.resources["lingli"].value.to_float()
+	_expect(lingli_val == 50.0, "inherited lingli must be 50.0 (50% of cap 100)")
+	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be automatically closed upon rebirth")
+
+	# 5. 直式版型與 more_menu 整合
+	abode._layout_for_size(Vector2(360, 640))
+	_expect(abode.more_menu.visible, "more_menu must be visible in portrait layout")
+	_expect(not abode.reincarnation_button.visible, "toolbar reincarnation button must be hidden in portrait layout")
+
+	abode._on_more_menu_pressed(6)
+	abode._layout_for_size(Vector2(360, 640))
+	_expect(abode.reincarnation_panel.visible, "more_menu item 6 must toggle reincarnation panel in portrait layout")
+	_expect(abode.reincarnation_panel.size.x <= 360.0, "reincarnation panel must fit within 360 CSS px bounds")
+	_expect(abode.reincarnation_panel.position.x >= 0.0, "reincarnation panel position must be inside screen")
+
+
+	# 關閉面板
+	abode.reincarnation_panel._close_button.pressed.emit()
+	_expect(not abode.reincarnation_panel.visible, "clicking close button must close the panel")
+
+	slots.reset()
+
+	if _failed:
+		print("FAIL: M3-A reincarnation UI tests failed.")
+		quit(1)
+	else:
+		print("PASS: M3-A reincarnation UI, talent purchasing, responsive layouts, and state transitions.")
+		quit(0)
+
+func _expect(cond: bool, msg: String) -> void:
+	if not cond:
+		push_error("FAILED: " + msg)
+		print("FAILED: ", msg)
+		_failed = true

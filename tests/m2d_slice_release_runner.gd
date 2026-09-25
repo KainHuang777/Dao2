@@ -32,16 +32,16 @@ func _run() -> void:
 		_fail("Initial lingli must be 0, got: %f" % qi_amount)
 		return
 
-	# First Gather -> triggers Nine Realms Hook
+	# First Gather does NOT trigger hook (UX change: hook moved to first reincarnation)
 	abode._gather_lingli()
-	if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
-		_fail("seen_nine_realms_hook must be true after first gather")
+	if session.state.tutorial_flags.get("seen_nine_realms_hook", false):
+		_fail("seen_nine_realms_hook must remain false after first gather")
 		return
 
-	# Skip cinematic -> Overview visible
-	abode.nine_realms_preview.skip_cinematic()
+	# Can open Nine Realms Overview via menu to verify aspire functionality
+	abode._open_nine_realms_overview()
 	if not abode.nine_realms_preview._overview_panel.visible:
-		_fail("Overview panel must be open after cinematic skip")
+		_fail("Overview panel must be open after opening overview")
 		return
 
 	# Aspire to spirit realm (zero side-effect verification)
@@ -159,6 +159,16 @@ func _run() -> void:
 	if mem_growth_kb > 1500.0:
 		_fail("Excessive memory growth across 50 switches: %.2f KB" % mem_growth_kb)
 		return
+
+	# First reincarnation triggers hook
+	abode._on_reincarnate_requested("normal")
+	if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
+		_fail("seen_nine_realms_hook must be true after first reincarnation")
+		return
+	if abode.nine_realms_preview != null and abode.nine_realms_preview.visible:
+		abode.nine_realms_preview.skip_cinematic()
+		abode.nine_realms_preview._on_close_pressed()
+	session.state.era_id = 2
 
 	# =========================================================
 	# Step 5: Save & Reopen Consistency

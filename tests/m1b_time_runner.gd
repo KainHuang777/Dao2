@@ -91,9 +91,9 @@ func _test_lifespan_vectors() -> void:
 
 func _test_ticks() -> void:
     _expect_equal(TimeAdvancer.ticks_for_elapsed(0), 0, "ticks_for_elapsed(0)")
-    _expect_equal(TimeAdvancer.ticks_for_elapsed(59), 0, "ticks_for_elapsed(59)")
-    _expect_equal(TimeAdvancer.ticks_for_elapsed(60), 1, "ticks_for_elapsed(60)")
-    _expect_equal(TimeAdvancer.ticks_for_elapsed(600), 10, "ticks_for_elapsed(600)")
+    _expect_equal(TimeAdvancer.ticks_for_elapsed(0.99), 0, "ticks_for_elapsed(0.99)")
+    _expect_equal(TimeAdvancer.ticks_for_elapsed(1), 1, "ticks_for_elapsed(1)")
+    _expect_equal(TimeAdvancer.ticks_for_elapsed(600), 600, "ticks_for_elapsed(600)")
     _expect_equal(TimeAdvancer.ticks_for_elapsed(-60), 0, "ticks_for_elapsed(-60)")
 
 func _test_segmented_equals_once() -> void:
@@ -104,7 +104,7 @@ func _test_segmented_equals_once() -> void:
     session_a.state.buildings["hut"] = 1
     var result_a := session_a.advance_time(600.0)
     _expect_equal(int(result_a.new_revision), 1, "session A revision")
-    _expect_equal(result_a.ticks_advanced, 10, "session A ticks advanced")
+    _expect_equal(result_a.ticks_advanced, 600, "session A ticks advanced")
     _expect_equal(session_a.state.total_elapsed_seconds, 600.0, "session A total_elapsed_seconds")
     # Session B: ten times advance_time(60.0)
     var session_b := GameSession.create_new_game(content)
@@ -126,7 +126,7 @@ func _test_capacity_clamp() -> void:
     var session := GameSession.create_new_game(content)
     session.state.buildings["hut"] = 1
     var result := session.advance_time(4800.0)
-    _expect_equal(result.ticks_advanced, 80, "capacity clamp ticks advanced to lifespan limit")
+    _expect_equal(result.ticks_advanced, 4800, "capacity clamp ticks advanced to lifespan limit")
     _expect_equal(result.stopped, "lifespan_exhausted", "capacity clamp stops at lifespan")
     var view := session.get_view()
     var lingli_parsed := AmountCompat.try_parse(view.resources.lingli.value)
@@ -148,12 +148,18 @@ func _test_level_up_consumes_and_resets_training() -> void:
     var session := GameSession.create_new_game(content)
     session.state.resources.lingli.value = AmountCompat.from_number(100.0)
     var result := session.advance_time(60.0)
+    _expect_equal(session.state.level, 1, "time alone does not spend resources or level up")
+    _expect_equal(session.state.training_seconds, 60.0, "time accumulates training")
+    _expect_equal(session.state.resources.lingli.value.serialize(), "100", "time does not consume lingli")
+    _expect(result.events.is_empty(), "time emits no level-up event")
+    var leveled := session.submit({"command_id": "manual-level", "type": "level_up_cultivation", "expected_revision": session.state.revision, "payload": {}})
+    _expect(bool(leveled.ok), "manual level-up command succeeds")
     _expect_equal(session.state.level, 2, "level up consumes and resets training level 2")
     _expect_equal(session.state.training_seconds, 0.0, "level up consumes and resets training 0.0")
     var view := session.get_view()
     var lingli_parsed := AmountCompat.try_parse(view.resources.lingli.value)
     _expect_close(lingli_parsed.value.mag, 50.0, 0.0001, "level up consumes lingli to 50")
-    _expect(result.changed_ids.has("level"), "level up changed_ids contains level")
+    _expect(leveled.changed_ids.has("cultivation_level"), "manual level up reports cultivation level")
 
 func _test_age_not_reset_by_level_up() -> void:
     var content := _load_content()
@@ -162,6 +168,8 @@ func _test_age_not_reset_by_level_up() -> void:
     session.state.total_elapsed_seconds = 1000.0
     session.state.resources.lingli.value = AmountCompat.from_number(100.0)
     var result := session.advance_time(60.0)
+    var leveled := session.submit({"command_id": "age-level", "type": "level_up_cultivation", "expected_revision": session.state.revision, "payload": {}})
+    _expect(bool(leveled.ok), "age test manual level-up succeeds")
     _expect_equal(session.state.total_elapsed_seconds, 1060.0, "age not reset total_elapsed 1060.0")
     _expect_equal(session.state.level, 2, "age not reset level 2")
 
@@ -187,13 +195,13 @@ func _test_lifespan_exhausted_boundary() -> void:
     var session1 := GameSession.create_new_game(content)
     var result1 := session1.advance_time(4740.0)
     _expect_equal(result1.stopped, null, "lifespan boundary session1 stopped null")
-    _expect_equal(result1.ticks_advanced, 79, "lifespan boundary session1 ticks 79")
+    _expect_equal(result1.ticks_advanced, 4740, "lifespan boundary session1 ticks 79")
     _expect_equal(session1.state.total_elapsed_seconds, 4740.0, "lifespan boundary session1 elapsed 4740.0")
     # Second session: 80 ticks, should stop
     var session2 := GameSession.create_new_game(content)
     var result2 := session2.advance_time(4800.0)
     _expect_equal(result2.stopped, "lifespan_exhausted", "lifespan boundary session2 stopped lifespan_exhausted")
-    _expect_equal(result2.ticks_advanced, 80, "lifespan boundary session2 ticks 80")
+    _expect_equal(result2.ticks_advanced, 4800, "lifespan boundary session2 ticks 80")
     _expect_equal(session2.state.total_elapsed_seconds, 4800.0, "lifespan boundary session2 elapsed 4800.0")
     # Check event kind
     var exhaust_event_exists := false
@@ -205,7 +213,7 @@ func _test_lifespan_exhausted_boundary() -> void:
     # Third session: 6000 seconds stops early
     var session3 := GameSession.create_new_game(content)
     var result3 := session3.advance_time(6000.0)
-    _expect_equal(result3.ticks_advanced, 80, "lifespan boundary session3 ticks 80")
+    _expect_equal(result3.ticks_advanced, 4800, "lifespan boundary session3 ticks 80")
     _expect_equal(result3.stopped, "lifespan_exhausted", "lifespan boundary session3 stopped lifespan_exhausted")
 
 func _test_no_system_clock() -> void:

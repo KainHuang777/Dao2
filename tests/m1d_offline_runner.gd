@@ -114,8 +114,8 @@ func _test_cap_24h() -> void:
     _expect_equal(int(report["effective_ms"]), CAP_MS, "cap 24h: report effective_ms is clamped to 24h")
     _expect_equal(int(report["forfeited_ms"]), TWO_DAYS_MS - CAP_MS, "cap 24h: report forfeited_ms is the second 24h")
     _expect_equal(bool(report["cap_applied"]), true, "cap 24h: report cap_applied flag is set")
-    _expect_equal(int(report["effective_ticks"]), 1440, "cap 24h: exactly 1440 reward ticks (86400s / 60s) are granted for 48h away")
-    _expect_equal(int(report["time_only_ticks"]), 1440, "cap 24h: the remaining 1440 ticks advance age only, no rewards")
+    _expect_equal(int(report["effective_ticks"]), 86400, "cap 24h: exactly 86400 one-second reward ticks are granted for 48h away")
+    _expect_equal(int(report["time_only_ticks"]), 86400, "cap 24h: the remaining 86400 ticks advance age only, no rewards")
     _expect_equal(int(report["left_at_utc_ms"]), BASE_CURSOR_MS, "cap 24h: report left_at_utc_ms echoes the previous cursor")
     _expect_equal(int(report["settled_at_utc_ms"]), TWO_DAYS_MS + BASE_CURSOR_MS, "cap 24h: report settled_at_utc_ms echoes now")
     _expect_equal(String(report["report_id"]), "offline:" + str(TWO_DAYS_MS + BASE_CURSOR_MS), "cap 24h: report_id follows the offline:<now> format")
@@ -215,8 +215,8 @@ func _test_age_full_interval() -> void:
     var report: Dictionary = settled["report"]
     _expect(report["stopped"] == null, "age full interval: era 8 cumulative lifespan of 214800s covers the whole 48h interval (era 1 would clamp at 4800s)")
     _expect_equal(int(state.total_elapsed_seconds), 172800, "age full interval: the full 48h of age advances even though only 24h earns rewards (2880 ticks x 60s)")
-    _expect_equal(int(report["effective_ticks"]), 1440, "age full interval: only the first 24h of ticks earned rewards")
-    _expect_equal(int(report["time_only_ticks"]), 1440, "age full interval: the second 24h of ticks was age-only")
+    _expect_equal(int(report["effective_ticks"]), 86400, "age full interval: only the first 24h of ticks earned rewards")
+    _expect_equal(int(report["time_only_ticks"]), 86400, "age full interval: the second 24h of ticks was age-only")
     _expect_equal(float(report["age_seconds"]), state.total_elapsed_seconds, "age full interval: report age_seconds matches the settled state age")
     var era1: GameState = GameSession.create_new_game(_content).state
     var era1_settled: Dictionary = OfflineSettlement.settle(era1, _content, TWO_DAYS_MS + BASE_CURSOR_MS, BASE_CURSOR_MS)

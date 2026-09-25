@@ -37,6 +37,7 @@ static func unlock_state(era_id: int, onboarding_version: int, buildings: Dictio
 		visible.append("stone_mine")
 	if stone_mine >= 1:
 		resources.append("stone_low")
+		resources.append("black_copper")
 		visible.append("storage_stone")
 	if stone_mine >= 3:
 		visible.append("herb_farm")

@@ -20,32 +20,32 @@ const BUILDING_NAMES := {
 	"stone_mine": "採石場",
 	"herb_farm": "靈植場",
 	"storage_lingli": "聚靈壇",
-	"storage_money": "靈石庫",
+	"storage_money": "錢莊",
 	"storage_wood": "木料庫",
-	"storage_stone": "石材庫",
+	"storage_stone": "靈石庫",
 	"storage_herb": "靈草庫",
 }
 
 const RESOURCE_NAMES := {
 	"lingli": "靈氣",
-	"money": "靈石",
-	"wood": "木材",
-	"stone_low": "石材",
-	"black_copper": "黑銅",
+	"money": "金錢",
+	"wood": "靈木",
+	"stone_low": "下品靈石",
+	"black_copper": "玄銅",
 	"spirit_grass_low": "靈草",
 	"foundation_pill": "築基丹",
 }
 
 const BUILDING_DESCRIPTIONS := {
 	"hut": "窗內一盞燈，是你的修行根基。初期手動引氣，升級後持續產出靈氣並提供容納空間。",
-	"wooden_house": "簡樸居所。安身立命，產出並儲存靈石錢幣。",
+	"wooden_house": "簡樸居所。安身立命，產出並儲存金錢。",
 	"forest_farm": "造林伐木，持續產出修築洞府必備之原木。",
-	"stone_mine": "鑿岩掘礦，產出石材與黑銅，為洞府奠定基石。",
+	"stone_mine": "鑿岩掘礦，產出下品靈石與玄銅，為洞府奠定基石。",
 	"herb_farm": "靈田自行萌芽吐納，孕育低階靈草。可手動暫停或恢復生息。",
 	"storage_lingli": "聚天地之精華，大幅擴充靈氣儲量上限。",
-	"storage_money": "深藏靈石寶庫，提升金錢上限。",
+	"storage_money": "經營錢莊，提升金錢儲存上限。",
 	"storage_wood": "堆積木材原木，提升木料庫容上限。",
-	"storage_stone": "堆疊沉積石料，提升石材存儲上限。",
+	"storage_stone": "封存下品靈石，提升其儲存上限。",
 }
 
 static func _parse_amount(raw: Variant) -> AmountCompat:
@@ -146,20 +146,32 @@ var shade: ColorRect
 var hud: Control
 var header: PanelContainer
 var info_panel: PanelContainer
-var toolbar: HFlowContainer
+var toolbar: HBoxContainer
 var footer: Label
 var hint: Label
-var hint_panel: Panel
+var hint_heading: Label
+var hint_panel: PanelContainer
 var title_label: Label
 var realm_label: Label
+var realm_progress_label: Label
 var resource_label: Label
-var resource_button: Button
-var resource_panel: PanelContainer
-var resource_full_label: Label
-var resource_density_button: Button
+var mini_gather_button: Button
+var mini_resource_id: String = "lingli"
+var selected_gather_id: String = ""
+var gather_resource_ids: Array[String] = []
+var last_visible_resource_count: int = -1
+var gather_menu: MenuButton
+var action_bar: HBoxContainer
+var resource_ribbon: PanelContainer
+var resource_ribbon_box: VBoxContainer
+var resource_scroll: ScrollContainer
+var resource_mode_buttons: Array[Button] = []
+var resource_display_mode: int = 1
+var objective_button: Button
 var building_catalog_button: Button
+var island_mode_button: Button
 var building_catalog: PanelContainer
-var ui_compact_mode: bool = false
+var last_guidance_key: String = ""
 var crumb: Label
 var detail_title: Label
 var detail_body: Label
@@ -174,19 +186,23 @@ var level_up_button: Button
 var breakthrough_button: Button
 var replay_breakthrough_button: Button
 var nine_realms_button: Button
+var reincarnation_button: Button
 
 var nine_realms_preview: Control = null
 var breakthrough_seq: Control = null
 var save_controls: Control = null
 var offline_summary: Control = null
+var reincarnation_panel: Control = null
+
 var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
-var intro_shown: bool = false
 enum HudLayout { WIDE, COMPACT, PORTRAIT }
 var layout_mode: int = HudLayout.WIDE
 var header_box: VBoxContainer
 var viewbar: HBoxContainer
 var detail_actions: HFlowContainer
+var detail_scroll: ScrollContainer
+var return_to_catalog_after_detail: bool = false
 var help_button: Button
 var more_menu: MenuButton
 
@@ -274,9 +290,9 @@ func _setup_buildings(props: Node2D) -> void:
 	_add_building(props, "wooden_house", "木屋", HUT, Vector2(-335, -85), 155)
 	_add_building(props, "herb_farm", "靈植場", GARDEN, Vector2(-90, -85), 160)
 	_add_building(props, "storage_lingli", "聚靈壇", ALTAR, Vector2(175, -85), 160)
-	_add_building(props, "storage_money", "靈石庫", HUT, Vector2(-335, 35), 120)
+	_add_building(props, "storage_money", "錢莊", HUT, Vector2(-335, 35), 120)
 	_add_building(props, "storage_wood", "木料庫", HUT, Vector2(-110, 35), 120)
-	_add_building(props, "storage_stone", "石材庫", ALTAR, Vector2(115, 35), 120)
+	_add_building(props, "storage_stone", "靈石庫", ALTAR, Vector2(115, 35), 120)
 	_add_building(props, "storage_herb", "靈草庫", GARDEN, Vector2(335, 35), 120)
 
 	buildings["garden"] = buildings["herb_farm"]
@@ -362,20 +378,20 @@ func _style(color: Color = Color(0.018, 0.07, 0.10, 0.96)) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
 	style.border_color = Color(0.82, 0.73, 0.49, 0.80)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(12)
-	style.content_margin_left = 20
-	style.content_margin_right = 20
-	style.content_margin_top = 14
-	style.content_margin_bottom = 14
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(4)
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 8
+	style.content_margin_bottom = 8
 	return style
 
 func _button(text: String, action: Callable) -> Button:
 	var button := Button.new()
 	button.text = text
-	button.custom_minimum_size = Vector2(132, 64)
+	button.custom_minimum_size = Vector2(132, 56)
 	button.add_theme_font_override("font", UiTypography.emphasis_font())
-	button.add_theme_font_size_override("font_size", 24)
+	button.add_theme_font_size_override("font_size", 18)
 	button.add_theme_color_override("font_color", Color("f4e7be"))
 	button.add_theme_stylebox_override("normal", _style())
 	button.add_theme_stylebox_override("hover", _style(Color(0.10, 0.25, 0.24, 0.99)))
@@ -386,26 +402,28 @@ func _button(text: String, action: Callable) -> Button:
 func _view_button(text: String, action: Callable, width: float) -> Button:
 	var button := _button(text, action)
 	button.custom_minimum_size = Vector2(width, 56)
-	button.add_theme_font_size_override("font_size", 24)
+	button.add_theme_font_size_override("font_size", 18)
 	return button
 
 func _configure_more_menu() -> void:
 	more_menu = MenuButton.new()
-	more_menu.text = "更多"
+	more_menu.text = "更多功能"
 	more_menu.custom_minimum_size = Vector2(132, 64)
 	more_menu.add_theme_font_override("font", UiTypography.emphasis_font())
 	more_menu.add_theme_font_size_override("font_size", 22)
 	more_menu.add_theme_color_override("font_color", Color("f4e7be"))
 	more_menu.add_theme_stylebox_override("normal", _style())
-	more_menu.visible = false
+	more_menu.visible = true
 	var popup := more_menu.get_popup()
 	popup.add_item("低特效", 1)
 	popup.add_item("存檔管理", 2)
 	popup.add_item("九界星圖", 3)
 	popup.add_item("操作說明", 4)
 	popup.add_item("重溫突破", 5)
+	popup.add_item("輪迴天道", 6)
 	popup.id_pressed.connect(_on_more_menu_pressed)
 	toolbar.add_child(more_menu)
+
 func _build_hud() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 10
@@ -431,8 +449,10 @@ func _build_hud() -> void:
 	title_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	header_box.add_child(title_label)
 
-	realm_label = _label("練氣 · 1層", 20, Color("fce2a6"), 1)
+	realm_label = _label("境界：練氣期 · 1/10 層", 20, Color("fce2a6"), 1)
 	header_box.add_child(realm_label)
+	realm_progress_label = _label("修煉 0/60 秒 · 壽元 80/80 祀", 16, Color("d9e4d0"), 1)
+	header_box.add_child(realm_progress_label)
 
 	var realm_action_box := HBoxContainer.new()
 	realm_action_box.add_theme_constant_override("separation", 8)
@@ -450,12 +470,26 @@ func _build_hud() -> void:
 	breakthrough_button.visible = false
 	realm_action_box.add_child(breakthrough_button)
 
-	resource_label = _label("", 21, Color("e4f0dc"), 1)
-	header_box.add_child(resource_label)
-	resource_button = _button("資源總覽", _toggle_resources)
-	resource_button.custom_minimum_size = Vector2(150, 40)
-	resource_button.add_theme_font_size_override("font_size", 19)
-	header_box.add_child(resource_button)
+	var resource_row := HBoxContainer.new()
+	resource_row.add_theme_constant_override("separation", 6)
+	header_box.add_child(resource_row)
+	resource_label = _label("", 17, Color("e4f0dc"), 1)
+	resource_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	resource_row.add_child(resource_label)
+	mini_gather_button = Button.new()
+	mini_gather_button.custom_minimum_size = Vector2(82, 48)
+	mini_gather_button.add_theme_font_override("font", UiTypography.emphasis_font())
+	mini_gather_button.add_theme_font_size_override("font_size", 16)
+	mini_gather_button.pressed.connect(func(): _gather_resource(mini_resource_id))
+	resource_row.add_child(mini_gather_button)
+	resource_row.visible = false
+	objective_button = Button.new()
+	objective_button.custom_minimum_size.y = 48
+	objective_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	objective_button.add_theme_font_override("font", UiTypography.body_font())
+	objective_button.add_theme_font_size_override("font_size", 16)
+	objective_button.pressed.connect(_toggle_guidance)
+	header_box.add_child(objective_button)
 
 	viewbar = HBoxContainer.new()
 	viewbar.name = "Viewbar"
@@ -469,11 +503,13 @@ func _build_hud() -> void:
 	zoom_label = _label("", 19, Color("e4e7c8"), 1)
 	viewbar.add_child(zoom_label)
 
-	toolbar = HFlowContainer.new()
+	toolbar = HBoxContainer.new()
 	toolbar.add_theme_constant_override("separation", 12)
 	hud.add_child(toolbar)
 
-	building_catalog_button = _button("營造設施", _toggle_building_catalog)
+	island_mode_button = _button("空島", _close_building_catalog)
+	toolbar.add_child(island_mode_button)
+	building_catalog_button = _button("營造", _open_building_catalog)
 	toolbar.add_child(building_catalog_button)
 
 	overview_button = _button("神識展開", _toggle_overview)
@@ -492,20 +528,49 @@ func _build_hud() -> void:
 	nine_realms_button = _button("九界星圖", _open_nine_realms_overview)
 	toolbar.add_child(nine_realms_button)
 
+	reincarnation_button = _button("輪迴天道", _toggle_reincarnation_panel)
+	toolbar.add_child(reincarnation_button)
+
 	help_button = _button("操作說明", _show_help)
 	toolbar.add_child(help_button)
+
 	_configure_more_menu()
 
-	hint_panel = Panel.new()
-	hint_panel.add_theme_stylebox_override("panel", _style(Color(0.008, 0.035, 0.05, 0.91)))
+	hint_panel = PanelContainer.new()
+	var hint_style := _style(Color(0.008, 0.035, 0.05, 0.93))
+	hint_style.content_margin_left = 18
+	hint_style.content_margin_right = 18
+	hint_style.content_margin_top = 12
+	hint_style.content_margin_bottom = 12
+	hint_panel.add_theme_stylebox_override("panel", hint_style)
 	hud.add_child(hint_panel)
-
-	hint = _label("營造設施管理建築 · 拖曳山河 · 滾輪 / 雙指縮放", 18, Color("f2e8c7"), 1)
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	var hint_box := VBoxContainer.new()
+	hint_box.add_theme_constant_override("separation", 5)
+	hint_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hint_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hint_panel.add_child(hint_box)
+	var hint_title_row := HBoxContainer.new()
+	hint_box.add_child(hint_title_row)
+	hint_heading = _label("系統訊息 · 新手引導", 16, Color("f1d58d"), 1)
+	hint_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hint_title_row.add_child(hint_heading)
+	var hint_close := Button.new()
+	hint_close.text = "收起"
+	hint_close.custom_minimum_size = Vector2(64, 48)
+	hint_close.pressed.connect(_toggle_guidance)
+	hint_title_row.add_child(hint_close)
+	hint = _label("", 17, Color("f2e8c7"), 1)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	hint.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hint_panel.add_child(hint)
-	hint_panel.visible = true
+	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var hint_scroll := ScrollContainer.new()
+	hint_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hint_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hint_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	hint_box.add_child(hint_scroll)
+	hint_scroll.add_child(hint)
+	hint_panel.visible = false
 
 	footer = _label("自動存檔運轉中", 18, Color("ffffff"), 0)
 	var footer_style := StyleBoxFlat.new()
@@ -537,12 +602,22 @@ func _build_hud() -> void:
 
 	detail_body = _label("", 21, Color("eaf2ea"), 1)
 	detail_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	box.add_child(detail_body)
+	detail_scroll = ScrollContainer.new()
+	detail_scroll.custom_minimum_size = Vector2.ZERO
+	detail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	detail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	box.add_child(detail_scroll)
+	var detail_content := VBoxContainer.new()
+	detail_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail_content.add_theme_constant_override("separation", 12)
+	detail_scroll.add_child(detail_content)
+	detail_content.add_child(detail_body)
 
 	detail_actions = HFlowContainer.new()
 	detail_actions.add_theme_constant_override("h_separation", 10)
 	detail_actions.add_theme_constant_override("v_separation", 10)
-	box.add_child(detail_actions)
+	detail_content.add_child(detail_actions)
 
 	gather_button = _button("聚氣引靈", _gather_lingli)
 	detail_actions.add_child(gather_button)
@@ -554,53 +629,69 @@ func _build_hud() -> void:
 	pause_button = _button("暫停藥圃", _toggle_garden)
 	detail_actions.add_child(pause_button)
 
-	resource_panel = PanelContainer.new()
-	resource_panel.add_theme_stylebox_override("panel", _style(Color(0.008, 0.045, 0.07, 0.99)))
-	resource_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	resource_panel.visible = false
-	hud.add_child(resource_panel)
-	var resource_box := VBoxContainer.new()
-	resource_box.add_theme_constant_override("separation", 10)
-	resource_panel.add_child(resource_box)
-	var resource_title_row := HBoxContainer.new()
-	resource_title_row.add_theme_constant_override("separation", 8)
-	resource_box.add_child(resource_title_row)
-	var resource_title := _label("資源總覽", 26, Color("fff0c8"), 2)
-	resource_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	resource_title_row.add_child(resource_title)
-
-	resource_density_button = Button.new()
-	resource_density_button.text = "緊湊"
-	resource_density_button.custom_minimum_size = Vector2(64, 40)
-	resource_density_button.add_theme_font_override("font", UiTypography.body_font())
-	resource_density_button.add_theme_font_size_override("font_size", 16)
-	resource_density_button.pressed.connect(_toggle_density)
-	resource_title_row.add_child(resource_density_button)
-
-	var resource_close := _button("收起", _toggle_resources)
-	resource_close.custom_minimum_size = Vector2(64, 40)
-	resource_close.add_theme_font_size_override("font_size", 18)
-	resource_title_row.add_child(resource_close)
-	var resource_scroll := ScrollContainer.new()
-	resource_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	resource_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	resource_box.add_child(resource_scroll)
-	resource_full_label = _label("", 20, Color("e4f0dc"), 1)
-	resource_full_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	resource_full_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	resource_scroll.add_child(resource_full_label)
-
 	building_catalog = BuildingCatalogScript.new()
 	building_catalog.visible = false
 	hud.add_child(building_catalog)
+	building_catalog.call("configure_resources", RESOURCE_NAMES, RESOURCE_NAMES.keys())
 	building_catalog.call("configure", _catalog_groups())
+	resource_ribbon = PanelContainer.new()
+	var ribbon_style := _style(Color(0.018, 0.065, 0.075, 0.97))
+	ribbon_style.content_margin_left = 8
+	ribbon_style.content_margin_right = 8
+	ribbon_style.content_margin_top = 6
+	ribbon_style.content_margin_bottom = 6
+	resource_ribbon.add_theme_stylebox_override("panel", ribbon_style)
+	hud.add_child(resource_ribbon)
+	resource_ribbon_box = VBoxContainer.new()
+	resource_ribbon_box.add_theme_constant_override("separation", 4)
+	resource_ribbon.add_child(resource_ribbon_box)
+	var mode_row := HBoxContainer.new()
+	mode_row.add_theme_constant_override("separation", 4)
+	resource_ribbon_box.add_child(mode_row)
+	for mode_name in ["關閉", "數量", "完整"]:
+		var mode_button := Button.new()
+		mode_button.text = mode_name
+		mode_button.toggle_mode = true
+		mode_button.custom_minimum_size.y = 44
+		mode_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		mode_button.add_theme_font_override("font", UiTypography.body_font())
+		mode_button.add_theme_font_size_override("font_size", 15)
+		mode_button.pressed.connect(_set_resource_display_mode.bind(resource_mode_buttons.size()))
+		mode_row.add_child(mode_button)
+		resource_mode_buttons.append(mode_button)
+	resource_scroll = ScrollContainer.new()
+	resource_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	resource_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	resource_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	resource_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	resource_ribbon_box.add_child(resource_scroll)
+	building_catalog.resource_grid.reparent(resource_scroll)
+	building_catalog.resource_grid.columns = 1
+	building_catalog.resource_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_set_resource_display_mode(1)
+	action_bar = HBoxContainer.new()
+	action_bar.add_theme_constant_override("separation", 6)
+	hud.add_child(action_bar)
+	mini_gather_button.reparent(action_bar)
+	mini_gather_button.custom_minimum_size = Vector2(112, 48)
+	gather_menu = MenuButton.new()
+	gather_menu.text = "選擇採集"
+	gather_menu.custom_minimum_size = Vector2(104, 48)
+	gather_menu.add_theme_font_override("font", UiTypography.emphasis_font())
+	gather_menu.add_theme_font_size_override("font_size", 16)
+	gather_menu.get_popup().id_pressed.connect(_on_gather_resource_selected)
+	action_bar.add_child(gather_menu)
+	info_panel.reparent(building_catalog.detail_slot)
+	info_panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	info_panel.custom_minimum_size = Vector2.ZERO
+	info_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	building_catalog.building_selected.connect(_select_building_from_catalog)
-	if building_catalog.has_signal("density_changed"):
-		building_catalog.connect("density_changed", Callable(self, "_on_catalog_density_changed"))
-	if building_catalog.has_signal("resource_toggle_requested"):
-		building_catalog.connect("resource_toggle_requested", Callable(self, "_toggle_resources"))
-	building_catalog.visibility_changed.connect(func(): _layout_overlay_panels(hud.size, 24.0, layout_mode == HudLayout.PORTRAIT))
-	resource_panel.visibility_changed.connect(func(): _layout_overlay_panels(hud.size, 24.0, layout_mode == HudLayout.PORTRAIT))
+	building_catalog.building_upgrade_requested.connect(_upgrade_building_from_catalog)
+	if building_catalog.has_signal("close_requested"):
+		building_catalog.connect("close_requested", Callable(self, "_close_building_catalog"))
+	if building_catalog.has_signal("gather_resource_requested"):
+		building_catalog.connect("gather_resource_requested", Callable(self, "_gather_resource"))
+	building_catalog.guidance_requested.connect(_toggle_guidance)
 
 	var save_ctrl_script = preload("res://src/presentation/save_controls.gd")
 	save_controls = save_ctrl_script.new()
@@ -622,7 +713,17 @@ func _build_hud() -> void:
 	nine_realms_preview = nr_script.new()
 	nine_realms_preview.aspiration_changed.connect(_on_nine_realms_aspiration_changed)
 	hud.add_child(nine_realms_preview)
+
+	var rc_script = preload("res://src/presentation/reincarnation_panel.gd")
+	reincarnation_panel = rc_script.new()
+	reincarnation_panel.visible = false
+	reincarnation_panel.reincarnate_requested.connect(_on_reincarnate_requested)
+	reincarnation_panel.learn_talent_requested.connect(_on_learn_talent_requested)
+	reincarnation_panel.close_requested.connect(_on_reincarnation_closed)
+	hud.add_child(reincarnation_panel)
+
 	header.resized.connect(_reflow_header)
+
 
 func _layout() -> void:
 	_layout_for_size(get_viewport_rect().size)
@@ -647,131 +748,145 @@ func _layout_for_size(vp: Vector2) -> void:
 	var margin: float = 28.0 if layout_mode == HudLayout.WIDE else 16.0
 	var portrait: bool = layout_mode == HudLayout.PORTRAIT
 	var compact: bool = layout_mode != HudLayout.WIDE
+	toolbar.visible = true
 	_apply_hud_density(compact, portrait)
-
-	if layout_mode == HudLayout.WIDE:
-		header.position = Vector2(margin, margin)
-		header.size = Vector2(380, 210)
-		viewbar.position = Vector2(margin, 250)
-		viewbar.size = Vector2(260, 56)
-		toolbar.position = Vector2(margin, vp.y - 84)
-		toolbar.size = Vector2(minf(1160.0, vp.x - margin * 2.0), 64)
-		hint_panel.visible = true
-		hint_panel.position = Vector2(margin, vp.y - 154)
-		hint_panel.size = Vector2(minf(620.0, vp.x - margin * 2.0), 56)
-		footer.visible = true
-		footer.position = Vector2(vp.x - 226, vp.y - 62)
-		footer.size = Vector2(198, 36)
-		info_panel.position = Vector2(vp.x - 420, margin)
-		info_panel.size = Vector2(392, 340)
-	elif layout_mode == HudLayout.COMPACT:
-		header.position = Vector2(margin, margin)
-		header.size = Vector2(minf(360.0, vp.x * 0.44), 174)
-		viewbar.position = Vector2(margin, 198)
-		viewbar.size = Vector2(250, 56)
-		toolbar.position = Vector2(margin, vp.y - 164)
-		toolbar.size = Vector2(vp.x - margin * 2.0, 136)
-		hint_panel.visible = true
-		hint_panel.position = Vector2(margin, toolbar.position.y - 64)
-		hint_panel.size = Vector2(minf(480.0, vp.x - margin * 2.0), 48)
-		footer.visible = false
-		info_panel.size = Vector2(minf(370.0, vp.x * 0.44), 300)
-		info_panel.position = Vector2(vp.x - margin - info_panel.size.x, margin)
-	else:
-		header.position = Vector2(12, 12)
-		header.size = Vector2(vp.x - 24, 132)
-		viewbar.position = Vector2(12, 152)
-		viewbar.size = Vector2(minf(260.0, vp.x - 24), 56)
-		toolbar.position = Vector2(12, vp.y - 76)
-		toolbar.size = Vector2(vp.x - 24, 64)
-		hint_panel.visible = false
-		footer.visible = false
-		info_panel.size = Vector2(vp.x - 24, minf(320.0, vp.y * 0.52))
-		info_panel.position = Vector2(12, vp.y - 88 - info_panel.size.y)
+	header.position = Vector2(margin, margin)
+	header.size.x = vp.x - margin * 2.0 if portrait else minf(320.0, vp.x * 0.38)
+	toolbar.position = Vector2(margin, vp.y - margin - 56.0)
+	toolbar.size = Vector2(vp.x - margin * 2.0 if portrait else minf(480.0, vp.x - margin * 2.0), 56)
+	if building_catalog.visible and not portrait:
+		toolbar.position.x = vp.x - margin - toolbar.size.x
+	viewbar.size = Vector2(220, 48)
+	footer.visible = false
+	action_bar.visible = false
+	action_bar.position = Vector2(margin, toolbar.position.y - 56.0)
+	action_bar.size = Vector2(vp.x - margin * 2.0 if portrait else 232.0, 48.0)
 
 	_reflow_header()
-	hint.position = Vector2(12, 4)
-	hint.size = hint_panel.size - Vector2(24, 8)
 	_layout_overlay_panels(vp, margin, portrait)
 	print("ABODE_LAYOUT mode=", _layout_mode_name(), " size=", vp.round())
 
 func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	var short_compact: bool = layout_mode == HudLayout.COMPACT and hud.size.y < 500.0
-	crumb.visible = not portrait and not short_compact
-	title_label.visible = not portrait and not short_compact
-	resource_label.visible = true
+	crumb.visible = false
+	title_label.visible = false
+	objective_button.visible = not (building_catalog.visible or short_compact)
+	resource_label.visible = false
 	resource_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resource_label.custom_minimum_size = Vector2.ZERO
 	realm_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	realm_label.custom_minimum_size = Vector2.ZERO
+	realm_progress_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	realm_progress_label.custom_minimum_size = Vector2.ZERO
 	header_box.custom_minimum_size = Vector2.ZERO
-	resource_label.add_theme_font_size_override("font_size", 18 if compact else 21)
-	resource_button.custom_minimum_size.y = 36 if compact else 40
-	toolbar.add_theme_constant_override("h_separation", 8 if portrait else 12)
-	building_catalog_button.custom_minimum_size.x = 104 if portrait else 132
-	overview_button.custom_minimum_size.x = 104 if portrait else 132
-	more_menu.custom_minimum_size.x = 104 if portrait else 132
-	building_catalog_button.text = "營造" if portrait else "營造設施"
-	building_catalog_button.add_theme_font_size_override("font_size", 18 if portrait else 24)
-	overview_button.add_theme_font_size_override("font_size", 18 if portrait else 24)
-	more_menu.add_theme_font_size_override("font_size", 18 if portrait else 22)
-	realm_label.add_theme_font_size_override("font_size", 17 if compact else 20)
-	detail_title.add_theme_font_size_override("font_size", 23 if compact else 28)
-	detail_body.add_theme_font_size_override("font_size", 18 if compact else 21)
-	more_menu.visible = portrait
-	motion_button.visible = not portrait
-	save_button.visible = not portrait
-	nine_realms_button.visible = not portrait
-	help_button.visible = not portrait
-	replay_breakthrough_button.visible = session != null and session.state != null and session.state.era_id >= 2 and not portrait
+	resource_label.add_theme_font_size_override("font_size", 16)
+	toolbar.add_theme_constant_override("separation", 4 if portrait else 8)
+	island_mode_button.custom_minimum_size = Vector2(72 if portrait else 96, 56)
+	building_catalog_button.custom_minimum_size = Vector2(72 if portrait else 96, 56)
+	overview_button.custom_minimum_size = Vector2(80 if portrait else 116, 56)
+	more_menu.custom_minimum_size = Vector2(80 if portrait else 116, 56)
+	building_catalog_button.text = "營造"
+	island_mode_button.text = "空島"
+	island_mode_button.disabled = not building_catalog.visible
+	building_catalog_button.disabled = building_catalog.visible
+	more_menu.text = ("★ 更多" if portrait else "★ 更多功能") if more_menu.text.begins_with("★") else ("更多" if portrait else "更多功能")
+	building_catalog_button.add_theme_font_size_override("font_size", 18)
+	island_mode_button.add_theme_font_size_override("font_size", 18)
+	overview_button.add_theme_font_size_override("font_size", 18)
+	more_menu.add_theme_font_size_override("font_size", 18)
+	reincarnation_button.custom_minimum_size.x = 104 if portrait else 132
+	reincarnation_button.add_theme_font_size_override("font_size", 18 if portrait else 22)
+	realm_label.add_theme_font_size_override("font_size", 22 if not compact else 18)
+	realm_progress_label.add_theme_font_size_override("font_size", 16)
+	detail_title.add_theme_font_size_override("font_size", 22)
+	detail_body.add_theme_font_size_override("font_size", 16)
+	more_menu.visible = true
+	motion_button.visible = false
+	save_button.visible = false
+	nine_realms_button.visible = false
+	reincarnation_button.visible = false
+	help_button.visible = false
+	replay_breakthrough_button.visible = false
+
 
 func _reflow_header() -> void:
-	var base_height: float = 210.0 if layout_mode == HudLayout.WIDE else (174.0 if layout_mode == HudLayout.COMPACT else 132.0)
+	var base_height: float = 88.0 if layout_mode == HudLayout.WIDE else 80.0
 	var needed: float = maxf(header.get_combined_minimum_size().y, header_box.get_combined_minimum_size().y + 28.0)
 	header.size.y = maxf(base_height, needed)
-	viewbar.position.y = header.position.y + header.size.y + 12.0
-	viewbar.visible = viewbar.position.y + 56.0 <= toolbar.position.y - 8.0
-	if layout_mode == HudLayout.COMPACT and hud.size.y < 500.0:
-		hint_panel.visible = false
+	viewbar.position = Vector2(header.position.x, header.position.y + header.size.y + 8.0)
+	viewbar.visible = false
+	_reflow_resource_ribbon()
+	if building_catalog != null and building_catalog.visible and layout_mode == HudLayout.PORTRAIT and hud != null:
+		_layout_overlay_panels(hud.size, (28.0 if layout_mode == HudLayout.WIDE else 16.0), true)
 
-func _toggle_resources() -> void:
-	resource_panel.visible = not resource_panel.visible
-	_layout_overlay_panels(hud.size, 24.0, layout_mode == HudLayout.PORTRAIT)
+func _reflow_resource_ribbon() -> void:
+	if resource_ribbon == null or building_catalog == null or hud == null:
+		return
+	var vp := hud.size
+	if vp.x <= 0.0 or vp.y <= 0.0:
+		return
+	var portrait: bool = layout_mode == HudLayout.PORTRAIT
+	var margin: float = 28.0 if layout_mode == HudLayout.WIDE else 16.0
+	building_catalog.resource_grid.columns = 1
+	building_catalog.resource_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	resource_ribbon.position = Vector2(margin, header.position.y + header.size.y + 8.0)
+	var resource_width: float = vp.x - margin * 2.0 if portrait else header.size.x
+	var resource_bottom: float = toolbar.position.y - 8.0
+	var resource_available: float = maxf(44.0, resource_bottom - resource_ribbon.position.y)
+	var visible_count: int = 0
+	for resource_id in building_catalog.resource_order:
+		if bool(building_catalog._last_resources.get(resource_id, {}).get("visible", false)):
+			visible_count += 1
+	var wanted_height: float = 56.0
+	if resource_display_mode != 0 and visible_count > 0:
+		var card_h: float = 38.0 if resource_display_mode == 1 else 56.0
+		var v_sep: float = 6.0
+		var grid_content_height: float = float(visible_count) * card_h + float(maxi(0, visible_count - 1)) * v_sep
+		# 6 (top margin) + 44 (mode_row) + 4 (separation) + grid_content_height + 6 (bottom margin) + 2 (subpixel buffer)
+		wanted_height = 62.0 + grid_content_height
+	var portrait_max: float = 132.0 if building_catalog.visible else minf(resource_available, 280.0)
+	var max_resource_height: float = minf(resource_available, portrait_max if portrait else resource_available)
+	resource_ribbon.size = Vector2(resource_width, minf(wanted_height, max_resource_height))
+	resource_scroll.visible = resource_display_mode != 0
 
 func _toggle_building_catalog() -> void:
-	building_catalog.visible = not building_catalog.visible
 	if building_catalog.visible:
-		building_catalog.call("refresh", session.get_view().buildings)
-	_layout_overlay_panels(hud.size, 24.0, layout_mode == HudLayout.PORTRAIT)
+		_close_building_catalog()
+	else:
+		_open_building_catalog()
+
+func _open_building_catalog() -> void:
+	building_catalog.visible = true
+	var view: Dictionary = session.get_view()
+	building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id))
+	_layout_for_size(hud.size)
+
+func _close_building_catalog() -> void:
+	_close_detail()
+	building_catalog.visible = false
+	_layout_for_size(hud.size)
+
+func _set_resource_display_mode(mode: int) -> void:
+	resource_display_mode = clampi(mode, 0, 2)
+	for index in resource_mode_buttons.size():
+		resource_mode_buttons[index].button_pressed = index == resource_display_mode
+	if building_catalog != null:
+		building_catalog.set_resource_display_mode(resource_display_mode)
+	if resource_scroll != null:
+		resource_scroll.visible = resource_display_mode != 0
+	if hud != null and hud.size.x > 0.0:
+		_layout_for_size(hud.size)
 
 func _select_building_from_catalog(id: String) -> void:
 	var view: Dictionary = session.get_view()
 	if not view.buildings.has(id) or not bool(view.buildings[id].visible):
 		return
 	selected_id = id
+	building_catalog.visible = true
 	info_panel.visible = true
+	building_catalog.call("show_detail", true)
 	_refresh_detail()
-
-func _toggle_density() -> void:
-	_set_compact_mode(not ui_compact_mode)
-
-func _on_catalog_density_changed(compact: bool) -> void:
-	_set_compact_mode(compact)
-
-func _set_compact_mode(compact: bool) -> void:
-	ui_compact_mode = compact
-	if resource_density_button != null:
-		resource_density_button.text = "標準" if ui_compact_mode else "緊湊"
-	if building_catalog != null and building_catalog.has_method("set_compact_mode"):
-		building_catalog.call("set_compact_mode", ui_compact_mode)
-	_apply_resource_density()
-	if session != null and session.state != null:
-		_refresh_hud()
-
-func _apply_resource_density() -> void:
-	if resource_full_label != null:
-		resource_full_label.add_theme_font_size_override("font_size", 16 if ui_compact_mode else 20)
-		resource_full_label.add_theme_constant_override("line_spacing", 4 if ui_compact_mode else 10)
+	_layout_for_size(hud.size)
 
 func _catalog_groups() -> Array:
 	var groups := [
@@ -781,11 +896,11 @@ func _catalog_groups() -> Array:
 		{"id": "other", "title": "其他設施", "entries": []},
 	]
 	var roles := {
-		"hut": "靈氣與居所", "wooden_house": "靈石產出",
-		"forest_farm": "木材產出", "stone_mine": "石材與黑銅",
+		"hut": "靈氣與居所", "wooden_house": "金錢產出",
+		"forest_farm": "靈木產出", "stone_mine": "下品靈石與玄銅",
 		"herb_farm": "靈草產出", "storage_lingli": "靈氣容量",
-		"storage_money": "靈石容量", "storage_wood": "木材容量",
-		"storage_stone": "石材容量", "storage_herb": "靈草容量",
+		"storage_money": "金錢容量", "storage_wood": "靈木容量",
+		"storage_stone": "下品靈石容量", "storage_herb": "靈草容量",
 	}
 	for id in content.building_ids:
 		var group_index := 3
@@ -803,40 +918,26 @@ func _catalog_groups() -> Array:
 	return groups
 
 func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
-	var res_vis: bool = resource_panel != null and resource_panel.visible
-	var cat_vis: bool = building_catalog != null and building_catalog.visible
-
-	if portrait:
-		if res_vis and cat_vis:
-			var total_h: float = vp.y - 24.0
-			var res_h: float = floorf(total_h * 0.40)
-			var cat_h: float = total_h - res_h - 8.0
-			resource_panel.position = Vector2(12, 12)
-			resource_panel.size = Vector2(vp.x - 24, res_h)
-			building_catalog.call("set_layout_bounds", Rect2(12, 12 + res_h + 8.0, vp.x - 24, cat_h))
-		else:
-			if res_vis:
-				resource_panel.position = Vector2(12, 12)
-				resource_panel.size = vp - Vector2(24, 24)
-			if cat_vis:
-				building_catalog.call("set_layout_bounds", Rect2(12, 12, vp.x - 24, vp.y - 24))
-	else:
-		var max_h: float = minf(620.0, vp.y - margin * 2.0)
-		if res_vis and cat_vis:
-			var res_w: float = minf(320.0, (vp.x - margin * 2.0 - 12.0) * 0.45)
-			var cat_w: float = minf(420.0, vp.x - margin * 2.0 - 12.0 - res_w)
-			resource_panel.position = Vector2(margin, margin)
-			resource_panel.size = Vector2(res_w, max_h)
-			var cat_x: float = margin + res_w + 12.0
-			building_catalog.call("set_layout_bounds", Rect2(cat_x, margin, cat_w, max_h))
-		else:
-			if res_vis:
-				var panel_width: float = minf(360.0, vp.x - margin * 2.0)
-				resource_panel.position = Vector2(margin, margin)
-				resource_panel.size = Vector2(panel_width, max_h)
-			if cat_vis:
-				var catalog_rect := Rect2(margin, margin, minf(460.0, vp.x - margin * 2.0), max_h)
-				building_catalog.call("set_layout_bounds", catalog_rect)
+	var management: bool = building_catalog != null and building_catalog.visible
+	var detail_focus: bool = management and portrait and vp.y < 560.0 and info_panel.visible
+	header.visible = not detail_focus
+	resource_ribbon.visible = not detail_focus
+	viewbar.visible = viewbar.visible and not management
+	footer.visible = false
+	if management:
+		var rail_width: float = vp.x - margin * 2.0 if portrait else minf(400.0, vp.x * 0.44)
+		var rail_top: float = margin if detail_focus else (resource_ribbon.position.y + resource_ribbon.size.y + 8.0 if portrait else margin)
+		var rail_bottom: float = action_bar.position.y - 8.0 if portrait and action_bar.visible else toolbar.position.y - 8.0
+		if portrait and rail_bottom - rail_top < 104.0:
+			resource_ribbon.size.y = 56.0
+			resource_scroll.visible = false
+			rail_top = resource_ribbon.position.y + resource_ribbon.size.y + 8.0
+		building_catalog.call("set_short_mode", vp.y < 560.0)
+		building_catalog.call("set_layout_bounds", Rect2(margin if portrait else vp.x - margin - rail_width, rail_top, rail_width, maxf(72.0, rail_bottom - rail_top)))
+	if hint_panel.visible:
+		var hint_width: float = minf(420.0, vp.x - margin * 2.0)
+		hint_panel.size = Vector2(hint_width, minf(132.0, vp.y * 0.28))
+		hint_panel.position = Vector2(vp.x - margin - hint_width, margin)
 
 	if save_controls != null:
 		var save_rect := Rect2(margin, margin, minf(480.0, vp.x - margin * 2.0), minf(460.0, vp.y - margin * 2.0))
@@ -854,6 +955,12 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 	if breakthrough_seq != null:
 		breakthrough_seq.position = Vector2.ZERO
 		breakthrough_seq.size = vp
+	if reincarnation_panel != null:
+		var rc_rect := Rect2(margin, margin, minf(540.0, vp.x - margin * 2.0), minf(560.0, vp.y - margin * 2.0))
+		if portrait:
+			rc_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		reincarnation_panel.call("set_layout_bounds", rc_rect)
+
 
 func _layout_mode_name() -> String:
 	match layout_mode:
@@ -897,11 +1004,6 @@ func _process(delta: float) -> void:
 		auto_save_elapsed = 0.0
 		_save_game()
 
-	if state.elapsed > 7.0 and not intro_shown:
-		intro_shown = true
-		if view.next_objective != null:
-			hint.text = "洞府運轉中。到營造設施提升【%s】。" % BUILDING_NAMES.get(String(view.next_objective.id), String(view.next_objective.id))
-
 func _update_buildings_visual(view: Dictionary) -> void:
 	for id in buildings:
 		var target_id: String = "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
@@ -909,10 +1011,10 @@ func _update_buildings_visual(view: Dictionary) -> void:
 		var b_node = buildings[id]
 		var is_vis: bool = bool(b_view.get("visible", false))
 
-		# The island only shows a built, authored home landmark.
-		# Construction is available through the catalogue before a footprint exists.
+		# The island shows built landmarks or unbuilt ghost blueprints when affordable.
 		b_node.level = int(b_view.get("level", 0))
-		b_node.visible = is_vis and target_id == "hut" and b_node.level > 0
+		var affordable: bool = bool(b_view.get("affordable", false))
+		b_node.visible = is_vis and target_id == "hut" and (b_node.level > 0 or affordable)
 		b_node.selected = (id == selected_id or target_id == selected_id)
 		b_node.running = state.garden_running if (target_id == "herb_farm") else true
 		b_node.reduced_motion = reduced
@@ -930,9 +1032,13 @@ func _refresh_hud() -> void:
 	var elapsed_sec: float = float(view.get("total_elapsed_seconds", 0.0))
 	var remain_life: float = maxf(0.0, max_life - elapsed_sec)
 
-	realm_label.text = "%s · %d層  (修煉 %.0f/%.0f 秒) · 壽元剩餘 %.0f 祀" % [
-		era_name, cur_level, train_sec, req_sec, remain_life / 60.0
-	]
+	realm_label.text = "境界：%s · %d/%d 層" % [era_name, cur_level, int(era_info.get("max_level", 10))]
+	if cur_level >= int(era_info.get("max_level", 10)):
+		realm_progress_label.text = "修煉圓滿 · 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
+	else:
+		realm_progress_label.text = "修煉 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [
+			train_sec, req_sec, remain_life / 60.0, max_life / 60.0
+		]
 
 	var can_lvl: bool = bool(view.get("can_level_up", false))
 	level_up_button.visible = can_lvl
@@ -957,11 +1063,30 @@ func _refresh_hud() -> void:
 			var cur_cap: int = int(_parse_amount(view.resources.get("lingli", {}).get("cap", 0)).to_float())
 			breakthrough_button.text = "突破需靈氣容量 %d（當前 %d）" % [req_lingli, cur_cap]
 
-	replay_breakthrough_button.visible = (cur_era >= 2 and layout_mode != HudLayout.PORTRAIT)
+	replay_breakthrough_button.visible = false
 	more_menu.get_popup().set_item_disabled(more_menu.get_popup().get_item_index(5), cur_era < 2)
+
+	var rc_eligible: bool = false
+	if view.has("reincarnation_preview"):
+		rc_eligible = bool(view.reincarnation_preview.get("eligible", false))
+	if rc_eligible:
+		reincarnation_button.text = "★ 輪迴天道 ★" if layout_mode != HudLayout.PORTRAIT else "★ 輪迴"
+		reincarnation_button.add_theme_color_override("font_color", Color("7de0a8"))
+		more_menu.text = "★ 更多" if layout_mode == HudLayout.PORTRAIT else "★ 更多功能"
+		more_menu.get_popup().set_item_text(more_menu.get_popup().get_item_index(6), "★ 輪迴天道")
+	else:
+		reincarnation_button.text = "輪迴天道" if layout_mode != HudLayout.PORTRAIT else "輪迴"
+		reincarnation_button.add_theme_color_override("font_color", Color("f4e7be"))
+		more_menu.text = "更多" if layout_mode == HudLayout.PORTRAIT else "更多功能"
+		more_menu.get_popup().set_item_text(more_menu.get_popup().get_item_index(6), "輪迴天道")
+
+	if reincarnation_panel != null and reincarnation_panel.visible:
+		reincarnation_panel.call("refresh", view)
+
 	if cur_era >= 2:
 		shade.color = Color(0.04, 0.08, 0.16, 0.22)
 		home_marker.text = "你的洞府 · 築基功成 祥雲瑞靄"
+
 
 	var res_lines := []
 	var res_order := ["lingli", "money", "wood", "stone_low", "black_copper", "spirit_grass_low", "foundation_pill"]
@@ -972,24 +1097,127 @@ func _refresh_hud() -> void:
 			var cap: float = _parse_amount(r_data.cap).to_float()
 			var rate: float = _parse_amount(r_data.rate).to_float()
 			var r_name: String = RESOURCE_NAMES.get(r_id, r_id)
-			var rate_str := (" · +%.1f/s" % rate) if rate > 0.0 else ""
-			res_lines.append("%s %d/%d%s" % [r_name, int(val), int(cap), rate_str])
+			var rate_str := (" · +%.2f/s" % rate) if rate > 0.0 else ""
+			res_lines.append("%s %.2f/%d%s" % [r_name, val, int(cap), rate_str])
 
-	resource_label.text = res_lines[0] if not res_lines.is_empty() else "尚無資源"
-	resource_button.text = "資源總覽（%d）" % res_lines.size()
-	resource_full_label.text = ("\n".join(res_lines)) if ui_compact_mode else ("\n\n".join(res_lines))
-	_apply_resource_density()
-	building_catalog.call("refresh", view.buildings)
+	mini_resource_id = "lingli"
+	var objective_value: Variant = view.get("next_objective", null)
+	if objective_value is Dictionary:
+		var next_building: Dictionary = view.get("buildings", {}).get(String(objective_value.get("id", "")), {})
+		for cost_id in next_building.get("costs", {}):
+			var candidate: Dictionary = view.resources.get(cost_id, {})
+			if int(view.era_id) == 1 and bool(candidate.get("unlocked", false)) and String(candidate.get("type", "")) == "basic" and _parse_amount(candidate.get("value", "0")).compare_to(_parse_amount(next_building.costs[cost_id])) < 0:
+				mini_resource_id = String(cost_id)
+				break
+	var mini_entry: Dictionary = view.resources.get(mini_resource_id, {})
+	var mini_current: float = _parse_amount(mini_entry.get("value", "0")).to_float()
+	var mini_cap: float = _parse_amount(mini_entry.get("cap", "0")).to_float()
+	var mini_rate: float = _parse_amount(mini_entry.get("rate", "0")).to_float()
+	resource_label.text = "%s %.2f/%.0f" % [RESOURCE_NAMES.get(mini_resource_id, mini_resource_id), mini_current, mini_cap]
+	if mini_rate > 0.0:
+		resource_label.text += " · +%.2f/s" % mini_rate
+	mini_gather_button.visible = int(view.era_id) == 1 and bool(mini_entry.get("unlocked", false)) and String(mini_entry.get("type", "")) == "basic"
+	mini_gather_button.disabled = mini_current >= mini_cap
+	gather_resource_ids.clear()
+	var gather_popup: PopupMenu = gather_menu.get_popup()
+	gather_popup.clear()
+	for r_id in res_order:
+		var entry: Dictionary = view.resources.get(r_id, {})
+		if int(view.era_id) == 1 and bool(entry.get("unlocked", false)) and String(entry.get("type", "")) == "basic":
+			gather_resource_ids.append(r_id)
+			gather_popup.add_item(String(RESOURCE_NAMES.get(r_id, r_id)), gather_resource_ids.size() - 1)
+	if not gather_resource_ids.has(selected_gather_id):
+		selected_gather_id = mini_resource_id
+	mini_resource_id = selected_gather_id
+	mini_entry = view.resources.get(mini_resource_id, {})
+	mini_current = _parse_amount(mini_entry.get("value", "0")).to_float()
+	mini_cap = _parse_amount(mini_entry.get("cap", "0")).to_float()
+	mini_gather_button.visible = false
+	mini_gather_button.disabled = mini_current >= mini_cap
+	mini_gather_button.text = "採集%s +1" % RESOURCE_NAMES.get(mini_resource_id, mini_resource_id)
+	gather_menu.visible = false
+	action_bar.visible = false
+	building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id))
+	var visible_resource_count: int = 0
+	for entry in view.resources.values():
+		if bool(entry.get("visible", false)):
+			visible_resource_count += 1
+	if visible_resource_count != last_visible_resource_count:
+		last_visible_resource_count = visible_resource_count
+		call_deferred("_layout")
+	_update_onboarding_guidance(view)
+	var objective_text := "營造引導已完成"
+	if objective_value is Dictionary:
+		var objective_id: String = String(objective_value.get("id", ""))
+		var target_level: int = 1
+		for milestone in Onboarding.MILESTONES:
+			if String(milestone.building) == objective_id:
+				target_level = int(milestone.level)
+				break
+		objective_text = "下一步：將%s升至 %d 階" % [BUILDING_NAMES.get(objective_id, "營造設施"), target_level]
+	objective_button.text = objective_text
+	objective_button.tooltip_text = hint.text
+	building_catalog.call("set_context", realm_label.text, objective_text)
 	_reflow_header()
 
 	zoom_label.text = "%d%%" % int(camera.zoom.x * 100)
 	region_visible = camera.target_zoom < 0.34
-	overview_button.text = "回到洞府" if region_visible else "神識展開"
+	overview_button.text = ("歸家" if region_visible else "神識") if layout_mode == HudLayout.PORTRAIT else ("回到洞府" if region_visible else "神識展開")
 	crumb.text = "人界 / 山域總覽 · 遠景尚未開放" if region_visible else "人界 / 無名山域 / 你的洞府"
 	title_label.text = "群山之間，認得自己的燈火" if region_visible else "一方洞府，自有生息"
 
 	if selected_id != "" and info_panel.visible:
 		_refresh_detail()
+
+func _update_onboarding_guidance(view: Dictionary) -> void:
+	var objective_value: Variant = view.get("next_objective", null)
+	if objective_value == null:
+		var done_key := "complete:%d" % int(view.get("era_id", 1))
+		if done_key == last_guidance_key:
+			return
+		last_guidance_key = done_key
+		hint_heading.text = "系統訊息 · 新手引導"
+		hint.text = "入門建築引導已完成。可在「營造設施」查看資源庫存、每秒產率與後續設施需求。"
+		return
+
+	var objective: Dictionary = objective_value
+	var building_id := String(objective.get("id", ""))
+	var building: Dictionary = view.get("buildings", {}).get(building_id, {})
+	var costs: Dictionary = building.get("costs", {})
+	var resources: Dictionary = view.get("resources", {})
+	var missing: Array[String] = []
+	var gatherable_missing: Array[String] = []
+	for resource_id in costs:
+		var resource: Dictionary = resources.get(resource_id, {})
+		var current: AmountCompat = _parse_amount(resource.get("value", "0"))
+		var required: AmountCompat = _parse_amount(costs[resource_id])
+		if current.compare_to(required) < 0:
+			missing.append(String(resource_id))
+			if int(view.get("era_id", 1)) == 1 and bool(resource.get("unlocked", false)) and String(resource.get("type", "")) == "basic":
+				gatherable_missing.append(String(resource_id))
+
+	missing.sort()
+	var state_key := "ready" if missing.is_empty() else "need:" + ",".join(missing)
+	var guidance_key := "%s:%s" % [building_id, state_key]
+	if guidance_key == last_guidance_key:
+		return
+	last_guidance_key = guidance_key
+	hint_heading.text = "系統訊息 · 新手引導"
+	var building_name: String = BUILDING_NAMES.get(building_id, building_id)
+	var level: int = int(building.get("level", 0))
+	var action: String = "建造" if level == 0 else "升級"
+	if building_id == "hut" and "lingli" in missing and "lingli" in gatherable_missing:
+		hint.text = "初入道途，先使用空島下方的「採集靈氣」動作；累積足夠後在營造簿建造茅屋。茅屋啟動後會逐秒產生靈氣。"
+	elif building_id == "wooden_house" and "money" in missing and "money" in gatherable_missing:
+		hint.text = "茅屋已立，接下來需要第一筆金錢。請在空島下方選擇採集金錢，足額後於營造簿建造木屋以啟動金錢產線。"
+	elif missing.is_empty():
+		hint.text = "下一步：資源已足，前往「營造設施」選擇【%s】並%s。完成後再依清單提示推進下一段建築流程。" % [building_name, action]
+	else:
+		var missing_names: Array[String] = []
+		for resource_id in missing:
+			missing_names.append(String(RESOURCE_NAMES.get(resource_id, resource_id)))
+		var gather_text := "可手動採集已解鎖項目；其他需求等待現有產線入庫。" if not gatherable_missing.is_empty() else "請等待已建產線入庫。"
+		hint.text = "下一步：前往「營造設施」%s【%s】。尚缺：%s。%s" % [action, building_name, "、".join(missing_names), gather_text]
 
 func _pick_world(point: Vector2) -> void:
 	if camera.zoom.x < 0.34:
@@ -1008,9 +1236,15 @@ func _pick_world(point: Vector2) -> void:
 	ids.reverse()
 	for id in ids:
 		if buildings[id].visible and buildings[id].contains_point(point):
-			selected_id = "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
-			info_panel.visible = true
-			_refresh_detail()
+			var target_id: String = "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
+			var b_node = buildings[id]
+			if b_node.level == 0:
+				var b_view: Dictionary = session.get_view().buildings.get(target_id, {})
+				if bool(b_view.get("affordable", false)):
+					_upgrade_building_from_catalog(target_id)
+					b_node.pulse_upgrade()
+					print("ABODE_DIRECT_BUILD: ", target_id)
+			_select_building_from_catalog(target_id)
 			print("ABODE_SELECT: ", id)
 			return
 
@@ -1065,7 +1299,7 @@ func _refresh_detail() -> void:
 	detail_title.text = "%s · %s" % [b_name, "未建造" if cur_lvl == 0 else str(cur_lvl) + "階"]
 	detail_body.text = BUILDING_DESCRIPTIONS.get(b_id, "")
 
-	gather_button.visible = (b_id == "hut")
+	gather_button.visible = (b_id == "hut" and int(view.era_id) == 1)
 
 	if cur_lvl >= lvl_cap:
 		upgrade_button.text = "已達當前上限"
@@ -1079,25 +1313,41 @@ func _refresh_detail() -> void:
 		var cost_text := " · ".join(cost_strs)
 		upgrade_button.text = ("建造 · %s" if cur_lvl == 0 else "升級 · %s") % cost_text
 		upgrade_button.disabled = not bool(b_data.affordable)
+		if cur_lvl == 0 and b_data.prereq != null:
+			var prereq_id := String(b_data.prereq.building)
+			var prereq_level := int(b_data.prereq.level)
+			if int(view.buildings.get(prereq_id, {}).get("level", 0)) < prereq_level:
+				upgrade_button.text = "需先將%s升至 %d 階" % [BUILDING_NAMES.get(prereq_id, prereq_id), prereq_level]
 
 	pause_button.visible = (b_id == "herb_farm")
 	pause_button.text = "恢復藥圃" if not state.garden_running else "暫停藥圃"
 
 func _gather_lingli() -> void:
+	_gather_resource("lingli")
+
+func _on_gather_resource_selected(index: int) -> void:
+	if index < 0 or index >= gather_resource_ids.size():
+		return
+	selected_gather_id = gather_resource_ids[index]
+	mini_resource_id = selected_gather_id
+	mini_gather_button.text = "採集%s +1" % RESOURCE_NAMES.get(mini_resource_id, mini_resource_id)
+	var view: Dictionary = session.get_view()
+	var entry: Dictionary = view.resources.get(mini_resource_id, {})
+	mini_gather_button.disabled = _parse_amount(entry.get("value", "0")).compare_to(_parse_amount(entry.get("cap", "0"))) >= 0
+
+func _gather_resource(resource_id: String) -> void:
 	var cmd := {
 		"command_id": "gather_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "gather",
 		"expected_revision": session.state.revision,
-		"payload": {"resource_id": "lingli"}
+		"payload": {"resource_id": resource_id}
 	}
 	var res: Dictionary = session.submit(cmd)
 	if bool(res.get("ok", false)):
-		hint.text = "聚氣吐納，靈氣＋1。"
+		hint.text = "採集%s＋1。" % RESOURCE_NAMES.get(resource_id, resource_id)
 		_refresh_hud()
-		if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
-			session.state.tutorial_flags["seen_nine_realms_hook"] = true
-			_save_game()
-			trigger_nine_realms_hook(false)
+	else:
+		hint.text = "採集受阻：%s" % str(res.get("error", "FAIL"))
 
 func _level_up_cultivation() -> void:
 	var cmd := {
@@ -1155,20 +1405,25 @@ func _on_nine_realms_closed() -> void:
 func _upgrade_selected() -> void:
 	if selected_id == "":
 		return
+	_upgrade_building_from_catalog(selected_id)
+
+func _upgrade_building_from_catalog(building_id: String) -> void:
 	var cmd := {
 		"command_id": "upg_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "upgrade_building",
 		"expected_revision": session.state.revision,
-		"payload": {"building_id": selected_id}
+		"payload": {"building_id": building_id}
 	}
 	var res: Dictionary = session.submit(cmd)
 	if bool(res.get("ok", false)):
-		if buildings.has(selected_id):
-			buildings[selected_id].pulse_upgrade()
+		if buildings.has(building_id):
+			buildings[building_id].pulse_upgrade()
 		hint.text = "建造／升級完成！產出與洞府生息已擴展。"
 		_save_game()
 		_refresh_hud()
-		print("ABODE_UPGRADE: ", selected_id, " level=", session.state.buildings.get(selected_id, 0))
+		print("ABODE_UPGRADE: ", building_id, " level=", session.state.buildings.get(building_id, 0))
+	else:
+		hint.text = "建造受阻：%s" % str(res.get("error", "FAIL"))
 
 func _toggle_garden() -> void:
 	state.garden_running = not state.garden_running
@@ -1179,9 +1434,14 @@ func _close_detail() -> void:
 	selected_id = ""
 	if info_panel:
 		info_panel.visible = false
+		if building_catalog != null:
+			building_catalog.call("show_detail", false)
+		_layout_for_size(hud.size)
 
 func _toggle_overview() -> void:
 	_close_detail()
+	building_catalog.visible = false
+	_layout_for_size(hud.size)
 	if camera.target_zoom < 0.34:
 		_return_home()
 	else:
@@ -1191,6 +1451,8 @@ func _toggle_overview() -> void:
 
 func _return_home() -> void:
 	_close_detail()
+	building_catalog.visible = false
+	_layout_for_size(hud.size)
 	camera.focus_home()
 	hint.text = "回到洞府。點茅屋引氣；其他建築請開啟營造設施。"
 	print("ABODE_HOME")
@@ -1224,11 +1486,59 @@ func _on_more_menu_pressed(id: int) -> void:
 		5:
 			if session != null and session.state != null and session.state.era_id >= 2:
 				_replay_breakthrough()
+		6:
+			_toggle_reincarnation_panel()
+
+func _toggle_reincarnation_panel() -> void:
+	if reincarnation_panel == null:
+		return
+	reincarnation_panel.visible = not reincarnation_panel.visible
+	if reincarnation_panel.visible:
+		if session != null:
+			reincarnation_panel.call("refresh", session.get_view())
+		_layout()
+
+func _on_reincarnate_requested(mode: String) -> void:
+	if session == null:
+		return
+	var res: Dictionary = session.reincarnate(mode)
+	if bool(res.get("ok", false)):
+		hint.text = "天地玄黃，轉世功成！重塑肉身，再續大道仙途。"
+		_save_game()
+		if reincarnation_panel != null:
+			reincarnation_panel.visible = false
+		_return_home()
+		_refresh_hud()
+		print("ABODE_REINCARNATION: cycle=", session.state.reincarnation_count)
+		if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
+			session.state.tutorial_flags["seen_nine_realms_hook"] = true
+			_save_game()
+			trigger_nine_realms_hook(false)
+	else:
+		hint.text = "轉世受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_learn_talent_requested(talent_id: String) -> void:
+	if session == null:
+		return
+	var res: Dictionary = session.learn_talent(talent_id)
+	if bool(res.get("ok", false)):
+		hint.text = "參悟成功！道心感應，玄妙自生。"
+		_save_game()
+		_refresh_hud()
+		if reincarnation_panel != null and reincarnation_panel.visible:
+			reincarnation_panel.call("refresh", session.get_view())
+		print("ABODE_TALENT_LEARNED: ", talent_id, " level=", session.state.talents.get(talent_id, 0))
+	else:
+		hint.text = "參悟受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_reincarnation_closed() -> void:
+	_refresh_hud()
+
 func _save_game() -> void:
 	if session == null or session.state == null:
 		return
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
-	var sim_tick: int = int(floor(session.state.total_elapsed_seconds / 60.0))
+	var sim_tick: int = int(floor(session.state.total_elapsed_seconds / float(TimeAdvancer.SECONDS_PER_TICK)))
 	var meta: Dictionary = {
 		"save_id": "local",
 		"saved_at_utc_ms": str(now_ms),
@@ -1238,4 +1548,11 @@ func _save_game() -> void:
 	SaveManager.save(session.state, meta)
 
 func _show_help() -> void:
+	hint_heading.text = "操作說明"
 	hint.text = "滑鼠拖曳／單指平移；滾輪／雙指縮放。\n營造設施可建造與升級；M 展開山域，Home 歸家。"
+	hint_panel.visible = true
+	_layout_for_size(hud.size)
+
+func _toggle_guidance() -> void:
+	hint_panel.visible = not hint_panel.visible
+	_layout_for_size(hud.size)

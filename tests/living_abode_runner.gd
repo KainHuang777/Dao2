@@ -26,17 +26,23 @@ func _run() -> void:
 	if viewport.x < 1200 or viewport.y < 700:
 		_fail("The desktop-first abode must use a 1280 x 720 class viewport")
 		return
-	if abode.header.size.x < 320 or abode.info_panel.position.x <= viewport.x * 0.55:
-		_fail("Landscape HUD must keep state at left and detail at right")
+	if abode.header.size.x > 320 or abode.building_catalog.visible or abode.info_panel.get_parent() != abode.building_catalog.detail_slot:
+		_fail("Landscape island mode must keep a compact HUD and embed building detail in management")
 		return
-	abode.buildings["hut"].visible = true
-	abode.session.state.buildings["hut"] = 1
+
+	# Test ghost blueprint appearance when affordable and direct world-click construction
+	abode.session.state.resources["lingli"].value = AmountCompat.from_number(25.0)
+	abode._refresh_hud()
+	if not abode.buildings["hut"].visible:
+		_fail("Unbuilt hut must be visible as a ghost blueprint when affordable")
+		return
+	abode._pick_world(abode.buildings["hut"].position + Vector2(0, -60))
+	if abode.session.state.buildings.get("hut", 0) != 1 or abode.selected_id != "hut" or not abode.info_panel.visible or not abode.building_catalog.visible:
+		_fail("Clicking unbuilt hut blueprint must directly construct hut and open management detail")
+		return
+
 	abode.state.qi = 100.0
 	abode._refresh_hud()
-	abode._pick_world(abode.buildings["hut"].position + Vector2(0, -60))
-	if abode.selected_id != "hut" or not abode.info_panel.visible:
-		_fail("Selecting the hut must open its detail panel")
-		return
 	var qi_before: float = abode.state.qi
 	abode._upgrade_selected()
 	if abode.state.levels["hut"] != 2 or abode.state.qi >= qi_before:
@@ -54,9 +60,9 @@ func _run() -> void:
 	if abode.buildings["garden"].visible:
 		_fail("Routine herb farm must not appear as an unplanned island prop")
 		return
-	abode._toggle_building_catalog()
+	abode._close_detail()
 	if not abode.building_catalog.visible or not abode.building_catalog.rows["herb_farm"].visible:
-		_fail("The herb farm must be accessible in the building catalogue")
+		_fail("Returning from detail must expose the herb farm in the building catalogue")
 		return
 	abode._select_building_from_catalog("herb_farm")
 	if abode.selected_id != "herb_farm" or not abode.info_panel.visible:

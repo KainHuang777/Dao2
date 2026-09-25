@@ -7,6 +7,7 @@ var level: int = 1
 var onboarding_version: int = 1
 var training_seconds: float = 0.0
 var total_elapsed_seconds: float = 0.0
+var tick_remainder_seconds: float = 0.0
 var resources: Dictionary = {}
 var buildings: Dictionary = {}
 var tutorial_flags: Dictionary = {}
@@ -24,6 +25,7 @@ func duplicate_state() -> GameState:
 	copy.onboarding_version = onboarding_version
 	copy.training_seconds = training_seconds
 	copy.total_elapsed_seconds = total_elapsed_seconds
+	copy.tick_remainder_seconds = tick_remainder_seconds
 	copy.tutorial_flags = tutorial_flags.duplicate(true)
 	copy.reincarnation_count = reincarnation_count
 	copy.highest_era = highest_era
@@ -60,6 +62,7 @@ func to_snapshot_dict() -> Dictionary:
 		"onboarding_version": onboarding_version,
 		"training_seconds": training_seconds,
 		"total_elapsed_seconds": total_elapsed_seconds,
+		"tick_remainder_seconds": tick_remainder_seconds,
 		"resources": resource_snapshot,
 		"buildings": building_snapshot,
 		"tutorial_flags": tutorial_flags.duplicate(true),
@@ -69,4 +72,3 @@ func to_snapshot_dict() -> Dictionary:
 		"dao_proof": dao_proof,
 		"talents": talents.duplicate(true),
 	}
-

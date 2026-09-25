@@ -39,7 +39,7 @@
 
 ## 可重跑命令（目前已存在的入口）
 
-以下在 Windows PowerShell 執行。每一步確認退出碼；這些命令列於文件不表示本輪全部重跑。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
+以下在 Windows PowerShell 執行。每一步確認退出碼；2026-09-23 已依序重跑原有 15 項與新增正流程 runner，詳見 `docs/verification/core-positive-flow.md`。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
 
 ```powershell
 Set-Location 'E:\WORK\Dao2'
@@ -48,6 +48,8 @@ $daoEngine = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
 if ($LASTEXITCODE -ne 0) { throw 'Godot version check failed' }
 & $daoEngine --headless --path . --import
 if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
+& $daoEngine --headless --path . --script res://tests/core_positive_flow_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'Blank-game core positive flow failed' }
 & $daoEngine --headless --path . --script res://tools/test_runner.gd
 if ($LASTEXITCODE -ne 0) { throw 'Storage/font probe failed' }
 & $daoEngine --headless --path . --script res://tests/abode_state_runner.gd
@@ -72,6 +74,12 @@ if ($LASTEXITCODE -ne 0) { throw 'M2-A abode test failed' }
 if ($LASTEXITCODE -ne 0) { throw 'M2-B breakthrough test failed' }
 & $daoEngine --headless --path . --script res://tests/m2c_nine_realms_runner.gd
 if ($LASTEXITCODE -ne 0) { throw 'M2-C nine realms test failed' }
+& $daoEngine --headless --path . --script res://tests/m2d_responsive_ui_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M2-D responsive UI test failed' }
+& $daoEngine --headless --path . --script res://tests/m2d_slice_release_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M2-D slice release test failed' }
+& $daoEngine --headless --path . --script res://tests/m3a_reincarnation_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'M3-A reincarnation test failed' }
 & $daoEngine --headless --path . --quit-after 3
 if ($LASTEXITCODE -ne 0) { throw 'Main scene startup failed' }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null

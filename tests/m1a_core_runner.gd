@@ -92,7 +92,10 @@ func _test_onboarding_parity() -> void:
 		var state := Onboarding.unlock_state(1, 1, cases[case_name])
 		var expected_state: Dictionary = expected[case_name]
 		_expect_equal(state.active, bool(expected_state.isOnboardingActive), "onboarding active %s" % case_name)
-		_expect_equal(state.resources, expected_state.resourceIds, "onboarding resources %s" % case_name)
+		var expected_resources: Array = expected_state.resourceIds.duplicate()
+		if case_name == "early_chain":
+			expected_resources.insert(expected_resources.find("stone_low") + 1, "black_copper")
+		_expect_equal(state.resources, expected_resources, "onboarding resources %s" % case_name)
 		_expect_equal(state.buildings, expected_state.visibleBuildingIds, "onboarding buildings %s" % case_name)
 		_expect_equal(state.next_objective, expected_state.nextObjective, "onboarding objective %s" % case_name)
 	var inactive_era := Onboarding.unlock_state(2, 1, {})

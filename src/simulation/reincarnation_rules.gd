@@ -79,6 +79,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.level = 1
 	state.training_seconds = 0.0
 	state.total_elapsed_seconds = 0.0
+	state.tick_remainder_seconds = 0.0
 	state.buildings.clear()
 
 	# Re-initialize onboarding unlock state

@@ -1,3 +1,68 @@
+[2026-09-26] Unbuilt Landmark Ghost Blueprint & Direct World Construction
+- Implemented visual ghost blueprint and gathering formation circle for unbuilt affordable landmarks on the world island in src/abode/abode_building.gd.
+- When an essential landmark (such as the initial hut) has not yet been built but the player possesses sufficient resources (affordable == true), a semi-transparent cyan-golden shimmering blueprint with a breathing aura formation appears directly over its island footprint with a glowing "可建" (Constructible) title tag.
+- Enabled direct world construction interaction in _pick_world() in src/abode/living_abode.gd: players can directly click the ghost blueprint in the world view to execute the building construction command, triggering the pulse_upgrade() burst VFX and instantly transitioning the building to a level 1 structure while opening the building management detail view.
+- Added comprehensive headless verification in tests/living_abode_runner.gd asserting ghost blueprint visibility upon reaching resource threshold and direct world-click construction execution.
+- Verified all 17 Godot test runners pass with exit code 0; exported updated Web release build to build/web/.
+
+[2026-09-25] Align Resource List Height and Outer Frame Expansion
+- Fixed layout misalignment and bottom card truncation in the HUD resource ribbon (src/abode/living_abode.gd).
+- Accurately calculated wanted_height based on style margins (12px), mode tab row (44px), box separation (4px), card heights (38px/56px), and card vertical separation (6px), eliminating the 16px vertical deficit that was truncating the third resource card ("靈木").
+- Eliminated unwanted vertical scrollbars by providing exact container height for all visible cards in both Quantity and Full modes. Cards now expand cleanly to fill the ribbon width, with their right borders perfectly aligned with the "完整" tab button above.
+- Relaxed the portrait maximum height constraint from an arbitrary 200px limit to 280px (when building catalog is closed), ensuring initial Era 1 resources can be completely inspected in Full mode without being cut in half.
+- Verified all 17 Godot test runners pass with exit code 0 and exported fresh Web release build to build/web/.
+
+[2026-09-25] In-Row Resource Gather Buttons & Era 2 Manual Gather Rule Enforcement
+- Replaced the bottom-left action bar and gather selection menu with direct inline "採集" buttons placed behind each unlocked basic resource card in src/presentation/building_catalog.gd.
+- Players can now directly tap "採集" on any specific resource row (lingli, money, wood) without selecting from a dropdown menu.
+- Enforced manual gather phase rule: inline gather buttons are strictly active only in Era 1 (Qi Refinement); once reaching Era 2 (Foundation Establishment), manual gather buttons automatically disappear as the abode transitions to fully automated facility production (matching MANUAL_GATHER_ERA simulation constraint).
+- Disabled in-row gather buttons automatically when the resource hits its storage capacity.
+- Hid the legacy bottom-left action_bar, mini_gather_button, and gather_menu in src/abode/living_abode.gd, keeping the left viewport landscape clean and unoccluded.
+- Updated tests/m2d_responsive_ui_runner.gd and tests/core_positive_flow_runner.gd with inline gather assertions and Era 2 gather disappearance checks.
+- All 17 Godot test runners pass with exit code 0; exported updated Web release build to build/web/.
+
+[2026-09-25] Move Nine Realms Cinematic Hook from First Gather to First Reincarnation
+- Removed Nine Realms camera hook trigger from initial lingli gathering in _gather_resource() within src/abode/living_abode.gd. Players can now freely gather resources and learn core loop mechanics without interruption.
+- Relocated the Nine Realms hook trigger to _on_reincarnate_requested() upon completion of the player's first reincarnation (when seen_nine_realms_hook flag is false).
+- Recorded future backlog design requirement: when expanding Nine Realms and Samsara mechanics in future milestones (M3/M4), "Aspire to Realm" (標記為嚮往) will be enhanced from passive bookmarking to provide tangible gameplay effects (such as reincarnation modifiers and realm affinity bonuses).
+- Updated tests/m2c_nine_realms_runner.gd and tests/m2d_slice_release_runner.gd to assert that early gathering never triggers the hook, while first reincarnation successfully triggers the hook.
+- All 17 Godot test runners pass with exit code 0; exported updated Web release build to build/web/.
+
+[2026-09-25] Fix Resource Ribbon Text Collapse and Dynamic Header Overlap
+- Resolved UI overlap where the cultivation level-up action button inside the top-left basic info header expanded the header height without updating the position of the vertical resource ribbon below it.
+- Extracted _reflow_resource_ribbon() in src/abode/living_abode.gd and invoked it whenever _reflow_header() is triggered, ensuring resource_ribbon dynamically positions itself directly beneath the header with an 8px gap upon cultivation progress changes.
+- Fixed resource card text disappearing bug where resource_grid inside ScrollContainer lacked size_flags_horizontal = SIZE_EXPAND_FILL and value_label clip_text caused cards to collapse into 1px / 24px empty square outlines.
+- Added SIZE_EXPAND_FILL to resource_grid and value_label in src/presentation/building_catalog.gd, as well as resource_scroll in src/abode/living_abode.gd, restoring full readable resource names, quantities, and rates.
+- Updated tests/m2d_responsive_ui_runner.gd with assertions for card horizontal expansion (>100px) and dynamic non-overlapping bounds during level-up button visibility.
+- Verified all 17 Godot test runners pass with exit code 0 and exported fresh Web release build to build/web/.
+
+[2026-09-25] Godot Process Cleanup Tools Delivery
+- Created tools/kill_godot.ps1 and kill_godot.bat to detect and cleanly terminate dangling Godot engine and console processes.
+- Safely scopes process detection to the local project's tools/godot directory by default, preventing accidental termination of external instances.
+- Added -DryRun switch for non-destructive inspection and -All switch for system-wide cleanup.
+
+[2026-09-25] System Message Guidance Panel Layout & Expansion Fix
+- Converted hint_panel in src/abode/living_abode.gd from raw Panel to PanelContainer with dedicated StyleBoxFlat margins (left/right 18px, top/bottom 12px) to prevent text clipping and crossing golden border curves.
+- Removed Control.PRESET_FULL_RECT from hint_box and set expand size flags, allowing natural flow wrapping and bounding child labels within safe container padding.
+- Expanded default hint_panel height from cramped 56px to 104px (wide mode) and 96px (compact mode), aligning hint_panel dynamically above the bottom toolbar with a 12px buffer.
+- Expanded hint_panel height when opening the building catalogue (up to 152px) and adjusted portrait catalogue placement to accommodate multi-line wrapped text without truncation or overlapping.
+- Verified all 17 Godot test runners pass with exit code 0 and updated Web release export in build/web/.
+
+[2026-09-24] M3-A Reincarnation & Dao Heart Talent UI Panel Delivery
+- Created src/presentation/reincarnation_panel.gd implementing tabbed dialog for Samsara cycle overview, qualification gating display, reward previews, rebirth actions, and interactive Dao Heart talent leveling.
+- Integrated reincarnation_button into the desktop toolbar and added "輪迴天道" option to the portrait more_menu in src/abode/living_abode.gd.
+- Implemented responsive layout bounds adapting dynamically to wide, compact, and narrow 360 CSS px portrait screens.
+- Connected real-time HUD and panel refreshes upon state changes, talent learning, and reincarnation completion with automatic return home.
+- Created tests/m3a_reincarnation_ui_runner.gd asserting panel toggle, tab switching, talent purchasing with dao heart deduction, era-2 eligibility highlighting, rebirth execution, and portrait layout adaptation (Exit 0).
+- Updated tools/run_all_runners.ps1; verified all 17 Godot test runners and Web release export pass with exit code 0.
+
+[2026-09-24] Building Catalog Syntax Fix & Test Suite Recovery
+- Fixed script parsing error in src/presentation/building_catalog.gd where nonexistent AmountCompat.from_string was invoked.
+- Implemented robust _parse_amount_float helper utilizing AmountCompat.try_parse() and native float parsing to handle cost and resource amounts.
+- Explicitly typed ratio variable to float to prevent variant inference warnings treated as errors.
+- Created tools/run_all_runners.ps1 to execute the entire Godot headless test suite.
+- Re-verified all 16 Godot test runners (core positive flow, responsive UI, slice release, reincarnation, time advancer, persistence, import, etc.) and Web release export; all passed with exit code 0.
+
 [2026-09-22] M3-A Reincarnation & Samsara Lifecycle Delivery
 - Extended GameState with meta-progress persistence fields: reincarnation_count, highest_era, dao_heart (AmountCompat), dao_proof, and talents.
 - Added backward-compatible serialization and decoding for reincarnation and talent fields in SaveCodec.

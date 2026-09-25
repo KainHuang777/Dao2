@@ -32,6 +32,8 @@ static func _apply_gather(content: GameContent, state: GameState, payload: Dicti
 		return _failure("UNKNOWN_RESOURCE", {"resource_id": resource_id})
 	if String(definition.type) != "basic":
 		return _failure("NOT_BASIC_RESOURCE", {"resource_id": resource_id})
+	if state.era_id != 1:
+		return _failure("MANUAL_GATHER_ERA", {"resource_id": resource_id, "era_id": state.era_id})
 	var entry: Dictionary = state.resources[resource_id]
 	if not bool(entry.unlocked):
 		return _failure("RESOURCE_LOCKED", {"resource_id": resource_id})

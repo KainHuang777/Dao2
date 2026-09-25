@@ -35,17 +35,29 @@ func _run() -> void:
 		_fail("nine_realms_preview must be hidden initially")
 		return
 
-	# 2. First Gather triggers hook
+	# 2. First Gather does NOT trigger hook (UX change: hook moved to first reincarnation)
 	abode._toggle_building_catalog()
 	abode._select_building_from_catalog("hut")
 	abode._gather_lingli()
 
+	if state.tutorial_flags.get("seen_nine_realms_hook", false):
+		_fail("seen_nine_realms_hook must remain false after first gather")
+		return
+
+	if abode.nine_realms_preview.visible:
+		_fail("nine_realms_preview must remain hidden after first gather")
+		return
+
+	# 2b. First reincarnation triggers hook
+	state.era_id = 2
+	abode._on_reincarnate_requested("normal")
+
 	if not state.tutorial_flags.get("seen_nine_realms_hook", false):
-		_fail("seen_nine_realms_hook must be true after first gather")
+		_fail("seen_nine_realms_hook must be true after first reincarnation")
 		return
 
 	if not abode.nine_realms_preview.visible:
-		_fail("nine_realms_preview must become visible on hook trigger")
+		_fail("nine_realms_preview must become visible on first reincarnation")
 		return
 
 	if not abode.nine_realms_preview._is_cinematic_playing:

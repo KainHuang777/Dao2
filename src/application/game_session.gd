@@ -59,10 +59,17 @@ func submit(command: Dictionary) -> Dictionary:
 	return result
 
 func advance_time(elapsed_seconds: float) -> Dictionary:
-	var ticks := TimeAdvancer.ticks_for_elapsed(elapsed_seconds)
-	if elapsed_seconds > 0.0:
-		clock.advance(elapsed_seconds)
+	if is_nan(elapsed_seconds) or is_inf(elapsed_seconds) or elapsed_seconds <= 0.0:
+		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null, "new_revision": state.revision}
+	clock.advance(elapsed_seconds)
+	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus))
+	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
+		state.tick_remainder_seconds = 0.0
+		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "lifespan_exhausted", "new_revision": state.revision}
+	var accumulated := state.tick_remainder_seconds + elapsed_seconds
+	var ticks := TimeAdvancer.ticks_for_elapsed(accumulated)
 	if ticks <= 0:
+		state.tick_remainder_seconds = accumulated
 		return {
 			"ok": true,
 			"ticks_advanced": 0,
@@ -72,13 +79,16 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 			"new_revision": state.revision,
 		}
 	var result: Dictionary = TimeAdvancer.advance(state, content, ticks)
+	state.tick_remainder_seconds = 0.0 if result.stopped != null else maxf(0.0, accumulated - float(ticks) * float(TimeAdvancer.SECONDS_PER_TICK))
 	state.revision += 1
 	result.ok = true
 	result.new_revision = state.revision
 	return result
 
 func get_view() -> Dictionary:
-	var rates := Production.compute_rates(content, state.buildings)
+	var era_definition: Variant = content.era(state.era_id)
+	var era_multiplier := 1.0 if era_definition == null else float(era_definition.resource_multiplier)
+	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier))
 	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
 	var unlock := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
 	var resources := {}
@@ -108,7 +118,11 @@ func get_view() -> Dictionary:
 			var onboarding_active := Onboarding.is_active(state.onboarding_version, state.era_id)
 			var base_cost := BuildingCosts.resolve_base_cost(building_id, definition.base_cost, onboarding_active)
 			var next_costs := BuildingCosts.compute_cost(base_cost, level, float(definition.cost_factor))
-			affordable = true
+			affordable = visible and (level > 0 or state.era_id >= int(definition.era))
+			if level == 0 and definition.prereq != null:
+				var required_level := int(definition.prereq.level)
+				if int(state.buildings.get(String(definition.prereq.building), 0)) < required_level:
+					affordable = false
 			for resource_id in next_costs:
 				costs[resource_id] = next_costs[resource_id].serialize()
 				var entry: Dictionary = state.resources[resource_id]
@@ -171,6 +185,7 @@ func get_view() -> Dictionary:
 		"content_version": content.content_version,
 		"training_seconds": state.training_seconds,
 		"total_elapsed_seconds": state.total_elapsed_seconds,
+		"tick_remainder_seconds": state.tick_remainder_seconds,
 		"next_level_required_seconds": next_required,
 		"max_lifespan_seconds": max_lifespan,
 		"can_level_up": can_level_up,

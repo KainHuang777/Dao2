@@ -15,7 +15,7 @@ static func settle(now_utc_ms: int) -> Dictionary:
 	if bool(report["rollback"]):
 		return {"ok": true, "report": report, "error": "", "committed": false, "state": state}
 	working.revision += 1
-	var sim_tick: int = int(floor(working.total_elapsed_seconds / 60.0))
+	var sim_tick: int = int(floor(working.total_elapsed_seconds / float(TimeAdvancer.SECONDS_PER_TICK)))
 	var meta: Dictionary = {
 		"save_id": "local",
 		"saved_at_utc_ms": str(now_utc_ms),

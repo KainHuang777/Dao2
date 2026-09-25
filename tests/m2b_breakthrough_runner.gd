@@ -170,8 +170,8 @@ func _run() -> void:
 	reloaded._layout_for_size(Vector2(1280, 720))
 	reloaded._refresh_hud()
 
-	if not reloaded.replay_breakthrough_button.visible:
-		_fail("Replay breakthrough button must be visible in Era 2")
+	if reloaded.replay_breakthrough_button.visible or not reloaded.more_menu.visible or reloaded.more_menu.get_popup().is_item_disabled(reloaded.more_menu.get_popup().get_item_index(5)):
+		_fail("Era 2 replay must remain available through the wide More menu")
 		return
 
 	reloaded.queue_free()

@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 2
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "offline-24h-1"
+const RULES_VERSION := "core-flow-3"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -133,6 +133,9 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:training_seconds"}
 	if not _is_number(snapshot_dict.get("total_elapsed_seconds")):
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:total_elapsed_seconds"}
+	var remainder: Variant = snapshot_dict.get("tick_remainder_seconds", 0.0)
+	if not _is_number(remainder) or float(remainder) < 0.0 or float(remainder) >= 60.0:
+		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:tick_remainder_seconds"}
 	if not (snapshot_dict.get("resources") is Dictionary):
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:resources"}
 	if not (snapshot_dict.get("buildings") is Dictionary):
@@ -169,6 +172,7 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.onboarding_version = _to_int(snapshot_dict["onboarding_version"])
 	state.training_seconds = _to_float(snapshot_dict["training_seconds"])
 	state.total_elapsed_seconds = _to_float(snapshot_dict["total_elapsed_seconds"])
+	state.tick_remainder_seconds = _to_float(remainder)
 	state.resources = resources
 	state.buildings = buildings
 	if snapshot_dict.has("tutorial_flags"):

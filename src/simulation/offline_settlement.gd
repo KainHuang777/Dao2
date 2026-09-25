@@ -38,8 +38,11 @@ static func settle(state: GameState, content: GameContent, now_utc_ms: int, last
 	var p := plan(now_utc_ms, last_settled_utc_ms)
 	var away_ms: int = int(p["away_ms"])
 	var effective_ms: int = int(p["effective_ms"])
-	var away_ticks := TimeAdvancer.ticks_for_elapsed(float(away_ms) / 1000.0)
-	var full_ticks := TimeAdvancer.ticks_for_elapsed(float(effective_ms) / 1000.0)
+	var carry := state.tick_remainder_seconds
+	var away_seconds := float(away_ms) / 1000.0
+	var effective_seconds := float(effective_ms) / 1000.0
+	var away_ticks := TimeAdvancer.ticks_for_elapsed(carry + away_seconds)
+	var full_ticks := TimeAdvancer.ticks_for_elapsed(carry + effective_seconds)
 	var time_only_ticks := maxi(0, away_ticks - full_ticks)
 	var stopped = null
 	if full_ticks > 0:
@@ -48,6 +51,11 @@ static func settle(state: GameState, content: GameContent, now_utc_ms: int, last
 		if stopped == null and time_only_ticks > 0:
 			var time_only_result: Dictionary = TimeAdvancer.advance_time_only(state, content, time_only_ticks)
 			stopped = time_only_result["stopped"]
+	elif time_only_ticks > 0:
+		var time_only_result: Dictionary = TimeAdvancer.advance_time_only(state, content, time_only_ticks)
+		stopped = time_only_result["stopped"]
+	if away_ms > 0:
+		state.tick_remainder_seconds = 0.0 if stopped != null else maxf(0.0, carry + away_seconds - float(away_ticks) * float(TimeAdvancer.SECONDS_PER_TICK))
 	var report := {
 		"left_at_utc_ms": last_settled_utc_ms,
 		"settled_at_utc_ms": now_utc_ms,
