@@ -95,6 +95,18 @@ func _test_eligibility_gating() -> bool:
 	ok = _expect(bool(preview["eligible"]), "Exhausted lifespan should grant reincarnation eligibility") and ok
 	ok = _expect_equal(String(preview["reason"]), "lifespan_exhausted", "Reason should be lifespan_exhausted") and ok
 
+	# Era 2 without lotus and unexhausted lifespan cannot reincarnate
+	var session_era2 := GameSession.create_new_game(content)
+	session_era2.state.era_id = 2
+	var preview2 := session_era2.get_reincarnation_preview()
+	ok = _expect(not bool(preview2["eligible"]), "Era 2 without rebirth_lotus and full lifespan cannot reincarnate") and ok
+
+	# Era 2 with rebirth_lotus enables early reincarnation
+	session_era2.state.buildings["rebirth_lotus"] = 1
+	var preview_lotus := session_era2.get_reincarnation_preview()
+	ok = _expect(bool(preview_lotus["eligible"]), "Building rebirth_lotus enables early reincarnation") and ok
+	ok = _expect_equal(String(preview_lotus["reason"]), "rebirth_lotus", "Reason should be rebirth_lotus") and ok
+
 	return ok
 
 func _test_reincarnation_execution_and_reset() -> bool:
@@ -113,14 +125,15 @@ func _test_reincarnation_execution_and_reset() -> bool:
 	session.state.resources["wood"].value = AmountCompat.from_number(1000.0)
 	session.state.buildings["hut"] = 2
 	session.state.buildings["wooden_house"] = 1
+	session.state.buildings["rebirth_lotus"] = 1
 	session.state.era_id = 2  # Era 2 (築基)
 	session.state.level = 3
 
-	# Verify eligibility at Era 2
+	# Verify eligibility at Era 2 with rebirth_lotus
 	var preview := session.get_reincarnation_preview("normal")
-	ok = _expect(bool(preview["eligible"]), "Era 2 player should be eligible to reincarnate") and ok
-	# Building sum = 2 + 1 = 3, Era 2 floor = 15 => dao_heart = 15, dao_proof = 0
-	ok = _expect_equal(int(preview["building_sum"]), 3, "Building sum should be 3") and ok
+	ok = _expect(bool(preview["eligible"]), "Player with rebirth_lotus should be eligible to reincarnate") and ok
+	# Building sum = 2 + 1 + 1 = 4, Era 2 floor = 15 => dao_heart = 15, dao_proof = 0
+	ok = _expect_equal(int(preview["building_sum"]), 4, "Building sum should be 4") and ok
 	ok = _expect_equal(String(preview["dao_heart"]), "15", "Dao heart should use Era 2 floor (15)") and ok
 
 	# Execute reincarnation

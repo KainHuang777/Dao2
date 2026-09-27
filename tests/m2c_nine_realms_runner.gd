@@ -50,6 +50,7 @@ func _run() -> void:
 
 	# 2b. First reincarnation triggers hook
 	state.era_id = 2
+	state.buildings["rebirth_lotus"] = 1
 	abode._on_reincarnate_requested("normal")
 
 	if not state.tutorial_flags.get("seen_nine_realms_hook", false):

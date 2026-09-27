@@ -27,7 +27,7 @@ func _run() -> void:
 	abode._on_more_menu_pressed(6)
 	_expect(abode.reincarnation_panel.visible, "More menu reincarnation action must open the panel")
 	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled for new game (Era 1, full lifespan)")
-	_expect(abode.reincarnation_panel._eligibility_label.text.find("需突破至築基期") >= 0, "eligibility label must explain requirement")
+	_expect(abode.reincarnation_panel._eligibility_label.text.find("往生蓮臺") >= 0, "eligibility label must explain requirement")
 
 	# 2. 分頁切換至道心天賦
 	abode.reincarnation_panel._talents_button.pressed.emit()
@@ -53,15 +53,33 @@ func _run() -> void:
 	abode.reincarnation_panel._reincarnate_button.pressed.emit()
 	_expect(abode.reincarnation_panel._reincarnate_box.visible, "switching back must show reincarnate box")
 
-	# 模擬築基並建造部分建築
+	# 模擬築基並建造部分建築（壽元未盡且無蓮臺：不可輪迴，橫幅不顯示）
 	abode.session.state.era_id = 2
 	abode.session.state.buildings["hut"] = 3
 	abode.session.state.buildings["wooden_house"] = 2
 	abode._refresh_hud()
+	_expect(not abode.lifespan_banner.visible, "lifespan banner must be hidden when lifespan is not exhausted")
+	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled when era >= 2 but no rebirth lotus")
 
-	_expect(abode.more_menu.text.find("★") >= 0 and abode.more_menu.get_popup().get_item_text(abode.more_menu.get_popup().get_item_index(6)).find("★") >= 0, "eligible reincarnation must highlight the visible More entry")
-	_expect(not abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be enabled when era >= 2")
-	_expect(abode.reincarnation_panel._eligibility_label.text.find("築基期") >= 0, "eligibility label must display era qualification")
+	# 模擬修築往生蓮臺 (rebirth_lotus = 1)
+	abode.session.state.buildings["rebirth_lotus"] = 1
+	abode._refresh_hud()
+	_expect(not abode.lifespan_banner.visible, "lifespan banner remains hidden for early lotus reincarnation")
+	_expect(not abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be enabled when rebirth lotus is built")
+	_expect(abode.reincarnation_panel._eligibility_label.text.find("往生蓮臺") >= 0, "eligibility label must display lotus qualification")
+
+	# 模擬壽元耗盡情境，驗證 HUD 懸浮橫幅顯示與直達輪迴
+	abode.session.state.buildings.erase("rebirth_lotus")
+	abode.session.state.total_elapsed_seconds = 200000.0
+	abode._refresh_hud()
+	_expect(abode.lifespan_banner.visible, "lifespan banner must become visible when lifespan is exhausted")
+	_expect(not abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be enabled when lifespan is exhausted")
+	_expect(abode.reincarnation_panel._eligibility_label.text.find("壽元已盡") >= 0, "eligibility label must display lifespan exhausted qualification")
+
+	# 測試點擊橫幅按鈕直達輪迴面板
+	abode.reincarnation_panel.visible = false
+	abode.lifespan_banner_button.pressed.emit()
+	_expect(abode.reincarnation_panel.visible, "pressing lifespan banner button must directly open reincarnation panel")
 
 	# 執行轉世
 	abode.reincarnation_panel._reincarnate_action_button.pressed.emit()
@@ -76,6 +94,7 @@ func _run() -> void:
 	var lingli_val: float = abode.session.state.resources["lingli"].value.to_float()
 	_expect(lingli_val == 50.0, "inherited lingli must be 50.0 (50% of cap 100)")
 	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be automatically closed upon rebirth")
+	_expect(not abode.lifespan_banner.visible, "lifespan banner must be hidden after reincarnation")
 
 	# 5. 直式版型與 more_menu 整合
 	abode._layout_for_size(Vector2(360, 640))

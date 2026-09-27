@@ -184,6 +184,7 @@ func test_reincarnation_buff_filtering() -> void:
 	state.era_id = 2
 	state.level = 1
 	state.buildings["hut"] = 10
+	state.buildings["rebirth_lotus"] = 1
 
 	# Normal buff
 	BuffSystem.apply_buff(state, "spirit_surge", 300.0, {}, false)

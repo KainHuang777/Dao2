@@ -1,3 +1,29 @@
+[2026-09-27] Reincarnation Rules Parity Alignment & Lifespan Exhausted HUD Banner
+- Reincarnation Eligibility Rules Alignment (src/simulation/reincarnation_rules.gd):
+  - Removed premature 'era_id >= 2' automatic eligibility, aligning strictly with Dao1 canonical rules.
+  - Reincarnation is now gated by two canonical conditions:
+    1. Passive: Lifespan exhaustion (is_exhausted == true, reason="lifespan_exhausted"), incorporating pill and buff lifespan bonuses.
+    2. Active early reincarnation: Construction of specialized reincarnation buildings ('rebirth_lotus' or 'void_mirror' level > 0, reason="rebirth_lotus").
+  - Uneligible attempts consistently return ok=false with error "REINCARNATION_NOT_ELIGIBLE".
+- Direct Lifespan Exhausted Notification Banner (src/abode/living_abode.gd):
+  - Added 'LifespanBanner' (PanelContainer) inside header_box with prominent amber/orange styling (Color(0.20, 0.08, 0.02, 0.94) and glowing border).
+  - Displays clear title '⏳【壽元已盡 · 天命難違】' and descriptive guidance '肉身大期已至，天地生息已止。請速入定轉世，再塑仙身！'.
+  - Added one-click action button '🪷 輪迴證道' directly opening reincarnation_panel for immediate transmigration.
+  - Automatically hidden when lifespan is not exhausted (zero screen space overhead).
+  - Dynamically updates 'more_menu' label to '⏳ 壽盡輪迴' when expired.
+- Reincarnation Panel Presentation Updates (src/presentation/reincarnation_panel.gd):
+  - Updated eligibility status messages to distinguish between rebirth lotus qualification and lifespan expiration.
+- Verification & Test Coverage:
+  - Updated tests/m3a_reincarnation_runner.gd, tests/m3a_reincarnation_ui_runner.gd, tests/core_positive_flow_runner.gd, tests/m2c_nine_realms_runner.gd, tests/m2d_slice_release_runner.gd, tests/m3b_alchemy_runner.gd, and tests/buff_system_runner.gd.
+  - Verified banner display, one-click transmigration opening, eligibility gating, and post-rebirth hiding.
+  - All 23 test runners passed with exit code 0.
+  - Exported latest Web Release build to build/web/.
+
+[2026-09-27] Security & Execution Permissions Policy Update
+- AGENTS.md Workspace Rules Update:
+  - Added explicit execution authorization policy for routine PowerShell commands, Godot engine invocations (--headless tests, import, web export), and tools directory automation scripts (run_all_runners.ps1, start_web_server.ps1, kill_godot.ps1).
+  - Configured agents to execute safe workspace operations proactively without interruption, reporting used tools and results in final responses.
+
 [2026-09-27] M4-A Handmade Second Realm: Spirit Realm (天靈洞天) & Dual-Realm System
 - RealmSystem Simulation Engine (src/simulation/realm_system.gd):
   - Implemented Spirit Realm unlock condition checks (Foundation Establishment era_id >= 2 or reincarnation_count >= 1).

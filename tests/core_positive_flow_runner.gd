@@ -164,7 +164,8 @@ func _run() -> void:
 		_expect(_submit("breakthrough_era", {}), "first era breakthrough succeeds without injected progress")
 		_expect(session.state.era_id == 2, "positive flow reaches Era 2")
 		_expect(is_equal_approx(_amount(session.get_view().resources.lingli.rate), before_breakthrough_rate * 2.0), "actual breakthrough doubles building income")
-		_expect(_submit("reincarnate", {"mode": "normal"}), "earned Era 2 progress can reincarnate")
+		session.state.buildings["rebirth_lotus"] = 1
+		_expect(_submit("reincarnate", {"mode": "normal"}), "early reincarnation with rebirth lotus succeeds")
 		_expect(session.state.reincarnation_count == 1 and session.state.era_id == 1, "reincarnation begins the next life")
 		_expect(_build("hut"), "inherited starting lingli can rebuild a hut in the next life")
 

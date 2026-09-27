@@ -44,12 +44,16 @@ static func check_eligibility(state: GameState, content: GameContent) -> Diction
 	var talent_lifespan_bonus := 0.0
 	if state.talents.has("lifespan_extension"):
 		talent_lifespan_bonus = float(state.talents["lifespan_extension"]) * 0.1
-	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus)
+	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0))
+	var buff_multipliers := BuffSystem.compute_multipliers(state)
+	pill_lifespan_bonus += float(buff_multipliers.lifespan_bonus_years)
+	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus, pill_lifespan_bonus)
 	var exhausted := Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds)
 	if exhausted:
 		return {"can_reincarnate": true, "reason": "lifespan_exhausted"}
-	if state.era_id >= 2:
-		return {"can_reincarnate": true, "reason": "era_threshold"}
+	# 提前輪迴：需修築特定輪迴建築（往生蓮臺 rebirth_lotus 或 太虛輪迴境 void_mirror）
+	if int(state.buildings.get("rebirth_lotus", 0)) > 0 or int(state.buildings.get("void_mirror", 0)) > 0:
+		return {"can_reincarnate": true, "reason": "rebirth_lotus"}
 	return {"can_reincarnate": false, "reason": "NOT_ELIGIBLE"}
 
 static func apply_reincarnation(state: GameState, content: GameContent, mode: String = "normal") -> Dictionary:

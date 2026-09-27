@@ -149,6 +149,7 @@ func _test_save_persistence_roundtrip(content: GameContent) -> void:
 func _test_reincarnation_reset(content: GameContent) -> void:
 	var session := GameSession.create_new_game(content)
 	session.state.era_id = 2 # Era 2 qualifies for reincarnation
+	session.state.buildings["rebirth_lotus"] = 1
 	session.state.pills = {"cultivation_pill": 10}
 	session.state.pill_effects = {"lifespan_bonus_years": 15.0}
 

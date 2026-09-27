@@ -212,6 +212,9 @@ var alchemy_button: Button
 var buff_hud_bar: BuffHudBar = null
 var realm_modal: Control = null
 var spirit_realm_region_label: Label = null
+var lifespan_banner: PanelContainer = null
+var lifespan_banner_label: Label = null
+var lifespan_banner_button: Button = null
 
 var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
@@ -508,6 +511,45 @@ func _build_hud() -> void:
 	var buff_bar_script = preload("res://src/presentation/buff_hud_bar.gd")
 	buff_hud_bar = buff_bar_script.new()
 	header_box.add_child(buff_hud_bar)
+
+	lifespan_banner = PanelContainer.new()
+	lifespan_banner.name = "LifespanBanner"
+	var banner_style := StyleBoxFlat.new()
+	banner_style.bg_color = Color(0.20, 0.08, 0.02, 0.94)
+	banner_style.border_color = Color(0.96, 0.58, 0.12, 0.95)
+	banner_style.set_border_width_all(2)
+	banner_style.set_corner_radius_all(6)
+	banner_style.content_margin_left = 10
+	banner_style.content_margin_right = 10
+	banner_style.content_margin_top = 8
+	banner_style.content_margin_bottom = 8
+	lifespan_banner.add_theme_stylebox_override("panel", banner_style)
+	lifespan_banner.visible = false
+	header_box.add_child(lifespan_banner)
+
+	var banner_vbox := VBoxContainer.new()
+	banner_vbox.add_theme_constant_override("separation", 6)
+	lifespan_banner.add_child(banner_vbox)
+
+	lifespan_banner_label = Label.new()
+	lifespan_banner_label.text = "⏳【壽元已盡 · 天命難違】\n肉身大期已至，天地生息已止。請速入定轉世，再塑仙身！"
+	lifespan_banner_label.add_theme_font_override("font", UiTypography.emphasis_font())
+	lifespan_banner_label.add_theme_font_size_override("font_size", 13)
+	lifespan_banner_label.add_theme_color_override("font_color", Color("ffd180"))
+	lifespan_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	banner_vbox.add_child(lifespan_banner_label)
+
+	lifespan_banner_button = Button.new()
+	lifespan_banner_button.text = "🪷 輪迴證道"
+	lifespan_banner_button.custom_minimum_size = Vector2(120, 38)
+	lifespan_banner_button.add_theme_font_override("font", UiTypography.emphasis_font())
+	lifespan_banner_button.add_theme_font_size_override("font_size", 15)
+	var banner_btn_style := StyleBoxFlat.new()
+	banner_btn_style.bg_color = Color(0.85, 0.42, 0.10, 0.95)
+	banner_btn_style.set_corner_radius_all(4)
+	lifespan_banner_button.add_theme_stylebox_override("normal", banner_btn_style)
+	lifespan_banner_button.pressed.connect(_toggle_reincarnation_panel)
+	banner_vbox.add_child(lifespan_banner_button)
 
 	var resource_row := HBoxContainer.new()
 	resource_row.add_theme_constant_override("separation", 6)
@@ -1236,13 +1278,28 @@ func _refresh_hud() -> void:
 	more_menu.get_popup().set_item_disabled(more_menu.get_popup().get_item_index(5), cur_era < 2)
 
 	var rc_eligible: bool = false
+	var is_lifespan_exhausted: bool = false
 	if view.has("reincarnation_preview"):
 		rc_eligible = bool(view.reincarnation_preview.get("eligible", false))
+		is_lifespan_exhausted = (String(view.reincarnation_preview.get("reason", "")) == "lifespan_exhausted")
+
+	if lifespan_banner != null:
+		var was_visible: bool = lifespan_banner.visible
+		lifespan_banner.visible = is_lifespan_exhausted
+		if was_visible != is_lifespan_exhausted:
+			_reflow_header()
+
 	if rc_eligible:
-		reincarnation_button.text = "★ 輪迴天道 ★" if layout_mode != HudLayout.PORTRAIT else "★ 輪迴"
-		reincarnation_button.add_theme_color_override("font_color", Color("7de0a8"))
-		more_menu.text = "★ 更多" if layout_mode == HudLayout.PORTRAIT else "★ 更多功能"
-		more_menu.get_popup().set_item_text(more_menu.get_popup().get_item_index(6), "★ 輪迴天道")
+		if is_lifespan_exhausted:
+			reincarnation_button.text = "⏳ 壽盡輪迴 ⏳" if layout_mode != HudLayout.PORTRAIT else "⏳ 輪迴"
+			reincarnation_button.add_theme_color_override("font_color", Color("ffd180"))
+			more_menu.text = "⏳ 輪迴" if layout_mode == HudLayout.PORTRAIT else "⏳ 壽盡輪迴"
+			more_menu.get_popup().set_item_text(more_menu.get_popup().get_item_index(6), "⏳ 壽盡輪迴")
+		else:
+			reincarnation_button.text = "★ 輪迴天道 ★" if layout_mode != HudLayout.PORTRAIT else "★ 輪迴"
+			reincarnation_button.add_theme_color_override("font_color", Color("7de0a8"))
+			more_menu.text = "★ 更多" if layout_mode == HudLayout.PORTRAIT else "★ 更多功能"
+			more_menu.get_popup().set_item_text(more_menu.get_popup().get_item_index(6), "★ 輪迴天道")
 	else:
 		reincarnation_button.text = "輪迴天道" if layout_mode != HudLayout.PORTRAIT else "輪迴"
 		reincarnation_button.add_theme_color_override("font_color", Color("f4e7be"))

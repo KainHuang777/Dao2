@@ -161,6 +161,7 @@ func _run() -> void:
 		return
 
 	# First reincarnation triggers hook
+	session.state.buildings["rebirth_lotus"] = 1
 	abode._on_reincarnate_requested("normal")
 	if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
 		_fail("seen_nine_realms_hook must be true after first reincarnation")

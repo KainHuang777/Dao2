@@ -194,14 +194,17 @@ func refresh(view: Dictionary) -> void:
 	var reason: String = String(preview.get("reason", ""))
 	if eligible:
 		if reason == "lifespan_exhausted":
-			_eligibility_label.text = "資格狀態：壽元耗盡，天命已至，可入輪迴！"
-			_eligibility_label.add_theme_color_override("font_color", Color("e06666"))
+			_eligibility_label.text = "資格狀態：⏳ 壽元已盡，天命難違，請速入定轉世！"
+			_eligibility_label.add_theme_color_override("font_color", Color("e67e22"))
+		elif reason == "rebirth_lotus":
+			_eligibility_label.text = "資格狀態：🪷 已築造【往生蓮臺】，可於大期未至時提前遁入輪迴！"
+			_eligibility_label.add_theme_color_override("font_color", Color("7de0a8"))
 		else:
-			_eligibility_label.text = "資格狀態：已達築基期（二階），道心澄澈，可轉世重修！"
+			_eligibility_label.text = "資格狀態：契機已至，道心澄澈，可轉世重修！"
 			_eligibility_label.add_theme_color_override("font_color", Color("7de0a8"))
 		_reincarnate_action_button.disabled = false
 	else:
-		_eligibility_label.text = "資格狀態：修為尚淺。需突破至築基期（二階）或壽元耗盡方可轉世。"
+		_eligibility_label.text = "資格狀態：修為尚淺。需修築【往生蓮臺】或待壽元耗盡，方可遁入輪迴。"
 		_eligibility_label.add_theme_color_override("font_color", Color("e6c280"))
 		_reincarnate_action_button.disabled = true
 
