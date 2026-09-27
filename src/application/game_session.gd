@@ -350,3 +350,51 @@ func upgrade_realm_outpost(outpost_id: String) -> Dictionary:
 		"expected_revision": state.revision,
 		"payload": {"outpost_id": outpost_id},
 	})
+
+func join_sect(sect_name: String = "") -> Dictionary:
+	return submit({
+		"command_id": "join_sect_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "join_sect",
+		"expected_revision": state.revision,
+		"payload": {"sect_name": sect_name},
+	})
+
+func refresh_sect_tasks(force: bool = false) -> Dictionary:
+	return submit({
+		"command_id": "refresh_sect_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "refresh_sect_tasks",
+		"expected_revision": state.revision,
+		"payload": {"force": force},
+	})
+
+func start_sect_expedition(task_id: String) -> Dictionary:
+	return submit({
+		"command_id": "start_exped_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "start_sect_expedition",
+		"expected_revision": state.revision,
+		"payload": {"task_id": task_id},
+	})
+
+func claim_sect_expedition() -> Dictionary:
+	return submit({
+		"command_id": "claim_exped_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "claim_sect_expedition",
+		"expected_revision": state.revision,
+		"payload": {},
+	})
+
+func learn_sect_technique(technique_id: String) -> Dictionary:
+	return submit({
+		"command_id": "learn_tech_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "learn_sect_technique",
+		"expected_revision": state.revision,
+		"payload": {"technique_id": technique_id},
+	})
+
+func buy_sect_market_item(item_id: String) -> Dictionary:
+	return submit({
+		"command_id": "buy_item_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "buy_sect_market_item",
+		"expected_revision": state.revision,
+		"payload": {"item_id": item_id},
+	})

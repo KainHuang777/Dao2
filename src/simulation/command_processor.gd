@@ -31,6 +31,18 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_switch_realm(content, state, command.payload)
 		"upgrade_realm_outpost":
 			return _apply_upgrade_realm_outpost(content, state, command.payload)
+		"join_sect":
+			return _apply_join_sect(content, state, command.payload)
+		"refresh_sect_tasks":
+			return _apply_refresh_sect_tasks(content, state, command.payload)
+		"start_sect_expedition":
+			return _apply_start_sect_expedition(content, state, command.payload)
+		"claim_sect_expedition":
+			return _apply_claim_sect_expedition(content, state, command.payload)
+		"learn_sect_technique":
+			return _apply_learn_sect_technique(content, state, command.payload)
+		"buy_sect_market_item":
+			return _apply_buy_sect_market_item(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -263,6 +275,77 @@ static func _apply_upgrade_realm_outpost(_content: GameContent, state: GameState
 		"ok": true,
 		"events": res.get("events", []),
 		"changed_ids": ["realms_data"],
+	}
+
+static func _apply_join_sect(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var sect_name := String(payload.get("sect_name", ""))
+	var res := SectSystem.join_sect(state, sect_name)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "JOIN_SECT_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["sect"],
+	}
+
+static func _apply_refresh_sect_tasks(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var force := bool(payload.get("force", false))
+	var res := SectSystem.refresh_tasks(state, force)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "REFRESH_TASKS_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["sect"],
+	}
+
+static func _apply_start_sect_expedition(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var task_id := String(payload.get("task_id", ""))
+	if task_id.is_empty():
+		return _failure("MISSING_TASK_ID", {})
+	var res := SectSystem.start_expedition(state, task_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "START_EXPEDITION_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["sect"],
+	}
+
+static func _apply_claim_sect_expedition(_content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
+	var res := SectSystem.claim_expedition_reward(state)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "CLAIM_EXPEDITION_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["sect", "resources"],
+	}
+
+static func _apply_learn_sect_technique(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var tech_id := String(payload.get("technique_id", ""))
+	if tech_id.is_empty():
+		return _failure("MISSING_TECHNIQUE_ID", {})
+	var res := SectSystem.learn_technique(state, tech_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "LEARN_TECHNIQUE_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["sect", "resources"],
+	}
+
+static func _apply_buy_sect_market_item(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var item_id := String(payload.get("item_id", ""))
+	if item_id.is_empty():
+		return _failure("MISSING_ITEM_ID", {})
+	var res := SectSystem.buy_market_item(state, item_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "BUY_MARKET_ITEM_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["sect", "resources", "pills"],
 	}
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:

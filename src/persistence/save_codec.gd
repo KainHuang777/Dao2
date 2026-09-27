@@ -223,6 +223,10 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["realms_data"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:realms_data"}
 		state.realms_data = (snapshot_dict["realms_data"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("sect"):
+		if not (snapshot_dict["sect"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:sect"}
+		state.sect = (snapshot_dict["sect"] as Dictionary).duplicate(true)
 	return {"ok": true, "state": state, "error": ""}
 
 

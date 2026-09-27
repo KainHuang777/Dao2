@@ -112,6 +112,30 @@ func _run() -> void:
 	abode.reincarnation_panel._close_button.pressed.emit()
 	_expect(not abode.reincarnation_panel.visible, "clicking close button must close the panel")
 
+	# 6. 轉生特效表演（ReincarnationSequence）測試
+	_expect(abode.reincarnation_seq != null, "reincarnation_seq node must exist")
+	_expect(abode.reincarnation_seq.visible, "reincarnation_seq must be visible after reincarnation triggered")
+
+	# 驗證階段 1 狀態
+	abode.reincarnation_seq._process(0.5)
+	_expect(is_equal_approx(abode.camera.zoom.x, 0.08), "camera zoom must be at cosmos (0.08) in stage 1")
+	_expect(abode.reincarnation_seq._stage_badge.text.find("太虛出神") >= 0, "stage 1 badge must indicate cosmic view")
+
+	# 驗證階段 2 縮放平滑放大
+	abode.reincarnation_seq._process(1.2) # anim_time = 1.7
+	_expect(abode.camera.zoom.x > 0.08 and abode.camera.zoom.x < 0.70, "camera zoom must interpolate between 0.08 and 0.70 in stage 2")
+	_expect(abode.reincarnation_seq._couplet_label.text.find("神返靈山") >= 0, "stage 2 couplet must indicate return to holy mountain")
+
+	# 驗證跳過功能（skip）
+	abode.reincarnation_seq._skip_button.pressed.emit()
+	_expect(is_equal_approx(abode.camera.target_zoom, 0.70), "skip must restore camera to home zoom (0.70)")
+	_expect(abode.reincarnation_seq._result_card.visible, "skip must directly show result card")
+
+	# 驗證完成按鈕關閉
+	abode.reincarnation_seq._finish_button.pressed.emit()
+	_expect(not abode.reincarnation_seq.visible, "finish button must hide reincarnation sequence")
+	_expect(not abode.camera.input_locked, "camera input must be unlocked after sequence finishes")
+
 	slots.reset()
 
 	if _failed:

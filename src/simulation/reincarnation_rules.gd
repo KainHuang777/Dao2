@@ -93,6 +93,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 		if bool(b.get("transmigratable", false)):
 			surviving_buffs[buff_id] = b
 	state.buffs = surviving_buffs
+	SectSystem.on_reincarnate(state)
 
 	# Re-initialize onboarding unlock state
 	state.onboarding_version = 1

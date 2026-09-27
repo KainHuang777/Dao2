@@ -25,6 +25,7 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 	var pill_prod_multiplier := 1.0 + float(state.pill_effects.get("production_multiplier", 0.0)) + float(buff_multipliers.global_production_multiplier)
 	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(multipliers.global_production_multiplier) * pill_prod_multiplier)
 	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	var sect_multipliers := SectSystem.compute_multipliers(state)
 	var spec_multipliers: Dictionary = buff_multipliers.get("specific_resource_multipliers", {})
 	var changed_ids: Array = []
 	for resource_id in state.resources:
@@ -35,18 +36,26 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 		if spec_multipliers.has(resource_id):
 			var extra_mult: float = 1.0 + float(spec_multipliers[resource_id])
 			rate = rate.multiply(AmountCompat.from_number(extra_mult))
+		if (resource_id == "herb" or resource_id == "wood") and float(sect_multipliers.production_herb_wood) > 0.0:
+			rate = rate.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.production_herb_wood)))
 		var delta: AmountCompat = rate.multiply(AmountCompat.from_number(elapsed))
 		var new_value: AmountCompat = entry.value.add(delta)
-		if caps.has(resource_id) and new_value.compare_to(caps[resource_id]) > 0:
-			new_value = caps[resource_id]
+		var cap_limit: AmountCompat = caps.get(resource_id, AmountCompat.zero())
+		if float(sect_multipliers.storage_bonus) > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
+			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.storage_bonus)))
+		if resource_id == "lingqi" and float(sect_multipliers.lingqi_cap_bonus) > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
+			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.lingqi_cap_bonus)))
+		if caps.has(resource_id) and new_value.compare_to(cap_limit) > 0:
+			new_value = cap_limit
 		if new_value.compare_to(entry.value) != 0:
 			entry.value = new_value
 			changed_ids.append(String(resource_id))
 	var feedback_boost := RealmSystem.get_feedback_cultivation_boost(state)
-	state.training_seconds += elapsed * (1.0 + float(multipliers.cultivation_speed_bonus) + float(buff_multipliers.cultivation_speed_bonus) + feedback_boost)
+	state.training_seconds += elapsed * (1.0 + float(multipliers.cultivation_speed_bonus) + float(buff_multipliers.cultivation_speed_bonus) + float(sect_multipliers.cultivation_speed_bonus) + feedback_boost)
 	state.total_elapsed_seconds += elapsed
 	BuffSystem.tick(state, elapsed)
 	RealmSystem.tick(state, elapsed)
+	SectSystem.tick(state, elapsed)
 	var events: Array = []
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
@@ -68,6 +77,7 @@ static func advance_time_only(state: GameState, content: GameContent, ticks: int
 	state.total_elapsed_seconds += elapsed
 	BuffSystem.tick(state, elapsed)
 	RealmSystem.tick(state, elapsed)
+	SectSystem.tick(state, elapsed)
 	var events: Array = []
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):

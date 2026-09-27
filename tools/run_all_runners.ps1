@@ -20,6 +20,8 @@ $runners = @(
     'tests/m3a_reincarnation_ui_runner.gd',
     'tests/m3b_alchemy_runner.gd',
     'tests/m3b_alchemy_ui_runner.gd',
+    'tests/m3b_sect_runner.gd',
+    'tests/m3b_sect_ui_runner.gd',
     'tests/buff_system_runner.gd',
     'tests/debug_features_runner.gd',
     'tests/core_positive_flow_runner.gd',

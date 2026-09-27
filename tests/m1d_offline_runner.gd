@@ -373,6 +373,24 @@ func _test_summary_no_reward() -> void:
     _expect(not summary_source.contains("import_share_string"), "summary no reward: OfflineSummary never imports share strings")
     _expect(summary_source.contains("visible = false"), "summary no reward: closing the summary only hides it (visible = false in the close handler)")
 
+    var summary := OfflineSummary.new()
+    summary._ready()
+    var sample_report := {
+        "away_ms": 10714211,
+        "effective_ms": 10714211,
+        "age_seconds": 4800.0,
+        "stopped": "lifespan_exhausted",
+        "cap_applied": false
+    }
+    summary.show_report(sample_report)
+    var text: String = summary._body_label.text
+    _expect(text.contains("實際離開時間：10714 秒"), "summary text: away time simplified to seconds")
+    _expect(text.contains("有效收益時間：10714 秒"), "summary text: effective time simplified to seconds")
+    _expect(text.contains("年歲變化：80 年"), "summary text: age change calculated in in-game years")
+    _expect(text.contains("停止原因：壽元耗盡"), "summary text: stop reason translated to user friendly term")
+    _expect(text.contains("是否套用上限：否"), "summary text: cap flag displayed")
+    summary.free()
+
 class ToggleAdapter extends StorageAdapter:
     var inner: FileStorageAdapter = null
     var fail_writes: bool = false

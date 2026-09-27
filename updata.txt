@@ -1,3 +1,49 @@
+[2026-09-28] M3-B Third Batch: Sect System (宗門系統), Expedition Tasks, Techniques & Market Full Closure
+- Sect System Simulation Module (src/simulation/sect_system.gd):
+  - Implemented sect mechanics: unlocking at Era >= 2 or reincarnation >= 1, five canonical sects.
+  - Implemented 3-slot expedition task generation with rarity weighting (common, uncommon, rare, epic, legendary), cooldown refresh, progress advance, and tiered rewards.
+  - Replaced non-deterministic Time. and OS. tokens with sequential state task counter, satisfying simulation determinism and _test_no_system_clock contracts.
+  - Implemented sect techniques with tiered contribution and resource costs, granting global cultivation and resource production multipliers.
+  - Implemented sect market exchange with contribution currency and purchase tracking.
+- GameState & SaveCodec (src/domain/game_state.gd, src/persistence/save_codec.gd):
+  - Added sect dictionary state persistence with backward-compatible decode.
+- Presentation & Responsive UI (src/presentation/sect_panel.gd, src/abode/living_abode.gd):
+  - Created SectPanel with lazy UI construction, 3 tabs (Expeditions, Techniques, Market), and responsive layout bounds.
+  - Integrated into living_abode.gd HUD and more_menu (item 10), dynamically displaying in WIDE layout when unlocked.
+- Verification & Test Coverage:
+  - Added tests/m3b_sect_runner.gd and tests/m3b_sect_ui_runner.gd.
+  - Added sect runners to tools/run_all_runners.ps1.
+  - All 25 test runners passed with exit code 0.
+  - Exported Web release package to build/web/index.html.
+
+[2026-09-27] M3-A Reincarnation Cinematic Performance & Cosmic Zoom-In Visuals
+- Reincarnation Cinematic Visuals (src/presentation/reincarnation_sequence.gd):
+  - Created dedicated full-screen cinematic performance component ReincarnationSequence.
+  - Implemented 3-stage pacing ritual (~3.4s):
+    1. Stage 1 (0.0s - 0.8s): Cosmic transcendence (Cosmos zoom 0.08, pos (0, -100)), soft golden white aura flash, couplet: "肉身有盡，道心無窮。".
+    2. Stage 2 (0.8s - 2.4s): Rebirth dive & void traversal, smooth camera interpolation from zoom 0.08 to 0.70 (home island), 16 radiant starlight warp streaks.
+    3. Stage 3 (2.4s - 3.4s): Rebirth settling at Home island (zoom 0.70), expanding cyan-gold spiritual resonance ring (draw_arc expanding to 240px), couplet: "重塑仙身，再問長生！", displaying settlement card with cycle number, dao heart gained, and finish button.
+  - Added skip button and click-to-skip support.
+  - Implemented reduced_motion accessibility mode (0.8s gentle fade with instant camera repositioning).
+- Scene & HUD Integration (src/abode/living_abode.gd):
+  - Initialized and mounted ReincarnationSequence.
+  - Triggered cinematic upon reincarnation confirmation with camera input locked during performance.
+  - Coordinated layer order and state between NineRealmsPreview and ReincarnationSequence.
+- Test Coverage & Verification:
+  - Extended tests/m3a_reincarnation_ui_runner.gd verifying stages 1-3 camera zoom, couplet badges, skip behavior, and finish callback.
+  - Passed all 23 test runners with exit code 0.
+  - Re-exported Web Release build to build/web/.
+
+[2026-09-27] Offline Summary Presentation Simplification & Formatting
+- Offline Summary UI Refinements (src/presentation/offline_summary.gd):
+  - Simplified actual away duration and effective earnings duration to seconds ("%d 秒"), eliminating cryptic raw timestamps and milliseconds notation.
+  - Converted age progression ("年歲變化") to calculate in in-game years ("%d 年" / "%.1f 年", 60 seconds = 1 year) aligning with cultivation world lore.
+  - Humanized stop reason ("停止原因") into clear in-game terms (e.g., 'lifespan_exhausted' -> '壽元耗盡', 'cap_reached' -> '達到離線收益上限', null -> '無（正常結算）').
+- Test Verification:
+  - Enhanced tests/m1d_offline_runner.gd with assertion checks on the formatted string representations of OfflineSummary.
+  - Ran all 23 test runners with exit code 0.
+  - Re-exported Web release bundle to build/web/.
+
 [2026-09-27] Reincarnation Rules Parity Alignment & Lifespan Exhausted HUD Banner
 - Reincarnation Eligibility Rules Alignment (src/simulation/reincarnation_rules.gd):
   - Removed premature 'era_id >= 2' automatic eligibility, aligning strictly with Dao1 canonical rules.

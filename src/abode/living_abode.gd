@@ -209,12 +209,15 @@ var offline_summary: Control = null
 var reincarnation_panel: Control = null
 var alchemy_panel: Control = null
 var alchemy_button: Button
+var sect_panel: Control = null
+var sect_button: Button = null
 var buff_hud_bar: BuffHudBar = null
 var realm_modal: Control = null
 var spirit_realm_region_label: Label = null
 var lifespan_banner: PanelContainer = null
 var lifespan_banner_label: Label = null
 var lifespan_banner_button: Button = null
+var reincarnation_seq: Control = null
 
 var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
@@ -459,6 +462,7 @@ func _configure_more_menu() -> void:
 	popup.add_item("洞府煉丹", 7)
 	popup.add_item("調試工具 (DEBUG)", 8)
 	popup.add_item("靈界洞天", 9)
+	popup.add_item("宗門外務", 10)
 	popup.id_pressed.connect(_on_more_menu_pressed)
 	toolbar.add_child(more_menu)
 
@@ -614,6 +618,9 @@ func _build_hud() -> void:
 
 	alchemy_button = _button("煉丹房", _toggle_alchemy_panel)
 	toolbar.add_child(alchemy_button)
+
+	sect_button = _button("宗門外務", _toggle_sect_panel)
+	toolbar.add_child(sect_button)
 
 	help_button = _button("操作說明", _show_help)
 	toolbar.add_child(help_button)
@@ -818,11 +825,6 @@ func _build_hud() -> void:
 	breakthrough_seq.sequence_finished.connect(_on_breakthrough_sequence_finished)
 	breakthrough_seq.save_retry_requested.connect(_retry_breakthrough_save)
 
-	var nr_script = preload("res://src/presentation/nine_realms_preview.gd")
-	nine_realms_preview = nr_script.new()
-	nine_realms_preview.aspiration_changed.connect(_on_nine_realms_aspiration_changed)
-	hud.add_child(nine_realms_preview)
-
 	var rc_script = preload("res://src/presentation/reincarnation_panel.gd")
 	reincarnation_panel = rc_script.new()
 	reincarnation_panel.visible = false
@@ -831,6 +833,16 @@ func _build_hud() -> void:
 	reincarnation_panel.close_requested.connect(_on_reincarnation_closed)
 	hud.add_child(reincarnation_panel)
 
+	var rc_seq_script = preload("res://src/presentation/reincarnation_sequence.gd")
+	reincarnation_seq = rc_seq_script.new()
+	reincarnation_seq.visible = false
+	hud.add_child(reincarnation_seq)
+
+	var nr_script = preload("res://src/presentation/nine_realms_preview.gd")
+	nine_realms_preview = nr_script.new()
+	nine_realms_preview.aspiration_changed.connect(_on_nine_realms_aspiration_changed)
+	hud.add_child(nine_realms_preview)
+
 	var alc_script = preload("res://src/presentation/alchemy_panel.gd")
 	alchemy_panel = alc_script.new()
 	alchemy_panel.visible = false
@@ -838,6 +850,18 @@ func _build_hud() -> void:
 	alchemy_panel.consume_requested.connect(_on_alchemy_consume_requested)
 	alchemy_panel.close_requested.connect(_on_alchemy_closed)
 	hud.add_child(alchemy_panel)
+
+	var sect_script = preload("res://src/presentation/sect_panel.gd")
+	sect_panel = sect_script.new()
+	sect_panel.visible = false
+	sect_panel.join_sect_requested.connect(_on_sect_join_requested)
+	sect_panel.refresh_tasks_requested.connect(_on_sect_refresh_tasks_requested)
+	sect_panel.start_expedition_requested.connect(_on_sect_start_expedition_requested)
+	sect_panel.claim_expedition_requested.connect(_on_sect_claim_expedition_requested)
+	sect_panel.learn_technique_requested.connect(_on_sect_learn_technique_requested)
+	sect_panel.buy_market_item_requested.connect(_on_sect_buy_market_item_requested)
+	sect_panel.close_requested.connect(_on_sect_closed)
+	hud.add_child(sect_panel)
 
 	var dbg_script = preload("res://src/presentation/debug_panel.gd")
 	debug_panel = dbg_script.new()
@@ -943,6 +967,8 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	nine_realms_button.visible = false
 	reincarnation_button.visible = false
 	alchemy_button.visible = false
+	if sect_button != null:
+		sect_button.visible = false
 	help_button.visible = false
 	replay_breakthrough_button.visible = false
 
@@ -1101,6 +1127,8 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		if breakthrough_seq.visible:
 			_fit_breakthrough_camera(vp)
 			_mask_breakthrough_hud()
+	if reincarnation_seq != null:
+		reincarnation_seq.call("set_layout_bounds", Rect2(Vector2.ZERO, vp))
 	if reincarnation_panel != null:
 		var rc_rect := Rect2(margin, margin, minf(540.0, vp.x - margin * 2.0), minf(560.0, vp.y - margin * 2.0))
 		if portrait:
@@ -1121,6 +1149,11 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		if portrait:
 			rlm_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
 		realm_modal.call("set_layout_bounds", rlm_rect)
+	if sect_panel != null:
+		var sct_rect := Rect2(margin, margin, minf(560.0, vp.x - margin * 2.0), minf(580.0, vp.y - margin * 2.0))
+		if portrait:
+			sct_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		sect_panel.call("set_layout_bounds", sct_rect)
 
 
 func _layout_mode_name() -> String:
@@ -1314,6 +1347,10 @@ func _refresh_hud() -> void:
 		buff_hud_bar.update_buffs(view.get("buffs", []))
 	if realm_modal != null and realm_modal.visible:
 		realm_modal.call("refresh", view)
+	if sect_panel != null and sect_panel.visible and session != null and session.state != null:
+		sect_panel.call("update_view", session.state)
+	if sect_button != null and session != null and session.state != null:
+		sect_button.visible = (layout_mode == HudLayout.WIDE and SectSystem.is_unlocked(session.state))
 
 	if spirit_realm_region_label != null and session != null and session.state != null:
 		if RealmSystem.is_spirit_realm_unlocked(session.state):
@@ -1760,6 +1797,88 @@ func _on_more_menu_pressed(id: int) -> void:
 			_toggle_debug_panel()
 		9:
 			_toggle_realm_modal()
+		10:
+			_toggle_sect_panel()
+
+func _toggle_sect_panel() -> void:
+	if sect_panel == null:
+		return
+	sect_panel.visible = not sect_panel.visible
+	if sect_panel.visible:
+		if session != null and session.state != null:
+			sect_panel.call("update_view", session.state)
+		_layout()
+
+func _on_sect_join_requested(sect_name: String) -> void:
+	if session == null:
+		return
+	var res := session.join_sect(sect_name)
+	if bool(res.get("ok", false)):
+		hint.text = "恭賀道友拜入【%s】！獲賜外門弟子令，可領取宗門委託。" % sect_name
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "拜入宗門未遂：%s" % str(res.get("error", "FAIL"))
+
+func _on_sect_refresh_tasks_requested() -> void:
+	if session == null:
+		return
+	var res := session.refresh_sect_tasks(false)
+	if bool(res.get("ok", false)):
+		hint.text = "宗門懸賞告示已煥然一新！"
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "刷新委託受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_sect_start_expedition_requested(task_id: String) -> void:
+	if session == null:
+		return
+	var res := session.start_sect_expedition(task_id)
+	if bool(res.get("ok", false)):
+		hint.text = "分身領命出征！正在歷練天下。"
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "派遣受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_sect_claim_expedition_requested() -> void:
+	if session == null:
+		return
+	var res := session.claim_sect_expedition()
+	if bool(res.get("ok", false)):
+		hint.text = "歷練弟子圓滿歸來！豐厚物資與宗門功勳已入庫。"
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "結算失敗：%s" % str(res.get("error", "FAIL"))
+
+func _on_sect_learn_technique_requested(tech_id: String) -> void:
+	if session == null:
+		return
+	var res := session.learn_sect_technique(tech_id)
+	if bool(res.get("ok", false)):
+		hint.text = "福至心靈！宗門真訣更進一層。"
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "參悟受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_sect_buy_market_item_requested(item_id: String) -> void:
+	if session == null:
+		return
+	var res := session.buy_sect_market_item(item_id)
+	if bool(res.get("ok", false)):
+		hint.text = "坊市交割順利，珍稀物資已收歸囊中！"
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "兌換受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_sect_closed() -> void:
+	if sect_panel != null:
+		sect_panel.visible = false
+	_refresh_hud()
 
 func _toggle_realm_modal() -> void:
 	if realm_modal == null:
@@ -1977,10 +2096,35 @@ func _on_reincarnate_requested(mode: String) -> void:
 		_return_home()
 		_refresh_hud()
 		print("ABODE_REINCARNATION: cycle=", session.state.reincarnation_count)
-		if not session.state.tutorial_flags.get("seen_nine_realms_hook", false):
+		var is_first_reincarnation: bool = not bool(session.state.tutorial_flags.get("seen_nine_realms_hook", false))
+		if is_first_reincarnation:
 			session.state.tutorial_flags["seen_nine_realms_hook"] = true
 			_save_game()
 			trigger_nine_realms_hook(false)
+
+		var dao_heart_gain := 0
+		var events: Array = res.get("events", [])
+		for ev in events:
+			if ev is Dictionary and ev.get("kind") == "reincarnated":
+				var dh_val = ev.get("gained_dao_heart", 0)
+				if dh_val is String:
+					var p := AmountCompat.try_parse(dh_val)
+					if bool(p.get("ok", false)):
+						dao_heart_gain = int((p["value"] as AmountCompat).to_float())
+				elif dh_val is int or dh_val is float:
+					dao_heart_gain = int(dh_val)
+				break
+		if dao_heart_gain <= 0 and session != null:
+			var prev_reward: Dictionary = session.get_reincarnation_preview()
+			var prev_dh = prev_reward.get("dao_heart", 0)
+			if prev_dh is String:
+				var p := AmountCompat.try_parse(prev_dh)
+				if bool(p.get("ok", false)):
+					dao_heart_gain = int((p["value"] as AmountCompat).to_float())
+			elif prev_dh is int or prev_dh is float:
+				dao_heart_gain = int(prev_dh)
+		if reincarnation_seq != null:
+			reincarnation_seq.play(camera, session.state.reincarnation_count, dao_heart_gain, Callable(self, "_refresh_hud"), reduced)
 	else:
 		hint.text = "轉世受阻：%s" % str(res.get("error", "FAIL"))
 
