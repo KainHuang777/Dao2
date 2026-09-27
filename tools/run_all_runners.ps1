@@ -12,12 +12,18 @@ $runners = @(
     'tests/m1e_import_runner.gd',
     'tests/m2a_abode_runner.gd',
     'tests/m2b_breakthrough_runner.gd',
+    'tests/island_breakthrough_runner.gd',
     'tests/m2c_nine_realms_runner.gd',
     'tests/m2d_responsive_ui_runner.gd',
     'tests/m2d_slice_release_runner.gd',
     'tests/m3a_reincarnation_runner.gd',
     'tests/m3a_reincarnation_ui_runner.gd',
-    'tests/core_positive_flow_runner.gd'
+    'tests/m3b_alchemy_runner.gd',
+    'tests/m3b_alchemy_ui_runner.gd',
+    'tests/buff_system_runner.gd',
+    'tests/debug_features_runner.gd',
+    'tests/core_positive_flow_runner.gd',
+    'tests/m4a_realm_runner.gd'
 )
 
 

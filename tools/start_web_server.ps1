@@ -1,25 +1,43 @@
 # Tools/start_web_server.ps1
 # Starts Python local HTTP server on port 4175 with fixed origin for Web testing
+param (
+    [switch]$ForceExport = $false
+)
 $ErrorActionPreference = "Stop"
 Set-Location "$PSScriptRoot\.."
 
 $webDir = ".\build\web"
 $indexFile = "$webDir\index.html"
+$pckFile = "$webDir\index.pck"
 
-if (-not (Test-Path $indexFile)) {
-    Write-Host "[提示] 找不到 $indexFile，正在自動執行 Web Release 匯出..." -ForegroundColor Yellow
-    New-Item -ItemType Directory -Path $webDir -Force | Out-Null
-    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-release Web $indexFile
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "Godot Web 匯出失敗。"
-        exit 1
+$needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Path $pckFile))
+
+if (-not $needExport) {
+    $pckTime = (Get-Item $pckFile).LastWriteTime
+    $latestSrc = Get-ChildItem -Path @(".\src", ".\scenes", ".\project.godot") -Recurse -File -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+    if ($latestSrc -and ($latestSrc.LastWriteTime -gt $pckTime)) {
+        Write-Host "[INFO] Source files updated, exporting Web..." -ForegroundColor Yellow
+        $needExport = $true
     }
 }
 
+if ($needExport) {
+    Write-Host "[INFO] Exporting Godot Web Release..." -ForegroundColor Yellow
+    New-Item -ItemType Directory -Path $webDir -Force | Out-Null
+    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-release Web $indexFile
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Godot Web Export Failed."
+        exit 1
+    }
+    Write-Host "[SUCCESS] Web Release exported successfully!" -ForegroundColor Green
+}
+
 Write-Host "===================================================" -ForegroundColor Cyan
-Write-Host "  修仙問道 v2 - 本地固定 Origin 測試伺服器" -ForegroundColor Cyan
-Write-Host "  網址: http://127.0.0.1:4175/index.html" -ForegroundColor Green
-Write-Host "  按 Ctrl+C 可停止伺服器" -ForegroundColor Yellow
+Write-Host "  Dao2 - Local Fixed Origin Web Server" -ForegroundColor Cyan
+Write-Host "  URL: http://127.0.0.1:4175/index.html" -ForegroundColor Green
+Write-Host "  Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Write-Host "===================================================" -ForegroundColor Cyan
 
 Start-Process "http://127.0.0.1:4175/index.html"

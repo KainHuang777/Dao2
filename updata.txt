@@ -1,3 +1,140 @@
+[2026-09-27] M4-A Handmade Second Realm: Spirit Realm (天靈洞天) & Dual-Realm System
+- RealmSystem Simulation Engine (src/simulation/realm_system.gd):
+  - Implemented Spirit Realm unlock condition checks (Foundation Establishment era_id >= 2 or reincarnation_count >= 1).
+  - Defined 3 active outposts: Celestial Hub (celestial_hub), Pure Spirit Pool (pure_pool), and Void Beacon (void_beacon), each supporting up to level 10 upgrades.
+  - Implemented dual-realm parallel tick simulation:
+    * celestial_hub consumes human stone_low (0.2/s/level) to produce Spirit Realm spirit_crystal (0.1/s/level).
+    * pure_pool consumes spirit_crystal (0.05/s/level) to produce azure_nectar (0.05/s/level), capped by realm storage limits.
+    * pure_pool yields cross-realm cultivation feedback boost (+15% cultivation speed per level across the entire game).
+    * void_beacon extends maximum spirit crystal and azure nectar storage capacity.
+- GameState & SaveCodec Dual-Realm Support (src/domain/game_state.gd, src/persistence/save_codec.gd):
+  - Added current_realm (defaults to "realm_human") and realms_data with full clone/snapshot support.
+  - Added backward-compatible SaveCodec encode/decode with format version migration and schema validation.
+- TimeAdvancer Parallel Processing (src/simulation/time_advancer.gd):
+  - Integrated RealmSystem.tick() into advance() and advance_time_only(), ensuring both realms progress simultaneously without pause regardless of current view.
+  - Injected pure_pool cultivation feedback boost into the core cultivation progress calculation.
+- CommandProcessor & GameSession (src/simulation/command_processor.gd, src/application/game_session.gd):
+  - Added switch_realm command enabling instant, seamless teleportation between human abode and spirit realm.
+  - Added upgrade_realm_outpost command enforcing cost deduction and level caps.
+  - Exposed realm view models in get_view().
+- Responsive UI & Presentation (src/presentation/realm_teleport_modal.gd, src/abode/living_abode.gd):
+  - Created RealmTeleportModal with responsive bounds layout, real-time outpost upgrade cards, resource caps, and teleport actions.
+  - Added golden highlighted distant world marker "靈界方向 · 【跨界神遊】" on the cosmos vista.
+  - Added menu item 9 "靈界洞天" in More Menu for swift access.
+  - Tuned sky atmospheric lighting when traversing between human world and spirit realm.
+- Verification & Test Coverage:
+  - Created comprehensive test suite tests/m4a_realm_runner.gd validating unlock conditions, switching, parallel tick, stone consumption opportunity cost, cultivation feedback, persistence roundtrip, and modal UI.
+  - Added to tools/run_all_runners.ps1; all 23 runners passed with exit code 0.
+  - Successfully exported Web Release package to build/web/index.html.
+
+[2026-09-27] BUFF & Status Duration System Full Integration
+- BuffSystem Simulation Module (src/simulation/buff_system.gd):
+  - Implemented comprehensive BUFF lifecycle engine with timed decay, maximum duration refreshing, and permanent traits.
+  - Built-in four canonical xianxia buffs:
+    * Spirit Surge (spirit_surge): 300s duration, +30% global production, +50% lingli production.
+    * Epiphany (epiphany): 180s duration, +100% cultivation rate boost.
+    * Breakthrough Resonance (breakthrough_resonance): 120s duration, +20% global production, +30% cultivation rate, automatically triggered upon Era breakthrough.
+    * Turtle Breath (turtle_breath): Permanent trait, +10 years (+600s) lifespan ceiling extension.
+  - Multiplier aggregation supports global production, specific resource multipliers, cultivation speed, and lifespan extension.
+- TimeAdvancer & Simulation Integration (src/simulation/time_advancer.gd):
+  - Advanced buff decay per tick, and integrated dynamic production, specific resource, cultivation, and lifespan multipliers into the tick cycle.
+- Reincarnation Contract (src/simulation/reincarnation_rules.gd):
+  - Cleared mortal/timed buffs upon samsara reincarnation while strictly preserving transmigratable buffs.
+- CommandProcessor & GameSession (src/simulation/command_processor.gd, src/application/game_session.gd):
+  - Added apply_buff and remove_buff commands with atomic state mutation and event broadcasting.
+  - Automatically attached breakthrough_resonance buff when completing era breakthrough.
+  - Exposed buffs view and buff_multipliers in get_view().
+- Responsive HUD Presentation (src/presentation/buff_hud_bar.gd, src/abode/living_abode.gd):
+  - Created BuffHudBar with themed color-coded badge pills, remaining time formatting ("MM:SS" or "常駐"), and detailed tooltips.
+  - Integrated into header_box with automatic visibility toggling (zero screen space consumption when idle).
+- Debug Tool Suite Expansion (src/presentation/debug_panel.gd, src/abode/living_abode.gd):
+  - Added dedicated BUFF testing section with one-click buttons for Spirit Surge and Epiphany.
+- Verification & Export:
+  - Added comprehensive test suite tests/buff_system_runner.gd asserting decay, multipliers, persistence roundtrip, backward compatibility, and reincarnation filtering.
+  - All 22 test runners passed with exit code 0.
+  - Exported latest Web Release build to build/web/.
+
+[2026-09-27] Web Storage Persistence Fix & Auto-Export Incremental Build System
+- WebStorageAdapter Synchronous Persistence Fix (src/persistence/web_storage_adapter.gd):
+  - Fixed Web storage failure where async IndexedDB requests immediately evaluated to 'pending' within synchronous Godot execution frames, causing all saves and reads to be aborted.
+  - Re-implemented WebStorageAdapter with synchronous, persistent window.localStorage key-value storage with namespace prefix ('dao2:key').
+  - Ensured reliable 15-second auto-save interval and key progression saves now successfully commit directly to browser storage, persisting reliably across page reloads and terminal restarts.
+- Auto-Export Incremental Build Automation (tools/start_web_server.ps1):
+  - Added timestamp comparison to detect when any source file under src/, scenes/, or project.godot is newer than build/web/index.pck.
+  - Automatically invokes headless Godot Web Release export whenever changes are detected or when -ForceExport is passed, preventing running stale web packages.
+- Header Size Guard Restoration (src/abode/living_abode.gd):
+  - Preserved responsive HUD width limit (header.size.x <= 320px in wide mode) to pass living_abode_runner contract while retaining clean single-line badge formatting.
+- Verification & Export:
+  - All 21 test runners passed exit code 0.
+  - Executed fresh Web Release export to build/web/index.html (index.pck updated to latest).
+
+[2026-09-27] Breakthrough Sequence Floating Typography & Zero Background Occlusion
+- Floating Grand Typography for Breakthrough Sequence (src/presentation/breakthrough_sequence.gd):
+  - Replaced the heavy, opaque black panel (dialog_surface StyleBoxFlat) with a transparent header area, completely eliminating background scenery occlusion.
+  - Implemented grand floating typography for the primary title (_title_label: "天地同感 · 境界突破") scaled to 42px (compact 34px, portrait 22-28px) with gold highlight (Color("fff1c7")), strong dark outline (outline_size 6), and deep drop shadow (shadow_outline_size 8) ensuring pristine legibility over sky and cloudscapes.
+  - Styled stage sub-label (_stage_label) in jade-white with outline and shadow, vertically aligned under the title.
+  - Added subtle floating bobbing oscillation (_anim_time vertical sine wave) during playback to evoke celestial aura, automatically disabled under reduced_motion mode.
+  - Restructured top row so the skip button (_skip_button) floats neatly in the top-right corner while keeping center titles strictly centered across both wide desktop and mobile portrait aspect ratios.
+  - All breakthrough runners (tests/m2b_breakthrough_runner.gd, tests/island_breakthrough_runner.gd) and visual capture suites verified 100% PASS with zero touch boundary violations.
+
+[2026-09-27] MMORPG-Style Bottom-Center System Message Log & History Queue
+- Relocated Hint Panel to Bottom-Center Corridor (src/abode/living_abode.gd):
+  - Moved hint_panel from top-right to bottom-center directly above toolbar (hint_x centered, width 460px, bottom anchored 6px above toolbar).
+  - Eliminates overlap with the building catalog drawer on the right and cultivation cards on the left, guaranteeing unobstructed view of island landmarks and events.
+- 5-Line Default Compact & Expandable History Log (src/abode/living_abode.gd):
+  - Added expandable system message log with "⤢ 展開" / "⤡ 縮小" toggle button; defaults to a compact 120px height displaying up to ~5 lines of latest notifications, and expands to 320px for complete historical browsing.
+  - Implemented 50-item message queue (_message_history) automatically populated from hint.text mutations in _process() with automatic category color tags (Green for builds/upgrades, Gold for breakthroughs, Rose for blocks/insufficient materials, Purple for alchemy, Mint for gathering).
+  - Maintained 100% backward compatibility with existing tests and codebase by retaining hidden hint Label.
+
+[2026-09-27] Realm Card Layout Polish & Semantic Text Wrapping
+- Header Card Width & Typography Refinement (src/abode/living_abode.gd):
+  - Widen header card width in WIDE layout from 320px to 380px (minf(380.0, vp.x * 0.40)), providing ample room for single-line cultivation text presentation without cramped truncation.
+  - Adjusted realm_label font size from 22px to 20px in wide mode, harmonizing visual hierarchy while guaranteeing single-line fit.
+- Semantic Non-Breaking Badges & Deliberate Wrapping (src/abode/living_abode.gd):
+  - In wide screens, realm status badges ("【★ 可晉階】", "【★ 可突破】", "（圓滿）") are joined with non-breaking space (\u00A0) preventing arbitrary mid-noun hyphenation or bracket splits.
+  - In narrow/compact layouts where wrapping is necessary, deliberate line breaks (\n) are inserted immediately before badges, preserving the full realm title on line 1 and complete status badge on line 2 with zero fragment cuts.
+
+[2026-09-27] Fix Building Catalog Button Ambiguity & Improve Debug Auto-Build Guidance
+- Building Catalog Button Text Fix (src/presentation/building_catalog.gd):
+  - Fixed misleading "建造"/"升級" button text on unaffordable buildings. Unaffordable buildings (affordable == false due to insufficient resources) now explicitly display "材料不足" (Materials Insufficient) on the disabled button instead of confusing "建造" (Build).
+  - Maintained distinct button states: "已滿階" (Cap reached), "前置不足" (Gated by prerequisite building), "材料不足" (Materials lacking), and "建造"/"升級" (Affordable and constructible).
+  - Adjusted minimum upgrade button width to 76px to comfortably fit 4-character Chinese status texts ("材料不足", "前置不足", "已滿階").
+- Debug Auto-Build Feedback Polish (src/abode/living_abode.gd):
+  - Improved auto-build skip message in _debug_perform_random_upgrade() to clarify the cause ("目前無建築滿足建造條件（材料不足或前置未達）") and explicitly guide the user to click 【獲得全基礎資源】 to replenish materials for debugging.
+
+[2026-09-27] Friendly State Indicators: Realm Advancement, Max Buildings & Full Resources
+- Cultivation & Era Advancement Polish (src/abode/living_abode.gd):
+  - Froze training_seconds accumulation when reaching Era breakthrough eligibility or level cap (cur_level >= max_level), preventing wasted training overflow; capped training seconds cleanly at required time when eligible for single-level advancement.
+  - Added vibrant color highlights to realm_label and realm_progress_label: bright celestial green (#77f29b) with "【★ 可晉階】" when ready to level up, and brilliant gold (#ffd700) with "【★ 可突破】" when eligible for Era breakthrough.
+- Building Catalog Max Level & Prerequisite Indicators (src/presentation/building_catalog.gd):
+  - When a building reaches level cap (level >= level_cap), button switches to "已滿階" (Disabled) with "%d階·已滿" status, and the bottom progress bar is cleanly hidden.
+  - When materials are sufficient (100% bar) but construction is gated by prerequisite buildings (affordable == false), the progress bar switches to warning amber (#d9822b), the button displays "前置不足", and tooltips explicitly display the required prerequisite building and level.
+- Full Resource Storage Visuals & Gathering Interlocks (src/presentation/building_catalog.gd):
+  - When resource hits capacity (current >= cap), the resource card dynamically adopts a gleaming golden-amber border style (_resource_full_style), text appends "[滿倉]" (or "[滿]" in compact mode), and font color changes to amber gold (#f5bd71).
+  - Inline gather buttons now switch text to "已滿" and become disabled when capacity is reached, preventing fruitless manual clicking.
+- All 20 Godot test runners passed with exit code 0; Web release exported successfully to build/web/.
+
+[2026-09-27] DEBUG Tool Suite Integration & BUFF System Roadmap Tracking
+- Documented BUFF System in ROADMAP.md under Milestone M3-B as a planned future development item (covering duration/permanent effects, scaling calculations, HUD status bar icons, and reincarnation persistence).
+- Created DebugPanel in src/presentation/debug_panel.gd featuring automated 30s building upgrade loop with countdown display, single-shot manual random upgrade trigger, Era Lv10 instant cultivation boost (state.level = 10), and quick resource grants (+1,000 all basic resources).
+- Integrated DebugPanel into More Menu (item ID 8: "調試工具 (DEBUG)") in src/abode/living_abode.gd, hooking responsive layout bounds, HUD status updates, and countdown processing in _process().
+- Added random upgrade logic selecting exclusively from buildings meeting visible, affordable, and below level cap criteria.
+- Implemented tests/debug_features_runner.gd asserting debug menu opening, resource addition, 30s auto-build timer decrement and trigger, manual trigger execution, and Era Lv10 boost; integrated runner into tools/run_all_runners.ps1.
+- Updated tests/m2d_responsive_ui_runner.gd More Menu item count assertion to support the new debug entry.
+- All 20 Godot test runners passed with exit code 0; Web release exported successfully to build/web/.
+
+[2026-09-26] M3-B Alchemy Room & Pill System Full Lifecycle Delivery
+- Implemented AlchemySystem in src/simulation/alchemy_system.gd featuring three core pill recipes: Cultivation Pill (+60s cultivation progress), Lifespan Pill (+5 years / +300s permanent lifespan), and Foundation Pill (+10% global production multiplier).
+- Gated alchemy unlocking behind Herb Farm reaching level 3 or attaining Era 2 (matching the canonical Era 1 foundation_pill onboarding milestone).
+- Added pills and pill_effects fields to GameState (src/domain/game_state.gd) and SaveCodec (src/persistence/save_codec.gd) with backward-compatible defaults.
+- Integrated pill lifespan bonuses and production multipliers directly into TimeAdvancer (src/simulation/time_advancer.gd) and GameSession (src/application/game_session.gd).
+- Hooked refine_pill and consume_pill commands into CommandProcessor (src/simulation/command_processor.gd) with atomic material deduction, stock management, and replay idempotency.
+- Configured ReincarnationRules (src/simulation/reincarnation_rules.gd) to clean mortal pill stocks and temporary pill effects upon samsara reincarnation.
+- Implemented AlchemyPanel (src/presentation/alchemy_panel.gd) providing responsive 360x640 mobile and desktop UI for pill inspection, material cost tracking, crafting, and immediate consumption.
+- Integrated alchemy panel into living abode toolbar, sub-menu ("洞府煉丹"), responsive reflow, and real-time HUD view synchronization.
+- Created tests/m3b_alchemy_runner.gd and tests/m3b_alchemy_ui_runner.gd; added both to tools/run_all_runners.ps1.
+- All 19 Godot test runners pass with exit code 0; Web release exported successfully.
+
 [2026-09-26] Unbuilt Landmark Ghost Blueprint & Direct World Construction
 - Implemented visual ghost blueprint and gathering formation circle for unbuilt affordable landmarks on the world island in src/abode/abode_building.gd.
 - When an essential landmark (such as the initial hut) has not yet been built but the player possesses sufficient resources (affordable == true), a semi-transparent cyan-golden shimmering blueprint with a breathing aura formation appears directly over its island footprint with a glowing "可建" (Constructible) title tag.

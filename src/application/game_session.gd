@@ -1,7 +1,7 @@
 class_name GameSession
 extends RefCounted
 
-const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building", "level_up_cultivation", "breakthrough_era", "reincarnate", "learn_talent"]
+const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building", "level_up_cultivation", "breakthrough_era", "reincarnate", "learn_talent", "refine_pill", "consume_pill"]
 const COMMAND_REGISTRY_LIMIT := 256
 
 var content: GameContent
@@ -140,8 +140,10 @@ func get_view() -> Dictionary:
 			"affordable": affordable,
 		}
 	var era_def = content.era(state.era_id)
+	var buff_multipliers := BuffSystem.compute_multipliers(state)
 	var talent_lifespan_bonus := float(state.talents.get("lifespan_extension", 0)) * 0.1
-	var max_lifespan := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus)
+	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(buff_multipliers.lifespan_bonus_years)
+	var max_lifespan := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus, pill_lifespan_bonus)
 	var next_required := 0.0
 	var era_view := {}
 	var can_level_up := false
@@ -201,6 +203,12 @@ func get_view() -> Dictionary:
 		"dao_heart": state.dao_heart.serialize() if state.dao_heart != null else "0",
 		"dao_proof": state.dao_proof,
 		"talents": state.talents.duplicate(true),
+		"pills": state.pills.duplicate(true),
+		"pill_effects": state.pill_effects.duplicate(true),
+		"alchemy": AlchemySystem.get_view(state),
+		"buffs": BuffSystem.get_active_buffs_view(state),
+		"buff_multipliers": buff_multipliers,
+		"realm": RealmSystem.get_view(state),
 		"multipliers": TalentSystem.compute_multipliers(state),
 		"reincarnation_preview": get_reincarnation_preview(),
 	}
@@ -219,6 +227,22 @@ func learn_talent(talent_id: String) -> Dictionary:
 		"type": "learn_talent",
 		"expected_revision": state.revision,
 		"payload": {"talent_id": talent_id},
+	})
+
+func refine_pill(pill_id: String, count: int = 1) -> Dictionary:
+	return submit({
+		"command_id": "refine_pill_" + pill_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "refine_pill",
+		"expected_revision": state.revision,
+		"payload": {"pill_id": pill_id, "count": count},
+	})
+
+func consume_pill(pill_id: String, count: int = 1) -> Dictionary:
+	return submit({
+		"command_id": "consume_pill_" + pill_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "consume_pill",
+		"expected_revision": state.revision,
+		"payload": {"pill_id": pill_id, "count": count},
 	})
 
 func get_reincarnation_preview(mode: String = "normal") -> Dictionary:
@@ -268,7 +292,13 @@ func _is_valid_shape(command: Dictionary) -> bool:
 			if typeof(talent_id) != TYPE_STRING or String(talent_id).is_empty():
 				return false
 			return true
+		"refine_pill", "consume_pill":
+			var pill_id = payload.get("pill_id")
+			if typeof(pill_id) != TYPE_STRING or String(pill_id).is_empty():
+				return false
+			return true
 	return true
+
 
 
 func _remember(command_id: String, result: Dictionary) -> void:
@@ -283,3 +313,40 @@ func _error_result(error: String, detail: Dictionary) -> Dictionary:
 	if not detail.is_empty():
 		result.detail = detail
 	return result
+
+func apply_buff(buff_id: String, duration: float = -1.0, custom_effects: Dictionary = {}, transmigratable: bool = false) -> Dictionary:
+	return submit({
+		"command_id": "apply_buff_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "apply_buff",
+		"expected_revision": state.revision,
+		"payload": {
+			"buff_id": buff_id,
+			"duration": duration,
+			"custom_effects": custom_effects,
+			"transmigratable": transmigratable,
+		},
+	})
+
+func remove_buff(buff_id: String) -> Dictionary:
+	return submit({
+		"command_id": "remove_buff_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "remove_buff",
+		"expected_revision": state.revision,
+		"payload": {"buff_id": buff_id},
+	})
+
+func switch_realm(target_realm_id: String) -> Dictionary:
+	return submit({
+		"command_id": "switch_realm_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "switch_realm",
+		"expected_revision": state.revision,
+		"payload": {"target_realm": target_realm_id},
+	})
+
+func upgrade_realm_outpost(outpost_id: String) -> Dictionary:
+	return submit({
+		"command_id": "upg_outpost_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "upgrade_realm_outpost",
+		"expected_revision": state.revision,
+		"payload": {"outpost_id": outpost_id},
+	})

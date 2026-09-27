@@ -2,7 +2,9 @@ extends Node2D
 ## Living Abode Controller: bridges Godot scene with GameSession, CommandProcessor, TimeAdvancer, and SaveManager.
 
 const TERRAIN: Texture2D = preload("res://assets/abode/terrain.png")
-const SKY: Texture2D = preload("res://assets/abode/sky.png")
+const SKY: Texture2D = preload("res://assets/abode/sky_tearfall_island_v5.png")
+const SKY_SHADER: Shader = preload("res://assets/abode/tearfall_sky.gdshader")
+const IslandFxScript = preload("res://src/presentation/island_breakthrough_fx.gd")
 const HUT: Texture2D = preload("res://assets/abode/hut.png")
 const GARDEN: Texture2D = preload("res://assets/abode/garden.png")
 const ALTAR: Texture2D = preload("res://assets/abode/altar.png")
@@ -142,6 +144,12 @@ var region_layer: Node2D
 var home_marker: Label
 var sky: TextureRect
 var shade: ColorRect
+var sky_material: ShaderMaterial
+var island_fx: IslandBreakthroughFx
+var _sky_flow_time: float = 0.0
+var _breakthrough_camera_snapshot: Dictionary = {}
+var _breakthrough_hud_snapshot: Dictionary = {}
+var _pending_breakthrough_save: bool = false
 
 var hud: Control
 var header: PanelContainer
@@ -151,6 +159,12 @@ var footer: Label
 var hint: Label
 var hint_heading: Label
 var hint_panel: PanelContainer
+var hint_expand_button: Button
+var hint_log_label: RichTextLabel
+var hint_scroll: ScrollContainer
+var _hint_expanded: bool = false
+var _last_hint_text: String = ""
+var _message_history: Array[String] = []
 var title_label: Label
 var realm_label: Label
 var realm_progress_label: Label
@@ -193,6 +207,11 @@ var breakthrough_seq: Control = null
 var save_controls: Control = null
 var offline_summary: Control = null
 var reincarnation_panel: Control = null
+var alchemy_panel: Control = null
+var alchemy_button: Button
+var buff_hud_bar: BuffHudBar = null
+var realm_modal: Control = null
+var spirit_realm_region_label: Label = null
 
 var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
@@ -205,6 +224,9 @@ var detail_scroll: ScrollContainer
 var return_to_catalog_after_detail: bool = false
 var help_button: Button
 var more_menu: MenuButton
+var debug_panel: Control
+var debug_auto_build_active: bool = false
+var debug_auto_build_timer: float = 30.0
 
 func _ready() -> void:
 	_init_core()
@@ -216,6 +238,10 @@ func _ready() -> void:
 	ground.texture = TERRAIN
 	ground.scale = Vector2.ONE * 1200.0 / TERRAIN.get_width()
 	add_child(ground)
+
+	island_fx = IslandFxScript.new()
+	island_fx.name = "空島突破法陣"
+	add_child(island_fx)
 
 	var props := Node2D.new()
 	props.name = "可互動建築"
@@ -318,7 +344,11 @@ func _build_background() -> void:
 	sky = TextureRect.new()
 	sky.texture = SKY
 	sky.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	sky.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	sky.stretch_mode = TextureRect.STRETCH_SCALE
+	sky_material = ShaderMaterial.new()
+	sky_material.shader = SKY_SHADER
+	sky_material.set_shader_parameter("source_aspect", float(SKY.get_width()) / float(SKY.get_height()))
+	sky.material = sky_material
 	sky.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(sky)
 
@@ -353,6 +383,8 @@ func _build_region() -> void:
 		label.size.x = 800
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		region_layer.add_child(label)
+		if i == 1:
+			spirit_realm_region_label = label
 
 		var path := Line2D.new()
 		path.width = 5.0
@@ -421,6 +453,9 @@ func _configure_more_menu() -> void:
 	popup.add_item("操作說明", 4)
 	popup.add_item("重溫突破", 5)
 	popup.add_item("輪迴天道", 6)
+	popup.add_item("洞府煉丹", 7)
+	popup.add_item("調試工具 (DEBUG)", 8)
+	popup.add_item("靈界洞天", 9)
 	popup.id_pressed.connect(_on_more_menu_pressed)
 	toolbar.add_child(more_menu)
 
@@ -469,6 +504,10 @@ func _build_hud() -> void:
 	breakthrough_button.add_theme_font_size_override("font_size", 20)
 	breakthrough_button.visible = false
 	realm_action_box.add_child(breakthrough_button)
+
+	var buff_bar_script = preload("res://src/presentation/buff_hud_bar.gd")
+	buff_hud_bar = buff_bar_script.new()
+	header_box.add_child(buff_hud_bar)
 
 	var resource_row := HBoxContainer.new()
 	resource_row.add_theme_constant_override("separation", 6)
@@ -531,45 +570,69 @@ func _build_hud() -> void:
 	reincarnation_button = _button("輪迴天道", _toggle_reincarnation_panel)
 	toolbar.add_child(reincarnation_button)
 
+	alchemy_button = _button("煉丹房", _toggle_alchemy_panel)
+	toolbar.add_child(alchemy_button)
+
 	help_button = _button("操作說明", _show_help)
 	toolbar.add_child(help_button)
 
 	_configure_more_menu()
 
 	hint_panel = PanelContainer.new()
-	var hint_style := _style(Color(0.008, 0.035, 0.05, 0.93))
-	hint_style.content_margin_left = 18
-	hint_style.content_margin_right = 18
-	hint_style.content_margin_top = 12
-	hint_style.content_margin_bottom = 12
+	var hint_style := _style(Color(0.008, 0.035, 0.05, 0.88))
+	hint_style.content_margin_left = 14
+	hint_style.content_margin_right = 14
+	hint_style.content_margin_top = 8
+	hint_style.content_margin_bottom = 8
 	hint_panel.add_theme_stylebox_override("panel", hint_style)
 	hud.add_child(hint_panel)
 	var hint_box := VBoxContainer.new()
-	hint_box.add_theme_constant_override("separation", 5)
+	hint_box.add_theme_constant_override("separation", 4)
 	hint_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hint_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	hint_panel.add_child(hint_box)
+
 	var hint_title_row := HBoxContainer.new()
+	hint_title_row.add_theme_constant_override("separation", 6)
 	hint_box.add_child(hint_title_row)
-	hint_heading = _label("系統訊息 · 新手引導", 16, Color("f1d58d"), 1)
+
+	hint_heading = _label("仙途感應 · 系統日誌", 15, Color("f1d58d"), 1)
 	hint_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hint_title_row.add_child(hint_heading)
+
+	hint_expand_button = Button.new()
+	hint_expand_button.text = "⤢ 展開"
+	hint_expand_button.custom_minimum_size = Vector2(64, 32)
+	hint_expand_button.add_theme_font_size_override("font_size", 14)
+	hint_expand_button.pressed.connect(_toggle_hint_expand)
+	hint_title_row.add_child(hint_expand_button)
+
 	var hint_close := Button.new()
 	hint_close.text = "收起"
-	hint_close.custom_minimum_size = Vector2(64, 48)
+	hint_close.custom_minimum_size = Vector2(56, 32)
+	hint_close.add_theme_font_size_override("font_size", 14)
 	hint_close.pressed.connect(_toggle_guidance)
 	hint_title_row.add_child(hint_close)
-	hint = _label("", 17, Color("f2e8c7"), 1)
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	hint.vertical_alignment = VERTICAL_ALIGNMENT_TOP
-	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var hint_scroll := ScrollContainer.new()
+
+	hint_scroll = ScrollContainer.new()
 	hint_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hint_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	hint_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	hint_box.add_child(hint_scroll)
-	hint_scroll.add_child(hint)
+
+	hint_log_label = RichTextLabel.new()
+	hint_log_label.bbcode_enabled = true
+	hint_log_label.fit_content = true
+	hint_log_label.scroll_active = false
+	hint_log_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hint_log_label.mouse_filter = Control.MOUSE_FILTER_PASS
+	hint_log_label.add_theme_font_override("normal_font", UiTypography.body_font())
+	hint_log_label.add_theme_font_size_override("normal_font_size", 14)
+	hint_scroll.add_child(hint_log_label)
+
+	hint = _label("", 17, Color("f2e8c7"), 1)
+	hint.visible = false
+	hint_box.add_child(hint)
 	hint_panel.visible = false
 
 	footer = _label("自動存檔運轉中", 18, Color("ffffff"), 0)
@@ -708,6 +771,10 @@ func _build_hud() -> void:
 	var bt_seq_script = preload("res://src/presentation/breakthrough_sequence.gd")
 	breakthrough_seq = bt_seq_script.new()
 	hud.add_child(breakthrough_seq)
+	breakthrough_seq.world_fx = island_fx
+	breakthrough_seq.sequence_started.connect(_on_breakthrough_sequence_started)
+	breakthrough_seq.sequence_finished.connect(_on_breakthrough_sequence_finished)
+	breakthrough_seq.save_retry_requested.connect(_retry_breakthrough_save)
 
 	var nr_script = preload("res://src/presentation/nine_realms_preview.gd")
 	nine_realms_preview = nr_script.new()
@@ -722,6 +789,33 @@ func _build_hud() -> void:
 	reincarnation_panel.close_requested.connect(_on_reincarnation_closed)
 	hud.add_child(reincarnation_panel)
 
+	var alc_script = preload("res://src/presentation/alchemy_panel.gd")
+	alchemy_panel = alc_script.new()
+	alchemy_panel.visible = false
+	alchemy_panel.refine_requested.connect(_on_alchemy_refine_requested)
+	alchemy_panel.consume_requested.connect(_on_alchemy_consume_requested)
+	alchemy_panel.close_requested.connect(_on_alchemy_closed)
+	hud.add_child(alchemy_panel)
+
+	var dbg_script = preload("res://src/presentation/debug_panel.gd")
+	debug_panel = dbg_script.new()
+	debug_panel.visible = false
+	debug_panel.auto_build_toggled.connect(_on_debug_auto_build_toggled)
+	debug_panel.manual_upgrade_requested.connect(_on_debug_manual_upgrade_requested)
+	debug_panel.boost_era_level_requested.connect(_on_debug_boost_era_level_requested)
+	debug_panel.add_resources_requested.connect(_on_debug_add_resources_requested)
+	debug_panel.apply_buff_requested.connect(_on_debug_apply_buff_requested)
+	debug_panel.close_requested.connect(_on_debug_closed)
+	hud.add_child(debug_panel)
+
+	var rlm_script = preload("res://src/presentation/realm_teleport_modal.gd")
+	realm_modal = rlm_script.new()
+	realm_modal.visible = false
+	realm_modal.switch_realm_requested.connect(_on_switch_realm_requested)
+	realm_modal.upgrade_outpost_requested.connect(_on_upgrade_outpost_requested)
+	realm_modal.close_requested.connect(_on_realm_modal_closed)
+	hud.add_child(realm_modal)
+
 	header.resized.connect(_reflow_header)
 
 
@@ -733,8 +827,9 @@ func _layout_for_size(vp: Vector2) -> void:
 		return
 	hud.position = Vector2.ZERO
 	hud.size = vp
-	sky.position = Vector2(-75, -75)
-	sky.size = vp + Vector2(150, 150)
+	sky.position = Vector2.ZERO
+	sky.size = vp
+	sky_material.set_shader_parameter("viewport_aspect", vp.x / vp.y)
 	shade.size = vp
 
 	var ratio: float = vp.x / vp.y
@@ -796,7 +891,7 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	more_menu.add_theme_font_size_override("font_size", 18)
 	reincarnation_button.custom_minimum_size.x = 104 if portrait else 132
 	reincarnation_button.add_theme_font_size_override("font_size", 18 if portrait else 22)
-	realm_label.add_theme_font_size_override("font_size", 22 if not compact else 18)
+	realm_label.add_theme_font_size_override("font_size", 20 if not compact else 18)
 	realm_progress_label.add_theme_font_size_override("font_size", 16)
 	detail_title.add_theme_font_size_override("font_size", 22)
 	detail_body.add_theme_font_size_override("font_size", 16)
@@ -805,6 +900,7 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	save_button.visible = false
 	nine_realms_button.visible = false
 	reincarnation_button.visible = false
+	alchemy_button.visible = false
 	help_button.visible = false
 	replay_breakthrough_button.visible = false
 
@@ -935,9 +1031,14 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		building_catalog.call("set_short_mode", vp.y < 560.0)
 		building_catalog.call("set_layout_bounds", Rect2(margin if portrait else vp.x - margin - rail_width, rail_top, rail_width, maxf(72.0, rail_bottom - rail_top)))
 	if hint_panel.visible:
-		var hint_width: float = minf(420.0, vp.x - margin * 2.0)
-		hint_panel.size = Vector2(hint_width, minf(132.0, vp.y * 0.28))
-		hint_panel.position = Vector2(vp.x - margin - hint_width, margin)
+		var hint_width: float = minf(460.0, vp.x - margin * 2.0)
+		var max_h: float = minf(320.0, vp.y * 0.48) if _hint_expanded else 120.0
+		var hint_h: float = max_h
+		var hint_x: float = (vp.x - hint_width) * 0.5 if not portrait else margin
+		var bottom_anchor: float = (action_bar.position.y if action_bar.visible else toolbar.position.y)
+		var hint_y: float = bottom_anchor - hint_h - 6.0
+		hint_panel.size = Vector2(hint_width, hint_h)
+		hint_panel.position = Vector2(hint_x, hint_y)
 
 	if save_controls != null:
 		var save_rect := Rect2(margin, margin, minf(480.0, vp.x - margin * 2.0), minf(460.0, vp.y - margin * 2.0))
@@ -955,11 +1056,29 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 	if breakthrough_seq != null:
 		breakthrough_seq.position = Vector2.ZERO
 		breakthrough_seq.size = vp
+		if breakthrough_seq.visible:
+			_fit_breakthrough_camera(vp)
+			_mask_breakthrough_hud()
 	if reincarnation_panel != null:
 		var rc_rect := Rect2(margin, margin, minf(540.0, vp.x - margin * 2.0), minf(560.0, vp.y - margin * 2.0))
 		if portrait:
 			rc_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
 		reincarnation_panel.call("set_layout_bounds", rc_rect)
+	if alchemy_panel != null:
+		var alc_rect := Rect2(margin, margin, minf(540.0, vp.x - margin * 2.0), minf(560.0, vp.y - margin * 2.0))
+		if portrait:
+			alc_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		alchemy_panel.call("set_layout_bounds", alc_rect)
+	if debug_panel != null:
+		var dbg_rect := Rect2(margin, margin, minf(540.0, vp.x - margin * 2.0), minf(520.0, vp.y - margin * 2.0))
+		if portrait:
+			dbg_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		debug_panel.call("set_layout_bounds", dbg_rect)
+	if realm_modal != null:
+		var rlm_rect := Rect2(margin, margin, minf(540.0, vp.x - margin * 2.0), minf(560.0, vp.y - margin * 2.0))
+		if portrait:
+			rlm_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		realm_modal.call("set_layout_bounds", rlm_rect)
 
 
 func _layout_mode_name() -> String:
@@ -974,7 +1093,32 @@ func _process(delta: float) -> void:
 	state.advance(delta)
 	session.advance_time(delta)
 
+	if hint != null and hint.text != _last_hint_text:
+		_last_hint_text = hint.text
+		if not _last_hint_text.is_empty():
+			_push_hint_log(_last_hint_text)
+
+	if debug_auto_build_active:
+		debug_auto_build_timer -= delta
+		if debug_panel != null and debug_panel.visible:
+			debug_panel.call("update_auto_build_ui", debug_auto_build_timer)
+		if debug_auto_build_timer <= 0.0:
+			debug_auto_build_timer = 30.0
+			_debug_perform_random_upgrade()
+
 	var view: Dictionary = session.get_view()
+
+	# 當 Era 可以突破或達到圓滿時，停止增加修煉秒數；當前層可晉階時封頂在所需秒數
+	var cur_lvl := int(view.get("level", 1))
+	var max_era_lvl := int(view.get("era", {}).get("max_level", 10))
+	var can_bt_flag: bool = bool(view.get("can_breakthrough", false))
+	var can_lvl_flag: bool = bool(view.get("can_level_up", false))
+	if can_bt_flag or cur_lvl >= max_era_lvl:
+		session.state.training_seconds = 0.0
+	elif can_lvl_flag:
+		var needed_sec := float(view.get("next_level_required_seconds", 0.0))
+		if needed_sec > 0.0 and session.state.training_seconds > needed_sec:
+			session.state.training_seconds = needed_sec
 
 	flow.garden_running = state.garden_running
 	var altar_level: int = int(view.buildings.get("storage_lingli", {}).get("level", 0))
@@ -991,7 +1135,11 @@ func _process(delta: float) -> void:
 		if building.has_node("caption"):
 			building.caption.modulate.a = 1.0 - distant
 
-	sky.position = Vector2(-75, -75) - camera.position * 0.016
+	_sky_flow_time += delta if not reduced else 0.0
+	sky_material.set_shader_parameter("flow_time", _sky_flow_time)
+	sky_material.set_shader_parameter("energy", island_fx.energy)
+	sky_material.set_shader_parameter("reduced_motion", reduced)
+	island_fx.set_attained(session.state.era_id >= 2)
 	shade.color.a = 0.18 + distant * 0.34
 
 	update_elapsed += delta
@@ -1003,6 +1151,7 @@ func _process(delta: float) -> void:
 	if auto_save_elapsed >= 15.0:
 		auto_save_elapsed = 0.0
 		_save_game()
+	_mask_breakthrough_hud()
 
 func _update_buildings_visual(view: Dictionary) -> void:
 	for id in buildings:
@@ -1032,15 +1181,36 @@ func _refresh_hud() -> void:
 	var elapsed_sec: float = float(view.get("total_elapsed_seconds", 0.0))
 	var remain_life: float = maxf(0.0, max_life - elapsed_sec)
 
-	realm_label.text = "境界：%s · %d/%d 層" % [era_name, cur_level, int(era_info.get("max_level", 10))]
-	if cur_level >= int(era_info.get("max_level", 10)):
-		realm_progress_label.text = "修煉圓滿 · 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
+	var can_lvl: bool = bool(view.get("can_level_up", false))
+	var can_bt: bool = bool(view.get("can_breakthrough", false))
+	var is_max_lvl: bool = cur_level >= int(era_info.get("max_level", 10))
+
+	var is_wide_screen: bool = layout_mode == HudLayout.WIDE and header.size.x >= 350.0
+	var badge_sep: String = "\u00A0" if is_wide_screen else "\n"
+
+	if can_bt:
+		realm_label.text = "境界：%s · %d/%d 層%s【★\u00A0可突破】" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
+		realm_label.add_theme_color_override("font_color", Color("ffd700"))
+		realm_progress_label.text = "修煉大圓滿 · 靈氣飽和可破境 · 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
+		realm_progress_label.add_theme_color_override("font_color", Color("fff0a0"))
+	elif is_max_lvl:
+		realm_label.text = "境界：%s · %d/%d 層%s（圓滿）" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
+		realm_label.add_theme_color_override("font_color", Color("f4e7be"))
+		realm_progress_label.text = "修煉圓滿（需擴充靈氣容量以突破）· 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
+		realm_progress_label.add_theme_color_override("font_color", Color("d0e2d3"))
+	elif can_lvl:
+		realm_label.text = "境界：%s · %d/%d 層%s【★\u00A0可晉階】" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
+		realm_label.add_theme_color_override("font_color", Color("77f29b"))
+		realm_progress_label.text = "修煉滿階 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [train_sec, req_sec, remain_life / 60.0, max_life / 60.0]
+		realm_progress_label.add_theme_color_override("font_color", Color("77f29b"))
 	else:
+		realm_label.text = "境界：%s · %d/%d 層" % [era_name, cur_level, int(era_info.get("max_level", 10))]
+		realm_label.add_theme_color_override("font_color", Color("f4e7be"))
 		realm_progress_label.text = "修煉 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [
 			train_sec, req_sec, remain_life / 60.0, max_life / 60.0
 		]
+		realm_progress_label.add_theme_color_override("font_color", Color("d0e2d3"))
 
-	var can_lvl: bool = bool(view.get("can_level_up", false))
 	level_up_button.visible = can_lvl
 	if can_lvl:
 		var cost_dict: Dictionary = view.get("level_up_costs", {})
@@ -1053,7 +1223,6 @@ func _refresh_hud() -> void:
 	var cur_era: int = int(view.get("era_id", 1))
 	breakthrough_button.visible = (cur_level >= 10 and cur_era == 1)
 	if breakthrough_button.visible:
-		var can_bt: bool = bool(view.get("can_breakthrough", false))
 		breakthrough_button.disabled = not can_bt
 		if can_bt:
 			breakthrough_button.text = "★ 突破至築基期 ★"
@@ -1082,10 +1251,35 @@ func _refresh_hud() -> void:
 
 	if reincarnation_panel != null and reincarnation_panel.visible:
 		reincarnation_panel.call("refresh", view)
+	if alchemy_panel != null and alchemy_panel.visible:
+		alchemy_panel.call("update_view", view)
+	if buff_hud_bar != null:
+		buff_hud_bar.update_buffs(view.get("buffs", []))
+	if realm_modal != null and realm_modal.visible:
+		realm_modal.call("refresh", view)
 
-	if cur_era >= 2:
+	if spirit_realm_region_label != null and session != null and session.state != null:
+		if RealmSystem.is_spirit_realm_unlocked(session.state):
+			spirit_realm_region_label.text = "靈界方向 · 【跨界神遊】"
+			spirit_realm_region_label.add_theme_color_override("font_color", Color("ffd700"))
+		else:
+			spirit_realm_region_label.text = "靈界方向 · 未開放"
+			spirit_realm_region_label.add_theme_color_override("font_color", Color("d1dfd1"))
+
+	var cur_realm := String(view.get("realm", {}).get("current_realm", "realm_human"))
+	if cur_realm == "realm_spirit":
+		crumb.text = "靈界 / 天靈洞天 / 靈潮聚所"
+		shade.color = Color(0.06, 0.03, 0.15, 0.28)
+		home_marker.text = "天靈洞天 · 靈潮汐動 純靈長存"
+	elif cur_era >= 2:
+		crumb.text = "人界 / 無名山域 / 你的洞府"
 		shade.color = Color(0.04, 0.08, 0.16, 0.22)
 		home_marker.text = "你的洞府 · 築基功成 祥雲瑞靄"
+	else:
+		crumb.text = "人界 / 無名山域 / 你的洞府"
+		shade.color = Color(0.015, 0.085, 0.13, 0.24)
+		home_marker.text = "你的洞府 · 靈氣生生不息"
+	island_fx.set_attained(cur_era >= 2)
 
 
 	var res_lines := []
@@ -1363,6 +1557,9 @@ func _level_up_cultivation() -> void:
 		_refresh_hud()
 
 func _breakthrough_era() -> void:
+	if breakthrough_seq != null and breakthrough_seq.visible:
+		return
+	var from_era: int = session.state.era_id
 	var cmd := {
 		"command_id": "bt_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "breakthrough_era",
@@ -1371,15 +1568,24 @@ func _breakthrough_era() -> void:
 	}
 	var res: Dictionary = session.submit(cmd)
 	if bool(res.get("ok", false)):
-		hint.text = "破關築基，天地共感，壽元大增！"
+		hint.text = "破關功成，天地共感，空島靈息煥然一新！"
+		_pending_breakthrough_save = true
 		_save_game()
 		_refresh_hud()
 		if breakthrough_seq != null:
-			breakthrough_seq.play("練氣期", "築基期")
+			breakthrough_seq.reduced_motion = reduced
+			breakthrough_seq.set_save_status(not _pending_breakthrough_save)
+			breakthrough_seq.play(String(content.era(from_era).name), String(content.era(session.state.era_id).name))
+	else:
+		hint.text = "突破受阻：%s。請確認已達本境圓滿，並滿足容量門檻。" % str(res.get("error", "FAIL"))
+		hint_panel.visible = true
+		_layout_for_size(hud.size)
 
 func _replay_breakthrough() -> void:
-	if breakthrough_seq != null:
-		breakthrough_seq.play("練氣期", "築基期")
+	if breakthrough_seq != null and session.state.era_id >= 2:
+		breakthrough_seq.reduced_motion = reduced
+		breakthrough_seq.set_save_status(not _pending_breakthrough_save)
+		breakthrough_seq.play(String(content.era(1).name), String(content.era(2).name))
 
 func trigger_nine_realms_hook(is_replay: bool = false) -> void:
 	if nine_realms_preview == null:
@@ -1460,6 +1666,9 @@ func _return_home() -> void:
 func _toggle_motion() -> void:
 	reduced = not reduced
 	camera.reduced_motion = reduced
+	island_fx.set_reduced_motion(reduced)
+	if breakthrough_seq != null:
+		breakthrough_seq.reduced_motion = reduced
 	motion_button.text = "標準特效" if reduced else "低特效"
 	print("ABODE_MOTION reduced=", reduced)
 
@@ -1488,6 +1697,207 @@ func _on_more_menu_pressed(id: int) -> void:
 				_replay_breakthrough()
 		6:
 			_toggle_reincarnation_panel()
+		7:
+			_toggle_alchemy_panel()
+		8:
+			_toggle_debug_panel()
+		9:
+			_toggle_realm_modal()
+
+func _toggle_realm_modal() -> void:
+	if realm_modal == null:
+		return
+	realm_modal.visible = not realm_modal.visible
+	if realm_modal.visible:
+		if session != null:
+			realm_modal.call("refresh", session.get_view())
+		_layout()
+
+func _on_switch_realm_requested(target_realm: String) -> void:
+	if session == null:
+		return
+	var res := session.switch_realm(target_realm)
+	if bool(res.get("ok", false)):
+		var r_name := "靈界 · 天靈洞天" if target_realm == "realm_spirit" else "人界 · 祖基仙府"
+		hint.text = "破界成功！神識跨越虛空，降臨【%s】。" % r_name
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "跨界受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_upgrade_outpost_requested(outpost_id: String) -> void:
+	if session == null:
+		return
+	var res := session.upgrade_realm_outpost(outpost_id)
+	if bool(res.get("ok", false)):
+		hint.text = "靈界據點晉升成功！造化增幅持續運轉。"
+		_save_game()
+		_refresh_hud()
+	else:
+		hint.text = "據點晉升受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_realm_modal_closed() -> void:
+	_refresh_hud()
+
+func _toggle_alchemy_panel() -> void:
+	if alchemy_panel == null:
+		return
+	alchemy_panel.visible = not alchemy_panel.visible
+	if alchemy_panel.visible:
+		if session != null:
+			alchemy_panel.call("update_view", session.get_view())
+		_layout()
+
+func _on_alchemy_refine_requested(pill_id: String, count: int) -> void:
+	if session == null:
+		return
+	var res: Dictionary = session.refine_pill(pill_id, count)
+	if bool(res.get("ok", false)):
+		hint.text = "丹爐火候純青，煉製成功！"
+		_save_game()
+		_refresh_hud()
+		if alchemy_panel != null and alchemy_panel.visible:
+			alchemy_panel.call("update_view", session.get_view())
+	else:
+		hint.text = "煉丹受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_alchemy_consume_requested(pill_id: String, count: int) -> void:
+	if session == null:
+		return
+	var res: Dictionary = session.consume_pill(pill_id, count)
+	if bool(res.get("ok", false)):
+		hint.text = "靈丹入腹，化作滾滾修為生機！"
+		_save_game()
+		_refresh_hud()
+		if alchemy_panel != null and alchemy_panel.visible:
+			alchemy_panel.call("update_view", session.get_view())
+	else:
+		hint.text = "服丹受阻：%s" % str(res.get("error", "FAIL"))
+
+func _on_alchemy_closed() -> void:
+	if alchemy_panel != null:
+		alchemy_panel.visible = false
+	_refresh_hud()
+
+func _toggle_debug_panel() -> void:
+	if debug_panel == null:
+		return
+	debug_panel.visible = not debug_panel.visible
+	if debug_panel.visible:
+		_layout()
+
+func _on_debug_closed() -> void:
+	if debug_panel != null:
+		debug_panel.visible = false
+	_layout()
+
+func _on_debug_auto_build_toggled(enabled: bool) -> void:
+	debug_auto_build_active = enabled
+	if enabled:
+		debug_auto_build_timer = 30.0
+		var msg := "[DEBUG] 每 30 秒自動隨機建造已啟動。"
+		hint.text = msg
+		if debug_panel != null:
+			debug_panel.call("set_status_message", msg)
+			debug_panel.call("update_auto_build_ui", debug_auto_build_timer)
+	else:
+		var msg := "[DEBUG] 每 30 秒自動隨機建造已暫停。"
+		hint.text = msg
+		if debug_panel != null:
+			debug_panel.call("set_status_message", msg)
+			debug_panel.call("update_auto_build_ui", 0.0)
+
+func _on_debug_manual_upgrade_requested() -> void:
+	_debug_perform_random_upgrade()
+
+func _on_debug_boost_era_level_requested() -> void:
+	_debug_boost_era_level_10()
+
+func _on_debug_add_resources_requested() -> void:
+	_debug_add_resources()
+
+func _on_debug_apply_buff_requested(buff_id: String) -> void:
+	if session == null:
+		return
+	var res: Dictionary = session.apply_buff(buff_id)
+	_refresh_hud()
+	if bool(res.get("ok", false)):
+		var def = BuffSystem.get_definition(buff_id)
+		var b_name: String = String(def.get("name", buff_id)) if def != null else buff_id
+		var msg := "[DEBUG] 狀態增益施加成功：【%s】" % b_name
+		hint.text = msg
+		if debug_panel != null:
+			debug_panel.call("set_status_message", msg)
+	else:
+		hint.text = "[DEBUG] 施加 BUFF 失敗：%s" % str(res.get("error", "FAIL"))
+
+func _debug_perform_random_upgrade() -> void:
+	if session == null:
+		return
+	var view: Dictionary = session.get_view()
+	var candidates: Array[String] = []
+	for b_id in view.buildings:
+		var b_info: Dictionary = view.buildings[b_id]
+		var is_visible: bool = bool(b_info.get("visible", false))
+		var is_affordable: bool = bool(b_info.get("affordable", false))
+		var cur_level: int = int(b_info.get("level", 0))
+		var cap_level: int = int(b_info.get("level_cap", 0))
+		if is_visible and is_affordable and cur_level < cap_level:
+			candidates.append(b_id)
+
+	if candidates.is_empty():
+		var msg := "[DEBUG] 自動建造跳過：目前無建築滿足建造條件（材料不足或前置未達），可點擊【獲得全基礎資源】補充物資。"
+		hint.text = msg
+		if debug_panel != null:
+			debug_panel.call("set_status_message", msg)
+		return
+
+	var chosen_id: String = candidates[randi() % candidates.size()]
+	var old_level := int(view.buildings[chosen_id].get("level", 0))
+	_upgrade_building_from_catalog(chosen_id)
+	var b_name: String = BUILDING_NAMES.get(chosen_id, chosen_id)
+	var action_name := "建造" if old_level == 0 else "升級"
+	var success_msg := "[DEBUG] 自動建造觸發：%s「%s」至 %d 階！" % [action_name, b_name, old_level + 1]
+	hint.text = success_msg
+	if debug_panel != null:
+		debug_panel.call("set_status_message", success_msg)
+
+func _debug_boost_era_level_10() -> void:
+	if session == null or session.state == null:
+		return
+	var cur_era_id := session.state.era_id
+	var era_def: Variant = content.era(cur_era_id)
+	var max_lvl := 10
+	if era_def != null and era_def.has("max_level"):
+		max_lvl = int(era_def["max_level"])
+
+	session.state.level = max_lvl
+	session.state.training_seconds = 0.0
+
+	_save_game()
+	_refresh_hud()
+
+	var era_name: String = era_def.get("name", "當前境界") if era_def != null else "當前境界"
+	var msg := "[DEBUG] 境界躍遷成功：%s 已提升至 LV %d (大圓滿)！" % [era_name, max_lvl]
+	hint.text = msg
+	if debug_panel != null:
+		debug_panel.call("set_status_message", msg)
+
+func _debug_add_resources() -> void:
+	if session == null or session.state == null:
+		return
+	var add_amt := AmountCompat.from_number(1000.0)
+	for r_id in session.state.resources:
+		var entry: Dictionary = session.state.resources[r_id]
+		entry.value = entry.value.add(add_amt)
+		entry.unlocked = true
+		entry.ever_obtained = true
+	_save_game()
+	_refresh_hud()
+	var msg := "[DEBUG] 資源調試成功：所有基礎資源已增加 +1,000！"
+	hint.text = msg
+	if debug_panel != null:
+		debug_panel.call("set_status_message", msg)
 
 func _toggle_reincarnation_panel() -> void:
 	if reincarnation_panel == null:
@@ -1534,9 +1944,9 @@ func _on_learn_talent_requested(talent_id: String) -> void:
 func _on_reincarnation_closed() -> void:
 	_refresh_hud()
 
-func _save_game() -> void:
+func _save_game() -> Dictionary:
 	if session == null or session.state == null:
-		return
+		return {"ok": false, "error": "STATE_MISSING"}
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var sim_tick: int = int(floor(session.state.total_elapsed_seconds / float(TimeAdvancer.SECONDS_PER_TICK)))
 	var meta: Dictionary = {
@@ -1545,7 +1955,12 @@ func _save_game() -> void:
 		"settled_until_utc_ms": str(now_ms),
 		"sim_tick": str(sim_tick),
 	}
-	SaveManager.save(session.state, meta)
+	var result: Dictionary = SaveManager.save(session.state, meta)
+	if _pending_breakthrough_save:
+		_pending_breakthrough_save = not bool(result.get("ok", false))
+		if breakthrough_seq != null:
+			breakthrough_seq.set_save_status(not _pending_breakthrough_save)
+	return result
 
 func _show_help() -> void:
 	hint_heading.text = "操作說明"
@@ -1556,3 +1971,102 @@ func _show_help() -> void:
 func _toggle_guidance() -> void:
 	hint_panel.visible = not hint_panel.visible
 	_layout_for_size(hud.size)
+
+func _toggle_hint_expand() -> void:
+	_hint_expanded = not _hint_expanded
+	if hint_expand_button != null:
+		hint_expand_button.text = "⤡ 縮小" if _hint_expanded else "⤢ 展開"
+	_layout_for_size(hud.size)
+	if hint_scroll != null:
+		hint_scroll.call_deferred("set_v_scroll", 999999)
+
+func _push_hint_log(msg: String) -> void:
+	var clean_msg: String = msg.strip_edges()
+	if clean_msg.is_empty():
+		return
+	if _message_history.is_empty() or _message_history.back() != clean_msg:
+		_message_history.append(clean_msg)
+		if _message_history.size() > 50:
+			_message_history.pop_front()
+		_rebuild_hint_log_display()
+
+func _rebuild_hint_log_display() -> void:
+	if hint_log_label == null:
+		return
+	var lines := []
+	for entry in _message_history:
+		var col: String = "f4e7be"
+		if entry.contains("受阻") or entry.contains("不足"):
+			col = "ff9999"
+		elif entry.contains("突破") or entry.contains("大圓滿"):
+			col = "ffd700"
+		elif entry.contains("建造") or entry.contains("升級"):
+			col = "77f29b"
+		elif entry.contains("煉製") or entry.contains("靈丹"):
+			col = "dcd6f7"
+		elif entry.contains("採集") or entry.contains("採伐"):
+			col = "a8e6cf"
+		elif entry.contains("[DEBUG]"):
+			col = "ffd599"
+		lines.append("[color=#%s]· %s[/color]" % [col, entry])
+	hint_log_label.text = "\n".join(lines)
+	if hint_scroll != null:
+		hint_scroll.call_deferred("set_v_scroll", 999999)
+
+# This presentation scope owns its camera/input lock until the result is closed.
+func _on_breakthrough_sequence_started() -> void:
+	if not _breakthrough_camera_snapshot.is_empty():
+		return
+	_breakthrough_camera_snapshot = {
+		"position": camera.position, "zoom": camera.zoom,
+		"target_position": camera.target_position, "target_zoom": camera.target_zoom,
+		"input_locked": camera.input_locked,
+	}
+	for child in hud.get_children():
+		if child is Control and child != breakthrough_seq:
+			_breakthrough_hud_snapshot[child] = child.visible
+	camera.dragging = false
+	camera.dragged = false
+	camera.contacts.clear()
+	camera.zoom_anchor_active = false
+	camera.input_locked = true
+	_fit_breakthrough_camera(hud.size)
+	_mask_breakthrough_hud()
+
+func _fit_breakthrough_camera(vp: Vector2) -> void:
+	camera.target_zoom = minf(0.62, minf((vp.x - 32.0) / 1450.0, (vp.y - 110.0) / 1100.0))
+	camera.target_zoom = maxf(CameraScript.MIN_ZOOM, camera.target_zoom)
+	camera.target_position = Vector2(0, -120)
+	camera.position = camera.target_position
+	camera.zoom = Vector2.ONE * camera.target_zoom
+
+func _mask_breakthrough_hud() -> void:
+	if breakthrough_seq == null or not breakthrough_seq.visible:
+		return
+	for child in _breakthrough_hud_snapshot:
+		if is_instance_valid(child):
+			child.visible = false
+
+func _on_breakthrough_sequence_finished() -> void:
+	if _breakthrough_camera_snapshot.is_empty():
+		return
+	camera.position = _breakthrough_camera_snapshot.position
+	camera.zoom = _breakthrough_camera_snapshot.zoom
+	camera.target_position = _breakthrough_camera_snapshot.target_position
+	camera.target_zoom = _breakthrough_camera_snapshot.target_zoom
+	camera.input_locked = bool(_breakthrough_camera_snapshot.input_locked)
+	camera.dragging = false
+	camera.contacts.clear()
+	camera.zoom_anchor_active = false
+	for child in _breakthrough_hud_snapshot:
+		if is_instance_valid(child):
+			child.visible = bool(_breakthrough_hud_snapshot[child])
+	_breakthrough_camera_snapshot.clear()
+	_breakthrough_hud_snapshot.clear()
+	_layout_for_size(hud.size)
+	_refresh_hud()
+	sky_material.set_shader_parameter("energy", 0.0)
+
+func _retry_breakthrough_save() -> void:
+	if _pending_breakthrough_save:
+		_save_game()

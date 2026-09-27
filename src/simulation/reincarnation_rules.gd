@@ -81,6 +81,14 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.total_elapsed_seconds = 0.0
 	state.tick_remainder_seconds = 0.0
 	state.buildings.clear()
+	state.pills.clear()
+	state.pill_effects.clear()
+	var surviving_buffs: Dictionary = {}
+	for buff_id in state.buffs:
+		var b: Dictionary = state.buffs[buff_id]
+		if bool(b.get("transmigratable", false)):
+			surviving_buffs[buff_id] = b
+	state.buffs = surviving_buffs
 
 	# Re-initialize onboarding unlock state
 	state.onboarding_version = 1

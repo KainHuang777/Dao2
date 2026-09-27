@@ -12,8 +12,13 @@
     "name": "靈界",
     "title": "天地靈潮 · 五行洞天",
     "description": "天道靈機充沛，九幽靈脈交匯。五行靈潮盛衰變換，造就洞天福地與奇花異草。",
-    "law_summary": "靈潮汐動 · 洞天互通",
-    "status": "locked"
+    "law_summary": "靈潮汐動 · 純靈轉化",
+    "status": "locked",
+    "unlock_requirements": {
+      "min_era": 2,
+      "min_reincarnations": 1
+    },
+    "law_details": "天樞陣眼運轉耗費人界靈石轉化極品靈晶，化靈仙池凝練天青靈液反哺全洞府修行。"
   },
   {
     "id": "realm_nether",

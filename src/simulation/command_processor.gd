@@ -19,6 +19,18 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_reincarnate(content, state, command.payload)
 		"learn_talent":
 			return _apply_learn_talent(content, state, command.payload)
+		"refine_pill":
+			return _apply_refine_pill(content, state, command.payload)
+		"consume_pill":
+			return _apply_consume_pill(content, state, command.payload)
+		"apply_buff":
+			return _apply_buff_command(content, state, command.payload)
+		"remove_buff":
+			return _apply_remove_buff_command(content, state, command.payload)
+		"switch_realm":
+			return _apply_switch_realm(content, state, command.payload)
+		"upgrade_realm_outpost":
+			return _apply_upgrade_realm_outpost(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -163,10 +175,11 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 	state.era_id += 1
 	state.level = 1
 	state.training_seconds = 0.0
+	BuffSystem.apply_buff(state, "breakthrough_resonance", 120.0)
 	return {
 		"ok": true,
 		"events": [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}],
-		"changed_ids": ["era_id", "cultivation_level"]
+		"changed_ids": ["era_id", "cultivation_level", "buffs"]
 	}
 
 static func _apply_reincarnate(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
@@ -178,6 +191,79 @@ static func _apply_learn_talent(_content: GameContent, state: GameState, payload
 	if talent_id.is_empty():
 		return _failure("EMPTY_TALENT_ID", {})
 	return TalentSystem.learn(state, talent_id)
+
+static func _apply_refine_pill(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var pill_id: String = String(payload.get("pill_id", ""))
+	if pill_id.is_empty():
+		return _failure("EMPTY_PILL_ID", {})
+	var count: int = int(payload.get("count", 1))
+	var result := AlchemySystem.refine(state, pill_id, count)
+	if not bool(result.get("ok", false)):
+		return _failure(String(result.get("error", "REFINE_FAILED")), result.get("details", {}))
+	return result
+
+static func _apply_consume_pill(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var pill_id: String = String(payload.get("pill_id", ""))
+	if pill_id.is_empty():
+		return _failure("EMPTY_PILL_ID", {})
+	var count: int = int(payload.get("count", 1))
+	var result := AlchemySystem.consume(state, pill_id, count)
+	if not bool(result.get("ok", false)):
+		return _failure(String(result.get("error", "CONSUME_FAILED")), result.get("details", {}))
+	return result
+
+static func _apply_buff_command(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var buff_id: String = String(payload.get("buff_id", ""))
+	if buff_id.is_empty():
+		return _failure("EMPTY_BUFF_ID", {})
+	var duration: float = float(payload.get("duration", -1.0))
+	var custom_effects: Dictionary = payload.get("custom_effects", {})
+	var transmigratable: bool = bool(payload.get("transmigratable", false))
+	var result := BuffSystem.apply_buff(state, buff_id, duration, custom_effects, transmigratable)
+	if not bool(result.get("ok", false)):
+		return _failure(String(result.get("error", "APPLY_BUFF_FAILED")), {})
+	return {
+		"ok": true,
+		"events": result.get("events", []),
+		"changed_ids": ["buffs"],
+	}
+
+static func _apply_remove_buff_command(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var buff_id: String = String(payload.get("buff_id", ""))
+	if buff_id.is_empty():
+		return _failure("EMPTY_BUFF_ID", {})
+	var removed := BuffSystem.remove_buff(state, buff_id)
+	return {
+		"ok": true,
+		"events": [{"kind": "buff_removed", "buff_id": buff_id, "removed": removed}],
+		"changed_ids": ["buffs"],
+	}
+
+static func _apply_switch_realm(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var target_realm: String = String(payload.get("target_realm", ""))
+	if target_realm.is_empty():
+		return _failure("MISSING_TARGET_REALM", {})
+	var res := RealmSystem.switch_realm(state, target_realm)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "SWITCH_REALM_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["current_realm"],
+	}
+
+static func _apply_upgrade_realm_outpost(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var outpost_id: String = String(payload.get("outpost_id", ""))
+	if outpost_id.is_empty():
+		return _failure("MISSING_OUTPOST_ID", {})
+	var res := RealmSystem.upgrade_outpost(state, outpost_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "UPGRADE_OUTPOST_FAILED")), {})
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["realms_data"],
+	}
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:
 	var result := {"ok": false, "error": error, "events": [], "changed_ids": []}

@@ -17,6 +17,18 @@ var upgrade_buttons: Dictionary = {}
 var row_info: Dictionary = {}
 var expanded_row_id: String = ""
 var resource_names: Dictionary = {}
+const BUILDING_NAMES := {
+	"hut": "茅屋",
+	"wooden_house": "木屋",
+	"forest_farm": "林場",
+	"stone_mine": "採石場",
+	"herb_farm": "靈植場",
+	"storage_lingli": "聚靈壇",
+	"storage_money": "錢莊",
+	"storage_wood": "木料庫",
+	"storage_stone": "靈石庫",
+	"storage_herb": "靈草庫",
+}
 var scroll: ScrollContainer
 var close_button: Button
 var _content: VBoxContainer
@@ -266,7 +278,7 @@ func configure(groups: Array) -> void:
 
 			row_box.add_child(button)
 			var upgrade := Button.new()
-			upgrade.custom_minimum_size = Vector2(64, 48)
+			upgrade.custom_minimum_size = Vector2(76, 48)
 			upgrade.add_theme_font_override("font", UiTypography.emphasis_font())
 			upgrade.add_theme_font_size_override("font_size", 16)
 			upgrade.add_theme_stylebox_override("normal", _row_style(Color(0.08, 0.19, 0.18, 0.98), true))
@@ -344,57 +356,107 @@ func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1)
 		var level: int = int(view.get("level", 0))
 		var level_cap: int = int(view.get("level_cap", 0))
 		var affordable: bool = bool(view.get("affordable", false))
-		var status := "待建" if level == 0 else "%d階" % level
-		if level == 0 and affordable:
-			status = "可建"
-		elif level > 0 and affordable and level < level_cap:
-			status = "%d階·可升" % level
 		var role: String = button.get_meta("role")
 		var costs: Dictionary = view.get("costs", {})
 		var cost_parts: Array[String] = []
 		for resource_id in costs:
 			cost_parts.append("%s %s" % [String(costs[resource_id]), resource_names.get(resource_id, resource_id)])
 		var cost_line: String = " · ".join(cost_parts) if not cost_parts.is_empty() else role
-		button.text = "%s · %s" % [button.get_meta("title"), status]
+
+		# 檢查材料是否均已湊齊
+		var resources_sufficient: bool = not costs.is_empty()
+		var min_ratio: float = 1.0
+		for r_id in costs:
+			var cost_val := _parse_amount_float(costs[r_id])
+			var cur_val := 0.0
+			if resources.has(r_id):
+				cur_val = _parse_amount_float(resources[r_id].get("value", "0"))
+			if cost_val > 0.0:
+				var ratio: float = clamp(cur_val / cost_val, 0.0, 1.0)
+				min_ratio = min(min_ratio, ratio)
+				if cur_val < cost_val:
+					resources_sufficient = false
+
+		var prereq = view.get("prereq", null)
+		var is_prereq_blocked: bool = (not affordable) and resources_sufficient and (level < level_cap)
+
+		var status := "待建" if level == 0 else "%d階" % level
 		var upgrade: Button = upgrade_buttons[id]
 		upgrade.visible = button.visible
-		upgrade.text = "建造" if level == 0 else "升級"
-		upgrade.disabled = not affordable or level >= level_cap
-		upgrade.tooltip_text = "%s｜%s" % [role, cost_line]
-		row_info[id].label.text = "%s｜需求：%s" % [role, cost_line]
 
-		# 樣式與側邊發亮
-		button.add_theme_stylebox_override("normal", _row_style(Color(0.02, 0.08, 0.10, 0.98), affordable))
-		button.add_theme_stylebox_override("hover", _row_style(Color(0.08, 0.19, 0.19, 0.99), affordable))
-		button.add_theme_stylebox_override("pressed", _row_style(Color(0.12, 0.27, 0.23, 0.99), affordable))
+		if level >= level_cap:
+			status = "%d階·已滿" % level
+			upgrade.text = "已滿階"
+			upgrade.disabled = true
+			upgrade.tooltip_text = "%s｜已達等階上限（%d階）" % [role, level_cap]
+			row_info[id].label.text = "%s｜已達上限（%d階）" % [role, level_cap]
+			button.add_theme_stylebox_override("normal", _row_style(Color(0.02, 0.08, 0.10, 0.98), false))
+			button.add_theme_stylebox_override("hover", _row_style(Color(0.08, 0.19, 0.19, 0.99), false))
+			button.add_theme_stylebox_override("pressed", _row_style(Color(0.12, 0.27, 0.23, 0.99), false))
+		elif affordable:
+			status = "可建" if level == 0 else "%d階·可升" % level
+			upgrade.text = "建造" if level == 0 else "升級"
+			upgrade.disabled = false
+			upgrade.tooltip_text = "%s｜%s" % [role, cost_line]
+			row_info[id].label.text = "%s｜需求：%s" % [role, cost_line]
+			button.add_theme_stylebox_override("normal", _row_style(Color(0.02, 0.08, 0.10, 0.98), true))
+			button.add_theme_stylebox_override("hover", _row_style(Color(0.08, 0.19, 0.19, 0.99), true))
+			button.add_theme_stylebox_override("pressed", _row_style(Color(0.12, 0.27, 0.23, 0.99), true))
+		elif is_prereq_blocked:
+			var prereq_text := "需前置條件"
+			if prereq != null:
+				var p_bld: String = String(prereq.get("building", ""))
+				var p_lvl: int = int(prereq.get("level", 1))
+				var p_name: String = BUILDING_NAMES.get(p_bld, p_bld)
+				prereq_text = "需 %s 達到 %d 階" % [p_name, p_lvl]
+			status = "前置不足" if level == 0 else "%d階·前置不足" % level
+			upgrade.text = "前置不足"
+			upgrade.disabled = true
+			upgrade.tooltip_text = "%s｜材料已齊，但%s" % [role, prereq_text]
+			row_info[id].label.text = "%s｜【前置不足】%s｜需求：%s" % [role, prereq_text, cost_line]
+			button.add_theme_stylebox_override("normal", _prereq_warning_style(Color(0.06, 0.06, 0.04, 0.98)))
+			button.add_theme_stylebox_override("hover", _prereq_warning_style(Color(0.12, 0.10, 0.06, 0.99)))
+			button.add_theme_stylebox_override("pressed", _prereq_warning_style(Color(0.16, 0.14, 0.08, 0.99)))
+		else:
+			status = "待建" if level == 0 else "%d階" % level
+			upgrade.text = "材料不足"
+			upgrade.disabled = true
+			upgrade.tooltip_text = "%s｜材料不足｜%s" % [role, cost_line]
+			row_info[id].label.text = "%s｜需求：%s" % [role, cost_line]
+			button.add_theme_stylebox_override("normal", _row_style(Color(0.02, 0.08, 0.10, 0.98), false))
+			button.add_theme_stylebox_override("hover", _row_style(Color(0.08, 0.19, 0.19, 0.99), false))
+			button.add_theme_stylebox_override("pressed", _row_style(Color(0.12, 0.27, 0.23, 0.99), false))
 
-		# 計算需求條進度
+		button.text = "%s · %s" % [button.get_meta("title"), status]
+
+		# 計算需求條進度與顏色
 		var bar_data: Dictionary = progress_bars.get(id, {})
 		if not bar_data.is_empty():
 			var glow: ColorRect = bar_data["glow"]
 			var bg: ColorRect = bar_data["bg"]
 			var fill: ColorRect = bar_data["fill"]
-			glow.visible = affordable
 
 			if level >= level_cap or costs.is_empty():
 				bg.visible = false
 				fill.visible = false
+				glow.visible = false
 				bar_data["progress"] = 0.0
 			else:
 				bg.visible = true
 				fill.visible = true
 				if affordable:
 					bar_data["progress"] = 1.0
+					fill.color = Color(0.35, 0.95, 0.45, 0.95)
+					glow.visible = true
+					glow.color = Color(0.35, 0.95, 0.45, 1.0)
+				elif is_prereq_blocked:
+					bar_data["progress"] = 1.0
+					fill.color = Color(0.92, 0.55, 0.20, 0.95)
+					glow.visible = false
 				else:
-					var min_ratio := 1.0
-					for r_id in costs:
-						var cost_val := _parse_amount_float(costs[r_id])
-						var cur_val := 0.0
-						if resources.has(r_id):
-							cur_val = _parse_amount_float(resources[r_id].get("value", "0"))
-						var ratio: float = clamp(cur_val / cost_val, 0.0, 1.0) if cost_val > 0.0 else 1.0
-						min_ratio = min(min_ratio, ratio)
 					bar_data["progress"] = min_ratio
+					fill.color = Color(0.29, 0.72, 0.35, 0.85)
+					glow.visible = false
 			_update_row_overlays(id)
 
 	for group_id in group_rows:
@@ -416,13 +478,32 @@ func _update_resource_values() -> void:
 		var capacity := _parse_amount_float(entry.get("cap", "0"))
 		var rate := _parse_amount_float(entry.get("rate", "0"))
 		var second_line := "+%.2f/秒" % rate if rate > 0.0 else "待產出"
-		value_label.text = "%s  %.2f" % [resource_names.get(resource_id, resource_id), current] if resource_display_mode == 1 else "%s  %.2f/%.0f\n%s" % [resource_names.get(resource_id, resource_id), current, capacity, second_line]
-		value_label.add_theme_color_override("font_color", Color("f5bd71") if capacity > 0.0 and current >= capacity else Color("e4f0dc"))
-		card.tooltip_text = "%s  %.2f/%.0f · %s" % [resource_names.get(resource_id, resource_id), current, capacity, second_line]
+		var is_full := (capacity > 0.0 and current >= capacity)
+		var r_name: String = resource_names.get(resource_id, resource_id)
+
+		if is_full:
+			card.add_theme_stylebox_override("panel", _resource_full_style())
+			if resource_display_mode == 1:
+				value_label.text = "%s  %.2f [滿]" % [r_name, current]
+			else:
+				value_label.text = "%s  %.2f/%.0f [滿倉]\n%s" % [r_name, current, capacity, second_line]
+			value_label.add_theme_color_override("font_color", Color("f5bd71"))
+			card.tooltip_text = "%s  %.2f/%.0f 【已達上限】· %s" % [r_name, current, capacity, second_line]
+		else:
+			card.add_theme_stylebox_override("panel", _row_style(Color(0.02, 0.08, 0.10, 0.72)))
+			if resource_display_mode == 1:
+				value_label.text = "%s  %.2f" % [r_name, current]
+			else:
+				value_label.text = "%s  %.2f/%.0f\n%s" % [r_name, current, capacity, second_line]
+			value_label.add_theme_color_override("font_color", Color("e4f0dc"))
+			card.tooltip_text = "%s  %.2f/%.0f · %s" % [r_name, current, capacity, second_line]
+
 		if gather_btn != null:
 			var can_gather: bool = (_last_era_id == 1 and bool(entry.get("unlocked", false)) and String(entry.get("type", "")) == "basic")
 			gather_btn.visible = can_gather
-			gather_btn.disabled = capacity > 0.0 and current >= capacity
+			gather_btn.disabled = is_full
+			gather_btn.text = "已滿" if is_full else "採集"
+			gather_btn.tooltip_text = "已達上限，請升級對應倉儲設施" if is_full else "手動採集 1 點資源"
 
 func _set_filter(filter_id: String) -> void:
 	active_filter = filter_id
@@ -486,6 +567,34 @@ func _row_style(background: Color, is_affordable: bool = false) -> StyleBoxFlat:
 	else:
 		style.border_color = Color(0.70, 0.63, 0.43, 0.78)
 		style.set_border_width_all(1)
+	style.set_corner_radius_all(3)
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 4
+	style.content_margin_bottom = 4
+	return style
+
+func _resource_full_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.12, 0.10, 0.04, 0.88)
+	style.border_color = Color(0.95, 0.75, 0.32, 0.95)
+	style.set_border_width_all(1)
+	style.shadow_color = Color(0.95, 0.75, 0.32, 0.30)
+	style.shadow_size = 3
+	style.set_corner_radius_all(3)
+	style.content_margin_left = 8
+	style.content_margin_right = 8
+	style.content_margin_top = 4
+	style.content_margin_bottom = 4
+	return style
+
+func _prereq_warning_style(background: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = background
+	style.border_color = Color(0.92, 0.55, 0.20, 0.95)
+	style.set_border_width_all(1)
+	style.shadow_color = Color(0.92, 0.55, 0.20, 0.25)
+	style.shadow_size = 3
 	style.set_corner_radius_all(3)
 	style.content_margin_left = 12
 	style.content_margin_right = 12

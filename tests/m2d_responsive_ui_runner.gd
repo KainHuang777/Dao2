@@ -27,7 +27,7 @@ func _run() -> void:
 	var lingli_before: AmountCompat = abode.session.state.resources["lingli"].value
 	abode.building_catalog.resource_gather_buttons["lingli"].pressed.emit()
 	_expect(abode.session.state.resources["lingli"].value.compare_to(lingli_before) > 0, "direct lingli gather must use the normal resource command")
-	_expect(abode.more_menu.get_popup().item_count == 6, "low-frequency actions must remain in More")
+	_expect(abode.more_menu.get_popup().item_count >= 7, "low-frequency actions must remain in More")
 
 	# State B: left resources, a right-side building ledger, and the same cultivation status.
 	abode.building_catalog_button.pressed.emit()

@@ -16,6 +16,11 @@ var highest_era: int = 1
 var dao_heart: AmountCompat = AmountCompat.zero()
 var dao_proof: int = 0
 var talents: Dictionary = {}
+var pills: Dictionary = {}
+var pill_effects: Dictionary = {}
+var buffs: Dictionary = {}
+var current_realm: String = "realm_human"
+var realms_data: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -31,7 +36,11 @@ func duplicate_state() -> GameState:
 	copy.highest_era = highest_era
 	copy.dao_heart = dao_heart.duplicate_amount() if dao_heart != null else AmountCompat.zero()
 	copy.dao_proof = dao_proof
-	copy.talents = talents.duplicate(true)
+	copy.pills = pills.duplicate(true)
+	copy.pill_effects = pill_effects.duplicate(true)
+	copy.buffs = buffs.duplicate(true)
+	copy.current_realm = current_realm
+	copy.realms_data = realms_data.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -71,4 +80,10 @@ func to_snapshot_dict() -> Dictionary:
 		"dao_heart": dao_heart.serialize() if dao_heart != null else "0",
 		"dao_proof": dao_proof,
 		"talents": talents.duplicate(true),
+		"pills": pills.duplicate(true),
+		"pill_effects": pill_effects.duplicate(true),
+		"buffs": buffs.duplicate(true),
+		"current_realm": current_realm,
+		"realms_data": realms_data.duplicate(true),
 	}
+

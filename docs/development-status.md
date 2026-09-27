@@ -1,6 +1,20 @@
 # 開發狀態與交接紀錄
 
-更新：2026-09-25。此檔描述實際進度；順序與 DoD 見根目錄 ROADMAP。歷史結果保留原日期；最新核心正流程稽核見 `docs/verification/core-positive-flow.md`。
+2026-09-27 M4-A 手工第二界（靈界 · 天靈洞天）與雙界法則系統全閉環交付：完成靈界體系規則模組 `src/simulation/realm_system.gd`。定義三大活躍據點（天樞陣眼 `celestial_hub`、化靈仙池 `pure_pool`、虛空引靈台 `void_beacon`），支援至 10 級擴建。實作跨界法則與機會成本供給取捨：天樞陣眼每級每秒消耗人界靈石轉化極品靈晶；化靈仙池每級每秒消耗極品靈晶凝練天青靈液；化靈仙池提供全洞府修煉速度 +15%/級跨界反哺加成；虛空引靈台擴充靈界專屬資源容量上限。`TimeAdvancer` 接入雙界並行模擬（不論玩家當前身處人界或靈界，兩界產能與消耗持續運轉）。`GameState` 與 `SaveCodec` 擴充 `current_realm` 與 `realms_data`，具備向後相容解碼。`CommandProcessor` 接入 `switch_realm` 與 `upgrade_realm_outpost` 指令。`living_abode.gd` 接入金色高亮遠景「靈界方向 · 【跨界神遊】」天標、自適應跨界神遊面板 `RealmTeleportModal`、次級選單入口「靈界洞天」與切景天幕色調調諧。新增 `tests/m4a_realm_runner.gd`（exit 0，解鎖條件、切界返家、據點升級、並行模擬與機會成本、修煉反哺、存檔往返、UI 面板全通）。全量 23 項 Runner 與 Web Release 匯出均 exit 0。
+
+2026-09-27 M3-B 第二彈：BUFF 與狀態時效增益系統全閉環交付：完成 BUFF 系統規則模組 `src/simulation/buff_system.gd`，支援時效衰減、同類刷新、永久特質（長生龜息）及跨世道痕（transmigratable）繼承規則。首發預置「天靈氣湧」、「頓悟靈光」、「破境餘韻」與「長生龜息」四種經典修仙增益。`GameState` 與 `SaveCodec` 擴充 `buffs` 持久化欄位並保持向後相容。`TimeAdvancer` 接入每秒 tick 衰減、動態產率、專屬資源加成、修煉速度倍率與壽元上限。`CommandProcessor` 接入 `apply_buff` 與 `remove_buff`，並在大境界突破（`breakthrough_era`）成功時自動為玩家施加 120 秒「破境餘韻」。`living_abode.gd` 與 `src/presentation/buff_hud_bar.gd` 接入自適應微徽章狀態列，無 BUFF 時自動隱藏零佔位；`debug_panel.gd` 擴充一鍵施加測試 BUFF。新增 `tests/buff_system_runner.gd`（exit 0，生命週期、衰減、倍率、大境突破連動、存檔往返、輪迴保留/清空及 HUD UI 全通）。全量 22 項 Runner 與 Web Release 匯出均 exit 0。
+
+2026-09-27 M2-D 淚瀑遠景 v5（待 AGY 視覺驗收）：依使用者新提供的 GPT 修正近景參考，將眼下水路加厚為瀑簾，落至苔蘚平台後接成島緣與下方多級寬瀑；維持風化塊石、殘缺古貌與獨立遠方空島。新增 `assets/abode/sky_tearfall_island_v5.png`，`living_abode.gd` 預載 v5；`tearfall_sky.gdshader` 加寬眼下水流遮罩並延長至承水平台；`export_presets.cfg` 排除保留作歷史的 v1／v3／v4。來源、使用者參考副本、提示詞、授權與切層見 `docs/abode-art/sky-tearfall-island-v5.md`。Godot 4.7.2 import exit 0；`island_breakthrough_runner.gd` exit 0／PASS；Web Release export exit 0。生成圖已目視核對，真實 Web 動態與窄螢幕觀感仍待 AGY。下一步固定本機 origin Ctrl+F5 檢查眼下瀑簾與多級水路，再重播突破確認整體搭配。
+
+2026-09-27 M2-D 淚瀑遠景 v4 修正（待 AGY 視覺驗收）：使用者指出 v3 的島緣瀑布失去石佛流淚設定，改以 `assets/abode/sky_tearfall_island_v4.png` 恢復雙眼角→風化臉頰水路→殘破平台→較寬瀑簾的視覺連結；保留古老殘破石面塔、独立懸空島身、寬瀑與雲霧。`living_abode.gd` 預載 v4；`tearfall_sky.gdshader` 增低幅臉頰水流遮罩，眼睛保持静止；`export_presets.cfg` 排除已停用 v1／v3 遠景，原始資產保留。資產來源／授權／切層／提示詞見 `docs/abode-art/sky-tearfall-island-v4.md`。Godot 4.7.2 import exit 0；`island_breakthrough_runner.gd` exit 0／PASS；Web Release export exit 0。生成圖已目視確認淚水與瀑簾連結，實際瀑布動態、窄螢幕與 GPU 觀感仍待 AGY；下一步固定本機 origin Ctrl+F5 驗收新版遠景與突破重播。
+
+2026-09-27 M2-D 遠景美術 v3 修訂（待 AGY 視覺驗收）：依使用者兩輪修訂，改用具吳哥古蹟塊石／殘破質感的獨立佛首空島，露出懸空島底、碎塊及周邊雲海間隙；水流改為三處加寬的島緣瀑簾，取消成對眼部水柱。新增 `assets/abode/sky_ruin_island_v3.png`，`living_abode.gd` 接入新圖，`tearfall_sky.gdshader` 對齊寬瀑遮罩並收斂增亮；突破文字不直接稱作淚瀑。`export_presets.cfg` 排除保留作歷史的 v1 圖，避免重複打包。來源、授權、切層和兩版提示詞見 `docs/abode-art/sky-ruin-island-v3.md`。Godot 4.7.2 import exit 0；`island_breakthrough_runner.gd` exit 0／PASS；Web Release export exit 0；本輪相關已追蹤檔案 diff-check exit 0。生成圖已目視核對，真實 Web 動態、窄螢幕觀感及觸控仍待 AGY；下一步使用固定本機 origin 強制更新新版 build 進行驗收。
+
+2026-09-27 M2-B 演出擴充／M2-D 美術接入（待 AGY 本輪視覺驗收）：接入常駐流淚石佛／懸山遠景與局部瀑布 Shader、独立空島法陣／靈光／弧光／碎岩／光點／雲海波環；正式練氣→築基命令先提交與保存，演出 5.6 秒可跳過／重播，低特效 1 秒，重播不改快照；關閉／失去前景焦點恢復原鏡頭與 HUD，保存失敗有重試且不再次升境。修改檔案與 AGY 操作單見 `docs/verification/island-breakthrough.md`；資產、切層與提示詞見 `docs/abode-art/sky-tearfall-v1.md`。固定 Godot 4.7.2，相關六個 runner（M2-B、新 island-breakthrough、M2-D responsive／slice、M2-A、M2-C）均 exit 0／PASS，Web Release 匯出 exit 0。初次新增腳本的語法／型別錯誤已修正；headless 結束仍有資源未釋放訊息，整工作樹 diff-check 另有既有 AGY `game_state.gd` EOF 空白行。未通過項：本轮真實 Web Shader／畫質、滑鼠／觸控、實機效能與 IndexedDB；本次擴充驗收仍 IN_PROGRESS，不覆蓋原 M2-D 歷史放行。下一步：使用最新 `build/web` 在 AGY 依操作單驗收。保留 AGY 既有煉丹／DEBUG 與其他核心修改。
+
+2026-09-26 M3-B 第一彈：丹藥與煉丹房系統全閉環交付：完成丹藥系統規則模組 `src/simulation/alchemy_system.gd`、`GameState` 與 `SaveCodec` 持久化欄位（`pills`、`pill_effects` 向後相容）、`TimeAdvancer` 丹藥加壽與產率倍率接入、`ReincarnationRules` 轉世清空肉身丹藥重置、`CommandProcessor` 接入 `refine_pill` 與 `consume_pill`。主場景 `src/abode/living_abode.gd` 與 `src/presentation/alchemy_panel.gd` 接入自適應煉丹房面板、次級選單入口「洞府煉丹」與 HUD 即時同步。新增 `tests/m3b_alchemy_runner.gd` 與 `tests/m3b_alchemy_ui_runner.gd`（exit 0）。全量 19 項 Runner 與 Web Release export 均 exit 0。
+
+2026-09-26 M2-D 視覺、裝置與首切片放行完成：使用者於真實瀏覽器環境進行完整操作與視覺驗收，確認緊湊營造清單、內嵌採集、直式/橫式自適應排版、空島地標點擊與流暢度通過。M2-D 正式標記為 DONE。
 
 2026-09-25 M2-D 資源列內嵌直覺採集與 Era 2 規則確認：依使用者建議，將左下角獨立採集動作槽與下拉選單廢止，改在左側已解鎖基礎資源卡（靈氣、金錢、靈木）後方直接內嵌「採集」按鈕；滿倉時按鈕自動 disabled。確認核心規則：手動採集（Gather）嚴格限定於 Era 1（練氣期），突破至 Era 2（築基期）後自動隱藏所有採集按鈕，完全轉由洞府設施自動產出（對齊核心 `MANUAL_GATHER_ERA` 約束）。修改 `src/presentation/building_catalog.gd`、`src/abode/living_abode.gd`、`tests/m2d_responsive_ui_runner.gd`、`tests/core_positive_flow_runner.gd`。全量 17 項 Runner 與 Web Release export 均 exit 0。
 
@@ -40,11 +54,11 @@
 | M2-A | DONE（核心正流程重新驗證；AGY 裝置驗收待 M2-D） | 2026-09-23 補齊金錢等已解鎖資源採集入口、玄銅解鎖及錯誤名稱；`core_positive_flow_runner.gd` 由全零新檔支付成本，走到十種 Era 1 建築、首升境、輪迴及下一世重建，並驗各產線實際入庫。此前單元 runner 直接注入資源，未揭露木屋前金錢斷鏈。 |
 | M2-B | DONE（CLI／桌面路徑；全量 11 個 Runner 通過） | 2026-09-19 交付首次升境規則、Era 2（築基期）定義、小階修煉積累、大境界突破容量門檻（不扣庫存）、突破演出場景控制器（可跳過／可重播不重發）、洞府天象反饋與 `m2b_breakthrough_runner.gd`（exit 0）；詳見 `docs/verification/m2-b.md`。 |
 | M2-C | DONE（CLI／桌面路徑；全量 12 個 Runner 通過） | 2026-09-19 交付第一分鐘九界鉤子、引氣事件觸發、6–8 秒可跳過相機抽遠、九界法則願景預覽、標記嚮往（零副作用契約）、返回洞府、存檔持久化防重複與 `m2c_nine_realms_runner.gd`（exit 0）；詳見 `docs/verification/m2-c.md`。 |
-| M2-D | IN_PROGRESS（CLI／Web 匯出通過；AGY 營造清單重測待辦） | AGY 否決了十地塊浮島方案；現改成茅屋地標＋營造清單，並修正 Era 2 先前建築消失。Godot CLI 通過，仍待 AGY 驗證真實清單操作、地形、CSS 清晰度、觸控與效能。 |
+| M2-D | DONE | 2026-09-26 使用者於真實瀏覽器環境進行完整操作與視覺驗收，確認緊湊營造清單、內嵌採集、直式/橫式自適應排版、空島地標點擊與流暢度通過。 |
 | M3-A | DONE（核心閉環與 UI 面板全量交付） | 2026-09-22 交付輪迴轉世規則、天賦系統與持久化；2026-09-24 交付 `reincarnation_panel.gd` 雙分頁互動 UI 面板與 `tests/m3a_reincarnation_ui_runner.gd`（exit 0）。全量 17 項 Runner 與 Web export 均通過。 |
-
-| M3-B | TODO | 舊系統矩陣（丹藥、天時、宗門、機緣、靈獸、成就） |
-| M4-A/B | TODO | 第二界可玩差異、正式尺度與法則資料 |
+| M3-B | IN_PROGRESS（丹藥系統 DONE、BUFF系統 DONE） | 2026-09-26 第一彈完成丹藥與煉丹房系統；2026-09-27 第二彈完成 BUFF 與狀態時效增益系統（時效衰減、同類刷新、永久特質、大境突破餘韻連動、跨世繼承、自適應 HUD 狀態列與調試工具支援），全量 22 Runner 通過；天時、宗門、機緣、靈獸、成就後續推進。 |
+| M4-A | DONE（全閉環交付） | 2026-09-27 交付第二界（靈界 · 天靈洞天）、三大據點（天樞陣眼、化靈仙池、虛空引靈台）、雙界並行模擬、靈石轉化極品靈晶、天青靈液全洞府反哺、跨界神遊傳送面板、遠景天標與全量 23 Runner 驗證。 |
+| M4-B | TODO | 九界法則資料擴充、正式地理尺度與遠界旅程 |
 | M5-A/B | TODO | 按需生成、封存與逐界內容 |
 
 

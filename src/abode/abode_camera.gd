@@ -8,6 +8,7 @@ var target_zoom: float = 0.70
 var target_position: Vector2 = Vector2(0, -40)
 var reduced_motion: bool = false
 var dragging: bool = false
+var input_locked: bool = false
 var dragged: bool = false
 var press_origin: Vector2
 var contacts: Dictionary = {}
@@ -67,6 +68,8 @@ func change_zoom(factor: float, anchor: Vector2 = Vector2(-1, -1)) -> void:
 ## browsers. Handle world gestures here, then explicitly leave HUD controls
 ## alone so a building remains selectable with an ordinary mouse click.
 func _input(event: InputEvent) -> void:
+	if input_locked:
+		return
 	if event is InputEventMouse and get_viewport().gui_get_hovered_control() != null:
 		return
 	if event is InputEventMouseButton:
