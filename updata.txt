@@ -1,3 +1,18 @@
+[2026-09-28] WebGL Background Flicker Fix & Shader Math Stabilization
+- Shader Math & NaN Prevention (assets/abode/tearfall_sky.gdshader):
+  - Bounded cascade_mask with early return on distance threshold (dx > half_width * 3.0), completely eliminating pow(x, 4.0) overflows and NaN propagation in WebGL.
+  - Implemented clean branch for reduced_motion returning base texture directly without displacement or water calculations.
+  - Softened spatial wave frequencies (reduced from 195.0/170.0 to 50.0/60.0) to eliminate high-frequency aliasing and moiré flickering.
+  - Clamped all texture sample coordinates strictly to [0.0001, 0.9999].
+- Camera & Presentation Stability (src/abode/abode_camera.gd, src/abode/living_abode.gd):
+  - Added threshold snapping for camera zoom and position to eliminate per-frame sub-pixel floating point jitter.
+  - Cached sky material uniforms (energy, reduced_motion) and shade alpha, avoiding redundant per-frame WebGL pipeline rebinds.
+- Project Environment Setup (project.godot):
+  - Configured environment/defaults/default_clear_color to dark palette Color(0.012, 0.055, 0.08, 1) to prevent viewport clear pass flash on WebGL canvas.
+- Verification:
+  - All 25 runners passed with exit code 0.
+  - Re-exported clean Web Release to build/web/index.html.
+
 [2026-09-28] M3-B Third Batch: Sect System (宗門系統), Expedition Tasks, Techniques & Market Full Closure
 - Sect System Simulation Module (src/simulation/sect_system.gd):
   - Implemented sect mechanics: unlocking at Era >= 2 or reincarnation >= 1, five canonical sects.

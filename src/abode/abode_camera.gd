@@ -23,14 +23,21 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var blend: float = 1.0 if reduced_motion else 1.0 - exp(-delta * 7.0)
-	zoom = Vector2.ONE * lerpf(zoom.x, target_zoom, blend)
+	if absf(zoom.x - target_zoom) < 0.0005:
+		zoom = Vector2.ONE * target_zoom
+	else:
+		zoom = Vector2.ONE * lerpf(zoom.x, target_zoom, blend)
+
 	if zoom_anchor_active:
 		target_position = zoom_anchor_world - (zoom_anchor_screen - get_viewport_rect().size * 0.5) / zoom.x
 		position = target_position
 		if absf(zoom.x - target_zoom) < 0.001:
 			zoom_anchor_active = false
 	else:
-		position = position.lerp(target_position, blend)
+		if position.distance_squared_to(target_position) < 0.25:
+			position = target_position
+		else:
+			position = position.lerp(target_position, blend)
 
 func focus_home() -> void:
 	zoom_anchor_active = false

@@ -1,5 +1,7 @@
 # 開發狀態與交接紀錄
 
+2026-09-28 M2-D 遠景 v5、Shader 瀑布、突破演出與 WebGL 穩定度全閉環回歸放行：使用者於真實瀏覽器環境進行完整操作與視覺驗收。（1）修復 WebGL 背景閃爍：鎖定 `tearfall_sky.gdshader` 中 `cascade_mask` 遠端像素溢出為 NaN 的問題，增加 3 倍半寬距離早退判定，平滑正弦波頻率消除走樣頻閃，並為 `reduced_motion` 提供乾淨直通分支；`abode_camera.gd` 增加縮放與位移閾值吸附，消除浮點震盪；`living_abode.gd` 建立 Uniform 緩存停止無效重綁；`project.godot` 配置預設深青藍清屏色 `Color(0.012, 0.055, 0.08, 1)` 防止清屏穿透。（2）使用者透過本機 Web Server（`http://127.0.0.1:4175`）強制刷新（Ctrl+F5）親測確認：遠景天空與石佛佛首完全穩定不閃爍、Shader 瀑布自然流動、低特效純淨穩定、突破演出與存檔保留正常，正式通過放行。全量 25 項 Runner 與 Web Release 匯出均 exit 0。M2-D 回歸正式標記為 DONE。下一個主線任務排入 M4-B（尺度與法則）。
+
 2026-09-28 M3-B 第三彈：宗門系統（Sect System）、委託派遣、宗門真訣與坊市全閉環交付：完成宗門系統規則模組 `src/simulation/sect_system.gd`。（1）門檻與五大宗門：築基期（`era_id >= 2`）或轉世次數 $\ge 1$ 解鎖，可拜入太虛天闕、天劍聖宗、縹緲仙宮、萬佛靈宗或紫霄玄門；（2）三大委託槽位派遣：支援 5 種品質（普通、優秀、稀有、史詩、傳說）隨機懸賞委託，冷卻刷新、耗時倒數結算，產出宗門貢獻、金錢、靈草、靈石、玄銅乃至頓悟靈光增益；完全移除 `Time.`/`OS.` 系統時鐘依賴，確保純邏輯確定性；（3）宗門真訣與常駐修仙倍率：神農靈訣（草木產能）、太虛吐納（靈氣產能）、天劍戰訣（修煉速度）、紫霄護體（壽元增益），支援 10 級修習與貢獻／物料消耗；（4）宗門坊市物資兌換：提供凝血草、玄陰朱果、三階聚靈丹等資源限購兌換；（5）主場景與 HUD：`src/presentation/sect_panel.gd` 接入三頁式自適應面板，主場景頂部自適應入口與次級選單第 10 項直達；`GameState` 與 `SaveCodec` 擴充 `sect` 狀態持久化；輪迴轉世清除肉身弟子身份與普通真訣。新增 `tests/m3b_sect_runner.gd` 與 `tests/m3b_sect_ui_runner.gd`。全量 25 項 Runner 與 Web Release 匯出均 exit 0。
 
 2026-09-27 M3-A 轉生九界俯衝回空島特效表演全閉環交付：完成專屬全螢幕轉生儀式感演出組件 `src/presentation/reincarnation_sequence.gd`。（1）演出節奏：3 階段動態插值（總時長 3.4 秒），階段一（0.0s~0.8s）靈魂太虛出神，瞬移至 Cosmos 視野（zoom 0.08，pos (0, -100)），白金柔光淡入，浮現偈語「肉身有盡，道心無窮。」；階段二（0.8s~2.4s）穿越輪迴，平滑加速放大下沉（zoom 0.08 ➔ 0.70），繪製 16 條虛空向外穿梭的光芒粒子線條，浮現偈語「歷經千劫，神返靈山。」；階段三（2.4s~3.4s）仙身聚頂，落定 Home 空島視野（zoom 0.70，pos (0, -40)），空島靈樹中心釋放向外擴散的青藍金靈環波（draw_arc 半徑擴大至 240px），浮現偈語「重塑仙身，再問長生！」並彈出當世結算卡片（世數、凝聚道心點數與入世按鈕）。（2）支援「跳過演出（Skip）」與全螢幕點擊跳過，支援 `reduced_motion` 低動態無障礙模式。（3）`src/abode/living_abode.gd` 接入演出掛載與運鏡控制，並理順與首次轉生九界星圖導引（`NineRealmsPreview`）之層級協調。（4）更新 `tests/m3a_reincarnation_ui_runner.gd` 測試斷言覆蓋階段運鏡、徽章與跳過機制。全量 23 項 Runner exit 0 / PASS，最新 Web Release 已重新匯出至 `build/web/`。
@@ -20,15 +22,34 @@
 
 2026-09-27 M2-B 演出擴充／M2-D 美術接入（待 AGY 本輪視覺驗收）：接入常駐流淚石佛／懸山遠景與局部瀑布 Shader、独立空島法陣／靈光／弧光／碎岩／光點／雲海波環；正式練氣→築基命令先提交與保存，演出 5.6 秒可跳過／重播，低特效 1 秒，重播不改快照；關閉／失去前景焦點恢復原鏡頭與 HUD，保存失敗有重試且不再次升境。修改檔案與 AGY 操作單見 `docs/verification/island-breakthrough.md`；資產、切層與提示詞見 `docs/abode-art/sky-tearfall-v1.md`。固定 Godot 4.7.2，相關六個 runner（M2-B、新 island-breakthrough、M2-D responsive／slice、M2-A、M2-C）均 exit 0／PASS，Web Release 匯出 exit 0。初次新增腳本的語法／型別錯誤已修正；headless 結束仍有資源未釋放訊息，整工作樹 diff-check 另有既有 AGY `game_state.gd` EOF 空白行。未通過項：本轮真實 Web Shader／畫質、滑鼠／觸控、實機效能與 IndexedDB；本次擴充驗收仍 IN_PROGRESS，不覆蓋原 M2-D 歷史放行。下一步：使用最新 `build/web` 在 AGY 依操作單驗收。保留 AGY 既有煉丹／DEBUG 與其他核心修改。
 
-2026-09-26 M3-B 第一彈：丹藥與煉丹房系統全閉環交付：完成丹藥系統規則模組 `src/simulation/alchemy_system.gd`、`GameState` 與 `SaveCodec` 持久化欄位（`pills`、`pill_effects` 向後相容）、`TimeAdvancer` 丹藥加壽與產率倍率接入、`ReincarnationRules` 轉世清空肉身丹藥重置、`CommandProcessor` 接入 `refine_pill` 與 `consume_pill`。主場景 `src/abode/living_abode.gd` 與 `src/presentation/alchemy_panel.gd` 接入自適應煉丹房面板、次級選單入口「洞府煉丹」與 HUD 即時同步。新增 `tests/m3b_alchemy_runner.gd` 與 `tests/m3b_alchemy_ui_runner.gd`（exit 0）。全量 19 項 Runner 與 Web Release export 均 exit 0。
+2026-09-26 M3-B 第一彈：丹藥與煉丹房系統全閉環交付：完成丹藥系統規則模組 `src/simulation/alchemy_system.gd`、`GameState` 與 `SaveCodec` 持久化欄位（`pills`、`pill_effects` 向後相容）、`TimeAdvancer` 丹藥加壽與產率倍率接入、`ReincarnationRules` 轉世清空肉身丹藥重置、`CommandProcessor` 接入 `refine_pill` 與 `consume_pill`。主場景 `src/abode/living_abode.gd` 與 `src/presentation/alchemy_panel.gd` 接入自適應煉丹房面板、次級選單入口「洞府煉丹」與 HUD 即時同步。新增 `tests/m3b_alchemy_runner.gd` 與 `tests/m3b_alchemy_ui_runner.gd`（exit 0）。全量 19 項 Runner 與 Web Release export �| M2-D | DONE | 2026-09-26 緊湊清單與響應式排版通過；2026-09-28 修復 WebGL 背景閃爍後，遠景 v5、Shader 瀑布、突破演出與低特效經使用者於真實 Web 環境親測驗收放行（見 `docs/verification/m2-d.md` 與 `island-breakthrough.md`）。實體手機手勢持續補證。 |
+| M3-A | DONE（核心閉環與 UI 面板全量交付） | 2026-09-22 交付輪迴轉世規則、天賦系統與持久化；2026-09-24 交付 `reincarnation_panel.gd` 雙分頁互動 UI 面板；2026-09-27 對齊經典雙軌門檻、交付 3.4 秒轉生九界俯衝演出與壽盡直達橫幅。全量 25 項 Runner 通過。 |
+| M3-B | IN_PROGRESS（丹藥 DONE、BUFF DONE、宗門 DONE） | 2026-09-26 第一彈完成丹藥與煉丹房；2026-09-27 第二彈完成 BUFF 增益系統；2026-09-28 第三彈完成宗門系統（拜入山門、五品質委託派遣、四大宗門真訣倍率、宗門坊市與自適應面板），全量 25 Runner 通過；天時、機緣、靈獸、成就後續推進。 |
+| M4-A | DONE（全閉環交付） | 2026-09-27 交付第二界（靈界 · 天靈洞天）、三大據點（天樞陣眼、化靈仙池、虛空引靈台）、雙界並行模擬、靈石轉化極品靈晶、天青靈液全洞府反哺、跨界神遊傳送面板、遠景天標與全量 25 Runner 驗證（見 `docs/verification/m4-a.md`）。 |
+| M4-B | TODO（下一個主線任務） | 九界法則資料擴充、正式地理尺度與遠界旅程（相依 M4-A 已達成） |
+| M5-A/B | TODO | 按需生成、封存與逐界內容 |
 
-2026-09-26 M2-D 視覺、裝置與首切片放行完成：使用者於真實瀏覽器環境進行完整操作與視覺驗收，確認緊湊營造清單、內嵌採集、直式/橫式自適應排版、空島地標點擊與流暢度通過。M2-D 正式標記為 DONE。
 
-2026-09-25 M2-D 資源列內嵌直覺採集與 Era 2 規則確認：依使用者建議，將左下角獨立採集動作槽與下拉選單廢止，改在左側已解鎖基礎資源卡（靈氣、金錢、靈木）後方直接內嵌「採集」按鈕；滿倉時按鈕自動 disabled。確認核心規則：手動採集（Gather）嚴格限定於 Era 1（練氣期），突破至 Era 2（築基期）後自動隱藏所有採集按鈕，完全轉由洞府設施自動產出（對齊核心 `MANUAL_GATHER_ERA` 約束）。修改 `src/presentation/building_catalog.gd`、`src/abode/living_abode.gd`、`tests/m2d_responsive_ui_runner.gd`、`tests/core_positive_flow_runner.gd`。全量 17 項 Runner 與 Web Release export 均 exit 0。
+目前無已確認的外部阻塞；未選定基準手機與實機測量仍待安排。不因這一項未知而停掉可做的 CLI／fixture 工作。
 
-2026-09-25 新手體驗節奏優化與九界轉生時機調整：依使用者反饋，移除首次採集靈氣時打斷操作的九界宇宙鏡頭切換（`seen_nine_realms_hook`），將新手期注意力集中於快速理解學習核心玩法；九界鉤子切換時機移至「首次轉生（Reincarnation）」完成時觸發，呼應天地玄黃再塑仙身之世界觀。同步記錄待辦設計：未來於 M3/M4 擴充九界與轉生關聯時，將「標記為嚮往」賦予實質增益或轉生專屬法則效果（目前保持零副作用基礎標記）。更新 `src/abode/living_abode.gd`、`tests/m2c_nine_realms_runner.gd`、`tests/m2d_slice_release_runner.gd`。全量 17 項 Runner 與 Web Release export 均 exit 0。
+## 已知限制與檢查線索
 
-2026-09-25 M2-D 資源面板裁切與境界按鈕重疊修復：修復修煉進階按鈕出現時基本資訊框向下撐開卻未同步下推縱向資源面板（`resource_ribbon`）導致重疊遮擋的問題；提取 `_reflow_resource_ribbon()` 並在 `_reflow_header()` 觸發時動態下移資源面板保持 8px 間距。修復資源清單因 `resource_grid` 缺乏 `size_flags_horizontal = SIZE_EXPAND_FILL` 及 Label `clip_text = true` 導致卡片水平塌陷為 24px 空框（文字裁切消失）的 Bug，為 `resource_grid` 與 `value_label` 補齊 `SIZE_EXPAND_FILL`，完整恢復資源名稱、讀數與產率顯示。`tests/m2d_responsive_ui_runner.gd` 增補卡片寬度 (>100px) 與境界按鈕動態展開不重疊斷言。全量 17 Runner 與 Web Release export 均 exit 0。
+2026-09-23 核心正流程稽核：見 `docs/verification/core-positive-flow.md`。原 15 runner 加新正流程 runner 共 16 項、Godot import、主場景啟動及 Web Release 匯出皆 exit 0。CLI 與場景訊號未代替 AGY 真實 Web 點擊、手機觸控與 IndexedDB 落盤。`foundation_pill` 目前解鎖顯示但無配方或取得命令，也尚非本期建築成本；避免在介面宣稱可生產。既有舊快照可用零餘數載入；規則版本已升 `core-flow-2`。
+
+1. 主場景已完整切換至 GameSession 與 SaveManager；展示數值與 float process 已由正式 Tick 與 AmountCompat 取代。
+2. 目前場景測試直接呼叫函式；2026-09-13 已額外在桌面 Web 實測建築命中、HUD、拖曳、滾輪、歸家及遠景。雙指／實體觸控、拖出 HUD 後釋放和不同手機 DPI 仍待 M2-D 前補證。
+3. 主場景已改為 1280×720 桌面橫版設計，完整 CLI／Web 匯出與瀏覽器畫面已於本輪重驗。手機直式適配、360 CSS px 可讀性與44px觸控區仍需在 M2-D 前量測，不能由桌面畫面推定通過。
+4. region 是重用地形的視覺示範，没有新據點經濟；飛劍／靈流已有動畫程式，但視覺強度、位置對齊與手機效能待實測。
+5. all_resources 匯出會帶入 src/效果圖 和 tests；正式發布前需明確排除開發／參考內容，保留來源原圖。
+6. 2026-09-19 M1 全量 Commit 595cea6，M2-A 提交 0f460e0，M2-B 提交 464d76c，M2-C 通過全量 12 項 Runner 驗證。
+
+## 下一個動作
+
+**下一個主線實作排入 M4-B（尺度與法則）**：
+1. 擴充九界法則資料定義（`content/realms/`），建立各界獨特法則約束與跨界流通比率。
+2. 建立正式地理尺度層級（洞府 $\rightarrow$ 山域 $\rightarrow$ 世界 $\rightarrow$ 星域 $\rightarrow$ 宇宙），為遠界神遊與跨界旅程提供相機與航行邏輯。
+3. M3-B 剩餘獨立子系統（天時、靈獸、成就）依 Roadmap 相依交錯推進。
+��按鈕出現時基本資訊框向下撐開卻未同步下推縱向資源面板（`resource_ribbon`）導致重疊遮擋的問題；提取 `_reflow_resource_ribbon()` 並在 `_reflow_header()` 觸發時動態下移資源面板保持 8px 間距。修復資源清單因 `resource_grid` 缺乏 `size_flags_horizontal = SIZE_EXPAND_FILL` 及 Label `clip_text = true` 導致卡片水平塌陷為 24px 空框（文字裁切消失）的 Bug，為 `resource_grid` 與 `value_label` 補齊 `SIZE_EXPAND_FILL`，完整恢復資源名稱、讀數與產率顯示。`tests/m2d_responsive_ui_runner.gd` 增補卡片寬度 (>100px) 與境界按鈕動態展開不重疊斷言。全量 17 Runner 與 Web Release export 均 exit 0。
 
 2026-09-25 M2-D 介面擴充性修正：依使用者 1920×902 截圖，移除頂部橫向資源帶排版，改為左側「關閉／數量／完整」三態縱向清單（預設數量、滿倉變色、完整容量／產率、內部捲動、納入後續 Era 資源）；底部新增明確「空島／營造」雙分頁；右側建築列固定 48 高，成本只在展開後顯示，保留需求進度條，取消標準密度。短直式建築詳情使用聚焦版型，避免內容被擠出。修改 `src/abode/living_abode.gd`、`src/presentation/building_catalog.gd`、`tests/m2d_responsive_ui_runner.gd`、docs/07/09/10、docs/verification/m2-d.md 與本狀態檔。Godot 4.7.2 import、全量 17 Runner、Web Release export exit 0；實際瀏覽器與手機觸控待驗，M2-D 仍 IN_PROGRESS。下一步在 AGY 對照五種 viewport 進行視覺／滑鼠實測，後續進行手機觸控及 IndexedDB 驗收。
 

@@ -1,4 +1,4 @@
-# 給下一位 AI 的開發交接
+﻿# 給下一位 AI 的開發交接
 
 更新：2026-09-13。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
 
@@ -130,4 +130,4 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 ## 可直接貼给下一個 AI 的提示
 
-> 請接續 E:\WORK\Dao2 的修仙問道 v2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md、docs/02-technical-architecture.md 與 docs/07-responsive-ui-web-spec.md，核對實際程式與最新狀態。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。M0-B、M0-C、M1 與 M2-A～M2-C 已有 CLI／桌面證據；目前主線為 M2-D，先完成 Godot 響應式版型與瀏覽器／實機驗收，不能以 runner 推定觸控、CSS 尺寸或畫質通過。舊碼 E:\Python\test1 和 GodTower 唯讀。不要把展示數值當原作經濟，不重做環境、不直接展開完整九界。交付實際檔案、命令與結果，更新開發狀態；未驗證項明確標示。
+> 請接續 E:\WORK\Dao2 的修仙問道 v2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md、docs/02-technical-architecture.md 與 docs/07-responsive-ui-web-spec.md，核對實際程式與最新狀態。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。全量 25 項 Runner 經 tools/run_all_runners.ps1 已全部 PASS；M2-D 遠景 v5、Shader 瀑布、突破演出與 WebGL 穩定性已在真實 Web（固定本地 origin 4175）驗收放行（DONE）；M3-A 經典雙軌輪迴門檻、轉生演出與天賦面板已閉環（DONE）；M3-B 已交付丹藥、BUFF 與宗門系統；M4-A 第二界（靈界 · 天靈洞天）已全閉環（DONE）。**下一個主線任務排入 M4-B（尺度與法則、九界法則資料擴充、正式地理尺度與遠界旅程）**，M3-B 剩餘子系統（天時、靈獸、成就）依相依交錯推進。交付實際檔案、命令與結果，更新開發狀態；嚴格遵守第一原理與事實為本。

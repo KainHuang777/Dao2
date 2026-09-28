@@ -147,6 +147,9 @@ var shade: ColorRect
 var sky_material: ShaderMaterial
 var island_fx: IslandBreakthroughFx
 var _sky_flow_time: float = 0.0
+var _last_sky_energy: float = -1.0
+var _last_sky_reduced: int = -1
+var _last_shade_a: float = -1.0
 var _breakthrough_camera_snapshot: Dictionary = {}
 var _breakthrough_hud_snapshot: Dictionary = {}
 var _pending_breakthrough_save: bool = false
@@ -1210,12 +1213,21 @@ func _process(delta: float) -> void:
 		if building.has_node("caption"):
 			building.caption.modulate.a = 1.0 - distant
 
-	_sky_flow_time += delta if not reduced else 0.0
-	sky_material.set_shader_parameter("flow_time", _sky_flow_time)
-	sky_material.set_shader_parameter("energy", island_fx.energy)
-	sky_material.set_shader_parameter("reduced_motion", reduced)
+	if not reduced:
+		_sky_flow_time += delta
+		sky_material.set_shader_parameter("flow_time", _sky_flow_time)
+	if absf(_last_sky_energy - island_fx.energy) > 0.001:
+		_last_sky_energy = island_fx.energy
+		sky_material.set_shader_parameter("energy", island_fx.energy)
+	var reduced_int: int = 1 if reduced else 0
+	if _last_sky_reduced != reduced_int:
+		_last_sky_reduced = reduced_int
+		sky_material.set_shader_parameter("reduced_motion", reduced)
 	island_fx.set_attained(session.state.era_id >= 2)
-	shade.color.a = 0.18 + distant * 0.34
+	var target_shade_a: float = snappedf(0.18 + distant * 0.34, 0.005)
+	if absf(_last_shade_a - target_shade_a) > 0.004:
+		_last_shade_a = target_shade_a
+		shade.color.a = target_shade_a
 
 	update_elapsed += delta
 	if update_elapsed >= 0.25:
