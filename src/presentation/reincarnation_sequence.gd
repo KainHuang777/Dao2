@@ -228,7 +228,6 @@ func _process(delta: float) -> void:
 	else:
 		# 階段三：仙身聚頂（落地 Home 視野 0.70，靈環爆發）
 		var t3 := clampf((_anim_time - STAGE_2_END) / (TOTAL_DURATION - STAGE_2_END), 0.0, 1.0)
-		_bg_overlay.color.a = lerpf(0.12, 0.0, t3)
 		_stage_badge.text = "【重塑仙身 · 再問長生】"
 		_couplet_label.text = "重聚仙靈，再問長生！"
 		if _camera != null:
@@ -236,8 +235,11 @@ func _process(delta: float) -> void:
 			_camera.zoom = Vector2(0.70, 0.70)
 			_camera.target_position = Vector2(0, -40)
 			_camera.target_zoom = 0.70
-		if not _result_card.visible:
-			_show_result_card()
+		if _anim_time >= TOTAL_DURATION:
+			if not _result_card.visible:
+				_show_result_card()
+		else:
+			_bg_overlay.color.a = lerpf(0.12, 0.0, t3)
 
 	_fx_layer.queue_redraw()
 
@@ -246,32 +248,121 @@ func _on_fx_draw() -> void:
 		return
 	var center := size * 0.5
 
-	# 階段二：穿梭虛空光線
-	if _anim_time > STAGE_1_END and _anim_time <= STAGE_2_END:
-		var t2 := (_anim_time - STAGE_1_END) / (STAGE_2_END - STAGE_1_END)
-		var streak_alpha: float = sin(t2 * PI) * 0.6
-		var count := 16
-		for i in range(count):
-			var angle := float(i) / float(count) * TAU + _anim_time * 0.5
-			var dir := Vector2(cos(angle), sin(angle))
-			var start_dist: float = 60.0 + t2 * 80.0
-			var end_dist: float = start_dist + 120.0 + t2 * 200.0
-			var start_pt := center + dir * start_dist
-			var end_pt := center + dir * end_dist
-			var col := Color(0.96, 0.88, 0.60, streak_alpha)
-			_fx_layer.draw_line(start_pt, end_pt, col, 2.0)
+	# 預先定義 22 道不規則爆發光柱參數：角度非對稱、粗細相間、發射時差錯落
+	const RAYS_DEF: Array = [
+		{"angle_deg": 12.0,  "w_base": 38.0, "w_tip": 12.0, "max_len": 780.0, "delay": 0.05, "dur": 0.65},
+		{"angle_deg": 28.0,  "w_base": 16.0, "w_tip": 4.0,  "max_len": 540.0, "delay": 0.22, "dur": 0.50},
+		{"angle_deg": 46.0,  "w_base": 48.0, "w_tip": 16.0, "max_len": 880.0, "delay": 0.00, "dur": 0.70},
+		{"angle_deg": 68.0,  "w_base": 22.0, "w_tip": 6.0,  "max_len": 620.0, "delay": 0.15, "dur": 0.55},
+		{"angle_deg": 95.0,  "w_base": 42.0, "w_tip": 14.0, "max_len": 820.0, "delay": 0.08, "dur": 0.68},
+		{"angle_deg": 118.0, "w_base": 18.0, "w_tip": 5.0,  "max_len": 560.0, "delay": 0.28, "dur": 0.48},
+		{"angle_deg": 136.0, "w_base": 52.0, "w_tip": 18.0, "max_len": 920.0, "delay": 0.02, "dur": 0.72},
+		{"angle_deg": 154.0, "w_base": 24.0, "w_tip": 7.0,  "max_len": 640.0, "delay": 0.18, "dur": 0.52},
+		{"angle_deg": 172.0, "w_base": 36.0, "w_tip": 11.0, "max_len": 750.0, "delay": 0.10, "dur": 0.60},
+		{"angle_deg": 195.0, "w_base": 20.0, "w_tip": 6.0,  "max_len": 580.0, "delay": 0.25, "dur": 0.50},
+		{"angle_deg": 214.0, "w_base": 46.0, "w_tip": 15.0, "max_len": 860.0, "delay": 0.04, "dur": 0.68},
+		{"angle_deg": 232.0, "w_base": 14.0, "w_tip": 4.0,  "max_len": 510.0, "delay": 0.32, "dur": 0.45},
+		{"angle_deg": 248.0, "w_base": 40.0, "w_tip": 13.0, "max_len": 790.0, "delay": 0.12, "dur": 0.62},
+		{"angle_deg": 272.0, "w_base": 56.0, "w_tip": 20.0, "max_len": 950.0, "delay": 0.00, "dur": 0.75},
+		{"angle_deg": 296.0, "w_base": 22.0, "w_tip": 6.0,  "max_len": 610.0, "delay": 0.20, "dur": 0.54},
+		{"angle_deg": 312.0, "w_base": 34.0, "w_tip": 10.0, "max_len": 730.0, "delay": 0.14, "dur": 0.58},
+		{"angle_deg": 330.0, "w_base": 18.0, "w_tip": 5.0,  "max_len": 570.0, "delay": 0.30, "dur": 0.46},
+		{"angle_deg": 348.0, "w_base": 44.0, "w_tip": 14.0, "max_len": 840.0, "delay": 0.06, "dur": 0.66},
+		# 額外補強的幾道先導極光束
+		{"angle_deg": 38.0,  "w_base": 12.0, "w_tip": 3.0,  "max_len": 690.0, "delay": 0.02, "dur": 0.40},
+		{"angle_deg": 142.0, "w_base": 10.0, "w_tip": 3.0,  "max_len": 670.0, "delay": 0.04, "dur": 0.42},
+		{"angle_deg": 220.0, "w_base": 12.0, "w_tip": 3.0,  "max_len": 710.0, "delay": 0.03, "dur": 0.38},
+		{"angle_deg": 285.0, "w_base": 14.0, "w_tip": 4.0,  "max_len": 740.0, "delay": 0.01, "dur": 0.44},
+	]
 
-	# 階段三：落地靈氣爆發環
+	# 階段二：穿越虛空與神聖光芒爆發（附圖效果）
+	if _anim_time > STAGE_1_END and _anim_time <= STAGE_2_END:
+		var stage2_progress := (_anim_time - STAGE_1_END) / (STAGE_2_END - STAGE_1_END) # 0.0 ~ 1.0 (時長 1.6s)
+
+		# 1. 繪製非同步、不規則角度與粗細的光芒光柱
+		for ray in RAYS_DEF:
+			var delay: float = ray["delay"]
+			var dur: float = ray["dur"]
+			if stage2_progress < delay:
+				continue
+			var local_t := clampf((stage2_progress - delay) / dur, 0.0, 1.0)
+			if local_t <= 0.0 or local_t >= 1.0:
+				continue
+
+			# 生長曲線：前 28% 極速刺出衝至最大長度，中段維持極盛，後段平滑消散
+			var len_factor: float
+			var alpha_factor: float
+			if local_t < 0.28:
+				var grow_p := local_t / 0.28
+				len_factor = sin(grow_p * PI * 0.5) # 快速衝刺
+				alpha_factor = grow_p
+			elif local_t < 0.65:
+				len_factor = 1.0
+				alpha_factor = 1.0
+			else:
+				var fade_p := (local_t - 0.65) / 0.35
+				len_factor = 1.0 + fade_p * 0.15 # 微微繼續延伸擴散
+				alpha_factor = 1.0 - (fade_p * fade_p)
+
+			var rad: float = deg_to_rad(ray["angle_deg"])
+			var dir := Vector2(cos(rad), sin(rad))
+			var norm := Vector2(-dir.y, dir.x)
+
+			var core_r: float = 24.0 + stage2_progress * 45.0
+			var cur_len: float = float(ray["max_len"]) * len_factor
+			var w_base: float = float(ray["w_base"]) * (0.6 + 0.4 * alpha_factor)
+			var w_tip: float = float(ray["w_tip"]) * (0.8 + 0.2 * len_factor)
+
+			var p_base := center + dir * core_r
+			var p_tip := center + dir * (core_r + cur_len)
+
+			var v1 := p_base - norm * (w_base * 0.5)
+			var v2 := p_base + norm * (w_base * 0.5)
+			var v3 := p_tip + norm * (w_tip * 0.5)
+			var v4 := p_tip - norm * (w_tip * 0.5)
+
+			# 外層光暈錐（金色天輝）
+			var halo_poly := PackedVector2Array([
+				p_base - norm * (w_base * 0.8),
+				p_base + norm * (w_base * 0.8),
+				p_tip + norm * (w_tip * 1.5),
+				p_tip - norm * (w_tip * 1.5)
+			])
+			var halo_col := Color(1.0, 0.90, 0.65, alpha_factor * 0.35)
+			_fx_layer.draw_colored_polygon(halo_poly, halo_col)
+
+			# 內層熾熱純白核心柱（附圖核心強烈白光）
+			var core_poly := PackedVector2Array([v1, v2, v3, v4])
+			var core_col := Color(1.0, 1.0, 0.96, alpha_factor * 0.92)
+			_fx_layer.draw_colored_polygon(core_poly, core_col)
+
+		# 2. 繪製中心熾熱能量爆發球體（附圖中央巨大純白能量球）
+		var core_grow := sin(clampf(stage2_progress * 1.25, 0.0, 1.0) * PI * 0.5)
+		var core_radius := lerpf(18.0, 85.0, core_grow)
+		var core_alpha := clampf(sin(stage2_progress * PI), 0.0, 1.0)
+
+		# 外圍光暈
+		_fx_layer.draw_circle(center, core_radius * 1.35, Color(1.0, 0.92, 0.70, core_alpha * 0.45))
+		# 中央純白高亮爆發核
+		_fx_layer.draw_circle(center, core_radius, Color(1.0, 1.0, 1.0, core_alpha * 0.95))
+
+	# 階段三：落地靈氣爆發環（仙身凝定）
 	elif _anim_time > STAGE_2_END:
 		var t3 := clampf((_anim_time - STAGE_2_END) / (TOTAL_DURATION - STAGE_2_END), 0.0, 1.0)
 		var radius: float = lerpf(10.0, minf(size.x, size.y) * 0.45, t3)
 		var ring_alpha: float = (1.0 - t3) * 0.75
 		var ring_col := Color(0.45, 0.85, 1.0, ring_alpha)
-		_fx_layer.draw_arc(center, radius, 0.0, TAU, 48, ring_col, 3.5)
+		_fx_layer.draw_arc(center, radius, 0.0, TAU, 48, ring_col, 4.0)
+
+		# 中心殘留凝結微光
+		if t3 < 0.4:
+			var residual_p := 1.0 - (t3 / 0.4)
+			_fx_layer.draw_circle(center, 30.0 * residual_p, Color(1.0, 1.0, 1.0, residual_p * 0.8))
 
 func _show_result_card() -> void:
 	_result_card.visible = true
 	_skip_button.visible = false
+	_bg_overlay.color = Color(0.04, 0.06, 0.09, 0.85)
 
 func skip() -> void:
 	if not _is_playing:
@@ -279,13 +370,13 @@ func skip() -> void:
 	_anim_time = TOTAL_DURATION
 	if _camera != null:
 		_camera.focus_home()
-	_bg_overlay.color.a = 0.0
 	_fx_layer.queue_redraw()
 	_show_result_card()
 
 func _on_finish_pressed() -> void:
 	_is_playing = false
 	visible = false
+	_bg_overlay.color = Color(0.96, 0.94, 0.86, 0.0)
 	if _camera != null:
 		_camera.input_locked = false
 		_camera.focus_home()

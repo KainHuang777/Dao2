@@ -1,5 +1,7 @@
 # Godot 環境與最小 Web 專案探針
 
+本文件保留 2026-09-13 的環境探針結果與當時建議；其中 M0「下一步」已過時。現行 Godot 專案與交接命令見 [目前狀態](development-status.md) 和 [AI 交接指南](ai-handoff.md)。
+
 日期：2026-09-13。狀態：核心環境、繁中 UI 與瀏覽器持久化測試均通過。
 
 ## 固定環境
@@ -68,4 +70,4 @@ python -m http.server 4173 --bind 127.0.0.1 --directory .\build\web
 
 2026-09-13 交接修正：本文件的「環境探針完成」不代表 Roadmap M0 全部完成。主場景現為 living_abode，洞府本身尚未接存檔；周天重載自動化及完整手勢驗收列為 [M0-A](../ROADMAP.md)，其後補來源 fixture 與 Amount／RNG。以下保留原階段建議供參考。
 
-M0 環境探針已完成。下一步進入 M1：建立 Amount 大數值、模擬時鐘、快照存檔與舊版修煉公式 fixture，並將它們與畫面層解耦。
+原文件在 2026-09-13 將 M1 寫為下一步；該計畫已在後續里程碑交付。當前待辦請讀 `docs/development-status.md`，勿依此歷史句子重新啟動 M1。

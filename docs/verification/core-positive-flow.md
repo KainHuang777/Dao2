@@ -1,5 +1,7 @@
 # 2026-09-23 核心正流程與資源可達性稽核
 
+本紀錄保留 2026-09-23／25 的正流程證據；當時「M2-D IN_PROGRESS」是歷史狀態，2026-09-28 桌面放行及後續窄版回歸見 [目前狀態](../development-status.md) 與 [REF-A](ref-a.md)。
+
 ## 結論與問題根因
 
 從全零新檔逐步建造時，原先只有靈氣與靈木的畫面採集入口；木屋卻先要求 `money:20`，而木屋才是 `money` 的首個自動產線，因此流程在木屋前斷開。舊版練氣期資源面板允許手動採集所有已解鎖的 basic 資源；本輪在 v2 資源總覽補齊這條命令入口。
@@ -33,7 +35,7 @@
 - Godot `4.7.2.stable.official.ed1daf0bf`，`--import` exit 0。
 - 原有 15 個指定 runner 加新正流程 runner，共 16 個全部 exit 0；主場景 `--quit-after 3` exit 0。
 - Web Release 匯出 `build/web/index.html` exit 0。
-- 這些證據含 Godot 場景訊號路由，但不代表 AGY／實機滑鼠、觸控、瀏覽器 IndexedDB 與視覺辨識度已通過。M2-D 的 Web 裝置矩陣仍為 `IN_PROGRESS`。
+- 這些證據含 Godot 場景訊號路由，但不代表 AGY／實機滑鼠、觸控、瀏覽器 IndexedDB 與視覺辨識度已通過。該文件日期當時 M2-D 的 Web 裝置矩陣為 `IN_PROGRESS`；後續桌面放行及 REF-A 窄版回歸依頂部複核更新。
 - 本輪沒有改正式數值資產的建築成本；舊存檔缺 `tick_remainder_seconds` 時以零解碼。規則版本升為 `core-flow-2`。築基丹仍無配方，屬後續內容工作。
 
 ## 2026-09-25 後續節奏與 HUD 修正

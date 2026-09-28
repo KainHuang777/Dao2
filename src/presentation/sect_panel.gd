@@ -12,7 +12,7 @@ signal close_requested()
 enum TabMode { EXPEDITIONS, TECHNIQUES, MARKET }
 
 var _background: Panel
-var _content: VBoxContainer
+var _header_container: VBoxContainer
 var _title_row: HBoxContainer
 var _title_label: Label
 var _contrib_label: Label
@@ -36,50 +36,76 @@ var _tab_content_container: VBoxContainer
 # 快取當前 view
 var _cached_sect_data: Dictionary = {}
 var _cached_resources: Dictionary = {}
+var _cached_is_eligible_to_join: bool = false
+
+const SECT_FLAVORS := {
+	"太虛天闕": "道門正宗 · 吐納浩然，周天靈氣生生不息",
+	"天劍聖宗": "劍道至尊 · 凌厲殺伐，一心向道修為精進",
+	"縹緲仙宮": "仙家勝境 · 造化靈秀，草木靈根產量豐沛",
+	"萬佛靈宗": "佛光普照 · 金身不滅，壽元綿長道心無漏",
+	"紫霄玄門": "九天雷動 · 天威正氣，天地資產周流不息",
+}
 
 func _ready() -> void:
-	if _content == null:
+	if _header_container == null:
 		_build_ui()
 
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
+	clip_contents = true
 	if _background != null:
 		_background.size = size
-	if _content != null:
-		var pad := 14.0
-		_content.position = Vector2(pad, pad)
-		_content.size = Vector2(maxf(0.0, size.x - pad * 2.0), maxf(0.0, size.y - pad * 2.0))
-	if _scroll != null and _content != null:
-		var fixed_height := 0.0
-		if _title_row != null:
-			fixed_height += _title_row.size.y + 8.0
-		if _banner_panel != null:
-			fixed_height += _banner_panel.size.y + 8.0
-		if _tab_row != null and _tab_row.visible:
-			fixed_height += _tab_row.size.y + 8.0
-		_scroll.custom_minimum_size.y = maxf(120.0, _content.size.y - fixed_height)
+	var pad := 14.0
+	var avail_w := maxf(0.0, size.x - pad * 2.0)
+	var header_h := 0.0
+	if _header_container != null:
+		_header_container.position = Vector2(pad, pad)
+		_header_container.size = Vector2(avail_w, 0)
+		header_h = _header_container.get_combined_minimum_size().y
+		_header_container.size = Vector2(avail_w, header_h)
+	if _scroll != null:
+		var scroll_top := pad + header_h + 10.0
+		var scroll_h := maxf(60.0, size.y - scroll_top - pad)
+		_scroll.position = Vector2(pad, scroll_top)
+		_scroll.size = Vector2(avail_w, scroll_h)
+		_scroll.custom_minimum_size = Vector2(0, 0)
+		_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 
 func _build_ui() -> void:
+	clip_contents = true
 	_background = Panel.new()
-	_background.add_theme_stylebox_override("panel", UiTypography.dialog_surface())
+	var bg_box := StyleBoxFlat.new()
+	bg_box.bg_color = Color(0.08, 0.10, 0.14, 0.98)
+	bg_box.border_color = Color(0.7, 0.55, 0.25, 0.8)
+	bg_box.border_width_left = 1
+	bg_box.border_width_top = 1
+	bg_box.border_width_right = 1
+	bg_box.border_width_bottom = 1
+	bg_box.corner_radius_top_left = 8
+	bg_box.corner_radius_top_right = 8
+	bg_box.corner_radius_bottom_left = 8
+	bg_box.corner_radius_bottom_right = 8
+	_background.add_theme_stylebox_override("panel", bg_box)
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
-	_content = VBoxContainer.new()
-	_content.name = "SectContent"
-	_content.add_theme_constant_override("separation", 10)
-	add_child(_content)
+	_header_container = VBoxContainer.new()
+	_header_container.name = "SectHeaderContainer"
+	_header_container.add_theme_constant_override("separation", 10)
+	add_child(_header_container)
 
 	# 1. 頂部標題列
 	_title_row = HBoxContainer.new()
 	_title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_content.add_child(_title_row)
+	_header_container.add_child(_title_row)
 
 	_title_label = Label.new()
-	_title_label.text = "🏛️ 宗門外務 · 太虛天闕"
+	_title_label.text = "【宗門外務】· 太虛天闕"
 	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	_title_label.add_theme_font_size_override("font_size", 20)
+	_title_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_title_row.add_child(_title_label)
 
@@ -116,7 +142,7 @@ func _build_ui() -> void:
 	b_box.content_margin_top = 6
 	b_box.content_margin_bottom = 6
 	_banner_panel.add_theme_stylebox_override("panel", b_box)
-	_content.add_child(_banner_panel)
+	_header_container.add_child(_banner_panel)
 
 	_banner_label = Label.new()
 	_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。"
@@ -128,33 +154,37 @@ func _build_ui() -> void:
 	_tab_row = HBoxContainer.new()
 	_tab_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_row.add_theme_constant_override("separation", 8)
-	_content.add_child(_tab_row)
+	_header_container.add_child(_tab_row)
 
 	_tab_expeditions_btn = Button.new()
-	_tab_expeditions_btn.text = "📜 歷練委託"
+	_tab_expeditions_btn.text = "歷練委託"
 	_tab_expeditions_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_expeditions_btn.pressed.connect(func(): _switch_tab(TabMode.EXPEDITIONS))
 	_tab_row.add_child(_tab_expeditions_btn)
 
 	_tab_techniques_btn = Button.new()
-	_tab_techniques_btn.text = "📖 秘術傳承"
+	_tab_techniques_btn.text = "秘術傳承"
 	_tab_techniques_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_techniques_btn.pressed.connect(func(): _switch_tab(TabMode.TECHNIQUES))
 	_tab_row.add_child(_tab_techniques_btn)
 
 	_tab_market_btn = Button.new()
-	_tab_market_btn.text = "🏪 宗門坊市"
+	_tab_market_btn.text = "宗門坊市"
 	_tab_market_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_market_btn.pressed.connect(func(): _switch_tab(TabMode.MARKET))
 	_tab_row.add_child(_tab_market_btn)
 
-	# 4. 滾動主區域
+	# 4. 滾動主區域（作為 SectPanel 同級子節點，獨立受控於 set_layout_bounds）
 	_scroll = ScrollContainer.new()
+	_scroll.name = "SectScroll"
 	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_content.add_child(_scroll)
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	add_child(_scroll)
 
 	_tab_content_container = VBoxContainer.new()
+	_tab_content_container.name = "TabContent"
 	_tab_content_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_content_container.add_theme_constant_override("separation", 10)
 	_scroll.add_child(_tab_content_container)
@@ -164,13 +194,14 @@ func _switch_tab(mode: TabMode) -> void:
 	_render_current_tab()
 
 func update_view(state: GameState) -> void:
-	if _content == null:
+	if _header_container == null:
 		_build_ui()
 	if state == null:
 		return
 	var sect: Dictionary = SectSystem.ensure_sect_state(state)
 	_cached_sect_data = sect
 	_cached_resources = state.resources
+	_cached_is_eligible_to_join = SectSystem.is_unlocked(state)
 
 	var is_unlocked := bool(sect.get("unlocked", false))
 	var s_name := String(sect.get("sect_name", "太虛天闕"))
@@ -178,15 +209,21 @@ func update_view(state: GameState) -> void:
 	var c_parsed := AmountCompat.try_parse(contrib_str)
 	var contrib_display := int(c_parsed["value"].to_float()) if bool(c_parsed.get("ok", false)) else 0
 
-	_title_label.text = "🏛️ 宗門外務 · " + s_name if is_unlocked else "🏛️ 尋仙訪道 · 拜入山門"
+	_title_label.text = "【宗門外務】· " + s_name if is_unlocked else "【尋仙訪道】· 拜入山門"
 	_contrib_label.text = "宗門貢獻：%d 點" % contrib_display if is_unlocked else ""
 	_tab_row.visible = is_unlocked
+	if not is_unlocked:
+		_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。" if _cached_is_eligible_to_join else "仙途漫漫，唯仙基穩固（築基期或歷經轉世）方具立誓拜入仙門之資。"
+	else:
+		_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。"
 
 	_render_current_tab()
+	set_layout_bounds(Rect2(position, size))
 
 func _render_current_tab() -> void:
 	# 清空容器
 	for child in _tab_content_container.get_children():
+		_tab_content_container.remove_child(child)
 		child.queue_free()
 
 	var is_unlocked := bool(_cached_sect_data.get("unlocked", false))
@@ -209,51 +246,114 @@ func _render_current_tab() -> void:
 
 # ================= 拜入宗門介面 =================
 func _render_join_panel() -> void:
-	var card := PanelContainer.new()
-	var c_box := StyleBoxFlat.new()
-	c_box.bg_color = Color(0.12, 0.15, 0.20, 0.95)
-	c_box.border_color = Color(0.8, 0.65, 0.2, 0.8)
-	c_box.border_width_left = 1
-	c_box.border_width_top = 1
-	c_box.border_width_right = 1
-	c_box.border_width_bottom = 1
-	c_box.corner_radius_top_left = 8
-	c_box.corner_radius_top_right = 8
-	c_box.corner_radius_bottom_left = 8
-	c_box.corner_radius_bottom_right = 8
-	c_box.content_margin_left = 16
-	c_box.content_margin_right = 16
-	c_box.content_margin_top = 16
-	c_box.content_margin_bottom = 16
-	card.add_theme_stylebox_override("panel", c_box)
-	_tab_content_container.add_child(card)
+	var is_eligible := _cached_is_eligible_to_join
 
-	var vb := VBoxContainer.new()
-	vb.add_theme_constant_override("separation", 12)
-	card.add_child(vb)
+	var intro_card := PanelContainer.new()
+	var intro_box := StyleBoxFlat.new()
+	intro_box.bg_color = Color(0.12, 0.15, 0.20, 0.95)
+	intro_box.border_color = Color(0.8, 0.65, 0.2, 0.8) if is_eligible else Color(0.85, 0.4, 0.35, 0.8)
+	intro_box.border_width_left = 1
+	intro_box.border_width_top = 1
+	intro_box.border_width_right = 1
+	intro_box.border_width_bottom = 1
+	intro_box.corner_radius_top_left = 8
+	intro_box.corner_radius_top_right = 8
+	intro_box.corner_radius_bottom_left = 8
+	intro_box.corner_radius_bottom_right = 8
+	intro_box.content_margin_left = 14
+	intro_box.content_margin_right = 14
+	intro_box.content_margin_top = 12
+	intro_box.content_margin_bottom = 12
+	intro_card.add_theme_stylebox_override("panel", intro_box)
+	_tab_content_container.add_child(intro_card)
+
+	var intro_vb := VBoxContainer.new()
+	intro_vb.add_theme_constant_override("separation", 8)
+	intro_card.add_child(intro_vb)
 
 	var h_lbl := Label.new()
-	h_lbl.text = "🪷 道友仙基初立，可立誓拜入仙門！"
+	if is_eligible:
+		h_lbl.text = "道友仙基初立，可立誓拜入仙門！"
+		h_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
+	else:
+		h_lbl.text = "【未達門檻 · 需達築基期方可拜入】"
+		h_lbl.add_theme_color_override("font_color", Color(1.0, 0.45, 0.45))
 	h_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
-	h_lbl.add_theme_font_size_override("font_size", 18)
-	h_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
-	vb.add_child(h_lbl)
+	h_lbl.add_theme_font_size_override("font_size", 16)
+	intro_vb.add_child(h_lbl)
 
 	var desc_lbl := Label.new()
-	desc_lbl.text = "拜入宗門後，即可派遣分身弟子外出歷練，採集天地靈草玄鐵、換取專屬秘術傳承，並在宗門坊市兌換珍貴築基丹藥與靈晶！"
+	if is_eligible:
+		desc_lbl.text = "拜入宗門後，即可派遣分身弟子外出歷練，採集天地靈草玄鐵、換取專屬秘術傳承，並在宗門坊市兌換珍貴築基丹藥與靈晶。"
+	else:
+		desc_lbl.text = "各大宗門門規森嚴，需道友突破至第二重境界【築基期】或歷經轉世，方具拜入門戶之資。請先在洞府納靈營造，早日築基！"
+	desc_lbl.add_theme_font_size_override("font_size", 13)
+	desc_lbl.add_theme_color_override("font_color", Color(0.8, 0.88, 0.95))
 	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	vb.add_child(desc_lbl)
+	intro_vb.add_child(desc_lbl)
 
-	var btn_row := HBoxContainer.new()
-	btn_row.add_theme_constant_override("separation", 10)
-	vb.add_child(btn_row)
+	# 宗門清單標題
+	var sects_lbl := Label.new()
+	sects_lbl.text = "【名門正派 · 擇一立誓】" if is_eligible else "【五大名門 · 預覽傳承】"
+	sects_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
+	sects_lbl.add_theme_color_override("font_color", Color(0.7, 0.85, 1.0))
+	_tab_content_container.add_child(sects_lbl)
 
+	# 垂直排列的各宗門卡片，完全自適應且永遠不會水平截斷
 	for s_name in SectSystem.SECT_NAMES:
+		var s_card := PanelContainer.new()
+		var s_box := StyleBoxFlat.new()
+		s_box.bg_color = Color(0.10, 0.13, 0.18, 0.9)
+		s_box.border_color = Color(0.3, 0.45, 0.6, 0.5)
+		s_box.border_width_left = 1
+		s_box.border_width_top = 1
+		s_box.border_width_right = 1
+		s_box.border_width_bottom = 1
+		s_box.corner_radius_top_left = 6
+		s_box.corner_radius_top_right = 6
+		s_box.corner_radius_bottom_left = 6
+		s_box.corner_radius_bottom_right = 6
+		s_box.content_margin_left = 12
+		s_box.content_margin_right = 12
+		s_box.content_margin_top = 8
+		s_box.content_margin_bottom = 8
+		s_card.add_theme_stylebox_override("panel", s_box)
+		_tab_content_container.add_child(s_card)
+
+		var s_row := HBoxContainer.new()
+		s_row.add_theme_constant_override("separation", 10)
+		s_card.add_child(s_row)
+
+		var s_info := VBoxContainer.new()
+		s_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		s_row.add_child(s_info)
+
+		var s_title := Label.new()
+		s_title.text = "【%s】" % s_name
+		s_title.add_theme_font_override("font", UiTypography.emphasis_font())
+		s_title.add_theme_color_override("font_color", Color(1.0, 0.82, 0.35))
+		s_info.add_child(s_title)
+
+		var s_desc := Label.new()
+		s_desc.text = SECT_FLAVORS.get(s_name, "玄門妙法，各顯神通。")
+		s_desc.add_theme_color_override("font_color", Color(0.75, 0.8, 0.88))
+		s_desc.add_theme_font_size_override("font_size", 12)
+		s_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		s_info.add_child(s_desc)
+
 		var j_btn := Button.new()
-		j_btn.text = "拜入【%s】" % s_name
-		j_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		j_btn.pressed.connect(func(): join_sect_requested.emit(s_name))
-		btn_row.add_child(j_btn)
+		if is_eligible:
+			j_btn.text = "立誓拜入"
+			j_btn.disabled = false
+			j_btn.pressed.connect(_on_join_pressed.bind(s_name))
+		else:
+			j_btn.text = "需達築基期"
+			j_btn.disabled = true
+		j_btn.custom_minimum_size = Vector2(96, 36)
+		s_row.add_child(j_btn)
+
+func _on_join_pressed(s_name: String) -> void:
+	join_sect_requested.emit(s_name)
 
 # ================= 歷練委託分頁 =================
 func _render_expeditions_tab() -> void:
@@ -318,7 +418,7 @@ func _render_expeditions_tab() -> void:
 		claim_btn.text = "🎁 領取歷練獎勵" if is_finished else "歷練中..."
 		claim_btn.disabled = not is_finished
 		claim_btn.custom_minimum_size = Vector2(120, 32)
-		claim_btn.pressed.connect(func(): claim_expedition_requested.emit())
+		claim_btn.pressed.connect(_on_claim_expedition_pressed)
 		status_row.add_child(claim_btn)
 	else:
 		var idle_lbl := Label.new()
@@ -340,7 +440,7 @@ func _render_expeditions_tab() -> void:
 	var refresh_btn := Button.new()
 	refresh_btn.text = "🔄 刷新委託" if refresh_cd <= 0 else "冷卻中 (%ds)" % refresh_cd
 	refresh_btn.disabled = refresh_cd > 0
-	refresh_btn.pressed.connect(func(): refresh_tasks_requested.emit())
+	refresh_btn.pressed.connect(_on_refresh_tasks_pressed)
 	list_header.add_child(refresh_btn)
 
 	# 3. 委託清單項目
@@ -416,7 +516,7 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	start_btn.disabled = is_active
 	start_btn.custom_minimum_size = Vector2(90, 36)
 	var t_id: String = String(task.get("id", ""))
-	start_btn.pressed.connect(func(): start_expedition_requested.emit(t_id))
+	start_btn.pressed.connect(_on_start_expedition_pressed.bind(t_id))
 	row.add_child(start_btn)
 
 	return card
@@ -489,7 +589,7 @@ func _render_techniques_tab() -> void:
 		learn_btn.text = "參悟提升" if not is_max else "已圓滿"
 		learn_btn.disabled = is_max
 		learn_btn.custom_minimum_size = Vector2(90, 36)
-		learn_btn.pressed.connect(func(): learn_technique_requested.emit(tech_id))
+		learn_btn.pressed.connect(_on_learn_technique_pressed.bind(tech_id))
 		row.add_child(learn_btn)
 
 # ================= 宗門坊市分頁 =================
@@ -550,5 +650,20 @@ func _render_market_tab() -> void:
 		buy_btn.text = "售罄" if is_sold_out else "兌換物資"
 		buy_btn.disabled = is_sold_out
 		buy_btn.custom_minimum_size = Vector2(90, 36)
-		buy_btn.pressed.connect(func(): buy_market_item_requested.emit(item_id))
+		buy_btn.pressed.connect(_on_buy_market_item_pressed.bind(item_id))
 		row.add_child(buy_btn)
+
+func _on_claim_expedition_pressed() -> void:
+	claim_expedition_requested.emit()
+
+func _on_refresh_tasks_pressed() -> void:
+	refresh_tasks_requested.emit()
+
+func _on_start_expedition_pressed(task_id: String) -> void:
+	start_expedition_requested.emit(task_id)
+
+func _on_learn_technique_pressed(tech_id: String) -> void:
+	learn_technique_requested.emit(tech_id)
+
+func _on_buy_market_item_pressed(item_id: String) -> void:
+	buy_market_item_requested.emit(item_id)

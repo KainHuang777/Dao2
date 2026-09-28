@@ -1,5 +1,7 @@
 ﻿# M3-B 舊系統承接與子系統驗證紀錄
 
+2026-09-28 狀態複核：宗門規則與面板已實作，但 `GameSession.KNOWN_COMMAND_TYPES` 不接受 `join_sect`／宗門後續命令；其餘 BUFF／跨界新命令亦需同一整合修復。M4-A-R1 完成前，以下只記模組與當時 runner 結果，不能視為正式場景閉環。見 [REF-A](ref-a.md)。
+
 狀態：IN_PROGRESS（逐項交付中：已完成丹藥、BUFF、宗門子系統；天時、機緣、靈獸、成就接續推進，非全量收尾）。
 
 規格依據：[Roadmap M3-B](../../ROADMAP.md)、[來源基線 00-source-baseline.md](../00-source-baseline.md)。

@@ -1,3 +1,71 @@
+[2026-09-28] Lifecycle Fix: Reincarnation Sequence HUD Masking & Simulation Pause
+- Reincarnation Sequence Lifecycle & Simulation Pause (src/abode/living_abode.gd, src/presentation/abode_modal_manager.gd):
+  - Fixed issue where the new life's HUD (realm badge, drawer, toolbar) overlapped with the reincarnation sequence modal and settlement card.
+  - Connected reincarnation_seq.sequence_started and sequence_finished signals in abode_modal_manager.gd.
+  - Implemented _on_reincarnation_sequence_started and _on_reincarnation_sequence_finished in living_abode.gd: snapshots and hides all regular HUD controls during the sequence, and restores them only upon completion.
+  - Frozen time advancement in living_abode.gd _process during reincarnation (_is_reincarnating / reincarnation_seq.visible), preventing cultivation seconds and resource gains from silently ticking before the player confirms "重聚仙靈 · 入世修行".
+  - Preserved nine_realms_preview visibility during first reincarnation cinematic hook.
+- Reincarnation Presentation Contrast (src/presentation/reincarnation_sequence.gd):
+  - Set dark semi-transparent backdrop (_bg_overlay) to Color(0.04, 0.06, 0.09, 0.85) when displaying the final settlement card, eliminating washed-out transparency and visual interference with background island sprites.
+- Verification:
+  - Passed tests/m3a_reincarnation_ui_runner.gd with exit code 0.
+  - Passed tests/m2c_nine_realms_runner.gd with exit code 0.
+  - All 25 test runners passed with exit code 0 via tools/run_all_runners.ps1.
+  - Passed tests/abode_presentation_parity_runner.gd with exit code 0.
+  - Web Release re-exported to build/web/index.html.
+
+[2026-09-28] Bug Fix: Sect Panel Layout Overflow & Join Button Unresponsive Fix
+- GameSession Command Dispatch (src/application/game_session.gd):
+  - Fixed root cause where clicking sect join button had no response due to missing commands in KNOWN_COMMAND_TYPES whitelist.
+  - Registered all missing commands into GameSession.KNOWN_COMMAND_TYPES: join_sect, refresh_sect_tasks, start_sect_expedition, claim_sect_expedition, learn_sect_technique, buy_sect_market_item, switch_realm, upgrade_realm_outpost, apply_buff, remove_buff.
+- Sect Panel Layout & Containment (src/presentation/sect_panel.gd):
+  - Decoupled panel layout into a pinned header container (_header_container) and an independently bounded scroll area (_scroll).
+  - Constrained _scroll.size.y precisely to bounds.size.y - header_height - pad * 2, enabling native vertical scrolling and completely eliminating bottom boundary card overflow.
+  - Added clip_contents = true to prevent child pixel bleed.
+  - Resolved duplicate node accumulation in _tab_content_container across renders using explicit remove_child before queue_free.
+- Sect Joining Eligibility & Signal Safety (src/presentation/sect_panel.gd, src/presentation/abode_modal_manager.gd):
+  - Added cultivation era gating check (SectSystem.is_unlocked): displays Foundation period requirement warning and disables buttons during Qi Refinement (Era 1) to prevent silent SECT_LOCKED rejection.
+  - Replaced lambda closure signal connects with robust Callable.bind callbacks to guarantee clean parameter passing.
+  - Added immediate sect_panel view update upon join response in abode_modal_manager.gd.
+- Verification & Test Updates:
+  - Updated tests/m3b_sect_ui_runner.gd to include end-to-end GameSession sect command dispatch, Era 1 vs Era 2 button state verification, and bounds containment checks.
+  - Passed tests/m3b_sect_ui_runner.gd with exit code 0.
+  - All 25 test runners passed with exit code 0 via tools/run_all_runners.ps1.
+  - Passed tests/abode_presentation_parity_runner.gd with exit code 0.
+  - Web Release re-exported to build/web/index.html.
+
+[2026-09-28] UI Fix: Sect Panel Layout & Joining Button Truncation Fix
+- Sect Panel Presentation & Layout (src/presentation/sect_panel.gd, src/presentation/abode_modal_manager.gd):
+  - Fixed horizontal truncation where the 5 canonical sect join buttons overflowed the single-row HBoxContainer.
+  - Redesigned sect joining screen into vertical full-width cards with sect flavor lore descriptions and individual join buttons, guaranteeing 100% responsiveness on all aspect ratios.
+  - Centered modal position on desktop (620x600) instead of top-left corner, avoiding overlap with left HUD building/resource drawers.
+  - Enhanced panel background opacity (0.98) with gilded border to prevent background text bleed-through.
+  - Replaced missing emoji glyphs with clean textual markers to eliminate [?] missing font boxes in Web canvas.
+- Verification:
+  - Passed tests/m3b_sect_ui_runner.gd with exit code 0.
+  - Passed tests/m3b_sect_runner.gd with exit code 0.
+  - All 25 test runners passed with exit code 0 via tools/run_all_runners.ps1.
+  - Web Release re-exported to build/web/index.html.
+
+[2026-09-28] Tooling Fix: start_web_server.bat UTF-8 Encoding & Port 4175 Hanging Listener
+- Web Server Startup Scripts (start_web_server.bat, tools/start_web_server.ps1):
+  - Refactored start_web_server.bat to delegate execution to tools/start_web_server.ps1 (matching kill_godot.bat pattern).
+  - Resolved Windows CMD multi-byte character parsing glitches caused by UTF-8 Chinese characters within batch composite parenthesis blocks.
+  - Terminated dangling python processes on port 4175 (PID 167740 and 103032) that caused ERR_EMPTY_RESPONSE.
+  - Added proactive port 4175 listener cleanup and staggered browser launch in tools/start_web_server.ps1 to guarantee socket readiness.
+
+[2026-09-28] Reincarnation Visual Upgrade: Bursting God Rays & Core Energy Sphere
+- Reincarnation Cinematic Presentation (src/presentation/reincarnation_sequence.gd):
+  - Upgraded stage 2 transit visual effects from primitive 2px uniform lines to bursting God Rays (22 non-uniformly distributed rays with variable base/tip widths from 12px to 56px and lengths up to 950px).
+  - Implemented staggered asynchronous ray ejection with individual delay (0.0s - 0.32s) and custom sprint-growth-fade lifecycle curves.
+  - Added dual-layer ray rendering with inner high-intensity white beam and outer golden celestial halo polygons using draw_colored_polygon.
+  - Added center expanding core energy sphere with dynamic pulse and halo aura matching holy burst visual reference.
+- Verification:
+  - Passed tests/m3a_reincarnation_ui_runner.gd with exit code 0.
+  - Passed tests/abode_presentation_parity_runner.gd with exit code 0.
+  - All 25 test runners passed with exit code 0 via tools/run_all_runners.ps1.
+  - Clean Web Release re-exported to build/web/index.html.
+
 [2026-09-28] WebGL Background Flicker Fix & Shader Math Stabilization
 - Shader Math & NaN Prevention (assets/abode/tearfall_sky.gdshader):
   - Bounded cascade_mask with early return on distance threshold (dx > half_width * 3.0), completely eliminating pow(x, 4.0) overflows and NaN propagation in WebGL.

@@ -1,6 +1,8 @@
 # M2-D 視覺、裝置與首切片驗收
 
-狀態：DONE。原版營造清單與響應式排版於 2026-09-26 經使用者於真實瀏覽器驗收放行；2026-09-27 接入獨立佛首空島遠景 v5、瀑布 Shader 與突破 5.6 秒儀式感法陣；2026-09-28 徹底修復 WebGL 背景閃爍（Shader 溢出消除、相機鎖定與深色清屏底色），並由使用者於真實 Web（固定 origin http://127.0.0.1:4175）完成遠景畫面、Shader 瀑布、背景穩定度與低特效實測驗收，最新 Web build 回歸正式放行。
+2026-09-28 REF-A 後續複核：既有桌面 Web 遠景／演出放行仍有效；隔離 Edge 測試發現 844×390 CSS viewport 映射成 Godot 1558×720、360×640 映射成 1280×2275，後者文字與控制項過小。Web smoke 載入與代表性點擊成功，但窄版視口／可讀性列為 M2-D-R1 待修復與重驗；實體手機觸控仍待驗。細節見 [REF-A](ref-a.md)。
+
+狀態：桌面 Web 視覺放行；M2-D-R1 窄版視口修復與實體手機驗證待做。以下日期段落保留當時的實作與測試證據。原版營造清單與響應式排版於 2026-09-26 經使用者於真實瀏覽器驗收放行；2026-09-27 接入獨立佛首空島遠景 v5、瀑布 Shader 與突破 5.6 秒儀式感法陣；2026-09-28 徹底修復 WebGL 背景閃爍（Shader 溢出消除、相機鎖定與深色清屏底色），並由使用者於真實 Web（固定 origin http://127.0.0.1:4175）完成遠景畫面、Shader 瀑布、背景穩定度與低特效實測驗收。
 
 規格依據：[響應式介面與 Web 畫布規格](../07-responsive-ui-web-spec.md)、[Roadmap M2-D](../../ROADMAP.md)。
 
@@ -20,7 +22,7 @@
 - 主畫面兩模式固定顯示境界／修煉／壽元與頂部資源讀數。資源卡不再觸發採集；引氣及其他已解鎖基本資源由獨立採集鈕和目標選單送命令。「下一步」顯示實際 milestone 建築與目標階數，全文引導仍可按需開啟。
 - 桌面營造簿位於右側；全部／生產／倉儲分類、建築成本與明確的建造／升級鈕已接正式 GameSession 命令。點建築列展開角色與需求，再點「詳情」開同欄完整資訊。手機按可視高度縮減內容；資源展開在固定高度內捲動，`360×480` 仍保留非零建築列表空間。
 - `tests/m2d_responsive_ui_runner.gd` 檢查 `1280×720`、`1920×902`、`844×390`、`360×640`、`360×480` 幾何界線、短手機資源展開／捲動、直接建茅屋只提交一次、分類、快速資訊與詳情往返；`core_positive_flow_runner.gd` 改驗獨立金錢採集。Godot 4.7.2 `--import`、全量 17 Runner、Web Release export 均 exit 0。Headless 結束仍印原有字型／CanvasItem RID 釋放警告，Runner 退出碼不受影響。
-- 本輪依 [computer-use skill](C:/Users/asus/.codex/plugins/cache/openai-bundled/computer-use/26.917.71314/skills/computer-use/SKILL.md) 初始化真實畫面檢查時，Node helper 回報 `trusted Node process exited unexpectedly`；因此尚未取得新版瀏覽器畫面、實際字體可讀性、滑鼠命中、手機觸控或 IndexedDB 落盤證據。AGY 應強制重新載入本次 Web build，以新檔依序驗資源讀數／採集、茅屋直接建造、列表分類與詳情、`360×480` 展開資源與返回，再做手機直橫式及存檔重載。下文舊版「左側管理欄」紀錄僅保留歷史，不代表目前畫面。
+- 當時的 Codex Windows Computer Use helper 回報 `trusted Node process exited unexpectedly`，故該次沒有取得新版畫面／滑鼠命中／觸控／IndexedDB 證據。AGY 應重載 Web build，驗資源採集、茅屋建造、列表詳情及短直式操作，再測實體手機與存檔重載。下文較早版面記錄只作歷史。
 
 ## 2026-09-25 雙狀態 Godot 畫面改版（最新實作）
 

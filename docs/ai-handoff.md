@@ -1,6 +1,6 @@
 ﻿# 給下一位 AI 的開發交接
 
-更新：2026-09-13。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
+更新：2026-09-28（REF-A 呈現層索引與驗證入口）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
 
 ## 閱讀與恢復工作
 
@@ -13,13 +13,17 @@
 
 如果工具不自動讀 AGENTS.md，請在首個提示明確要求閱讀。歷史文件 docs/03 保留初期推理與案例，開發順序以根目錄 Roadmap 為準。不要因舊文有「下一步建立環境」而重裝。
 
+依修改類型查 [呈現層索引](abode-presentation-map.md)。歷史長記錄已歸檔，不作每次必讀；目前缺口與驗證以 [開發狀態](development-status.md) 為準。
+
 ## 實際路徑與現有檔案
 
 | 路徑 | 已有用途 |
 | --- | --- |
 | `project.godot`、`export_presets.cfg` | 已鎖定環境；主場景 living_abode；Web 單執行緒 |
 | `scenes/living_abode.tscn` | Node2D 啟動場景，運行時建構地形、建築、鏡頭和 HUD |
-| `src/abode/living_abode.gd` | 現有組裝、HUD、展示 state 協調；正式接入時逐步拆分 |
+| `src/abode/living_abode.gd` | 世界與正式 Session／保存協調、公共相容入口 |
+| `src/presentation/abode_hud_controller.gd` | HUD 組裝／版型／數值與引導更新 |
+| `src/presentation/abode_modal_manager.gd` | 次級彈窗掛載／位置／事件分發 |
 | `src/abode/abode_state.gd` | 純展示經濟，尚用 float、無持久化、無正式離線 |
 | `src/abode/abode_camera.gd` | 平移、滑鼠／觸控縮放、HUD 排除、遠近景；待完整手勢驗收 |
 | `src/abode/abode_building.gd` | 獨立 sprite、命中區、標籤、選取及升級特效 |
@@ -39,7 +43,7 @@
 
 ## 可重跑命令（目前已存在的入口）
 
-以下在 Windows PowerShell 執行。每一步確認退出碼；2026-09-23 已依序重跑原有 15 項與新增正流程 runner，詳見 `docs/verification/core-positive-flow.md`。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
+以下在 Windows PowerShell 執行。每一步確認退出碼；2026-09-28 REF-A 重跑原 25 項 Runner 與追加呈現層回歸，詳見 `docs/verification/ref-a.md`。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
 
 ```powershell
 Set-Location 'E:\WORK\Dao2'
@@ -48,40 +52,10 @@ $daoEngine = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
 if ($LASTEXITCODE -ne 0) { throw 'Godot version check failed' }
 & $daoEngine --headless --path . --import
 if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
-& $daoEngine --headless --path . --script res://tests/core_positive_flow_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'Blank-game core positive flow failed' }
-& $daoEngine --headless --path . --script res://tools/test_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'Storage/font probe failed' }
-& $daoEngine --headless --path . --script res://tests/abode_state_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'Abode state test failed' }
-& $daoEngine --headless --path . --script res://tests/living_abode_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'Abode scene test failed' }
-& $daoEngine --headless --path . --script res://tests/m0c_compat_v3_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M0-C compat test failed' }
-& $daoEngine --headless --path . --script res://tests/m1a_core_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M1-A core test failed' }
-& $daoEngine --headless --path . --script res://tests/m1b_time_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M1-B time test failed' }
-& $daoEngine --headless --path . --script res://tests/m1c_persistence_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M1-C persistence test failed' }
-& $daoEngine --headless --path . --script res://tests/m1d_offline_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M1-D offline test failed' }
-& $daoEngine --headless --path . --script res://tests/m1e_import_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M1-E legacy import test failed' }
-& $daoEngine --headless --path . --script res://tests/m2a_abode_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M2-A abode test failed' }
-& $daoEngine --headless --path . --script res://tests/m2b_breakthrough_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M2-B breakthrough test failed' }
-& $daoEngine --headless --path . --script res://tests/m2c_nine_realms_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M2-C nine realms test failed' }
-& $daoEngine --headless --path . --script res://tests/m2d_responsive_ui_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M2-D responsive UI test failed' }
-& $daoEngine --headless --path . --script res://tests/m2d_slice_release_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M2-D slice release test failed' }
-& $daoEngine --headless --path . --script res://tests/m3a_reincarnation_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'M3-A reincarnation test failed' }
-& $daoEngine --headless --path . --quit-after 3
-if ($LASTEXITCODE -ne 0) { throw 'Main scene startup failed' }
+powershell -File .\tools\run_all_runners.ps1
+if ($LASTEXITCODE -ne 0) { throw 'One of the 25 runners failed' }
+& $daoEngine --headless --path . --script res://tests/abode_presentation_parity_runner.gd
+if ($LASTEXITCODE -ne 0) { throw 'Presentation facade regression failed' }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null
 & $daoEngine --headless --path . --export-release Web '.\build\web\index.html'
 if ($LASTEXITCODE -ne 0) { throw 'Web export failed' }
@@ -130,4 +104,4 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 ## 可直接貼给下一個 AI 的提示
 
-> 請接續 E:\WORK\Dao2 的修仙問道 v2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md、docs/02-technical-architecture.md 與 docs/07-responsive-ui-web-spec.md，核對實際程式與最新狀態。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。全量 25 項 Runner 經 tools/run_all_runners.ps1 已全部 PASS；M2-D 遠景 v5、Shader 瀑布、突破演出與 WebGL 穩定性已在真實 Web（固定本地 origin 4175）驗收放行（DONE）；M3-A 經典雙軌輪迴門檻、轉生演出與天賦面板已閉環（DONE）；M3-B 已交付丹藥、BUFF 與宗門系統；M4-A 第二界（靈界 · 天靈洞天）已全閉環（DONE）。**下一個主線任務排入 M4-B（尺度與法則、九界法則資料擴充、正式地理尺度與遠界旅程）**，M3-B 剩餘子系統（天時、靈獸、成就）依相依交錯推進。交付實際檔案、命令與結果，更新開發狀態；嚴格遵守第一原理與事實為本。
+> 請接續 E:\WORK\Dao2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md，再依 docs/abode-presentation-map.md 定位當次檔案；涉及 UI 必讀 docs/07。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。REF-A 保留原行為並拆分 HUD／彈窗，原 25 Runner 和追加場景回歸通過；既有宗門／靈界命令被 GameSession 白名單拒絕的問題尚待獨立修復，不能把過往 DONE 或 Domain 測試當成正式場景閉環。先補該整合缺口，再推進 M4-B；詳細證據與未驗項見目前狀態。

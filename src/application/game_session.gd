@@ -1,7 +1,26 @@
 class_name GameSession
 extends RefCounted
 
-const KNOWN_COMMAND_TYPES := ["gather", "upgrade_building", "level_up_cultivation", "breakthrough_era", "reincarnate", "learn_talent", "refine_pill", "consume_pill"]
+const KNOWN_COMMAND_TYPES := [
+	"gather",
+	"upgrade_building",
+	"level_up_cultivation",
+	"breakthrough_era",
+	"reincarnate",
+	"learn_talent",
+	"refine_pill",
+	"consume_pill",
+	"apply_buff",
+	"remove_buff",
+	"switch_realm",
+	"upgrade_realm_outpost",
+	"join_sect",
+	"refresh_sect_tasks",
+	"start_sect_expedition",
+	"claim_sect_expedition",
+	"learn_sect_technique",
+	"buy_sect_market_item",
+]
 const COMMAND_REGISTRY_LIMIT := 256
 
 var content: GameContent

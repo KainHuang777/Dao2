@@ -1,6 +1,8 @@
 # M4-A 手工第二界（靈界 · 天靈洞天）驗證紀錄
 
-狀態：DONE（CLI／Domain／Simulation／Persistence／UI 全閉環）。
+2026-09-28 狀態複核：靈界領域、存檔與面板已實作，但正式場景 `switch_realm`／據點命令仍被 `GameSession.KNOWN_COMMAND_TYPES` 拒絕。Domain／UI Runner 不代表 Session 閉環。M4-A-R1 完成前，以下紀錄只代表模組曾通過其涵蓋測試，不作整合 DONE 證據；詳見 [REF-A](ref-a.md)。
+
+狀態複核：領域／存檔／面板已實作；Session 命令整合未通過，追蹤任務 M4-A-R1。原始測試結果保留如下。
 
 規格依據：[Roadmap M4-A](../../ROADMAP.md)、[技術架構 02-technical-architecture.md](../02-technical-architecture.md)。
 

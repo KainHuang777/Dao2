@@ -34,11 +34,30 @@ if ($needExport) {
     Write-Host "[SUCCESS] Web Release exported successfully!" -ForegroundColor Green
 }
 
+# Clean up any dangling process on port 4175 before starting
+$oldConns = Get-NetTCPConnection -LocalPort 4175 -State Listen -ErrorAction SilentlyContinue
+if ($oldConns) {
+    foreach ($conn in $oldConns) {
+        $oldPid = $conn.OwningProcess
+        if ($oldPid -gt 0) {
+            Write-Host "[INFO] Releasing port 4175 from existing process PID $oldPid..." -ForegroundColor Yellow
+            Stop-Process -Id $oldPid -Force -ErrorAction SilentlyContinue
+        }
+    }
+    Start-Sleep -Milliseconds 300
+}
+
 Write-Host "===================================================" -ForegroundColor Cyan
 Write-Host "  Dao2 - Local Fixed Origin Web Server" -ForegroundColor Cyan
 Write-Host "  URL: http://127.0.0.1:4175/index.html" -ForegroundColor Green
 Write-Host "  Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Write-Host "===================================================" -ForegroundColor Cyan
 
-Start-Process "http://127.0.0.1:4175/index.html"
+# Open browser shortly after server starts listening
+Start-Job -ScriptBlock {
+    Start-Sleep -Milliseconds 800
+    Start-Process "http://127.0.0.1:4175/index.html"
+} | Out-Null
+
 python -m http.server 4175 --bind 127.0.0.1 --directory $webDir
+
