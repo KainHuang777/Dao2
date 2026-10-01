@@ -29,8 +29,7 @@ static func from_state(saved_state: int) -> SeededRandom:
 func next() -> float:
 	var a := _u32(state + 0x6d2b79f5)
 	var t := _imul(_u32(a ^ _urshift(a, 15)), _u32(a | 1))
-	t = _u32(t + _imul(_u32(t ^ _urshift(t, 7)), _u32(t | 61)))
-	t = _u32(t ^ t)
+	t = _u32(t + _imul(_u32(t ^ _urshift(t, 7)), _u32(t | 61))) ^ t
 	state = a
 	return float(_u32(t ^ _urshift(t, 14))) / 4294967296.0
 

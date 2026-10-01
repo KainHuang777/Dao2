@@ -2,7 +2,7 @@ extends Node2D
 ## Living Abode Controller: bridges Godot scene with GameSession, CommandProcessor, TimeAdvancer, and SaveManager.
 
 const TERRAIN: Texture2D = preload("res://assets/abode/terrain.png")
-const SKY: Texture2D = preload("res://assets/abode/sky_tearfall_island_v5.png")
+const SKY: Texture2D = preload("res://assets/abode/sky_tearfall_island_v6.png")
 const SKY_SHADER: Shader = preload("res://assets/abode/tearfall_sky.gdshader")
 const IslandFxScript = preload("res://src/presentation/island_breakthrough_fx.gd")
 const HUT: Texture2D = preload("res://assets/abode/hut.png")
@@ -65,6 +65,8 @@ class AbodeStateCompat extends RefCounted:
 
 	func _init(p_session: GameSession) -> void:
 		session = p_session
+		if session != null and session.state != null:
+			ChronoSystem.unlock_chrono(session.state)
 
 	var qi: float:
 		get:
@@ -143,6 +145,11 @@ var buildings: Dictionary = {}
 var spirit_tree: Node2D
 var selected_id: String = ""
 var reduced: bool = false
+var reduced_motion: bool:
+	get:
+		return reduced
+	set(v):
+		reduced = v
 var region_visible: bool = false
 var region_layer: Node2D
 var home_marker: Label
@@ -175,6 +182,7 @@ var _message_history: Array[String] = []
 var title_label: Label
 var realm_label: Label
 var realm_progress_label: Label
+var chrono_label: Label
 var resource_label: Label
 var mini_gather_button: Button
 var mini_resource_id: String = "lingli"
@@ -220,11 +228,14 @@ var sect_panel: Control = null
 var sect_button: Button = null
 var buff_hud_bar: BuffHudBar = null
 var realm_modal: Control = null
+var fortune_modal: Control = null
 var spirit_realm_region_label: Label = null
 var lifespan_banner: PanelContainer = null
 var lifespan_banner_label: Label = null
 var lifespan_banner_button: Button = null
 var reincarnation_seq: Control = null
+var text_transition: Control = null
+var orientation_prompt: Control = null
 var _reincarnation_hud_snapshot: Dictionary = {}
 var _is_reincarnating: bool = false
 
@@ -239,6 +250,12 @@ var detail_scroll: ScrollContainer
 var return_to_catalog_after_detail: bool = false
 var help_button: Button
 var more_menu: MenuButton
+var settings_menu: MenuButton
+var bgm_player: AudioStreamPlayer
+var is_bgm_enabled: bool = true
+var _bgm_tracks: Array[Dictionary] = []
+var _current_bgm_index: int = -1
+var _last_known_era_id: int = 1
 var debug_panel: Control
 var debug_auto_build_active: bool = false
 var debug_auto_build_timer: float = 30.0
@@ -248,33 +265,40 @@ func _ready() -> void:
 	_build_background()
 	_build_region()
 
+	var island_composition := Node2D.new()
+	island_composition.name = "洞府浮島構圖"
+	island_composition.position = Vector2(0, 18)
+	island_composition.scale = Vector2.ONE * 0.92
+	add_child(island_composition)
+
 	var ground := Sprite2D.new()
 	ground.name = "獨立地形"
 	ground.texture = TERRAIN
 	ground.scale = Vector2.ONE * 1200.0 / TERRAIN.get_width()
-	add_child(ground)
+	island_composition.add_child(ground)
 
 	island_fx = IslandFxScript.new()
 	island_fx.name = "空島突破法陣"
-	add_child(island_fx)
+	island_composition.add_child(island_fx)
 
 	var props := Node2D.new()
 	props.name = "可互動建築"
 	props.y_sort_enabled = true
-	add_child(props)
+	island_composition.add_child(props)
 
 	_setup_buildings(props)
 
 	flow.name = "獨立飛劍與靈氣"
 	flow.z_index = 3
-	add_child(flow)
+	island_composition.add_child(flow)
 
 	home_marker = _label("你的洞府 · 靈氣生生不息", 65, Color("ffe5a3"))
+	UiMaterial.apply_world_text(home_marker, UiTypography.chapter_font(), 65, Color("f2dfae"), true)
 	home_marker.position = Vector2(-420, 410)
 	home_marker.size.x = 840
 	home_marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	home_marker.z_index = 5
-	add_child(home_marker)
+	island_composition.add_child(home_marker)
 
 	camera.name = "世界鏡頭"
 	add_child(camera)
@@ -322,6 +346,7 @@ func _init_core() -> void:
 
 	if offline_res.get("committed", false):
 		call_deferred("_display_offline_summary", offline_res.get("report", {}))
+	_init_bgm()
 
 func _setup_buildings(props: Node2D) -> void:
 	# Three rows of bounded build plots on the grassy upper surface.
@@ -421,12 +446,8 @@ func _label(text: String, font_size: int, color: Color = Color("eee4c9"), outlin
 	result.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return result
 
-func _style(color: Color = Color(0.018, 0.07, 0.10, 0.96)) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.border_color = Color(0.82, 0.73, 0.49, 0.80)
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(4)
+func _style(_color: Color = Color(0.018, 0.07, 0.10, 0.96)) -> StyleBoxTexture:
+	var style := UiMaterial.card()
 	style.content_margin_left = 12
 	style.content_margin_right = 12
 	style.content_margin_top = 8
@@ -440,9 +461,7 @@ func _button(text: String, action: Callable) -> Button:
 	button.add_theme_font_override("font", UiTypography.emphasis_font())
 	button.add_theme_font_size_override("font_size", 18)
 	button.add_theme_color_override("font_color", Color("f4e7be"))
-	button.add_theme_stylebox_override("normal", _style())
-	button.add_theme_stylebox_override("hover", _style(Color(0.10, 0.25, 0.24, 0.99)))
-	button.add_theme_stylebox_override("pressed", _style(Color(0.17, 0.35, 0.28, 0.99)))
+	UiMaterial.apply_button(button)
 	button.pressed.connect(action)
 	return button
 
@@ -459,7 +478,29 @@ func _build_hud() -> void:
 	_hud_controller._build_hud()
 
 func _layout() -> void:
+	_adapt_viewport_scale()
 	_layout_for_size(get_viewport_rect().size)
+
+func _adapt_viewport_scale() -> void:
+	if DisplayServer.get_name() == "headless":
+		return
+	var tree := get_tree()
+	if tree == null:
+		return
+	var root_win := tree.root
+	if root_win == null:
+		return
+	var win_size := root_win.size
+	if win_size.x <= 0 or win_size.y <= 0:
+		return
+	# When height is compact (e.g. mobile landscape 844x390, 800x360),
+	# adapt content scale size to 640x360 to keep 1:1 crisp CSS pixel readability and 44px+ touch targets.
+	if win_size.x > win_size.y and win_size.y <= 500:
+		if root_win.content_scale_size != Vector2i(640, 360):
+			root_win.content_scale_size = Vector2i(640, 360)
+	elif win_size.x >= win_size.y:
+		if root_win.content_scale_size != Vector2i(1280, 720):
+			root_win.content_scale_size = Vector2i(1280, 720)
 
 func _layout_for_size(vp: Vector2) -> void:
 	_hud_controller._layout_for_size(vp)
@@ -598,6 +639,7 @@ func _process(delta: float) -> void:
 		_last_sky_reduced = reduced_int
 		sky_material.set_shader_parameter("reduced_motion", reduced)
 	island_fx.set_attained(session.state.era_id >= 2)
+	_check_and_update_bgm_era()
 	var target_shade_a: float = snappedf(0.18 + distant * 0.34, 0.005)
 	if absf(_last_shade_a - target_shade_a) > 0.004:
 		_last_shade_a = target_shade_a
@@ -763,17 +805,18 @@ func _breakthrough_era() -> void:
 		if breakthrough_seq != null:
 			breakthrough_seq.reduced_motion = reduced
 			breakthrough_seq.set_save_status(not _pending_breakthrough_save)
-			breakthrough_seq.play(String(content.era(from_era).name), String(content.era(session.state.era_id).name))
+			breakthrough_seq.play(String(content.era(from_era).name), String(content.era(session.state.era_id).name), session.state.era_id)
 	else:
 		hint.text = "突破受阻：%s。請確認已達本境圓滿，並滿足容量門檻。" % str(res.get("error", "FAIL"))
-		hint_panel.visible = true
+		_hud_controller.show_messages()
 		_layout_for_size(hud.size)
 
 func _replay_breakthrough() -> void:
 	if breakthrough_seq != null and session.state.era_id >= 2:
 		breakthrough_seq.reduced_motion = reduced
 		breakthrough_seq.set_save_status(not _pending_breakthrough_save)
-		breakthrough_seq.play(String(content.era(1).name), String(content.era(2).name))
+		var target_era: int = session.state.era_id
+		breakthrough_seq.play(String(content.era(target_era - 1).name), String(content.era(target_era).name), target_era)
 
 func trigger_nine_realms_hook(is_replay: bool = false) -> void:
 	_modal_manager.trigger_nine_realms_hook(is_replay)
@@ -860,6 +903,149 @@ func _display_offline_summary(report: Dictionary) -> void:
 func _on_more_menu_pressed(id: int) -> void:
 	_modal_manager._on_more_menu_pressed(id)
 
+func _configure_settings_menu() -> void:
+	_hud_controller._configure_settings_menu()
+
+func _on_settings_menu_pressed(id: int) -> void:
+	_modal_manager._on_settings_menu_pressed(id)
+
+func _init_bgm() -> void:
+	if bgm_player != null:
+		return
+	bgm_player = AudioStreamPlayer.new()
+	bgm_player.name = "BgmPlayer"
+	bgm_player.bus = "Master"
+	bgm_player.finished.connect(_on_bgm_finished)
+	add_child(bgm_player)
+	_load_bgm_library()
+	var cur_era: int = session.state.era_id if (session != null and session.state != null) else 1
+	_last_known_era_id = cur_era
+	if is_bgm_enabled:
+		_play_bgm_track_at_index(0)
+
+func _load_bgm_library() -> void:
+	_bgm_tracks.clear()
+	var dir_path := "res://src/BGM/"
+	var files := DirAccess.get_files_at(dir_path)
+	var discovered: Array[Dictionary] = []
+	var seen_paths: Dictionary = {}
+	for file_name in files:
+		var clean_name := file_name.trim_suffix(".remap").trim_suffix(".import")
+		if clean_name.ends_with(".mp3"):
+			var res_path := dir_path + clean_name
+			if seen_paths.has(res_path):
+				continue
+			seen_paths[res_path] = true
+			var prefix_str := clean_name.substr(0, 2)
+			var era_req := prefix_str.to_int()
+			var stream: AudioStream = load(res_path)
+			if stream != null:
+				if stream is AudioStreamMP3:
+					(stream as AudioStreamMP3).loop = false
+				discovered.append({
+					"era_req": era_req,
+					"filename": clean_name,
+					"path": res_path,
+					"stream": stream
+				})
+	discovered.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return int(a["era_req"]) < int(b["era_req"])
+	)
+	_bgm_tracks = discovered
+	if _bgm_tracks.is_empty():
+		var fb: AudioStream = load("res://assets/audio/bgm/abode_theme.ogg")
+		if fb != null:
+			if fb is AudioStreamOggVorbis:
+				(fb as AudioStreamOggVorbis).loop = false
+			_bgm_tracks.append({
+				"era_req": 1,
+				"filename": "abode_theme.ogg",
+				"path": "res://assets/audio/bgm/abode_theme.ogg",
+				"stream": fb
+			})
+
+func _get_bgm_playlist_for_era(era_id: int) -> Array[Dictionary]:
+	var playlist: Array[Dictionary] = []
+	var max_era_req := mini(era_id, 4) if era_id >= 4 else era_id
+	for track in _bgm_tracks:
+		var req: int = int(track.get("era_req", 1))
+		if req <= max_era_req:
+			playlist.append(track)
+	if playlist.is_empty() and not _bgm_tracks.is_empty():
+		playlist.append(_bgm_tracks[0])
+	return playlist
+
+func _play_bgm_track_at_index(playlist_index: int) -> void:
+	if not is_bgm_enabled or bgm_player == null:
+		return
+	var cur_era: int = session.state.era_id if (session != null and session.state != null) else 1
+	var playlist := _get_bgm_playlist_for_era(cur_era)
+	if playlist.is_empty():
+		return
+	_current_bgm_index = playlist_index % playlist.size()
+	var track: Dictionary = playlist[_current_bgm_index]
+	var stream: AudioStream = track.get("stream")
+	if stream != null:
+		if stream is AudioStreamMP3:
+			(stream as AudioStreamMP3).loop = false
+		bgm_player.stream = stream
+		if bgm_player.is_inside_tree():
+			bgm_player.play()
+
+func _on_bgm_finished() -> void:
+	if not is_bgm_enabled or bgm_player == null:
+		return
+	var cur_era: int = session.state.era_id if (session != null and session.state != null) else 1
+	var playlist := _get_bgm_playlist_for_era(cur_era)
+	if playlist.is_empty():
+		return
+	var next_index := (_current_bgm_index + 1) % playlist.size()
+	_play_bgm_track_at_index(next_index)
+
+func _check_and_update_bgm_era() -> void:
+	if session == null or session.state == null:
+		return
+	var cur_era: int = session.state.era_id
+	if cur_era == _last_known_era_id:
+		return
+	_last_known_era_id = cur_era
+	var playlist := _get_bgm_playlist_for_era(cur_era)
+	if playlist.is_empty():
+		return
+	var current_still_valid: bool = false
+	for i in range(playlist.size()):
+		if bgm_player != null and bgm_player.stream == playlist[i].get("stream"):
+			_current_bgm_index = i
+			current_still_valid = true
+			break
+	if not current_still_valid:
+		_play_bgm_track_at_index(0)
+
+func _toggle_bgm() -> void:
+	_set_bgm_enabled(not is_bgm_enabled)
+
+func _set_bgm_enabled(enabled: bool) -> void:
+	is_bgm_enabled = enabled
+	if bgm_player != null:
+		if is_bgm_enabled:
+			if not bgm_player.playing:
+				var idx := _current_bgm_index if _current_bgm_index >= 0 else 0
+				_play_bgm_track_at_index(idx)
+		else:
+			if bgm_player.playing:
+				bgm_player.stop()
+	if _modal_manager != null:
+		_modal_manager._update_settings_menu_labels()
+
+func _input(event: InputEvent) -> void:
+	if is_bgm_enabled and bgm_player != null and not bgm_player.playing:
+		if event is InputEventMouseButton and event.pressed:
+			var idx := _current_bgm_index if _current_bgm_index >= 0 else 0
+			_play_bgm_track_at_index(idx)
+		elif event is InputEventScreenTouch and event.pressed:
+			var idx := _current_bgm_index if _current_bgm_index >= 0 else 0
+			_play_bgm_track_at_index(idx)
+
 func _toggle_sect_panel() -> void:
 	_modal_manager._toggle_sect_panel()
 
@@ -907,6 +1093,19 @@ func _on_alchemy_consume_requested(pill_id: String, count: int) -> void:
 
 func _on_alchemy_closed() -> void:
 	_modal_manager._on_alchemy_closed()
+
+func _toggle_fortune_modal() -> void:
+	_modal_manager._toggle_fortune_modal()
+
+func _on_fortune_trigger_requested() -> void:
+	_modal_manager._on_fortune_trigger_requested()
+
+func _on_fortune_resolve_requested(option_index: int) -> void:
+	_modal_manager._on_fortune_resolve_requested(option_index)
+
+func _on_fortune_closed() -> void:
+	_modal_manager._on_fortune_closed()
+
 
 func _toggle_debug_panel() -> void:
 	_modal_manager._toggle_debug_panel()
@@ -1116,4 +1315,3 @@ func _on_reincarnation_sequence_finished() -> void:
 	_reincarnation_hud_snapshot.clear()
 	_layout_for_size(hud.size)
 	_refresh_hud()
-

@@ -34,11 +34,7 @@ func _create_buff_badge(buff: Dictionary) -> PanelContainer:
 	var panel := PanelContainer.new()
 	var theme_color := Color(String(buff.get("color", "#4fe3c1")))
 
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.012, 0.04, 0.06, 0.90)
-	style.border_color = theme_color
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(3)
+	var style := UiMaterial.card()
 	style.content_margin_left = 6
 	style.content_margin_right = 6
 	style.content_margin_top = 2

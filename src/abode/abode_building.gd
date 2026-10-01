@@ -28,22 +28,7 @@ func setup(id: String, display_name: String, art: Texture2D, width: float, font:
 	caption.position = Vector2(-105, 16)
 	caption.size = Vector2(210, 44)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	caption.add_theme_font_override("font", font)
-	caption.add_theme_font_size_override("font_size", 26)
-	caption.add_theme_color_override("font_color", Color("f6e6b9"))
-	caption.add_theme_color_override("font_outline_color", Color("07161c"))
-	caption.add_theme_constant_override("outline_size", 2)
-	var caption_style := StyleBoxFlat.new()
-	caption_style.bg_color = Color(0.008, 0.045, 0.065, 0.86)
-	caption_style.border_color = Color(0.80, 0.73, 0.50, 0.66)
-	caption_style.set_border_width_all(1)
-	caption_style.set_corner_radius_all(8)
-	caption_style.content_margin_left = 8
-	caption_style.content_margin_right = 8
-	caption_style.content_margin_top = 3
-	caption_style.content_margin_bottom = 3
-	caption.add_theme_stylebox_override("normal", caption_style)
-	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UiMaterial.apply_world_caption(caption, font, 26)
 	add_child(caption)
 
 func contains_point(world_point: Vector2) -> bool:

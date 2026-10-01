@@ -1,7 +1,7 @@
 extends SceneTree
 
 const PROBE_SAVE_PATH := "user://web_probe_runner.json"
-const UI_FONT_PATH := "res://assets/fonts/NotoSerifTC-VF.ttf"
+const UI_FONT_PATH := "res://assets/fonts/SourceHanSansTW-VF.ttf"
 
 func _init() -> void:
 	var output := FileAccess.open(PROBE_SAVE_PATH, FileAccess.WRITE)

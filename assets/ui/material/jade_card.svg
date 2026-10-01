@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="64" viewBox="0 0 192 64">
+ <defs>
+  <linearGradient id="jade" x2="0" y2="1"><stop stop-color="#3c4646"/><stop offset="1" stop-color="#303a3b"/></linearGradient>
+ </defs>
+ <rect x="1" y="2" width="190" height="61" rx="7" fill="#232c2d"/>
+ <rect x="1.5" y="1" width="189" height="60" rx="6" fill="url(#jade)" stroke="#847d6e"/>
+</svg>

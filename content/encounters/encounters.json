@@ -1,0 +1,775 @@
+[
+  {
+    "id": "enc_ancient_cave",
+    "title": "古仙殘府遺址",
+    "desc": "後山雲霧散去，露出一處前朝古仙遺留的殘破洞府，殘餘禁制正閃爍微光。",
+    "realm_bias": "realm_spirit",
+    "weather_bias": "earth",
+    "shichen_bias": "",
+    "min_era": 1,
+    "weight": 100,
+    "options": [
+      {
+        "text": "破解外圍禁制，取其遺存",
+        "desc": "穩妥行事，謹慎收取洞府外圍散落的靈物資糧。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 30,
+            "herb": 15
+          },
+          "training_seconds": 30.0,
+          "log_text": "破開殘餘禁制，尋得古修遺留的 30 靈石與 15 靈草。"
+        }
+      },
+      {
+        "text": "凝神參悟石壁心法殘篇",
+        "desc": "盤坐石壁前，探尋古人留下的道韻印記。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 90.0,
+          "buff_id": "insight_glow",
+          "log_text": "福至心靈，參悟石壁殘圖獲 90 秒修為，並引發「頓悟靈光」！"
+        }
+      },
+      {
+        "text": "開啟洞中石匣，搜尋丹藥",
+        "desc": "細細排查石室暗格，尋覓保存完好的古修靈丹。",
+        "costs": {},
+        "rewards": {
+          "pills": {
+            "cultivation_pill": 1
+          },
+          "log_text": "於石匣夾層尋得一枚保存完好的「聚靈丹」。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_celestial_dew",
+    "title": "九天紫氣朝露",
+    "desc": "清晨雲蒸霞蔚，天際一縷紫陽晨光傾瀉而下，化為純淨仙露滴落在洞府靈泉之中。",
+    "realm_bias": "realm_human",
+    "weather_bias": "water",
+    "shichen_bias": "卯",
+    "min_era": 1,
+    "weight": 100,
+    "options": [
+      {
+        "text": "運轉吐納，服食紫陽仙露",
+        "desc": "引甘霖入體，滌蕩丹田靈海與周天經絡。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "lingqi": 50
+          },
+          "training_seconds": 60.0,
+          "log_text": "仙露入腹溫潤四肢，獲 50 靈氣與 60 秒修煉功力。"
+        }
+      },
+      {
+        "text": "引水入渠，澆灌靈植藥圃",
+        "desc": "將天地甘霖導向藥圃，催發百草長生之機。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "herb": 35
+          },
+          "buff_id": "heaven_qi_surge",
+          "log_text": "靈泉滋養藥圃，收穫靈草 35 株，洞府泛起「天靈氣湧」！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_wandering_taoist",
+    "title": "游方丹師登門",
+    "desc": "一位背負青竹藥簍的白髮老道雲遊至此，見洞府清幽，駐足笑談問道。",
+    "realm_bias": "realm_immortal",
+    "weather_bias": "wood",
+    "shichen_bias": "",
+    "min_era": 1,
+    "weight": 90,
+    "options": [
+      {
+        "text": "贈予山中靈草結個善緣",
+        "desc": "取庫存靈草相贈，老道欣然回贈隨身靈丹。",
+        "costs": {
+          "herb": 20
+        },
+        "rewards": {
+          "pills": {
+            "lifespan_pill": 1
+          },
+          "log_text": "贈老道 20 靈草，老道撫鬚稱善，回贈一枚「延壽丹」。"
+        }
+      },
+      {
+        "text": "烹泉烹茶，秉燭論道",
+        "desc": "與高人研討天人之際與長生妙法。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 120.0,
+          "buff_id": "insight_glow",
+          "log_text": "相談甚歡，一番論道猶如醍醐灌頂，修為推進 120 秒！"
+        }
+      },
+      {
+        "text": "合手作揖，婉言謝客",
+        "desc": "一心閉關清修，不染紅塵因果。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "lingqi": 20
+          },
+          "log_text": "老道飄然而去，道心波瀾不驚，心如止水靈氣增益 20。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_beast_relic",
+    "title": "通靈異獸巡山",
+    "desc": "一隻通體流光的靈鹿巡行至洞府邊緣，留下脫落的靈角與晶瑩靈珀。",
+    "realm_bias": "realm_beast",
+    "weather_bias": "metal",
+    "shichen_bias": "",
+    "min_era": 1,
+    "weight": 90,
+    "options": [
+      {
+        "text": "採集靈珀金石，收歸庫房",
+        "desc": "將異獸留下的金石材料熔煉歸倉。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 40,
+            "wood": 30
+          },
+          "log_text": "採集靈鹿脫落的靈珀金石，獲 40 靈石與 30 靈木。"
+        }
+      },
+      {
+        "text": "感悟天地靈性，調和血氣",
+        "desc": "遠觀祥瑞靈獸，調和氣機以壯體魄。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 80.0,
+          "buff_id": "breakthrough_resonance",
+          "log_text": "觀通靈異獸之姿，心胸開闊，引發「破境餘韻」祥瑞之息！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_nether_whisper",
+    "title": "幽冥古井泛波",
+    "desc": "夜半三更，洞府深處一口枯井泛起淡淡陰靈螢光，傳出幽冥道音。",
+    "realm_bias": "realm_nether",
+    "weather_bias": "water",
+    "shichen_bias": "子",
+    "min_era": 2,
+    "weight": 80,
+    "options": [
+      {
+        "text": "以太極玄法引渡陰靈",
+        "desc": "誦念清心正道神咒，化解戾氣積累冥德。",
+        "costs": {},
+        "rewards": {
+          "buff_id": "longevity_breath",
+          "training_seconds": 60.0,
+          "log_text": "引渡幽魂陰陽調和，獲得「長生龜息」壽元庇護！"
+        }
+      },
+      {
+        "text": "採集深井凝結的九幽靈晶",
+        "desc": "以玉瓶攝取極陰水氣精華。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 60,
+            "lingqi": 80
+          },
+          "log_text": "自古井攝取一壺極陰凝晶，折合 60 靈石與 80 靈氣。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_demon_heart_tribulation",
+    "title": "心魔幻境考驗",
+    "desc": "修煉入定之際，虛空生出七情六慾幻境，百般誘惑直指道心。",
+    "realm_bias": "realm_demon",
+    "weather_bias": "fire",
+    "shichen_bias": "午",
+    "min_era": 2,
+    "weight": 80,
+    "options": [
+      {
+        "text": "抱元守一，金剛怒目破魔念",
+        "desc": "緊守神臺清明，以浩然正氣震碎虛幻魔障。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 150.0,
+          "buff_id": "insight_glow",
+          "log_text": "道心如鐵斬滅魔念，靈臺大放光明，獲 150 秒修為與「頓悟靈光」！"
+        }
+      },
+      {
+        "text": "借魔火之勢，淬鍊周天元神",
+        "desc": "險中求勝，引幻境業火煆燒雜質。",
+        "costs": {
+          "money": 20
+        },
+        "rewards": {
+          "training_seconds": 240.0,
+          "log_text": "消耗 20 靈石護持肉身，借業火淬神，修為猛增 240 秒！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_falling_star",
+    "title": "天外星隕流金",
+    "desc": "九天之上一顆燃燒的星辰碎屑劃破穹頂，墜入洞府後山，天外玄金散落。",
+    "realm_bias": "realm_chaos",
+    "weather_bias": "metal",
+    "shichen_bias": "",
+    "min_era": 2,
+    "weight": 70,
+    "options": [
+      {
+        "text": "開採星核精金，充實底蘊",
+        "desc": "採集堅韌致密的星宿玄金。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 100,
+            "wood": 50
+          },
+          "log_text": "獲取天外流金，折算 100 靈石與 50 靈木。"
+        }
+      },
+      {
+        "text": "引星引之氣溫養本命飛劍",
+        "desc": "將星辰殘韻融入飛劍陣列與修行脈絡。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 180.0,
+          "buff_id": "heaven_qi_surge",
+          "log_text": "飛劍承接天外金氣，劍光如虹，全島靈氣大漲！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_primordial_fountain",
+    "title": "太初造化泉眼",
+    "desc": "天地虛空共鳴，洞府地脈下裂開一道細縫，湧出極其罕見的太初造化源液。",
+    "realm_bias": "realm_origin",
+    "weather_bias": "",
+    "shichen_bias": "",
+    "min_era": 3,
+    "weight": 60,
+    "options": [
+      {
+        "text": "吸納一縷先天鴻蒙造化",
+        "desc": "煉化至高造化清氣，直叩大道之門。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 300.0,
+          "pills": {
+            "foundation_pill": 1
+          },
+          "buff_id": "insight_glow",
+          "log_text": "造化入體萬象更新，獲贈築基丹一枚，修為推進 300 秒！"
+        }
+      },
+      {
+        "text": "引造化源液注入天地靈源",
+        "desc": "大幅充實全島天地底蘊與資糧。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "lingqi": 200,
+            "money": 120,
+            "herb": 60
+          },
+          "log_text": "洞府靈氣海沸騰，獲得 200 靈氣、120 靈石與 60 靈草！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_human_mortal_fair",
+    "title": "南瞻俗世廟會問心",
+    "desc": "凡塵山下燈火通明，百姓齊聚舉行迎神大蘸，人間煙火氣息直透雲霄。",
+    "realm_bias": "realm_human",
+    "weather_bias": "earth",
+    "shichen_bias": "酉",
+    "min_era": 1,
+    "weight": 95,
+    "options": [
+      {
+        "text": "化身遊客，體會人間百味",
+        "desc": "隱匿修為融入凡塵，洗去道法孤傲之氣。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 50.0,
+          "buff_id": "insight_glow",
+          "log_text": "看遍凡世生老病死，心靈澄淨無比，頓悟凡塵真諦！"
+        }
+      },
+      {
+        "text": "佈施符水，解救瘟疫疾苦",
+        "desc": "耗費微量靈氣以符水救拔苦難百姓。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 50
+          },
+          "log_text": "凡人感恩戴德叩拜神仙，功德願力化為 50 靈石回向洞府。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_human_tea_spring",
+    "title": "深山靈泉烹雪",
+    "desc": "深冬初霽，山巔古松積雪融化，滴落靈泉石窪，清甜幽香撲鼻。",
+    "realm_bias": "realm_human",
+    "weather_bias": "water",
+    "shichen_bias": "辰",
+    "min_era": 1,
+    "weight": 90,
+    "options": [
+      {
+        "text": "汲雪烹茶，細品天地靈根",
+        "desc": "以靈火烹煮雪水，靜觀雲起雲舒。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 60.0,
+          "resources": {
+            "lingqi": 40
+          },
+          "log_text": "一杯松雪靈茶下肚，心脾俱爽，獲 60 秒修為與 40 靈氣。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_spirit_tianqing_tide",
+    "title": "天青靈潮大爆發",
+    "desc": "靈界天樞洞天內，四海潮聲大作，虛空中無數道純陽天青靈瀑倒懸奔湧！",
+    "realm_bias": "realm_spirit",
+    "weather_bias": "wood",
+    "shichen_bias": "巳",
+    "min_era": 2,
+    "weight": 85,
+    "options": [
+      {
+        "text": "打開全身竅穴，沐浴純陽天水",
+        "desc": "以極致氣魄硬抗靈潮沖刷，狂暴吸納天青精華。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 200.0,
+          "buff_id": "heaven_qi_surge",
+          "log_text": "天水洗髓沖刷周天百骸，經脈劇震，修為猛增 200 秒並引發靈氣湧動！"
+        }
+      },
+      {
+        "text": "引靈潮入化靈池，凝聚靈晶",
+        "desc": "導引洪流沉澱結晶，積累修煉至寶。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 150,
+            "herb": 50
+          },
+          "log_text": "化靈仙池滿溢，沉澱凝結出等值 150 靈石的靈晶與 50 天青仙草。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_spirit_herb_fairy",
+    "title": "三島採藥仙子",
+    "desc": "一位足踏青蓮的靈島仙女飄然而至，正在採集朝陽初昇時的千年仙芝。",
+    "realm_bias": "realm_spirit",
+    "weather_bias": "wood",
+    "shichen_bias": "卯",
+    "min_era": 2,
+    "weight": 80,
+    "options": [
+      {
+        "text": "交流靈草嫁接與催生秘術",
+        "desc": "探討丹道與靈草培植之學。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "herb": 80
+          },
+          "log_text": "相談甚歡，仙子傳授化靈培育要訣，贈送 80 株靈界奇草。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_nether_ferryman",
+    "title": "忘川渡舟引魂客",
+    "desc": "黃泉迷霧中，一葉烏篷孤舟緩緩靠岸，戴笠擺渡人手持引魂燈默默凝望。",
+    "realm_bias": "realm_nether",
+    "weather_bias": "water",
+    "shichen_bias": "戌",
+    "min_era": 3,
+    "weight": 80,
+    "options": [
+      {
+        "text": "登舟渡河，觀照前世宿命因果",
+        "desc": "在擺渡人引領下凝視黃泉倒影中的萬世輪迴。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 180.0,
+          "buff_id": "longevity_breath",
+          "log_text": "照見無量前生，神魂生死頓悟，獲得 180 秒修為與長生龜息！"
+        }
+      },
+      {
+        "text": "贈予引魂錢，換取幽冥通關文牒",
+        "desc": "以靈石打通陰司幽徑。",
+        "costs": {
+          "money": 40
+        },
+        "rewards": {
+          "resources": {
+            "lingqi": 150
+          },
+          "buff_id": "insight_glow",
+          "log_text": "擺渡人收下冥資，回贈黃泉古印，引動 150 靈氣與頓悟靈光。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_nether_judge_brush",
+    "title": "酆都鬼市判官筆",
+    "desc": "幽冥鬼市深處，有修士正在競拍一支曾斷生死簿的判官殘筆，陰氣森森。",
+    "realm_bias": "realm_nether",
+    "weather_bias": "metal",
+    "shichen_bias": "亥",
+    "min_era": 3,
+    "weight": 75,
+    "options": [
+      {
+        "text": "不惜重金競購判官殘筆",
+        "desc": "購置重寶，以陰司至寶鎮壓洞府陰煞氣運。",
+        "costs": {
+          "money": 100
+        },
+        "rewards": {
+          "training_seconds": 300.0,
+          "log_text": "得判官殘筆護持，鬼神莫近，參破幽冥法則獲 300 秒修為！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_beast_peng_nest",
+    "title": "金鵬古巢洗髓池",
+    "desc": "萬妖界太古神山巔峰，發現一處上古九天金鵬築巢遺留的古血玉池。",
+    "realm_bias": "realm_beast",
+    "weather_bias": "metal",
+    "shichen_bias": "午",
+    "min_era": 3,
+    "weight": 80,
+    "options": [
+      {
+        "text": "跳入血池，以太古大妖精血洗髓",
+        "desc": "忍受烈火焚身之痛，淬煉無上金剛肉身。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 250.0,
+          "buff_id": "breakthrough_resonance",
+          "log_text": "金鵬精血入體，氣血如滔滔大河，修為暴增 250 秒並激發破境餘韻！"
+        }
+      },
+      {
+        "text": "收集池底沈積的真金靈羽",
+        "desc": "搜集大妖神羽與堅韌金石法材。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 120,
+            "wood": 60
+          },
+          "log_text": "拾得三枚金鵬真羽，散發銳利庚金之氣，折得 120 靈石與 60 靈木。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_beast_dragon_bone",
+    "title": "荒莽真龍地骨",
+    "desc": "暴雨沖刷萬妖裂谷，裸露出一截千丈長的太古真龍脊骨，礦氣逼人。",
+    "realm_bias": "realm_beast",
+    "weather_bias": "earth",
+    "shichen_bias": "辰",
+    "min_era": 3,
+    "weight": 75,
+    "options": [
+      {
+        "text": "開採龍骨化石，冶煉極品靈礦",
+        "desc": "動用各色法器採集堅如天鋼之龍骨晶石。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 160
+          },
+          "log_text": "採掘龍晶石礦脈，收穫 160 份極品靈石金石！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_demon_celestial_maiden",
+    "title": "天魔女妙音問心",
+    "desc": "他化自在天魔女踏著粉紅魔雲降臨，琵琶妙音勾起無邊情絲與紅塵執念。",
+    "realm_bias": "realm_demon",
+    "weather_bias": "fire",
+    "shichen_bias": "酉",
+    "min_era": 4,
+    "weight": 80,
+    "options": [
+      {
+        "text": "直面六慾心弦，借魔音照徹本心",
+        "desc": "不遮不掩，隨魔音起伏檢驗自心有無破綻。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 360.0,
+          "buff_id": "insight_glow",
+          "log_text": "魔音入心卻如水過鴨背，照破幻妄，道心巍峨不動，修為猛增 360 秒！"
+        }
+      },
+      {
+        "text": "翻轉大悲法印，度化魔女殘念",
+        "desc": "以至剛佛法梵音倒灌，破其幻法。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "lingqi": 300
+          },
+          "log_text": "天魔幻象被破，化為純淨無垢靈氣 300 點回補洞府。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_demon_blood_sea_tide",
+    "title": "修羅血海濁浪",
+    "desc": "天魔界修羅血海翻起萬丈血浪，煞氣如刀，魔焰沖霄，考驗生靈意志。",
+    "realm_bias": "realm_demon",
+    "weather_bias": "fire",
+    "shichen_bias": "午",
+    "min_era": 4,
+    "weight": 75,
+    "options": [
+      {
+        "text": "引血海煞氣入丹鼎，合煉修羅煞丹",
+        "desc": "以魔焰為火引，淬煉極品霸道丹藥。",
+        "costs": {
+          "money": 60
+        },
+        "rewards": {
+          "pills": {
+            "cultivation_pill": 2
+          },
+          "log_text": "煞丹煉成，丹成兩粒，靈光熾烈照耀四方！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_immortal_celestial_feast",
+    "title": "大羅天宮蟠桃宴遺露",
+    "desc": "九天雲海之上隱約傳來仙宮笙歌，天風吹拂下一滴萬載瓊漿仙露飄落凡塵。",
+    "realm_bias": "realm_immortal",
+    "weather_bias": "wood",
+    "shichen_bias": "辰",
+    "min_era": 5,
+    "weight": 70,
+    "options": [
+      {
+        "text": "張口吞服蟠桃瓊漿",
+        "desc": "真仙之酒，凡胎食之可脫胎換骨延年益壽。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 500.0,
+          "buff_id": "longevity_breath",
+          "log_text": "瓊漿入腹香透神魂，平添 500 秒修為並獲長生壽元庇佑！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_immortal_crane_messenger",
+    "title": "太清金闕飛鶴傳書",
+    "desc": "一隻口銜玉簡的萬年九霄白鶴穿破虛空雲海，將一封仙京法旨落於道案之上。",
+    "realm_bias": "realm_immortal",
+    "weather_bias": "metal",
+    "shichen_bias": "巳",
+    "min_era": 5,
+    "weight": 70,
+    "options": [
+      {
+        "text": "恭敬接旨，研習大羅玉冊心法",
+        "desc": "參悟仙界正統天庭典冊。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 450.0,
+          "buff_id": "insight_glow",
+          "log_text": "神識探入玉冊，字字珠璣直指長生大道，修為推進 450 秒！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_buddha_bodhi_tablet",
+    "title": "菩提樹下無字石碑",
+    "desc": "佛界淨土七寶池畔，一株參天菩提神樹灑下金葉，樹下矗立一方天然無字白玉碑。",
+    "realm_bias": "realm_buddha",
+    "weather_bias": "earth",
+    "shichen_bias": "未",
+    "min_era": 5,
+    "weight": 70,
+    "options": [
+      {
+        "text": "盤坐碑前，閉目觀心無我相",
+        "desc": "照見五蘊皆空，不起任何分別妄念。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 400.0,
+          "buff_id": "insight_glow",
+          "log_text": "石碑無字卻勝萬卷經書，大徹大悟，獲 400 秒修為與智慧靈光！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_buddha_lotus_blessing",
+    "title": "八功德水金蓮洗髓",
+    "desc": "淨土極樂寶池中金蓮綻放，八功德水無風自起漣漪，灑落漫天祥瑞金雨。",
+    "realm_bias": "realm_buddha",
+    "weather_bias": "water",
+    "shichen_bias": "申",
+    "min_era": 5,
+    "weight": 70,
+    "options": [
+      {
+        "text": "合十頂禮，承受功德甘霖灌頂",
+        "desc": "洗盡累世因果業障，心體通透光明。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "lingqi": 500
+          },
+          "buff_id": "heaven_qi_surge",
+          "log_text": "八功德水灌頂，一切煩惱冰消瓦解，湧現 500 靈氣與天靈氣湧！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_chaos_primordial_rift",
+    "title": "混元虛空開天裂縫",
+    "desc": "混沌深處一聲驚雷炸響，空間裂開萬丈鴻蒙深淵，噴湧出先天五行混沌神石。",
+    "realm_bias": "realm_chaos",
+    "weather_bias": "",
+    "shichen_bias": "",
+    "min_era": 6,
+    "weight": 65,
+    "options": [
+      {
+        "text": "祭起法寶，收取混沌精晶",
+        "desc": "冒險靠近時空裂隙，採擷天地未分之原始靈材。",
+        "costs": {},
+        "rewards": {
+          "resources": {
+            "money": 300,
+            "wood": 150
+          },
+          "log_text": "收取 300 靈石價值的混沌金晶與 150 混元神木！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_chaos_reversal_matrix",
+    "title": "先天太極五行倒轉",
+    "desc": "混沌氣流逆衝，天地間金生木、火生水，五行法則發生翻天覆地的短暫倒轉。",
+    "realm_bias": "realm_chaos",
+    "weather_bias": "",
+    "shichen_bias": "",
+    "min_era": 6,
+    "weight": 65,
+    "options": [
+      {
+        "text": "順應五行逆變，重整周天經緯",
+        "desc": "不循常規，逆轉體內氣息順利築造混沌丹海。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 600.0,
+          "buff_id": "breakthrough_resonance",
+          "log_text": "顛倒五行順成人，逆成仙！修為狂飆 600 秒並引動混元破境！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_origin_stellar_loom",
+    "title": "命運星河織天梭",
+    "desc": "太初宇宙源海之上，萬千星斗交織成命運絲線，一把橫跨星系的銀光織梭正穿梭虛空。",
+    "realm_bias": "realm_origin",
+    "weather_bias": "",
+    "shichen_bias": "",
+    "min_era": 7,
+    "weight": 60,
+    "options": [
+      {
+        "text": "撥動命運之線，改寫本方星域因果",
+        "desc": "以大圓滿元神撥動星河絲線，引無量造化歸宗。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 1000.0,
+          "resources": {
+            "lingqi": 1000,
+            "money": 500
+          },
+          "buff_id": "insight_glow",
+          "log_text": "星河因果重編！獲 1000 秒修為、1000 靈氣與 500 靈石，照徹宇宙本源！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "enc_origin_first_dawn",
+    "title": "太初宇宙第一縷晨曦",
+    "desc": "宇宙初開、萬象未明之時的第一道本源之光劃破永恆黑暗，照耀在神識海中央。",
+    "realm_bias": "realm_origin",
+    "weather_bias": "",
+    "shichen_bias": "",
+    "min_era": 7,
+    "weight": 60,
+    "options": [
+      {
+        "text": "與初光融為一體，證道太初",
+        "desc": "化作純粹意志，超脫一切時空約束與生死輪迴。",
+        "costs": {},
+        "rewards": {
+          "training_seconds": 1500.0,
+          "buff_id": "heaven_qi_surge",
+          "log_text": "融於太初之光，跳出三界外不在五行中，修為暴增 1500 秒！"
+        }
+      }
+    ]
+  }
+]

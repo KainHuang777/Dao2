@@ -5,7 +5,32 @@
     "title": "凡塵微光 · 修仙伊始",
     "description": "凡塵微光，萬靈繁衍生息之地。以一方洞府為基，吸納五行微靈，築百代仙基。",
     "law_summary": "五行恆定 · 洞府自足",
-    "status": "active"
+    "law_details": "標準世俗天道法則，五行平穩，無極端時空畸變。為修士根基之所。",
+    "status": "active",
+    "cultivation_factor": 1.0,
+    "lifespan_flow_ratio": 1.0,
+    "lingqi_pool_scale": 1.0,
+    "tier_scale_bonus": 0.0,
+    "dominant_element": "earth",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 1.0,
+      "pill_success_bonus": 0.0,
+      "flame_element": "mortal"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 1.0,
+      "mineral_mining_mult": 1.0,
+      "wood_harvest_mult": 1.0
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.0,
+      "tribulation_defense_bonus": 0.0
+    },
+    "unlock_requirements": {
+      "min_era": 1,
+      "min_reincarnations": 0
+    },
+    "allowed_resource_tags": ["basic", "mortal"]
   },
   {
     "id": "realm_spirit",
@@ -13,12 +38,32 @@
     "title": "天地靈潮 · 五行洞天",
     "description": "天道靈機充沛，九幽靈脈交匯。五行靈潮盛衰變換，造就洞天福地與奇花異草。",
     "law_summary": "靈潮汐動 · 純靈轉化",
+    "law_details": "天樞陣眼運轉耗費人界靈石轉化極品靈晶，化靈仙池凝練天青靈液反哺全洞府修行。",
     "status": "locked",
+    "cultivation_factor": 1.5,
+    "lifespan_flow_ratio": 0.85,
+    "lingqi_pool_scale": 10.0,
+    "tier_scale_bonus": 0.05,
+    "dominant_element": "wood",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 1.3,
+      "pill_success_bonus": 0.15,
+      "flame_element": "spiritual"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 2.0,
+      "mineral_mining_mult": 0.9,
+      "wood_harvest_mult": 1.5
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.10,
+      "tribulation_defense_bonus": 0.05
+    },
     "unlock_requirements": {
       "min_era": 2,
       "min_reincarnations": 1
     },
-    "law_details": "天樞陣眼運轉耗費人界靈石轉化極品靈晶，化靈仙池凝練天青靈液反哺全洞府修行。"
+    "allowed_resource_tags": ["basic", "spiritual", "nectar"]
   },
   {
     "id": "realm_nether",
@@ -26,7 +71,32 @@
     "title": "九幽輪迴 · 生死參悟",
     "description": "黃泉冥土，百代魂歸之所。參透陰陽生死，以幽冥死氣鍛造無上神魂與輪迴宿命。",
     "law_summary": "輪迴因果 · 魂火不滅",
-    "status": "locked"
+    "law_details": "冥土時間凝固，神魂離魄不散。在此界修行肉身進程雖緩，但壽元流逝減半，死氣凝練道心。",
+    "status": "locked",
+    "cultivation_factor": 0.8,
+    "lifespan_flow_ratio": 0.5,
+    "lingqi_pool_scale": 5.0,
+    "tier_scale_bonus": 0.0,
+    "dominant_element": "yin",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 0.7,
+      "pill_success_bonus": -0.10,
+      "flame_element": "nether_yin"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 0.3,
+      "mineral_mining_mult": 1.2,
+      "wood_harvest_mult": 0.2
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.50,
+      "tribulation_defense_bonus": 0.20
+    },
+    "unlock_requirements": {
+      "min_era": 3,
+      "min_reincarnations": 2
+    },
+    "allowed_resource_tags": ["soul", "nether", "yin"]
   },
   {
     "id": "realm_beast",
@@ -34,7 +104,32 @@
     "title": "洪荒百族 · 血脈神通",
     "description": "萬山荒莽，大妖咆哮於天際。修煉肉身極致，吞吐日月精華，喚醒太古洪荒血脈。",
     "law_summary": "肉身橫煉 · 血脈傳承",
-    "status": "locked"
+    "law_details": "洪荒氣血狂暴，靈木奇石產量翻倍，妖族體魄悠長，壽元流速延緩，法術修行微滯。",
+    "status": "locked",
+    "cultivation_factor": 0.85,
+    "lifespan_flow_ratio": 0.7,
+    "lingqi_pool_scale": 8.0,
+    "tier_scale_bonus": 0.0,
+    "dominant_element": "metal",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 0.8,
+      "pill_success_bonus": -0.05,
+      "flame_element": "beast_blood"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 0.8,
+      "mineral_mining_mult": 2.5,
+      "wood_harvest_mult": 2.2
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.05,
+      "tribulation_defense_bonus": -0.05
+    },
+    "unlock_requirements": {
+      "min_era": 3,
+      "min_reincarnations": 2
+    },
+    "allowed_resource_tags": ["blood", "beast", "wood"]
   },
   {
     "id": "realm_demon",
@@ -42,7 +137,32 @@
     "title": "無相幻境 · 道心試煉",
     "description": "天魔無形無相，化作七情六慾。歷經萬重執念幻象，鍛造金剛不壞之無瑕道心。",
     "law_summary": "執念幻化 · 道心淬煉",
-    "status": "locked"
+    "law_details": "極端心魔刺激神經，修煉速度呈爆發性增長（2.5倍），但魔火熾烈，壽元流速加快60%。",
+    "status": "locked",
+    "cultivation_factor": 2.5,
+    "lifespan_flow_ratio": 1.6,
+    "lingqi_pool_scale": 15.0,
+    "tier_scale_bonus": 0.10,
+    "dominant_element": "fire",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 2.0,
+      "pill_success_bonus": -0.15,
+      "flame_element": "demon_blaze"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 0.5,
+      "mineral_mining_mult": 1.5,
+      "wood_harvest_mult": 0.5
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.15,
+      "tribulation_defense_bonus": -0.20
+    },
+    "unlock_requirements": {
+      "min_era": 4,
+      "min_reincarnations": 3
+    },
+    "allowed_resource_tags": ["demon", "heart", "fire"]
   },
   {
     "id": "realm_immortal",
@@ -50,7 +170,32 @@
     "title": "純陽九霄 · 飛升仙班",
     "description": "九天雲海之上，仙宮巍峨，純陽之氣無窮無盡。褪盡凡胎，與天地同壽，列入真仙之班。",
     "law_summary": "純陽無極 · 長生久視",
-    "status": "locked"
+    "law_details": "天上一日，人間一年。天道法則極度崇高，修煉速度極快，壽元流逝極緩，靈氣池百倍擴容。",
+    "status": "locked",
+    "cultivation_factor": 3.0,
+    "lifespan_flow_ratio": 0.2,
+    "lingqi_pool_scale": 100.0,
+    "tier_scale_bonus": 0.15,
+    "dominant_element": "yang",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 1.8,
+      "pill_success_bonus": 0.25,
+      "flame_element": "pure_yang"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 2.5,
+      "mineral_mining_mult": 2.0,
+      "wood_harvest_mult": 2.0
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.30,
+      "tribulation_defense_bonus": 0.25
+    },
+    "unlock_requirements": {
+      "min_era": 5,
+      "min_reincarnations": 4
+    },
+    "allowed_resource_tags": ["immortal", "pure_yang", "celestial"]
   },
   {
     "id": "realm_buddha",
@@ -58,7 +203,32 @@
     "title": "三千淨土 · 因果菩提",
     "description": "梵音悠遠，三千世界皆為淨土。以慈悲願力照徹十方，參破虛妄，照見本來面目。",
     "law_summary": "因果無礙 · 功德金身",
-    "status": "locked"
+    "law_details": "功德願力海納百川，靈池容量極大，天地不生波瀾劫數，時光如如不動。",
+    "status": "locked",
+    "cultivation_factor": 1.2,
+    "lifespan_flow_ratio": 0.6,
+    "lingqi_pool_scale": 50.0,
+    "tier_scale_bonus": 0.05,
+    "dominant_element": "water",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 1.0,
+      "pill_success_bonus": 0.10,
+      "flame_element": "karma_lotus"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 1.3,
+      "mineral_mining_mult": 0.7,
+      "wood_harvest_mult": 1.3
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.40,
+      "tribulation_defense_bonus": 0.30
+    },
+    "unlock_requirements": {
+      "min_era": 5,
+      "min_reincarnations": 4
+    },
+    "allowed_resource_tags": ["buddha", "karma", "gold"]
   },
   {
     "id": "realm_chaos",
@@ -66,7 +236,32 @@
     "title": "大道初分 · 鴻蒙未定",
     "description": "混沌未闢，乾坤未明，陰陽五行融為一體。於暴烈亂流中截取開天闢地之玄機。",
     "law_summary": "逆轉五行 · 混沌重鑄",
-    "status": "locked"
+    "law_details": "陰陽五行雜揉為混元祖氣，時空空間維度高度扭曲，靈氣池與造化產能膨脹二百倍。",
+    "status": "locked",
+    "cultivation_factor": 2.0,
+    "lifespan_flow_ratio": 1.2,
+    "lingqi_pool_scale": 200.0,
+    "tier_scale_bonus": 0.10,
+    "dominant_element": "chaos",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 1.5,
+      "pill_success_bonus": -0.10,
+      "flame_element": "primordial_chaos"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 1.8,
+      "mineral_mining_mult": 3.0,
+      "wood_harvest_mult": 1.8
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.20,
+      "tribulation_defense_bonus": -0.10
+    },
+    "unlock_requirements": {
+      "min_era": 6,
+      "min_reincarnations": 5
+    },
+    "allowed_resource_tags": ["chaos", "primordial", "void"]
   },
   {
     "id": "realm_origin",
@@ -74,6 +269,31 @@
     "title": "創世之源 · 虛無終極",
     "description": "萬法起源，歸於無極。修士神識達此境者，可撥動宇宙法則，塑造自創之全新天地。",
     "law_summary": "宇宙造化 · 創世神念",
-    "status": "locked"
+    "law_details": "終極法則母體，超越時空長河限制。修行速度十倍於凡塵，空間容量千倍開闢。",
+    "status": "locked",
+    "cultivation_factor": 5.0,
+    "lifespan_flow_ratio": 0.1,
+    "lingqi_pool_scale": 1000.0,
+    "tier_scale_bonus": 0.20,
+    "dominant_element": "void",
+    "alchemy_flame_affinity": {
+      "pill_speed_mult": 3.0,
+      "pill_success_bonus": 0.30,
+      "flame_element": "genesis_void"
+    },
+    "vein_resource_affinity": {
+      "herb_growth_mult": 4.0,
+      "mineral_mining_mult": 4.0,
+      "wood_harvest_mult": 4.0
+    },
+    "soul_affinity": {
+      "dao_heart_retention_bonus": 0.60,
+      "tribulation_defense_bonus": 0.40
+    },
+    "unlock_requirements": {
+      "min_era": 7,
+      "min_reincarnations": 6
+    },
+    "allowed_resource_tags": ["origin", "genesis", "cosmic"]
   }
 ]

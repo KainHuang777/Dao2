@@ -1,4 +1,4 @@
-﻿# 給下一位 AI 的開發交接
+# 給下一位 AI 的開發交接
 
 更新：2026-09-28（REF-A 呈現層索引與驗證入口）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
 
@@ -102,6 +102,19 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 調整已決定的架構或規則時，在 `docs/decisions/ADR-xxx.md` 記錄理由、替代方案、影響及驗證，並更新 Roadmap。ADR-001–007 已存在 docs/03，不重用編號。
 
+## 上下文管理與主動剎車協定（Context Guard & Checkpoint）
+
+1. **防禦 Context Drift**：長 Session 會累積過多終端輸出與代碼檢視，導致模型注意力分散、代碼品質下降與幻覺。
+2. **主動剎車標準**：
+   - 當前任務（Task/Bugfix）已完成且測試通過，準備進行下一個不相關的大任務時。
+   - 單一對話對話輪數過多、或終端大量錯誤日誌累積時。
+3. **固化與交接 SOP**：
+   - **寫入 `updata.txt`**：按照專案規定，在最頂部追加最新英文更新日誌（含變更檔案、關鍵邏輯、測試驗證結果）。
+   - **更新狀態**：將當前進度與下一步標記在 `docs/development-status.md`。
+   - **提示重啟**：在回覆末端提示使用者點擊「New Chat」開啟新對話。
+4. **冷啟動接手**：新開啟的對話**不依賴任何舊歷史記憶**，只需閱讀 `AGENTS.md`、`updata.txt`（頂部最新日誌）與 `docs/development-status.md`，即可 100% 精準恢復上下文並立刻推進下一任務。
+
 ## 可直接貼给下一個 AI 的提示
 
 > 請接續 E:\WORK\Dao2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md，再依 docs/abode-presentation-map.md 定位當次檔案；涉及 UI 必讀 docs/07。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。REF-A 保留原行為並拆分 HUD／彈窗，原 25 Runner 和追加場景回歸通過；既有宗門／靈界命令被 GameSession 白名單拒絕的問題尚待獨立修復，不能把過往 DONE 或 Domain 測試當成正式場景閉環。先補該整合缺口，再推進 M4-B；詳細證據與未驗項見目前狀態。
+

@@ -23,10 +23,13 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 	var era_def = content.era(state.era_id)
 	var era_multiplier := 1.0 if era_def == null else float(era_def.resource_multiplier)
 	var pill_prod_multiplier := 1.0 + float(state.pill_effects.get("production_multiplier", 0.0)) + float(buff_multipliers.global_production_multiplier)
-	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(multipliers.global_production_multiplier) * pill_prod_multiplier)
+	var chrono_multipliers := ChronoSystem.compute_multipliers(state)
+	var global_prod_total := era_multiplier * float(multipliers.global_production_multiplier) * (pill_prod_multiplier + float(chrono_multipliers.global_production_multiplier))
+	var rates := Production.compute_rates(content, state.buildings, global_prod_total)
 	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
 	var sect_multipliers := SectSystem.compute_multipliers(state)
 	var spec_multipliers: Dictionary = buff_multipliers.get("specific_resource_multipliers", {})
+	var chrono_spec: Dictionary = chrono_multipliers.get("specific_resource_multipliers", {})
 	var changed_ids: Array = []
 	for resource_id in state.resources:
 		var entry: Dictionary = state.resources[resource_id]
@@ -36,13 +39,16 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 		if spec_multipliers.has(resource_id):
 			var extra_mult: float = 1.0 + float(spec_multipliers[resource_id])
 			rate = rate.multiply(AmountCompat.from_number(extra_mult))
+		if chrono_spec.has(resource_id):
+			rate = rate.multiply(AmountCompat.from_number(1.0 + float(chrono_spec[resource_id])))
 		if (resource_id == "herb" or resource_id == "wood") and float(sect_multipliers.production_herb_wood) > 0.0:
 			rate = rate.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.production_herb_wood)))
 		var delta: AmountCompat = rate.multiply(AmountCompat.from_number(elapsed))
 		var new_value: AmountCompat = entry.value.add(delta)
 		var cap_limit: AmountCompat = caps.get(resource_id, AmountCompat.zero())
-		if float(sect_multipliers.storage_bonus) > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
-			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.storage_bonus)))
+		var total_storage_bonus: float = float(sect_multipliers.storage_bonus) + float(chrono_multipliers.storage_bonus)
+		if total_storage_bonus > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
+			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + total_storage_bonus))
 		if resource_id == "lingqi" and float(sect_multipliers.lingqi_cap_bonus) > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
 			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.lingqi_cap_bonus)))
 		if caps.has(resource_id) and new_value.compare_to(cap_limit) > 0:
@@ -51,11 +57,14 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 			entry.value = new_value
 			changed_ids.append(String(resource_id))
 	var feedback_boost := RealmSystem.get_feedback_cultivation_boost(state)
-	state.training_seconds += elapsed * (1.0 + float(multipliers.cultivation_speed_bonus) + float(buff_multipliers.cultivation_speed_bonus) + float(sect_multipliers.cultivation_speed_bonus) + feedback_boost)
+	state.training_seconds += elapsed * (1.0 + float(multipliers.cultivation_speed_bonus) + float(buff_multipliers.cultivation_speed_bonus) + float(sect_multipliers.cultivation_speed_bonus) + float(chrono_multipliers.cultivation_speed_bonus) + feedback_boost)
 	state.total_elapsed_seconds += elapsed
 	BuffSystem.tick(state, elapsed)
 	RealmSystem.tick(state, elapsed)
 	SectSystem.tick(state, elapsed)
+	ChronoSystem.tick(state, elapsed)
+	FortuneSystem.advance_time(state, elapsed)
+	RealmDecisionSystem.advance_time(state, elapsed)
 	var events: Array = []
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
@@ -78,6 +87,9 @@ static func advance_time_only(state: GameState, content: GameContent, ticks: int
 	BuffSystem.tick(state, elapsed)
 	RealmSystem.tick(state, elapsed)
 	SectSystem.tick(state, elapsed)
+	ChronoSystem.tick(state, elapsed)
+	FortuneSystem.advance_time(state, elapsed)
+	RealmDecisionSystem.advance_time(state, elapsed)
 	var events: Array = []
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):

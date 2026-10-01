@@ -1,6 +1,8 @@
 class_name M3bSectUiRunner
 extends SceneTree
 
+const UI_ICON_SCRIPT = preload("res://src/presentation/ui_icon.gd")
+
 func _init() -> void:
 	print("\n--- Running M3-B Sect UI Runner ---")
 	test_sect_panel_lifecycle()
@@ -57,6 +59,7 @@ func test_sect_panel_lifecycle() -> void:
 	
 	panel._switch_tab(SectPanel.TabMode.EXPEDITIONS)
 	assert(panel._current_tab == SectPanel.TabMode.EXPEDITIONS, "Should switch back to expeditions tab")
+	assert(_has_ui_icon(panel._tab_content_container, UI_ICON_SCRIPT.Kind.SCROLL), "Expedition list heading uses a Godot-drawn scroll icon")
 	
 	# Start expedition via signal
 	var start_state := {"received": false}
@@ -70,8 +73,35 @@ func test_sect_panel_lifecycle() -> void:
 	panel.start_expedition_requested.emit(tasks[0]["id"])
 	assert(start_state["received"], "start_expedition_requested signal should fire")
 	assert(state.sect.get("active_expedition") != null, "Active expedition should be set")
+	assert(_has_ui_icon(panel._tab_content_container, UI_ICON_SCRIPT.Kind.HOURGLASS), "Active expedition heading uses a Godot-drawn hourglass icon")
+	assert(not _has_emoji_glyph(panel._tab_content_container), "Sect expedition UI does not rely on emoji font glyphs")
 	
 	panel.queue_free()
+
+func _has_ui_icon(node: Node, kind: int) -> bool:
+	if node.get_script() == UI_ICON_SCRIPT and int(node.get("kind")) == kind:
+		return true
+	for child in node.get_children():
+		if _has_ui_icon(child, kind):
+			return true
+	return false
+
+func _has_emoji_glyph(node: Node) -> bool:
+	if node is Label and _contains_emoji(String(node.text)):
+		return true
+	if node is Button and _contains_emoji(String(node.text)):
+		return true
+	for child in node.get_children():
+		if _has_emoji_glyph(child):
+			return true
+	return false
+
+func _contains_emoji(value: String) -> bool:
+	for index in value.length():
+		var codepoint := value.unicode_at(index)
+		if (codepoint >= 0x1F300 and codepoint <= 0x1FAFF) or (codepoint >= 0x2600 and codepoint <= 0x27BF):
+			return true
+	return false
 
 func test_responsive_layouts() -> void:
 	print("Testing SectPanel responsive layouts...")
@@ -166,4 +196,3 @@ func test_era_eligibility_button_states() -> void:
 	assert(enabled_buttons == 5, "5 sect cards should have enabled join buttons in Era 2")
 	
 	panel.queue_free()
-

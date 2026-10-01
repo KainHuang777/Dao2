@@ -20,6 +20,9 @@ const KNOWN_COMMAND_TYPES := [
 	"claim_sect_expedition",
 	"learn_sect_technique",
 	"buy_sect_market_item",
+	"trigger_fortune",
+	"resolve_fortune",
+	"execute_realm_decision",
 ]
 const COMMAND_REGISTRY_LIMIT := 256
 
@@ -230,7 +233,23 @@ func get_view() -> Dictionary:
 		"realm": RealmSystem.get_view(state),
 		"multipliers": TalentSystem.compute_multipliers(state),
 		"reincarnation_preview": get_reincarnation_preview(),
+		"chrono": {
+			"shichen": ChronoSystem.get_current_shichen(state),
+			"weather": ChronoSystem.get_current_weather(state),
+			"multipliers": ChronoSystem.compute_multipliers(state),
+		},
+		"fortune": {
+			"cooldown_remaining": float(state.fortune.get("cooldown_remaining", 0.0)) if state.fortune is Dictionary else 0.0,
+			"has_pending": not (state.fortune.get("pending_encounter", {}) as Dictionary).is_empty() if state.fortune is Dictionary else false,
+			"pending_encounter": (state.fortune.get("pending_encounter", {}) as Dictionary).duplicate(true) if state.fortune is Dictionary else {},
+			"encounter_history_count": int(state.fortune.get("encounter_history_count", 0)) if state.fortune is Dictionary else 0,
+			"total_fortunes_claimed": int(state.fortune.get("total_fortunes_claimed", 0)) if state.fortune is Dictionary else 0,
+			"max_per_hour": FortuneSystem.compute_max_per_hour(state.era_id),
+		},
+		"realm_decisions": RealmDecisionSystem.get_realm_decisions_view(state, state.current_realm),
+		"world_address": state.world_address,
 	}
+
 
 func reincarnate(mode: String = "normal") -> Dictionary:
 	return submit({
@@ -314,6 +333,11 @@ func _is_valid_shape(command: Dictionary) -> bool:
 		"refine_pill", "consume_pill":
 			var pill_id = payload.get("pill_id")
 			if typeof(pill_id) != TYPE_STRING or String(pill_id).is_empty():
+				return false
+			return true
+		"execute_realm_decision":
+			var decision_id = payload.get("decision_id")
+			if typeof(decision_id) != TYPE_STRING or String(decision_id).is_empty():
 				return false
 			return true
 	return true
@@ -417,3 +441,31 @@ func buy_sect_market_item(item_id: String) -> Dictionary:
 		"expected_revision": state.revision,
 		"payload": {"item_id": item_id},
 	})
+
+func trigger_fortune() -> Dictionary:
+	return submit({
+		"command_id": "fortune_trig_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "trigger_fortune",
+		"expected_revision": state.revision,
+		"payload": {},
+	})
+
+func resolve_fortune(option_index: int) -> Dictionary:
+	return submit({
+		"command_id": "fortune_res_" + str(option_index) + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "resolve_fortune",
+		"expected_revision": state.revision,
+		"payload": {"option_index": option_index},
+	})
+
+func execute_realm_decision(realm_id: String, decision_id: String) -> Dictionary:
+	return submit({
+		"command_id": "exec_dec_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "execute_realm_decision",
+		"expected_revision": state.revision,
+		"payload": {
+			"realm_id": realm_id,
+			"decision_id": decision_id
+		},
+	})
+

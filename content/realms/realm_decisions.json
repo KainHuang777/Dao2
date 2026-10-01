@@ -1,0 +1,254 @@
+[
+  {
+    "id": "human_compile_dao_canon",
+    "realm_id": "realm_human",
+    "name": "編纂道藏",
+    "description": "於凡塵祖庭梳理百家仙經，去蕪存菁。消耗靈木與凡塵靈石，溫養本體道心。",
+    "min_era": 1,
+    "cooldown_seconds": 180.0,
+    "costs": {
+      "wood": 30,
+      "money": 50
+    },
+    "effects": {
+      "training_seconds": 60.0,
+      "dao_heart_bonus": 0.05,
+      "buff_id": "insight_glow",
+      "log_text": "祖庭開壇編纂道藏，去蕪存菁，道心通明，修為精進 60 秒並獲頓悟靈光！"
+    }
+  },
+  {
+    "id": "human_irrigate_spiritual_vein",
+    "realm_id": "realm_human",
+    "name": "疏通靈脈",
+    "description": "以五行均勻法印疏導祖庭地脈，使天地靈氣反哺凡塵洞府各項初級資源產能。",
+    "min_era": 1,
+    "cooldown_seconds": 240.0,
+    "costs": {
+      "money": 40
+    },
+    "effects": {
+      "resources": {
+        "lingqi": 100,
+        "herb": 20
+      },
+      "buff_id": "heaven_qi_surge",
+      "log_text": "祖庭五行靈脈暢通，靈氣噴薄湧出 100 點，藥圃收穫靈草 20 株。"
+    }
+  },
+  {
+    "id": "spirit_attune_lingchao",
+    "realm_id": "realm_spirit",
+    "name": "引渡天青靈潮",
+    "description": "運轉靈界天樞陣眼，導引純陽靈潮沖刷天樞池，轉化極品靈晶並激活全域靈氣湧動。",
+    "min_era": 2,
+    "cooldown_seconds": 300.0,
+    "costs": {
+      "money": 100
+    },
+    "effects": {
+      "resources": {
+        "spirit_crystal": 5,
+        "lingqi": 300
+      },
+      "buff_id": "heaven_qi_surge",
+      "log_text": "天青靈潮洶湧澎湃，凝練極品靈晶 5 枚，洞府靈氣暴增 300 點！"
+    }
+  },
+  {
+    "id": "spirit_nurture_celestial_herb",
+    "realm_id": "realm_spirit",
+    "name": "仙池靈露催熟",
+    "description": "調動化靈仙池萬載凝露灌溉靈草，使百草逢春，收穫豐厚靈草資源。",
+    "min_era": 2,
+    "cooldown_seconds": 200.0,
+    "costs": {
+      "money": 60
+    },
+    "effects": {
+      "resources": {
+        "herb": 60
+      },
+      "log_text": "以化靈仙池甘霖灌溉仙藥，藥香撲鼻，得天材靈草 60 株。"
+    }
+  },
+  {
+    "id": "nether_refine_soul_fire",
+    "realm_id": "realm_nether",
+    "name": "黃泉陰火煉魂",
+    "description": "引幽冥極陰之火煆燒神魂雜質。微損肉身精血壽元，但能洗練極致神魂純度與道心。",
+    "min_era": 3,
+    "cooldown_seconds": 360.0,
+    "costs": {
+      "lifespan_seconds": 120.0
+    },
+    "effects": {
+      "dao_heart_bonus": 0.15,
+      "training_seconds": 180.0,
+      "buff_id": "insight_glow",
+      "log_text": "幽冥陰火入骨，雖然消耗 120 秒壽元，但神魂純粹若冰晶，道心顯著提升！"
+    }
+  },
+  {
+    "id": "nether_ferry_departed_souls",
+    "realm_id": "realm_nether",
+    "name": "忘川引魂渡厄",
+    "description": "於忘川河畔引渡飄零殘魂入輪迴，洗刷因果業障，積累輪迴道韻。",
+    "min_era": 3,
+    "cooldown_seconds": 300.0,
+    "costs": {
+      "money": 80
+    },
+    "effects": {
+      "dao_heart_bonus": 0.10,
+      "resources": {
+        "money": 150
+      },
+      "log_text": "誦念往生真言渡化幽冥百鬼，陰德匯聚，獲陰土功德回饋並積累輪迴道心。"
+    }
+  },
+  {
+    "id": "beast_blood_forge_vein",
+    "realm_id": "realm_beast",
+    "name": "妖帝煞血祭脈",
+    "description": "引太古大妖氣血注入深山礦脈，刺激天地庚金煞氣暴發，大幅收穫玄鐵與奇石。",
+    "min_era": 3,
+    "cooldown_seconds": 300.0,
+    "costs": {
+      "wood": 50,
+      "money": 80
+    },
+    "effects": {
+      "resources": {
+        "mineral": 80,
+        "money": 120
+      },
+      "log_text": "大妖氣血激盪礦脈，十萬大山庚金煞氣沖天，開採出 80 份上品礦石。"
+    }
+  },
+  {
+    "id": "beast_hunt_primordial_beast",
+    "realm_id": "realm_beast",
+    "name": "獵取太古大妖",
+    "description": "深入莽荒裂谷獵殺上古異獸，獲取大妖精核與磅礴氣血修為。",
+    "min_era": 3,
+    "cooldown_seconds": 400.0,
+    "costs": {
+      "money": 120
+    },
+    "effects": {
+      "training_seconds": 150.0,
+      "resources": {
+        "herb": 40
+      },
+      "log_text": "斬殺一尊四品洪荒凶獸，吞噬大妖血精，修為暴增 150 秒，並收穫奇異靈材。"
+    }
+  },
+  {
+    "id": "demon_burn_soul_breakthrough",
+    "realm_id": "realm_demon",
+    "name": "燃魂魔考",
+    "description": "以六慾魔火刺激周天神經與丹田潛能。劇烈燃燒壽元，換取短時間內極致的修為爆發。",
+    "min_era": 4,
+    "cooldown_seconds": 360.0,
+    "costs": {
+      "lifespan_seconds": 300.0
+    },
+    "effects": {
+      "training_seconds": 600.0,
+      "buff_id": "insight_glow",
+      "log_text": "六慾魔火焚身！燃燒 300 秒壽元壓榨潛能，獲得 600 秒恐怖修為注入！"
+    }
+  },
+  {
+    "id": "demon_slay_inner_demon",
+    "realm_id": "realm_demon",
+    "name": "照徹心魔",
+    "description": "直面自心所化之天魔幻象，以無上意志將其斬滅，將心魔煞氣化為純淨靈力。",
+    "min_era": 4,
+    "cooldown_seconds": 300.0,
+    "costs": {
+      "money": 150
+    },
+    "effects": {
+      "dao_heart_bonus": 0.20,
+      "resources": {
+        "lingqi": 400
+      },
+      "log_text": "劍斬識海天魔，破除一切妄念，道心巨幅攀升，天魔散落之精純靈氣回歸丹田！"
+    }
+  },
+  {
+    "id": "immortal_pure_yang_meditation",
+    "realm_id": "realm_immortal",
+    "name": "純陽朝元吐納",
+    "description": "於九霄純陽天闕引九天清氣貫通頂門，延年益壽，洗滌周天污濁。",
+    "min_era": 5,
+    "cooldown_seconds": 450.0,
+    "costs": {
+      "money": 200
+    },
+    "effects": {
+      "training_seconds": 300.0,
+      "resources": {
+        "lingqi": 600,
+        "spirit_crystal": 10
+      },
+      "buff_id": "heaven_qi_surge",
+      "log_text": "純陽九霄清氣灌頂，靈台清明如琉璃，修為精進 300 秒，收穫 10 靈晶與 600 靈氣！"
+    }
+  },
+  {
+    "id": "buddha_recite_diamond_sutra",
+    "realm_id": "realm_buddha",
+    "name": "開壇誦持金剛真經",
+    "description": "西方三千淨土金光普照，誦念無量壽金剛神咒，平息心浮氣躁，護佑洞府諸生。",
+    "min_era": 5,
+    "cooldown_seconds": 400.0,
+    "costs": {
+      "money": 180
+    },
+    "effects": {
+      "dao_heart_bonus": 0.25,
+      "training_seconds": 200.0,
+      "log_text": "梵音悠揚響徹識海，照見五蘊皆空，心魔永息，獲得 0.25 功德道心加成！"
+    }
+  },
+  {
+    "id": "chaos_recast_five_elements",
+    "realm_id": "realm_chaos",
+    "name": "混元乾坤重鑄",
+    "description": "以先天太極混沌亂流逆轉陰陽五行，將凡俗資糧重鑄為混元天道造化。",
+    "min_era": 6,
+    "cooldown_seconds": 500.0,
+    "costs": {
+      "money": 250,
+      "wood": 100
+    },
+    "effects": {
+      "resources": {
+        "lingqi": 1000,
+        "spirit_crystal": 15
+      },
+      "buff_id": "heaven_qi_surge",
+      "log_text": "混元祖氣倒灌，萬法歸源，重鑄乾坤獲 1000 靈氣與 15 極品靈晶！"
+    }
+  },
+  {
+    "id": "origin_spin_genesis_wheel",
+    "realm_id": "realm_origin",
+    "name": "撥動造化生滅",
+    "description": "超脫時空因果，撥動太初大道輪盤，引動開闢天地之無量道韻。",
+    "min_era": 7,
+    "cooldown_seconds": 600.0,
+    "costs": {
+      "money": 500
+    },
+    "effects": {
+      "training_seconds": 1200.0,
+      "dao_heart_bonus": 0.50,
+      "buff_id": "insight_glow",
+      "log_text": "太初造化之輪撥轉！神識跨越萬古長河，修為暴增 1200 秒，證得大圓滿至高道心！"
+    }
+  }
+]

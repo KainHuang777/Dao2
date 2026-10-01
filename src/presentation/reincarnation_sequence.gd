@@ -75,7 +75,7 @@ func _build_ui() -> void:
 
 	_skip_button = Button.new()
 	_skip_button.name = "ReincarnationSkipButton"
-	_skip_button.text = "跳過演出 ⏩"
+	_skip_button.text = "跳過演出"
 	_skip_button.custom_minimum_size = Vector2(96, 36)
 	_skip_button.pressed.connect(skip)
 	top_row.add_child(_skip_button)

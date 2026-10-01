@@ -3,6 +3,7 @@ render_mode unshaded;
 
 uniform float viewport_aspect = 1.777778;
 uniform float source_aspect = 1.777778;
+uniform float background_focal_x = 0.5;
 uniform float flow_time = 0.0;
 uniform float energy = 0.0;
 uniform bool reduced_motion = false;
@@ -23,8 +24,7 @@ void fragment() {
 	vec2 uv = UV;
 	float horizontal_span = min(1.0, viewport_aspect / source_aspect);
 	float vertical_span = min(1.0, source_aspect / viewport_aspect);
-	float focal_x = mix(0.215, 0.5, smoothstep(0.75, 1.65, viewport_aspect));
-	uv.x = (UV.x - 0.5) * horizontal_span + focal_x;
+	uv.x = (UV.x - 0.5) * horizontal_span + background_focal_x;
 	uv.y = (UV.y - 0.5) * vertical_span + 0.5;
 	uv = clamp(uv, vec2(0.0001), vec2(0.9999));
 
@@ -36,13 +36,13 @@ void fragment() {
 		COLOR = base_col;
 	} else {
 		// Broad island falls are fed by subtle water paths across the cheeks
-		float falling_water = cascade_mask(uv, 0.143, 0.020, 0.253, 0.454)
-			+ cascade_mask(uv, 0.287, 0.012, 0.221, 0.351)
-			+ cascade_mask(uv, 0.237, 0.010, 0.347, 0.468);
+		float falling_water = cascade_mask(uv, 0.303, 0.020, 0.253, 0.454)
+			+ cascade_mask(uv, 0.447, 0.012, 0.221, 0.351)
+			+ cascade_mask(uv, 0.397, 0.010, 0.347, 0.468);
 
 		// Wider eyelid curtains feed the catchment tiers; carved eyes stay still
-		float left_channel_x = mix(0.214, 0.212, smoothstep(0.181, 0.300, uv.y));
-		float right_channel_x = mix(0.251, 0.253, smoothstep(0.192, 0.304, uv.y));
+		float left_channel_x = mix(0.374, 0.372, smoothstep(0.181, 0.300, uv.y));
+		float right_channel_x = mix(0.411, 0.413, smoothstep(0.192, 0.304, uv.y));
 		float cheek_water = cascade_mask(uv, left_channel_x, 0.0065, 0.175, 0.316)
 			+ cascade_mask(uv, right_channel_x, 0.0052, 0.185, 0.320);
 

@@ -12,7 +12,7 @@ signal aspiration_changed(realm_id: String)
 signal preview_closed()
 
 const REALMS_DATA_PATH := "res://content/realms/realms.json"
-const FONT := preload("res://assets/fonts/NotoSerifTC-VF.ttf")
+const FONT := preload("res://assets/fonts/SourceHanSansTW-VF.ttf")
 
 var _bg_overlay: ColorRect
 var _cinematic_container: Control
@@ -48,7 +48,10 @@ func _ready() -> void:
 	visible = false
 
 func _load_realms_data() -> void:
-	if FileAccess.file_exists(REALMS_DATA_PATH):
+	var result := ContentLoader.load_realms(REALMS_DATA_PATH)
+	if bool(result.get("ok", false)) and not (result.get("realms", []) as Array).is_empty():
+		_realms_data = result["realms"]
+	elif FileAccess.file_exists(REALMS_DATA_PATH):
 		var file := FileAccess.open(REALMS_DATA_PATH, FileAccess.READ)
 		if file:
 			var text := file.get_as_text()
@@ -57,16 +60,17 @@ func _load_realms_data() -> void:
 				_realms_data = parsed
 	if _realms_data.is_empty():
 		_realms_data = [
-			{"id": "realm_human", "name": "人界", "title": "凡塵微光 · 修仙伊始", "description": "凡塵微光，萬靈繁衍生息之地。以一方洞府為基，吸納五行微靈，築百代仙基。", "law_summary": "五行恆定 · 洞府自足", "status": "active"},
-			{"id": "realm_spirit", "name": "靈界", "title": "天地靈潮 · 五行洞天", "description": "天道靈機充沛，九幽靈脈交匯。五行靈潮盛衰變換，造就洞天福地與奇花異草。", "law_summary": "靈潮汐動 · 洞天互通", "status": "locked"},
-			{"id": "realm_nether", "name": "幽冥界", "title": "九幽輪迴 · 生死參悟", "description": "黃泉冥土，百代魂歸之所。參透陰陽生死，以幽冥死氣鍛造無上神魂與輪迴宿命。", "law_summary": "輪迴因果 · 魂火不滅", "status": "locked"},
-			{"id": "realm_beast", "name": "萬妖界", "title": "洪荒百族 · 血脈神通", "description": "萬山荒莽，大妖咆哮於天際。修煉肉身極致，吞吐日月精華，喚醒太古洪荒血脈。", "law_summary": "肉身橫煉 · 血脈傳承", "status": "locked"},
-			{"id": "realm_demon", "name": "天魔界", "title": "無相幻境 · 道心試煉", "description": "天魔無形無相，化作七情六慾。歷經萬重執念幻象，鍛造金剛不壞之無瑕道心。", "law_summary": "執念幻化 · 道心淬煉", "status": "locked"},
-			{"id": "realm_immortal", "name": "仙界", "title": "純陽九霄 · 飛升仙班", "description": "九天雲海之上，仙宮巍峨，純陽之氣無窮無盡。褪盡凡胎，與天地同壽，列入真仙之班。", "law_summary": "純陽無極 · 長生久視", "status": "locked"},
-			{"id": "realm_buddha", "name": "佛界", "title": "三千淨土 · 因果菩提", "description": "梵音悠遠，三千世界皆為淨土。以慈悲願力照徹十方，參破虛妄，照見本來面目。", "law_summary": "因果無礙 · 功德金身", "status": "locked"},
-			{"id": "realm_chaos", "name": "混沌界", "title": "大道初分 · 鴻蒙未定", "description": "混沌未闢，乾坤未明，陰陽五行融為一體。於暴烈亂流中截取開天闢地之玄機。", "law_summary": "逆轉五行 · 混沌重鑄", "status": "locked"},
-			{"id": "realm_origin", "name": "太初界", "title": "創世之源 · 虛無終極", "description": "萬法起源，歸於無極。修士神識達此境者，可撥動宇宙法則，塑造自創之全新天地。", "law_summary": "宇宙造化 · 創世神念", "status": "locked"}
+			{"id": "realm_human", "name": "人界", "title": "凡塵微光 · 修仙伊始", "description": "凡塵微光，萬靈繁衍生息之地。以一方洞府為基，吸納五行微靈，築百代仙基。", "law_summary": "五行恆定 · 洞府自足", "status": "active", "cultivation_factor": 1.0, "lifespan_flow_ratio": 1.0, "lingqi_pool_scale": 1.0},
+			{"id": "realm_spirit", "name": "靈界", "title": "天地靈潮 · 五行洞天", "description": "天道靈機充沛，九幽靈脈交匯。五行靈潮盛衰變換，造就洞天福地與奇花異草。", "law_summary": "靈潮汐動 · 純靈轉化", "status": "locked", "cultivation_factor": 1.5, "lifespan_flow_ratio": 0.85, "lingqi_pool_scale": 10.0},
+			{"id": "realm_nether", "name": "幽冥界", "title": "九幽輪迴 · 生死參悟", "description": "黃泉冥土，百代魂歸之所。參透陰陽生死，以幽冥死氣鍛造無上神魂與輪迴宿命。", "law_summary": "輪迴因果 · 魂火不滅", "status": "locked", "cultivation_factor": 0.8, "lifespan_flow_ratio": 0.5, "lingqi_pool_scale": 5.0},
+			{"id": "realm_beast", "name": "萬妖界", "title": "洪荒百族 · 血脈神通", "description": "萬山荒莽，大妖咆哮於天際。修煉肉身極致，吞吐日月精華，喚醒太古洪荒血脈。", "law_summary": "肉身橫煉 · 血脈傳承", "status": "locked", "cultivation_factor": 0.85, "lifespan_flow_ratio": 0.7, "lingqi_pool_scale": 8.0},
+			{"id": "realm_demon", "name": "天魔界", "title": "無相幻境 · 道心試煉", "description": "天魔無形無相，化作七情六慾。歷經萬重執念幻象，鍛造金剛不壞之無瑕道心。", "law_summary": "執念幻化 · 道心淬煉", "status": "locked", "cultivation_factor": 2.5, "lifespan_flow_ratio": 1.6, "lingqi_pool_scale": 15.0},
+			{"id": "realm_immortal", "name": "仙界", "title": "純陽九霄 · 飛升仙班", "description": "九天雲海之上，仙宮巍峨，純陽之氣無窮無盡。褪盡凡胎，與天地同壽，列入真仙之班。", "law_summary": "純陽無極 · 長生久視", "status": "locked", "cultivation_factor": 3.0, "lifespan_flow_ratio": 0.2, "lingqi_pool_scale": 100.0},
+			{"id": "realm_buddha", "name": "佛界", "title": "三千淨土 · 因果菩提", "description": "梵音悠遠，三千世界皆為淨土。以慈悲願力照徹十方，參破虛妄，照見本來面目。", "law_summary": "因果無礙 · 功德金身", "status": "locked", "cultivation_factor": 1.2, "lifespan_flow_ratio": 0.6, "lingqi_pool_scale": 50.0},
+			{"id": "realm_chaos", "name": "混沌界", "title": "大道初分 · 鴻蒙未定", "description": "混沌未闢，乾坤未明，陰陽五行融為一體。於暴烈亂流中截取開天闢地之玄機。", "law_summary": "逆轉五行 · 混沌重鑄", "status": "locked", "cultivation_factor": 2.0, "lifespan_flow_ratio": 1.2, "lingqi_pool_scale": 200.0},
+			{"id": "realm_origin", "name": "太初界", "title": "創世之源 · 虛無終極", "description": "萬法起源，歸於無極。修士神識達此境者，可撥動宇宙法則，塑造自創之全新天地。", "law_summary": "宇宙造化 · 創世神念", "status": "locked", "cultivation_factor": 5.0, "lifespan_flow_ratio": 0.1, "lingqi_pool_scale": 1000.0}
 		]
+	ScaleLawContract.set_custom_realm_laws(_realms_data)
 
 func _build_ui() -> void:
 	_bg_overlay = ColorRect.new()
@@ -111,11 +115,7 @@ func _build_ui() -> void:
 	_overview_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	_overview_panel.custom_minimum_size = Vector2.ZERO
 	_overview_panel.position = Vector2(-550, -310)
-	var panel_style := StyleBoxFlat.new()
-	panel_style.bg_color = Color(0.015, 0.05, 0.07, 0.96)
-	panel_style.border_color = Color(0.78, 0.68, 0.38, 0.85)
-	panel_style.set_border_width_all(2)
-	panel_style.set_corner_radius_all(8)
+	var panel_style := UiMaterial.card()
 	_overview_panel.add_theme_stylebox_override("panel", panel_style)
 	add_child(_overview_panel)
 
@@ -130,7 +130,7 @@ func _build_ui() -> void:
 
 	_title_label = Label.new()
 	_title_label.text = "九界諸天 · 神識星圖"
-	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
+	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 26)
 	_title_label.add_theme_color_override("font_color", Color("fce2a6"))
 	_header_box.add_child(_title_label)
@@ -219,13 +219,7 @@ func _build_realm_cards() -> void:
 	for realm in _realms_data:
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(0, 210)
-		var card_style := StyleBoxFlat.new()
-		card_style.set_border_width_all(1)
-		card_style.set_corner_radius_all(6)
-		card_style.content_margin_left = 12
-		card_style.content_margin_right = 12
-		card_style.content_margin_top = 10
-		card_style.content_margin_bottom = 10
+		var card_style := UiMaterial.card()
 		card.add_theme_stylebox_override("panel", card_style)
 
 		var card_vbox := VBoxContainer.new()
@@ -264,6 +258,16 @@ func _build_realm_cards() -> void:
 		desc_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		card_vbox.add_child(desc_lbl)
 
+		var cult_mult := float(realm.get("cultivation_factor", 1.0))
+		var life_ratio := float(realm.get("lifespan_flow_ratio", 1.0))
+		var pool_scale := float(realm.get("lingqi_pool_scale", 1.0))
+		var metrics_lbl := Label.new()
+		metrics_lbl.text = "【法則契約】修煉 %.1fx · 壽元流速 %.2fx · 靈池容量 %.0fx" % [cult_mult, life_ratio, pool_scale]
+		metrics_lbl.add_theme_font_override("font", UiTypography.body_font())
+		metrics_lbl.add_theme_font_size_override("font_size", 14)
+		metrics_lbl.add_theme_color_override("font_color", Color("ffd166"))
+		card_vbox.add_child(metrics_lbl)
+
 		var is_human: bool = (realm.id == "realm_human")
 		var aspire_btn: Button = null
 		if not is_human:
@@ -297,20 +301,18 @@ func _update_realm_cards() -> void:
 			continue
 		var is_human: bool = (realm.id == "realm_human")
 		var is_aspired: bool = (realm.id == _current_aspired_realm)
-		var style: StyleBoxFlat = entry["style"]
+		var style: StyleBoxTexture = entry["style"]
 		var status_lbl: Label = entry["status_lbl"]
 		var name_lbl: Label = entry["name_lbl"]
 		var aspire_btn: Button = entry["aspire_btn"]
 
 		if is_human:
-			style.bg_color = Color(0.04, 0.12, 0.11, 0.90)
-			style.border_color = Color(0.40, 0.85, 0.65, 0.80)
+			style.modulate_color = Color(0.92, 1.10, 0.94)
 			name_lbl.add_theme_color_override("font_color", Color("ffffff"))
 			status_lbl.text = "【當前洞府】"
 			status_lbl.add_theme_color_override("font_color", Color("6ee7b7"))
 		elif is_aspired:
-			style.bg_color = Color(0.12, 0.10, 0.04, 0.90)
-			style.border_color = Color(0.95, 0.80, 0.25, 0.90)
+			style.modulate_color = Color(1.12, 1.06, 0.82)
 			name_lbl.add_theme_color_override("font_color", Color("ffd166"))
 			status_lbl.text = "【心之所向】"
 			status_lbl.add_theme_color_override("font_color", Color("fcd34d"))
@@ -318,8 +320,7 @@ func _update_realm_cards() -> void:
 				aspire_btn.text = "★ 已標記嚮往"
 				aspire_btn.disabled = true
 		else:
-			style.bg_color = Color(0.02, 0.05, 0.07, 0.85)
-			style.border_color = Color(0.20, 0.35, 0.40, 0.50)
+			style.modulate_color = Color(0.83, 0.91, 0.94)
 			name_lbl.add_theme_color_override("font_color", Color("ffffff"))
 			status_lbl.text = "【神識遠眺 · 未解鎖】"
 			status_lbl.add_theme_color_override("font_color", Color("d5e2ec"))

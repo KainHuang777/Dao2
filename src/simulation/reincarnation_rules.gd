@@ -94,6 +94,9 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			surviving_buffs[buff_id] = b
 	state.buffs = surviving_buffs
 	SectSystem.on_reincarnate(state)
+	if state.fortune is Dictionary:
+		state.fortune["pending_encounter"] = {}
+		state.fortune["cooldown_remaining"] = FortuneSystem.compute_cooldown_for_era(1)
 
 	# Re-initialize onboarding unlock state
 	state.onboarding_version = 1

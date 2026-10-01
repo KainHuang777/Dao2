@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+ <defs>
+  <linearGradient id="jade" x2="0" y2="1"><stop stop-color="#3e4848"/><stop offset="1" stop-color="#2d3738"/></linearGradient>
+ </defs>
+ <rect x="1" y="3" width="254" height="252" rx="12" fill="#202829"/>
+ <rect x="2.5" y="1.5" width="251" height="250" rx="11" fill="url(#jade)" stroke="#948976"/>
+ <path d="M12 6H244" stroke="#e8e1d2" stroke-opacity=".08"/>
+</svg>

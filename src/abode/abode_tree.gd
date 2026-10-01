@@ -26,25 +26,8 @@ func setup(display_name: String, art: Texture2D, width: float, font: Font) -> vo
 	caption.position = Vector2(-70, 10)
 	caption.size = Vector2(140, 36)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	caption.add_theme_font_override("font", font)
-	caption.add_theme_font_size_override("font_size", 20)
-	caption.add_theme_color_override("font_color", Color("d4eed1"))
-	caption.add_theme_color_override("font_outline_color", Color("07161c"))
-	caption.add_theme_constant_override("outline_size", 2)
+	UiMaterial.apply_world_caption(caption, font, 22)
 	caption.text = title
-
-	var caption_style := StyleBoxFlat.new()
-	caption_style.bg_color = Color(0.008, 0.045, 0.065, 0.82)
-	caption_style.border_color = Color(0.50, 0.78, 0.58, 0.70)
-	caption_style.set_border_width_all(1)
-	caption_style.set_corner_radius_all(7)
-	caption_style.content_margin_left = 6
-	caption_style.content_margin_right = 6
-	caption_style.content_margin_top = 2
-	caption_style.content_margin_bottom = 2
-	caption.add_theme_stylebox_override("normal", caption_style)
-	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(caption)
 
 func contains_point(world_point: Vector2) -> bool:
@@ -88,12 +71,7 @@ func _spawn_floating_text(text: String) -> void:
 	float_label.text = text
 	float_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	float_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	float_label.add_theme_font_override("font", UiTypography.emphasis_font())
-	float_label.add_theme_font_size_override("font_size", 22)
-	float_label.add_theme_color_override("font_color", Color("9aff9a"))
-	float_label.add_theme_color_override("font_outline_color", Color("07161c"))
-	float_label.add_theme_constant_override("outline_size", 3)
-	float_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UiMaterial.apply_world_text(float_label, UiTypography.emphasis_font(), 22, Color("eedda7"), true)
 	float_label.position = Vector2(-60, -body_size.y * 0.85)
 	float_label.size = Vector2(120, 32)
 	add_child(float_label)

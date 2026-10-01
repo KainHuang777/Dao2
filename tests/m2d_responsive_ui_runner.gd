@@ -18,16 +18,51 @@ func _run() -> void:
 
 	# State A: world, cultivation, passive resource readouts, and explicit gather action.
 	abode._layout_for_size(Vector2(1280, 720))
+	_expect(is_equal_approx(float(abode.sky_material.get_shader_parameter("background_focal_x")), 0.5), "wide viewport samples the full-bleed background without edge extension")
+	var island_composition: Node2D = abode.get_node("洞府浮島構圖")
+	_expect(is_equal_approx(island_composition.scale.x, 0.92) and is_equal_approx(island_composition.position.y, 18.0), "foreground island composition uses modest uniform scale and downward offset")
+	var hut: Node2D = abode.buildings["hut"]
+	var hut_probe: Vector2 = hut.to_global(Vector2(0, -33))
+	var hut_was_visible: bool = hut.visible
+	hut.visible = true
+	_expect(hut.contains_point(hut_probe), "building hit testing remains aligned after the island composition transform")
+	hut.visible = hut_was_visible
 	await process_frame
 	_check_scene(abode, Vector2(1280, 720), "desktop island")
+	_expect(abode.hint_panel.size.y >= 200.0 and abode.hint_log_label.get_theme_font_size("normal_font_size") >= 17, "desktop messages must provide a readable default height and font")
 	_expect(abode.hint.text.contains("茅屋") and abode.hint.text.contains("靈氣"), "fresh-game guidance must explain gathering for the hut")
 	_expect(abode.building_catalog.resource_gather_buttons["lingli"].visible, "fresh-game island HUD must expose direct gather action on lingli card")
 	_expect(abode.building_catalog.resource_buttons["lingli"] is PanelContainer, "resource readouts must be passive information cards with inline gather")
 	_expect(abode.building_catalog.resource_buttons.has("foundation_pill"), "resource panel must include the later Era resource instead of hard-coding the first six")
+	# Completion must survive mode/detail changes; a fresh objective must restore guidance.
+	var initial_buildings: Dictionary = abode.session.state.buildings.duplicate(true)
+	for milestone in Onboarding.MILESTONES:
+		abode.session.state.buildings[milestone.building] = milestone.level
+	abode._refresh_hud()
+	await process_frame
+	_expect(not abode.objective_button.visible and not abode.building_catalog.objective_button.visible, "completed onboarding must remove both objective buttons")
+	abode._open_building_catalog()
+	abode.building_catalog.show_detail(true)
+	abode.building_catalog.show_detail(false)
+	abode.building_catalog.set_short_mode(true)
+	abode.building_catalog.set_short_mode(false)
+	_expect(not abode.building_catalog.objective_button.visible, "detail and density changes must not revive completed onboarding")
+	abode._close_building_catalog()
+	abode.session.state.buildings = initial_buildings
+	abode._refresh_hud()
+	abode._layout_for_size(Vector2(1280, 720))
+	_expect(abode.objective_button.visible and abode.building_catalog.objective_button.visible, "a valid new objective must restore guidance")
+	abode._toggle_guidance()
+	abode._refresh_hud()
+	abode._layout_for_size(Vector2(844, 390))
+	_expect(not abode.hint_panel.visible, "refresh and resizing must preserve a user's closed-message choice")
+	abode._toggle_guidance()
+	abode._layout_for_size(Vector2(1280, 720))
 	var lingli_before: AmountCompat = abode.session.state.resources["lingli"].value
 	abode.building_catalog.resource_gather_buttons["lingli"].pressed.emit()
 	_expect(abode.session.state.resources["lingli"].value.compare_to(lingli_before) > 0, "direct lingli gather must use the normal resource command")
-	_expect(abode.more_menu.get_popup().item_count >= 7, "low-frequency actions must remain in More")
+	_expect(abode.more_menu.get_popup().item_count >= 6, "game feature actions must remain in More")
+	_expect(abode.settings_menu.get_popup().item_count >= 5, "system settings actions must remain in settings_menu")
 
 	# State B: left resources, a right-side building ledger, and the same cultivation status.
 	abode.building_catalog_button.pressed.emit()
@@ -120,9 +155,20 @@ func _run() -> void:
 	for vp in [Vector2(1920, 902), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)]:
 		abode._layout_for_size(vp)
 		await process_frame
+		var expected_focal := lerpf(0.39, 0.5, smoothstep(0.75, 1.65, vp.x / vp.y))
+		var actual_focal := float(abode.sky_material.get_shader_parameter("background_focal_x"))
+		var horizontal_span := minf(1.0, vp.x / vp.y / (float(abode.sky.texture.get_width()) / float(abode.sky.texture.get_height())))
+		_expect(is_equal_approx(actual_focal, expected_focal), "background framing follows the responsive viewport aspect ratio")
+		_expect(actual_focal - horizontal_span * 0.5 >= 0.0 and actual_focal + horizontal_span * 0.5 <= 1.0, "background UV crop stays inside the source image without stretching edge pixels")
 		_check_management(abode, vp, "management %s" % vp)
 		_check_detail(abode, vp, "detail %s" % vp)
 		_expect(abode.building_catalog.resource_grid.visible or (vp.y < 560.0 and not abode.resource_ribbon.visible), "short-phone detail may focus while other sizes retain resources")
+		if vp.x < vp.y:
+			_expect(abode.orientation_prompt != null and abode.orientation_prompt.visible, "portrait viewport must show orientation prompt overlay")
+		else:
+			_expect(abode.orientation_prompt != null and not abode.orientation_prompt.visible, "landscape viewport must hide orientation prompt overlay")
+		if is_equal_approx(vp.x, 844.0) and is_equal_approx(vp.y, 390.0):
+			_expect(abode.layout_mode == abode.HudLayout.COMPACT, "844x390 mobile landscape must adopt compact layout instead of desktop wide")
 	abode._close_detail()
 	abode._layout_for_size(Vector2(360, 640))
 	await process_frame
@@ -142,9 +188,11 @@ func _run() -> void:
 	_expect(not abode.resource_scroll.visible, "closed resource mode must hide the list but retain mode controls")
 	abode.resource_mode_buttons[1].pressed.emit()
 	_expect(abode.resource_display_mode == 1 and abode.resource_scroll.visible, "summary mode must restore resource quantities")
+	var resource_normal_color: Color = abode.building_catalog.resource_value_labels["lingli"].get_theme_color("font_color")
 	abode.session.state.resources["lingli"].value = AmountCompat.from_number(400.0)
 	abode._refresh_hud()
-	_expect(abode.building_catalog.resource_value_labels["lingli"].get_theme_color("font_color") == Color("f5bd71"), "full resource must change color in summary")
+	_expect(abode.building_catalog.resource_value_labels["lingli"].get_theme_color("font_color") != resource_normal_color and abode.building_catalog.resource_value_labels["lingli"].text.contains("滿"), "full resource must change color and retain an explicit full-storage summary")
+	_expect(abode.building_catalog.resource_gather_buttons["lingli"].disabled, "full resource must disable manual gathering")
 	abode.session.state.era_id = 2
 	abode._refresh_hud()
 	_expect(not abode.building_catalog.resource_gather_buttons["lingli"].visible, "Era 2 must not show manual gather buttons on resource cards")
@@ -201,7 +249,10 @@ func _run() -> void:
 
 func _check_scene(abode: Node, vp: Vector2, label: String) -> void:
 	_expect(abode.header.visible and abode.resource_ribbon.visible and not abode.building_catalog.visible and abode.toolbar.visible, label + " must show cultivation, resources, world, and primary actions")
-	_expect(not abode.hint_panel.visible, label + " must not reserve a permanent system-message card")
+	_expect(abode.hint_panel.visible == (vp.x >= vp.y), label + " must open messages by default in landscape")
+	if abode.hint_panel.visible:
+		_check_bounded(abode.hint_panel, vp, label + " system messages")
+		_expect(not abode.hint_panel.get_global_rect().intersects(abode.header.get_global_rect()) and not abode.hint_panel.get_global_rect().intersects(abode.resource_ribbon.get_global_rect()), label + " messages must leave status and resources accessible")
 	_check_bounded(abode.header, vp, label + " HUD")
 	_check_bounded(abode.resource_ribbon, vp, label + " resource ribbon")
 	_check_bounded(abode.toolbar, vp, label + " primary navigation")

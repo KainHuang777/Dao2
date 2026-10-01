@@ -29,6 +29,7 @@ var _anim_time: float = 0.0
 var _is_playing: bool = false
 var _era_name: String = "築基期"
 var _from_era_name: String = "練氣期"
+var _target_era_id: int = 2
 var reduced_motion: bool = false
 var world_fx: IslandBreakthroughFx
 
@@ -182,7 +183,8 @@ func set_save_status(saved: bool) -> void:
 	_save_label.add_theme_color_override("font_color", Color("aee2c1") if saved else Color("ffd28a"))
 	_retry_button.visible = not saved
 
-func play(from_era: String, to_era: String) -> void:
+func play(from_era: String, to_era: String, target_era_id: int = 2) -> void:
+	_target_era_id = clampi(target_era_id, 1, 12)
 	_from_era_name = from_era
 	_era_name = to_era
 	_subtitle_label.text = "%s → %s · 破關功成" % [from_era, to_era]
@@ -195,6 +197,7 @@ func play(from_era: String, to_era: String) -> void:
 		visible = true
 		sequence_started.emit()
 	if world_fx != null:
+		world_fx.set_era(_target_era_id)
 		world_fx.sample_sequence(0.0, reduced_motion)
 	_layout_for_viewport()
 
@@ -235,7 +238,7 @@ func _on_skip_pressed() -> void:
 	_finish_animation()
 
 func _on_replay_pressed() -> void:
-	play(_from_era_name, _era_name)
+	play(_from_era_name, _era_name, _target_era_id)
 
 func _on_close_pressed() -> void:
 	if not visible:

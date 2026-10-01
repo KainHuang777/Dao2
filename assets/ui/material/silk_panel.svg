@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+ <defs>
+  <linearGradient id="paper" x2=".2" y2="1"><stop stop-color="#e8e1d2"/><stop offset=".5" stop-color="#e1dac9"/><stop offset="1" stop-color="#d9d0bc"/></linearGradient>
+  <linearGradient id="top" x2="0" y2="1"><stop stop-color="#a17c35" stop-opacity=".28"/><stop offset="1" stop-color="#bba574" stop-opacity="0"/></linearGradient>
+  <linearGradient id="bottom" x2="0" y2="1"><stop stop-color="#ae8a42" stop-opacity="0"/><stop offset="1" stop-color="#87632d" stop-opacity=".27"/></linearGradient>
+  <linearGradient id="left"><stop stop-color="#a47c35" stop-opacity=".38"/><stop offset="1" stop-color="#bba574" stop-opacity="0"/></linearGradient>
+  <linearGradient id="right"><stop stop-color="#bba574" stop-opacity="0"/><stop offset="1" stop-color="#927039" stop-opacity=".36"/></linearGradient>
+  <radialGradient id="foxing"><stop stop-color="#89612c" stop-opacity=".22"/><stop offset="1" stop-color="#a77e3e" stop-opacity="0"/></radialGradient>
+  <path id="sheet" d="M4 12L7 9L5 5L12 3L18 4L29 2L49 4L70 3L90 5L113 3L143 4L170 2L194 4L217 3L236 5L244 3L248 7L246 10L252 13L251 30L253 51L251 80L253 109L252 137L250 167L252 191L251 218L253 234L249 239L250 246L243 245L239 251L222 250L202 252L174 250L143 252L112 250L85 252L60 250L37 251L19 249L12 251L8 246L10 242L4 239L3 219L5 196L3 171L4 143L2 117L4 91L3 64L5 40L3 23Z"/>
+  <clipPath id="edge"><use href="#sheet"/></clipPath>
+ </defs>
+ <use href="#sheet" transform="translate(0 2)" fill="#182e29" fill-opacity=".55"/>
+ <use href="#sheet" fill="url(#paper)" stroke="#8e7953" stroke-opacity=".65" stroke-width=".8"/>
+ <g clip-path="url(#edge)">
+  <path d="M0 0H256V13L225 10L198 14L166 10L135 12L104 9L76 13L46 10L18 14L0 11Z" fill="url(#top)"/>
+  <path d="M0 242L24 238L54 243L88 240L119 244L153 241L185 238L218 242L256 239V256H0Z" fill="url(#bottom)"/>
+  <path d="M0 0H13L10 34L14 69L9 101L12 133L10 169L13 201L10 234L14 256H0Z" fill="url(#left)"/>
+  <path d="M245 0H256V256H243L246 224L241 194L247 155L244 119L247 81L242 42Z" fill="url(#right)"/>
+  <ellipse cx="13" cy="13" rx="19" ry="16" fill="url(#foxing)"/>
+  <ellipse cx="240" cy="239" rx="24" ry="19" fill="url(#foxing)"/>
+  <path d="M6 8L12 11L10 17M245 7L241 12L246 16M7 241L15 239L19 244M249 235L244 237L241 245" fill="none" stroke="#89714a" stroke-opacity=".48" stroke-width=".8"/>
+  <path d="M17 5L23 6M49 5L61 6M113 5L122 6M218 6L231 7M4 55L6 64M5 118L7 129M249 101L248 114M250 180L248 190M35 247L48 246M100 249L113 247M187 247L202 248" fill="none" stroke="#f0e4c8" stroke-opacity=".55" stroke-width=".8"/>
+  <path d="M18 32H76M124 50H210M30 88H104M158 120H230M20 157H83M114 184H215M42 218H136" stroke="#f2ead5" stroke-opacity=".12"/>
+ </g>
+</svg>

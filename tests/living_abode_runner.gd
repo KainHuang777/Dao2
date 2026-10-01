@@ -36,7 +36,7 @@ func _run() -> void:
 	if not abode.buildings["hut"].visible:
 		_fail("Unbuilt hut must be visible as a ghost blueprint when affordable")
 		return
-	abode._pick_world(abode.buildings["hut"].position + Vector2(0, -60))
+	abode._pick_world(abode.buildings["hut"].to_global(Vector2(0, -60)))
 	if abode.session.state.buildings.get("hut", 0) != 1 or abode.selected_id != "hut" or not abode.info_panel.visible or not abode.building_catalog.visible:
 		_fail("Clicking unbuilt hut blueprint must directly construct hut and open management detail")
 		return
@@ -50,7 +50,7 @@ func _run() -> void:
 		return
 	# Test spirit tree clicking and chopping wood directly from the world
 	var wood_before: float = abode.session.state.resources["wood"].value.to_float()
-	abode._pick_world(abode.spirit_tree.position + Vector2(0, -30))
+	abode._pick_world(abode.spirit_tree.to_global(Vector2(0, -30)))
 	var wood_after: float = abode.session.state.resources["wood"].value.to_float()
 	if wood_after <= wood_before:
 		_fail("Clicking spirit tree must chop and gather wood")

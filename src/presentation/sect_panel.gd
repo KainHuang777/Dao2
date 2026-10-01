@@ -1,6 +1,8 @@
 class_name SectPanel
 extends Control
 
+const UiIconScript = preload("res://src/presentation/ui_icon.gd")
+
 signal join_sect_requested(sect_name: String)
 signal refresh_tasks_requested()
 signal start_expedition_requested(task_id: String)
@@ -37,6 +39,7 @@ var _tab_content_container: VBoxContainer
 var _cached_sect_data: Dictionary = {}
 var _cached_resources: Dictionary = {}
 var _cached_is_eligible_to_join: bool = false
+var _header_reflow_pending := false
 
 const SECT_FLAVORS := {
 	"太虛天闕": "道門正宗 · 吐納浩然，周天靈氣生生不息",
@@ -76,17 +79,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 func _build_ui() -> void:
 	clip_contents = true
 	_background = Panel.new()
-	var bg_box := StyleBoxFlat.new()
-	bg_box.bg_color = Color(0.08, 0.10, 0.14, 0.98)
-	bg_box.border_color = Color(0.7, 0.55, 0.25, 0.8)
-	bg_box.border_width_left = 1
-	bg_box.border_width_top = 1
-	bg_box.border_width_right = 1
-	bg_box.border_width_bottom = 1
-	bg_box.corner_radius_top_left = 8
-	bg_box.corner_radius_top_right = 8
-	bg_box.corner_radius_bottom_left = 8
-	bg_box.corner_radius_bottom_right = 8
+	var bg_box := UiTypography.dialog_surface()
 	_background.add_theme_stylebox_override("panel", bg_box)
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
@@ -94,6 +87,7 @@ func _build_ui() -> void:
 	_header_container = VBoxContainer.new()
 	_header_container.name = "SectHeaderContainer"
 	_header_container.add_theme_constant_override("separation", 10)
+	_header_container.minimum_size_changed.connect(_queue_header_reflow)
 	add_child(_header_container)
 
 	# 1. 頂部標題列
@@ -103,7 +97,7 @@ func _build_ui() -> void:
 
 	_title_label = Label.new()
 	_title_label.text = "【宗門外務】· 太虛天闕"
-	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
+	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 20)
 	_title_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -126,17 +120,7 @@ func _build_ui() -> void:
 
 	# 2. 狀態或概覽橫幅
 	_banner_panel = PanelContainer.new()
-	var b_box := StyleBoxFlat.new()
-	b_box.bg_color = Color(0.12, 0.16, 0.22, 0.95)
-	b_box.border_color = Color(0.35, 0.65, 0.85, 0.5)
-	b_box.border_width_left = 1
-	b_box.border_width_top = 1
-	b_box.border_width_right = 1
-	b_box.border_width_bottom = 1
-	b_box.corner_radius_top_left = 6
-	b_box.corner_radius_top_right = 6
-	b_box.corner_radius_bottom_left = 6
-	b_box.corner_radius_bottom_right = 6
+	var b_box := UiMaterial.card()
 	b_box.content_margin_left = 12
 	b_box.content_margin_right = 12
 	b_box.content_margin_top = 6
@@ -232,9 +216,9 @@ func _render_current_tab() -> void:
 		return
 
 	# 高亮分頁按鈕樣式
-	_tab_expeditions_btn.modulate = Color(1.2, 1.2, 1.2) if _current_tab == TabMode.EXPEDITIONS else Color(0.7, 0.7, 0.7)
-	_tab_techniques_btn.modulate = Color(1.2, 1.2, 1.2) if _current_tab == TabMode.TECHNIQUES else Color(0.7, 0.7, 0.7)
-	_tab_market_btn.modulate = Color(1.2, 1.2, 1.2) if _current_tab == TabMode.MARKET else Color(0.7, 0.7, 0.7)
+	UiMaterial.mark_selected(_tab_expeditions_btn, _current_tab == TabMode.EXPEDITIONS)
+	UiMaterial.mark_selected(_tab_techniques_btn, _current_tab == TabMode.TECHNIQUES)
+	UiMaterial.mark_selected(_tab_market_btn, _current_tab == TabMode.MARKET)
 
 	match _current_tab:
 		TabMode.EXPEDITIONS:
@@ -249,17 +233,7 @@ func _render_join_panel() -> void:
 	var is_eligible := _cached_is_eligible_to_join
 
 	var intro_card := PanelContainer.new()
-	var intro_box := StyleBoxFlat.new()
-	intro_box.bg_color = Color(0.12, 0.15, 0.20, 0.95)
-	intro_box.border_color = Color(0.8, 0.65, 0.2, 0.8) if is_eligible else Color(0.85, 0.4, 0.35, 0.8)
-	intro_box.border_width_left = 1
-	intro_box.border_width_top = 1
-	intro_box.border_width_right = 1
-	intro_box.border_width_bottom = 1
-	intro_box.corner_radius_top_left = 8
-	intro_box.corner_radius_top_right = 8
-	intro_box.corner_radius_bottom_left = 8
-	intro_box.corner_radius_bottom_right = 8
+	var intro_box := UiMaterial.card()
 	intro_box.content_margin_left = 14
 	intro_box.content_margin_right = 14
 	intro_box.content_margin_top = 12
@@ -302,17 +276,7 @@ func _render_join_panel() -> void:
 	# 垂直排列的各宗門卡片，完全自適應且永遠不會水平截斷
 	for s_name in SectSystem.SECT_NAMES:
 		var s_card := PanelContainer.new()
-		var s_box := StyleBoxFlat.new()
-		s_box.bg_color = Color(0.10, 0.13, 0.18, 0.9)
-		s_box.border_color = Color(0.3, 0.45, 0.6, 0.5)
-		s_box.border_width_left = 1
-		s_box.border_width_top = 1
-		s_box.border_width_right = 1
-		s_box.border_width_bottom = 1
-		s_box.corner_radius_top_left = 6
-		s_box.corner_radius_top_right = 6
-		s_box.corner_radius_bottom_left = 6
-		s_box.corner_radius_bottom_right = 6
+		var s_box := UiMaterial.card()
 		s_box.content_margin_left = 12
 		s_box.content_margin_right = 12
 		s_box.content_margin_top = 8
@@ -352,6 +316,15 @@ func _render_join_panel() -> void:
 		j_btn.custom_minimum_size = Vector2(96, 36)
 		s_row.add_child(j_btn)
 
+func _queue_header_reflow() -> void:
+	if not _header_reflow_pending:
+		_header_reflow_pending = true
+		_reflow_header.call_deferred()
+
+func _reflow_header() -> void:
+	_header_reflow_pending = false
+	set_layout_bounds(Rect2(position, size))
+
 func _on_join_pressed(s_name: String) -> void:
 	join_sect_requested.emit(s_name)
 
@@ -362,17 +335,7 @@ func _render_expeditions_tab() -> void:
 
 	# 1. 進行中歷練卡片
 	var active_panel := PanelContainer.new()
-	var act_box := StyleBoxFlat.new()
-	act_box.bg_color = Color(0.15, 0.18, 0.24, 0.95) if is_active else Color(0.10, 0.12, 0.15, 0.8)
-	act_box.border_color = Color(0.9, 0.7, 0.2, 0.8) if is_active else Color(0.3, 0.35, 0.4, 0.5)
-	act_box.border_width_left = 1
-	act_box.border_width_top = 1
-	act_box.border_width_right = 1
-	act_box.border_width_bottom = 1
-	act_box.corner_radius_top_left = 6
-	act_box.corner_radius_top_right = 6
-	act_box.corner_radius_bottom_left = 6
-	act_box.corner_radius_bottom_right = 6
+	var act_box := UiMaterial.card()
 	act_box.content_margin_left = 12
 	act_box.content_margin_right = 12
 	act_box.content_margin_top = 10
@@ -385,12 +348,20 @@ func _render_expeditions_tab() -> void:
 	active_panel.add_child(act_vb)
 
 	if is_active:
+		var active_title_row := HBoxContainer.new()
+		active_title_row.add_theme_constant_override("separation", 6)
+		act_vb.add_child(active_title_row)
+		var active_icon: Control = UiIconScript.new()
+		active_icon.set("kind", UiIconScript.Kind.HOURGLASS)
+		active_icon.tint = Color(1.0, 0.85, 0.3)
+		active_title_row.add_child(active_icon)
 		var a_title := Label.new()
 		var rarity_name: String = String(active.get("rarity_name", "普通"))
 		var t_name: String = String(active.get("name", "歷練"))
-		a_title.text = "⏳【當前歷練中】[%s] %s" % [rarity_name, t_name]
+		a_title.text = "【當前歷練中】[%s] %s" % [rarity_name, t_name]
 		a_title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
-		act_vb.add_child(a_title)
+		a_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		active_title_row.add_child(a_title)
 
 		var duration := int(active.get("duration", 0))
 		var elapsed := int(active.get("elapsed", 0))
@@ -415,14 +386,16 @@ func _render_expeditions_tab() -> void:
 		status_row.add_child(status_lbl)
 
 		var claim_btn := Button.new()
-		claim_btn.text = "🎁 領取歷練獎勵" if is_finished else "歷練中..."
+		claim_btn.text = "領取歷練獎勵" if is_finished else "歷練中..."
+		if is_finished:
+			claim_btn.icon = load("res://assets/ui/icons/gift.svg")
 		claim_btn.disabled = not is_finished
 		claim_btn.custom_minimum_size = Vector2(120, 32)
 		claim_btn.pressed.connect(_on_claim_expedition_pressed)
 		status_row.add_child(claim_btn)
 	else:
 		var idle_lbl := Label.new()
-		idle_lbl.text = "⛩️ 當前無進行中歷練，可從下方挑選委託派遣分身。"
+		idle_lbl.text = "當前無進行中歷練，可從下方挑選委託派遣分身。"
 		idle_lbl.add_theme_color_override("font_color", Color(0.6, 0.75, 0.85))
 		act_vb.add_child(idle_lbl)
 
@@ -430,15 +403,24 @@ func _render_expeditions_tab() -> void:
 	var list_header := HBoxContainer.new()
 	_tab_content_container.add_child(list_header)
 
+	var list_title_row := HBoxContainer.new()
+	list_title_row.add_theme_constant_override("separation", 6)
+	list_header.add_child(list_title_row)
+	var list_icon: Control = UiIconScript.new()
+	list_icon.set("kind", UiIconScript.Kind.SCROLL)
+	list_icon.set("tint", Color("e8cf83"))
+	list_title_row.add_child(list_icon)
 	var sub_title := Label.new()
-	sub_title.text = "📜 宗門懸賞委託清單"
+	sub_title.text = "宗門懸賞委託清單"
 	sub_title.add_theme_font_override("font", UiTypography.emphasis_font())
 	sub_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	list_header.add_child(sub_title)
+	list_title_row.add_child(sub_title)
 
 	var refresh_cd := int(_cached_sect_data.get("next_refresh_seconds", 0))
 	var refresh_btn := Button.new()
-	refresh_btn.text = "🔄 刷新委託" if refresh_cd <= 0 else "冷卻中 (%ds)" % refresh_cd
+	refresh_btn.text = "刷新委託" if refresh_cd <= 0 else "冷卻中 (%ds)" % refresh_cd
+	if refresh_cd <= 0:
+		refresh_btn.icon = load("res://assets/ui/icons/refresh.svg")
 	refresh_btn.disabled = refresh_cd > 0
 	refresh_btn.pressed.connect(_on_refresh_tasks_pressed)
 	list_header.add_child(refresh_btn)
@@ -456,17 +438,7 @@ func _render_expeditions_tab() -> void:
 
 func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	var card := PanelContainer.new()
-	var box := StyleBoxFlat.new()
-	box.bg_color = Color(0.12, 0.15, 0.20, 0.9)
-	box.border_color = Color(0.3, 0.4, 0.5, 0.5)
-	box.border_width_left = 1
-	box.border_width_top = 1
-	box.border_width_right = 1
-	box.border_width_bottom = 1
-	box.corner_radius_top_left = 6
-	box.corner_radius_top_right = 6
-	box.corner_radius_bottom_left = 6
-	box.corner_radius_bottom_right = 6
+	var box := UiMaterial.card()
 	box.content_margin_left = 12
 	box.content_margin_right = 12
 	box.content_margin_top = 8
@@ -504,7 +476,7 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	if rewards.has("herb"):
 		r_text += " | 靈草 +%d" % int(rewards["herb"])
 	if rewards.has("special_buff"):
-		r_text += " | 🌟【頓悟靈光】"
+		r_text += " | 【頓悟靈光】"
 	var rew_lbl := Label.new()
 	rew_lbl.text = r_text
 	rew_lbl.add_theme_color_override("font_color", Color(0.9, 0.85, 0.4))
@@ -531,17 +503,7 @@ func _render_techniques_tab() -> void:
 		var max_lvl := int(def.get("max_level", 10))
 
 		var card := PanelContainer.new()
-		var box := StyleBoxFlat.new()
-		box.bg_color = Color(0.12, 0.15, 0.20, 0.9)
-		box.border_color = Color(0.3, 0.45, 0.6, 0.6)
-		box.border_width_left = 1
-		box.border_width_top = 1
-		box.border_width_right = 1
-		box.border_width_bottom = 1
-		box.corner_radius_top_left = 6
-		box.corner_radius_top_right = 6
-		box.corner_radius_bottom_left = 6
-		box.corner_radius_bottom_right = 6
+		var box := UiMaterial.card()
 		box.content_margin_left = 12
 		box.content_margin_right = 12
 		box.content_margin_top = 8
@@ -603,17 +565,7 @@ func _render_market_tab() -> void:
 		var is_sold_out := bought_count >= limit
 
 		var card := PanelContainer.new()
-		var box := StyleBoxFlat.new()
-		box.bg_color = Color(0.12, 0.15, 0.20, 0.9)
-		box.border_color = Color(0.6, 0.45, 0.3, 0.5)
-		box.border_width_left = 1
-		box.border_width_top = 1
-		box.border_width_right = 1
-		box.border_width_bottom = 1
-		box.corner_radius_top_left = 6
-		box.corner_radius_top_right = 6
-		box.corner_radius_bottom_left = 6
-		box.corner_radius_bottom_right = 6
+		var box := UiMaterial.card()
 		box.content_margin_left = 12
 		box.content_margin_right = 12
 		box.content_margin_top = 8

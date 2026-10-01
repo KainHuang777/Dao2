@@ -1,3 +1,289 @@
+[2026-10-02] GITIGNORE maintenance checkpoint
+- User requested updating .gitignore to exclude large binaries (~3.45GB in tools/godot/) and caches before GitHub repository sync.
+- Updated .gitignore to exclude tools/godot/ (engine binaries, export template archives, unpacked templates), .godot/ cache, build/ export directory, node_modules/, environment variables (.env*), OS metadata files (.DS_Store, Thumbs.db, desktop.ini), and IDE temp/workspace files (.vscode/, .idea/, *.swp, *.tmp).
+- Verified with git check-ignore that tools/godot/, .godot/, build/, and .vscode/ are properly ignored. Repository source and assets remain clean (~250MB total) for GitHub push.
+
+[2026-10-02] M2-D-UI7 quiet material implementation checkpoint
+- User authorized rechecking the saved UI direction against readable project files and implementing it. Corrected proposal to retain the existing left three-mode resources, landscape/responsive layout, mixed sans/serif typography and requested irregular aged-paper edges. Existing light-on-dark function panels use matte ink-grey rather than a blanket paper conversion.
+- UiMaterial now uses original paper_button.svg for ordinary controls, jade_selected.svg for selected tabs/existing captions, and cinnabar_button.svg for cultivation advancement/breakthrough. Recolored jade_panel/card as matte ink and neutralized paper center/edges/rows. Full button text states, selected tabs and keyboard focus retained; settings icon and reincarnation stale tab color overrides corrected. Message category colors subdued and decorative bullets removed after Web wrap review. No economy/save/layout changes, new buildings, copied art or extra effects.
+- Modified UiMaterial, HUD controller, reincarnation_panel, existing SVGs, material README, preview tool, design proposal, ROADMAP and development-status. Preview --quiet-material uses separate artifact directories and existing isolated saves; CTA visibility is a style fixture only.
+- Godot 4.7.2 import exit 0; all 34 runners PASS exit 0 after process-only ExecutionPolicy Bypass and authorized fixture access (first attempts failed on Windows execution policy, then sandbox user:// fixture write). Presentation parity PASS; final responsive PASS after message decoration change. 21 native PNGs, final Web export exit 0. Existing RID/CanvasItem/ObjectDB teardown warnings remain.
+- Actual IAB mouse checks at CSS 1280x720 and 844x390, canvas matching CSS, DPR approx 1: offline close, management tab, full resources and return to island work; short management folds/restores messages. 360x640 rotation prompt confirmed. Separate localhost origin 4182 protects player 4178 data. Screenshots under docs/verification/artifacts/ui-quiet; browser warnings/errors query empty. Initial 4178 connection refused and viewport-shift missed click are recorded honestly.
+- M2-D-UI7 IN_PROGRESS for user art acceptance/high-DPR/physical touch. See docs/verification/ui-quiet-materials.md for all commands/files/limits. Stop here and use a fresh chat for feedback/device acceptance; preserve unrelated shared workspace work. Do not treat material checks as full acceptance of legacy modal layout/rarity colors.
+
+[2026-10-02] ENV-TERMINAL recovery and saved UI direction checkpoint
+- User requested saving the UI conclusion and prioritizing terminal recovery. Saved docs/ui-material-direction-2026-10-02.md: paper/ink with restrained jade, cinnabar and gold; landscape responsive layout retained. No UI implementation in this task.
+- Root cause confirmed locally: sandbox refresh could not open E:\WORK\Dao2\.git for deny-ACL updates. Root directory was owned by CodexSandboxOffline, while workspace was owned by asus. Bundled PowerShell 7.6.5 worked outside the sandbox; cmd failed in sandbox too. No evidence PowerShell age caused the failure, and Windows upgrade causality remains unproven.
+- Backed up root SDDL under docs/verification. Initial non-admin icacls owner correction failed exit 5. Added tools/repair_codex_git_owner.ps1 with fixed-path/reparse/expected-owner guards. UAC run succeeded exit 0; only .git root owner changed to asus, original DACL unchanged, no recursive or Git-content edits. JSON repair result retained.
+- Normal sandbox terminal then passed README read and Godot --version (4.7.2.stable.official.ed1daf0bf), exit 0. Helper successfully restored deny ACE and reported errors=[]. See docs/verification/terminal-initialization-2026-10-02.md and docs/development-status.md. Browser runtime not reverified; no gameplay tests needed for this environment-only repair.
+- Stop before the UI implementation. Use a fresh chat to read the saved design and existing UI specifications, establish the Roadmap scope, and implement the small material trial. Preserve all unrelated shared-workspace edits.
+
+[2026-10-02] M2-B-FX2 breakthrough gold formation/lightning revision checkpoint
+- User reported weak Era breakthrough halos/lightning. Original implementation had only attained bool and identical soft arcs for every Era; no escalating presentation tiers. Strengthened base Era2 formation glow/white-gold core/seal strokes/beam and added irregular slowly evolving branched lightning, without copying reference artwork or adding gameplay tribulation rules.
+- Four bounded tiers: Era2-3 = 3 bolts/4 rings/48 sparks; 4-6 = 4/5/60; 7-9 = 5/6/72; 10-12 = 6/7/84. Glow grows 1.0 to 1.54. Low-motion still draws a soft formation only; persistent daily aura stays restrained. No frame RNG, screen strobe or rewards from animation.
+- Changes: src/presentation/island_breakthrough_fx.gd; breakthrough_sequence.gd play optional target Era and replay retention; src/abode/living_abode.gd actual committed/current Era passed to play/replay; tests/island_breakthrough_runner.gd tier budgets/target retention/snapshot safety; tools/breakthrough_fx_preview.gd isolated presentation-only fixtures.
+- 34/34 runners PASS exit0, presentation parity PASS exit0, native GPU eight Era2/8/12/reduced captures in docs/verification/artifacts/breakthrough-fx2, Web export exit0. Final irregular-path adjustment compiled/rendered and exported again. Fixed preview physical/logical mismatch: 844x390 physical has 779x360 logical; final skip button fits. Existing shutdown RID/ObjectDB warnings remain. No true browser/DPR/phone dynamic performance evidence or FPS claim.
+- Updated ROADMAP, docs/development-status and dated section atop docs/verification/island-breakthrough.md. M2-B-FX2 IN_PROGRESS for user visual/device acceptance. Preview http://127.0.0.1:4178/index.html?ui=breakthrough-fx2-20261002 ; More > replay breakthrough on a qualified test save. High Era screenshots are visual fixtures, not actual progress grants.
+- Stop before new major work. Collect visual feedback, then verify real Web/device behavior in a fresh chat. Preserve unrelated shared UI/Fortune/M5-B/domain/BGM modifications.
+[2026-10-02] M2-D-TEXT1 native transition-text prototype checkpoint
+- User requested a future in-game transition-text method inspired by Text APNG Maker and a black/white title reference. Read upstream README and terms section 7: copying the tool or major code without permission is prohibited, repo license is null. No upstream implementation or assets were copied. Built original native Godot Control using the existing licensed fonts.
+- New src/presentation/text_transition.gd exposes play(main, subtitle, options), reveal/fade, reduced motion, configurable hold, skip/Esc and exactly-once completion including replay cancellation. Fullscreen anchored/container layout, serif 800 title, sans 600 subtitle, thin white side rules. Pure presentation: no session/rewards/save access.
+- HUD settings ID 102 opens illustrative LV2/Era2/80 fixture; modal manager owns camera lock and restores previous lock state on completion. Existing breakthrough/reincarnation behavior remains. Simulation continues normally during this visual preview.
+- New tests/text_transition_runner.gd registered in tools/run_all_runners.ps1. Final all 34 runners PASS exit 0, presentation parity PASS exit 0, native four PNGs under docs/verification/artifacts/text-transition, Web export exit 0. Initial runner type inference and physical-vs-logical viewport test setup failures corrected and rerun; existing exit RID/ObjectDB warnings persist. No true browser/phone/input/DPR evidence; status remains IN_PROGRESS for visual/device acceptance.
+- docs/verification/ui-text-transition.md records provenance, API, commands, failures and pending manual checks. ROADMAP and development-status updated. Preview http://127.0.0.1:4178/index.html?ui=text-transition-20261002 via Settings > transition-text prototype. Test fixture does not represent actual player progression.
+- Stop before a new major feature. Collect feedback and real device acceptance; use a fresh chat to decide event integration/text timing. Preserve unrelated shared Fortune/M5-B/domain/BGM modifications.
+[2026-10-02] M2-D-UI6-R1 accepted mixed typography checkpoint
+- User accepted sans for dense information and serif for a few chapter titles, explicitly requiring bold serif titles. Added UiTypography.chapter_font using the existing Noto Serif TC variable font at weight 800. Applied to seven primary panel headings (catalog, alchemy, sect, reincarnation, teleport, fortune, nine-realms) plus the home world inscription. Body/actions/small building labels remain Source Han Sans TW 400/600.
+- Important correction: renderer inspection showed previous string-key wght settings resolved to empty coordinates on this engine/resource combination. Replaced with unique OpenType integer axis tag 0x77676874 and verified actual TextServer coordinates 400/600/800. Audit now fails if these coordinates are absent/wrong. Earlier October 1 images remain historical visuals, not proof of effective intended weights; old width measurements reflected default axes. Updated verification notes accordingly.
+- Existing serif embedded metadata confirms Adobe 2017-2023, Noto Serif TC, OFL 1.1 and 200-900 axis. Original download provenance remains unknown; binary unchanged. Added NotoSerifTC-LICENSE.txt retaining embedded notice and official OFL; Web export includes both fonts and licenses.
+- Final actual-axis version: all 33 runners PASS exit 0, presentation parity PASS exit 0, glyph/axis audit PASS, 20 native screenshots under docs/verification/artifacts/ui-mixed, Web export exit 0, localhost:4178 HTTP 200. Inspected desktop catalog/sect and short-landscape alchemy. Existing teardown RID/ObjectDB warnings persist; Web DPI/input and physical devices still unverified.
+- Evidence docs/verification/ui-source-han-sans.md appended revision. Preview http://127.0.0.1:4178/index.html?ui=mixed-font-20261002 . UI6-R1 remains IN_PROGRESS for actual visual/device acceptance, though direction is user-approved. No gameplay/save changes.
+- Stop here. A fresh chat should collect typography feedback before new major work. Preserve unrelated shared-workspace Fortune/M5-B/domain/BGM changes.
+[2026-10-01] M2-D-UI6 Source Han Sans trial checkpoint
+- User requested Adobe Source Han Sans for the game and assessment of drawbacks beyond size. Verified official README/release/OFL; downloaded unmodified 2.005R Taiwan variable TTF and complete license. SourceHanSansTW-VF.ttf SHA256 CF6889F4C0F1ADEAF814CA3E98CC692D9E2D706501CF7545B9B58F6E3966B6AC, 11911704 bytes. Provenance assets/fonts/README.md; license explicitly included in Web export. Old serif remains in source, excluded from release.
+- UiTypography now uses body 400, emphasis 600 with explicit RichTextLabel normal/bold roles; nine-realms direct preload and basic font runner updated. Existing five unsupported decorative glyphs were replaced with readable words or the supported star; no gameplay/save change.
+- Offline audit (tools/font_trial_audit.gd) disables system fallback, scans source/content including comments: all 1501 unique Han characters covered; final non-ASCII missing list empty. Actual 17px sample widths: realm caption 170->181, message heading 151->161, progress line 227->235; sampled height unchanged at 25. Not a complete-Unicode or user-input guarantee.
+- Drawbacks: modern visual character reduces antique serif flavor; width/wrapping changes; TW regional coverage does not guarantee future languages/rare glyphs/emoji; camera/DPR smoothing and atlas/performance must still be measured. No FPS/memory/cold-Web-start claims. Current whole-game sans trial is ready for visual comparison; possible later serif-title mix requires user feedback.
+- All 33 final runners PASS exit 0; presentation parity PASS; font audit PASS; native core 16 plus guidance 4 images captured under docs/verification/artifacts/ui-sans; import and Web export exit 0, license presence confirmed in export log, localhost:4178 HTTP 200. Existing shutdown RID/ObjectDB warnings persist. Actual browser DPI/input and physical devices remain unverified.
+- Evidence docs/verification/ui-source-han-sans.md. Preview http://127.0.0.1:4178/index.html?ui=sans-20261001 . UI6 remains IN_PROGRESS pending user and device acceptance. Stop at this checkpoint; next major task should use a fresh chat and preserve unrelated shared-workspace Fortune/M5-B/BGM/domain edits.
+[2026-10-01] M2-D-UI5 onboarding visibility and readable system messages checkpoint
+- User requested hiding completed onboarding buttons and opening a more readable system-message panel by default. HUD and catalog now use effective next_objective availability; completion hides both buttons across detail/density changes, while a valid objective restores them. Existing Domain onboarding is Era 1 only; no invented future-Era milestones were added.
+- Messages default open each launch, use 17px body text, 6px line spacing, 44px title actions, up to 540px width and 220px normal/300px expanded height capped by the viewport. Layout keeps status/resources accessible. Short landscape management temporarily folds messages and restores them on return; explicit user opening can display a message overlay, and manual closing remains respected for the run. Portrait retains rotation guidance. Boot seeds current guidance into the log.
+- Changed abode_hud_controller, building_catalog, living_abode error feedback, existing responsive runner, and ui_material_preview (--guidance-hud). Initial compile failed on inferred dynamic-node bool; stopped that test process, fixed explicit bool, and reran successfully.
+- All 33 existing runners PASS exit 0, presentation parity PASS exit 0, final responsive rerun PASS exit 0, native isolated preview exit 0 with four screenshots under docs/verification/artifacts/ui-guidance, Web export exit 0, localhost:4178 HTTP 200. Existing RID/ObjectDB shutdown warnings remain; no real browser input/DPR/physical device proof claimed.
+- Evidence docs/verification/ui-guidance-messages.md. Preview http://127.0.0.1:4178/index.html?ui=messages-20261001 . UI5 remains IN_PROGRESS for user/device acceptance. No player-save or gameplay-rule change.
+- Stop at this checkpoint; a fresh chat should collect this UI feedback before another major task. Preserve unrelated Fortune/M5-B/domain/BGM edits in the shared workspace.
+[2026-10-01] M5-B Nine Realms Content Expansion & Strategic Decisions (DONE; Domain, Content, Simulation & Tests)
+- Delivered M5-B content expansion per Taoist "nature and life dual cultivation" (性命雙修) cosmology across all Nine Realms.
+- Data Contracts & Content Expansion:
+  - Created content/realms/realm_decisions.json defining 14 strategic decisions across all 9 realms (e.g., Human compile dao canon / irrigate vein, Spirit attune lingchao, Nether soul fire refinement / ferry souls, Beast blood forge vein / hunt primordial beast, Demon burn soul / slay inner demon, Immortal pure yang meditation, Buddha diamond sutra recitation, Chaos elemental reversal, Origin spin genesis wheel).
+  - Deepened content/worlds/world_archetypes.json: expanded terrain traits pool from 3 to 6-8 per realm with rich geographic lore, category tagging, and mutual exclusion rules.
+  - Expanded content/encounters/encounters.json from 8 to 26 deep Taoist encounters, introducing realm-specific events for all 9 realms (e.g. Nether ferryman, Judge's brush, Peng nest baptism, Dragon bone mining, Demon maiden問心, etc.).
+- Domain & Simulation Core:
+  - Created src/simulation/realm_decision_system.gd: pure deterministic contract handling decision gating (era requirements, atomic resource/lifespan deduction, cooldown tracking, reward grants for training, resources, dao heart, and buffs).
+  - Integrated realm_decisions in GameState and SaveCodec with backwards/forwards compatible serialization.
+  - Wired RealmDecisionSystem.advance_time() in TimeAdvancer.gd (both advance and advance_time_only).
+  - Enhanced FortuneSystem.trigger_fortune() with 3.0x current_realm bias alongside the 2.0x celestial aspiration bias.
+  - Fixed Mulberry32 bitwise formula in src/domain/seeded_random.gd.
+- Application & Session Integration:
+  - Registered "execute_realm_decision" command in CommandProcessor and GameSession.KNOWN_COMMAND_TYPES with validation.
+  - Exposed realm_decisions view in GameSession.get_view() and added session.execute_realm_decision() convenience helper.
+- Verification & Test Suite:
+  - Created tests/m5b_realm_content_runner.gd verifying decision gating, resource deduction, cooldowns, terrain traits mutual exclusion, encounter bias, session commands, and SaveCodec persistence roundtrip.
+  - Added m5b_realm_content_runner to tools/run_all_runners.ps1. All 33 runners passed with exit code 0.
+  - Godot Web release export passed with exit code 0.
+[2026-10-01] M2-D-UI4-R1 aged paper edges checkpoint
+- User requested less regular paper edges, yellowing and historical wear while preserving layout. Revised only assets/ui/material/silk_panel.svg: clipped irregular silhouette, subtle corner tears, localized ochre edge gradients and pale fiber marks; removed the regular inner frame. SVG size, nine-patch margins, content padding, input and gameplay stay unchanged.
+- Direct original vector authoring; provenance recorded in assets/ui/material/README.md. Verified usage remains cultivation and resource HUD; no unrelated interface rollout.
+- Godot import exit 0; native --paper-hud preview exit 0 (desktop and short-landscape images inspected, four images copied under docs/verification/artifacts/ui-paper-aged). Responsive UI runner PASS exit 0; Web export exit 0; localhost:4178 HTTP 200. Existing teardown RID/ObjectDB warnings remain. No fresh all-runners, actual browser input or physical device proof claimed.
+- UI4-R1 stays IN_PROGRESS for user visual acceptance and Web/device checks. Evidence: docs/verification/ui-paper-hud.md appended revision. Preview http://127.0.0.1:4178/index.html?ui=aged-paper-20261001 . The ui-paper HUD screenshots were regenerated and now reflect this revision.
+- Stop at this small feedback checkpoint. Next work should collect feedback on edge wear strength; use a fresh chat before expanding to another major UI area. Preserve unrelated Fortune/domain/BGM and other shared-workspace edits.
+[2026-10-01] M3-B Fortune & Encounter System (DONE; Core Simulation, Presentation & Full Test Suite)
+- Delivered the Fortune & Encounter subsystem per Taoist Xianxia serendipity philosophy, strictly bounded by the user's frequency constraint (trigger frequency strictly bounded by cultivation Era: Era 1 max 1/hr, Era 2 max 2/hr, Era 3 max 3/hr; cooldown = 3600.0 / era_id).
+- Deepened connections across sub-systems:
+  - Celestial Aspiration Bias: 2.0x roulette weighting toward encounters matching player's Aspiration Realm (implementing spec docs/11 line 105).
+  - Chrono System Bias: 1.5x weighting for matching weather (Five Elements) and matching Shichen.
+  - Non-intrusive flow: Cooldown timer automatically pauses while a pending encounter exists, preventing popup stacking or offline reward explosion.
+- Data Contracts & Core Simulation (content/encounters/encounters.json, src/content/content_loader.gd, src/domain/game_state.gd, src/persistence/save_codec.gd, src/simulation/fortune_system.gd):
+  - Created balanced encounters.json with 8 canonical Taoist encounters (ancient cave, celestial dew, wandering taoist, beast relic, nether whisper, demon heart tribulation, falling star, primordial fountain).
+  - Extended ContentLoader.load_encounters() with JSON validation.
+  - Added fortune field to GameState and backward-compatible SaveCodec roundtrip.
+  - Implemented FortuneSystem with compute_max_per_hour(), compute_cooldown_for_era(), advance_time(), trigger_fortune(), and resolve_fortune() using deterministic SeededRandom.
+- Integration & Flow (src/simulation/time_advancer.gd, src/simulation/reincarnation_rules.gd, src/simulation/command_processor.gd, src/application/game_session.gd):
+  - Integrated FortuneSystem.advance_time() in TimeAdvancer.
+  - Reincarnation resets pending encounters and restores Era 1 cooldown while preserving lifetime statistics.
+  - Registered trigger_fortune and resolve_fortune commands in CommandProcessor and GameSession.KNOWN_COMMAND_TYPES.
+  - Exposed fortune view in GameSession.get_view().
+- Presentation & UI (src/presentation/fortune_modal.gd, abode_modal_manager.gd, abode_hud_controller.gd, living_abode.gd):
+  - Created FortuneModal adhering to M2-D-UI4 silk-paper & jade aesthetic with dynamic options, resource affordability checks, and responsive bounds.
+  - Integrated into LivingAbode secondary menu (item 11 "機緣奇遇" / "✨ 機緣奇遇").
+- Verification & Test Suite:
+  - Created tests/m3b_fortune_runner.gd (unit tests covering cooldown contracts, biases, atomic resolution, persistence, and reincarnation).
+  - Created tests/m3b_fortune_ui_runner.gd (UI structure, option states, signals, responsive layouts, and scene integration).
+  - Added both runners to tools/run_all_runners.ps1; all 32 runners passed with exit code 0.
+  - Godot 4.7.2 Web Release export passed with exit code 0.
+
+[2026-10-01] M2-D-UI4 Mixed silk-paper and jade HUD prototype checkpoint
+- User explicitly requested only the cultivation panel plus resource HUD as a trial. Added original silk_panel.svg (direct vector authoring; provenance in assets/ui/material/README.md). Warm grey paper, dark ink typography, restrained row separators; jade retained for actions and the selected resource tab. Full storage uses darker ochre plus explicit full text and disabled gathering. Other dialogs, building rows and island labels retain prior materials.
+- Changed UiMaterial, abode_hud_controller, building_catalog (HUD-only resource flag), ui_material_preview (--paper-hud), and one responsive runner assertion. First test run failed because a prior assertion hard-coded the old pale-gold full-storage text; updated it to test changed color, explicit full text and disabled gather. Preserved the first failure log.
+- Godot 4.7.2 confirmed; import exit 0; native preview exit 0 with four screenshots under docs/verification/artifacts/ui-paper; all 30 runners PASS on rerun; presentation parity PASS; Web export exit 0; existing localhost:4178 HTTP 200. Existing shutdown RID/ObjectDB warnings remain. Browser open request queued; no actual browser input, DPR or physical phone evidence claimed.
+- UI4 remains IN_PROGRESS pending user visual acceptance and device checks. Evidence: docs/verification/ui-paper-hud.md. Preview http://127.0.0.1:4178/index.html?ui=paper-20261001 . Isolated render fixtures do not alter player saves or the formal Session.
+- Stop at this bounded prototype. In a new chat, collect visual feedback and decide whether to extend paper/jade to other panels or bamboo-inspired rows; do not roll it out automatically. Preserve unrelated shared-workspace M5-A/BGM/domain changes.
+[2026-10-01] M2-D-UI3 Island typography checkpoint
+- User requested matching typography for the island's hut and spirit-tree labels. Added shared world text/caption styling in UiMaterial; replaced flat black labels with the existing original jade/gold nine-patch plaque, warm text and softer shadows. Updated the home heading and harvest floating text; lifted world typography above sword trails. Hit geometry, status text, commands, rewards and save formats remain unchanged.
+- Changed source: src/presentation/ui_material.gd, src/abode/abode_building.gd, src/abode/abode_tree.gd, src/abode/living_abode.gd. Extended tools/ui_material_preview.gd with --world-captions, isolated saves and render-only hut fixture.
+- Verified engine 4.7.2.stable.official.ed1daf0bf. All 30 runners PASS (exit 0), presentation parity PASS (exit 0), native Compatibility capture produced four images under docs/verification/artifacts/ui-world, Web export exit 0, localhost:4178 HTTP 200. Existing teardown RID/ObjectDB warnings persist. No real browser input, DPR or physical phone proof claimed; compact default HUD can still cover the hut.
+- UI3 remains IN_PROGRESS pending user visual and Web/device acceptance. Evidence and commands: docs/verification/ui-world-typography.md. Preview: http://127.0.0.1:4178/index.html?ui=world-20261001
+- Stop at this bounded checkpoint. Next chat should address UI2/UI3 visual feedback and Web/device checks before any new large feature. Preserve unrelated M5-A/domain/BGM and all pre-existing changes in this shared workspace.
+[2026-10-01] M5-A Procedural Generation & Nine Realms Law Specification (DONE; Core & Contracts Only)
+- Deepened Nine Realms Taoist lore, 7-dimensional law contracts, and procedural world generation without touching any Presentation/UI code.
+- Specification Document (docs/11-nine-realms-law-and-world-generation-spec.md):
+  - Cultural & philosophical anchoring: Taoist "nature and life dual cultivation" (性命雙修), 3 realms 9 heavens, 36 grottoes, trade-offs between realm specializations.
+  - 7-dimensional law matrix: cultivation factor, lifespan dilation, pool scale, alchemy flame affinity (地火親和), vein extraction affinity (靈脈金石親和), soul/reincarnation affinity (神魂性功), and dominant elements.
+  - Celestial Aspiration mechanism (心印嚮往): remote projection resonance, fortune bias, and reincarnation talent seeds.
+- Core Data Contracts & Pure Simulation (content/realms/realms.json, content/worlds/world_archetypes.json, src/domain/world_descriptor.gd, src/simulation/world_generator.gd, src/simulation/scale_law_contract.gd):
+  - Updated content/realms/realms.json with full 7-dimensional law contracts across all 9 realms.
+  - Implemented ScaleLawContract queries and pure compute_aspiration_resonance() mathematical projection.
+  - Authored content/worlds/world_archetypes.json with naming prefixes/suffixes, descriptions, mutual exclusion traits pool, resource bias, and guaranteed baseline fallbacks.
+  - Implemented WorldDescriptor pure RefCounted data structure with serialization/deserialization.
+  - Implemented WorldGenerator deterministic generator using 32-bit FNV-1a hashing, strict anti-arbitrage validation, trait mutual exclusion, and safe fallback.
+- State & Persistence Integration (src/domain/game_state.gd, src/persistence/save_codec.gd):
+  - Added aspiration_realm and discovered_worlds state fields with backward-compatible save codec decode.
+- Verification & Test Suite:
+  - Created tests/m5a_world_gen_runner.gd asserting determinism, 9-realm law compliance, anti-arbitrage bounds, aspiration resonance, and save codec roundtrip.
+  - Added to tools/run_all_runners.ps1; all 30 runners passed with exit code 0.
+  - Godot 4.7.2 Web Release export passed with exit code 0.
+
+[2026-10-01] M2-D-UI2 Core UI material rollout and construction status integration
+- User explicitly accepted UI1 prototype visuals and requested the remaining core interfaces plus integration of old construction effects. Implemented the rollout; UI2 stays IN_PROGRESS pending extended visual and Web/device acceptance.
+- Shared UiMaterial/UiTypography Theme now covers HUD, resource cards, building catalog/detail, actions, menus, alchemy, sect, reincarnation/talents, teleport/outposts, nine realms, save/offline dialogs and result panels. Added original jade_card.svg for restrained inner surfaces; retained independent text and command wiring. GodTower stayed read-only.
+- All building rows now use silk-paper skins. Replaced full-edge neon/side glow with inset native rounded ProgressBar demand meters. Lowest material ratio determines fill; Domain affordability still controls commands. Gold plus explicit ready text means build/upgrade available; ochre full meter plus prerequisite text remains disabled. Capped rows hide meters and subsequent refreshes clear old ready states.
+- Fixed alchemy summary wrapping and sect header reflow: deferred coalesced layout after minimum-size changes prevents the scroll body from being pushed outside the panel. Tab selection uses material states instead of dimming whole controls.
+- Modified src/abode/living_abode.gd; src/presentation/{ui_material,ui_typography,abode_hud_controller,building_catalog,alchemy_panel,sect_panel,reincarnation_panel,realm_teleport_modal,nine_realms_preview,buff_hud_bar}.gd; assets/ui/material/jade_card.svg and provenance README; tools/ui_material_preview.gd and run_all_runners.ps1; new tests/ui_material_states_runner.gd (+Godot UID); verification records, ROADMAP, status and checkpoint.
+- Godot 4.7.2 import, all 29 runners, added demand/header regression, presentation parity, native preview and Web release export passed with exit 0. Existing Font RID/CanvasItem/ObjectDB shutdown warnings remain; scoped source diff check passed. Sixteen native render captures preserved in docs/verification/artifacts/ui-core; original UI1 captures retained.
+- Preview fixtures and saves are isolated (user://ui_material_preview). No production GameState, gameplay formulas, save version or user's Web progress were changed. No engine/template upgrades or image-generation assets.
+- Native desktop 1280x720 and 844x390 window (779x360 logical viewport) reviewed; not browser input, DPR, IndexedDB or real-phone evidence. Browser startup helper limitation remains unverified; 4178 preview HTTP returns 200, open_in_codex returned queued. Review http://127.0.0.1:4178/index.html?ui=core-20261001.
+- Next: accept/iterate the extended core panels and status visuals, then complete Web/DPR/phone interaction checks per docs/verification/ui-core-materials.md. Do not launch another large task in this accumulated context; use a new chat for further major work. M5-A remains the feature mainline after this user-prioritized UI slice.
+[2026-09-30] M2-D-UI1 Native UI material prototype (IN_PROGRESS; visual approval pending)
+- Implemented cultivation jade/gold panel, one silk-paper hut catalog row, and four jade-plaque navigation buttons. Added cached UiMaterial StyleBoxTexture skins, original editable SVGs with provenance, and isolated native preview capture tool. Preserved gameplay, save schema, callbacks and current responsive layout. GodTower remained read-only.
+- Files: src/presentation/ui_material.gd (+UID), abode_hud_controller.gd, building_catalog.gd; assets/ui/material/*; tools/ui_material_preview.gd (+UID); docs/verification/ui-material-prototype.md and artifacts; ROADMAP.md, development-status.md, updata.txt.
+- Godot import, responsive runner, all 28 runners, presentation parity and Web release export passed with exit 0. Existing Font RID/CanvasItem/ObjectDB shutdown warnings remain. Scoped diff check passed; unrelated pre-existing EOF warnings remain in the full workspace.
+- Native Compatibility screenshots reviewed at 1280x720 and 844x390 window size (779x360 logical viewport on the latter). UI samples fit without observed clipping. This is native render evidence, not browser input/DPR evidence.
+- CUA browser kernel failed with helper_unknown_error. Local Web preview serves only build/web at http://127.0.0.1:4178/index.html (HTTP 200, server PID 278200); open_in_codex returned queued. No Web/phone/performance acceptance claim.
+- Next: user visual review and actual browser/phone landscape interaction of these three samples; iterate based on feedback. Do not expand the skin to other panels or start another large task before acceptance. Continue larger work in a new chat.
+[2026-09-30] M2-D UI material and smoothness review (design only)
+- Read Dao2 entry documents, architecture, responsive specification, UI sources, and GodTower local instructions. GodTower remained read-only; inspected talent-atlas-v2 CSS and the static meridian mockup, not a live rendered page.
+- Added docs/verification/ui-material-review.md and appended docs/development-status.md. No runtime UI, assets, gameplay, save data, or existing workspace changes were modified.
+- Recommend restrained jade/gold HUD surfaces, silk-paper detail pages, nine-patch authored borders, shared Theme roles and limited shader/Tween feedback. Investigate canvas/DPR, geometry AA, texture sampling and font rasterization separately. Compatibility cannot use Godot 2D MSAA.
+- Engine version command passed (exit 0): 4.7.2.stable.official.ed1daf0bf. Default shell/Node sandbox startup failed; normal escalated PowerShell reads succeeded. No runners, export, live browser checks or performance measurements were executed.
+- Next UI work: create a Godot-native sample for the cultivation panel, one building row and bottom navigation; verify desktop/mobile landscape, DPR, input and reduced-motion behavior before visual acceptance. UI implementation remains pending. Continue in a new chat for that implementation stage.
+[2026-09-30] M4-B Spatial Scale & Law Contracts: Nine Realms Laws, Scale Tiers & World Address
+- Hierarchical World Address & Spatial Scale Tiers (src/domain/world_address.gd):
+  - Created WorldAddress pure RefCounted data structure modeling canonical 5-tier address paths (universe_seed/sector_id/world_id/region_id/location_id).
+  - Defined 5 canonical ScaleTiers with reference camera zooms:
+    - Tier 0 ABODE (10m - 100m, zoom ~0.70): micro landmark & disciples
+    - Tier 1 REGION (1km - 10km, zoom ~0.40): mountain peaks & valley landmarks
+    - Tier 2 WORLD (1,000km - 10,000km, zoom ~0.20): realm landmass & major outposts
+    - Tier 3 SECTOR (1 - 100 light years, zoom ~0.10): star maps & stargates
+    - Tier 4 COSMOS (Nine Realms overview & void, zoom ~0.05 - 0.08)
+  - Implemented bidirectional parser, serializer, duplicate, equality comparison, and default address mappings.
+- Nine Realms Law Matrix & Numerical Contracts (content/realms/realms.json, src/simulation/scale_law_contract.gd):
+  - Formally specified distinct law contracts across all 9 canonical realms with strict non-trivial tradeoffs:
+    * Human (realm_human): 1.0x cultivation, 1.0x lifespan flow, 1.0x lingqi pool scale (benchmark).
+    * Spirit (realm_spirit): 1.5x cultivation, 0.85x lifespan flow, 10.0x pool scale (requires stone consumption for crystal).
+    * Nether (realm_nether): 0.8x cultivation, 0.5x lifespan flow (time dilation halves lifespan loss), 5.0x pool scale.
+    * Beast (realm_beast): 0.85x cultivation, 0.7x lifespan flow, 8.0x pool scale (body refinement).
+    * Demon (realm_demon): 2.5x cultivation speed burst, 1.6x lifespan flow (60% faster lifespan burn penalty), 15.0x pool scale.
+    * Immortal (realm_immortal): 3.0x cultivation, 0.2x lifespan flow (celestial time dilation: 1 day in heaven = 1 year in mortal realm), 100.0x pool scale.
+    * Buddha (realm_buddha): 1.2x cultivation, 0.6x lifespan flow, 50.0x pool scale (pure karma stability).
+    * Chaos (realm_chaos): 2.0x cultivation, 1.2x lifespan flow, 200.0x pool scale (primordial space distortion).
+    * Origin (realm_origin): 5.0x cultivation, 0.1x lifespan flow, 1000.0x pool scale (genesis matrix).
+  - Implemented ScaleLawContract pure calculations for effective cultivation speed, lifespan consumption dilation, and AmountCompat-safe pool cap scaling.
+- Persistence & GameSession Integration (src/domain/game_state.gd, src/persistence/save_codec.gd, src/simulation/realm_system.gd, src/application/game_session.gd):
+  - Added world_address state tracking with backward-compatible save decode fallbacks.
+  - Synchronized state.world_address on switch_realm with event payload broadcast.
+  - Exposed world_address, scale_tier, and realm_law in GameSession.get_view() and RealmSystem.get_view().
+  - Enriched NineRealmsPreview cards with law contract metrics labels ("修煉 X.Xx · 壽元流速 X.Xx · 靈池容量 Xx").
+- Verification & Test Suite:
+  - Created comprehensive test suite tests/m4b_scale_law_runner.gd asserting WorldAddress parsing, ScaleTier mapping, realms.json data integrity, ScaleLawContract math, SaveCodec persistence roundtrip, and GameSession integration.
+  - Added tests/m4b_scale_law_runner.gd to tools/run_all_runners.ps1; all 28 test runners passed with exit code 0.
+  - Exported Web Release build to build/web/index.html with zero build or resource packaging errors.
+
+[2026-09-30] M2-D-R1 Viewport & Responsive Layout: Landscape-First Strategy & Mobile Orientation Prompt
+- Architecture Decision & Landscape-First Policy (docs/07-responsive-ui-web-spec.md, docs/development-status.md):
+  - Formally established Landscape orientation as the single core layout baseline for Dao2, discontinuing complex stacked portrait layout churn.
+  - Implemented Xianxia-styled orientation prompt overlay for portrait viewports (aspect < 1.0) guiding players to rotate device to landscape.
+  - Focused M2-D-R1 scope strictly on mobile landscape (e.g. 844x390, 800x360) viewport scaling, readability, and 44px+ touch targets.
+- Dynamic Viewport Scale Adaptation (src/abode/living_abode.gd):
+  - Implemented _adapt_viewport_scale() on root window size change:
+    - Standard/desktop landscape (window height > 500px): maintains 1280x720 baseline with expand aspect.
+    - Mobile/compact landscape (window height <= 500px, width > height): dynamically adapts content_scale_size to 640x360.
+    - Protects headless runner execution by preserving desktop default scale when DisplayServer is headless.
+    - Guarantees 1:1 CSS pixel parity on mobile landscape, ensuring 16-18px fonts and 56px buttons (> 44px touch threshold).
+- Portrait Mode Orientation Overlay (src/presentation/orientation_prompt.gd, src/presentation/abode_hud_controller.gd):
+  - Created OrientationPrompt Control overlay with animated Xianxia rotation glyph, golden titles, and dismiss toggle.
+  - Integrated update_layout() in abode_hud_controller._layout_for_size: automatically shows when vp.x < vp.y and hides when rotated to landscape.
+  - Refined WIDE layout condition with height check (vp.y >= 500.0) so short mobile landscapes correctly enter COMPACT layout.
+- Verification & Test Suite:
+  - Updated tests/m2d_responsive_ui_runner.gd with orientation prompt visibility assertions across portrait and landscape viewports, plus 844x390 compact layout assertions.
+  - Ran tools/run_all_runners.ps1: all 27 test runners passed with exit code 0.
+  - Exported Web Release build to build/web/index.html with zero errors.
+
+[2026-09-30] M3-B Weather & Chrono System: Twelve Shichen & Five Elements Celestial Weather
+- Chrono Simulation & Celestial Weather Engine (src/simulation/chrono_system.gd):
+  - Implemented 12-stage Shichen cycle (子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥) with 60s per Shichen and 720s (12m) complete day cycle.
+  - Implemented Five Elements Celestial Weather cycle rotating every 360s (坎水運, 巽木運, 離火運, 坤土運, 乾金運) matching docs/00-source-baseline.md specification.
+  - Added deterministic time-synced multiplier calculation:
+    - Water: +15% lingqi production rate.
+    - Wood: +25% herb, +15% wood production rate.
+    - Fire: +15% cultivation speed.
+    - Earth: +15% storage capacity limits.
+    - Metal: +20% money/spirit stone rate.
+    - Shichen bonuses: Zi (+10% cultivation), Mao (+15% lingqi), Wu (+10% global prod), You (+15% herb).
+- Domain State & Persistence (src/domain/game_state.gd, src/persistence/save_codec.gd):
+  - Added chrono state field with clean duplication in duplicate_state() and serialization in to_snapshot_dict().
+  - Added backward-compatible chrono deserialization in SaveCodec._state_from_snapshot().
+  - Added unlocked flag ensuring fresh/blank onboarding states preserve core M1-B baseline determinism without unprompted multiplier perturbations.
+- TimeAdvancer & GameSession Integration (src/simulation/time_advancer.gd, src/application/game_session.gd):
+  - Integrated ChronoSystem.tick() and compute_multipliers() across both advance() and advance_time_only().
+  - Applied chrono multipliers to production rates, capacity limits, and cultivation progress accumulation.
+  - Exposed chrono state view (shichen, weather, multipliers) in GameSession.get_view().
+- HUD Presentation & Responsive Layout (src/presentation/abode_hud_controller.gd, src/abode/living_abode.gd):
+  - Added dedicated chrono_label in abode header displaying current celestial weather, active Shichen, dynamic color accents, and full atmospheric tooltip descriptions.
+  - Handled responsive font-sizing in compact/portrait layout modes.
+- Verification & Test Suite:
+  - Added comprehensive test suite tests/m3b_chrono_runner.gd covering Shichen progression, weather rotation, multiplier computation, TimeAdvancer integration, SaveCodec roundtrip, and session view.
+  - Added tests/m3b_chrono_runner.gd to tools/run_all_runners.ps1; all 27 test runners passed with exit code 0.
+  - Verified Web Release export build/web/index.html with zero build or resource packaging errors.
+
+[2026-09-30] Workflow Architecture: Self-Governed Context Guard & Checkpoint Protocol
+- AI Context Management & Graceful Handoff Protocol (AGENTS.md, docs/ai-handoff.md):
+  - Evaluated feasibility of external System-1 decision model (JEV) vs local deterministic rules; determined JEV introduces unnecessary external dependency and cannot perform pre-LLM IDE request interception.
+  - Implemented Self-Governed Context Guard & Checkpoint Protocol across project AI handoff documentation:
+    - Defined active braking conditions: milestone completion with green test runners, excessive conversational turns, or imminent context saturation/drift.
+    - Established state persistence SOP: immediately flush recent progress, modified files, and pending tasks to the top of updata.txt and update docs/development-status.md before expanding new tasks.
+    - Explicitly prompt developer to start a fresh chat session ("New Chat") to release context overhead while resuming work seamlessly from updata.txt and AGENTS.md.
+
+[2026-09-29] Audio & Cultivation Era BGM Scheduler: MP4 to MP3 Extraction & Dynamic Looping
+- Audio Transcoding & Asset Import (src/BGM/):
+  - Preserved original 4 MP4 video files in src/BGM/ (01_The_Unresolved_Ascent.mp4, 02_The_Weight_of_Heaven.mp4, 03_Rungs_of_the_Infinite.mp4, 04_Where_Starlight_Settles.mp4).
+  - Extracted clean audio tracks to native MP3 format via FFmpeg: 01_The_Unresolved_Ascent.mp3, 02_The_Weight_of_Heaven.mp3, 03_Rungs_of_the_Infinite.mp3, 04_Where_Starlight_Settles.mp3.
+  - Successfully imported all 4 MP3 streams into Godot 4.7.2 with clean .import metadata.
+  - Updated export_presets.cfg exclude_filter to exclude raw heavy *.mp4 files from Web bundle while packaging optimized .mp3 assets.
+- Cultivation Era-Driven BGM Scheduler (src/abode/living_abode.gd):
+  - Dynamic BGM Library Loader (_load_bgm_library): scans res://src/BGM/ for all .mp3 files, extracts the 2-digit numerical prefix as the Era threshold (01..04), and sorts tracks in ascending order with graceful fallback to abode_theme.ogg.
+  - Era-based Playlist Filtering (_get_bgm_playlist_for_era):
+    - Era 1 (Qi Refinement): loops track 01 exclusively.
+    - Era 2 (Foundation): loops tracks 01 and 02 in sequence.
+    - Era 3 (Golden Core): loops tracks 01, 02, and 03 in sequence.
+    - Era 4+ (Nascent Soul and above): loops all tracks (01, 02, 03, 04) continuously.
+  - Playlist Looping & Transition Engine (_on_bgm_finished / _check_and_update_bgm_era):
+    - Disables individual MP3 track loop property; connects AudioStreamPlayer finished signal to advance to the next track within the current Era playlist.
+    - Automatically updates BGM playlist upon Era breakthrough or reincarnation reset; immediately transitions to a valid Era track if the active track exceeds the new Era boundary.
+- Verification & Test Suite:
+  - Added new unit test tests/bgm_era_playlist_runner.gd verifying 4-track discovery, playlist Era filtering, next-track wrap-around, and reincarnation reset transitions.
+  - Added tests/bgm_era_playlist_runner.gd to tools/run_all_runners.ps1; all 26 test runners passed with exit code 0.
+  - Exported Web Release build to build/web/index.html with zero build or resource packaging errors.
+
+[2026-09-29] UI/Audio Refactor: System Settings Gear Menu & Dedicated BGM Player
+- Decoupling System Settings from More Game Features (src/presentation/abode_hud_controller.gd, src/presentation/abode_modal_manager.gd, src/abode/living_abode.gd):
+  - Created dedicated top-right settings button (_abode.settings_menu) featuring a native scalable vector gear icon (UiIcon.Kind.GEAR).
+  - Positioned gear icon at Vector2(vp.x - margin - 44, margin) with 44x44px touch-friendly dimensions; adjusted portrait header width to avoid visual overlap.
+  - Moved environmental and developer settings out of more_menu and into settings_menu: Low Motion toggle, Save Management, Help/Manual, and Debug Panel.
+  - Preserved more_menu exclusively for cultivation gameplay features: Alchemy Chamber, Sect Affairs, Spirit Realm, Reincarnation, Nine Realms, and Breakthrough Replay.
+  - Maintained full backward compatibility for _on_more_menu_pressed event routing and assertions.
+- Background Music (BGM) Player (src/abode/living_abode.gd, assets/audio/bgm/abode_theme.ogg):
+  - Added dedicated AudioStreamPlayer (bgm_player) loading looped 60s immortal theme music from assets/audio/bgm/abode_theme.ogg.
+  - Implemented BGM toggle and state tracking (_toggle_bgm / _set_bgm_enabled) with dynamic menu item text status ("背景音樂：開" / "背景音樂：關").
+  - Added user gesture fallback input handler to gracefully unlock browser WebAudio playback policy on first touch or mouse click.
+- Vector Gear Icon (src/presentation/ui_icon.gd):
+  - Added Kind.GEAR scalable vector rendering for crisp, font-independent golden gear illustrations.
+- Verification & Test Updates:
+  - Updated tests/debug_features_runner.gd and tests/m2d_responsive_ui_runner.gd for settings_menu containment and feature count.
+  - Passed tests/debug_features_runner.gd, tests/m2d_responsive_ui_runner.gd, and tests/abode_presentation_parity_runner.gd.
+  - All 25 test runners passed with exit code 0 via tools/run_all_runners.ps1.
+  - Web Release re-exported to build/web/index.html.
+
 [2026-09-28] Lifecycle Fix: Reincarnation Sequence HUD Masking & Simulation Pause
 - Reincarnation Sequence Lifecycle & Simulation Pause (src/abode/living_abode.gd, src/presentation/abode_modal_manager.gd):
   - Fixed issue where the new life's HUD (realm badge, drawer, toolbar) overlapped with the reincarnation sequence modal and settlement card.

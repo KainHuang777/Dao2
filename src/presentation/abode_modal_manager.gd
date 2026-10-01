@@ -4,6 +4,7 @@ extends RefCounted
 ## Node references are non-owning; no second session or persistent state is created.
 
 var _abode: Node
+var _text_camera_was_locked := false
 
 func _init(abode: Node) -> void:
 	_abode = abode
@@ -88,6 +89,23 @@ func create_panels() -> void:
 	_abode.realm_modal.close_requested.connect(_abode._on_realm_modal_closed)
 	_abode.hud.add_child(_abode.realm_modal)
 
+	var ftn_script = preload("res://src/presentation/fortune_modal.gd")
+	_abode.fortune_modal = ftn_script.new()
+	_abode.fortune_modal.visible = false
+	_abode.fortune_modal.trigger_requested.connect(_abode._on_fortune_trigger_requested)
+	_abode.fortune_modal.resolve_requested.connect(_abode._on_fortune_resolve_requested)
+	_abode.fortune_modal.close_requested.connect(_abode._on_fortune_closed)
+	_abode.hud.add_child(_abode.fortune_modal)
+	_abode.text_transition = preload("res://src/presentation/text_transition.gd").new()
+	_abode.hud.add_child(_abode.text_transition)
+	_abode.text_transition.sequence_started.connect(func():
+		_text_camera_was_locked = _abode.camera.input_locked
+		_abode.camera.dragging = false
+		_abode.camera.contacts.clear()
+		_abode.camera.input_locked = true)
+	_abode.text_transition.sequence_finished.connect(func(_skipped: bool):
+		_abode.camera.input_locked = _text_camera_was_locked)
+
 
 func layout_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 	if _abode.save_controls != null:
@@ -140,6 +158,16 @@ func layout_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		if portrait:
 			sct_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
 		_abode.sect_panel.call("set_layout_bounds", sct_rect)
+	if _abode.fortune_modal != null:
+		var target_w := minf(540.0, vp.x - margin * 2.0)
+		var target_h := minf(520.0, vp.y - margin * 2.0)
+		var target_x := maxf(margin, (vp.x - target_w) * 0.5)
+		var target_y := maxf(margin, (vp.y - target_h) * 0.5)
+		var ftn_rect := Rect2(target_x, target_y, target_w, target_h)
+		if portrait:
+			ftn_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		_abode.fortune_modal.call("set_layout_bounds", ftn_rect)
+
 
 
 
@@ -174,6 +202,36 @@ func _display_offline_summary(report: Dictionary) -> void:
 		_abode.offline_summary.show_report(report)
 		_abode._layout()
 
+func _on_settings_menu_pressed(id: int) -> void:
+	match id:
+		102:
+			# Illustrative fixture, never a breakthrough command or a state mutation.
+			_abode.text_transition.play("境界等級提升至 LV2", "築基期 ERA2 — 壽元剩餘 80祀", {"reduced_motion": _abode.reduced_motion})
+		101:
+			_abode._toggle_bgm()
+		1:
+			_abode._toggle_motion()
+			_update_settings_menu_labels()
+		2:
+			_abode._toggle_save_controls()
+		4:
+			_abode._show_help()
+		8:
+			_abode._toggle_debug_panel()
+
+func _update_settings_menu_labels() -> void:
+	if _abode.settings_menu == null:
+		return
+	var popup: PopupMenu = _abode.settings_menu.get_popup()
+	var bgm_idx: int = popup.get_item_index(101)
+	if bgm_idx >= 0:
+		var bgm_state: String = "開" if _abode.is_bgm_enabled else "關"
+		popup.set_item_text(bgm_idx, "背景音樂：%s" % bgm_state)
+	var motion_idx: int = popup.get_item_index(1)
+	if motion_idx >= 0:
+		var motion_state: String = "開" if _abode.reduced_motion else "關"
+		popup.set_item_text(motion_idx, "低特效：%s" % motion_state)
+
 func _on_more_menu_pressed(id: int) -> void:
 	match id:
 		1:
@@ -197,6 +255,8 @@ func _on_more_menu_pressed(id: int) -> void:
 			_abode._toggle_realm_modal()
 		10:
 			_abode._toggle_sect_panel()
+		11:
+			_abode._toggle_fortune_modal()
 
 func _toggle_sect_panel() -> void:
 	if _abode.sect_panel == null:
@@ -355,6 +415,53 @@ func _on_alchemy_closed() -> void:
 	if _abode.alchemy_panel != null:
 		_abode.alchemy_panel.visible = false
 	_abode._refresh_hud()
+
+func _toggle_fortune_modal() -> void:
+	if _abode.fortune_modal == null:
+		return
+	_abode.fortune_modal.visible = not _abode.fortune_modal.visible
+	if _abode.fortune_modal.visible:
+		if _abode.session != null:
+			_abode.fortune_modal.call("refresh", _abode.session.get_view())
+		_abode._layout()
+
+func _on_fortune_trigger_requested() -> void:
+	if _abode.session == null:
+		return
+	var res: Dictionary = _abode.session.trigger_fortune()
+	if bool(res.get("ok", false)):
+		_abode.hint.text = "【機緣感應】心神契合天地，引動天機奇遇降臨！"
+		_abode._save_game()
+	else:
+		_abode.hint.text = "【推演未果】" + String(res.get("error", "暫無機緣"))
+	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
+		_abode.fortune_modal.call("refresh", _abode.session.get_view())
+	_abode._refresh_hud()
+
+func _on_fortune_resolve_requested(option_index: int) -> void:
+	if _abode.session == null:
+		return
+	var res: Dictionary = _abode.session.resolve_fortune(option_index)
+	if bool(res.get("ok", false)):
+		var events: Array = res.get("events", [])
+		var log_msg: String = "結算機緣成功。"
+		if not events.is_empty() and events[0] is Dictionary:
+			log_msg = String(events[0].get("log", "結算機緣成功。"))
+		_abode.hint.text = "【機緣結算】" + log_msg
+		_abode._save_game()
+		if _abode.fortune_modal != null:
+			_abode.fortune_modal.call("set_result_message", log_msg)
+	else:
+		_abode.hint.text = "【機緣抉擇失敗】" + String(res.get("error", "資糧不足"))
+	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
+		_abode.fortune_modal.call("refresh", _abode.session.get_view())
+	_abode._refresh_hud()
+
+func _on_fortune_closed() -> void:
+	if _abode.fortune_modal != null:
+		_abode.fortune_modal.visible = false
+	_abode._refresh_hud()
+
 
 func _toggle_debug_panel() -> void:
 	if _abode.debug_panel == null:

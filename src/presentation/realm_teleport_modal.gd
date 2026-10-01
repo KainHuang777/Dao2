@@ -45,7 +45,7 @@ func _build_ui() -> void:
 	_title_label = Label.new()
 	_title_label.text = "跨界神遊 · 靈界天靈洞天"
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
+	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 20)
 	_title_label.add_theme_color_override("font_color", Color("ffd700"))
 	header_row.add_child(_title_label)
@@ -120,11 +120,11 @@ func refresh(view: Dictionary) -> void:
 
 	if is_spirit:
 		_status_summary.text = "【當前所在：靈界 · 天靈洞天】\n天地靈機充沛，九幽靈脈交匯。兩界並行運轉，切景不中斷收益。"
-		_teleport_button.text = "➤ 返回祖基仙府（人界）"
+		_teleport_button.text = "返回祖基仙府（人界）"
 		_target_realm_for_button = "realm_human"
 	else:
 		_status_summary.text = "【當前所在：人界 · 祖基洞府】\n法則：靈潮汐動 · 純靈轉化。天樞陣眼運轉耗費靈石轉化極品靈晶，化靈仙池凝練仙液反哺修煉！"
-		_teleport_button.text = "➤ 跨界神遊 · 踏入天靈洞天（靈界）"
+		_teleport_button.text = "跨界神遊 · 踏入天靈洞天（靈界）"
 		_target_realm_for_button = "realm_spirit"
 
 	var cur_crystal := float(realm_data.get("spirit_crystal", 0.0))
@@ -153,11 +153,7 @@ func _rebuild_outposts(outposts: Array) -> void:
 
 func _create_outpost_card(op: Dictionary) -> PanelContainer:
 	var panel := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.02, 0.06, 0.09, 0.85)
-	style.border_color = Color("4fe3c1")
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(4)
+	var style := UiMaterial.card()
 	style.content_margin_left = 10
 	style.content_margin_right = 10
 	style.content_margin_top = 8

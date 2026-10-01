@@ -425,3 +425,97 @@ static func _parse_json_file(file_path: String, errors: Array, kind: String) -> 
 
 static func _is_number(value: Variant) -> bool:
 	return typeof(value) == TYPE_INT or typeof(value) == TYPE_FLOAT
+
+static func load_realms(file_path: String = "res://content/realms/realms.json") -> Dictionary:
+	var errors: Array = []
+	if not FileAccess.file_exists(file_path):
+		return {"ok": false, "errors": ["realms file missing: %s" % file_path], "realms": []}
+	var parsed = _parse_json_file(file_path, errors, "realms")
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors, "realms": []}
+	if typeof(parsed) != TYPE_ARRAY:
+		return {"ok": false, "errors": ["realms file must contain a JSON array"], "realms": []}
+	var validated := _validate_realms(parsed, errors)
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors, "realms": []}
+	return {"ok": true, "errors": [], "realms": validated}
+
+static func _validate_realms(realms: Array, errors: Array) -> Array:
+	var validated: Array = []
+	var seen_ids := {}
+	for index in range(realms.size()):
+		var entry = realms[index]
+		if typeof(entry) != TYPE_DICTIONARY:
+			errors.append("realms[%d]: expected object" % index)
+			continue
+		var r_id = entry.get("id", null)
+		if typeof(r_id) != TYPE_STRING or String(r_id).is_empty():
+			errors.append("realms[%d]: id must be non-empty string" % index)
+			continue
+		var id_str := String(r_id)
+		if seen_ids.has(id_str):
+			errors.append("duplicate realm id: %s" % id_str)
+			continue
+		seen_ids[id_str] = true
+		var cult_factor := float(entry.get("cultivation_factor", 1.0))
+		var lifespan_ratio := float(entry.get("lifespan_flow_ratio", 1.0))
+		var pool_scale := float(entry.get("lingqi_pool_scale", 1.0))
+		if cult_factor <= 0.0 or is_nan(cult_factor) or is_inf(cult_factor):
+			errors.append("realm %s: cultivation_factor must be positive finite number" % id_str)
+		if lifespan_ratio <= 0.0 or is_nan(lifespan_ratio) or is_inf(lifespan_ratio):
+			errors.append("realm %s: lifespan_flow_ratio must be positive finite number" % id_str)
+		if pool_scale <= 0.0 or is_nan(pool_scale) or is_inf(pool_scale):
+			errors.append("realm %s: lingqi_pool_scale must be positive finite number" % id_str)
+		validated.append({
+			"id": id_str,
+			"name": String(entry.get("name", id_str)),
+			"title": String(entry.get("title", "")),
+			"description": String(entry.get("description", "")),
+			"law_summary": String(entry.get("law_summary", "")),
+			"law_details": String(entry.get("law_details", "")),
+			"status": String(entry.get("status", "locked")),
+			"cultivation_factor": cult_factor,
+			"lifespan_flow_ratio": lifespan_ratio,
+			"lingqi_pool_scale": pool_scale,
+			"allowed_resource_tags": Array(entry.get("allowed_resource_tags", []))
+		})
+	return validated
+
+static func load_encounters(file_path: String = "res://content/encounters/encounters.json") -> Dictionary:
+	var errors: Array = []
+	if not FileAccess.file_exists(file_path):
+		return {"ok": false, "errors": ["encounters file missing: %s" % file_path], "encounters": []}
+	var parsed = _parse_json_file(file_path, errors, "encounters")
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors, "encounters": []}
+	if typeof(parsed) != TYPE_ARRAY:
+		return {"ok": false, "errors": ["encounters file must contain a JSON array"], "encounters": []}
+	var validated := _validate_encounters(parsed, errors)
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors, "encounters": []}
+	return {"ok": true, "errors": [], "encounters": validated}
+
+static func _validate_encounters(encounters: Array, errors: Array) -> Array:
+	var validated: Array = []
+	var seen_ids := {}
+	for index in range(encounters.size()):
+		var entry = encounters[index]
+		if typeof(entry) != TYPE_DICTIONARY:
+			errors.append("encounters[%d]: expected object" % index)
+			continue
+		var e_id = entry.get("id", null)
+		if typeof(e_id) != TYPE_STRING or String(e_id).is_empty():
+			errors.append("encounters[%d]: id must be non-empty string" % index)
+			continue
+		var id_str := String(e_id)
+		if seen_ids.has(id_str):
+			errors.append("duplicate encounter id: %s" % id_str)
+			continue
+		seen_ids[id_str] = true
+		var options = entry.get("options", [])
+		if typeof(options) != TYPE_ARRAY or options.is_empty():
+			errors.append("encounter %s: must have non-empty options array" % id_str)
+			continue
+		validated.append(entry.duplicate(true))
+	return validated
+

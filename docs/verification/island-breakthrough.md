@@ -1,8 +1,16 @@
 ﻿# 空島境界突破演出 — AGY 驗收交接
 
-## 2026-09-27 新參考圖整合 v5 最新補記
+## 2026-09-28 淚佛背景 v6 構圖修正
 
-本節優先於下方 v4／v3／v1 美術描述。依使用者提供的 GPT 修正近景圖，當前場景改用 `assets/abode/sky_tearfall_island_v5.png`。雙眼下形成具有厚度的瀑簾，落至苔蘚平台再接為島緣及下方寬瀑；Shader 对應加寬眼下流動區域。独立懸空島身、風化殘破古貌、遊戲远景比例與空白中央構圖保留。資產、參考副本、提示詞與授權記錄見 `docs/abode-art/sky-tearfall-island-v5.md`。停用 v1／v3／v4 遠景皆保留來源並從 Release 排除。
+本節為目前背景版本。`living_abode.gd` 載入 `assets/abode/sky_tearfall_island_v6.png`；佛首移至畫面約 39% 寬，左側以重新繪製的雲海／遠山填滿。背景取景不越界平移，不會 clamp 拉伸邊緣像素。瀑布 shader 遮罩依新眼下水路移位，窄版焦點置中取景。原 v5 保留於來源庫但由 Web Release 排除。生成來源、提示詞與雜湊見 `docs/abode-art/sky-tearfall-island-v6.md`。
+
+Godot 匯入、M2-D 響應式 Runner、全量 25 Runner 及 Web Release 均通過。遊戲內真實瀏覽器合成畫面仍待複核；先前 Computer Use 啟動受 `helper_unknown_error: setup refresh had errors` 阻擋。
+
+瀏覽器恢復後，以目前常態「營造」版型檢查左側沒有拉伸／接縫、佛首位於兩側 HUD 間的可視區；另核對 844×390、360×640 版型、低特效瀑布與「更多功能→重溫突破」。
+
+## 2026-09-27 新參考圖整合 v5 歷史補記
+
+此節是 v6 之前的歷史驗收。依使用者提供的 GPT 修正近景圖，v5 曾加入雙眼下瀑簾與承水平台；2026-09-28 已由 v6 重新構圖取代。資產、提示詞與授權記錄見 `docs/abode-art/sky-tearfall-island-v5.md`。v5 保留來源但從 Release 排除。
 
 Godot 4.7.2 import exit 0；`tests/island_breakthrough_runner.gd` exit 0 且 PASS；Web Release export exit 0。生成圖已目視檢查；本轮真實 Web 動態／畫質與裝置觀感待 AGY。
 
@@ -15,6 +23,35 @@ Godot 4.7.2 import exit 0；`tests/island_breakthrough_runner.gd` exit 0 且 PAS
 本次 Godot 4.7.2 import、`tests/island_breakthrough_runner.gd`、Web Release export 均 exit 0，runner 有 PASS。生成圖已目視檢查；真实 Web 動態與裝置觀感仍待驗收。
 
 AGY 以原測試 origin 按 Ctrl+F5。檢查兩眼水源、臉頰水路与寬瀑之間有連結，石佛仍為遠方獨立空島、年代與破敗感保留；再以「更多功能→重溫突破」核對新遠景與法陣的搭配。觀察是否兼顧「遠看自然瀑布、細看石佛流淚」；横式與直式、低特效均需視覺檢查。
+
+## 2026-10-02 M2-B-FX2 — 金環／雷電強度回饋
+
+狀態 IN_PROGRESS，CLI、原生圖像與匯出完成，使用者視覺與 Web／手機動態效能待驗。此節覆蓋歷史「柔和弧光」描述；舊验收仍保留其日期，不當作本次效果已放行。
+
+使用者指出升 ERA 光環與雷電過弱，提供渡劫參考圖。檢查舊程式：只有 attained 布林、三圈細線與兩道平滑弧光，沒有依 ERA 分級；重溫入口亦固定練氣→築基名稱。因此不是高境界會自動更華麗的既有設計。
+
+本輪原創世界座標繪圖：金環增加多層柔光、白金核心及原創幾何符印；上環改至世界 y=-590，光柱頂部由 -1050 改 -700，避免主光效伸出既有演出取景。加寬光柱、前景不規則分岔雷電與光點，慢速連續變形、不使用逐幀 RNG 或全屏頻閃。日常淡金環仍輕量，低特效維持一秒柔和法陣，不畫雷電／光柱／碎岩／光點。沒有複製參考圖像、字樣或人物，也未新增圖形資產。
+
+| ERA | 主雷電 | 法陣圈數（每組） | 光點 | 光暈係數 |
+| --- | --- | --- | --- | --- |
+| 2–3 | 3 | 4 | 48 | 1.00 |
+| 4–6 | 4 | 5 | 60 | 1.18 |
+| 7–9 | 5 | 6 | 72 | 1.36 |
+| 10–12 | 6 | 7 | 84 | 1.54 |
+
+各雷電另含三條短分枝，最高繪製預算有上限。此為純視覺分級，並非新增渡劫判定／獎懲或承諾高 ERA 遊戲內容已全部完成。
+
+修改：`src/presentation/island_breakthrough_fx.gd` 的 set_era／visual_profile 與繪圖；`breakthrough_sequence.gd` play 增加相容的預設 target_era_id，內部重播保留目標；`living_abode.gd` 成功結果傳真實 ERA，重溫依當前 ERA／前境名稱；`tests/island_breakthrough_runner.gd` 補分級上限、重播目標及不改快照；新增 `tools/breakthrough_fx_preview.gd`，使用隔離資料只播呈現 fixture。
+
+本機 Godot 4.7.2.stable.official.ed1daf0bf：
+
+- `--headless --path . --script res://tests/island_breakthrough_runner.gd --quit-after 600` PASS exit 0；真实命令先提交、保存失敗重試、跳過、重播、鏡頭恢復、低特效、失焦及四版型等既有案例仍通過。
+- `powershell -NoProfile -File tools/run_all_runners.ps1`：34/34 PASS exit 0，log `artifacts/breakthrough-fx2/runners.log`。
+- `--headless --path . --script res://tests/abode_presentation_parity_runner.gd`：PASS exit 0，`parity.log`。
+- `--path . --script res://tools/breakthrough_fx_preview.gd --quit-after 600`：exit 0，原生 NVIDIA 1660 Ti；八張 ERA2／8／12／低特效截图，1280×720 與 844×390。已檢查築基、高階與低特效畫面。初次短橫向 fixture 錯把實體 844×390 當邏輯視口，造成 skip 裁切；改用 root.get_visible_rect() 的實際 779×360 重新出圖，最終按鈕完整。`capture.log` 記錄物理／邏輯大小。
+- `--headless --path . --export-release Web build/web/index.html`：exit 0，`export.log`。最後微調雷電不規則路徑後重新原生出圖及匯出，編譯／繪圖正常。
+
+初次 rg Windows glob 與來源路徑讀取失敗已改讀正確 presentation 路徑。既有 Font RID、CanvasItem、ObjectDB/resource in use 退出訊息仍存在；沒有捏造零警告或 FPS。CLI／native 渲染不能證明 Web 點擊、DPR、手機 GPU 動態效能；真實瀏覽器工具尚無可用證據。請以既有隔離測試檔「更多功能→重溫突破」檢查強度／遮擋、跳過／關閉、低特效及高 ERA 動畫預算，先取得視覺回饋再擴充其他大型效果。
 
 ## 2026-09-27 遠景 v3 最新補記
 

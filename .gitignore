@@ -1,9 +1,24 @@
+# Godot engine cache and build outputs
 .godot/
 build/
+
+# Godot engine binaries and export templates (download/install locally per machine)
+tools/godot/
+!tools/godot/README.md
+
+# Dependencies & environment variables
 node_modules/
 .env
 .env.*
 !.env.example
-tools/godot/*.zip
-tools/godot/*.tpz
-tools/godot/4.7.2/
+
+# OS temporary / metadata files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor & IDE configurations
+.vscode/
+.idea/
+*.swp
+*.tmp

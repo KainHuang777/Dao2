@@ -227,7 +227,34 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["sect"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:sect"}
 		state.sect = (snapshot_dict["sect"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("chrono"):
+		if not (snapshot_dict["chrono"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:chrono"}
+		state.chrono = (snapshot_dict["chrono"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("world_address"):
+		if not (snapshot_dict["world_address"] is String):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:world_address"}
+		state.world_address = String(snapshot_dict["world_address"])
+	else:
+		state.world_address = WorldAddress.default_for_realm(state.current_realm).to_address_string()
+	if snapshot_dict.has("aspiration_realm"):
+		if not (snapshot_dict["aspiration_realm"] is String):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:aspiration_realm"}
+		state.aspiration_realm = String(snapshot_dict["aspiration_realm"])
+	if snapshot_dict.has("discovered_worlds"):
+		if not (snapshot_dict["discovered_worlds"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:discovered_worlds"}
+		state.discovered_worlds = (snapshot_dict["discovered_worlds"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("fortune"):
+		if not (snapshot_dict["fortune"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:fortune"}
+		state.fortune = (snapshot_dict["fortune"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("realm_decisions"):
+		if not (snapshot_dict["realm_decisions"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:realm_decisions"}
+		state.realm_decisions = (snapshot_dict["realm_decisions"] as Dictionary).duplicate(true)
 	return {"ok": true, "state": state, "error": ""}
+
 
 
 static func _is_int(value: Variant) -> bool:

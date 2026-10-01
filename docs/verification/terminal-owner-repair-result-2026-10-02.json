@@ -1,0 +1,8 @@
+﻿{
+    "recursive":  false,
+    "dacl_unchanged":  true,
+    "owner_after":  "S-1-5-21-3414281524-1333866162-4245884016-1001",
+    "success":  true,
+    "owner_before":  "S-1-5-21-3414281524-1333866162-4245884016-1003",
+    "target":  "E:\\WORK\\Dao2\\.git"
+}

@@ -24,13 +24,13 @@ func _run() -> void:
 	_expect(abode.debug_panel != null, "debug_panel must be instantiated")
 	_expect(not abode.debug_panel.visible, "debug_panel must be hidden initially")
 
-	var popup = abode.more_menu.get_popup()
+	var popup = abode.settings_menu.get_popup()
 	var debug_item_idx: int = popup.get_item_index(8)
-	_expect(debug_item_idx >= 0, "more_menu must have debug tool item with ID 8")
+	_expect(debug_item_idx >= 0, "settings_menu must have debug tool item with ID 8")
 
-	# 2. 透過更多功能打開調試工具 (ID 8)
-	abode._on_more_menu_pressed(8)
-	_expect(abode.debug_panel.visible, "more_menu item 8 must open debug_panel")
+	# 2. 透過系統設定打開調試工具 (ID 8)
+	abode._on_settings_menu_pressed(8)
+	_expect(abode.debug_panel.visible, "settings_menu item 8 must open debug_panel")
 
 	# 3. 測試資源調試 (+1000)
 	var prev_money: float = abode.session.state.resources["money"].value.to_float()

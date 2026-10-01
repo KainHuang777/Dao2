@@ -15,6 +15,8 @@ $runners = @(
     'tests/island_breakthrough_runner.gd',
     'tests/m2c_nine_realms_runner.gd',
     'tests/m2d_responsive_ui_runner.gd',
+    'tests/ui_material_states_runner.gd',
+    'tests/text_transition_runner.gd',
     'tests/m2d_slice_release_runner.gd',
     'tests/m3a_reincarnation_runner.gd',
     'tests/m3a_reincarnation_ui_runner.gd',
@@ -25,7 +27,14 @@ $runners = @(
     'tests/buff_system_runner.gd',
     'tests/debug_features_runner.gd',
     'tests/core_positive_flow_runner.gd',
-    'tests/m4a_realm_runner.gd'
+    'tests/m4a_realm_runner.gd',
+    'tests/bgm_era_playlist_runner.gd',
+    'tests/m3b_chrono_runner.gd',
+    'tests/m4b_scale_law_runner.gd',
+    'tests/m5a_world_gen_runner.gd',
+    'tests/m3b_fortune_runner.gd',
+    'tests/m3b_fortune_ui_runner.gd',
+    'tests/m5b_realm_content_runner.gd'
 )
 
 

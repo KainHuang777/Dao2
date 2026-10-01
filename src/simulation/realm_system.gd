@@ -76,16 +76,19 @@ static func switch_realm(state: GameState, target_realm: String) -> Dictionary:
 
 	var from_realm: String = state.current_realm
 	state.current_realm = target_realm
+	state.world_address = WorldAddress.default_for_realm(target_realm).to_address_string()
 	ensure_spirit_data(state)
 
 	return {
 		"ok": true,
 		"from_realm": from_realm,
 		"current_realm": target_realm,
+		"world_address": state.world_address,
 		"events": [{
 			"kind": "realm_switched",
 			"from": from_realm,
 			"to": target_realm,
+			"world_address": state.world_address,
 		}]
 	}
 
@@ -234,8 +237,15 @@ static func get_view(state: GameState) -> Dictionary:
 			"upgrade_reason": String(can_upg.get("reason", "")),
 		})
 
+	var addr_str: String = state.world_address if state != null else WorldAddress.default_home().to_address_string()
+	var parsed_addr := WorldAddress.parse(addr_str)
+	var law_data := ScaleLawContract.get_realm_law(current_realm)
+
 	return {
 		"current_realm": current_realm,
+		"world_address": addr_str,
+		"scale_tier": WorldAddress.ScaleTier.ABODE,
+		"realm_law": law_data,
 		"unlocked": unlocked,
 		"spirit_crystal": float(data.get("spirit_crystal", 0.0)),
 		"azure_nectar": float(data.get("azure_nectar", 0.0)),

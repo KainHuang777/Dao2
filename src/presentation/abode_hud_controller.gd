@@ -4,6 +4,9 @@ extends RefCounted
 ## Node references are non-owning; no second session or persistent state is created.
 
 var _abode: Node
+var _has_guidance: bool = true
+var _messages_open: bool = true
+var _messages_explicit: bool = false
 
 func _init(abode: Node) -> void:
 	_abode = abode
@@ -18,18 +21,51 @@ func _configure_more_menu() -> void:
 	_abode.more_menu.add_theme_stylebox_override("normal", _abode._style())
 	_abode.more_menu.visible = true
 	var popup: PopupMenu = _abode.more_menu.get_popup()
-	popup.add_item("低特效", 1)
-	popup.add_item("存檔管理", 2)
-	popup.add_item("九界星圖", 3)
-	popup.add_item("操作說明", 4)
-	popup.add_item("重溫突破", 5)
-	popup.add_item("輪迴天道", 6)
 	popup.add_item("洞府煉丹", 7)
-	popup.add_item("調試工具 (DEBUG)", 8)
-	popup.add_item("靈界洞天", 9)
+	popup.add_item("機緣奇遇", 11)
 	popup.add_item("宗門外務", 10)
+	popup.add_item("靈界洞天", 9)
+	popup.add_item("輪迴天道", 6)
+	popup.add_item("九界星圖", 3)
+	popup.add_item("重溫突破", 5)
+	# 系統設定已移至右上角齒輪設定選單
+	# 調試工具移至 settings_menu
+	# 靈界洞天已移至前面
+	# 宗門外務已移至前面
 	popup.id_pressed.connect(_abode._on_more_menu_pressed)
 	_abode.toolbar.add_child(_abode.more_menu)
+
+func _configure_settings_menu() -> void:
+	_abode.settings_menu = MenuButton.new()
+	_abode.settings_menu.name = "SettingsMenu"
+	_abode.settings_menu.text = ""
+	_abode.settings_menu.custom_minimum_size = Vector2(44, 44)
+	_abode.settings_menu.tooltip_text = "系統設定"
+	_abode.settings_menu.add_theme_stylebox_override("normal", _abode._style(Color(0.012, 0.055, 0.08, 0.95)))
+	_abode.settings_menu.add_theme_stylebox_override("hover", _abode._style(Color(0.05, 0.12, 0.16, 0.98)))
+	_abode.settings_menu.add_theme_stylebox_override("pressed", _abode._style(Color(0.08, 0.20, 0.24, 0.99)))
+	_abode.settings_menu.visible = true
+
+	var icon_script = preload("res://src/presentation/ui_icon.gd")
+	var gear_icon = icon_script.new()
+	gear_icon.kind = icon_script.Kind.GEAR
+	gear_icon.icon_size = 22.0
+	gear_icon.tint = UiMaterial.INK
+	gear_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	gear_icon.position = Vector2(11, 11)
+	_abode.settings_menu.add_child(gear_icon)
+
+	var popup: PopupMenu = _abode.settings_menu.get_popup()
+	var bgm_text: String = "背景音樂：開" if _abode.is_bgm_enabled else "背景音樂：關"
+	popup.add_item(bgm_text, 101)
+	var motion_text: String = "低特效：開" if _abode.reduced_motion else "低特效：關"
+	popup.add_item(motion_text, 1)
+	popup.add_item("存檔管理", 2)
+	popup.add_item("操作說明", 4)
+	popup.add_item("過場文字樣板（試播）", 102)
+	popup.add_item("調試工具 (DEBUG)", 8)
+	popup.id_pressed.connect(_abode._on_settings_menu_pressed)
+	_abode.hud.add_child(_abode.settings_menu)
 
 func _build_hud() -> void:
 	var layer := CanvasLayer.new()
@@ -42,7 +78,8 @@ func _build_hud() -> void:
 	layer.add_child(_abode.hud)
 
 	_abode.header = PanelContainer.new()
-	_abode.header.add_theme_stylebox_override("panel", _abode._style(Color(0.012, 0.055, 0.08, 0.97)))
+	_abode.header.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
+	_abode.header.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_abode.hud.add_child(_abode.header)
 
 	_abode.header_box = VBoxContainer.new()
@@ -60,6 +97,12 @@ func _build_hud() -> void:
 	_abode.header_box.add_child(_abode.realm_label)
 	_abode.realm_progress_label = _abode._label("修煉 0/60 秒 · 壽元 80/80 祀", 16, Color("d9e4d0"), 1)
 	_abode.header_box.add_child(_abode.realm_progress_label)
+	_abode.chrono_label = _abode._label("天時：坎水運 · 子時", 16, Color("80deea"), 1)
+	_abode.header_box.add_child(_abode.chrono_label)
+	for text_label in [_abode.crumb, _abode.title_label, _abode.realm_label, _abode.realm_progress_label, _abode.chrono_label]:
+		text_label.add_theme_constant_override("outline_size", 0)
+		text_label.add_theme_color_override("font_color", Color("393e35"))
+	_abode.realm_label.add_theme_font_override("font", UiTypography.emphasis_font())
 
 	var realm_action_box := HBoxContainer.new()
 	realm_action_box.add_theme_constant_override("separation", 8)
@@ -83,11 +126,7 @@ func _build_hud() -> void:
 
 	_abode.lifespan_banner = PanelContainer.new()
 	_abode.lifespan_banner.name = "LifespanBanner"
-	var banner_style := StyleBoxFlat.new()
-	banner_style.bg_color = Color(0.20, 0.08, 0.02, 0.94)
-	banner_style.border_color = Color(0.96, 0.58, 0.12, 0.95)
-	banner_style.set_border_width_all(2)
-	banner_style.set_corner_radius_all(6)
+	var banner_style := UiMaterial.card("warning")
 	banner_style.content_margin_left = 10
 	banner_style.content_margin_right = 10
 	banner_style.content_margin_top = 8
@@ -101,7 +140,7 @@ func _build_hud() -> void:
 	_abode.lifespan_banner.add_child(banner_vbox)
 
 	_abode.lifespan_banner_label = Label.new()
-	_abode.lifespan_banner_label.text = "⏳【壽元已盡 · 天命難違】\n肉身大期已至，天地生息已止。請速入定轉世，再塑仙身！"
+	_abode.lifespan_banner_label.text = "【壽元已盡 · 天命難違】\n肉身大期已至，天地生息已止。請速入定轉世，再塑仙身！"
 	_abode.lifespan_banner_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	_abode.lifespan_banner_label.add_theme_font_size_override("font_size", 13)
 	_abode.lifespan_banner_label.add_theme_color_override("font_color", Color("ffd180"))
@@ -109,13 +148,12 @@ func _build_hud() -> void:
 	banner_vbox.add_child(_abode.lifespan_banner_label)
 
 	_abode.lifespan_banner_button = Button.new()
-	_abode.lifespan_banner_button.text = "🪷 輪迴證道"
+	_abode.lifespan_banner_button.text = "輪迴證道"
+	_abode.lifespan_banner_button.icon = load("res://assets/ui/icons/lotus.svg")
 	_abode.lifespan_banner_button.custom_minimum_size = Vector2(120, 38)
 	_abode.lifespan_banner_button.add_theme_font_override("font", UiTypography.emphasis_font())
 	_abode.lifespan_banner_button.add_theme_font_size_override("font_size", 15)
-	var banner_btn_style := StyleBoxFlat.new()
-	banner_btn_style.bg_color = Color(0.85, 0.42, 0.10, 0.95)
-	banner_btn_style.set_corner_radius_all(4)
+	var banner_btn_style := UiMaterial.card("warning")
 	_abode.lifespan_banner_button.add_theme_stylebox_override("normal", banner_btn_style)
 	_abode.lifespan_banner_button.pressed.connect(_abode._toggle_reincarnation_panel)
 	banner_vbox.add_child(_abode.lifespan_banner_button)
@@ -140,6 +178,9 @@ func _build_hud() -> void:
 	_abode.objective_button.add_theme_font_size_override("font_size", 16)
 	_abode.objective_button.pressed.connect(_abode._toggle_guidance)
 	_abode.header_box.add_child(_abode.objective_button)
+	UiMaterial.apply_button(_abode.objective_button)
+	UiMaterial.apply_button(_abode.level_up_button, "primary")
+	UiMaterial.apply_button(_abode.breakthrough_button, "primary")
 
 	_abode.viewbar = HBoxContainer.new()
 	_abode.viewbar.name = "Viewbar"
@@ -191,9 +232,15 @@ func _build_hud() -> void:
 	_abode.toolbar.add_child(_abode.help_button)
 
 	_abode._configure_more_menu()
+	_abode._configure_settings_menu()
+	UiMaterial.apply_button(_abode.settings_menu)
+	UiMaterial.apply_button(_abode.island_mode_button, "plaque", true)
+	UiMaterial.apply_button(_abode.building_catalog_button, "plaque", true)
+	UiMaterial.apply_button(_abode.overview_button)
+	UiMaterial.apply_button(_abode.more_menu)
 
 	_abode.hint_panel = PanelContainer.new()
-	var hint_style: StyleBoxFlat = _abode._style(Color(0.008, 0.035, 0.05, 0.88))
+	var hint_style: StyleBoxTexture = _abode._style(Color(0.008, 0.035, 0.05, 0.88))
 	hint_style.content_margin_left = 14
 	hint_style.content_margin_right = 14
 	hint_style.content_margin_top = 8
@@ -210,20 +257,20 @@ func _build_hud() -> void:
 	hint_title_row.add_theme_constant_override("separation", 6)
 	hint_box.add_child(hint_title_row)
 
-	_abode.hint_heading = _abode._label("仙途感應 · 系統日誌", 15, Color("f1d58d"), 1)
+	_abode.hint_heading = _abode._label("系統訊息", 17, Color("f1d58d"), 0)
 	_abode.hint_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hint_title_row.add_child(_abode.hint_heading)
 
 	_abode.hint_expand_button = Button.new()
-	_abode.hint_expand_button.text = "⤢ 展開"
-	_abode.hint_expand_button.custom_minimum_size = Vector2(64, 32)
+	_abode.hint_expand_button.text = "展開"
+	_abode.hint_expand_button.custom_minimum_size = Vector2(64, 44)
 	_abode.hint_expand_button.add_theme_font_size_override("font_size", 14)
 	_abode.hint_expand_button.pressed.connect(_abode._toggle_hint_expand)
 	hint_title_row.add_child(_abode.hint_expand_button)
 
 	var hint_close := Button.new()
 	hint_close.text = "收起"
-	hint_close.custom_minimum_size = Vector2(56, 32)
+	hint_close.custom_minimum_size = Vector2(56, 44)
 	hint_close.add_theme_font_size_override("font_size", 14)
 	hint_close.pressed.connect(_abode._toggle_guidance)
 	hint_title_row.add_child(hint_close)
@@ -241,18 +288,17 @@ func _build_hud() -> void:
 	_abode.hint_log_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_abode.hint_log_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	_abode.hint_log_label.add_theme_font_override("normal_font", UiTypography.body_font())
-	_abode.hint_log_label.add_theme_font_size_override("normal_font_size", 14)
+	_abode.hint_log_label.add_theme_font_size_override("normal_font_size", 17)
+	_abode.hint_log_label.add_theme_constant_override("line_separation", 6)
 	_abode.hint_scroll.add_child(_abode.hint_log_label)
 
 	_abode.hint = _abode._label("", 17, Color("f2e8c7"), 1)
 	_abode.hint.visible = false
 	hint_box.add_child(_abode.hint)
-	_abode.hint_panel.visible = false
+	_abode.hint_panel.visible = true
 
 	_abode.footer = _abode._label("自動存檔運轉中", 18, Color("ffffff"), 0)
-	var footer_style := StyleBoxFlat.new()
-	footer_style.bg_color = Color(0.008, 0.035, 0.05, 0.96)
-	footer_style.set_corner_radius_all(6)
+	var footer_style := UiMaterial.card("normal")
 	footer_style.content_margin_left = 8
 	footer_style.content_margin_right = 8
 	_abode.footer.add_theme_stylebox_override("normal", footer_style)
@@ -310,9 +356,10 @@ func _build_hud() -> void:
 	_abode.building_catalog.visible = false
 	_abode.hud.add_child(_abode.building_catalog)
 	_abode.building_catalog.call("configure_resources", _abode.RESOURCE_NAMES, _abode.RESOURCE_NAMES.keys())
+	_abode.building_catalog.hud_paper_resources = true
 	_abode.building_catalog.call("configure", _abode._catalog_groups())
 	_abode.resource_ribbon = PanelContainer.new()
-	var ribbon_style: StyleBoxFlat = _abode._style(Color(0.018, 0.065, 0.075, 0.97))
+	var ribbon_style: StyleBoxTexture = UiMaterial.hud_paper()
 	ribbon_style.content_margin_left = 8
 	ribbon_style.content_margin_right = 8
 	ribbon_style.content_margin_top = 6
@@ -372,20 +419,29 @@ func _build_hud() -> void:
 
 	_abode._modal_manager.create_panels()
 
+	var prompt_script = preload("res://src/presentation/orientation_prompt.gd")
+	_abode.orientation_prompt = prompt_script.new()
+	_abode.hud.add_child(_abode.orientation_prompt)
+
 	_abode.header.resized.connect(_abode._reflow_header)
 
 func _layout_for_size(vp: Vector2) -> void:
 	if vp.x <= 0.0 or vp.y <= 0.0:
 		return
+	if _abode.orientation_prompt != null:
+		_abode.orientation_prompt.update_layout(vp)
 	_abode.hud.position = Vector2.ZERO
 	_abode.hud.size = vp
 	_abode.sky.position = Vector2.ZERO
 	_abode.sky.size = vp
-	_abode.sky_material.set_shader_parameter("viewport_aspect", vp.x / vp.y)
+	var viewport_aspect := vp.x / vp.y
+	_abode.sky_material.set_shader_parameter("viewport_aspect", viewport_aspect)
+	var background_focal_x := lerpf(0.39, 0.5, smoothstep(0.75, 1.65, viewport_aspect))
+	_abode.sky_material.set_shader_parameter("background_focal_x", background_focal_x)
 	_abode.shade.size = vp
 
 	var ratio: float = vp.x / vp.y
-	if vp.x >= 960.0 and ratio >= 1.45:
+	if vp.x >= 960.0 and ratio >= 1.45 and vp.y >= 500.0:
 		_abode.layout_mode = _abode.HudLayout.WIDE
 	elif vp.x < 640.0 or ratio < 1.25:
 		_abode.layout_mode = _abode.HudLayout.PORTRAIT
@@ -398,11 +454,14 @@ func _layout_for_size(vp: Vector2) -> void:
 	_abode.toolbar.visible = true
 	_abode._apply_hud_density(compact, portrait)
 	_abode.header.position = Vector2(margin, margin)
-	_abode.header.size.x = vp.x - margin * 2.0 if portrait else minf(320.0, vp.x * 0.38)
+	_abode.header.size.x = (vp.x - margin * 2.0 - 52.0) if portrait else minf(320.0, vp.x * 0.38)
 	_abode.toolbar.position = Vector2(margin, vp.y - margin - 56.0)
 	_abode.toolbar.size = Vector2(vp.x - margin * 2.0 if portrait else minf(480.0, vp.x - margin * 2.0), 56)
 	if _abode.building_catalog.visible and not portrait:
 		_abode.toolbar.position.x = vp.x - margin - _abode.toolbar.size.x
+	if _abode.settings_menu != null:
+		_abode.settings_menu.size = Vector2(44, 44)
+		_abode.settings_menu.position = Vector2(vp.x - margin - 44.0, margin)
 	_abode.viewbar.size = Vector2(220, 48)
 	_abode.footer.visible = false
 	_abode.action_bar.visible = false
@@ -417,7 +476,7 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
 	_abode.crumb.visible = false
 	_abode.title_label.visible = false
-	_abode.objective_button.visible = not (_abode.building_catalog.visible or short_compact)
+	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)
 	_abode.resource_label.visible = false
 	_abode.resource_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_abode.resource_label.custom_minimum_size = Vector2.ZERO
@@ -445,9 +504,13 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_abode.reincarnation_button.add_theme_font_size_override("font_size", 18 if portrait else 22)
 	_abode.realm_label.add_theme_font_size_override("font_size", 20 if not compact else 18)
 	_abode.realm_progress_label.add_theme_font_size_override("font_size", 16)
+	if "chrono_label" in _abode and _abode.chrono_label != null:
+		_abode.chrono_label.add_theme_font_size_override("font_size", 15 if not compact else 13)
 	_abode.detail_title.add_theme_font_size_override("font_size", 22)
 	_abode.detail_body.add_theme_font_size_override("font_size", 16)
 	_abode.more_menu.visible = true
+	if _abode.settings_menu != null:
+		_abode.settings_menu.visible = true
 	_abode.motion_button.visible = false
 	_abode.save_button.visible = false
 	_abode.nine_realms_button.visible = false
@@ -502,6 +565,7 @@ func _set_resource_display_mode(mode: int) -> void:
 	_abode.resource_display_mode = clampi(mode, 0, 2)
 	for index in _abode.resource_mode_buttons.size():
 		_abode.resource_mode_buttons[index].button_pressed = index == _abode.resource_display_mode
+		UiMaterial.mark_paper_tab(_abode.resource_mode_buttons[index], index == _abode.resource_display_mode)
 	if _abode.building_catalog != null:
 		_abode.building_catalog.set_resource_display_mode(_abode.resource_display_mode)
 	if _abode.resource_scroll != null:
@@ -526,11 +590,18 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 			rail_top = _abode.resource_ribbon.position.y + _abode.resource_ribbon.size.y + 8.0
 		_abode.building_catalog.call("set_short_mode", vp.y < 560.0)
 		_abode.building_catalog.call("set_layout_bounds", Rect2(margin if portrait else vp.x - margin - rail_width, rail_top, rail_width, maxf(72.0, rail_bottom - rail_top)))
+	# Retain the user's open/closed choice while a short management drawer needs the space.
+	var short_management := management and vp.y < 500.0
+	_abode.hint_panel.visible = _messages_open and not portrait and (not short_management or _messages_explicit)
 	if _abode.hint_panel.visible:
-		var hint_width: float = minf(460.0, vp.x - margin * 2.0)
-		var max_h: float = minf(320.0, vp.y * 0.48) if _abode._hint_expanded else 120.0
-		var hint_h: float = max_h
-		var hint_x: float = (vp.x - hint_width) * 0.5 if not portrait else margin
+		var left_limit: float = _abode.header.get_global_rect().end.x + 12.0
+		var right_limit: float = _abode.building_catalog.position.x - 12.0 if management else vp.x - margin
+		if short_management:
+			left_limit = margin
+			right_limit = vp.x - margin
+		var hint_width: float = minf(540.0, right_limit - left_limit)
+		var hint_h: float = minf(300.0 if _abode._hint_expanded else 220.0, vp.y * 0.48)
+		var hint_x: float = left_limit + (right_limit - left_limit - hint_width) * 0.5
 		var bottom_anchor: float = (_abode.action_bar.position.y if _abode.action_bar.visible else _abode.toolbar.position.y)
 		var hint_y: float = bottom_anchor - hint_h - 6.0
 		_abode.hint_panel.size = Vector2(hint_width, hint_h)
@@ -569,26 +640,37 @@ func _refresh_hud() -> void:
 
 	if can_bt:
 		_abode.realm_label.text = "境界：%s · %d/%d 層%s【★\u00A0可突破】" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
-		_abode.realm_label.add_theme_color_override("font_color", Color("ffd700"))
+		_abode.realm_label.add_theme_color_override("font_color", Color("805321"))
 		_abode.realm_progress_label.text = "修煉大圓滿 · 靈氣飽和可破境 · 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("fff0a0"))
+		_abode.realm_progress_label.add_theme_color_override("font_color", Color("805321"))
 	elif is_max_lvl:
 		_abode.realm_label.text = "境界：%s · %d/%d 層%s（圓滿）" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
-		_abode.realm_label.add_theme_color_override("font_color", Color("f4e7be"))
+		_abode.realm_label.add_theme_color_override("font_color", Color("343d34"))
 		_abode.realm_progress_label.text = "修煉圓滿（需擴充靈氣容量以突破）· 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("d0e2d3"))
+		_abode.realm_progress_label.add_theme_color_override("font_color", Color("555a4c"))
 	elif can_lvl:
 		_abode.realm_label.text = "境界：%s · %d/%d 層%s【★\u00A0可晉階】" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
-		_abode.realm_label.add_theme_color_override("font_color", Color("77f29b"))
+		_abode.realm_label.add_theme_color_override("font_color", Color("285c45"))
 		_abode.realm_progress_label.text = "修煉滿階 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [train_sec, req_sec, remain_life / 60.0, max_life / 60.0]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("77f29b"))
+		_abode.realm_progress_label.add_theme_color_override("font_color", Color("285c45"))
 	else:
 		_abode.realm_label.text = "境界：%s · %d/%d 層" % [era_name, cur_level, int(era_info.get("max_level", 10))]
-		_abode.realm_label.add_theme_color_override("font_color", Color("f4e7be"))
+		_abode.realm_label.add_theme_color_override("font_color", Color("343d34"))
 		_abode.realm_progress_label.text = "修煉 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [
 			train_sec, req_sec, remain_life / 60.0, max_life / 60.0
 		]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("d0e2d3"))
+		_abode.realm_progress_label.add_theme_color_override("font_color", Color("555a4c"))
+
+	if "chrono_label" in _abode and _abode.chrono_label != null and view.has("chrono"):
+		var chrono_info: Dictionary = view["chrono"]
+		var sc_info: Dictionary = chrono_info.get("shichen", {})
+		var wt_info: Dictionary = chrono_info.get("weather", {})
+		var sc_name: String = String(sc_info.get("name", "子時"))
+		var wt_name: String = String(wt_info.get("name", "坎水運"))
+		var wt_color: String = String(wt_info.get("color", "#80deea"))
+		_abode.chrono_label.text = "天時：%s · %s" % [wt_name, sc_name]
+		_abode.chrono_label.tooltip_text = "%s\n%s" % [String(wt_info.get("desc", "")), String(sc_info.get("desc", ""))]
+		_abode.chrono_label.add_theme_color_override("font_color", Color(wt_color).darkened(0.55))
 
 	_abode.level_up_button.visible = can_lvl
 	if can_lvl:
@@ -628,10 +710,10 @@ func _refresh_hud() -> void:
 
 	if rc_eligible:
 		if is_lifespan_exhausted:
-			_abode.reincarnation_button.text = "⏳ 壽盡輪迴 ⏳" if _abode.layout_mode != _abode.HudLayout.PORTRAIT else "⏳ 輪迴"
+			_abode.reincarnation_button.text = "壽盡輪迴" if _abode.layout_mode != _abode.HudLayout.PORTRAIT else "輪迴"
 			_abode.reincarnation_button.add_theme_color_override("font_color", Color("ffd180"))
-			_abode.more_menu.text = "⏳ 輪迴" if _abode.layout_mode == _abode.HudLayout.PORTRAIT else "⏳ 壽盡輪迴"
-			_abode.more_menu.get_popup().set_item_text(_abode.more_menu.get_popup().get_item_index(6), "⏳ 壽盡輪迴")
+			_abode.more_menu.text = "輪迴" if _abode.layout_mode == _abode.HudLayout.PORTRAIT else "壽盡輪迴"
+			_abode.more_menu.get_popup().set_item_text(_abode.more_menu.get_popup().get_item_index(6), "壽盡輪迴")
 		else:
 			_abode.reincarnation_button.text = "★ 輪迴天道 ★" if _abode.layout_mode != _abode.HudLayout.PORTRAIT else "★ 輪迴"
 			_abode.reincarnation_button.add_theme_color_override("font_color", Color("7de0a8"))
@@ -645,6 +727,13 @@ func _refresh_hud() -> void:
 
 	if _abode.reincarnation_panel != null and _abode.reincarnation_panel.visible:
 		_abode.reincarnation_panel.call("refresh", view)
+	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
+		_abode.fortune_modal.call("refresh", view)
+	var f_info: Dictionary = view.get("fortune", {})
+	var has_pending_fortune: bool = bool(f_info.get("has_pending", false))
+	var fortune_popup_idx: int = _abode.more_menu.get_popup().get_item_index(11)
+	if fortune_popup_idx >= 0:
+		_abode.more_menu.get_popup().set_item_text(fortune_popup_idx, "★ 機緣奇遇" if has_pending_fortune else "機緣奇遇")
 	if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
 		_abode.alchemy_panel.call("update_view", view)
 	if _abode.buff_hud_bar != null:
@@ -694,6 +783,9 @@ func _refresh_hud() -> void:
 
 	_abode.mini_resource_id = "lingli"
 	var objective_value: Variant = view.get("next_objective", null)
+	_has_guidance = objective_value is Dictionary
+	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
+	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)
 	if objective_value is Dictionary:
 		var next_building: Dictionary = view.get("buildings", {}).get(String(objective_value.get("id", "")), {})
 		for cost_id in next_building.get("costs", {}):
@@ -738,7 +830,9 @@ func _refresh_hud() -> void:
 		_abode.last_visible_resource_count = visible_resource_count
 		_abode.call_deferred("_layout")
 	_abode._update_onboarding_guidance(view)
-	var objective_text := "營造引導已完成"
+	if _abode._message_history.is_empty():
+		_push_hint_log(_abode.hint.text)
+	var objective_text := ""
 	if objective_value is Dictionary:
 		var objective_id: String = String(objective_value.get("id", ""))
 		var target_level: int = 1
@@ -851,17 +945,24 @@ func _refresh_detail() -> void:
 func _show_help() -> void:
 	_abode.hint_heading.text = "操作說明"
 	_abode.hint.text = "滑鼠拖曳／單指平移；滾輪／雙指縮放。\n營造設施可建造與升級；M 展開山域，Home 歸家。"
-	_abode.hint_panel.visible = true
+	_messages_open = true
+	_messages_explicit = true
 	_abode._layout_for_size(_abode.hud.size)
 
 func _toggle_guidance() -> void:
-	_abode.hint_panel.visible = not _abode.hint_panel.visible
+	_messages_open = not _abode.hint_panel.visible
+	_messages_explicit = _messages_open
+	_abode._layout_for_size(_abode.hud.size)
+
+func show_messages() -> void:
+	_messages_open = true
+	_messages_explicit = true
 	_abode._layout_for_size(_abode.hud.size)
 
 func _toggle_hint_expand() -> void:
 	_abode._hint_expanded = not _abode._hint_expanded
 	if _abode.hint_expand_button != null:
-		_abode.hint_expand_button.text = "⤡ 縮小" if _abode._hint_expanded else "⤢ 展開"
+		_abode.hint_expand_button.text = "縮小" if _abode._hint_expanded else "展開"
 	_abode._layout_for_size(_abode.hud.size)
 	if _abode.hint_scroll != null:
 		_abode.hint_scroll.call_deferred("set_v_scroll", 999999)
@@ -881,20 +982,20 @@ func _rebuild_hint_log_display() -> void:
 		return
 	var lines := []
 	for entry in _abode._message_history:
-		var col: String = "f4e7be"
+		var col: String = "e8e1d2"
 		if entry.contains("受阻") or entry.contains("不足"):
-			col = "ff9999"
+			col = "e4aea0"
 		elif entry.contains("突破") or entry.contains("大圓滿"):
-			col = "ffd700"
+			col = "dfc38a"
 		elif entry.contains("建造") or entry.contains("升級"):
-			col = "77f29b"
+			col = "b8cec1"
 		elif entry.contains("煉製") or entry.contains("靈丹"):
-			col = "dcd6f7"
+			col = "c7cbd5"
 		elif entry.contains("採集") or entry.contains("採伐"):
-			col = "a8e6cf"
+			col = "b8cec1"
 		elif entry.contains("[DEBUG]"):
-			col = "ffd599"
-		lines.append("[color=#%s]· %s[/color]" % [col, entry])
+			col = "dfc38a"
+		lines.append("[color=#%s]%s[/color]" % [col, entry])
 	_abode.hint_log_label.text = "\n".join(lines)
 	if _abode.hint_scroll != null:
 		_abode.hint_scroll.call_deferred("set_v_scroll", 999999)

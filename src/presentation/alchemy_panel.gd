@@ -58,7 +58,7 @@ func _build_ui() -> void:
 
 	_title_label = Label.new()
 	_title_label.text = "洞府煉丹房"
-	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
+	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 22)
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_title_row.add_child(_title_label)
@@ -71,17 +71,7 @@ func _build_ui() -> void:
 
 	# 丹道統計摘要橫幅
 	_summary_panel = PanelContainer.new()
-	var sum_box := StyleBoxFlat.new()
-	sum_box.bg_color = Color(0.1, 0.16, 0.22, 0.95)
-	sum_box.border_color = Color(0.4, 0.7, 0.9, 0.6)
-	sum_box.border_width_left = 1
-	sum_box.border_width_top = 1
-	sum_box.border_width_right = 1
-	sum_box.border_width_bottom = 1
-	sum_box.corner_radius_top_left = 6
-	sum_box.corner_radius_top_right = 6
-	sum_box.corner_radius_bottom_left = 6
-	sum_box.corner_radius_bottom_right = 6
+	var sum_box := UiMaterial.card()
 	sum_box.content_margin_left = 12
 	sum_box.content_margin_right = 12
 	sum_box.content_margin_top = 8
@@ -90,6 +80,8 @@ func _build_ui() -> void:
 	_content.add_child(_summary_panel)
 
 	_summary_label = Label.new()
+	_summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_summary_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_summary_label.text = "當前丹道加成：壽元 +0 祀 | 全局產率 +0% | 累計服丹 0 顆"
 	_summary_label.add_theme_color_override("font_color", Color(0.7, 0.9, 1.0))
 	_summary_panel.add_child(_summary_label)
@@ -132,17 +124,7 @@ func update_view(view: Dictionary) -> void:
 
 func _create_pill_row(p: Dictionary) -> PanelContainer:
 	var row := PanelContainer.new()
-	var box := StyleBoxFlat.new()
-	box.bg_color = Color(0.12, 0.15, 0.18, 0.9)
-	box.border_color = Color(0.3, 0.45, 0.55, 0.5)
-	box.border_width_left = 1
-	box.border_width_top = 1
-	box.border_width_right = 1
-	box.border_width_bottom = 1
-	box.corner_radius_top_left = 6
-	box.corner_radius_top_right = 6
-	box.corner_radius_bottom_left = 6
-	box.corner_radius_bottom_right = 6
+	var box := UiMaterial.card()
 	box.content_margin_left = 12
 	box.content_margin_right = 12
 	box.content_margin_top = 10

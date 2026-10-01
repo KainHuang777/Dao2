@@ -63,7 +63,7 @@ func _build_ui() -> void:
 
 	var title := Label.new()
 	title.text = "輪迴天道"
-	title.add_theme_font_override("font", UiTypography.emphasis_font())
+	title.add_theme_font_override("font", UiTypography.chapter_font())
 	title.add_theme_font_size_override("font_size", 22)
 	title.add_theme_color_override("font_color", Color("f4e7be"))
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -172,10 +172,12 @@ func _switch_tab(tab_name: String) -> void:
 	_active_tab = tab_name
 	_reincarnate_box.visible = (_active_tab == "reincarnate")
 	_talents_box.visible = (_active_tab == "talents")
+	UiMaterial.mark_selected(_reincarnate_button, _active_tab == "reincarnate")
+	UiMaterial.mark_selected(_talents_button, _active_tab == "talents")
 
 	# 高亮當前標籤按鈕
-	var active_color := Color("f4e7be")
-	var inactive_color := Color("a0b4a8")
+	var active_color := UiMaterial.LIGHT_TEXT
+	var inactive_color := UiMaterial.INK
 	_reincarnate_button.add_theme_color_override("font_color", active_color if _active_tab == "reincarnate" else inactive_color)
 	_talents_button.add_theme_color_override("font_color", active_color if _active_tab == "talents" else inactive_color)
 
@@ -194,10 +196,10 @@ func refresh(view: Dictionary) -> void:
 	var reason: String = String(preview.get("reason", ""))
 	if eligible:
 		if reason == "lifespan_exhausted":
-			_eligibility_label.text = "資格狀態：⏳ 壽元已盡，天命難違，請速入定轉世！"
+			_eligibility_label.text = "資格狀態：壽元已盡，天命難違，請速入定轉世！"
 			_eligibility_label.add_theme_color_override("font_color", Color("e67e22"))
 		elif reason == "rebirth_lotus":
-			_eligibility_label.text = "資格狀態：🪷 已築造【往生蓮臺】，可於大期未至時提前遁入輪迴！"
+			_eligibility_label.text = "資格狀態：已築造【往生蓮臺】，可於大期未至時提前遁入輪迴！"
 			_eligibility_label.add_theme_color_override("font_color", Color("7de0a8"))
 		else:
 			_eligibility_label.text = "資格狀態：契機已至，道心澄澈，可轉世重修！"
@@ -248,11 +250,7 @@ func _refresh_talents(current_talents: Dictionary, current_dh_str: String) -> vo
 
 func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	var container := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.015, 0.07, 0.09, 0.95)
-	style.border_color = Color(0.20, 0.45, 0.38, 0.8)
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(6)
+	var style := UiMaterial.card()
 	style.content_margin_left = 12
 	style.content_margin_right = 12
 	style.content_margin_top = 8

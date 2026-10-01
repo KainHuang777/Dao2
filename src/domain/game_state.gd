@@ -22,6 +22,12 @@ var buffs: Dictionary = {}
 var current_realm: String = "realm_human"
 var realms_data: Dictionary = {}
 var sect: Dictionary = {}
+var chrono: Dictionary = {}
+var world_address: String = "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
+var aspiration_realm: String = ""
+var discovered_worlds: Dictionary = {}
+var fortune: Dictionary = {}
+var realm_decisions: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -44,6 +50,12 @@ func duplicate_state() -> GameState:
 	copy.current_realm = current_realm
 	copy.realms_data = realms_data.duplicate(true)
 	copy.sect = sect.duplicate(true)
+	copy.chrono = chrono.duplicate(true)
+	copy.world_address = world_address
+	copy.aspiration_realm = aspiration_realm
+	copy.discovered_worlds = discovered_worlds.duplicate(true)
+	copy.fortune = fortune.duplicate(true)
+	copy.realm_decisions = realm_decisions.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -89,5 +101,12 @@ func to_snapshot_dict() -> Dictionary:
 		"current_realm": current_realm,
 		"realms_data": realms_data.duplicate(true),
 		"sect": sect.duplicate(true),
+		"chrono": chrono.duplicate(true),
+		"world_address": world_address,
+		"aspiration_realm": aspiration_realm,
+		"discovered_worlds": discovered_worlds.duplicate(true),
+		"fortune": fortune.duplicate(true),
+		"realm_decisions": realm_decisions.duplicate(true),
 	}
+
 

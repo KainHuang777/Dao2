@@ -43,6 +43,12 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_learn_sect_technique(content, state, command.payload)
 		"buy_sect_market_item":
 			return _apply_buy_sect_market_item(content, state, command.payload)
+		"trigger_fortune":
+			return _apply_trigger_fortune(content, state, command.payload)
+		"resolve_fortune":
+			return _apply_resolve_fortune(content, state, command.payload)
+		"execute_realm_decision":
+			return _apply_execute_realm_decision(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -346,6 +352,49 @@ static func _apply_buy_sect_market_item(_content: GameContent, state: GameState,
 		"ok": true,
 		"events": res.get("events", []),
 		"changed_ids": ["sect", "resources", "pills"],
+	}
+
+static func _apply_trigger_fortune(_content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
+	FortuneSystem.ensure_initialized(state)
+	var pending: Dictionary = state.fortune.get("pending_encounter", {})
+	if not pending.is_empty():
+		return _failure("HAS_PENDING_ENCOUNTER", {"pending_id": pending.get("id", "")})
+	var enc := FortuneSystem.trigger_fortune(state)
+	if enc.is_empty():
+		return _failure("NO_ENCOUNTER_AVAILABLE", {})
+	return {
+		"ok": true,
+		"events": [{"kind": "fortune_triggered", "encounter_id": enc.get("id", "")}],
+		"changed_ids": ["fortune"],
+	}
+
+static func _apply_resolve_fortune(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var option_index: int = int(payload.get("option_index", -1))
+	var res := FortuneSystem.resolve_fortune(state, option_index)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "RESOLVE_FORTUNE_FAILED")), {})
+	return {
+		"ok": true,
+		"events": [{"kind": "fortune_resolved", "log": res.get("log", ""), "rewards": res.get("rewards", {})}],
+		"changed_ids": ["fortune", "resources", "pills", "buffs", "cultivation_level"],
+	}
+
+static func _apply_execute_realm_decision(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var realm_id: String = String(payload.get("realm_id", state.current_realm))
+	var decision_id: String = String(payload.get("decision_id", ""))
+	var res := RealmDecisionSystem.execute_decision(state, realm_id, decision_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "EXECUTE_DECISION_FAILED")), {"message": res.get("message", "")})
+	return {
+		"ok": true,
+		"events": [{
+			"kind": "realm_decision_executed",
+			"decision_id": decision_id,
+			"realm_id": realm_id,
+			"applied_effects": res.get("applied_effects", {}),
+			"log_text": res.get("log_text", "")
+		}],
+		"changed_ids": ["realm_decisions", "resources", "training_seconds", "dao_heart", "buffs"],
 	}
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:

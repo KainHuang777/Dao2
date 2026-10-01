@@ -1,0 +1,6 @@
+Use case: precise-object-edit / game background composition repair.
+Input image: the existing wide Dao2 game background, sky_tearfall_island_v5.png.
+
+Edit the full-bleed landscape background non-destructively. Preserve the exact painterly cinematic Chinese fantasy style, warm sunset clouds, floating mountain silhouettes, and the same monumental weathered stone Buddha island with waterfalls streaming from both eyes. Recompose the full-width scene so the Buddha island sits around 40% from the left edge (it is currently around 22%), visible between persistent left and right HUD panels. Naturally paint coherent cloudscape and distant floating-mountain details into the newly revealed left side. Keep the central sunset and right-side distant islands coherent, and leave lower center/right airy enough to sit behind a large foreground floating island.
+
+Do not crop the canvas or change aspect ratio; retain the original 1672×941 full-bleed landscape. No stretched pixels, smear bands, duplicated Buddha, seams, blank borders, blurred edge fill, text, UI, labels, frames, or watermark. Preserve waterfall details, Buddha face identity, and existing mood. Produce a new v6 image; keep v5 unchanged.

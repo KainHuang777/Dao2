@@ -1,0 +1,239 @@
+{
+  "generator_version": 1,
+  "realms": {
+    "realm_human": {
+      "name_prefixes": ["青雲", "棲霞", "碧峰", "靈霧", "聽松", "太華", "紫芝", "迎客", "翠微", "丹霞"],
+      "name_suffixes": ["山峰", "靈谷", "清崖", "古澗", "青嶺", "幽洞", "福地", "林泉", "靈原"],
+      "descriptions": [
+        "群山連綿，草木蔥蘢，天地五行微靈平緩流淌，宜築室清修。",
+        "山澗清泉潺潺，松濤陣陣，凡世煙火與修真仙氣相依相伴之靈山秀水。",
+        "峰巒疊嶂，雲霧繚繞，凡塵地脈五行調和，最是溫養靈基之初庭。"
+      ],
+      "traits_pool": [
+        {"id": "trait_rich_vein", "name": "地脈溫和", "qi_mod": 0.15, "category": "qi", "description": "地底靈脈平穩溢出，修煉速度溫和提升 15%。", "incompatible": ["trait_chaotic_flow"]},
+        {"id": "trait_dense_forest", "name": "茂林成蔭", "qi_mod": 0.05, "category": "wood", "description": "千年老樹遮天蔽日，靈木生長速度提高 30%。", "incompatible": ["trait_blazing_desert"]},
+        {"id": "trait_pure_spring", "name": "玉液甘霖", "qi_mod": 0.10, "category": "water", "description": "山澗有微靈泉眼，利於初階煉丹與滋養肉身。", "incompatible": ["trait_poison_fog"]},
+        {"id": "trait_mortal_mist", "name": "凡塵清氣", "qi_mod": 0.08, "category": "air", "description": "紅塵俗氣洗盡，留得一抹空靈清風，清心寧神。", "incompatible": []},
+        {"id": "trait_sunlit_slope", "name": "向陽溫土", "qi_mod": 0.06, "category": "herb", "description": "土質肥沃松軟，靈草藥圃生長平穩繁茂。", "incompatible": ["trait_nether_chill"]},
+        {"id": "trait_copper_vein", "name": "淺層赤銅", "qi_mod": 0.04, "category": "mineral", "description": "山體微露赤銅與玄鐵礦苗，易於凡鐵採掘。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 1.0, "mineral": 1.0, "wood": 1.0, "spirit_crystal": 0.0},
+      "fallback": {
+        "name": "青雲福地",
+        "description": "人界標準洞天福地，五行調和，靈脈溫養萬代修士。",
+        "qi_density": 1.0,
+        "danger_level": 1,
+        "environment_traits": ["trait_rich_vein"],
+        "resource_tags": ["basic", "mortal"]
+      }
+    },
+    "realm_spirit": {
+      "name_prefixes": ["天青", "玉清", "九霄", "化靈", "凝霞", "絳雪", "玄微", "瓊華", "靈樞", "碧落"],
+      "name_suffixes": ["仙池", "靈淵", "雲闕", "瑤台", "道境", "瓊島", "靈峰", "神洲"],
+      "descriptions": [
+        "天青靈液如瀑布般從虛空中傾瀉，四海靈潮澎湃，萬朵靈花隨天風搖曳。",
+        "洞天內仙禽翔集，天道純靈在此匯聚為晶，靈氣如霧如絲凝成實體。",
+        "五行靈潮盛衰變換，造就化靈仙池與奇花異草，靈草呼吸間吐納白霧。"
+      ],
+      "traits_pool": [
+        {"id": "trait_pure_pool", "name": "仙池靈汐", "qi_mod": 0.35, "category": "qi", "description": "化靈仙池汐動，靈氣濃度暴增 35%。", "incompatible": ["trait_nether_chill"]},
+        {"id": "trait_celestial_herbs", "name": "萬載藥田", "qi_mod": 0.20, "category": "herb", "description": "土壤蘊含純淨仙露，靈草成熟速度翻倍。", "incompatible": ["trait_demon_miasma"]},
+        {"id": "trait_calm_wind", "name": "太清和風", "qi_mod": 0.10, "category": "wind", "description": "天風純和，煉丹成丹率大幅提升。", "incompatible": ["trait_blazing_desert"]},
+        {"id": "trait_crystal_stalactite", "name": "靈晶石乳", "qi_mod": 0.25, "category": "mineral", "description": "洞頂千年靈乳凝結為極品靈晶，催生純淨靈能。", "incompatible": []},
+        {"id": "trait_spirit_cloud", "name": "九霄聚靈雲", "qi_mod": 0.18, "category": "qi", "description": "靈雲盤踞山巔，引動全域修煉速度額外提升。", "incompatible": []},
+        {"id": "trait_jade_bamboo", "name": "化仙青玉竹", "qi_mod": 0.12, "category": "wood", "description": "仙竹節節生輝，質地勝過精金，乃煉製飛劍之極品法材。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 2.0, "mineral": 0.9, "wood": 1.5, "spirit_crystal": 1.5},
+      "fallback": {
+        "name": "天青靈淵",
+        "description": "靈界天樞洞天，仙池流淌天青靈液，極度利於吐納修煉與丹道推衍。",
+        "qi_density": 1.5,
+        "danger_level": 2,
+        "environment_traits": ["trait_pure_pool"],
+        "resource_tags": ["basic", "spiritual", "nectar"]
+      }
+    },
+    "realm_nether": {
+      "name_prefixes": ["黃泉", "幽冥", "忘川", "冥海", "斷魂", "黑煞", "酆都", "九幽", "陰山", "輪迴"],
+      "name_suffixes": ["古渡", "冥窟", "幽淵", "骨嶺", "陰境", "魂壇", "絕壁", "死域"],
+      "descriptions": [
+        "冥河滾滾無聲，黃泉死氣遮蔽日月，百代神魂在此渡過宿命長河。",
+        "幽冥陰風呼嘯，時間在此凝滯如冰，唯有無上神魂在死氣中熠熠生輝。",
+        "黑砂冥土萬古冰封，忘川彼岸花艷若泣血，照徹神魂歸去之宿命路徑。"
+      ],
+      "traits_pool": [
+        {"id": "trait_time_dilation_nether", "name": "黃泉凝時", "qi_mod": -0.15, "category": "time", "description": "時間流速緩慢，壽元消耗減半，但肉身納氣減緩。", "incompatible": ["trait_blazing_sun", "trait_pure_yang_air"]},
+        {"id": "trait_soul_resonance", "name": "百鬼引魂", "qi_mod": 0.20, "category": "soul", "description": "無數殘魂道韻共鳴，極度利於道心感悟與神魂修煉。", "incompatible": []},
+        {"id": "trait_nether_ice", "name": "九幽玄冰", "qi_mod": -0.10, "category": "mineral", "description": "萬古寒煞凝結為陰魄奇石，礦產豐富但草木枯絕。", "incompatible": ["trait_demon_blaze"]},
+        {"id": "trait_higanbana_bloom", "name": "彼岸血花", "qi_mod": 0.15, "category": "herb", "description": "黃泉獨有之彼岸花，以魂力為養分，煉製神魂丹藥之聖品。", "incompatible": ["trait_sunlit_slope"]},
+        {"id": "trait_nether_wind", "name": "陰煞罡風", "qi_mod": -0.05, "category": "wind", "description": "吹拂神魂之無形厲風，淬礪道心堅韌如玄鐵。", "incompatible": ["trait_calm_wind"]},
+        {"id": "trait_soul_spring", "name": "黃泉洗魂泉", "qi_mod": 0.25, "category": "soul", "description": "泉眼流淌魂魄純髓，轉生道心保留比例顯著增加。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 0.2, "mineral": 1.5, "wood": 0.1, "soul_crystal": 2.0},
+      "fallback": {
+        "name": "忘川古渡",
+        "description": "幽冥界九幽地府要道，死生輪迴之門，神魂參悟無上造化之所。",
+        "qi_density": 0.8,
+        "danger_level": 3,
+        "environment_traits": ["trait_time_dilation_nether"],
+        "resource_tags": ["soul", "nether", "yin"]
+      }
+    },
+    "realm_beast": {
+      "name_prefixes": ["萬妖", "太古", "荒莽", "啼血", "巨獸", "龍皇", "金鵬", "玄武", "白虎", "裂天"],
+      "name_suffixes": ["莽原", "古巢", "骨海", "天脊", "裂谷", "狂野", "荒嶺", "神穴"],
+      "descriptions": [
+        "十萬大山古樹參天，荒莽凶禽遮天蔽日，天地充斥著狂暴太古血脈。",
+        "太古巨獸之骨化為千里山脈，礦脈深藏太古玄鐵赤銅，煞氣橫生。",
+        "遠古凶獸奔騰踐踏大地，天地血煞濃郁，萬木皆粗如山嶽，金石堅不可摧。"
+      ],
+      "traits_pool": [
+        {"id": "trait_blood_surge", "name": "洪荒血氣", "qi_mod": 0.10, "category": "body", "description": "天地血氣澎湃，肉身氣血暴漲，採集採伐產能翻倍。", "incompatible": []},
+        {"id": "trait_metal_mountain", "name": "千仞金煞", "qi_mod": -0.05, "category": "mineral", "description": "庚金煞氣瀰漫，玄鐵與精金礦產暴增 250%。", "incompatible": []},
+        {"id": "trait_primal_roar", "name": "萬獸咆哮", "qi_mod": -0.10, "category": "danger", "description": "妖獸四伏，修煉易受驚擾，但大妖精血極其充裕。", "incompatible": ["trait_peaceful_buddha"]},
+        {"id": "trait_ancient_banyan", "name": "太古巨榕", "qi_mod": 0.12, "category": "wood", "description": "一木成林遮天蔽日，靈木精華濃鬱至極。", "incompatible": []},
+        {"id": "trait_dragon_marrow", "name": "真龍地髓", "qi_mod": 0.20, "category": "mineral", "description": "地下埋藏遠古神龍骸骨化成之玉髓礦，產出稀世靈石。", "incompatible": []},
+        {"id": "trait_blood_mire", "name": "大妖血沼", "qi_mod": 0.08, "category": "beast", "description": "妖血匯聚成泥潭，生長著汲取百獸精血之奇異血藤。", "incompatible": ["trait_pure_spring"]}
+      ],
+      "resource_bias": {"herb": 0.8, "mineral": 2.5, "wood": 2.2, "beast_core": 2.0},
+      "fallback": {
+        "name": "太古莽原",
+        "description": "萬妖界洪荒腹地，大妖血脈奔騰，太古金石奇木無盡之寶地。",
+        "qi_density": 0.85,
+        "danger_level": 3,
+        "environment_traits": ["trait_blood_surge"],
+        "resource_tags": ["blood", "beast", "wood"]
+      }
+    },
+    "realm_demon": {
+      "name_prefixes": ["天魔", "無相", "血海", "煉心", "極樂", "修羅", "冥獄", "慾海", "煞魂", "七情"],
+      "name_suffixes": ["魔淵", "幻境", "魔窟", "血崖", "劫海", "魔宮", "禁地", "血峰"],
+      "descriptions": [
+        "魔雲遮日，七情六慾化作無窮幻象與慾海波濤，神魂稍動即陷萬劫不復。",
+        "赤焰魔火沖天而起，心魔咆哮衝擊識海，生死一線間激發修士全部潛能。",
+        "黑紅煞氣如巨浪滔天，慾念魔考隨處顯現，以極端心靈煉獄磨礪絕頂魔神。"
+      ],
+      "traits_pool": [
+        {"id": "trait_demon_blaze", "name": "心魔烈火", "qi_mod": 0.50, "category": "fire", "description": "魔火灼心，修煉速度暴漲 50%，但壽元急速燃燒。", "incompatible": ["trait_nether_chill", "trait_pure_pool"]},
+        {"id": "trait_illusion_matrix", "name": "無相迷障", "qi_mod": 0.30, "category": "mind", "description": "六慾魔考激發道心破境潛能，突破成功率提升但易走火。", "incompatible": ["trait_peaceful_buddha"]},
+        {"id": "trait_blood_forge", "name": "修羅煞爐", "qi_mod": 0.20, "category": "forge", "description": "魔煞化為丹火地脈，煉丹極速但極易炸爐。", "incompatible": []},
+        {"id": "trait_fury_abyss", "name": "嗔怒深淵", "qi_mod": 0.15, "category": "emotion", "description": "無窮嗔恨戾氣直衝雲霄，開採煞晶之產量激增。", "incompatible": ["trait_peaceful_buddha"]},
+        {"id": "trait_passion_flower", "name": "六慾曼陀羅", "qi_mod": 0.18, "category": "herb", "description": "艷麗妖異之魔界花卉，致幻卻能淬礪修士堅定道心。", "incompatible": ["trait_pure_spring"]},
+        {"id": "trait_black_lotus", "name": "滅世黑蓮池", "qi_mod": 0.40, "category": "demon", "description": "黑蓮扎根於無盡魔煞之中，散發逆轉天道之強橫修為能量。", "incompatible": ["trait_pure_yang_air"]}
+      ],
+      "resource_bias": {"herb": 0.5, "mineral": 1.5, "wood": 0.5, "demon_crystal": 2.5},
+      "fallback": {
+        "name": "無相魔淵",
+        "description": "天魔界心魔試煉之極地，魔火淬煉金剛道心，破境衝關之凶險絕地。",
+        "qi_density": 2.5,
+        "danger_level": 4,
+        "environment_traits": ["trait_demon_blaze"],
+        "resource_tags": ["demon", "heart", "fire"]
+      }
+    },
+    "realm_immortal": {
+      "name_prefixes": ["純陽", "大羅", "玉虛", "太乙", "凌霄", "長生", "崑崙", "紫微", "廣寒", "天樞"],
+      "name_suffixes": ["仙閣", "金闕", "仙京", "天宮", "瓊宇", "金庭", "瑤池", "神闕"],
+      "descriptions": [
+        "純陽紫氣照徹九萬里，祥雲仙鶴繞金闕盤旋，一派長生久視真仙盛景。",
+        "九天銀河倒瀉，仙靈之氣充盈宇宙，天道法則至高無上，時光永恆不朽。",
+        "仙樂飄渺，彩鳳翔舞，仙家靈池百丈深，靈泉凝露皆為萬載不死仙藥。"
+      ],
+      "traits_pool": [
+        {"id": "trait_pure_yang_air", "name": "純陽真氣", "qi_mod": 0.80, "category": "qi", "description": "純陽無極，洗盡凡塵雜質，修煉納靈速度激增 80%。", "incompatible": ["trait_nether_chill", "trait_demon_blaze"]},
+        {"id": "trait_celestial_dilation", "name": "仙班長生", "qi_mod": 0.20, "category": "time", "description": "天上一日凡間一年，壽元流速延緩至凡塵五分之一。", "incompatible": []},
+        {"id": "trait_celestial_vein", "name": "九霄仙玉", "qi_mod": 0.30, "category": "mineral", "description": "地脈凝結無瑕仙玉，靈石靈晶靈池全部翻倍擴容。", "incompatible": []},
+        {"id": "trait_panacea_peach", "name": "九千年蟠桃林", "qi_mod": 0.35, "category": "herb", "description": "仙桃三千年一開花，食之霞舉飛昇，靈藥收成極佳。", "incompatible": ["trait_demon_blaze"]},
+        {"id": "trait_rainbow_bridge", "name": "太清虹橋", "qi_mod": 0.25, "category": "light", "description": "七彩道橋橫貫長空，天人感應，飛劍遊行神速。", "incompatible": []},
+        {"id": "trait_immortal_crane", "name": "丹頂玄鶴巢", "qi_mod": 0.15, "category": "creature", "description": "伴生仙禽常鳴，祥瑞之氣庇佑，渡劫風險顯著降低。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 2.5, "mineral": 2.0, "wood": 2.0, "immortal_jade": 3.0},
+      "fallback": {
+        "name": "純陽金闕",
+        "description": "仙界真仙齊聚之太清仙闕，長生久視，與天地同壽之至高仙府。",
+        "qi_density": 3.0,
+        "danger_level": 5,
+        "environment_traits": ["trait_pure_yang_air"],
+        "resource_tags": ["immortal", "pure_yang", "celestial"]
+      }
+    },
+    "realm_buddha": {
+      "name_prefixes": ["菩提", "妙法", "無量", "蓮華", "慈恩", "金剛", "淨土", "法華", "楞嚴", "須彌"],
+      "name_suffixes": ["禪林", "寶剎", "淨土", "道場", "法台", "梵宮", "香積", "佛國"],
+      "descriptions": [
+        "佛光普照大千世界，菩提樹下梵音清淨，三千煩惱與心魔執念皆化泡影。",
+        "七寶琉璃池中金蓮盛開，功德香火萬古不熄，天人不老，因果圓滿。",
+        "金色琉璃鋪地，天雨曼陀羅華，十方諸佛說法，萬邪退避，智慧圓明。"
+      ],
+      "traits_pool": [
+        {"id": "trait_peaceful_buddha", "name": "功德願力", "qi_mod": 0.25, "category": "karma", "description": "功德金光庇護，完全免疫心魔干擾，道心穩如泰山。", "incompatible": ["trait_demon_blaze", "trait_illusion_matrix"]},
+        {"id": "trait_lotus_pond", "name": "八德寶池", "qi_mod": 0.20, "category": "water", "description": "寶池水洗滌宿業，轉生保留道心額外增加 30%。", "incompatible": []},
+        {"id": "trait_bodhi_shade", "name": "菩提神蔭", "qi_mod": 0.15, "category": "wood", "description": "神木生長緩慢但靈氣純正，可助修士頓悟高階心法。", "incompatible": []},
+        {"id": "trait_relic_pagoda", "name": "舍利寶塔", "qi_mod": 0.30, "category": "holy", "description": "供奉上古高僧不滅舍利，鎮壓氣運，諸邪不侵。", "incompatible": []},
+        {"id": "trait_sandalwood_mist", "name": "旃檀香雲", "qi_mod": 0.12, "category": "scent", "description": "天界妙香裊裊，平復浮躁，煉丹心平氣和極少失誤。", "incompatible": []},
+        {"id": "trait_golden_sand", "name": "金剛流沙", "qi_mod": 0.18, "category": "mineral", "description": "琉璃金砂鋪滿河道，蘊含精純佛光金性，煉器極品。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 1.3, "mineral": 0.7, "wood": 1.3, "karma_relic": 2.0},
+      "fallback": {
+        "name": "菩提道場",
+        "description": "佛界三千淨土之核心禪林，因果澄澈，功德金身永固之清淨聖地。",
+        "qi_density": 1.2,
+        "danger_level": 5,
+        "environment_traits": ["trait_peaceful_buddha"],
+        "resource_tags": ["buddha", "karma", "gold"]
+      }
+    },
+    "realm_chaos": {
+      "name_prefixes": ["混沌", "鴻蒙", "無極", "玄黃", "混元", "闢地", "破虛", "開天", "元始", "洪荒"],
+      "name_suffixes": ["裂隙", "亂流", "渦流", "祖穴", "荒墟", "神池", "深淵", "天塹"],
+      "descriptions": [
+        "乾坤未分，陰陽五行融為一爐混沌風暴，空間時常碎裂重組。",
+        "混元祖氣澎湃湧動，截取一絲即可重塑天地靈根，蘊含無量開天造化。",
+        "宇宙大爆炸前之先天天平，無日無月，無方無隅，萬物在此化為原始元炁。"
+      ],
+      "traits_pool": [
+        {"id": "trait_primordial_qi", "name": "混元祖氣", "qi_mod": 0.60, "category": "chaos", "description": "天地本源之氣，靈氣池與修煉速度大幅提升 60%。", "incompatible": []},
+        {"id": "trait_chaotic_space", "name": "時空裂隙", "qi_mod": 0.40, "category": "void", "description": "維度扭曲，空間容量翻倍，但各項產能隨天時劇烈波動。", "incompatible": ["trait_rich_vein"]},
+        {"id": "trait_elemental_reversal", "name": "逆轉五行", "qi_mod": 0.30, "category": "element", "description": "五行互生互化，天材地寶與靈礦產率極高。", "incompatible": []},
+        {"id": "trait_genesis_thunder", "name": "開天神雷", "qi_mod": 0.35, "category": "thunder", "description": "混沌紫霄神雷常落，淬煉本命法寶，威力震天駭地。", "incompatible": []},
+        {"id": "trait_chaos_mud", "name": "九天息壤源質", "qi_mod": 0.45, "category": "earth", "description": "開闢萬物之先天神土，靈草生長神速且不生害蟲。", "incompatible": []},
+        {"id": "trait_void_maelstrom", "name": "太虛吞靈渦", "qi_mod": 0.50, "category": "void", "description": "虛空漩渦瘋狂吸納諸界散溢游離靈能，丹田容積翻倍膨脹。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 1.8, "mineral": 3.0, "wood": 1.8, "chaos_matter": 3.0},
+      "fallback": {
+        "name": "鴻蒙渦流",
+        "description": "混沌界太極未分之祖源亂流，蘊藏無極混元祖氣，開天闢地造化之所。",
+        "qi_density": 2.0,
+        "danger_level": 6,
+        "environment_traits": ["trait_primordial_qi"],
+        "resource_tags": ["chaos", "primordial", "void"]
+      }
+    },
+    "realm_origin": {
+      "name_prefixes": ["太初", "造化", "宇宙", "萬法", "無終", "開元", "元始", "無極", "天宿", "鴻圖"],
+      "name_suffixes": ["星核", "天心", "源眼", "母體", "樞紐", "道海", "太微", "皇極"],
+      "descriptions": [
+        "萬千星河由此誕生，時間與命運長河在此發源，天地至高神念俯瞰諸天。",
+        "無邊無際的宇宙源海，一切法則在此凝為絲線，心念微動即可創生星界。",
+        "眾生一切因果與靈智的起源母體，超脫一切生老病死與三災九難之極致。"
+      ],
+      "traits_pool": [
+        {"id": "trait_genesis_light", "name": "創世神光", "qi_mod": 1.50, "category": "origin", "description": "宇宙初開之第一道光，修煉倍率飆升 150%，壽元近乎不滅。", "incompatible": []},
+        {"id": "trait_cosmic_eye", "name": "天道俯瞰", "qi_mod": 1.00, "category": "cosmic", "description": "掌控世界地址法則，靈池與據點產能擴容至千倍極限。", "incompatible": []},
+        {"id": "trait_infinite_matter", "name": "萬法源質", "qi_mod": 0.80, "category": "all", "description": "一切資源的終極母體，所有靈草、礦石、奇木生長無上限。", "incompatible": []},
+        {"id": "trait_destiny_loom", "name": "宿命織錦", "qi_mod": 0.90, "category": "fate", "description": "牽動眾生因果線，轉生道心百分之百完美繼承。", "incompatible": []},
+        {"id": "trait_eternal_flame", "name": "不熄不滅初火", "qi_mod": 0.70, "category": "fire", "description": "點燃宇宙群星的第一星火，煉丹煉器成丹率達臻至境。", "incompatible": []},
+        {"id": "trait_stellar_dew", "name": "萬界星髓", "qi_mod": 1.20, "category": "water", "description": "星河精華所凝神液，吞服一滴可延壽三千歲，修為浩瀚。", "incompatible": []}
+      ],
+      "resource_bias": {"herb": 4.0, "mineral": 4.0, "wood": 4.0, "origin_essence": 5.0},
+      "fallback": {
+        "name": "太初心核",
+        "description": "太初界創世母體之眼，撥動諸天宇宙法則，萬法歸宗之終極境地。",
+        "qi_density": 5.0,
+        "danger_level": 7,
+        "environment_traits": ["trait_genesis_light"],
+        "resource_tags": ["origin", "genesis", "cosmic"]
+      }
+    }
+  }
+}
