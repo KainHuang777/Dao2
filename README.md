@@ -2,11 +2,13 @@
 
 Godot 修仙放置遊戲原型：由洞府建設、修行與突破開始，逐步探索輪迴、宗門與不同世界。主場景、HUD 和互動由 Godot/GDScript 負責；Web 匯出供瀏覽器執行。
 
-## 目前狀態｜2026-09-28
+## 目前狀態｜2026-10-02
 
-已交付多世輪迴、丹藥、BUFF、宗門與靈界系統，Godot 4.7.2 的 25 個 Runner 通過。使用者已驗收 M2-D 桌面 Web 視覺與操作；後續回歸另發現 360 CSS px 版型縮放不足。最新檢查也發現宗門、跨界及 BUFF 命令雖有 `CommandProcessor` 分支，卻未列入 `GameSession` 命令白名單，正式場景會回覆 `UNKNOWN_COMMAND`。
+已實作多世輪迴、丹藥、BUFF、宗門、靈界、天時與機緣奇遇；九界法則、世界地址、確定性世界描述生成與界域戰略決策已有規則／資料／保存測試。宗門、跨界與 BUFF 的 Session 白名單已補上。2026-10-02 複核重跑現有 **34/34 Runner 通過、exit 0**；引擎 Godot `4.7.2.stable.official.ed1daf0bf`。
 
-因此下一步先補 Session 命令整合，再修正 Godot 邏輯視口與窄螢幕 CSS 的縮放；完成後繼續 M4-B 尺度與法則。各項證據與限制以[目前狀態](docs/development-status.md)為準，過往里程碑名稱不代表最近回歸發現的缺口已修好。
+9/29–10/2 另實作系統設定與境界 BGM 排程、橫式響應式／直式旋轉提示、介面材質迭代、思源黑體＋粗明體、引導／訊息改善，以及升境光環雷電與過場文字樣板。最新 UI7 採紙色墨字、霧面青玉與朱砂重點；既有紀錄已驗桌面瀏覽器 1280×720、844×390 滑鼠與 360×640 旋轉提示，使用者美術放行、高 DPR 與實體手機仍待驗。九界資料交付不代表九界完整可玩、美術與長期負載都已驗收。
+
+下一步先完成最新 UI／字型／演出回饋與裝置驗收，再依 Roadmap 推進靈獸或成就。詳細變更與未完成 DoD 見[文件複核](docs/verification/doc-a-r1.md)及[目前狀態](docs/development-status.md)。原始碼已同步至 [GitHub 專案](https://github.com/KainHuang777/Dao2)；引擎、模板、快取與 Web 匯出不納入版本控制，複製倉庫後須備妥同版環境。
 
 ## 開始接手
 
@@ -22,10 +24,10 @@ Godot 修仙放置遊戲原型：由洞府建設、修行與突破開始，逐�
 ## 開發與驗證
 
 - Godot `4.7.2.stable.official.ed1daf0bf`、GDScript、Compatibility、單執行緒 Web。
-- 使用 PowerShell 從專案根目錄執行完整 25 Runner：
+- 使用 PowerShell 從專案根目錄執行現有 34 Runner（清單以腳本為準）：
 
   ```powershell
-  powershell -File .\tools\run_all_runners.ps1
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1
   ```
 
 - Web Release、單獨 Runner 及瀏覽器操作命令見[交接指南](docs/ai-handoff.md)。Headless Runner 不代表瀏覽器輸入、窄版可讀性、實機觸控或 IndexedDB 已驗收。

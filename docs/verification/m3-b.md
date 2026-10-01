@@ -1,8 +1,10 @@
-﻿# M3-B 舊系統承接與子系統驗證紀錄
+# M3-B 舊系統承接與子系統驗證紀錄
 
-2026-09-28 狀態複核：宗門規則與面板已實作，但 `GameSession.KNOWN_COMMAND_TYPES` 不接受 `join_sect`／宗門後續命令；其餘 BUFF／跨界新命令亦需同一整合修復。M4-A-R1 完成前，以下只記模組與當時 runner 結果，不能視為正式場景閉環。見 [REF-A](ref-a.md)。
+2026-10-02 DOC-A-R1 現況補記：GameSession 白名單與宗門／跨界／BUFF 呼叫已補上；以下 9/28 UNKNOWN_COMMAND 記錄是歷史發現，不再表示目前尚未接線。宗門 Session 成功路徑已有 runner，本輪固定入口 34/34 PASS；全部新命令拒絕／冪等／保存及實際 Web 操作仍按 R1 補證，未宣稱完整端到端驗收。見 [複核](doc-a-r1.md)。
 
-狀態：IN_PROGRESS（逐項交付中：已完成丹藥、BUFF、宗門子系統；天時、機緣、靈獸、成就接續推進，非全量收尾）。
+2026-09-28 歷史狀態複核：宗門規則與面板已實作，但 `GameSession.KNOWN_COMMAND_TYPES` 不接受 `join_sect`／宗門後續命令；其餘 BUFF／跨界新命令亦需同一整合修復。M4-A-R1 完成前，以下只記模組與當時 runner 結果，不能視為正式場景閉環。見 [REF-A](ref-a.md)。
+
+狀態：IN_PROGRESS（逐項交付中：丹藥、BUFF、宗門、天時、機緣已實作並有測試；靈獸、成就等接續推進，非全量收尾）。
 
 規格依據：[Roadmap M3-B](../../ROADMAP.md)、[來源基線 00-source-baseline.md](../00-source-baseline.md)。
 
@@ -57,14 +59,18 @@
 
 ---
 
-## 後續待推進子系統（非阻塞主線 M4-B）
-- **天時與天象運轉**（季節、陰陽時辰對草木靈氣之影響）
-- **機緣奇遇與福地探索**
-- **靈獸培育與護山守衛**
-- **仙道成就與通天圖鑑**
+## 2026-09-30–10-01 新增交付
 
----
+- 天時：ChronoSystem 十二時辰與五行天候、時間推進／倍率／保存／HUD；m3b_chrono_runner。
+- 機緣：FortuneSystem、FortuneModal、原子性決策與保存／輪迴重置；fortune 與 fortune_ui runners。
+- M5-B 將奇遇資料擴充為 26 項並加當前界域偏向；14 項 RealmDecisionSystem 決策有 Session 與保存測試。
+- 本次 34/34 Runner PASS，實機與完整 UI／Web DoD 不由此推定。參見 [九界規格](../11-nine-realms-law-and-world-generation-spec.md)、[複核](doc-a-r1.md)。
 
-## 驗證證據
+## 後續待推進子系統
+
+- 靈獸培育與護山守衛。
+- 仙道成就與通天圖鑑；多語與高階修行按 Roadmap 逐項核對。
+
+## 2026-09-28 歷史驗證證據
 - 全量 25 項 Runner 經 `tools/run_all_runners.ps1` 執行，退出碼均為 0。
 - Web Release 匯出 exit 0。

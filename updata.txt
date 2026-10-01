@@ -1,3 +1,18 @@
+[2026-10-02] DOC-A-R1 commit and GitHub push follow-up
+- User explicitly requested committing and pushing the documentation audit after review.
+- Prepared the DOC-A-R1 documents, historical archive and verification logs for a focused main-branch commit to origin/main.
+- Preserved the pre-existing ui-quiet-http-errors.log modification outside this commit. Prior audit validation remains 34/34 runners, UTF-8/local links PASS and git diff --check exit 0.
+- Commit/push success must be confirmed by command results and matching remote HEAD. Next major development should use a fresh chat and follow the current development-status acceptance priorities.
+
+[2026-10-02] DOC-A-R1 repository documentation audit checkpoint
+- Audited local Git history (66df79c -> 53b864f -> ed63330), September 29 through October 2 development checkpoints, real source modules, runner list and verification logs. GitHub page retrieval returned Cache miss; remote sync is grounded in the user's report, existing checkpoint and local tracking refs, not a new live remote comparison.
+- Updated README, ROADMAP, development-status and ai-handoff to the October 2 baseline and 34 runners. Added dated corrections to m3-b, m4-a and ref-a verification pages. Archived the previous development-status with relocated links.
+- Corrected stale Session whitelist / M5-not-started claims, completed weather/fortune entries and portrait requirements. Recorded settings/BGM, scale laws, generation, realm decisions, UI1-7, mixed typography, FX2 and TEXT1 with honest acceptance limits.
+- Historical M5 DONE refers to core/contracts or data delivery only; overall milestones remain IN_PROGRESS for unmet playable-law, version-upgrade, per-realm art/playtest and load evidence. Session wiring exists, but full new-command and Web acceptance still needs evidence.
+- Godot version 4.7.2.stable.official.ed1daf0bf exit 0. First sandbox runner attempt exited 1 on isolated user:// fixture/log access; authorized same-command retry passed all 34 runners exit 0. Existing teardown/negative-fixture diagnostics remain. This task did not rerun import, export, parity or browser/device checks.
+- Evidence: docs/verification/doc-a-r1.md and associated runner/document-check logs. Preserved the pre-existing modified ui-quiet-http-errors.log. No gameplay, save, art or system configuration changes; documentation is not committed or pushed in this task.
+- Stop at this documentation checkpoint. Next chat should collect current UI7/typography/FX2/TEXT1 feedback and verify devices before selecting beasts/achievements or closing full M5 DoD.
+
 [2026-10-02] GITHUB sync and initial repository push checkpoint
 - User requested committing all pending working tree updates and pushing to remote https://github.com/KainHuang777/Dao2.
 - Local branch unified to main and set to track origin/main.

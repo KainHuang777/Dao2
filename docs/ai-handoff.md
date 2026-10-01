@@ -1,6 +1,6 @@
 # 給下一位 AI 的開發交接
 
-更新：2026-09-28（REF-A 呈現層索引與驗證入口）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
+更新：2026-10-02（DOC-A-R1：34 Runner、GitHub 倉庫與最新驗收邊界）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
 
 ## 閱讀與恢復工作
 
@@ -14,6 +14,13 @@
 如果工具不自動讀 AGENTS.md，請在首個提示明確要求閱讀。歷史文件 docs/03 保留初期推理與案例，開發順序以根目錄 Roadmap 為準。不要因舊文有「下一步建立環境」而重裝。
 
 依修改類型查 [呈現層索引](abode-presentation-map.md)。歷史長記錄已歸檔，不作每次必讀；目前缺口與驗證以 [開發狀態](development-status.md) 為準。
+
+## 最新接手狀態
+
+- Session 已放行宗門／跨界／BUFF，不能照 9/28 提示重做白名單；全部新命令端到端／Web 證據仍按 R1 補齊。
+- M4-B、M5-A／B 已有核心／資料實作；完整可玩／美術／試玩／長期負載尚未全驗。最新 UI7 已實作，優先收 UI／字型／演出回饋與裝置驗收。
+- 倉庫 origin 為 https://github.com/KainHuang777/Dao2.git，main 追蹤 origin/main；引擎／模板、.godot、build 被忽略。乾淨 clone 不含本機引擎，需同版 4.7.2 執行檔及模板，不自動更新環境。
+- 執行政策 Bypass 僅作用於該測試子程序。若沙箱阻擋隔離 user:// fixture，記錄失敗並使用正常授權重跑；不要改玩家存檔。
 
 ## 實際路徑與現有檔案
 
@@ -29,21 +36,21 @@
 | `src/abode/abode_building.gd` | 獨立 sprite、命中區、標籤、選取及升級特效 |
 | `src/abode/abode_flows.gd` | 飛劍與靈氣的程式動畫；不發放資源 |
 | `assets/abode/` | terrain、sky、hut、garden、altar、sword 分層圖片 |
-| `assets/fonts/NotoSerifTC-VF.ttf` | 繁中字型；文字不可烘焙在底圖上 |
+| `assets/fonts/`、`src/presentation/ui_typography.gd` | 思源黑體 TW VF 400／600 資訊字與粗明體 800 題字；保留字型授權 |
 | `docs/abode-art/` | 生成提示詞、原始與處理紀錄，非正式遊戲模組 |
 | `scenes/web_probe.tscn`、`src/presentation/web_probe.gd` | 舊計數探針；`user://web_probe_state.json`；與洞府不同存檔契約 |
 | `tools/test_runner.gd` | 基本 JSON／user 儲存與字型探針 |
 | `tests/abode_state_runner.gd` | 展示產率、升級、藥圃停止測試 |
 | `tests/living_abode_runner.gd` | 直接呼叫場景選取／升級／停產／鏡頭函式，非真實輸入 E2E |
 | `docs/visual-prototype/` | 早期 HTML 視覺提案，不能作為正式遊戲核心 |
-| `src/效果圖/` | 現有參考圖，勿任意刪除；待從 release 打包排除 |
+| `src/效果圖/` | 現有參考圖，勿任意刪除；export_presets.cfg 已排除 release 打包 |
 | `build/`、`.godot/` | 匯出與快取，可重建；修改來源後重新生成 |
 
 舊來源 `E:\Python\test1`、塔防參考 `E:\WORK\GodTower` 僅供讀取。其他機器沒有這些路徑時，可先做不依賴來源的驗收；公式 fixture 任務應報缺來源，不從記憶或圖片猜公式。
 
 ## 可重跑命令（目前已存在的入口）
 
-以下在 Windows PowerShell 執行。每一步確認退出碼；2026-09-28 REF-A 重跑原 25 項 Runner 與追加呈現層回歸，詳見 `docs/verification/ref-a.md`。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
+以下在 Windows PowerShell 執行。每一步確認退出碼；2026-10-02 DOC-A-R1 重跑固定入口 34/34 PASS，清單以 tools/run_all_runners.ps1 為準。追加呈現層回歸不在固定入口；歷史結果見各驗收頁，本輪未重跑。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
 
 ```powershell
 Set-Location 'E:\WORK\Dao2'
@@ -52,8 +59,8 @@ $daoEngine = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
 if ($LASTEXITCODE -ne 0) { throw 'Godot version check failed' }
 & $daoEngine --headless --path . --import
 if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
-powershell -File .\tools\run_all_runners.ps1
-if ($LASTEXITCODE -ne 0) { throw 'One of the 25 runners failed' }
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1
+if ($LASTEXITCODE -ne 0) { throw 'A runner failed' }
 & $daoEngine --headless --path . --script res://tests/abode_presentation_parity_runner.gd
 if ($LASTEXITCODE -ne 0) { throw 'Presentation facade regression failed' }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null
@@ -85,7 +92,7 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 ## 任務與驗收紀錄模板
 
-每項工作在 `docs/verification/<task-id>.md` 建立紀錄（此目錄待第一項任務建立）：
+每項工作在既有 `docs/verification/<task-id>.md` 建立或追加紀錄：
 
 ```text
 任務 ID／日期／狀態：
@@ -116,5 +123,4 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 ## 可直接貼给下一個 AI 的提示
 
-> 請接續 E:\WORK\Dao2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md，再依 docs/abode-presentation-map.md 定位當次檔案；涉及 UI 必讀 docs/07。使用既有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。REF-A 保留原行為並拆分 HUD／彈窗，原 25 Runner 和追加場景回歸通過；既有宗門／靈界命令被 GameSession 白名單拒絕的問題尚待獨立修復，不能把過往 DONE 或 Domain 測試當成正式場景閉環。先補該整合缺口，再推進 M4-B；詳細證據與未驗項見目前狀態。
-
+> 請接續 E:\WORK\Dao2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md 與 updata.txt 頂部 checkpoint；按呈現層索引定位來源，UI 必讀 docs/07。使用現有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。34 Runner 於 2026-10-02 重跑通過，Session 白名單已補，M4-B 與 M5-A／B 核心資料已交付；不重做舊接線，也不把數值測試當作九界完整遊玩驗收。先接續最新 UI7、混搭字型、FX2／TEXT1 的回饋及裝置驗收，再選靈獸／成就或補 M5 完整 DoD；缺少證據的項目照狀態頁保留待驗。
