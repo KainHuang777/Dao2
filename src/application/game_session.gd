@@ -250,6 +250,7 @@ func get_view() -> Dictionary:
 			"max_per_hour": FortuneSystem.compute_max_per_hour(state.era_id),
 		},
 		"realm_decisions": RealmDecisionSystem.get_realm_decisions_view(state, state.current_realm),
+		"beast": BeastSystem.get_view(state),
 		"world_address": state.world_address,
 	}
 

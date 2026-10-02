@@ -163,15 +163,15 @@ func _run() -> void:
 		return
 	reloaded._layout_for_size(Vector2(360, 640))
 	reloaded._refresh_hud()
-	if reloaded.replay_breakthrough_button.visible or reloaded.more_menu.get_popup().is_item_disabled(reloaded.more_menu.get_popup().get_item_index(5)):
-		_fail("Era 2 replay must remain available through the portrait More menu")
+	if reloaded.replay_breakthrough_button.visible or reloaded.settings_menu.get_popup().is_item_disabled(reloaded.settings_menu.get_popup().get_item_index(5)):
+		_fail("Era 2 replay must remain available through the portrait Settings menu")
 		return
 
 	reloaded._layout_for_size(Vector2(1280, 720))
 	reloaded._refresh_hud()
 
-	if reloaded.replay_breakthrough_button.visible or not reloaded.more_menu.visible or reloaded.more_menu.get_popup().is_item_disabled(reloaded.more_menu.get_popup().get_item_index(5)):
-		_fail("Era 2 replay must remain available through the wide More menu")
+	if reloaded.replay_breakthrough_button.visible or not reloaded.settings_menu.visible or reloaded.settings_menu.get_popup().is_item_disabled(reloaded.settings_menu.get_popup().get_item_index(5)):
+		_fail("Era 2 replay must remain available through the wide Settings menu")
 		return
 
 	reloaded.queue_free()

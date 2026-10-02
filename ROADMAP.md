@@ -1,6 +1,6 @@
 # 修仙問道 v2 — 可執行開發 Roadmap
 
-規劃基線：2026-09-13；目前狀態與接手順序以 [docs/development-status.md](docs/development-status.md) 為準（2026-10-02 DOC-A-R1 更新）。此檔是後續開發順序與完成條件的主要入口；沿用既有 M0–M5 編號，新增任務 ID，避免舊文件與新交接對不上。沒有承諾日曆工期，依驗收通過推進。
+規劃基線：2026-09-13；目前狀態與接手順序以 [docs/development-status.md](docs/development-status.md) 為準（2026-10-03 NAV1 更新）。此檔是後續開發順序與完成條件的主要入口；沿用既有 M0–M5 編號，新增任務 ID，避免舊文件與新交接對不上。沒有承諾日曆工期，依驗收通過推進。
 
 ## 1. 要完成的遊戲
 
@@ -21,17 +21,17 @@
 
 ## 2. 目前交付範圍與證據邊界
 
-這張 Roadmap 保留里程碑設計與完整 DoD；實際進度以 [開發狀態](docs/development-status.md) 和 [DOC-A-R1 複核](docs/verification/doc-a-r1.md) 為準。2026-10-02 狀態如下：
+這張 Roadmap 保留里程碑設計與完整 DoD；實際進度以 [開發狀態](docs/development-status.md) 和 [DOC-A-R1 複核](docs/verification/doc-a-r1.md) 為準。2026-10-03 狀態如下：
 
 | 能力 | 目前證據 |
 | --- | --- |
 | 核心時間、命令、保存與舊檔匯入 | CLI 契約通過；IndexedDB、quota、多分頁及真實舊檔 corpus 仍按 M1 補證 |
 | 洞府、HUD、輪迴、丹藥、BUFF、宗門與靈界 | 已實作；Session 白名單已補，宗門成功路徑有測試，全部新命令／Web 驗收仍依 R1 DoD |
-| 天時與機緣 | 十二時辰、五行天候、奇遇決策與保存已有測試；靈獸／成就等尚未交付 |
+| 天時與機緣 | 十二時辰、五行天候、奇遇決策與保存已有測試；靈獸核心與操作頁已交付，成就待開發 |
 | 橫式響應式與介面 | R1 橫式／旋轉提示已實作；UI1–UI7、字型、FX2／TEXT1 有分輪證據；最新 UI7 桌面 Web 滑鼠已驗，使用者／高 DPR／實機待補 |
 | 九界尺度與生成內容 | M4-B 數值／地址、M5-A 生成描述、M5-B 決策／地貌／奇遇已交付；完整多尺度場景、三種手工法則可玩驗收、逐界美術／試玩／負載待補 |
 
-現有固定入口為 34 Runner，本次重跑 34/34 PASS、exit 0；不能代替完整 Session 端到端、實體手機、IndexedDB 與所有里程碑 DoD。歷史 25–33 Runner 數量按日期保留。
+現有固定入口為 36 Runner，2026-10-03 NAV1 重跑 36/36 PASS、exit 0；不能代替完整 Session 端到端、實體手機、IndexedDB 與所有里程碑 DoD。歷史 25–33 Runner 數量按日期保留。
 
 ## 3. 任務流程及共通完成定義
 
@@ -157,6 +157,13 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 - 2026-09-30 使用者核定橫式為唯一主要排版，直式改旋轉提示；此更新優先於歷史直式完整遊玩驗收。短橫向視口縮放與字級／觸控門檻依 [UI 規格](docs/07-responsive-ui-web-spec.md)。
 - 響應式 Runner 已涵蓋短橫向與旋轉提示；10/2 UI7 IAB 補證 CSS／canvas 1280×720、844×390，DPR 約 1，及 360×640 提示。
 - 實體手機觸控、不同 DPR 與完整彈窗矩陣尚未驗完，不把桌面 resize 稱為手機 DoD。見 [UI7](docs/verification/ui-quiet-materials.md)。
+
+### M2-D-NAV1 — 功能導覽與介面整合（IN_PROGRESS，2026-10-03）
+
+- 相依：既有營造／輪迴／煉丹／宗門／靈界／機緣及靈獸核心已存在；使用者要求優先整理整合。
+- 交付：四主入口、九個分頁、唯一歸屬與頁面互斥、固定返回、共用資源，靈獸及界域決策正式命令 UI。
+- DoD：分類與視覺經使用者回饋確認；桌面／短橫向切頁與返回可用，44px 控制／內部捲動；規則無變更、命令與拒絕回歸通過，實機輸入另有證據。
+- 已有 36 Runner、追加相容回歸、20 張 native PNG、Web 匯出與 IAB 滑鼠；完整實機／高 DPR 及使用者回饋待補。[規範](docs/12-feature-navigation-and-integration-spec.md)、[驗收](docs/verification/feature-navigation.md)。
 
 ### M2-D-A1 — 共用主旋律與場景變體（IN_PROGRESS，2026-09-28）
 

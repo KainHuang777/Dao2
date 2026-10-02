@@ -309,22 +309,10 @@ static func feed_beast(state: GameState) -> Dictionary:
 	if config.is_empty():
 		return {"ok": false, "error": "UNKNOWN_BEAST"}
 
-	# Calculate talent discount
-	var discount := 0.0
-	for talent_id in state.beast_talents:
-		if int(state.beast_talents[talent_id]) > 0 and BEAST_TALENTS.has(talent_id):
-			var t_conf: Dictionary = BEAST_TALENTS[talent_id]
-			if String(t_conf.get("beast_id", "")) == beast_id and String(t_conf.get("type", "")) == "beast_feed_discount":
-				discount += float(t_conf.get("value", 0.0))
-	var cost_multiplier := maxf(0.1, 1.0 - discount)
-
-	# Check resources
-	var feed_reqs: Dictionary = config.get("feed_resource", {})
-	var final_costs: Dictionary = {}
-	for res_id in feed_reqs:
-		var base_cost: float = float(feed_reqs[res_id])
-		var needed: float = maxf(1.0, floor(base_cost * cost_multiplier))
-		final_costs[res_id] = needed
+	# One cost source shared by command validation and presentation.
+	var final_costs := feed_costs(state, beast_id)
+	for res_id in final_costs:
+		var needed: float = float(final_costs[res_id])
 		var cur_entry: Dictionary = state.resources.get(res_id, {})
 		var cur_val: AmountCompat = cur_entry.get("value", AmountCompat.zero())
 		if cur_val.compare_to(AmountCompat.from_number(needed)) < 0:
@@ -525,3 +513,44 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 					res[t_type] += val
 
 	return res
+
+static func feed_costs(state: GameState, beast_id: String) -> Dictionary:
+	var discount := 0.0
+	for talent_id in state.beast_talents:
+		if int(state.beast_talents[talent_id]) > 0 and BEAST_TALENTS.has(talent_id):
+			var talent: Dictionary = BEAST_TALENTS[talent_id]
+			if String(talent.beast_id) == beast_id and String(talent.type) == "beast_feed_discount":
+				discount += float(talent.value)
+	var costs := {}
+	for id in BEAST_CONFIGS.get(beast_id, {}).get("feed_resource", {}):
+		costs[id] = maxf(1.0, floor(float(BEAST_CONFIGS[beast_id].feed_resource[id]) * maxf(0.1, 1.0 - discount)))
+	return costs
+
+static func get_view(state: GameState) -> Dictionary:
+	# Read-only projection: opening a tab does not initialize or acquire a beast.
+	var active: Dictionary = state.beasts.get("active", {}).duplicate(true)
+	var costs := feed_costs(state, String(active.get("id", "")))
+	var can_feed := not active.is_empty() and String(active.get("stage", "egg")) != "mature"
+	var reason := "已成熟" if not active.is_empty() else "尚未結契"
+	var cooldown: float = float(state.beasts.get("cooldown_remaining", 0.0))
+	if can_feed:
+		reason = "餵料不足"
+		if cooldown > 0.0001:
+			can_feed = false
+			reason = "等待餵食冷卻"
+		else:
+			for id in costs:
+				var amount: AmountCompat = state.resources.get(id, {}).get("value", AmountCompat.zero())
+				can_feed = can_feed and amount.compare_to(AmountCompat.from_number(float(costs[id]))) >= 0
+	var talents: Array = []
+	for id in BEAST_TALENTS:
+		var item: Dictionary = BEAST_TALENTS[id].duplicate(true)
+		item.owned = int(state.beast_talents.get(id, 0)) > 0
+		var previous := int(item.tier) == 1
+		for prev_id in BEAST_TALENTS:
+			var prev: Dictionary = BEAST_TALENTS[prev_id]
+			if prev.beast_id == item.beast_id and int(prev.tier) == int(item.tier) - 1 and int(state.beast_talents.get(prev_id, 0)) > 0:
+				previous = true
+		item.can_unlock = not item.owned and previous and int(state.beast_souls.get(item.beast_id, 0)) >= int(item.cost)
+		talents.append(item)
+	return {"active": active, "feed_costs": costs, "can_feed": can_feed, "feed_reason": reason, "cooldown_remaining": cooldown, "souls": state.beast_souls.duplicate(true), "talents_view": talents}

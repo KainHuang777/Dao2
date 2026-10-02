@@ -21,17 +21,7 @@ func _configure_more_menu() -> void:
 	_abode.more_menu.add_theme_stylebox_override("normal", _abode._style())
 	_abode.more_menu.visible = true
 	var popup: PopupMenu = _abode.more_menu.get_popup()
-	popup.add_item("洞府煉丹", 7)
-	popup.add_item("機緣奇遇", 11)
-	popup.add_item("宗門外務", 10)
-	popup.add_item("靈界洞天", 9)
-	popup.add_item("輪迴天道", 6)
-	popup.add_item("九界星圖", 3)
-	popup.add_item("重溫突破", 5)
-	# 系統設定已移至右上角齒輪設定選單
-	# 調試工具移至 settings_menu
-	# 靈界洞天已移至前面
-	# 宗門外務已移至前面
+	# Legacy facade retained for older callers; no visible gameplay menu.
 	popup.id_pressed.connect(_abode._on_more_menu_pressed)
 	_abode.toolbar.add_child(_abode.more_menu)
 
@@ -62,6 +52,7 @@ func _configure_settings_menu() -> void:
 	popup.add_item(motion_text, 1)
 	popup.add_item("存檔管理", 2)
 	popup.add_item("操作說明", 4)
+	popup.add_item("重溫突破", 5)
 	popup.add_item("過場文字樣板（試播）", 102)
 	popup.add_item("調試工具 (DEBUG)", 8)
 	popup.id_pressed.connect(_abode._on_settings_menu_pressed)
@@ -203,7 +194,7 @@ func _build_hud() -> void:
 	_abode.building_catalog_button = _abode._button("營造", _abode._open_building_catalog)
 	_abode.toolbar.add_child(_abode.building_catalog_button)
 
-	_abode.overview_button = _abode._button("神識展開", _abode._toggle_overview)
+	_abode.overview_button = _abode._button("遊歷", func(): _abode.feature_navigation.open_group("journey"))
 	_abode.toolbar.add_child(_abode.overview_button)
 
 	_abode.motion_button = _abode._button("低特效", _abode._toggle_motion)
@@ -219,7 +210,7 @@ func _build_hud() -> void:
 	_abode.nine_realms_button = _abode._button("九界星圖", _abode._open_nine_realms_overview)
 	_abode.toolbar.add_child(_abode.nine_realms_button)
 
-	_abode.reincarnation_button = _abode._button("輪迴天道", _abode._toggle_reincarnation_panel)
+	_abode.reincarnation_button = _abode._button("修行", func(): _abode.feature_navigation.open_group("cultivation"))
 	_abode.toolbar.add_child(_abode.reincarnation_button)
 
 	_abode.alchemy_button = _abode._button("煉丹房", _abode._toggle_alchemy_panel)
@@ -418,9 +409,12 @@ func _build_hud() -> void:
 	_abode.building_catalog.guidance_requested.connect(_abode._toggle_guidance)
 
 	_abode._modal_manager.create_panels()
+	_abode.feature_navigation = preload("res://src/presentation/feature_navigation.gd").new(_abode)
+	_abode.feature_navigation.build()
 
 	var prompt_script = preload("res://src/presentation/orientation_prompt.gd")
 	_abode.orientation_prompt = prompt_script.new()
+	_abode.orientation_prompt.z_index = 100
 	_abode.hud.add_child(_abode.orientation_prompt)
 
 	_abode.header.resized.connect(_abode._reflow_header)
@@ -608,6 +602,8 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		_abode.hint_panel.position = Vector2(hint_x, hint_y)
 
 	_abode._modal_manager.layout_panels(vp, margin, portrait)
+	if _abode.feature_navigation != null:
+		_abode.feature_navigation.layout(vp)
 
 func _layout_mode_name() -> String:
 	match _abode.layout_mode:
@@ -694,7 +690,7 @@ func _refresh_hud() -> void:
 			_abode.breakthrough_button.text = "突破需靈氣容量 %d（當前 %d）" % [req_lingli, cur_cap]
 
 	_abode.replay_breakthrough_button.visible = false
-	_abode.more_menu.get_popup().set_item_disabled(_abode.more_menu.get_popup().get_item_index(5), cur_era < 2)
+	_abode.settings_menu.get_popup().set_item_disabled(_abode.settings_menu.get_popup().get_item_index(5), cur_era < 2)
 
 	var rc_eligible: bool = false
 	var is_lifespan_exhausted: bool = false
@@ -707,23 +703,6 @@ func _refresh_hud() -> void:
 		_abode.lifespan_banner.visible = is_lifespan_exhausted
 		if was_visible != is_lifespan_exhausted:
 			_abode._reflow_header()
-
-	if rc_eligible:
-		if is_lifespan_exhausted:
-			_abode.reincarnation_button.text = "壽盡輪迴" if _abode.layout_mode != _abode.HudLayout.PORTRAIT else "輪迴"
-			_abode.reincarnation_button.add_theme_color_override("font_color", Color("ffd180"))
-			_abode.more_menu.text = "輪迴" if _abode.layout_mode == _abode.HudLayout.PORTRAIT else "壽盡輪迴"
-			_abode.more_menu.get_popup().set_item_text(_abode.more_menu.get_popup().get_item_index(6), "壽盡輪迴")
-		else:
-			_abode.reincarnation_button.text = "★ 輪迴天道 ★" if _abode.layout_mode != _abode.HudLayout.PORTRAIT else "★ 輪迴"
-			_abode.reincarnation_button.add_theme_color_override("font_color", Color("7de0a8"))
-			_abode.more_menu.text = "★ 更多" if _abode.layout_mode == _abode.HudLayout.PORTRAIT else "★ 更多功能"
-			_abode.more_menu.get_popup().set_item_text(_abode.more_menu.get_popup().get_item_index(6), "★ 輪迴天道")
-	else:
-		_abode.reincarnation_button.text = "輪迴天道" if _abode.layout_mode != _abode.HudLayout.PORTRAIT else "輪迴"
-		_abode.reincarnation_button.add_theme_color_override("font_color", Color("f4e7be"))
-		_abode.more_menu.text = "更多" if _abode.layout_mode == _abode.HudLayout.PORTRAIT else "更多功能"
-		_abode.more_menu.get_popup().set_item_text(_abode.more_menu.get_popup().get_item_index(6), "輪迴天道")
 
 	if _abode.reincarnation_panel != null and _abode.reincarnation_panel.visible:
 		_abode.reincarnation_panel.call("refresh", view)
@@ -743,7 +722,7 @@ func _refresh_hud() -> void:
 	if _abode.sect_panel != null and _abode.sect_panel.visible and _abode.session != null and _abode.session.state != null:
 		_abode.sect_panel.call("update_view", _abode.session.state)
 	if _abode.sect_button != null and _abode.session != null and _abode.session.state != null:
-		_abode.sect_button.visible = (_abode.layout_mode == _abode.HudLayout.WIDE and SectSystem.is_unlocked(_abode.session.state))
+		_abode.sect_button.visible = false
 
 	if _abode.spirit_realm_region_label != null and _abode.session != null and _abode.session.state != null:
 		if RealmSystem.is_spirit_realm_unlocked(_abode.session.state):
@@ -854,6 +833,10 @@ func _refresh_hud() -> void:
 
 	if _abode.selected_id != "" and _abode.info_panel.visible:
 		_abode._refresh_detail()
+
+	if _abode.feature_navigation != null:
+		_abode.feature_navigation.refresh(view)
+		_abode.feature_navigation.layout(_abode.hud.size)
 
 func _update_onboarding_guidance(view: Dictionary) -> void:
 	var objective_value: Variant = view.get("next_objective", null)

@@ -25,8 +25,8 @@ func _run() -> void:
 	_expect(not abode.alchemy_panel.visible, "alchemy_panel must be hidden initially")
 
 	# 透過更多功能打開煉丹房 (ID 7)
-	abode._on_more_menu_pressed(7)
-	_expect(abode.alchemy_panel.visible, "more_menu item 7 must open alchemy_panel")
+	abode.feature_navigation.open("alchemy")
+	_expect(abode.alchemy_panel.visible, "cultivation alchemy tab must open alchemy_panel")
 
 	# 初始未解鎖檢查（herb_farm = 0）
 	var cult_row: PanelContainer = abode.alchemy_panel._pill_rows.get("cultivation_pill", null)

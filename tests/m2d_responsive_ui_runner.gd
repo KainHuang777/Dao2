@@ -61,7 +61,7 @@ func _run() -> void:
 	var lingli_before: AmountCompat = abode.session.state.resources["lingli"].value
 	abode.building_catalog.resource_gather_buttons["lingli"].pressed.emit()
 	_expect(abode.session.state.resources["lingli"].value.compare_to(lingli_before) > 0, "direct lingli gather must use the normal resource command")
-	_expect(abode.more_menu.get_popup().item_count >= 6, "game feature actions must remain in More")
+	_expect(not abode.more_menu.visible and abode.more_menu.get_popup().item_count == 0, "game features must use canonical section tabs instead of More")
 	_expect(abode.settings_menu.get_popup().item_count >= 5, "system settings actions must remain in settings_menu")
 
 	# State B: left resources, a right-side building ledger, and the same cultivation status.
@@ -227,7 +227,7 @@ func _run() -> void:
 	await process_frame
 	var preview = abode.nine_realms_preview
 	preview.size = Vector2(360, 480)
-	preview._layout_for_viewport()
+	preview.set_workspace_bounds(Rect2(12, 12, 336, 456))
 	_expect(preview._overview_panel.size.x <= 336.0 and preview._overview_panel.size.y <= 456.0, "nine-realms panel must fit a short phone viewport")
 	preview._scroll.scroll_vertical = 400
 	await process_frame

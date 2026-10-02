@@ -1,0 +1,377 @@
+[RUNNING] tools/test_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: project script, JSON serialization, user storage, and Traditional Chinese font glyphs are available.
+[RUNNING] tests/abode_state_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: abode state advances independently from visual flow, upgrades, and garden pause.
+[RUNNING] tests/living_abode_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "panel_size" not declared in the current scope.
+   at: GDScript::reload (res://src/presentation/nine_realms_preview.gd:148)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/living_abode_runner.gd:18)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/living_abode_runner.gd:18)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=1
+ABODE_DIRECT_BUILD: hut
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SELECT: hut
+ABODE_UPGRADE: hut level=2
+ABODE_CHOP_TREE
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_GARDEN_RUNNING: false
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_REGION
+ABODE_REGION: same world and simulation retained
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+PASS: living abode selects buildings, upgrades, pauses production, and changes scale.
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m0c_compat_v3_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M0-C AmountCompat canonical contract and SeededRandomCompat match the fixture.
+[RUNNING] tests/m1a_core_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-A core contract, content validation, cost/onboarding parity, commands, idempotency, determinism.
+[RUNNING] tests/m1b_time_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-B clock, ticks, cultivation, lifespan, boundaries, determinism.
+[RUNNING] tests/m1c_persistence_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] import_share_string (res://src/persistence/save_manager.gd:144)
+       [1] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:190)
+       [2] _init (res://tests/m1c_persistence_runner.gd:21)
+PASS: M1-C save codec, two-slot persistence, checksum, export/import.
+[RUNNING] tests/m1d_offline_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-D offline settlement, cap 24h, cursor commit, no double grant.
+[RUNNING] tests/m1e_import_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] decode_input (res://src/persistence/legacy_importer.gd:20)
+       [1] import_text (res://src/persistence/legacy_importer.gd:209)
+       [2] _test_corrupt (res://tests/m1e_import_runner.gd:381)
+       [3] _init (res://tests/m1e_import_runner.gd:23)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] import_text (res://src/persistence/legacy_importer.gd:213)
+       [1] _test_corrupt (res://tests/m1e_import_runner.gd:384)
+       [2] _init (res://tests/m1e_import_runner.gd:23)
+PASS: M1-E legacy import decode, mapping, reports, and slot commit.
+[RUNNING] tests/m2a_abode_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "panel_size" not declared in the current scope.
+   at: GDScript::reload (res://src/presentation/nine_realms_preview.gd:148)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2a_abode_runner.gd:25)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2a_abode_runner.gd:25)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid access to property or key 'visible' on a base object of type 'Nil'.
+   at: open (res://src/presentation/feature_navigation.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] open (res://src/presentation/feature_navigation.gd:79)
+       [1] _open_building_catalog (res://src/abode/living_abode.gd:525)
+       [2] _toggle_building_catalog (res://src/abode/living_abode.gd:522)
+       [3] _run (res://tests/m2a_abode_runner.gd:53)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=1
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2a_abode_runner.gd:125)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2a_abode_runner.gd:125)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_MOTION reduced=true
+PASS: M2-A abode blank opening, manual start, auto production, chained unlocks, save/reload, and determinism.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/m2b_breakthrough_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "panel_size" not declared in the current scope.
+   at: GDScript::reload (res://src/presentation/nine_realms_preview.gd:148)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2b_breakthrough_runner.gd:24)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2b_breakthrough_runner.gd:24)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2b_breakthrough_runner.gd:158)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/m2b_breakthrough_runner.gd:158)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+PASS: M2-B cultivation level up, capacity barrier, breakthrough to Era 2, non-consuming stock, sequence replay, and reload.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/island_breakthrough_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "panel_size" not declared in the current scope.
+   at: GDScript::reload (res://src/presentation/nine_realms_preview.gd:148)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/island_breakthrough_runner.gd:34)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/island_breakthrough_runner.gd:34)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=portrait size=(844.0, 1500.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(480.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_MOTION reduced=true
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_MOTION reduced=false
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/island_breakthrough_runner.gd:133)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+       [4] _run (res://tests/island_breakthrough_runner.gd:133)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+PASS: island breakthrough real command, capacity, failed-save retry, zero-state replay, skip, focus recovery, low motion, four layouts and reload aura.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m2c_nine_realms_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "panel_size" not declared in the current scope.
+   at: GDScript::reload (res://src/presentation/nine_realms_preview.gd:148)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2c_nine_realms_runner.gd:10)
+       [1] _init (res://tests/m2c_nine_realms_runner.gd:7)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2c_nine_realms_runner.gd:10)
+       [1] _init (res://tests/m2c_nine_realms_runner.gd:7)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2c_nine_realms_runner.gd:10)
+       [1] _init (res://tests/m2c_nine_realms_runner.gd:7)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2c_nine_realms_runner.gd:10)
+       [1] _init (res://tests/m2c_nine_realms_runner.gd:7)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:49)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:411)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:60)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:413)
+       [2] _build_hud (res://src/abode/living_abode.gd:479)
+       [3] _ready (res://src/abode/living_abode.gd:308)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: FAIL: nine_realms_preview must be mounted
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://tests/m2c_nine_realms_runner.gd:155)
+       [1] _run (res://tests/m2c_nine_realms_runner.gd:32)
+FAIL: nine_realms_preview must be mounted
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/m2c_nine_realms_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:48 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1

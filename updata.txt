@@ -1,3 +1,14 @@
+[2026-10-03] M2-D-NAV1 feature navigation checkpoint
+- Implemented four permanent destinations: Home, Management, Cultivation, Journey; nine exclusive feature pages with fixed tabs/back, Escape, remembered group tabs, and camera lock restoration.
+- Integrated building and spirit outpost upgrades under Management. Added shared realm currency, reincarnation currency, and beast soul reads without changing resource or save contracts.
+- Connected beast acquisition/feed/talents and realm decisions to existing GameSession commands. Fixed short-landscape realm grid/footer, reincarnation/alchemy/fortune scrolling, locked outpost reasons, and fortune card contrast.
+- Validation: 36/36 standard runners exit 0; targeted navigation/fortune/responsive/facade checks, native 20-image preview and Web export exit 0. CUA browser interaction used isolated localhost origin 4183; see docs/verification/feature-navigation.md for evidence and limits.
+- Modified files: presentation navigation/action panels, HUD/modal adapters, scene facade, beast read view/cost helper, GameSession view, affected UI runners, runner registry, preview tool, README/ROADMAP/handoff/status/UI specs and navigation spec/evidence.
+- Earlier attempts caught parse errors, camera lock regression, and pending-tab allocations; corrected rather than relaxing rule assertions or memory thresholds. Existing engine shutdown resource warnings remain disclosed.
+- Browser portrait audit: navigation is now under the orientation mask; cold-start portrait prompt readability still inherits the old 1280 content-scale issue. Track it separately under R1; do not claim full portrait acceptance.
+- Remaining: user review of taxonomy (Sect under Journey), visual acceptance, physical touch/high DPR and real-browser success/persistence of advanced commands. Higher-tier beast ingredients and decision legacy resource IDs require a separate rules integration audit; do not invent supplies in UI.
+- Next: collect NAV1 feedback and device acceptance in a New Chat. Do not start another large system in this session. Unrelated pre-existing ui-quiet log and import sidecars remain untouched.
+
 [2026-10-03] M3-B Spirit Beast System delivery checkpoint
 - Implemented full M3-B Spirit Beast mechanics based on baseline BeastManager.ts and Dao2 architectural contracts:
   * 4 mythical spirit beasts: Jade Fox (Era 3, money_rate +20%), Iron Turtle (Era 4, cap_stone_iron +25%), Fire Phoenix (Era 6, cultivation_speed +15%), Cloud Serpent (Era 8, global_production +12%).

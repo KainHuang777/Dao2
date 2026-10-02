@@ -26,19 +26,14 @@ func _ready() -> void:
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
+	if _scroll != null:
+		_scroll.custom_minimum_size.y = 0.0
 	if _background != null:
 		_background.size = size
-	if _content != null:
+	if _scroll != null:
 		var pad := 16.0
-		_content.position = Vector2(pad, pad)
-		_content.size = Vector2(maxf(0.0, size.x - pad * 2.0), maxf(0.0, size.y - pad * 2.0))
-	if _scroll != null and _content != null:
-		var fixed_height := 0.0
-		if _title_row != null:
-			fixed_height += _title_row.size.y + 12.0
-		if _summary_panel != null:
-			fixed_height += _summary_panel.size.y + 12.0
-		_scroll.custom_minimum_size.y = maxf(120.0, _content.size.y - fixed_height)
+		_scroll.position = Vector2(pad, pad)
+		_scroll.size = Vector2(maxf(0.0, size.x - pad * 2.0), maxf(0.0, size.y - pad * 2.0))
 
 func _build_ui() -> void:
 	_background = Panel.new()
@@ -46,10 +41,14 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	add_child(_scroll)
 	_content = VBoxContainer.new()
 	_content.name = "AlchemyContent"
 	_content.add_theme_constant_override("separation", 12)
-	add_child(_content)
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_scroll.add_child(_content)
 
 	# 頂部標題與關閉
 	_title_row = HBoxContainer.new()
@@ -65,7 +64,7 @@ func _build_ui() -> void:
 
 	_close_button = Button.new()
 	_close_button.text = "關閉"
-	_close_button.custom_minimum_size = Vector2(80, 36)
+	_close_button.custom_minimum_size = Vector2(80, 44)
 	_close_button.pressed.connect(func(): close_requested.emit())
 	_title_row.add_child(_close_button)
 
@@ -87,15 +86,11 @@ func _build_ui() -> void:
 	_summary_panel.add_child(_summary_label)
 
 	# 丹藥列表滾動容器
-	_scroll = ScrollContainer.new()
-	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_content.add_child(_scroll)
 
 	_pills_list = VBoxContainer.new()
 	_pills_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_pills_list.add_theme_constant_override("separation", 10)
-	_scroll.add_child(_pills_list)
+	_content.add_child(_pills_list)
 
 func update_view(view: Dictionary) -> void:
 	var alchemy_data: Dictionary = view.get("alchemy", {})
@@ -178,7 +173,7 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	var refine_btn := Button.new()
 	refine_btn.name = "RefineButton"
 	refine_btn.text = "煉製"
-	refine_btn.custom_minimum_size = Vector2(72, 38)
+	refine_btn.custom_minimum_size = Vector2(72, 44)
 	var p_id: String = String(p["id"])
 	refine_btn.pressed.connect(func(): refine_requested.emit(p_id, 1))
 	btn_box.add_child(refine_btn)
@@ -186,7 +181,7 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	var consume_btn := Button.new()
 	consume_btn.name = "ConsumeButton"
 	consume_btn.text = "服用"
-	consume_btn.custom_minimum_size = Vector2(72, 38)
+	consume_btn.custom_minimum_size = Vector2(72, 44)
 	consume_btn.pressed.connect(func(): consume_requested.emit(p_id, 1))
 	btn_box.add_child(consume_btn)
 

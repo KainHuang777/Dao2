@@ -5,6 +5,7 @@ signal reincarnate_requested(mode: String)
 signal learn_talent_requested(talent_id: String)
 signal close_requested()
 
+var _body_scroll: ScrollContainer
 var _background: Panel
 var _content: VBoxContainer
 var _title_row: HBoxContainer
@@ -40,10 +41,9 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	if _background != null:
 		_background.size = size
-	if _content != null:
-		var pad := 16.0
-		_content.position = Vector2(pad, pad)
-		_content.size = Vector2(maxf(0.0, size.x - pad * 2.0), maxf(0.0, size.y - pad * 2.0))
+	if _body_scroll != null:
+		_body_scroll.position = Vector2(16, 16)
+		_body_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
 
 func _build_ui() -> void:
 	_background = Panel.new()
@@ -51,10 +51,14 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
+	_body_scroll = ScrollContainer.new()
+	_body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	add_child(_body_scroll)
 	_content = VBoxContainer.new()
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content.name = "ReincarnationContent"
 	_content.add_theme_constant_override("separation", 12)
-	add_child(_content)
+	_body_scroll.add_child(_content)
 
 	# 頂部標題與貨幣
 	_title_row = HBoxContainer.new()

@@ -37,6 +37,12 @@ var _cinematic_duration: float = 6.0
 var _reduced_motion: bool = false
 var _current_aspired_realm: String = ""
 
+var _workspace_bounds := Rect2()
+
+func set_workspace_bounds(bounds: Rect2) -> void:
+	_workspace_bounds = bounds
+	_layout_for_viewport()
+
 var _realms_data: Array = []
 
 func _ready() -> void:
@@ -150,6 +156,7 @@ func _build_ui() -> void:
 	_content_root.add_child(_scroll)
 
 	_grid_container = GridContainer.new()
+	_grid_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_grid_container.columns = 3
 	_grid_container.add_theme_constant_override("h_separation", 16)
 	_grid_container.add_theme_constant_override("v_separation", 16)
@@ -177,24 +184,29 @@ func _layout_for_viewport() -> void:
 	var portrait: bool = vp.x < 640.0 or vp.x / vp.y < 1.25
 	var margin: float = 12.0 if portrait else 28.0
 	var panel_size := Vector2(minf(1100.0, vp.x - margin * 2.0), minf(620.0, vp.y - margin * 2.0))
+	if _workspace_bounds.size.x > 0.0 and not _is_cinematic_playing:
+		panel_size = _workspace_bounds.size
 	_overview_panel.custom_minimum_size = Vector2.ZERO
-	_overview_panel.position = (vp - panel_size) * 0.5
+	_overview_panel.position = _workspace_bounds.position if _workspace_bounds.size.x > 0.0 and not _is_cinematic_playing else (vp - panel_size) * 0.5
 	_overview_panel.size = panel_size
 
 	var side_margin: float = 16.0 if portrait else 28.0
 	var top_margin: float = 16.0 if portrait else 20.0
 	var bottom_margin: float = 16.0 if portrait else 20.0
-	var header_height: float = 112.0 if portrait else 78.0
-	var footer_height: float = 46.0
+	var header_height: float = 64.0 if panel_size.y < 300.0 else (112.0 if portrait else 78.0)
+	var hosted := _workspace_bounds.size != Vector2.ZERO and not _is_cinematic_playing
+	_footer.visible = not hosted
+	var footer_height: float = 0.0 if hosted else 46.0
 	var section_gap: float = 10.0
 	var inner_width: float = maxf(0.0, panel_size.x - side_margin * 2.0)
-	var scroll_height: float = maxf(72.0, panel_size.y - top_margin - header_height - section_gap * 2.0 - footer_height - bottom_margin)
+	var scroll_height: float = maxf(32.0 if hosted else 72.0, panel_size.y - top_margin - header_height - section_gap * 2.0 - footer_height - bottom_margin)
 
 	_content_root.position = Vector2.ZERO
 	_content_root.size = panel_size
 	_header_box.position = Vector2(side_margin, top_margin)
 	_header_box.size = Vector2(inner_width, header_height)
 	_title_label.add_theme_font_size_override("font_size", 24 if portrait else 28)
+	_subtitle_label.visible = panel_size.y >= 300.0
 	_subtitle_label.add_theme_font_size_override("font_size", 16)
 	_scroll.position = Vector2(side_margin, top_margin + header_height + section_gap)
 	_scroll.size = Vector2(inner_width, scroll_height)
@@ -208,7 +220,7 @@ func _layout_for_viewport() -> void:
 	_skip_btn.position = Vector2(-minf(210.0, vp.x - 24.0), 16)
 	_skip_btn.size = Vector2(minf(190.0, vp.x - 32.0), 44)
 	if _grid_container != null:
-		_grid_container.columns = 1 if vp.x < 620.0 else (2 if vp.x < 940.0 else 3)
+		_grid_container.columns = 1 if inner_width < 560.0 else (2 if inner_width < 920.0 else 3)
 		for entry in _card_nodes.values():
 			var card: PanelContainer = entry.get("card", null)
 			if card != null:
@@ -263,6 +275,7 @@ func _build_realm_cards() -> void:
 		var pool_scale := float(realm.get("lingqi_pool_scale", 1.0))
 		var metrics_lbl := Label.new()
 		metrics_lbl.text = "【法則契約】修煉 %.1fx · 壽元流速 %.2fx · 靈池容量 %.0fx" % [cult_mult, life_ratio, pool_scale]
+		metrics_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		metrics_lbl.add_theme_font_override("font", UiTypography.body_font())
 		metrics_lbl.add_theme_font_size_override("font_size", 14)
 		metrics_lbl.add_theme_color_override("font_color", Color("ffd166"))
@@ -347,6 +360,7 @@ func play_hook(camera: Camera2D, aspired_realm: String, on_close: Callable, redu
 	_current_aspired_realm = aspired_realm
 	_on_close_callback = on_close
 	_reduced_motion = reduced_motion
+	_workspace_bounds = Rect2()
 	_is_cinematic_playing = true
 	_cinematic_elapsed = 0.0
 	_cinematic_duration = 0.2 if reduced_motion else 6.0

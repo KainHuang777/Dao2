@@ -7,6 +7,7 @@ signal close_requested()
 
 var _background: Panel
 var _content: VBoxContainer
+var _body_scroll: ScrollContainer
 var _title_row: HBoxContainer
 var _title_label: Label
 var _close_button: Button
@@ -36,10 +37,10 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	if _background != null:
 		_background.size = size
-	if _content != null:
+	if _body_scroll != null:
 		var pad := 16.0
-		_content.position = Vector2(pad, pad)
-		_content.size = Vector2(maxf(0.0, size.x - pad * 2.0), maxf(0.0, size.y - pad * 2.0))
+		_body_scroll.position = Vector2(pad, pad)
+		_body_scroll.size = Vector2(maxf(0.0, size.x - pad * 2.0), maxf(0.0, size.y - pad * 2.0))
 
 func _build_ui() -> void:
 	_background = Panel.new()
@@ -47,10 +48,14 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
+	_body_scroll = ScrollContainer.new()
+	_body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	add_child(_body_scroll)
 	_content = VBoxContainer.new()
 	_content.name = "FortuneContent"
 	_content.add_theme_constant_override("separation", 12)
-	add_child(_content)
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_body_scroll.add_child(_content)
 
 	# 標題列
 	_title_row = HBoxContainer.new()
@@ -69,7 +74,7 @@ func _build_ui() -> void:
 
 	_close_button = Button.new()
 	_close_button.text = "關閉"
-	_close_button.custom_minimum_size = Vector2(60, 32)
+	_close_button.custom_minimum_size = Vector2(80, 44)
 	UiMaterial.apply_button(_close_button)
 	_close_button.pressed.connect(func(): close_requested.emit())
 	_title_row.add_child(_close_button)
@@ -87,19 +92,22 @@ func _build_ui() -> void:
 	_encounter_title.text = "天地寂寥，暫無天機降臨"
 	_encounter_title.add_theme_font_override("font", UiTypography.emphasis_font())
 	_encounter_title.add_theme_font_size_override("font_size", 18)
+	_encounter_title.add_theme_color_override("font_color", UiMaterial.INK)
 	enc_vbox.add_child(_encounter_title)
 
 	_encounter_desc = Label.new()
 	_encounter_desc.text = "靜候時辰推移與五行天象運轉。亦可在冷卻完畢時神識主動感應天地。"
 	_encounter_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_encounter_desc.add_theme_font_override("font", UiTypography.body_font())
-	_encounter_desc.add_theme_font_size_override("font_size", 15)
+	_encounter_desc.add_theme_font_size_override("font_size", 16)
+	_encounter_desc.add_theme_color_override("font_color", UiMaterial.INK)
 	enc_vbox.add_child(_encounter_desc)
 
 	_encounter_bias_tag = Label.new()
 	_encounter_bias_tag.text = ""
 	_encounter_bias_tag.add_theme_font_override("font", UiTypography.body_font())
-	_encounter_bias_tag.add_theme_font_size_override("font_size", 13)
+	_encounter_bias_tag.add_theme_font_size_override("font_size", 16)
+	_encounter_bias_tag.add_theme_color_override("font_color", UiMaterial.INK)
 	enc_vbox.add_child(_encounter_bias_tag)
 
 	# 選項按鈕容器
@@ -118,7 +126,7 @@ func _build_ui() -> void:
 
 	_trigger_btn = Button.new()
 	_trigger_btn.text = "神識推演機緣"
-	_trigger_btn.custom_minimum_size = Vector2(160, 40)
+	_trigger_btn.custom_minimum_size = Vector2(160, 44)
 	UiMaterial.apply_button(_trigger_btn)
 	_trigger_btn.pressed.connect(func(): trigger_requested.emit())
 	_content.add_child(_trigger_btn)

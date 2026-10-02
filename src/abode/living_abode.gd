@@ -249,6 +249,7 @@ var detail_actions: HFlowContainer
 var detail_scroll: ScrollContainer
 var return_to_catalog_after_detail: bool = false
 var help_button: Button
+var feature_navigation: RefCounted
 var more_menu: MenuButton
 var settings_menu: MenuButton
 var bgm_player: AudioStreamPlayer
@@ -521,12 +522,15 @@ func _toggle_building_catalog() -> void:
 		_open_building_catalog()
 
 func _open_building_catalog() -> void:
+	feature_navigation.open("buildings")
 	building_catalog.visible = true
 	var view: Dictionary = session.get_view()
 	building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id))
 	_layout_for_size(hud.size)
 
 func _close_building_catalog() -> void:
+	if feature_navigation != null:
+		feature_navigation.home()
 	_close_detail()
 	building_catalog.visible = false
 	_layout_for_size(hud.size)
@@ -822,7 +826,7 @@ func trigger_nine_realms_hook(is_replay: bool = false) -> void:
 	_modal_manager.trigger_nine_realms_hook(is_replay)
 
 func _open_nine_realms_overview() -> void:
-	_modal_manager._open_nine_realms_overview()
+	feature_navigation.open("realms")
 
 func _on_nine_realms_aspiration_changed(realm_id: String) -> void:
 	_modal_manager._on_nine_realms_aspiration_changed(realm_id)
@@ -1047,7 +1051,7 @@ func _input(event: InputEvent) -> void:
 			_play_bgm_track_at_index(idx)
 
 func _toggle_sect_panel() -> void:
-	_modal_manager._toggle_sect_panel()
+	feature_navigation.open("sect")
 
 func _on_sect_join_requested(sect_name: String) -> void:
 	_modal_manager._on_sect_join_requested(sect_name)
@@ -1071,7 +1075,7 @@ func _on_sect_closed() -> void:
 	_modal_manager._on_sect_closed()
 
 func _toggle_realm_modal() -> void:
-	_modal_manager._toggle_realm_modal()
+	feature_navigation.open("outposts")
 
 func _on_switch_realm_requested(target_realm: String) -> void:
 	_modal_manager._on_switch_realm_requested(target_realm)
@@ -1083,7 +1087,7 @@ func _on_realm_modal_closed() -> void:
 	_modal_manager._on_realm_modal_closed()
 
 func _toggle_alchemy_panel() -> void:
-	_modal_manager._toggle_alchemy_panel()
+	feature_navigation.open("alchemy")
 
 func _on_alchemy_refine_requested(pill_id: String, count: int) -> void:
 	_modal_manager._on_alchemy_refine_requested(pill_id, count)
@@ -1095,7 +1099,7 @@ func _on_alchemy_closed() -> void:
 	_modal_manager._on_alchemy_closed()
 
 func _toggle_fortune_modal() -> void:
-	_modal_manager._toggle_fortune_modal()
+	feature_navigation.open("fortune")
 
 func _on_fortune_trigger_requested() -> void:
 	_modal_manager._on_fortune_trigger_requested()
@@ -1197,7 +1201,7 @@ func _debug_add_resources() -> void:
 		debug_panel.call("set_status_message", msg)
 
 func _toggle_reincarnation_panel() -> void:
-	_modal_manager._toggle_reincarnation_panel()
+	feature_navigation.open("reincarnation")
 
 func _on_reincarnate_requested(mode: String) -> void:
 	_modal_manager._on_reincarnate_requested(mode)
@@ -1315,3 +1319,8 @@ func _on_reincarnation_sequence_finished() -> void:
 	_reincarnation_hud_snapshot.clear()
 	_layout_for_size(hud.size)
 	_refresh_hud()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and feature_navigation != null and feature_navigation.group != "home":
+		feature_navigation.home()
+		get_viewport().set_input_as_handled()

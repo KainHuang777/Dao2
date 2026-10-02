@@ -1,13 +1,14 @@
 # 開發狀態與交接紀錄
 
-更新：2026-10-03（M3-B 靈獸系統）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
+更新：2026-10-03（M2-D-NAV1 功能導覽與整合）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
 
 ## 目前任務與下一步
 
+- **M2-D-NAV1：IN_PROGRESS，實作與回歸交付**。四主入口／九分頁、洞天與建築經營整合、共用跨界資源、靈獸與天道決策 UI；36/36 Runner、追加相容／響應式／機緣回歸、20 native PNG、Web 匯出及 IAB 桌面／短橫向滑鼠。使用者分類／視覺回饋與實體觸控／高 DPR 待補；[規範](12-feature-navigation-and-integration-spec.md)、[檔案／命令／結果與未完成項](verification/feature-navigation.md)。
 - **DOC-A-R1 文件現況複核：DONE**。
 - **M3-B 靈獸系統（Spirit Beasts）：DONE**。交付四大靈獸（玉狐、玄龜、火鳳、雲蛟）、四階成長階段（卵/幼體/成長/成熟）、餵食消耗與冷卻倒數、4階獸魂天賦樹、輪迴成熟獸魂結算與跨世繼承、TimeAdvancer 模擬數值與產率整合、GameSession 三項命令（acquire/feed/talent）及 SaveCodec 存檔相容性。全量 **35/35 Runner PASS、exit 0**。
 - **優先：UI7／UI6-R1／FX2／TEXT1 回饋與裝置驗收**。常態材質已實作，先收視覺回饋，再驗高 DPR、實體觸控／GPU、音訊與效能。
-- **下一功能候選：M3-B 成就系統（Achievements）或靈獸 UI 介面整合**。後續大型任務使用 New Chat。
+- **下一功能候選：M3-B 成就系統（Achievements）；靈獸 UI 本輪已接入修行分頁**。後續大型任務使用 New Chat。
 
 ## 9/29–10/3 開發內容
 
@@ -22,7 +23,8 @@
 | 10/2 | UI6-R1 黑體 400／600＋粗明體 800；FX2 分境界金環雷電；TEXT1 原生文字試播 | TextServer 字重已驗；演出／試播有 native／CLI／匯出，真實 Web／手機及視覺待驗 |
 | 10/2 | UI7 紙色墨字、霧面青玉選中、朱砂突破、墨色功能面板 | [UI7](verification/ui-quiet-materials.md)：34 Runner、21 native PNG、匯出；IAB 1280×720／844×390 滑鼠及 360×640 旋轉提示，DPR 約 1；美術／高 DPR／手機待驗 |
 | 10/2 | ENV-TERMINAL 修復；Git 忽略引擎／模板／快取／build，倉庫同步 GitHub | [環境](verification/terminal-initialization-2026-10-02.md)、updata；文件複核未重做 ACL 修復；後續已依使用者要求進入文件 commit／push 流程 |
-| 10/3 | M3-B 靈獸系統（四大靈獸、成長階段、餵養冷卻、獸魂天賦、輪迴繼承與 Session 契約） | m3b_spirit_beast_runner；35/35 Runner 全數通過 exit 0；靈獸獨立介面待後續 UI 整合 |
+| 10/3 | M2-D-NAV1：四入口與分頁、經營整合、跨界共用資源、靈獸／決策 UI | 36/36 Runner；追加回歸、20 native PNG、匯出、IAB 滑鼠；分類／視覺／實機待補 |
+| 10/3 | M3-B 靈獸系統（四大靈獸、成長階段、餵養冷卻、獸魂天賦、輪迴繼承與 Session 契約） | m3b_spirit_beast_runner；35/35 Runner 全數通過 exit 0；當時獨立介面待整合，後續本日 NAV1 已接入 |
 
 日期依開發交接；10/2 的 53b864f 集中提交多日內容，不能用提交日期代替每項開發日期。
 
@@ -35,6 +37,7 @@
 | M1-A/B | DONE；核心、時間、修行／壽元與正流程 | [正流程](verification/core-positive-flow.md) |
 | M1-C/D/E | CLI 契約通過；IndexedDB、quota、多分頁、跨程序與真實舊檔 corpus 待補 | [保存](verification/m1-c.md)、[離線](verification/m1-d.md)、[相容](legacy-compatibility.md) |
 | M2-A/B/C | 首升境／演出／九界鉤子已交付；新玩家試玩依原 DoD | [M2-A](verification/m2-a.md)、[M2-B](verification/m2-b.md)、[M2-C](verification/m2-c.md) |
+| M2-D-NAV1 | IN_PROGRESS；入口、操作與整合交付，分類／視覺及實機待補 | [規範](12-feature-navigation-and-integration-spec.md)、[驗收](verification/feature-navigation.md) |
 | M2-D／R1 | 9/28 桌面指定範圍放行；橫式實作有回歸及 UI7 桌面 Web 補證，實機／效能待補 | [M2-D](verification/m2-d.md)、[規格](07-responsive-ui-web-spec.md)、[UI7](verification/ui-quiet-materials.md) |
 | M2-D-R2/R3 | IN_PROGRESS；背景／島面構圖已實作，指定視覺放行待補 | [構圖](verification/m2d-background-framing.md) |
 | M2-D-A1 | IN_PROGRESS；第二稿與五版草稿待試聽；已接 BGM 不等於此作曲任務完成 | [第二稿](audio/dao2-main-theme-v2.md) |

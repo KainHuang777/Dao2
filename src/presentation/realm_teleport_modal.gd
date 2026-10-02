@@ -52,7 +52,7 @@ func _build_ui() -> void:
 
 	var close_btn := Button.new()
 	close_btn.text = "關閉"
-	close_btn.custom_minimum_size = Vector2(64, 36)
+	close_btn.custom_minimum_size = Vector2(80, 44)
 	close_btn.add_theme_font_size_override("font_size", 16)
 	close_btn.pressed.connect(func():
 		visible = false
@@ -64,7 +64,7 @@ func _build_ui() -> void:
 	_status_summary = Label.new()
 	_status_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status_summary.add_theme_font_override("font", UiTypography.body_font())
-	_status_summary.add_theme_font_size_override("font_size", 14)
+	_status_summary.add_theme_font_size_override("font_size", 16)
 	_status_summary.add_theme_color_override("font_color", Color("d0e6df"))
 	_container.add_child(_status_summary)
 
@@ -85,7 +85,7 @@ func _build_ui() -> void:
 	_res_summary_label = Label.new()
 	_res_summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_res_summary_label.add_theme_font_override("font", UiTypography.body_font())
-	_res_summary_label.add_theme_font_size_override("font_size", 15)
+	_res_summary_label.add_theme_font_size_override("font_size", 16)
 	_res_summary_label.add_theme_color_override("font_color", Color("fff1c7"))
 	_container.add_child(_res_summary_label)
 
@@ -117,6 +117,8 @@ func refresh(view: Dictionary) -> void:
 	var realm_data: Dictionary = view.get("realm", {})
 	var current_realm: String = String(realm_data.get("current_realm", "realm_human"))
 	var is_spirit := (current_realm == "realm_spirit")
+	var unlocked := bool(realm_data.get("unlocked", false))
+	_teleport_button.disabled = not unlocked
 
 	if is_spirit:
 		_status_summary.text = "【當前所在：靈界 · 天靈洞天】\n天地靈機充沛，九幽靈脈交匯。兩界並行運轉，切景不中斷收益。"
@@ -127,15 +129,12 @@ func refresh(view: Dictionary) -> void:
 		_teleport_button.text = "跨界神遊 · 踏入天靈洞天（靈界）"
 		_target_realm_for_button = "realm_spirit"
 
-	var cur_crystal := float(realm_data.get("spirit_crystal", 0.0))
-	var cur_nectar := float(realm_data.get("azure_nectar", 0.0))
-	var crystal_cap := float(realm_data.get("crystal_cap", 100.0))
-	var nectar_cap := float(realm_data.get("nectar_cap", 50.0))
 	var feedback_boost := float(realm_data.get("cultivation_feedback_boost", 0.0)) * 100.0
 
-	_res_summary_label.text = "極品靈晶：%.1f/%.0f  |  天青靈液：%.1f/%.0f\n跨界修煉反哺加成：+%.0f%%" % [
-		cur_crystal, crystal_cap, cur_nectar, nectar_cap, feedback_boost
-	]
+	_res_summary_label.text = "跨界修煉反哺：+%.0f%% · 資源讀數見資源清單" % feedback_boost
+	if not unlocked:
+		_teleport_button.text = "築基期或首次輪迴後解鎖"
+		_res_summary_label.text = "解鎖後，靈晶與靈液會列入共用資源清單。"
 
 	# 渲染三大據點
 	_rebuild_outposts(realm_data.get("outposts", []))
@@ -171,7 +170,8 @@ func _create_outpost_card(op: Dictionary) -> PanelContainer:
 	op_name.text = "%s (%d/%d 階)" % [op.get("name", ""), op.get("level", 0), op.get("max_level", 10)]
 	op_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	op_name.add_theme_font_override("font", UiTypography.emphasis_font())
-	op_name.add_theme_font_size_override("font_size", 15)
+	op_name.add_theme_font_size_override("font_size", 16)
+	op_name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	op_name.add_theme_color_override("font_color", Color("ffd599"))
 	title_row.add_child(op_name)
 
@@ -183,13 +183,13 @@ func _create_outpost_card(op: Dictionary) -> PanelContainer:
 		upg_btn.text = "已滿階"
 		upg_btn.disabled = true
 	elif can_upg:
-		upg_btn.text = "晉升據點"
+		upg_btn.text = "升級"
 		upg_btn.disabled = false
 	else:
-		upg_btn.text = "材料不足"
+		upg_btn.text = "尚未解鎖" if op.get("upgrade_reason", "") == "REALM_LOCKED" else "材料不足"
 		upg_btn.disabled = true
-	upg_btn.custom_minimum_size = Vector2(88, 36)
-	upg_btn.add_theme_font_size_override("font_size", 14)
+	upg_btn.custom_minimum_size = Vector2(96, 44)
+	upg_btn.add_theme_font_size_override("font_size", 16)
 	var op_id: String = String(op.get("id", ""))
 	upg_btn.pressed.connect(func(): upgrade_outpost_requested.emit(op_id))
 	title_row.add_child(upg_btn)
@@ -198,7 +198,7 @@ func _create_outpost_card(op: Dictionary) -> PanelContainer:
 	desc_label.text = String(op.get("description", ""))
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc_label.add_theme_font_override("font", UiTypography.body_font())
-	desc_label.add_theme_font_size_override("font_size", 13)
+	desc_label.add_theme_font_size_override("font_size", 16)
 	desc_label.add_theme_color_override("font_color", Color("b8d7ca"))
 	vbox.add_child(desc_label)
 
@@ -218,7 +218,8 @@ func _create_outpost_card(op: Dictionary) -> PanelContainer:
 			cost_strs.append("%s: %.1f" % [res_name, c_val])
 		var cost_label := Label.new()
 		cost_label.text = "晉升消耗：" + "，".join(cost_strs)
-		cost_label.add_theme_font_size_override("font_size", 12)
+		cost_label.add_theme_font_size_override("font_size", 16)
+		cost_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		cost_label.add_theme_color_override("font_color", Color("e4c88a"))
 		vbox.add_child(cost_label)
 

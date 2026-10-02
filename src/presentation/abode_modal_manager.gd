@@ -193,6 +193,7 @@ func _on_nine_realms_closed() -> void:
 	_abode._refresh_hud()
 
 func _toggle_save_controls() -> void:
+	_abode.debug_panel.visible = false
 	if _abode.save_controls:
 		_abode.save_controls.visible = not _abode.save_controls.visible
 		_abode._layout()
@@ -203,7 +204,13 @@ func _display_offline_summary(report: Dictionary) -> void:
 		_abode._layout()
 
 func _on_settings_menu_pressed(id: int) -> void:
+	if id in [2, 8, 102]:
+		_abode.feature_navigation.home()
 	match id:
+		5:
+			if _abode.session.state.era_id >= 2:
+				_abode.feature_navigation.home()
+				_abode._replay_breakthrough()
 		102:
 			# Illustrative fixture, never a breakthrough command or a state mutation.
 			_abode.text_transition.play("境界等級提升至 LV2", "築基期 ERA2 — 壽元剩餘 80祀", {"reduced_motion": _abode.reduced_motion})
@@ -464,6 +471,7 @@ func _on_fortune_closed() -> void:
 
 
 func _toggle_debug_panel() -> void:
+	_abode.save_controls.visible = false
 	if _abode.debug_panel == null:
 		return
 	_abode.debug_panel.visible = not _abode.debug_panel.visible
@@ -533,6 +541,7 @@ func _on_reincarnate_requested(mode: String) -> void:
 		_abode._save_game()
 		if _abode.reincarnation_panel != null:
 			_abode.reincarnation_panel.visible = false
+		_abode.feature_navigation.home()
 		_abode._return_home()
 		_abode._refresh_hud()
 		print("ABODE_REINCARNATION: cycle=", _abode.session.state.reincarnation_count)

@@ -37,21 +37,22 @@ func _run() -> void:
 	for key in panels:
 		identities[key] = abode.get(key)
 		_expect(abode.get(key).get_parent() == abode.hud, key + " keeps its original HUD parent")
-	# Existing behavior permits simultaneous panels; do not introduce exclusive closing.
-	for i in menu_ids.size():
-		abode.more_menu.get_popup().id_pressed.emit(menu_ids[i])
-		for j in range(i + 1):
-			_expect(abode.get(panels[j]).visible, "opening another panel preserves existing visibility")
+	# NAV1 intentionally replaces the old gameplay stacking contract.
+	for route in ["reincarnation", "alchemy", "outposts", "sect"]:
+		abode.feature_navigation.open(route)
+		var shown := 0
+		for key in ["reincarnation_panel", "alchemy_panel", "realm_modal", "sect_panel"]:
+			shown += int(abode.get(key).visible)
+		_expect(shown == 1, "section changes must show only one gameplay page")
 	for bounds in [Vector2(1280, 720), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)]:
 		abode._layout_for_size(bounds)
 		abode._refresh_hud()
 		for key in panels:
 			_expect(abode.get(key) == identities[key], "layout must not recreate public panel references")
 	_expect(abode.session.state.to_snapshot_dict() == initial, "opening/layout/refresh must not mutate game state")
-	for id in menu_ids:
-		abode.more_menu.get_popup().id_pressed.emit(id)
+	abode.feature_navigation.home()
 	for key in panels:
-		_expect(not abode.get(key).visible, "second toggle closes " + key)
+		_expect(not abode.get(key).visible, "returning home closes gameplay pages")
 	# Callbacks must still target the original root instance, once per signal.
 	for spec in [["sect_panel", "join_sect_requested", "_on_sect_join_requested"], ["alchemy_panel", "refine_requested", "_on_alchemy_refine_requested"], ["realm_modal", "switch_realm_requested", "_on_switch_realm_requested"], ["reincarnation_panel", "reincarnate_requested", "_on_reincarnate_requested"]]:
 		var connections: Array = abode.get(spec[0]).get_signal_connection_list(spec[1])

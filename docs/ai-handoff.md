@@ -1,6 +1,6 @@
 # 給下一位 AI 的開發交接
 
-更新：2026-10-02（DOC-A-R1：34 Runner、GitHub 倉庫與最新驗收邊界）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
+更新：2026-10-03（NAV1：36 Runner、功能入口整合與驗收邊界）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
 
 ## 閱讀與恢復工作
 
@@ -10,12 +10,15 @@
 4. 按任務讀 docs/02 技術架構、docs/00 舊規則來源；美術任務讀 docs/04、06。
 5. 涉及世界場景、HUD、輸入、畫面尺寸、Web shell 或 Web 匯出時，閱讀 `docs/07-responsive-ui-web-spec.md`；它規定 `1280×720` 構圖基準、Godot 響應式版型與瀏覽器證據，不可用固定畫布取代適配。
 6. 涉及新建築、修行境界（Era）擴充、島面與可布置空間時，閱讀 `docs/08-building-presentation-and-era-expansion.md`；多數建築進營造清單，只有有圖形化地基與獨立美術的少數地標可進世界場景。
+7. 涉及功能入口、群組分頁、資源或升級清單整合，必讀 `docs/12-feature-navigation-and-integration-spec.md`；新系統不得塞進 More 或新增重複入口。
 
 如果工具不自動讀 AGENTS.md，請在首個提示明確要求閱讀。歷史文件 docs/03 保留初期推理與案例，開發順序以根目錄 Roadmap 為準。不要因舊文有「下一步建立環境」而重裝。
 
 依修改類型查 [呈現層索引](abode-presentation-map.md)。歷史長記錄已歸檔，不作每次必讀；目前缺口與驗證以 [開發狀態](development-status.md) 為準。
 
 ## 最新接手狀態
+
+- NAV1 四主入口與九分頁已實作；靈獸核心及正式操作頁已接，下一步收分類／視覺回饋與實機驗收，見 verification/feature-navigation.md。
 
 - Session 已放行宗門／跨界／BUFF，不能照 9/28 提示重做白名單；全部新命令端到端／Web 證據仍按 R1 補齊。
 - M4-B、M5-A／B 已有核心／資料實作；完整可玩／美術／試玩／長期負載尚未全驗。最新 UI7 已實作，優先收 UI／字型／演出回饋與裝置驗收。
@@ -50,7 +53,7 @@
 
 ## 可重跑命令（目前已存在的入口）
 
-以下在 Windows PowerShell 執行。每一步確認退出碼；2026-10-02 DOC-A-R1 重跑固定入口 34/34 PASS，清單以 tools/run_all_runners.ps1 為準。追加呈現層回歸不在固定入口；歷史結果見各驗收頁，本輪未重跑。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
+以下在 Windows PowerShell 執行。每一步確認退出碼；2026-10-03 NAV1 重跑固定入口 36/36 PASS，清單以 tools/run_all_runners.ps1 為準。追加呈現層回歸不在固定入口；歷史結果見各驗收頁，本輪未重跑。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
 
 ```powershell
 Set-Location 'E:\WORK\Dao2'

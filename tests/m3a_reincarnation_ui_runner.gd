@@ -21,11 +21,11 @@ func _run() -> void:
 
 	# 1. 初始狀態與面板開關
 	abode._layout_for_size(Vector2(1280, 720))
-	_expect(abode.more_menu.visible and not abode.reincarnation_button.visible, "wide desktop toolbar must place reincarnation in More")
+	_expect(not abode.more_menu.visible and abode.reincarnation_button.visible, "wide desktop toolbar must expose the cultivation section")
 	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be closed initially")
 
-	abode._on_more_menu_pressed(6)
-	_expect(abode.reincarnation_panel.visible, "More menu reincarnation action must open the panel")
+	abode.feature_navigation.open("reincarnation")
+	_expect(abode.reincarnation_panel.visible, "canonical cultivation tab must open reincarnation")
 	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled for new game (Era 1, full lifespan)")
 	_expect(abode.reincarnation_panel._eligibility_label.text.find("往生蓮臺") >= 0, "eligibility label must explain requirement")
 
@@ -98,10 +98,10 @@ func _run() -> void:
 
 	# 5. 直式版型與 more_menu 整合
 	abode._layout_for_size(Vector2(360, 640))
-	_expect(abode.more_menu.visible, "more_menu must be visible in portrait layout")
-	_expect(not abode.reincarnation_button.visible, "toolbar reincarnation button must be hidden in portrait layout")
+	_expect(not abode.more_menu.visible, "legacy More must remain hidden in portrait")
+	_expect(abode.reincarnation_button.visible, "cultivation section remains discoverable beneath the rotation prompt")
 
-	abode._on_more_menu_pressed(6)
+	abode.feature_navigation.open("reincarnation")
 	abode._layout_for_size(Vector2(360, 640))
 	_expect(abode.reincarnation_panel.visible, "more_menu item 6 must toggle reincarnation panel in portrait layout")
 	_expect(abode.reincarnation_panel.size.x <= 360.0, "reincarnation panel must fit within 360 CSS px bounds")
