@@ -1,0 +1,5 @@
+[
+  { "id": "craft_bronze_essence", "inputs": { "black_copper": 10, "stone_low": 5 }, "output": { "resource_id": "bronze_essence", "amount": 1 } },
+  { "id": "craft_liquid", "inputs": { "spirit_grass_low": 5, "lingli": 50 }, "output": { "resource_id": "liquid", "amount": 1 } },
+  { "id": "craft_monster_core_low", "inputs": { "beast_crystal_low": 2, "spirit_grass_low": 2 }, "output": { "resource_id": "monster_core_low", "amount": 1 } }
+]

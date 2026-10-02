@@ -1,5 +1,7 @@
 # M3-B 舊系統承接與子系統驗證紀錄
 
+2026-10-02 CONTENT-AUDIT 補記：以下丹藥交付是簡化 v2 實作，**不是 Dao1 通用合成或同名丹藥完整保真**。Dao2 只載 7 種開局資源／10 座 Era 1 建築，缺築基新內容與一般功法／合成承接。新的來源 profile、完整清單、現有丹藥差異、雙庫存／升版與模型缺口見 [清單審核](content-progression-audit-2026-10-02.md)；CONTENT1／2 尚為 TODO。
+
 2026-10-02 DOC-A-R1 現況補記：GameSession 白名單與宗門／跨界／BUFF 呼叫已補上；以下 9/28 UNKNOWN_COMMAND 記錄是歷史發現，不再表示目前尚未接線。宗門 Session 成功路徑已有 runner，本輪固定入口 34/34 PASS；全部新命令拒絕／冪等／保存及實際 Web 操作仍按 R1 補證，未宣稱完整端到端驗收。見 [複核](doc-a-r1.md)。
 
 2026-09-28 歷史狀態複核：宗門規則與面板已實作，但 `GameSession.KNOWN_COMMAND_TYPES` 不接受 `join_sect`／宗門後續命令；其餘 BUFF／跨界新命令亦需同一整合修復。M4-A-R1 完成前，以下只記模組與當時 runner 結果，不能視為正式場景閉環。見 [REF-A](ref-a.md)。

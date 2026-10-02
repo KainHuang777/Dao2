@@ -27,3 +27,30 @@
 | V2-010 | 資源每秒入庫與境界 HUD | `v2_decision` | 2026-09-25 將結算步長改為 1 秒，產率仍以每秒為單位；離線固定產率區間合併運算，壽元仍 60 秒＝1 祀。舊快照的 0～60 秒餘數可讀並在下一次推進結算；`RULES_VERSION=core-flow-3`。HUD 分行顯示境界名稱、層數、修煉與壽元，資源顯示小數。 | `tests/core_positive_flow_runner.gd`、`tests/m1b_time_runner.gd`、`tests/m1d_offline_runner.gd`、`tests/m2d_responsive_ui_runner.gd` |
 
 `legacy_parity` 表示需要先與已固定來源一致，並不表示該規則永久不可改善。改動舊行為時，必須新增帶版本的 v2 決策與相對應案例，保留原 fixture 供遷移與回歸。
+
+## 2026-10-02 內容承接審核補記（既有實作差異，非本輪改規則）
+
+| ID | 主題 | 狀態 | 審核結果／後續 |
+| --- | --- | --- | --- |
+| V2-011 | 簡化煉丹與通用合成未承接 | `v2_change`（已實作現況；完整設計核定待補） | Dao2 cultivation_pill／lifespan_pill 為另一套 ID／效果；同 ID foundation_pill 的配方已由草3＋靈力50改為草50＋玄銅20＋靈力200，服用變成當世產率加成。三丹 hardcode 不等於 Dao1 30 recipe。不聲稱 legacy_parity；先於 CONTENT1 記錄保留／改寫策略與庫存遷移，不默默覆蓋現有玩家物品。 |
+| GAP-CONTENT-1 | 築基內容、跨境界解鎖、功法前置、一般配方缺席 | `未完成` | Dao2 正式內容僅7資源／10座 Era1建築，升境後新可見項0；四份 Dao1 CSV 與舊來源 manifest hash 不同。保留舊 fixture，建立新 profile，再依 CONTENT1／2 補齊。 |
+| GAP-CONTENT-2 | 茅屋跨境容量與丹藥雙庫存 | `缺陷待修` | 本輪記憶體觀察升境靈力容量1400→1100；資源有築基丹但 pills 無時服用不足；足料煉製201超基礎容量200。未修改玩法或測試標準。 |
+
+本輪詳細證據與模型評估見 [M3-B-CONTENT-AUDIT](verification/content-progression-audit-2026-10-02.md)。
+
+## 2026-10-02 M3-B-CONTENT2 築基內容切片補記
+
+| ID | 主題 | 狀態 | v2 目前處理 | 證據／後續 |
+| --- | --- | --- | --- | --- |
+| LP-012 | Era 2 境界數值照 Dao1 `eras.csv` 原樣 | `legacy_parity` | max_level 10、壽元 120、level_up {base_time 120, time_mult 1.18, lingli 500／money 100／stone_low 50}、upgrade {level 10，capacity lingli 2000／stone_low 1000}。production 舊 era2.json 草稿值（lingli 200、time_mult 1.2、缺 money/stone_low）視為未接線草稿，不保留為 v2 差異。capacity 鍵去 `_max` 後綴（對齊 `Production.compute_caps` 以資源 id 為鍵與 `_apply_breakthrough` 原鍵查表；修正舊檔帶 `_max` 鍵永遠查 0 的潛在破格 bug） | `content/eras/era2.json`；`tests/m3b_content2_runner.gd` era2_parities／breakthrough 鏈 |
+| LP-013 | Era 2 資源／建築／儲量數值照 Dao1 CSV | `legacy_parity` | 9 資源（含 beast_crystal_low era-3 前向標籤照抄）＋11 建築（library、scripture_hall、stone_mine_mid、iron_mine、hunter_camp、rice_field＋5 中級儲量）base_cost／effects／effect_weight／prereqBuilding 逐一對照；advCost 全 0 縮併入 base_cost | 對照 `docs/verification/artifacts/content-progression-audit/catalogs.json`；`tests/m3b_content2_runner.gd` |
+| V2-012 | 建築 prereqTech（技能前置）不搬入 | `v2_change` | Dao1 非新手路徑本來就繞過 prereqTech（僅 A1 progression 語系使用），且 Dao2 尚無技能購買指令管道；era-2 建築僅受 era＋prereqBuilding 門檻 | `docs/verification/m3-b-content2.md`；技能購買任務時再回補 |
+| V2-013 | resource_multiplier 1.5 生效於產率 | `v2_change` | Dao1 `resourceMultiplier` runtime 無消費者（僅平衡模擬器）；Dao2 由 `Production.compute_rates` 乘入。era-2 相關測試改讀內容定義倍率 | `tests/core_positive_flow_runner.gd`；`tests/m3b_content2_runner.gd` |
+| V2-014 | 跨 era 資源解鎖走 ProgressionEvaluator status | `v2_decision` | 資源 unlock 陣列（era／building_level／ever_obtained）＋`unlock_eligible_resources` sweep，掛 `_apply_upgrade`／`_apply_breakthrough` 發 `resource_unlocked` 事件；era-1 資源（含 foundation_pill）維持既有權威路徑不變 | `src/domain/content_reconciliation.gd`；`tests/m3b_content2_runner.gd` unlock_sweep_gates；Dao1 A1 per-resource 語系為參考 |
+
+## 2026-10-02 M3-B 技能購買補記
+
+| ID | 主題 | 狀態 | v2 目前處理 | 證據／後續 |
+| --- | --- | --- | --- | --- |
+| V2-015 | 技能購買成本為定義表價（flat），不搬舊版級距曲線 | `v2_difference` | Dao1 skillCost 依 `base*(1-rate)^level` 逐級算價；era2 skill defs（v2 內容切片）僅有單一 `cost`／`cost_resource` 欄位，無 per-level 成長欄位，故 `SkillSystem.get_cost` 取定義價不隨 level 變動（如 basic_meditation 每級 90sp）。era／prereq 把關不搬：era-2 技能實際由 skill_point 資源解鎖（era 2＋library L1）間接把關 | `src/simulation/skill_system.gd`；`tests/m3b_skill_runner.gd` flat_cost_not_scaling；Dao1 `src/balance/rules/skillCost.ts` 為來源參考 |
+| V2-016 | era2 技能 effects 已接線（Dao1 平價公式）；新增三方 v2 取捨 | `v2_change` | 已搬 Dao1 套用規則：`*_rate`＝amount×level、`*_multiplier`＝amount^level、`*_max`／all_max＝平加 amount×level、`building_level_cap`＝上限＋amount×level、升級時間乘數＝amount^level（Dao1 time_reduction 同型，floor 0.1 已在 `Cultivation` 既有實作）。era2 六技能 effect 欄位亦為 Dao1 CSV 平價。接受限制：①schema 無 effect-type 白名單（typo 型視為 inert 內容，運行時靜默無效）；②`compute_caps` 的 `skill_max_multipliers` 參數保留但目前無呼叫端傳值，`all_rate_multiplier`／`all_max_multiplier` 型效果 schema 接受但運行時忽略（era2 內容無此型，Dao1 有使用 `all_max_multiplier`） | `docs/verification/m3-b-skill-effects.md`；`src/simulation/production.gd`；`tests/m3b_skill_effect_runner.gd` |

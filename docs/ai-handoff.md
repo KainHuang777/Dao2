@@ -17,6 +17,7 @@
 
 ## 最新接手狀態
 
+- 2026-10-02 使用者要求優先檢查 Era 2 經濟內容。CONTENT-AUDIT 已交付，CONTENT1（模型／庫存／解鎖／內容升版）→CONTENT2（築基內容）待做，見 [審核](verification/content-progression-audit-2026-10-02.md)。本機 Dao1 為 `D:\Temp\temp\Dao\Dao`（歷史 E:\Python\test1），保持唯讀；四份 CSV 與 M0-B 固定 hash 不同，保留舊 fixture。此 clone 分支實際為 master、HEAD b9f6685，別依下列歷史 main 描述假定當前分支。
 - Session 已放行宗門／跨界／BUFF，不能照 9/28 提示重做白名單；全部新命令端到端／Web 證據仍按 R1 補齊。
 - M4-B、M5-A／B 已有核心／資料實作；完整可玩／美術／試玩／長期負載尚未全驗。最新 UI7 已實作，優先收 UI／字型／演出回饋與裝置驗收。
 - 倉庫 origin 為 https://github.com/KainHuang777/Dao2.git，main 追蹤 origin/main；引擎／模板、.godot、build 被忽略。乾淨 clone 不含本機引擎，需同版 4.7.2 執行檔及模板，不自動更新環境。

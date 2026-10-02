@@ -1,0 +1,13 @@
+[
+  {"id": "iron_mine", "era": 2, "max_level": 100, "cost_factor": 1.5, "prereq": {"building": "hunter_camp", "level": 1}, "base_cost": {"wood": 15, "money": 15, "beast_bone_low": 10}, "effect_weight": 0.3, "effects": {"refined_iron": 0.05}},
+  {"id": "hunter_camp", "era": 2, "max_level": 100, "cost_factor": 1.7, "prereq": {"building": "forest_farm", "level": 3}, "base_cost": {"wood": 30, "money": 20}, "effect_weight": 0.05, "effects": {"beast_hide_low": 0.03, "beast_bone_low": 0.03}},
+  {"id": "rice_field", "era": 2, "max_level": 100, "cost_factor": 1.8, "prereq": {"building": "iron_mine", "level": 2}, "base_cost": {"stone_low": 15, "wood": 25}, "effect_weight": 0.1, "effects": {"spirit_rice": 0.08}},
+  {"id": "library", "era": 2, "max_level": 100, "cost_factor": 1.8, "prereq": null, "base_cost": {"money": 500, "wood": 200, "stone_low": 50, "spirit_grass_low": 20}, "effect_weight": 0, "effects": {"skill_point": 6, "lingli": 1.23}},
+  {"id": "scripture_hall", "era": 2, "max_level": 100, "cost_factor": 1.8, "prereq": {"building": "library", "level": 1}, "base_cost": {"money": 500, "wood": 500, "stone_low": 300, "bronze_essence": 5}, "effect_weight": null, "effects": {"skill_point_max": 6000}},
+  {"id": "stone_mine_mid", "era": 2, "max_level": 100, "cost_factor": 1.8, "prereq": {"building": "stone_mine", "level": 1}, "base_cost": {"money": 1000, "stone_low": 150, "refined_iron": 50, "beast_bone_low": 20}, "effect_weight": 1, "effects": {"stone_low": 0.5}},
+  {"id": "storage_lingli_mid", "era": 2, "max_level": 50, "cost_factor": 1.1, "prereq": {"building": "storage_lingli", "level": 1}, "base_cost": {"money": 500, "stone_low": 50}, "effect_weight": null, "effects": {"lingli_max": 50000}},
+  {"id": "storage_stone_mid", "era": 2, "max_level": 50, "cost_factor": 1.1, "prereq": {"building": "storage_stone", "level": 1}, "base_cost": {"money": 400, "stone_low": 50}, "effect_weight": null, "effects": {"stone_low_max": 2500}},
+  {"id": "storage_money_mid", "era": 2, "max_level": 50, "cost_factor": 1.35, "prereq": {"building": "storage_money", "level": 1}, "base_cost": {"money": 500, "wood": 100}, "effect_weight": null, "effects": {"money_max": 5000}},
+  {"id": "storage_wood_mid", "era": 2, "max_level": 50, "cost_factor": 1.35, "prereq": {"building": "storage_wood", "level": 1}, "base_cost": {"money": 300, "wood": 100}, "effect_weight": null, "effects": {"wood_max": 2000}},
+  {"id": "storage_herb_mid", "era": 2, "max_level": 50, "cost_factor": 1.35, "prereq": {"building": "storage_herb", "level": 1}, "base_cost": {"money": 400, "wood": 150}, "effect_weight": null, "effects": {"spirit_grass_low_max": 1000}}
+]

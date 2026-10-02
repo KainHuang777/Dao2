@@ -4,8 +4,11 @@ extends RefCounted
 const MANIFEST_FILE := "manifest.json"
 const SUPPORTED_MANIFEST_VERSION := 1
 const DEFAULT_COST_FACTOR := 1.15
-const RESOURCE_TYPES := ["basic", "crafted"]
+const RESOURCE_TYPES := ["basic", "crafted", "advanced"]
 const ALLOWED_BONUS_KEYS := ["all_rate", "all_max", "synthetic_max_mult"]
+const RESOURCE_OPTIONAL_FIELDS := ["name_key", "category", "display_group", "display_order", "unlock"]
+const BUILDING_OPTIONAL_FIELDS := ["name_key", "display_group", "display_order", "requirements"]
+const RESOURCE_CATEGORIES := ["basic", "crafted", "advanced"]
 
 static func load_directory(base_dir: String) -> Dictionary:
 	var manifest_path := base_dir.path_join(MANIFEST_FILE)
@@ -24,6 +27,11 @@ static func load_directory(base_dir: String) -> Dictionary:
 	var era_files: Variant = manifest.get("era_files", [])
 	if typeof(resource_files) != TYPE_ARRAY or typeof(building_files) != TYPE_ARRAY or typeof(era_files) != TYPE_ARRAY:
 		return {"ok": false, "errors": ["manifest: resource_files, building_files and era_files must be arrays"]}
+	var recipe_files: Variant = manifest.get("recipe_files", [])
+	var consumable_files: Variant = manifest.get("consumable_files", [])
+	var skill_files: Variant = manifest.get("skill_files", [])
+	if typeof(recipe_files) != TYPE_ARRAY or typeof(consumable_files) != TYPE_ARRAY or typeof(skill_files) != TYPE_ARRAY:
+		return {"ok": false, "errors": ["manifest: recipe_files, consumable_files and skill_files must be arrays if present"]}
 	var resources: Array = []
 	for entry in resource_files:
 		_append_definition_file(base_dir, String(entry), "resources", resources, errors)
@@ -33,11 +41,20 @@ static func load_directory(base_dir: String) -> Dictionary:
 	var eras: Array = []
 	for entry in era_files:
 		_append_definition_file(base_dir, String(entry), "eras", eras, errors)
+	var recipes: Array = []
+	for entry in recipe_files:
+		_append_definition_file(base_dir, String(entry), "recipes", recipes, errors)
+	var consumables: Array = []
+	for entry in consumable_files:
+		_append_definition_file(base_dir, String(entry), "consumables", consumables, errors)
+	var skills: Array = []
+	for entry in skill_files:
+		_append_definition_file(base_dir, String(entry), "skills", skills, errors)
 	if not errors.is_empty():
 		return {"ok": false, "errors": errors}
-	return build_content(resources, buildings, eras)
+	return build_content(resources, buildings, eras, recipes, consumables, skills)
 
-static func build_content(resources: Array, buildings: Array, eras: Array = []) -> Dictionary:
+static func build_content(resources: Array, buildings: Array, eras: Array = [], recipes: Array = [], consumables: Array = [], skills: Array = []) -> Dictionary:
 	var errors: Array = []
 	var resource_defs: Array = _validate_resources(resources, errors)
 	var building_defs: Array = _validate_buildings(buildings, errors)
@@ -50,6 +67,21 @@ static func build_content(resources: Array, buildings: Array, eras: Array = []) 
 		building_ids[def.id] = true
 	_validate_references(building_defs, resource_ids, errors)
 	_validate_era_references(era_defs, resource_ids, errors)
+	var skill_defs: Array = ContentSchema.validate_skills(skills, resource_ids, errors)
+	var skill_ids := {}
+	for def in skill_defs:
+		skill_ids[def.id] = true
+	var recipe_defs: Array = ContentSchema.validate_recipes(recipes, resource_ids, skill_ids, errors)
+	var consumable_defs: Array = ContentSchema.validate_consumables(consumables, resource_ids, errors)
+	var building_ids_set := {}
+	for def in building_defs:
+		building_ids_set[def.id] = true
+	for def in building_defs:
+		_validate_requirement_targets(def.get("requirements", []), "buildings (%s)" % def.id, resource_ids, building_ids_set, skill_ids, errors)
+	for def in recipe_defs:
+		_validate_requirement_targets(def.get("requirements", []), "recipes (%s)" % def.id, resource_ids, building_ids_set, skill_ids, errors)
+	for def in consumable_defs:
+		_validate_requirement_targets(def.get("consume_requirements", []), "consumables (%s)" % def.resource_id, resource_ids, building_ids_set, skill_ids, errors)
 	var cycle := _detect_prereq_cycle(building_defs)
 	if not cycle.is_empty():
 		errors.append("prereq cycle detected: %s" % " -> ".join(PackedStringArray(cycle)))
@@ -65,7 +97,16 @@ static func build_content(resources: Array, buildings: Array, eras: Array = []) 
 	for def in era_defs:
 		content.era_ids.append(def.id)
 		content.eras[def.id] = def
-	content.content_version = _compute_version(resource_defs, building_defs, era_defs)
+	for def in recipe_defs:
+		content.recipe_ids.append(def.id)
+		content.recipes[def.id] = def
+	for def in consumable_defs:
+		content.consumable_ids.append(def.resource_id)
+		content.consumables[def.resource_id] = def
+	for def in skill_defs:
+		content.skill_ids.append(def.id)
+		content.skills[def.id] = def
+	content.content_version = _compute_version(resource_defs, building_defs, era_defs, recipe_defs, consumable_defs, skill_defs)
 	return {"ok": true, "content": content}
 
 static func _validate_resources(raw: Array, errors: Array) -> Array:
@@ -103,12 +144,39 @@ static func _validate_resources(raw: Array, errors: Array) -> Array:
 		if typeof(unlocked_value) != TYPE_BOOL:
 			errors.append("%s: unlocked must be a boolean" % label)
 			continue
+		var required_fields := ["id", "type", "max", "rate", "unlocked"]
+		var unknown_fields: Array = []
+		for entry_key in entry:
+			var key_text := String(entry_key)
+			if not key_text.is_empty() and not (key_text in required_fields) and not (key_text in RESOURCE_OPTIONAL_FIELDS):
+				unknown_fields.append(key_text)
+		if not unknown_fields.is_empty():
+			errors.append("%s: unknown resource field(s) '%s'" % [label, ", ".join(PackedStringArray(unknown_fields))])
+			continue
+		var name_key := String(entry.get("name_key", ""))
+		var category := String(entry.get("category", "basic"))
+		if not category.is_empty() and not (category in RESOURCE_CATEGORIES):
+			errors.append("%s: category must be one of %s" % [label, ", ".join(PackedStringArray(RESOURCE_CATEGORIES))])
+			continue
+		var display_group := String(entry.get("display_group", ""))
+		var display_order_value = entry.get("display_order", 0)
+		if not _is_number(display_order_value) or float(display_order_value) < 0.0:
+			errors.append("%s: display_order must be a number >= 0" % label)
+			continue
+		var unlock_defs: Array = []
+		if entry.get("unlock", null) != null:
+			unlock_defs = ContentSchema.validate_requirement_shapes(entry.unlock, label, errors)
 		defs.append({
 			"id": resource_id,
 			"type": resource_type,
 			"max": float(max_value),
 			"rate": float(rate_value),
 			"unlocked": unlocked_value,
+			"name_key": name_key,
+			"category": "basic" if category.is_empty() else category,
+			"display_group": display_group,
+			"display_order": int(floor(float(display_order_value))),
+			"unlock": unlock_defs,
 		})
 	return defs
 
@@ -131,6 +199,24 @@ static func _validate_buildings(raw: Array, errors: Array) -> Array:
 			errors.append("%s: duplicate building id" % label)
 			continue
 		seen[building_id] = true
+		var known_fields := ["id", "era", "max_level", "cost_factor", "base_cost", "prereq", "effects", "effect_weight"]
+		var unknown_fields: Array = []
+		for entry_key in entry:
+			var key_text := String(entry_key)
+			if not key_text.is_empty() and not (key_text in known_fields) and not (key_text in BUILDING_OPTIONAL_FIELDS):
+				unknown_fields.append(key_text)
+		if not unknown_fields.is_empty():
+			errors.append("%s: unknown building field(s) '%s'" % [label, ", ".join(PackedStringArray(unknown_fields))])
+			continue
+		var building_name_key := String(entry.get("name_key", ""))
+		var building_display_group := String(entry.get("display_group", ""))
+		var building_display_order_value = entry.get("display_order", 0)
+		if not _is_number(building_display_order_value) or float(building_display_order_value) < 0.0:
+			errors.append("%s: display_order must be a number >= 0" % label)
+			continue
+		var building_requirements: Array = []
+		if entry.get("requirements", null) != null:
+			building_requirements = ContentSchema.validate_requirement_shapes(entry.requirements, label, errors)
 		var era_value = entry.get("era")
 		if not _is_number(era_value) or float(era_value) < 1.0:
 			errors.append("%s: era must be a number >= 1" % label)
@@ -211,6 +297,10 @@ static func _validate_buildings(raw: Array, errors: Array) -> Array:
 			"prereq": prereq_clean,
 			"effect_weight": null if weight == null else float(weight),
 			"effects": effects_clean,
+			"name_key": building_name_key,
+			"display_group": building_display_group,
+			"display_order": int(floor(float(building_display_order_value))),
+			"requirements": building_requirements,
 		})
 	return defs
 
@@ -361,6 +451,26 @@ static func _validate_eras(raw: Array, errors: Array) -> Array:
 		})
 	return defs
 
+static func _validate_requirement_targets(requirements: Variant, label: String, resource_ids: Dictionary, building_ids: Dictionary, skill_ids: Dictionary, errors: Array) -> void:
+	if not (requirements is Array):
+		return
+	for requirement in requirements:
+		if not (requirement is Dictionary):
+			continue
+		var requirement_type := String(requirement.get("type", ""))
+		if requirement_type == "building_level":
+			var building_target := String(requirement.get("building", ""))
+			if not building_ids.has(building_target):
+				errors.append("%s: requirement references unknown building '%s'" % [label, building_target])
+		elif requirement_type == "ever_obtained":
+			var resource_target := String(requirement.get("resource", ""))
+			if not resource_ids.has(resource_target):
+				errors.append("%s: requirement references unknown resource '%s'" % [label, resource_target])
+		elif requirement_type == "skill_level":
+			var skill_target := String(requirement.get("skill", ""))
+			if not skill_ids.is_empty() and not skill_ids.has(skill_target):
+				errors.append("%s: requirement references unknown skill '%s'" % [label, skill_target])
+
 static func _find_building(building_defs: Array, building_id: String) -> Variant:
 	for def in building_defs:
 		if def.id == building_id:
@@ -397,8 +507,8 @@ static func _detect_prereq_cycle(building_defs: Array) -> Array:
 			path.append(next_node)
 	return []
 
-static func _compute_version(resource_defs: Array, building_defs: Array, era_defs: Array) -> String:
-	var payload := JSON.stringify({"resources": resource_defs, "buildings": building_defs, "eras": era_defs})
+static func _compute_version(resource_defs: Array, building_defs: Array, era_defs: Array, recipe_defs: Array = [], consumable_defs: Array = [], skill_defs: Array = []) -> String:
+	var payload := JSON.stringify({"resources": resource_defs, "buildings": building_defs, "eras": era_defs, "recipes": recipe_defs, "consumables": consumable_defs, "skills": skill_defs})
 	var context := HashingContext.new()
 	context.start(HashingContext.HASH_SHA256)
 	context.update(payload.to_utf8_buffer())
@@ -424,7 +534,11 @@ static func _parse_json_file(file_path: String, errors: Array, kind: String) -> 
 	return parsed
 
 static func _is_number(value: Variant) -> bool:
-	return typeof(value) == TYPE_INT or typeof(value) == TYPE_FLOAT
+	if typeof(value) == TYPE_INT:
+		return true
+	if typeof(value) == TYPE_FLOAT:
+		return not is_nan(value) and not is_inf(value)
+	return false
 
 static func load_realms(file_path: String = "res://content/realms/realms.json") -> Dictionary:
 	var errors: Array = []

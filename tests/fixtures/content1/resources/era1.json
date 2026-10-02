@@ -1,0 +1,10 @@
+[
+  { "id": "lingli", "type": "basic", "max": 1400, "rate": 1.0, "unlocked": true },
+  { "id": "money", "type": "basic", "max": 200, "rate": 0, "unlocked": true },
+  { "id": "wood", "type": "basic", "max": 100, "rate": 0, "unlocked": true },
+  { "id": "stone_low", "type": "basic", "max": 100, "rate": 0, "unlocked": true },
+  { "id": "black_copper", "type": "basic", "max": 300, "rate": 0, "unlocked": true },
+  { "id": "spirit_grass_low", "type": "basic", "max": 200, "rate": 0.5, "unlocked": true, "name_key": "res_spirit_grass_low", "category": "basic", "display_group": "herb", "display_order": 3 },
+  { "id": "beast_pelt", "type": "advanced", "max": 100, "rate": 0.0, "unlocked": false, "name_key": "res_beast_pelt", "display_group": "hunt", "display_order": 9, "unlock": [{"type": "era", "era": 2}] },
+  { "id": "copper_refine", "type": "crafted", "max": 50, "rate": 0.0, "unlocked": true }
+]

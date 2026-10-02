@@ -1,0 +1,10 @@
+{
+  "manifest_version": 1,
+  "era": 1,
+  "resource_files": ["resources/era1.json"],
+  "building_files": ["buildings/era1.json"],
+  "era_files": ["eras/era1.json", "eras/era2.json"],
+  "recipe_files": ["recipes/recipes.json"],
+  "consumable_files": ["consumables/consumables.json"],
+  "skill_files": ["skills/skills.json"]
+}

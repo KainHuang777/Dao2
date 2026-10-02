@@ -10,6 +10,7 @@ static var _slots: SaveSlots = null
 static var _current_state: GameState = null
 static var _envelope: Dictionary = {}
 static var _adapter: StorageAdapter = null
+static var _last_reconcile_report: Dictionary = {}
 
 static func configure(content: GameContent, adapter: StorageAdapter = null) -> void:
 	_content = content
@@ -147,7 +148,15 @@ static func import_share_string(share: String) -> Dictionary:
 	var decode_result: Dictionary = SaveCodec.decode(json_text)
 	if not bool(decode_result.get("ok", false)):
 		return {"ok": false, "state": null, "error": String(decode_result.get("error", "DECODE_FAILED"))}
-	return {"ok": true, "state": decode_result["state"], "error": ""}
+	var imported_state: GameState = decode_result["state"]
+	var content_obj_for_share: GameContent = content()
+	if imported_state != null and content_obj_for_share != null:
+		var share_reconcile: Dictionary = ContentReconciliation.reconcile(imported_state, content_obj_for_share)
+		if bool(share_reconcile.get("ok", false)):
+			imported_state = share_reconcile["state"]
+		else:
+			return {"ok": false, "state": null, "error": String(share_reconcile.get("error", "RECONCILE_SAVE_FAILED"))}
+	return {"ok": true, "state": imported_state, "error": ""}
 
 static func reset_for_tests() -> void:
 	_content = null
@@ -155,6 +164,7 @@ static func reset_for_tests() -> void:
 	_current_state = null
 	_envelope = {}
 	_adapter = null
+	_last_reconcile_report = {}
 
 static func _load_from_slots() -> GameState:
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
@@ -169,8 +179,21 @@ static func _load_from_slots() -> GameState:
 	var decode_result: Dictionary = SaveCodec.decode(String(best["json"]))
 	if not bool(decode_result.get("ok", false)):
 		return null
+	var decoded_state: GameState = decode_result["state"]
+	var content_obj: GameContent = content()
+	if content_obj != null:
+		var reconcile_result: Dictionary = ContentReconciliation.reconcile(decoded_state, content_obj)
+		if not bool(reconcile_result.get("ok", false)):
+			var retry_result: Dictionary = ContentReconciliation.reconcile(decoded_state, content_obj)
+			if not bool(retry_result.get("ok", false)):
+				return null
+			decoded_state = retry_result["state"]
+			_last_reconcile_report = retry_result.get("report", {})
+		else:
+			decoded_state = reconcile_result["state"]
+			_last_reconcile_report = reconcile_result.get("report", {})
 	_envelope = decode_result["envelope"]
-	return decode_result["state"]
+	return decoded_state
 
 static func _new_state() -> GameState:
 	var content_obj: GameContent = content()

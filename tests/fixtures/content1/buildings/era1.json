@@ -1,0 +1,19 @@
+[
+  {
+    "id": "hut",
+    "era": 1,
+    "max_level": 4,
+    "cost_factor": 1.15,
+    "base_cost": { "money": 20.0 },
+    "effects": { "lingli_max": 150.0 }
+  },
+  {
+    "id": "library",
+    "era": 2,
+    "max_level": 3,
+    "cost_factor": 1.2,
+    "base_cost": { "wood": 50.0, "money": 100.0 },
+    "effects": { "lingli_max": 100.0 },
+    "requirements": [{"type": "era", "era": 2}]
+  }
+]

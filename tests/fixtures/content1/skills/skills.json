@@ -1,0 +1,9 @@
+[
+  {
+    "id": "basic_breathing",
+    "name_key": "skill_basic_breathing",
+    "max_level": 5,
+    "cost": { "lingli": 10.0 },
+    "cost_resource": "lingli"
+  }
+]

@@ -45,6 +45,8 @@ const PILLS := {
 	}
 }
 
+const FOUNDATION_PILL_MAX := 200.0
+
 static func is_unlocked(state: GameState) -> bool:
 	if state == null:
 		return false
@@ -64,7 +66,15 @@ static func can_refine(state: GameState, pill_id: String, count: int = 1) -> Dic
 	var def: Variant = get_definition(pill_id)
 	if def == null:
 		return {"can_refine": false, "reason": "UNKNOWN_PILL"}
+	var pill_id_text := String(def["id"])
 	var cost_def: Dictionary = def["cost"]
+	if pill_id_text == "foundation_pill" and state.resources.has("foundation_pill"):
+		var held: AmountCompat = state.resources["foundation_pill"].value
+		var capacity_amount: AmountCompat = AmountCompat.from_number(FOUNDATION_PILL_MAX)
+		var headroom := fill_to_capacity(state, capacity_amount)
+		if headroom <= 0:
+			return {"can_refine": false, "reason": "CAPACITY_FULL"}
+		count = mini(count, headroom)
 	var total_cost: Dictionary = {}
 	for res_id in cost_def:
 		var unit_cost := float(cost_def[res_id])
@@ -80,33 +90,55 @@ static func can_refine(state: GameState, pill_id: String, count: int = 1) -> Dic
 				"required": required_amount.serialize(),
 				"current": cur_val.serialize(),
 			}
-	return {"can_refine": true, "cost": total_cost, "count": count}
+	return {"can_refine": true, "cost": total_cost, "count": count, "applied_count": count}
+
+static func fill_to_capacity(state: GameState, capacity_amount: AmountCompat) -> int:
+	var held: AmountCompat = state.resources["foundation_pill"].value
+	var room: AmountCompat = capacity_amount.subtract(held)
+	if room.compare_to(AmountCompat.zero()) <= 0:
+		return 0
+	return int(room.to_float())
 
 static func refine(state: GameState, pill_id: String, count: int = 1) -> Dictionary:
 	var check := can_refine(state, pill_id, count)
 	if not bool(check.get("can_refine", false)):
 		return {"ok": false, "error": String(check.get("reason", "CANNOT_REFINE")), "details": check}
+	var applied_count: int = int(check.get("applied_count", count))
 	var total_cost: Dictionary = check["cost"]
 	var changed_ids: Array = []
 	for res_id in total_cost:
 		var cost_amount: AmountCompat = total_cost[res_id]
 		var entry: Dictionary = state.resources[res_id]
 		entry.value = entry.value.subtract(cost_amount)
-		changed_ids.append(res_id)
-	state.pills[pill_id] = int(state.pills.get(pill_id, 0)) + count
-	# If foundation_pill is represented in resources table, keep in sync
+		if not changed_ids.has(res_id):
+			changed_ids.append(res_id)
 	if pill_id == "foundation_pill" and state.resources.has("foundation_pill"):
 		var fp_entry: Dictionary = state.resources["foundation_pill"]
-		fp_entry.value = fp_entry.value.add(AmountCompat.from_number(float(count)))
+		fp_entry.value = fp_entry.value.add(AmountCompat.from_number(float(applied_count)))
 		fp_entry.ever_obtained = true
-		if not changed_ids.has("foundation_pill"):
-			changed_ids.append("foundation_pill")
+		if state.pills.get(pill_id, 0) != 0:
+			state.pills[pill_id] = 0
+		if not changed_ids.has(pill_id):
+			changed_ids.append(pill_id)
+		return {
+			"ok": true,
+			"applied_count": applied_count,
+			"events": [{
+				"kind": "pill_refined",
+				"pill_id": pill_id,
+				"count": applied_count,
+				"new_total": int(fp_entry.value.to_float()),
+			}],
+			"changed_ids": changed_ids,
+		}
+	state.pills[pill_id] = int(state.pills.get(pill_id, 0)) + applied_count
 	return {
 		"ok": true,
+		"applied_count": applied_count,
 		"events": [{
 			"kind": "pill_refined",
 			"pill_id": pill_id,
-			"count": count,
+			"count": applied_count,
 			"new_total": state.pills[pill_id],
 		}],
 		"changed_ids": changed_ids,
@@ -118,6 +150,17 @@ static func can_consume(state: GameState, pill_id: String, count: int = 1) -> Di
 	var def: Variant = get_definition(pill_id)
 	if def == null:
 		return {"can_consume": false, "reason": "UNKNOWN_PILL"}
+	if pill_id == "foundation_pill" and state.resources.has("foundation_pill"):
+		var held: AmountCompat = state.resources["foundation_pill"].value
+		if held.compare_to(AmountCompat.from_number(float(count))) < 0:
+			return {
+				"can_consume": false,
+				"reason": "INSUFFICIENT_PILL",
+				"pill_id": pill_id,
+				"required": count,
+				"current": int(held.to_float()),
+			}
+		return {"can_consume": true, "count": count}
 	var cur_count: int = int(state.pills.get(pill_id, 0))
 	if cur_count < count:
 		return {
@@ -134,10 +177,11 @@ static func consume(state: GameState, pill_id: String, count: int = 1) -> Dictio
 	if not bool(check.get("can_consume", false)):
 		return {"ok": false, "error": String(check.get("reason", "CANNOT_CONSUME")), "details": check}
 	var def: Dictionary = get_definition(pill_id)
-	state.pills[pill_id] = int(state.pills.get(pill_id, 0)) - count
 	if pill_id == "foundation_pill" and state.resources.has("foundation_pill"):
 		var fp_entry: Dictionary = state.resources["foundation_pill"]
-		fp_entry.value = fp_entry.value.subtract(AmountCompat.from_number(float(count))).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(999999999.0))
+		fp_entry.value = fp_entry.value.subtract(AmountCompat.from_number(float(count))).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(FOUNDATION_PILL_MAX))
+	else:
+		state.pills[pill_id] = int(state.pills.get(pill_id, 0)) - count
 	var effects: Dictionary = def.get("effects", {})
 	var applied_effects: Dictionary = {}
 	if effects.has("instant_training_seconds"):
@@ -169,7 +213,12 @@ static func get_view(state: GameState) -> Dictionary:
 	var list: Array = []
 	for pill_id in PILLS:
 		var def: Dictionary = PILLS[pill_id]
-		var count: int = int(state.pills.get(pill_id, 0)) if state != null else 0
+		var count: int = 0
+		if state != null:
+			if pill_id == "foundation_pill" and state.resources.has("foundation_pill"):
+				count = int(state.resources["foundation_pill"].value.to_float())
+			else:
+				count = int(state.pills.get(pill_id, 0))
 		var can_ref: bool = bool(can_refine(state, pill_id, 1).get("can_refine", false)) if (unlocked and state != null) else false
 		var can_con: bool = bool(can_consume(state, pill_id, 1).get("can_consume", false)) if (state != null) else false
 		list.append({

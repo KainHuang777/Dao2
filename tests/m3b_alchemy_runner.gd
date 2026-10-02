@@ -98,8 +98,8 @@ func _test_refine_and_consume_effects(content: GameContent) -> void:
 	# 3. Refine foundation_pill (and verify resource sync)
 	var r3 := session.refine_pill("foundation_pill", 1)
 	_expect(bool(r3.ok), "refine foundation_pill ok")
-	_expect_equal(int(session.state.pills.get("foundation_pill", 0)), 1, "foundation_pill count 1")
-	_expect_equal(session.state.resources["foundation_pill"].value.to_float(), 1.0, "resources foundation_pill synced to 1.0")
+	_expect_equal(int(session.state.pills.get("foundation_pill", 0)), 0, "foundation_pill legacy counter untouched")
+	_expect_equal(session.state.resources["foundation_pill"].value.to_float(), 1.0, "resources foundation_pill authoritative count 1.0")
 
 	# Consume foundation_pill: production multiplier
 	var c3 := session.consume_pill("foundation_pill", 1)

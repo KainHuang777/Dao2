@@ -101,7 +101,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	# Re-initialize onboarding unlock state
 	state.onboarding_version = 1
 	var onboarding_state := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
-	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 
 	# Calculate resource inheritance bonus from talents
 	var inheritance_bonus := 0.0

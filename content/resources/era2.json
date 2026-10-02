@@ -1,0 +1,11 @@
+[
+  { "id": "skill_point", "type": "basic", "max": 200, "rate": 0, "unlocked": false, "name_key": "技能點", "category": "basic", "unlock": [ { "type": "era", "era": 2 }, { "type": "building_level", "building": "library", "level": 1 } ] },
+  { "id": "spirit_rice", "type": "basic", "max": 200, "rate": 0, "unlocked": false, "name_key": "靈米", "category": "basic", "unlock": [ { "type": "era", "era": 2 }, { "type": "building_level", "building": "rice_field", "level": 1 } ] },
+  { "id": "refined_iron", "type": "basic", "max": 300, "rate": 0, "unlocked": false, "name_key": "精鐵", "category": "basic", "unlock": [ { "type": "era", "era": 2 }, { "type": "building_level", "building": "iron_mine", "level": 1 } ] },
+  { "id": "beast_hide_low", "type": "basic", "max": 100, "rate": 0, "unlocked": false, "name_key": "初級妖獸皮毛", "category": "basic", "unlock": [ { "type": "era", "era": 2 }, { "type": "building_level", "building": "hunter_camp", "level": 1 } ] },
+  { "id": "beast_bone_low", "type": "basic", "max": 100, "rate": 0, "unlocked": false, "name_key": "初級獸骨", "category": "basic", "unlock": [ { "type": "era", "era": 2 }, { "type": "building_level", "building": "hunter_camp", "level": 1 } ] },
+  { "id": "beast_crystal_low", "type": "basic", "max": 80, "rate": 0, "unlocked": false, "name_key": "初級獸晶", "category": "basic", "unlock": [ { "type": "era", "era": 3 } ] },
+  { "id": "bronze_essence", "type": "crafted", "max": 100, "rate": 0, "unlocked": false, "name_key": "銅精", "category": "crafted", "unlock": [ { "type": "era", "era": 2 } ] },
+  { "id": "monster_core_low", "type": "crafted", "max": 150, "rate": 0, "unlocked": false, "name_key": "初級妖丹", "category": "crafted", "unlock": [ { "type": "era", "era": 2 }, { "type": "ever_obtained", "resource": "beast_crystal_low" } ] },
+  { "id": "liquid", "type": "crafted", "max": 1000, "rate": 0, "unlocked": false, "name_key": "丹液", "category": "crafted", "unlock": [ { "type": "era", "era": 2 } ] }
+]

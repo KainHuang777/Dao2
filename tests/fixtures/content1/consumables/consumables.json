@@ -1,0 +1,8 @@
+[
+  {
+    "resource_id": "copper_refine",
+    "consume_requirements": [],
+    "effects": { "instant_training_seconds": 30.0 },
+    "lifetime_policy": "permanent_this_life"
+  }
+]

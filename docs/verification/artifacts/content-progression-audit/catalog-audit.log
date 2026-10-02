@@ -1,0 +1,61 @@
+{
+  "counts": {
+    "dao1_resources": 61,
+    "dao1_recipes": 30,
+    "dao1_buildings": 49,
+    "dao1_storage": 10,
+    "dao2_resources": 7,
+    "dao2_buildings": 10
+  },
+  "resource_matches": 7,
+  "building_matches": 10,
+  "hashes": [
+    {
+      "file": "Resources.csv",
+      "rows": 61,
+      "sha256": "FFF976FE5DDF37CD3B4783FE3A6F55FA15934346F30EB2AB62CC65CA88232045",
+      "baseline_sha256": "41B3E762C40EEB813885A08BD078E5C848C70683428E562D826971843EDC74DE",
+      "baseline_matches": false,
+      "public_matches_src": true
+    },
+    {
+      "file": "buildings.csv",
+      "rows": 49,
+      "sha256": "DF6B841034C170B66967BB094541EAD768A699CD33D5B38BCCFB89E6E63B8E5E",
+      "baseline_sha256": "DF6B841034C170B66967BB094541EAD768A699CD33D5B38BCCFB89E6E63B8E5E",
+      "baseline_matches": true,
+      "public_matches_src": true
+    },
+    {
+      "file": "storage.csv",
+      "rows": 10,
+      "sha256": "8CE6CAA9E4140D36CF2AEB257C98280A6D9C50C3388E95547DF11CEBBA764941",
+      "baseline_sha256": "A3D7AD8E07DCEF03E235AACD34F49D587606B6E84A85F379A253EEB12AC6F62B",
+      "baseline_matches": false,
+      "public_matches_src": true
+    },
+    {
+      "file": "eras.csv",
+      "rows": 12,
+      "sha256": "067C8243EEEA03B337D189573B14AA866C5CCC60236D873E3CD1FF2936D74F83",
+      "baseline_sha256": "E71F03ABD8755993FF874B5CBD2C9ED7B428423BC455D3C44950EB715DECA404",
+      "baseline_matches": false,
+      "public_matches_src": true
+    },
+    {
+      "file": "skills.csv",
+      "rows": 35,
+      "sha256": "4EDE1319A685E914ED5F05D1ABE98B76CB88F4E2C6C2634944878CBAF7290CAB",
+      "baseline_sha256": "C45F39DC1AA43661BC4834C32FFF5C5A432305D1D2381886A982BA86B082710D",
+      "baseline_matches": false,
+      "public_matches_src": true
+    }
+  ],
+  "duplicates": {
+    "Resources.csv": [],
+    "buildings.csv": [],
+    "storage.csv": [],
+    "eras.csv": [],
+    "skills.csv": []
+  }
+}

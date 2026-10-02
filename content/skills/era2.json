@@ -1,0 +1,8 @@
+[
+  { "id": "basic_meditation", "name_key": "基礎冥想", "max_level": 5, "cost": { "skill_point": 90 }, "effect": { "type": "lingli_multiplier", "amount": 1.1 } },
+  { "id": "qi_condensation", "name_key": "聚氣術", "max_level": 5, "cost": { "skill_point": 1800 }, "effect": { "type": "lingli_rate", "amount": 2.0 } },
+  { "id": "foundation_building", "name_key": "築基功", "max_level": 5, "cost": { "skill_point": 3600 }, "effect": { "type": "money_multiplier", "amount": 1.2 } },
+  { "id": "qi_storage_1", "name_key": "納靈法", "max_level": 1, "cost": { "skill_point": 120 }, "effect": { "type": "lingli_max", "amount": 200.0 } },
+  { "id": "body_strengthening_1", "name_key": "強身術", "max_level": 1, "cost": { "skill_point": 1000 }, "effect": { "type": "money_max", "amount": 2000.0 } },
+  { "id": "building_mastery_1", "name_key": "建築精通·初階", "max_level": 1, "cost": { "skill_point": 200 }, "effect": { "type": "building_level_cap", "amount": 10.0 } }
+]

@@ -10,6 +10,8 @@ var total_elapsed_seconds: float = 0.0
 var tick_remainder_seconds: float = 0.0
 var resources: Dictionary = {}
 var buildings: Dictionary = {}
+var skills: Dictionary = {}
+var learned_recipes: Dictionary = {}
 var tutorial_flags: Dictionary = {}
 var reincarnation_count: int = 0
 var highest_era: int = 1
@@ -65,6 +67,8 @@ func duplicate_state() -> GameState:
 		}
 	for building_id in buildings:
 		copy.buildings[building_id] = int(buildings[building_id])
+	copy.skills = skills.duplicate(true)
+	copy.learned_recipes = learned_recipes.duplicate(true)
 	return copy
 
 func to_snapshot_dict() -> Dictionary:
@@ -81,6 +85,8 @@ func to_snapshot_dict() -> Dictionary:
 		building_snapshot[building_id] = int(buildings[building_id])
 	return {
 		"revision": revision,
+		"skills": skills.duplicate(true),
+		"learned_recipes": learned_recipes.duplicate(true),
 		"era_id": era_id,
 		"level": level,
 		"onboarding_version": onboarding_version,

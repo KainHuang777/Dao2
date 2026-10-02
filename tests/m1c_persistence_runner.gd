@@ -44,8 +44,38 @@ func _expect(condition: bool, label: String) -> void:
         failures.append(label)
 
 func _expect_equal(actual: Variant, expected: Variant, label: String) -> void:
-    if actual != expected:
+    if not _deep_equal(actual, expected):
         failures.append("%s; expected=%s actual=%s" % [label, str(expected), str(actual)])
+
+func _deep_equal(a: Variant, b: Variant) -> bool:
+    var a_type := typeof(a)
+    var b_type := typeof(b)
+    var numeric_types := [TYPE_INT, TYPE_FLOAT]
+    if a_type in numeric_types and b_type in numeric_types:
+        return float(a) == float(b)
+    if a_type != b_type:
+        return false
+    if a_type == TYPE_DICTIONARY:
+        var da: Dictionary = a
+        var db: Dictionary = b
+        if da.size() != db.size():
+            return false
+        for key in da:
+            if not db.has(key):
+                return false
+            if not _deep_equal(da[key], db[key]):
+                return false
+        return true
+    if typeof(a) == TYPE_ARRAY:
+        var aa: Array = a
+        var ab: Array = b
+        if aa.size() != ab.size():
+            return false
+        for index in range(aa.size()):
+            if not _deep_equal(aa[index], ab[index]):
+                return false
+        return true
+    return a == b
 
 func _test_codec_round_trip() -> void:
     if _content == null:

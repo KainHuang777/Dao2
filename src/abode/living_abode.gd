@@ -719,7 +719,7 @@ func _chop_spirit_tree() -> void:
 		hint.text = "茅屋立足後，方得洞府靈氣滋養靈木，始可採伐。"
 		return
 
-	var caps: Dictionary = Production.compute_caps(content, session.state.buildings, session.state.era_id, session.state.onboarding_version)
+	var caps: Dictionary = Production.compute_caps(content, session.state.buildings, session.state.era_id, session.state.onboarding_version, session.state.skills)
 	var wood_val: AmountCompat = wood_entry.get("value", AmountCompat.zero())
 	var wood_cap: AmountCompat = caps.get("wood", AmountCompat.zero())
 	if wood_cap.compare_to(AmountCompat.zero()) > 0 and wood_val.compare_to(wood_cap) >= 0:

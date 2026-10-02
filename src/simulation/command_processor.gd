@@ -19,6 +19,8 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_reincarnate(content, state, command.payload)
 		"learn_talent":
 			return _apply_learn_talent(content, state, command.payload)
+		"learn_skill":
+			return _apply_learn_skill(content, state, command.payload)
 		"refine_pill":
 			return _apply_refine_pill(content, state, command.payload)
 		"consume_pill":
@@ -52,8 +54,22 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 	return _failure("UNKNOWN_COMMAND", {})
 
 
-static func level_cap(definition: Dictionary) -> int:
-	return mini(int(definition.max_level), GLOBAL_BASE_LEVEL_CAP)
+static func level_cap(definition: Dictionary, content: GameContent = null, state: GameState = null) -> int:
+	var base := mini(int(definition.max_level), GLOBAL_BASE_LEVEL_CAP)
+	if content == null or state == null:
+		return base
+	for skill_id in state.skills:
+		if int(state.skills[skill_id]) <= 0:
+			continue
+		var def_variant: Variant = content.skill(String(skill_id))
+		if def_variant == null:
+			continue
+		var effect: Variant = def_variant.get("effect", null)
+		if effect == null or not (effect is Dictionary):
+			continue
+		if String(effect.get("type", "")) == "building_level_cap":
+			base += float(effect.get("amount", 0.0)) * int(state.skills[skill_id])
+	return base
 
 static func _apply_gather(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var resource_id := String(payload.resource_id)
@@ -67,7 +83,7 @@ static func _apply_gather(content: GameContent, state: GameState, payload: Dicti
 	var entry: Dictionary = state.resources[resource_id]
 	if not bool(entry.unlocked):
 		return _failure("RESOURCE_LOCKED", {"resource_id": resource_id})
-	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 	var amount := AmountCompat.from_number(1.0)
 	var new_value: AmountCompat = entry.value.add(amount).clamp_amount(AmountCompat.zero(), caps[resource_id])
 	entry.value = new_value
@@ -86,7 +102,7 @@ static func _apply_upgrade(content: GameContent, state: GameState, payload: Dict
 	var level := int(state.buildings.get(building_id, 0))
 	if level == 0 and state.era_id < int(definition.era):
 		return _failure("ERA_REQUIREMENT", {"building_id": building_id, "required_era": int(definition.era), "player_era": state.era_id})
-	var cap := level_cap(definition)
+	var cap := level_cap(definition, content, state)
 	if level >= cap:
 		return _failure("LEVEL_CAP", {"building_id": building_id, "level": level, "level_cap": cap})
 	var unlock_before := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
@@ -131,7 +147,17 @@ static func _apply_upgrade(content: GameContent, state: GameState, payload: Dict
 	for visible_id in unlock_after.buildings:
 		if not (visible_id in unlock_before.buildings):
 			changed_ids.append(visible_id)
+	_append_progression_unlocks(content, state, events, changed_ids)
 	return {"ok": true, "events": events, "changed_ids": changed_ids}
+
+static func _append_progression_unlocks(content: GameContent, state: GameState, events: Array, changed_ids: Array) -> void:
+	var sweep: Dictionary = ContentReconciliation.unlock_eligible_resources(state, content)
+	if not bool(sweep.get("ok", false)):
+		return
+	for resource_id in sweep.get("unlocked", []):
+		events.append({"kind": "resource_unlocked", "resource_id": resource_id})
+		if not (resource_id in changed_ids):
+			changed_ids.append(resource_id)
 
 static func _apply_level_up(content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
 	var era_def: Variant = content.era(state.era_id)
@@ -139,7 +165,7 @@ static func _apply_level_up(content: GameContent, state: GameState, _payload: Di
 		return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
 	if state.level >= int(era_def.max_level):
 		return _failure("MAX_LEVEL_REACHED", {"era_id": state.era_id, "level": state.level})
-	var req_time := Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+	var req_time := Cultivation.next_level_required_seconds(era_def, state.level, 0.0, Cultivation.skill_time_multiplier(Production._collect_skill_effects(content, state.skills)))
 	if state.training_seconds < req_time - AFFORD_TOLERANCE:
 		return _failure("INSUFFICIENT_TRAINING", {"required": req_time, "available": state.training_seconds})
 	var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
@@ -179,7 +205,7 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 		return _failure("ERA_NOT_MAX_LEVEL", {"required": int(era_def.max_level), "current": state.level})
 	var upgrade_req: Dictionary = era_def.get("upgrade_requirements", {})
 	var req_caps: Dictionary = upgrade_req.get("capacity", {})
-	var cur_caps: Dictionary = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	var cur_caps: Dictionary = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 	for r_id in req_caps:
 		var needed: float = float(req_caps[r_id])
 		var current_cap: AmountCompat = cur_caps.get(r_id, AmountCompat.zero())
@@ -194,10 +220,13 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 	state.level = 1
 	state.training_seconds = 0.0
 	BuffSystem.apply_buff(state, "breakthrough_resonance", 120.0)
+	var events: Array = [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}]
+	var changed_ids: Array = ["era_id", "cultivation_level", "buffs"]
+	_append_progression_unlocks(content, state, events, changed_ids)
 	return {
 		"ok": true,
-		"events": [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}],
-		"changed_ids": ["era_id", "cultivation_level", "buffs"]
+		"events": events,
+		"changed_ids": changed_ids
 	}
 
 static func _apply_reincarnate(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
@@ -209,6 +238,15 @@ static func _apply_learn_talent(_content: GameContent, state: GameState, payload
 	if talent_id.is_empty():
 		return _failure("EMPTY_TALENT_ID", {})
 	return TalentSystem.learn(state, talent_id)
+
+static func _apply_learn_skill(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var skill_id: String = String(payload.get("skill_id", ""))
+	if skill_id.is_empty():
+		return _failure("EMPTY_SKILL_ID", {})
+	var result := SkillSystem.learn(_content, state, skill_id)
+	if not bool(result.get("ok", false)):
+		return _failure(String(result.get("error", "LEARN_SKILL_FAILED")), result.get("detail", {}))
+	return result
 
 static func _apply_refine_pill(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var pill_id: String = String(payload.get("pill_id", ""))

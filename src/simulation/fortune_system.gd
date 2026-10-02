@@ -212,7 +212,12 @@ static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRan
 	for pill_id in pill_rewards:
 		var count: int = int(pill_rewards[pill_id])
 		if count > 0:
-			if not state.pills.has(pill_id):
+			if pill_id == "foundation_pill" and state.resources.has("foundation_pill"):
+				var pill_entry: Dictionary = state.resources["foundation_pill"]
+				pill_entry.value = (pill_entry.value as AmountCompat).add(AmountCompat.from_number(float(count))).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(200.0))
+				pill_entry.ever_obtained = true
+				pill_entry.unlocked = true
+			elif not state.pills.has(pill_id):
 				state.pills[pill_id] = count
 			else:
 				state.pills[pill_id] = int(state.pills[pill_id]) + count

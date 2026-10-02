@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "練氣期",
+    "max_level": 10,
+    "resource_multiplier": 1,
+    "lifespan": 80,
+    "level_up_requirements": {
+      "base_time": 60,
+      "time_multiplier": 1.15,
+      "resources": { "lingli": 50 }
+    },
+    "upgrade_requirements": {
+      "level": 10,
+      "capacity": { "lingli": 500 }
+    }
+  }
+]

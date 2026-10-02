@@ -2,13 +2,21 @@
   "manifest_version": 1,
   "era": 1,
   "resource_files": [
-    "resources/era1.json"
+    "resources/era1.json",
+    "resources/era2.json"
   ],
   "building_files": [
-    "buildings/era1.json"
+    "buildings/era1.json",
+    "buildings/era2.json"
   ],
   "era_files": [
     "eras/era1.json",
     "eras/era2.json"
+  ],
+  "recipe_files": [
+    "recipes/era2.json"
+  ],
+  "skill_files": [
+    "skills/era2.json"
   ]
 }

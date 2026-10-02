@@ -467,7 +467,13 @@ static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
 	elif def.has("grant_pill"):
 		var pill_id: String = def["grant_pill"]
 		var cnt: int = int(def["grant_count"])
-		state.pills[pill_id] = int(state.pills.get(pill_id, 0)) + cnt
+		if pill_id == "foundation_pill" and state.resources.has("foundation_pill"):
+			var fp_entry: Dictionary = state.resources["foundation_pill"]
+			fp_entry.value = (fp_entry.value as AmountCompat).add(AmountCompat.from_number(float(cnt))).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(200.0))
+			fp_entry.ever_obtained = true
+			fp_entry.unlocked = true
+		else:
+			state.pills[pill_id] = int(state.pills.get(pill_id, 0)) + cnt
 	
 	return {
 		"ok": true,

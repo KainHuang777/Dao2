@@ -8,6 +8,7 @@ const KNOWN_COMMAND_TYPES := [
 	"breakthrough_era",
 	"reincarnate",
 	"learn_talent",
+	"learn_skill",
 	"refine_pill",
 	"consume_pill",
 	"apply_buff",
@@ -110,8 +111,8 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 func get_view() -> Dictionary:
 	var era_definition: Variant = content.era(state.era_id)
 	var era_multiplier := 1.0 if era_definition == null else float(era_definition.resource_multiplier)
-	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier))
-	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier), state.skills)
+	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 	var unlock := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
 	var resources := {}
 	for resource_id in content.resource_ids:
@@ -130,7 +131,7 @@ func get_view() -> Dictionary:
 	for building_id in content.building_ids:
 		var definition: Dictionary = content.buildings[building_id]
 		var level := int(state.buildings.get(building_id, 0))
-		var cap := CommandProcessor.level_cap(definition)
+		var cap := CommandProcessor.level_cap(definition, content, state)
 		# Onboarding gates the first era only. Existing buildings and earlier-era
 		# definitions remain manageable after cultivation advances.
 		var visible: bool = level > 0 or (unlock.active and (building_id in unlock.buildings)) or (not unlock.active and int(definition.era) <= state.era_id)
@@ -174,7 +175,7 @@ func get_view() -> Dictionary:
 	var breakthrough_req := {}
 	if era_def != null:
 		if state.level < int(era_def.max_level):
-			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, Cultivation.skill_time_multiplier(Production._collect_skill_effects(content, state.skills)))
 			var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
 			can_level_up = (state.training_seconds >= next_required)
 			for r_id in costs:
@@ -225,6 +226,7 @@ func get_view() -> Dictionary:
 		"dao_heart": state.dao_heart.serialize() if state.dao_heart != null else "0",
 		"dao_proof": state.dao_proof,
 		"talents": state.talents.duplicate(true),
+		"skills": SkillSystem.get_view(content, state),
 		"pills": state.pills.duplicate(true),
 		"pill_effects": state.pill_effects.duplicate(true),
 		"alchemy": AlchemySystem.get_view(state),
@@ -265,6 +267,14 @@ func learn_talent(talent_id: String) -> Dictionary:
 		"type": "learn_talent",
 		"expected_revision": state.revision,
 		"payload": {"talent_id": talent_id},
+	})
+
+func learn_skill(skill_id: String) -> Dictionary:
+	return submit({
+		"command_id": "learn_skill_" + skill_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "learn_skill",
+		"expected_revision": state.revision,
+		"payload": {"skill_id": skill_id},
 	})
 
 func refine_pill(pill_id: String, count: int = 1) -> Dictionary:
@@ -328,6 +338,11 @@ func _is_valid_shape(command: Dictionary) -> bool:
 		"learn_talent":
 			var talent_id = payload.get("talent_id")
 			if typeof(talent_id) != TYPE_STRING or String(talent_id).is_empty():
+				return false
+			return true
+		"learn_skill":
+			var skill_id = payload.get("skill_id")
+			if typeof(skill_id) != TYPE_STRING or String(skill_id).is_empty():
 				return false
 			return true
 		"refine_pill", "consume_pill":

@@ -3,16 +3,16 @@
     "id": 2,
     "name": "築基期",
     "max_level": 10,
-    "resource_multiplier": 2,
+    "resource_multiplier": 1.5,
     "lifespan": 120,
     "level_up_requirements": {
       "base_time": 120,
-      "time_multiplier": 1.2,
-      "resources": { "lingli": 200 }
+      "time_multiplier": 1.18,
+      "resources": { "lingli": 500, "money": 100, "stone_low": 50 }
     },
     "upgrade_requirements": {
       "level": 10,
-      "capacity": { "lingli": 2000 }
+      "capacity": { "lingli": 2000, "stone_low": 1000 }
     }
   }
 ]

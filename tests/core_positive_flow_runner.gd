@@ -127,7 +127,8 @@ func _run() -> void:
 		if not _build(target):
 			break
 	for target in session.content.building_ids:
-		_expect(int(session.state.buildings[target]) >= 1, "positive flow reaches %s without injected resources" % target)
+		if int(session.content.buildings[target].era) <= 1:
+			_expect(int(session.state.buildings[target]) >= 1, "positive flow reaches %s without injected resources" % target)
 	_expect(bool(session.state.resources.black_copper.unlocked), "mine unlocks its black copper output")
 	_expect(_amount(session.get_view().resources.black_copper.rate) > 0.0, "mine has black copper production")
 	var production_probe := GameSession.new()
@@ -145,8 +146,9 @@ func _run() -> void:
 	era_probe.state = session.state.duplicate_state()
 	era_probe.clock = GameClock.create(0.0)
 	era_probe.state.era_id = 2
+	var era_multiplier := float(session.content.era(2).resource_multiplier)
 	var era_rate := _amount(era_probe.get_view().resources.lingli.rate)
-	_expect(is_equal_approx(era_rate, _amount(session.get_view().resources.lingli.rate) * 2.0), "Era 2 rate view doubles building output")
+	_expect(is_equal_approx(era_rate, _amount(session.get_view().resources.lingli.rate) * era_multiplier), "Era 2 rate view scales building output by the era 2 multiplier")
 	era_probe.state.dao_heart = AmountCompat.from_number(100.0)
 	_expect(_amount(era_probe.get_view().resources.lingli.rate) > era_rate, "dao heart boosts displayed building output")
 	var before_breakthrough_rate := _amount(session.get_view().resources.lingli.rate)
@@ -163,7 +165,7 @@ func _run() -> void:
 	if bool(session.get_view().can_breakthrough):
 		_expect(_submit("breakthrough_era", {}), "first era breakthrough succeeds without injected progress")
 		_expect(session.state.era_id == 2, "positive flow reaches Era 2")
-		_expect(is_equal_approx(_amount(session.get_view().resources.lingli.rate), before_breakthrough_rate * 2.0), "actual breakthrough doubles building income")
+		_expect(is_equal_approx(_amount(session.get_view().resources.lingli.rate), before_breakthrough_rate * era_multiplier), "actual breakthrough scales building income by the era 2 multiplier")
 		session.state.buildings["rebirth_lotus"] = 1
 		_expect(_submit("reincarnate", {"mode": "normal"}), "early reincarnation with rebirth lotus succeeds")
 		_expect(session.state.reincarnation_count == 1 and session.state.era_id == 1, "reincarnation begins the next life")

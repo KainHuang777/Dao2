@@ -2,6 +2,8 @@
 
 固定日期：2026-09-14。此 manifest 指向唯讀來源 `E:\Python\test1`，供跨語言規則核對使用；不代表 Dao2 包含或授權轉散布該來源。
 
+2026-10-02 異地來源補記：使用者指定此機 Dao1 位於 `D:\Temp\temp\Dao\Dao`，HEAD `bdaca10c3b351387830a3c86f3eac175f3a1d803`。本輪只有 buildings.csv 與下列固定 hash 一致；Resources／storage／eras／skills 已不同。最新有效列數為61／10／12／35，不能覆寫下列歷史 profile 或 M0-B／C fixture。完整新來源 hash 與清單見 [CONTENT-AUDIT](verification/content-progression-audit-2026-10-02.md)／[catalogs.json](verification/artifacts/content-progression-audit/catalogs.json)。這是來源識別與靜態審核，不是新的全量保真 fixture 已完成。
+
 ## 來源身分
 
 | 欄位 | 固定值 |

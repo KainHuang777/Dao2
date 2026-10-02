@@ -167,6 +167,14 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		buildings[building_id] = _to_int(buildings_data[building_id])
 	var state := GameState.new()
 	state.revision = _to_int(snapshot_dict["revision"])
+	if snapshot_dict.has("skills"):
+		if not (snapshot_dict["skills"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
+		state.skills = (snapshot_dict["skills"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("learned_recipes"):
+		if not (snapshot_dict["learned_recipes"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:learned_recipes"}
+		state.learned_recipes = (snapshot_dict["learned_recipes"] as Dictionary).duplicate(true)
 	state.era_id = _to_int(snapshot_dict["era_id"])
 	state.level = _to_int(snapshot_dict["level"])
 	state.onboarding_version = _to_int(snapshot_dict["onboarding_version"])

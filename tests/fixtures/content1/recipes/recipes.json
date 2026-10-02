@@ -1,0 +1,9 @@
+[
+  {
+    "id": "copper_refine",
+    "inputs": { "spirit_grass_low": 50.0, "black_copper": 20.0, "lingli": 200.0 },
+    "output": { "resource_id": "copper_refine", "amount": 10.0 },
+    "requirements": [],
+    "unlock_skill": null
+  }
+]
