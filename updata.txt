@@ -1,3 +1,17 @@
+[2026-10-03] M3-B Spirit Beast System delivery checkpoint
+- Implemented full M3-B Spirit Beast mechanics based on baseline BeastManager.ts and Dao2 architectural contracts:
+  * 4 mythical spirit beasts: Jade Fox (Era 3, money_rate +20%), Iron Turtle (Era 4, cap_stone_iron +25%), Fire Phoenix (Era 6, cultivation_speed +15%), Cloud Serpent (Era 8, global_production +12%).
+  * 4 progressive growth stages (egg, young, growing, mature) with deterministic exp gates and passive multipliers (0%, 50%, 75%, 100%).
+  * Feeding mechanics with material deduction (AmountCompat safe comparison), dynamic talent discount (up to 40%), cooldown countdown, and stage promotion events.
+  * 4-tier beast talent tree per beast consuming beast souls (tier prerequisite checks, exp gain boost +30%, feed discount 40%, passive boost +5%, permanent tier-4 passives).
+  * Reincarnation settlement: mature active beast grants +1 beast soul for meta progress; active beast and cooldown reset each life; beast souls and beast talents persist across reincarnations.
+  * GameSession commands (acquire_beast, feed_beast, unlock_beast_talent) registered in KNOWN_COMMAND_TYPES with convenience helpers.
+  * TimeAdvancer simulation integration: real-time tick decrements beast feed cooldown and applies beast multipliers to cultivation speed, global production, money/herb/stone/iron rates, and storage capacities.
+  * GameState & SaveCodec persistence roundtrip and backward compatibility without beast data.
+- Added comprehensive test suite: tests/m3b_spirit_beast_runner.gd covering configs, feeding, cooldowns, stages, talent trees, soul costs, reincarnation settlement, session commands, and save codec roundtrips.
+- Updated tools/run_all_runners.ps1; all 35 runners passed with exit code 0 (35/35 PASS).
+- Updated docs/development-status.md reflecting M3-B Spirit Beast delivery.
+
 [2026-10-02] DOC-A-R1 commit and GitHub push follow-up
 - User explicitly requested committing and pushing the documentation audit after review.
 - Prepared the DOC-A-R1 documents, historical archive and verification logs for a focused main-branch commit to origin/main.

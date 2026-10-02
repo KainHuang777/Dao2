@@ -253,6 +253,18 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["realm_decisions"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:realm_decisions"}
 		state.realm_decisions = (snapshot_dict["realm_decisions"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("beasts"):
+		if not (snapshot_dict["beasts"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:beasts"}
+		state.beasts = (snapshot_dict["beasts"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("beast_souls"):
+		if not (snapshot_dict["beast_souls"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:beast_souls"}
+		state.beast_souls = (snapshot_dict["beast_souls"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("beast_talents"):
+		if not (snapshot_dict["beast_talents"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:beast_talents"}
+		state.beast_talents = (snapshot_dict["beast_talents"] as Dictionary).duplicate(true)
 	return {"ok": true, "state": state, "error": ""}
 
 

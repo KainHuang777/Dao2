@@ -1,14 +1,15 @@
 # 開發狀態與交接紀錄
 
-更新：2026-10-02（DOC-A-R1）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
+更新：2026-10-03（M3-B 靈獸系統）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
 
 ## 目前任務與下一步
 
-- **DOC-A-R1 文件現況複核：DONE**。核對 9/28 後 Git 差異、updata、來源、測試入口與日誌；同步 README、Roadmap、AI 交接、M3-B／M4-A／REF-A 驗收入口。版本檢查 exit 0；首次 Runner 因沙箱不能寫隔離 fixture exit 1，正常授權重跑 **34/34 PASS、exit 0**。未重跑 Web 匯出或瀏覽器；修改、命令與限制見 [複核紀錄](verification/doc-a-r1.md)。
+- **DOC-A-R1 文件現況複核：DONE**。
+- **M3-B 靈獸系統（Spirit Beasts）：DONE**。交付四大靈獸（玉狐、玄龜、火鳳、雲蛟）、四階成長階段（卵/幼體/成長/成熟）、餵食消耗與冷卻倒數、4階獸魂天賦樹、輪迴成熟獸魂結算與跨世繼承、TimeAdvancer 模擬數值與產率整合、GameSession 三項命令（acquire/feed/talent）及 SaveCodec 存檔相容性。全量 **35/35 Runner PASS、exit 0**。
 - **優先：UI7／UI6-R1／FX2／TEXT1 回饋與裝置驗收**。常態材質已實作，先收視覺回饋，再驗高 DPR、實體觸控／GPU、音訊與效能。
-- **下一功能候選：M3-B 靈獸或成就**。M5 完整 DoD 仍有遊玩／美術／負載證據缺口，先核對 Roadmap 相依。後續大型任務使用 New Chat。
+- **下一功能候選：M3-B 成就系統（Achievements）或靈獸 UI 介面整合**。後續大型任務使用 New Chat。
 
-## 9/29–10/2 開發內容
+## 9/29–10/3 開發內容
 
 | 日期 | 交付 | 證據與限制 |
 | --- | --- | --- |
@@ -21,6 +22,7 @@
 | 10/2 | UI6-R1 黑體 400／600＋粗明體 800；FX2 分境界金環雷電；TEXT1 原生文字試播 | TextServer 字重已驗；演出／試播有 native／CLI／匯出，真實 Web／手機及視覺待驗 |
 | 10/2 | UI7 紙色墨字、霧面青玉選中、朱砂突破、墨色功能面板 | [UI7](verification/ui-quiet-materials.md)：34 Runner、21 native PNG、匯出；IAB 1280×720／844×390 滑鼠及 360×640 旋轉提示，DPR 約 1；美術／高 DPR／手機待驗 |
 | 10/2 | ENV-TERMINAL 修復；Git 忽略引擎／模板／快取／build，倉庫同步 GitHub | [環境](verification/terminal-initialization-2026-10-02.md)、updata；文件複核未重做 ACL 修復；後續已依使用者要求進入文件 commit／push 流程 |
+| 10/3 | M3-B 靈獸系統（四大靈獸、成長階段、餵養冷卻、獸魂天賦、輪迴繼承與 Session 契約） | m3b_spirit_beast_runner；35/35 Runner 全數通過 exit 0；靈獸獨立介面待後續 UI 整合 |
 
 日期依開發交接；10/2 的 53b864f 集中提交多日內容，不能用提交日期代替每項開發日期。
 
@@ -41,7 +43,7 @@
 | UI3／UI5 | IN_PROGRESS；世界題字、引導與訊息有測試／native／匯出 | [世界文字](verification/ui-world-typography.md)、[引導](verification/ui-guidance-messages.md) |
 | FX2／TEXT1 | IN_PROGRESS；雷電與文字樣板已交付，視覺／Web／實機待驗 | [升境](verification/island-breakthrough.md)、[文字](verification/ui-text-transition.md) |
 | M3-A | 輪迴／天賦／雙軌門檻／壽盡橫幅與演出已交付 | [驗收](verification/m3-a.md) |
-| M3-B | 丹藥／BUFF／宗門／天時／機緣已交付；靈獸、成就等未交付 | [矩陣](verification/m3-b.md) |
+| M3-B | 丹藥／BUFF／宗門／天時／機緣／靈獸已交付；成就等未交付 | [矩陣](verification/m3-b.md) |
 | M4-A／R1 | 領域／面板／保存與白名單已接線；R1 全命令／Web 完整驗收需補證 | [M4-A](verification/m4-a.md)、[複核](verification/doc-a-r1.md) |
 | M4-B | 規則／資料／地址契約已交付；多尺度完整場景不由數值測試推定 | [九界規格](11-nine-realms-law-and-world-generation-spec.md) |
 | M5-A／M5-B | 核心／資料已交付；整體 IN_PROGRESS，完整 Roadmap DoD 未全部補證 | [九界規格](11-nine-realms-law-and-world-generation-spec.md)、[複核](verification/doc-a-r1.md) |

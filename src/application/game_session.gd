@@ -23,6 +23,9 @@ const KNOWN_COMMAND_TYPES := [
 	"trigger_fortune",
 	"resolve_fortune",
 	"execute_realm_decision",
+	"acquire_beast",
+	"feed_beast",
+	"unlock_beast_talent",
 ]
 const COMMAND_REGISTRY_LIMIT := 256
 
@@ -467,5 +470,29 @@ func execute_realm_decision(realm_id: String, decision_id: String) -> Dictionary
 			"realm_id": realm_id,
 			"decision_id": decision_id
 		},
+	})
+
+func acquire_beast(beast_id: String) -> Dictionary:
+	return submit({
+		"command_id": "acq_beast_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "acquire_beast",
+		"expected_revision": state.revision,
+		"payload": {"beast_id": beast_id},
+	})
+
+func feed_beast() -> Dictionary:
+	return submit({
+		"command_id": "feed_beast_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "feed_beast",
+		"expected_revision": state.revision,
+		"payload": {},
+	})
+
+func unlock_beast_talent(talent_id: String) -> Dictionary:
+	return submit({
+		"command_id": "beast_talent_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "unlock_beast_talent",
+		"expected_revision": state.revision,
+		"payload": {"talent_id": talent_id},
 	})
 

@@ -49,6 +49,12 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_resolve_fortune(content, state, command.payload)
 		"execute_realm_decision":
 			return _apply_execute_realm_decision(content, state, command.payload)
+		"acquire_beast":
+			return _apply_acquire_beast(content, state, command.payload)
+		"feed_beast":
+			return _apply_feed_beast(content, state, command.payload)
+		"unlock_beast_talent":
+			return _apply_unlock_beast_talent(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -395,6 +401,38 @@ static func _apply_execute_realm_decision(_content: GameContent, state: GameStat
 			"log_text": res.get("log_text", "")
 		}],
 		"changed_ids": ["realm_decisions", "resources", "training_seconds", "dao_heart", "buffs"],
+	}
+
+static func _apply_acquire_beast(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var beast_id: String = String(payload.get("beast_id", ""))
+	var res := BeastSystem.acquire_beast(state, beast_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "ACQUIRE_BEAST_FAILED")), res)
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["beasts"],
+	}
+
+static func _apply_feed_beast(_content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
+	var res := BeastSystem.feed_beast(state)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "FEED_BEAST_FAILED")), res)
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["beasts", "resources"],
+	}
+
+static func _apply_unlock_beast_talent(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var talent_id: String = String(payload.get("talent_id", ""))
+	var res := BeastSystem.unlock_talent(state, talent_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "UNLOCK_BEAST_TALENT_FAILED")), res)
+	return {
+		"ok": true,
+		"events": res.get("events", []),
+		"changed_ids": ["beast_talents", "beast_souls"],
 	}
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:

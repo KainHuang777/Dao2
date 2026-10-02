@@ -94,6 +94,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			surviving_buffs[buff_id] = b
 	state.buffs = surviving_buffs
 	SectSystem.on_reincarnate(state)
+	var beast_reincarnate_res := BeastSystem.on_reincarnate(state)
 	if state.fortune is Dictionary:
 		state.fortune["pending_encounter"] = {}
 		state.fortune["cooldown_remaining"] = FortuneSystem.compute_cooldown_for_era(1)
@@ -143,6 +144,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 		"gained_dao_proof": reward["dao_proof"],
 		"total_dao_heart": state.dao_heart.serialize(),
 		"total_dao_proof": state.dao_proof,
+		"gained_beast_souls": beast_reincarnate_res.get("gained_souls", {}),
 		"granted_resources": granted_resources,
 		"previous_era": previous_era,
 		"previous_level": previous_level,
@@ -151,6 +153,6 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	return {
 		"ok": true,
 		"events": [event_payload],
-		"changed_ids": ["reincarnation_count", "dao_heart", "dao_proof", "era_id", "cultivation_level", "resources", "buildings"],
+		"changed_ids": ["reincarnation_count", "dao_heart", "dao_proof", "era_id", "cultivation_level", "resources", "buildings", "beasts", "beast_souls"],
 		"reward": reward,
 	}

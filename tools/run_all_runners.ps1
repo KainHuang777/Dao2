@@ -34,7 +34,8 @@ $runners = @(
     'tests/m5a_world_gen_runner.gd',
     'tests/m3b_fortune_runner.gd',
     'tests/m3b_fortune_ui_runner.gd',
-    'tests/m5b_realm_content_runner.gd'
+    'tests/m5b_realm_content_runner.gd',
+    'tests/m3b_spirit_beast_runner.gd'
 )
 
 
