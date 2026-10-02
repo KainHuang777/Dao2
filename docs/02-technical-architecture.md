@@ -127,6 +127,8 @@ M0 先用舊函式產出語言無關測試向量，涵蓋 0、負號中間值、
 
 ## 6. 時間推進與離線結算
 
+2026-10-03 ISLAND1 實作：schema 2 新增可選 `state.abode_scenery`，內部 version 1 保存獨立 RNG／serial／remaining／active finds；缺欄位讀為空，非法資料拒读。`rules_version=core-flow-4-scenery`。線上／離線透過 TimeAdvancer 共用出生路徑，採收只透過 Session 命令，重試保存不重發獎；[契約](13-island-scenery-and-courtyard-spec.md)。
+
 ### 6.1 原作承接與修正邊界
 
 舊作壽元以實際一分鐘對應一祀，資源更新與壽元採不同時間路徑；讀檔後資源補算未見於已檢查啟動路徑。v2 將統一線上／離線規則，列為明確的行為改善，不把它寫成原版已具有的功能。

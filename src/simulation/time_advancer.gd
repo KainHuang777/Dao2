@@ -74,7 +74,9 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 	FortuneSystem.advance_time(state, elapsed)
 	RealmDecisionSystem.advance_time(state, elapsed)
 	BeastSystem.tick(state, elapsed)
-	var events: Array = []
+	var events: Array = AbodeScenery.advance(state, elapsed)
+	if not events.is_empty():
+		changed_ids.append("abode_scenery")
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": state.total_elapsed_seconds, "max_lifespan_seconds": max_seconds})
@@ -100,7 +102,7 @@ static func advance_time_only(state: GameState, content: GameContent, ticks: int
 	FortuneSystem.advance_time(state, elapsed)
 	RealmDecisionSystem.advance_time(state, elapsed)
 	BeastSystem.tick(state, elapsed)
-	var events: Array = []
+	var events: Array = AbodeScenery.advance(state, elapsed)
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": state.total_elapsed_seconds, "max_lifespan_seconds": max_seconds})

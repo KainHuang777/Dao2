@@ -1,6 +1,6 @@
 # 給下一位 AI 的開發交接
 
-更新：2026-10-03（NAV1：36 Runner、功能入口整合與驗收邊界）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
+更新：2026-10-03（ISLAND1：38 Runner、小院／小景與驗收邊界）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
 
 ## 閱讀與恢復工作
 
@@ -53,7 +53,7 @@
 
 ## 可重跑命令（目前已存在的入口）
 
-以下在 Windows PowerShell 執行。每一步確認退出碼；2026-10-03 NAV1 重跑固定入口 36/36 PASS，清單以 tools/run_all_runners.ps1 為準。追加呈現層回歸不在固定入口；歷史結果見各驗收頁，本輪未重跑。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
+以下在 Windows PowerShell 執行。每一步確認退出碼；2026-10-03 ISLAND1 重跑固定入口 38/38 PASS，清單以 tools/run_all_runners.ps1 為準。追加呈現層回歸不在固定入口；歷史結果見各驗收頁，本輪未重跑。非 Windows 接手者需提供同版本當地 Godot 執行檔與模板，保留來源專案設定。
 
 ```powershell
 Set-Location 'E:\WORK\Dao2'

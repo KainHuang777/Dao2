@@ -31,6 +31,7 @@ var realm_decisions: Dictionary = {}
 var beasts: Dictionary = {}
 var beast_souls: Dictionary = {}
 var beast_talents: Dictionary = {}
+var abode_scenery: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -62,6 +63,7 @@ func duplicate_state() -> GameState:
 	copy.beasts = beasts.duplicate(true)
 	copy.beast_souls = beast_souls.duplicate(true)
 	copy.beast_talents = beast_talents.duplicate(true)
+	copy.abode_scenery = abode_scenery.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -116,6 +118,6 @@ func to_snapshot_dict() -> Dictionary:
 		"beasts": beasts.duplicate(true),
 		"beast_souls": beast_souls.duplicate(true),
 		"beast_talents": beast_talents.duplicate(true),
+		"abode_scenery": abode_scenery.duplicate(true),
 	}
-
 

@@ -26,4 +26,6 @@
 | V2-009 | 產率倍率與新手資源來源 | `v2_correction` | 境界／道心倍率乘到建築產率，畫面與時間推進共用同一公式。練氣期已解鎖 basic 資源在資源總覽可手動採集，補齊金錢首源；採石場解鎖玄銅是對舊 onboarding 顯式清單的 v2 修正（舊 fixture 未列玄銅）。舊版 `money`=金錢、`stone_low`=下品靈石，修正 v2 誤標。 | `tests/core_positive_flow_runner.gd`、`tests/m1a_core_runner.gd`；`docs/verification/core-positive-flow.md` |
 | V2-010 | 資源每秒入庫與境界 HUD | `v2_decision` | 2026-09-25 將結算步長改為 1 秒，產率仍以每秒為單位；離線固定產率區間合併運算，壽元仍 60 秒＝1 祀。舊快照的 0～60 秒餘數可讀並在下一次推進結算；`RULES_VERSION=core-flow-3`。HUD 分行顯示境界名稱、層數、修煉與壽元，資源顯示小數。 | `tests/core_positive_flow_runner.gd`、`tests/m1b_time_runner.gd`、`tests/m1d_offline_runner.gd`、`tests/m2d_responsive_ui_runner.gd` |
 
+| V2-011 | 洞府小景與築基外觀 | `v2_decision` | 2026-10-03 使用者要求優先交付；固定世界採木 +1 改為已解鎖資源的三種隨機小景，首次 12 秒／後續 45–90 秒、最多兩件、木 5–9／草 3–5／石 2–4、滿倉保留／不足一批只入剩餘容量、離線只出生不入庫、輪迴清除。原手動採集與建築公式不改；hut 的築基小院只改外觀。`RULES_VERSION=core-flow-4-scenery`，schema 2 新增小景內部版本 1。不是舊版 parity | `tests/abode_scenery_runner.gd`、`tests/abode_scenery_ui_runner.gd`；[契約](13-island-scenery-and-courtyard-spec.md)、[驗收](verification/island-scenery.md) |
+
 `legacy_parity` 表示需要先與已固定來源一致，並不表示該規則永久不可改善。改動舊行為時，必須新增帶版本的 v2 決策與相對應案例，保留原 fixture 供遷移與回歸。

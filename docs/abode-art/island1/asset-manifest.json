@@ -1,0 +1,82 @@
+[
+  {
+    "prompt": "docs/abode-art/island1/courtyard/prompt-used.txt",
+    "id": "courtyard",
+    "sha256": "418cbb96fb8c2fbaea88698ce8a7b39b869c309337bc3022f2081d29ad904406",
+    "raw_sha256": "fb0a53cc5b1b6234e3cee4b6c30e5dbc37949f794b5c38b062a73ddbe9da9fe4",
+    "asset": "assets/abode/island1/courtyard.png",
+    "qc": {
+      "frame_count": 1,
+      "valid_frame_count": 1,
+      "empty_count": 0,
+      "edge_touch_count": 0,
+      "paste_clamped_count": 0,
+      "body_scale_mean": 0.600370381058097,
+      "output_subject_height_mean": 441.0,
+      "body_scale_cv": 0.0,
+      "anchor_x_std": 0.0,
+      "anchor_y_std": 0.0,
+      "anchor_y_mean": 0.8980738362760835
+    }
+  },
+  {
+    "prompt": "docs/abode-art/island1/wood/prompt-used.txt",
+    "id": "wood",
+    "sha256": "0adddfd4fc56b2ea442d033c602e758765470e9efad5c8c7905da18d0f4b418c",
+    "raw_sha256": "53380f00e370edb938c76dec344e378c66e785e3c6bcb13cb883dd1126c55892",
+    "asset": "assets/abode/island1/wood.png",
+    "qc": {
+      "frame_count": 1,
+      "valid_frame_count": 1,
+      "empty_count": 0,
+      "edge_touch_count": 0,
+      "paste_clamped_count": 0,
+      "body_scale_mean": 0.4041040563675156,
+      "output_subject_height_mean": 220.0,
+      "body_scale_cv": 0.0,
+      "anchor_x_std": 0.0,
+      "anchor_y_std": 0.0,
+      "anchor_y_mean": 0.8378812199036918
+    }
+  },
+  {
+    "prompt": "docs/abode-art/island1/herb/prompt-used.txt",
+    "id": "herb",
+    "sha256": "95bbba5df3b8ee1aa7043015b39687edbaa69203ec2cae5ca4982a8bd6cdccac",
+    "raw_sha256": "2e3cc2e3e3bf3218aa8d925f2766442ed74b384c14dbd67b10e976850a031812",
+    "asset": "assets/abode/island1/herb.png",
+    "qc": {
+      "frame_count": 1,
+      "valid_frame_count": 1,
+      "empty_count": 0,
+      "edge_touch_count": 0,
+      "paste_clamped_count": 0,
+      "body_scale_mean": 0.45544314471095104,
+      "output_subject_height_mean": 204.0,
+      "body_scale_cv": 0.0,
+      "anchor_x_std": 0.0,
+      "anchor_y_std": 0.0,
+      "anchor_y_mean": 0.7576243980738363
+    }
+  },
+  {
+    "prompt": "docs/abode-art/island1/stone/prompt-used.txt",
+    "id": "stone",
+    "sha256": "02cdd01ad4bedfe599de516aabf6b7349fc5887b1febad369f79bd05d339d215",
+    "raw_sha256": "c76fc78effaae9b8efe6f51320108cf39cb6532e5c4b62b7db533a2977ca04c2",
+    "asset": "assets/abode/island1/stone.png",
+    "qc": {
+      "frame_count": 1,
+      "valid_frame_count": 1,
+      "empty_count": 0,
+      "edge_touch_count": 0,
+      "paste_clamped_count": 0,
+      "body_scale_mean": 0.4780208418482924,
+      "output_subject_height_mean": 197.0,
+      "body_scale_cv": 0.0,
+      "anchor_x_std": 0.0,
+      "anchor_y_std": 0.0,
+      "anchor_y_mean": 0.7616372391653291
+    }
+  }
+]

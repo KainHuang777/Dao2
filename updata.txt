@@ -1,3 +1,21 @@
+[2026-10-03] M2-D-ISLAND1 foundation courtyard and home scenery checkpoint
+- Delivered a same-ID hut appearance upgrade for current-life Era >= 2, with a tiled roof, stone base and small front courtyard; reincarnation restores the original hut.
+- Generated four independent raster props with built-in image_gen and deterministic generate2dsprite chroma-key processing. Runtime assets, original outputs, full prompts, hashes, layer/rights notes and QC are in assets/abode/island1 and docs/abode-art/island1.
+- Replaced the placeholder permanent wood tree with three optional collectible finds: wood 5-9, spirit grass 3-5, low spirit stone 2-4. First spawn after 12 simulation seconds, later 45-90 seconds, maximum two pending finds on four authored ground slots. Locked resources cannot spawn, full capacity retains the find, partial room credits only actual capacity, offline time spawns bounded finds without collecting them.
+- Added AbodeScenery v1 state (independent RNG, timer, stable IDs, rewards), Session claim command and online/offline time integration. Schema remains 2; missing scenery is migrated empty, invalid scenery rejected; rules_version is core-flow-4-scenery. Claim/spawn save immediately, failures report pending save and retry through the existing 15-second autosave without granting again. New life clears scenery.
+- Corrected short-landscape initial/home framing beside the actual HUD while preserving manually panned views on resize. Direct landmark selection now opens the canonical Management/Buildings route so Escape returns home.
+- Final validation: all 38 standard runners PASS exit 0 (including scenery core/UI, failure retry and landmark route); eight native screenshots and final Web Release export exit 0. CUA IAB tests used isolated localhost ports 4184/4185: actual wood +5, herb +3, stone +2 clicks, wood persistence after reload, 844x390 canvas bounds and landmark route/Escape. Console error lists empty. Existing engine shutdown allocation warnings and the earlier unrelated NAV1 JPEG-as-PNG import issue remain disclosed.
+- Preserve pre-existing ui_material.gd, ui_material_states_runner.gd, UI-quiet logs/import files and the previous checkpoint. This phase has not been committed or pushed.
+- Status: implementation and desktop verification delivered; IN_PROGRESS pending user visual/size/cadence feedback and physical touch/high-DPR acceptance. See docs/13-island-scenery-and-courtyard-spec.md and docs/verification/island-scenery.md for exact files, commands, evidence and limits.
+- Next: review this courtyard/find art before adding island landmarks or another island. Start a New Chat for the next large phase and read this checkpoint plus development-status.md. Do not infer full save-import UX completion: the existing share import only validates; the QA fixture loader is test-only and excluded from production.
+
+[2026-10-03] UI selected button text color and disabled stylebox fix
+- Fixed dark disabled font color regression on active navigation buttons (e.g. Management / building catalog).
+- Updated UiMaterial.mark_selected and mark_paper_tab to set font_disabled_color to LIGHT_TEXT when selected, ensuring high-contrast readable text against dark jade plaque background.
+- Added explicit StyleBox override for "disabled" state in UiMaterial.mark_selected and mark_paper_tab, resolving missing disabled texture mapping when active tabs are disabled.
+- Added regression tests in tests/ui_material_states_runner.gd asserting correct light font color and selected plaque stylebox under disabled active state.
+- Validation: tests/ui_material_states_runner.gd and tests/feature_navigation_runner.gd executed headless with exit code 0.
+
 [2026-10-03] M2-D-NAV1 feature navigation checkpoint
 - Implemented four permanent destinations: Home, Management, Cultivation, Journey; nine exclusive feature pages with fixed tabs/back, Escape, remembered group tabs, and camera lock restoration.
 - Integrated building and spirit outpost upgrades under Management. Added shared realm currency, reincarnation currency, and beast soul reads without changing resource or save contracts.

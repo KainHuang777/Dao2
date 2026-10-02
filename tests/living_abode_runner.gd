@@ -48,12 +48,15 @@ func _run() -> void:
 	if abode.state.levels["hut"] != 2 or abode.state.qi >= qi_before:
 		_fail("The selected building upgrade must update the independent state")
 		return
-	# Test spirit tree clicking and chopping wood directly from the world
+	# A core-generated spirit wood find replaces the former permanent +1 tree.
+	AbodeScenery.advance(abode.session.state, 12)
+	abode._refresh_hud()
 	var wood_before: float = abode.session.state.resources["wood"].value.to_float()
-	abode._pick_world(abode.spirit_tree.to_global(Vector2(0, -30)))
+	var prop = abode.scenery_props.values()[0]
+	abode._pick_world(prop.to_global(Vector2(0, -30)))
 	var wood_after: float = abode.session.state.resources["wood"].value.to_float()
 	if wood_after <= wood_before:
-		_fail("Clicking spirit tree must chop and gather wood")
+		_fail("Clicking a spirit wood find must claim its stored batch")
 		return
 	abode.session.state.buildings["herb_farm"] = 1
 	abode._refresh_hud()

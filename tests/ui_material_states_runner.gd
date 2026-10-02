@@ -61,6 +61,23 @@ func _run() -> void:
 		_expect(sect._scroll.position.y < sect.size.y and sect._scroll.get_rect().end.y <= sect.size.y, "Wrapped header must leave the sect scroll content within panel bounds")
 	sect.queue_free()
 	await process_frame
+	var btn := Button.new()
+	UiMaterial.apply_button(btn)
+	UiMaterial.mark_selected(btn, true)
+	_expect(btn.get_theme_color("font_color") == UiMaterial.LIGHT_TEXT, "Selected button has light font color")
+	_expect(btn.get_theme_color("font_disabled_color") == UiMaterial.LIGHT_TEXT, "Selected disabled button preserves light text")
+	_expect(btn.get_theme_stylebox("disabled") == UiMaterial.surface("plaque", "selected"), "Selected disabled button uses selected plaque texture")
+	UiMaterial.mark_selected(btn, false)
+	_expect(btn.get_theme_color("font_color") == UiMaterial.INK, "Unselected button restores dark ink")
+	_expect(btn.get_theme_color("font_disabled_color") == UiMaterial.DISABLED_INK, "Unselected disabled button uses disabled ink")
+	_expect(btn.get_theme_stylebox("disabled") == UiMaterial.surface("plaque", "disabled"), "Unselected disabled button uses disabled plaque texture")
+	var tab := Button.new()
+	UiMaterial.mark_paper_tab(tab, true)
+	_expect(tab.get_theme_color("font_disabled_color") == UiMaterial.LIGHT_TEXT, "Selected disabled paper tab preserves light text")
+	_expect(tab.get_theme_stylebox("disabled") == UiMaterial.surface("jade"), "Selected disabled paper tab uses jade texture")
+	btn.queue_free()
+	tab.queue_free()
+	await process_frame
 	if not failed:
 		print("PASS: material demand ratio, prerequisites, ready/capped/reset states, borders and input isolation")
 	quit(1 if failed else 0)

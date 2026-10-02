@@ -1,8 +1,10 @@
 # 開發狀態與交接紀錄
 
-更新：2026-10-03（M2-D-NAV1 功能導覽與整合）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
+更新：2026-10-03（M2-D-ISLAND1 築基小院與洞府小景）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
 
 ## 目前任務與下一步
+
+- **M2-D-ISLAND1：IN_PROGRESS，實作／CLI／桌面 Web 已交付**。同一 hut 在當世 Era >= 2 顯示築基小院；靈木／靈草／靈石三種小景、解鎖／隨機間隔／最多兩件、核心命令／即時保存／失敗重試、輪迴清除、短橫式取景与地標導覽接線。最終 **38/38 Runner PASS、exit 0**，八張 native PNG、Web 匯出與 IAB 1280×720／844×390 鼠標採收、重載／返回。使用者美術／實體觸控／高 DPR 待補；[設計](13-island-scenery-and-courtyard-spec.md)、[檔案／命令／結果／缺口](verification/island-scenery.md)。下一步先收本輪視覺／節奏回饋；大型任務使用 New Chat。
 
 - **M2-D-NAV1：IN_PROGRESS，實作與回歸交付**。四主入口／九分頁、洞天與建築經營整合、共用跨界資源、靈獸與天道決策 UI；36/36 Runner、追加相容／響應式／機緣回歸、20 native PNG、Web 匯出及 IAB 桌面／短橫向滑鼠。使用者分類／視覺回饋與實體觸控／高 DPR 待補；[規範](12-feature-navigation-and-integration-spec.md)、[檔案／命令／結果與未完成項](verification/feature-navigation.md)。
 - **DOC-A-R1 文件現況複核：DONE**。
@@ -32,6 +34,7 @@
 
 | 任務 | 狀態與證據邊界 | 入口 |
 | --- | --- | --- |
+| M2-D-ISLAND1 | IN_PROGRESS；小院／三種小景／保存／取景交付，38 Runner、八張 native、桌面 Web 鼠標；美術／實機待補 | [設計](13-island-scenery-and-courtyard-spec.md)、[驗收](verification/island-scenery.md) |
 | M0-A | 桌面部分已驗；指定實體手機手勢／效能待補 | [驗收](verification/m0-a.md) |
 | M0-B/C | DONE；來源 fixture、Amount/RNG 支援契約 | [M0-B](verification/m0-b.md)、[M0-C](verification/m0-c.md) |
 | M1-A/B | DONE；核心、時間、修行／壽元與正流程 | [正流程](verification/core-positive-flow.md) |

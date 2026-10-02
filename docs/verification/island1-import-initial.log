@@ -1,0 +1,79 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 專案初始化中 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在掃描檔案結構…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在載入全域類別名稱…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在驗證 GDExtension…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在建立自動載入腳本…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 初始化外掛程式...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 開始掃描檔案...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 註冊全域類別中... (9 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | GameSession[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | GameState[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | SaveCodec[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | UiMaterial[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | AbodeScenery[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | CommandProcessor[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | ReincarnationRules[39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | TimeAdvancer[39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 掃描動作中... (17 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | raw-sheet-clean.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | raw-sheet.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | sheet-transparent.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | single-1.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | raw.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | web-alchemy-844x390.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | web-beasts-844x390.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | web-beasts-1280x720.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | web-decisions-844x390.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | web-fortune-844x390.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | web-outposts-844x390.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | web-portrait-cold-start-360x640.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | web-realms-844x390.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | web-realms-1280x720.png[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | ui-first-glimpse-v1.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | ui-home-v1.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ui-nine-realms-v1.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started （重新）匯入素材 (6 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  14% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  28% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  42% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  57% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  71% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[   0% ] [90m[1mreimport[22m | 執行預先重新匯入作業…[39m[0m
+[   0% ] [90m[1mreimport[22m | raw-sheet-clean.png[39m[0m
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/nav1/web-portrait-cold-start-360x640.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/nav1/web-portrait-cold-start-360x640.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  14% ] [90m[1mreimport[22m | raw-sheet.png[39m[0m
+[  28% ] [90m[1mreimport[22m | sheet-transparent.png[39m[0m
+[  42% ] [90m[1mreimport[22m | single-1.png[39m[0m
+[  57% ] [90m[1mreimport[22m | raw.png[39m[0m
+[  71% ] [90m[1mreimport[22m | web-portrait-cold-start-360x640.png[39m[0m
+[  85% ] [90m[1mreimport[22m | 完成素材匯入...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started （重新）匯入素材 (6 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 執行重新匯入後續處理作業…[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在載入編輯器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在載入編輯器佈局…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在載入面板…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

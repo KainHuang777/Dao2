@@ -2,6 +2,7 @@ class_name GameSession
 extends RefCounted
 
 const KNOWN_COMMAND_TYPES := [
+	"claim_abode_scenery",
 	"gather",
 	"upgrade_building",
 	"level_up_cultivation",
@@ -206,6 +207,7 @@ func get_view() -> Dictionary:
 		}
 	return {
 		"revision": state.revision,
+		"abode_scenery": AbodeScenery.get_view(state),
 		"era_id": state.era_id,
 		"level": state.level,
 		"onboarding_version": state.onboarding_version,
@@ -319,6 +321,8 @@ func _is_valid_shape(command: Dictionary) -> bool:
 	if typeof(payload) != TYPE_DICTIONARY:
 		return false
 	match String(command_type):
+		"claim_abode_scenery":
+			return payload.get("find_id") is String and not String(payload.find_id).is_empty()
 		"gather":
 			var resource_id = payload.get("resource_id")
 			if typeof(resource_id) != TYPE_STRING or String(resource_id).is_empty():

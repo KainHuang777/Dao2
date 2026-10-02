@@ -79,6 +79,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.dao_proof += int(reward["dao_proof"])
 
 	# Reset current life progress
+	state.abode_scenery = {}
 	state.era_id = 1
 	state.level = 1
 	state.training_seconds = 0.0

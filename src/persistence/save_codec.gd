@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 2
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-3"
+const RULES_VERSION := "core-flow-4-scenery"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -265,6 +265,18 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["beast_talents"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:beast_talents"}
 		state.beast_talents = (snapshot_dict["beast_talents"] as Dictionary).duplicate(true)
+	var scenery_data: Variant = snapshot_dict.get("abode_scenery", {})
+	var scenery_error := AbodeScenery.validate_snapshot(scenery_data)
+	if not scenery_error.is_empty():
+		return {"ok": false, "state": null, "error": scenery_error}
+	state.abode_scenery = scenery_data.duplicate(true)
+	if not state.abode_scenery.is_empty():
+		for key in ["version", "rng_state", "serial"]:
+			state.abode_scenery[key] = int(state.abode_scenery[key])
+		state.abode_scenery.remaining = float(state.abode_scenery.remaining)
+		for entry in state.abode_scenery.active:
+			entry.slot = int(entry.slot)
+			entry.amount = int(entry.amount)
 	return {"ok": true, "state": state, "error": ""}
 
 

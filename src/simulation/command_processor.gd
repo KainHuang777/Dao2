@@ -7,6 +7,8 @@ const ZERO_SNAP := 0.000000001
 
 static func apply(content: GameContent, state: GameState, command: Dictionary) -> Dictionary:
 	match String(command.type):
+		"claim_abode_scenery":
+			return AbodeScenery.claim(content, state, String(command.payload.get("find_id", "")))
 		"gather":
 			return _apply_gather(content, state, command.payload)
 		"upgrade_building":

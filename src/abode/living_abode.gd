@@ -6,6 +6,14 @@ const SKY: Texture2D = preload("res://assets/abode/sky_tearfall_island_v6.png")
 const SKY_SHADER: Shader = preload("res://assets/abode/tearfall_sky.gdshader")
 const IslandFxScript = preload("res://src/presentation/island_breakthrough_fx.gd")
 const HUT: Texture2D = preload("res://assets/abode/hut.png")
+const COURTYARD: Texture2D = preload("res://assets/abode/island1/courtyard.png")
+const SCENERY_ART := {
+	"wood": preload("res://assets/abode/island1/wood.png"),
+	"herb": preload("res://assets/abode/island1/herb.png"),
+	"stone": preload("res://assets/abode/island1/stone.png"),
+}
+const SceneryPropScript = preload("res://src/abode/abode_scenery_prop.gd")
+const SCENERY_SLOTS := [Vector2(40, -220), Vector2(240, -170), Vector2(280, -70), Vector2(-100, -90)]
 const GARDEN: Texture2D = preload("res://assets/abode/garden.png")
 const ALTAR: Texture2D = preload("res://assets/abode/altar.png")
 
@@ -13,7 +21,6 @@ const CameraScript = preload("res://src/abode/abode_camera.gd")
 const BuildingScript = preload("res://src/abode/abode_building.gd")
 const FlowScript = preload("res://src/abode/abode_flows.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
-const TreeScript = preload("res://src/abode/abode_tree.gd")
 
 const BUILDING_NAMES := {
 	"hut": "茅屋",
@@ -142,7 +149,10 @@ var state: AbodeStateCompat
 var camera: CameraScript = CameraScript.new()
 var flow: FlowScript = FlowScript.new()
 var buildings: Dictionary = {}
-var spirit_tree: Node2D
+var scenery_props: Dictionary = {}
+var scenery_parent: Node2D
+var _pending_scenery_save := false
+var _home_frame_size := Vector2.ZERO
 var selected_id: String = ""
 var reduced: bool = false
 var reduced_motion: bool:
@@ -350,7 +360,8 @@ func _init_core() -> void:
 	_init_bgm()
 
 func _setup_buildings(props: Node2D) -> void:
-	# Three rows of bounded build plots on the grassy upper surface.
+	# Only the hut is a world landmark; all other facilities stay in the catalogue.
+	scenery_parent = props
 	_add_building(props, "hut", "茅屋", HUT, Vector2(-245, -210), 225)
 	_add_building(props, "forest_farm", "林場", GARDEN, Vector2(0, -240), 145)
 	_add_building(props, "stone_mine", "採石場", ALTAR, Vector2(245, -220), 145)
@@ -365,10 +376,6 @@ func _setup_buildings(props: Node2D) -> void:
 	buildings["garden"] = buildings["herb_farm"]
 	buildings["altar"] = buildings["storage_lingli"]
 
-	spirit_tree = TreeScript.new()
-	spirit_tree.position = Vector2(130, -190)
-	spirit_tree.setup("靈木", GARDEN, 145.0, UiTypography.emphasis_font())
-	props.add_child(spirit_tree)
 
 func _add_building(parent: Node2D, id: String, display_name: String, texture: Texture2D, point: Vector2, width: float) -> void:
 	var building: Node2D = BuildingScript.new()
@@ -505,6 +512,23 @@ func _adapt_viewport_scale() -> void:
 
 func _layout_for_size(vp: Vector2) -> void:
 	_hud_controller._layout_for_size(vp)
+	if camera == null or vp == _home_frame_size or vp.x <= vp.y:
+		return
+	var was_home: bool = camera.target_position.distance_to(camera.home_position) < 1.0 and absf(camera.target_zoom - camera.home_zoom) < 0.01
+	_home_frame_size = vp
+	camera.home_position = Vector2(0, -40)
+	camera.home_zoom = 0.70
+	if vp.y < 540.0:
+		# Fit the landmark + authored find slots beside the actual left HUD.
+		var left: float = maxf(header.get_global_rect().end.x, resource_ribbon.get_global_rect().end.x) + 12.0
+		var safe := Rect2(Vector2(left, 16), Vector2(maxf(160.0, vp.x - left - 16.0), maxf(140.0, toolbar.position.y - 28.0)))
+		var bounds := Rect2(Vector2(-330, -350), Vector2(670, 400))
+		camera.home_zoom = clampf(minf(safe.size.x / bounds.size.x, safe.size.y / bounds.size.y), 0.34, 0.70)
+		camera.home_position = bounds.get_center() - (safe.get_center() - vp * 0.5) / camera.home_zoom
+	if was_home:
+		camera.focus_home()
+		camera.position = camera.target_position
+		camera.zoom = Vector2.ONE * camera.target_zoom
 
 func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_hud_controller._apply_hud_density(compact, portrait)
@@ -542,6 +566,8 @@ func _select_building_from_catalog(id: String) -> void:
 	var view: Dictionary = session.get_view()
 	if not view.buildings.has(id) or not bool(view.buildings[id].visible):
 		return
+	if feature_navigation != null and (feature_navigation.group != "management" or feature_navigation.page != "buildings"):
+		feature_navigation.open("buildings")
 	selected_id = id
 	building_catalog.visible = true
 	info_panel.visible = true
@@ -588,7 +614,12 @@ func _process(delta: float) -> void:
 	if _is_reincarnating or (reincarnation_seq != null and reincarnation_seq.visible):
 		return
 	state.advance(delta)
-	session.advance_time(delta)
+	var advance_result: Dictionary = session.advance_time(delta)
+	for event in advance_result.get("events", []):
+		if event.get("kind", "") == "abode_scenery_spawned":
+			_pending_scenery_save = true
+	if _pending_scenery_save and not advance_result.get("events", []).is_empty():
+		_save_game()
 
 	if hint != null and hint.text != _last_hint_text:
 		_last_hint_text = hint.text
@@ -661,6 +692,7 @@ func _process(delta: float) -> void:
 	_mask_breakthrough_hud()
 
 func _update_buildings_visual(view: Dictionary) -> void:
+	_sync_scenery(view.get("abode_scenery", []))
 	for id in buildings:
 		var target_id: String = "herb_farm" if id == "garden" else ("storage_lingli" if id == "altar" else id)
 		var b_view: Dictionary = view.buildings.get(target_id, {})
@@ -674,6 +706,35 @@ func _update_buildings_visual(view: Dictionary) -> void:
 		b_node.selected = (id == selected_id or target_id == selected_id)
 		b_node.running = state.garden_running if (target_id == "herb_farm") else true
 		b_node.reduced_motion = reduced
+		if target_id == "hut":
+			var attained := int(view.get("era_id", 1)) >= 2
+			var art: Texture2D = COURTYARD if attained else HUT
+			if b_node.sprite.texture != art:
+				b_node.sprite.texture = art
+				b_node.sprite.scale = Vector2.ONE * b_node.body_size.x / art.get_width()
+				b_node.base_scale = b_node.sprite.scale
+			b_node.title = "築基小院" if attained else "茅屋"
+
+func _sync_scenery(entries: Array) -> void:
+	if scenery_parent == null:
+		return
+	var active_ids: Array = []
+	for entry in entries:
+		var id: String = entry.id
+		active_ids.append(id)
+		if not scenery_props.has(id):
+			var prop := SceneryPropScript.new()
+			prop.position = SCENERY_SLOTS[int(entry.slot)]
+			prop.setup(entry, SCENERY_ART[entry.kind])
+			scenery_parent.add_child(prop)
+			scenery_props[id] = prop
+		var prop = scenery_props[id]
+		prop.reduced_motion = reduced
+		prop.visible = camera.zoom.x >= 0.34
+	for id in scenery_props.keys():
+		if not active_ids.has(id):
+			scenery_props[id].queue_free()
+			scenery_props.erase(id)
 
 func _refresh_hud() -> void:
 	_hud_controller._refresh_hud()
@@ -689,10 +750,10 @@ func _pick_world(point: Vector2) -> void:
 			hint.text = "遠處是未開放的山域。點自己的洞府，可回到近景。"
 		return
 
-	if spirit_tree != null and spirit_tree.visible and spirit_tree.call("contains_point", point):
-		_chop_spirit_tree()
-		print("ABODE_CHOP_TREE")
-		return
+	for prop in scenery_props.values():
+		if prop.contains_point(point):
+			_claim_scenery(prop.find_id)
+			return
 
 	var ids: Array = buildings.keys()
 	ids.reverse()
@@ -712,40 +773,23 @@ func _pick_world(point: Vector2) -> void:
 
 	_close_detail()
 
-func _chop_spirit_tree() -> void:
-	if session == null or session.state == null:
-		return
-	var wood_entry: Dictionary = session.state.resources.get("wood", {})
-	var wood_unlocked: bool = bool(wood_entry.get("unlocked", false))
-	if not wood_unlocked:
-		if spirit_tree != null and spirit_tree.has_method("deny_feedback"):
-			spirit_tree.call("deny_feedback")
-		hint.text = "茅屋立足後，方得洞府靈氣滋養靈木，始可採伐。"
-		return
-
-	var caps: Dictionary = Production.compute_caps(content, session.state.buildings, session.state.era_id, session.state.onboarding_version)
-	var wood_val: AmountCompat = wood_entry.get("value", AmountCompat.zero())
-	var wood_cap: AmountCompat = caps.get("wood", AmountCompat.zero())
-	if wood_cap.compare_to(AmountCompat.zero()) > 0 and wood_val.compare_to(wood_cap) >= 0:
-		if spirit_tree != null and spirit_tree.has_method("deny_feedback"):
-			spirit_tree.call("deny_feedback")
-		hint.text = "木材儲存已達上限，請先擴建或消耗木材。"
-		return
-
-	var cmd := {
-		"command_id": "gather_wood_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
-		"type": "gather",
-		"expected_revision": session.state.revision,
-		"payload": {"resource_id": "wood"}
-	}
-	var res: Dictionary = session.submit(cmd)
-	if bool(res.get("ok", false)):
-		if spirit_tree != null and spirit_tree.has_method("chop_feedback"):
-			spirit_tree.call("chop_feedback", 1)
-		hint.text = "採伐靈木，獲得木材 +1"
+func _claim_scenery(find_id: String) -> void:
+	var res: Dictionary = session.submit({"command_id": "scenery_" + find_id + "_" + str(session.state.revision),
+		"type": "claim_abode_scenery", "expected_revision": session.state.revision, "payload": {"find_id": find_id}})
+	if bool(res.get("ok", false)) and not bool(res.get("duplicate", false)):
+		var event: Dictionary = res.events[0]
+		var text := "%s +%s" % [RESOURCE_NAMES.get(event.resource_id, event.resource_id), event.amount]
+		if scenery_props.has(find_id):
+			var prop = scenery_props[find_id]
+			scenery_props.erase(find_id)
+			prop.harvest_feedback(text, UiTypography.emphasis_font())
+		hint.text = "%s：%s。" % [event.name, text]
+		_pending_scenery_save = true
+		_save_game()
 		_refresh_hud()
+		print("ABODE_SCENERY_CLAIM ", event.name, " ", text)
 	else:
-		hint.text = "靈木採伐受阻：%s" % str(res.get("error", "FAIL"))
+		hint.text = "庫容已滿，小景仍會保留；可先消耗資源或擴建。" if res.get("error") == "SCENERY_CAPACITY_FULL" else "此處小景暫時無法採收。"
 
 func _refresh_detail() -> void:
 	_hud_controller._refresh_detail()
@@ -1224,6 +1268,10 @@ func _save_game() -> Dictionary:
 		"sim_tick": str(sim_tick),
 	}
 	var result: Dictionary = SaveManager.save(session.state, meta)
+	if _pending_scenery_save:
+		_pending_scenery_save = not bool(result.get("ok", false))
+		if _pending_scenery_save and hint != null:
+			hint.text = "小景進度尚未存妥，15 秒後自動重試；請先保留遊戲畫面。"
 	if _pending_breakthrough_save:
 		_pending_breakthrough_save = not bool(result.get("ok", false))
 		if breakthrough_seq != null:

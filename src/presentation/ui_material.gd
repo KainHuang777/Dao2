@@ -81,7 +81,8 @@ static func mark_paper_tab(button: Button, selected: bool) -> void:
 	button.add_theme_stylebox_override("hover", surface("jade", "hover") if selected else hover)
 	button.add_theme_stylebox_override("pressed", surface("jade", "pressed") if selected else hover)
 	button.add_theme_stylebox_override("hover_pressed", surface("jade", "pressed") if selected else hover)
-	_set_button_ink(button, LIGHT_TEXT if selected else INK, DISABLED_INK)
+	button.add_theme_stylebox_override("disabled", surface("jade") if selected else idle)
+	_set_button_ink(button, LIGHT_TEXT if selected else INK, LIGHT_TEXT if selected else DISABLED_INK)
 
 static func apply_world_text(label: Label, font: Font, font_size: int, color: Color = Color("f9eccb"), scenic: bool = false) -> void:
 	label.add_theme_font_override("font", font)
@@ -113,7 +114,8 @@ static func mark_selected(button: Button, selected: bool) -> void:
 	button.add_theme_stylebox_override("hover", surface("plaque", "selected" if selected else "hover"))
 	button.add_theme_stylebox_override("pressed", surface("plaque", "selected" if selected else "pressed"))
 	button.add_theme_stylebox_override("hover_pressed", surface("plaque", "selected" if selected else "pressed"))
-	_set_button_ink(button, LIGHT_TEXT if selected else INK, DISABLED_INK)
+	button.add_theme_stylebox_override("disabled", surface("plaque", "selected" if selected else "disabled"))
+	_set_button_ink(button, LIGHT_TEXT if selected else INK, LIGHT_TEXT if selected else DISABLED_INK)
 
 static func rounded(color: Color, radius: int = 4) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

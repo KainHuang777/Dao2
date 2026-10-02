@@ -6,6 +6,8 @@ const MIN_ZOOM: float = 0.06
 const MAX_ZOOM: float = 1.6
 var target_zoom: float = 0.70
 var target_position: Vector2 = Vector2(0, -40)
+var home_position := Vector2(0, -40)
+var home_zoom := 0.70
 var reduced_motion: bool = false
 var dragging: bool = false
 var input_locked: bool = false
@@ -41,8 +43,8 @@ func _process(delta: float) -> void:
 
 func focus_home() -> void:
 	zoom_anchor_active = false
-	target_position = Vector2(0, -40)
-	target_zoom = 0.70
+	target_position = home_position
+	target_zoom = home_zoom
 	print("ABODE_CAMERA_HOME")
 	view_changed.emit()
 

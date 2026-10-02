@@ -12,6 +12,7 @@
 | 單一彈窗內容 | `src/presentation/` 對應 panel / modal 腳本 | 對應 UI Runner |
 | 營造列、資源卡、捲動與詳情容器 | `src/presentation/building_catalog.gd` | m2d_responsive_ui、core_positive_flow |
 | 真正的費用、資格、命令結果 | `src/application/game_session.gd`、對應 simulation 模組 | core、功能規則與正式 Session 成功路徑 |
+| 築基小院、隨機小景／採收、短橫式歸家構圖 | `src/abode/living_abode.gd`、`abode_scenery_prop.gd`、`abode_camera.gd`、`src/simulation/abode_scenery.gd` | abode_scenery、abode_scenery_ui；[設計](13-island-scenery-and-courtyard-spec.md) |
 | 存檔與遷移 | `src/persistence/`、`src/domain/game_state.gd` | m1c / m1d / m1e |
 
 ## 相容邊界
@@ -32,8 +33,8 @@ powershell -File .\tools\run_all_runners.ps1
 & .\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe --headless --path . --script res://tests/abode_presentation_parity_runner.gd
 ```
 
-固定清單已擴為 36 項；呈現層相容回歸另行執行。25 項是 REF-A 當時歷史數量。完整結果與真實瀏覽器證據見 [REF-A 驗收](verification/ref-a.md)。
+固定清單 ISLAND1 已擴為 38 項；呈現層相容回歸另行執行。25 項是 REF-A、36 項是 NAV1 當時歷史數量。最新結果見 [ISLAND1](verification/island-scenery.md)，歷史見 [REF-A](verification/ref-a.md)。
 
 ## 下個優先項
 
-`GameSession.KNOWN_COMMAND_TYPES` 未納入宗門、跨界／據點、apply_buff 等新增命令，造成 Domain／元件 Runner 通過而正式場景回覆 `UNKNOWN_COMMAND`。先建立正式 Session 成功路徑再修復白名單，屬獨立行為修正，不併入 REF-A。
+ISLAND1 小院與小景的美術／尺寸／節奏回饋、實體手機觸控與高 DPR。早期宗門／跨界／BUFF 白名單缺口已補，該歷史問題不再當作目前待辦；實際證據見 development-status。

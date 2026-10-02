@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><title>ISLAND1 隔離驗收</title>
+<style>body{font:20px sans-serif;background:#f0eadb;padding:40px;color:#263a31}button{font:inherit;padding:16px}p{max-width:700px}</style>
+<h1>ISLAND1 隔離測試進度</h1>
+<p>只允許 localhost:4184／4185 測試 origin；已有存檔時拒絕覆寫。此工具在 docs 下，正式匯出不包含。</p>
+<button id="load">載入築基小院與待採收小景</button><p id="status"></p>
+<script>
+document.getElementById('load').onclick = async () => {
+  const status = document.getElementById('status');
+  if (location.hostname !== 'localhost' || !['4184','4185'].includes(location.port)) {
+    status.textContent = '拒絕：請使用指定的隔離測試 origin。'; return;
+  }
+  if (['save_main','save_backup','save_index'].some(k => localStorage.getItem('dao2_saves:'+k) !== null)) {
+    status.textContent = '已有測試進度，拒絕覆寫。'; return;
+  }
+  const response = await fetch(location.port === '4185' ? 'web-stone-fixture.json' : 'web-fixture.json');
+  if (!response.ok) { status.textContent = '找不到測試 fixture'; return; }
+  const data = await response.text();
+  const snapshot = JSON.parse(data);
+  localStorage.setItem('dao2_saves:save_main', data);
+  localStorage.setItem('dao2_saves:save_index', JSON.stringify({active_slot:'save_main',revision:snapshot.revision,commit_sequence:1}));
+  location.href = '/build/web/index.html';
+};
+</script></html>
