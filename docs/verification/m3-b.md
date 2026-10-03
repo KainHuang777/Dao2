@@ -1,5 +1,7 @@
 # M3-B 舊系統承接與子系統驗證紀錄
 
+**2026-10-03 RES1 現況校正**：子系統已交付不等於完整 DAO1 資源／建築／配方／修行內容承接。DAO1 61 資源／30 配方，DAO2 manifest 僅 7 資源、10 建築與 Era 1–2，另有子系統內建資源。缺口從 Era 2 的完整依賴與 Era 3 起即存在；接手主線改為 RES1-A→B→C→D，Era 4–12 再逐段補齊，不只列 Era 9–12。[稽核與差異](resource-progression-audit.md)、[多島設計](../14-multi-island-resource-progression.md)。以下按日期的子系統證據仍保留原範圍。
+
 2026-10-02 DOC-A-R1 現況補記：GameSession 白名單與宗門／跨界／BUFF 呼叫已補上；以下 9/28 UNKNOWN_COMMAND 記錄是歷史發現，不再表示目前尚未接線。宗門 Session 成功路徑已有 runner，本輪固定入口 34/34 PASS；全部新命令拒絕／冪等／保存及實際 Web 操作仍按 R1 補證，未宣稱完整端到端驗收。見 [複核](doc-a-r1.md)。
 
 2026-09-28 歷史狀態複核：宗門規則與面板已實作，但 `GameSession.KNOWN_COMMAND_TYPES` 不接受 `join_sect`／宗門後續命令；其餘 BUFF／跨界新命令亦需同一整合修復。M4-A-R1 完成前，以下只記模組與當時 runner 結果，不能視為正式場景閉環。見 [REF-A](ref-a.md)。

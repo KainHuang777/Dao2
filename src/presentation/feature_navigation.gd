@@ -14,7 +14,7 @@ var bar: PanelContainer
 var tabs: HBoxContainer
 var tab_buttons: Dictionary = {}
 var action_panel: Control
-var currencies: Label
+var _shared_resource_count := 0
 var _changing := false
 var _camera_before := false
 var _tab_group := ""
@@ -49,12 +49,6 @@ func build() -> void:
 	action_panel.action_requested.connect(_on_action)
 	abode.hud.add_child(action_panel)
 	action_panel.visible = false
-	currencies = Label.new()
-	currencies.name = "SharedProgressResources"
-	currencies.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	currencies.add_theme_font_size_override("font_size", 16)
-	currencies.add_theme_color_override("font_color", UiMaterial.INK)
-	abode.building_catalog.resource_grid.add_child(currencies)
 	abode.toolbar.z_index = 45
 	# Control hit testing follows tree order, not z_index: navigation stays above
 	# the resource ribbon when a short landscape HUD reaches the bottom row.
@@ -219,17 +213,25 @@ func layout(vp: Vector2) -> void:
 
 func refresh(view: Dictionary) -> void:
 	var realm: Dictionary = view.get("realm", {})
-	var lines: Array[String] = []
+	var entries := {}
+	var names := {"realm_crystal": "極品靈晶", "realm_nectar": "天青靈液", "dao_heart": "道心", "dao_proof": "道證"}
 	if bool(realm.get("unlocked", false)):
-		lines.append("極品靈晶 %.1f/%.0f\n天青靈液 %.1f/%.0f" % [realm.get("spirit_crystal", 0.0), realm.get("crystal_cap", 0.0), realm.get("azure_nectar", 0.0), realm.get("nectar_cap", 0.0)])
+		var status := "靈界庫存 · EAR1 暫停" if int(view.get("era_id", 1)) < 2 else "靈界庫存"
+		entries.realm_crystal = {"value": str(realm.get("spirit_crystal", 0.0)), "cap": str(realm.get("crystal_cap", 0.0)), "visible": true, "status_text": status}
+		entries.realm_nectar = {"value": str(realm.get("azure_nectar", 0.0)), "cap": str(realm.get("nectar_cap", 0.0)), "visible": true, "status_text": status}
 	var beast: Dictionary = view.get("beast", {})
 	if int(view.get("reincarnation_count", 0)) > 0 or String(view.get("dao_heart", "0")) != "0":
-		lines.append("道心 %s · 道證 %s" % [view.get("dao_heart", "0"), view.get("dao_proof", 0)])
+		entries.dao_heart = {"value": view.get("dao_heart", "0"), "visible": true, "uncapped": true, "status_text": "跨世保留 · 輪迴天賦"}
+		entries.dao_proof = {"value": str(view.get("dao_proof", 0)), "visible": true, "uncapped": true, "status_text": "跨世保留 · 輪迴天賦"}
 	for id in beast.get("souls", {}):
 		if int(beast.souls[id]) > 0:
-			lines.append("%s獸魂 %d" % [BeastSystem.BEAST_CONFIGS.get(id, {}).get("name", id), beast.souls[id]])
-	currencies.text = "\n".join(lines)
-	currencies.visible = not lines.is_empty() and abode.resource_display_mode > 0
+			var key := "soul_" + String(id)
+			names[key] = "%s獸魂" % BeastSystem.BEAST_CONFIGS.get(id, {}).get("name", id)
+			entries[key] = {"value": str(beast.souls[id]), "visible": true, "uncapped": true, "status_text": "跨世保留 · 靈獸天賦"}
+	abode.building_catalog.refresh_shared_resources(entries, names)
+	if entries.size() != _shared_resource_count:
+		_shared_resource_count = entries.size()
+		abode.call_deferred("_layout")
 	abode.sect_button.visible = false
 	_refresh_main_notifications(view)
 	if action_panel.visible:

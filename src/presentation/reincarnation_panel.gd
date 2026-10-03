@@ -27,7 +27,6 @@ var _reincarnate_desc_label: Label
 
 # 天賦分頁
 var _talents_box: VBoxContainer
-var _talents_scroll: ScrollContainer
 var _talents_list: VBoxContainer
 var _talent_rows: Dictionary = {}
 
@@ -160,15 +159,12 @@ func _build_ui() -> void:
 	_talents_box.visible = false
 	_content.add_child(_talents_box)
 
-	_talents_scroll = ScrollContainer.new()
-	_talents_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_talents_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	_talents_box.add_child(_talents_scroll)
-
+	# The outer body owns scrolling. A nested expanding ScrollContainer inside
+	# its content has no allocated height and makes all talent rows invisible.
 	_talents_list = VBoxContainer.new()
 	_talents_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_talents_list.add_theme_constant_override("separation", 10)
-	_talents_scroll.add_child(_talents_list)
+	_talents_box.add_child(_talents_list)
 
 	_switch_tab("reincarnate")
 
@@ -223,14 +219,13 @@ func refresh(view: Dictionary) -> void:
 	var talents: Dictionary = view.get("talents", {})
 	var inher_lvl: int = int(talents.get("resource_inheritance", 0))
 	var next_r: int = r_count + 1
-	var base_ratio := 0.4 if next_r == 1 else 0.8
-	var inher_ratio := minf(1.0, base_ratio + float(inher_lvl) * 0.1) * 100.0
+	var inher_ratio := ReincarnationRules.inheritance_ratio(next_r, float(inher_lvl) * 0.1) * 100.0
 
 	_preview_label.text = (
 		"• 本世島上建築等階總和：%d\n" % b_sum
 		+ "• 轉世預期獲得道心：+%s（含境界保底 %d）\n" % [gain_dh, floor_val]
 		+ "• 轉世預期獲得道證：+%d\n" % gain_dp
-		+ "• 新一世起手物資傳承比例：%.0f%%" % inher_ratio
+		+ "• 資源傳承天賦：新開局庫容的 %.0f%%（無自動補給）" % inher_ratio
 	)
 
 	# 2. 刷新道心天賦分頁
@@ -301,7 +296,7 @@ func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	var learn_btn := Button.new()
 	learn_btn.name = "LearnButton"
 	learn_btn.text = "參悟"
-	learn_btn.custom_minimum_size = Vector2(90, 36)
+	learn_btn.custom_minimum_size = Vector2(90, 44)
 	learn_btn.add_theme_font_override("font", UiTypography.body_font())
 	learn_btn.add_theme_font_size_override("font_size", 15)
 	learn_btn.pressed.connect(func(): learn_talent_requested.emit(talent_id))

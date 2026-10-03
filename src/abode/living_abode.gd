@@ -251,6 +251,8 @@ var _is_reincarnating: bool = false
 
 var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
+var _background_retry_cursor: int = 0
+var _storage_block_layer: CanvasLayer = null
 enum HudLayout { WIDE, COMPACT, PORTRAIT }
 var layout_mode: int = HudLayout.WIDE
 var header_box: VBoxContainer
@@ -275,7 +277,19 @@ var _last_process_ticks_msec: int = 0
 var _process_ticks_initialized: bool = false
 
 func _ready() -> void:
+	if OS.has_feature("web") and save_dir_override.is_empty():
+		var web_adapter := WebStorageAdapter.new("dao2_saves")
+		var status := web_adapter.begin_session()
+		while status == "pending":
+			await get_tree().process_frame
+			status = web_adapter.session_status()
+		if status != "ready":
+			_show_storage_block("另一個分頁正在遊玩，請先關閉它再重試。" if status == "writer_busy" else "瀏覽器無法取得存檔保護，請以支援的安全連線瀏覽器重試。")
+			return
 	_init_core()
+	if session == null:
+		_show_storage_block("存檔讀取或離線保存失敗，原有進度已保留。請恢復儲存權限或空間後重試。")
+		return
 	_build_background()
 	_build_region()
 
@@ -350,6 +364,8 @@ func _init_core() -> void:
 	var offline_res: Dictionary = OfflineCoordinator.settle(now_ms)
 
 	var loaded_state: GameState = SaveManager.current_state()
+	if loaded_state == null or not bool(offline_res.get("ok", false)):
+		return
 	if loaded_state != null and loaded_state.revision > 0:
 		session = GameSession.new()
 		session.content = content
@@ -363,6 +379,61 @@ func _init_core() -> void:
 	if offline_res.get("committed", false):
 		call_deferred("_display_offline_summary", offline_res.get("report", {}))
 	_init_bgm()
+
+func _show_storage_block(message: String) -> void:
+	if is_instance_valid(_storage_block_layer):
+		return
+	set_process(false)
+	_adapt_viewport_scale()
+	var adapt_callback := Callable(self, "_adapt_viewport_scale")
+	if not get_viewport().size_changed.is_connected(adapt_callback):
+		get_viewport().size_changed.connect(adapt_callback)
+	var layer := CanvasLayer.new()
+	_storage_block_layer = layer
+	layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	layer.layer = 120
+	add_child(layer)
+	var panel := PanelContainer.new()
+	layer.add_child(panel)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	panel.theme = UiTypography.create_theme()
+	var center := CenterContainer.new()
+	panel.add_child(center)
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 24)
+	margin.add_theme_constant_override("margin_right", 24)
+	center.add_child(margin)
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 20)
+	margin.add_child(column)
+	var label := Label.new()
+	label.text = message
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.custom_minimum_size.x = 280
+	label.add_theme_font_override("font", UiTypography.body_font())
+	label.add_theme_font_size_override("font_size", 18)
+	column.add_child(label)
+	var retry := Button.new()
+	retry.text = "重試保存" if _background_retry_cursor > 0 else "重新載入並重試"
+	retry.custom_minimum_size.y = 44
+	column.add_child(retry)
+	retry.pressed.connect(func() -> void:
+		if OS.has_feature("web") and SaveManager.adapter() is WebStorageAdapter and SaveManager.adapter().session_status() != "ready":
+			Engine.get_singleton("JavaScriptBridge").eval("window.location.reload()")
+			return
+		if _background_retry_cursor > 0:
+			if _settle_web_background(_background_retry_cursor):
+				_background_retry_cursor = 0
+				layer.queue_free()
+				_storage_block_layer = null
+				get_tree().paused = false
+				set_process(true)
+				_last_process_ticks_msec = Time.get_ticks_msec()
+				_layout()
+			return
+		if OS.has_feature("web"):
+			Engine.get_singleton("JavaScriptBridge").eval("window.location.reload()")
+	)
 
 func _setup_buildings(props: Node2D) -> void:
 	# Only the hut is a world landmark; all other facilities stay in the catalogue.
@@ -618,6 +689,8 @@ func _layout_mode_name() -> String:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		if OS.has_feature("web"):
+			return # Web recovery is performed once by _process through OfflineCoordinator.
 		if _process_ticks_initialized:
 			var now_ticks: int = Time.get_ticks_msec()
 			var elapsed_real: float = float(now_ticks - _last_process_ticks_msec) / 1000.0
@@ -635,6 +708,12 @@ func _notification(what: int) -> void:
 					_refresh_hud()
 
 func _process(delta: float) -> void:
+	if session == null:
+		return
+	if OS.has_feature("web") and SaveManager.adapter() is WebStorageAdapter and SaveManager.adapter().session_status() != "ready":
+		get_tree().paused = true
+		_show_storage_block("存檔保護已釋放，請重新載入以讀取最新進度。")
+		return
 	if _is_reincarnating or (reincarnation_seq != null and reincarnation_seq.visible):
 		_last_process_ticks_msec = Time.get_ticks_msec()
 		return
@@ -644,8 +723,17 @@ func _process(delta: float) -> void:
 	if _process_ticks_initialized:
 		var elapsed_real: float = float(now_ticks - _last_process_ticks_msec) / 1000.0
 		if elapsed_real > delta:
-			step_delta = clampf(elapsed_real, delta, 86400.0)
+			step_delta = elapsed_real if OS.has_feature("web") else clampf(elapsed_real, delta, 86400.0)
 	_last_process_ticks_msec = now_ticks
+	if OS.has_feature("web") and step_delta > 2.0:
+		var now_ms := int(Time.get_unix_time_from_system() * 1000.0)
+		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms - int(step_delta * 1000.0))
+		if not _settle_web_background(_background_retry_cursor):
+			get_tree().paused = true
+			_show_storage_block("背景結算尚未存妥，請保留此畫面。恢復儲存權限或空間後，按重試完成結算。")
+			return
+		_background_retry_cursor = 0
+		step_delta = 0.0
 
 	state.advance(step_delta)
 	var advance_result: Dictionary = session.advance_time(step_delta)
@@ -1382,15 +1470,37 @@ func _save_game() -> Dictionary:
 		"sim_tick": str(sim_tick),
 	}
 	var result: Dictionary = SaveManager.save(session.state, meta)
+	if not bool(result.get("ok", false)) and OS.has_feature("web"):
+		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms)
+		get_tree().paused = true
+		_show_storage_block("進度尚未存妥，請保留此畫面。恢復儲存權限或空間後，按重試保存；操作不會再次扣料。")
+	if not bool(result.get("ok", false)) and hint != null:
+		hint.text = "進度尚未存妥；請保留此畫面，並檢查儲存權限或空間。" if OS.has_feature("web") else "進度尚未存妥，15 秒後自動重試；請保留此畫面。"
 	if _pending_scenery_save:
 		_pending_scenery_save = not bool(result.get("ok", false))
 		if _pending_scenery_save and hint != null:
-			hint.text = "小景進度尚未存妥，15 秒後自動重試；請先保留遊戲畫面。"
+			hint.text = "小景進度尚未存妥；請先保留遊戲畫面並重試保存。" if OS.has_feature("web") else "小景進度尚未存妥，15 秒後自動重試；請先保留遊戲畫面。"
 	if _pending_breakthrough_save:
 		_pending_breakthrough_save = not bool(result.get("ok", false))
 		if breakthrough_seq != null:
 			breakthrough_seq.set_save_status(not _pending_breakthrough_save)
 	return result
+
+func _settle_web_background(cursor: int) -> bool:
+	var result := OfflineCoordinator.settle_state(session.state, content, int(Time.get_unix_time_from_system() * 1000.0), cursor)
+	if not result.ok:
+		print("WEB_BACKGROUND_SAVE_FAILED: ", result.get("detail", ""))
+		return false
+	session.state = result.state
+	session.clock = GameClock.create(session.state.total_elapsed_seconds)
+	state = AbodeStateCompat.new(session)
+	_pending_scenery_save = false
+	_pending_breakthrough_save = false
+	if breakthrough_seq != null:
+		breakthrough_seq.set_save_status(true)
+	_refresh_hud()
+	print("WEB_BACKGROUND_SETTLED: ", JSON.stringify(result.report))
+	return true
 
 func _show_help() -> void:
 	_hud_controller._show_help()

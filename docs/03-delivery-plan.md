@@ -18,6 +18,8 @@
 
 ## 2. 決策紀錄
 
+2026-10-03：[ADR-009](decisions/ADR-009-multi-island-resource-economy.md)依使用者要求修訂 ADR-002 的後續物流範圍，Era 解鎖多島與實際加工／運輸列為 RES1 主線。下表保留初期決策歷史；模擬與特效分離仍有效。
+
 | ID | 本輪決策 | 何時重新評估 |
 | --- | --- | --- |
 | ADR-001 | 承接 Godot 4.7.2／GDScript／Compatibility／桌面橫版 Web-first；手機直式另適配 | M0 匯出或數值探針有重大不相容 |

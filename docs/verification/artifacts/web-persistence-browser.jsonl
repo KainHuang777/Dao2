@@ -1,0 +1,16 @@
+{"url": "http://127.0.0.1:4196/?case=retry", "report": "PASS\n{\n  \"case\": \"retry\",\n  \"checks\": 69,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=denied", "report": "PASS\n{\n  \"case\": \"denied\",\n  \"checks\": 11,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=corrupt", "report": "PASS\n{\n  \"case\": \"corrupt\",\n  \"checks\": 10,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=migration", "report": "PASS\n{\n  \"case\": \"migration\",\n  \"checks\": 7,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=reload", "report": "PASS\n{\n  \"case\": \"reload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=reload", "report": "PASS\n{\n  \"case\": \"reload\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=reload", "report": "PASS\n{\n  \"case\": \"reload\",\n  \"checks\": 5,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=actualquota", "report": "PASS\n{\n  \"case\": \"actualquota\",\n  \"checks\": 12,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=cap", "report": "PASS\n{\n  \"case\": \"cap\",\n  \"checks\": 14,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=lock", "report": "PASS\n{\n  \"case\": \"lock\",\n  \"checks\": 1,\n  \"failures\": [],\n  \"note\": \"FIRST TAB OWNS LOCK\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=lock", "report": "PASS\n{\n  \"case\": \"lock\",\n  \"checks\": 1,\n  \"failures\": [],\n  \"note\": \"SECOND TAB BLOCKED\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=lock", "report": "PASS\n{\n  \"case\": \"lock\",\n  \"checks\": 1,\n  \"failures\": [],\n  \"note\": \"FIRST TAB OWNS LOCK\"\n}"}
+{"url": "http://127.0.0.1:4196/?case=lock", "report": "PASS\n{\n  \"case\": \"lock\",\n  \"checks\": 1,\n  \"failures\": [],\n  \"note\": \"FIRST TAB OWNS LOCK\"\n}"}
+{"url": "http://127.0.0.1:4196/background", "report": "WEB_BACKGROUND_SETTLED: {\"age_seconds\":1304.0,\"away_ms\":36220,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":36220,\"effective_ticks\":36,\"forfeited_ms\":0,\"left_at_utc_ms\":1791037974189,\"report_id\":\"offline:1791038010409\",\"rollback\":false,\"settled_at_utc_ms\":1791038010409,\"stopped\":null,\"time_only_ticks\":0}"}
+{"url": "http://127.0.0.1:4196/background", "report": "WEB_BACKGROUND_SAVE_FAILED: SecurityError"}
+{"url": "http://127.0.0.1:4196/background", "report": "WEB_BACKGROUND_SETTLED: {\"age_seconds\":1364.0,\"away_ms\":46027,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":46027,\"effective_ticks\":46,\"forfeited_ms\":0,\"left_at_utc_ms\":1791038024427,\"report_id\":\"offline:1791038070454\",\"rollback\":false,\"settled_at_utc_ms\":1791038070454,\"stopped\":null,\"time_only_ticks\":0}"}

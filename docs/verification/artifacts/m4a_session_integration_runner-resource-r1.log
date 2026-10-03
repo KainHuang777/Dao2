@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+REJECT: join_sect SECT_LOCKED
+REJECT: refresh_sect_tasks SECT_LOCKED
+REJECT: start_sect_expedition 
+REJECT: claim_sect_expedition SECT_LOCKED
+REJECT: learn_sect_technique 
+REJECT: buy_sect_market_item 
+REJECT: switch_realm SPIRIT_REALM_LOCKED
+REJECT: upgrade_realm_outpost REALM_LOCKED
+REJECT: apply_buff EMPTY_BUFF_ID
+REJECT: remove_buff EMPTY_BUFF_ID
+REJECT: upgrade_realm_outpost INSUFFICIENT_HUMAN_RESOURCE
+SUCCESS + REPLAY + RELOAD: join_sect
+REJECT: join_sect ALREADY_JOINED_SECT
+REJECT: refresh_sect_tasks REFRESH_COOLDOWN
+SUCCESS + REPLAY + RELOAD: refresh_sect_tasks
+REJECT: start_sect_expedition TASK_NOT_FOUND
+SUCCESS + REPLAY + RELOAD: start_sect_expedition
+REJECT: start_sect_expedition EXPEDITION_ALREADY_ACTIVE
+REJECT: claim_sect_expedition EXPEDITION_NOT_FINISHED
+SUCCESS + REPLAY + RELOAD: claim_sect_expedition
+REJECT: claim_sect_expedition NO_ACTIVE_EXPEDITION
+REJECT: learn_sect_technique UNKNOWN_TECHNIQUE
+REJECT: buy_sect_market_item UNKNOWN_MARKET_ITEM
+REJECT: learn_sect_technique INSUFFICIENT_CONTRIBUTION
+REJECT: buy_sect_market_item INSUFFICIENT_CONTRIBUTION
+REJECT: learn_sect_technique INSUFFICIENT_WOOD
+SUCCESS + REPLAY + RELOAD: learn_sect_technique
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+REJECT: buy_sect_market_item PURCHASE_LIMIT_REACHED
+REJECT: learn_sect_technique TECHNIQUE_MAX_LEVEL
+REJECT: switch_realm INVALID_REALM
+SUCCESS + REPLAY + RELOAD: switch_realm
+REJECT: upgrade_realm_outpost UNKNOWN_OUTPOST
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+REJECT: upgrade_realm_outpost INSUFFICIENT_CRYSTAL
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+REJECT: upgrade_realm_outpost MAX_LEVEL
+SUCCESS + REPLAY + RELOAD: apply_buff
+SUCCESS + REPLAY + RELOAD: remove_buff
+SUCCESS + REPLAY + RELOAD: apply_buff
+SUCCESS + REPLAY + RELOAD: start_sect_expedition
+SUCCESS + REPLAY + RELOAD: claim_sect_expedition
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:44)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:172)
+       [2] read_best (res://src/persistence/save_slots.gd:57)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:171)
+       [4] current_state (res://src/persistence/save_manager.gd:46)
+       [5] _test_receipt_recovery (res://tests/m4a_session_integration_runner.gd:184)
+       [6] _init (res://tests/m4a_session_integration_runner.gd:84)
+REJECT: claim_sect_expedition REWARD_RESOURCE_MISSING
+PASS: M4-A-R1 Session integration (251 checks, 0 failures).

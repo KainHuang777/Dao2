@@ -5,6 +5,7 @@ config_version=5
 [application]
 config/name="修仙問道 v2 — 洞府探針"
 run/main_scene="res://scenes/living_abode.tscn"
+run/main_scene.persistence_verification="res://scenes/web_persistence_probe.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display/window]

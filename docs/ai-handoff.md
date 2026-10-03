@@ -18,6 +18,12 @@
 
 ## 最新接手狀態
 
+- **2026-10-03 RES1-B-WEB-R1 DONE，下一 RES1-C**：251 checks／native三程序與桌面Web保存故障矩陣已交付、最終固定入口47/47 PASS、exit0。讀 [驗收](verification/res1-b-web-r1.md)／development-status及updata頂部。localStorage＋lifetime Web Lock，拒絕讀寫／quota／損壞／索引中斷／重載與重試、受控Web幀恢復已驗；正式manifest保持opt-in。自然分頁／OS背景凍結、裝置與長離線CPU另待驗。本節後續A／B待做順序是本日較早歷史，不重做已交付核心。下個大型任務用New Chat。
+
+- **2026-10-03 RES1-A 已完成首批契約／隔離核心，下一 RES1-B**：讀 [驗收](verification/res1-a.md) 與 updata 頂部。15 資源／8 配方、145 checks、新舊差異與唯讀 DAO1 8/8 參照、全量 42 Runner PASS。正式 ContentLoader 不附掛 processing_catalog，Craft 為 opt-in；正式 manifest／schema／rules 未變，新經濟不可先接玩家保存。B 將 A 的即時命令契約接批次時間、地方庫存、固定航線、容量保留、版本遷移與離線／輪迴／故障重試，補相交 M1-C/D 後開啟；百年草取得、Era3 技能／材料消耗與 UI 在 C/D。以下 A TODO 為較早歷史方向。
+
+- **2026-10-03 RES1 最新指示優先於本節後續歷史次序**：使用者重申 Era 解鎖資源島、多階加工／融合與實際供給運輸。RES1-DESIGN 文件與靜態來源稽核 DONE，runtime 尚未改；先讀 [docs/14](14-multi-island-resource-progression.md)、[ADR-009](decisions/ADR-009-multi-island-resource-economy.md)、[稽核](verification/resource-progression-audit.md)。DAO1 61 資源／30 配方，DAO2 manifest 7／10 建築／Era 1–2，完整承接缺口從 Era 2–3 起。**下一 RES1-A（資源／配方／需求契約與 Craft 核心），再 B 加工／庫存／物流／保存、C 三島、D Era 3／三級材料**；M1-C/D 相交持久化／離線驗收仍是正式放行條件。已建立英文 checkpoint，使用 New Chat 開始實作，不把設計表當已上線玩法。
+
 - 2026-10-03 M4-A-R1 DONE：251 checks／40 Runner、兩版型 IAB 真實滑鼠及重整恢復通過；rules_version=core-flow-5-session-receipts，schema 2 選填最近 256 筆成功命令收據。最後舊任務 alias 修正另重跑四項相關 Runner，全部 exit 0。Web adapter 實際是 localStorage；下一步 M1-C/D 權威儲存與離線故障矩陣，實機／高 DPR 獨立待驗。看 verification/m4-a-r1.md 及 updata.txt 頂部；使用 New Chat，不重做白名單。本節以下為本日較早接手紀錄，已由此項取代後續順序。
 
 - 2026-10-03 最新：成就已交付，固定入口 39 Runner，UI8 R1 全量 39/39 PASS；建造訊息修復另有兩項 Runner／Web 證據且使用者測試 OK。下一步 M4-A-R1 補正式 Session 成功／拒絕／冪等／保存與 Web 矩陣，不能重做已存在白名單。再補 M1-C/D 瀏覽器持久化與離線證據；實機／高 DPR 仍待驗。下列按日期的 38 Runner 為歷史結果。
@@ -131,3 +137,7 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 ## 可直接貼给下一個 AI 的提示
 
 > 請接續 E:\WORK\Dao2。先閱讀 AGENTS.md、README.md、ROADMAP.md、docs/ai-handoff.md、docs/development-status.md 與 updata.txt 頂部 checkpoint；按呈現層索引定位來源，UI 必讀 docs/07。使用現有 Godot 4.7.2／GDScript／Compatibility／單執行緒 Web。34 Runner 於 2026-10-02 重跑通過，Session 白名單已補，M4-B 與 M5-A／B 核心資料已交付；不重做舊接線，也不把數值測試當作九界完整遊玩驗收。先接續最新 UI7、混搭字型、FX2／TEXT1 的回饋及裝置驗收，再選靈獸／成就或補 M5 完整 DoD；缺少證據的項目照狀態頁保留待驗。
+
+## RES1-B 冷啟動入口（2026-10-03）
+
+先讀 [B 驗收](verification/res1-b.md) 及 updata 頂部：核心 251 checks／native 三程序交付，整體 IN_PROGRESS；下一 RES1-B／M1-C/D Web 故障矩陣，尚未進 RES1-C。重跑 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_res1b_verification.ps1`。測試資料只在 docs/verification/artifacts/res1-b-cross-process；全量最近一輪 44/45、exit 1（其他新增 DebugActions 面板失敗），不要忽略。schema3 decoder支援舊schema2，但正式processing catalog仍未啟用；瀏覽器matrix不能由native結果推定。

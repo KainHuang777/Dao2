@@ -4,13 +4,15 @@ Godot 修仙放置遊戲原型：由洞府建設、修行與突破開始，逐�
 
 ## 目前狀態｜2026-10-03
 
+**最新產品方向：RES1 多島資源主線**。依使用者要求，Era 逐步解鎖專業空島，基礎資源經加工／融合形成 T2、T3 材料，透過實際供給與運輸支撐建設與修行。已完成[設計修訂](docs/14-multi-island-resource-progression.md)與[DAO1 資源稽核](docs/verification/resource-progression-audit.md)，尚未實作新玩法。DAO1 有 61 資源／30 配方；本作 manifest 目前僅 7 資源／10 建築／Era 1–2，另有少量子系統資源，不能宣稱已完整承接 DAO1。RES1-A 首批契約／隔離 Craft 核心已交付（15 資源／8 配方、145 checks、DAO1 8/8、42 Runner PASS），見[驗收](docs/verification/res1-a.md)。RES1-B 原型核心與桌面 Web 保存故障範圍 DONE（251 checks、三程序保存／載入／離線、真實quota／重載／雙分頁與受控Web幀恢復），見[核心](docs/verification/res1-b.md)／[Web驗收](docs/verification/res1-b-web-r1.md)。最新固定入口47/47 PASS、exit0；正式manifest仍未啟用，下一RES1-C三島操作。實機／自然背景凍結／高DPR／長離線CPU預算仍待驗。
+
 已實作多世輪迴、丹藥、BUFF、宗門、靈界、天時、機緣奇遇、四種靈獸與 18 項成就；九界法則、世界地址、確定性世界描述生成與界域戰略決策已有規則／資料／保存測試。宗門、跨界與 BUFF 的 Session 白名單已補上。2026-10-03 UI8 R1 全量回歸 **39/39 Runner 通過、exit 0**；後續建造訊息修復另重跑導覽／響應式兩項，使用者測試 OK；引擎 Godot `4.7.2.stable.official.ed1daf0bf`。
 
 主導覽已重整為「洞府／經營／修行／遊歷」：洞天據點與建築共用經營分頁，煉丹／靈獸／輪迴歸修行，九界／宗門／機緣／天道決策歸遊歷；移除重複 More 入口。新增功能須遵守[入口整合規範](docs/12-feature-navigation-and-integration-spec.md)。分類／視覺回饋與實機驗收待完成，見 [NAV1](docs/verification/feature-navigation.md)。
 
 9/29–10/2 另實作系統設定與境界 BGM 排程、橫式響應式／直式旋轉提示、介面材質迭代、思源黑體＋粗明體、引導／訊息改善，以及升境光環雷電與過場文字樣板。最新 UI7 採紙色墨字、霧面青玉與朱砂重點；既有紀錄已驗桌面瀏覽器 1280×720、844×390 滑鼠與 360×640 旋轉提示，使用者美術放行、高 DPR 與實體手機仍待驗。九界資料交付不代表九界完整可玩、美術與長期負載都已驗收。
 
-M4-A-R1 正式 Session／桌面 Web 整合驗收已完成：251 checks、40/40 Runner 與 1280×720／844×390 實際操作通過，修正命令收據保存、宗門獎勵入庫及按鈕重建。見 [驗收](docs/verification/m4-a-r1.md)。下一步補 M1-C/D Web 持久化、離線及故障重試證據。裝置驗收仍追蹤，成就已交付，高階 Era 9–12 按 M3-B 功能矩陣後續核對。詳細變更與未完成 DoD 見[文件複核](docs/verification/doc-a-r1.md)及[目前狀態](docs/development-status.md)。原始碼已同步至 [GitHub 專案](https://github.com/KainHuang777/Dao2)；引擎、模板、快取與 Web 匯出不納入版本控制，複製倉庫後須備妥同版環境。
+M4-A-R1 正式 Session／桌面 Web 整合驗收已完成：251 checks、40/40 Runner 與 1280×720／844×390 實際操作通過，修正命令收據保存、宗門獎勵入庫及按鈕重建。見 [驗收](docs/verification/m4-a-r1.md)。此為原有系統整合範圍，多島加工／運輸與完整 DAO1 資源內容另依 RES1 交付；裝置、M1-C/D Web 持久化／離線故障證據仍待補。詳細變更與未完成 DoD 見[文件複核](docs/verification/doc-a-r1.md)及[目前狀態](docs/development-status.md)。原始碼已同步至 [GitHub 專案](https://github.com/KainHuang777/Dao2)；引擎、模板、快取與 Web 匯出不納入版本控制，複製倉庫後須備妥同版環境。
 
 築基小院外觀與三種洞府小景已接入同一 Godot 世界：靈木／靈草／靈石隨機出現、點擊批次採收、最多兩件並保存狀態；短橫式修正初始屋頂取景。38 Runner、八張 native 與 Web 鼠標／重載已驗，使用者美術及實機待補，見 [ISLAND1](docs/verification/island-scenery.md)。
 

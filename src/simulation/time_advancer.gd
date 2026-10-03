@@ -9,6 +9,32 @@ static func ticks_for_elapsed(elapsed_seconds: float) -> int:
 	return int(floor(elapsed_seconds / float(SECONDS_PER_TICK)))
 
 static func advance(state: GameState, content: GameContent, ticks: int) -> Dictionary:
+	if state.economy.is_empty():
+		return _advance_legacy(state, content, ticks)
+	if content.processing_catalog.is_empty():
+		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "processing_content_missing"}
+	var executed := 0
+	var events: Array = []
+	var changed: Array = []
+	var stopped: Variant = null
+	# Fixed one-second boundaries also split buffs, weather and lifespan. No frame RNG.
+	for _tick in range(maxi(0, ticks)):
+		var result := _advance_legacy(state, content, 1)
+		if int(result.ticks_advanced) > 0:
+			executed += 1
+			events.append_array(IslandEconomy.tick(state, content.processing_catalog))
+		for id in result.changed_ids:
+			if not id in changed:
+				changed.append(id)
+		events.append_array(result.events)
+		stopped = result.stopped
+		if stopped != null:
+			break
+	if executed > 0:
+		changed.append("economy")
+	return {"ticks_advanced": executed, "events": events, "changed_ids": changed, "stopped": stopped}
+
+static func _advance_legacy(state: GameState, content: GameContent, ticks: int) -> Dictionary:
 	if ticks <= 0:
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null}
 	var multipliers := TalentSystem.compute_multipliers(state)
@@ -59,6 +85,11 @@ static func advance(state: GameState, content: GameContent, ticks: int) -> Dicti
 			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + total_storage_bonus))
 		if resource_id == "lingqi" and float(sect_multipliers.lingqi_cap_bonus) > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
 			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.lingqi_cap_bonus)))
+		if not state.economy.is_empty() and content.processing_catalog.resources.has(resource_id):
+			var held := IslandEconomy.reserved(state, "home", resource_id, content.processing_catalog)
+			var effective_cap := minf(cap_limit.to_float(), float(content.processing_catalog.resources[resource_id].cap)) - held
+			# Capacity contraction stops future production; never deletes existing stock.
+			cap_limit = AmountCompat.from_number(maxf(entry.value.to_float(), maxf(0, effective_cap)))
 		if caps.has(resource_id) and new_value.compare_to(cap_limit) > 0:
 			new_value = cap_limit
 		if new_value.compare_to(entry.value) != 0:

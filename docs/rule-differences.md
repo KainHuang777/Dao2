@@ -2,6 +2,8 @@
 
 更新：2026-09-16。此表只記錄已固定的舊版規則、明確 v2 決策及尚未決定的差異；不把展示場景的數值當作遊戲規則。
 
+2026-10-03 新增 **V2-013（design adopted, implementation pending）**：Era 解鎖專業空島、靈材／陣芯等多階材料、時間加工、地方庫存與在途物流列 RES1 主線；它們是 v2 新機制，不能冒稱 DAO1 parity。本輪不改任何 runtime rules_version 或 schema。DAO1 的 30 配方／技能／丹方／合成加成先固定基線；現行 AlchemySystem 的築基丹成本与效果、Era 2 需求有來源差異，RES1-A 逐項決定承接／保留／遷移，不能以既有煉丹 PASS 當全量相容。規劃與來源：[docs/14](14-multi-island-resource-progression.md)、[稽核](verification/resource-progression-audit.md)。
+
 | ID | 主題 | 狀態 | v2 目前處理 | 證據／後續 |
 | --- | --- | --- | --- | --- |
 | LP-001 | 建築費用三段指數、線性段與折扣 | `legacy_parity` | M0-B 固定等級 0／20／21／50／51 的 Decimal 字串結果；M1-A 以 AmountCompat 移植並通過全部 5 向量 | `m0-b-v1.json`；`tests/m1a_core_runner.gd` cost_parity |
@@ -30,3 +32,9 @@
 
 `legacy_parity` 表示需要先與已固定來源一致，並不表示該規則永久不可改善。改動舊行為時，必須新增帶版本的 v2 決策與相對應案例，保留原 fixture 供遷移與回歸。
 | V2-012 | 宗門正式庫存與跨重載命令收據 | `v2_correction` | 2026-10-03 M4-A-R1：宗門 herb／bronze 獎勵映射正式 spirit_grass_low／black_copper，坊市靈晶寫界域庫存；同快照新增最多最近 256 筆成功 command_id 收據，防止保存重載後重送扣料或發獎，按 revision 淘汰。schema 2 缺欄可讀，無法重建缺欄舊檔的歷史收據；rules_version=core-flow-5-session-receipts。 | tests/m4a_session_integration_runner.gd；docs/verification/m4-a-r1.md；並非舊規則全量相容承諾 |
+
+| V2-014 | RES1-A 首批 Craft 政策 | `v2_change` | processing catalog=res1-a-1，正式未啟用。六項舊配方比率保留來源，築基丹延續 v2 50草＋20銅＋200靈力；靈材10木＋5石、陣芯2靈材＋2銅精為新配方。固定產量、全批原子成功／拒絕、嚴格足額／容量，無舊epsilon／暴擊／技能加成。資源Amount layer0≤1e12，超界拒絕；foundation resources權威、pills鏡像不一致拒絕。A 即時隔離契約，B 接計時／正式版本遷移 | [完整契約與限制](verification/res1-a.md)、145 checks、唯讀 DAO1 8 tests；不稱全量丹藥／Decimal parity |
+
+| V2-015 | RES1-B 定時地方經濟與保存版本 | `v2_change` | opt-in economy=res1-b-1，schema 3／rules core-flow-6-island-economy；祖島 aliases resources、遠島地方庫存、加工開始扣料／保留產物、本批後停／切、固定六航線10秒載量10／20、出航扣庫存／到貨可花、保留容量共享；24h外與壽盡冻结加工／貨物；輪迴清除當世資產、原容量起手繼承一次。schema2保留原文且不自動啟用，未知工作／貨物版本拒絕。B原型價／產率／容量與運輸均非DAO1 parity；築基丹大額合法存量只扣一次，不套舊clamp | [完整契約與限制](verification/res1-b.md)，251 checks／native三程序；正式Web門檻與C玩法尚未放行 |
+| V2-016 | EAR1 靈界耗料與滿倉轉換 | `v2_correction` | 輪迴保留設施，但 EAR1 暫停靈界背景生產／扣料／修煉回饋，Era2 恢復；按原料與剩餘庫容計算實際轉換量，滿倉不扣、近滿／缺料按部分量扣，扣料不截斷大額合法庫存。rules core-flow-7-realm-capacity-gates／schema3。非舊版 parity | [RES1-B-R1 驗收](verification/resource-feedback-r1.md)，738 checks／相關七項 Runner／隔離 Web |
+| V2-017 | 僅天賦發放輪迴起手物資 | `v2_decision` | 使用者選定取消自動40%／80%；資源傳承0–10階提供新開局庫容0–100%，只給開局已解鎖基礎資源，下次轉世生效。既有庫存不回收；rules core-flow-8-talent-only-inheritance／schema3。LP-006的40%／80%僅保留為歷史來源，不再是現行規則 | [M3-A-R2驗收](verification/talent-inheritance-r1.md)，六項相關Runner／隔離Web實際購買與重載 |

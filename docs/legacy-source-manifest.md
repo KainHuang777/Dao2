@@ -33,6 +33,8 @@
 
 ## 資料 profile
 
+2026-10-03 RES1 統計校正：以 csv.DictReader 按非空 ID 清點，同 SHA-256 的 Resources.csv 實際為 **61 個有效記錄**，storage.csv 為 **10 個有效記錄**；下表 62／11 為原歷史行數記法，不能作有效內容數。完整資源／配方與 hash 重現見 [RES1 稽核](verification/resource-progression-audit.md)，原 M0-B fixture 不覆寫。
+
 資料以 UTF-8 讀取；行數不包含表頭。
 
 | 檔案 | 列數 | SHA-256 |
@@ -56,3 +58,7 @@
 這個 runner 位於 Dao2，直接匯入固定路徑下的純規則模組，並對照 [m0-b-v1.json](../tests/fixtures/legacy/m0-b-v1.json)。它不寫入 `E:\Python\test1`。若來源不存在，測試必須失敗而非改用猜測值。
 
 直接對舊專案使用其 `vitest.config.ts` 時，Vite 會嘗試在來源的 `node_modules/.vite-temp` 寫入暫存檔；唯讀界線會拒絕該行為。因此本任務沒有修改來源以執行其整套測試，而是用上述隔離 runner 驗證實際舊規則模組。
+
+## 2026-10-03 RES1-A 配方參照
+
+新增 `tests/fixtures/legacy/res1-a-source.json`：首批 13 個來源資源、六配方、Era1–4 原始需求及來源 hash；另加 craft.ts／recipe.ts／ResourceManager.ts SHA-256。`res1a_reference.test.ts` 在 Dao2 執行原純規則、先驗所有 hash，8/8 PASS。沒有寫入來源專案或啟動 Manager runtime；number 純規則向量不等於 Decimal runtime 大數 parity。命令與差異見 [RES1-A](verification/res1-a.md)。

@@ -161,7 +161,7 @@ static func upgrade_outpost(state: GameState, outpost_id: String) -> Dictionary:
 	}
 
 static func get_feedback_cultivation_boost(state: GameState) -> float:
-	if state == null or not state.realms_data.has(REALM_SPIRIT):
+	if state == null or state.era_id < 2 or not state.realms_data.has(REALM_SPIRIT):
 		return 0.0
 	var data: Dictionary = state.realms_data[REALM_SPIRIT]
 	var pool_lvl := int(data.get("outposts", {}).get("pure_pool", 0))
@@ -170,7 +170,7 @@ static func get_feedback_cultivation_boost(state: GameState) -> float:
 static func tick(state: GameState, elapsed_seconds: float) -> Dictionary:
 	if state == null or elapsed_seconds <= 0.0:
 		return {}
-	if not is_spirit_realm_unlocked(state):
+	if state.era_id < 2 or not is_spirit_realm_unlocked(state):
 		return {}
 	var data := ensure_spirit_data(state)
 	var outposts: Dictionary = data.get("outposts", {})
@@ -186,23 +186,21 @@ static func tick(state: GameState, elapsed_seconds: float) -> Dictionary:
 	var cur_crystal := float(data.get("spirit_crystal", 0.0))
 	var cur_nectar := float(data.get("azure_nectar", 0.0))
 
-	# 1. 天樞陣眼 (Celestial Hub)
+	# Capacity is reserved before charging inputs; a full output consumes nothing.
 	if hub_lvl > 0:
-		var stone_needed := float(hub_lvl) * 0.2 * elapsed_seconds
 		var stone_entry: Dictionary = state.resources.get("stone_low", {})
 		var cur_stone: float = stone_entry.get("value", AmountCompat.zero()).to_float()
-		if cur_stone >= stone_needed and cur_stone > 0.0:
-			stone_entry.value = stone_entry.value.subtract(AmountCompat.from_number(stone_needed)).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(999999999.0))
-			var crystal_gain := float(hub_lvl) * 0.1 * realm_mult * elapsed_seconds
-			cur_crystal = minf(crystal_cap, cur_crystal + crystal_gain)
-
-	# 2. 化靈仙池 (Pure Pool)
+		var crystal_gain := minf(maxf(0.0, crystal_cap - cur_crystal), float(hub_lvl) * 0.1 * realm_mult * elapsed_seconds)
+		crystal_gain = minf(crystal_gain, cur_stone * realm_mult * 0.5)
+		if crystal_gain > 0.0:
+			stone_entry.value = stone_entry.value.subtract(AmountCompat.from_number(crystal_gain * 2.0 / realm_mult))
+			cur_crystal += crystal_gain
 	if pool_lvl > 0:
-		var crystal_needed := float(pool_lvl) * 0.05 * elapsed_seconds
-		if cur_crystal >= crystal_needed:
-			cur_crystal -= crystal_needed
-			var nectar_gain := float(pool_lvl) * 0.05 * realm_mult * elapsed_seconds
-			cur_nectar = minf(nectar_cap, cur_nectar + nectar_gain)
+		var nectar_gain := minf(maxf(0.0, nectar_cap - cur_nectar), float(pool_lvl) * 0.05 * realm_mult * elapsed_seconds)
+		nectar_gain = minf(nectar_gain, cur_crystal * realm_mult)
+		if nectar_gain > 0.0:
+			cur_crystal -= nectar_gain / realm_mult
+			cur_nectar += nectar_gain
 
 	data["spirit_crystal"] = cur_crystal
 	data["azure_nectar"] = cur_nectar

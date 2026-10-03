@@ -167,7 +167,8 @@ func _run() -> void:
 		session.state.buildings["rebirth_lotus"] = 1
 		_expect(_submit("reincarnate", {"mode": "normal"}), "early reincarnation with rebirth lotus succeeds")
 		_expect(session.state.reincarnation_count == 1 and session.state.era_id == 1, "reincarnation begins the next life")
-		_expect(_build("hut"), "inherited starting lingli can rebuild a hut in the next life")
+		_expect(_amount(session.get_view().resources.lingli.value) == 0, "no automatic reincarnation supply without a talent")
+		_expect(_build("hut"), "free gathering can rebuild a hut after a zero-stock rebirth")
 
 	_finish("")
 

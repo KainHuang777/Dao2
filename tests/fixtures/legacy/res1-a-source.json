@@ -1,0 +1,283 @@
+{
+  "evidence": "Static CSV/source snapshot, not executed DAO1 runtime parity",
+  "sources": [
+    {
+      "path": "src/data/Resources.csv",
+      "sha256": "41b3e762c40eeb813885a08bd078e5c848c70683428e562d826971843edc74de",
+      "records_with_id": 61
+    },
+    {
+      "path": "src/data/buildings.csv",
+      "sha256": "df6b841034c170b66967bb094541ead768a699cd33d5b38bccfb89e6e63b8e5e",
+      "records_with_id": 49
+    },
+    {
+      "path": "src/data/storage.csv",
+      "sha256": "a3d7ad8e07dcef03e235aacd34f49d587606b6e84a85f379a253eeb12ac6f62b",
+      "records_with_id": 10
+    },
+    {
+      "path": "src/data/eras.csv",
+      "sha256": "e71f03abd8755993ff874b5cbd2c9ed7b428423bc455d3c44950eb715deca404",
+      "records_with_id": 12
+    },
+    {
+      "path": "src/data/skills.csv",
+      "sha256": "c45f39dc1aa43661bc4834c32fff5c5a432305d1d2381886a982ba86b082710d",
+      "records_with_id": 35
+    },
+    {
+      "path": "src/utils/ResourceManager.ts",
+      "sha256": "3c135bb596f07b5b9a871eff1145982c9e3ca6dcaaf7881ec34226db9c6b6e63"
+    },
+    {
+      "path": "src/balance/rules/craft.ts",
+      "sha256": "685e74d65a003e8c2a7b3dafff806d2a3afb809bd0aa879a6c9d0dd0bb5c6788"
+    },
+    {
+      "path": "src/balance/rules/recipe.ts",
+      "sha256": "e5f38a70327b4896ff95c914915f999522ad11abbaea0d9860f006fbf592bf0f"
+    },
+    {
+      "path": "src/balance/rules/craft.ts",
+      "sha256": "685e74d65a003e8c2a7b3dafff806d2a3afb809bd0aa879a6c9d0dd0bb5c6788"
+    },
+    {
+      "path": "src/balance/rules/recipe.ts",
+      "sha256": "e5f38a70327b4896ff95c914915f999522ad11abbaea0d9860f006fbf592bf0f"
+    },
+    {
+      "path": "src/utils/ResourceManager.ts",
+      "sha256": "3c135bb596f07b5b9a871eff1145982c9e3ca6dcaaf7881ec34226db9c6b6e63"
+    }
+  ],
+  "resources": [
+    {
+      "id": "lingli",
+      "name": "靈力",
+      "type": "basic",
+      "prereq_era": "",
+      "prereq_skill": "",
+      "recipe": {},
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "money",
+      "name": "金錢",
+      "type": "basic",
+      "prereq_era": "",
+      "prereq_skill": "",
+      "recipe": {},
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "wood",
+      "name": "靈木",
+      "type": "basic",
+      "prereq_era": "",
+      "prereq_skill": "",
+      "recipe": {},
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "spirit_grass_low",
+      "name": "低階靈草",
+      "type": "basic",
+      "prereq_era": "",
+      "prereq_skill": "",
+      "recipe": {},
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "stone_low",
+      "name": "下品靈石",
+      "type": "basic",
+      "prereq_era": "",
+      "prereq_skill": "",
+      "recipe": {},
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "black_copper",
+      "name": "玄銅",
+      "type": "basic",
+      "prereq_era": "",
+      "prereq_skill": "",
+      "recipe": {},
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "bronze_essence",
+      "name": "銅精",
+      "type": "crafted",
+      "prereq_era": "2",
+      "prereq_skill": "",
+      "recipe": {
+        "black_copper": 10,
+        "stone_low": 5
+      },
+      "in_dao2_resource_manifest": false
+    },
+    {
+      "id": "foundation_pill",
+      "name": "💊 築基丹",
+      "type": "crafted",
+      "prereq_era": "1",
+      "prereq_skill": "",
+      "recipe": {
+        "spirit_grass_low": 3,
+        "lingli": 50
+      },
+      "in_dao2_resource_manifest": true
+    },
+    {
+      "id": "spirit_grass_100y",
+      "name": "百年靈草",
+      "type": "advance",
+      "prereq_era": "3",
+      "prereq_skill": "golden_core_formation",
+      "recipe": {},
+      "in_dao2_resource_manifest": false
+    },
+    {
+      "id": "stone_mid",
+      "name": "💎 中品靈石",
+      "type": "crafted",
+      "prereq_era": "3",
+      "prereq_skill": "",
+      "recipe": {
+        "stone_low": 5,
+        "lingli": 10
+      },
+      "in_dao2_resource_manifest": false
+    },
+    {
+      "id": "golden_core_pill",
+      "name": "🔮 金丹",
+      "type": "crafted",
+      "prereq_era": "3",
+      "prereq_skill": "",
+      "recipe": {
+        "foundation_pill": 3,
+        "spirit_grass_100y": 2,
+        "stone_mid": 5
+      },
+      "in_dao2_resource_manifest": false
+    },
+    {
+      "id": "liquid",
+      "name": "🍯 丹液",
+      "type": "crafted",
+      "prereq_era": "2",
+      "prereq_skill": "",
+      "recipe": {
+        "spirit_grass_low": 5,
+        "lingli": 50
+      },
+      "in_dao2_resource_manifest": false
+    },
+    {
+      "id": "talisman",
+      "name": "🏷️ 符咒",
+      "type": "crafted",
+      "prereq_era": "3",
+      "prereq_skill": "",
+      "recipe": {
+        "wood": 10,
+        "stone_low": 5,
+        "lingli": 50
+      },
+      "in_dao2_resource_manifest": false
+    }
+  ],
+  "era_requirements": [
+    {
+      "id": "1",
+      "name": "練氣期",
+      "description": "修仙入門階段，感知天地靈氣",
+      "maxLevel": "10",
+      "resourceMultiplier": "1",
+      "lifespan": "80",
+      "up_level": "10",
+      "up_skills": "",
+      "up_capacity": "lingli_max:500",
+      "lvl_baseTime": "60",
+      "lvl_timeMult": "1.15",
+      "lvl_skills": "",
+      "lvl_res1_type": "lingli",
+      "lvl_res1_amount": "50",
+      "lvl_res2_type": "",
+      "lvl_res2_amount": "",
+      "lvl_res3_type": "",
+      "lvl_res3_amount": "",
+      "lv9_item_type": "",
+      "lv9_item_amount": ""
+    },
+    {
+      "id": "2",
+      "name": "築基期",
+      "description": "築基煉體，為金丹做準備",
+      "maxLevel": "10",
+      "resourceMultiplier": "1.5",
+      "lifespan": "120",
+      "up_level": "10",
+      "up_skills": "",
+      "up_capacity": "lingli_max:2000,stone_low_max:1000",
+      "lvl_baseTime": "120",
+      "lvl_timeMult": "1.18",
+      "lvl_skills": "basic_meditation:5",
+      "lvl_res1_type": "lingli",
+      "lvl_res1_amount": "500",
+      "lvl_res2_type": "money",
+      "lvl_res2_amount": "100",
+      "lvl_res3_type": "stone_low",
+      "lvl_res3_amount": "50",
+      "lv9_item_type": "",
+      "lv9_item_amount": ""
+    },
+    {
+      "id": "3",
+      "name": "金丹期",
+      "description": "凝聚金丹，壽元大增",
+      "maxLevel": "10",
+      "resourceMultiplier": "2",
+      "lifespan": "540",
+      "up_level": "10",
+      "up_skills": "",
+      "up_capacity": "lingli_max:10000,stone_low_max:5000",
+      "lvl_baseTime": "240",
+      "lvl_timeMult": "1.22",
+      "lvl_skills": "foundation_building:5|golden_core_formation:5",
+      "lvl_res1_type": "lingli",
+      "lvl_res1_amount": "2000",
+      "lvl_res2_type": "money",
+      "lvl_res2_amount": "500",
+      "lvl_res3_type": "stone_mid",
+      "lvl_res3_amount": "50",
+      "lv9_item_type": "talisman",
+      "lv9_item_amount": "10"
+    },
+    {
+      "id": "4",
+      "name": "元嬰期",
+      "description": "元嬰出竅，神通初顯",
+      "maxLevel": "10",
+      "resourceMultiplier": "3",
+      "lifespan": "350",
+      "up_level": "10",
+      "up_skills": "",
+      "up_capacity": "lingli_max:50000,stone_low_max:20000,money_max:10000",
+      "lvl_baseTime": "480",
+      "lvl_timeMult": "1.28",
+      "lvl_skills": "nascent_soul_incubation:1",
+      "lvl_res1_type": "lingli",
+      "lvl_res1_amount": "5000",
+      "lvl_res2_type": "golden_core_pill",
+      "lvl_res2_amount": "3",
+      "lvl_res3_type": "stone_mid",
+      "lvl_res3_amount": "200",
+      "lv9_item_type": "cold_iron",
+      "lv9_item_amount": "5"
+    }
+  ]
+}

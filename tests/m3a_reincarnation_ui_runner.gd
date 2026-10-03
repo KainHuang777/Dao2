@@ -37,6 +37,10 @@ func _run() -> void:
 	_expect(row_inher != null, "resource_inheritance talent row must exist")
 	var btn_learn: Button = row_inher.find_child("LearnButton", true, false)
 	_expect(btn_learn != null and btn_learn.disabled, "learn button must be disabled when dao heart is 0")
+	await process_frame
+	await process_frame
+	_expect(row_inher.size.y > 44 and abode.reincarnation_panel._talents_list.size.y > 100, "talent rows must receive a real height inside the outer scroll body")
+	_expect(btn_learn.get_global_rect().intersects(abode.reincarnation_panel._body_scroll.get_global_rect()), "first talent purchase must be visible in the scroll viewport")
 
 	# 3. 道心注入與天賦參悟
 	abode.session.state.dao_heart = AmountCompat.from_number(50.0)
@@ -90,9 +94,9 @@ func _run() -> void:
 	_expect(abode.session.state.buildings.is_empty(), "island buildings must be reset to empty")
 	# 45 (剩餘) + 15 (二階保底) = 60
 	_expect(abode.session.state.dao_heart.to_float() == 60.0, "dao heart must be updated to 60 (45 remaining + 15 floor)")
-	# 第 1 世傳承比例：基礎 40% + 資源傳承天賦 1 階 10% = 50%
+	# 天賦 1 階提供 10%，取消自動補給。
 	var lingli_val: float = abode.session.state.resources["lingli"].value.to_float()
-	_expect(lingli_val == 50.0, "inherited lingli must be 50.0 (50% of cap 100)")
+	_expect(lingli_val == 10.0, "level1 talent grants 10% of cap100, with no automatic supply")
 	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be automatically closed upon rebirth")
 	_expect(not abode.lifespan_banner.visible, "lifespan banner must be hidden after reincarnation")
 

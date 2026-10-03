@@ -79,6 +79,7 @@ func create_panels() -> void:
 	_abode.debug_panel.add_resources_requested.connect(_abode._on_debug_add_resources_requested)
 	_abode.debug_panel.apply_buff_requested.connect(_abode._on_debug_apply_buff_requested)
 	_abode.debug_panel.reset_achievements_requested.connect(_abode._on_debug_reset_achievements_requested)
+	_abode.debug_panel.debug_action_requested.connect(_on_debug_action_requested)
 	_abode.debug_panel.close_requested.connect(_abode._on_debug_closed)
 	_abode.hud.add_child(_abode.debug_panel)
 
@@ -526,6 +527,16 @@ func _on_debug_boost_era_level_requested() -> void:
 
 func _on_debug_add_resources_requested() -> void:
 	_abode._debug_add_resources()
+
+func _on_debug_action_requested(action_id: String, params: Dictionary) -> void:
+	var res: Dictionary = DebugActions.run(action_id, params, _abode.session)
+	if bool(res.get("ok", false)):
+		_abode._save_game()
+		_abode._refresh_hud()
+	var msg := "[DEBUG] %s" % String(res.get("msg", ""))
+	_abode.hint.text = msg
+	if _abode.debug_panel != null:
+		_abode.debug_panel.call("set_status_message", msg)
 
 func _on_debug_apply_buff_requested(buff_id: String) -> void:
 	if _abode.session == null:

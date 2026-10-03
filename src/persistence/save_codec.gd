@@ -1,15 +1,18 @@
 class_name SaveCodec
 extends RefCounted
 
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-5-session-receipts"
+const RULES_VERSION := "core-flow-8-talent-only-inheritance"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
 		return {"ok": false, "json": "", "error": "STATE_MISSING"}
+	var economy_error := IslandEconomy.validate(state)
+	if not economy_error.is_empty():
+		return {"ok": false, "json": "", "error": economy_error}
 	if content_version.is_empty():
 		return {"ok": false, "json": "", "error": "CONTENT_VERSION_EMPTY"}
 	for key in ["save_id", "saved_at_utc_ms", "settled_until_utc_ms", "sim_tick"]:
@@ -46,19 +49,27 @@ static func decode(json_text: String) -> Dictionary:
 	var envelope: Dictionary = parsed
 	if not envelope.has("schema_version") or not _is_int(envelope["schema_version"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_TYPE"}
-	if _to_int(envelope["schema_version"]) != SCHEMA_VERSION:
+	if not _to_int(envelope["schema_version"]) in [2, SCHEMA_VERSION]:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_UNKNOWN"}
 	if not verify_checksum(envelope):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "CHECKSUM"}
 	var type_error := _validate_envelope_types(envelope)
 	if not type_error.is_empty():
 		return {"ok": false, "state": null, "envelope": envelope, "error": type_error}
+	if int(envelope.schema_version) == 2 and envelope.state.get("economy", {}) != {}:
+		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA2_ECONOMY"}
 	var state_result := _state_from_snapshot(envelope["state"])
 	if not bool(state_result["ok"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": String(state_result["error"])}
 	if _to_int(state_result["state"].revision) != _to_int(envelope["revision"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "REVISION_MISMATCH"}
 	return {"ok": true, "state": state_result["state"], "envelope": envelope, "error": ""}
+
+static func migration_preview(json_text: String) -> Dictionary:
+	var decoded := decode(json_text)
+	if not decoded.ok:
+		return decoded
+	return {"ok": true, "source_schema": int(decoded.envelope.schema_version), "target_schema": SCHEMA_VERSION, "original_json": json_text, "state": decoded.state, "home_policy": "resources remains the sole ancestral inventory", "economy_enabled": not decoded.state.economy.is_empty(), "error": ""}
 
 static func compute_checksum(envelope_without_checksum: Dictionary) -> String:
 	var payload := JSON.stringify(_normalize_numbers(envelope_without_checksum), "", true)
@@ -297,7 +308,14 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 			for k in stats_dict:
 				if _is_int(stats_dict[k]):
 					stats_dict[k] = _to_int(stats_dict[k])
-	state.command_receipts = receipts.duplicate(true)
+	if not snapshot_dict.get("economy", {}) is Dictionary:
+		return {"ok": false, "state": null, "error": "ECONOMY_TYPE"}
+	state.economy = snapshot_dict.get("economy", {}).duplicate(true)
+	var economy_error := IslandEconomy.validate(state)
+	if not economy_error.is_empty():
+		return {"ok": false, "state": null, "error": economy_error}
+	state.economy = _normalize_numbers(state.economy)
+	state.command_receipts = _normalize_numbers(receipts)
 	return {"ok": true, "state": state, "error": ""}
 
 

@@ -33,12 +33,13 @@ static func compute_reward(building_sum: int, era_id: int, mode: String = "norma
 		"era_floor": floor_val,
 	}
 
-static func compute_start_amount(cap_val: float, rebirth_count: int, inheritance_bonus: float = 0.0) -> float:
+static func inheritance_ratio(rebirth_count: int, inheritance_bonus: float = 0.0) -> float:
 	if rebirth_count <= 0:
 		return 0.0
-	var base_ratio := 0.4 if rebirth_count == 1 else 0.8
-	var total_ratio := minf(1.0, base_ratio + inheritance_bonus)
-	return floor(cap_val * total_ratio)
+	return clampf(inheritance_bonus, 0.0, 1.0)
+
+static func compute_start_amount(cap_val: float, rebirth_count: int, inheritance_bonus: float = 0.0) -> float:
+	return floor(cap_val * inheritance_ratio(rebirth_count, inheritance_bonus))
 
 static func check_eligibility(state: GameState, content: GameContent) -> Dictionary:
 	var talent_lifespan_bonus := 0.0
@@ -71,6 +72,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	var reward := compute_reward(b_sum, state.era_id, mode)
 	var previous_era := state.era_id
 	var previous_level := state.level
+	var economy_preview := IslandEconomy.reincarnation_preview(state)
+	var had_economy := not state.economy.is_empty()
 
 	# Update meta progress
 	state.reincarnation_count += 1
@@ -80,6 +83,12 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 
 	# Reset current life progress
 	state.abode_scenery = {}
+	state.economy = IslandEconomy.initial() if had_economy else {}
+	# Extra processing IDs are not in the release manifest: clear them as well.
+	for resource_id in state.resources:
+		if not resource_id in content.resource_ids:
+			state.resources[resource_id].value = AmountCompat.zero()
+			state.resources[resource_id].unlocked = false
 	state.era_id = 1
 	state.level = 1
 	state.training_seconds = 0.0
@@ -138,6 +147,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 
 	var event_payload := {
 		"kind": "reincarnated",
+		"economy_preview": economy_preview,
 		"mode": mode,
 		"reincarnation_count": state.reincarnation_count,
 		"highest_era": state.highest_era,

@@ -10,12 +10,17 @@ static var _slots: SaveSlots = null
 static var _current_state: GameState = null
 static var _envelope: Dictionary = {}
 static var _adapter: StorageAdapter = null
+static var _schema2_original: String = ""
+static var _load_error: String = ""
+const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
 
 static func configure(content: GameContent, adapter: StorageAdapter = null) -> void:
 	_content = content
 	var use_adapter: StorageAdapter = adapter
 	if use_adapter == null:
 		use_adapter = FileStorageAdapter.new(DEFAULT_SAVE_DIR)
+	_schema2_original = ""
+	_load_error = ""
 	_adapter = use_adapter
 	_slots = SaveSlots.new(use_adapter)
 	_current_state = null
@@ -41,14 +46,19 @@ static func adapter() -> StorageAdapter:
 static func current_state() -> GameState:
 	if _current_state == null:
 		_current_state = _load_from_slots()
-	if _current_state == null:
+	if _current_state == null and _load_error.is_empty():
 		_current_state = _new_state()
 	return _current_state
+
+static func load_error() -> String:
+	return _load_error
 
 static func load_state() -> Variant:
 	return current_state()
 
 static func save(state: GameState, meta: Dictionary) -> Dictionary:
+	if not _load_error.is_empty():
+		return {"ok": false, "error": "LOAD_NOT_TRUSTED"}
 	if state == null:
 		return {"ok": false, "error": "STATE_MISSING"}
 	var content_obj: GameContent = content()
@@ -57,6 +67,14 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	var encode_result: Dictionary = SaveCodec.encode(state, content_obj.content_version, _normalize_meta(meta))
 	if not bool(encode_result.get("ok", false)):
 		return {"ok": false, "error": String(encode_result.get("error", "ENCODE_FAILED"))}
+	if not _schema2_original.is_empty():
+		if not adapter().exists(SCHEMA2_ARCHIVE_KEY):
+			var archived := adapter().write(SCHEMA2_ARCHIVE_KEY, _schema2_original)
+			if not archived.ok:
+				return {"ok": false, "error": "MIGRATION_ARCHIVE_FAILED"}
+		var verified := adapter().read(SCHEMA2_ARCHIVE_KEY)
+		if not verified.ok or verified.data != _schema2_original:
+			return {"ok": false, "error": "MIGRATION_ARCHIVE_READBACK"}
 	var commit_result: Dictionary = slots().commit(String(encode_result["json"]), state.revision)
 	if bool(commit_result.get("ok", false)):
 		_current_state = state
@@ -155,6 +173,8 @@ static func reset_for_tests() -> void:
 	_current_state = null
 	_envelope = {}
 	_adapter = null
+	_schema2_original = ""
+	_load_error = ""
 
 static func _load_from_slots() -> GameState:
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
@@ -165,11 +185,14 @@ static func _load_from_slots() -> GameState:
 		return decoded_state.revision
 	)
 	if not bool(best.get("ok", false)):
+		_load_error = "" if best.get("error") == "empty_storage" else String(best.get("error", "LOAD_FAILED"))
 		return null
 	var decode_result: Dictionary = SaveCodec.decode(String(best["json"]))
 	if not bool(decode_result.get("ok", false)):
 		return null
 	_envelope = decode_result["envelope"]
+	if int(_envelope.schema_version) == 2:
+		_schema2_original = String(best["json"])
 	return decode_result["state"]
 
 static func _new_state() -> GameState:
@@ -183,7 +206,7 @@ static func _normalize_meta(meta: Dictionary) -> Dictionary:
 	var normalized: Dictionary = {
 		"save_id": String(meta.get("save_id", "local")),
 		"saved_at_utc_ms": String(meta.get("saved_at_utc_ms", "0")),
-		"settled_until_utc_ms": String(meta.get("settled_until_utc_ms", "0")),
+		"settled_until_utc_ms": str(maxi(int(meta.get("settled_until_utc_ms", "0")), last_settled_utc_ms())),
 		"sim_tick": String(meta.get("sim_tick", "0")),
 	}
 	if meta.has("rng_streams") and meta["rng_streams"] is Dictionary:

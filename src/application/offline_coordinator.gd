@@ -9,6 +9,10 @@ static func settle(now_utc_ms: int) -> Dictionary:
 	if content == null:
 		return {"ok": false, "report": {}, "error": "NO_CONTENT", "committed": false, "state": null}
 	var last_settled: int = SaveManager.last_settled_utc_ms()
+	return settle_state(state, content, now_utc_ms, last_settled)
+
+static func settle_state(state: GameState, content: GameContent, now_utc_ms: int, last_settled: int) -> Dictionary:
+	# Also used for live background recovery; the source is unchanged on failure.
 	var working: GameState = state.duplicate_state()
 	var settlement: Dictionary = OfflineSettlement.settle(working, content, now_utc_ms, last_settled)
 	var report: Dictionary = settlement["report"]
@@ -25,5 +29,5 @@ static func settle(now_utc_ms: int) -> Dictionary:
 	}
 	var save_result: Dictionary = SaveManager.save(working, meta)
 	if not bool(save_result.get("ok", false)):
-		return {"ok": false, "report": report, "error": "SAVE_FAILED", "committed": false, "state": state}
+		return {"ok": false, "report": report, "error": "SAVE_FAILED", "detail": save_result.get("error", ""), "committed": false, "state": state}
 	return {"ok": true, "report": report, "error": "", "committed": true, "state": working}

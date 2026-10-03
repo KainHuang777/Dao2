@@ -44,12 +44,17 @@ func read_best(validator: Callable = Callable()) -> Dictionary:
 	var best_json: String = ""
 	var best_slot: String = ""
 	var best_revision: int = -1
+	var best_cursor: int = -1
+	var found_payload := false
 	var slots: Array[String] = [SLOT_MAIN, SLOT_BACKUP]
 	for slot in slots:
 		var read_result: Dictionary = _adapter.read(slot)
 		if not bool(read_result.get("ok", false)):
+			if String(read_result.get("error", "")) != "missing":
+				return {"ok": false, "error": "storage_read_failed", "detail": read_result.get("error", "")}
 			continue
 		var data: String = String(read_result.get("data", ""))
+		found_payload = true
 		if data == "":
 			continue
 		var revision: int = -1
@@ -59,12 +64,18 @@ func read_best(validator: Callable = Callable()) -> Dictionary:
 			revision = _revision_from_json(data)
 		if revision < 0:
 			continue
-		if revision > best_revision or (revision == best_revision and slot == _active_slot):
+		var raw: Variant = JSON.parse_string(data)
+		var cursor := int(raw.get("settled_until_utc_ms", "0")) if raw is Dictionary else 0
+		if revision > best_revision or (revision == best_revision and (cursor > best_cursor or (cursor == best_cursor and slot == _active_slot))):
 			best_revision = revision
 			best_slot = slot
 			best_json = data
+			best_cursor = cursor
 	if best_revision < 0:
-		return {"ok": false, "json": "", "slot": "", "revision": -1, "error": "no_valid_slot"}
+		return {"ok": false, "json": "", "slot": "", "revision": -1, "error": "no_valid_slot" if found_payload else "empty_storage"}
+	# Recovery may select an unindexed slot. Rotate away from that valid slot.
+	_active_slot = best_slot
+	_revision = best_revision
 	return {"ok": true, "json": best_json, "slot": best_slot, "revision": best_revision, "error": ""}
 
 func active_slot() -> String:

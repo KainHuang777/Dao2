@@ -105,7 +105,7 @@ func _run() -> void:
 	check(nav.action_panel.buttons["decision:" + first.id].disabled, "decision cooldown prevents repeat action")
 	nav.home()
 	abode._refresh_hud()
-	check(nav.currencies.text.contains("極品靈晶"), "shared resource area contains realm resources")
+	check(abode.building_catalog.resource_value_labels["realm_crystal"].text.contains("極品靈晶"), "shared resource area contains realm resource cards")
 	abode.queue_free()
 	await process_frame
 	slots.reset()

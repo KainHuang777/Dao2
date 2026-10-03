@@ -43,6 +43,7 @@ var active_filter: String = "all"
 var detail_slot: Control
 var resource_order: Array[String] = []
 var resource_display_mode: int = 1
+var _shared_resources: Dictionary = {}
 var hud_paper_resources: bool = false
 var short_mode: bool = false
 var _last_resources: Dictionary = {}
@@ -136,10 +137,13 @@ func _ready() -> void:
 	box.add_child(detail_slot)
 
 func configure_resources(names: Dictionary, resource_ids: Array) -> void:
-	resource_names = names.duplicate()
-	resource_summary = Label.new()
+	resource_names.merge(names, true)
+	if resource_summary == null:
+		resource_summary = Label.new()
 	for resource_id_value in resource_ids:
 		var resource_id := String(resource_id_value)
+		if resource_buttons.has(resource_id):
+			continue
 		resource_order.append(resource_id)
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(0, 38)
@@ -179,6 +183,15 @@ func configure_resources(names: Dictionary, resource_ids: Array) -> void:
 		resource_buttons[resource_id] = card
 		resource_value_labels[resource_id] = value_label
 		resource_gather_buttons[resource_id] = gather_btn
+
+func refresh_shared_resources(entries: Dictionary, names: Dictionary) -> void:
+	configure_resources(names, entries.keys())
+	for id in _shared_resources:
+		_last_resources.erase(id)
+	_shared_resources = entries.duplicate(true)
+	_last_resources.merge(_shared_resources, true)
+	_update_resource_values()
+	_apply_resource_cards()
 
 func set_context(status: String, objective: String) -> void:
 	status_label.text = status
@@ -334,6 +347,7 @@ func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1)
 		resource_lines.append("%s %.2f/%.0f%s" % [resource_names.get(resource_id, resource_id), current, capacity, rate_text])
 	resource_summary.text = "\n".join(resource_lines) if not resource_lines.is_empty() else "尚無已解鎖資源"
 	_last_resources = resources.duplicate(true)
+	_last_resources.merge(_shared_resources, true)
 	_last_era_id = era_id
 	_update_resource_values()
 	_apply_resource_cards()
@@ -440,11 +454,18 @@ func _update_resource_values() -> void:
 		var current := _parse_amount_float(entry.get("value", "0"))
 		var capacity := _parse_amount_float(entry.get("cap", "0"))
 		var rate := _parse_amount_float(entry.get("rate", "0"))
-		var second_line := "+%.2f/秒" % rate if rate > 0.0 else "待產出"
+		var second_line: String = entry.get("status_text", "+%.2f/秒" % rate if rate > 0.0 else "待產出")
 		var is_full := (capacity > 0.0 and current >= capacity)
 		var r_name: String = resource_names.get(resource_id, resource_id)
 
-		if is_full:
+		if bool(entry.get("uncapped", false)):
+			value_label.text = "%s  %.0f" % [r_name, current]
+			if resource_display_mode == 2:
+				value_label.text += "\n" + second_line
+			card.add_theme_stylebox_override("panel", UiMaterial.hud_resource_row() if hud_paper_resources else _row_style(Color(0.02, 0.08, 0.10, 0.72)))
+			value_label.add_theme_color_override("font_color", UiMaterial.INK)
+			card.tooltip_text = "%s · %s" % [r_name, second_line]
+		elif is_full:
 			card.add_theme_stylebox_override("panel", UiMaterial.hud_resource_row(true) if hud_paper_resources else _resource_full_style())
 			if resource_display_mode == 1:
 				value_label.text = "%s  %.2f [滿]" % [r_name, current]

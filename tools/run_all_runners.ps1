@@ -6,8 +6,12 @@ $runners = @(
     'tests/living_abode_runner.gd',
     'tests/m0c_compat_v3_runner.gd',
     'tests/m1a_core_runner.gd',
+    'tests/res1a_processing_runner.gd',
+    'tests/res1b_economy_runner.gd',
+    'tests/resource_feedback_runner.gd',
     'tests/m1b_time_runner.gd',
     'tests/m1c_persistence_runner.gd',
+    'tests/web_persistence_fault_runner.gd',
     'tests/m1d_offline_runner.gd',
     'tests/m1e_import_runner.gd',
     'tests/m2a_abode_runner.gd',
@@ -41,7 +45,10 @@ $runners = @(
     'tests/abode_scenery_runner.gd',
     'tests/abode_scenery_ui_runner.gd',
     'tests/m3b_achievement_runner.gd',
-    'tests/debug_autobuild_and_time_runner.gd'
+    'tests/debug_autobuild_and_time_runner.gd',
+    'tests/debug_actions_runner.gd',
+    'tests/runtime_inspector_runner.gd',
+    'tests/simulation_sandbox_runner.gd'
 )
 
 

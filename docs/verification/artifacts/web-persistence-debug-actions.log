@@ -1,0 +1,44 @@
+ERROR: Failed to open 'user://logs/godot2026-10-03T22.00.15.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[DEBUG_ACTIONS_RUNNER] Starting DebugActions tests...
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 2 (LV1) | 修煉時長: 12000.0s | 存檔修訂: rev 3
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x2.24 (Era: x2.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.12)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+• money: 存量 0 / 200 (正常) | 秒產: +0/s
+• wood: 存量 0 / 100 (正常) | 秒產: +0/s
+• stone_low: 存量 0 / 100 (正常) | 秒產: +0/s
+• black_copper: 存量 0 / 300 (正常) | 秒產: +0/s
+• spirit_grass_low: 存量 0 / 50 (正常) | 秒產: +0/s
+• foundation_pill: 存量 0 / 200 (正常) | 秒產: +0/s
+======================================================
+
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 2 (LV1) | 修煉時長: 12000.0s | 存檔修訂: rev 3
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x2.24 (Era: x2.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.12)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+• money: 存量 0 / 200 (正常) | 秒產: +0/s
+• wood: 存量 0 / 100 (正常) | 秒產: +0/s
+• stone_low: 存量 0 / 100 (正常) | 秒產: +0/s
+• black_copper: 存量 0 / 300 (正常) | 秒產: +0/s
+• spirit_grass_low: 存量 0 / 50 (正常) | 秒產: +0/s
+• foundation_pill: 存量 0 / 200 (正常) | 秒產: +0/s
+======================================================
+
+[DEBUG_ACTIONS_RUNNER] ALL DEBUG ACTION TESTS PASSED (exit 0)

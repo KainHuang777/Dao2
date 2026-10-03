@@ -8,9 +8,11 @@ signal boost_era_level_requested()
 signal add_resources_requested()
 signal apply_buff_requested(buff_id: String)
 signal reset_achievements_requested()
+signal debug_action_requested(action_id: String, params: Dictionary)
 signal close_requested()
 
 var _background: Panel
+var _scroll: ScrollContainer
 var _column: VBoxContainer
 var _status_label: Label
 var _auto_build_button: Button
@@ -30,9 +32,9 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	if _background != null:
 		_background.size = size
-	if _column != null:
-		_column.position = Vector2(16, 16)
-		_column.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
+	if _scroll != null:
+		_scroll.position = Vector2(16, 16)
+		_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
 
 func _build_ui() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -41,10 +43,16 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
+	_scroll = ScrollContainer.new()
+	_scroll.name = "DebugScroll"
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	add_child(_scroll)
+
 	_column = VBoxContainer.new()
 	_column.name = "DebugColumn"
+	_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_column.add_theme_constant_override("separation", 12)
-	add_child(_column)
+	_scroll.add_child(_column)
 
 	# 標題列
 	var header_row := HBoxContainer.new()
@@ -219,7 +227,74 @@ func _build_ui() -> void:
 	reset_ach_btn.pressed.connect(func(): reset_achievements_requested.emit())
 	ach_buttons.add_child(reset_ach_btn)
 
+	_build_extended_sections()
 	set_layout_bounds(Rect2(position, size))
+
+func _build_extended_sections() -> void:
+	var era_row := _add_section("【境界跳轉（略過條件，層級重置 LV1）】")
+	_add_action(era_row, "境界 -1", "era_step", {"delta": -1}, 110)
+	_add_action(era_row, "境界 +1", "era_step", {"delta": 1}, 110)
+
+	var res_row := _add_section("【資源進階調度】")
+	_add_action(res_row, "全資源 +10 萬", "res_add", {"amount": 100000.0}, 150)
+	_add_action(res_row, "全資源 +1000 萬", "res_add", {"amount": 10000000.0}, 170)
+	_add_action(res_row, "補滿至基礎倉容", "res_fill", {}, 170)
+	_add_action(res_row, "全資源清零", "res_clear", {}, 150)
+
+	var time_row := _add_section("【時間快進（走正式推進，消耗壽元）】")
+	_add_action(time_row, "+10 分鐘", "time_warp", {"seconds": 600.0}, 110)
+	_add_action(time_row, "+1 小時", "time_warp", {"seconds": 3600.0}, 110)
+	_add_action(time_row, "+24 小時", "time_warp", {"seconds": 86400.0}, 110)
+
+	var chrono_row := _add_section("【天時與機緣】")
+	_add_action(chrono_row, "解鎖天時", "chrono_unlock", {}, 110)
+	_add_action(chrono_row, "推進至下一時辰", "chrono_next_shichen", {}, 150)
+	_add_action(chrono_row, "推進至下一天候", "chrono_next_weather", {}, 150)
+	_add_action(chrono_row, "強制觸發機緣", "fortune_trigger", {}, 150)
+
+	var sect_row := _add_section("【宗門（略過 Era 門檻）】")
+	_add_action(sect_row, "加入宗門", "sect_open", {}, 110)
+	_add_action(sect_row, "強制刷新任務", "sect_refresh", {}, 130)
+	_add_action(sect_row, "立即完成派遣", "sect_finish", {}, 130)
+	_add_action(sect_row, "貢獻 +1000", "sect_contribution", {"amount": 1000.0}, 120)
+
+	var beast_row := _add_section("【靈獸（略過 Era 門檻，會取代現有出戰獸）】")
+	_add_action(beast_row, "獲得靈狐", "beast_acquire", {"beast_id": "jade_fox"}, 110)
+	_add_action(beast_row, "獲得玄龜", "beast_acquire", {"beast_id": "iron_turtle"}, 110)
+	_add_action(beast_row, "獲得火鳳", "beast_acquire", {"beast_id": "fire_phoenix"}, 110)
+	_add_action(beast_row, "獲得雲蛟", "beast_acquire", {"beast_id": "cloud_serpent"}, 110)
+	_add_action(beast_row, "直升成熟期", "beast_mature", {}, 120)
+	_add_action(beast_row, "獸魂 +10", "beast_souls", {"amount": 10}, 100)
+	_add_action(beast_row, "清除餵養冷卻", "beast_cooldown", {}, 130)
+
+	var diag_row := _add_section("【運行時診斷與健康自檢】")
+	_add_action(diag_row, "狀態健康檢查", "inspect_health", {}, 140)
+	_add_action(diag_row, "產銷平衡分析", "inspect_prod", {}, 140)
+	_add_action(diag_row, "【沙盒】24h推演預覽", "sim_offline", {"seconds": 86400.0}, 160)
+	_add_action(diag_row, "【極限】30天壓測自檢", "sim_stress", {"seconds": 30 * 86400.0}, 160)
+
+func _add_section(title: String) -> HFlowContainer:
+	_column.add_child(HSeparator.new())
+	var label := Label.new()
+	label.text = title
+	label.add_theme_font_override("font", UiTypography.emphasis_font())
+	label.add_theme_font_size_override("font_size", 16)
+	label.add_theme_color_override("font_color", Color("ffd599"))
+	_column.add_child(label)
+	var row := HFlowContainer.new()
+	row.add_theme_constant_override("h_separation", 8)
+	row.add_theme_constant_override("v_separation", 8)
+	_column.add_child(row)
+	return row
+
+func _add_action(parent: Container, text: String, action_id: String, params: Dictionary, min_width: float) -> void:
+	var btn := Button.new()
+	btn.name = "Action_%s_%d" % [action_id, parent.get_child_count()]
+	btn.text = text
+	btn.custom_minimum_size = Vector2(min_width, 44)
+	btn.add_theme_font_size_override("font_size", 14)
+	btn.pressed.connect(func(): debug_action_requested.emit(action_id, params))
+	parent.add_child(btn)
 
 func _on_toggle_auto_build() -> void:
 	auto_build_enabled = not auto_build_enabled

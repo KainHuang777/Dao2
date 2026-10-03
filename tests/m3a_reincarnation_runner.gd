@@ -10,7 +10,7 @@ func _init() -> void:
 	success = _test_persistence_roundtrip() and success
 
 	if success:
-		print("PASS: M3-A reincarnation lifecycle, golden fixture parity, talents, reset/preserve contracts, and persistence.")
+		print("PASS: M3-A lifecycle, reward golden parity, v2 talent-only inheritance, reset/preserve and persistence.")
 		quit(0)
 	else:
 		printerr("FAIL: M3-A reincarnation verification failed.")
@@ -61,12 +61,17 @@ func _test_golden_fixture_parity() -> bool:
 	ok = _expect_equal(int((floor_reward["dao_heart"] as AmountCompat).to_float()), int(reinc_fixture["era_floor"]["daoHeart"]), "Golden parity: era floor daoHeart") and ok
 	ok = _expect_equal(int(floor_reward["dao_proof"]), int(reinc_fixture["era_floor"]["daoProof"]), "Golden parity: era floor daoProof") and ok
 
-	# 4. start inheritance amounts for cap 999 across rebirth counts [0, 1, 2, 20]
+	# Keep the legacy golden fixture intact, explicitly record the v2 deviation.
 	var expected_starts: Array = reinc_fixture["start"]
 	var counts := [0, 1, 2, 20]
+	var legacy_starts := [0, 399, 799, 799]
 	for i in range(counts.size()):
+		ok = _expect_equal(int(expected_starts[i]), legacy_starts[i], "legacy automatic-supply baseline retained") and ok
 		var actual_start := ReincarnationRules.compute_start_amount(999.0, counts[i], 0.0)
-		ok = _expect_equal(int(actual_start), int(expected_starts[i]), "Golden parity: start resource for count %d" % counts[i]) and ok
+		ok = _expect_equal(int(actual_start), 0, "v2 no automatic supply for count %d" % counts[i]) and ok
+	for rank in [1, 2, 20]:
+		for level in range(11):
+			ok = _expect_equal(int(ReincarnationRules.compute_start_amount(100.0, rank, float(level) * 0.1)), level * 10, "all ten talent levels remain effective across rebirth counts") and ok
 
 	return ok
 
@@ -151,10 +156,15 @@ func _test_reincarnation_execution_and_reset() -> bool:
 	ok = _expect_equal(s.total_elapsed_seconds, 0.0, "Total elapsed seconds should reset to 0") and ok
 	ok = _expect(s.buildings.is_empty(), "Buildings should be completely cleared") and ok
 
-	# Verify start resource inheritance (40% of base cap 100 for unlocked basic resource)
+	# No talent: no automatic supply. Buying a talent only affects the next rebirth.
 	var lingli_amount: AmountCompat = s.resources["lingli"].value
 	var lingli_val: float = lingli_amount.to_float()
-	ok = _expect(lingli_val >= 40.0, "First reincarnation should grant 40% initial resource inheritance") and ok
+	ok = _expect_equal(lingli_val, 0.0, "no talent grants no initial resource") and ok
+	ok = _expect(session.learn_talent("resource_inheritance").ok, "earned dao heart buys inheritance") and ok
+	ok = _expect_equal(s.resources.lingli.value.to_float(), 0.0, "talent purchase does not instantly grant current-life stock") and ok
+	s.buildings.rebirth_lotus = 1
+	ok = _expect(session.reincarnate("normal").ok, "second rebirth with level1 talent succeeds") and ok
+	ok = _expect_equal(s.resources.lingli.value.to_float(), 10.0, "level1 grants exactly 10% on next rebirth") and ok
 
 	return ok
 

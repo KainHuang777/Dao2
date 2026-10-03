@@ -7,6 +7,10 @@ const ZERO_SNAP := 0.000000001
 
 static func apply(content: GameContent, state: GameState, command: Dictionary) -> Dictionary:
 	match String(command.type):
+		"migrate_processing", "open_island", "configure_route", "stop_processing", "switch_processing":
+			return IslandEconomy.command(content, state, command.type, command.payload)
+		"craft":
+			return ProcessingSystem.craft(content, state, command.payload)
 		"claim_abode_scenery":
 			return AbodeScenery.claim(content, state, String(command.payload.get("find_id", "")))
 		"gather":
@@ -201,6 +205,9 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 			})
 	var from_era := state.era_id
 	state.era_id += 1
+	if not state.economy.is_empty():
+		for id in content.processing_catalog.resources:
+			state.resources[id].unlocked = int(content.processing_catalog.resources[id].era) <= state.era_id
 	state.level = 1
 	state.training_seconds = 0.0
 	BuffSystem.apply_buff(state, "breakthrough_resonance", 120.0)
@@ -224,6 +231,8 @@ static func _apply_refine_pill(_content: GameContent, state: GameState, payload:
 	var pill_id: String = String(payload.get("pill_id", ""))
 	if pill_id.is_empty():
 		return _failure("EMPTY_PILL_ID", {})
+	if not state.economy.is_empty() and pill_id == "foundation_pill":
+		return IslandEconomy.command(_content, state, "craft", {"recipe_id": pill_id, "count": payload.get("count", 1)})
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.refine(state, pill_id, count)
 	if not bool(result.get("ok", false)):
@@ -234,8 +243,19 @@ static func _apply_consume_pill(_content: GameContent, state: GameState, payload
 	var pill_id: String = String(payload.get("pill_id", ""))
 	if pill_id.is_empty():
 		return _failure("EMPTY_PILL_ID", {})
+	var canonical_before := 0.0
+	if not state.economy.is_empty() and pill_id == "foundation_pill":
+		if not IslandEconomy._integer(payload.get("count", 1), 1, 1000000):
+			return _failure("INVALID_COUNT", {})
+		var slot := ProcessingInventory.read(state, pill_id)
+		if not slot.ok:
+			return _failure(slot.error, {})
+		canonical_before = slot.value.to_float()
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.consume(state, pill_id, count)
+	if result.get("ok", false) and not state.economy.is_empty() and pill_id == "foundation_pill":
+		# Preserve migrated stock above legacy's clamp; mirror one authoritative delta.
+		ProcessingInventory.write(state, pill_id, AmountCompat.from_number(canonical_before - count))
 	if not bool(result.get("ok", false)):
 		return _failure(String(result.get("error", "CONSUME_FAILED")), result.get("details", {}))
 	return result

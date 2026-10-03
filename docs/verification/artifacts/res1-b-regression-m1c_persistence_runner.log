@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] import_share_string (res://src/persistence/save_manager.gd:154)
+       [1] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:190)
+       [2] _init (res://tests/m1c_persistence_runner.gd:21)
+PASS: M1-C save codec, two-slot persistence, checksum, export/import.

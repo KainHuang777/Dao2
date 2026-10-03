@@ -1,0 +1,287 @@
+{
+  "version": "res1-a-1",
+  "release_enabled": false,
+  "resources": {
+    "lingli": {
+      "name": "靈力",
+      "era": 1,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "existing ancestral production",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "money": {
+      "name": "金錢",
+      "era": 1,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "existing ancestral production",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "wood": {
+      "name": "靈木",
+      "era": 1,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "existing ancestral production",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "spirit_grass_low": {
+      "name": "低階靈草",
+      "era": 1,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "existing ancestral production",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "stone_low": {
+      "name": "下品靈石",
+      "era": 1,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "existing ancestral production",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "black_copper": {
+      "name": "玄銅",
+      "era": 1,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "existing ancestral production",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "bronze_essence": {
+      "name": "銅精",
+      "era": 2,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:bronze_essence",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "foundation_pill": {
+      "name": "💊 築基丹",
+      "era": 1,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:foundation_pill",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "spirit_grass_100y": {
+      "name": "百年靈草",
+      "era": 3,
+      "tier": 1,
+      "cap": "1000000",
+      "source": "RES1-D herb island cultivation; not live in A",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": "golden_core_formation"
+    },
+    "stone_mid": {
+      "name": "💎 中品靈石",
+      "era": 3,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:stone_mid",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "golden_core_pill": {
+      "name": "🔮 金丹",
+      "era": 3,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:golden_core_pill",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "liquid": {
+      "name": "🍯 丹液",
+      "era": 2,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:liquid",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "talisman": {
+      "name": "🏷️ 符咒",
+      "era": 3,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:talisman",
+      "sinks": [
+        "recipe inputs or cultivation; see RES1-A dependency contract"
+      ],
+      "legacy_skill": ""
+    },
+    "spirit_timber": {
+      "name": "靈材",
+      "era": 2,
+      "tier": 2,
+      "cap": "1000000",
+      "source": "recipe:spirit_timber",
+      "sinks": [
+        "formation_core",
+        "RES1-C storage/dock upgrade"
+      ]
+    },
+    "formation_core": {
+      "name": "靈紋陣芯",
+      "era": 3,
+      "tier": 3,
+      "cap": "1000000",
+      "source": "recipe:formation_core",
+      "sinks": [
+        "RES1-D cultivation/industry upgrades"
+      ]
+    }
+  },
+  "recipes": {
+    "bronze_essence": {
+      "version": 1,
+      "era": 2,
+      "inputs": {
+        "black_copper": "10",
+        "stone_low": "5"
+      },
+      "output": "1",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {},
+      "policy": "legacy_ratio_v2_deterministic"
+    },
+    "foundation_pill": {
+      "version": 1,
+      "era": 1,
+      "inputs": {
+        "spirit_grass_low": "50",
+        "black_copper": "20",
+        "lingli": "200"
+      },
+      "output": "1",
+      "facility": {
+        "herb_farm": 3
+      },
+      "skills": {},
+      "policy": "v2_existing_alchemy_cost_and_effect"
+    },
+    "stone_mid": {
+      "version": 1,
+      "era": 3,
+      "inputs": {
+        "stone_low": "5",
+        "lingli": "10"
+      },
+      "output": "1",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {},
+      "policy": "legacy_ratio_v2_deterministic"
+    },
+    "golden_core_pill": {
+      "version": 1,
+      "era": 3,
+      "inputs": {
+        "foundation_pill": "3",
+        "spirit_grass_100y": "2",
+        "stone_mid": "5"
+      },
+      "output": "1",
+      "facility": {
+        "herb_farm": 3
+      },
+      "skills": {},
+      "policy": "legacy_ratio_v2_deterministic"
+    },
+    "liquid": {
+      "version": 1,
+      "era": 2,
+      "inputs": {
+        "spirit_grass_low": "5",
+        "lingli": "50"
+      },
+      "output": "1",
+      "facility": {
+        "herb_farm": 3
+      },
+      "skills": {},
+      "policy": "legacy_ratio_v2_deterministic"
+    },
+    "talisman": {
+      "version": 1,
+      "era": 3,
+      "inputs": {
+        "wood": "10",
+        "stone_low": "5",
+        "lingli": "50"
+      },
+      "output": "1",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {},
+      "policy": "legacy_ratio_v2_deterministic"
+    },
+    "spirit_timber": {
+      "version": 1,
+      "era": 2,
+      "inputs": {
+        "wood": "10",
+        "stone_low": "5"
+      },
+      "output": "1",
+      "facility": {
+        "hut": 2
+      },
+      "skills": {},
+      "policy": "v2_new"
+    },
+    "formation_core": {
+      "version": 1,
+      "era": 3,
+      "inputs": {
+        "spirit_timber": "2",
+        "bronze_essence": "2"
+      },
+      "output": "1",
+      "facility": {
+        "hut": 2
+      },
+      "skills": {},
+      "policy": "v2_new"
+    }
+  }
+}

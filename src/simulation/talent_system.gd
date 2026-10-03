@@ -8,7 +8,7 @@ const TALENTS := {
 		"max_level": 10,
 		"base_cost": 5,
 		"cost_factor": 2.0,
-		"description": "每級使新一世起手基礎資源傳承比例提升 10%",
+		"description": "每級使轉世開局已解鎖的基礎資源獲得新庫容 10%；下次轉世生效",
 	},
 	"lifespan_extension": {
 		"id": "lifespan_extension",
