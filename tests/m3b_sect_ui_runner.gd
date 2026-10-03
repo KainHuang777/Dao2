@@ -59,6 +59,10 @@ func test_sect_panel_lifecycle() -> void:
 	
 	panel._switch_tab(SectPanel.TabMode.EXPEDITIONS)
 	assert(panel._current_tab == SectPanel.TabMode.EXPEDITIONS, "Should switch back to expeditions tab")
+	panel.update_view(state)
+	var stable_card := panel._tab_content_container.get_child(0)
+	panel.update_view(state)
+	assert(panel._tab_content_container.get_child(0) == stable_card, "unchanged HUD updates preserve input targets")
 	assert(_has_ui_icon(panel._tab_content_container, UI_ICON_SCRIPT.Kind.SCROLL), "Expedition list heading uses a Godot-drawn scroll icon")
 	
 	# Start expedition via signal

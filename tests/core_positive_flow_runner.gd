@@ -108,8 +108,8 @@ func _run() -> void:
 	abode.session = session
 	abode.state = abode.AbodeStateCompat.new(session)
 	abode._refresh_hud()
-	_expect(abode.realm_label.text.contains("境界：練氣期") and abode.realm_label.text.contains("1/10 層"), "HUD prominently shows the current cultivation era and level")
-	_expect(abode.realm_progress_label.text.contains("修煉") and abode.realm_progress_label.text.contains("壽元"), "HUD separates training and lifespan from the era heading")
+	_expect(abode.realm_label.text.contains("練氣期") and abode._hud_controller._rank_label.text.contains("1/10 層"), "HUD prominently shows the current cultivation era and level")
+	_expect(abode.realm_progress_label.text.contains("修煉") and abode._hud_controller._lifespan_text.text.contains("壽元"), "HUD separates training and lifespan into their own rows")
 	abode._toggle_building_catalog()
 	abode._select_building_from_catalog("storage_lingli")
 	_expect(abode.upgrade_button.disabled and abode.upgrade_button.text.contains("靈植場"), "building detail explains missing prerequisite")

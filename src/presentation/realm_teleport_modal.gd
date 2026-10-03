@@ -137,7 +137,21 @@ func refresh(view: Dictionary) -> void:
 		_res_summary_label.text = "解鎖後，靈晶與靈液會列入共用資源清單。"
 
 	# 渲染三大據點
-	_rebuild_outposts(realm_data.get("outposts", []))
+	var outposts: Array = realm_data.get("outposts", [])
+	var signature := JSON.stringify(outposts)
+	if signature != _outpost_signature and not _has_pressed_button(_outpost_cards_box):
+		_outpost_signature = signature
+		_rebuild_outposts(outposts)
+
+var _outpost_signature := ""
+
+func _has_pressed_button(node: Node) -> bool:
+	if node is Button and node.is_pressed():
+		return true
+	for child in node.get_children():
+		if _has_pressed_button(child):
+			return true
+	return false
 
 func _on_teleport_pressed(target: String) -> void:
 	switch_realm_requested.emit(target)

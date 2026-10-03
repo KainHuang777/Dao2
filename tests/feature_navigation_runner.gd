@@ -24,6 +24,8 @@ func _run() -> void:
 	var before: Dictionary = abode.session.state.to_snapshot_dict()
 	for viewport in [Vector2(1280, 720), Vector2(844, 390), Vector2(640, 360)]:
 		abode._layout_for_size(viewport)
+		for button in [abode.island_mode_button, abode.building_catalog_button, abode.reincarnation_button, abode.overview_button]:
+			check(button.get_theme_font_size("font_size") == 18, "all four main entries use the same font size")
 		for route in ["buildings", "outposts", "alchemy", "beasts", "reincarnation", "realms", "sect", "fortune", "decisions"]:
 			nav.open(route)
 			abode._layout_for_size(viewport)
@@ -42,6 +44,30 @@ func _run() -> void:
 		nav.home()
 		check(not nav.bar.visible and abode.header.visible, "home restores cultivation HUD")
 	check(not abode.more_menu.visible and abode.more_menu.get_popup().item_count == 0, "no duplicate More feature list")
+	abode._layout_for_size(Vector2(1280, 720))
+	nav.open("buildings")
+	await process_frame
+	check(abode.hint_panel.visible, "desktop building rail preserves open system messages")
+	check(not abode.hint_panel.get_global_rect().intersects(abode.building_catalog.get_global_rect()), "desktop messages do not overlap the building rail")
+	abode._toggle_guidance()
+	abode._refresh_hud()
+	abode._layout_for_size(Vector2(1280, 720))
+	check(not abode.hint_panel.visible, "building rail preserves user's closed-message choice")
+	abode._toggle_guidance()
+	check(abode.hint_panel.visible, "messages can reopen while the building rail stays open")
+	abode._layout_for_size(Vector2(844, 390))
+	abode._hud_controller.show_messages()
+	check(abode.hint_panel.visible and abode.building_catalog.visible, "explicit short-landscape messages are not forcibly hidden by navigation")
+	nav.home()
+	abode._layout_for_size(Vector2(1280, 720))
+	check(abode.hint_panel.visible and is_equal_approx(abode.hint_panel.get_global_rect().get_center().x, 640.0), "return home restores viewport-centered messages")
+	for ready in [false, true]:
+		for pending in [false, true]:
+			nav.refresh({"reincarnation_preview": {"eligible": ready}, "fortune": {"has_pending": pending}})
+			check(abode.reincarnation_button.text == ("修行・輪迴" if ready else "修行"), "cultivation reminder identifies optional reincarnation")
+			check(abode.overview_button.text == ("遊歷・機緣" if pending else "遊歷"), "journey reminder identifies pending fortune")
+			check(abode.reincarnation_button.tooltip_text.contains("輪迴") and abode.overview_button.tooltip_text.contains("機緣"), "reminders explain their distinct destinations")
+	abode._refresh_hud()
 	check(abode.orientation_prompt.z_index > abode.toolbar.z_index and abode.orientation_prompt.z_index > nav.bar.z_index, "rotation guidance covers navigation visually")
 	check(nav.owner("outposts") == "management" and nav.owner("reincarnation") == "cultivation", "management and cultivation have distinct homes")
 	abode.camera.input_locked = true

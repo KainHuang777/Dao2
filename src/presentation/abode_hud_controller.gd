@@ -7,6 +7,14 @@ var _abode: Node
 var _has_guidance: bool = true
 var _messages_open: bool = true
 var _messages_explicit: bool = false
+var _rank_label: Label
+var _lifespan_text: Label
+var _training_bar: ProgressBar
+var _status_row: HBoxContainer
+var _status_scroll: ScrollContainer
+var _status_more: Button
+var _weather_row: HBoxContainer
+var _compact_metrics := false
 
 func _init(abode: Node) -> void:
 	_abode = abode
@@ -24,6 +32,22 @@ func _configure_more_menu() -> void:
 	# Legacy facade retained for older callers; no visible gameplay menu.
 	popup.id_pressed.connect(_abode._on_more_menu_pressed)
 	_abode.toolbar.add_child(_abode.more_menu)
+
+func _status_line(text: String, kind: UiIcon.Kind) -> Label:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	var icon := UiIcon.new()
+	icon.kind = kind
+	icon.icon_size = 18
+	icon.tint = Color("6b705e")
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(icon)
+	var label: Label = _abode._label(text, 16, UiMaterial.INK, 0)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	row.add_child(label)
+	_abode.header_box.add_child(row)
+	return label
 
 func _configure_settings_menu() -> void:
 	_abode.settings_menu = MenuButton.new()
@@ -84,12 +108,44 @@ func _build_hud() -> void:
 	_abode.title_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	_abode.header_box.add_child(_abode.title_label)
 
-	_abode.realm_label = _abode._label("境界：練氣期 · 1/10 層", 20, Color("fce2a6"), 1)
-	_abode.header_box.add_child(_abode.realm_label)
-	_abode.realm_progress_label = _abode._label("修煉 0/60 秒 · 壽元 80/80 祀", 16, Color("d9e4d0"), 1)
-	_abode.header_box.add_child(_abode.realm_progress_label)
-	_abode.chrono_label = _abode._label("天時：坎水運 · 子時", 16, Color("80deea"), 1)
-	_abode.header_box.add_child(_abode.chrono_label)
+	var identity := HBoxContainer.new()
+	identity.add_theme_constant_override("separation", 12)
+	_abode.header_box.add_child(identity)
+	var seal := PanelContainer.new()
+	seal.custom_minimum_size = Vector2(52, 52)
+	var seal_style := UiMaterial.rounded(Color("405e56"), 26)
+	seal_style.border_color = Color("a99768")
+	seal_style.set_border_width_all(2)
+	seal.add_theme_stylebox_override("panel", seal_style)
+	var seal_text := Label.new()
+	seal_text.text = "道"
+	seal_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	seal_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	seal_text.add_theme_font_override("font", UiTypography.chapter_font())
+	seal_text.add_theme_font_size_override("font_size", 28)
+	seal_text.add_theme_color_override("font_color", UiMaterial.LIGHT_TEXT)
+	seal.add_child(seal_text)
+	identity.add_child(seal)
+	var identity_text := VBoxContainer.new()
+	identity_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	identity_text.add_theme_constant_override("separation", 2)
+	identity.add_child(identity_text)
+	_abode.realm_label = _abode._label("練氣期", 22, UiMaterial.INK, 0)
+	identity_text.add_child(_abode.realm_label)
+	_rank_label = _abode._label("1/10 層 · 修煉中", 16, UiMaterial.INK, 0)
+	identity_text.add_child(_rank_label)
+	_training_bar = ProgressBar.new()
+	_training_bar.name = "CultivationProgress"
+	_training_bar.show_percentage = false
+	_training_bar.custom_minimum_size.y = 6
+	_training_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_training_bar.add_theme_stylebox_override("background", UiMaterial.rounded(Color("b8b7a5"), 3))
+	_training_bar.add_theme_stylebox_override("fill", UiMaterial.rounded(Color("537b66"), 3))
+	_abode.header_box.add_child(_training_bar)
+	_abode.realm_progress_label = _status_line("修煉 0 / 60 秒", UiIcon.Kind.LOTUS)
+	_lifespan_text = _status_line("壽元 80 / 80 祀", UiIcon.Kind.HOURGLASS)
+	_abode.chrono_label = _status_line("天時 坎水運 · 子時", UiIcon.Kind.SPARKLE)
+	_weather_row = _abode.chrono_label.get_parent()
 	for text_label in [_abode.crumb, _abode.title_label, _abode.realm_label, _abode.realm_progress_label, _abode.chrono_label]:
 		text_label.add_theme_constant_override("outline_size", 0)
 		text_label.add_theme_color_override("font_color", Color("393e35"))
@@ -112,19 +168,43 @@ func _build_hud() -> void:
 	realm_action_box.add_child(_abode.breakthrough_button)
 
 	var buff_bar_script = preload("res://src/presentation/buff_hud_bar.gd")
+	_status_row = HBoxContainer.new()
+	_status_row.add_theme_constant_override("separation", 6)
+	_abode.header_box.add_child(_status_row)
+	_status_scroll = ScrollContainer.new()
+	_status_scroll.custom_minimum_size.y = 44
+	_status_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_status_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_status_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_status_row.add_child(_status_scroll)
 	_abode.buff_hud_bar = buff_bar_script.new()
-	_abode.header_box.add_child(_abode.buff_hud_bar)
+	_abode.buff_hud_bar.route_requested.connect(func(route: String): _abode.feature_navigation.open(route))
+	_status_scroll.add_child(_abode.buff_hud_bar)
+	_status_scroll.resized.connect(func(): _abode.buff_hud_bar.fit_width(_status_scroll.size.x))
+	_status_more = Button.new()
+	_status_more.custom_minimum_size = Vector2(44, 44)
+	_status_more.add_theme_font_size_override("font_size", 16)
+	UiMaterial.apply_button(_status_more)
+	_status_more.pressed.connect(_abode.buff_hud_bar.next_page)
+	_status_row.add_child(_status_more)
+	_abode.buff_hud_bar.page_changed.connect(func():
+		var hidden: int = _abode.buff_hud_bar.hidden_count()
+		_status_more.visible = hidden > 0
+		_status_more.text = "+%d" % hidden
+		_status_more.tooltip_text = "另有 %d 項狀態，點擊換頁；停留圖示查看詳情。" % hidden
+	)
 
 	_abode.lifespan_banner = PanelContainer.new()
 	_abode.lifespan_banner.name = "LifespanBanner"
-	var banner_style := UiMaterial.card("warning")
-	banner_style.content_margin_left = 10
-	banner_style.content_margin_right = 10
-	banner_style.content_margin_top = 8
-	banner_style.content_margin_bottom = 8
+	var banner_style := StyleBoxEmpty.new()
+	banner_style.content_margin_left = 0
+	banner_style.content_margin_right = 0
+	banner_style.content_margin_top = 0
+	banner_style.content_margin_bottom = 0
 	_abode.lifespan_banner.add_theme_stylebox_override("panel", banner_style)
 	_abode.lifespan_banner.visible = false
-	_abode.header_box.add_child(_abode.lifespan_banner)
+	_status_row.add_child(_abode.lifespan_banner)
+	_status_row.move_child(_abode.lifespan_banner, 0)
 
 	var banner_vbox := VBoxContainer.new()
 	banner_vbox.add_theme_constant_override("separation", 6)
@@ -136,16 +216,18 @@ func _build_hud() -> void:
 	_abode.lifespan_banner_label.add_theme_font_size_override("font_size", 13)
 	_abode.lifespan_banner_label.add_theme_color_override("font_color", Color("ffd180"))
 	_abode.lifespan_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_abode.lifespan_banner_label.visible = false
 	banner_vbox.add_child(_abode.lifespan_banner_label)
 
 	_abode.lifespan_banner_button = Button.new()
-	_abode.lifespan_banner_button.text = "輪迴證道"
+	_abode.lifespan_banner_button.text = "輪迴"
+	_abode.lifespan_banner_button.tooltip_text = "壽元已盡，生息暫停。前往輪迴天賦查看轉世條件與獎勵。"
 	_abode.lifespan_banner_button.icon = load("res://assets/ui/icons/lotus.svg")
-	_abode.lifespan_banner_button.custom_minimum_size = Vector2(120, 38)
+	_abode.lifespan_banner_button.custom_minimum_size = Vector2(88, 44)
 	_abode.lifespan_banner_button.add_theme_font_override("font", UiTypography.emphasis_font())
-	_abode.lifespan_banner_button.add_theme_font_size_override("font_size", 15)
-	var banner_btn_style := UiMaterial.card("warning")
-	_abode.lifespan_banner_button.add_theme_stylebox_override("normal", banner_btn_style)
+	_abode.lifespan_banner_button.add_theme_font_size_override("font_size", 16)
+	UiMaterial.apply_button(_abode.lifespan_banner_button)
+	_abode.lifespan_banner_button.add_theme_color_override("icon_normal_color", Color("74613d"))
 	_abode.lifespan_banner_button.pressed.connect(_abode._toggle_reincarnation_panel)
 	banner_vbox.add_child(_abode.lifespan_banner_button)
 
@@ -468,6 +550,12 @@ func _layout_for_size(vp: Vector2) -> void:
 
 func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
+	_compact_metrics = short_compact and not portrait
+	_abode.realm_progress_label.get_parent().visible = not _compact_metrics
+	var weather_parent: Node = _lifespan_text.get_parent() if _compact_metrics else _weather_row
+	if _abode.chrono_label.get_parent() != weather_parent:
+		_abode.chrono_label.reparent(weather_parent, false)
+	_weather_row.visible = not _compact_metrics and not portrait
 	_abode.crumb.visible = false
 	_abode.title_label.visible = false
 	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)
@@ -481,9 +569,7 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_abode.header_box.custom_minimum_size = Vector2.ZERO
 	_abode.resource_label.add_theme_font_size_override("font_size", 16)
 	_abode.toolbar.add_theme_constant_override("separation", 4 if portrait else 8)
-	_abode.island_mode_button.custom_minimum_size = Vector2(72 if portrait else 96, 56)
-	_abode.building_catalog_button.custom_minimum_size = Vector2(72 if portrait else 96, 56)
-	_abode.overview_button.custom_minimum_size = Vector2(80 if portrait else 116, 56)
+	# FeatureNavigation owns the four main entry sizes and visibility.
 	_abode.more_menu.custom_minimum_size = Vector2(80 if portrait else 116, 56)
 	_abode.building_catalog_button.text = "營造"
 	_abode.island_mode_button.text = "空島"
@@ -494,12 +580,12 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_abode.island_mode_button.add_theme_font_size_override("font_size", 18)
 	_abode.overview_button.add_theme_font_size_override("font_size", 18)
 	_abode.more_menu.add_theme_font_size_override("font_size", 18)
-	_abode.reincarnation_button.custom_minimum_size.x = 104 if portrait else 132
-	_abode.reincarnation_button.add_theme_font_size_override("font_size", 18 if portrait else 22)
-	_abode.realm_label.add_theme_font_size_override("font_size", 20 if not compact else 18)
+	_abode.reincarnation_button.add_theme_font_size_override("font_size", 18)
+	_abode.realm_label.add_theme_font_size_override("font_size", 22)
 	_abode.realm_progress_label.add_theme_font_size_override("font_size", 16)
+	_training_bar.visible = not portrait
 	if "chrono_label" in _abode and _abode.chrono_label != null:
-		_abode.chrono_label.add_theme_font_size_override("font_size", 15 if not compact else 13)
+		_abode.chrono_label.add_theme_font_size_override("font_size", 16)
 	_abode.detail_title.add_theme_font_size_override("font_size", 22)
 	_abode.detail_body.add_theme_font_size_override("font_size", 16)
 	_abode.more_menu.visible = true
@@ -508,7 +594,6 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_abode.motion_button.visible = false
 	_abode.save_button.visible = false
 	_abode.nine_realms_button.visible = false
-	_abode.reincarnation_button.visible = false
 	_abode.alchemy_button.visible = false
 	if _abode.sect_button != null:
 		_abode.sect_button.visible = false
@@ -517,7 +602,7 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 
 func _reflow_header() -> void:
 	var base_height: float = 88.0 if _abode.layout_mode == _abode.HudLayout.WIDE else 80.0
-	var needed: float = maxf(_abode.header.get_combined_minimum_size().y, _abode.header_box.get_combined_minimum_size().y + 28.0)
+	var needed: float = maxf(_abode.header.get_combined_minimum_size().y, _abode.header_box.get_combined_minimum_size().y + 20.0)
 	_abode.header.size.y = maxf(base_height, needed)
 	_abode.viewbar.position = Vector2(_abode.header.position.x, _abode.header.position.y + _abode.header.size.y + 8.0)
 	_abode.viewbar.visible = false
@@ -596,6 +681,9 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		var hint_width: float = minf(540.0, right_limit - left_limit)
 		var hint_h: float = minf(300.0 if _abode._hint_expanded else 220.0, vp.y * 0.48)
 		var hint_x: float = left_limit + (right_limit - left_limit - hint_width) * 0.5
+		if not management:
+			# Home messages align with the viewport; compact HUDs still need clearance.
+			hint_x = maxf(left_limit, (vp.x - hint_width) * 0.5)
 		var bottom_anchor: float = (_abode.action_bar.position.y if _abode.action_bar.visible else _abode.toolbar.position.y)
 		var hint_y: float = bottom_anchor - hint_h - 6.0
 		_abode.hint_panel.size = Vector2(hint_width, hint_h)
@@ -631,31 +719,14 @@ func _refresh_hud() -> void:
 	var can_bt: bool = bool(view.get("can_breakthrough", false))
 	var is_max_lvl: bool = cur_level >= int(era_info.get("max_level", 10))
 
-	var is_wide_screen: bool = _abode.layout_mode == _abode.HudLayout.WIDE and _abode.header.size.x >= 350.0
-	var badge_sep: String = "\u00A0" if is_wide_screen else "\n"
-
-	if can_bt:
-		_abode.realm_label.text = "境界：%s · %d/%d 層%s【★\u00A0可突破】" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
-		_abode.realm_label.add_theme_color_override("font_color", Color("805321"))
-		_abode.realm_progress_label.text = "修煉大圓滿 · 靈氣飽和可破境 · 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("805321"))
-	elif is_max_lvl:
-		_abode.realm_label.text = "境界：%s · %d/%d 層%s（圓滿）" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
-		_abode.realm_label.add_theme_color_override("font_color", Color("343d34"))
-		_abode.realm_progress_label.text = "修煉圓滿（需擴充靈氣容量以突破）· 壽元 %.0f/%.0f 祀" % [remain_life / 60.0, max_life / 60.0]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("555a4c"))
-	elif can_lvl:
-		_abode.realm_label.text = "境界：%s · %d/%d 層%s【★\u00A0可晉階】" % [era_name, cur_level, int(era_info.get("max_level", 10)), badge_sep]
-		_abode.realm_label.add_theme_color_override("font_color", Color("285c45"))
-		_abode.realm_progress_label.text = "修煉滿階 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [train_sec, req_sec, remain_life / 60.0, max_life / 60.0]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("285c45"))
-	else:
-		_abode.realm_label.text = "境界：%s · %d/%d 層" % [era_name, cur_level, int(era_info.get("max_level", 10))]
-		_abode.realm_label.add_theme_color_override("font_color", Color("343d34"))
-		_abode.realm_progress_label.text = "修煉 %.0f/%.0f 秒 · 壽元 %.0f/%.0f 祀" % [
-			train_sec, req_sec, remain_life / 60.0, max_life / 60.0
-		]
-		_abode.realm_progress_label.add_theme_color_override("font_color", Color("555a4c"))
+	_abode.realm_label.text = era_name
+	var status: String = "壽元已盡" if remain_life <= 0.0 else ("可突破" if can_bt else ("圓滿" if is_max_lvl else ("可晉階" if can_lvl else ("功滿待晉階" if req_sec > 0.0 and train_sec >= req_sec else "修煉中"))))
+	_rank_label.text = "%d/%d 層 · %s" % [cur_level, int(era_info.get("max_level", 10)), status]
+	_training_bar.value = 100.0 if is_max_lvl else clampf(train_sec / maxf(1.0, req_sec) * 100.0, 0.0, 100.0)
+	_training_bar.tooltip_text = "修煉 %.0f / %.0f 秒（累積 %.0f 秒）；晉階仍須符合材料與容量條件。" % [minf(train_sec, req_sec), req_sec, train_sec] if not is_max_lvl else "修煉已圓滿；突破仍須符合靈氣容量與資格條件。"
+	_abode.realm_progress_label.text = ("修煉 圓滿 · 可突破" if can_bt else "修煉 圓滿 · 擴充容量") if is_max_lvl else "修煉 %.0f / %.0f 秒" % [minf(train_sec, req_sec), req_sec]
+	_abode.realm_progress_label.tooltip_text = "需擴充靈氣容量並符合突破條件。" if is_max_lvl and not can_bt else "累積修煉 %.0f 秒；晉階仍須符合材料與資格條件。" % train_sec
+	_lifespan_text.text = "壽元 %.0f / %.0f 祀" % [remain_life / 60.0, max_life / 60.0]
 
 	if "chrono_label" in _abode and _abode.chrono_label != null and view.has("chrono"):
 		var chrono_info: Dictionary = view["chrono"]
@@ -663,10 +734,8 @@ func _refresh_hud() -> void:
 		var wt_info: Dictionary = chrono_info.get("weather", {})
 		var sc_name: String = String(sc_info.get("name", "子時"))
 		var wt_name: String = String(wt_info.get("name", "坎水運"))
-		var wt_color: String = String(wt_info.get("color", "#80deea"))
-		_abode.chrono_label.text = "天時：%s · %s" % [wt_name, sc_name]
+		_abode.chrono_label.text = ("%s · %s" if _compact_metrics else "天時 %s · %s") % [wt_name, sc_name]
 		_abode.chrono_label.tooltip_text = "%s\n%s" % [String(wt_info.get("desc", "")), String(sc_info.get("desc", ""))]
-		_abode.chrono_label.add_theme_color_override("font_color", Color(wt_color).darkened(0.55))
 
 	_abode.level_up_button.visible = can_lvl
 	if can_lvl:
@@ -675,7 +744,8 @@ func _refresh_hud() -> void:
 		for r_id in cost_dict:
 			var req_val: float = _abode._parse_amount(cost_dict[r_id]).to_float()
 			cost_strs.append("%d %s" % [int(req_val), _abode.RESOURCE_NAMES.get(r_id, r_id)])
-		_abode.level_up_button.text = "修為晉階（消耗 %s）" % (" · ".join(cost_strs) if cost_strs.size() > 0 else "功滿")
+		_abode.level_up_button.text = "修為晉階"
+		_abode.level_up_button.tooltip_text = "消耗 %s" % (" · ".join(cost_strs) if cost_strs.size() > 0 else "功滿")
 
 	var cur_era: int = int(view.get("era_id", 1))
 	_abode.breakthrough_button.visible = (cur_level >= 10 and cur_era == 1)
@@ -687,7 +757,8 @@ func _refresh_hud() -> void:
 			var req_caps: Dictionary = view.get("breakthrough_requirements", {})
 			var req_lingli: int = int(req_caps.get("lingli", 500))
 			var cur_cap: int = int(_abode._parse_amount(view.resources.get("lingli", {}).get("cap", 0)).to_float())
-			_abode.breakthrough_button.text = "突破需靈氣容量 %d（當前 %d）" % [req_lingli, cur_cap]
+			_abode.breakthrough_button.text = "突破 · 容量未足"
+			_abode.breakthrough_button.tooltip_text = "靈氣容量需求 %d；當前 %d" % [req_lingli, cur_cap]
 
 	_abode.replay_breakthrough_button.visible = false
 	_abode.settings_menu.get_popup().set_item_disabled(_abode.settings_menu.get_popup().get_item_index(5), cur_era < 2)
@@ -715,8 +786,12 @@ func _refresh_hud() -> void:
 		_abode.more_menu.get_popup().set_item_text(fortune_popup_idx, "★ 機緣奇遇" if has_pending_fortune else "機緣奇遇")
 	if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
 		_abode.alchemy_panel.call("update_view", view)
+	if _abode.achievement_panel != null and _abode.achievement_panel.visible:
+		_abode.achievement_panel.call("refresh_achievements", view.get("achievements", {}))
 	if _abode.buff_hud_bar != null:
-		_abode.buff_hud_bar.update_buffs(view.get("buffs", []))
+		_abode.buff_hud_bar.update_status(view, _abode.session.state.sect)
+		_status_scroll.visible = _abode.buff_hud_bar.visible
+		_status_row.visible = _abode.buff_hud_bar.visible or _abode.lifespan_banner.visible
 	if _abode.realm_modal != null and _abode.realm_modal.visible:
 		_abode.realm_modal.call("refresh", view)
 	if _abode.sect_panel != null and _abode.sect_panel.visible and _abode.session != null and _abode.session.state != null:

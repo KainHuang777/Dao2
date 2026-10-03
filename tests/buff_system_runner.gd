@@ -241,5 +241,34 @@ func test_buff_hud_bar_ui() -> void:
 	hud_bar.update_buffs([])
 	_assert(hud_bar.visible == false, "BuffHudBar should hide again when buffs clear")
 	_assert(hud_bar.get_child_count() == 0, "BuffHudBar children should be cleaned up")
+	var status_view := {"beast": {"can_feed": false}, "fortune": {"has_pending": false}}
+	var sect_view := {"unlocked": true, "active_expedition": {"duration": 30, "elapsed": 29}}
+	_assert(BuffHudBar.status_items(status_view, sect_view).is_empty(), "unfinished expeditions and unavailable feeding must not notify")
+	sect_view.active_expedition.elapsed = 30
+	status_view.beast.can_feed = true
+	status_view.fortune.has_pending = true
+	hud_bar.update_status(status_view, sect_view)
+	_assert(hud_bar.get_child_count() == 3, "shared status area includes completed sect, feed-ready beast and pending fortune")
+	var original_badge: Button = hud_bar.badges.sect_ready
+	hud_bar.update_status(status_view, sect_view)
+	_assert(hud_bar.badges.sect_ready == original_badge, "unchanged refreshes preserve buttons so clicks are not cancelled")
+	var routed: Array[String] = []
+	hud_bar.route_requested.connect(func(route: String): routed.append(route))
+	hud_bar.badges.sect_ready.pressed.emit()
+	hud_bar.badges.beast_feed.pressed.emit()
+	_assert(routed == ["sect", "beasts"], "notification buttons open canonical feature routes")
+	hud_bar.fit_width(94)
+	_assert(hud_bar.hidden_count() == 1, "94px fits exactly two complete 44px icons with a 6px gap")
+	_assert(hud_bar.badges.sect_ready.visible and not hud_bar.badges.fortune_pending.visible, "overflow icons are hidden rather than clipped")
+	hud_bar.next_page()
+	_assert(hud_bar.badges.fortune_pending.visible and not hud_bar.badges.sect_ready.visible, "next page exposes remaining notifications")
+	hud_bar.next_page()
+	_assert(hud_bar.badges.sect_ready.visible, "pagination wraps to the first page")
+	_assert(hud_bar.badges.sect_ready.tooltip_text.contains("宗門任務已完成"), "icon-only notification retains full details")
+	sect_view.active_expedition = null
+	status_view.beast.can_feed = false
+	status_view.fortune.has_pending = false
+	hud_bar.update_status(status_view, sect_view)
+	_assert(not hud_bar.visible and hud_bar.get_child_count() == 0, "resolved reminders clear without a separate acknowledgement state")
 
 	hud_bar.free()

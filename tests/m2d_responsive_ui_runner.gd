@@ -29,6 +29,7 @@ func _run() -> void:
 	hut.visible = hut_was_visible
 	await process_frame
 	_check_scene(abode, Vector2(1280, 720), "desktop island")
+	_expect(is_equal_approx(abode.hint_panel.get_global_rect().get_center().x, 640.0), "home messages must center on the viewport, not the remaining HUD space")
 	_expect(abode.hint_panel.size.y >= 200.0 and abode.hint_log_label.get_theme_font_size("normal_font_size") >= 17, "desktop messages must provide a readable default height and font")
 	_expect(abode.hint.text.contains("茅屋") and abode.hint.text.contains("靈氣"), "fresh-game guidance must explain gathering for the hut")
 	_expect(abode.building_catalog.resource_gather_buttons["lingli"].visible, "fresh-game island HUD must expose direct gather action on lingli card")
@@ -102,6 +103,11 @@ func _run() -> void:
 	abode.building_catalog.close_button.pressed.emit()
 	abode._layout_for_size(Vector2(1280, 720))
 	_check_scene(abode, Vector2(1280, 720), "returned island")
+	_expect(is_equal_approx(abode.hint_panel.get_global_rect().get_center().x, 640.0), "return from management must restore viewport-centered messages")
+	abode._layout_for_size(Vector2(844, 390))
+	await process_frame
+	_check_scene(abode, Vector2(844, 390), "short landscape island")
+	abode._layout_for_size(Vector2(1280, 720))
 
 	# Retain the DAO2 objective chain and existing resource/building unlocks.
 	abode.session.state.buildings["hut"] = 2
@@ -187,7 +193,7 @@ func _run() -> void:
 	abode.resource_mode_buttons[0].pressed.emit()
 	_expect(not abode.resource_scroll.visible, "closed resource mode must hide the list but retain mode controls")
 	abode.resource_mode_buttons[1].pressed.emit()
-	_expect(abode.resource_display_mode == 1 and abode.resource_scroll.visible, "summary mode must restore resource quantities")
+	_expect(abode.resource_display_mode == 1 and (abode.resource_scroll.visible or (abode.layout_mode == abode.HudLayout.PORTRAIT and abode.hud.size.y < 560.0)), "summary mode preserves its selection; a short portrait management rail may reserve the resource list space")
 	var resource_normal_color: Color = abode.building_catalog.resource_value_labels["lingli"].get_theme_color("font_color")
 	abode.session.state.resources["lingli"].value = AmountCompat.from_number(400.0)
 	abode._refresh_hud()
@@ -216,7 +222,7 @@ func _run() -> void:
 	abode._layout_for_size(Vector2(360, 640))
 	_check_scene(abode, Vector2(360, 640), "portrait island")
 	_expect(abode.island_mode_button.disabled and not abode.building_catalog_button.disabled, "island tab must expose the management layout")
-	_expect(abode.realm_label.text.contains("築基") and abode.realm_label.text.contains("1/10 層"), "realm and level must remain visible in island HUD")
+	_expect(abode.realm_label.text.contains("築基") and abode._hud_controller._rank_label.text.contains("1/10 層"), "realm and level must remain visible in island HUD")
 
 	# Existing secondary screens remain bounded after the mode change.
 	abode._toggle_save_controls()

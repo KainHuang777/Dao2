@@ -28,6 +28,7 @@ $runners = @(
     'tests/debug_features_runner.gd',
     'tests/core_positive_flow_runner.gd',
     'tests/m4a_realm_runner.gd',
+    'tests/m4a_session_integration_runner.gd',
     'tests/bgm_era_playlist_runner.gd',
     'tests/m3b_chrono_runner.gd',
     'tests/m4b_scale_law_runner.gd',
@@ -38,7 +39,8 @@ $runners = @(
     'tests/feature_navigation_runner.gd',
     'tests/m3b_spirit_beast_runner.gd',
     'tests/abode_scenery_runner.gd',
-    'tests/abode_scenery_ui_runner.gd'
+    'tests/abode_scenery_ui_runner.gd',
+    'tests/m3b_achievement_runner.gd'
 )
 
 

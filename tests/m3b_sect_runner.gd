@@ -21,7 +21,7 @@ func _create_test_state() -> GameState:
 	state.resources["lingqi"] = {"value": AmountCompat.from_number(50.0), "unlocked": true, "ever_obtained": true}
 	state.resources["wood"] = {"value": AmountCompat.from_number(500.0), "unlocked": true, "ever_obtained": true}
 	state.resources["stone_low"] = {"value": AmountCompat.from_number(100.0), "unlocked": true, "ever_obtained": true}
-	state.resources["herb"] = {"value": AmountCompat.from_number(200.0), "unlocked": true, "ever_obtained": true}
+	state.resources["spirit_grass_low"] = {"value": AmountCompat.from_number(200.0), "unlocked": true, "ever_obtained": true}
 	return state
 
 func test_unlock_and_join() -> void:
@@ -136,10 +136,10 @@ func test_market_purchases() -> void:
 	state.sect["contribution"] = "300"
 	
 	# Buy herb bundle
-	var herb_before: float = (state.resources["herb"]["value"] as AmountCompat).to_float()
+	var herb_before: float = (state.resources["spirit_grass_low"]["value"] as AmountCompat).to_float()
 	var buy_herb := SectSystem.buy_market_item(state, "herb_bundle")
 	assert(bool(buy_herb.get("ok", false)), "Buy herb bundle should succeed")
-	var herb_after: float = (state.resources["herb"]["value"] as AmountCompat).to_float()
+	var herb_after: float = (state.resources["spirit_grass_low"]["value"] as AmountCompat).to_float()
 	assert(herb_after == herb_before + 50.0, "Herb should increase by 50")
 	
 	# Buy foundation pill

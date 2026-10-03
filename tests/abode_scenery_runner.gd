@@ -72,7 +72,7 @@ func _run() -> void:
 	session.state.current_realm = "realm_human"
 	var encoded := _encode(session.state)
 	var decoded := SaveCodec.decode(encoded.json)
-	check(decoded.ok and decoded.state.to_snapshot_dict() == session.state.to_snapshot_dict(), "save roundtrip retains RNG, timer, IDs and rewards")
+	check(decoded.ok and SaveCodec.compute_checksum(decoded.state.to_snapshot_dict()) == SaveCodec.compute_checksum(session.state.to_snapshot_dict()), "save roundtrip retains RNG, timer, IDs and rewards (JSON numeric equivalence)")
 	var restored := _session()
 	restored.state = decoded.state
 	check(not restored.submit(_command(restored, ids[0], "after-reload")).ok, "consumed ID cannot reward after reload")

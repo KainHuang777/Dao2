@@ -57,6 +57,8 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 			return _apply_feed_beast(content, state, command.payload)
 		"unlock_beast_talent":
 			return _apply_unlock_beast_talent(content, state, command.payload)
+		"claim_achievement":
+			return _apply_claim_achievement(content, state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -333,7 +335,7 @@ static func _apply_claim_sect_expedition(_content: GameContent, state: GameState
 	return {
 		"ok": true,
 		"events": res.get("events", []),
-		"changed_ids": ["sect", "resources"],
+		"changed_ids": ["sect", "resources", "buffs"],
 	}
 
 static func _apply_learn_sect_technique(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
@@ -359,7 +361,7 @@ static func _apply_buy_sect_market_item(_content: GameContent, state: GameState,
 	return {
 		"ok": true,
 		"events": res.get("events", []),
-		"changed_ids": ["sect", "resources", "pills"],
+		"changed_ids": ["sect", "resources", "pills", "realms_data"],
 	}
 
 static func _apply_trigger_fortune(_content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
@@ -435,6 +437,17 @@ static func _apply_unlock_beast_talent(_content: GameContent, state: GameState, 
 		"ok": true,
 		"events": res.get("events", []),
 		"changed_ids": ["beast_talents", "beast_souls"],
+	}
+
+static func _apply_claim_achievement(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	var achievement_id: String = String(payload.get("achievement_id", ""))
+	var res := AchievementSystem.claim_reward(state, content, achievement_id)
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "CLAIM_ACHIEVEMENT_FAILED")), res)
+	return {
+		"ok": true,
+		"events": [{"kind": "achievement_claimed", "achievement_id": achievement_id, "rewards": res.get("rewards", {})}],
+		"changed_ids": ["achievements", "resources", "dao_heart", "dao_proof", "sect"],
 	}
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:

@@ -110,8 +110,9 @@ static func can_upgrade_outpost(state: GameState, outpost_id: String) -> Diction
 	var def: Variant = SPIRIT_OUTPOSTS.get(outpost_id, null)
 	if def == null:
 		return {"can_upgrade": false, "reason": "UNKNOWN_OUTPOST"}
-	var data := ensure_spirit_data(state)
-	var cur_lvl := int(data["outposts"].get(outpost_id, 0))
+	# Cost checks are read-only, including a first rejected construction.
+	var data: Dictionary = state.realms_data.get(REALM_SPIRIT, {})
+	var cur_lvl := int(data.get("outposts", {}).get(outpost_id, 0))
 	if cur_lvl >= int(def["max_level"]):
 		return {"can_upgrade": false, "reason": "MAX_LEVEL"}
 

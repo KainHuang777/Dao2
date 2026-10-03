@@ -129,7 +129,7 @@ const MARKET_ITEMS := {
 		"name": "百草靈囊",
 		"desc": "內含精選靈草 50 份，可用於日常煉丹或營造。",
 		"cost": 30,
-		"grant_resource": "herb",
+		"grant_resource": "spirit_grass_low",
 		"grant_amount": 50.0,
 		"limit": 20,
 	},
@@ -203,7 +203,7 @@ static func join_sect(state: GameState, sect_name: String = "") -> Dictionary:
 	}
 
 static func refresh_tasks(state: GameState, force: bool = false) -> Dictionary:
-	var sect: Dictionary = ensure_sect_state(state)
+	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
 	
@@ -247,13 +247,13 @@ static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary
 	
 	if rarity_key == "uncommon" or rarity_key == "rare":
 		rewards["stone_low"] = maxi(1, int(2 * float(r_cfg.reward_mult)))
-		rewards["herb"] = maxi(5, int(15 * float(r_cfg.reward_mult)))
+		rewards["spirit_grass_low"] = maxi(5, int(15 * float(r_cfg.reward_mult)))
 	elif rarity_key == "epic":
 		rewards["stone_low"] = maxi(5, int(5 * float(r_cfg.reward_mult)))
-		rewards["bronze"] = 2
+		rewards["black_copper"] = 2
 	elif rarity_key == "legendary":
 		rewards["stone_low"] = maxi(10, int(10 * float(r_cfg.reward_mult)))
-		rewards["bronze"] = 5
+		rewards["black_copper"] = 5
 		rewards["special_buff"] = "epiphany"
 	
 	return {
@@ -282,7 +282,7 @@ static func _pick_rarity() -> String:
 	return "common"
 
 static func start_expedition(state: GameState, task_id: String) -> Dictionary:
-	var sect: Dictionary = ensure_sect_state(state)
+	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
 	if sect.get("active_expedition") != null:
@@ -316,7 +316,7 @@ static func start_expedition(state: GameState, task_id: String) -> Dictionary:
 	}
 
 static func claim_expedition_reward(state: GameState) -> Dictionary:
-	var sect: Dictionary = ensure_sect_state(state)
+	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
 	var active = sect.get("active_expedition")
@@ -329,6 +329,13 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 		return {"ok": false, "error": "EXPEDITION_NOT_FINISHED", "remaining": duration - elapsed}
 	
 	var rewards: Dictionary = active.get("rewards", {})
+	# Previous snapshots may still carry the old task reward names.
+	var reward_aliases := {"herb": "spirit_grass_low", "bronze": "black_copper"}
+	for reward_id in rewards:
+		if reward_id in ["contribution", "special_buff"]:
+			continue
+		if not state.resources.has(String(reward_aliases.get(reward_id, reward_id))):
+			return {"ok": false, "error": "REWARD_RESOURCE_MISSING"}
 	
 	# Grant contribution
 	var contrib_gain := int(rewards.get("contribution", 0))
@@ -343,12 +350,13 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 		if res_id == "contribution" or res_id == "special_buff":
 			continue
 		var amount := float(rewards[res_id])
-		if state.resources.has(res_id):
-			var entry: Dictionary = state.resources[res_id]
+		var target_id: String = reward_aliases.get(res_id, res_id)
+		if state.resources.has(target_id):
+			var entry: Dictionary = state.resources[target_id]
 			entry.value = (entry.value as AmountCompat).add(AmountCompat.from_number(amount))
 			entry.ever_obtained = true
 			entry.unlocked = true
-			granted[res_id] = amount
+			granted[target_id] = amount
 	
 	# Check special buff
 	if rewards.has("special_buff") and String(rewards["special_buff"]) == "epiphany":
@@ -368,7 +376,7 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 	}
 
 static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
-	var sect: Dictionary = ensure_sect_state(state)
+	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
 	if not TECHNIQUES.has(tech_id):
@@ -430,7 +438,7 @@ static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
 	}
 
 static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
-	var sect: Dictionary = ensure_sect_state(state)
+	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
 	if not MARKET_ITEMS.has(item_id):
@@ -449,6 +457,8 @@ static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
 	var cost_amount := AmountCompat.from_number(float(cost))
 	if cur_contrib.compare_to(cost_amount) < 0:
 		return {"ok": false, "error": "INSUFFICIENT_CONTRIBUTION", "required": cost}
+	if def.has("grant_resource") and String(def.grant_resource) != "spirit_crystal" and not state.resources.has(String(def.grant_resource)):
+		return {"ok": false, "error": "REWARD_RESOURCE_MISSING"}
 	
 	# Deduct
 	sect["contribution"] = cur_contrib.subtract(cost_amount).serialize()
@@ -459,7 +469,10 @@ static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
 	if def.has("grant_resource"):
 		var res_id: String = def["grant_resource"]
 		var amount: float = float(def["grant_amount"])
-		if state.resources.has(res_id):
+		if res_id == "spirit_crystal":
+			var realm_data := RealmSystem.ensure_spirit_data(state)
+			realm_data.spirit_crystal = float(realm_data.get("spirit_crystal", 0.0)) + amount
+		elif state.resources.has(res_id):
 			var entry: Dictionary = state.resources[res_id]
 			entry.value = (entry.value as AmountCompat).add(AmountCompat.from_number(amount))
 			entry.ever_obtained = true

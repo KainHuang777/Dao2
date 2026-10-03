@@ -2,10 +2,10 @@ extends RefCounted
 ## Canonical ownership of player features. Routes share the existing Session.
 const GROUPS := {
 	"management": {"title": "經營", "pages": [["buildings", "洞府建築"], ["outposts", "洞天據點"]]},
-	"cultivation": {"title": "修行", "pages": [["alchemy", "煉丹"], ["beasts", "靈獸"], ["reincarnation", "輪迴天賦"]]},
+	"cultivation": {"title": "修行", "pages": [["alchemy", "煉丹"], ["beasts", "靈獸"], ["achievements", "成就"], ["reincarnation", "輪迴天賦"]]},
 	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"]]},
 }
-const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal"]
+const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal", "achievement_panel"]
 var abode: Node
 var group := "home"
 var page := ""
@@ -56,6 +56,9 @@ func build() -> void:
 	currencies.add_theme_color_override("font_color", UiMaterial.INK)
 	abode.building_catalog.resource_grid.add_child(currencies)
 	abode.toolbar.z_index = 45
+	# Control hit testing follows tree order, not z_index: navigation stays above
+	# the resource ribbon when a short landscape HUD reaches the bottom row.
+	abode.hud.move_child(abode.toolbar, -1)
 	abode.toolbar.move_child(abode.reincarnation_button, 2)
 	abode.settings_menu.z_index = 46
 	for key in PANEL_KEYS:
@@ -96,6 +99,7 @@ func open(route: String) -> void:
 		"buildings": abode.building_catalog.visible = true
 		"outposts": abode.realm_modal.visible = true
 		"alchemy": abode.alchemy_panel.visible = true
+		"achievements": abode.achievement_panel.visible = true
 		"reincarnation": abode.reincarnation_panel.visible = true
 		"sect": abode.sect_panel.visible = true
 		"fortune": abode.fortune_modal.visible = true
@@ -170,9 +174,11 @@ func layout(vp: Vector2) -> void:
 	abode.island_mode_button.text = "洞府"
 	abode.building_catalog_button.text = "經營"
 	var view: Dictionary = abode.session.get_view()
-	abode.reincarnation_button.text = "修行待辦" if bool(view.get("reincarnation_preview", {}).get("eligible", false)) else "修行"
-	abode.overview_button.text = "遊歷待辦" if bool(view.get("fortune", {}).get("has_pending", false)) else "遊歷"
+	_refresh_main_notifications(view)
 	abode.more_menu.visible = false
+	# Reapply bounds after labels/visibility invalidate the container minimum size.
+	var nav_margin: float = 28.0 if abode.layout_mode == abode.HudLayout.WIDE else 16.0
+	abode.toolbar.size.x = minf(480.0, vp.x - nav_margin * 2.0)
 	bar.visible = group != "home"
 	if group == "home":
 		return
@@ -197,6 +203,7 @@ func layout(vp: Vector2) -> void:
 		match page:
 			"outposts": panel = abode.realm_modal
 			"alchemy": panel = abode.alchemy_panel
+			"achievements": panel = abode.achievement_panel
 			"reincarnation": panel = abode.reincarnation_panel
 			"sect": panel = abode.sect_panel
 			"fortune": panel = abode.fortune_modal
@@ -205,7 +212,10 @@ func layout(vp: Vector2) -> void:
 	if group != "management":
 		abode.header.visible = false
 		abode.resource_ribbon.visible = false
-	abode.hint_panel.visible = false
+	# The building rail shares the world HUD; its message layout and user choice
+	# are already handled by AbodeHudController. Other pages replace that space.
+	if page != "buildings":
+		abode.hint_panel.visible = false
 
 func refresh(view: Dictionary) -> void:
 	var realm: Dictionary = view.get("realm", {})
@@ -221,15 +231,28 @@ func refresh(view: Dictionary) -> void:
 	currencies.text = "\n".join(lines)
 	currencies.visible = not lines.is_empty() and abode.resource_display_mode > 0
 	abode.sect_button.visible = false
-	abode.reincarnation_button.text = "修行待辦" if bool(view.get("reincarnation_preview", {}).get("eligible", false)) else "修行"
-	abode.overview_button.text = "遊歷待辦" if bool(view.get("fortune", {}).get("has_pending", false)) else "遊歷"
+	_refresh_main_notifications(view)
 	if action_panel.visible:
 		action_panel.refresh(view)
 	if bar.visible:
 		if tab_buttons.has("reincarnation"):
 			tab_buttons.reincarnation.text = "輪迴可用" if bool(view.get("reincarnation_preview", {}).get("eligible", false)) else "輪迴天賦"
+		if tab_buttons.has("achievements"):
+			var unclaimed := int(view.get("achievements", {}).get("unclaimed_count", 0))
+			tab_buttons.achievements.text = ("成就•%d" % unclaimed) if unclaimed > 0 else "成就"
 		if tab_buttons.has("fortune"):
 			tab_buttons.fortune.text = "機緣待決" if bool(view.get("fortune", {}).get("has_pending", false)) else "機緣"
+
+func _refresh_main_notifications(view: Dictionary) -> void:
+	var narrow: bool = abode.hud.size.x < 640.0
+	var reincarnation_ready := bool(view.get("reincarnation_preview", {}).get("eligible", false))
+	var fortune_pending := bool(view.get("fortune", {}).get("has_pending", false))
+	var has_unclaimed_ach := int(view.get("achievements", {}).get("unclaimed_count", 0)) > 0
+	var cult_notify := reincarnation_ready or has_unclaimed_ach
+	abode.reincarnation_button.text = ("修行•" if narrow else ("修行・輪迴" if reincarnation_ready else "修行・成就")) if cult_notify else "修行"
+	abode.reincarnation_button.tooltip_text = "已符合輪迴資格或有成就獎勵可領取。" if cult_notify else "煉丹、靈獸、成就與輪迴天賦"
+	abode.overview_button.text = ("遊歷•" if narrow else "遊歷・機緣") if fortune_pending else "遊歷"
+	abode.overview_button.tooltip_text = "有待決機緣，可至「機緣」查看並選擇。" if fortune_pending else "九界、宗門、機緣與天道決策"
 
 func _on_action(kind: String, id: String) -> void:
 	var result: Dictionary

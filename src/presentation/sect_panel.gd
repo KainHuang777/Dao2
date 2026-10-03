@@ -182,7 +182,7 @@ func update_view(state: GameState) -> void:
 		_build_ui()
 	if state == null:
 		return
-	var sect: Dictionary = SectSystem.ensure_sect_state(state)
+	var sect: Dictionary = state.sect
 	_cached_sect_data = sect
 	_cached_resources = state.resources
 	_cached_is_eligible_to_join = SectSystem.is_unlocked(state)
@@ -201,8 +201,24 @@ func update_view(state: GameState) -> void:
 	else:
 		_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。"
 
-	_render_current_tab()
+	var resource_values := {}
+	for id in _cached_resources:
+		resource_values[id] = _cached_resources[id].value.serialize()
+	var signature := JSON.stringify([sect, resource_values, _cached_is_eligible_to_join])
+	if signature != _render_signature and not _has_pressed_button(_tab_content_container):
+		_render_signature = signature
+		_render_current_tab()
 	set_layout_bounds(Rect2(position, size))
+
+var _render_signature := ""
+
+func _has_pressed_button(node: Node) -> bool:
+	if node is Button and node.is_pressed():
+		return true
+	for child in node.get_children():
+		if _has_pressed_button(child):
+			return true
+	return false
 
 func _render_current_tab() -> void:
 	# 清空容器
@@ -473,7 +489,9 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	var r_text := "預期獎勵：貢獻 +%d | 金錢 +%d" % [int(rewards.get("contribution", 0)), int(rewards.get("money", 0))]
 	if rewards.has("stone_low"):
 		r_text += " | 下品靈石 +%d" % int(rewards["stone_low"])
-	if rewards.has("herb"):
+	if rewards.has("spirit_grass_low"):
+		r_text += " | 靈草 +%d" % int(rewards["spirit_grass_low"])
+	elif rewards.has("herb"):
 		r_text += " | 靈草 +%d" % int(rewards["herb"])
 	if rewards.has("special_buff"):
 		r_text += " | 【頓悟靈光】"

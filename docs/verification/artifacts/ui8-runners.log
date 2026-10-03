@@ -1,0 +1,63 @@
+[RUNNING] tools/test_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: project script, JSON serialization, user storage, and Traditional Chinese font glyphs are available.
+[RUNNING] tests/abode_state_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: abode state advances independently from visual flow, upgrades, and garden pause.
+[RUNNING] tests/living_abode_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_UPGRADE: hut level=1
+ABODE_DIRECT_BUILD: hut
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SELECT: hut
+ABODE_UPGRADE: hut level=2
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +6
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_GARDEN_RUNNING: false
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_REGION
+ABODE_REGION: same world and simulation retained
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+PASS: living abode selects buildings, upgrades, pauses production, and changes scale.
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m0c_compat_v3_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M0-C AmountCompat canonical contract and SeededRandomCompat match the fixture.
+[RUNNING] tests/m1a_core_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: hut 1 changed ids; expected=["hut", "money", "wood"] actual=["hut", "money", "wood", "achievements"]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1a_core_runner.gd:28)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/m1a_core_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:50 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

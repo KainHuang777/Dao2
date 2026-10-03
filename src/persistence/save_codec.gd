@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 2
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-4-scenery"
+const RULES_VERSION := "core-flow-5-session-receipts"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -121,6 +121,17 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	if not (snapshot is Dictionary):
 		return {"ok": false, "state": null, "error": "STATE_TYPE"}
 	var snapshot_dict: Dictionary = snapshot
+	var receipts: Variant = snapshot_dict.get("command_receipts", {})
+	if not (receipts is Dictionary) or receipts.size() > GameState.COMMAND_RECEIPT_LIMIT:
+		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:command_receipts"}
+	for id in receipts:
+		var receipt: Variant = receipts[id]
+		if not (id is String) or id.is_empty() or not (receipt is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:command_receipts"}
+		if receipt.get("ok") != true or not _is_int(receipt.get("new_revision")) or not (receipt.get("events") is Array) or not (receipt.get("changed_ids") is Array):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:command_receipts"}
+		if int(receipt.new_revision) < 1 or int(receipt.new_revision) > int(snapshot_dict.get("revision", -1)):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:command_receipts"}
 	if not _is_int(snapshot_dict.get("revision")):
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:revision"}
 	if not _is_int(snapshot_dict.get("era_id")):
@@ -277,6 +288,16 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		for entry in state.abode_scenery.active:
 			entry.slot = int(entry.slot)
 			entry.amount = int(entry.amount)
+	if snapshot_dict.has("achievements"):
+		if not (snapshot_dict["achievements"] is Dictionary):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:achievements"}
+		state.achievements = (snapshot_dict["achievements"] as Dictionary).duplicate(true)
+		if state.achievements.has("stats") and state.achievements["stats"] is Dictionary:
+			var stats_dict: Dictionary = state.achievements["stats"]
+			for k in stats_dict:
+				if _is_int(stats_dict[k]):
+					stats_dict[k] = _to_int(stats_dict[k])
+	state.command_receipts = receipts.duplicate(true)
 	return {"ok": true, "state": state, "error": ""}
 
 

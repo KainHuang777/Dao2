@@ -2,6 +2,8 @@ class_name GameState
 extends RefCounted
 
 var revision: int = 0
+const COMMAND_RECEIPT_LIMIT := 256
+var command_receipts: Dictionary = {}
 var era_id: int = 1
 var level: int = 1
 var onboarding_version: int = 1
@@ -32,10 +34,12 @@ var beasts: Dictionary = {}
 var beast_souls: Dictionary = {}
 var beast_talents: Dictionary = {}
 var abode_scenery: Dictionary = {}
+var achievements: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
 	copy.revision = revision
+	copy.command_receipts = command_receipts.duplicate(true)
 	copy.era_id = era_id
 	copy.level = level
 	copy.onboarding_version = onboarding_version
@@ -64,6 +68,7 @@ func duplicate_state() -> GameState:
 	copy.beast_souls = beast_souls.duplicate(true)
 	copy.beast_talents = beast_talents.duplicate(true)
 	copy.abode_scenery = abode_scenery.duplicate(true)
+	copy.achievements = achievements.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -89,6 +94,7 @@ func to_snapshot_dict() -> Dictionary:
 		building_snapshot[building_id] = int(buildings[building_id])
 	return {
 		"revision": revision,
+		"command_receipts": command_receipts.duplicate(true),
 		"era_id": era_id,
 		"level": level,
 		"onboarding_version": onboarding_version,
@@ -119,5 +125,5 @@ func to_snapshot_dict() -> Dictionary:
 		"beast_souls": beast_souls.duplicate(true),
 		"beast_talents": beast_talents.duplicate(true),
 		"abode_scenery": abode_scenery.duplicate(true),
+		"achievements": achievements.duplicate(true),
 	}
-

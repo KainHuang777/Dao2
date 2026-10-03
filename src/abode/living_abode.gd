@@ -268,6 +268,7 @@ var _bgm_tracks: Array[Dictionary] = []
 var _current_bgm_index: int = -1
 var _last_known_era_id: int = 1
 var debug_panel: Control
+var achievement_panel: Control
 var debug_auto_build_active: bool = false
 var debug_auto_build_timer: float = 30.0
 
@@ -1243,6 +1244,33 @@ func _debug_add_resources() -> void:
 	hint.text = msg
 	if debug_panel != null:
 		debug_panel.call("set_status_message", msg)
+
+func _on_debug_reset_achievements_requested() -> void:
+	if session == null or session.state == null:
+		return
+	AchievementSystem.reset_achievements(session.state)
+	_save_game()
+	_refresh_hud()
+	var msg := "[DEBUG] 成就進度已全數重置（解鎖/領取/統計均已清空）。"
+	hint.text = msg
+	if debug_panel != null:
+		debug_panel.call("set_status_message", msg)
+
+func _on_achievement_claim_requested(achievement_id: String) -> void:
+	if session == null or session.state == null:
+		return
+	var res := session.claim_achievement(achievement_id)
+	if bool(res.get("ok", false)):
+		_save_game()
+		_refresh_hud()
+		if achievement_panel != null:
+			achievement_panel.call("show_status_message", String(res.get("message", "領取成功！")))
+	else:
+		if achievement_panel != null:
+			achievement_panel.call("show_status_message", String(res.get("message", "領取失敗")))
+
+func _on_achievement_closed() -> void:
+	feature_navigation.home()
 
 func _toggle_reincarnation_panel() -> void:
 	feature_navigation.open("reincarnation")

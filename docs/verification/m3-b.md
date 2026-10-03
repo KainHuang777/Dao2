@@ -66,11 +66,32 @@
 - M5-B 將奇遇資料擴充為 26 項並加當前界域偏向；14 項 RealmDecisionSystem 決策有 Session 與保存測試。
 - 本次 34/34 Runner PASS，實機與完整 UI／Web DoD 不由此推定。參見 [九界規格](../11-nine-realms-law-and-world-generation-spec.md)、[複核](doc-a-r1.md)。
 
+---
+
+### 第六彈：仙道成就與功業圖鑑系統（2026-10-03 交付）
+1. **領域模型與存檔擴充 (`GameState` & `SaveCodec`)**：
+   - `achievements: Dictionary` 記錄已達成時間戳、已領取標記及累計統計（`unlocked`、`claimed`、`stats`）。
+   - 成就作為元進度（Meta-progression），在輪迴轉世（Reincarnation）時完全保留。
+   - `SaveCodec` 支援向後相容解碼與統計欄位整數型別正規化。
+2. **成就核心規則模組 (`src/simulation/achievement_system.gd`)**：
+   - 涵蓋 6 大維度共 18 項經典成就（境界、營造、丹道、宗門、靈獸機緣、輪迴超脫）。
+   - `check_achievements(state, content)` 進行條件判定與自動解鎖。
+   - `claim_reward(state, content, id)` 原子性發放獎勵（道心、道證、資糧等）並防範未達成與重複領取。
+   - `reset_achievements(state)` 供 DEBUG 功能隨時清空重置。
+3. **指令與 DEBUG 調試工具整合**：
+   - 指令白名單：新增 `claim_achievement`，並由 `GameSession.claim_achievement(id)` 封裝。
+   - DEBUG 面板：`src/presentation/debug_panel.gd` 擴充「仙道成就調試」區塊與「重置全部成就進度」按鈕，已連接 `living_abode.gd` 立即落盤。
+4. **介面與導航整合**：
+   - `src/presentation/achievement_panel.gd` 接入成就總覽、進度條、卡片列表與領取按鈕。
+   - `FeatureNavigation` 將成就整合至「修行」第 4 分頁，並依未領取獎勵數量在修行入口顯示動態提示。
+5. **測試與全量驗證**：
+   - `tests/m3b_achievement_runner.gd` 6/6 PASS（exit 0）。
+   - 全量 `tools/run_all_runners.ps1` 39/39 Runner PASS（exit 0）。
+
 ## 後續待推進子系統
 
-- 靈獸培育與護山守衛。
-- 仙道成就與通天圖鑑；多語與高階修行按 Roadmap 逐項核對。
+- 仙道圖鑑深化；多語與高階修行（Era 9–12）按 Roadmap 逐項核對。
 
-## 2026-09-28 歷史驗證證據
+## 歷史驗證證據
 - 全量 25 項 Runner 經 `tools/run_all_runners.ps1` 執行，退出碼均為 0。
 - Web Release 匯出 exit 0。

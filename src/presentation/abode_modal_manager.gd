@@ -78,8 +78,16 @@ func create_panels() -> void:
 	_abode.debug_panel.boost_era_level_requested.connect(_abode._on_debug_boost_era_level_requested)
 	_abode.debug_panel.add_resources_requested.connect(_abode._on_debug_add_resources_requested)
 	_abode.debug_panel.apply_buff_requested.connect(_abode._on_debug_apply_buff_requested)
+	_abode.debug_panel.reset_achievements_requested.connect(_abode._on_debug_reset_achievements_requested)
 	_abode.debug_panel.close_requested.connect(_abode._on_debug_closed)
 	_abode.hud.add_child(_abode.debug_panel)
+
+	var ach_script = preload("res://src/presentation/achievement_panel.gd")
+	_abode.achievement_panel = ach_script.new()
+	_abode.achievement_panel.visible = false
+	_abode.achievement_panel.claim_requested.connect(_abode._on_achievement_claim_requested)
+	_abode.achievement_panel.close_requested.connect(_abode._on_achievement_closed)
+	_abode.hud.add_child(_abode.achievement_panel)
 
 	var rlm_script = preload("res://src/presentation/realm_teleport_modal.gd")
 	_abode.realm_modal = rlm_script.new()
@@ -167,6 +175,15 @@ func layout_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		if portrait:
 			ftn_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
 		_abode.fortune_modal.call("set_layout_bounds", ftn_rect)
+	if _abode.achievement_panel != null:
+		var target_w := minf(560.0, vp.x - margin * 2.0)
+		var target_h := minf(560.0, vp.y - margin * 2.0)
+		var target_x := maxf(margin, (vp.x - target_w) * 0.5)
+		var target_y := maxf(margin, (vp.y - target_h) * 0.5)
+		var ach_rect := Rect2(target_x, target_y, target_w, target_h)
+		if portrait:
+			ach_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
+		_abode.achievement_panel.call("set_layout_bounds", ach_rect)
 
 
 

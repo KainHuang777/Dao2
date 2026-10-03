@@ -27,14 +27,13 @@ const KNOWN_COMMAND_TYPES := [
 	"acquire_beast",
 	"feed_beast",
 	"unlock_beast_talent",
+	"claim_achievement",
 ]
-const COMMAND_REGISTRY_LIMIT := 256
+const COMMAND_REGISTRY_LIMIT := GameState.COMMAND_RECEIPT_LIMIT
 
 var content: GameContent
 var state: GameState
 var clock: GameClock
-var _command_order: Array = []
-var _results: Dictionary = {}
 
 static func create_new_game(content: GameContent) -> GameSession:
 	var session := GameSession.new()
@@ -62,15 +61,15 @@ func submit(command: Dictionary) -> Dictionary:
 	if not (String(command.type) in KNOWN_COMMAND_TYPES):
 		return _error_result("UNKNOWN_COMMAND", {"type": String(command.type)})
 	var command_id := String(command.command_id)
-	if _results.has(command_id):
-		var original: Dictionary = _results[command_id]
+	if state.command_receipts.has(command_id):
+		var original: Dictionary = state.command_receipts[command_id]
 		return {
 			"ok": true,
 			"duplicate": true,
 			"new_revision": int(original.new_revision),
 			"events": [],
 			"changed_ids": [],
-			"replayed": original,
+			"replayed": original.duplicate(true),
 		}
 	if int(command.expected_revision) != state.revision:
 		return _error_result("STALE_REVISION", {"expected": int(command.expected_revision), "actual": state.revision})
@@ -80,6 +79,7 @@ func submit(command: Dictionary) -> Dictionary:
 		state.revision += 1
 		result.new_revision = state.revision
 		_remember(command_id, result)
+		AchievementSystem.check_achievements(state, content)
 	else:
 		result.new_revision = state.revision
 	return result
@@ -254,6 +254,7 @@ func get_view() -> Dictionary:
 		"realm_decisions": RealmDecisionSystem.get_realm_decisions_view(state, state.current_realm),
 		"beast": BeastSystem.get_view(state),
 		"world_address": state.world_address,
+		"achievements": AchievementSystem.get_achievement_view(state),
 	}
 
 
@@ -353,11 +354,17 @@ func _is_valid_shape(command: Dictionary) -> bool:
 
 
 func _remember(command_id: String, result: Dictionary) -> void:
-	if not _results.has(command_id):
-		_command_order.append(command_id)
-	_results[command_id] = result
-	while _command_order.size() > COMMAND_REGISTRY_LIMIT:
-		_results.erase(_command_order.pop_front())
+	# Keep immutable receipts in the same snapshot as costs and rewards.
+	state.command_receipts[command_id] = result.duplicate(true)
+	while state.command_receipts.size() > COMMAND_REGISTRY_LIMIT:
+		var oldest: String = ""
+		var oldest_revision := state.revision + 1
+		for id in state.command_receipts:
+			var receipt_revision := int(state.command_receipts[id].new_revision)
+			if receipt_revision < oldest_revision:
+				oldest = id
+				oldest_revision = receipt_revision
+		state.command_receipts.erase(oldest)
 
 func _error_result(error: String, detail: Dictionary) -> Dictionary:
 	var result := {"ok": false, "duplicate": false, "error": error, "new_revision": state.revision, "events": [], "changed_ids": []}
@@ -499,5 +506,13 @@ func unlock_beast_talent(talent_id: String) -> Dictionary:
 		"type": "unlock_beast_talent",
 		"expected_revision": state.revision,
 		"payload": {"talent_id": talent_id},
+	})
+
+func claim_achievement(achievement_id: String) -> Dictionary:
+	return submit({
+		"command_id": "claim_ach_" + str(achievement_id) + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "claim_achievement",
+		"expected_revision": state.revision,
+		"payload": {"achievement_id": achievement_id},
 	})
 

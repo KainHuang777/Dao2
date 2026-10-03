@@ -227,6 +227,9 @@ func test_teleport_modal_ui() -> void:
 	}
 	modal.refresh(view)
 	_assert(modal._outpost_cards_box.get_child_count() == 2, "modal should render 2 outpost cards")
+	var stable_card := modal._outpost_cards_box.get_child(0)
+	modal.refresh(view)
+	_assert(modal._outpost_cards_box.get_child(0) == stable_card, "unchanged realm updates preserve clickable outpost cards")
 	_assert(modal._teleport_button.text.contains("返回祖基仙府"), "teleport button should prompt return when in spirit realm")
 
 	# Refresh as human realm

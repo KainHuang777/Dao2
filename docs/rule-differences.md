@@ -29,3 +29,4 @@
 | V2-011 | 洞府小景與築基外觀 | `v2_decision` | 2026-10-03 使用者要求優先交付；固定世界採木 +1 改為已解鎖資源的三種隨機小景，首次 12 秒／後續 45–90 秒、最多兩件、木 5–9／草 3–5／石 2–4、滿倉保留／不足一批只入剩餘容量、離線只出生不入庫、輪迴清除。原手動採集與建築公式不改；hut 的築基小院只改外觀。`RULES_VERSION=core-flow-4-scenery`，schema 2 新增小景內部版本 1。不是舊版 parity | `tests/abode_scenery_runner.gd`、`tests/abode_scenery_ui_runner.gd`；[契約](13-island-scenery-and-courtyard-spec.md)、[驗收](verification/island-scenery.md) |
 
 `legacy_parity` 表示需要先與已固定來源一致，並不表示該規則永久不可改善。改動舊行為時，必須新增帶版本的 v2 決策與相對應案例，保留原 fixture 供遷移與回歸。
+| V2-012 | 宗門正式庫存與跨重載命令收據 | `v2_correction` | 2026-10-03 M4-A-R1：宗門 herb／bronze 獎勵映射正式 spirit_grass_low／black_copper，坊市靈晶寫界域庫存；同快照新增最多最近 256 筆成功 command_id 收據，防止保存重載後重送扣料或發獎，按 revision 淘汰。schema 2 缺欄可讀，無法重建缺欄舊檔的歷史收據；rules_version=core-flow-5-session-receipts。 | tests/m4a_session_integration_runner.gd；docs/verification/m4-a-r1.md；並非舊規則全量相容承諾 |

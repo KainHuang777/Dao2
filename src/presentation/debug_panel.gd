@@ -7,6 +7,7 @@ signal manual_upgrade_requested()
 signal boost_era_level_requested()
 signal add_resources_requested()
 signal apply_buff_requested(buff_id: String)
+signal reset_achievements_requested()
 signal close_requested()
 
 var _background: Panel
@@ -192,6 +193,31 @@ func _build_ui() -> void:
 	epi_btn.add_theme_font_size_override("font_size", 14)
 	epi_btn.pressed.connect(func(): apply_buff_requested.emit("epiphany"))
 	buff_buttons.add_child(epi_btn)
+
+	# 分隔線 5
+	var sep5 := HSeparator.new()
+	_column.add_child(sep5)
+
+	# 區塊 5: 成就調試
+	var ach_section_label := Label.new()
+	ach_section_label.text = "【仙道成就調試】"
+	ach_section_label.add_theme_font_override("font", UiTypography.emphasis_font())
+	ach_section_label.add_theme_font_size_override("font_size", 16)
+	ach_section_label.add_theme_color_override("font_color", Color("ffd599"))
+	_column.add_child(ach_section_label)
+
+	var ach_buttons := HFlowContainer.new()
+	ach_buttons.add_theme_constant_override("h_separation", 8)
+	ach_buttons.add_theme_constant_override("v_separation", 8)
+	_column.add_child(ach_buttons)
+
+	var reset_ach_btn := Button.new()
+	reset_ach_btn.name = "ResetAchievementsButton"
+	reset_ach_btn.text = "重置全部成就進度 (解鎖/領取/統計)"
+	reset_ach_btn.custom_minimum_size = Vector2(260, 44)
+	reset_ach_btn.add_theme_font_size_override("font_size", 14)
+	reset_ach_btn.pressed.connect(func(): reset_achievements_requested.emit())
+	ach_buttons.add_child(reset_ach_btn)
 
 	set_layout_bounds(Rect2(position, size))
 

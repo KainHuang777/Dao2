@@ -71,6 +71,8 @@ static func claim(content: GameContent, state: GameState, find_id: String) -> Di
 		resource.value = value.add(amount)
 		resource.ever_obtained = true
 		entries.remove_at(index)
+		AchievementSystem.record_stat(state, "total_harvests", 1)
+		AchievementSystem.check_achievements(state, content)
 		return {"ok": true, "events": [{"kind": "abode_scenery_claimed", "find_id": find_id,
 			"name": definition.name, "resource_id": resource_id, "amount": amount.serialize()}],
 			"changed_ids": ["abode_scenery", resource_id]}
