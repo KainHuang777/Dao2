@@ -1,0 +1,31 @@
+ERROR: Failed to open 'user://logs/godot2026-10-03T13.02.57.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+==================================================
+  M3-B 成就系統 (Achievements) 契約與規則驗證
+==================================================
+
+[CASE 1] 驗證成就定義完整度與維度...
+  -> 通過：18 項成就定義結構完整，涵蓋 6 大維度。
+
+[CASE 2] 驗證成就條件判定與自動解鎖...
+  -> 通過：建築建造、境界突破與修為提升之成就自動解鎖判定精確。
+
+[CASE 3] 驗證成就獎勵發放、防重領取與非法領取拒絕...
+  -> 通過：獎勵發放原子性保證、重領防護與未達成攔截均正確。
+
+[CASE 4] 驗證六道輪迴後成就進度之跨世永久繼承...
+  -> 通過：輪迴轉世重塑肉身後，已達成與已領取成就完好繼承。
+
+[CASE 5] 驗證 DEBUG 調試重置成就功能...
+  -> 通過：DEBUG 重置功能可成功清空全部成就進度與狀態。
+
+[CASE 6] 驗證 SaveCodec 快照序列化與舊存檔向後相容...
+  -> 通過：SaveCodec 快照往返序列化與舊檔相容驗證完好。
+
+[SUCCESS] 全部 6 項 M3-B 成就系統測試案例 PASS！
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)

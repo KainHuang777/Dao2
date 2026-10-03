@@ -4,6 +4,12 @@
 
 ## 目前任務與下一步
 
+- **M2-D-UI3 R1（2026-10-03）：縮小空島文字修復，IN_PROGRESS**。黑體 600／明體 800、深墨實底與最低 18／24 顯示字級；修正地標／遠景標籤切換及淡字。四項相關 Runner 最終 PASS、exit 0，Web 匯出 exit 0；IAB 隔離 4190、1280×720 縮放及 844×390 拖曳閱讀已驗，console warn/error 空。初跑沙箱保存失敗與升權隔離重跑記錄保留，既有退出診斷仍在。短橫向保留遠景可能被左 HUD 遮擋；建成銘牌／採收 Web、使用者美術、實機／高 DPR 待驗。檔案／命令／截圖見 [本輪驗收](verification/ui-world-text-r1.md)。下一步收文字回饋；大型工作用 New Chat。
+
+- **M2-D-TEXT1 R1（2026-10-03）：Era 內等級文字已接入，IN_PROGRESS 待視覺／裝置回饋**。成功晉階後顯示實際 LV／境界／剩餘壽元，全程不透明黑底，約 3.05 秒，可跳過；提升 Era 保留原突破演出。六項相關 Runner PASS／exit 0，Web 匯出 exit 0；IAB 隔離 4188／4189，1280×720 晉階／重載 LV9、844×390 完整文字／滑鼠跳過／恢復鏡頭通過，console warn/error 空。正式內容目前僅 Era 1／2，未捏造高階資料；實體手機／高 DPR／本輪 Web Esc 待驗。檔案、命令、首次失敗與截圖見 [驗收紀錄](verification/ui-text-transition.md)。下一步收閱讀節奏回饋；大型 M1-C/D 使用 New Chat。
+
+- **UI8-COLOR-R1 成就文字對比：DONE（2026-10-03）**。修正深青玉卡片誤用 INK：摘要／說明／已領取標題改淺色，未達成標題、獎勵與成功訊息提高對比。只改 achievement_panel.gd；成就六項案例與 Web 匯出 exit 0，IAB 1280×720 實際領取及 844×390 捲動文字已驗，console warn/error 空；玩家 origin 未觸碰。見 [驗收與截圖](verification/achievement-contrast.md)。下一大型任務仍為 M1-C/D，請用 New Chat。
+
 - **M4-A-R1：DONE（2026-10-03，正式 Session／桌面 Web 範圍）**。宗門／跨界／BUFF 成功、拒絕、同 command_id 重送及保存後重送通過；新增 **251 checks** 整合 Runner、固定入口 **40/40 PASS、exit 0**，最後舊任務 alias 修正後四項相關回歸亦 exit 0。修正每幀重建按鈕造成實際滑鼠派遣／升級無效、宗門獎勵 ID 與坊市靈晶漏入庫、拒絕初始化狀態及跨重載去重紀錄；schema 2 新增選填 command_receipts，最近 256 筆按 revision 淘汰、保存故障重試／損壞回復有隔離測試。Godot 4.7.2 版本／import／Web 匯出通過；IAB 隔離 origin 4186，1280×720／844×390 滑鼠任務派遣→完成通知→重整恢復→通知只導航→領獎清除、BUFF TIP、宗門功法／坊市及跨界／據點／捲動通過，console warn/error 空。修改來源、測試、工具與命令日誌詳見 [完整驗收](verification/m4-a-r1.md)。初次沙箱 user:// 寫入失敗及故障注入／既有退出診斷保留，不宣稱日誌零錯誤。Web 實際儲存為 localStorage；本輪未驗 IndexedDB、quota、多分頁、實機或高 DPR。**下一大型任務 M1-C/D Web 持久化與離線故障矩陣，請使用 New Chat**。
 
 - **本輪使用者驗收（2026-10-03）**：使用者回覆「測試 OK」，建造清單訊息保留／收起／重開修復子項 DONE。此確認不擴張為整體 NAV1／UI8、高 DPR 或實體觸控通過。當時下一步選 **M4-A-R1 正式 Session 整合驗收**（本日後續已完成，見上方新紀錄）：現有宗門／跨界／BUFF 已接線，補成功／拒絕／同 command_id 重送／保存重載及真實 Web 路徑矩陣，通知包含宗門完成與 BUFF 詳情；不重做白名單或成就。相關核心與保存模組已存在，相依可開始，完整里程碑仍 IN_PROGRESS。之後優先 M1-C/D 瀏覽器持久化／離線／失敗重試，再依 M3-B 功能矩陣核對 Era 9–12；多語另定範圍。本次只核對文件／來源／既有日誌，未執行新測試。下個大型任務請用 New Chat。

@@ -1,5 +1,18 @@
 # M2-D-TEXT1 — 原生過場文字樣板
 
+## 2026-10-03 R1：Era 內等級提升接線
+
+使用者要求 Era 內每次等級提升顯示文字並加黑底。本輪實作／CLI／桌面 Web 通過；使用者視覺、實體手機／高 DPR 待驗，整體保留 IN_PROGRESS。下方 10/2「未接正式事件」為歷史狀態。
+
+- 成功提交 `cultivation_leveled_up` 並保存／刷新後，顯示實際新 LV、境界名稱／ERA、當時剩餘壽元（與 HUD 同一換算）；提升 Era 沿用原突破演出。載入、拒絕、DEBUG 直接設定等級不觸發；DEBUG 自動晉階共用正式路徑，會播放。
+- 黑底全程不透明，文字展字／淡出，約 3.05 秒，可點跳過或 Esc。z_index 90 與播放時移至 HUD 最末子節點確保遮住導覽／操作頁並攔截輸入；旋轉提示仍優先。播放時阻擋再次晉階／突破，結束恢復原鏡頭鎖定；模擬持續，動畫不修改收益或保存。
+- 修改 `src/abode/living_abode.gd`、`src/presentation/abode_modal_manager.gd`、`src/presentation/text_transition.gd`、`tests/text_transition_runner.gd`；新增 `tools/text_level_web_fixture.gd`、`tools/text_level_web_server.py`。
+- Godot `--version`：4.7.2.stable.official.ed1daf0bf。六項 Runner（text_transition、m2b_breakthrough、island_breakthrough、m2d_responsive_ui、debug_autobuild_and_time、abode_presentation_parity）皆 PASS／exit 0；命令 `--headless --path . --script res://tests/<runner>.gd`，日誌 `artifacts/text-level-<runner>.log`。新增案例涵蓋內容表 Era 1／2 的 LV1→2、LV9→10、拒絕／防重入、真實文案、低動態、遮罩層級、跳過／自然完成與 snapshot 不變。正式內容表目前僅 Era 1／2，未捏造高階資料；未宣稱全量重跑。
+- Web `--export-release Web build/web/index.html` exit 0，日誌 `artifacts/text-level-export.log`；fixture 產生命令 exit 0。Python server 綁定 127.0.0.1，隔離 origin 4188／4189；玩家 4175 未觸碰。最初 4187 fixture 庫存被容量截住，補測試倉儲後在新 origin 重驗。
+- IAB 1280×720 真實點晉階看到黑底／展字，自然結束後重載仍為築基 LV9、不重播；844×390 晉階完整文案「境界等級提升至 LV9／築基期 ERA2 · 壽元剩餘 198 祀」，實際點跳過回到 LV9、拖曳鏡頭恢復。console warn/error 空。截圖 `artifacts/text-level-desktop.png`、`text-level-short.png`、`text-level-reload.png`。頁籤關閉、viewport reset、臨時 server 停止。
+- 初次測試誤以為十二 Era 全有正式資料，Nil 型別錯誤後改遍歷已配置 Era；強制退出 exit 0 未算 PASS，修正後確認明確 PASS。沙箱 M2-B 保存重載失敗，正常授權重跑通過。根憑證／既有退出資源診斷保留，不宣稱日誌零錯誤。
+- 下一步：收使用者閱讀／节奏回饋；實體手機／高 DPR／本輪 Web Esc 待驗。大型 M1-C/D 使用 New Chat。
+
 2026-10-02，IN_PROGRESS：原生樣板、CLI 與 Web 匯出完成；使用者視覺、真實瀏覽器／觸控驗收待補。
 
 ## 方案與來源

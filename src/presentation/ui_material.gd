@@ -101,12 +101,27 @@ static func apply_world_text(label: Label, font: Font, font_size: int, color: Co
 static func apply_world_caption(label: Label, font: Font, font_size: int) -> void:
 	apply_world_text(label, font, font_size)
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var plaque: StyleBoxTexture = surface("jade").duplicate()
+	# Solid ink keeps small world text legible over clouds and island details.
+	var plaque := rounded(Color("253b36"), 5)
+	label.add_theme_color_override("font_color", LIGHT_TEXT)
+	label.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
 	plaque.content_margin_left = 10
 	plaque.content_margin_right = 10
-	plaque.content_margin_top = 2
-	plaque.content_margin_bottom = 2
+	plaque.content_margin_top = 4
+	plaque.content_margin_bottom = 4
 	label.add_theme_stylebox_override("normal", plaque)
+
+static func keep_world_text_readable(label: Label, minimum_size: float) -> void:
+	# Use the parent transform to avoid feeding our own compensation back into it.
+	# The anchor remains on the world object; only the text resists camera shrink.
+	var parent := label.get_parent() as CanvasItem
+	if parent == null:
+		return
+	var transform := parent.get_global_transform_with_canvas()
+	var factor := maxf(0.001, minf(transform.x.length(), transform.y.length()))
+	var font_size := label.get_theme_font_size("font_size")
+	label.pivot_offset = Vector2(label.size.x * 0.5, 0)
+	label.scale = Vector2.ONE * maxf(1.0, minimum_size / (font_size * factor))
 
 static func mark_selected(button: Button, selected: bool) -> void:
 	button.modulate = Color.WHITE

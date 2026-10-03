@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 	else:
 		status_text = "%d階%s" % [level, "" if running else "·停"]
 	caption.text = "%s · %s" % [title, status_text]
-	caption.visible = true
+	UiMaterial.keep_world_text_readable(caption, 18)
 	var pulse: float = 0.0 if reduced_motion else sin(clock_time * 1.6) * 0.018
 	if (building_id == "garden" or building_id == "herb_farm") and running and level > 0:
 		sprite.scale = base_scale * Vector2(1.0 + pulse * 0.3, 1.0 + pulse)

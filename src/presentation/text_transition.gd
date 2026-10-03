@@ -16,6 +16,7 @@ const ENTER := 0.8
 const EXIT := 0.45
 
 func _ready() -> void:
+	z_index = 90
 	theme = UiTypography.create_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -127,9 +128,11 @@ func advance_presentation(delta: float) -> void:
 func _render() -> void:
 	var enter := clampf(_elapsed / ENTER, 0.0, 1.0)
 	var leave := clampf((_elapsed - ENTER - _hold) / EXIT, 0.0, 1.0)
-	modulate.a = minf(clampf(_elapsed / 0.22, 0.0, 1.0), 1.0 - leave)
+	# Keep the backdrop opaque for the entire sequence, including text fades.
+	modulate.a = 1.0
 	title_label.visible_ratio = 1.0 if _reduced or _mode == "fade" else enter
-	content.modulate.a = enter if _reduced or _mode == "fade" else clampf(enter * 3.0, 0.0, 1.0)
+	var text_alpha := enter if _reduced or _mode == "fade" else clampf(enter * 3.0, 0.0, 1.0)
+	content.modulate.a = minf(text_alpha, 1.0 - leave)
 	subtitle_label.modulate.a = clampf((enter - 0.45) / 0.55, 0.0, 1.0)
 
 func _unhandled_key_input(event: InputEvent) -> void:

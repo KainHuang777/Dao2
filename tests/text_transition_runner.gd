@@ -63,6 +63,40 @@ func _run() -> void:
 		abode.text_transition.skip()
 		expect(abode.camera.input_locked == was_locked, "Skip restores prior camera lock ownership")
 	expect(initial == abode.session.state.to_snapshot_dict(), "Preview and skip cannot change inventory, Era or save state")
+	var formal_starts := [0]
+	abode.text_transition.sequence_started.connect(func(): formal_starts[0] += 1)
+	for era_id in abode.content.era_ids:
+		for previous_level in [1, 9]:
+			abode.session.state.era_id = era_id
+			abode.session.state.level = previous_level
+			abode.session.state.total_elapsed_seconds = 120.0
+			var era: Dictionary = abode.content.era(era_id)
+			abode.session.state.training_seconds = Cultivation.next_level_required_seconds(era, previous_level, 0.0, 1.0)
+			for resource_id in Cultivation.level_up_cost(era, previous_level, 0.0):
+				abode.session.state.resources[resource_id].value = Cultivation.level_up_cost(era, previous_level, 0.0)[resource_id]
+			abode.camera.input_locked = false
+			abode.reduced_motion = era_id % 2 == 0
+			expect(abode._level_up_cultivation(), "Formal level command succeeds in Era %d" % era_id)
+			expect(abode.session.state.era_id == era_id and abode.session.state.level == previous_level + 1, "Level gain keeps current Era")
+			expect(abode.text_transition.title_label.text == "境界等級提升至 LV%d" % (previous_level + 1), "Title uses committed level")
+			var remaining := maxf(0.0, float(abode.session.get_view().max_lifespan_seconds) - 120.0) / 60.0
+			expect(abode.text_transition.subtitle_label.text == "%s ERA%d · 壽元剩餘 %.0f 祀" % [String(era.name), era_id, remaining], "Subtitle uses actual Era and remaining lifespan")
+			expect(abode.text_transition.visible and abode.camera.input_locked and not abode.breakthrough_seq.visible, "Small level uses text only and locks camera")
+			expect(abode.hud.get_child(-1) == abode.text_transition and abode.text_transition.z_index > abode.toolbar.z_index, "Overlay owns visual and input stacking above toolbar")
+			var committed: Dictionary = abode.session.state.to_snapshot_dict()
+			expect(not abode._level_up_cultivation(), "Playing sequence blocks another level command")
+			abode._breakthrough_era()
+			expect(committed == abode.session.state.to_snapshot_dict(), "Playing sequence cannot trigger Era command")
+			abode.text_transition.advance_presentation(0.1)
+			expect(abode.text_transition.modulate.a == 1.0, "Black remains opaque during entry")
+			if previous_level == 1:
+				abode.text_transition.skip()
+			else:
+				abode.text_transition.advance_presentation(10.0)
+			expect(not abode.text_transition.visible and not abode.camera.input_locked, "Skip and natural completion restore camera")
+			expect(committed == abode.session.state.to_snapshot_dict(), "Completion cannot grant or change state")
+			expect(not abode._level_up_cultivation() and not abode.text_transition.visible, "Insufficient training or max level never starts sequence")
+	expect(formal_starts[0] == abode.content.era_ids.size() * 2, "Exactly one sequence for each real level gain across configured Eras")
 	abode.queue_free()
 	await process_frame
 	if not failed:

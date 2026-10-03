@@ -271,6 +271,8 @@ var debug_panel: Control
 var achievement_panel: Control
 var debug_auto_build_active: bool = false
 var debug_auto_build_timer: float = 30.0
+var _last_process_ticks_msec: int = 0
+var _process_ticks_initialized: bool = false
 
 func _ready() -> void:
 	_init_core()
@@ -305,7 +307,7 @@ func _ready() -> void:
 	island_composition.add_child(flow)
 
 	home_marker = _label("你的洞府 · 靈氣生生不息", 65, Color("ffe5a3"))
-	UiMaterial.apply_world_text(home_marker, UiTypography.chapter_font(), 65, Color("f2dfae"), true)
+	UiMaterial.apply_world_caption(home_marker, UiTypography.chapter_font(), 65)
 	home_marker.position = Vector2(-420, 410)
 	home_marker.size.x = 840
 	home_marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -322,6 +324,8 @@ func _ready() -> void:
 	_refresh_hud()
 
 	print("ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords")
+	_last_process_ticks_msec = Time.get_ticks_msec()
+	_process_ticks_initialized = true
 
 static var save_dir_override: String = ""
 
@@ -428,6 +432,7 @@ func _build_region() -> void:
 		region_layer.add_child(island)
 
 		var label := _label(titles[i], 65, Color("d1dfd1"))
+		UiMaterial.apply_world_caption(label, UiTypography.emphasis_font(), 65)
 		label.position = locations[i] + Vector2(-400, 300)
 		label.size.x = 800
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -611,11 +616,39 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 func _layout_mode_name() -> String:
 	return _hud_controller._layout_mode_name()
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		if _process_ticks_initialized:
+			var now_ticks: int = Time.get_ticks_msec()
+			var elapsed_real: float = float(now_ticks - _last_process_ticks_msec) / 1000.0
+			if elapsed_real > 0.05:
+				var step_time := clampf(elapsed_real, 0.05, 86400.0)
+				_last_process_ticks_msec = now_ticks
+				if session != null and not _is_reincarnating and (reincarnation_seq == null or not reincarnation_seq.visible):
+					state.advance(step_time)
+					session.advance_time(step_time)
+					if debug_auto_build_active:
+						debug_auto_build_timer -= step_time
+						if debug_auto_build_timer <= 0.0:
+							debug_auto_build_timer = 30.0
+							_debug_perform_random_upgrade()
+					_refresh_hud()
+
 func _process(delta: float) -> void:
 	if _is_reincarnating or (reincarnation_seq != null and reincarnation_seq.visible):
+		_last_process_ticks_msec = Time.get_ticks_msec()
 		return
-	state.advance(delta)
-	var advance_result: Dictionary = session.advance_time(delta)
+
+	var now_ticks: int = Time.get_ticks_msec()
+	var step_delta := delta
+	if _process_ticks_initialized:
+		var elapsed_real: float = float(now_ticks - _last_process_ticks_msec) / 1000.0
+		if elapsed_real > delta:
+			step_delta = clampf(elapsed_real, delta, 86400.0)
+	_last_process_ticks_msec = now_ticks
+
+	state.advance(step_delta)
+	var advance_result: Dictionary = session.advance_time(step_delta)
 	for event in advance_result.get("events", []):
 		if event.get("kind", "") == "abode_scenery_spawned":
 			_pending_scenery_save = true
@@ -628,7 +661,7 @@ func _process(delta: float) -> void:
 			_push_hint_log(_last_hint_text)
 
 	if debug_auto_build_active:
-		debug_auto_build_timer -= delta
+		debug_auto_build_timer -= step_delta
 		if debug_panel != null and debug_panel.visible:
 			debug_panel.call("update_auto_build_ui", debug_auto_build_timer)
 		if debug_auto_build_timer <= 0.0:
@@ -657,12 +690,18 @@ func _process(delta: float) -> void:
 	_update_buildings_visual(view)
 
 	var distant: float = clampf((0.42 - camera.zoom.x) / 0.18, 0.0, 1.0)
-	region_layer.modulate.a = distant
-	home_marker.modulate.a = distant
+	for child in region_layer.get_children():
+		if child is Label:
+			child.visible = camera.zoom.x >= 0.12 and camera.zoom.x < 0.34
+			UiMaterial.keep_world_text_readable(child, 18)
+		else:
+			child.modulate.a = distant * (0.8 if child is Sprite2D else 1.0)
+	# Avoid fading essential text into the scenery at the LOD hand-off.
+	home_marker.visible = camera.zoom.x < 0.34
+	UiMaterial.keep_world_text_readable(home_marker, 24)
 
 	for building in buildings.values():
-		if building.has_node("caption"):
-			building.caption.modulate.a = 1.0 - distant
+		building.caption.visible = camera.zoom.x >= 0.34
 
 	if not reduced:
 		_sky_flow_time += delta
@@ -822,7 +861,9 @@ func _gather_resource(resource_id: String) -> void:
 	else:
 		hint.text = "採集受阻：%s" % str(res.get("error", "FAIL"))
 
-func _level_up_cultivation() -> void:
+func _level_up_cultivation() -> bool:
+	if (text_transition != null and text_transition.visible) or (breakthrough_seq != null and breakthrough_seq.visible):
+		return false
 	var cmd := {
 		"command_id": "lvl_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "level_up_cultivation",
@@ -834,8 +875,19 @@ func _level_up_cultivation() -> void:
 		hint.text = "修為突破一層！洞府靈息更為充沛。"
 		_save_game()
 		_refresh_hud()
+		for event in res.get("events", []):
+			if event.get("kind", "") == "cultivation_leveled_up" and text_transition != null:
+				var view := session.get_view()
+				var remaining := maxf(0.0, float(view.max_lifespan_seconds) - session.state.total_elapsed_seconds) / 60.0
+				text_transition.play("境界等級提升至 LV%d" % int(event.new_level),
+					"%s ERA%d · 壽元剩餘 %.0f 祀" % [String(view.era.name), int(event.era_id), remaining],
+					{"reduced_motion": reduced_motion})
+		return true
+	return false
 
 func _breakthrough_era() -> void:
+	if text_transition != null and text_transition.visible:
+		return
 	if breakthrough_seq != null and breakthrough_seq.visible:
 		return
 	var from_era: int = session.state.era_id
@@ -884,7 +936,7 @@ func _upgrade_selected() -> void:
 		return
 	_upgrade_building_from_catalog(selected_id)
 
-func _upgrade_building_from_catalog(building_id: String) -> void:
+func _upgrade_building_from_catalog(building_id: String) -> bool:
 	var cmd := {
 		"command_id": "upg_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "upgrade_building",
@@ -899,8 +951,10 @@ func _upgrade_building_from_catalog(building_id: String) -> void:
 		_save_game()
 		_refresh_hud()
 		print("ABODE_UPGRADE: ", building_id, " level=", session.state.buildings.get(building_id, 0))
+		return true
 	else:
 		hint.text = "建造受阻：%s" % str(res.get("error", "FAIL"))
+		return false
 
 func _toggle_garden() -> void:
 	state.garden_running = not state.garden_running
@@ -1178,35 +1232,67 @@ func _on_debug_apply_buff_requested(buff_id: String) -> void:
 	_modal_manager._on_debug_apply_buff_requested(buff_id)
 
 func _debug_perform_random_upgrade() -> void:
-	if session == null:
+	if session == null or session.state == null:
 		return
 	var view: Dictionary = session.get_view()
+
+	# 1. 檢查修為小境界升級（除渡劫外）
+	var era_upgraded := false
+	var can_lvl := bool(view.get("can_level_up", false))
+	var can_bt := bool(view.get("can_breakthrough", false))
+	var cur_lvl := int(view.get("level", 1))
+	var era_info: Dictionary = view.get("era", {})
+	var era_name: String = String(era_info.get("name", "當前境界"))
+
+	if can_lvl:
+		if _level_up_cultivation():
+			era_upgraded = true
+			view = session.get_view()
+
+	# 2. 檢查建築建造與升級候選
 	var candidates: Array[String] = []
 	for b_id in view.buildings:
 		var b_info: Dictionary = view.buildings[b_id]
 		var is_visible: bool = bool(b_info.get("visible", false))
 		var is_affordable: bool = bool(b_info.get("affordable", false))
-		var cur_level: int = int(b_info.get("level", 0))
+		var cur_b_level: int = int(b_info.get("level", 0))
 		var cap_level: int = int(b_info.get("level_cap", 0))
-		if is_visible and is_affordable and cur_level < cap_level:
+		if is_visible and is_affordable and cur_b_level < cap_level:
 			candidates.append(b_id)
 
-	if candidates.is_empty():
-		var msg := "[DEBUG] 自動建造跳過：目前無建築滿足建造條件（材料不足或前置未達），可點擊【獲得全基礎資源】補充物資。"
-		hint.text = msg
-		if debug_panel != null:
-			debug_panel.call("set_status_message", msg)
-		return
+	var building_upgraded := false
+	var build_desc := ""
+	if not candidates.is_empty():
+		var chosen_id: String = candidates[randi() % candidates.size()]
+		var old_level := int(view.buildings[chosen_id].get("level", 0))
+		if _upgrade_building_from_catalog(chosen_id):
+			building_upgraded = true
+			var b_name: String = BUILDING_NAMES.get(chosen_id, chosen_id)
+			var action_name := "建造" if old_level == 0 else "升級"
+			build_desc = "%s「%s」至 %d 階" % [action_name, b_name, old_level + 1]
 
-	var chosen_id: String = candidates[randi() % candidates.size()]
-	var old_level := int(view.buildings[chosen_id].get("level", 0))
-	_upgrade_building_from_catalog(chosen_id)
-	var b_name: String = BUILDING_NAMES.get(chosen_id, chosen_id)
-	var action_name := "建造" if old_level == 0 else "升級"
-	var success_msg := "[DEBUG] 自動建造觸發：%s「%s」至 %d 階！" % [action_name, b_name, old_level + 1]
-	hint.text = success_msg
-	if debug_panel != null:
-		debug_panel.call("set_status_message", success_msg)
+	# 3. 匯總狀態與反饋
+	var status_parts: Array[String] = []
+	if era_upgraded:
+		status_parts.append("自動晉階：%s 提升至第 %d 層" % [era_name, cur_lvl + 1])
+	if building_upgraded:
+		status_parts.append("自動建造：%s" % build_desc)
+
+	if not status_parts.is_empty():
+		var final_msg := "[DEBUG] %s！" % " · ".join(status_parts)
+		hint.text = final_msg
+		if debug_panel != null:
+			debug_panel.call("set_status_message", final_msg)
+	else:
+		var reason := ""
+		if can_bt:
+			reason = "修為已達大圓滿（請道友親自點擊突破渡劫）；無滿足條件之建築。"
+		else:
+			reason = "目前無建築滿足建造條件，且修為未達晉階條件。可點擊【獲得全基礎資源】補充物資。"
+		var skip_msg := "[DEBUG] 自動建造跳過：%s" % reason
+		hint.text = skip_msg
+		if debug_panel != null:
+			debug_panel.call("set_status_message", skip_msg)
 
 func _debug_boost_era_level_10() -> void:
 	if session == null or session.state == null:

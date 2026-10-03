@@ -28,6 +28,9 @@ func contains_point(point: Vector2) -> bool:
 	return Rect2(Vector2(-hit_size.x * 0.5, -width * 0.4 - hit_size.y * 0.5), hit_size).has_point(to_local(point))
 
 func _process(delta: float) -> void:
+	for child in get_children():
+		if child is Label:
+			UiMaterial.keep_world_text_readable(child, 18)
 	if reduced_motion:
 		return
 	age += delta

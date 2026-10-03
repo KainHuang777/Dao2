@@ -107,6 +107,8 @@ func create_panels() -> void:
 	_abode.text_transition = preload("res://src/presentation/text_transition.gd").new()
 	_abode.hud.add_child(_abode.text_transition)
 	_abode.text_transition.sequence_started.connect(func():
+		# Tree order owns Control hit testing; stay above navigation and open panels.
+		_abode.hud.move_child(_abode.text_transition, -1)
 		_text_camera_was_locked = _abode.camera.input_locked
 		_abode.camera.dragging = false
 		_abode.camera.contacts.clear()

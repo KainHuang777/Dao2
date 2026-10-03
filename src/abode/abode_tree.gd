@@ -39,6 +39,11 @@ func contains_point(world_point: Vector2) -> bool:
 	var hit_rect := Rect2(Vector2(-hit_w * 0.5, -hit_h + 10.0), Vector2(hit_w, hit_h))
 	return hit_rect.has_point(local)
 
+func _process(_delta: float) -> void:
+	for child in get_children():
+		if child is Label:
+			UiMaterial.keep_world_text_readable(child, 18)
+
 func chop_feedback(amount: int = 1) -> void:
 	if _harvest_tween != null and _harvest_tween.is_valid():
 		_harvest_tween.kill()
@@ -71,7 +76,7 @@ func _spawn_floating_text(text: String) -> void:
 	float_label.text = text
 	float_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	float_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	UiMaterial.apply_world_text(float_label, UiTypography.emphasis_font(), 22, Color("eedda7"), true)
+	UiMaterial.apply_world_caption(float_label, UiTypography.emphasis_font(), 22)
 	float_label.position = Vector2(-60, -body_size.y * 0.85)
 	float_label.size = Vector2(120, 32)
 	add_child(float_label)

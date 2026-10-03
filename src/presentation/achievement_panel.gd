@@ -58,7 +58,7 @@ func _build_ui() -> void:
 	_title_label.text = "仙道成就 · 功業圖鑑"
 	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 20)
-	_title_label.add_theme_color_override("font_color", Color("a99768"))
+	_title_label.add_theme_color_override("font_color", Color("e5cf99"))
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_title_row.add_child(_title_label)
 
@@ -84,7 +84,7 @@ func _build_ui() -> void:
 	_summary_label.text = "成就載入中..."
 	_summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_summary_label.add_theme_font_size_override("font_size", 15)
-	_summary_label.add_theme_color_override("font_color", UiMaterial.INK)
+	_summary_label.add_theme_color_override("font_color", UiMaterial.LIGHT_TEXT)
 	sum_box.add_child(_summary_label)
 
 	_status_label = Label.new()
@@ -92,7 +92,7 @@ func _build_ui() -> void:
 	_status_label.visible = false
 	_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status_label.add_theme_font_size_override("font_size", 14)
-	_status_label.add_theme_color_override("font_color", Color("5fb588"))
+	_status_label.add_theme_color_override("font_color", Color("9cdeb5"))
 	sum_box.add_child(_status_label)
 
 	# 列表容器
@@ -165,13 +165,13 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	desc_lbl.name = "Desc"
 	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc_lbl.add_theme_font_size_override("font_size", 14)
-	desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+	desc_lbl.add_theme_color_override("font_color", UiMaterial.LIGHT_TEXT)
 	info_box.add_child(desc_lbl)
 
 	var reward_lbl := Label.new()
 	reward_lbl.name = "Reward"
 	reward_lbl.add_theme_font_size_override("font_size", 13)
-	reward_lbl.add_theme_color_override("font_color", Color("a99768"))
+	reward_lbl.add_theme_color_override("font_color", Color("e5cf99"))
 	info_box.add_child(reward_lbl)
 
 	var action_btn := Button.new()
@@ -200,7 +200,7 @@ func _update_card(card: PanelContainer, ach: Dictionary) -> void:
 	reward_lbl.text = "功業獎勵：%s" % String(ach.rewards_desc)
 
 	if is_claimed:
-		title_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+		title_lbl.add_theme_color_override("font_color", UiMaterial.LIGHT_TEXT)
 		action_btn.text = "已領取"
 		action_btn.disabled = true
 	elif can_claim:
@@ -208,7 +208,7 @@ func _update_card(card: PanelContainer, ach: Dictionary) -> void:
 		action_btn.text = "領取獎勵"
 		action_btn.disabled = false
 	else:
-		title_lbl.add_theme_color_override("font_color", Color("8a9e96"))
+		title_lbl.add_theme_color_override("font_color", Color("c3cdc6"))
 		action_btn.text = "未達成"
 		action_btn.disabled = true
 
