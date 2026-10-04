@@ -1,4 +1,10 @@
-# Game typography trial — Source Han Sans
+# Game typography sources and runtime derivatives
+
+2026-10-04 RES1-C2-PERF: `runtime/Dao2Sans-VF.ttf` (920,700 bytes) and `runtime/Dao2Serif-VF.ttf` (1,293,488 bytes) are modified OFL derivatives of the two unchanged source TTFs below. `tools/subset_game_fonts.py` uses pinned fonttools4.61.1, the src/content/scenes text corpus and Latin-1. Each output retains all 1,809 corpus codepoints supported by its source, advance widths, vertical metrics and the original wght axis. Existing body400/emphasis600/chapter800 roles are unchanged. Original sources are retained but excluded from Web; both copyright/license files remain distributed.
+
+The derivatives use Dao2 family/unique/PostScript names, including named variable instances and localized identifying records, to respect reserved font names. Original embedded copyright and license records are retained. `runtime/manifest.json` records source/output SHA256, inputs, axes and unsupported-source characters; no new upstream provenance claim is made for the existing Noto Serif binary. Original-source hashes remain `cf6889f4c0f1adeaf814ca3e98cc692d9e2d706501cf7545b9b58f6e3966b6ac` / `c8b7df78de02c2c35875de707d1d336762fd4db8864a66e249940879fb6859d8`.
+
+To reproduce, install official PyPI `fonttools==4.61.1` into ignored `build/tool-deps` with bundled Python3.12, then run `tools/subset_game_fonts.py`. Run `--check` after changing game text; it rejects missing glyphs, changed metrics/axes, stale hashes and original identifying names. Reimport/export normally after regeneration. Arbitrary imported/custom text outside this corpus and emoji absent from the original fonts have no coverage guarantee. Desktop/short-landscape visual evidence and remaining high-DPR/max-zoom gates are in `docs/verification/res1-c2-perf.md`. Earlier records below retain their dates.
 
 2026-10-02 accepted mixed-role revision: body and actions retain Source Han Sans TW 400/600. Seven major panel headings and the world home inscription use `UiTypography.chapter_font()`, the existing Noto Serif TC variable font at weight 800 (real axis weight; no synthetic outline bolding). Small section lists, status, world building labels and buttons remain sans. The serif asset is restored to Web release and `NotoSerifTC-LICENSE.txt` is included alongside the Source Han Sans license.
 

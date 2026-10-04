@@ -1,6 +1,12 @@
 # 給下一位 AI 的開發交接
 
-更新：2026-10-03（ISLAND1：38 Runner、小院／小景與驗收邊界）。適用 GPT-5.6、OpenCode、Codex 或其他可讀寫檔案與執行 CLI 的工具；不要求付費外掛或本次對話上下文。
+2026-10-04最新R2耗時定位：讀[profile證據](verification/res1-c2-perf-r2-profile.md)及updata頂部。三組HUD12.7–12.8ms（navigation5.0–5.1／catalog3.7–3.9），保存18.1–22.7ms，encode13.8–18.5、commit4.1–4.2；tick1.2–1.3。新增RuntimeProfile預設關閉，僅`/launcher?profile=1`啟用；`--profile-build`服務獨立build/web-profile。基礎版51/51、最後world26，未做效能改善／完整Web故障重跑／200ms重現，profile不可判FPS通過。下一同R2改善FeatureNavigation重複get_view及BuildingCatalog重複資源／樣式更新，配對非profile驗收；R2/C/C2 IN_PROGRESS，D TODO。正常build/web未重匯出。請New Chat接後續。
+
+2026-10-04最新R2 FPS子階段：先讀[桌面複測](verification/res1-c2-perf-r2-fps.md)及updata頂部。v3量測／重算工具13契約PASS；同iframe1280×650／DPR1.25三遊戲pooled59.019FPS、p95均16.8／max200ms，三無遊戲對照59.997。嚴格60未過；下一同R2實測每秒Session／View、0.25秒HUD、15秒同步保存各段成本後改善，未定位不能改保存／收益，不跳D。新4238正常版隔離試玩保留，4236本輪未驗；本輪未改Godot來源／export／跑51 Runner，下面為前輪證據。以New Chat接profile階段。
+
+2026-10-04 PERF-R2 續輪（最新）：20Mbps／100ms長離線 ready **9.801／9.777秒**，兩個新origin通過10秒；原生48h CPU **2.662→0.886秒**、完整終態hash不變。最終51/51、145精確檢查、async27、world26、Web C2 retry49通過。桌面 **59.930FPS／p95 16.8ms**，嚴格60仍未過；人工／手機／高DPR等仍待驗，R2／C／C2維持IN_PROGRESS，不跳D。 使用最新 `FrameBudget` 14ms；保留正常版隔離試玩 [4236](http://127.0.0.1:4236/launcher?metrics=1)，已有隔離進度拒覆寫。先讀 [R2續輪](verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)與updata頂部；以下更新行為較早歷史。
+
+更新：2026-10-04（PERF-R2續輪：節流長離線9.801／9.777秒有界通過；最終51/51＋145精確；嚴格60FPS／裝置與人工仍待驗）。較早結果保留歷史。
 
 ## 閱讀與恢復工作
 
@@ -17,6 +23,20 @@
 依修改類型查 [呈現層索引](abode-presentation-map.md)。歷史長記錄已歸檔，不作每次必讀；目前缺口與驗證以 [開發狀態](development-status.md) 為準。
 
 ## 最新接手狀態
+
+- **2026-10-04 PERF-R2續輪最新**：長離線節流兩新origin9.801／9.777秒，最終51/51＋145精確、world26、Web C2 retry49。FrameBudget14ms；桌面59.930FPS／p95 16.8ms、嚴格60仍未過。固定點快取不跨命令，祖島Amount／乘區變化立即失效；全部計數仍逐秒。4236正常版隔離試玩保留。先讀R2末節與updata頂部；下一同R2嚴格FPS／人工與装置，D TODO。下列10ms／121項紀錄為同日較早階段。
+
+- **2026-10-04 PERF-R2 最新**：讀 [R2驗收](verification/res1-c2-perf-r2.md)／updata頂部。最終51/51、121精確tick/font（含零tick／已壽盡不得初始化靈獸）、Web retry49通過。本機48h ready18.03→7.75秒，結算rAF p95 16.8／max17ms；20Mbps／100ms新檔8.45秒、長離線13.55秒仍超10秒；桌面59.80FPS／p95 16.8ms，嚴格60仍未過。準備只限無命令結算；BUFF到期、時辰切換與當秒庫存／預留仍保持原順序，FrameBudget10ms只決定讓出。三preset最終匯出並準備companions，正常PCK hash `dac46aa8a5e2f2240e6faaf065e002f794d70c30bb7d710950caec7e91018789`、核心br14,445,165 bytes。保留正常版隔離試玩4230服務：`python tools/island_preview_server.py --port 4230 --normal-build --gzip --review-fixture --metrics-log res1-c2-perf-r2-final-active-metrics.jsonl`；已有進度拒覆寫。下一仍PERF-R2節流長離線／嚴格FPS、指定裝置與人工，不跳D，不重做已過A/B／保存矩陣。用New Chat接大型後續工作。
+
+- **2026-10-04 RES1-C2-PERF最新**：讀[效能驗收](verification/res1-c2-perf.md)與updata。核心br14.44MB／含四原MP3共19.79MB，新檔20Mbps／100ms8.49秒，p95 16.8ms；平均59.45–59.85未嚴格60、48h恢復本機18.19秒仍待改善。51/51、107精確tick/font、world26、真實Web retry49／音樂503後選單重試／兩橫式／50次Web切島通過。三preset匯出後**必須準備音樂companions**：`node tools/prepare_web_compression.mjs build/web`（其餘preset換目錄），再`python tools/web_static_server.py --port 4175 --directory build/web`；一般`start_web_server.ps1`會自動準備，無Node仍copy原MP3與gzip。只Godot export不會建立audio/bgm companions。Runtime字型用bundled Python＋build/tool-deps/fonttools4.61.1執行`tools/subset_game_fonts.py --check`，新增文字缺字時再生成，不改原TTF。預覽4221服務保留：`python tools/island_preview_server.py --port 4221 --normal-build --gzip --review-fixture --metrics-log res1-c2-perf-responsive-metrics.jsonl`；已有資料拒覆寫，844×390測試按鈕是可驗證iframe，不是實體手機。原4175／4207未中斷。下一PERF-R2／裝置與人工放行，New Chat，不跳D；舊紀錄保留歷史，勿重做A/B或已通過矩陣。
+
+- **2026-10-04 RES1-C3 本輪最新**：正常版已附掛processing／空島入口，築基後玩家保留原檔啟用；前輪「正式未附掛／只有preview」由當次要求覆蓋。四張PNG＋兩參考＋提示詞／manifest，最終50/50、正常world22與兩版型Web開拓／重開／精煉通過；world退出清理警告有記錄。读[C3](verification/res1-c3-art-integration.md)、[30+容量與考據](15-island-expansion-and-art-direction.md)與updata。實際仍首批三島，後續未實作。正常4175已更新；`python tools/island_preview_server.py --port 4207 --normal-build --review-fixture`保留試玩，獨立origin正常namespace，已有檔拒覆寫。C/C3人工美術／節奏與C2效能／裝置待驗；下一C2-PERF＋人工，New Chat接大型工作，不重做已通過矩陣／A/B，不跳D。下方C2-R1等按歷史保留。
+
+- **2026-10-04 最新RES1-C2-R1**：讀 [收尾驗收](verification/res1-c2-closure.md)／updata。桌面async追加矩陣146 checks、最後retry49回歸、全量50/50及world15 checks PASS；原生50switch memory穩定僅有界證據。20Mbps／100ms未壓縮含48h恢復ready67.84s、獨立桌面48.60FPS／p95 33.4ms、gzip估算44.72MB，未達預算；使用者美術／節奏明確待驗。正式manifest仍未附掛，下一 **C2-PERF**，不重做已通過保存矩陣／A/B、不跳D。`WebPersistenceTest` export → `python tools/web_persistence_server.py --port 4202` → `?case=c2retry/c2quota/c2indexreload/c2quotareload/c2lock/c2denied/c2corrupt`；reload兩案要真的重整兩次，lock要兩個分頁且關閉owner後reload。review工具只重封UTC不改command-earned state：`--script res://tools/res1c2_review_fixture.gd`，server `--port 4205 --review-fixture`，已有資料拒覆寫；不要用48hfixture當可長期試玩檔。metrics來源工具 `--throttle-mbps 20 --latency-ms 100`／`/launcher?metrics=1`，禁止手改build。大型下一步用New Chat。
+
+- **2026-10-04 RES1-C2 IN_PROGRESS，程式／桌面候選已交付**：先讀 [C2驗收](verification/res1-c2.md)／development-status／updata頂部。27 checks、checksum修正後固定50/50及世界14 checks、Web雙鏈／T2升級與重載、48h分批拒寫／恢復／重試／再重載已驗。新增SVG候選未美術放行，正式catalog仍未附掛。FrameBudget在platform，coordinator不直接讀Time；舊有效checksum驗證保持，Encode修正實際JSON表示往返。`run_all_runners.ps1`含新offline runner並產生48hfixture；另跑world runner。preview server支援`--port 4198`、`--port 4201 --offline-fixture`；`/launcher?fault=write`使用既有namespace受限故障條，`/fault.html`是工具頁，不改build。已有隔離進度拒覆寫。下一C2美術／裝置與新async完整故障追加矩陣／效能收尾，不跳D；用New Chat。
+
+- **2026-10-03 RES1-C IN_PROGRESS，C1階段已交付，下一 C2**：先讀 [C1驗收](verification/res1-c1.md)／development-status及updata頂部。三島設施／T2消耗、遷移備份／重試與Godot操作頁已有87 checks、最終49/49 Runner、IAB1280×720／844×390滑鼠證據。正式manifest沒有附掛；只有IslandProgressionTest feature使用`dao2_islands_preview`，native override僅測試用。以C Runner生成earned-era2 fixture→export IslandProgressionTest→`python tools/island_preview_server.py`→4197/launcher；已有隔離進度按開啟遊戲，拒絕覆寫。下一C2補專用三島世界／Banner／世界命中與長離線分批讓出主執行緒、完整Web雙鏈／T2升級／重載離線矩陣，通過才做正式內容啟用。不要重做A/B或誤認C已DONE／跳D。依Context Guard用New Chat接續。
 
 - **2026-10-03 RES1-B-WEB-R1 DONE，下一 RES1-C**：251 checks／native三程序與桌面Web保存故障矩陣已交付、最終固定入口47/47 PASS、exit0。讀 [驗收](verification/res1-b-web-r1.md)／development-status及updata頂部。localStorage＋lifetime Web Lock，拒絕讀寫／quota／損壞／索引中斷／重載與重試、受控Web幀恢復已驗；正式manifest保持opt-in。自然分頁／OS背景凍結、裝置與長離線CPU另待驗。本節後續A／B待做順序是本日較早歷史，不重做已交付核心。下個大型任務用New Chat。
 

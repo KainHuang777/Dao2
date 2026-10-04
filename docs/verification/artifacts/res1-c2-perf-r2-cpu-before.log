@@ -1,0 +1,5 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"advance_600_us":238468,"snapshot_hash":"b0ccfe4b94668b25ead2776a71d9e19601f5ef37c9113416d92d2fac1aa36e63","ticks":600,"view_600_us":1480503}

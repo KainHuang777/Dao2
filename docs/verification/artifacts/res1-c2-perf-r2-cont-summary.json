@@ -1,0 +1,273 @@
+[
+  {
+    "source": "res1-c2-perf-r2-cont-baseline-metrics.jsonl",
+    "url": "http://127.0.0.1:4231/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 13564.70000000298,
+    "settlement": {
+      "durationMs": 5120.20000000298,
+      "intervals": 300,
+      "p95Ms": 16.80000000000109,
+      "maxMs": 16.900000000001455,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-throttled-metrics.jsonl",
+    "url": "http://127.0.0.1:4232/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.25,
+    "readyMs": 10675.5,
+    "settlement": {
+      "durationMs": 2220.10000000149,
+      "intervals": 126,
+      "p95Ms": 16.80000000000109,
+      "maxMs": 16.900000000001455,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-throttled-final-metrics.jsonl",
+    "url": "http://127.0.0.1:4233/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 10034.60000000149,
+    "settlement": {
+      "durationMs": 1587.2999999970198,
+      "intervals": 88,
+      "p95Ms": 16.899999999999636,
+      "maxMs": 16.899999999999636,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-delivery-offline-metrics.jsonl",
+    "url": "http://127.0.0.1:4234/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 9800.69999999553,
+    "settlement": {
+      "durationMs": 1349.5999999940395,
+      "intervals": 73,
+      "p95Ms": 16.80000000000109,
+      "maxMs": 33.30000000000109,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-delivery-offline-metrics.jsonl",
+    "url": "http://127.0.0.1:4234/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 8668.5,
+    "settlement": {
+      "durationMs": 141.20000000298023,
+      "intervals": 0,
+      "p95Ms": null,
+      "maxMs": null,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-delivery-repeat-metrics.jsonl",
+    "url": "http://127.0.0.1:4235/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 9777,
+    "settlement": {
+      "durationMs": 1324.0999999940395,
+      "intervals": 72,
+      "p95Ms": 16.799999999999272,
+      "maxMs": 16.899999999999636,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-delivery-repeat-metrics.jsonl",
+    "url": "http://127.0.0.1:4235/raf-baseline",
+    "viewport": [
+      1280,
+      720
+    ],
+    "dpr": 1.25,
+    "readyMs": null,
+    "settlement": {},
+    "frameSample": {
+      "count": 900,
+      "durationMs": 15011.600000005961,
+      "intervalDurationMs": 15000.7,
+      "fps": 59.997200130660566,
+      "rawWindowFps": 59.95363585491504,
+      "p95Ms": 16.80000000000109,
+      "maxMs": 17.299999999999272,
+      "visible": "visible",
+      "startedBeforeReady": true,
+      "endedAfterReady": false,
+      "jsHeapBytes": 11922502
+    },
+    "network": {
+      "mbps": 20.0,
+      "response_latency_ms": 100.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-active-metrics.jsonl",
+    "url": "http://127.0.0.1:4236/metrics.html",
+    "viewport": [
+      1280,
+      650
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 2787,
+    "settlement": {
+      "durationMs": 283.1000000014901,
+      "intervals": 9,
+      "p95Ms": 33.5,
+      "maxMs": 33.5,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": null,
+      "response_latency_ms": 0.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-active-metrics.jsonl",
+    "url": "http://127.0.0.1:4236/metrics.html",
+    "viewport": [
+      1280,
+      720
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 2624.4000000059605,
+    "settlement": {
+      "durationMs": 140.5,
+      "intervals": 0,
+      "p95Ms": null,
+      "maxMs": null,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": null,
+      "response_latency_ms": 0.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-active-metrics.jsonl",
+    "url": "http://127.0.0.1:4236/metrics.html",
+    "viewport": [
+      1280,
+      720
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 2624.4000000059605,
+    "settlement": {
+      "durationMs": 140.5,
+      "intervals": 0,
+      "p95Ms": null,
+      "maxMs": null,
+      "visible": "visible"
+    },
+    "frameSample": {
+      "count": 899,
+      "durationMs": 15002.099999999999,
+      "intervalDurationMs": 15000.8,
+      "fps": 59.93013705935684,
+      "rawWindowFps": 59.92494384119557,
+      "p95Ms": 16.80000000000291,
+      "maxMs": 33.200000000004366,
+      "visible": "visible",
+      "startedBeforeReady": false,
+      "endedAfterReady": true,
+      "jsHeapBytes": 64913690
+    },
+    "network": {
+      "mbps": null,
+      "response_latency_ms": 0.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  },
+  {
+    "source": "res1-c2-perf-r2-cont-active-metrics.jsonl",
+    "url": "http://127.0.0.1:4236/metrics.html",
+    "viewport": [
+      844,
+      390
+    ],
+    "dpr": 1.0000000149011612,
+    "readyMs": 2561.60000000149,
+    "settlement": {
+      "durationMs": 135.89999999850988,
+      "intervals": 0,
+      "p95Ms": null,
+      "maxMs": null,
+      "visible": "visible"
+    },
+    "frameSample": {},
+    "network": {
+      "mbps": null,
+      "response_latency_ms": 0.0,
+      "compression": "br/gzip negotiated for static files"
+    }
+  }
+]

@@ -1,5 +1,13 @@
 # 修仙問道 v2 — 可執行開發 Roadmap
 
+2026-10-04 R2最新[耗時定位](docs/verification/res1-c2-perf-r2-profile.md)已交付：1280×720／DPR約1三組HUD平均12.7–12.8ms、其中導覽5.0–5.1ms／建築與資源清單3.7–3.9ms；保存18.1–22.7ms、主要編碼。只有診斷量測，未改善FPS、未重現200ms；基礎版51/51及最終world26通過，profile樣本排除正式FPS gate。下一同R2改善重複View／資源卡更新並收非profile配對證據。**R2／C／C2 IN_PROGRESS，D TODO**，New Chat接下一大型工作。
+
+2026-10-04 R2最新[桌面FPS複測](docs/verification/res1-c2-perf-r2-fps.md)：1280×650／DPR1.25三組遊戲pooled59.019FPS／p95均16.8ms／max200ms，三組無遊戲對照59.997。量測工具13契約通過，嚴格60門檻保持且未過；下一同R2定位秒級更新／保存成本，再補同條件1280×720／裝置與人工。**R2／C／C2 IN_PROGRESS、D TODO**；本輪未改Godot或重跑51 Runner，以下為前輪結果。
+
+2026-10-04 PERF-R2 續輪（最新）：20Mbps／100ms長離線 ready **9.801／9.777秒**，兩個新origin通過10秒；原生48h CPU **2.662→0.886秒**、完整終態hash不變。最終51/51、145精確檢查、async27、world26、Web C2 retry49通過。桌面 **59.930FPS／p95 16.8ms**，嚴格60仍未過；人工／手機／高DPR等仍待驗，R2／C／C2維持IN_PROGRESS，不跳D。 [續輪證據](docs/verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)。下方R2表列數據是本日較早階段；下一仍R2嚴格FPS／裝置與人工。
+
+2026-10-04較早階段 **RES1-C2-PERF-R2**：同輪本機48h恢復18.03→7.75秒、最終51/51與121精確檢查／Web retry49通過；節流新檔8.45秒，節流48h13.55秒仍超10秒，桌面59.80FPS／p95 16.8ms，嚴格60FPS及人工／裝置未全過。C/C2/PERF仍IN_PROGRESS，下一續PERF-R2缺口，不跳D。[R2證據](docs/verification/res1-c2-perf-r2.md)；下方前輪PERF數據保留歷史。
+
 規劃基線：2026-09-13；目前狀態與接手順序以 [docs/development-status.md](docs/development-status.md) 為準（2026-10-03 NAV1 更新）。此檔是後續開發順序與完成條件的主要入口；沿用既有 M0–M5 編號，新增任務 ID，避免舊文件與新交接對不上。沒有承諾日曆工期，依驗收通過推進。
 
 ## 1. 要完成的遊戲
@@ -33,7 +41,7 @@
 | 橫式響應式與介面 | R1 橫式／旋轉提示已實作；UI1–UI7、字型、FX2／TEXT1 有分輪證據；最新 UI7 桌面 Web 滑鼠已驗，使用者／高 DPR／實機待補 |
 | 九界尺度與生成內容 | M4-B 數值／地址、M5-A 生成描述、M5-B 決策／地貌／奇遇已交付；完整多尺度場景、三種手工法則可玩驗收、逐界美術／試玩／負載待補 |
 
-現有固定入口為 40 Runner，2026-10-03 M4-A-R1 全量 40/40 PASS、exit 0；本日較早 UI8 R1 為 39/39 PASS；後續建造訊息修復重跑兩项相關 Runner／Web，使用者測試 OK；不能代替完整 Session 端到端、實體手機、IndexedDB 與所有里程碑 DoD。歷史 25–33 Runner 數量按日期保留。
+2026-10-04最新固定入口51 Runner，C2-PERF全量51/51 PASS、exit0；下載14.44MB／新檔8.49秒／p95 16.8ms，平均59.45–59.85FPS與長離線18.19秒及裝置／人工缺口仍按[C2-PERF](docs/verification/res1-c2-perf.md)收尾。2026-10-03當時固定入口40 Runner，M4-A-R1全量40/40 PASS、exit0；本日較早UI8 R1為39/39 PASS。歷史數量保留，不代替完整DoD。
 
 ## 3. 任務流程及共通完成定義
 
@@ -205,18 +213,25 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 
 ### RES1 — 多島資源、加工與運輸（優先主線，2026-10-03）
 
-本次使用者指示優先於既有接手順序。**RES1-DESIGN DONE 僅指文件修訂；RES1-A 隔離核心 DONE、RES1-B 原型核心／桌面Web保存範圍 DONE、C–E TODO**。現有核心／Session／保存與來源檔可開始 A，不等候額外九界或純裝飾美術；涉及新經濟正式保存的部分仍受 M1-C/D 故障／離線證據約束。
+**2026-10-04 RES1-C3 當次要求優先**：先製作正式美術並接正常遊戲，覆蓋下方預覽限定／先效能順序。四張分層PNG、正常空島入口與保留原檔啟用、resize重新取景已交付，最終50/50、world22與兩版型Web操作通過。**C／C3 IN_PROGRESS（實作交付，人工美術／節奏待驗）**；C2效能／裝置缺口保留，下一C2-PERF＋玩家驗收、不跳D。長期30+島容量方向、36島盤點草案共用有限材料鏈，目前只完成首批三島。見 [擴充／考據](docs/15-island-expansion-and-art-direction.md)／[C3驗收](docs/verification/res1-c3-art-integration.md)。
+
+本次使用者指示優先於既有接手順序。**RES1-DESIGN DONE 僅指文件修訂；RES1-A 隔離核心 DONE、RES1-B 原型核心／桌面Web保存範圍 DONE、C IN_PROGRESS（C1階段已交付）、D–E TODO**。A/B已有證據不重做；下一C2世界／效能／完整玩法矩陣，涉及新經濟正式保存的部分仍受 M1-C/D 故障／離線證據約束。
 
 | 任務 | 相依 | 可驗收交付 |
 | --- | --- | --- |
 | RES1-DESIGN | 當次使用者要求、現有 DAO1 唯讀來源與 v2 實作 | 61 資源／30 配方稽核、概念分工、Era 1–3 島／配方工作方案、運輸／加工／遷移契約、ADR／文件一致性；2026-10-03 DONE，非新玩法完成 |
 | RES1-A | 現有 M0-B/C、M1-A/B、RES1-DESIGN | 首批 Era 1–3 資源／配方／來源／技能／設施／消耗依賴表與通用 Craft 核心；銅精、丹液、中品靈石、築基丹→金丹鏈及 v2 靈材／陣芯有明確差異。單一權威庫存、成功／拒絕／重送、Amount 與宣告依賴無死鎖證據；**DONE（首批契約／隔離核心）**，145 checks／DAO1 8 tests／42 Runner，正式內容啟用待 B–D；[驗收](docs/verification/res1-a.md) |
 | RES1-B | RES1-A | 批次加工、地方庫存、固定航線／在途貨物、版本遷移；原料／容量保留、流量守恆、600 秒一次／分段、離線／壽盡／輪迴、保存中斷／重試不重扣或重發；相交的 M1-C/D 證據補齊才進正式存檔；**DONE（原型核心251 checks、native三程序、桌面Web保存矩陣、47/47 Runner）**，見 [核心驗收](docs/verification/res1-b.md)／[Web驗收](docs/verification/res1-b-web-r1.md)；正式manifest保持opt-in，裝置／自然背景凍結與長離線CPU另待驗 |
-| RES1-C | RES1-B、docs/07／08／12 | Era 2 三島（祖島＋青木＋玄礦）T1→T2，可見地標／Banner／可操作航線，既有祖業不重建或雙倍產出；新檔可達、物流瓶頸可改善、材料被設施消耗，1280×720／844×390 Web 操作證據 |
+| RES1-C | RES1-B、docs/07／08／12 | **IN_PROGRESS；C1契約／隔離操作階段已交付**（87 checks、49/49 Runner、兩版型Web加工／貨運操作；[驗收](docs/verification/res1-c1.md)）。Era 2 三島（祖島＋青木＋玄礦）T1→T2，可見地標／Banner／可操作航線，既有祖業不重建或雙倍產出；新檔可達、物流瓶頸可改善、材料被設施消耗，1280×720／844×390 Web 操作證據。**下一C2補世界地標／Banner／命中、長離線分批效能與完整Web雙鏈／T2升級矩陣，通過才正式啟用；不跳D** **2026-10-04 C2程式／桌面候選已交付**（27 checks、50/50 Runner、世界14 checks、雙鏈T2／重載／長離線拒寫重試，见[C2](docs/verification/res1-c2.md)）；候選美術／節奏、實機／高DPR／效能與新async完整故障追加矩陣待補，正式manifest不啟用，下一仍C2驗收收尾。 |
 | RES1-D | RES1-C、Era 3 完整前置 | 第四座丹霞島、T2→T3 與修行需求閉環；無 Debug 完成首段，能解釋擴產／運力／加工／修行的取捨、重載與離線一致；使用者玩法／視覺驗收 |
+| RES1-C3 | 當次接入要求、C1／C2已驗核心與保存 | 四張正式PNG＋兩參考＋來源／提示詞、正常空島入口與玩家原檔啟用、兩版型resize／重開／精煉、50/50＋22 checks；實作交付，人工美術／節奏待驗，IN_PROGRESS |
+| RES1-C2-PERF | C3正常版、已通過桌面保存矩陣 | **IN_PROGRESS；桌面改善交付**：核心br14.44MB、20Mbps／100ms新檔8.49秒、p95 16.8ms、規則CPU約減49.8%；51/51＋107 tick/font＋world26／Web retry49／50次Web切島。嚴格平均60FPS、48h恢復≤10秒、高DPR／手機／自然凍結／跨瀏覽器／長期GPU與人工待验。下一PERF-R2，不跳D；[證據](docs/verification/res1-c2-perf.md) |
+| RES1-C2-PERF-R2 | PERF已交付部分、相同命令賺得fixture | **IN_PROGRESS；續輪節流長離線有界通過**：20Mbps／100ms兩新origin ready9.801／9.777秒，native48h CPU2.662→0.886秒／hash不變；最終51/51＋145精確＋async27／world26／Web C2 retry49。FrameBudget14ms；桌面59.930FPS／p95 16.8ms，嚴格60及人工／裝置仍未過。下一仍R2嚴格FPS／裝置與人工，不跳D；[續輪證據](docs/verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口) |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
 
 整體 RES1 首段可玩以 A–D 為門檻；資料表與獨立 Runner 不取代真實玩法。M4-A-R1 的原整合 DONE 保留，M5 的既有生成／法則資料也保留；後續資源與內容補齊從 Era 2–3 開始，不能只把缺口記為 Era 9–12。
+
+**2026-10-04 RES1-C2-R1 最新收尾**：新async桌面保存追加矩陣146 checks／最終retry49回歸、固定50/50與world15 checks通過；原生50次切島記憶體有界穩定。實測獨立桌面48.60FPS／p95 33.4ms、20Mbps／100ms含48h恢復ready67.84秒、gzip估算44.72MB，效能未過§6预算；美術／節奏經使用者選擇保留待驗，實機／DPR2或3／自然凍結／跨瀏覽器與長期Web記憶體仍待補。**RES1-C/C2維持IN_PROGRESS，下一C2-PERF，正式manifest不附掛、不進D**。保存追加矩陣不再列為未開始；見 [最新驗收](docs/verification/res1-c2-closure.md)，上表較早範圍按歷史保留。
 
 2026-10-03 使用者回饋子項 **RES1-B-R1／UI 資源列 DONE**：EAR1 繼承靈界設施暫停耗料、滿倉按容量轉換、跨世資源共用卡片；738 checks／七項相關回歸／隔離 Web。此修復不放行 B 保存門檻，詳見 [驗收](docs/verification/resource-feedback-r1.md)。
 

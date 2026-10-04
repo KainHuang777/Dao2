@@ -1,0 +1,37 @@
+- heading "RES1-C2 分批離線保存驗證" [level=1]
+- paragraph: 隔離 origin 4215；測試專用，不含玩家進度。localStorage 為權威儲存。
+- navigation:
+  - link "C2 五種中斷":
+    - /url: /?case=c2retry
+  - link "C2 真實 quota":
+    - /url: /?case=c2quota
+  - link "C2 索引重載":
+    - /url: /?case=c2indexreload
+  - link "C2 quota 重載":
+    - /url: /?case=c2quotareload
+  - link "C2 雙分頁":
+    - /url: /?case=c2lock
+  - link "C2 拒讀":
+    - /url: /?case=c2denied
+  - link "C2 損壞":
+    - /url: /?case=c2corrupt
+  - link "故障重試":
+    - /url: /?case=retry
+  - link "重載":
+    - /url: /?case=reload
+  - link "損壞復原":
+    - /url: /?case=corrupt
+  - link "拒絕讀取":
+    - /url: /?case=denied
+  - link "schema2 遷移":
+    - /url: /?case=migration
+  - link "48h 上限":
+    - /url: /?case=cap
+  - link "雙分頁鎖":
+    - /url: /?case=lock
+  - link "實際 quota":
+    - /url: /?case=actualquota
+  - link "正式遊戲隔離驗收":
+    - /url: /release/index.html
+- button "重新載入本案例"
+- generic: "PASS { \"case\": \"c2retry\", \"checks\": 49, \"failures\": [], \"note\": \"\" }"

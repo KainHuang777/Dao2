@@ -1,0 +1,65 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RES1C_OFFLINE_CPU_MS: 8343 ticks=86400
+ERROR: repeat local wood
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: both T2 materials delivered to ancestor
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: T2 consumed by real upgrade
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: exact T2 costs from ancestor
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: workshop doubles future batch throughput
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: upgrade replay does not spend twice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: T2 upgrades operational cargo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: transport upgrade changes state
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: T2 warehouse upgrade
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: warehouse improves capacity
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: 600 seconds once equals partitioned
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)
+ERROR: offline actual C profile equals online
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:166)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:186)

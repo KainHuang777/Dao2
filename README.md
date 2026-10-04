@@ -1,8 +1,22 @@
 # 修仙問道 v2
 
+2026-10-04 R2最新[耗時定位](docs/verification/res1-c2-perf-r2-profile.md)：三組1280×720／DPR約1，HUD平均12.7–12.8ms（導覽5.0–5.1ms、建築／資源清單3.7–3.9ms），保存18.1–22.7ms、編碼佔大部。本輪交付預設關閉的profile工具，未做效能改善；未重現200ms、嚴格60未放行。基礎版51/51、最終世界26通過。下一同R2改善HUD重複View／資源卡刷新，**不跳D**。
+
+2026-10-04 R2最新[桌面FPS複測](docs/verification/res1-c2-perf-r2-fps.md)：1280×650／DPR1.25三組遊戲pooled **59.019FPS**、p95均16.8ms／max200ms；三組無遊戲對照59.997。量測工具13契約通過，嚴格60仍未過；下一同R2定位秒級更新／保存成本，裝置／人工待驗，**不跳D**。本輪未改Godot，下面51/51與節流啟動屬前輪結果。
+
+2026-10-04 PERF-R2 續輪（最新）：20Mbps／100ms長離線 ready **9.801／9.777秒**，兩個新origin通過10秒；原生48h CPU **2.662→0.886秒**、完整終態hash不變。最終51/51、145精確檢查、async27、world26、Web C2 retry49通過。桌面 **59.930FPS／p95 16.8ms**，嚴格60仍未過；人工／手機／高DPR等仍待驗，R2／C／C2維持IN_PROGRESS，不跳D。 [本輪證據](docs/verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)。下方同日較早結果保留歷史。
+
 Godot 修仙放置遊戲原型：由洞府建設、修行與突破開始，逐步探索輪迴、宗門與不同世界。主場景、HUD 和互動由 Godot/GDScript 負責；Web 匯出供瀏覽器執行。
 
-## 目前狀態｜2026-10-03
+## 目前狀態｜2026-10-04
+
+**同日較早 RES1-C2-PERF-R2：離線改善交付，整體 IN_PROGRESS**。同條件本機48h恢復 **18.03→7.75秒**，逐秒終態／事件保持；最終 **51/51 Runner、121精確檢查、Web retry49** 通過。20Mbps／100ms新檔8.45秒，但長離線13.55秒仍超10秒；桌面59.80FPS／p95 16.8ms，嚴格60仍未過。詳 [R2驗收](docs/verification/res1-c2-perf-r2.md)。下一仍PERF-R2缺口／裝置與人工，不跳D；以下保留前輪歷史。
+
+**同日較早 RES1-C2-PERF：桌面效能改善交付，整體 IN_PROGRESS**。正常Web核心Brotli **14.44MB**（含四首原音樂19.79MB）、20Mbps／100ms新檔ready **8.49秒**；600秒規則CPU約減少49.8%，終態hash不變。最終桌面p95 **16.8ms**，平均59.45–59.85FPS仍未嚴格達60；48h恢復本機18.19秒仍待改善。**51/51 Runner**、107精確tick/font、世界26、真實Web retry49、兩橫式操作及50次Web切島通過。[驗收與隔離試玩](docs/verification/res1-c2-perf.md)。人工美術／高DPR／手機／自然凍結／跨瀏覽器／長期GPU記憶體仍待驗，下一C2-PERF-R2，不跳D。以下保留較早分輪紀錄。
+
+**本輪 RES1-C3 最新**：四張青木／玄礦正式PNG分層美術已接正常版「經營 → 空島」，築基後玩家保留原檔並啟用。三島是首段切片，[30+容量與考據規格](docs/15-island-expansion-and-art-direction.md)採多产地共用有限材料鏈，後續島群尚未實作。最終50/50、正常world22及兩版型Web開拓／重開／精煉通過；人工美術／節奏與C2效能／裝置仍待驗。[本輪交付與試玩](docs/verification/res1-c3-art-integration.md)。下方預覽限定／正式未附掛為前輪歷史，由當次使用者要求覆蓋。
+
+**最新：RES1-C2-R1 桌面保存追加矩陣完成；整體仍 IN_PROGRESS**。async故障／真實quota／兩次重載／雙分頁／拒讀／損壞146 checks、全量50/50及世界15 checks通過。獨立桌面實測48.60FPS／p95 33.4ms、20Mbps／100ms含48h恢復ready67.84秒、gzip下載估算44.72MB，效能未達預算。使用者美術／節奏保留待驗，實機／高DPR等仍待補；正式manifest未啟用。見 [收尾驗收與預覽](docs/verification/res1-c2-closure.md)。下一C2-PERF，不跳D；C1／原C2證據保留。
 
 **最新產品方向：RES1 多島資源主線**。依使用者要求，Era 逐步解鎖專業空島，基礎資源經加工／融合形成 T2、T3 材料，透過實際供給與運輸支撐建設與修行。已完成[設計修訂](docs/14-multi-island-resource-progression.md)與[DAO1 資源稽核](docs/verification/resource-progression-audit.md)，尚未實作新玩法。DAO1 有 61 資源／30 配方；本作 manifest 目前僅 7 資源／10 建築／Era 1–2，另有少量子系統資源，不能宣稱已完整承接 DAO1。RES1-A 首批契約／隔離 Craft 核心已交付（15 資源／8 配方、145 checks、DAO1 8/8、42 Runner PASS），見[驗收](docs/verification/res1-a.md)。RES1-B 原型核心與桌面 Web 保存故障範圍 DONE（251 checks、三程序保存／載入／離線、真實quota／重載／雙分頁與受控Web幀恢復），見[核心](docs/verification/res1-b.md)／[Web驗收](docs/verification/res1-b-web-r1.md)。最新固定入口47/47 PASS、exit0；正式manifest仍未啟用，下一RES1-C三島操作。實機／自然背景凍結／高DPR／長離線CPU預算仍待驗。
 
@@ -30,7 +44,7 @@ M4-A-R1 正式 Session／桌面 Web 整合驗收已完成：251 checks、40/40 R
 ## 開發與驗證
 
 - Godot `4.7.2.stable.official.ed1daf0bf`、GDScript、Compatibility、單執行緒 Web。
-- 使用 PowerShell 從專案根目錄執行現有 40 Runner（清單以腳本為準）：
+- 使用 PowerShell 從專案根目錄執行現有 51 Runner（清單以腳本為準）：
 
   ```powershell
   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1

@@ -34,8 +34,12 @@ func _build_ui() -> void:
 	_body_label = Label.new()
 	_body_label.name = "OfflineSummaryBody"
 	_body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_body_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_box.add_child(_body_label)
+	_body_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_box.add_child(scroll)
+	scroll.add_child(_body_label)
 	var close_button := Button.new()
 	close_button.name = "OfflineSummaryClose"
 	close_button.text = "關閉"

@@ -43,6 +43,7 @@ func _run() -> void:
 		var shown := 0
 		for key in ["reincarnation_panel", "alchemy_panel", "realm_modal", "sect_panel"]:
 			shown += int(abode.get(key).visible)
+		shown += int(abode.feature_navigation.island_panel.visible)
 		_expect(shown == 1, "section changes must show only one gameplay page")
 	for bounds in [Vector2(1280, 720), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)]:
 		abode._layout_for_size(bounds)

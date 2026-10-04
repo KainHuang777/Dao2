@@ -1,6 +1,7 @@
 # Godot engine cache and build outputs
 .godot/
 build/
+tools/__pycache__/
 
 # Godot engine binaries and export templates (download/install locally per machine)
 tools/godot/

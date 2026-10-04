@@ -1,0 +1,15 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:44)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:222)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:221)
+       [4] current_state (res://src/persistence/save_manager.gd:89)
+       [5] _test_persistence (res://tests/res1b_economy_runner.gd:353)
+       [6] _init (res://tests/res1b_economy_runner.gd:33)
+PASS: RES1-B 251 checks; timed batches, local inventory, cargo conservation, time, migration, offline retry, reincarnation.

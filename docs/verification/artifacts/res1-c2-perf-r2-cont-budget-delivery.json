@@ -1,0 +1,137 @@
+{
+  "build": "web",
+  "files": [
+    {
+      "file": "index.js",
+      "bytes": 279815,
+      "gzip_bytes": 68740,
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "br_bytes": 64438
+    },
+    {
+      "file": "index.wasm",
+      "bytes": 39514754,
+      "gzip_bytes": 10114291,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "br_bytes": 7996785
+    },
+    {
+      "file": "index.pck",
+      "bytes": 6524660,
+      "gzip_bytes": 6374748,
+      "sha256": "7264ee1fccf17062f7e0c17c93177f5d836e5d30a3fcaa4fd66f4ef61215c11d",
+      "br_bytes": 6386044
+    }
+  ],
+  "raw_bytes": 46319229,
+  "gzip_estimate_bytes": 16557779,
+  "download_budget_bytes": 30000000,
+  "note": "Deterministic gzip level6; HTTP transfer must be verified separately. No build files modified.",
+  "download_budget_pass": true,
+  "br_bytes": 14447267,
+  "br_download_budget_pass": true,
+  "optional_audio_bytes": 5347590,
+  "br_including_all_audio_bytes": 19794857,
+  "largest_pack_entries": [
+    {
+      "path": ".godot/imported/Dao2Serif-VF.ttf-b394e3628c11cc3246e6f3edb5f85ded.fontdata",
+      "bytes": 978463
+    },
+    {
+      "path": ".godot/imported/wood_landmark.png-94e1ed392a0f82f4a9b2903888eb8e84.ctex",
+      "bytes": 861850
+    },
+    {
+      "path": ".godot/imported/Dao2Sans-VF.ttf-93c938a13c81f767b04e1ece3e529da0.fontdata",
+      "bytes": 704216
+    },
+    {
+      "path": ".godot/imported/terrain.png-02b712269044fc4c4de63c94d6ef6402.ctex",
+      "bytes": 441270
+    },
+    {
+      "path": ".godot/imported/sky_tearfall_island_v6.png-646089fca1a74ee0138fc249cf56610c.ctex",
+      "bytes": 338478
+    },
+    {
+      "path": ".godot/imported/ore_landmark.png-d64bc6c7ec8014daa4c5e04d69520f3a.ctex",
+      "bytes": 335564
+    },
+    {
+      "path": ".godot/imported/garden.png-0761f2f0939b09af976b605d8b069843.ctex",
+      "bytes": 330398
+    },
+    {
+      "path": ".godot/imported/courtyard.png-3100136ab531874e7f18428ec8dc6d49.ctex",
+      "bytes": 290322
+    },
+    {
+      "path": ".godot/imported/wood_body.png-599d245416eca6d1f8d5663192bc271d.ctex",
+      "bytes": 287986
+    },
+    {
+      "path": ".godot/imported/hut.png-9f856d0916ed476afc96b9dbaee993d5.ctex",
+      "bytes": 275298
+    },
+    {
+      "path": ".godot/imported/ore_body.png-84506a524839f47a517ac7e04c22da94.ctex",
+      "bytes": 255700
+    },
+    {
+      "path": ".godot/imported/altar.png-d7db1618c17006973d987066d9d12c62.ctex",
+      "bytes": 245488
+    },
+    {
+      "path": ".godot/imported/abode_theme.ogg-dc365bef27b196ce3b6af8215a869862.oggvorbisstr",
+      "bytes": 182382
+    },
+    {
+      "path": ".godot/imported/stone.png-76adf9da439077c10cb50386d169c31e.ctex",
+      "bytes": 72244
+    },
+    {
+      "path": ".godot/imported/herb.png-0cc3215a20cee3eb1f517782b24bcbfe.ctex",
+      "bytes": 65606
+    },
+    {
+      "path": ".godot/imported/wood.png-cb0c80748cb142322893fa62e56bfacc.ctex",
+      "bytes": 60606
+    },
+    {
+      "path": "src/abode/living_abode.gdc",
+      "bytes": 47872
+    },
+    {
+      "path": "src/presentation/abode_hud_controller.gdc",
+      "bytes": 35325
+    },
+    {
+      "path": ".godot/imported/sword.png-b887f38c6587e06caae1b0d8e93b0f92.ctex",
+      "bytes": 24520
+    },
+    {
+      "path": "content/encounters/encounters.json",
+      "bytes": 24446
+    },
+    {
+      "path": "content/worlds/world_archetypes.json",
+      "bytes": 21176
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gdc",
+      "bytes": 19238
+    },
+    {
+      "path": "src/presentation/sect_panel.gdc",
+      "bytes": 18445
+    },
+    {
+      "path": "src/presentation/building_catalog.gdc",
+      "bytes": 17794
+    },
+    {
+      "path": "src/simulation/command_processor.gdc",
+      "bytes": 16579
+    }
+  ]
+}

@@ -5,6 +5,7 @@ var failures: Array[String] = []
 var adapter: WebStorageAdapter
 var content: GameContent
 var scenario := ""
+var c2_fixture := ""
 
 func _ready() -> void:
 	if not OS.has_feature("persistence_verification"):
@@ -15,6 +16,10 @@ func _ready() -> void:
 	while status == "pending":
 		await get_tree().process_frame
 		status = adapter.session_status()
+	if scenario.begins_with("c2"):
+		await _c2_cases(status)
+		_finish()
+		return
 	if scenario == "lock":
 		if status == "writer_busy":
 			_check(not adapter.write("unauthorized", "bad").ok, "second tab cannot write")
@@ -61,6 +66,173 @@ func _seed() -> GameSession:
 	TimeAdvancer.advance(s.state, content, 17)
 	_check(SaveManager.save(s.state, _meta(1000)).ok, "seed committed")
 	return s
+
+# C2 cases use the command-earned dual-chain fixture and the production async path.
+# This script is excluded from Web and IslandProgressionTest exports.
+func _c2_cases(status: String) -> void:
+	content = ContentLoader.load_directory("res://content").content
+	IslandProgression.attach(content)
+	var request := HTTPRequest.new()
+	add_child(request)
+	var origin := str(_js("location.origin"))
+	var started := request.request(origin + "/c2-fixture")
+	_check(started == OK, "fixture request started")
+	if started != OK:
+		request.queue_free()
+		return
+	var response: Array = await request.request_completed
+	request.queue_free()
+	_check(response[1] == 200, "command-earned dual-chain fixture fetched")
+	c2_fixture = (response[3] as PackedByteArray).get_string_from_utf8()
+	var decoded := SaveCodec.decode(c2_fixture)
+	_check(decoded.ok, "C2 fixture checksum valid")
+	if response[1] != 200 or not decoded.ok:
+		return
+	if status != "ready":
+		if scenario == "c2lock" and status == "writer_busy":
+			SaveManager.configure(content, adapter)
+			var source := SaveManager.current_state()
+			_check(source != null and not source.economy.is_empty(), "secondary reads C2 state")
+			var before := _c2_hash(source)
+			var stored := [adapter.read("save_main"), adapter.read("save_backup"), adapter.read("save_index")]
+			var cursor := SaveManager.last_settled_utc_ms()
+			var rejected := await OfflineCoordinator.settle_state_async(source, content, cursor + 600000, cursor, get_tree())
+			_check(not rejected.ok and rejected.detail == "writer_not_owned", "secondary async cannot commit")
+			_check(_c2_hash(source) == before, "secondary source unchanged")
+			_check(stored == [adapter.read("save_main"), adapter.read("save_backup"), adapter.read("save_index")], "secondary cannot alter slots/index")
+			_check(SaveManager.last_settled_utc_ms() == cursor, "secondary cursor unchanged")
+		else:
+			_check(false, "C2 writer lock unavailable: " + status)
+		return
+	_check(status == "ready", "C2 exclusive writer acquired")
+	SaveManager.configure(content, adapter)
+	match scenario:
+		"c2denied":
+			var source := _c2_seed()
+			var original: String = adapter.read(SaveSlots.SLOT_MAIN).data
+			_fault("deny_read")
+			SaveManager.configure(content, adapter)
+			var failed := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(not failed.ok and failed.error == "NO_STATE", "read denial blocks async startup")
+			_check(SaveManager.load_error() == "storage_read_failed", "read denied distinct from missing")
+			_check(not SaveManager.save(source, _meta(601000)).ok, "untrusted load refuses overwrite")
+			_fault("")
+			_check(adapter.read(SaveSlots.SLOT_MAIN).data == original, "read denial preserves stored bytes")
+			SaveManager.configure(content, adapter)
+			var retry := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(retry.ok and SaveManager.last_settled_utc_ms() == 601000, "read recovery async retry")
+		"c2corrupt":
+			var source := _c2_seed()
+			var before := _c2_hash(source)
+			var second := source.duplicate_state()
+			second.revision += 1
+			_check(SaveManager.save(second, _meta(1000)).ok, "C2 second generation saved")
+			adapter.write(SaveManager.slots().active_slot(), "{broken")
+			SaveManager.configure(content, adapter)
+			_check(_c2_hash(SaveManager.current_state()) == before, "corrupt latest recovers C2 predecessor")
+			var recovered := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(recovered.ok and SaveManager.last_settled_utc_ms() == 601000, "recovered C2 async settlement commits")
+			adapter.write(SaveSlots.SLOT_MAIN, "{broken")
+			adapter.write(SaveSlots.SLOT_BACKUP, "{broken")
+			SaveManager.configure(content, adapter)
+			var failed := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(not failed.ok and failed.error == "NO_STATE", "two corrupt C2 slots block async startup")
+			_check(not SaveManager.save(source, _meta(601000)).ok, "two corrupt slots cannot be overwritten")
+		"c2retry":
+			for fault in ["quota", "security", "readback", "index", "truncate"]:
+				var source := _c2_seed()
+				var before := _c2_hash(source)
+				var expected := source.duplicate_state()
+				OfflineSettlement.settle(expected, content, 601000, 1000)
+				expected.revision += 1
+				_fault(fault)
+				var failed := await OfflineCoordinator.settle_async(601000, get_tree())
+				_check(not failed.ok and not failed.committed, fault + " async commit rejected")
+				_check(_c2_hash(source) == before and _c2_hash(SaveManager.current_state()) == before, fault + " preserves live source")
+				_check(SaveManager.last_settled_utc_ms() == 1000, fault + " preserves live cursor")
+				_fault("")
+				SaveManager.configure(content, adapter)
+				var recovered := SaveManager.current_state()
+				_check(_c2_hash(recovered) == before or _c2_hash(recovered) == _c2_hash(expected), fault + " whole old/new recovery")
+				var retry := await OfflineCoordinator.settle_async(601000, get_tree())
+				_check(retry.ok and _c2_hash(retry.state, expected.revision) == _c2_hash(expected), fault + " exactly one async settlement")
+				_check(SaveManager.last_settled_utc_ms() == 601000, fault + " full cursor committed")
+				var again := await OfflineCoordinator.settle_async(601000, get_tree())
+				_check(again.ok and again.report.effective_ticks == 0, fault + " zero repeated rewards")
+		"c2quota":
+			var source := _c2_seed()
+			var before := _c2_hash(source)
+			var expected := source.duplicate_state()
+			OfflineSettlement.settle(expected, content, 601000, 1000)
+			expected.revision += 1
+			var filled := str(_js("""(function(){
+				try { for(let n=0;n<64;n++)localStorage.setItem('dao2_matrix_c2fill:'+n,'x'.repeat(262144)); } catch(e) {}
+				try { for(let n=0;n<512;n++)localStorage.setItem('dao2_matrix_c2small:'+n,'x'.repeat(1024)); } catch(e) {return e.name;}
+				return 'quota_not_reached'; })()"""))
+			_check(filled == "QuotaExceededError", "actual browser quota reached")
+			var failed := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(not failed.ok and failed.detail == "QuotaExceededError", "real quota rejects async commit")
+			_check(_c2_hash(source) == before and SaveManager.last_settled_utc_ms() == 1000, "real quota preserves source/cursor")
+			_js("Object.keys(localStorage).filter(k=>k.startsWith('dao2_matrix_c2fill:') || k.startsWith('dao2_matrix_c2small:')).forEach(k=>localStorage.removeItem(k))")
+			var retry := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(retry.ok and _c2_hash(retry.state) == _c2_hash(expected), "real quota recovery exact state")
+			var again := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(again.report.effective_ticks == 0, "real quota retry no duplicate grant")
+		"c2indexreload", "c2quotareload":
+			if not adapter.exists("phase"):
+				var source := _c2_seed()
+				var expected := source.duplicate_state()
+				OfflineSettlement.settle(expected, content, 601000, 1000)
+				expected.revision += 1
+				adapter.write("before", _c2_hash(source))
+				adapter.write("expected", _c2_hash(expected))
+				adapter.write("phase", "failed")
+				_fault("index" if scenario == "c2indexreload" else "quota")
+				var failed := await OfflineCoordinator.settle_async(601000, get_tree())
+				_check(not failed.ok and _c2_hash(source) == adapter.read("before").data, "failed async keeps source; reload now")
+				_fault("")
+			else:
+				var recovered := SaveManager.current_state()
+				var phase: String = adapter.read("phase").data
+				var expected: String = adapter.read("expected").data
+				if phase == "failed":
+					_check(_c2_hash(recovered) == adapter.read("before").data if scenario == "c2quotareload" else _c2_hash(recovered) == expected, "actual reload selects intact old/new generation")
+					_check(SaveManager.last_settled_utc_ms() == (1000 if scenario == "c2quotareload" else 601000), "actual reload matches snapshot cursor")
+					var retry := await OfflineCoordinator.settle_async(601000, get_tree())
+					var revision: int = SaveCodec.decode(c2_fixture).state.revision + 1
+					_check(retry.ok and _c2_hash(retry.state, revision) == expected, "reload/retry exact economy jobs cargo receipts")
+					adapter.write("phase", "settled")
+				else:
+					_check(SaveManager.last_settled_utc_ms() == 601000, "second real reload preserves cursor")
+				var again := await OfflineCoordinator.settle_async(601000, get_tree())
+				_check(again.ok and again.report.effective_ticks == 0, "real reload no remaining rewards")
+		"c2lock":
+			if not adapter.exists("save_main"):
+				_c2_seed()
+			var cursor := SaveManager.last_settled_utc_ms()
+			if cursor == 0:
+				SaveManager.current_state()
+				cursor = SaveManager.last_settled_utc_ms()
+			var result := await OfflineCoordinator.settle_async(601000, get_tree())
+			_check(result.ok, "C2 owner async commits")
+			_check(result.report.effective_ticks == 0 if cursor == 601000 else result.report.effective_ticks == 600, "C2 owner/takeover settles once")
+		_: _check(false, "unknown C2 case")
+
+func _c2_seed() -> GameState:
+	SaveSlots.new(adapter).reset()
+	SaveManager.configure(content, adapter)
+	var source: GameState = SaveCodec.decode(c2_fixture).state
+	_check(not source.economy.is_empty() and source.economy.jobs.size() == 2, "earned fixture has dual jobs")
+	_check(SaveManager.save(source, _meta(1000)).ok, "C2 source committed")
+	return source
+
+func _c2_hash(state: GameState, revision: int = -1) -> String:
+	if state == null:
+		return "NULL"
+	var raw := state.to_snapshot_dict()
+	if revision >= 0:
+		raw.revision = revision
+	return SaveCodec.compute_checksum(JSON.parse_string(JSON.stringify(raw)))
 
 func _reload_case() -> void:
 	if not adapter.exists("expected"):

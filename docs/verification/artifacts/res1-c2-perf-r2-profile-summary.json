@@ -1,0 +1,812 @@
+{
+  "note": "Profile adds overhead. Inclusive nested spans cannot be summed. rAF overlap is temporal evidence only; uninstrumented engine/render/GPU/scheduler costs remain.",
+  "samples": [
+    {
+      "sequence": 1,
+      "utc": "2026-10-04T05:11:47.131Z",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.6638823521569,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 49.900000000001455,
+      "process": {
+        "count": 895,
+        "totalMs": 1021.7,
+        "meanMs": 1.1415642458100559,
+        "p95Ms": 12.2,
+        "maxMs": 20.9
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 879,
+          "totalMs": 75.7,
+          "meanMs": 0.08612059158134244,
+          "p95Ms": 0.2,
+          "maxMs": 0.5
+        },
+        "advance_tick": {
+          "count": 16,
+          "totalMs": 24.3,
+          "meanMs": 1.51875,
+          "p95Ms": 3.0,
+          "maxMs": 3.0
+        },
+        "hud_total": {
+          "count": 57,
+          "totalMs": 730.9,
+          "meanMs": 12.822807017543859,
+          "p95Ms": 15.5,
+          "maxMs": 17.4
+        },
+        "island_refresh": {
+          "count": 57,
+          "totalMs": 4.4,
+          "meanMs": 0.07719298245614035,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 5.8,
+          "meanMs": 5.8,
+          "p95Ms": 5.8,
+          "maxMs": 5.8
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 14.6,
+          "meanMs": 14.6,
+          "p95Ms": 14.6,
+          "maxMs": 14.6
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 20.4,
+          "meanMs": 20.4,
+          "p95Ms": 20.4,
+          "maxMs": 20.4
+        },
+        "view_build": {
+          "count": 71,
+          "totalMs": 188.9,
+          "meanMs": 2.66056338028169,
+          "p95Ms": 3.7,
+          "maxMs": 6.0
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 32638.19999999553,
+          "totalUs": 20900,
+          "spans": {
+            "advance_idle": 200,
+            "save_commit": 5800,
+            "save_encode": 14600,
+            "save_total": 20400
+          }
+        },
+        {
+          "endMs": 35935.69999999553,
+          "totalUs": 18900,
+          "spans": {
+            "advance_tick": 1900,
+            "hud_total": 14500,
+            "island_refresh": 0,
+            "view_build": 4500
+          }
+        },
+        {
+          "endMs": 30251.10000000149,
+          "totalUs": 18600,
+          "spans": {
+            "advance_tick": 1600,
+            "hud_total": 14200,
+            "island_refresh": 100,
+            "view_build": 5100
+          }
+        },
+        {
+          "endMs": 36453.39999999851,
+          "totalUs": 17600,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 17400,
+            "island_refresh": 0,
+            "view_build": 2700
+          }
+        },
+        {
+          "endMs": 41169.69999999553,
+          "totalUs": 16300,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 16000,
+            "island_refresh": 200,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 42233.89999999851,
+          "totalUs": 15700,
+          "spans": {
+            "advance_idle": 0,
+            "hud_total": 15500,
+            "island_refresh": 100,
+            "view_build": 2500
+          }
+        },
+        {
+          "endMs": 35150.19999999553,
+          "totalUs": 15500,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 15200,
+            "island_refresh": 0,
+            "view_build": 2700
+          }
+        },
+        {
+          "endMs": 34647.69999999553,
+          "totalUs": 14700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 14600,
+            "island_refresh": 100,
+            "view_build": 2600
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 30282.1,
+          "gapMs": 33.29999999999927,
+          "overlappingProcessMs": 18.9,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 1.6,
+            "hud_total": 14.2,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 5.1
+          }
+        },
+        {
+          "endMs": 34415.6,
+          "gapMs": 49.900000000001455,
+          "overlappingProcessMs": 14.5,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_total": 14.4,
+            "island_refresh": 0.2,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.4
+          }
+        },
+        {
+          "endMs": 36465.7,
+          "gapMs": 33.299999999995634,
+          "overlappingProcessMs": 17.6,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 17.4,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.7
+          }
+        },
+        {
+          "endMs": 40699.2,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 5.1,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 1.7,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.2
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "utc": "2026-10-04T05:12:28.031Z",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.46428809514284,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 50,
+      "process": {
+        "count": 892,
+        "totalMs": 1010.7,
+        "meanMs": 1.1330717488789237,
+        "p95Ms": 11.9,
+        "maxMs": 20.9
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 877,
+          "totalMs": 78.7,
+          "meanMs": 0.08973774230330674,
+          "p95Ms": 0.2,
+          "maxMs": 0.6
+        },
+        "advance_tick": {
+          "count": 15,
+          "totalMs": 21.2,
+          "meanMs": 1.4133333333333333,
+          "p95Ms": 2.1,
+          "maxMs": 2.1
+        },
+        "hud_total": {
+          "count": 57,
+          "totalMs": 730.5,
+          "meanMs": 12.81578947368421,
+          "p95Ms": 15.6,
+          "maxMs": 20.8
+        },
+        "island_refresh": {
+          "count": 57,
+          "totalMs": 3.6,
+          "meanMs": 0.06315789473684211,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.5,
+          "meanMs": 4.5,
+          "p95Ms": 4.5,
+          "maxMs": 4.5
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 13.3,
+          "meanMs": 13.3,
+          "p95Ms": 13.3,
+          "maxMs": 13.3
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 17.9,
+          "meanMs": 17.9,
+          "p95Ms": 17.9,
+          "maxMs": 17.9
+        },
+        "view_build": {
+          "count": 72,
+          "totalMs": 194.5,
+          "meanMs": 2.701388888888889,
+          "p95Ms": 4.0,
+          "maxMs": 5.7
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 76983.89999999851,
+          "totalUs": 20900,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 20800,
+            "island_refresh": 200,
+            "view_build": 3400
+          }
+        },
+        {
+          "endMs": 82554,
+          "totalUs": 18700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 18400,
+            "island_refresh": 0,
+            "view_build": 5700
+          }
+        },
+        {
+          "endMs": 77903.29999999702,
+          "totalUs": 18200,
+          "spans": {
+            "advance_idle": 100,
+            "save_commit": 4500,
+            "save_encode": 13300,
+            "save_total": 17900
+          }
+        },
+        {
+          "endMs": 72701.39999999851,
+          "totalUs": 16000,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 15600,
+            "island_refresh": 0,
+            "view_build": 4600
+          }
+        },
+        {
+          "endMs": 77483.5,
+          "totalUs": 14900,
+          "spans": {
+            "advance_idle": 200,
+            "hud_total": 14500,
+            "island_refresh": 200,
+            "view_build": 3200
+          }
+        },
+        {
+          "endMs": 82283.29999999702,
+          "totalUs": 14700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 14500,
+            "island_refresh": 100,
+            "view_build": 2600
+          }
+        },
+        {
+          "endMs": 75100.10000000149,
+          "totalUs": 14600,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 14300,
+            "island_refresh": 100,
+            "view_build": 3400
+          }
+        },
+        {
+          "endMs": 75370.5,
+          "totalUs": 14500,
+          "spans": {
+            "advance_idle": 200,
+            "hud_total": 14100,
+            "island_refresh": 100,
+            "view_build": 3700
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 71167.7,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 71417.5,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 13.3,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 13.0,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.1
+          }
+        },
+        {
+          "endMs": 76184.4,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 12.0,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_total": 11.8,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.2
+          }
+        },
+        {
+          "endMs": 77001.2,
+          "gapMs": 50,
+          "overlappingProcessMs": 20.9,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 20.8,
+            "island_refresh": 0.2,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.4
+          }
+        },
+        {
+          "endMs": 78301.2,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 12.9,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 12.5,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.1
+          }
+        },
+        {
+          "endMs": 82584.8,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 19.2,
+          "sections": {
+            "advance_idle": 0.3,
+            "advance_tick": 0.0,
+            "hud_total": 18.4,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 5.7
+          }
+        },
+        {
+          "endMs": 84968.2,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 13.1,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 12.8,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.6
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "utc": "2026-10-04T05:12:58.285Z",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.330169057650245,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.39999999999418,
+      "process": {
+        "count": 890,
+        "totalMs": 997.1,
+        "meanMs": 1.1203370786516855,
+        "p95Ms": 11.9,
+        "maxMs": 21.8
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 875,
+          "totalMs": 74.0,
+          "meanMs": 0.08457142857142858,
+          "p95Ms": 0.2,
+          "maxMs": 0.3
+        },
+        "advance_tick": {
+          "count": 15,
+          "totalMs": 19.2,
+          "meanMs": 1.28,
+          "p95Ms": 1.6,
+          "maxMs": 1.6
+        },
+        "hud_total": {
+          "count": 56,
+          "totalMs": 727.8,
+          "meanMs": 12.99642857142857,
+          "p95Ms": 18.2,
+          "maxMs": 21.6
+        },
+        "island_refresh": {
+          "count": 56,
+          "totalMs": 4.1,
+          "meanMs": 0.0732142857142857,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.9,
+          "meanMs": 4.9,
+          "p95Ms": 4.9,
+          "maxMs": 4.9
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 14.6,
+          "meanMs": 14.6,
+          "p95Ms": 14.6,
+          "maxMs": 14.6
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 19.5,
+          "meanMs": 19.5,
+          "p95Ms": 19.5,
+          "maxMs": 19.5
+        },
+        "view_build": {
+          "count": 70,
+          "totalMs": 184.0,
+          "meanMs": 2.6285714285714286,
+          "p95Ms": 3.5,
+          "maxMs": 5.0
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 112360.5,
+          "totalUs": 21800,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 21600,
+            "island_refresh": 100,
+            "view_build": 3500
+          }
+        },
+        {
+          "endMs": 111025.19999999553,
+          "totalUs": 21600,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 21300,
+            "island_refresh": 100,
+            "view_build": 5000
+          }
+        },
+        {
+          "endMs": 107940.79999999702,
+          "totalUs": 19800,
+          "spans": {
+            "advance_idle": 100,
+            "save_commit": 4900,
+            "save_encode": 14600,
+            "save_total": 19500
+          }
+        },
+        {
+          "endMs": 108646,
+          "totalUs": 18500,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 18200,
+            "island_refresh": 100,
+            "view_build": 3300
+          }
+        },
+        {
+          "endMs": 113156.89999999851,
+          "totalUs": 17300,
+          "spans": {
+            "advance_idle": 0,
+            "hud_total": 17100,
+            "island_refresh": 100,
+            "view_build": 3500
+          }
+        },
+        {
+          "endMs": 113953.69999999553,
+          "totalUs": 16800,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 16600,
+            "island_refresh": 0,
+            "view_build": 3500
+          }
+        },
+        {
+          "endMs": 109422.39999999851,
+          "totalUs": 15400,
+          "spans": {
+            "advance_idle": 100,
+            "hud_total": 15100,
+            "island_refresh": 100,
+            "view_build": 2300
+          }
+        },
+        {
+          "endMs": 102236.10000000149,
+          "totalUs": 14900,
+          "spans": {
+            "advance_tick": 1200,
+            "hud_total": 11500,
+            "island_refresh": 100,
+            "view_build": 4700
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 108519.5,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 0.8,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 108602.8,
+          "gapMs": 33.10000000000582,
+          "overlappingProcessMs": 0.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 108652.9,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 18.5,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 18.2,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.3
+          }
+        },
+        {
+          "endMs": 109436.2,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 15.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 15.1,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.3
+          }
+        },
+        {
+          "endMs": 110502.8,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 13.1,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_total": 12.7,
+            "island_refresh": 0.2,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.1
+          }
+        },
+        {
+          "endMs": 111036.3,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 21.6,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 21.3,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 5.0
+          }
+        },
+        {
+          "endMs": 111836.3,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 13.1,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 12.9,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.2
+          }
+        },
+        {
+          "endMs": 112369.7,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 21.8,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 21.6,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.5
+          }
+        },
+        {
+          "endMs": 113169.7,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 17.3,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_total": 17.1,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.5
+          }
+        },
+        {
+          "endMs": 114503.1,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 14.5,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_total": 14.2,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.5
+          }
+        }
+      ]
+    }
+  ]
+}

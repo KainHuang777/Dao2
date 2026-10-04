@@ -74,6 +74,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	var previous_level := state.level
 	var economy_preview := IslandEconomy.reincarnation_preview(state)
 	var had_economy := not state.economy.is_empty()
+	var had_progression := IslandProgression.active(state)
 
 	# Update meta progress
 	state.reincarnation_count += 1
@@ -84,6 +85,10 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	# Reset current life progress
 	state.abode_scenery = {}
 	state.economy = IslandEconomy.initial() if had_economy else {}
+	if had_progression:
+		state.economy.version = IslandProgression.VERSION
+		for island in state.economy.islands:
+			state.economy.islands[island].facilities = {"extractor": 1, "workshop": 1, "storage": 1}
 	# Extra processing IDs are not in the release manifest: clear them as well.
 	for resource_id in state.resources:
 		if not resource_id in content.resource_ids:

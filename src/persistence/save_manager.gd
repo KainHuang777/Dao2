@@ -13,6 +13,47 @@ static var _adapter: StorageAdapter = null
 static var _schema2_original: String = ""
 static var _load_error: String = ""
 const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
+const ISLAND_ARCHIVE_KEY := "save_before_islands"
+
+static func activate_islands(session: GameSession, meta: Dictionary) -> Dictionary:
+	# Persist the current source first; archive those exact bytes before C activation.
+	# The live Session is only replaced after a verified two-slot commit.
+	var checked := IslandProgression.preview(session.state, session.content)
+	if not checked.ok:
+		return checked
+	var source_saved := save(session.state, meta)
+	if not source_saved.ok:
+		return source_saved
+	var source := slots().read_best(func(raw: String) -> int:
+		var decoded := SaveCodec.decode(raw)
+		return decoded.state.revision if decoded.ok else -1)
+	if not source.ok:
+		return source
+	var original := adapter().read(ISLAND_ARCHIVE_KEY)
+	if not original.ok:
+		if original.get("error") != "missing":
+			return {"ok": false, "error": "ISLAND_ARCHIVE_READ_FAILED"}
+		var written := adapter().write(ISLAND_ARCHIVE_KEY, source.json)
+		if not written.ok:
+			return {"ok": false, "error": "ISLAND_ARCHIVE_WRITE_FAILED"}
+		original = adapter().read(ISLAND_ARCHIVE_KEY)
+		if not original.ok or original.data != source.json:
+			return {"ok": false, "error": "ISLAND_ARCHIVE_READBACK"}
+	var archived := SaveCodec.decode(original.data)
+	if not archived.ok or not archived.state.economy.is_empty() or archived.envelope.save_id != String(meta.get("save_id", "local")):
+		return {"ok": false, "error": "ISLAND_ARCHIVE_CONFLICT"}
+	var candidate := GameSession.new()
+	candidate.content = session.content
+	candidate.clock = GameClock.create(session.state.total_elapsed_seconds)
+	candidate.state = session.state.duplicate_state()
+	var result := candidate.submit({"command_id": "activate-islands-" + str(session.state.revision), "type": "activate_islands", "expected_revision": session.state.revision, "payload": {}})
+	if not result.ok:
+		return result
+	var committed := save(candidate.state, meta)
+	if not committed.ok:
+		return committed
+	session.state = candidate.state
+	return result
 
 static func configure(content: GameContent, adapter: StorageAdapter = null) -> void:
 	_content = content
@@ -64,7 +105,9 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	var content_obj: GameContent = content()
 	if content_obj == null:
 		return {"ok": false, "error": "CONTENT_MISSING"}
+	var profile_encode := RuntimeProfile.begin()
 	var encode_result: Dictionary = SaveCodec.encode(state, content_obj.content_version, _normalize_meta(meta))
+	RuntimeProfile.end("save_encode", profile_encode)
 	if not bool(encode_result.get("ok", false)):
 		return {"ok": false, "error": String(encode_result.get("error", "ENCODE_FAILED"))}
 	if not _schema2_original.is_empty():
@@ -75,7 +118,9 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		var verified := adapter().read(SCHEMA2_ARCHIVE_KEY)
 		if not verified.ok or verified.data != _schema2_original:
 			return {"ok": false, "error": "MIGRATION_ARCHIVE_READBACK"}
+	var profile_commit := RuntimeProfile.begin()
 	var commit_result: Dictionary = slots().commit(String(encode_result["json"]), state.revision)
+	RuntimeProfile.end("save_commit", profile_commit)
 	if bool(commit_result.get("ok", false)):
 		_current_state = state
 		_envelope = _normalize_meta(meta)
@@ -180,6 +225,7 @@ static func _load_from_slots() -> GameState:
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
 		var decode_result: Dictionary = SaveCodec.decode(json_text)
 		if not bool(decode_result.get("ok", false)):
+			print("SAVE_SLOT_REJECTED: ", decode_result.get("error", "DECODE_FAILED"))
 			return -1
 		var decoded_state: GameState = decode_result["state"]
 		return decoded_state.revision

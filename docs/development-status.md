@@ -1,8 +1,77 @@
 # 開發狀態與交接紀錄
 
-更新：2026-10-03（RES1-B-WEB-R1 桌面 Web 保存故障矩陣交付；下一 RES1-C）。區分設計、實作、測試與完整驗收；下方較早紀錄的「下一步」保留歷史，最新順序以首項 RES1 為準。
+### 2026-10-04 RES1-C2-PERF-R2｜耗時定位子階段交付，整體IN_PROGRESS
+
+三組1280×720 CSS／DPR約1、同三島命令fixture的HUD平均12.7–12.8ms，內含導覽refresh/layout5.0–5.1ms、建築／資源清單3.7–3.9ms；規則有tick1.2–1.3ms。每組各一次保存18.1–22.7ms，encode13.8–18.5／commit4.1–4.2ms。24個>20ms rAF窗口中16個與HUD、2個與保存重疊，6個已量CPU不足0.5ms；只代表時間關聯，不作GPU或完整卡頓歸因。未重現200ms，未實作效能改善，嚴格60仍未放行。
+
+修改：`src/platform/runtime_profile.gd`＋UID、living_abode／abode_hud_controller／save_manager的計時；`tools/res1c2_runtime_profile.js`、metrics／preview server與兩個summary工具及profile契約tests；review fixture只重封UTC，相關交接與[完整驗收](verification/res1-c2-perf-r2-profile.md)。profile預設關閉，獨立Web export，保存schema／rules／收益不變。核心body計時不涵蓋引擎繪圖、其他節點、前置鎖檢查、背景await或命令回調；inclusive spans不可加總。
+
+命令／結果：Godot4.7.2版本、import exit0（前輪PNG匯入錯誤保留）；`run_all_runners.ps1`初次sandbox拒寫exit1，授權重跑51/51 exit0；之後HUD细分及bridge存在防護的最終`res1c2_world_runner`26項exit0。Web export首次目錄缺失exit1，建立後基礎／細分／防護版均exit0；compression companions均exit0；observer6、profile JS契約、Python summary3 tests／FPS summary8契約通過。瀏覽器三粗分＋三細分，raw／summary保留於profile-*。關閉profile曾觸發缺少interface錯誤，已補存在檢查，保留原console證據；最終正常啟動console空，profile再次啟用收898幀零drop（783×542／DPR1.25功能複驗，不併入三組1280×720比較）。4241隔離服務保留，viewport override已還原。正常build/web PCK未變，沒有新跑完整Web故障或48h節流矩陣。
+
+下一同R2：優先改善FeatureNavigation重複View及BuildingCatalog資源卡重複刷新，再做命令／切頁／resize／保存回歸與同條件非profile配對量測。手機／高DPR／自然凍結／跨瀏覽器／長期GPU／人工美術節奏仍待驗，**R2／C／C2 IN_PROGRESS、D TODO**。定位階段完成後依Context Guard以英文checkpoint置updata頂部，New Chat接改善，不在本輪展開下個大型任務。
+
+### 2026-10-04 RES1-C2-PERF-R2｜FPS量測子階段交付，整體IN_PROGRESS
+
+同一1280×650 CSS iframe／DPR1.25，三组正常遊戲59.130／58.397／59.530FPS，pooled59.019；p95均16.8ms，34個>20ms間隔、max200ms。三組無遊戲對照pooled59.997FPS／零>20ms；嚴格60未過且門檻不變，沒有遊戲效能改善可宣稱。與前輪1280×720／DPR約1並非配對前後比較。完整[本輪驗收／命令／人工重跑](verification/res1-c2-perf-r2-fps.md)、[raw](verification/artifacts/res1-c2-perf-r2-fps-v3-metrics.jsonl)及[重算摘要](verification/artifacts/res1-c2-perf-r2-fps-v3-summary.json)。
+
+修改：metrics v3（整段可見性／resize／DPR／ready無效防護、樣本序號、p99）、preview server同尺寸rAF切換及狀態文字；新增summary與observer契約工具；review fixture重封UTC/state保真；相關交接與證據。Node observer6、Python summary7、Node／Python syntax均exit0；Godot4.7.2版本／fixture工具exit0但user://log拒寫診斷保留。真實六組樣本有效、console warn/error空，reload只新19秒；PCK／WASM hash不變。本輪未改Godot來源／素材／保存版本，未重跑51 Runner／import／export／完整保存矩陣；未commit／push／部署。
+
+故障：首次sandbox服務與HTTP被隔離限制；瀏覽器逾時約8591秒令fixture自然老化至8814秒。正常授權重啟與HTTP200後，舊data錯誤頁受URL policy阻擋，使用新分頁恢復；未繞過安全限制。既有dirty工作保留。
+
+下一仍R2：先實測每秒推進／View、0.25秒HUD、15秒同步保存的個別成本，再做必要改善與同條件1280×720重測；未證實200ms尖峰來源，不能先取消保存或改收益。裝置／高DPR／人工與長期GPU等仍待驗，**R2／C／C2 IN_PROGRESS、D TODO**。新[4238隔離試玩](http://127.0.0.1:4238/launcher?metrics=1)保留，既有進度拒覆寫；4236本輪未驗。依Context Guard，英文checkpoint置updata頂部，請New Chat接同一R2。下列同日結果保留歷史日期。
+
+更新：2026-10-04（PERF-R2續輪：節流長離線9.801／9.777秒有界通過；最終51/51＋145精確；嚴格60FPS／裝置與人工仍待驗）。較早結果保留歷史。
 
 ## 目前任務與下一步
+
+### 2026-10-04 RES1-C2-PERF-R2續輪｜節流長離線缺口有界通過，整體IN_PROGRESS
+
+交付：20Mbps／100ms、Brotli、相同命令賺得雙鏈狀態，兩個新origin的48h+恢復ready **9.8007／9.7770秒**，結算1.3496／1.3241秒，p95 16.8ms。原生48h CPU 2,662,373→885,503µs（約66.7%），600tick／長離線完整hash不變；600tick本輪143,887→153,945µs，不宣稱活躍短期CPU改善。快取限無命令期間的經濟固定點、無變化生產與乘區；保留逐秒浮點相加、貨運／加工／RNG／BUFF與壽盡順序。FrameBudget14ms只控制讓出；schema3／core-flow-9／24h收益CAP不變。
+
+修改：`src/simulation/island_economy.gd`、`time_advancer.gd`、`chrono_system.gd`、`abode_scenery.gd`、`src/platform/frame_budget.gd`、`tests/res1c2_perf_runner.gd`、`tools/res1c2_perf_profile.gd`、`tools/island_preview_server.py`（無遊戲rAF對照）、README／ROADMAP／docs02／07／ai-handoff／本狀態／R2驗收／updata與cont證據。未改素材、正式玩家檔、保存版本，保留原有dirty／untracked，未commit／push／部署。
+
+命令／結果：固定Godot4.7.2.ed1daf0bf；最終`run_all_runners.ps1` **51/51 exit0**（145精確tick/font、async27）；額外world26 exit0，三preset export＋compression roundtrip、CPU兩路hash、review fixture、package budget、HTTP13案、Node／Python syntax／diff check exit0。真實Web C2 async retry49與一般retry69 PASS；重載摘要只有新10秒、不再套48h上限；1280×720與實測844×390 CSS iframe的切島／管理／內部捲動／固定關閉／返回通過，console warn/error空。詳 [續輪證據](verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)。核心br14,447,267 bytes，PCK `7264ee1f…15c11d`。初版10.6755秒及下一版10.0346秒均未過，未挑快樣本；最終兩origin9.8007／9.7770秒。
+
+未通過／限制：桌面 **59.930FPS／p95 16.8ms**，嚴格60仍未過；無遊戲rAF59.997只作排程對照，不改門檻。未清瀏覽器profile／WASM code cache；10秒僅此兩個桌面新origin樣本通過，餘裕約0.2秒，不擴張為所有裝置承諾。指定手機觸控／30FPS、高DPR2/3最大zoom、自然背景凍結、其他瀏覽器、長期WASM／GPU與人工美術／節奏仍待驗。世界退出既有RID／ObjectDB診斷保留；sandbox世界Runner拒user://寫入後停止並以授權隔離環境重跑26 PASS，Python PATH失敗改bundled runtime，初版工具縮排錯誤已修。
+
+下一：仍PERF-R2嚴格60FPS的量測／決策與裝置／人工放行，**C／C2／R2 IN_PROGRESS、D TODO**。4236 [正常版隔離試玩](http://127.0.0.1:4236/launcher?metrics=1)保留，已有進度拒覆寫；本輪4231–4235／4237服務停止，既有服務未中斷。依AGENTS Context Guard，本階段驗收後主動剎車，英文checkpoint置updata頂部；下一New Chat續R2，不展開D。
+
+
+### 2026-10-04 RES1-C2-PERF-R2｜離線改善交付，IN_PROGRESS
+
+交付：同輪相同fixture／1280×650／Brotli／無節流，48h恢復18.03→最終7.75秒；逐秒終態、事件、RNG與保存版本保持。快取無命令期間的宗門／靈獸被動與BUFF／天時乘區，重用一秒Amount delta與基礎容量，當秒預留／庫存重讀；FrameBudget10ms只控制讓出。量測工具修正少算第一段間隔的分母，保留rawWindowFps與完整gaps，不將統計修正當成FPS提升。
+
+修改：`src/simulation/time_advancer.gd`、`src/platform/frame_budget.gd`、`src/abode/living_abode.gd`（console階段標記）、`tests/res1c2_perf_runner.gd`、`tools/res1c2_perf_profile.gd`、`tools/res1c2_metrics.js`，本節、README／ROADMAP／docs02／07／handoff／驗收與updata。既有dirty／untracked工作保留；未commit、push或部署。
+
+命令與結果：Godot4.7.2.ed1daf0bf；`run_all_runners.ps1`兩輪最終51/51 exit0（最終121精確檢查）；原async27 checks、世界26通過；三preset最終export＋`prepare_web_compression.mjs` exit0；font `--check`／Node語法／HTTP13案／diff-check通過。真實Web retry49、重載只新25秒、桌面／短橫式操作證據见 [R2驗收](verification/res1-c2-perf-r2.md)。world退出FontAdvanced／CanvasItem／8 ObjectDB／1 resource診斷保留。初次sandbox loopback／user log受限，以及誤用相對log-file的`user://E:`診斷如實記錄，正常隔離授權回歸通過。
+
+未通過：20Mbps／100ms長離線ready13.55秒（結算5.16秒）仍超10秒；嚴格60FPS仍未過（最終59.80FPS／p95 16.8ms／max33.3ms）。新檔同網路8.45秒、最終本機長離線7.75秒／結算308幀p95 16.8／max17ms只代表相應案例通過。人工美術／節奏、手機／高DPR／最大zoom、自然凍結、跨瀏覽器與長期GPU仍待驗。**下一仍PERF-R2缺口與裝置／人工，C/C2 IN_PROGRESS、D TODO，不跳D；依Context Guard用New Chat接續。**
+
+### 2026-10-04 RES1-C2-PERF｜桌面效能改善交付，IN_PROGRESS
+
+交付：正常Web核心br14.44MB／gzip16.68MB（四首原MP3另5.35MB，br含全部19.79MB），20Mbps／100ms新origin新檔ready8.49秒；600秒規則CPU539866→271115µs約減49.8%、600ticks與終態hash相同。View以state身分＋revision快取，無命令結算準備純規則參數，逐秒BUFF／天時／收益／事件不改；runtime字型覆蓋1809字元、metrics／wght保持並更名，原字型不改；Godot來源import尺寸／品質改動，原PNG／提示詞不改；Web音樂依需求另下載、HTTP503後实际選單關→開重試成功；stdlib br/gzip服務与生成companions工具。不依赖Node作核心或改schema3／core-flow-9。
+
+修改：`.gitignore`、living_abode、abode_hud_controller、island_world、nine_realms_preview／ui_typography、TimeAdvancer／OfflineCoordinator、兩祖島＋四遠島`.import`、runtime兩TTF／manifest與字型README、音樂library、export_presets、run_all／start_web_server、perf與world Runner、subset／profile／texture／budget／compression／HTTP／metrics／static／preview工具、README／ROADMAP／docs02／07／08／handoff／本狀態／驗收及updata。檔案與來源詳[C2-PERF驗收](verification/res1-c2-perf.md)。原有dirty C1/C2/C3／BUFF工作保留，沒有commit／push／部署。
+
+命令與結果：固定Godot4.7.2.ed1daf0bf，import／三preset export最终exit0；完整兩輪51/51 PASS exit0，107精確tick/font、世界26、presentation、CPU／texture／review保真exit0；最終fonttools4.61.1 corpus/hash／metrics／reserved-name check exit0；HTTP13案 br/gzip/q=0與MP3hash全部通過，Python／Node／PowerShell語法通過。world退出仍有FontAdvanced／CanvasItem／8 ObjectDB／1 resource清理診斷，不隱藏。首次型別、lossy PSNR、sandbox連線／user log與音樂全包時冷啟動超標均保留日誌。
+
+瀏覽器：1280×720／DPR1.25正常双鏈，最終15秒59.45FPS／p95 16.8ms／max49.9ms；前一次59.85／16.8／33.4，嚴格平均60仍未過。844×390 CSS iframe実際管理／捲動／關閉／返回、50次Web切島warn/error空、Web async五種中斷retry49 PASS；48h分批本機18.19秒ready／86400上限／壽盡、真實reload只8秒新間隔。新檔冷啟動與p95／下載有界通過，不代表長離線／手機或完整60FPS放行。
+
+交付4221正常版獨立origin [試玩](http://127.0.0.1:4221/launcher?metrics=1)，已有進度拒覆寫；本輪其他服務清理，原4175／4207未中斷。**未過／待驗：嚴格60FPS、長離線≤10秒、DPR2/3／最大zoom美術、指定手機觸控及效能、自然背景凍結／跨瀏覽器／長期Web/WASM/GPU記憶體與人工節奏**。下一 **RES1-C2-PERF-R2／裝置與人工放行**，不重做A/B／已通過完整桌面故障矩陣、不跳D。英文checkpoint置updata頂部，依Context Guard本階段交付後請New Chat接大型後續。
+
+### 2026-10-04 RES1-C3｜正式美術與正常版接入（實作交付，人工驗收 IN_PROGRESS）
+
+依當次使用者要求先製作正式美術並接遊戲，覆蓋前輪預覽限定／先效能順序。四張runtime PNG＋兩張參考＋六份提示詞／manifest；正常初始化附掛processing catalog，玩家築基後「經營→空島」保留原檔啟用，舊檔不自動改造。三島是首段切片；[30+容量／36島草案與有限材料鏈](15-island-expansion-and-art-direction.md)為後續方向，尚未實作。
+
+修改：assets/abode/res1c3、living_abode／island_world／feature_navigation／island_management_panel、export_presets、導航／呈現／world Runner、island_preview_server／review_fixture／asset_audit工具、docs/15與C3驗收、狀態／交接文件及updata。命令：Godot4.7.2.ed1daf0bf，import與Web／IslandProgressionTest export exit0；run_all_runners.ps1最終50/50 PASS exit0；world runner22 PASS exit0（退出仍有font／CanvasItem／8 ObjectDB及1 resource清理警告）；Python素材稽核6RGBA／尺寸／提示詞／hash PASS；兩fixture只重封UTC、state一致；git diff --check exit0。正常Web獨立4206真實滑鼠驗證啟用、兩島開拓／命中、1280×720與844×390、身在遠島resize、重整保存及持續精煉產出銅精；[完整證據](verification/res1-c3-art-integration.md)。
+
+交付：正常4175/index.html HTTP200且已更新匯出；4207/launcher正常版＋獨立origin雙鏈試玩，不讀寫其他origin玩家進度。4206測試服務驗完停止，4207交付服務保留。C/C3人工審美／節奏仍待驗；C2效能超標與實機／高DPR／自然凍結／跨瀏覽器／長期Web/GPU記憶體未放行，沒有新PNG版效能成績。下一大型任務C2-PERF＋人工，在New Chat接續，不跳D。
+
+- **RES1-C2-R1：桌面保存追加驗收完成；整體C2仍IN_PROGRESS（2026-10-04）**。正式async＋C2命令賺得雙鏈fixture：quota／拒寫／讀回／索引／截斷49 checks，真實quota11，索引與quota各兩次真實reload7→8→6，實際雙分頁owner／拒寫／關閉接手8→8→6，拒讀／損壞各11；合計146 checks PASS，最終probe再跑retry49 PASS。**全量50/50 Runner／世界15 checks PASS、exit0；WebPersistenceTest最終export與Python語法／review fixture均exit0**。原生50次切島nodes854固定、預熱後static僅差72 bytes，不能推定Web／GPU長期記憶體。未壓縮20Mbps／100ms＋48h恢復ready67.84秒（含並行Runner負載，光下載約30秒）；本機恢復35.37秒；獨立1280×720／DPR約1祖島15秒實測48.60FPS／p95 33.4ms，**效能未達標**。raw74.38MB／gzip估算44.72MB，未達30MB。使用者明確選美術／節奏待驗；實機／高DPR／自然凍結／跨瀏覽器仍待補。修改probe、world runner及兩server，新增metrics／budget／review fixture工具、證據與文件；保存版本／規則／正式manifest不變、玩家namespace未操作。沙箱user://失敗中止後正常授權重跑，首失敗／負向錯誤保留；其他聊天BUFF修復／原未提交內容保留，未commit／push／部署。來源、命令、結果、截圖與預覽詳 [收尾驗收](verification/res1-c2-closure.md)。**下一RES1-C2-PERF（下載／render／長離線成本改善及重測），再人工／裝置放行，不跳D**；updata英文checkpoint已置頂，依Context Guard大型後續用New Chat。
+
+- **RES1-C2：IN_PROGRESS（2026-10-04，程式／桌面候選驗收交付）**。隔離三島世界的獨立SVG島體／林場工坊／礦坑熔爐候選、同canonical route點擊、短Banner／返回、真實在途呈現已接入；原創向量来源／切層／提示／hash見assets/abode/res1c/manifest.json，未取得美術放行。Web重開／背景用application候選複本分批、platform 6ms排程預算與process_frame讓出，逐秒規則不改，完畢一次保存；正文捲动與摘要關閉避讓已修。長離線fixture暴露舊Encode的JSON表示／checksum不一致，改對讀回表示算hash，舊Verify不變，schema3／rules core-flow-9不改；不重簽未知或損壞原檔。**27 checks、checksum修正後50/50 Runner、補充世界／摘要14 checks及相關回歸PASS，exit0；預覽與正式Web匯出exit0**。IAB4198雙鏈／原料航運／T2運力10→20與加工10→5秒、重載保留；844×390世界地標／關閉／返回已驗。4200 48h分批畫面、4201拒寫→實際恢復／原生重試→86400收益上限／壽盡，再重載只11秒、不重結算48h；4199首次checksum拒載保留。首次型別／Time架構守門／退出診斷與未通過項詳 [C2驗收](verification/res1-c2.md)。**仍待：美術／節奏、指定手機／觸控／高DPR、自然背景凍結／跨瀏覽器、Web p95／記憶體，以及新async的完整quota／索引中斷／雙分頁追加矩陣**；不因單一拒寫擴張放行。正式manifest保持未附掛，玩家namespace未操作，未commit／push／部署。下一仍 **RES1-C2驗收收尾**，不跳D；英文checkpoint置updata頂部，依AGENTS Context Guard後續大型工作用New Chat。
+
+- **RES1-C：IN_PROGRESS；C1 階段已交付（2026-10-03）**。`res1-c-1` 三島產業契約、1–3階採集／加工／倉儲、T2工程費與運力消耗、來源原文備份與候選保存成功後替換Session、Godot「經營→三島」操作頁已完成。新檔以採集／建築／修行命令走到Era2、開拓補料→兩链加工→運回祖島→T2真實升級，**87 checks PASS／最終49/49 Runner PASS、exit0**；規則schema3／core-flow-9、B檔仍可讀但不自動轉C。IAB4197／獨立namespace：1280×720遷移啟用／兩島開拓／實際銅精載貨1及祖島到貨1，844×390重載、切頁／捲動／加工滑鼠已驗；修正固定區佔用與成本換行，viewport已reset，warn/error空。正式manifest保持未附掛，沒有操作玩家進度。新增IslandProgression／IslandManagementPanel／C Runner／preview server及相關Session、保存、導覽、輪迴、export入口，檔案／命令／首失敗／截圖見 [C1驗收](verification/res1-c1.md)。**未完成：專用三島世界地標／切島Banner／世界點擊、長離線讓出主執行緒（native约8.3–12.2秒同步CPU）、完整Web雙鏈／T2升級與保存離線矩陣、實機／高DPR／美術與節奏放行**。整體C不標DONE。英文checkpoint已置updata頂部；依AGENTS Context Guard，本階段測試驗收後停在C1，下一大型 **RES1-C2** 請用New Chat，不跳RES1-D。沒有commit／push／部署。
 
 - **RES1-B-WEB-R1／M1-C/D：DONE（2026-10-03，核心＋桌面 Web 故障矩陣）**。localStorage權威儲存＋lifetime Web Lock，次分頁拒絕寫入、關閉持鎖分頁後重載接手；讀取被拒／兩槽損壞不變成新檔；復原槽rotation、同revision游標選擇、倒退時鐘游標與schema2原文核對已修正。Web恢復共用OfflineCoordinator，完整間隔按24h／壽元政策推進；保存失敗暫停並保留source，滑鼠重試不重送命令。新故障Runner19 checks、正式固定入口**47/47 PASS／exit0**（含RuntimeInspector）；RES1-B 251 checks及三程序保存／離線／再載入exit0；正式Web匯出exit0。IAB4196：注入故障、真實quota耗盡、兩次重載、雙分頁、48h上限／倒退時鐘、schema2備份重試，及1280×720／844×390正式提示／滑鼠重試已驗。受控requestAnimationFrame暫停36ticks保存、失敗後重試46ticks已驗；IAB單純切分頁未證明自然背景凍結，實機／高DPR／跨瀏覽器／OS凍結與長離線CPU仍待驗。並行新增Debug沙盒的不存在Amount／Lifespan／Clock API造成編譯失敗，最小相依修復後重驗，保留首失敗與負向JSON／退出診斷。修改檔案／命令／原始JSONL／限制見 [驗收](verification/res1-b-web-r1.md)。RES1-B原型核心與相交Web保存門檻在此有界範圍完成；**正式manifest仍未啟用，下一RES1-C三島T2切片**，並補正式內容量長離線效能及裝置證據。M1-C/D完整跨裝置驗收不由本輪擴張為DONE。英文checkpoint已置updata頂部；依Context Guard下個大型任務用New Chat。以下同日較早RES1-B IN_PROGRESS／44/45及下一故障矩陣保留為歷史。
 
@@ -45,7 +114,7 @@
 - **DOC-A-R1 文件現況複核：DONE**。
 - **M3-B 靈獸系統（Spirit Beasts）：DONE**。交付四大靈獸（玉狐、玄龜、火鳳、雲蛟）、四階成長階段（卵/幼體/成長/成熟）、餵食消耗與冷卻倒數、4階獸魂天賦樹、輪迴成熟獸魂結算與跨世繼承、TimeAdvancer 模擬數值與產率整合、GameSession 三項命令（acquire/feed/talent）及 SaveCodec 存檔相容性。全量 **35/35 Runner PASS、exit 0**。
 - **優先：UI7／UI6-R1／FX2／TEXT1 回饋與裝置驗收**。常態材質已實作，先收視覺回饋，再驗高 DPR、實體觸控／GPU、音訊與效能。
-- **下一工作：RES1-C 三島 T2 操作切片**；M4-A-R1 與成就的原交付保留，M1-C/D Web 持久化／離線故障驗收與 RES1-B 相交部分仍須補齊。多島資源玩法尚未實作；後續大型任務使用 New Chat。
+- **下一工作：RES1-C2 世界／效能／完整玩法矩陣**；C1三島契約與隔離操作已有首項證據，M4-A-R1與成就原交付保留，B相交桌面Web故障範圍已完成。完整M1-C/D裝置範圍及C正式放行仍待補；後續大型任務使用New Chat。
 
 ## 9/29–10/3 開發內容
 
@@ -69,7 +138,7 @@
 
 | 任務 | 狀態與證據邊界 | 入口 |
 | --- | --- | --- |
-| RES1 | DESIGN／A DONE（A 為首批契約／隔離核心）；B DONE（原型核心／251 checks／native三程序＋桌面Web故障矩陣）；C–E TODO；正式多島未放行 | [規格](14-multi-island-resource-progression.md)、[稽核](verification/resource-progression-audit.md) |
+| RES1 | DESIGN／A DONE（A 為首批契約／隔離核心）；B DONE（原型核心／251 checks／native三程序＋桌面Web故障矩陣）；C IN_PROGRESS（C1／C2程式與桌面候選交付、完整放行待補）；D–E TODO；正式多島未放行 | [規格](14-multi-island-resource-progression.md)、[稽核](verification/resource-progression-audit.md) |
 | M2-D-ISLAND1 | IN_PROGRESS；小院／三種小景／保存／取景交付，38 Runner、八張 native、桌面 Web 鼠標；美術／實機待補 | [設計](13-island-scenery-and-courtyard-spec.md)、[驗收](verification/island-scenery.md) |
 | M0-A | 桌面部分已驗；指定實體手機手勢／效能待補 | [驗收](verification/m0-a.md) |
 | M0-B/C | DONE；來源 fixture、Amount/RNG 支援契約 | [M0-B](verification/m0-b.md)、[M0-C](verification/m0-c.md) |

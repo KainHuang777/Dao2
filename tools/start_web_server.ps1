@@ -14,7 +14,7 @@ $needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Pat
 
 if (-not $needExport) {
     $pckTime = (Get-Item $pckFile).LastWriteTime
-    $latestSrc = Get-ChildItem -Path @(".\src", ".\scenes", ".\project.godot") -Recurse -File -ErrorAction SilentlyContinue |
+    $latestSrc = Get-ChildItem -Path @(".\src", ".\scenes", ".\assets", ".\content", ".\project.godot", ".\export_presets.cfg") -Recurse -File -ErrorAction SilentlyContinue |
         Sort-Object LastWriteTime -Descending |
         Select-Object -First 1
     if ($latestSrc -and ($latestSrc.LastWriteTime -gt $pckTime)) {
@@ -34,6 +34,20 @@ if ($needExport) {
     Write-Host "[SUCCESS] Web Release exported successfully!" -ForegroundColor Green
 }
 
+# Soundtrack companions are required even when optional Node Brotli is unavailable.
+$webAudioDir = Join-Path $webDir 'audio/bgm'
+New-Item -ItemType Directory -Path $webAudioDir -Force | Out-Null
+$webAudioCatalog = Get-Content -LiteralPath assets/audio/bgm/library.json -Raw -Encoding UTF8 | ConvertFrom-Json
+foreach ($track in $webAudioCatalog) {
+    if ($track.filename -notmatch '^0[1-4]_[A-Za-z_]+\.mp3$') { throw 'Invalid BGM filename' }
+    Copy-Item -LiteralPath (Join-Path 'src/BGM' $track.filename) -Destination (Join-Path $webAudioDir $track.filename) -Force
+}
+if (Get-Command node -ErrorAction SilentlyContinue) {
+    node tools/prepare_web_compression.mjs $webDir
+    if ($LASTEXITCODE -ne 0) { throw 'Web compression preparation failed' }
+} else {
+    Write-Host '[INFO] Node compression tool unavailable; HTTP server uses gzip.' -ForegroundColor Yellow
+}
 # Clean up any dangling process on port 4175 before starting
 $oldConns = Get-NetTCPConnection -LocalPort 4175 -State Listen -ErrorAction SilentlyContinue
 if ($oldConns) {
@@ -59,5 +73,4 @@ Start-Job -ScriptBlock {
     Start-Process "http://127.0.0.1:4175/index.html"
 } | Out-Null
 
-python -m http.server 4175 --bind 127.0.0.1 --directory $webDir
-
+python tools/web_static_server.py --port 4175 --directory $webDir

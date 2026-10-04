@@ -62,6 +62,14 @@ new MutationObserver(() => {
 
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
+        if self.path == '/c2-fixture':
+            data = (ROOT/'docs/verification/artifacts/res1-c2-offline-fixture.json').read_bytes()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Length', str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
         if self.path == '/background':
             html = '''<!doctype html><meta charset="utf-8"><title>Web 背景恢復隔離驗證</title>
 <style>body{margin:0;font:16px sans-serif}button{min-height:44px}iframe{border:0;width:100%;height:calc(100vh - 110px)}pre{margin:4px;font-size:12px;white-space:pre-wrap;max-height:45px;overflow:auto}</style>
@@ -96,7 +104,11 @@ class Handler(SimpleHTTPRequestHandler):
                 self.directory = old
         elif self.path.split('?')[0] in ('/', '/index.html'):
             html = (ROOT/'build/web-persistence/index.html').read_text(encoding='utf-8')
-            html = html.replace('<script>', INSTRUMENT + '<script>', 1)
+            instrument = INSTRUMENT.replace('隔離 origin 4196', f'隔離 origin {PORT}')
+            if 'case=c2' in self.path:
+                instrument = instrument.replace('RES1-B / M1-C/D Web 保存驗證', 'RES1-C2 分批離線保存驗證')
+                instrument = instrument.replace('<nav>', '<nav><a href="/?case=c2retry">C2 五種中斷</a><a href="/?case=c2quota">C2 真實 quota</a><a href="/?case=c2indexreload">C2 索引重載</a><a href="/?case=c2quotareload">C2 quota 重載</a><a href="/?case=c2lock">C2 雙分頁</a><a href="/?case=c2denied">C2 拒讀</a><a href="/?case=c2corrupt">C2 損壞</a>')
+            html = html.replace('<script>', instrument + '<script>', 1)
             data = html.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type','text/html; charset=utf-8')
@@ -117,5 +129,10 @@ class Handler(SimpleHTTPRequestHandler):
         self.end_headers()
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', type=int, default=PORT)
+    args = parser.parse_args()
+    PORT = args.port
     print(f'Isolated Web persistence matrix http://127.0.0.1:{PORT}',flush=True)
     ThreadingHTTPServer(('127.0.0.1',PORT),partial(Handler,directory=str(ROOT/'build/web-persistence'))).serve_forever()

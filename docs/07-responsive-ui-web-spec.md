@@ -1,5 +1,17 @@
 # 響應式介面與 Web 畫布規格
 
+2026-10-04 R2最新[FPS複測](verification/res1-c2-perf-r2-fps.md)：同1280×650 CSS iframe／DPR1.25，三遊戲pooled59.019FPS／p95均16.8ms／max200ms，三無遊戲對照59.997。v3保存整段visibility／resize與開始／結束DPR／ready條件；無效樣本不得放行，raw gaps重算並保留全部樣本。60FPS門檻未改；此桌面iframe不是1280×720配對前後比較、手機／高DPR／GPU驗收。本轮没有正式Godot版面變更；下一仍R2個別耗時定位與裝置／人工。
+
+2026-10-04 PERF-R2續輪：FrameBudget **14ms**，20Mbps／100ms、1280×650 CSS iframe／DPR約1的新origin長離線ready9.801／9.777秒，結算p95均16.8ms、max33.3／16.9ms；同輪基線13.565秒。1280×720正常遊戲59.930FPS／p95 16.8ms／max33.2ms，嚴格60仍未過。另無遊戲rAF對照59.997FPS（初始DPR1.25），只是排程對照，不放寬門檻或當GPU／手機證據。844×390 CSS iframe滑鼠切島／捲動／固定關閉／返回通過；直接viewport override曾產生843×389，最後採既有launcher的實測844×390 iframe，未改正式canvas。 [續輪驗收](verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)；下面10ms結果為同日較早歷史。
+
+2026-10-04較早10ms版 PERF-R2：FrameBudget 10ms下，最終本機48h ready7.75秒，308個結算rAF間隔p95 16.8／max17ms。桌面1280×720最終59.80FPS／p95 16.8／max33.3ms，嚴格60仍未過。隔離量測v2以已計數間隔總時長為FPS分母，保留舊rawWindowFps與原始gaps，不將統計修正當遊戲提升。20Mbps／100ms新檔8.45秒、長離線13.55秒，後者未過10秒。實機／高DPR／人工等仍待驗。[R2證據](verification/res1-c2-perf-r2.md)；前輪數據按日期保留。
+
+2026-10-04 RES1-C2-PERF最新：正常版壓縮14.44MB，新檔20Mbps／100ms ready8.49秒，1280×720／DPR1.25 rAF p95 16.8ms；平均59.45–59.85仍未嚴格60FPS，48h本機恢复18.19秒仍超10秒。844×390 CSS iframe在實際Godot stretch logical779×360下驗管理／內部捲動／關閉／返回及遠島resize，沒有固定正式Web畫布。瀏覽器viewport控制未生效不算尺寸證據；指標是rAF代理，不是GPU／實體手機。[驗收](verification/res1-c2-perf.md)；原圖保留，runtime1024尺寸／lossy品質須再做DPR2/3、最大zoom人工驗收。自然凍結／跨瀏覽器／長期GPU及手機30FPS門檻未放行。
+
+2026-10-04 RES1-C3 最新：正常空島頁／分層PNG在1280×720與844×390有真實滑鼠啟用、開拓、精煉與重開證據。短橫向島名一行，身在遠島時尺寸變更自動重新取景，不需重進島。Godot Control與Adaptive規則維持；實機／高DPR／觸控／效能仍待驗。[C3驗收](verification/res1-c3-art-integration.md)；下方隔離候選為歷史。
+
+2026-10-04 RES1-C2-R1 最新：[收尾驗收](verification/res1-c2-closure.md) 補桌面async追加矩陣146 checks、全量50/50及world15 checks、1280×720青木／844×390玄礦滑鼠畫面。獨立桌面48.60FPS／p95 33.4ms、20Mbps／100ms含48h恢復67.84秒與gzip估算44.72MB未達預算；原生50switch記憶體不是Web長期放行。使用者美術／節奏待驗，實機／DPR2或3等仍未驗；下一C2-PERF，正式manifest不附掛。C2前輪27 checks／雙鏈T2／48h拒寫重試與歷史規格保留。
+
 版本：1.1 · 2026-10-03 · 橫式基準與 NAV1 功能導覽
 
 2026-10-03 M2-D-NAV1：主導覽與新增功能的歸屬以 [功能入口與整合規範](12-feature-navigation-and-integration-spec.md) 為準；下方標示日期的舊雙模式配置保留歷史，不能據此重新放回 More 玩法入口。

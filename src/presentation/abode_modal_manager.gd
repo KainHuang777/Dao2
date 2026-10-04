@@ -125,7 +125,7 @@ func layout_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 			save_rect = Rect2(12, 12, vp.x - 24, vp.y - 24)
 		_abode.save_controls.call("set_layout_bounds", save_rect)
 	if _abode.offline_summary != null:
-		var offline_rect := Rect2(margin, margin, minf(480.0, vp.x - margin * 2.0), minf(300.0, vp.y - margin * 2.0))
+		var offline_rect := Rect2(margin, margin, minf(480.0, vp.x - margin * 2.0), minf(300.0, vp.y - margin - 80.0))
 		if portrait:
 			offline_rect = Rect2(12, vp.y * 0.32, vp.x - 24, vp.y * 0.60)
 		_abode.offline_summary.call("set_layout_bounds", offline_rect)

@@ -111,7 +111,7 @@ static func _sync_from_elapsed(state: GameState) -> void:
 
 static func tick(state: GameState, _elapsed_seconds: float) -> void:
 	ensure_initialized(state)
-	_sync_from_elapsed(state)
+	# ensure_initialized already synchronizes all saved progress from elapsed.
 
 static func get_current_shichen(state: GameState) -> Dictionary:
 	ensure_initialized(state)

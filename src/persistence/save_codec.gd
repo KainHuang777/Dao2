@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 3
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-8-talent-only-inheritance"
+const RULES_VERSION := "core-flow-9-island-progression"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -37,6 +37,10 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 		"rng_streams": rng_streams,
 		"last_offline_report": meta.get("last_offline_report", null),
 	}
+	# Hash the numeric representation that the decoder actually reads. JSON's
+	# default float serialization may round a value across a normalization edge.
+	# Keep the existing verifier for old snapshots; no schema or gameplay change.
+	envelope = JSON.parse_string(JSON.stringify(envelope, "", true))
 	envelope["checksum"] = compute_checksum(envelope)
 	return {"ok": true, "json": JSON.stringify(envelope, "", true), "error": ""}
 

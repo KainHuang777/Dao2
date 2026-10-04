@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/res1c2_world_runner.gd:29)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c2_world_runner.gd:29)

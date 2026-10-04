@@ -32,7 +32,7 @@ func _run() -> void:
 			await process_frame
 			check(nav.bar.get_global_rect().end.y <= abode.toolbar.position.y, "fixed page navigation fits " + route)
 			check(abode.toolbar.get_global_rect().end.x <= viewport.x, "main navigation fits landscape")
-			var count := int(abode.building_catalog.visible) + int(nav.action_panel.visible) + int(abode.nine_realms_preview.visible)
+			var count := int(abode.building_catalog.visible) + int(nav.action_panel.visible) + int(abode.nine_realms_preview.visible) + int(nav.island_panel.visible)
 			for key in nav.PANEL_KEYS:
 				count += int(abode.get(key).visible)
 			check(count == 1, "exactly one gameplay page is visible: " + route)

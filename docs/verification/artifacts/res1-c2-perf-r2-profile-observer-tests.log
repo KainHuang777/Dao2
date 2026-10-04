@@ -1,0 +1,2 @@
+PASS: 6 observer contract cases (ready/control/visibility/resize/double-click)
+PASS: runtime profile inactive/start/stop/reset/timestamps/nested spans/bounded buffer

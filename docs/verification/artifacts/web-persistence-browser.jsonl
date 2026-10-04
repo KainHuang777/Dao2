@@ -14,3 +14,22 @@
 {"url": "http://127.0.0.1:4196/background", "report": "WEB_BACKGROUND_SETTLED: {\"age_seconds\":1304.0,\"away_ms\":36220,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":36220,\"effective_ticks\":36,\"forfeited_ms\":0,\"left_at_utc_ms\":1791037974189,\"report_id\":\"offline:1791038010409\",\"rollback\":false,\"settled_at_utc_ms\":1791038010409,\"stopped\":null,\"time_only_ticks\":0}"}
 {"url": "http://127.0.0.1:4196/background", "report": "WEB_BACKGROUND_SAVE_FAILED: SecurityError"}
 {"url": "http://127.0.0.1:4196/background", "report": "WEB_BACKGROUND_SETTLED: {\"age_seconds\":1364.0,\"away_ms\":46027,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":46027,\"effective_ticks\":46,\"forfeited_ms\":0,\"left_at_utc_ms\":1791038024427,\"report_id\":\"offline:1791038070454\",\"rollback\":false,\"settled_at_utc_ms\":1791038070454,\"stopped\":null,\"time_only_ticks\":0}"}
+{"url": "http://127.0.0.1:4202/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2quota", "report": "PASS\n{\n  \"case\": \"c2quota\",\n  \"checks\": 11,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2indexreload", "report": "PASS\n{\n  \"case\": \"c2indexreload\",\n  \"checks\": 7,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2indexreload", "report": "PASS\n{\n  \"case\": \"c2indexreload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2indexreload", "report": "PASS\n{\n  \"case\": \"c2indexreload\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2quotareload", "report": "PASS\n{\n  \"case\": \"c2quotareload\",\n  \"checks\": 7,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2quotareload", "report": "PASS\n{\n  \"case\": \"c2quotareload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2quotareload", "report": "PASS\n{\n  \"case\": \"c2quotareload\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2lock", "report": "PASS\n{\n  \"case\": \"c2lock\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2lock", "report": "PASS\n{\n  \"case\": \"c2lock\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2lock", "report": "PASS\n{\n  \"case\": \"c2lock\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2denied", "report": "PASS\n{\n  \"case\": \"c2denied\",\n  \"checks\": 11,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2corrupt", "report": "PASS\n{\n  \"case\": \"c2corrupt\",\n  \"checks\": 11,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4202/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4215/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4228/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4237/", "report": "PASS\n{\n  \"case\": \"retry\",\n  \"checks\": 69,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4237/?case=retry", "report": "PASS\n{\n  \"case\": \"retry\",\n  \"checks\": 69,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4237/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}

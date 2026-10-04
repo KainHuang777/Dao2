@@ -2,6 +2,8 @@ class_name GameSession
 extends RefCounted
 
 const KNOWN_COMMAND_TYPES := [
+	"activate_islands",
+	"upgrade_island_facility",
 	"craft",
 	"migrate_processing",
 	"open_island",
@@ -213,6 +215,7 @@ func get_view() -> Dictionary:
 		}
 	return {
 		"revision": state.revision,
+		"island_activation": IslandProgression.preview(state, content) if not content.processing_catalog.is_empty() else {},
 		"economy": IslandEconomy.view(state, content.processing_catalog),
 		"abode_scenery": AbodeScenery.get_view(state),
 		"era_id": state.era_id,

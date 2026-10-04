@@ -1,0 +1,29 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Loaded resource as image file, this will not work on export: 'res://assets/abode/terrain.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/res1c2_texture_audit.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://assets/abode/sky_tearfall_island_v6.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/res1c2_texture_audit.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://assets/abode/res1c3/wood_body.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/res1c2_texture_audit.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://assets/abode/res1c3/wood_landmark.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/res1c2_texture_audit.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://assets/abode/res1c3/ore_body.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/res1c2_texture_audit.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://assets/abode/res1c3/ore_landmark.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/res1c2_texture_audit.gd:11)
+{"files":[{"alpha_differences":0,"dimensions":[1536,1024],"dimensions_ok":true,"opaque_psnr_db":35.4880018417341,"path":"res://assets/abode/terrain.png","quality":0.85},{"alpha_differences":0,"dimensions":[1672,941],"dimensions_ok":true,"opaque_psnr_db":36.6682155228329,"path":"res://assets/abode/sky_tearfall_island_v6.png","quality":0.85},{"alpha_differences":0,"dimensions":[1536,1024],"dimensions_ok":true,"opaque_psnr_db":34.7615177093506,"path":"res://assets/abode/res1c3/wood_body.png","quality":0.85},{"alpha_differences":0,"dimensions":[1536,1024],"dimensions_ok":true,"opaque_psnr_db":33.4811172153589,"path":"res://assets/abode/res1c3/wood_landmark.png","quality":0.85},{"alpha_differences":0,"dimensions":[1536,1024],"dimensions_ok":true,"opaque_psnr_db":35.1210964652563,"path":"res://assets/abode/res1c3/ore_body.png","quality":0.85},{"alpha_differences":0,"dimensions":[1536,1024],"dimensions_ok":true,"opaque_psnr_db":33.9648630939185,"path":"res://assets/abode/res1c3/ore_landmark.png","quality":0.85}],"ok":false}

@@ -14,6 +14,8 @@ var bar: PanelContainer
 var tabs: HBoxContainer
 var tab_buttons: Dictionary = {}
 var action_panel: Control
+var island_panel: Control
+var _legacy_outposts := false
 var _shared_resource_count := 0
 var _changing := false
 var _camera_before := false
@@ -49,6 +51,17 @@ func build() -> void:
 	action_panel.action_requested.connect(_on_action)
 	abode.hud.add_child(action_panel)
 	action_panel.visible = false
+	island_panel = preload("res://src/presentation/island_management_panel.gd").new()
+	abode.hud.add_child(island_panel)
+	island_panel.visible = false
+	island_panel.action_requested.connect(_on_island_action)
+	island_panel.close_requested.connect(home)
+	island_panel.world_requested.connect(func(id: String): abode.island_world.enter(id))
+	island_panel.legacy_requested.connect(func():
+		island_panel.visible = false
+		_legacy_outposts = true
+		abode.realm_modal.visible = true
+		layout(abode.hud.size))
 	abode.toolbar.z_index = 45
 	# Control hit testing follows tree order, not z_index: navigation stays above
 	# the resource ribbon when a short landscape HUD reaches the bottom row.
@@ -80,6 +93,7 @@ func open(route: String) -> void:
 	if abode.nine_realms_preview.visible:
 		abode.nine_realms_preview._on_close_pressed()
 	_hide_pages()
+	_legacy_outposts = false
 	group = target
 	page = route
 	remembered[group] = page
@@ -91,7 +105,11 @@ func open(route: String) -> void:
 	_make_tabs()
 	match page:
 		"buildings": abode.building_catalog.visible = true
-		"outposts": abode.realm_modal.visible = true
+		"outposts":
+			if not abode.content.processing_catalog.is_empty():
+				island_panel.visible = true
+			else:
+				abode.realm_modal.visible = true
 		"alchemy": abode.alchemy_panel.visible = true
 		"achievements": abode.achievement_panel.visible = true
 		"reincarnation": abode.reincarnation_panel.visible = true
@@ -111,6 +129,7 @@ func _hide_pages() -> void:
 	for key in PANEL_KEYS:
 		abode.get(key).visible = false
 	action_panel.visible = false
+	island_panel.visible = false
 
 func home() -> void:
 	if _changing or group == "home":
@@ -187,6 +206,9 @@ func layout(vp: Vector2) -> void:
 		tab_buttons.outposts.text = "洞天" if vp.x < 960.0 else "洞天據點"
 		tab_buttons.buildings.tooltip_text = "洞府建築"
 		tab_buttons.outposts.tooltip_text = "洞天據點"
+		if not abode.content.processing_catalog.is_empty():
+			tab_buttons.outposts.text = "空島"
+			tab_buttons.outposts.tooltip_text = "空島產業與靈界洞天・築基開拓首批產業島"
 	var bounds := Rect2(x, margin + 68.0, width, maxf(80.0, abode.toolbar.position.y - margin - 76.0))
 	if page == "buildings":
 		abode.building_catalog.set_layout_bounds(bounds)
@@ -195,7 +217,7 @@ func layout(vp: Vector2) -> void:
 	else:
 		var panel: Control = action_panel
 		match page:
-			"outposts": panel = abode.realm_modal
+			"outposts": panel = abode.realm_modal if _legacy_outposts or abode.content.processing_catalog.is_empty() else island_panel
 			"alchemy": panel = abode.alchemy_panel
 			"achievements": panel = abode.achievement_panel
 			"reincarnation": panel = abode.reincarnation_panel
@@ -236,6 +258,8 @@ func refresh(view: Dictionary) -> void:
 	_refresh_main_notifications(view)
 	if action_panel.visible:
 		action_panel.refresh(view)
+	if island_panel.visible:
+		island_panel.refresh(view, abode.content.processing_catalog)
 	if bar.visible:
 		if tab_buttons.has("reincarnation"):
 			tab_buttons.reincarnation.text = "輪迴可用" if bool(view.get("reincarnation_preview", {}).get("eligible", false)) else "輪迴天賦"
@@ -267,4 +291,21 @@ func _on_action(kind: String, id: String) -> void:
 	action_panel.show_result("操作完成，進度已更新。" if bool(result.get("ok", false)) else "操作未完成：%s" % result.get("message", result.get("error", "原因不明")))
 	if bool(result.get("ok", false)):
 		abode._save_game()
+	abode._refresh_hud()
+
+func _on_island_action(kind: String, payload: Dictionary) -> void:
+	var result: Dictionary
+	if kind == "activate_islands":
+		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
+		result = SaveManager.activate_islands(abode.session, {"save_id": "local", "saved_at_utc_ms": now, "settled_until_utc_ms": now, "sim_tick": str(int(abode.session.state.total_elapsed_seconds))})
+		if result.ok:
+			abode.state = abode.AbodeStateCompat.new(abode.session)
+	else:
+		result = abode.session.submit({"command_id": "island-" + str(Time.get_ticks_usec()), "type": kind, "expected_revision": abode.session.state.revision, "payload": payload})
+		if result.ok:
+			var saved: Dictionary = abode._save_game()
+			if not saved.ok:
+				result = saved
+	var errors := {"INSUFFICIENT_RESOURCE": "祖島材料不足；請先將加工物運回祖島。", "ERA_REQUIREMENT": "築基後才能開拓。", "RECIPE_ISLAND_REQUIREMENT": "請至專業島加工。", "ISLAND_NOT_OPEN": "請先開拓航線兩端島嶼。", "JOB_BUSY": "已有工作，請等本批完成後停止。", "OUTPUT_FULL": "產物滿倉；請啟動回祖島航線。"}
+	island_panel.show_result("操作完成，已保存。" if result.ok else errors.get(result.get("error", ""), "操作未保存：%s。原檔已保留，恢復儲存後重試。" % result.get("error", "原因不明")))
 	abode._refresh_hud()

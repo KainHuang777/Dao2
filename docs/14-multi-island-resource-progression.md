@@ -1,5 +1,11 @@
 # Era、多島產業與多階資源主線
 
+2026-10-04 RES1-C3 最新：三島為築基首段切片，長期30+容量方向／36島草案與有限材料共用見[新規格](15-island-expansion-and-art-direction.md)。四張PNG已接正常版「經營→空島」，玩家保留原檔啟用；50/50、world22與兩版型Web操作通過，[C3](verification/res1-c3-art-integration.md)。後續島群尚未實作，C/C3人工美術／節奏與C2效能／裝置仍待驗；此前正式未附掛／先效能順序由本輪要求覆蓋，保留歷史結果。
+
+2026-10-04 RES1-C2-R1 最新：[收尾驗收](verification/res1-c2-closure.md) 補桌面async保存追加矩陣146 checks、全量50/50及world15 checks；效能實測未達預算（桌面48.60FPS／p95 33.4ms、20Mbps／100ms含48h恢復67.84秒、gzip估算44.72MB）。使用者美術／節奏明確保留待驗，實機／高DPR等另待補；整體C2仍IN_PROGRESS，下一C2-PERF、不跳D。正式manifest未附掛，原C1／C2雙鏈T2／48h拒寫重試與歷史規格保留。
+
+2026-10-03 最新：B核心／桌面Web相交範圍DONE；**C整體IN_PROGRESS，C1階段已交付**。三島設施／T2真實消耗與隔離Godot操作、87 checks／最終49Runner及兩版型Web證據見 [C1驗收](verification/res1-c1.md)。下一C2補世界／長離線效能／完整玩法矩陣；正式manifest仍未附掛。下方B IN_PROGRESS／「下一故障矩陣」是較早历史，不重做已交付B。
+
 2026-10-03 · RES1-DESIGN DONE；後續 RES1-A 首批內容契約／隔離核心 DONE，見 [驗收](verification/res1-a.md)。RES1-B 核心／CLI 已交付（251 checks、native 三程序保存／離線），整體 IN_PROGRESS，見 [B 驗收](verification/res1-b.md)；Web 保存門檻及正式多島玩法仍待 B–D；下文工作方案不等同已上線。
 
 依使用者當次要求：Era 提升逐步解鎖空島；各島有資源職能、設施升級、加工融合及彼此供給／運輸；高階資源支撐後續建設與修行。這是主成長循環，優先於擴充更多沒有產業用途的九界入口。下文島名、解鎖分段、配比／耗時是工作設計，不能當作已平衡或 DAO1 原規則。任務順序以 [Roadmap](../ROADMAP.md) 為準。

@@ -1,5 +1,13 @@
 # 建築呈現與修行境界擴充規格
 
+2026-10-04 RES1-C2-PERF：遠島圖層在Era2需要時載入，原PNG1536×1024、提示詞／manifest與承托／分層關係保持；Godot size_limit1024生成1024×682 runtime，木地標lossless、木／礦島體lossy0.92、礦地標0.98。六檔encoding PSNR與相對宣告resize的alpha稽核通過；這不代表縮圖、高DPR／最大zoom美術已由人接受。桌面／844×390操作與50次Web切島有界通過，[參數與證據](verification/res1-c2-perf.md)。不得用此輪效能結果推定36島容量或人工美術放行。
+
+2026-10-04 RES1-C3 最新：依使用者要求，以原創PNG正式素材替換SVG候選並接正常版。青木木作坊／玄礦礦口爐房是獨立複合地標，島體保留空地，開拓後才顯示；其他設施仍在管理清單。四張runtime、兩參考與提示詞／來源／hash在assets/abode/res1c3。使用者審美與節奏待實玩。[考據與美術規格](15-island-expansion-and-art-direction.md)／[C3](verification/res1-c3-art-integration.md)；下方僅隔離候選為前輪歷史。
+
+2026-10-04 C2-R1 最新：桌面async保存追加矩陣146 checks／全量50/50及世界15 checks已通過，兩版型預覽補看；效能超標，使用者美術／節奏保留待驗，正式地標仍為隔離候選。實機／高DPR等未放行，下一C2-PERF；[收尾證據與試玩](verification/res1-c2-closure.md)。下方前輪待辦按歷史保留。
+
+2026-10-04 RES1-C2：三島獨立SVG世界候選／同路由點擊／短Banner、Web候選分批結算（platform FrameBudget、逐秒規則不讀時間）、摘要內部捲動與固定關閉已實作。27 checks、固定50/50與補充世界14 checks、桌面兩版型雙鏈T2／重載、48h拒寫／重試已有有界證據。正式manifest未附掛，候選美術／節奏、實機／高DPR／效能與新async完整故障追加矩陣仍待補；歷史「尚未實作」按日期保留，以 [C2驗收](verification/res1-c2.md) 為最新範圍。
+
 版本：1.0 · 2026-09-20 · M2-D 決策
 
 **2026-10-03 RES1 修訂優先**：使用者要求 Era 解鎖多座專業資源島，島上可建代表採集／加工／倉儲／航運地標，多階材料與實際物流支撐修行。下方單島清單決策記錄現行版本，不能再解讀為永遠只做一島。新島須各自設計地形／建築承托，不把所有建築硬塞舊島圖；[新規格](14-multi-island-resource-progression.md)與[ADR-009](decisions/ADR-009-multi-island-resource-economy.md)指定後續範圍。

@@ -1,5 +1,17 @@
 # 修仙問道 v2｜Godot AI-first 技術架構
 
+2026-10-04 PERF-R2續輪：無命令準備新增島嶼固定點偵測。只有無在途／加工倒數、完整economy除tick外不變、祖島Amount未變時省略重複檢查；監看持有的resource entry／Amount，tick只替換value，命令後一律重建。祖島生產的無變化結果只在乘區未重建、經濟靜止且庫存未變時重用；靈界耗料立即失效。壽元與修行倍率快取在BUFF到期／時辰邊界失效，修行時間仍逐秒相加。天時tick只做一次既有同步，小景滿兩件時略過eligible掃描，RNG不動。FrameBudget **14ms**只控制讓出；schema／rules／CAP不變。51/51＋145精確檢查／Web retry49、節流長離線9.801／9.777秒有界通過，完整證據見 [續輪](verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)。下面10ms結果保留為較早歷史。
+
+2026-10-04較早10ms版 PERF-R2：一次無命令結算快取宗門／靈獸被動、BUFF到期與時辰邊界乘區、相同乘區的一秒Amount delta／基礎容量；當秒庫存與預留仍重讀。靈獸初始化通過零tick／壽盡保護後才發生。FrameBudget 10ms只控制讓出，不改逐秒事件／RNG／收益與保存版本。最終51/51、121精確比對、Web retry49通過；本機48h恢復7.75秒，節流長離線13.55秒仍未過，續PERF-R2，不跳D。[R2驗收](verification/res1-c2-perf-r2.md)。
+
+2026-10-04 RES1-C2-PERF最新：living_abode View以GameState身分＋revision快取，命令／debug／重試明確refresh。TimeAdvancer prepared只限一次無命令結算，純規則參數重用、BUFF／天時／靈獸／保留容量／事件仍逐秒；不寫入保存，不改schema3／core-flow-9。Runtime字型由來源corpus生成且保留metrics／wght，原字型保留；Web原MP3依播放需求HTTPRequest另載，平台資產URL解析不介入收益。Node只產生壓縮與音樂companions，正常遊戲仍Godot／Compatibility單執行緒。51/51回歸、107精確tick/font、Web retry49通過；600tick CPU約減49.8%，長離線本機18.19秒仍超10秒。[效能證據／邊界](verification/res1-c2-perf.md)。
+
+2026-10-04 RES1-C3 最新：正常living_abode初始化附掛processing／IslandProgression，基礎ContentLoader仍可獨立使用。玩家築基後透過已驗證歸檔／候選提交啟用，舊檔不自動改造。分層PNG與尺寸變更重新取景已交付；50/50、normal world22通過。30+為後續容量方向，現有定義仍首段專用，未聲稱通用36島引擎已完成。[C3](verification/res1-c3-art-integration.md)／[新規格](15-island-expansion-and-art-direction.md)。下方preview限定為歷史；C2效能缺口保留。
+
+2026-10-04 C2-R1 最新：async桌面保存追加矩陣146 checks／全量50/50已通過；實測冷啟動／下載／幀時間超預算，整體未放行。原生50次切島不代表Web／GPU長期記憶體。下一C2-PERF，正式manifest保持opt-in；[收尾證據](verification/res1-c2-closure.md)。下方前輪「新async追加矩陣待補」保留歷史。
+
+2026-10-04 RES1-C2：三島獨立SVG世界候選／同路由點擊／短Banner、Web候選分批結算（platform FrameBudget、逐秒規則不讀時間）、摘要內部捲動與固定關閉已實作。27 checks、固定50/50與補充世界14 checks、桌面兩版型雙鏈T2／重載、48h拒寫／重試已有有界證據。正式manifest未附掛，候選美術／節奏、實機／高DPR／效能與新async完整故障追加矩陣仍待補；歷史「尚未實作」按日期保留，以 [C2驗收](verification/res1-c2.md) 為最新範圍。
+
 版本：0.1 · 2026-09-12 · 實作前設計
 
 2026-10-03 RES1 架構增補（尚未實作）：依 [多島資源規格 §7](14-multi-island-resource-progression.md)在既有核心加入地方庫存、批次加工、固定航線／在途貨物與容量保留。核心按到貨／完工／缺料等邊界推進；不能沿用固定產率整段相乘推定多階鏈等價。新 schema／rules／content 版本、祖島舊庫存映射、單一權威庫存与保存重試列 RES1-A/B，Amount 支援邊界仍有效。下文三個活躍據點為原型歷史預算；RES1 先三島、再 Era 3 第四島，擴充前量測負載，不推定已驗效能。

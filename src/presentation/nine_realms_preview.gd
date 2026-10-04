@@ -12,7 +12,7 @@ signal aspiration_changed(realm_id: String)
 signal preview_closed()
 
 const REALMS_DATA_PATH := "res://content/realms/realms.json"
-const FONT := preload("res://assets/fonts/SourceHanSansTW-VF.ttf")
+const FONT := UiTypography.BASE_FONT
 
 var _bg_overlay: ColorRect
 var _cinematic_container: Control

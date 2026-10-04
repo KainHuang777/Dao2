@@ -7,6 +7,8 @@ const ZERO_SNAP := 0.000000001
 
 static func apply(content: GameContent, state: GameState, command: Dictionary) -> Dictionary:
 	match String(command.type):
+		"activate_islands", "upgrade_island_facility":
+			return IslandProgression.command(content, state, command.type, command.payload)
 		"migrate_processing", "open_island", "configure_route", "stop_processing", "switch_processing":
 			return IslandEconomy.command(content, state, command.type, command.payload)
 		"craft":

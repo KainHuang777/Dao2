@@ -1,0 +1,295 @@
+{
+  "note": "Profile adds overhead. Inclusive nested spans cannot be summed. rAF overlap is temporal evidence only; uninstrumented engine/render/GPU/scheduler costs remain.",
+  "samples": [
+    {
+      "sequence": 1,
+      "utc": "2026-10-04T05:29:58.370Z",
+      "environment": {
+        "viewport": [
+          783,
+          542
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "fps": 59.86387301925911,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.40000000000873,
+      "process": {
+        "count": 898,
+        "totalMs": 957.1,
+        "meanMs": 1.065812917594655,
+        "p95Ms": 11.7,
+        "maxMs": 18.0
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 882,
+          "totalMs": 70.4,
+          "meanMs": 0.07981859410430839,
+          "p95Ms": 0.2,
+          "maxMs": 0.4
+        },
+        "advance_tick": {
+          "count": 16,
+          "totalMs": 19.0,
+          "meanMs": 1.1875,
+          "p95Ms": 1.7,
+          "maxMs": 1.7
+        },
+        "hud_buff": {
+          "count": 56,
+          "totalMs": 1.8,
+          "meanMs": 0.03214285714285715,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "hud_catalog": {
+          "count": 56,
+          "totalMs": 200.7,
+          "meanMs": 3.5839285714285714,
+          "p95Ms": 4.3,
+          "maxMs": 5.2
+        },
+        "hud_guidance_layout": {
+          "count": 56,
+          "totalMs": 7.3,
+          "meanMs": 0.13035714285714287,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "hud_navigation": {
+          "count": 56,
+          "totalMs": 271.2,
+          "meanMs": 4.842857142857143,
+          "p95Ms": 6.1,
+          "maxMs": 6.9
+        },
+        "hud_resources": {
+          "count": 56,
+          "totalMs": 31.2,
+          "meanMs": 0.5571428571428572,
+          "p95Ms": 0.8,
+          "maxMs": 1.1
+        },
+        "hud_status": {
+          "count": 56,
+          "totalMs": 25.7,
+          "meanMs": 0.45892857142857146,
+          "p95Ms": 0.7,
+          "maxMs": 0.7
+        },
+        "hud_total": {
+          "count": 56,
+          "totalMs": 681.2,
+          "meanMs": 12.164285714285715,
+          "p95Ms": 14.0,
+          "maxMs": 14.8
+        },
+        "island_refresh": {
+          "count": 56,
+          "totalMs": 3.2,
+          "meanMs": 0.05714285714285715,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.8,
+          "meanMs": 4.8,
+          "p95Ms": 4.8,
+          "maxMs": 4.8
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 13.0,
+          "meanMs": 13.0,
+          "p95Ms": 13.0,
+          "maxMs": 13.0
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 17.8,
+          "meanMs": 17.8,
+          "p95Ms": 17.8,
+          "maxMs": 17.8
+        },
+        "view_build": {
+          "count": 71,
+          "totalMs": 179.1,
+          "meanMs": 2.5225352112676056,
+          "p95Ms": 3.4,
+          "maxMs": 4.5
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 92743.69999999553,
+          "totalUs": 18000,
+          "spans": {
+            "advance_idle": 100,
+            "save_commit": 4800,
+            "save_encode": 13000,
+            "save_total": 17800
+          }
+        },
+        {
+          "endMs": 88324.39999999851,
+          "totalUs": 16100,
+          "spans": {
+            "advance_tick": 1000,
+            "hud_buff": 0,
+            "hud_catalog": 3300,
+            "hud_guidance_layout": 0,
+            "hud_navigation": 6200,
+            "hud_resources": 500,
+            "hud_status": 400,
+            "hud_total": 12600,
+            "island_refresh": 100,
+            "view_build": 4500
+          }
+        },
+        {
+          "endMs": 94725.89999999851,
+          "totalUs": 15000,
+          "spans": {
+            "advance_idle": 0,
+            "hud_buff": 0,
+            "hud_catalog": 5200,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 4800,
+            "hud_resources": 1100,
+            "hud_status": 600,
+            "hud_total": 14800,
+            "island_refresh": 100,
+            "view_build": 2700
+          }
+        },
+        {
+          "endMs": 82996.29999999702,
+          "totalUs": 14400,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 3600,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 6900,
+            "hud_resources": 500,
+            "hud_status": 500,
+            "hud_total": 14100,
+            "island_refresh": 100,
+            "view_build": 2300
+          }
+        },
+        {
+          "endMs": 81921.79999999702,
+          "totalUs": 14200,
+          "spans": {
+            "advance_idle": 0,
+            "hud_buff": 100,
+            "hud_catalog": 4300,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 5700,
+            "hud_resources": 600,
+            "hud_status": 600,
+            "hud_total": 14000,
+            "island_refresh": 0,
+            "view_build": 2500
+          }
+        },
+        {
+          "endMs": 89926.39999999851,
+          "totalUs": 13800,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 5100,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 4800,
+            "hud_resources": 700,
+            "hud_status": 500,
+            "hud_total": 13600,
+            "island_refresh": 100,
+            "view_build": 2300
+          }
+        },
+        {
+          "endMs": 85121.60000000149,
+          "totalUs": 13700,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 3900,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 5800,
+            "hud_resources": 500,
+            "hud_status": 700,
+            "hud_total": 13400,
+            "island_refresh": 100,
+            "view_build": 2200
+          }
+        },
+        {
+          "endMs": 88855.39999999851,
+          "totalUs": 13700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 3900,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 6100,
+            "hud_resources": 600,
+            "hud_status": 300,
+            "hud_total": 13500,
+            "island_refresh": 100,
+            "view_build": 2100
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 80790.3,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 83007.1,
+          "gapMs": 33.40000000000873,
+          "overlappingProcessMs": 14.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 3.6,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 6.9,
+            "hud_resources": 0.5,
+            "hud_status": 0.5,
+            "hud_total": 14.1,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.3
+          }
+        }
+      ]
+    }
+  ]
+}

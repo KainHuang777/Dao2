@@ -31,6 +31,48 @@ const DEFINITIONS := {
 			"cultivation_speed_bonus": 1.00
 		}
 	},
+	"insight_glow": {
+		"id": "insight_glow",
+		"name": "頓悟靈光",
+		"icon_text": "悟",
+		"color": "#ffd700",
+		"description": "福至心靈，天道共鳴。修煉速度 +100%。",
+		"default_duration": 180.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"cultivation_speed_bonus": 1.00
+		}
+	},
+	"heaven_qi_surge": {
+		"id": "heaven_qi_surge",
+		"name": "天靈氣湧",
+		"icon_text": "湧",
+		"color": "#4fe3c1",
+		"description": "天地靈脈噴湧，全洞府產率 +30%，靈氣產率額外 +50%。",
+		"default_duration": 300.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"production_multiplier": 0.30,
+			"specific_resource_multiplier": {
+				"lingli": 0.50
+			}
+		}
+	},
+	"longevity_breath": {
+		"id": "longevity_breath",
+		"name": "長生龜息",
+		"icon_text": "壽",
+		"color": "#77f29b",
+		"description": "上古龜息吐納秘法，固本延年。當世壽元上限 +10 祀。",
+		"default_duration": 0.0,
+		"is_permanent": true,
+		"transmigratable": false,
+		"effects": {
+			"lifespan_bonus_years": 10.0
+		}
+	},
 	"breakthrough_resonance": {
 		"id": "breakthrough_resonance",
 		"name": "破境餘韻",

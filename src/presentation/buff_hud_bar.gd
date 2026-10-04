@@ -46,7 +46,14 @@ static func status_items(view: Dictionary, sect: Dictionary = {}) -> Array:
 	for buff in view.get("buffs", []):
 		var title := String(buff.get("name", buff.get("id", "增益")))
 		var remaining := String(buff.get("formatted_remaining", ""))
-		items.append({"id": "buff:" + String(buff.get("id", title)), "seal": String(buff.get("icon_text", "符")), "text": title + " " + remaining, "route": "", "tip": "%s\n%s\n持續：%s" % [title, buff.get("description", ""), remaining]})
+		var desc := String(buff.get("description", "")).strip_edges()
+		var tip_lines: Array[String] = [title]
+		if not desc.is_empty():
+			tip_lines.append(desc)
+		if not remaining.is_empty():
+			tip_lines.append("持續：%s" % remaining)
+		var tip_text := "\n".join(tip_lines)
+		items.append({"id": "buff:" + String(buff.get("id", title)), "seal": String(buff.get("icon_text", "符")), "text": title + " " + remaining, "route": "", "tip": tip_text})
 	return items
 
 func update_status(view: Dictionary, sect: Dictionary = {}) -> void:

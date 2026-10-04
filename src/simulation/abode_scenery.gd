@@ -12,6 +12,9 @@ const DEFINITIONS := {
 
 static func advance(state: GameState, elapsed: float) -> Array:
 	var events: Array = []
+	# A full island has no timer/RNG work or eligible-kind lookup to perform.
+	if not state.abode_scenery.is_empty() and state.abode_scenery.active.size() >= MAX_ACTIVE:
+		return events
 	var eligible: Array = []
 	for kind in DEFINITIONS:
 		if bool(state.resources.get(DEFINITIONS[kind].resource_id, {}).get("unlocked", false)):

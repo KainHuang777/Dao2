@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+C2_CHUNKS: duration_ms=600000 yields=85
+C2_CHUNKS: duration_ms=172800000 yields=1605
+C2_CHUNKS: duration_ms=-1000 yields=0
+C2_CHUNKS: duration_ms=850 yields=1
+PASS: RES1-C2 chunked settlement 27 checks

@@ -1,0 +1,1713 @@
+[RUNNING] tools/test_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: project script, JSON serialization, user storage, and Traditional Chinese font glyphs are available.
+[RUNNING] tests/abode_state_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: abode state advances independently from visual flow, upgrades, and garden pause.
+[RUNNING] tests/living_abode_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_UPGRADE: hut level=1
+ABODE_DIRECT_BUILD: hut
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SELECT: hut
+ABODE_UPGRADE: hut level=2
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +6
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_GARDEN_RUNNING: false
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_REGION
+ABODE_REGION: same world and simulation retained
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+PASS: living abode selects buildings, upgrades, pauses production, and changes scale.
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m0c_compat_v3_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M0-C AmountCompat canonical contract and SeededRandomCompat match the fixture.
+[RUNNING] tests/m1a_core_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-A core contract, content validation, cost/onboarding parity, commands, idempotency, determinism.
+[RUNNING] tests/res1a_processing_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: RES1-A 145 checks; sources, closure, atomic Craft, canonical inventory, Amount, Session replay.
+[RUNNING] tests/res1b_economy_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:48)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:222)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:221)
+       [4] current_state (res://src/persistence/save_manager.gd:89)
+       [5] _test_persistence (res://tests/res1b_economy_runner.gd:353)
+       [6] _init (res://tests/res1b_economy_runner.gd:33)
+SAVE_SLOT_REJECTED: JSON_PARSE
+PASS: RES1-B 251 checks; timed batches, local inventory, cargo conservation, time, migration, offline retry, reincarnation.
+[RUNNING] tests/res1c_progression_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:48)
+       [1] activate_islands (res://src/persistence/save_manager.gd:42)
+       [2] _run (res://tests/res1c_progression_runner.gd:112)
+RES1C_OFFLINE_CPU_MS: 4481 ticks=86400
+PASS: RES1-C1 87 checks; blank Era2, T2 sinks, bottleneck, migration retry, saves, time and UI.
+[RUNNING] tests/res1c2_offline_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+C2_CHUNKS: duration_ms=600000 yields=51
+C2_CHUNKS: duration_ms=172800000 yields=764
+C2_CHUNKS: duration_ms=-1000 yields=0
+C2_CHUNKS: duration_ms=850 yields=1
+PASS: RES1-C2 chunked settlement 27 checks
+[RUNNING] tests/res1c2_perf_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: RES1-C2-PERF 107 exact tick/font checks
+[RUNNING] tests/resource_feedback_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+PASS: RESOURCE-FEEDBACK-R1 738 checks
+WARNING: 1 RID of type "CanvasItem" was leaked.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m1b_time_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-B clock, ticks, cultivation, lifespan, boundaries, determinism.
+[RUNNING] tests/m1c_persistence_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] import_share_string (res://src/persistence/save_manager.gd:203)
+       [1] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:190)
+       [2] _init (res://tests/m1c_persistence_runner.gd:21)
+PASS: M1-C save codec, two-slot persistence, checksum, export/import.
+[RUNNING] tests/web_persistence_fault_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected key
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:48)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:222)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:221)
+       [4] current_state (res://src/persistence/save_manager.gd:89)
+       [5] _init (res://tests/web_persistence_fault_runner.gd:51)
+SAVE_SLOT_REJECTED: JSON_PARSE
+ERROR: Parse JSON failed. Error at line 0: Expected key
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:48)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:222)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:221)
+       [4] current_state (res://src/persistence/save_manager.gd:89)
+       [5] _init (res://tests/web_persistence_fault_runner.gd:51)
+SAVE_SLOT_REJECTED: JSON_PARSE
+PASS: Web persistence fault core 19 checks.
+[RUNNING] tests/m1d_offline_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-D offline settlement, cap 24h, cursor commit, no double grant.
+[RUNNING] tests/m1e_import_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] decode_input (res://src/persistence/legacy_importer.gd:20)
+       [1] import_text (res://src/persistence/legacy_importer.gd:209)
+       [2] _test_corrupt (res://tests/m1e_import_runner.gd:381)
+       [3] _init (res://tests/m1e_import_runner.gd:23)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] import_text (res://src/persistence/legacy_importer.gd:213)
+       [1] _test_corrupt (res://tests/m1e_import_runner.gd:384)
+       [2] _init (res://tests/m1e_import_runner.gd:23)
+PASS: M1-E legacy import decode, mapping, reports, and slot commit.
+[RUNNING] tests/m2a_abode_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=1
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_MOTION reduced=true
+PASS: M2-A abode blank opening, manual start, auto production, chained unlocks, save/reload, and determinism.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/m2b_breakthrough_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+PASS: M2-B cultivation level up, capacity barrier, breakthrough to Era 2, non-consuming stock, sequence replay, and reload.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/island_breakthrough_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=portrait size=(844.0, 1500.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(480.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_MOTION reduced=true
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_MOTION reduced=false
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+PASS: island breakthrough real command, capacity, failed-save retry, zero-state replay, skip, focus recovery, low motion, four layouts and reload aura.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m2c_nine_realms_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_REINCARNATION: cycle=1
+NINE_REALMS_HOOK_TRIGGERED
+ABODE_CAMERA_COSMOS
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+NINE_REALMS_CINEMATIC_DONE
+NINE_REALMS_ASPIRE: realm_spirit
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: M2-C first-minute hook, 6-8s skippable zoom-out, 9 realms preview, aspire bookmarking, zero side-effects, and persistence.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m2d_responsive_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=1
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1920.0, 902.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: M2-D island/management tabs, three resource modes, compact building rows, detail return, and responsive bounds.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/ui_material_states_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: material demand ratio, prerequisites, ready/capped/reset states, borders and input isolation
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+[RUNNING] tests/text_transition_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(390.0, 844.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(390.0, 844.0)
+ABODE_LAYOUT mode=portrait size=(390.0, 844.0)
+ABODE_LAYOUT mode=portrait size=(390.0, 844.0)
+PASS: text transition replay/skip/completion, reduced motion, fade and responsive long titles
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m2d_slice_release_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+NINE_REALMS_ASPIRE: realm_spirit
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=1
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_REINCARNATION: cycle=1
+NINE_REALMS_HOOK_TRIGGERED
+ABODE_CAMERA_COSMOS
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+NINE_REALMS_CINEMATIC_DONE
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: M2-D full slice release, end-to-end progression, 50x view switching memory stability (342.29 KB), and save integrity.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3a_reincarnation_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+--- Running M3-A Reincarnation Runner ---
+Testing golden fixture parity against m0-b-v1.json...
+Testing eligibility gating...
+Testing reincarnation execution, state reset, and resource inheritance...
+Testing talent purchasing, multipliers, and lifespan bonus...
+Testing persistence encode/decode roundtrip for reincarnation state...
+PASS: M3-A lifecycle, reward golden parity, v2 talent-only inheritance, reset/preserve and persistence.
+[RUNNING] tests/m3a_reincarnation_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+--- Running M3-A Reincarnation UI Runner ---
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_TALENT_LEARNED: resource_inheritance level=1
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_REINCARNATION: cycle=1
+NINE_REALMS_HOOK_TRIGGERED
+ABODE_CAMERA_COSMOS
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_HOME
+ABODE_REINCARNATION_SEQUENCE_FINISHED: cycle=1
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+PASS: M3-A reincarnation UI, talent purchasing, responsive layouts, and state transitions.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_alchemy_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[RUNNING] tests/m3b_alchemy_runner.gd
+PASS: M3-B alchemy system, refining, consumption, lifespan boost, production boost, persistence and reincarnation reset.
+[RUNNING] tests/m3b_alchemy_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+--- Running M3-B Alchemy UI Runner ---
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+PASS: M3-B alchemy UI, refining, consuming, responsiveness, and state updates.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_sect_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Sect System Runner (Expeditions, Techniques & Market) ---
+Testing sect unlock conditions and joining...
+Testing expedition task start, time advance, and claim...
+Testing sect technique learning and multipliers...
+Testing sect market item exchange and limits...
+Testing SaveCodec roundtrip with sect state...
+Testing sect state reset on reincarnation...
+PASS: M3-B sect unlock, expeditions, techniques, market, multipliers, persistence, and reincarnation.
+[RUNNING] tests/m3b_sect_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Sect UI Runner ---
+Testing SectPanel node creation, tabs and interactions...
+Testing SectPanel responsive layouts...
+Testing GameSession sect commands integration (KNOWN_COMMAND_TYPES)...
+Testing SectPanel button states in Era 1 vs Era 2...
+PASS: M3-B sect UI, tabs, joining, expeditions, techniques, market, responsiveness, and GameSession integration.
+[RUNNING] tests/buff_system_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running Buff System Runner ---
+Testing BUFF lifecycle, refresh, and time tick decay...
+Testing BUFF production multipliers and specific resource bonus in TimeAdvancer...
+Testing BUFF cultivation speed and lifespan extension...
+Testing automatic breakthrough_resonance buff upon era breakthrough...
+Testing SaveCodec encode and decode roundtrip with BUFFs...
+Testing ReincarnationRules clearing mortal buffs and preserving transmigratable buffs...
+Testing BuffHudBar UI node rendering and responsive hide/show...
+PASS: Buff system definition, decay, multipliers, breakthrough trigger, persistence, reincarnation, and HUD bar.
+
+[RUNNING] tests/debug_features_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+--- Running Debug Features Runner ---
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=1
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+[PASS] Debug Features Runner completed successfully.
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/core_positive_flow_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: blank game reaches every Era 1 building, first breakthrough and next life; production, money UI, saves, and multipliers.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/m4a_realm_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M4-A Realm Runner (Spirit Realm & Dual-Realm Parity) ---
+Testing Spirit Realm unlock conditions...
+Testing realm switching and seamless return to human abode...
+Testing Spirit Realm outpost construction and upgrades...
+Testing parallel dual-realm tick simulation and stone consumption opportunity cost...
+Testing pure pool cultivation feedback boost to human cultivation speed...
+Testing SaveCodec encode and decode roundtrip with dual-realm data...
+Testing RealmTeleportModal node rendering and state refresh...
+PASS: M4-A spirit realm unlock, dual-realm parallel simulation, opportunity costs, feedback boost, persistence, and modal UI.
+
+[RUNNING] tests/m4a_session_integration_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+REJECT: join_sect SECT_LOCKED
+REJECT: refresh_sect_tasks SECT_LOCKED
+REJECT: start_sect_expedition 
+REJECT: claim_sect_expedition SECT_LOCKED
+REJECT: learn_sect_technique 
+REJECT: buy_sect_market_item 
+REJECT: switch_realm SPIRIT_REALM_LOCKED
+REJECT: upgrade_realm_outpost REALM_LOCKED
+REJECT: apply_buff EMPTY_BUFF_ID
+REJECT: remove_buff EMPTY_BUFF_ID
+REJECT: upgrade_realm_outpost INSUFFICIENT_HUMAN_RESOURCE
+SUCCESS + REPLAY + RELOAD: join_sect
+REJECT: join_sect ALREADY_JOINED_SECT
+REJECT: refresh_sect_tasks REFRESH_COOLDOWN
+SUCCESS + REPLAY + RELOAD: refresh_sect_tasks
+REJECT: start_sect_expedition TASK_NOT_FOUND
+SUCCESS + REPLAY + RELOAD: start_sect_expedition
+REJECT: start_sect_expedition EXPEDITION_ALREADY_ACTIVE
+REJECT: claim_sect_expedition EXPEDITION_NOT_FINISHED
+SUCCESS + REPLAY + RELOAD: claim_sect_expedition
+REJECT: claim_sect_expedition NO_ACTIVE_EXPEDITION
+REJECT: learn_sect_technique UNKNOWN_TECHNIQUE
+REJECT: buy_sect_market_item UNKNOWN_MARKET_ITEM
+REJECT: learn_sect_technique INSUFFICIENT_CONTRIBUTION
+REJECT: buy_sect_market_item INSUFFICIENT_CONTRIBUTION
+REJECT: learn_sect_technique INSUFFICIENT_WOOD
+SUCCESS + REPLAY + RELOAD: learn_sect_technique
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+REJECT: buy_sect_market_item PURCHASE_LIMIT_REACHED
+REJECT: learn_sect_technique TECHNIQUE_MAX_LEVEL
+REJECT: switch_realm INVALID_REALM
+SUCCESS + REPLAY + RELOAD: switch_realm
+REJECT: upgrade_realm_outpost UNKNOWN_OUTPOST
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+REJECT: upgrade_realm_outpost INSUFFICIENT_CRYSTAL
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+REJECT: upgrade_realm_outpost MAX_LEVEL
+SUCCESS + REPLAY + RELOAD: apply_buff
+SUCCESS + REPLAY + RELOAD: remove_buff
+SUCCESS + REPLAY + RELOAD: apply_buff
+SUCCESS + REPLAY + RELOAD: start_sect_expedition
+SUCCESS + REPLAY + RELOAD: claim_sect_expedition
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:48)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:222)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:221)
+       [4] current_state (res://src/persistence/save_manager.gd:89)
+       [5] _test_receipt_recovery (res://tests/m4a_session_integration_runner.gd:184)
+       [6] _init (res://tests/m4a_session_integration_runner.gd:84)
+SAVE_SLOT_REJECTED: JSON_PARSE
+REJECT: claim_sect_expedition REWARD_RESOURCE_MISSING
+PASS: M4-A-R1 Session integration (251 checks, 0 failures).
+[RUNNING] tests/bgm_era_playlist_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== BGM ERA PLAYLIST TEST START ===
+Loaded tracks count: 4
+Track 0: 01_The_Unresolved_Ascent.mp3
+Track 1: 02_The_Weight_of_Heaven.mp3
+Track 2: 03_Rungs_of_the_Infinite.mp3
+Track 3: 04_Where_Starlight_Settles.mp3
+Playlist filtering logic verified successfully!
+Era 2 playlist looping verified successfully!
+Era 4 full playlist looping verified successfully!
+Reincarnation fallback verified successfully!
+=== BGM ERA PLAYLIST TEST PASS ===
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_chrono_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Chrono System Runner (Weather & Shichen) ---
+Testing Shichen 12-stage cycle progression...
+Testing Five Elements Celestial Weather cycle...
+Testing Chrono multipliers computation...
+Testing TimeAdvancer integration with Chrono...
+Testing Chrono persistence roundtrip with SaveCodec...
+Testing GameSession get_view() exposes chrono...
+PASS: M3-B chrono system shichen progression, five-element weather cycle, multipliers, time advancer integration, persistence, and session view.
+
+[RUNNING] tests/m4b_scale_law_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+--- Running M4-B Scale & Laws Runner ---
+Testing WorldAddress structure and parser...
+  WorldAddress contract: PASS
+Testing spatial ScaleTier mapping...
+  ScaleTier mapping: PASS
+Testing ContentLoader.load_realms data integrity...
+  Realms data integrity: PASS
+Testing ScaleLawContract deterministic arithmetic...
+  ScaleLawContract calculations: PASS
+Testing GameState & SaveCodec persistence roundtrip...
+  Persistence roundtrip: PASS
+Testing RealmSystem & GameSession integration...
+  RealmSystem & Session integration: PASS
+--- M4-B Scale & Laws Runner: ALL PASS ---
+[RUNNING] tests/m5a_world_gen_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M5A_RUNNER] Starting M5-A World Generation & Nine Realms Law Tests...
+--- 1. Testing Deterministic Generation ---
+  Determinism verified: identical inputs -> identical output.
+--- 2. Testing Nine Realms Law Compliance Across All 9 Realms ---
+  Nine Realms Law compliance verified across all 9 realms.
+--- 3. Testing Anti-Arbitrage Validation & Safe Fallback ---
+  Anti-arbitrage and safe fallback verified.
+--- 4. Testing Celestial Aspiration Resonance (心印嚮往) ---
+  Celestial Aspiration Resonance mathematical contract verified.
+--- 5. Testing WorldDescriptor Serialization & SaveCodec Integration ---
+  WorldDescriptor and SaveCodec roundtrip verified.
+[M5A_RUNNER] ALL M5-A TESTS PASSED (exit 0)
+[RUNNING] tests/m3b_fortune_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Fortune & Encounter System Runner ---
+Testing era cooldown and max-per-hour contracts...
+Testing advance_time and pending encounter cooldown pause...
+Testing celestial aspiration and weather bias weights...
+Testing resolve_fortune rewards, costs, and state mutation...
+Testing GameSession submit commands and get_view for fortune...
+Testing SaveCodec encode and decode roundtrip with fortune...
+Testing ReincarnationRules reset of fortune...
+PASS: M3-B fortune cooldown contracts, trigger, bias, resolution, persistence, and reincarnation.
+
+[RUNNING] tests/m3b_fortune_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Fortune UI Runner ---
+Testing FortuneModal node creation and structure...
+Testing FortuneModal refresh with empty and pending encounter views...
+Testing FortuneModal signals for trigger, resolve, and close...
+Testing FortuneModal responsive layout bounds...
+Testing LivingAbode scene integration with FortuneModal...
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: M3-B fortune UI structure, options, signals, layouts, and living_abode integration.
+
+ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 11 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m5b_realm_content_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M5B_RUNNER] Starting M5-B Realm Content & Strategic Decisions Tests...
+--- 1. Testing Realm Decisions Integrity & Execution ---
+  Realm decisions integrity & execution: PASS
+--- 2. Testing Deepened Terrain Traits & Mutual Exclusion ---
+  Deepened terrain traits & mutual exclusion: PASS
+--- 3. Testing Realm-Specific Encounters & Current Realm Bias ---
+  Realm-specific encounters & bias: PASS
+--- 4. Testing GameSession Decision Command & View Exposure ---
+  GameSession command & view exposure: PASS
+--- 5. Testing SaveCodec Persistence Roundtrip ---
+  SaveCodec persistence roundtrip: PASS
+[M5B_RUNNER] ALL M5-B TESTS PASSED (exit 0)
+[RUNNING] tests/feature_navigation_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+NAV1 navigation, neutrality, resource integration and UI command checks completed
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_spirit_beast_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M3B_BEAST_RUNNER] Starting M3-B Spirit Beast System Tests...
+--- 1. Testing Beast Configurations & Acquisition ---
+  Beast configs & acquisition: PASS
+--- 2. Testing Beast Feeding, Cooldowns & Stage Progression ---
+  Feeding, cooldowns & stages: PASS
+--- 3. Testing Beast Talents Tree, Costs & Effects ---
+  Talents tree & effects: PASS
+--- 4. Testing Reincarnation Settlement with Beast Souls ---
+  Reincarnation beast soul settlement: PASS
+--- 5. Testing GameSession Beast Commands & Time Advancement ---
+  GameSession commands & simulation integration: PASS
+--- 6. Testing SaveCodec Roundtrip with Beast State ---
+  SaveCodec roundtrip & backward compatibility: PASS
+[M3B_BEAST_RUNNER] ALL M3-B SPIRIT BEAST TESTS PASSED (exit 0)
+[RUNNING] tests/abode_scenery_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ISLAND1_CORE PASS
+[RUNNING] tests/abode_scenery_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_SELECT: hut
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 390.0)
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +6
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +7
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ISLAND1_UI PASS
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/m3b_achievement_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+==================================================
+  M3-B 成就系統 (Achievements) 契約與規則驗證
+==================================================
+
+[CASE 1] 驗證成就定義完整度與維度...
+  -> 通過：18 項成就定義結構完整，涵蓋 6 大維度。
+
+[CASE 2] 驗證成就條件判定與自動解鎖...
+  -> 通過：建築建造、境界突破與修為提升之成就自動解鎖判定精確。
+
+[CASE 3] 驗證成就獎勵發放、防重領取與非法領取拒絕...
+  -> 通過：獎勵發放原子性保證、重領防護與未達成攔截均正確。
+
+[CASE 4] 驗證六道輪迴後成就進度之跨世永久繼承...
+  -> 通過：輪迴轉世重塑肉身後，已達成與已領取成就完好繼承。
+
+[CASE 5] 驗證 DEBUG 調試重置成就功能...
+  -> 通過：DEBUG 重置功能可成功清空全部成就進度與狀態。
+
+[CASE 6] 驗證 SaveCodec 快照序列化與舊存檔向後相容...
+  -> 通過：SaveCodec 快照往返序列化與舊檔相容驗證完好。
+
+[SUCCESS] 全部 6 項 M3-B 成就系統測試案例 PASS！
+[RUNNING] tests/debug_autobuild_and_time_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+=== CASE 1: Background Wall-Clock Catch-Up ===
+  -> PASS: Background 10s catch-up advanced 10.000000 seconds.
+=== CASE 2: Focus In Immediate Settlement ===
+  -> PASS: Focus-in immediate settlement advanced 5.000000 seconds.
+=== CASE 3: DEBUG Auto-Build Level Up Cultivation ===
+ABODE_UPGRADE: hut level=1
+  -> PASS: DEBUG auto-build promoted cultivation from level 1 to 2.
+=== CASE 4: DEBUG Auto-Build Strictly Skips Breakthrough Era (Tribulation) ===
+ABODE_UPGRADE: hut level=2
+  -> PASS: DEBUG auto-build strictly preserved tribulation barrier (era=1, level=10).
+==================================================
+ALL DEBUG AUTO-BUILD AND BACKGROUND TIME TESTS PASSED (exit 0)
+==================================================
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/debug_actions_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[DEBUG_ACTIONS_RUNNER] Starting DebugActions tests...
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 2 (LV1) | 修煉時長: 12000.0s | 存檔修訂: rev 3
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x2.24 (Era: x2.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.12)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+• money: 存量 0 / 200 (正常) | 秒產: +0/s
+• wood: 存量 0 / 100 (正常) | 秒產: +0/s
+• stone_low: 存量 0 / 100 (正常) | 秒產: +0/s
+• black_copper: 存量 0 / 300 (正常) | 秒產: +0/s
+• spirit_grass_low: 存量 0 / 50 (正常) | 秒產: +0/s
+• foundation_pill: 存量 0 / 200 (正常) | 秒產: +0/s
+======================================================
+
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 2 (LV1) | 修煉時長: 12000.0s | 存檔修訂: rev 3
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x2.24 (Era: x2.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.12)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+• money: 存量 0 / 200 (正常) | 秒產: +0/s
+• wood: 存量 0 / 100 (正常) | 秒產: +0/s
+• stone_low: 存量 0 / 100 (正常) | 秒產: +0/s
+• black_copper: 存量 0 / 300 (正常) | 秒產: +0/s
+• spirit_grass_low: 存量 0 / 50 (正常) | 秒產: +0/s
+• foundation_pill: 存量 0 / 200 (正常) | 秒產: +0/s
+======================================================
+
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 1.0 天 (86400 秒)
+實際推進時長: 0 分鐘 (0 秒, 0 ticks)
+提前停止原因: lifespan_exhausted
+推演運算耗時: 0.02 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 0.00 年
+  剩餘壽元: 0.0 年 (0 秒)
+  ⚠️ 警告: 推演期間壽元已自然耗盡！
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 0 (增量: +0 / 上限: 100)
+  - money       : 0 -> 0 (增量: +0 / 上限: 200)
+  - wood        : 0 -> 0 (增量: +0 / 上限: 100)
+  - stone_low   : 0 -> 0 (增量: +0 / 上限: 100)
+  - black_copper: 0 -> 0 (增量: +0 / 上限: 300)
+  - spirit_grass_low: 0 -> 0 (增量: +0 / 上限: 50)
+  - foundation_pill: 0 -> 0 (增量: +0 / 上限: 200)
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 30.0 天 (2592000 秒)
+實際推進時長: 0 分鐘 (0 秒, 0 ticks)
+提前停止原因: lifespan_exhausted
+推演運算耗時: 0.02 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 0.00 年
+  剩餘壽元: 0.0 年 (0 秒)
+  ⚠️ 警告: 推演期間壽元已自然耗盡！
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 0 (增量: +0 / 上限: 100)
+  - money       : 0 -> 0 (增量: +0 / 上限: 200)
+  - wood        : 0 -> 0 (增量: +0 / 上限: 100)
+  - stone_low   : 0 -> 0 (增量: +0 / 上限: 100)
+  - black_copper: 0 -> 0 (增量: +0 / 上限: 300)
+  - spirit_grass_low: 0 -> 0 (增量: +0 / 上限: 50)
+  - foundation_pill: 0 -> 0 (增量: +0 / 上限: 200)
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+[DEBUG_ACTIONS_RUNNER] ALL DEBUG ACTION TESTS PASSED (exit 0)
+[RUNNING] tests/runtime_inspector_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[RUNTIME_INSPECTOR_RUNNER] Starting RuntimeInspector diagnostics tests...
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 1 (LV1) | 修煉時長: 0.0s | 存檔修訂: rev 0
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x1.00 (Era: x1.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.00)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+======================================================
+
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 1 (LV1) | 修煉時長: 0.0s | 存檔修訂: rev 0
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x1.00 (Era: x1.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.00)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+======================================================
+
+[RUNTIME_INSPECTOR_RUNNER] ALL RUNTIME INSPECTOR TESTS PASSED (exit 0)
+[RUNNING] tests/simulation_sandbox_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[SIMULATION_SANDBOX_RUNNER] Starting SimulationSandbox unit tests...
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 1.0 小時 (3600 秒)
+實際推進時長: 1.0 小時 (3600 秒, 3600 ticks)
+推演運算耗時: 0.42 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 60.00 年
+  剩餘壽元: 20.0 年 (1200 秒)
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 250 (增量: +250 / 上限: 250) [已滿倉]
+  ⚠️ 共有 1 項資源已達倉容上限，後續產量將溢出浪費。
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 1.0 天 (86400 秒)
+實際推進時長: 1.3 小時 (4800 秒, 4800 ticks)
+提前停止原因: lifespan_exhausted
+推演運算耗時: 0.35 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 80.00 年
+  剩餘壽元: 0.0 年 (0 秒)
+  ⚠️ 警告: 推演期間壽元已自然耗盡！
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 250 (增量: +250 / 上限: 250) [已滿倉]
+  ⚠️ 共有 1 項資源已達倉容上限，後續產量將溢出浪費。
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+[SIMULATION_SANDBOX_RUNNER] ALL SIMULATION SANDBOX TESTS PASSED (exit 0)
+========================================
+ALL 51 RUNNERS PASSED WITH EXIT CODE 0!
+========================================

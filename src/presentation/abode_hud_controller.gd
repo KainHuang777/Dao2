@@ -702,8 +702,10 @@ func _layout_mode_name() -> String:
 		_:
 			return "portrait"
 
-func _refresh_hud() -> void:
-	var view: Dictionary = _abode.session.get_view()
+func _refresh_hud(view: Dictionary = {}) -> void:
+	var profile_status := RuntimeProfile.begin()
+	if view.is_empty():
+		view = _abode.session.get_view()
 	_abode._update_buildings_visual(view)
 
 	var era_info: Dictionary = view.get("era", {})
@@ -789,7 +791,9 @@ func _refresh_hud() -> void:
 	if _abode.achievement_panel != null and _abode.achievement_panel.visible:
 		_abode.achievement_panel.call("refresh_achievements", view.get("achievements", {}))
 	if _abode.buff_hud_bar != null:
+		var profile_buff := RuntimeProfile.begin()
 		_abode.buff_hud_bar.update_status(view, _abode.session.state.sect)
+		RuntimeProfile.end("hud_buff", profile_buff)
 		_status_scroll.visible = _abode.buff_hud_bar.visible
 		_status_row.visible = _abode.buff_hud_bar.visible or _abode.lifespan_banner.visible
 	if _abode.realm_modal != null and _abode.realm_modal.visible:
@@ -823,6 +827,8 @@ func _refresh_hud() -> void:
 	_abode.island_fx.set_attained(cur_era >= 2)
 
 
+	RuntimeProfile.end("hud_status", profile_status)
+	var profile_resources := RuntimeProfile.begin()
 	var res_lines := []
 	var res_order := ["lingli", "money", "wood", "stone_low", "black_copper", "spirit_grass_low", "foundation_pill"]
 	for r_id in res_order:
@@ -875,7 +881,11 @@ func _refresh_hud() -> void:
 	_abode.mini_gather_button.text = "採集%s +1" % _abode.RESOURCE_NAMES.get(_abode.mini_resource_id, _abode.mini_resource_id)
 	_abode.gather_menu.visible = false
 	_abode.action_bar.visible = false
+	RuntimeProfile.end("hud_resources", profile_resources)
+	var profile_catalog := RuntimeProfile.begin()
 	_abode.building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id))
+	RuntimeProfile.end("hud_catalog", profile_catalog)
+	var profile_layout := RuntimeProfile.begin()
 	var visible_resource_count: int = 0
 	for entry in view.resources.values():
 		if bool(entry.get("visible", false)):
@@ -910,8 +920,11 @@ func _refresh_hud() -> void:
 		_abode._refresh_detail()
 
 	if _abode.feature_navigation != null:
+		RuntimeProfile.end("hud_guidance_layout", profile_layout)
+		var profile_navigation := RuntimeProfile.begin()
 		_abode.feature_navigation.refresh(view)
 		_abode.feature_navigation.layout(_abode.hud.size)
+		RuntimeProfile.end("hud_navigation", profile_navigation)
 
 func _update_onboarding_guidance(view: Dictionary) -> void:
 	var objective_value: Variant = view.get("next_objective", null)

@@ -1,0 +1,95 @@
+{
+	"files": [
+		{
+			"alpha_differences_vs_declared_resize": 0,
+			"dimensions": [
+				1536,
+				1024
+			],
+			"dimensions_ok": true,
+			"opaque_encoding_psnr_db": 35.4880018417341,
+			"path": "res://assets/abode/terrain.png",
+			"quality": 0.85,
+			"source_dimensions": [
+				1536,
+				1024
+			]
+		},
+		{
+			"alpha_differences_vs_declared_resize": 0,
+			"dimensions": [
+				1672,
+				941
+			],
+			"dimensions_ok": true,
+			"opaque_encoding_psnr_db": 36.6682155228329,
+			"path": "res://assets/abode/sky_tearfall_island_v6.png",
+			"quality": 0.85,
+			"source_dimensions": [
+				1672,
+				941
+			]
+		},
+		{
+			"alpha_differences_vs_declared_resize": 0,
+			"dimensions": [
+				1024,
+				682
+			],
+			"dimensions_ok": true,
+			"opaque_encoding_psnr_db": 35.8610830605173,
+			"path": "res://assets/abode/res1c3/wood_body.png",
+			"quality": 0.92,
+			"source_dimensions": [
+				1536,
+				1024
+			]
+		},
+		{
+			"alpha_differences_vs_declared_resize": 0,
+			"dimensions": [
+				1024,
+				682
+			],
+			"dimensions_ok": true,
+			"opaque_encoding_psnr_db": 120.0,
+			"path": "res://assets/abode/res1c3/wood_landmark.png",
+			"quality": null,
+			"source_dimensions": [
+				1536,
+				1024
+			]
+		},
+		{
+			"alpha_differences_vs_declared_resize": 0,
+			"dimensions": [
+				1024,
+				682
+			],
+			"dimensions_ok": true,
+			"opaque_encoding_psnr_db": 36.9409281689469,
+			"path": "res://assets/abode/res1c3/ore_body.png",
+			"quality": 0.92,
+			"source_dimensions": [
+				1536,
+				1024
+			]
+		},
+		{
+			"alpha_differences_vs_declared_resize": 0,
+			"dimensions": [
+				1024,
+				682
+			],
+			"dimensions_ok": true,
+			"opaque_encoding_psnr_db": 35.471849519992,
+			"path": "res://assets/abode/res1c3/ore_landmark.png",
+			"quality": 0.98,
+			"source_dimensions": [
+				1536,
+				1024
+			]
+		}
+	],
+	"ok": true
+}

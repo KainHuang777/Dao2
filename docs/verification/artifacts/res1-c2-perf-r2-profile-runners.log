@@ -1,0 +1,16 @@
+[RUNNING] tools/test_runner.gd
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Cannot create Web probe save fixture
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/test_runner.gd:9)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tools/test_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:63 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

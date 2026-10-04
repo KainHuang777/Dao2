@@ -1,0 +1,181 @@
+{
+  "task": "RES1-C3",
+  "version": 1,
+  "date": "2026-10-04",
+  "status": "production art integrated; final human aesthetic acceptance pending",
+  "pipeline": {
+    "map_mode": "scene_mode",
+    "visual_model": "layered_raster",
+    "runtime_object_model": "separate_props + interactive_scene_objects",
+    "collision_model": "trigger_zones",
+    "engine_target": "Godot project-native"
+  },
+  "license_provenance": "Original AI-generated project artwork, subject to the service terms applicable to this account. No third-party game art copied or distributed; no independent exclusivity/copyright guarantee asserted.",
+  "project_references": [
+    "assets/abode/terrain.png",
+    "assets/abode/hut.png"
+  ],
+  "research": "docs/15-island-expansion-and-art-direction.md",
+  "runtime_controller": "src/presentation/island_world.gd",
+  "placement": {
+    "wood": {
+      "world_position": [
+        1450,
+        -100
+      ]
+    },
+    "ore": {
+      "world_position": [
+        -1450,
+        -100
+      ]
+    },
+    "body": {
+      "anchor": "center",
+      "position": [
+        0,
+        0
+      ],
+      "display_width": 780,
+      "render_order": 0
+    },
+    "landmark": {
+      "anchor": "center",
+      "position": [
+        0,
+        -170
+      ],
+      "display_width": 440,
+      "render_order": 1,
+      "visibility": "economy.islands[id].opened"
+    },
+    "interaction": {
+      "local_rect": [
+        -390,
+        -210,
+        780,
+        370
+      ],
+      "action": "canonical island management route",
+      "camera_focus": "island_world.enter",
+      "return": "home",
+      "actor_collision": "not applicable: management world without walking actors"
+    }
+  },
+  "assets": [
+    {
+      "file": "assets/abode/res1c3/wood_body.png",
+      "prompt": "wood_body.prompt.txt",
+      "sha256": "27d3a670cf576f1d16b10812b795f23d1b6bd36c6ff6cdfa6a448ef48321eb44",
+      "bytes": 2742727,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 690041,
+      "runtime": true,
+      "layer": "body",
+      "origin": "OpenAI built-in image_gen, 2026-10-04",
+      "generation": "one independent image per asset; reference mockups are not sliced into sprites"
+    },
+    {
+      "file": "assets/abode/res1c3/wood_dressed_reference.png",
+      "prompt": "wood_dressed_reference.prompt.txt",
+      "sha256": "d842743bfeae5a82c2c0cdd6e5d74ff3c405968907cffda21263489702f34a94",
+      "bytes": 2872680,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 621944,
+      "runtime": false,
+      "layer": "dressed_reference",
+      "origin": "OpenAI built-in image_gen, 2026-10-04",
+      "generation": "one independent image per asset; reference mockups are not sliced into sprites"
+    },
+    {
+      "file": "assets/abode/res1c3/wood_landmark.png",
+      "prompt": "wood_landmark.prompt.txt",
+      "sha256": "89bdcf5e925d026e61babb84e0061b6bcc29859aa0c3dedb1cdee83e940ed64b",
+      "bytes": 2357379,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 889168,
+      "runtime": true,
+      "layer": "landmark",
+      "origin": "OpenAI built-in image_gen, 2026-10-04",
+      "generation": "one independent image per asset; reference mockups are not sliced into sprites"
+    },
+    {
+      "file": "assets/abode/res1c3/ore_body.png",
+      "prompt": "ore_body.prompt.txt",
+      "sha256": "2c9854d36f188d137dd0c800914c30635f8429e6f9e46b262ff89d4d74a1c57f",
+      "bytes": 2597546,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 773893,
+      "runtime": true,
+      "layer": "body",
+      "origin": "OpenAI built-in image_gen, 2026-10-04",
+      "generation": "one independent image per asset; reference mockups are not sliced into sprites"
+    },
+    {
+      "file": "assets/abode/res1c3/ore_dressed_reference.png",
+      "prompt": "ore_dressed_reference.prompt.txt",
+      "sha256": "83f011201335b9c1e26265508202325319b88d852e772436ebd9d9e96729bcbc",
+      "bytes": 2597994,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 765246,
+      "runtime": false,
+      "layer": "dressed_reference",
+      "origin": "OpenAI built-in image_gen, 2026-10-04",
+      "generation": "one independent image per asset; reference mockups are not sliced into sprites"
+    },
+    {
+      "file": "assets/abode/res1c3/ore_landmark.png",
+      "prompt": "ore_landmark.prompt.txt",
+      "sha256": "5a0d315220121be30e79a09c3c0b1eb0cd31cda8a82db4615657e098960ef3b4",
+      "bytes": 2555004,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 795694,
+      "runtime": true,
+      "layer": "landmark",
+      "origin": "OpenAI built-in image_gen, 2026-10-04",
+      "generation": "one independent image per asset; reference mockups are not sliced into sprites"
+    }
+  ]
+}

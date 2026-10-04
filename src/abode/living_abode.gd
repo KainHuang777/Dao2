@@ -261,6 +261,7 @@ var detail_actions: HFlowContainer
 var detail_scroll: ScrollContainer
 var return_to_catalog_after_detail: bool = false
 var help_button: Button
+var island_world: Node2D
 var feature_navigation: RefCounted
 var more_menu: MenuButton
 var settings_menu: MenuButton
@@ -275,10 +276,14 @@ var debug_auto_build_active: bool = false
 var debug_auto_build_timer: float = 30.0
 var _last_process_ticks_msec: int = 0
 var _process_ticks_initialized: bool = false
+var _frame_view: Dictionary = {}
+var _frame_view_state: GameState
+var _frame_view_revision: int = -1
 
 func _ready() -> void:
+	RuntimeProfile.configure_web()
 	if OS.has_feature("web") and save_dir_override.is_empty():
-		var web_adapter := WebStorageAdapter.new("dao2_saves")
+		var web_adapter := WebStorageAdapter.new("dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves")
 		var status := web_adapter.begin_session()
 		while status == "pending":
 			await get_tree().process_frame
@@ -286,7 +291,7 @@ func _ready() -> void:
 		if status != "ready":
 			_show_storage_block("另一個分頁正在遊玩，請先關閉它再重試。" if status == "writer_busy" else "瀏覽器無法取得存檔保護，請以支援的安全連線瀏覽器重試。")
 			return
-	_init_core()
+	await _init_core()
 	if session == null:
 		_show_storage_block("存檔讀取或離線保存失敗，原有進度已保留。請恢復儲存權限或空間後重試。")
 		return
@@ -333,6 +338,10 @@ func _ready() -> void:
 	camera.world_clicked.connect(_pick_world)
 
 	_build_hud()
+	if not content.processing_catalog.is_empty():
+		island_world = preload("res://src/presentation/island_world.gd").new()
+		add_child(island_world)
+		island_world.build(self)
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 	_refresh_hud()
@@ -342,6 +351,7 @@ func _ready() -> void:
 	_process_ticks_initialized = true
 
 static var save_dir_override: String = ""
+static var island_preview_override := false
 
 func _init_core() -> void:
 	var content_loaded: Dictionary = ContentLoader.load_directory("res://content")
@@ -349,22 +359,38 @@ func _init_core() -> void:
 		content = content_loaded["content"]
 	else:
 		content = GameContent.new()
+	# RES1-C3: normal play exposes islands; activation still archives the original
+	# save and requires the player's Era-2 management command. Preview builds only
+	# change the storage namespace, never the rules or available art.
+	var attached := IslandProgression.attach(content)
+	if not attached.ok:
+		push_error("Island progression content invalid: " + str(attached))
+		return
 
 	var adapter: StorageAdapter = null
 	if save_dir_override != "":
 		adapter = FileStorageAdapter.new(save_dir_override)
 	elif OS.has_feature("web"):
-		adapter = WebStorageAdapter.new("dao2_saves")
+		adapter = WebStorageAdapter.new("dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves")
 	else:
 		adapter = FileStorageAdapter.new(SaveManager.DEFAULT_SAVE_DIR)
 
 	SaveManager.configure(content, adapter)
 
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
-	var offline_res: Dictionary = OfflineCoordinator.settle(now_ms)
+	var offline_res: Dictionary
+	if OS.has_feature("web"):
+		_begin_settlement_progress()
+		print("OFFLINE_SETTLEMENT_BEGIN")
+		offline_res = await OfflineCoordinator.settle_async(now_ms, get_tree(), _settlement_progress)
+		print("OFFLINE_SETTLEMENT_END: ok=", offline_res.get("ok", false))
+		_end_settlement_progress()
+	else:
+		offline_res = OfflineCoordinator.settle(now_ms)
 
 	var loaded_state: GameState = SaveManager.current_state()
 	if loaded_state == null or not bool(offline_res.get("ok", false)):
+		print("STORAGE_STARTUP_FAILED: ", offline_res.get("error", ""), " detail=", offline_res.get("detail", ""), " load=", SaveManager.load_error())
 		return
 	if loaded_state != null and loaded_state.revision > 0:
 		session = GameSession.new()
@@ -422,7 +448,7 @@ func _show_storage_block(message: String) -> void:
 			Engine.get_singleton("JavaScriptBridge").eval("window.location.reload()")
 			return
 		if _background_retry_cursor > 0:
-			if _settle_web_background(_background_retry_cursor):
+			if await _settle_web_background(_background_retry_cursor):
 				_background_retry_cursor = 0
 				layer.queue_free()
 				_storage_block_layer = null
@@ -728,15 +754,18 @@ func _process(delta: float) -> void:
 	if OS.has_feature("web") and step_delta > 2.0:
 		var now_ms := int(Time.get_unix_time_from_system() * 1000.0)
 		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms - int(step_delta * 1000.0))
-		if not _settle_web_background(_background_retry_cursor):
+		if not await _settle_web_background(_background_retry_cursor):
 			get_tree().paused = true
 			_show_storage_block("背景結算尚未存妥，請保留此畫面。恢復儲存權限或空間後，按重試完成結算。")
 			return
 		_background_retry_cursor = 0
 		step_delta = 0.0
 
+	RuntimeProfile.begin_frame()
+	var profile_advance := RuntimeProfile.begin()
 	state.advance(step_delta)
 	var advance_result: Dictionary = session.advance_time(step_delta)
+	RuntimeProfile.end("advance_tick" if int(advance_result.get("ticks_advanced", 0)) > 0 else "advance_idle", profile_advance)
 	for event in advance_result.get("events", []):
 		if event.get("kind", "") == "abode_scenery_spawned":
 			_pending_scenery_save = true
@@ -756,7 +785,7 @@ func _process(delta: float) -> void:
 			debug_auto_build_timer = 30.0
 			_debug_perform_random_upgrade()
 
-	var view: Dictionary = session.get_view()
+	var view: Dictionary = _presentation_view()
 
 	# 當 Era 可以突破或達到圓滿時，停止增加修煉秒數；當前層可晉階時封頂在所需秒數
 	var cur_lvl := int(view.get("level", 1))
@@ -774,8 +803,6 @@ func _process(delta: float) -> void:
 	var altar_level: int = int(view.buildings.get("storage_lingli", {}).get("level", 0))
 	flow.intensity = float(altar_level) + float(view.buildings.get("hut", {}).get("level", 0))
 	flow.reduced_motion = reduced
-
-	_update_buildings_visual(view)
 
 	var distant: float = clampf((0.42 - camera.zoom.x) / 0.18, 0.0, 1.0)
 	for child in region_layer.get_children():
@@ -818,6 +845,7 @@ func _process(delta: float) -> void:
 		auto_save_elapsed = 0.0
 		_save_game()
 	_mask_breakthrough_hud()
+	RuntimeProfile.end_frame()
 
 func _update_buildings_visual(view: Dictionary) -> void:
 	_sync_scenery(view.get("abode_scenery", []))
@@ -865,12 +893,36 @@ func _sync_scenery(entries: Array) -> void:
 			scenery_props.erase(id)
 
 func _refresh_hud() -> void:
-	_hud_controller._refresh_hud()
+	var profile_hud := RuntimeProfile.begin()
+	# Explicit refreshes cover commands, debug edits, load/retry and session replacement.
+	var profile_view := RuntimeProfile.begin()
+	_frame_view = session.get_view()
+	RuntimeProfile.end("view_build", profile_view)
+	_frame_view_state = session.state
+	_frame_view_revision = session.state.revision
+	_hud_controller._refresh_hud(_frame_view)
+	if island_world != null:
+		var profile_island := RuntimeProfile.begin()
+		island_world.refresh()
+		RuntimeProfile.end("island_refresh", profile_island)
+	RuntimeProfile.end("hud_total", profile_hud)
+
+func _presentation_view() -> Dictionary:
+	# Simulation changes whole-second state/revision, not on every rendered frame.
+	if _frame_view.is_empty() or _frame_view_state != session.state or _frame_view_revision != session.state.revision:
+		var profile_view := RuntimeProfile.begin()
+		_frame_view = session.get_view()
+		RuntimeProfile.end("view_build", profile_view)
+		_frame_view_state = session.state
+		_frame_view_revision = session.state.revision
+	return _frame_view
 
 func _update_onboarding_guidance(view: Dictionary) -> void:
 	_hud_controller._update_onboarding_guidance(view)
 
 func _pick_world(point: Vector2) -> void:
+	if island_world != null and island_world.pick(point):
+		return
 	if camera.zoom.x < 0.34:
 		if point.distance_to(Vector2.ZERO) < 800:
 			_return_home()
@@ -1069,6 +1121,8 @@ func _toggle_overview() -> void:
 		print("ABODE_REGION: same world and simulation retained")
 
 func _return_home() -> void:
+	if island_world != null:
+		island_world.current = "home"
 	_close_detail()
 	building_catalog.visible = false
 	_layout_for_size(hud.size)
@@ -1116,6 +1170,14 @@ func _init_bgm() -> void:
 
 func _load_bgm_library() -> void:
 	_bgm_tracks.clear()
+	if OS.has_feature("web"):
+		# Web exports stream the unchanged soundtrack separately from the core PCK.
+		# Era filtering still uses the same metadata and playback never grants rewards.
+		var catalog: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/bgm/library.json"))
+		if catalog is Array:
+			for entry in catalog:
+				_bgm_tracks.append({"era_req": int(entry.era_req), "filename": String(entry.filename), "path": String(entry.path), "stream": null})
+			return
 	var dir_path := "res://src/BGM/"
 	var files := DirAccess.get_files_at(dir_path)
 	var discovered: Array[Dictionary] = []
@@ -1175,13 +1237,54 @@ func _play_bgm_track_at_index(playlist_index: int) -> void:
 		return
 	_current_bgm_index = playlist_index % playlist.size()
 	var track: Dictionary = playlist[_current_bgm_index]
+	_bgm_selected_path = String(track.path)
 	var stream: AudioStream = track.get("stream")
+	if stream == null and OS.has_feature("web"):
+		_request_web_bgm(track)
+		return
 	if stream != null:
 		if stream is AudioStreamMP3:
 			(stream as AudioStreamMP3).loop = false
 		bgm_player.stream = stream
 		if bgm_player.is_inside_tree():
 			bgm_player.play()
+
+var _bgm_requests: Dictionary = {}
+var _bgm_selected_path := ""
+
+func _request_web_bgm(track: Dictionary) -> void:
+	_bgm_selected_path = String(track.path)
+	if _bgm_requests.has(track.path):
+		return
+	var request := HTTPRequest.new()
+	request.timeout = 30.0
+	request.body_size_limit = 4000000
+	add_child(request)
+	_bgm_requests[track.path] = request
+	request.request_completed.connect(func(result: int, status: int, _headers: PackedStringArray, body: PackedByteArray):
+		_bgm_requests.erase(track.path)
+		request.queue_free()
+		if result != HTTPRequest.RESULT_SUCCESS or status != 200 or body.is_empty():
+			push_warning("BGM download failed; toggle music to retry: " + String(track.filename))
+			return
+		var audio := AudioStreamMP3.new()
+		audio.data = body
+		audio.loop = false
+		if audio.get_length() <= 0.0:
+			push_warning("BGM data invalid; toggle music to retry")
+			return
+		track.stream = audio
+		print("BGM_WEB_READY: ", track.filename, " seconds=", audio.get_length())
+		if is_bgm_enabled and _bgm_selected_path == String(track.path) and bgm_player != null:
+			bgm_player.stream = audio
+			bgm_player.play()
+	)
+	var base := String(JavaScriptBridge.eval("new URL('./audio/bgm/', window.location.href).href"))
+	var error := request.request(base + String(track.filename).uri_encode())
+	if error != OK:
+		_bgm_requests.erase(track.path)
+		request.queue_free()
+		push_warning("BGM request failed; toggle music to retry")
 
 func _on_bgm_finished() -> void:
 	if not is_bgm_enabled or bgm_player == null:
@@ -1461,6 +1564,7 @@ func _on_reincarnation_closed() -> void:
 func _save_game() -> Dictionary:
 	if session == null or session.state == null:
 		return {"ok": false, "error": "STATE_MISSING"}
+	var profile_save := RuntimeProfile.begin()
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var sim_tick: int = int(floor(session.state.total_elapsed_seconds / float(TimeAdvancer.SECONDS_PER_TICK)))
 	var meta: Dictionary = {
@@ -1484,10 +1588,13 @@ func _save_game() -> Dictionary:
 		_pending_breakthrough_save = not bool(result.get("ok", false))
 		if breakthrough_seq != null:
 			breakthrough_seq.set_save_status(not _pending_breakthrough_save)
+	RuntimeProfile.end("save_total", profile_save)
 	return result
 
 func _settle_web_background(cursor: int) -> bool:
-	var result := OfflineCoordinator.settle_state(session.state, content, int(Time.get_unix_time_from_system() * 1000.0), cursor)
+	_begin_settlement_progress()
+	var result := await OfflineCoordinator.settle_state_async(session.state, content, int(Time.get_unix_time_from_system() * 1000.0), cursor, get_tree(), _settlement_progress)
+	_end_settlement_progress()
 	if not result.ok:
 		print("WEB_BACKGROUND_SAVE_FAILED: ", result.get("detail", ""))
 		return false
@@ -1596,3 +1703,30 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and feature_navigation != null and feature_navigation.group != "home":
 		feature_navigation.home()
 		get_viewport().set_input_as_handled()
+
+var _settlement_layer: CanvasLayer
+var _settlement_label: Label
+func _begin_settlement_progress() -> void:
+	set_process(false)
+	_settlement_layer = CanvasLayer.new()
+	_settlement_layer.layer = 119
+	_settlement_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_settlement_layer)
+	var panel := PanelContainer.new()
+	_settlement_layer.add_child(panel)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	panel.theme = UiTypography.create_theme()
+	var center := CenterContainer.new()
+	panel.add_child(center)
+	_settlement_label = Label.new()
+	_settlement_label.text = "正在結算離線產業…原進度保留中"
+	center.add_child(_settlement_label)
+
+func _settlement_progress(done: int, planned: int) -> void:
+	_settlement_label.text = "離線結算 %d / %d 秒\n完成保存後恢復操作" % [done, planned]
+
+func _end_settlement_progress() -> void:
+	_settlement_layer.queue_free()
+	_settlement_label = null
+	set_process(true)
+	_last_process_ticks_msec = Time.get_ticks_msec()

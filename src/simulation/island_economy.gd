@@ -54,10 +54,14 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 		return _success("economy_migrated")
 	if state.economy.is_empty():
 		return _fail("ECONOMY_NOT_MIGRATED")
+	if IslandProgression.active(state) and state.era_id < 2:
+		return _fail("ERA_REQUIREMENT")
 	var island: Variant = p.get("island_id", "home")
 	if not island is String or not ISLANDS.has(island):
 		return _fail("UNKNOWN_ISLAND")
 	if kind == "open_island":
+		if IslandProgression.active(state) and not island in IslandProgression.NAMES:
+			return _fail("ERA_REQUIREMENT")
 		if state.economy.islands[island].opened:
 			return _fail("ISLAND_ALREADY_OPEN")
 		if state.era_id < int(ISLANDS[island].era):
@@ -139,9 +143,14 @@ static func _configure_route(state: GameState, p: Dictionary) -> Dictionary:
 	if int(level) < int(old.level):
 		return _fail("ROUTE_LEVEL_DOWNGRADE")
 	if int(level) > int(old.level):
-		if value(state, "home", "wood") < 20:
-			return _fail("INSUFFICIENT_RESOURCE")
-		_put(state, "home", "wood", value(state, "home", "wood") - 20)
+		var costs := {"wood": 20}
+		if IslandProgression.active(state):
+			costs = {"spirit_timber": 2, "bronze_essence": 2}
+		for resource in costs:
+			if value(state, "home", resource) < float(costs[resource]):
+				return _fail("INSUFFICIENT_RESOURCE")
+		for resource in costs:
+			_put(state, "home", resource, value(state, "home", resource) - float(costs[resource]))
 	# Current trip keeps its cargo and duration; settings only affect the next departure.
 	state.economy.routes[id] = {"enabled": enabled, "reserve": reserve, "target": target, "level": int(level)}
 	return _success("route_configured")
@@ -171,11 +180,13 @@ static func reserved(state: GameState, island: String, id: String, catalog: Dict
 	return total
 
 static func free_space(state: GameState, island: String, id: String, catalog: Dictionary) -> float:
-	var cap := float(catalog.resources[id].cap) if island == "home" else 100.0
+	var cap := float(catalog.resources[id].cap) if island == "home" else IslandProgression.capacity(state, island)
 	return maxf(0, cap - value(state, island, id) - reserved(state, island, id, catalog))
 
 static func _start(state: GameState, catalog: Dictionary, island: String, job: Dictionary) -> String:
 	var recipe: Dictionary = catalog.recipes[job.recipe_id]
+	if IslandProgression.active(state) and (not IslandProgression.RECIPES.has(island) or IslandProgression.RECIPES[island] != job.recipe_id):
+		return "RECIPE_ISLAND_REQUIREMENT"
 	if state.era_id < int(recipe.era):
 		return "ERA_REQUIREMENT"
 	var facilities: Dictionary = state.buildings if island == "home" else ISLANDS[island].facility
@@ -201,10 +212,56 @@ static func _start(state: GameState, catalog: Dictionary, island: String, job: D
 		return "OUTPUT_FULL"
 	for id in recipe.inputs:
 		_put(state, island, id, value(state, island, id) - float(recipe.inputs[id]))
-	job.remaining = DURATIONS[job.recipe_id]
+	job.remaining = IslandProgression.duration(state, island, job.recipe_id)
 	job.batches = maxi(0, int(job.batches) - 1)
 	job.status = "running"
 	return ""
+
+static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dictionary) -> Array:
+	# Only reusable inside one command-free advance. A stationary economy has
+	# no timers; its only external input is home stock (production/realm sinks).
+	if prepared.has("idle_home") and _same_home(state, prepared.idle_home):
+		state.economy.tick = int(state.economy.tick) + 1
+		prepared.idle_ticks = int(prepared.get("idle_ticks", 0)) + 1
+		return []
+	prepared.erase("idle_home")
+	var candidate: bool = state.economy.trips.is_empty()
+	for job in state.economy.jobs.values():
+		if int(job.remaining) > 0:
+			candidate = false
+			break
+	var before := {}
+	var home: Array = []
+	if candidate:
+		before = state.economy.duplicate(true)
+		before.erase("tick")
+		home = _home_values(state)
+	var events := tick(state, catalog)
+	if candidate and events.is_empty() and _same_home(state, home):
+		# Compare all saved island fields, including status/pending switches and
+		# string normalization. No timer or speculative capacity assumption.
+		var after := state.economy.duplicate(true)
+		after.erase("tick")
+		if before == after:
+			prepared.idle_home = home
+	return events
+
+static func _home_values(state: GameState) -> Array:
+	var result: Array = []
+	for id in state.resources:
+		# Tick systems retain each resource entry and replace only its Amount.
+		# Holding the entry avoids repeated resource-ID hash lookups every tick.
+		result.append([state.resources[id], state.resources[id].value])
+	return result
+
+static func _same_home(state: GameState, values: Array) -> bool:
+	# Amount operations replace values; they never mutate held Amount objects.
+	if state.resources.size() != values.size():
+		return false
+	for pair in values:
+		if pair[0].value != pair[1]:
+			return false
+	return true
 
 static func tick(state: GameState, catalog: Dictionary) -> Array:
 	var events: Array = []
@@ -214,7 +271,9 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		if island == "home" or not state.economy.islands[island].opened:
 			continue
 		for id in ISLANDS[island].rates:
-			var delta := minf(float(ISLANDS[island].rates[id]), free_space(state, island, id, catalog))
+			var multiplier := int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1
+			var rate := float(ISLANDS[island].rates[id]) * multiplier
+			var delta := minf(rate, free_space(state, island, id, catalog))
 			_put(state, island, id, value(state, island, id) + delta)
 	var routes: Array = state.economy.trips.keys()
 	routes.sort()
@@ -285,7 +344,7 @@ static func validate(state: GameState) -> String:
 	var e := state.economy
 	if e.is_empty():
 		return ""
-	if e.get("version") != VERSION or not _integer(e.get("tick"), 0, 2000000000):
+	if not e.get("version") in [VERSION, IslandProgression.VERSION] or not _integer(e.get("tick"), 0, 2000000000):
 		return "ECONOMY_VERSION_OR_TICK"
 	for key in ["islands", "jobs", "routes", "trips"]:
 		if not e.get(key) is Dictionary:
@@ -303,12 +362,22 @@ static func validate(state: GameState) -> String:
 		var slot: Variant = e.islands.get(island)
 		if not slot is Dictionary or not slot.get("opened") is bool or not slot.get("inventory") is Dictionary:
 			return "ECONOMY_ISLAND"
+		if IslandProgression.active(state):
+			if not slot.get("facilities") is Dictionary or slot.facilities.size() != 3:
+				return "ECONOMY_FACILITIES"
+			for facility in IslandProgression.FACILITIES:
+				if not _integer(slot.facilities.get(facility), 1, 3):
+					return "ECONOMY_FACILITY_LEVEL"
+				if (island == "home" or not slot.opened) and int(slot.facilities[facility]) != 1:
+					return "ECONOMY_CLOSED_FACILITY"
+			if island == "herb" and slot.opened:
+				return "ECONOMY_FUTURE_ISLAND"
 		if island == "home" and (not slot.opened or not slot.inventory.is_empty()):
 			return "ECONOMY_HOME_ALIAS"
 		if not slot.opened and not slot.inventory.is_empty():
 			return "ECONOMY_CLOSED_INVENTORY"
 		for id in slot.inventory:
-			if id in GLOBAL or not catalog.resources.has(id) or not _amount(slot.inventory[id]) or float(slot.inventory[id]) > 100:
+			if id in GLOBAL or not catalog.resources.has(id) or not _amount(slot.inventory[id]) or float(slot.inventory[id]) > IslandProgression.capacity(state, island):
 				return "ECONOMY_LOCAL_AMOUNT"
 	for island in e.jobs:
 		var job: Variant = e.jobs[island]
@@ -317,6 +386,8 @@ static func validate(state: GameState) -> String:
 		var id: Variant = job.get("recipe_id")
 		if not id is String or not DURATIONS.has(id) or job.get("recipe_version") != 1:
 			return "ECONOMY_RECIPE_VERSION"
+		if IslandProgression.active(state) and IslandProgression.RECIPES.get(island) != id:
+			return "ECONOMY_RECIPE_ISLAND"
 		if not _integer(job.get("remaining"), 0, DURATIONS[id]) or not _integer(job.get("batches"), 0, 1000000) or not job.get("repeat") is bool or not job.get("status") is String or not job.get("reserves") is Dictionary:
 			return "ECONOMY_JOB_FIELDS"
 		for resource in job.reserves:
@@ -353,7 +424,7 @@ static func validate(state: GameState) -> String:
 			if island != "home" and id in GLOBAL:
 				continue
 			var held := reserved(state, island, id, catalog)
-			var cap := float(catalog.resources[id].cap) if island == "home" else 100.0
+			var cap := float(catalog.resources[id].cap) if island == "home" else IslandProgression.capacity(state, island)
 			# Existing home stock may exceed the B prototype cap, but no new reservation may.
 			if held > 0 and value(state, island, id) + held > cap:
 				return "ECONOMY_RESERVATION_OVERFLOW"

@@ -1,0 +1,37 @@
+{
+  "task": "RES1-C2",
+  "date": "2026-10-04",
+  "source": "Original SVG paths authored by Codex in this project; no third-party building artwork copied. Existing sky/home assets retain their own provenance.",
+  "license": "Project-authored candidate assets; no new third-party license asserted. Human art acceptance pending.",
+  "authoring_brief": "Create separate teal forest island and angular grey mineral island bodies with cliff facets and grounded docks. Separately author a forest timber workshop with evergreen trees and stacked logs, and a rocky mine portal with rails and a chimney furnace. Use muted ink outlines, jade/stone/ochre colors; no baked UI text. Preserve independent bodies/landmarks; no huts borrowed as industry art.",
+  "assets": [
+    {
+      "file": "ore_body.svg",
+      "sha256": "fbd448dbae45205aa4db59d475da3f37767eaf0d1fb87603e2c492acec6c35a5",
+      "layer": "island body and dock",
+      "use": "IslandProgressionTest only; visual acceptance pending",
+      "anchor": "Sprite2D centered; body root at fixed presentation-only island position; landmark at (0,-160), scale 0.65"
+    },
+    {
+      "file": "ore_landmark.svg",
+      "sha256": "b8075d89ae85a47081a3e0584bc699f5dd870cd28a1e57d1ddb5e294e70bec1c",
+      "layer": "independent industry landmark",
+      "use": "IslandProgressionTest only; visual acceptance pending",
+      "anchor": "Sprite2D centered; body root at fixed presentation-only island position; landmark at (0,-160), scale 0.65"
+    },
+    {
+      "file": "wood_body.svg",
+      "sha256": "035563dda1a3dc8754fb31a62e3261a0ef136e876b2faaa3529b56fd1676b1bf",
+      "layer": "island body and dock",
+      "use": "IslandProgressionTest only; visual acceptance pending",
+      "anchor": "Sprite2D centered; body root at fixed presentation-only island position; landmark at (0,-160), scale 0.65"
+    },
+    {
+      "file": "wood_landmark.svg",
+      "sha256": "3021fb5192a69864e7fd76e972e5e716a2e6c251cec521f8339a0182745f8cc0",
+      "layer": "independent industry landmark",
+      "use": "IslandProgressionTest only; visual acceptance pending",
+      "anchor": "Sprite2D centered; body root at fixed presentation-only island position; landmark at (0,-160), scale 0.65"
+    }
+  ]
+}

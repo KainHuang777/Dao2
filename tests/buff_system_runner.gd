@@ -52,6 +52,13 @@ func test_buff_lifecycle_and_tick() -> void:
 	BuffSystem.apply_buff(state, "spirit_surge", 150.0)
 	_assert(is_equal_approx(float(state.buffs["spirit_surge"]["remaining_seconds"]), 150.0), "remaining_seconds should extend to 150")
 
+	# Verify newly registered content buffs definitions
+	for b_id in ["insight_glow", "heaven_qi_surge", "longevity_breath"]:
+		var def_val: Variant = BuffSystem.get_definition(b_id)
+		_assert(def_val != null, "buff %s should have registered definition" % b_id)
+		_assert(not String(def_val.get("name", "")).is_empty(), "buff %s should have Chinese name" % b_id)
+		_assert(not String(def_val.get("description", "")).is_empty(), "buff %s should have Chinese description" % b_id)
+
 	# Apply permanent buff
 	BuffSystem.apply_buff(state, "turtle_breath")
 	_assert(state.buffs.has("turtle_breath"), "state should contain turtle_breath")
@@ -270,5 +277,16 @@ func test_buff_hud_bar_ui() -> void:
 	status_view.fortune.has_pending = false
 	hud_bar.update_status(status_view, sect_view)
 	_assert(not hud_bar.visible and hud_bar.get_child_count() == 0, "resolved reminders clear without a separate acknowledgement state")
+
+	var ctx := _setup_state_and_content()
+	var state: GameState = ctx["state"]
+	var _insight_buff := BuffSystem.apply_buff(state, "insight_glow", 90.0)
+	var active_insight := BuffSystem.get_active_buffs_view(state)
+	hud_bar.update_buffs(active_insight)
+	_assert(hud_bar.badges.has("buff:insight_glow"), "badge for insight_glow should exist")
+	var insight_tip: String = hud_bar.badges["buff:insight_glow"].tooltip_text
+	_assert(insight_tip.contains("頓悟靈光"), "tooltip should contain Chinese name '頓悟靈光'")
+	_assert(insight_tip.contains("修煉速度 +100%"), "tooltip should contain description '修煉速度 +100%'")
+	_assert(insight_tip.contains("持續：01:30"), "tooltip should contain remaining duration")
 
 	hud_bar.free()

@@ -2,8 +2,8 @@ class_name UiTypography
 extends RefCounted
 ## Shared Godot font roles for readable Traditional Chinese UI.
 
-const BASE_FONT: FontFile = preload("res://assets/fonts/SourceHanSansTW-VF.ttf")
-const CHAPTER_FONT: FontFile = preload("res://assets/fonts/NotoSerifTC-VF.ttf")
+const BASE_FONT: FontFile = preload("res://assets/fonts/runtime/Dao2Sans-VF.ttf")
+const CHAPTER_FONT: FontFile = preload("res://assets/fonts/runtime/Dao2Serif-VF.ttf")
 const WEIGHT_AXIS: int = 0x77676874 # OpenType wght tag; verified by TextServer.
 
 static var _body: FontVariation
