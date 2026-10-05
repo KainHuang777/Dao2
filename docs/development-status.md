@@ -313,3 +313,5 @@ FX3 文件檢查：9 份嚴格 UTF-8、103 個本地連結及 `git diff --check`
 - [DOC-A-R1 前完整記錄](archive/development-status-2026-10-02-before-doc-a-r1.md)：保留原文與日期。
 - [M0–M2 歷史](archive/development-status-m0-m2.md)、[M3–M4 歷史](archive/development-status-m3-m4.md)。
 - [呈現索引](abode-presentation-map.md)、[AI 交接](ai-handoff.md)、updata.txt 頂部最新英文 checkpoint。
+
+2026-10-05 推送確認：功能提交 `12c560e` 已普通 push 至 origin/main；fetch 後 HEAD 與 origin/main 完整SHA一致，ahead／behind=0／0，工作區乾淨，pull.ff=only。來源／文件 staged diff-check（排除原始log）exit0。測試服務4265以Ctrl+C停止（程序exit1為主動終止），其餘服務未操作。此紀錄另以文件checkpoint提交，不改已驗證程式。

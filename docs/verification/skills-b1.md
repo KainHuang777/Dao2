@@ -32,3 +32,5 @@ IAB、隔離origin4265，正常Web包。使用CLI產生的築基研習fixture（
 人工平衡／完整自然時間滑鼠、實體裝置及R2原有缺口仍待驗。下一New Chat做有界人工節奏驗收或既定D2／AGY R2，不能把本輪功能接回當作完整D2 DONE。
 
 初預覽尚未建立音樂companions時出現MP3 404／BGM下載警告；準備後11:40／11:41音樂GET各200，最後兩次重載未新增該警告。瀏覽器整段歷史warn/error查詢仍包含早期警告，不稱全程零error。最終來源／文件 git diff --check 通過，raw驗證日誌保留原始輸出。
+
+2026-10-05 推送確認：功能提交 `12c560e` 已普通 push 至 origin/main；fetch 後 HEAD 與 origin/main 完整SHA一致，ahead／behind=0／0，工作區乾淨，pull.ff=only。來源／文件 staged diff-check（排除原始log）exit0。測試服務4265以Ctrl+C停止（程序exit1為主動終止），其餘服務未操作。此紀錄另以文件checkpoint提交，不改已驗證程式。
