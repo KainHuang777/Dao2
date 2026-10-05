@@ -19,6 +19,11 @@ var reduced_motion: bool = false
 var phase_time: float = 0.0
 var energy: float = 0.0
 var era_id: int = 2
+var lower_aura: Sprite2D
+var upper_aura: Sprite2D
+var sparks: CPUParticles2D
+var _particles_active: bool = false
+var lightning: Array[Sprite2D] = []
 
 ## Bounded presentation tiers; independent of gameplay tribulation rules.
 func set_era(value: int) -> void:
@@ -43,6 +48,23 @@ func _ready() -> void:
 	front_layer.front = true
 	front_layer.z_index = 4
 	add_child(front_layer)
+	lower_aura = NativeVfx.ring(back_layer, Vector2(0, 115), Vector2(1550, 440), GOLD)
+	upper_aura = NativeVfx.ring(back_layer, Vector2(0, -590), Vector2(1050, 300), Color("9abfff"))
+	sparks = NativeVfx.particles(96, Color("ffdf85"), 1.1)
+	sparks.position = Vector2(0, 70)
+	sparks.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	sparks.emission_rect_extents = Vector2(470, 80)
+	sparks.initial_velocity_min = 85.0
+	sparks.initial_velocity_max = 230.0
+	sparks.gravity = Vector2(0, -45)
+	sparks.scale_amount_min = 0.14
+	sparks.scale_amount_max = 0.38
+	front_layer.add_child(sparks)
+	for index in range(6):
+		var bolt := NativeVfx.ring(front_layer, Vector2.ZERO, Vector2(155, 830), GOLD)
+		bolt.material.shader = NativeVfx.LIGHTNING
+		bolt.material.set_shader_parameter("seed", float(index + 1))
+		lightning.append(bolt)
 	_refresh()
 
 func set_attained(value: bool) -> void:
@@ -80,6 +102,27 @@ func _process(delta: float) -> void:
 
 func _refresh() -> void:
 	visible = active or attained
+	if lower_aura != null:
+		var strength := energy if active else (0.22 if attained else 0.0)
+		var clock := 0.0 if reduced_motion else (phase_time if active else _idle_time)
+		lower_aura.material.set_shader_parameter("strength", strength * (0.45 if reduced_motion else 0.95))
+		lower_aura.material.set_shader_parameter("clock", clock)
+		upper_aura.visible = active and not reduced_motion
+		upper_aura.material.set_shader_parameter("strength", energy * 0.8)
+		upper_aura.material.set_shader_parameter("clock", -clock)
+		var emitting := active and not reduced_motion and energy > 0.05
+		if emitting and not _particles_active:
+			sparks.restart()
+		_particles_active = emitting
+		sparks.emitting = emitting
+		sparks.visible = emitting
+		var bolts := int(visual_profile().bolts)
+		for index in range(lightning.size()):
+			var bolt := lightning[index]
+			bolt.visible = active and not reduced_motion and index < bolts
+			bolt.position = Vector2((float(index) - float(bolts - 1) * 0.5) * 140.0, -280)
+			bolt.material.set_shader_parameter("clock", clock)
+			bolt.material.set_shader_parameter("strength", energy * smoothstep(1.2, 2.0, phase_time))
 	if back_layer != null:
 		back_layer.queue_redraw()
 		front_layer.queue_redraw()

@@ -155,6 +155,8 @@ var scenery_props: Dictionary = {}
 var scenery_parent: Node2D
 var _pending_scenery_save := false
 var _home_frame_size := Vector2.ZERO
+var spirit_tree: Node2D
+var vfx_environment: WorldEnvironment
 var selected_id: String = ""
 var reduced: bool = false
 var reduced_motion: bool:
@@ -298,6 +300,18 @@ func _ready() -> void:
 		_show_storage_block("存檔讀取或離線保存失敗，原有進度已保留。請恢復儲存權限或空間後重試。")
 		return
 	_build_background()
+	# Compatibility 4.7: LDR world bloom; HUD stays above Canvas Max Layer.
+	vfx_environment = WorldEnvironment.new()
+	vfx_environment.name = "世界柔光"
+	var environment := Environment.new()
+	environment.background_mode = Environment.BG_CANVAS
+	environment.background_canvas_max_layer = 0
+	environment.glow_enabled = true
+	environment.glow_intensity = 0.65
+	environment.glow_bloom = 0.03
+	environment.glow_hdr_threshold = 0.96
+	vfx_environment.environment = environment
+	add_child(vfx_environment)
 	_build_region()
 
 	var island_composition := Node2D.new()
@@ -823,18 +837,19 @@ func _process(delta: float) -> void:
 
 	var distant: float = clampf((0.42 - camera.zoom.x) / 0.18, 0.0, 1.0)
 	var viewing_remote_island: bool = island_world != null and island_world.current != "home"
+	var sequence_visible: bool = breakthrough_seq != null and breakthrough_seq.visible
 	for child in region_layer.get_children():
 		if child is Label:
-			child.visible = not viewing_remote_island and camera.zoom.x >= 0.12 and camera.zoom.x < 0.34
+			child.visible = not sequence_visible and not viewing_remote_island and camera.zoom.x >= 0.12 and camera.zoom.x < 0.34
 			UiMaterial.keep_world_text_readable(child, 18)
 		else:
 			child.modulate.a = distant * (0.8 if child is Sprite2D else 1.0)
 	# Avoid fading essential text into the scenery at the LOD hand-off.
-	home_marker.visible = not viewing_remote_island and camera.zoom.x < 0.34
+	home_marker.visible = not sequence_visible and not viewing_remote_island and camera.zoom.x < 0.34
 	UiMaterial.keep_world_text_readable(home_marker, 24)
 
 	for building in buildings.values():
-		building.caption.visible = camera.zoom.x >= 0.34
+		building.caption.visible = not sequence_visible and camera.zoom.x >= 0.34
 
 	if not reduced:
 		_sky_flow_time += delta
@@ -1153,6 +1168,9 @@ func _return_home() -> void:
 
 func _toggle_motion() -> void:
 	reduced = not reduced
+	if vfx_environment != null:
+		vfx_environment.environment.glow_enabled = not reduced
+	flow.reduced_motion = reduced
 	camera.reduced_motion = reduced
 	island_fx.set_reduced_motion(reduced)
 	if breakthrough_seq != null:
@@ -1677,6 +1695,12 @@ func _fit_breakthrough_camera(vp: Vector2) -> void:
 func _mask_breakthrough_hud() -> void:
 	if breakthrough_seq == null or not breakthrough_seq.visible:
 		return
+	home_marker.visible = false
+	for child in region_layer.get_children():
+		if child is Label:
+			child.visible = false
+	for building in buildings.values():
+		building.caption.visible = false
 	for child in _breakthrough_hud_snapshot:
 		if is_instance_valid(child):
 			child.visible = false

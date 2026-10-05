@@ -224,7 +224,7 @@ func _display_offline_summary(report: Dictionary) -> void:
 		_abode._layout()
 
 func _on_settings_menu_pressed(id: int) -> void:
-	if id in [2, 8, 102]:
+	if id in [2, 8, 102, 103]:
 		_abode.feature_navigation.home()
 	match id:
 		5:
@@ -234,6 +234,9 @@ func _on_settings_menu_pressed(id: int) -> void:
 		102:
 			# Illustrative fixture, never a breakthrough command or a state mutation.
 			_abode.text_transition.play("境界等級提升至 LV2", "築基期 ERA2 — 壽元剩餘 80祀", {"reduced_motion": _abode.reduced_motion})
+		103:
+			_abode.breakthrough_seq.reduced_motion = _abode.reduced_motion
+			_abode.breakthrough_seq.play_preview()
 		101:
 			_abode._toggle_bgm()
 		1:

@@ -32,6 +32,8 @@ var _from_era_name: String = "練氣期"
 var _target_era_id: int = 2
 var reduced_motion: bool = false
 var world_fx: IslandBreakthroughFx
+var _preview_mode := false
+var _saved_status := true
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -93,6 +95,7 @@ func _build_ui() -> void:
 	_title_label.add_theme_constant_override("shadow_offset_x", 0)
 	_title_label.add_theme_constant_override("shadow_offset_y", 3)
 	_title_label.add_theme_constant_override("shadow_outline_size", 8)
+	NativeVfx.neon_title(_title_label, Color("ffc35c"))
 	_heading_text.add_child(_title_label)
 
 	_stage_label = _make_label("凝聚靈息 · 法陣甦醒", 20, Color("e2f8ec"))
@@ -102,6 +105,7 @@ func _build_ui() -> void:
 	_stage_label.add_theme_constant_override("shadow_offset_x", 0)
 	_stage_label.add_theme_constant_override("shadow_offset_y", 2)
 	_stage_label.add_theme_constant_override("shadow_outline_size", 5)
+	NativeVfx.neon_title(_stage_label, Color("8af8da"))
 	_heading_text.add_child(_stage_label)
 
 	_skip_button = Button.new()
@@ -179,15 +183,29 @@ func _layout_for_viewport() -> void:
 	_couplet_label.visible = size.y >= 480.0
 
 func set_save_status(saved: bool) -> void:
+	_saved_status = saved
+	if _preview_mode:
+		_save_label.text = "視覺試播 · 不提升境界、不發放收益"
+		_retry_button.visible = false
+		return
 	_save_label.text = "境界已提升 · 進度已保存" if saved else "境界已提升 · 保存失敗，請重試"
 	_save_label.add_theme_color_override("font_color", Color("aee2c1") if saved else Color("ffd28a"))
 	_retry_button.visible = not saved
 
-func play(from_era: String, to_era: String, target_era_id: int = 2) -> void:
+func play_preview(target_era_id: int = 8) -> void:
+	play("特效樣板", "ERA%d 雷電法陣" % target_era_id, target_era_id, true)
+
+func play(from_era: String, to_era: String, target_era_id: int = 2, preview: bool = false) -> void:
+	_preview_mode = preview
+	set_save_status(_saved_status)
+	_title_label.text = "特效試播 · 雷電法陣" if preview else "天地同感 · 境界突破"
+	_close_button.text = "返回洞府" if preview else "圓滿出關"
+	NativeVfx.set_title_glow_enabled(_title_label, not reduced_motion)
+	NativeVfx.set_title_glow_enabled(_stage_label, not reduced_motion)
 	_target_era_id = clampi(target_era_id, 1, 12)
 	_from_era_name = from_era
 	_era_name = to_era
-	_subtitle_label.text = "%s → %s · 破關功成" % [from_era, to_era]
+	_subtitle_label.text = "%s · 視覺樣板" % to_era if preview else "%s → %s · 破關功成" % [from_era, to_era]
 	_is_playing = true
 	_anim_time = 0.0
 	_result_panel.visible = false
@@ -223,7 +241,7 @@ func _process(delta: float) -> void:
 func _finish_animation() -> void:
 	_is_playing = false
 	_bg.color.a = 0.04
-	_stage_label.text = "境界突破 · 功成出關"
+	_stage_label.text = "試播完成 · 返回洞府" if _preview_mode else "境界突破 · 功成出關"
 	_skip_button.visible = false
 	if _left_spacer != null:
 		_left_spacer.visible = false
@@ -238,7 +256,7 @@ func _on_skip_pressed() -> void:
 	_finish_animation()
 
 func _on_replay_pressed() -> void:
-	play(_from_era_name, _era_name, _target_era_id)
+	play(_from_era_name, _era_name, _target_era_id, _preview_mode)
 
 func _on_close_pressed() -> void:
 	if not visible:

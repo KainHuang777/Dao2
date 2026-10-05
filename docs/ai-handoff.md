@@ -74,6 +74,7 @@
 - 2026-10-03 M4-A-R1 DONE：251 checks／40 Runner、兩版型 IAB 真實滑鼠及重整恢復通過；rules_version=core-flow-5-session-receipts，schema 2 選填最近 256 筆成功命令收據。最後舊任務 alias 修正另重跑四項相關 Runner，全部 exit 0。Web adapter 實際是 localStorage；下一步 M1-C/D 權威儲存與離線故障矩陣，實機／高 DPR 獨立待驗。看 verification/m4-a-r1.md 及 updata.txt 頂部；使用 New Chat，不重做白名單。本節以下為本日較早接手紀錄，已由此項取代後續順序。
 
 - 2026-10-03 最新：成就已交付，固定入口 39 Runner，UI8 R1 全量 39/39 PASS；建造訊息修復另有兩項 Runner／Web 證據且使用者測試 OK。下一步 M4-A-R1 補正式 Session 成功／拒絕／冪等／保存與 Web 矩陣，不能重做已存在白名單。再補 M1-C/D 瀏覽器持久化與離線證據；實機／高 DPR 仍待驗。下列按日期的 38 Runner 為歷史結果。
+- FX3 飛劍／靈氣／雷電／法陣的原生粒子、Shader、世界 Glow 與局部題字泛光已接。設定「引擎特效樣板（試播）」可以零收益查看；驗收與庫授權見 verification/native-vfx.md。聚靈壇／靈界據點專屬美術仍未放行，不把光環當作建築完成品。
 
 - NAV1 四主入口與九分頁已實作；靈獸核心及正式操作頁已接，下一步收分類／視覺回饋與實機驗收，見 verification/feature-navigation.md。
 

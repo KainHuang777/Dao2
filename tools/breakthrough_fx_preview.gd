@@ -4,10 +4,10 @@ func _init() -> void:
 	_run.call_deferred()
 
 func _run() -> void:
-	var out := "res://docs/verification/artifacts/breakthrough-fx2"
+	var out := "res://docs/verification/artifacts/native-vfx" if "--fx3" in OS.get_cmdline_user_args() else "res://docs/verification/artifacts/breakthrough-fx2"
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out))
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://breakthrough_fx2_preview"
+	script.save_dir_override = "user://native_vfx_preview" if "--fx3" in OS.get_cmdline_user_args() else "user://breakthrough_fx2_preview"
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	root.size = Vector2i(1280, 720)
 	var abode = script.new()
@@ -25,14 +25,15 @@ func _run() -> void:
 		print("CAPTURE_VIEWPORT physical=", vp, " logical=", logical)
 		for era in [2, 8, 12]:
 			abode.breakthrough_seq.reduced_motion = false
-			abode.breakthrough_seq.play("前境", "ERA%d 視覺試播" % era, era)
+			abode.breakthrough_seq.play_preview(era)
 			abode.breakthrough_seq.set_process(false)
 			abode.breakthrough_seq._process(2.6)
 			abode.sky_material.set_shader_parameter("energy", abode.island_fx.energy)
+			await create_timer(0.3).timeout
 			await _capture(out, "era%d-%dx%d" % [era, vp.x, vp.y])
 			abode.breakthrough_seq._on_close_pressed()
 		abode.breakthrough_seq.reduced_motion = true
-		abode.breakthrough_seq.play("前境", "低特效視覺試播", 12)
+		abode.breakthrough_seq.play_preview(12)
 		abode.breakthrough_seq.set_process(false)
 		abode.breakthrough_seq._process(0.5)
 		abode.sky_material.set_shader_parameter("energy", abode.island_fx.energy)

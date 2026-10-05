@@ -63,6 +63,8 @@ func _ready() -> void:
 	content.add_child(subtitle_label)
 	for label in [title_label, subtitle_label]:
 		label.add_theme_color_override("font_color", Color.WHITE)
+	NativeVfx.neon_title(title_label, Color("72eeda"))
+	NativeVfx.neon_title(subtitle_label, Color("e8bb68"))
 	skip_button = Button.new()
 	skip_button.text = "跳過 · Esc"
 	skip_button.custom_minimum_size = Vector2(120, 44)
@@ -90,6 +92,8 @@ func play(main_text: String, detail_text: String = "", options: Dictionary = {})
 	subtitle_label.text = detail_text
 	subtitle_label.visible = not detail_text.is_empty()
 	_reduced = bool(options.get("reduced_motion", false))
+	NativeVfx.set_title_glow_enabled(title_label, not _reduced)
+	NativeVfx.set_title_glow_enabled(subtitle_label, not _reduced)
 	_mode = str(options.get("mode", "reveal"))
 	_hold = clampf(float(options.get("hold", 1.8)), 0.5, 30.0)
 	_elapsed = 0.0

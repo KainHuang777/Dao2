@@ -78,6 +78,7 @@ func _configure_settings_menu() -> void:
 	popup.add_item("操作說明", 4)
 	popup.add_item("重溫突破", 5)
 	popup.add_item("過場文字樣板（試播）", 102)
+	popup.add_item("引擎特效樣板（試播）", 103)
 	popup.add_item("調試工具 (DEBUG)", 8)
 	popup.id_pressed.connect(_abode._on_settings_menu_pressed)
 	_abode.hud.add_child(_abode.settings_menu)

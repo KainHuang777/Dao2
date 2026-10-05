@@ -223,12 +223,22 @@ Godot4.7.2版本已驗；`run_all_runners.ps1` **51/51 exit0**（資源顯示新
 - **M2-D-NAV1／UI5 回饋修正（2026-10-03）**：四入口字級統一 18、兩項模糊「待辦」改為輪迴／機緣具體提醒及 tooltip；洞府訊息改全 viewport 水平置中，短橫向避讓 HUD。修行入口短橫向滑鼠被資源面板攔截亦已修正，主導覽尺寸／可見性集中於 FeatureNavigation。38 Runner、相容回歸、Web 匯出及 IAB 1280×720／844×390 滑鼠驗證結果見 [本輪紀錄](verification/nav1-ui5-feedback.md)。來源、測試、規格及 updata 已更新；整體 NAV1／UI5 保留 IN_PROGRESS，使用者美術／高 DPR／實體觸控待驗。下一步先收這三處回饋，大型任務使用 New Chat。
 
 - **M2-D-ISLAND1：IN_PROGRESS，實作／CLI／桌面 Web 已交付**。同一 hut 在當世 Era >= 2 顯示築基小院；靈木／靈草／靈石三種小景、解鎖／隨機間隔／最多兩件、核心命令／即時保存／失敗重試、輪迴清除、短橫式取景与地標導覽接線。最終 **38/38 Runner PASS、exit 0**，八張 native PNG、Web 匯出與 IAB 1280×720／844×390 鼠標採收、重載／返回。使用者美術／實體觸控／高 DPR 待補；[設計](13-island-scenery-and-courtyard-spec.md)、[檔案／命令／結果／缺口](verification/island-scenery.md)。下一步先收本輪視覺／節奏回饋；大型任務使用 New Chat。
+更新：2026-10-03（M2-D-FX3 原生 Shader／粒子／泛光）。區分實作、測試與完整驗收；歷史缺口不作目前接手順序。
+
+## 目前任務與下一步
+
+- **M2-D-FX3：IN_PROGRESS，原生特效實作交付**。飛劍流光／拖尾、靈氣小光環、渡劫雷電／法陣與粒子、Compatibility 世界 Glow、題字局部 Gaussian 泛光；設定新增無收益特效試播。36/36 Runner、14 native PNG、Web 匯出 exit 0；IAB `1280×720`／`844×390` 實際播放／低特效／返回及直式提示、browser warning/error 查詢空。最後保存提示隔離小修另由突破 Runner／Web 匯出 exit 0 補驗。使用者本次特效要求優先；美術放行／實機／高 DPR／GPU 預算待補，直式提示既有字級問題仍保留。[檔案、庫評估、命令、失敗修正與驗收](verification/native-vfx.md)。
+
+- **ART-A1 美術現況複核：DONE；兩項美術尚未完成驗收**。聚靈壇已有候選獨立圖，正式世界目前不顯示，中央對位／建前建後及放行待做；靈界洞天只有規則與操作面板，尚無據點專屬場景。已明訂聚靈壇建成＋美術通過才呈現，以及靈界場景與人界升境分開。[來源、圖片、命令及缺口](verification/landmark-and-spirit-art-audit.md)。本輪文件更新，Godot 版本檢查及 `git diff --check` exit 0；5 份文件嚴格 UTF-8／76 個本地連結檢查 PASS；未重跑遊戲／Web／實機測試。
+- **ART-A1 的後續：聚靈壇中央對位美術，再製作靈界據點場景**。兩項保持未放行；本次追加 FX3 優先。後續大型美術／場景工作使用 New Chat，優先於下面的成就候選。
 
 - **M2-D-NAV1：IN_PROGRESS，實作與回歸交付**。四主入口／九分頁、洞天與建築經營整合、共用跨界資源、靈獸與天道決策 UI；36/36 Runner、追加相容／響應式／機緣回歸、20 native PNG、Web 匯出及 IAB 桌面／短橫向滑鼠。使用者分類／視覺回饋與實體觸控／高 DPR 待補；[規範](12-feature-navigation-and-integration-spec.md)、[檔案／命令／結果與未完成項](verification/feature-navigation.md)。
 - **DOC-A-R1 文件現況複核：DONE**。
 - **M3-B 靈獸系統（Spirit Beasts）：DONE**。交付四大靈獸（玉狐、玄龜、火鳳、雲蛟）、四階成長階段（卵/幼體/成長/成熟）、餵食消耗與冷卻倒數、4階獸魂天賦樹、輪迴成熟獸魂結算與跨世繼承、TimeAdvancer 模擬數值與產率整合、GameSession 三項命令（acquire/feed/talent）及 SaveCodec 存檔相容性。全量 **35/35 Runner PASS、exit 0**。
 - **優先：UI7／UI6-R1／FX2／TEXT1 回饋與裝置驗收**。常態材質已實作，先收視覺回饋，再驗高 DPR、實體觸控／GPU、音訊與效能。
 - **下一工作：RES1-C2 世界／效能／完整玩法矩陣**；C1三島契約與隔離操作已有首項證據，M4-A-R1與成就原交付保留，B相交桌面Web故障範圍已完成。完整M1-C/D裝置範圍及C正式放行仍待補；後續大型任務使用New Chat。
+
+FX3 文件檢查：9 份嚴格 UTF-8、103 個本地連結及 `git diff --check` PASS；完整回歸的 50 次切換記憶體為 1461.19 KB，通過原 1500 KB 門檻。英文交接已置於 `updata.txt` 頂部。
 
 ## 9/29–10/3 開發內容
 
@@ -279,7 +289,7 @@ Godot4.7.2版本已驗；`run_all_runners.ps1` **51/51 exit0**（資源顯示新
 - 觸控、GPU、FPS／p95、冷啟動與長期記憶體未因 CLI 通過而完成；UI7 另記既有九界卡片裁切。
 - Font RID／CanvasItem／ObjectDB 退出診斷及負面資料預期錯誤仍存在，不能稱日誌零錯誤。
 - ensure_* 呈現初始化、彈窗堆疊與根場景演出鎖定依實際程式理解。
-- 玩家保存與 fixture／預覽 origin 分離；本輪未改規則、資產、存檔或既有 HTTP 日誌。
+- 玩家保存與 fixture／預覽 origin 分離；FX3 新增原創程式化特效資源，未改規則、保存 schema 或既有 HTTP 日誌；4197 只服務本 worktree 匯出物。
 
 ## 歷史與按需閱讀
 
