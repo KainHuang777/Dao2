@@ -1,0 +1,8 @@
+[
+  {"id":"basic_meditation","name":"基礎冥想","max_level":5,"cost":90,"effect":"lingli_multiplier","amount":1.1,"description":"每階靈力產率乘以1.1。"},
+  {"id":"qi_condensation","name":"聚氣術","max_level":5,"cost":1800,"effect":"lingli_rate","amount":2,"description":"每階增加基礎靈力產率2，再套既有產率倍率。"},
+  {"id":"foundation_building","name":"築基功","max_level":5,"cost":3600,"effect":"money_multiplier","amount":1.2,"description":"每階金錢產率乘以1.2。"},
+  {"id":"qi_storage_1","name":"納靈法","max_level":1,"cost":120,"effect":"lingli_max","amount":200,"description":"增加靈力容量200。"},
+  {"id":"body_strengthening_1","name":"強身術","max_level":1,"cost":1000,"effect":"money_max","amount":2000,"description":"增加金錢容量2000。"},
+  {"id":"building_mastery_1","name":"建築精通・初階","max_level":1,"cost":200,"effect":"building_level_cap","amount":10,"description":"木屋、林場、採石場、靈植場的等級上限增加10；不超過設施自身上限。庫房、茅屋與築基靈池不受影響。"}
+]

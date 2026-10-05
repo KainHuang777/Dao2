@@ -36,6 +36,8 @@ var beast_talents: Dictionary = {}
 var abode_scenery: Dictionary = {}
 var achievements: Dictionary = {}
 var economy: Dictionary = {}
+var skill_version: int = 0
+var skills: Dictionary = {}
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -71,6 +73,8 @@ func duplicate_state() -> GameState:
 	copy.abode_scenery = abode_scenery.duplicate(true)
 	copy.achievements = achievements.duplicate(true)
 	copy.economy = economy.duplicate(true)
+	copy.skill_version = skill_version
+	copy.skills = skills.duplicate(true)
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -129,4 +133,6 @@ func to_snapshot_dict() -> Dictionary:
 		"abode_scenery": abode_scenery.duplicate(true),
 		"achievements": achievements.duplicate(true),
 		"economy": economy.duplicate(true),
+		"skill_version": skill_version,
+		"skills": skills.duplicate(true),
 	}

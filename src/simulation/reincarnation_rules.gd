@@ -101,6 +101,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.total_elapsed_seconds = 0.0
 	state.tick_remainder_seconds = 0.0
 	state.buildings.clear()
+	state.skills.clear()
 	state.pills.clear()
 	state.pill_effects.clear()
 	var surviving_buffs: Dictionary = {}
@@ -128,7 +129,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	var granted_resources: Dictionary = {}
 	for resource_id in content.resource_ids:
 		var def: Dictionary = content.resources[resource_id]
-		var is_unlocked: bool = not onboarding_state.active or (resource_id in onboarding_state.resources)
+		var is_unlocked: bool = resource_id != "skill_point" and (not onboarding_state.active or (resource_id in onboarding_state.resources))
 		var entry: Dictionary = state.resources.get(resource_id, {})
 		if entry.is_empty():
 			entry = {
@@ -150,6 +151,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 				granted_resources[resource_id] = start_amount
 		else:
 			entry.value = AmountCompat.zero()
+			if resource_id == "skill_point":
+				entry.ever_obtained = false
 
 	var event_payload := {
 		"kind": "reincarnated",

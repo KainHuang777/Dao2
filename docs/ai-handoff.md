@@ -1,5 +1,7 @@
 # 2026-10-05 R2最新接手提示
 
+2026-10-05 **SKILL-B1 已採用 B**：先讀 [ADR-012](decisions/ADR-012-optional-skills-with-islands.md) 與 [驗證](verification/skills-b1.md)。六技能選修，不回復舊Era2經濟或技能門檻；main為唯一正式開發入口，git pull --ff-only origin main，分歧先回報。舊保存分支保留。
+
 2026-10-05 **Git接手入口**：正式進度只從E:/WORK/Dao2的main接續；舊7c23/Dao2工作樹已保存於codex/preserve-vfx-20261005並真正合併，原工作樹留備份分支勿當最新版。master ff86f85另保留於codex/preserve-master-20261005，一般技能／舊Era2模型與ADR-011衝突、未合併。後續明確使用git pull --ff-only origin main；兩側提交分歧或dirty阻擋須回報，不自動reset/rebase/force push。[整合驗證](verification/git-progress-integration-2026-10-05.md)。
 
 

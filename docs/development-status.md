@@ -1,5 +1,13 @@
 # 開發狀態與交接紀錄
 
+### 2026-10-05 SKILL-B1：B 方案技能與多島融合
+
+使用者明確選 B，接回六項技能，保持 Era2 2／1.2／200、金丹容量2000、築基靈池和島嶼加工所有權。新增藏經閣／經書殿與修行技能頁；Session命令扣點、防重扣；Production加成、輪迴重置；schema3 skills版本、原JSON雜湊備份與讀回後雙槽提交。相關檔案為content/skills/era2.json、content/buildings/study.json、skill_system、GameState／GameSession、Production／TimeAdvancer／CommandProcessor、ReincarnationRules、SaveCodec／SaveManager及原生導航面板。
+
+Godot4.7.2、全54 Runner、41項技能契約、字型子集生成／check、獨立Web匯出與音樂companions；真實瀏覽器桌面研習／重載、844×390內部捲動與建築精通扣200保存。初輪內容掛載／舊狀態視圖和缺字問題已修正，失敗日誌保留，既有RID／ObjectDB退出訊息不稱零error。[命令、結果與限制](verification/skills-b1.md)。
+
+新增 ADR-012 覆蓋 ADR-011 暫不移植技能的段落，歷史保留。舊分支完整保留，普通main push與ff-only同步；後續分歧必須回報。下一New Chat續技能工作值的人類節奏驗收、D2自然時間／裝置與AGY R2，完整D2／R2不標DONE。
+
 ### 2026-10-05 GIT-SYNC-INTEGRATION：兩處成果保存、VFX合併與master審查交付
 
 d54faa3主目錄checkpoint；舊detached工作樹改保存分支codex/preserve-vfx-20261005／fb65890，47efd8d雙親merge已把VFX納入main。解決兩個場景程式與三個交接文件衝突，保留D2／R2較新接線；修正短橫式演出遠景題字重疊並加跨四版型回歸。master ff86f85保存本地參照，其一般技能／舊Era2／保存模型與ADR-011及多島權威供給衝突，審查已交付、功能未合併；已向使用者提出決策選擇，未收到改案前維持核定規則。

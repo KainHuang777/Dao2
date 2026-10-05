@@ -8,6 +8,8 @@ var status: Label
 var _signature := ""
 var _last_mode := ""
 var buttons: Dictionary = {}
+var save_failed := false
+var _skill_summary: Label
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -61,7 +63,15 @@ func refresh(view: Dictionary) -> void:
 		status.visible = false
 		_last_mode = mode
 	var data: Variant = view.get("beast", {}) if mode == "beasts" else view.get("realm_decisions", [])
-	var signature := mode + JSON.stringify(data)
+	if mode == "skills":
+		data = view.get("skills", {})
+	var signature_data: Variant = data
+	if mode == "skills":
+		if is_instance_valid(_skill_summary):
+			_skill_summary.text = _skill_heading(view, data)
+		signature_data = data.duplicate(true)
+		signature_data.erase("available")
+	var signature := mode + JSON.stringify(signature_data)
 	if signature == _signature:
 		return
 	_signature = signature
@@ -69,6 +79,15 @@ func refresh(view: Dictionary) -> void:
 		content.remove_child(child)
 		child.queue_free()
 	buttons.clear()
+	if mode == "skills":
+		_text(_skill_heading(view, data))
+		_skill_summary = content.get_child(content.get_child_count()-1)
+		_action("前往經營建築", "study", "", true)
+		for item in data.get("items", []):
+			_text("%s · %d/%d\n%s\n每階消耗 %s 技能點" % [item.name, item.level, item.max_level, item.description, item.cost])
+			var reason: String = {"SKILL_STUDY_LOCKED": "築基並建藏經閣後開放", "SKILL_MAX_LEVEL": "已達上限", "INSUFFICIENT_SKILL_POINT": "技能點不足"}.get(item.reason, "研習")
+			_action(reason, "skill", item.id, item.can_learn)
+		return
 	if mode == "decisions":
 		_text("天道決策 · 當前界域\n只施行目前所在界域的法則取捨，其他界域不會因預覽而解鎖。")
 		for item in data:
@@ -97,3 +116,14 @@ func _costs(costs: Dictionary) -> String:
 		var name: String = {"lifespan_seconds": "壽元（秒）", "money": "金錢", "wood": "靈木", "herb": "靈草", "mineral": "礦材", "lingqi": "靈氣", "spirit_crystal": "極品靈晶", "azure_nectar": "天青靈液", "stone_low": "下品靈石", "spirit_grass_low": "靈草", "lingli": "靈氣", "refined_iron": "精鐵", "void_essence": "虛空精華", "star_metal": "星金", "spirit_grass_1000y": "千年靈草"}.get(id, id)
 		parts.append("%s %s" % [name, costs[id]])
 	return "、".join(parts) if not parts.is_empty() else "無"
+
+func show_save_failure(message: String) -> void:
+	save_failed = true
+	show_result(message)
+func storage_recovered() -> void:
+	if save_failed:
+		save_failed = false
+		show_result("已恢復保存，進度已寫入。")
+
+func _skill_heading(view: Dictionary, data: Dictionary) -> String:
+	return "技能研習 · 技能點 %s/%s\n築基後建藏經閣產生技能點；經書殿擴容。技能為選修加成，輪迴後重置，不限制空島或配方。" % [data.get("available", "0"), view.get("resources", {}).get("skill_point", {}).get("cap", "200")]

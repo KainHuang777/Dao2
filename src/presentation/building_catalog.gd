@@ -18,6 +18,7 @@ var row_info: Dictionary = {}
 var expanded_row_id: String = ""
 var resource_names: Dictionary = {}
 const BUILDING_NAMES := {
+	"library": "藏經閣", "scripture_hall": "經書殿",
 	"hut": "茅屋",
 	"wooden_house": "木屋",
 	"forest_farm": "林場",

@@ -17,6 +17,7 @@ const KNOWN_COMMAND_TYPES := [
 	"breakthrough_era",
 	"reincarnate",
 	"learn_talent",
+	"learn_skill",
 	"refine_pill",
 	"consume_pill",
 	"apply_buff",
@@ -60,6 +61,7 @@ static func create_new_game(content: GameContent) -> GameSession:
 		}
 	for building_id in content.building_ids:
 		state.buildings[building_id] = 0
+	SkillSystem.reconcile(content, state)
 	session.state = state
 	return session
 
@@ -122,13 +124,15 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 func get_view() -> Dictionary:
 	var era_definition: Variant = content.era(state.era_id)
 	var era_multiplier := 1.0 if era_definition == null else float(era_definition.resource_multiplier)
-	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier))
-	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier), state.skills)
+	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
+	if caps.has("skill_point"):
+		caps.skill_point = SkillSystem.study_cap(state, caps.skill_point)
 	var unlock := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
 	var resources := {}
 	for resource_id in content.resource_ids:
 		var definition: Dictionary = content.resources[resource_id]
-		var entry: Dictionary = state.resources[resource_id]
+		var entry: Dictionary = state.resources.get(resource_id, {"value": AmountCompat.zero(), "unlocked": false, "ever_obtained": false})
 		resources[resource_id] = {
 			"type": String(definition.type),
 			"value": entry.value.serialize(),
@@ -142,7 +146,7 @@ func get_view() -> Dictionary:
 	for building_id in content.building_ids:
 		var definition: Dictionary = content.buildings[building_id]
 		var level := int(state.buildings.get(building_id, 0))
-		var cap := CommandProcessor.level_cap(definition)
+		var cap := CommandProcessor.level_cap(definition, content, state)
 		# Onboarding gates the first era only. Existing buildings and earlier-era
 		# definitions remain manageable after cultivation advances.
 		var visible: bool = level > 0 or (unlock.active and (building_id in unlock.buildings)) or (not unlock.active and int(definition.era) <= state.era_id)
@@ -159,7 +163,7 @@ func get_view() -> Dictionary:
 					affordable = false
 			for resource_id in next_costs:
 				costs[resource_id] = next_costs[resource_id].serialize()
-				var entry: Dictionary = state.resources[resource_id]
+				var entry: Dictionary = state.resources.get(resource_id, {"value": AmountCompat.zero(), "unlocked": false, "ever_obtained": false})
 				var available: AmountCompat = entry.value.add(AmountCompat.from_number(0.000001))
 				if available.compare_to(next_costs[resource_id]) < 0:
 					affordable = false
@@ -235,6 +239,7 @@ func get_view() -> Dictionary:
 		"breakthrough_requirements": breakthrough_req,
 		"era": era_view,
 		"resources": resources,
+		"skills": SkillSystem.view(content, state),
 		"buildings": buildings,
 		"next_objective": unlock.next_objective,
 		"reincarnation_count": state.reincarnation_count,

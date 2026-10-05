@@ -3,13 +3,16 @@ extends RefCounted
 
 const SCHEMA_VERSION := 3
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-10-danxia"
+const RULES_VERSION := "core-flow-11-skills-b1"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
 		return {"ok": false, "json": "", "error": "STATE_MISSING"}
+	var skill_error := SkillSystem.validate(state.skill_version, state.skills)
+	if not skill_error.is_empty():
+		return {"ok": false, "json": "", "error": skill_error}
 	var profile_validate := RuntimeProfile.begin()
 	var economy_error := IslandEconomy.validate(state)
 	RuntimeProfile.end("encode_validate", profile_validate)
@@ -216,6 +219,19 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.training_seconds = _to_float(snapshot_dict["training_seconds"])
 	state.total_elapsed_seconds = _to_float(snapshot_dict["total_elapsed_seconds"])
 	state.tick_remainder_seconds = _to_float(remainder)
+	var skill_version: Variant = snapshot_dict.get("skill_version", 0)
+	var skills: Variant = snapshot_dict.get("skills", {})
+	if not _is_int(skill_version) or int(skill_version) not in [0, SkillSystem.VERSION] or not skills is Dictionary or skills.size() > 6:
+		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
+	var supported := {"basic_meditation": 5, "qi_condensation": 5, "foundation_building": 5, "qi_storage_1": 1, "body_strengthening_1": 1, "building_mastery_1": 1}
+	for id in skills:
+		if not supported.has(id) or not _is_int(skills[id]) or int(skills[id]) < 0 or int(skills[id]) > int(supported[id]):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
+	if not SkillSystem.validate(int(skill_version), skills).is_empty():
+		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
+	state.skill_version = int(skill_version)
+	for id in skills:
+		state.skills[id] = int(skills[id])
 	state.resources = resources
 	state.buildings = buildings
 	if snapshot_dict.has("tutorial_flags"):

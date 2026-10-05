@@ -1,0 +1,4 @@
+[
+  {"id":"library","era":2,"max_level":3,"cost_factor":1.8,"prereq":null,"base_cost":{"money":500,"wood":200,"stone_low":50,"spirit_grass_low":20},"effect_weight":0,"effects":{"skill_point":1}},
+  {"id":"scripture_hall","era":2,"max_level":1,"cost_factor":1.8,"prereq":{"building":"library","level":1},"base_cost":{"money":500,"wood":500,"stone_low":300,"black_copper":50},"effect_weight":null,"effects":{"skill_point_max":6000}}
+]

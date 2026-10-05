@@ -55,3 +55,8 @@ git pull --ff-only origin main
 ```
 
 遇到兩側都有提交，或 pull 因 dirty／untracked 阻擋時停止並回報具體內容，不自動 rebase、reset、force push 或改從 master 拉取。本輪 main 採普通 `git push origin main`，推送前再 fetch 核對，推送後再次核對遠端 HEAD；遠端同步結果以最後命令驗證為準。
+
+
+## 2026-10-05 後續 B 決策
+
+使用者已選 B：技能功能按 [ADR-012](../decisions/ADR-012-optional-skills-with-islands.md) 適配接入main，舊Era2經濟不套回；原master與兩處checkpoint完整保留。[技能驗證](skills-b1.md)。前述「等待技能決策」屬本次選擇之前的歷史結果。

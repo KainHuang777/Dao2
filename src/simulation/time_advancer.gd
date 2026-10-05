@@ -50,7 +50,7 @@ static func prepare_advance(state: GameState, content: GameContent) -> Dictionar
 	# Scoped to one command-free settlement. Never persist or reuse after commands.
 	# Timers and observed stock still advance at one-second boundaries.
 	return {"talents": TalentSystem.compute_multipliers(state),
-		"caps": Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version),
+		"caps": Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills),
 		"lifespans": content.era_lifespan_entries(),
 		"sect": SectSystem.compute_multipliers(state), "economy": {},
 		"era_multiplier": 1.0 if content.era(state.era_id) == null else float(content.era(state.era_id).resource_multiplier),
@@ -118,13 +118,13 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 	if prepared.has("rates") and prepared.get("rate_multiplier") == global_prod_total:
 		rates = prepared.rates
 	else:
-		rates = Production.compute_rates(content, state.buildings, global_prod_total)
+		rates = Production.compute_rates(content, state.buildings, global_prod_total, state.skills)
 		if not prepared.is_empty():
 			prepared.rates = rates
 			prepared.rate_multiplier = global_prod_total
 	var caps: Dictionary = prepared.get("caps", {})
 	if caps.is_empty():
-		caps = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
+		caps = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 	var sect_multipliers: Dictionary = prepared.get("sect", {})
 	if sect_multipliers.is_empty():
 		sect_multipliers = SectSystem.compute_multipliers(state)

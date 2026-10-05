@@ -2,7 +2,7 @@ extends RefCounted
 ## Canonical ownership of player features. Routes share the existing Session.
 const GROUPS := {
 	"management": {"title": "經營", "pages": [["buildings", "洞府建築"], ["outposts", "洞天據點"]]},
-	"cultivation": {"title": "修行", "pages": [["alchemy", "煉丹"], ["beasts", "靈獸"], ["achievements", "成就"], ["reincarnation", "輪迴天賦"]]},
+	"cultivation": {"title": "修行", "pages": [["skills", "技能"], ["alchemy", "煉丹"], ["beasts", "靈獸"], ["achievements", "成就"], ["reincarnation", "輪迴天賦"]]},
 	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"]]},
 }
 const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal", "achievement_panel"]
@@ -117,7 +117,7 @@ func open(route: String) -> void:
 		"sect": abode.sect_panel.visible = true
 		"fortune": abode.fortune_modal.visible = true
 		"realms": abode._modal_manager._open_nine_realms_overview()
-		"beasts", "decisions":
+		"beasts", "decisions", "skills":
 			action_panel.mode = page
 			action_panel.visible = true
 	_changing = false
@@ -283,13 +283,17 @@ func _refresh_main_notifications(view: Dictionary) -> void:
 	var has_unclaimed_ach := int(view.get("achievements", {}).get("unclaimed_count", 0)) > 0
 	var cult_notify := reincarnation_ready or has_unclaimed_ach
 	abode.reincarnation_button.text = ("修行•" if narrow else ("修行・輪迴" if reincarnation_ready else "修行・成就")) if cult_notify else "修行"
-	abode.reincarnation_button.tooltip_text = "已符合輪迴資格或有成就獎勵可領取。" if cult_notify else "煉丹、靈獸、成就與輪迴天賦"
+	abode.reincarnation_button.tooltip_text = "已符合輪迴資格或有成就獎勵可領取。" if cult_notify else "技能、煉丹、靈獸、成就與輪迴天賦"
 	abode.overview_button.text = ("遊歷•" if narrow else "遊歷・機緣") if fortune_pending else "遊歷"
 	abode.overview_button.tooltip_text = "有待決機緣，可至「機緣」查看並選擇。" if fortune_pending else "九界、宗門、機緣與天道決策"
 
 func _on_action(kind: String, id: String) -> void:
+	if kind == "study":
+		open("buildings")
+		return
 	var result: Dictionary
 	match kind:
+		"skill": result = abode.session.submit({"command_id": "skill-" + str(Time.get_ticks_usec()), "type": "learn_skill", "expected_revision": abode.session.state.revision, "payload": {"skill_id": id}})
 		"acquire": result = abode.session.acquire_beast(id)
 		"feed": result = abode.session.feed_beast()
 		"talent": result = abode.session.unlock_beast_talent(id)
@@ -297,7 +301,9 @@ func _on_action(kind: String, id: String) -> void:
 		_: return
 	action_panel.show_result("操作完成，進度已更新。" if bool(result.get("ok", false)) else "操作未完成：%s" % result.get("message", result.get("error", "原因不明")))
 	if bool(result.get("ok", false)):
-		abode._save_game()
+		var saved: Dictionary = abode._save_game()
+		if not saved.ok:
+			action_panel.show_save_failure("操作已生效，但保存失敗：%s；恢復儲存後請重試保存。" % saved.get("error", "未知"))
 	abode._refresh_hud()
 
 func _on_island_action(kind: String, payload: Dictionary) -> void:

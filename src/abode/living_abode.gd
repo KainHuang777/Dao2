@@ -23,6 +23,7 @@ const FlowScript = preload("res://src/abode/abode_flows.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
 
 const BUILDING_NAMES := {
+	"library": "藏經閣", "scripture_hall": "經書殿",
 	"foundation_reservoir": "築基靈池",
 	"hut": "茅屋",
 	"wooden_house": "木屋",
@@ -37,6 +38,7 @@ const BUILDING_NAMES := {
 }
 
 const RESOURCE_NAMES := {
+	"skill_point": "技能點",
 	"lingli": "靈氣",
 	"money": "金錢",
 	"wood": "靈木",
@@ -1647,6 +1649,7 @@ func _settle_web_background(cursor: int) -> bool:
 	_refresh_hud()
 	if feature_navigation != null and feature_navigation.island_panel != null:
 		feature_navigation.island_panel.storage_recovered()
+		feature_navigation.action_panel.storage_recovered()
 	print("WEB_BACKGROUND_SETTLED: ", JSON.stringify(result.report))
 	return true
 

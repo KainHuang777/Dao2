@@ -8,6 +8,7 @@ var resources: Dictionary = {}
 var buildings: Dictionary = {}
 var eras: Dictionary = {}
 var content_version: String = ""
+var skill_defs: Dictionary = {}
 var processing_catalog: Dictionary = {} # Base loader is independent; normal IslandProgression.attach enables the versioned profile.
 
 func resource(resource_id: String) -> Variant:

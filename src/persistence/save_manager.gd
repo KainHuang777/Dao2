@@ -11,6 +11,7 @@ static var _current_state: GameState = null
 static var _envelope: Dictionary = {}
 static var _adapter: StorageAdapter = null
 static var _schema2_original: String = ""
+static var _skills_original: String = ""
 static var _load_error: String = ""
 const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
 const ISLAND_ARCHIVE_KEY := "save_before_islands"
@@ -66,6 +67,7 @@ static func configure(content: GameContent, adapter: StorageAdapter = null) -> v
 	if use_adapter == null:
 		use_adapter = FileStorageAdapter.new(DEFAULT_SAVE_DIR)
 	_schema2_original = ""
+	_skills_original = ""
 	_load_error = ""
 	_adapter = use_adapter
 	_slots = SaveSlots.new(use_adapter)
@@ -123,11 +125,23 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		var verified := adapter().read(SCHEMA2_ARCHIVE_KEY)
 		if not verified.ok or verified.data != _schema2_original:
 			return {"ok": false, "error": "MIGRATION_ARCHIVE_READBACK"}
+	if not _skills_original.is_empty():
+		var archive_key := "save_before_skills_" + _skills_original.sha256_text()
+		var original := adapter().read(archive_key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "SKILL_ARCHIVE_READ_FAILED"}
+			if not adapter().write(archive_key, _skills_original).ok:
+				return {"ok": false, "error": "SKILL_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok or original.data != _skills_original:
+			return {"ok": false, "error": "SKILL_ARCHIVE_READBACK"}
 	var profile_commit := RuntimeProfile.begin()
 	var commit_result: Dictionary = slots().commit(String(encode_result["json"]), state.revision)
 	RuntimeProfile.end("save_commit", profile_commit)
 	if bool(commit_result.get("ok", false)):
 		_current_state = state
+		_skills_original = ""
 		_envelope = _normalize_meta(meta)
 	return commit_result
 
@@ -142,6 +156,7 @@ static func import_legacy_text(input_text: String) -> Dictionary:
 	if not raw_json.is_empty():
 		adapter().write(LEGACY_RAW_KEY, raw_json)
 	var state: GameState = imported["state"]
+	SkillSystem.reconcile(content_obj, state)
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
 		var decode_result: Dictionary = SaveCodec.decode(json_text)
 		if not bool(decode_result.get("ok", false)):
@@ -215,6 +230,7 @@ static func import_share_string(share: String) -> Dictionary:
 	var decode_result: Dictionary = SaveCodec.decode(json_text)
 	if not bool(decode_result.get("ok", false)):
 		return {"ok": false, "state": null, "error": String(decode_result.get("error", "DECODE_FAILED"))}
+	SkillSystem.reconcile(content(), decode_result["state"])
 	return {"ok": true, "state": decode_result["state"], "error": ""}
 
 static func reset_for_tests() -> void:
@@ -224,6 +240,7 @@ static func reset_for_tests() -> void:
 	_envelope = {}
 	_adapter = null
 	_schema2_original = ""
+	_skills_original = ""
 	_load_error = ""
 
 static func _load_from_slots() -> GameState:
@@ -244,7 +261,11 @@ static func _load_from_slots() -> GameState:
 	_envelope = decode_result["envelope"]
 	if int(_envelope.schema_version) == 2:
 		_schema2_original = String(best["json"])
-	return decode_result["state"]
+	var loaded_state: GameState = decode_result["state"]
+	if content() != null and SkillSystem.reconcile(content(), loaded_state):
+		_skills_original = String(best["json"])
+		loaded_state.revision += 1
+	return loaded_state
 
 static func _new_state() -> GameState:
 	var content_obj: GameContent = content()

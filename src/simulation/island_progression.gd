@@ -40,9 +40,9 @@ static func attach(content: GameContent) -> Dictionary:
 		content.era_ids = expanded.content.era_ids
 		content.content_version = expanded.content.content_version
 	# Content identity includes the progression contract, not just legacy tables.
-	if not content.content_version.ends_with("+" + VERSION):
+	if not ("+" + VERSION) in content.content_version:
 		content.content_version += "+" + VERSION
-	return {"ok": true}
+	return SkillSystem.attach(content)
 
 static func active(state: GameState) -> bool:
 	return state.economy.get("version", "") in [VERSION, LEGACY_VERSION]

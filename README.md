@@ -1,5 +1,7 @@
 # 修仙問道 v2
 
+2026-10-05 **SKILL-B1：採用使用者選 B**，保留六項一般技能並延續多島供給；修行→技能，築基後建藏經閣研習。舊成果完整保留，舊 Era2 經濟不覆蓋主線。[ADR-012](docs/decisions/ADR-012-optional-skills-with-islands.md)／[驗證](docs/verification/skills-b1.md)。
+
 2026-10-05 **Git進度整合**：主目錄成果已checkpoint，舊Codex工作樹VFX已合併至main；最終53/53 Runner、獨立Web匯出與桌面／短橫式試播通過。master一般技能／舊Era2經濟與ADR-011分歧，已保存並審查、未套回；正式開發以E:/WORK/Dao2的main為準。後續git pull --ff-only origin main，分歧須回報。[整合紀錄](docs/verification/git-progress-integration-2026-10-05.md)。FX3／D2／C／R2完整驗收狀態保持原限制。
 
 

@@ -4,7 +4,7 @@ extends RefCounted
 const BASIC_RESOURCE_KEYS := ["lingli", "money", "wood", "stone_low", "spirit_grass_low"]
 const SYNTHETIC_RESOURCE_KEYS := ["stone_mid", "stone_high", "liquid", "talisman", "star_metal", "void_crystal"]
 
-static func compute_rates(content: GameContent, buildings: Dictionary, resource_multiplier: float = 1.0) -> Dictionary:
+static func compute_rates(content: GameContent, buildings: Dictionary, resource_multiplier: float = 1.0, skills: Dictionary = {}) -> Dictionary:
 	var rates := {}
 	for resource_id in content.resource_ids:
 		var definition: Dictionary = content.resources[resource_id]
@@ -27,10 +27,16 @@ static func compute_rates(content: GameContent, buildings: Dictionary, resource_
 			elif rates.has(String(key)):
 				rates[key] = rates[key].add(scaled)
 	for resource_id in rates:
+		var addition := SkillSystem.effect(content, skills, String(resource_id) + "_rate")
+		var multiplier := SkillSystem.effect(content, skills, String(resource_id) + "_multiplier")
+		if addition != 0:
+			rates[resource_id] = rates[resource_id].add(AmountCompat.from_number(addition))
+		if multiplier != 1:
+			rates[resource_id] = rates[resource_id].multiply(AmountCompat.from_number(multiplier))
 		rates[resource_id] = rates[resource_id].multiply(AmountCompat.from_number(resource_multiplier))
 	return rates
 
-static func compute_caps(content: GameContent, buildings: Dictionary, era_id: int, onboarding_version: int) -> Dictionary:
+static func compute_caps(content: GameContent, buildings: Dictionary, era_id: int, onboarding_version: int, skills: Dictionary = {}) -> Dictionary:
 	var caps := {}
 	for resource_id in content.resource_ids:
 		var definition: Dictionary = content.resources[resource_id]
@@ -67,6 +73,9 @@ static func compute_caps(content: GameContent, buildings: Dictionary, era_id: in
 			if caps.has(resource_id):
 				caps[resource_id] = caps[resource_id].multiply(factor)
 	for resource_id in caps:
+		var addition := SkillSystem.effect(content, skills, String(resource_id) + "_max")
+		if addition != 0:
+			caps[resource_id] = caps[resource_id].add(AmountCompat.from_number(addition))
 		caps[resource_id] = caps[resource_id].floor_amount()
 	return caps
 

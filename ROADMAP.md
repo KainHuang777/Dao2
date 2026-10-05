@@ -1,5 +1,7 @@
 # 修仙問道 v2 — 可執行開發 Roadmap
 
+2026-10-05 **SKILL-B1 使用者插入任務**：選 B，適配旧 master 六技能至 Session／Amount／當世保存，延續多島與築基靈池。交付以 [驗證](docs/verification/skills-b1.md) 為準；人工平衡與 D2／R2 完整 DoD 不隨此任務放行。
+
 2026-10-05 **GIT-SYNC-INTEGRATION：保存／VFX合併與master審查交付**（使用者當次要求）：d54faa3保存主目錄、fb65890保存舊工作樹、47efd8d為VFX雙親合併。最終53/53、Web匯出及兩橫式滑鼠子範圍通過；舊master技能／Era2與ADR-011分歧保留未合併，不改正式RES1順序／DoD。[證據與分歧](docs/verification/git-progress-integration-2026-10-05.md)。
 
 
