@@ -1,5 +1,28 @@
 # 修仙問道 v2
 
+2026-10-05追加 **D2-R1 Web 保存矩陣子階段 PASS，完整 D2-R1／D2／D 仍 IN_PROGRESS**：最終 53/53 Runner／exit0；九案例、16份真實瀏覽器報告共400 checks（含215共用規則／MemoryAdapter診斷），空白正常命令到金丹十層採加速模擬秒，並非完整滑鼠通關。實際重載、quota、拒讀／拒寫、損壞、遷移及雙分頁通過；修復保存恢復後仍顯示失敗提示。正常開局滑鼠及丹霞加工拒寫／重試有追加證據。[Web驗收](docs/verification/res1-d2-web-r1.md)。剩餘自然時間完整滑鼠流程、人工／装置與C-R2放行；R2交AGY。updata已交接，New Chat續剩餘D2-R1；下方同日記錄保留歷史。
+
+2026-10-05最新 **RES1-D2-R1 世界／美術子階段交付；完整D2-R1／D2／D仍IN_PROGRESS**：丹霞獨立赤岩島體＋藥坊PNG、世界／管理雙向入口、真實貨運視覺及四島控制換行／題字避讓已接入。全量53/53／exit0，最後世界38＋管理87及三島26／響應式回歸通過；獨立Web匯出與兩橫式滑鼠／重載證據見[本輪驗收](docs/verification/res1-d2-r1.md)。正常Web新檔完整首段、D2保存故障矩陣與人工／裝置／C-R2放行仍待驗；R2仍交AGY。依Context Guard於世界子階段checkpoint，下一New Chat續D2-R1剩餘Web驗收。下方同日記錄保留歷史。
+
+2026-10-05最新 **RES1-D2 IN_PROGRESS（容量／技能方案與正常規則／管理接線已交付）**：使用者核定Era＋設施門檻及新增築基靈池；正常空白T1→金丹Lv10、丹霞丹液回運／T3／扣料與保存故障215 checks、52/52 Runner／exit0，最後呈現87 checks回歸／獨立Web匯出及1280×720.4／844×390滑鼠與重載通過。[D2驗收](docs/verification/res1-d2.md)／[ADR-011](docs/decisions/ADR-011-era3-capacity-and-skill-gates.md)。丹霞專用世界美術、完整Web新檔首段、人工玩法／裝置與C/R2門檻仍待驗，**D2／完整D IN_PROGRESS**；R2仍交AGY。下一New Chat續D2-R1，本輪不開下一大型階段；以下按日期保留歷史。
+
+
+2026-10-05最新 **RES1-D1 DONE（稽核＋隔離契約）**：216 checks／exit0，空白開局經T1建設到Era3 Lv10，丹霞原料回運、T2→T3、金丹與修行實際扣料通過；8份DAO1 source hash一致。發現正常版Era2→3靈力容量最高1100／需求2000阻擋，隔離容量與技能替代僅提案。[D1驗收](docs/verification/res1-d1.md)。完整D TODO、C／C2／R2 IN_PROGRESS；正式內容／保存／畫面未改。下一New Chat處理D2整合準備，R2仍由AGY负责。以下同日分工是開始前歷史。
+
+2026-10-05最新分工：使用者將 **R2交AGY**，Codex下一 **RES1-D1：Era3前置／丹霞T3隔離契約（TODO）**，可並行；R2／C／C2仍IN_PROGRESS、完整D仍TODO。已建[交接](docs/handoffs/2026-10-05-r2-agy.md)、[AGY Prompt](docs/handoffs/2026-10-05-agy-r2-prompt.md)與[Codex下一範圍／Prompt](docs/handoffs/2026-10-05-codex-res1-d1.md)，本輪未開始D1程式或新驗收。此分工覆蓋以下歷史「Codex只續R2／不跳D」接手順序，保留正式放行門檻。
+
+2026-10-05最新 **R2持續劣化定位：本輪未重現，根因未結案**。同版正常1280×720／DPR約1，三組300秒59.744／59.564（50次管理操作）／59.744、重載60秒59.847均恢復PASS；同期CPU／GPU取證已保存。DPR與進度不同，不能消除前輪DPR1.25失敗；GPU process高CPU與heap大小不足以單獨解釋。**R2／C／C2 IN_PROGRESS、D TODO**，下一同進度DPR1.25重現／對照。[定位證據](docs/verification/res1-c2-sustained-degradation.md)。
+
+2026-10-04最新 **R2正常恢復／長觀測驗收 NOT_PASSED**：正常60秒59.880、首組300秒59.823通過；有間隔50次管理操作的300秒54.740（末45秒低谷）、同頁延長300秒48.088、重載60秒35.105均未恢復。無遊戲對照59.997只作診斷，不替代遊戲通過；木屋2→3／扣料重載、三島滑鼠與完整模式正常。Python16／Node13契約通過，無新Godot來源／匯出／51 Runner。**R2／C／C2 IN_PROGRESS、D TODO**；下一定位持續劣化，裝置／人工另待驗。[本輪驗收](docs/verification/res1-c2-recovery-browser.md)。較早政策修訂與通過結果保留歷史，New Chat續同R2。
+
+2026-10-04使用者核定[FPS恢復標準](docs/decisions/ADR-010-idle-frame-recovery-budget.md)：常態目標60、偶發30後回升可接受；阻擋持續低FPS／劣化未恢復，取消精確平均60與p95≤20硬gate。工具正常60／300秒與16／13契約通過，舊15秒樣本只符合短窗口、長觀測待補。**R2／C／C2 IN_PROGRESS、D TODO**；以下嚴格60結果保留歷史。[修訂驗收](docs/verification/res1-c2-idle-fps-policy.md)。
+
+2026-10-04最新[R2長幀入口追蹤](docs/verification/res1-c2-main-loop-tracing.md)：新增preflight與Long Animation Frames；83.3ms長幀對應Godot Web MainLoop_runner84.1ms，同窗process0.4ms，內部根因仍待追蹤。51/51／world26通過，正常1280×720三組pooled57.887FPS／p95 16.9ms，嚴格60未過；**R2／C／C2 IN_PROGRESS、D TODO**。英文checkpoint已更新，New Chat續同R2。
+
+2026-10-04最新[R2 View／encode與長幀](docs/verification/res1-c2-view-encode-longframes.md)：固定快照encode17.368→14.9985ms、定時View減少重建；51/51／resource754／world26／Web retry49通過。非profile59.619FPS／p95 16.8ms／max183.3，嚴格60未過；另profile捕捉166.8ms rAF與180ms LongTask，同窗已量process0.3ms，根因未完全定位。**R2／C／C2 IN_PROGRESS、D TODO**；英文checkpoint已寫，New Chat續同R2未覆蓋task耗時。
+
+2026-10-04最新[HUD優化](docs/verification/res1-c2-hud-optimization.md)：導覽沿用當輪View、資源卡合併刷新與狀態變更才換材質已交付。51/51、資源顯示752、world26通過；修正版三組profile HUD5.58–5.82ms，非profile pooled59.508FPS／p95 16.8ms／max183.4ms，嚴格60仍未過。前輪診斷為歷史對照，非相同快照配對。R2／C／C2 IN_PROGRESS、D TODO；下一同R2剩餘View／保存編碼與長幀，用New Chat接續。
+
 2026-10-04 R2最新[耗時定位](docs/verification/res1-c2-perf-r2-profile.md)：三組1280×720／DPR約1，HUD平均12.7–12.8ms（導覽5.0–5.1ms、建築／資源清單3.7–3.9ms），保存18.1–22.7ms、編碼佔大部。本輪交付預設關閉的profile工具，未做效能改善；未重現200ms、嚴格60未放行。基礎版51/51、最終世界26通過。下一同R2改善HUD重複View／資源卡刷新，**不跳D**。
 
 2026-10-04 R2最新[桌面FPS複測](docs/verification/res1-c2-perf-r2-fps.md)：1280×650／DPR1.25三組遊戲pooled **59.019FPS**、p95均16.8ms／max200ms；三組無遊戲對照59.997。量測工具13契約通過，嚴格60仍未過；下一同R2定位秒級更新／保存成本，裝置／人工待驗，**不跳D**。本輪未改Godot，下面51/51與節流啟動屬前輪結果。
@@ -44,7 +67,7 @@ M4-A-R1 正式 Session／桌面 Web 整合驗收已完成：251 checks、40/40 R
 ## 開發與驗證
 
 - Godot `4.7.2.stable.official.ed1daf0bf`、GDScript、Compatibility、單執行緒 Web。
-- 使用 PowerShell 從專案根目錄執行現有 51 Runner（清單以腳本為準）：
+- 使用 PowerShell 從專案根目錄執行現有 53 Runner（清單以腳本為準）：
 
   ```powershell
   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1

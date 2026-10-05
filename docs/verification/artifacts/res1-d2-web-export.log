@@ -1,0 +1,72 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started 專案初始化中 (5 steps)
+[   0% ] first_scan_filesystem | 正在掃描檔案結構…
+[  16% ] first_scan_filesystem | 正在載入全域類別名稱…
+[  33% ] first_scan_filesystem | 正在驗證 GDExtension…
+[  50% ] first_scan_filesystem | 正在建立自動載入腳本…
+[  66% ] first_scan_filesystem | 初始化外掛程式...
+[  83% ] first_scan_filesystem | 開始掃描檔案...
+[ DONE ] first_scan_filesystem
+
+[   0% ] _update_scan_actions | Started 掃描動作中... (54 steps)
+[   0% ] _update_scan_actions | web-alchemy-844x390.png
+[   1% ] _update_scan_actions | web-beasts-844x390.png
+[   3% ] _update_scan_actions | web-beasts-1280x720.png
+[   5% ] _update_scan_actions | web-decisions-844x390.png
+[   7% ] _update_scan_actions | web-fortune-844x390.png
+[   9% ] _update_scan_actions | web-outposts-844x390.png
+[  10% ] _update_scan_actions | web-portrait-cold-start-360x640.png
+[  12% ] _update_scan_actions | web-realms-844x390.png
+[  14% ] _update_scan_actions | web-realms-1280x720.png
+[  16% ] _update_scan_actions | res1-c2-degradation-actions-end.png
+[  18% ] _update_scan_actions | res1-c2-degradation-actions-mid.png
+[  20% ] _update_scan_actions | res1-c2-degradation-extended.png
+[  21% ] _update_scan_actions | res1-c2-degradation-reload.png
+[  23% ] _update_scan_actions | res1-c2-encode-desktop.png
+[  25% ] _update_scan_actions | res1-c2-encode-reload.png
+[  27% ] _update_scan_actions | res1-c2-encode-reloaded-level.png
+[  29% ] _update_scan_actions | res1-c2-encode-short.png
+[  30% ] _update_scan_actions | res1-c2-encode-web-retry.png
+[  32% ] _update_scan_actions | res1-c2-perf-bgm-toggle.png
+[  34% ] _update_scan_actions | res1-c2-perf-browser-retry49.png
+[  36% ] _update_scan_actions | res1-c2-perf-cold-final.png
+[  38% ] _update_scan_actions | res1-c2-perf-home-short.png
+[  40% ] _update_scan_actions | res1-c2-perf-offline-progress.png
+[  41% ] _update_scan_actions | res1-c2-perf-offline-reload.png
+[  43% ] _update_scan_actions | res1-c2-perf-offline-summary.png
+[  45% ] _update_scan_actions | res1-c2-perf-ore-short-scroll.png
+[  47% ] _update_scan_actions | res1-c2-perf-ore-short.png
+[  49% ] _update_scan_actions | res1-c2-perf-r2-fps-v3-review.png
+[  50% ] _update_scan_actions | res1-c2-perf-web-switch-10.png
+[  52% ] _update_scan_actions | res1-c2-perf-web-switch-20.png
+[  54% ] _update_scan_actions | res1-c2-perf-web-switch-30.png
+[  56% ] _update_scan_actions | res1-c2-perf-web-switch-40.png
+[  58% ] _update_scan_actions | res1-c2-perf-web-switch-50.png
+[  60% ] _update_scan_actions | res1-c2-perf-wood-desktop.png
+[  61% ] _update_scan_actions | res1-c2-perf-wood-management.png
+[  63% ] _update_scan_actions | res1-c2-task-normal.png
+[  65% ] _update_scan_actions | res1-d2-r1-compact-final.png
+[  67% ] _update_scan_actions | res1-d2-r1-compact-stop.png
+[  69% ] _update_scan_actions | res1-d2-r1-desktop.png
+[  70% ] _update_scan_actions | res1-d2-r1-management.png
+[  72% ] _update_scan_actions | res1-d2-r1-release-compact.png
+[  74% ] _update_scan_actions | res1-d2-r1-release-desktop.png
+[  76% ] _update_scan_actions | res1-d2-r1-release-home.png
+[  78% ] _update_scan_actions | res1-d2-r1-release-management.png
+[  80% ] _update_scan_actions | text-level-desktop.png
+[  81% ] _update_scan_actions | text-level-reload.png
+[  83% ] _update_scan_actions | text-level-short.png
+[  85% ] _update_scan_actions | world-text-desktop.png
+[  87% ] _update_scan_actions | world-text-far.png
+[  89% ] _update_scan_actions | world-text-minimum.png
+[  90% ] _update_scan_actions | world-text-short.png
+[  92% ] _update_scan_actions | ui-first-glimpse-v1.png
+[  94% ] _update_scan_actions | ui-home-v1.png
+[  96% ] _update_scan_actions | ui-nine-realms-v1.png
+[ DONE ] _update_scan_actions
+
+ERROR: 匯出: 目標資料夾不存在或無法存取：「.\build\res1d2-web」
+   at: add_message (./editor/export/editor_export_platform.h:270)
+ERROR: Project export for preset "WebPersistenceTest" failed.
+   at: _fs_changed (editor/editor_node.cpp:1417)

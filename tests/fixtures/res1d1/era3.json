@@ -1,0 +1,33 @@
+{
+  "fixture_version": "res1-d1-1",
+  "purpose": "isolated memory-only dependency and consumption contract; never release content or save",
+  "policy": "DAO1 Era3 time/lifespan/base costs; v2 skill-free island gate and additional T2/T3 cultivation costs, unbalanced",
+  "capacity_proposal": {"building_id": "storage_lingli", "effect": "lingli_max", "per_level": 250, "reason": "release cap 10 * 100 + 100 = 1100 cannot meet Era2 breakthrough 2000; isolated v2 proposal only"},
+  "era": {
+    "id": 3,
+    "name": "金丹期",
+    "max_level": 10,
+    "resource_multiplier": 2,
+    "lifespan": 540,
+    "level_up_requirements": {
+      "base_time": 240,
+      "time_multiplier": 1.22,
+      "resources": {"lingli": 2000, "money": 500, "stone_mid": 50, "liquid": 1, "formation_core": 1},
+      "lv9_item": {"type": "talisman", "amount": 10}
+    },
+    "upgrade_requirements": {"level": 10, "capacity": {"lingli": 10000, "stone_low": 5000}}
+  },
+  "producers": {
+    "spirit_timber": "wood", "bronze_essence": "ore",
+    "formation_core": "home", "liquid": "home", "foundation_pill": "home",
+    "stone_mid": "home", "talisman": "home", "golden_core_pill": "home"
+  },
+  "danxia": {
+    "island_id": "herb", "name": "丹霞島", "visible_era": 2, "open_era": 3,
+    "opening_cost": {"wood": 20, "stone_low": 10},
+    "initial_facilities": "B prototype extractor/workshop/dock bundled by T1 opening; no separate build commands",
+    "capacity_per_resource": 100, "routes": ["grass_home", "herb_home"],
+    "route_seconds": 10, "route_cargo": [10, 20],
+    "skill_policy": "v2 isolated Era-only source; legacy golden_core_formation not implemented"
+  }
+}

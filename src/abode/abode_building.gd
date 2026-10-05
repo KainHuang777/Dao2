@@ -42,6 +42,8 @@ func pulse_upgrade() -> void:
 	upgrade_flash = 1.0
 
 func _process(delta: float) -> void:
+	if not visible:
+		return
 	clock_time += delta
 	upgrade_flash = maxf(0, upgrade_flash - delta * 0.8)
 	var status_text := ""

@@ -1,0 +1,9 @@
+Godot --version: 4.7.2.stable.official.ed1daf0bf, exit 0
+tools/test_system_load_summary.py: 6 contracts PASS, exit 0
+tools/summarize_frame_metrics.py --self-test: 16 contracts PASS, exit 0
+tools/test_frame_metrics.mjs: 13 contracts PASS, exit 0
+PowerShell Parser sample_gpu_load.ps1: PASS, exit 0
+Initial Get-NetTCPConnection: CIM access denied, exit 1; replaced by authorized read-only Get-Process/CIM sampling
+rg src/abode/*.gd and settings*: PowerShell glob path errors, exit 1; used directory -g queries / existing source instead
+No Godot source/export changes; no full 51-runner rerun
+Final git diff --check: exit 0, existing LF-to-CRLF notices retained

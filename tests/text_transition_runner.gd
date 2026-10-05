@@ -73,6 +73,8 @@ func _run() -> void:
 			var era: Dictionary = abode.content.era(era_id)
 			abode.session.state.training_seconds = Cultivation.next_level_required_seconds(era, previous_level, 0.0, 1.0)
 			for resource_id in Cultivation.level_up_cost(era, previous_level, 0.0):
+				if not abode.session.state.resources.has(resource_id):
+					abode.session.state.resources[resource_id] = {"value": AmountCompat.zero(), "unlocked": true, "ever_obtained": false} # UI diagnostic stock, not earned-flow evidence
 				abode.session.state.resources[resource_id].value = Cultivation.level_up_cost(era, previous_level, 0.0)[resource_id]
 			abode.camera.input_locked = false
 			abode.reduced_motion = era_id % 2 == 0

@@ -23,7 +23,10 @@ PAGE = '''<!doctype html><meta charset="utf-8"><title>RES1-C 三島隔離驗收<
 <p id="status">獨立測試origin／dao2_islands_preview；不讀玩家dao2_saves。</p><iframe id="game" title="三島Godot預覽"></iframe>
 <script>
 const prefix='dao2_islands_preview:';
-const destination=location.search.includes('profile=1') ? '/profile.html' : (location.search.includes('metrics=1') ? '/metrics.html' : (location.search.includes('fault=write') ? '/fault.html?fault=write' : '/index.html'));
+const diagnosticSeconds=new URLSearchParams(location.search).get('profileSeconds')==='60' ? '?profileSeconds=60' : '';
+const normalSeconds=new URLSearchParams(location.search).get('sampleSeconds');
+const normalSample=['60','300'].includes(normalSeconds) ? '?sampleSeconds='+normalSeconds : '';
+const destination=location.search.includes('profile=1') ? '/profile.html'+diagnosticSeconds : (location.search.includes('metrics=1') ? '/metrics.html'+normalSample : (location.search.includes('fault=write') ? '/fault.html?fault=write' : '/index.html'));
 document.getElementById('seed').onclick=async()=>{
  if(localStorage.getItem(prefix+'save_main')||localStorage.getItem(prefix+'save_backup')){document.getElementById('status').textContent='已有隔離進度，保留原檔；按開啟隔離遊戲繼續。';return;}
  const raw=await (await fetch('/fixture')).text(); const saved=JSON.parse(raw);

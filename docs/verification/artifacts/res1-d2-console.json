@@ -1,0 +1,14 @@
+[
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-04T17:47:58.840Z",
+    "url": "http://127.0.0.1:4256/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-04T17:47:58.841Z",
+    "url": "http://127.0.0.1:4256/index.js"
+  }
+]

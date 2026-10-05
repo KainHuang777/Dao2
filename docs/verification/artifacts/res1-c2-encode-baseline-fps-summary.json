@@ -1,0 +1,112 @@
+{
+  "method": "R2 v3 rAF proxy; raw intervals recomputed; all comparable game samples required",
+  "thresholds": {
+    "fps": 60,
+    "p95Ms": 20,
+    "minimumGameSamples": 3
+  },
+  "comparable": true,
+  "groups": {
+    "game": {
+      "samples": 3,
+      "pooledFps": 59.88582805767704,
+      "strict60PassSamples": 0,
+      "p95AtMost20PassSamples": 3
+    },
+    "raf_control": {
+      "samples": 0,
+      "pooledFps": null,
+      "strict60PassSamples": 0,
+      "p95AtMost20PassSamples": 0
+    }
+  },
+  "strictDesktopGate": "NOT_PASSED",
+  "samples": [
+    {
+      "url": "http://127.0.0.1:4244/metrics.html",
+      "sequence": 1,
+      "sampledAtUtc": "2026-10-04T13:01:22.462Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          650
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 899,
+      "intervalDurationMs": 15000.800000000001,
+      "fps": 59.93013705935683,
+      "medianMs": 16.69999999999891,
+      "p95Ms": 16.799999999999272,
+      "p99Ms": 16.899999999997817,
+      "maxMs": 33.20000000000073,
+      "over20Ms": 1
+    },
+    {
+      "url": "http://127.0.0.1:4244/metrics.html",
+      "sequence": 2,
+      "sampledAtUtc": "2026-10-04T13:01:48.871Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          650
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 900,
+      "intervalDurationMs": 15000.700000000004,
+      "fps": 59.99720013066055,
+      "medianMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "p99Ms": 16.900000000001455,
+      "maxMs": 17.299999999995634,
+      "over20Ms": 0
+    },
+    {
+      "url": "http://127.0.0.1:4244/metrics.html",
+      "sequence": 3,
+      "sampledAtUtc": "2026-10-04T13:02:16.139Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          650
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 896,
+      "intervalDurationMs": 15000.800000000003,
+      "fps": 59.73014772545463,
+      "medianMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "p99Ms": 16.90000000000873,
+      "maxMs": 33.5,
+      "over20Ms": 4
+    }
+  ],
+  "rejected": [],
+  "note": "Controls characterize browser scheduling only. No GPU, phone, high-DPR or human acceptance inferred."
+}

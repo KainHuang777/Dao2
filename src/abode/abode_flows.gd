@@ -51,12 +51,11 @@ func _draw() -> void:
 			draw_set_transform(point, tangent.angle())
 			draw_texture_rect(SWORD, Rect2(-38, -38, 76, 76), false, Color.WHITE if active else Color(0.5, 0.65, 0.68))
 			draw_set_transform(Vector2.ZERO)
-	var particles: int = 10 if reduced_motion else 55
+	var particles: int = 8 if reduced_motion else 24
 	for i in particles:
 		var phase: float = fposmod(float(i) * 0.618 + elapsed * 0.16, 1.0)
 		var radius: float = (1.0 - phase) * 175.0
 		var angle: float = i * 2.4 + phase * 3.5
 		var point: Vector2 = altar + Vector2(cos(angle) * radius, sin(angle) * radius * 0.45 - phase * 35)
 		var alpha: float = sin(phase * PI) * 0.8
-		draw_circle(point, 5, Color(0.5, 1.0, 0.83, alpha * 0.1))
-		draw_circle(point, 1.6 + (i % 3) * 0.5, Color(0.77, 1.0, 0.84, alpha))
+		draw_circle(point, 1.8 + (i % 3) * 0.5, Color(0.77, 1.0, 0.84, alpha))

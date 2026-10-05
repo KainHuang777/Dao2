@@ -20,6 +20,7 @@ const ROUTES := {
 	"bronze_home": ["ore", "home", "bronze_essence"],
 	"grass_home": ["herb", "home", "spirit_grass_low"],
 	"herb_home": ["herb", "home", "spirit_grass_100y"],
+	"liquid_home": ["herb", "home", "liquid"],
 }
 
 static func initial() -> Dictionary:
@@ -60,7 +61,7 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 	if not island is String or not ISLANDS.has(island):
 		return _fail("UNKNOWN_ISLAND")
 	if kind == "open_island":
-		if IslandProgression.active(state) and not island in IslandProgression.NAMES:
+		if state.economy.get("version") == IslandProgression.LEGACY_VERSION and island == "herb":
 			return _fail("ERA_REQUIREMENT")
 		if state.economy.islands[island].opened:
 			return _fail("ISLAND_ALREADY_OPEN")
@@ -185,7 +186,7 @@ static func free_space(state: GameState, island: String, id: String, catalog: Di
 
 static func _start(state: GameState, catalog: Dictionary, island: String, job: Dictionary) -> String:
 	var recipe: Dictionary = catalog.recipes[job.recipe_id]
-	if IslandProgression.active(state) and (not IslandProgression.RECIPES.has(island) or IslandProgression.RECIPES[island] != job.recipe_id):
+	if IslandProgression.active(state) and not IslandProgression.owns(state, island, job.recipe_id):
 		return "RECIPE_ISLAND_REQUIREMENT"
 	if state.era_id < int(recipe.era):
 		return "ERA_REQUIREMENT"
@@ -344,7 +345,7 @@ static func validate(state: GameState) -> String:
 	var e := state.economy
 	if e.is_empty():
 		return ""
-	if not e.get("version") in [VERSION, IslandProgression.VERSION] or not _integer(e.get("tick"), 0, 2000000000):
+	if not e.get("version") in [VERSION, IslandProgression.VERSION, IslandProgression.LEGACY_VERSION] or not _integer(e.get("tick"), 0, 2000000000):
 		return "ECONOMY_VERSION_OR_TICK"
 	for key in ["islands", "jobs", "routes", "trips"]:
 		if not e.get(key) is Dictionary:
@@ -370,7 +371,7 @@ static func validate(state: GameState) -> String:
 					return "ECONOMY_FACILITY_LEVEL"
 				if (island == "home" or not slot.opened) and int(slot.facilities[facility]) != 1:
 					return "ECONOMY_CLOSED_FACILITY"
-			if island == "herb" and slot.opened:
+			if island == "herb" and slot.opened and e.version == IslandProgression.LEGACY_VERSION:
 				return "ECONOMY_FUTURE_ISLAND"
 		if island == "home" and (not slot.opened or not slot.inventory.is_empty()):
 			return "ECONOMY_HOME_ALIAS"
@@ -386,7 +387,7 @@ static func validate(state: GameState) -> String:
 		var id: Variant = job.get("recipe_id")
 		if not id is String or not DURATIONS.has(id) or job.get("recipe_version") != 1:
 			return "ECONOMY_RECIPE_VERSION"
-		if IslandProgression.active(state) and IslandProgression.RECIPES.get(island) != id:
+		if IslandProgression.active(state) and not IslandProgression.owns(state, island, id):
 			return "ECONOMY_RECIPE_ISLAND"
 		if not _integer(job.get("remaining"), 0, DURATIONS[id]) or not _integer(job.get("batches"), 0, 1000000) or not job.get("repeat") is bool or not job.get("status") is String or not job.get("reserves") is Dictionary:
 			return "ECONOMY_JOB_FIELDS"

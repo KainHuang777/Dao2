@@ -1,0 +1,130 @@
+{
+  "task": "RES1-D2-R1",
+  "version": 1,
+  "date": "2026-10-05",
+  "status": "Danxia world integration; human art/playability acceptance pending",
+  "pipeline": {
+    "map_mode": "scene_mode",
+    "visual_model": "layered_raster",
+    "runtime_object_model": "separate_props + interactive_scene_objects",
+    "collision_model": "trigger_zones",
+    "engine_target": "Godot project-native"
+  },
+  "license_provenance": "Original AI-generated project artwork, subject to applicable account service terms. No third-party game art copied. No independent exclusivity/copyright guarantee asserted.",
+  "project_references": [
+    "assets/abode/res1c3/wood_body.png",
+    "assets/abode/res1c3/wood_landmark.png"
+  ],
+  "runtime_controller": "src/presentation/island_world.gd",
+  "objects": [
+    {
+      "id": "herb_workshop",
+      "type": "composite medicinal industry landmark",
+      "classification": "tall_or_large_object",
+      "asset_strategy": "one_by_one",
+      "render_order": 1,
+      "collision_role": "canonical management trigger; no walking actors"
+    }
+  ],
+  "placement": {
+    "herb": {
+      "world_position": [
+        0,
+        -1550
+      ],
+      "preview_era": 2,
+      "opening_era": 3
+    },
+    "body": {
+      "anchor": "center",
+      "position": [
+        0,
+        0
+      ],
+      "display_width": 780,
+      "render_order": 0
+    },
+    "landmark": {
+      "anchor": "center",
+      "position": [
+        0,
+        -170
+      ],
+      "display_width": 440,
+      "render_order": 1,
+      "visibility": "economy.islands.herb.opened"
+    },
+    "interaction": {
+      "local_rect": [
+        -390,
+        -210,
+        780,
+        370
+      ],
+      "action": "canonical outposts/herb management route",
+      "camera": "island_world.enter; reframe on viewport change",
+      "return": "home",
+      "actor_collision": "not applicable: no walking actors"
+    },
+    "transport": "grass_home/herb_home/liquid_home only when actual economy.trips exist; no animation payouts"
+  },
+  "assets": [
+    {
+      "file": "assets/abode/res1d2/herb_body.png",
+      "prompt": "herb_body.prompt.txt",
+      "sha256": "3752b58db17f872a2fac017f421d52145b9a571abfb43f11ff91b1b8923d8a62",
+      "bytes": 2859267,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 581018,
+      "runtime": true,
+      "layer": "body",
+      "origin": "OpenAI built-in image_gen, 2026-10-05",
+      "generation": "Independent generated asset; reference is not sliced into runtime sprites"
+    },
+    {
+      "file": "assets/abode/res1d2/herb_dressed_reference.png",
+      "prompt": "herb_dressed_reference.prompt.txt",
+      "sha256": "06504f4f1fd59b1247d3c21918922fb888cda7cfbc0a7347d853990c52967264",
+      "bytes": 2951162,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 588368,
+      "runtime": false,
+      "layer": "dressed_reference",
+      "origin": "OpenAI built-in image_gen, 2026-10-05",
+      "generation": "Independent generated asset; reference is not sliced into runtime sprites"
+    },
+    {
+      "file": "assets/abode/res1d2/herb_landmark.png",
+      "prompt": "herb_landmark.prompt.txt",
+      "sha256": "de2e56d5a1514a6afcbbed51ef56108c323cff8077d5534f243598af2dacbb1d",
+      "bytes": 2848545,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "fully_transparent_pixels": 690683,
+      "runtime": true,
+      "layer": "landmark",
+      "origin": "OpenAI built-in image_gen, 2026-10-05",
+      "generation": "Independent generated asset; reference is not sliced into runtime sprites"
+    }
+  ]
+}

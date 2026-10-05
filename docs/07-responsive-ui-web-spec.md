@@ -1,5 +1,13 @@
 # 響應式介面與 Web 畫布規格
 
+2026-10-05 D2-R1：四島世界控制列依HUD可用寬度與紙面內距使用HFlowContainer換行，底部避讓導航實際位置；短Banner單行，遠島隱藏原祖島／山域題字，歸家恢復。CLI world38與真實Web1280×720.4／844×390子範圍見[驗收](verification/res1-d2-r1.md)；實機／高DPR／FPS與完整Web首段仍待驗。
+
+2026-10-04使用者核定：[ADR-010 FPS恢復驗收](decisions/ADR-010-idle-frame-recovery-budget.md)。桌面常態目標60、偶發30後回升可接受；5秒窗≥55占80%以上、末10秒恢復為工具工程定義，正常≥60秒＋另5分鐘／操作趋势證據。低谷10秒列警示，不單独阻擋；常態低FPS／末段不恢復才不通過。取消精確平均≥60與p95≤20硬gate，保留p95／p99／max診斷與手機30／40ms契約。以下舊嚴格60記錄保留歷史，不再作新gate；[本輪修訂](verification/res1-c2-idle-fps-policy.md)。
+
+2026-10-04 R2最新[長幀入口診斷](verification/res1-c2-main-loop-tracing.md)：正常頂層實際1280×720／DPR約1，三組pooled57.887FPS／p95 16.9ms，嚴格60未過。profile iframe1280×721與頂層1280×720分開記錄，LoAF只提供入口elapsed歸屬，不能冒稱GPU或手機證據。沒有正式Godot版型改動；原窄版／觸控／高DPR與人工缺口保持。
+
+2026-10-04 R2最新有界證據：遊戲1280×650／DPR1.25（不是viewport override宣稱的720）及實測844×390，定時View／保存JSON重用後非profile三組pooled59.619FPS／p95 16.8ms／max183.3，嚴格60未過。60秒profile與LongTasks只作長幀診斷、排除FPS gate；166.8ms rAF＋180ms task同窗已量process0.3ms無函式歸屬。桌面命令扣料／重載、短橫式捲動／模式／固定返回通過；觸控／DPR2/3等仍待驗，詳[R2本輪](verification/res1-c2-view-encode-longframes.md)。
+
 2026-10-04 R2最新[FPS複測](verification/res1-c2-perf-r2-fps.md)：同1280×650 CSS iframe／DPR1.25，三遊戲pooled59.019FPS／p95均16.8ms／max200ms，三無遊戲對照59.997。v3保存整段visibility／resize與開始／結束DPR／ready條件；無效樣本不得放行，raw gaps重算並保留全部樣本。60FPS門檻未改；此桌面iframe不是1280×720配對前後比較、手機／高DPR／GPU驗收。本轮没有正式Godot版面變更；下一仍R2個別耗時定位與裝置／人工。
 
 2026-10-04 PERF-R2續輪：FrameBudget **14ms**，20Mbps／100ms、1280×650 CSS iframe／DPR約1的新origin長離線ready9.801／9.777秒，結算p95均16.8ms、max33.3／16.9ms；同輪基線13.565秒。1280×720正常遊戲59.930FPS／p95 16.8ms／max33.2ms，嚴格60仍未過。另無遊戲rAF對照59.997FPS（初始DPR1.25），只是排程對照，不放寬門檻或當GPU／手機證據。844×390 CSS iframe滑鼠切島／捲動／固定關閉／返回通過；直接viewport override曾產生843×389，最後採既有launcher的實測844×390 iframe，未改正式canvas。 [續輪驗收](verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)；下面10ms結果為同日較早歷史。

@@ -1,7 +1,7 @@
 extends Node2D
 ## Layered island presentation: artwork reads economy, never produces resources.
-const LOCATIONS := {"wood": Vector2(1450, -100), "ore": Vector2(-1450, -100)}
-const ROLES := {"home": "修行與祖業", "wood": "林業・靈材加工", "ore": "採礦・銅精加工"}
+const LOCATIONS := {"wood": Vector2(1450, -100), "ore": Vector2(-1450, -100), "herb": Vector2(0, -1550)}
+const ROLES := {"home": "修行與祖業", "wood": "林業・靈材加工", "ore": "採礦・銅精加工", "herb": "靈草採集・丹液提煉"}
 var abode: Node
 var current := "home"
 var roots := {}
@@ -9,6 +9,8 @@ var bodies := {}
 var landmarks := {}
 var rail: MarginContainer
 var title: Label
+var world_controls: HFlowContainer
+var world_panel: PanelContainer
 var buttons := {}
 var banner_until := 0
 var framed_size := Vector2.ZERO
@@ -43,15 +45,18 @@ func build(scene: Node) -> void:
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	align.add_child(center)
 	var panel := PanelContainer.new()
+	world_panel = panel
 	panel.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
 	center.add_child(panel)
 	var column := VBoxContainer.new()
 	panel.add_child(column)
 	title = Label.new()
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.add_theme_color_override("font_color", UiMaterial.INK)
 	column.add_child(title)
-	var row := HBoxContainer.new()
+	var row := HFlowContainer.new()
+	world_controls = row
 	column.add_child(row)
 	for id in IslandProgression.NAMES:
 		var button := Button.new()
@@ -86,12 +91,17 @@ func refresh() -> void:
 		abode.camera.focus_home()
 	if available:
 		var status := "祖業保留" if current == "home" else ("產業已開拓" if landmarks[current].visible else "待開拓・可查看條件")
+		if current == "herb" and not landmarks.herb.visible:
+			status = "金丹解鎖・可查看條件" if abode.session.state.era_id < 3 else ("待開拓・可查看條件" if abode.session.state.economy.get("version") == IslandProgression.VERSION else "需接續丹霞產業・保留原檔")
 		var detail: String = ROLES[current] if Time.get_ticks_msec() < banner_until else status
 		title.text = ("%s・%s" if abode.hud.size.y < 500 else "人界・%s\n%s") % [IslandProgression.NAMES[current], detail]
-		# Reserve HUD and navigation areas, preserving a usable world center.
-		rail.add_theme_constant_override("margin_left", int(abode.header.size.x + 24))
+		# Wrap the four-island controls inside the safe width; never grow the HUD.
+		var safe_left := int(abode.header.size.x + 24)
+		var panel_padding := world_panel.get_theme_stylebox("panel").get_minimum_size().x
+		world_controls.custom_minimum_size.x = maxf(90.0, minf(510.0, abode.hud.size.x - safe_left - 16.0 - panel_padding))
+		rail.add_theme_constant_override("margin_left", safe_left)
 		rail.add_theme_constant_override("margin_right", 16)
-		rail.add_theme_constant_override("margin_bottom", 70)
+		rail.add_theme_constant_override("margin_bottom", int(abode.hud.size.y - abode.toolbar.position.y + 12.0))
 		if rail.visible:
 			abode.hint_panel.visible = false
 	queue_redraw()
@@ -99,17 +109,19 @@ func refresh() -> void:
 func _ensure_art(id: String) -> void:
 	# Unavailable Era1 islands allocate no textures; cache once when Era2 is reached.
 	if bodies[id].texture == null:
-		bodies[id].texture = load("res://assets/abode/res1c3/%s_body.png" % id)
+		var folder := "res1d2" if id == "herb" else "res1c3"
+		bodies[id].texture = load("res://assets/abode/%s/%s_body.png" % [folder, id])
 		bodies[id].scale = Vector2.ONE * (780.0 / bodies[id].texture.get_width())
 	if landmarks[id].texture == null:
-		landmarks[id].texture = load("res://assets/abode/res1c3/%s_landmark.png" % id)
+		var folder := "res1d2" if id == "herb" else "res1c3"
+		landmarks[id].texture = load("res://assets/abode/%s/%s_landmark.png" % [folder, id])
 		landmarks[id].scale = Vector2.ONE * (440.0 / landmarks[id].texture.get_width())
 
 func _draw() -> void:
 	if abode == null or abode.session.state.era_id < 2:
 		return
 	var economy: Dictionary = abode.session.state.economy
-	for id in ["wood_ore", "ore_wood", "timber_home", "bronze_home"]:
+	for id in IslandEconomy.ROUTES:
 		var trip: Dictionary = economy.get("trips", {}).get(id, {})
 		if trip.is_empty():
 			continue

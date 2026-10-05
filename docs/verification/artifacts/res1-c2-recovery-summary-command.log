@@ -1,0 +1,1611 @@
+{
+  "method": "Idle recovery policy v1; v3 rAF raw intervals; all supplied samples retained",
+  "policyVersion": "idle-recovery-v1",
+  "thresholds": {
+    "targetFps": 60,
+    "nearTargetFps": 55,
+    "windowMs": 5000,
+    "minimumNearTargetTimeRatio": 0.8,
+    "sustainedLowMs": 10000,
+    "recoveryTailMs": 10000,
+    "minimumSampleDurationMs": 60000
+  },
+  "comparable": true,
+  "groups": {
+    "game": {
+      "samples": 5,
+      "pooledFps": 53.42572434216306,
+      "exact60TargetSamples": 0,
+      "p95AtMost20Samples": 2,
+      "eligibleRecoverySamples": 5,
+      "recoveryPassSamples": 2
+    },
+    "raf_control": {
+      "samples": 1,
+      "pooledFps": 59.99700014999251,
+      "exact60TargetSamples": 0,
+      "p95AtMost20Samples": 1,
+      "eligibleRecoverySamples": 1,
+      "recoveryPassSamples": 1
+    }
+  },
+  "desktopRecoveryGate": "NOT_PASSED",
+  "samples": [
+    {
+      "url": "http://127.0.0.1:4248/metrics.html?sampleSeconds=60",
+      "sequence": 1,
+      "sampledAtUtc": "2026-10-04T14:56:28.395Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 3593,
+      "intervalDurationMs": 60003.0,
+      "fps": 59.88033931636752,
+      "medianMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "p99Ms": 16.89999999999418,
+      "maxMs": 33.39999999999418,
+      "over20Ms": 7,
+      "durationMs": 60005.10000000596,
+      "eligibleRecoverySample": true,
+      "recovery": {
+        "windows": [
+          {
+            "endMs": 5000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99879518072291,
+            "nearTarget": true
+          },
+          {
+            "endMs": 10000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79641440011544,
+            "nearTarget": true
+          },
+          {
+            "endMs": 15000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041911,
+            "nearTarget": true
+          },
+          {
+            "endMs": 20000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79409039064727,
+            "nearTarget": true
+          },
+          {
+            "endMs": 25000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99872398061022,
+            "nearTarget": true
+          },
+          {
+            "endMs": 30000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59760479041919,
+            "nearTarget": true
+          },
+          {
+            "endMs": 35000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562872,
+            "nearTarget": true
+          },
+          {
+            "endMs": 40000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041919,
+            "nearTarget": true
+          },
+          {
+            "endMs": 45000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79608782435126,
+            "nearTarget": true
+          },
+          {
+            "endMs": 50000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59672654690624,
+            "nearTarget": true
+          },
+          {
+            "endMs": 55000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99740999927858,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996385542168646,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60003.0,
+            "durationMs": 2.999999999996362,
+            "fps": 60.24096385545337,
+            "nearTarget": true
+          }
+        ],
+        "nearTargetTimeRatio": 1.0,
+        "longestLowMs": 0.0,
+        "sustainedLowWarning": false,
+        "tailRecovered": true,
+        "recoveryPass": true,
+        "reasons": []
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4248/metrics.html?sampleSeconds=300",
+      "sequence": 1,
+      "sampledAtUtc": "2026-10-04T15:02:01.333Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 17947,
+      "intervalDurationMs": 299999.5,
+      "fps": 59.82343303905507,
+      "medianMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "p99Ms": 16.89999999999418,
+      "maxMs": 166.6999999999971,
+      "over20Ms": 37,
+      "durationMs": 300002.599999997,
+      "eligibleRecoverySample": true,
+      "recovery": {
+        "windows": [
+          {
+            "endMs": 5000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79638554216869,
+            "nearTarget": true
+          },
+          {
+            "endMs": 10000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79638554216864,
+            "nearTarget": true
+          },
+          {
+            "endMs": 15000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79759036144581,
+            "nearTarget": true
+          },
+          {
+            "endMs": 20000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79638554216864,
+            "nearTarget": true
+          },
+          {
+            "endMs": 25000.0,
+            "durationMs": 5000.0,
+            "fps": 59.796486544982365,
+            "nearTarget": true
+          },
+          {
+            "endMs": 30000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041912,
+            "nearTarget": true
+          },
+          {
+            "endMs": 35000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79640718562879,
+            "nearTarget": true
+          },
+          {
+            "endMs": 40000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99745328619864,
+            "nearTarget": true
+          },
+          {
+            "endMs": 45000.0,
+            "durationMs": 5000.0,
+            "fps": 59.39638554216872,
+            "nearTarget": true
+          },
+          {
+            "endMs": 50000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99658033330925,
+            "nearTarget": true
+          },
+          {
+            "endMs": 55000.0,
+            "durationMs": 5000.0,
+            "fps": 59.7976047904192,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996407185628705,
+            "nearTarget": true
+          },
+          {
+            "endMs": 65000.0,
+            "durationMs": 5000.0,
+            "fps": 57.7976047904192,
+            "nearTarget": true
+          },
+          {
+            "endMs": 70000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99614024962123,
+            "nearTarget": true
+          },
+          {
+            "endMs": 75000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99547651684587,
+            "nearTarget": true
+          },
+          {
+            "endMs": 80000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99880239520951,
+            "nearTarget": true
+          },
+          {
+            "endMs": 85000.0,
+            "durationMs": 5000.0,
+            "fps": 59.5964071856287,
+            "nearTarget": true
+          },
+          {
+            "endMs": 90000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996407185628755,
+            "nearTarget": true
+          },
+          {
+            "endMs": 95000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59687896933404,
+            "nearTarget": true
+          },
+          {
+            "endMs": 100000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79795545819648,
+            "nearTarget": true
+          },
+          {
+            "endMs": 105000.0,
+            "durationMs": 5000.0,
+            "fps": 59.39678233893651,
+            "nearTarget": true
+          },
+          {
+            "endMs": 110000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562877,
+            "nearTarget": true
+          },
+          {
+            "endMs": 115000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99717192121786,
+            "nearTarget": true
+          },
+          {
+            "endMs": 120000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99609868043592,
+            "nearTarget": true
+          },
+          {
+            "endMs": 125000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997148560022865,
+            "nearTarget": true
+          },
+          {
+            "endMs": 130000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041917,
+            "nearTarget": true
+          },
+          {
+            "endMs": 135000.0,
+            "durationMs": 5000.0,
+            "fps": 59.7952095808384,
+            "nearTarget": true
+          },
+          {
+            "endMs": 140000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998275737681155,
+            "nearTarget": true
+          },
+          {
+            "endMs": 145000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59573623836675,
+            "nearTarget": true
+          },
+          {
+            "endMs": 150000.0,
+            "durationMs": 5000.0,
+            "fps": 59.797604790419015,
+            "nearTarget": true
+          },
+          {
+            "endMs": 155000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9976047904192,
+            "nearTarget": true
+          },
+          {
+            "endMs": 160000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9964071856287,
+            "nearTarget": true
+          },
+          {
+            "endMs": 165000.0,
+            "durationMs": 5000.0,
+            "fps": 58.796984344564066,
+            "nearTarget": true
+          },
+          {
+            "endMs": 170000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79573566995228,
+            "nearTarget": true
+          },
+          {
+            "endMs": 175000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59824023366217,
+            "nearTarget": true
+          },
+          {
+            "endMs": 180000.0,
+            "durationMs": 5000.0,
+            "fps": 59.796385542168466,
+            "nearTarget": true
+          },
+          {
+            "endMs": 185000.0,
+            "durationMs": 5000.0,
+            "fps": 59.596586345381674,
+            "nearTarget": true
+          },
+          {
+            "endMs": 190000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99690618762472,
+            "nearTarget": true
+          },
+          {
+            "endMs": 195000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997604790419224,
+            "nearTarget": true
+          },
+          {
+            "endMs": 200000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99520958083818,
+            "nearTarget": true
+          },
+          {
+            "endMs": 205000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997249138087525,
+            "nearTarget": true
+          },
+          {
+            "endMs": 210000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99556523317011,
+            "nearTarget": true
+          },
+          {
+            "endMs": 215000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996782338936406,
+            "nearTarget": true
+          },
+          {
+            "endMs": 220000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99687320711435,
+            "nearTarget": true
+          },
+          {
+            "endMs": 225000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9967636156258,
+            "nearTarget": true
+          },
+          {
+            "endMs": 230000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996724623043136,
+            "nearTarget": true
+          },
+          {
+            "endMs": 235000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998484957795156,
+            "nearTarget": true
+          },
+          {
+            "endMs": 240000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562888,
+            "nearTarget": true
+          },
+          {
+            "endMs": 245000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99787894091332,
+            "nearTarget": true
+          },
+          {
+            "endMs": 250000.0,
+            "durationMs": 5000.0,
+            "fps": 59.994453553860154,
+            "nearTarget": true
+          },
+          {
+            "endMs": 255000.0,
+            "durationMs": 5000.0,
+            "fps": 58.799763313609375,
+            "nearTarget": true
+          },
+          {
+            "endMs": 260000.0,
+            "durationMs": 5000.0,
+            "fps": 59.994939759036185,
+            "nearTarget": true
+          },
+          {
+            "endMs": 265000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997395570305656,
+            "nearTarget": true
+          },
+          {
+            "endMs": 270000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562828,
+            "nearTarget": true
+          },
+          {
+            "endMs": 275000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99744796122082,
+            "nearTarget": true
+          },
+          {
+            "endMs": 280000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9954962707973,
+            "nearTarget": true
+          },
+          {
+            "endMs": 285000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99879518072309,
+            "nearTarget": true
+          },
+          {
+            "endMs": 290000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997482144145344,
+            "nearTarget": true
+          },
+          {
+            "endMs": 295000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79649375946914,
+            "nearTarget": true
+          },
+          {
+            "endMs": 299999.5,
+            "durationMs": 4999.499999999989,
+            "fps": 59.99154132280688,
+            "nearTarget": true
+          }
+        ],
+        "nearTargetTimeRatio": 1.0,
+        "longestLowMs": 0.0,
+        "sustainedLowWarning": false,
+        "tailRecovered": true,
+        "recoveryPass": true,
+        "reasons": []
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4248/metrics.html?sampleSeconds=300",
+      "sequence": 2,
+      "sampledAtUtc": "2026-10-04T15:07:28.502Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 16423,
+      "intervalDurationMs": 300015.60000000003,
+      "fps": 54.74048682801827,
+      "medianMs": 16.699999999953434,
+      "p95Ms": 33.300000000046566,
+      "p99Ms": 50,
+      "maxMs": 283.30000000004657,
+      "over20Ms": 1096,
+      "durationMs": 300015.30000000005,
+      "eligibleRecoverySample": true,
+      "recovery": {
+        "windows": [
+          {
+            "endMs": 5000.0,
+            "durationMs": 5000.0,
+            "fps": 59.596385542168804,
+            "nearTarget": true
+          },
+          {
+            "endMs": 10000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79759036144565,
+            "nearTarget": true
+          },
+          {
+            "endMs": 15000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99638554216878,
+            "nearTarget": true
+          },
+          {
+            "endMs": 20000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59646490152242,
+            "nearTarget": true
+          },
+          {
+            "endMs": 25000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997511002092025,
+            "nearTarget": true
+          },
+          {
+            "endMs": 30000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79638554216881,
+            "nearTarget": true
+          },
+          {
+            "endMs": 35000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9963855421688,
+            "nearTarget": true
+          },
+          {
+            "endMs": 40000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99774186566618,
+            "nearTarget": true
+          },
+          {
+            "endMs": 45000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9962340379483,
+            "nearTarget": true
+          },
+          {
+            "endMs": 50000.0,
+            "durationMs": 5000.0,
+            "fps": 59.39777793809964,
+            "nearTarget": true
+          },
+          {
+            "endMs": 55000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9954234388363,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60000.0,
+            "durationMs": 5000.0,
+            "fps": 58.195477599324114,
+            "nearTarget": true
+          },
+          {
+            "endMs": 65000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998570019723495,
+            "nearTarget": true
+          },
+          {
+            "endMs": 70000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99615768463094,
+            "nearTarget": true
+          },
+          {
+            "endMs": 75000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998802395209694,
+            "nearTarget": true
+          },
+          {
+            "endMs": 80000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79640718562835,
+            "nearTarget": true
+          },
+          {
+            "endMs": 85000.0,
+            "durationMs": 5000.0,
+            "fps": 59.39640718562888,
+            "nearTarget": true
+          },
+          {
+            "endMs": 90000.0,
+            "durationMs": 5000.0,
+            "fps": 59.796407185628894,
+            "nearTarget": true
+          },
+          {
+            "endMs": 95000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041901,
+            "nearTarget": true
+          },
+          {
+            "endMs": 100000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99722963711127,
+            "nearTarget": true
+          },
+          {
+            "endMs": 105000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79678233893664,
+            "nearTarget": true
+          },
+          {
+            "endMs": 110000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59640718562889,
+            "nearTarget": true
+          },
+          {
+            "endMs": 115000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997604790419025,
+            "nearTarget": true
+          },
+          {
+            "endMs": 120000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9964071856289,
+            "nearTarget": true
+          },
+          {
+            "endMs": 125000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79593102950724,
+            "nearTarget": true
+          },
+          {
+            "endMs": 130000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9963855421688,
+            "nearTarget": true
+          },
+          {
+            "endMs": 135000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998102590000755,
+            "nearTarget": true
+          },
+          {
+            "endMs": 140000.0,
+            "durationMs": 5000.0,
+            "fps": 59.797078132890526,
+            "nearTarget": true
+          },
+          {
+            "endMs": 145000.0,
+            "durationMs": 5000.0,
+            "fps": 59.9963855421688,
+            "nearTarget": true
+          },
+          {
+            "endMs": 150000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79759036144564,
+            "nearTarget": true
+          },
+          {
+            "endMs": 155000.0,
+            "durationMs": 5000.0,
+            "fps": 58.79638554216882,
+            "nearTarget": true
+          },
+          {
+            "endMs": 160000.0,
+            "durationMs": 5000.0,
+            "fps": 58.196991559050566,
+            "nearTarget": true
+          },
+          {
+            "endMs": 165000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996407185628534,
+            "nearTarget": true
+          },
+          {
+            "endMs": 170000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59760479041935,
+            "nearTarget": true
+          },
+          {
+            "endMs": 175000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99694827213045,
+            "nearTarget": true
+          },
+          {
+            "endMs": 180000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99654331612172,
+            "nearTarget": true
+          },
+          {
+            "endMs": 185000.0,
+            "durationMs": 5000.0,
+            "fps": 59.7969275734247,
+            "nearTarget": true
+          },
+          {
+            "endMs": 190000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996407185628755,
+            "nearTarget": true
+          },
+          {
+            "endMs": 195000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041917,
+            "nearTarget": true
+          },
+          {
+            "endMs": 200000.0,
+            "durationMs": 5000.0,
+            "fps": 59.196854483803364,
+            "nearTarget": true
+          },
+          {
+            "endMs": 205000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79715749224458,
+            "nearTarget": true
+          },
+          {
+            "endMs": 210000.0,
+            "durationMs": 5000.0,
+            "fps": 53.59640718562867,
+            "nearTarget": false
+          },
+          {
+            "endMs": 215000.0,
+            "durationMs": 5000.0,
+            "fps": 58.197604790419255,
+            "nearTarget": true
+          },
+          {
+            "endMs": 220000.0,
+            "durationMs": 5000.0,
+            "fps": 45.995577519659555,
+            "nearTarget": false
+          },
+          {
+            "endMs": 225000.0,
+            "durationMs": 5000.0,
+            "fps": 55.59723685159724,
+            "nearTarget": true
+          },
+          {
+            "endMs": 230000.0,
+            "durationMs": 5000.0,
+            "fps": 59.19760479041971,
+            "nearTarget": true
+          },
+          {
+            "endMs": 235000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99551980376559,
+            "nearTarget": true
+          },
+          {
+            "endMs": 240000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99849217228229,
+            "nearTarget": true
+          },
+          {
+            "endMs": 245000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562817,
+            "nearTarget": true
+          },
+          {
+            "endMs": 250000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562928,
+            "nearTarget": true
+          },
+          {
+            "endMs": 255000.0,
+            "durationMs": 5000.0,
+            "fps": 58.99760479041862,
+            "nearTarget": true
+          },
+          {
+            "endMs": 260000.0,
+            "durationMs": 5000.0,
+            "fps": 40.97130548522247,
+            "nearTarget": false
+          },
+          {
+            "endMs": 265000.0,
+            "durationMs": 5000.0,
+            "fps": 22.932486929947608,
+            "nearTarget": false
+          },
+          {
+            "endMs": 270000.0,
+            "durationMs": 5000.0,
+            "fps": 20.132289021956023,
+            "nearTarget": false
+          },
+          {
+            "endMs": 275000.0,
+            "durationMs": 5000.0,
+            "fps": 24.732399999999902,
+            "nearTarget": false
+          },
+          {
+            "endMs": 280000.0,
+            "durationMs": 5000.0,
+            "fps": 26.503112312312272,
+            "nearTarget": false
+          },
+          {
+            "endMs": 285000.0,
+            "durationMs": 5000.0,
+            "fps": 31.19846613080182,
+            "nearTarget": false
+          },
+          {
+            "endMs": 290000.0,
+            "durationMs": 5000.0,
+            "fps": 31.698802395209512,
+            "nearTarget": false
+          },
+          {
+            "endMs": 295000.0,
+            "durationMs": 5000.0,
+            "fps": 32.46201916167631,
+            "nearTarget": false
+          },
+          {
+            "endMs": 300000.0,
+            "durationMs": 5000.0,
+            "fps": 32.834706306306366,
+            "nearTarget": false
+          },
+          {
+            "endMs": 300015.60000000003,
+            "durationMs": 15.600000000034925,
+            "fps": 30.030030029988037,
+            "nearTarget": false
+          }
+        ],
+        "nearTargetTimeRatio": 0.8166242022081518,
+        "longestLowMs": 45015.600000000035,
+        "sustainedLowWarning": true,
+        "tailRecovered": false,
+        "recoveryPass": false,
+        "reasons": [
+          "not_recovered_at_sample_end"
+        ]
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4248/metrics.html?sampleSeconds=300",
+      "sequence": 3,
+      "sampledAtUtc": "2026-10-04T15:13:40.572Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 14428,
+      "intervalDurationMs": 300032.29999999993,
+      "fps": 48.0881558418877,
+      "medianMs": 16.699999999953434,
+      "p95Ms": 49.90000000002328,
+      "p99Ms": 66.69999999995343,
+      "maxMs": 250,
+      "over20Ms": 2422,
+      "durationMs": 300033.299999994,
+      "eligibleRecoverySample": true,
+      "recovery": {
+        "windows": [
+          {
+            "endMs": 5000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79523809523784,
+            "nearTarget": true
+          },
+          {
+            "endMs": 10000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79757627601992,
+            "nearTarget": true
+          },
+          {
+            "endMs": 15000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99647134302773,
+            "nearTarget": true
+          },
+          {
+            "endMs": 20000.0,
+            "durationMs": 5000.0,
+            "fps": 59.797540633020176,
+            "nearTarget": true
+          },
+          {
+            "endMs": 25000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996407185628286,
+            "nearTarget": true
+          },
+          {
+            "endMs": 30000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99748935863259,
+            "nearTarget": true
+          },
+          {
+            "endMs": 35000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79652261741534,
+            "nearTarget": true
+          },
+          {
+            "endMs": 40000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996564014828124,
+            "nearTarget": true
+          },
+          {
+            "endMs": 45000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998479632817336,
+            "nearTarget": true
+          },
+          {
+            "endMs": 50000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99537551403184,
+            "nearTarget": true
+          },
+          {
+            "endMs": 55000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562843,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60000.0,
+            "durationMs": 5000.0,
+            "fps": 59.997604790419466,
+            "nearTarget": true
+          },
+          {
+            "endMs": 65000.0,
+            "durationMs": 5000.0,
+            "fps": 58.3976047904186,
+            "nearTarget": true
+          },
+          {
+            "endMs": 70000.0,
+            "durationMs": 5000.0,
+            "fps": 59.59640718562929,
+            "nearTarget": true
+          },
+          {
+            "endMs": 75000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562851,
+            "nearTarget": true
+          },
+          {
+            "endMs": 80000.0,
+            "durationMs": 5000.0,
+            "fps": 59.797604790419385,
+            "nearTarget": true
+          },
+          {
+            "endMs": 85000.0,
+            "durationMs": 5000.0,
+            "fps": 59.796407185628546,
+            "nearTarget": true
+          },
+          {
+            "endMs": 90000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99674935842637,
+            "nearTarget": true
+          },
+          {
+            "endMs": 95000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99726261762156,
+            "nearTarget": true
+          },
+          {
+            "endMs": 100000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99640718562915,
+            "nearTarget": true
+          },
+          {
+            "endMs": 105000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79640718562818,
+            "nearTarget": true
+          },
+          {
+            "endMs": 110000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79760479041971,
+            "nearTarget": true
+          },
+          {
+            "endMs": 115000.0,
+            "durationMs": 5000.0,
+            "fps": 59.79717192121707,
+            "nearTarget": true
+          },
+          {
+            "endMs": 120000.0,
+            "durationMs": 5000.0,
+            "fps": 58.796840054830824,
+            "nearTarget": true
+          },
+          {
+            "endMs": 125000.0,
+            "durationMs": 5000.0,
+            "fps": 55.59713584878361,
+            "nearTarget": true
+          },
+          {
+            "endMs": 130000.0,
+            "durationMs": 5000.0,
+            "fps": 57.59687612726427,
+            "nearTarget": true
+          },
+          {
+            "endMs": 135000.0,
+            "durationMs": 5000.0,
+            "fps": 43.93909478340553,
+            "nearTarget": false
+          },
+          {
+            "endMs": 140000.0,
+            "durationMs": 5000.0,
+            "fps": 56.65439053511417,
+            "nearTarget": true
+          },
+          {
+            "endMs": 145000.0,
+            "durationMs": 5000.0,
+            "fps": 58.39693384315637,
+            "nearTarget": true
+          },
+          {
+            "endMs": 150000.0,
+            "durationMs": 5000.0,
+            "fps": 56.39760479041971,
+            "nearTarget": true
+          },
+          {
+            "endMs": 155000.0,
+            "durationMs": 5000.0,
+            "fps": 56.39640718562817,
+            "nearTarget": true
+          },
+          {
+            "endMs": 160000.0,
+            "durationMs": 5000.0,
+            "fps": 35.64715613817441,
+            "nearTarget": false
+          },
+          {
+            "endMs": 165000.0,
+            "durationMs": 5000.0,
+            "fps": 35.81544984984963,
+            "nearTarget": false
+          },
+          {
+            "endMs": 170000.0,
+            "durationMs": 5000.0,
+            "fps": 29.332,
+            "nearTarget": false
+          },
+          {
+            "endMs": 175000.0,
+            "durationMs": 5000.0,
+            "fps": 37.12515449101783,
+            "nearTarget": false
+          },
+          {
+            "endMs": 180000.0,
+            "durationMs": 5000.0,
+            "fps": 27.94875975186067,
+            "nearTarget": false
+          },
+          {
+            "endMs": 185000.0,
+            "durationMs": 5000.0,
+            "fps": 27.970828099463972,
+            "nearTarget": false
+          },
+          {
+            "endMs": 190000.0,
+            "durationMs": 5000.0,
+            "fps": 29.19819819819792,
+            "nearTarget": false
+          },
+          {
+            "endMs": 195000.0,
+            "durationMs": 5000.0,
+            "fps": 33.99838161514845,
+            "nearTarget": false
+          },
+          {
+            "endMs": 200000.0,
+            "durationMs": 5000.0,
+            "fps": 32.92974351147759,
+            "nearTarget": false
+          },
+          {
+            "endMs": 205000.0,
+            "durationMs": 5000.0,
+            "fps": 28.749298404689775,
+            "nearTarget": false
+          },
+          {
+            "endMs": 210000.0,
+            "durationMs": 5000.0,
+            "fps": 29.216167664671037,
+            "nearTarget": false
+          },
+          {
+            "endMs": 215000.0,
+            "durationMs": 5000.0,
+            "fps": 36.598901296505765,
+            "nearTarget": false
+          },
+          {
+            "endMs": 220000.0,
+            "durationMs": 5000.0,
+            "fps": 45.43006220506251,
+            "nearTarget": false
+          },
+          {
+            "endMs": 225000.0,
+            "durationMs": 5000.0,
+            "fps": 48.59678500142551,
+            "nearTarget": false
+          },
+          {
+            "endMs": 230000.0,
+            "durationMs": 5000.0,
+            "fps": 48.996407185629174,
+            "nearTarget": false
+          },
+          {
+            "endMs": 235000.0,
+            "durationMs": 5000.0,
+            "fps": 58.596724623042824,
+            "nearTarget": true
+          },
+          {
+            "endMs": 240000.0,
+            "durationMs": 5000.0,
+            "fps": 57.39759036144599,
+            "nearTarget": true
+          },
+          {
+            "endMs": 245000.0,
+            "durationMs": 5000.0,
+            "fps": 53.36536565423316,
+            "nearTarget": false
+          },
+          {
+            "endMs": 250000.0,
+            "durationMs": 5000.0,
+            "fps": 40.6283433133739,
+            "nearTarget": false
+          },
+          {
+            "endMs": 255000.0,
+            "durationMs": 5000.0,
+            "fps": 35.797604790418625,
+            "nearTarget": false
+          },
+          {
+            "endMs": 260000.0,
+            "durationMs": 5000.0,
+            "fps": 29.325670867149153,
+            "nearTarget": false
+          },
+          {
+            "endMs": 265000.0,
+            "durationMs": 5000.0,
+            "fps": 31.34953008230342,
+            "nearTarget": false
+          },
+          {
+            "endMs": 270000.0,
+            "durationMs": 5000.0,
+            "fps": 32.49849849849815,
+            "nearTarget": false
+          },
+          {
+            "endMs": 275000.0,
+            "durationMs": 5000.0,
+            "fps": 36.012095227758586,
+            "nearTarget": false
+          },
+          {
+            "endMs": 280000.0,
+            "durationMs": 5000.0,
+            "fps": 35.38490176923841,
+            "nearTarget": false
+          },
+          {
+            "endMs": 285000.0,
+            "durationMs": 5000.0,
+            "fps": 29.12790634946337,
+            "nearTarget": false
+          },
+          {
+            "endMs": 290000.0,
+            "durationMs": 5000.0,
+            "fps": 29.532534930139924,
+            "nearTarget": false
+          },
+          {
+            "endMs": 295000.0,
+            "durationMs": 5000.0,
+            "fps": 31.234730538921863,
+            "nearTarget": false
+          },
+          {
+            "endMs": 300000.0,
+            "durationMs": 5000.0,
+            "fps": 37.69880239520953,
+            "nearTarget": false
+          },
+          {
+            "endMs": 300032.29999999993,
+            "durationMs": 32.29999999993015,
+            "fps": 29.940119760562528,
+            "nearTarget": false
+          }
+        ],
+        "nearTargetTimeRatio": 0.5332759172929049,
+        "longestLowMs": 75000.0,
+        "sustainedLowWarning": true,
+        "tailRecovered": false,
+        "recoveryPass": false,
+        "reasons": [
+          "normally_below_near_target",
+          "not_recovered_at_sample_end"
+        ]
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4248/metrics.html?sampleSeconds=60",
+      "sequence": 1,
+      "sampledAtUtc": "2026-10-04T15:16:49.532Z",
+      "workload": "game",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 2107,
+      "intervalDurationMs": 60019.99999999999,
+      "fps": 35.104965011662784,
+      "medianMs": 33.10000000000582,
+      "p95Ms": 50.099999999998545,
+      "p99Ms": 66.70000000001164,
+      "maxMs": 116.89999999999418,
+      "over20Ms": 1055,
+      "durationMs": 60017.699999997014,
+      "eligibleRecoverySample": true,
+      "recovery": {
+        "windows": [
+          {
+            "endMs": 5000.0,
+            "durationMs": 5000.0,
+            "fps": 32.59640718562875,
+            "nearTarget": false
+          },
+          {
+            "endMs": 10000.0,
+            "durationMs": 5000.0,
+            "fps": 35.602091312869746,
+            "nearTarget": false
+          },
+          {
+            "endMs": 15000.0,
+            "durationMs": 5000.0,
+            "fps": 33.391862947284686,
+            "nearTarget": false
+          },
+          {
+            "endMs": 20000.0,
+            "durationMs": 5000.0,
+            "fps": 30.005238554216824,
+            "nearTarget": false
+          },
+          {
+            "endMs": 25000.0,
+            "durationMs": 5000.0,
+            "fps": 32.99659219219221,
+            "nearTarget": false
+          },
+          {
+            "endMs": 30000.0,
+            "durationMs": 5000.0,
+            "fps": 37.098169253590925,
+            "nearTarget": false
+          },
+          {
+            "endMs": 35000.0,
+            "durationMs": 5000.0,
+            "fps": 34.36923855421687,
+            "nearTarget": false
+          },
+          {
+            "endMs": 40000.0,
+            "durationMs": 5000.0,
+            "fps": 36.39879999999999,
+            "nearTarget": false
+          },
+          {
+            "endMs": 45000.0,
+            "durationMs": 5000.0,
+            "fps": 44.52778618618622,
+            "nearTarget": false
+          },
+          {
+            "endMs": 50000.0,
+            "durationMs": 5000.0,
+            "fps": 40.9987987987988,
+            "nearTarget": false
+          },
+          {
+            "endMs": 55000.0,
+            "durationMs": 5000.0,
+            "fps": 28.898248547949134,
+            "nearTarget": false
+          },
+          {
+            "endMs": 60000.0,
+            "durationMs": 5000.0,
+            "fps": 34.397718848018236,
+            "nearTarget": false
+          },
+          {
+            "endMs": 60019.99999999999,
+            "durationMs": 19.999999999992724,
+            "fps": 29.761904761912493,
+            "nearTarget": false
+          }
+        ],
+        "nearTargetTimeRatio": 0.0,
+        "longestLowMs": 60019.99999999999,
+        "sustainedLowWarning": true,
+        "tailRecovered": false,
+        "recoveryPass": false,
+        "reasons": [
+          "normally_below_near_target",
+          "not_recovered_at_sample_end"
+        ]
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4248/raf-baseline?sampleSeconds=60",
+      "sequence": 1,
+      "sampledAtUtc": "2026-10-04T15:19:05.331Z",
+      "workload": "raf_control",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "network": {
+        "mbps": null,
+        "response_latency_ms": 0.0,
+        "compression": "br/gzip negotiated for static files"
+      },
+      "count": 3600,
+      "intervalDurationMs": 60002.99999999999,
+      "fps": 59.99700014999251,
+      "medianMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "p99Ms": 16.80000000000291,
+      "maxMs": 17.19999999999709,
+      "over20Ms": 0,
+      "durationMs": 60014.199999997014,
+      "eligibleRecoverySample": true,
+      "recovery": {
+        "windows": [
+          {
+            "endMs": 5000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041915,
+            "nearTarget": true
+          },
+          {
+            "endMs": 10000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99757593247242,
+            "nearTarget": true
+          },
+          {
+            "endMs": 15000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996436043575514,
+            "nearTarget": true
+          },
+          {
+            "endMs": 20000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996407185628705,
+            "nearTarget": true
+          },
+          {
+            "endMs": 25000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99631339730184,
+            "nearTarget": true
+          },
+          {
+            "endMs": 30000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99759036144574,
+            "nearTarget": true
+          },
+          {
+            "endMs": 35000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996515402929134,
+            "nearTarget": true
+          },
+          {
+            "endMs": 40000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99760479041912,
+            "nearTarget": true
+          },
+          {
+            "endMs": 45000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99624125243494,
+            "nearTarget": true
+          },
+          {
+            "endMs": 50000.0,
+            "durationMs": 5000.0,
+            "fps": 59.99657311882255,
+            "nearTarget": true
+          },
+          {
+            "endMs": 55000.0,
+            "durationMs": 5000.0,
+            "fps": 59.998607604068994,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60000.0,
+            "durationMs": 5000.0,
+            "fps": 59.996385542168724,
+            "nearTarget": true
+          },
+          {
+            "endMs": 60002.99999999999,
+            "durationMs": 2.999999999994543,
+            "fps": 60.24096385545337,
+            "nearTarget": true
+          }
+        ],
+        "nearTargetTimeRatio": 1.0,
+        "longestLowMs": 0.0,
+        "sustainedLowWarning": false,
+        "tailRecovered": true,
+        "recoveryPass": true,
+        "reasons": []
+      }
+    }
+  ],
+  "rejected": [],
+  "note": "60 is a target, not an exact-average gate. Brief 30FPS dips may pass after recovery. p95/p99/max remain diagnostic. PASS covers supplied windows, not permanent stability; 5-minute/action/reload soak and device evidence remain separate. Controls never satisfy the game gate."
+}

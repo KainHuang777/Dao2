@@ -883,7 +883,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	_abode.action_bar.visible = false
 	RuntimeProfile.end("hud_resources", profile_resources)
 	var profile_catalog := RuntimeProfile.begin()
-	_abode.building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id))
+	# Navigation merges shared currencies below, then renders the resource cards once.
+	_abode.building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id), _abode.feature_navigation != null)
 	RuntimeProfile.end("hud_catalog", profile_catalog)
 	var profile_layout := RuntimeProfile.begin()
 	var visible_resource_count: int = 0
@@ -923,7 +924,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		RuntimeProfile.end("hud_guidance_layout", profile_layout)
 		var profile_navigation := RuntimeProfile.begin()
 		_abode.feature_navigation.refresh(view)
-		_abode.feature_navigation.layout(_abode.hud.size)
+		_abode.feature_navigation.layout(_abode.hud.size, view)
 		RuntimeProfile.end("hud_navigation", profile_navigation)
 
 func _update_onboarding_guidance(view: Dictionary) -> void:

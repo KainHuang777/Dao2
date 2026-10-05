@@ -23,6 +23,7 @@ const FlowScript = preload("res://src/abode/abode_flows.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
 
 const BUILDING_NAMES := {
+	"foundation_reservoir": "築基靈池",
 	"hut": "茅屋",
 	"wooden_house": "木屋",
 	"forest_farm": "林場",
@@ -46,6 +47,7 @@ const RESOURCE_NAMES := {
 }
 
 const BUILDING_DESCRIPTIONS := {
+	"foundation_reservoir": "築基後拓建靈池，每階增加1000靈氣容量，最高三階。金丹突破需容量2000；使用祖島木石與金錢建造。",
 	"hut": "窗內一盞燈，是你的修行根基。初期手動引氣，升級後持續產出靈氣並提供容納空間。",
 	"wooden_house": "簡樸居所。安身立命，產出並儲存金錢。",
 	"forest_farm": "造林伐木，持續產出修築洞府必備之原木。",
@@ -686,6 +688,7 @@ func _catalog_groups() -> Array:
 		{"id": "other", "title": "其他設施", "entries": []},
 	]
 	var roles := {
+		"foundation_reservoir": "築基擴容・每階靈氣容量1000",
 		"hut": "靈氣與居所", "wooden_house": "金錢產出",
 		"forest_farm": "靈木產出", "stone_mine": "下品靈石與玄銅",
 		"herb_farm": "靈草產出", "storage_lingli": "靈氣容量",
@@ -696,7 +699,7 @@ func _catalog_groups() -> Array:
 		var group_index := 3
 		if id == "hut" or id == "storage_lingli":
 			group_index = 0
-		elif id.begins_with("storage_"):
+		elif id.begins_with("storage_") or id == "foundation_reservoir":
 			group_index = 2
 		elif roles.has(id):
 			group_index = 1
@@ -734,14 +737,22 @@ func _notification(what: int) -> void:
 					_refresh_hud()
 
 func _process(delta: float) -> void:
+	RuntimeProfile.begin_frame()
+	var profile_preflight := RuntimeProfile.begin()
 	if session == null:
+		RuntimeProfile.end("preflight", profile_preflight)
+		RuntimeProfile.end_frame()
 		return
 	if OS.has_feature("web") and SaveManager.adapter() is WebStorageAdapter and SaveManager.adapter().session_status() != "ready":
 		get_tree().paused = true
 		_show_storage_block("存檔保護已釋放，請重新載入以讀取最新進度。")
+		RuntimeProfile.end("preflight", profile_preflight)
+		RuntimeProfile.end_frame()
 		return
 	if _is_reincarnating or (reincarnation_seq != null and reincarnation_seq.visible):
 		_last_process_ticks_msec = Time.get_ticks_msec()
+		RuntimeProfile.end("preflight", profile_preflight)
+		RuntimeProfile.end_frame()
 		return
 
 	var now_ticks: int = Time.get_ticks_msec()
@@ -751,7 +762,10 @@ func _process(delta: float) -> void:
 		if elapsed_real > delta:
 			step_delta = elapsed_real if OS.has_feature("web") else clampf(elapsed_real, delta, 86400.0)
 	_last_process_ticks_msec = now_ticks
+	RuntimeProfile.end("preflight", profile_preflight)
 	if OS.has_feature("web") and step_delta > 2.0:
+		# A suspended coroutine is not synchronous CPU work. End before await.
+		RuntimeProfile.end_frame()
 		var now_ms := int(Time.get_unix_time_from_system() * 1000.0)
 		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms - int(step_delta * 1000.0))
 		if not await _settle_web_background(_background_retry_cursor):
@@ -760,8 +774,8 @@ func _process(delta: float) -> void:
 			return
 		_background_retry_cursor = 0
 		step_delta = 0.0
+		RuntimeProfile.begin_frame()
 
-	RuntimeProfile.begin_frame()
 	var profile_advance := RuntimeProfile.begin()
 	state.advance(step_delta)
 	var advance_result: Dictionary = session.advance_time(step_delta)
@@ -793,11 +807,14 @@ func _process(delta: float) -> void:
 	var can_bt_flag: bool = bool(view.get("can_breakthrough", false))
 	var can_lvl_flag: bool = bool(view.get("can_level_up", false))
 	if can_bt_flag or cur_lvl >= max_era_lvl:
-		session.state.training_seconds = 0.0
+		if session.state.training_seconds != 0.0:
+			session.state.training_seconds = 0.0
+			_frame_view = {}
 	elif can_lvl_flag:
 		var needed_sec := float(view.get("next_level_required_seconds", 0.0))
 		if needed_sec > 0.0 and session.state.training_seconds > needed_sec:
 			session.state.training_seconds = needed_sec
+			_frame_view = {}
 
 	flow.garden_running = state.garden_running
 	var altar_level: int = int(view.buildings.get("storage_lingli", {}).get("level", 0))
@@ -805,14 +822,15 @@ func _process(delta: float) -> void:
 	flow.reduced_motion = reduced
 
 	var distant: float = clampf((0.42 - camera.zoom.x) / 0.18, 0.0, 1.0)
+	var viewing_remote_island: bool = island_world != null and island_world.current != "home"
 	for child in region_layer.get_children():
 		if child is Label:
-			child.visible = camera.zoom.x >= 0.12 and camera.zoom.x < 0.34
+			child.visible = not viewing_remote_island and camera.zoom.x >= 0.12 and camera.zoom.x < 0.34
 			UiMaterial.keep_world_text_readable(child, 18)
 		else:
 			child.modulate.a = distant * (0.8 if child is Sprite2D else 1.0)
 	# Avoid fading essential text into the scenery at the LOD hand-off.
-	home_marker.visible = camera.zoom.x < 0.34
+	home_marker.visible = not viewing_remote_island and camera.zoom.x < 0.34
 	UiMaterial.keep_world_text_readable(home_marker, 24)
 
 	for building in buildings.values():
@@ -838,7 +856,7 @@ func _process(delta: float) -> void:
 	update_elapsed += delta
 	if update_elapsed >= 0.25:
 		update_elapsed = 0.0
-		_refresh_hud()
+		_refresh_hud(false)
 
 	auto_save_elapsed += delta
 	if auto_save_elapsed >= 15.0:
@@ -892,14 +910,17 @@ func _sync_scenery(entries: Array) -> void:
 			scenery_props[id].queue_free()
 			scenery_props.erase(id)
 
-func _refresh_hud() -> void:
+func _refresh_hud(force_view: bool = true) -> void:
 	var profile_hud := RuntimeProfile.begin()
 	# Explicit refreshes cover commands, debug edits, load/retry and session replacement.
-	var profile_view := RuntimeProfile.begin()
-	_frame_view = session.get_view()
-	RuntimeProfile.end("view_build", profile_view)
-	_frame_view_state = session.state
-	_frame_view_revision = session.state.revision
+	if force_view:
+		var profile_view := RuntimeProfile.begin()
+		_frame_view = session.get_view()
+		RuntimeProfile.end("view_build", profile_view)
+		_frame_view_state = session.state
+		_frame_view_revision = session.state.revision
+	else:
+		_frame_view = _presentation_view()
 	_hud_controller._refresh_hud(_frame_view)
 	if island_world != null:
 		var profile_island := RuntimeProfile.begin()
@@ -1606,6 +1627,8 @@ func _settle_web_background(cursor: int) -> bool:
 	if breakthrough_seq != null:
 		breakthrough_seq.set_save_status(true)
 	_refresh_hud()
+	if feature_navigation != null and feature_navigation.island_panel != null:
+		feature_navigation.island_panel.storage_recovered()
 	print("WEB_BACKGROUND_SETTLED: ", JSON.stringify(result.report))
 	return true
 

@@ -1,29 +1,62 @@
 class_name IslandProgression
 extends RefCounted
-## RES1-C bounded Era2 progression. No scene, clock or art dependencies.
-const VERSION := "res1-c-1"
-const NAMES := {"home": "祖島", "wood": "青木島", "ore": "玄礦島"}
+## Bounded Era2/3 release progression. Legacy C remains readable until explicit extension.
+const LEGACY_VERSION := "res1-c-1"
+const VERSION := "res1-d-2"
+const NAMES := {"home": "祖島", "wood": "青木島", "ore": "玄礦島", "herb": "丹霞島"}
 const FACILITIES := {"extractor": "採集設施", "workshop": "加工坊", "storage": "倉儲"}
-const RECIPES := {"wood": "spirit_timber", "ore": "bronze_essence"}
+const RECIPES := {"wood": "spirit_timber", "ore": "bronze_essence", "herb": "liquid"}
+const HOME_RECIPES := ["formation_core", "foundation_pill", "stone_mid", "golden_core_pill", "talisman"]
+
+static func owns(state: GameState, island: String, recipe: String) -> bool:
+	if state.economy.get("version") == LEGACY_VERSION:
+		return island in ["wood", "ore"] and RECIPES.get(island) == recipe
+	return (island == "home" and recipe in HOME_RECIPES) or RECIPES.get(island) == recipe
 
 static func attach(content: GameContent) -> Dictionary:
 	var loaded := ProcessingCatalog.load_file()
 	if not loaded.ok:
 		return loaded
 	content.processing_catalog = loaded.catalog
+	if content.era(3) == null:
+		var resources: Array = content.resources.values().duplicate(true)
+		for id in loaded.catalog.resources:
+			if not content.resources.has(id):
+				resources.append({"id": id, "type": "crafted", "max": float(loaded.catalog.resources[id].cap), "rate": 0, "unlocked": false})
+		var buildings: Array = content.buildings.values().duplicate(true)
+		var new_buildings: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://content/buildings/era2.json"))
+		var new_eras: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://content/eras/era3.json"))
+		if not new_buildings is Array or not new_eras is Array:
+			return {"ok": false, "error": "D2_CONTENT_FORMAT"}
+		buildings.append_array(new_buildings)
+		var eras: Array = content.eras.values().duplicate(true)
+		eras.append_array(new_eras)
+		var expanded := ContentLoader.build_content(resources, buildings, eras)
+		if not expanded.ok:
+			return expanded
+		content.buildings = expanded.content.buildings
+		content.building_ids = expanded.content.building_ids
+		content.eras = expanded.content.eras
+		content.era_ids = expanded.content.era_ids
+		content.content_version = expanded.content.content_version
 	# Content identity includes the progression contract, not just legacy tables.
 	if not content.content_version.ends_with("+" + VERSION):
 		content.content_version += "+" + VERSION
 	return {"ok": true}
 
 static func active(state: GameState) -> bool:
-	return state.economy.get("version", "") == VERSION
+	return state.economy.get("version", "") in [VERSION, LEGACY_VERSION]
 
 static func preview(state: GameState, content: GameContent) -> Dictionary:
 	if state.era_id < 2:
 		return _fail("ERA_REQUIREMENT")
-	if active(state):
+	if state.economy.get("version") == VERSION:
 		return _fail("ALREADY_MIGRATED")
+	if state.economy.get("version") == LEGACY_VERSION:
+		var legacy_error := IslandEconomy.validate(state)
+		if not legacy_error.is_empty():
+			return _fail(legacy_error)
+		return {"ok": true, "version": VERSION, "home_policy": "保留三島庫存、設施、工作與在途貨物，另開放金丹丹霞產線。", "cost_policy": "不贈料、不退料；丹霞開拓仍需祖島靈木20＋下品靈石10。", "reset_policy": "輪迴清除本世產業。"}
 	if state.economy.is_empty():
 		var checked := IslandEconomy.migration_preview(state, content.processing_catalog)
 		if not checked.ok:
@@ -43,6 +76,9 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 		var checked := preview(state, content)
 		if not checked.ok:
 			return checked
+		if state.economy.get("version") == LEGACY_VERSION:
+			state.economy.version = VERSION
+			return _ok("islands_extended")
 		var migrated := IslandEconomy.command(content, state, "migrate_processing", {})
 		if not migrated.ok:
 			return migrated

@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid access to property or key 'herb' on a base object of type 'Dictionary'.
+   at: _test_persistence (res://tests/res1d2_integration_runner.gd:216)
+   GDScript backtrace (most recent call first):
+       [0] _test_persistence (res://tests/res1d2_integration_runner.gd:216)
+       [1] _run (res://tests/res1d2_integration_runner.gd:148)
+EARNED: Era3 Lv10 sim_seconds=11561.0
+ERROR: saved branch earned Danxia batches
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] finish (res://tests/res1d2_integration_runner.gd:300)
+       [1] _run (res://tests/res1d2_integration_runner.gd:169)

@@ -1,0 +1,33 @@
+{
+  "desktop": {
+    "parent": {
+      "width": 1280,
+      "height": 720
+    },
+    "iframe": {
+      "width": 1280,
+      "height": 650
+    },
+    "dpr": 1.25,
+    "requestedOverride": {
+      "width": 1280,
+      "height": 790
+    },
+    "overrideApplied": false
+  },
+  "compact": {
+    "dpr": 1.25,
+    "height": 720,
+    "rect": {
+      "bottom": 460,
+      "height": 390,
+      "left": 0,
+      "right": 844,
+      "top": 70,
+      "width": 844,
+      "x": 0,
+      "y": 70
+    },
+    "width": 1280
+  }
+}

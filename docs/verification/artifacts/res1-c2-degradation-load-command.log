@@ -1,0 +1,30 @@
+{
+  "cpuSnapshots": 237,
+  "gpuSnapshots": 150,
+  "samples": [
+    {
+      "fps": 59.743552393025446,
+      "valid": true,
+      "cpuIntervals": 61,
+      "gpuSnapshots": 39
+    },
+    {
+      "fps": 59.56359144222958,
+      "valid": true,
+      "cpuIntervals": 61,
+      "gpuSnapshots": 54
+    },
+    {
+      "fps": 59.74356000154659,
+      "valid": true,
+      "cpuIntervals": 60,
+      "gpuSnapshots": 48
+    },
+    {
+      "fps": 59.84680817023092,
+      "valid": true,
+      "cpuIntervals": 13,
+      "gpuSnapshots": 0
+    }
+  ]
+}

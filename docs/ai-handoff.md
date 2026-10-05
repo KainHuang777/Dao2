@@ -1,4 +1,31 @@
+# 2026-10-05 R2最新接手提示
+
+2026-10-05追加 **D2-R1 Web 保存子階段 PASS；完整D2-R1／D2／D與C／C2／R2仍IN_PROGRESS**。先讀[Web驗收](verification/res1-d2-web-r1.md)與updata頂部。最終53/53／exit0、world38／管理89；九案例16報告400 checks，空白流程是自動正常命令／模擬秒（含215共用診斷），不是完整滑鼠通關。D2真實保存矩陣176項通過；正常開局滑鼠及丹霞拒寫／重試追加，保存恢復提示修復。4258新檔、4259金丹試玩存檔保留，頁面停launcher／override reset；4259按開啟隔離遊戲，勿再Seed。新正常包build/res1d2-web-live，測試包build/res1d2-web，原web／res1d2／res1d2r1不變。下一New Chat續自然時間完整滑鼠流程、人工／裝置／C-R2；R2交AGY，不重做已過保存矩陣或跳Era4。下方日期化歷史保留。
+
+2026-10-05最新 **D2-R1世界／美術子階段交付，完整D2-R1／D2／D IN_PROGRESS**：丹霞兩張獨立PNG與雙向世界／管理入口、貨運視覺、控制列換行及遠景題字避讓已接。53/53／exit0；最後world38＋管理87、原三島26／響應式回歸、獨立Web與1280×720.4／844×390滑鼠重載證據見[驗收](verification/res1-d2-r1.md)。下一New Chat續正常Web空白完整首段與D2瀏覽器保存故障矩陣；人工／裝置／C-R2仍待驗，R2交AGY。先讀updata頂部，4257/launcher沿用進度，勿再種檔；build/res1d2r1獨立，原web／res1d2包不變。
+
+2026-10-05最新 **RES1-D2 IN_PROGRESS（容量／技能方案與正常規則／管理接線已交付）**：使用者核定Era＋設施門檻及新增築基靈池；正常空白T1→金丹Lv10、丹霞丹液回運／T3／扣料與保存故障215 checks、52/52 Runner／exit0，最後呈現87 checks回歸／獨立Web匯出及1280×720.4／844×390滑鼠與重載通過。[D2驗收](verification/res1-d2.md)／[ADR-011](decisions/ADR-011-era3-capacity-and-skill-gates.md)。丹霞專用世界美術、完整Web新檔首段、人工玩法／裝置與C/R2門檻仍待驗，**D2／完整D IN_PROGRESS**；R2仍交AGY。下一New Chat續D2-R1，本輪不開下一大型階段；以下按日期保留歷史。
+
+
+2026-10-05最新：**D1 DONE（稽核＋隔離216 checks）**，讀[res1-d1](verification/res1-d1.md)及updata頂部；8來源hash一致，空白開局到Era3 Lv10。正常靈力容量1100不達突破2000；容量250／無一般技能／丹液陣芯晉階成本是明示fixture提案，正式檔未改。獨立命令`powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\res1d1_audit.ps1`及Godot `--headless --path . --script res://tests/res1d1_contract_runner.gd`；完整D／正式保存／世界仍待整合。R2仍AGY負責，C／C2／R2 IN_PROGRESS；下一D2先定容量與技能方案、共享核心單方修改，New Chat接續。下方TODO分工為此前歷史。
+
+**同日最新使用者分工覆蓋下方接手順序：R2交AGY，Codex下一RES1-D1隔離子階段（TODO），可並行。**先讀[AGY交接](handoffs/2026-10-05-r2-agy.md)、[AGY Prompt](handoffs/2026-10-05-agy-r2-prompt.md)、[D1範圍與Codex Prompt](handoffs/2026-10-05-codex-res1-d1.md)。R2／C／C2仍IN_PROGRESS、完整D TODO，不以並行消除效能／保存／裝置放行門檻。本輪只建文件，未開始D1或對外傳送prompt。共享檔與build先協調；AGY量FPS時Codex暂停高負載測試／匯出。
+
+先讀[持續劣化定位](verification/res1-c2-sustained-degradation.md)與updata頂部。本輪正常頂層1280×720／DPR約1三組300秒（含50次有間隔管理開關）與重載60秒59.744／59.564／59.744／59.847均恢復PASS；CPU237／GPU150同期資料、6／16／13契約PASS。沒有Godot來源／匯出／51 Runner變更。共用GPU process高CPU時仍近60、heap大小與FPS非單一對應；不是根因修復。前輪DPR1.25與木屋3階、此輪DPR1／木屋2階不同，原失敗未消除。R2／C／C2 IN_PROGRESS、D TODO。4248服務沿用，分頁停launcher／override reset，已有進度按開啟遊戲，勿種檔。下一同進度DPR1.25重現／DPR對照，再按失速證據分層追蹤；New Chat開始下一大型階段。
+
 # 給下一位 AI 的開發交接
+
+2026-10-04最新 **R2正常恢復／長觀測驗收 NOT_PASSED**：正常60秒59.880、首組300秒59.823通過；有間隔50次管理操作的300秒54.740（末45秒低谷）、同頁延長300秒48.088、重載60秒35.105均未恢復。無遊戲對照59.997只作診斷，不替代遊戲通過；木屋2→3／扣料重載、三島滑鼠與完整模式正常。Python16／Node13契約通過，無新Godot來源／匯出／51 Runner。**R2／C／C2 IN_PROGRESS、D TODO**；下一定位持續劣化，裝置／人工另待驗。[本輪驗收](verification/res1-c2-recovery-browser.md)。較早政策修訂與通過結果保留歷史，New Chat續同R2。
+4248服務保留（session6020），正常隔離origin；分頁停launcher釋放writer鎖，已有進度按開啟隔離遊戲，勿重種。先讀updata頂部／本輪驗收，失敗raw保留，下一針對持續低FPS取證，不為單一59.x或可恢復尖峰優化。
+
+
+2026-10-04最新使用者要求：[ADR-010放置FPS恢復標準](decisions/ADR-010-idle-frame-recovery-budget.md)，優先於下方全部歷史「嚴格60未過」。常態目標60、偶發30後回升可接受；55／5秒窗／80%及末10秒恢復是工程定義，低谷10秒警示不直接阻擋。工具desktopRecoveryGate取代strictDesktopGate，正常`/metrics.html?sampleSeconds=60`／300做恢復／長期觀測，profile仍排除。16 summary＋13 observer契約通過，舊三組15秒短窗口符合但INSUFFICIENT_EVIDENCE，沒有新瀏覽器／全量Godot／匯出。R2仍IN_PROGRESS，下一按恢復與持續劣化驗收，不再為平均59.x或可恢復33ms無限優化；手機等獨立待驗、不自動進D。launcher的sampleSeconds轉交要重啟服務，直接metrics頁動態讀新JS。[本輪驗收](verification/res1-c2-idle-fps-policy.md)，New Chat續同R2。
+
+2026-10-04最新R2：[長幀入口追蹤](verification/res1-c2-main-loop-tracing.md)與updata頂部。preflight＋LoAF診斷交付；83.3ms rAF對應MainLoop_runner84.1ms，同窗process0.4／preflight0.1／HUD保存0，沒有WASM內call stack，不指定GC或GPU根因。51/51／world26、正常與profile export／compression、JS／Python契約通過；正常頂層1280×720三組pooled57.887FPS／p95 16.9ms，嚴格60未過，非配對改善。4247服務（session96276）保留：bundled Python `tools/island_preview_server.py --port 4247 --profile-build --gzip --review-fixture --metrics-log res1-c2-task-profile-metrics.jsonl`，正常 `/launcher?metrics=1`／頂層診斷 `/profile.html?profileSeconds=60`；兩build PCK相同，normal無CPU橋接。已有隔離資料按開啟遊戲，拒覆寫；override已reset，分頁停launcher。下一仍R2引擎迴圈內／其他節點／繪圖與33ms掉幀追蹤、嚴格FPS／裝置與人工，**R2/C/C2 IN_PROGRESS、D TODO**，New Chat；以下是歷史。
+
+2026-10-04最新R2子階段：讀[View／encode與長幀](verification/res1-c2-view-encode-longframes.md)與updata頂部。固定快照encode17.368→14.9985ms；定時View少重建、明確刷新保留。51/51／resource754／world26／Web retry49通過；非profile59.619FPS／p95 16.8ms／max183.3，嚴格60未過。另60秒profile捕捉166.8ms rAF與180ms LongTask，同窗已量process0.3ms，沒有call stack、不能歸因GC／GPU。4244正常隔離試玩保留，已有進度按開啟隔離遊戲；profile選項`/launcher?profile=1&profileSeconds=60`只作診斷，保持raw報告收起。**R2/C/C2 IN_PROGRESS、D TODO**；New Chat續同R2未覆蓋task／引擎／節點耗時與裝置／人工缺口，以下同日紀錄保留歷史。
+
+2026-10-04最新HUD子階段：讀[驗收](verification/res1-c2-hud-optimization.md)及updata頂部。feature_navigation.layout(vp,view)沿用當輪View，無參數resize走既有身分/revision保護；catalog.refresh新增預設false的defer_resource_refresh，HUD等shared合併後一次更新，資源/材質以副本與Era/模式/名稱/紙底失效。最終51/51、資源顯示752、world26通過；正常Web已重新匯出並準備音樂／壓縮，PCK35539625…，br14,451,078 bytes。profile三組HUD5.58–5.82ms；非profile三組pooled59.508FPS／p95 16.8ms，max183.4ms，嚴格60未過。遊戲sample1280×721／DPR約1（iframe DOM1280×720），時間狀態不同，不能泛稱精確配對。4243正常隔離試玩保留，已有資料按開啟遊戲，勿種檔覆寫；4242已停。下一同R2剩餘View／保存編碼與長幀，保留故障契約與門檻，R2/C/C2 IN_PROGRESS、D TODO，用New Chat。以下同日定位紀錄為歷史。
 
 2026-10-04最新R2耗時定位：讀[profile證據](verification/res1-c2-perf-r2-profile.md)及updata頂部。三組HUD12.7–12.8ms（navigation5.0–5.1／catalog3.7–3.9），保存18.1–22.7ms，encode13.8–18.5、commit4.1–4.2；tick1.2–1.3。新增RuntimeProfile預設關閉，僅`/launcher?profile=1`啟用；`--profile-build`服務獨立build/web-profile。基礎版51/51、最後world26，未做效能改善／完整Web故障重跑／200ms重現，profile不可判FPS通過。下一同R2改善FeatureNavigation重複get_view及BuildingCatalog重複資源／樣式更新，配對非profile驗收；R2/C/C2 IN_PROGRESS，D TODO。正常build/web未重匯出。請New Chat接後續。
 

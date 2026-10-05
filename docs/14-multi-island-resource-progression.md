@@ -1,5 +1,7 @@
 # Era、多島產業與多階資源主線
 
+2026-10-05 RES1-D2：正常規則／管理接入金丹與丹霞，使用者核定Era＋設施門檻／新築基靈池；215 checks／52/52、最後UI87及桌面1280×720.4／短橫844×390滑鼠與重載有界通過。丹霞唯一加工丹液、成品回運／祖島T3與修行需求及舊C歸檔接續已交付，专用丹霞世界美術與完整Web新檔／人工／裝置／C/R2仍待驗。D2／完整D IN_PROGRESS。[D2驗收](verification/res1-d2.md)／[ADR-011](decisions/ADR-011-era3-capacity-and-skill-gates.md)。下方較早狀態保留日期。
+
 2026-10-04 RES1-C3 最新：三島為築基首段切片，長期30+容量方向／36島草案與有限材料共用見[新規格](15-island-expansion-and-art-direction.md)。四張PNG已接正常版「經營→空島」，玩家保留原檔啟用；50/50、world22與兩版型Web操作通過，[C3](verification/res1-c3-art-integration.md)。後續島群尚未實作，C/C3人工美術／節奏與C2效能／裝置仍待驗；此前正式未附掛／先效能順序由本輪要求覆蓋，保留歷史結果。
 
 2026-10-04 RES1-C2-R1 最新：[收尾驗收](verification/res1-c2-closure.md) 補桌面async保存追加矩陣146 checks、全量50/50及world15 checks；效能實測未達預算（桌面48.60FPS／p95 33.4ms、20Mbps／100ms含48h恢復67.84秒、gzip估算44.72MB）。使用者美術／節奏明確保留待驗，實機／高DPR等另待補；整體C2仍IN_PROGRESS，下一C2-PERF、不跳D。正式manifest未附掛，原C1／C2雙鏈T2／48h拒寫重試與歷史規格保留。

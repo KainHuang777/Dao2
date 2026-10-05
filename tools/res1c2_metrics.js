@@ -5,6 +5,12 @@
   panel.innerHTML = '<button id="sample" style="min-height:44px">量測15秒幀間隔</button><button id="collapse" style="min-height:44px">收起報告</button><button id="hide-metrics" style="min-height:44px">隱藏量測工具</button><pre id="metrics" style="white-space:pre-wrap;max-height:260px;overflow:auto">等待 ABODE_READY</pre>';
   document.body.appendChild(panel);
   const report = document.getElementById('metrics');
+  // Recovery acceptance needs normal-mode observation; CPU profiles stay excluded.
+  const sampleParams = new URL(location.href).searchParams;
+  const normalSeconds = sampleParams.get('sampleSeconds');
+  const sampleDurationMs = window.dao2RuntimeProfile ? (sampleParams.get('profileSeconds') === '60' ? 60000 : 15000)
+    : (['60','300'].includes(normalSeconds) ? Number(normalSeconds)*1000 : 15000);
+  document.getElementById('sample').textContent = `量測${sampleDurationMs/1000}秒幀間隔`;
   let frames = [], active = false, previous = 0, started = 0, startedBeforeReady = false;
   let sampleSequence = 0, sampleEnvironment = null, sampleChanges = [], frameEnds = [];
   let settlementActive = false, settlementPrevious = 0, settlementGaps = [];
@@ -50,7 +56,7 @@
     settlementPrevious = settlementActive ? t : 0;
     if (active && previous) { frames.push(t-previous); frameEnds.push(t); }
     previous = active ? t : 0;
-    if (active && t-started >= 15000) {
+    if (active && t-started >= sampleDurationMs) {
       active = false;
       const sorted = frames.slice().sort((a,b)=>a-b);
       const intervalDurationMs = frames.reduce((sum,gap)=>sum+gap,0);
@@ -62,7 +68,7 @@
       if (!frames.length || frames.some(g=>!Number.isFinite(g)||g<=0)) invalidReasons.push('invalid_intervals');
       evidence.frameSample = {sampleSequence,sampledAtUtc:new Date().toISOString(),workload,
         valid:invalidReasons.length===0,invalidReasons,startEnvironment:sampleEnvironment,endEnvironment,changes:sampleChanges,
-        count:frames.length,durationMs:t-started,intervalDurationMs,
+        count:frames.length,durationMs:t-started,requestedDurationMs:sampleDurationMs,intervalDurationMs,
         fps:1000*frames.length/intervalDurationMs,rawWindowFps:1000*frames.length/(t-started),
         medianMs:sorted[Math.ceil(sorted.length*.5)-1],p95Ms:sorted[Math.ceil(sorted.length*.95)-1],
         p99Ms:sorted[Math.ceil(sorted.length*.99)-1],maxMs:sorted.at(-1),
@@ -83,7 +89,7 @@
     if (window.dao2RuntimeProfile) window.dao2RuntimeProfile.start();
     sampleSequence++; sampleEnvironment=environment(); sampleChanges=[];
     startedBeforeReady = evidence.readyMs === undefined;
-    report.textContent='取樣15秒，請保持本頁可見';
+    report.textContent=`取樣${sampleDurationMs/1000}秒，請保持本頁可見`;
   };
   document.getElementById('collapse').onclick = () => {
     report.hidden=!report.hidden;

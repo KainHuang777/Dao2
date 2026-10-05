@@ -1,0 +1,16 @@
+{"url": "http://127.0.0.1:4259/?case=d2progress", "report": "PASS\n{\n  \"case\": \"d2progress\",\n  \"checks\": 220,\n  \"failures\": [],\n  \"note\": \"AUTOMATED NORMAL RULES / SIMULATED SECONDS; NOT MOUSE PLAYTHROUGH\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2progress", "report": "PASS\n{\n  \"case\": \"d2progress\",\n  \"checks\": 4,\n  \"failures\": [],\n  \"note\": \"AUTOMATED NORMAL RULES / SIMULATED SECONDS; NOT MOUSE PLAYTHROUGH\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2retry", "report": "PASS\n{\n  \"case\": \"d2retry\",\n  \"checks\": 54,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2quota", "report": "PASS\n{\n  \"case\": \"d2quota\",\n  \"checks\": 12,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2indexreload", "report": "PASS\n{\n  \"case\": \"d2indexreload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2indexreload", "report": "PASS\n{\n  \"case\": \"d2indexreload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2indexreload", "report": "PASS\n{\n  \"case\": \"d2indexreload\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2quotareload", "report": "PASS\n{\n  \"case\": \"d2quotareload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2quotareload", "report": "PASS\n{\n  \"case\": \"d2quotareload\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2quotareload", "report": "PASS\n{\n  \"case\": \"d2quotareload\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2denied", "report": "PASS\n{\n  \"case\": \"d2denied\",\n  \"checks\": 12,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2corrupt", "report": "PASS\n{\n  \"case\": \"d2corrupt\",\n  \"checks\": 12,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2migration", "report": "PASS\n{\n  \"case\": \"d2migration\",\n  \"checks\": 19,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2lock", "report": "PASS\n{\n  \"case\": \"d2lock\",\n  \"checks\": 9,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2lock", "report": "PASS\n{\n  \"case\": \"d2lock\",\n  \"checks\": 8,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4259/?case=d2lock", "report": "PASS\n{\n  \"case\": \"d2lock\",\n  \"checks\": 6,\n  \"failures\": [],\n  \"note\": \"\"\n}"}

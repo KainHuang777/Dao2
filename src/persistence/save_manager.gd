@@ -14,6 +14,7 @@ static var _schema2_original: String = ""
 static var _load_error: String = ""
 const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
 const ISLAND_ARCHIVE_KEY := "save_before_islands"
+const D2_ARCHIVE_KEY := "save_before_d2"
 
 static func activate_islands(session: GameSession, meta: Dictionary) -> Dictionary:
 	# Persist the current source first; archive those exact bytes before C activation.
@@ -21,6 +22,8 @@ static func activate_islands(session: GameSession, meta: Dictionary) -> Dictiona
 	var checked := IslandProgression.preview(session.state, session.content)
 	if not checked.ok:
 		return checked
+	var extending: bool = session.state.economy.get("version") == IslandProgression.LEGACY_VERSION
+	var archive_key := D2_ARCHIVE_KEY if extending else ISLAND_ARCHIVE_KEY
 	var source_saved := save(session.state, meta)
 	if not source_saved.ok:
 		return source_saved
@@ -29,18 +32,20 @@ static func activate_islands(session: GameSession, meta: Dictionary) -> Dictiona
 		return decoded.state.revision if decoded.ok else -1)
 	if not source.ok:
 		return source
-	var original := adapter().read(ISLAND_ARCHIVE_KEY)
+	var original := adapter().read(archive_key)
 	if not original.ok:
 		if original.get("error") != "missing":
 			return {"ok": false, "error": "ISLAND_ARCHIVE_READ_FAILED"}
-		var written := adapter().write(ISLAND_ARCHIVE_KEY, source.json)
+		var written := adapter().write(archive_key, source.json)
 		if not written.ok:
 			return {"ok": false, "error": "ISLAND_ARCHIVE_WRITE_FAILED"}
-		original = adapter().read(ISLAND_ARCHIVE_KEY)
+		original = adapter().read(archive_key)
 		if not original.ok or original.data != source.json:
 			return {"ok": false, "error": "ISLAND_ARCHIVE_READBACK"}
 	var archived := SaveCodec.decode(original.data)
-	if not archived.ok or not archived.state.economy.is_empty() or archived.envelope.save_id != String(meta.get("save_id", "local")):
+	if not archived.ok or archived.envelope.save_id != String(meta.get("save_id", "local")):
+		return {"ok": false, "error": "ISLAND_ARCHIVE_CONFLICT"}
+	if (extending and archived.state.economy.get("version") != IslandProgression.LEGACY_VERSION) or (not extending and not archived.state.economy.is_empty()):
 		return {"ok": false, "error": "ISLAND_ARCHIVE_CONFLICT"}
 	var candidate := GameSession.new()
 	candidate.content = session.content

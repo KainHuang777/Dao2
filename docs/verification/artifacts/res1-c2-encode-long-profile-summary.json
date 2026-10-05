@@ -1,0 +1,854 @@
+{
+  "note": "Profile adds overhead. Inclusive nested spans cannot be summed. rAF overlap is temporal evidence only; uninstrumented engine/render/GPU/scheduler costs remain.",
+  "samples": [
+    {
+      "sequence": 1,
+      "utc": "2026-10-04T13:20:05.663Z",
+      "environment": {
+        "viewport": [
+          1280,
+          650
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "fps": 59.78024468735783,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 166.8000000000029,
+      "process": {
+        "count": 3587,
+        "totalMs": 2171.0,
+        "meanMs": 0.6052411485921383,
+        "p95Ms": 3.5,
+        "maxMs": 25.0
+      },
+      "longTasksSupported": true,
+      "longTasks": [
+        {
+          "startMs": 66469.5,
+          "durationMs": 180,
+          "name": "self"
+        }
+      ],
+      "sections": {
+        "advance_idle": {
+          "count": 3525,
+          "totalMs": 350.8,
+          "meanMs": 0.0995177304964539,
+          "p95Ms": 0.2,
+          "maxMs": 0.7
+        },
+        "advance_tick": {
+          "count": 62,
+          "totalMs": 94.4,
+          "meanMs": 1.5225806451612902,
+          "p95Ms": 2.2,
+          "maxMs": 2.9
+        },
+        "encode_checksum": {
+          "count": 4,
+          "totalMs": 21.0,
+          "meanMs": 5.25,
+          "p95Ms": 6.9,
+          "maxMs": 6.9
+        },
+        "encode_json": {
+          "count": 4,
+          "totalMs": 0.3,
+          "meanMs": 0.075,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "encode_roundtrip": {
+          "count": 4,
+          "totalMs": 16.1,
+          "meanMs": 4.025,
+          "p95Ms": 5.7,
+          "maxMs": 5.7
+        },
+        "encode_snapshot": {
+          "count": 4,
+          "totalMs": 2.5,
+          "meanMs": 0.625,
+          "p95Ms": 0.9,
+          "maxMs": 0.9
+        },
+        "encode_validate": {
+          "count": 4,
+          "totalMs": 10.2,
+          "meanMs": 2.55,
+          "p95Ms": 3.4,
+          "maxMs": 3.4
+        },
+        "hud_buff": {
+          "count": 225,
+          "totalMs": 13.4,
+          "meanMs": 0.059555555555555556,
+          "p95Ms": 0.1,
+          "maxMs": 0.3
+        },
+        "hud_catalog": {
+          "count": 225,
+          "totalMs": 362.2,
+          "meanMs": 1.6097777777777778,
+          "p95Ms": 2.2,
+          "maxMs": 3.1
+        },
+        "hud_guidance_layout": {
+          "count": 225,
+          "totalMs": 24.5,
+          "meanMs": 0.10888888888888888,
+          "p95Ms": 0.2,
+          "maxMs": 0.3
+        },
+        "hud_navigation": {
+          "count": 225,
+          "totalMs": 53.5,
+          "meanMs": 0.23777777777777778,
+          "p95Ms": 0.3,
+          "maxMs": 0.5
+        },
+        "hud_resources": {
+          "count": 225,
+          "totalMs": 162.8,
+          "meanMs": 0.7235555555555555,
+          "p95Ms": 1.1,
+          "maxMs": 1.5
+        },
+        "hud_status": {
+          "count": 225,
+          "totalMs": 147.4,
+          "meanMs": 0.6551111111111111,
+          "p95Ms": 1.0,
+          "maxMs": 1.5
+        },
+        "hud_total": {
+          "count": 225,
+          "totalMs": 779.6,
+          "meanMs": 3.464888888888889,
+          "p95Ms": 4.7,
+          "maxMs": 6.4
+        },
+        "island_refresh": {
+          "count": 225,
+          "totalMs": 14.5,
+          "meanMs": 0.06444444444444444,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 4,
+          "totalMs": 21.0,
+          "meanMs": 5.25,
+          "p95Ms": 6.9,
+          "maxMs": 6.9
+        },
+        "save_encode": {
+          "count": 4,
+          "totalMs": 52.0,
+          "meanMs": 13.0,
+          "p95Ms": 17.7,
+          "maxMs": 17.7
+        },
+        "save_total": {
+          "count": 4,
+          "totalMs": 73.2,
+          "meanMs": 18.3,
+          "p95Ms": 24.8,
+          "maxMs": 24.8
+        },
+        "view_build": {
+          "count": 120,
+          "totalMs": 295.5,
+          "meanMs": 2.4625,
+          "p95Ms": 3.4,
+          "maxMs": 5.6
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 62950.40000000596,
+          "totalUs": 25000,
+          "spans": {
+            "advance_idle": 0,
+            "encode_checksum": 6900,
+            "encode_json": 100,
+            "encode_roundtrip": 5700,
+            "encode_snapshot": 900,
+            "encode_validate": 3400,
+            "save_commit": 6900,
+            "save_encode": 17700,
+            "save_total": 24800
+          }
+        },
+        {
+          "endMs": 47905.09999999404,
+          "totalUs": 19100,
+          "spans": {
+            "advance_idle": 100,
+            "encode_checksum": 4400,
+            "encode_json": 0,
+            "encode_roundtrip": 3500,
+            "encode_snapshot": 500,
+            "encode_validate": 2100,
+            "hud_buff": 100,
+            "hud_catalog": 1400,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 600,
+            "hud_status": 800,
+            "hud_total": 3300,
+            "island_refresh": 100,
+            "save_commit": 4800,
+            "save_encode": 10800,
+            "save_total": 15600
+          }
+        },
+        {
+          "endMs": 32902.5,
+          "totalUs": 17100,
+          "spans": {
+            "advance_idle": 0,
+            "encode_checksum": 5000,
+            "encode_json": 100,
+            "encode_roundtrip": 3500,
+            "encode_snapshot": 500,
+            "encode_validate": 2300,
+            "save_commit": 4800,
+            "save_encode": 12000,
+            "save_total": 16800
+          }
+        },
+        {
+          "endMs": 17900.40000000596,
+          "totalUs": 16400,
+          "spans": {
+            "advance_idle": 100,
+            "encode_checksum": 4700,
+            "encode_json": 100,
+            "encode_roundtrip": 3400,
+            "encode_snapshot": 600,
+            "encode_validate": 2400,
+            "save_commit": 4500,
+            "save_encode": 11500,
+            "save_total": 16000
+          }
+        },
+        {
+          "endMs": 15661.5,
+          "totalUs": 10700,
+          "spans": {
+            "advance_tick": 2100,
+            "hud_buff": 0,
+            "hud_catalog": 1400,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 200,
+            "hud_resources": 700,
+            "hud_status": 300,
+            "hud_total": 4800,
+            "island_refresh": 100,
+            "view_build": 5600
+          }
+        },
+        {
+          "endMs": 18593.70000000298,
+          "totalUs": 9500,
+          "spans": {
+            "advance_tick": 1700,
+            "hud_buff": 0,
+            "hud_catalog": 1800,
+            "hud_guidance_layout": 300,
+            "hud_navigation": 200,
+            "hud_resources": 700,
+            "hud_status": 400,
+            "hud_total": 5600,
+            "island_refresh": 100,
+            "view_build": 4000
+          }
+        },
+        {
+          "endMs": 35094.79999999702,
+          "totalUs": 9200,
+          "spans": {
+            "advance_tick": 1800,
+            "hud_buff": 0,
+            "hud_catalog": 1700,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 600,
+            "hud_status": 400,
+            "hud_total": 5300,
+            "island_refresh": 100,
+            "view_build": 4200
+          }
+        },
+        {
+          "endMs": 45764.20000000298,
+          "totalUs": 8600,
+          "spans": {
+            "advance_tick": 1400,
+            "hud_buff": 0,
+            "hud_catalog": 1500,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 200,
+            "hud_resources": 600,
+            "hud_status": 400,
+            "hud_total": 4900,
+            "island_refresh": 100,
+            "view_build": 4100
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 20000.4,
+          "gapMs": 33.30000000000291,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 0.8,
+          "sections": {
+            "advance_idle": 0.3,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 51652.1,
+          "gapMs": 33.5,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 5.6,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 2.7,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 0.5,
+            "hud_resources": 1.2,
+            "hud_status": 0.6,
+            "hud_total": 5.3,
+            "island_refresh": 0.2,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 57535.7,
+          "gapMs": 33.39999999999418,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 0.3,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 62952.6,
+          "gapMs": 33.299999999995634,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 25.0,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "encode_checksum": 6.9,
+            "encode_json": 0.1,
+            "encode_roundtrip": 5.7,
+            "encode_snapshot": 0.9,
+            "encode_validate": 3.4,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 6.9,
+            "save_encode": 17.7,
+            "save_total": 24.8,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 66636.2,
+          "gapMs": 166.8000000000029,
+          "overlappingLongTasks": [
+            {
+              "startMs": 66469.5,
+              "durationMs": 180,
+              "name": "self"
+            }
+          ],
+          "overlappingProcessMs": 0.3,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "utc": "2026-10-04T13:23:11.339Z",
+      "environment": {
+        "viewport": [
+          1280,
+          650
+        ],
+        "dpr": 1.25,
+        "visible": "visible"
+      },
+      "fps": 59.913371431237934,
+      "rafP95Ms": 16.800000000017462,
+      "rafMaxMs": 49.89999999999418,
+      "process": {
+        "count": 3595,
+        "totalMs": 2125.8,
+        "meanMs": 0.5913212795549374,
+        "p95Ms": 3.5,
+        "maxMs": 17.3
+      },
+      "longTasksSupported": true,
+      "longTasks": [
+        {
+          "startMs": 210677.09999999404,
+          "durationMs": 53,
+          "name": "self"
+        }
+      ],
+      "sections": {
+        "advance_idle": {
+          "count": 3533,
+          "totalMs": 342.2,
+          "meanMs": 0.09685819416926125,
+          "p95Ms": 0.2,
+          "maxMs": 0.5
+        },
+        "advance_tick": {
+          "count": 62,
+          "totalMs": 96.1,
+          "meanMs": 1.55,
+          "p95Ms": 2.4,
+          "maxMs": 2.9
+        },
+        "encode_checksum": {
+          "count": 4,
+          "totalMs": 17.4,
+          "meanMs": 4.35,
+          "p95Ms": 4.5,
+          "maxMs": 4.5
+        },
+        "encode_json": {
+          "count": 4,
+          "totalMs": 0.3,
+          "meanMs": 0.075,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "encode_roundtrip": {
+          "count": 4,
+          "totalMs": 13.3,
+          "meanMs": 3.325,
+          "p95Ms": 3.4,
+          "maxMs": 3.4
+        },
+        "encode_snapshot": {
+          "count": 4,
+          "totalMs": 2.1,
+          "meanMs": 0.525,
+          "p95Ms": 0.6,
+          "maxMs": 0.6
+        },
+        "encode_validate": {
+          "count": 4,
+          "totalMs": 9.4,
+          "meanMs": 2.35,
+          "p95Ms": 3.0,
+          "maxMs": 3.0
+        },
+        "hud_buff": {
+          "count": 225,
+          "totalMs": 13.6,
+          "meanMs": 0.06044444444444444,
+          "p95Ms": 0.1,
+          "maxMs": 0.3
+        },
+        "hud_catalog": {
+          "count": 225,
+          "totalMs": 351.0,
+          "meanMs": 1.56,
+          "p95Ms": 2.1,
+          "maxMs": 3.6
+        },
+        "hud_guidance_layout": {
+          "count": 225,
+          "totalMs": 26.8,
+          "meanMs": 0.11911111111111111,
+          "p95Ms": 0.2,
+          "maxMs": 0.5
+        },
+        "hud_navigation": {
+          "count": 225,
+          "totalMs": 52.5,
+          "meanMs": 0.23333333333333334,
+          "p95Ms": 0.4,
+          "maxMs": 0.6
+        },
+        "hud_resources": {
+          "count": 225,
+          "totalMs": 158.7,
+          "meanMs": 0.7053333333333334,
+          "p95Ms": 1.1,
+          "maxMs": 2.2
+        },
+        "hud_status": {
+          "count": 225,
+          "totalMs": 144.7,
+          "meanMs": 0.6431111111111111,
+          "p95Ms": 1.0,
+          "maxMs": 1.3
+        },
+        "hud_total": {
+          "count": 225,
+          "totalMs": 760.9,
+          "meanMs": 3.3817777777777778,
+          "p95Ms": 4.5,
+          "maxMs": 5.8
+        },
+        "island_refresh": {
+          "count": 225,
+          "totalMs": 13.0,
+          "meanMs": 0.057777777777777775,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 4,
+          "totalMs": 19.9,
+          "meanMs": 4.975,
+          "p95Ms": 5.4,
+          "maxMs": 5.4
+        },
+        "save_encode": {
+          "count": 4,
+          "totalMs": 44.1,
+          "meanMs": 11.025,
+          "p95Ms": 11.9,
+          "maxMs": 11.9
+        },
+        "save_total": {
+          "count": 4,
+          "totalMs": 64.3,
+          "meanMs": 16.075,
+          "p95Ms": 17.0,
+          "maxMs": 17.0
+        },
+        "view_build": {
+          "count": 120,
+          "totalMs": 292.3,
+          "meanMs": 2.4358333333333335,
+          "p95Ms": 3.8,
+          "maxMs": 5.0
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 225463.5,
+          "totalUs": 17300,
+          "spans": {
+            "advance_idle": 200,
+            "encode_checksum": 4500,
+            "encode_json": 100,
+            "encode_roundtrip": 3300,
+            "encode_snapshot": 600,
+            "encode_validate": 3000,
+            "save_commit": 5000,
+            "save_encode": 11900,
+            "save_total": 17000
+          }
+        },
+        {
+          "endMs": 255479.5,
+          "totalUs": 16500,
+          "spans": {
+            "advance_idle": 0,
+            "encode_checksum": 4200,
+            "encode_json": 100,
+            "encode_roundtrip": 3300,
+            "encode_snapshot": 600,
+            "encode_validate": 2100,
+            "save_commit": 5400,
+            "save_encode": 10700,
+            "save_total": 16200
+          }
+        },
+        {
+          "endMs": 240463.09999999404,
+          "totalUs": 15800,
+          "spans": {
+            "advance_idle": 0,
+            "encode_checksum": 4400,
+            "encode_json": 0,
+            "encode_roundtrip": 3400,
+            "encode_snapshot": 400,
+            "encode_validate": 2100,
+            "save_commit": 4900,
+            "save_encode": 10700,
+            "save_total": 15600
+          }
+        },
+        {
+          "endMs": 210476.40000000596,
+          "totalUs": 15700,
+          "spans": {
+            "advance_idle": 100,
+            "encode_checksum": 4300,
+            "encode_json": 100,
+            "encode_roundtrip": 3300,
+            "encode_snapshot": 500,
+            "encode_validate": 2200,
+            "save_commit": 4600,
+            "save_encode": 10800,
+            "save_total": 15500
+          }
+        },
+        {
+          "endMs": 208420.20000000298,
+          "totalUs": 9500,
+          "spans": {
+            "advance_tick": 1700,
+            "hud_buff": 0,
+            "hud_catalog": 1300,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 200,
+            "hud_resources": 600,
+            "hud_status": 500,
+            "hud_total": 4800,
+            "island_refresh": 100,
+            "view_build": 5000
+          }
+        },
+        {
+          "endMs": 249205,
+          "totalUs": 8900,
+          "spans": {
+            "advance_tick": 2100,
+            "hud_buff": 0,
+            "hud_catalog": 1300,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 300,
+            "hud_resources": 500,
+            "hud_status": 400,
+            "hud_total": 4500,
+            "island_refresh": 0,
+            "view_build": 4100
+          }
+        },
+        {
+          "endMs": 219070.70000000298,
+          "totalUs": 8200,
+          "spans": {
+            "advance_tick": 1400,
+            "hud_buff": 0,
+            "hud_catalog": 1400,
+            "hud_guidance_layout": 0,
+            "hud_navigation": 300,
+            "hud_resources": 500,
+            "hud_status": 300,
+            "hud_total": 4500,
+            "island_refresh": 0,
+            "view_build": 4000
+          }
+        },
+        {
+          "endMs": 240404.5,
+          "totalUs": 7800,
+          "spans": {
+            "advance_tick": 1200,
+            "hud_buff": 0,
+            "hud_catalog": 1300,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 400,
+            "hud_status": 500,
+            "hud_total": 4400,
+            "island_refresh": 0,
+            "view_build": 3900
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 209926.9,
+          "gapMs": 33.29999999998836,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 210726.9,
+          "gapMs": 49.89999999999418,
+          "overlappingLongTasks": [
+            {
+              "startMs": 210677.09999999404,
+              "durationMs": 53,
+              "name": "self"
+            }
+          ],
+          "overlappingProcessMs": 0.1,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 210777,
+          "gapMs": 33.39999999999418,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 241495.3,
+          "gapMs": 33.39999999999418,
+          "overlappingLongTasks": [],
+          "overlappingProcessMs": 6.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "encode_checksum": 0.0,
+            "encode_json": 0.0,
+            "encode_roundtrip": 0.0,
+            "encode_snapshot": 0.0,
+            "encode_validate": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 3.6,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 0.4,
+            "hud_resources": 0.9,
+            "hud_status": 0.6,
+            "hud_total": 5.8,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

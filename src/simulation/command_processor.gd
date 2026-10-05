@@ -194,6 +194,8 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 	if state.level < int(era_def.max_level):
 		return _failure("ERA_NOT_MAX_LEVEL", {"required": int(era_def.max_level), "current": state.level})
 	var upgrade_req: Dictionary = era_def.get("upgrade_requirements", {})
+	if state.era_id == 2 and content.buildings.has("foundation_reservoir") and state.economy.get("version") != IslandProgression.VERSION:
+		return _failure("DANXIA_ACTIVATION_REQUIRED", {})
 	var req_caps: Dictionary = upgrade_req.get("capacity", {})
 	var cur_caps: Dictionary = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
 	for r_id in req_caps:

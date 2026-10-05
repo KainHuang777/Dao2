@@ -51,6 +51,10 @@ var _last_buildings: Dictionary = {}
 var _last_era_id: int = 1
 var _list_scroll_position: int = 0
 var _has_objective: bool = true
+var _resource_rendered: Dictionary = {}
+var _resource_visual_states: Dictionary = {}
+var _row_material_states: Dictionary = {}
+var _row_rendered: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -333,7 +337,7 @@ func _apply_density() -> void:
 		upgrade_buttons[id].custom_minimum_size.y = btn_height
 		_update_row_overlays(id)
 
-func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1) -> void:
+func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1, defer_resource_cards: bool = false) -> void:
 	_last_buildings = buildings.duplicate(true)
 	var resource_lines: Array[String] = []
 	for resource_id in resources:
@@ -349,8 +353,9 @@ func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1)
 	_last_resources = resources.duplicate(true)
 	_last_resources.merge(_shared_resources, true)
 	_last_era_id = era_id
-	_update_resource_values()
-	_apply_resource_cards()
+	if not defer_resource_cards:
+		_update_resource_values()
+		_apply_resource_cards()
 	for id in rows:
 		var button: Button = rows[id]
 		var view: Dictionary = buildings.get(id, {})
@@ -423,14 +428,21 @@ func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1)
 		button.text = "%s · %s" % [button.get_meta("title"), status]
 
 		var material_state := "ready" if affordable else ("warning" if is_prereq_blocked else "normal")
-		button.add_theme_stylebox_override("normal", UiMaterial.surface("paper", material_state))
-		upgrade.add_theme_stylebox_override("normal", UiMaterial.surface("plaque", "ready" if affordable else "normal"))
+		var row_style_state := [material_state, affordable]
+		if _row_material_states.get(id) != row_style_state:
+			button.add_theme_stylebox_override("normal", UiMaterial.surface("paper", material_state))
+			upgrade.add_theme_stylebox_override("normal", UiMaterial.surface("plaque", "ready" if affordable else "normal"))
+		_row_material_states[id] = row_style_state
 		var bar_data: Dictionary = progress_bars[id]
 		var meter: ProgressBar = bar_data["bg"]
-		meter.visible = level < level_cap and not costs.is_empty()
-		bar_data["progress"] = min_ratio if meter.visible else 0.0
-		meter.value = float(bar_data["progress"])
-		meter.add_theme_stylebox_override("fill", UiMaterial.requirement_fill(material_state))
+		var meter_vis: bool = level < level_cap and not costs.is_empty()
+		if meter.visible != meter_vis:
+			meter.visible = meter_vis
+		bar_data["progress"] = min_ratio if meter_vis else 0.0
+		if not is_equal_approx(meter.value, float(bar_data["progress"])):
+			meter.value = float(bar_data["progress"])
+		if meter.get_theme_stylebox("fill") != UiMaterial.requirement_fill(material_state):
+			meter.add_theme_stylebox_override("fill", UiMaterial.requirement_fill(material_state))
 		meter.tooltip_text = "材料需求：%.0f%%（取最不足材料；不是建造時間）" % (min_ratio * 100.0)
 		button.tooltip_text = "%s｜%s\n材料需求 %.0f%%（以最不足材料計）" % [role, cost_line, min_ratio * 100.0]
 		if is_prereq_blocked:
@@ -457,16 +469,25 @@ func _update_resource_values() -> void:
 		var second_line: String = entry.get("status_text", "+%.2f/秒" % rate if rate > 0.0 else "待產出")
 		var is_full := (capacity > 0.0 and current >= capacity)
 		var r_name: String = resource_names.get(resource_id, resource_id)
+		# Own a copy: callers may mutate/reuse dictionaries between commands.
+		# Names, Era, density and paper palette affect rendering even at equal stock.
+		var signature := [entry, r_name, _last_era_id, resource_display_mode, hud_paper_resources]
+		if _resource_rendered.get(resource_id) == signature:
+			continue
+		_resource_rendered[resource_id] = signature.duplicate(true)
+		var visual_state := [bool(entry.get("uncapped", false)), is_full, hud_paper_resources]
+		if _resource_visual_states.get(resource_id) != visual_state:
+			var full_style := is_full and not bool(entry.get("uncapped", false))
+			card.add_theme_stylebox_override("panel", UiMaterial.hud_resource_row(full_style) if hud_paper_resources else (_resource_full_style() if full_style else _row_style(Color(0.02, 0.08, 0.10, 0.72))))
+		_resource_visual_states[resource_id] = visual_state
 
 		if bool(entry.get("uncapped", false)):
 			value_label.text = "%s  %.0f" % [r_name, current]
 			if resource_display_mode == 2:
 				value_label.text += "\n" + second_line
-			card.add_theme_stylebox_override("panel", UiMaterial.hud_resource_row() if hud_paper_resources else _row_style(Color(0.02, 0.08, 0.10, 0.72)))
 			value_label.add_theme_color_override("font_color", UiMaterial.INK)
 			card.tooltip_text = "%s · %s" % [r_name, second_line]
 		elif is_full:
-			card.add_theme_stylebox_override("panel", UiMaterial.hud_resource_row(true) if hud_paper_resources else _resource_full_style())
 			if resource_display_mode == 1:
 				value_label.text = "%s  %.2f [滿]" % [r_name, current]
 			else:
@@ -474,7 +495,6 @@ func _update_resource_values() -> void:
 			value_label.add_theme_color_override("font_color", Color("78511e") if hud_paper_resources else Color("f5bd71"))
 			card.tooltip_text = "%s  %.2f/%.0f 【已達上限】· %s" % [r_name, current, capacity, second_line]
 		else:
-			card.add_theme_stylebox_override("panel", UiMaterial.hud_resource_row() if hud_paper_resources else _row_style(Color(0.02, 0.08, 0.10, 0.72)))
 			if resource_display_mode == 1:
 				value_label.text = "%s  %.2f" % [r_name, current]
 			else:
@@ -503,8 +523,12 @@ func _update_row_overlays(id: String) -> void:
 	var button: Button = rows[id]
 	var meter: ProgressBar = progress_bars[id]["bg"]
 	# Stay within the paper face, away from decorative corners and text.
-	meter.position = Vector2(12, maxf(0.0, button.size.y - 10.0))
-	meter.size = Vector2(maxf(0.0, button.size.x - 24.0), 5)
+	var target_pos := Vector2(12, maxf(0.0, button.size.y - 10.0))
+	var target_size := Vector2(maxf(0.0, button.size.x - 24.0), 5)
+	if meter.position != target_pos:
+		meter.position = target_pos
+	if meter.size != target_size:
+		meter.size = target_size
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size

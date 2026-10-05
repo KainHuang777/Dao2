@@ -1,0 +1,206 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-04T18:57:26.134Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-04T18:57:26.553Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-04T18:57:26.965Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "WEB_MATRIX: PASS {\"case\":\"d2lock\",\"checks\":8,\"failures\":[],\"note\":\"\"}",
+    "timestamp": "2026-10-04T18:57:28.264Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-04T18:58:00.579Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-04T18:58:01.009Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-04T18:58:01.415Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "WEB_MATRIX: PASS {\"case\":\"d2lock\",\"checks\":6,\"failures\":[],\"note\":\"\"}",
+    "timestamp": "2026-10-04T18:58:02.241Z",
+    "url": "http://127.0.0.1:4259/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-04T18:59:22.118Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-04T18:59:22.443Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-04T18:59:22.815Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "OFFLINE_SETTLEMENT_BEGIN",
+    "timestamp": "2026-10-04T18:59:24.217Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "OFFLINE_SETTLEMENT_END: ok=true",
+    "timestamp": "2026-10-04T18:59:24.646Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T18:59:25.452Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_CAMERA_HOME",
+    "timestamp": "2026-10-04T18:59:25.454Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords",
+    "timestamp": "2026-10-04T18:59:25.477Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T18:59:25.483Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T18:59:25.579Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T18:59:25.582Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457",
+    "timestamp": "2026-10-04T18:59:26.068Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:08.539Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:08.555Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:08.567Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:14.829Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:14.833Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:14.835Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:14.836Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:27.613Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:27.658Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "BGM_WEB_READY: 02_The_Weight_of_Heaven.mp3 seconds=58.3050117492676",
+    "timestamp": "2026-10-04T19:00:29.219Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "WEB_BACKGROUND_SAVE_FAILED: SecurityError",
+    "timestamp": "2026-10-04T19:00:53.829Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "WEB_BACKGROUND_SETTLED: {\"age_seconds\":4876.0,\"away_ms\":15832,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":15832,\"effective_ticks\":16,\"forfeited_ms\":0,\"left_at_utc_ms\":1791140438723,\"report_id\":\"offline:1791140454555\",\"rollback\":false,\"settled_at_utc_ms\":1791140454555,\"stopped\":null,\"time_only_ticks\":0}",
+    "timestamp": "2026-10-04T19:00:54.602Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1418.0, 720.0)",
+    "timestamp": "2026-10-04T19:00:54.616Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  },
+  {
+    "level": "log",
+    "message": "BGM_WEB_READY: 03_Rungs_of_the_Infinite.mp3 seconds=61.8839912414551",
+    "timestamp": "2026-10-04T19:01:44.073Z",
+    "url": "http://127.0.0.1:4259/release/index.html"
+  }
+]

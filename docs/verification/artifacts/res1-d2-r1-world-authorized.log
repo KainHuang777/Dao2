@@ -1,0 +1,91 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid call to function 'refresh (via call)' in base 'PanelContainer (building_catalog.gd)'. Expected 3 argument(s).
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:887)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:887)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:923)
+       [2] _ready (res://src/abode/living_abode.gd:349)
+       [3] _run (res://tests/res1d2_world_runner.gd:27)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid call to function 'refresh (via call)' in base 'PanelContainer (building_catalog.gd)'. Expected 3 argument(s).
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:887)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:887)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:923)
+       [2] open (res://src/presentation/feature_navigation.gd:124)
+       [3] manage_current (res://src/presentation/island_world.gd:151)
+       [4] pick (res://src/presentation/island_world.gd:162)
+       [5] _pick_world (res://src/abode/living_abode.gd:944)
+       [6] _run (res://tests/res1d2_world_runner.gd:47)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid access to property or key 'recipes' on a base object of type 'Dictionary'.
+   at: refresh (res://src/presentation/island_management_panel.gd:194)
+   GDScript backtrace (most recent call first):
+       [0] refresh (res://src/presentation/island_management_panel.gd:194)
+       [1] select_island (res://src/presentation/island_management_panel.gd:234)
+       [2] manage_current (res://src/presentation/island_world.gd:152)
+       [3] pick (res://src/presentation/island_world.gd:162)
+       [4] _pick_world (res://src/abode/living_abode.gd:944)
+       [5] _run (res://tests/res1d2_world_runner.gd:47)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+SCRIPT ERROR: Invalid call. Nonexistent function 'clone' in base 'RefCounted (GameState)'.
+   at: _run (res://tests/res1d2_world_runner.gd:51)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1d2_world_runner.gd:51)

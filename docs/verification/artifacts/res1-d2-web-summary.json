@@ -1,0 +1,65 @@
+{
+  "result": "PASS",
+  "reports": 16,
+  "checks": 400,
+  "cases": {
+    "d2progress": [
+      220,
+      4
+    ],
+    "d2retry": [
+      54
+    ],
+    "d2quota": [
+      12
+    ],
+    "d2indexreload": [
+      8,
+      8,
+      6
+    ],
+    "d2quotareload": [
+      8,
+      8,
+      6
+    ],
+    "d2denied": [
+      12
+    ],
+    "d2corrupt": [
+      12
+    ],
+    "d2migration": [
+      19
+    ],
+    "d2lock": [
+      9,
+      8,
+      6
+    ]
+  },
+  "builds": {
+    "web": {
+      "sha256": "134334491bd68be37fec0cdc292916c5f93020fae986e7ae3a6ecfec5e216eba",
+      "bytes": 6529340
+    },
+    "res1d2": {
+      "sha256": "f7bb896516d3616175faad682788fe03285553b3b5daf33269c1554cd4fa3fc9",
+      "bytes": 6534560
+    },
+    "res1d2r1": {
+      "sha256": "e8a549e394fb26e1cf973de9b85786cf94604a2bd2e794727f76ab760d5f1f84",
+      "bytes": 10669068
+    },
+    "res1d2-web": {
+      "sha256": "f0290bcaf3d20f974eb445c95fb1d53631a198f80ea7a3c0563f6d035813c95e",
+      "bytes": 10704700
+    },
+    "res1d2-web-live": {
+      "sha256": "0cf078752939ee22e803323935a8ae6d50d1582b33847c43cacf58d84a971890",
+      "bytes": 10670316
+    }
+  },
+  "normal_excludes_test_harness": true,
+  "note": "Automated Web normal-rule flow uses simulated seconds; normal mouse full playthrough/FPS/device gates remain pending."
+}

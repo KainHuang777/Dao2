@@ -1,5 +1,11 @@
 # 修仙問道 v2｜Godot AI-first 技術架構
 
+2026-10-05 D2-R1：Godot IslandWorld包含丹霞独立body／landmark；世界／管理雙向路由共用herb狀態，所有航船讀實際trips，不發收益。四島HFlowContainer以HUD／紙面內距／導航安全範圍換行；遠島隱藏祖島遠景題字，規則／schema3／res1-d-2／core-flow-10-danxia不變。53/53、最後world38＋管理87與獨立Web子範圍見[驗收](verification/res1-d2-r1.md)，完整D2與R2仍未放行。
+
+2026-10-04 R2診斷增補：profile從_process入口含preflight開始，提前返回結束，背景結算await前關閉以免將等待當CPU；只在隔離profile頁觀察Long Animation Frames並保存scalar脚本入口，summary不加總browser與GDScript elapsed spans。83.3ms rAF對應MainLoop_runner84.1ms、process0.4ms，只縮小到Web引擎入口，無WASM內call stack／GPU根因。正常橋接關閉且與profile export同PCK；51/51／world26通過，嚴格60未過。[證據與限制](verification/res1-c2-main-loop-tracing.md)。
+
+2026-10-04 R2：定時HUD使用state身分＋revision保護View，明確命令／debug／載入refresh強制重建；既有修行封頂改值時清除View。SaveCodec保留首次JSON往返／解析後checksum，重用首次文字加入固定SHA256欄位以省略最後整體序列化；不將checksum近整數正規化當保存資料。schema／rules不變，JSON欄位順序不同、完整解析envelope比對與故障重試通過。固定快照成本与長幀關聯見[R2驗收](verification/res1-c2-view-encode-longframes.md)；166.8ms rAF＋180ms LongTask同窗已量process0.3ms仍無call stack，不宣稱GPU／GC根因或嚴格60通過。
+
 2026-10-04 PERF-R2續輪：無命令準備新增島嶼固定點偵測。只有無在途／加工倒數、完整economy除tick外不變、祖島Amount未變時省略重複檢查；監看持有的resource entry／Amount，tick只替換value，命令後一律重建。祖島生產的無變化結果只在乘區未重建、經濟靜止且庫存未變時重用；靈界耗料立即失效。壽元與修行倍率快取在BUFF到期／時辰邊界失效，修行時間仍逐秒相加。天時tick只做一次既有同步，小景滿兩件時略過eligible掃描，RNG不動。FrameBudget **14ms**只控制讓出；schema／rules／CAP不變。51/51＋145精確檢查／Web retry49、節流長離線9.801／9.777秒有界通過，完整證據見 [續輪](verification/res1-c2-perf-r2.md#2026-10-04-續輪交付節流長離線缺口)。下面10ms結果保留為較早歷史。
 
 2026-10-04較早10ms版 PERF-R2：一次無命令結算快取宗門／靈獸被動、BUFF到期與時辰邊界乘區、相同乘區的一秒Amount delta／基礎容量；當秒庫存與預留仍重讀。靈獸初始化通過零tick／壽盡保護後才發生。FrameBudget 10ms只控制讓出，不改逐秒事件／RNG／收益與保存版本。最終51/51、121精確比對、Web retry49通過；本機48h恢復7.75秒，節流長離線13.55秒仍未過，續PERF-R2，不跳D。[R2驗收](verification/res1-c2-perf-r2.md)。

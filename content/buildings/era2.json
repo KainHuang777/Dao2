@@ -1,0 +1,8 @@
+[
+  {
+    "id": "foundation_reservoir", "era": 2, "max_level": 3,
+    "cost_factor": 1.5, "prereq": {"building": "storage_lingli", "level": 2},
+    "base_cost": {"money": 100, "wood": 50, "stone_low": 20},
+    "effect_weight": null, "effects": {"lingli_max": 1000}
+  }
+]

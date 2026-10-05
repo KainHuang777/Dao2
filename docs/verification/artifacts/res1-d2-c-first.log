@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:65)
+       [1] activate_islands (res://src/persistence/save_manager.gd:45)
+       [2] _run (res://tests/res1c_progression_runner.gd:112)
+RES1C_OFFLINE_CPU_MS: 1021 ticks=86400
+ERROR: repeat local herb: { "ok": false, "error": "ISLAND_NOT_OPEN", "events": [], "changed_ids": [], &"duplicate": false, &"new_revision": 1328 }
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1c_progression_runner.gd:197)
+       [1] _test_ui (res://tests/res1c_progression_runner.gd:218)

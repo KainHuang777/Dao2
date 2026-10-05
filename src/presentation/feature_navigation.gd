@@ -20,6 +20,7 @@ var _shared_resource_count := 0
 var _changing := false
 var _camera_before := false
 var _tab_group := ""
+var _main_selected: Dictionary = {}
 
 func _init(scene: Node) -> void:
 	abode = scene
@@ -175,7 +176,7 @@ func _make_tabs() -> void:
 		tabs.add_child(button)
 		tab_buttons[route] = button
 
-func layout(vp: Vector2) -> void:
+func layout(vp: Vector2, view: Dictionary = {}) -> void:
 	var main_buttons := [abode.island_mode_button, abode.building_catalog_button, abode.reincarnation_button, abode.overview_button]
 	var ids := ["home", "management", "cultivation", "journey"]
 	for i in main_buttons.size():
@@ -183,10 +184,16 @@ func layout(vp: Vector2) -> void:
 		button.visible = true
 		button.disabled = ids[i] == group
 		button.custom_minimum_size = Vector2(72 if vp.x < 640.0 else 88, 56)
-		UiMaterial.mark_selected(button, ids[i] == group)
+		var selected: bool = ids[i] == group
+		if _main_selected.get(button) != selected:
+			UiMaterial.mark_selected(button, selected)
+			_main_selected[button] = selected
 	abode.island_mode_button.text = "洞府"
 	abode.building_catalog_button.text = "經營"
-	var view: Dictionary = abode.session.get_view()
+	# Resize/page callers use the state-identity/revision guarded presentation View.
+	# HUD refresh already owns the current View and must not rebuild it here.
+	if view.is_empty():
+		view = abode._presentation_view()
 	_refresh_main_notifications(view)
 	abode.more_menu.visible = false
 	# Reapply bounds after labels/visibility invalidate the container minimum size.
@@ -306,6 +313,6 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 			var saved: Dictionary = abode._save_game()
 			if not saved.ok:
 				result = saved
-	var errors := {"INSUFFICIENT_RESOURCE": "祖島材料不足；請先將加工物運回祖島。", "ERA_REQUIREMENT": "築基後才能開拓。", "RECIPE_ISLAND_REQUIREMENT": "請至專業島加工。", "ISLAND_NOT_OPEN": "請先開拓航線兩端島嶼。", "JOB_BUSY": "已有工作，請等本批完成後停止。", "OUTPUT_FULL": "產物滿倉；請啟動回祖島航線。"}
+	var errors := {"INSUFFICIENT_RESOURCE": "加工原料或工程材料不足；請查看當地庫存、祖島靈氣與航線。", "ERA_REQUIREMENT": "築基開放青木／玄礦，金丹開放丹霞；配方另有境界條件。", "RECIPE_ISLAND_REQUIREMENT": "丹液在丹霞加工，靈材在青木、銅精在玄礦，其餘配方在祖島。", "ISLAND_NOT_OPEN": "請先開拓航線兩端島嶼。", "JOB_BUSY": "已有工作，請等本批完成後停止。", "OUTPUT_FULL": "產物滿倉；請啟動回祖島航線。"}
 	island_panel.show_result("操作完成，已保存。" if result.ok else errors.get(result.get("error", ""), "操作未保存：%s。原檔已保留，恢復儲存後重試。" % result.get("error", "原因不明")))
 	abode._refresh_hud()

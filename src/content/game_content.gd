@@ -8,7 +8,7 @@ var resources: Dictionary = {}
 var buildings: Dictionary = {}
 var eras: Dictionary = {}
 var content_version: String = ""
-var processing_catalog: Dictionary = {} # RES1-A opt-in; not in release save/content version yet.
+var processing_catalog: Dictionary = {} # Base loader is independent; normal IslandProgression.attach enables the versioned profile.
 
 func resource(resource_id: String) -> Variant:
 	return resources.get(resource_id)

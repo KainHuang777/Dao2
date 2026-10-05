@@ -1,0 +1,12 @@
+[
+  {
+    "id": 3, "name": "金丹期", "max_level": 10,
+    "resource_multiplier": 2, "lifespan": 540,
+    "level_up_requirements": {
+      "base_time": 240, "time_multiplier": 1.22,
+      "resources": {"lingli": 2000, "money": 500, "stone_mid": 50, "liquid": 1, "formation_core": 1},
+      "lv9_item": {"type": "talisman", "amount": 10}
+    },
+    "upgrade_requirements": {"level": 10, "capacity": {"lingli": 10000, "stone_low": 5000}}
+  }
+]

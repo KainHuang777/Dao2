@@ -54,6 +54,10 @@ func _label(text: String) -> Label:
 	label.add_theme_color_override("font_color", UiMaterial.INK)
 	return label
 
+func _resource_name(id: String) -> String:
+	# The shared Chinese fonts have no emoji glyphs; keep essential names textual.
+	return {"foundation_pill": "築基丹", "stone_mid": "中品靈石", "golden_core_pill": "金丹丹藥", "liquid": "丹液", "talisman": "符咒"}.get(id, _catalog.get("resources", {}).get(id, {}).get("name", id))
+
 func _add_button(parent: Node, text: String, action: Callable) -> Button:
 	var button := Button.new()
 	button.text = text
@@ -90,19 +94,26 @@ func _rebuild() -> void:
 	body.add_child(inventory)
 	job_status = _label("")
 	body.add_child(job_status)
-	if island in IslandProgression.RECIPES:
-		var recipe: String = IslandProgression.RECIPES[island]
+	var recipes: Array = IslandProgression.HOME_RECIPES if island == "home" else [IslandProgression.RECIPES[island]]
+	for recipe_id in recipes:
+		var recipe: String = recipe_id
 		for entry in [["製作一批", false], ["持續製作", true]]:
 			var repeating: bool = entry[1]
-			work_buttons.append(_add_button(body, entry[0], func(): action_requested.emit("craft", {"island_id": island, "recipe_id": recipe, "count": 1, "repeat": repeating})))
-		work_buttons.append(_add_button(body, "本批完成後停止", func(): action_requested.emit("stop_processing", {"island_id": island})))
+			var name: String = _resource_name(recipe)
+			var button := _add_button(body, name + "・" + entry[0], func(): action_requested.emit("craft", {"island_id": island, "recipe_id": recipe, "count": 1, "repeat": repeating}))
+			button.set_meta("recipe", recipe)
+			work_buttons.append(button)
+	var stop_work := _add_button(body, "本批完成後停止", func(): action_requested.emit("stop_processing", {"island_id": island}))
+	stop_work.set_meta("recipe", "")
+	work_buttons.append(stop_work)
+	if island != "home":
 		for id in IslandProgression.FACILITIES:
 			facility_buttons[id] = _add_button(body, "", func(): action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": id}))
-	for route_id in ["wood_ore", "ore_wood", "timber_home", "bronze_home"]:
+	for route_id in IslandEconomy.ROUTES:
 		var definition: Array = IslandEconomy.ROUTES[route_id]
 		if island != "home" and definition[0] != island:
 			continue
-		var resource: String = _catalog.get("resources", {}).get(definition[2], {}).get("name", definition[2])
+		var resource: String = _resource_name(definition[2])
 		body.add_child(_label("%s→%s・%s" % [IslandProgression.NAMES[definition[0]], IslandProgression.NAMES[definition[1]], resource]))
 		var status := _label("")
 		body.add_child(status)
@@ -136,23 +147,27 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	if first_catalog:
 		_rebuild()
 	var e: Dictionary = view.get("economy", {})
-	var enabled: bool = e.get("version") == IslandProgression.VERSION
+	var enabled: bool = e.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION]
 	var opened: bool = enabled and bool(e.islands[island].opened)
 	heading_label.text = "人界・%s" % IslandProgression.NAMES[island]
-	activation.visible = not enabled
+	activation.visible = e.get("version") != IslandProgression.VERSION
+	activation.text = "保留三島原檔並接續丹霞" if enabled else "保留原檔並啟用空島"
 	activation.disabled = int(view.get("era_id", 1)) < 2 or not bool(view.get("island_activation", {}).get("ok", false))
 	opening.visible = enabled and not opened
-	opening.disabled = int(view.get("era_id", 1)) < 2
-	var role := {"home": "祖業保留・工程費由祖島支付", "wood": "林業・靈材加工", "ore": "採礦・銅精精煉"}
+	opening.disabled = int(view.get("era_id", 1)) < int(IslandEconomy.ISLANDS[island].era) or (island == "herb" and e.get("version") != IslandProgression.VERSION)
+	var role := {"home": "陣芯、丹藥、靈石與符咒加工", "wood": "林業・靈材加工", "ore": "採礦・銅精精煉", "herb": "金丹解鎖・丹液加工、靈草與百年草採集"}
 	summary.text = "人界・%s｜%s\n%s" % [IslandProgression.NAMES[island], role[island], "運轉中" if opened else ("待開拓" if enabled else "築基解鎖・啟用前保留原檔")]
 	if not enabled:
 		var preview: Dictionary = view.get("island_activation", {})
 		summary.text += "\n" + String(preview.get("home_policy", "先完成練氣修行與築基，再開拓兩座產業島。")) + "\n" + String(preview.get("cost_policy", "")) + "\n" + String(preview.get("reset_policy", ""))
 		summary.text += "\n首批開放祖島、青木島、玄礦島；後續島群將隨境界擴充。"
 	var lines: Array[String] = []
-	for id in (["wood", "stone_low", "spirit_timber", "bronze_essence"] if island == "home" else (["wood", "stone_low", "spirit_timber"] if island == "wood" else ["wood", "stone_low", "black_copper", "bronze_essence"])):
+	var shown: Array = catalog.get("resources", {}).keys() if island == "home" else {"wood": ["wood", "stone_low", "spirit_timber"], "ore": ["wood", "stone_low", "black_copper", "bronze_essence"], "herb": ["spirit_grass_low", "spirit_grass_100y", "liquid"]}[island]
+	for id in shown:
 		var quantities: Dictionary = e.get("inventory", {}).get(island, {}).get(id, {})
-		lines.append("%s：可用 %.1f・在途／加工預留 %.1f" % [catalog.get("resources", {}).get(id, {}).get("name", id), float(quantities.get("available", 0)), float(quantities.get("reserved", 0))])
+		lines.append("%s：可用 %.1f・在途／加工預留 %.1f" % [_resource_name(id), float(quantities.get("available", 0)), float(quantities.get("reserved", 0))])
+	if island == "herb":
+		lines.append("加工共用祖島靈力：可用 %.1f" % float(e.get("inventory", {}).get("home", {}).get("lingli", {}).get("available", 0)))
 	inventory.text = "\n".join(lines) if enabled else ""
 	var job: Dictionary = e.get("jobs", {}).get(island, {})
 	job_status.text = ""
@@ -161,17 +176,27 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		var def: Dictionary = catalog.get("recipes", {}).get(recipe, {})
 		var inputs: Array[String] = []
 		for id in def.get("inputs", {}):
-			inputs.append("%s%s" % [catalog.resources[id].name, def.inputs[id]])
-		job_status.text = "每批 %s → %s1；基礎10秒\n%s" % ["＋".join(inputs), catalog.get("resources", {}).get(recipe, {}).get("name", recipe), "尚未加工" if job.is_empty() else "%s・剩餘%d秒" % [status_text(String(job.status)), int(job.remaining)]]
-	for i in work_buttons.size():
-		work_buttons[i].visible = opened
-		work_buttons[i].disabled = job.is_empty() if i == 2 else not job.is_empty()
+			inputs.append("%s%s" % [_resource_name(id), def.inputs[id]])
+		job_status.text = "每批 %s → %s1；基礎10秒\n%s" % ["＋".join(inputs), _resource_name(recipe), "尚未加工" if job.is_empty() else "%s・剩餘%d秒" % [status_text(String(job.status)), int(job.remaining)]]
+	else:
+		var recipe_lines: Array[String] = []
+		for recipe in IslandProgression.HOME_RECIPES:
+			var def: Dictionary = catalog.get("recipes", {}).get(recipe, {})
+			var inputs: Array[String] = []
+			for id in def.get("inputs", {}):
+				inputs.append("%s%s" % [_resource_name(id), def.inputs[id]])
+			recipe_lines.append("%s：%s；%d秒／批・境界%d" % [_resource_name(recipe), "＋".join(inputs), IslandEconomy.DURATIONS[recipe], int(def.get("era", 1))])
+		job_status.text = "\n".join(recipe_lines) + "\n" + ("尚未加工" if job.is_empty() else "%s・剩餘%d秒" % [status_text(String(job.status)), int(job.remaining)])
+	for button in work_buttons:
+		var recipe: String = button.get_meta("recipe")
+		button.visible = opened
+		button.disabled = job.is_empty() if recipe.is_empty() else (not job.is_empty() or int(view.get("era_id", 1)) < int(catalog.recipes[recipe].era) or (e.get("version") == IslandProgression.LEGACY_VERSION and island in ["home", "herb"]))
 	for id in facility_buttons:
 		var level := int(e.get("islands", {}).get(island, {}).get("facilities", {}).get(id, 1))
 		var cost := IslandProgression.upgrade_cost(id, level)
 		var prices: Array[String] = []
 		for resource in cost:
-			prices.append("%s%d" % [catalog.resources[resource].name, cost[resource]])
+			prices.append("%s%d" % [_resource_name(resource), cost[resource]])
 		var effect := {"extractor": "採集每秒%d" % (2 * level), "workshop": "每批%d秒" % int(ceil(10.0 / level)), "storage": "各項容量%d" % (100 * level)}
 		facility_buttons[id].text = "%s%d階・%s\n%s" % [IslandProgression.FACILITIES[id], level, effect[id], "已達上限" if level >= 3 else "升階：" + "＋".join(prices)]
 		facility_buttons[id].visible = opened
@@ -196,6 +221,10 @@ static func status_text(code: String) -> String:
 func show_result(text: String) -> void:
 	message.text = text
 	message.visible = not text.is_empty()
+
+func storage_recovered() -> void:
+	if message != null and message.text.begins_with("操作未保存："):
+		show_result("保存已恢復，進度已存妥。")
 
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position

@@ -4,6 +4,53 @@ import json
 import math
 from pathlib import Path
 
+POLICY = {'targetFps': 60, 'nearTargetFps': 55, 'windowMs': 5000,
+          'minimumNearTargetTimeRatio': .8, 'sustainedLowMs': 10000,
+          'recoveryTailMs': 10000, 'minimumSampleDurationMs': 60000}
+
+
+def recovery_metrics(gaps):
+    """Time-weight rAF intervals across fixed windows, including split intervals.
+
+    These are callback-cadence estimates, not GPU presented-frame counts.
+    A gap spanning windows contributes its fractional interval to each window.
+    """
+    windows, elapsed, count, coverage = [], 0.0, 0.0, 0.0
+    for gap in gaps:
+        remaining = gap
+        while remaining > 1e-8:
+            portion = min(remaining, POLICY['windowMs'] - coverage)
+            coverage += portion
+            count += portion / gap
+            elapsed += portion
+            remaining -= portion
+            if coverage >= POLICY['windowMs'] - 1e-8:
+                windows.append({'endMs': elapsed, 'durationMs': coverage, 'fps': 1000 * count / coverage})
+                count, coverage = 0.0, 0.0
+    if coverage > 1e-8:
+        windows.append({'endMs': elapsed, 'durationMs': coverage, 'fps': 1000 * count / coverage})
+    near_time, low_run, longest_low = 0.0, 0.0, 0.0
+    for window in windows:
+        window['nearTarget'] = window['fps'] >= POLICY['nearTargetFps']
+        if window['nearTarget']:
+            near_time += window['durationMs']
+            low_run = 0.0
+        else:
+            low_run += window['durationMs']
+            longest_low = max(longest_low, low_run)
+    tail_start = max(0, elapsed - POLICY['recoveryTailMs'])
+    tail_recovered = elapsed >= POLICY['recoveryTailMs'] and all(
+        w['nearTarget'] for w in windows if w['endMs'] > tail_start + 1e-8)
+    ratio = near_time / elapsed
+    reasons = []
+    if ratio < POLICY['minimumNearTargetTimeRatio']:
+        reasons.append('normally_below_near_target')
+    if not tail_recovered:
+        reasons.append('not_recovered_at_sample_end')
+    return {'windows': windows, 'nearTargetTimeRatio': ratio, 'longestLowMs': longest_low,
+            'sustainedLowWarning': longest_low >= POLICY['sustainedLowMs'] - 1e-6,
+            'tailRecovered': tail_recovered, 'recoveryPass': not reasons, 'reasons': reasons}
+
 
 def summarize(records):
     samples, rejected, seen = [], [], set()
@@ -51,23 +98,31 @@ def summarize(records):
                         'network': record.get('network'), 'count': len(gaps), 'intervalDurationMs': sum(gaps),
                         'fps': 1000 * len(gaps) / sum(gaps), 'medianMs': percentile(.5),
                         'p95Ms': percentile(.95), 'p99Ms': percentile(.99), 'maxMs': max(gaps),
-                        'over20Ms': sum(g > 20 for g in gaps)})
+                        'over20Ms': sum(g > 20 for g in gaps),
+                        'durationMs': duration,
+                        'eligibleRecoverySample': duration >= POLICY['minimumSampleDurationMs'] and sum(gaps) >= 59000,
+                        'recovery': recovery_metrics(gaps)})
     configurations = {json.dumps([s['environment'], s['userAgent'], s['network']], sort_keys=True) for s in samples}
     comparable = len(configurations) == 1
     groups = {}
     for workload in ('game', 'raf_control'):
         group = [s for s in samples if s['workload'] == workload]
         groups[workload] = {'samples': len(group), 'pooledFps': 1000 * sum(s['count'] for s in group) / sum(s['intervalDurationMs'] for s in group) if group else None,
-                            'strict60PassSamples': sum(s['fps'] >= 60 for s in group),
-                            'p95AtMost20PassSamples': sum(s['p95Ms'] <= 20 for s in group)}
+                            'exact60TargetSamples': sum(s['fps'] >= 60 for s in group),
+                            'p95AtMost20Samples': sum(s['p95Ms'] <= 20 for s in group),
+                            'eligibleRecoverySamples': sum(s['eligibleRecoverySample'] for s in group),
+                            'recoveryPassSamples': sum(s['recovery']['recoveryPass'] for s in group)}
     game = groups['game']
-    # Multiple samples must all pass. No rounding, baseline normalization or best-sample selection.
-    passed = comparable and not rejected and game['samples'] >= 3 and game['strict60PassSamples'] == game['samples'] and game['p95AtMost20PassSamples'] == game['samples']
-    return {'method': 'R2 v3 rAF proxy; raw intervals recomputed; all comparable game samples required',
-            'thresholds': {'fps': 60, 'p95Ms': 20, 'minimumGameSamples': 3},
-            'comparable': comparable, 'groups': groups, 'strictDesktopGate': 'PASS' if passed else 'NOT_PASSED',
+    # Keep every sample; short samples can expose failure but cannot prove recovery stability.
+    failure = not comparable or bool(rejected) or any(not s['recovery']['recoveryPass'] for s in samples if s['workload'] == 'game')
+    gate = 'NOT_PASSED' if failure else ('PASS' if game['eligibleRecoverySamples'] else 'INSUFFICIENT_EVIDENCE')
+    return {'method': 'Idle recovery policy v1; v3 rAF raw intervals; all supplied samples retained',
+            'policyVersion': 'idle-recovery-v1', 'thresholds': POLICY,
+            'comparable': comparable, 'groups': groups, 'desktopRecoveryGate': gate,
             'samples': samples, 'rejected': rejected,
-            'note': 'Controls characterize browser scheduling only. No GPU, phone, high-DPR or human acceptance inferred.'}
+            'note': '60 is a target, not an exact-average gate. Brief 30FPS dips may pass after recovery. '
+                    'p95/p99/max remain diagnostic. PASS covers supplied windows, not permanent stability; '
+                    '5-minute/action/reload soak and device evidence remain separate. Controls never satisfy the game gate.'}
 
 
 def self_test():
@@ -81,14 +136,14 @@ def self_test():
                                 'intervalDurationMs': gap * count, 'frameGapsMs': [gap] * count,
                                 'startedBeforeReady': False, 'endedAfterReady': kind == 'game'}}
     control = record('raf_control', 1, 16)
-    assert summarize([control])['strictDesktopGate'] == 'NOT_PASSED'
+    assert summarize([control])['desktopRecoveryGate'] == 'INSUFFICIENT_EVIDENCE'
     games = [record('game', i, 16.67) for i in range(3)]
-    assert summarize(games + [control])['strictDesktopGate'] == 'NOT_PASSED'
+    assert summarize(games + [control])['desktopRecoveryGate'] == 'INSUFFICIENT_EVIDENCE'
     games = [record('game', i, 16.6) for i in range(3)]
-    assert summarize(games)['strictDesktopGate'] == 'PASS'
+    assert summarize(games)['desktopRecoveryGate'] == 'INSUFFICIENT_EVIDENCE'
     assert summarize(games + games)['groups']['game']['samples'] == 3
     games[0]['frameSample']['changes'] = [{'type': 'visibility'}]
-    assert summarize(games)['strictDesktopGate'] == 'NOT_PASSED'
+    assert summarize(games)['desktopRecoveryGate'] == 'NOT_PASSED'
     games = [record('game', i, 16.6) for i in range(3)]
     games[0]['frameSample']['intervalDurationMs'] += 100
     assert summarize(games)['rejected'][0]['reasons'] == ['interval_duration_mismatch']
@@ -98,7 +153,31 @@ def self_test():
     games = [record('game', i, 16.6) for i in range(3)]
     games[0]['frameSample']['runtimeProfile'] = {'rows': []}
     assert summarize(games)['rejected'][0]['reasons'] == ['instrumented_profile_not_acceptance']
-    print('PASS: 8 frame-summary contract cases')
+    def timed_record(gaps):
+        result = record('game', 1, 16.67)
+        result['frameSample'].update(frameGapsMs=gaps, count=len(gaps), durationMs=sum(gaps)+16.67,
+                                     intervalDurationMs=sum(gaps))
+        return result
+    normal = [1000/59.997] * 3600
+    assert summarize([timed_record(normal)])['desktopRecoveryGate'] == 'PASS'
+    # Five seconds at30, normal60 before/after: slow tail percentile is diagnostic.
+    recovered = [1000/60]*1200 + [1000/30]*150 + [1000/60]*2100
+    result = summarize([timed_record(recovered)])
+    assert result['desktopRecoveryGate'] == 'PASS' and result['samples'][0]['p99Ms'] > 20
+    sustained = [1000/60]*1200 + [1000/30]*360 + [1000/60]*1680
+    assert summarize([timed_record(sustained)])['desktopRecoveryGate'] == 'NOT_PASSED'
+    tail_drop = [1000/60]*3300 + [1000/30]*150
+    assert summarize([timed_record(tail_drop)])['desktopRecoveryGate'] == 'NOT_PASSED'
+    assert summarize([timed_record([1000/30]*1800)])['desktopRecoveryGate'] == 'NOT_PASSED'
+    gradual = [1000/fps for fps in (60, 55, 50, 45, 40, 30) for _ in range(fps*10)]
+    assert summarize([timed_record(gradual)])['desktopRecoveryGate'] == 'NOT_PASSED'
+    # One long interval straddles several windows; never duplicate or hide time.
+    spanning = recovery_metrics([10000] + [1000/60]*3000)
+    assert spanning['sustainedLowWarning']
+    assert math.isclose(sum(w['durationMs'] for w in spanning['windows']), 60000)
+    recovered_ten = [1000/60]*1200 + [1000/30]*300 + [1000/60]*1800
+    assert summarize([timed_record(recovered_ten)])['desktopRecoveryGate'] == 'PASS'
+    print('PASS: 16 frame-summary contracts, including recovered30/persistent30/end-drop/gradual degradation/window splitting')
 
 
 if __name__ == '__main__':

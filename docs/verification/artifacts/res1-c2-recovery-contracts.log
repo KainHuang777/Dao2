@@ -1,0 +1,2 @@
+PASS: 16 frame-summary contracts, including recovered30/persistent30/end-drop/gradual degradation/window splitting
+PASS: 13 observer contract cases (ready/control/visibility/resize/double-click/normal60-300/profile duration)

@@ -122,7 +122,7 @@ func _run() -> void:
 		_expect(_send(s, "configure_route", {"route_id": id}).ok, "start route " + id)
 	s.advance_time(30)
 	_reject(s, "craft", {"island_id": "home", "recipe_id": "spirit_timber"}, "RECIPE_ISLAND_REQUIREMENT")
-	for island in IslandProgression.RECIPES:
+	for island in ["wood", "ore"]:
 		var started := _send(s, "craft", {"island_id": island, "recipe_id": IslandProgression.RECIPES[island], "repeat": true})
 		_expect(started.ok, "repeat local " + island + ": " + str(started))
 	s.advance_time(120)
@@ -214,5 +214,11 @@ func _test_ui(s: GameSession) -> void:
 		_expect(panel.work_buttons[2].size.y >= 44, "stop target minimum44")
 		panel.facility_buttons.workshop.pressed.emit()
 		_expect(requested.back()[0] == "upgrade_island_facility" and requested.back()[1].island_id == "wood", "UI emits canonical upgrade command")
+	panel.show_result("操作未保存：SecurityError。原檔已保留，恢復儲存後重試。")
+	panel.storage_recovered()
+	_expect(panel.message.text == "保存已恢復，進度已存妥。", "storage retry clears stale failed-command instruction")
+	panel.show_result("加工原料或工程材料不足；請查看當地庫存、祖島靈氣與航線。")
+	panel.storage_recovered()
+	_expect(panel.message.text.begins_with("加工原料"), "background save does not clear gameplay rejection")
 	panel.queue_free()
 	await process_frame

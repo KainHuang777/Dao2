@@ -19,7 +19,7 @@ def summarize(record):
     sample = record['frameSample']
     profile = sample['runtimeProfile']
     rows = profile['rows']
-    if not sample['valid'] or profile['dropped'] or not rows:
+    if not sample['valid'] or profile['dropped'] or profile.get('longTaskDropped', 0) or profile.get('longAnimationFrameDropped', 0) or not rows:
         raise ValueError('Invalid/incomplete sample')
     if any(not math.isfinite(r['totalUs']) or r['totalUs'] < 0 or
            any(not math.isfinite(v) or v < 0 for v in r['spans'].values()) for r in rows):
@@ -30,17 +30,32 @@ def summarize(record):
     if len(ends) != len(gaps):
         raise ValueError('Unmatched rAF intervals')
     long_gaps = []
+    tasks = profile.get('longTasks', [])
+    animation_frames = profile.get('longAnimationFrames', [])
+    for frame in animation_frames:
+        for entry, fields in [(frame, ('startMs', 'durationMs', 'blockingDurationMs', 'renderStartMs', 'styleAndLayoutStartMs'))] + [
+                (script, ('startMs', 'durationMs', 'executionStartMs', 'forcedStyleAndLayoutDurationMs', 'pauseDurationMs'))
+                for script in frame.get('scripts', [])]:
+            if any(not math.isfinite(entry[field]) or entry[field] < 0 for field in fields):
+                raise ValueError('Invalid long animation frame timing')
+    if any(not math.isfinite(t['startMs']) or not math.isfinite(t['durationMs']) or t['durationMs'] < 0 for t in tasks):
+        raise ValueError('Invalid long task timing')
     for end, gap in zip(ends, gaps):
         if gap <= 20:
             continue
         overlapping = [r for r in rows if r['endMs'] > end-gap and r['endMs']-r['totalUs']/1000 < end]
         long_gaps.append({'endMs': end, 'gapMs': gap,
+                          'overlappingLongTasks': [t for t in tasks if t['startMs'] < end and t['startMs']+t['durationMs'] > end-gap],
+                          'overlappingLongAnimationFrames': [f for f in animation_frames if f['startMs'] < end and f['startMs']+f['durationMs'] > end-gap],
                           'overlappingProcessMs': sum(r['totalUs'] for r in overlapping)/1000,
                           'sections': {s: sum(r['spans'].get(s, 0) for r in overlapping)/1000 for s in sections}})
     return {'sequence': sample['sampleSequence'], 'utc': sample['sampledAtUtc'],
             'environment': sample['startEnvironment'], 'fps': sample['fps'],
             'rafP95Ms': sample['p95Ms'], 'rafMaxMs': sample['maxMs'],
             'process': stats([r['totalUs'] for r in rows]),
+            'longTasksSupported': profile.get('longTasksSupported', False), 'longTasks': tasks,
+            'longAnimationFramesSupported': profile.get('longAnimationFramesSupported', False),
+            'longAnimationFrames': animation_frames,
             'sections': {s: stats([r['spans'][s] for r in rows if s in r['spans']]) for s in sections},
             'slowestProcessFrames': sorted(rows, key=lambda r: r['totalUs'], reverse=True)[:8],
             'longRafGaps': long_gaps}

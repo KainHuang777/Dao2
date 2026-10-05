@@ -33,3 +33,4 @@
 {"url": "http://127.0.0.1:4237/", "report": "PASS\n{\n  \"case\": \"retry\",\n  \"checks\": 69,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
 {"url": "http://127.0.0.1:4237/?case=retry", "report": "PASS\n{\n  \"case\": \"retry\",\n  \"checks\": 69,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
 {"url": "http://127.0.0.1:4237/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}
+{"url": "http://127.0.0.1:4245/?case=c2retry", "report": "PASS\n{\n  \"case\": \"c2retry\",\n  \"checks\": 49,\n  \"failures\": [],\n  \"note\": \"\"\n}"}

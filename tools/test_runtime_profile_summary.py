@@ -32,6 +32,41 @@ class ProfileSummaryTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 summarize(record)
 
+    def test_long_task_correlation_and_validation(self):
+        record = self.fixture()
+        profile = record['frameSample']['runtimeProfile']
+        profile.update(longTasksSupported=True, longTasks=[{'startMs': 0, 'durationMs': 60, 'name': 'self'}])
+        result = summarize(record)
+        self.assertEqual(result['longRafGaps'][0]['overlappingLongTasks'], profile['longTasks'])
+        self.assertEqual(result['process']['totalMs'], 18)  # Never add browser tasks to CPU spans.
+        profile['longTaskDropped'] = 1
+        with self.assertRaises(ValueError):
+            summarize(record)
+        profile['longTaskDropped'] = 0
+        profile['longTasks'][0]['durationMs'] = float('nan')
+        with self.assertRaises(ValueError):
+            summarize(record)
+
+    def test_animation_frame_attribution_and_validation(self):
+        record = self.fixture()
+        profile = record['frameSample']['runtimeProfile']
+        frame = {'startMs': 0, 'durationMs': 60, 'blockingDurationMs': 10,
+                 'renderStartMs': 1, 'styleAndLayoutStartMs': 59, 'scripts': [
+                     {'startMs': 2, 'durationMs': 50, 'executionStartMs': 2,
+                      'forcedStyleAndLayoutDurationMs': 0, 'pauseDurationMs': 0,
+                      'sourceURL': 'index.js'}]}
+        profile.update(longAnimationFramesSupported=True, longAnimationFrames=[frame])
+        result = summarize(record)
+        self.assertEqual(result['longRafGaps'][0]['overlappingLongAnimationFrames'], [frame])
+        self.assertEqual(result['process']['totalMs'], 18)
+        profile['longAnimationFrameDropped'] = 1
+        with self.assertRaises(ValueError):
+            summarize(record)
+        profile['longAnimationFrameDropped'] = 0
+        frame['scripts'][0]['durationMs'] = float('nan')
+        with self.assertRaises(ValueError):
+            summarize(record)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -9,6 +9,8 @@ $runners = @(
     'tests/res1a_processing_runner.gd',
     'tests/res1b_economy_runner.gd',
     'tests/res1c_progression_runner.gd',
+    'tests/res1d2_integration_runner.gd',
+    'tests/res1d2_world_runner.gd',
     'tests/res1c2_offline_runner.gd',
     'tests/res1c2_perf_runner.gd',
     'tests/resource_feedback_runner.gd',

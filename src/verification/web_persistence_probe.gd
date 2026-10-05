@@ -6,6 +6,7 @@ var adapter: WebStorageAdapter
 var content: GameContent
 var scenario := ""
 var c2_fixture := ""
+var matrix_case := ""
 
 func _ready() -> void:
 	if not OS.has_feature("persistence_verification"):
@@ -16,7 +17,12 @@ func _ready() -> void:
 	while status == "pending":
 		await get_tree().process_frame
 		status = adapter.session_status()
-	if scenario.begins_with("c2"):
+	matrix_case = scenario.replace("d2", "c2") if scenario.begins_with("d2") else scenario
+	if scenario == "d2progress":
+		await _d2_progress(status)
+		_finish("AUTOMATED NORMAL RULES / SIMULATED SECONDS; NOT MOUSE PLAYTHROUGH")
+		return
+	if scenario.begins_with("c2") or scenario.begins_with("d2"):
 		await _c2_cases(status)
 		_finish()
 		return
@@ -75,7 +81,7 @@ func _c2_cases(status: String) -> void:
 	var request := HTTPRequest.new()
 	add_child(request)
 	var origin := str(_js("location.origin"))
-	var started := request.request(origin + "/c2-fixture")
+	var started := request.request(origin + ("/d2-fixture" if scenario.begins_with("d2") else "/c2-fixture"))
 	_check(started == OK, "fixture request started")
 	if started != OK:
 		request.queue_free()
@@ -89,7 +95,7 @@ func _c2_cases(status: String) -> void:
 	if response[1] != 200 or not decoded.ok:
 		return
 	if status != "ready":
-		if scenario == "c2lock" and status == "writer_busy":
+		if matrix_case == "c2lock" and status == "writer_busy":
 			SaveManager.configure(content, adapter)
 			var source := SaveManager.current_state()
 			_check(source != null and not source.economy.is_empty(), "secondary reads C2 state")
@@ -106,7 +112,10 @@ func _c2_cases(status: String) -> void:
 		return
 	_check(status == "ready", "C2 exclusive writer acquired")
 	SaveManager.configure(content, adapter)
-	match scenario:
+	if scenario == "d2migration":
+		_d2_migration()
+		return
+	match matrix_case:
 		"c2denied":
 			var source := _c2_seed()
 			var original: String = adapter.read(SaveSlots.SLOT_MAIN).data
@@ -187,7 +196,7 @@ func _c2_cases(status: String) -> void:
 				adapter.write("before", _c2_hash(source))
 				adapter.write("expected", _c2_hash(expected))
 				adapter.write("phase", "failed")
-				_fault("index" if scenario == "c2indexreload" else "quota")
+				_fault("index" if matrix_case == "c2indexreload" else "quota")
 				var failed := await OfflineCoordinator.settle_async(601000, get_tree())
 				_check(not failed.ok and _c2_hash(source) == adapter.read("before").data, "failed async keeps source; reload now")
 				_fault("")
@@ -196,8 +205,8 @@ func _c2_cases(status: String) -> void:
 				var phase: String = adapter.read("phase").data
 				var expected: String = adapter.read("expected").data
 				if phase == "failed":
-					_check(_c2_hash(recovered) == adapter.read("before").data if scenario == "c2quotareload" else _c2_hash(recovered) == expected, "actual reload selects intact old/new generation")
-					_check(SaveManager.last_settled_utc_ms() == (1000 if scenario == "c2quotareload" else 601000), "actual reload matches snapshot cursor")
+					_check(_c2_hash(recovered) == adapter.read("before").data if matrix_case == "c2quotareload" else _c2_hash(recovered) == expected, "actual reload selects intact old/new generation")
+					_check(SaveManager.last_settled_utc_ms() == (1000 if matrix_case == "c2quotareload" else 601000), "actual reload matches snapshot cursor")
 					var retry := await OfflineCoordinator.settle_async(601000, get_tree())
 					var revision: int = SaveCodec.decode(c2_fixture).state.revision + 1
 					_check(retry.ok and _c2_hash(retry.state, revision) == expected, "reload/retry exact economy jobs cargo receipts")
@@ -222,9 +231,82 @@ func _c2_seed() -> GameState:
 	SaveSlots.new(adapter).reset()
 	SaveManager.configure(content, adapter)
 	var source: GameState = SaveCodec.decode(c2_fixture).state
-	_check(not source.economy.is_empty() and source.economy.jobs.size() == 2, "earned fixture has dual jobs")
+	if scenario.begins_with("d2"):
+		_check(source.economy.version == IslandProgression.VERSION and source.era_id == 3, "earned D2 Era3 fixture")
+		_check(source.economy.jobs.has("herb") and source.economy.trips.has("liquid_home"), "active Danxia work and product cargo")
+	else:
+		_check(not source.economy.is_empty() and source.economy.jobs.size() == 2, "earned fixture has dual jobs")
 	_check(SaveManager.save(source, _meta(1000)).ok, "C2 source committed")
 	return source
+
+func _d2_progress(status: String) -> void:
+	_check(status == "ready", "D2 progression writer acquired")
+	if status != "ready":
+		return
+	content = ContentLoader.load_directory("res://content").content
+	IslandProgression.attach(content)
+	SaveManager.configure(content, adapter)
+	if adapter.exists("flow_expected"):
+		var loaded := SaveManager.current_state()
+		_check(loaded != null and loaded.era_id == 3 and loaded.level == 10, "actual reload retains earned Era3 Lv10")
+		_check(_c2_hash(loaded) == adapter.read("flow_expected").data, "actual reload complete state matches earned flow")
+		var retry := await OfflineCoordinator.settle_async(1000, get_tree())
+		_check(retry.ok and retry.report.effective_ticks == 0, "same cursor reload gives no duplicate rewards")
+		return
+	_check(not adapter.exists(SaveSlots.SLOT_MAIN) and not adapter.exists(SaveSlots.SLOT_BACKUP), "browser flow starts without a seeded save")
+	var result: Dictionary = preload("res://src/verification/res1d2_contract.gd").new().run()
+	checks += result.checks
+	for failure in result.failures:
+		failures.append(failure)
+	if result.state == null:
+		_check(false, "earned flow did not finish")
+		return
+	SaveManager.configure(content, adapter)
+	_check(SaveManager.save(result.state, _meta(1000)).ok, "earned full flow committed to actual browser storage")
+	_check(adapter.write("flow_expected", _c2_hash(result.state)).ok, "reload expected state saved")
+	_check(result.state.era_id == 3 and result.state.level == 10, "blank-to-Era3 Lv10; no Debug or stock grants")
+	print("WEB_D2_EARNED_SECONDS: ", result.state.total_elapsed_seconds)
+
+func _d2_migration() -> void:
+	# Diagnostic C clone, not part of the earned-from-blank proof.
+	var legacy: GameState = SaveCodec.decode(c2_fixture).state
+	legacy.era_id = 2
+	legacy.economy.version = IslandProgression.LEGACY_VERSION
+	legacy.economy.islands.herb = {"opened": false, "inventory": {}, "facilities": {"extractor": 1, "workshop": 1, "storage": 1}}
+	legacy.economy.jobs.erase("home")
+	legacy.economy.jobs.erase("herb")
+	for id in ["grass_home", "herb_home", "liquid_home"]:
+		legacy.economy.routes.erase(id)
+		legacy.economy.trips.erase(id)
+	var expected := legacy.economy.duplicate(true)
+	expected.version = IslandProgression.VERSION
+	for fault in ["archive", "candidate_index"]:
+		SaveSlots.new(adapter).reset()
+		adapter.erase(SaveManager.D2_ARCHIVE_KEY)
+		SaveManager.configure(content, adapter)
+		var session := GameSession.new()
+		session.content = content
+		session.state = legacy.duplicate_state()
+		session.clock = GameClock.create(legacy.total_elapsed_seconds)
+		var before := _c2_hash(session.state)
+		_js("window.d2IndexWrites = 0")
+		_fault(fault)
+		var failed := SaveManager.activate_islands(session, _meta(1000))
+		_check(not failed.ok, fault + " C-to-D2 rejected")
+		_check(_c2_hash(session.state) == before, fault + " keeps live C inventory/jobs/cargo/facilities")
+		_fault("")
+		var original_archive := adapter.read(SaveManager.D2_ARCHIVE_KEY)
+		_check(SaveManager.activate_islands(session, _meta(1000)).ok, fault + " activation retry succeeds")
+		_check(session.state.economy == expected, fault + " retry preserves complete economy")
+		var archive := adapter.read(SaveManager.D2_ARCHIVE_KEY)
+		var decoded := SaveCodec.decode(archive.get("data", ""))
+		_check(decoded.ok and _c2_hash(decoded.state) == before, fault + " original C archive recoverable")
+		if original_archive.ok:
+			_check(archive.data == original_archive.data, "candidate retry keeps exact archive bytes")
+		SaveManager.configure(content, adapter)
+		_check(SaveManager.current_state().economy == expected, fault + " persisted D2 matches candidate")
+		var committed := _c2_hash(session.state)
+		_check(not SaveManager.activate_islands(session, _meta(1000)).ok and _c2_hash(session.state) == committed, "activation cannot repeat")
 
 func _c2_hash(state: GameState, revision: int = -1) -> String:
 	if state == null:

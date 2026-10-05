@@ -3,14 +3,16 @@ extends RefCounted
 
 const SCHEMA_VERSION := 3
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-9-island-progression"
+const RULES_VERSION := "core-flow-10-danxia"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
 		return {"ok": false, "json": "", "error": "STATE_MISSING"}
+	var profile_validate := RuntimeProfile.begin()
 	var economy_error := IslandEconomy.validate(state)
+	RuntimeProfile.end("encode_validate", profile_validate)
 	if not economy_error.is_empty():
 		return {"ok": false, "json": "", "error": economy_error}
 	if content_version.is_empty():
@@ -21,6 +23,9 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 	var rng_streams: Variant = meta.get("rng_streams", {})
 	if not (rng_streams is Dictionary):
 		return {"ok": false, "json": "", "error": "META_FIELD_INVALID:rng_streams"}
+	var profile_snapshot := RuntimeProfile.begin()
+	var snapshot := state.to_snapshot_dict()
+	RuntimeProfile.end("encode_snapshot", profile_snapshot)
 	var envelope := {
 		"schema_version": SCHEMA_VERSION,
 		"game_version": GAME_VERSION,
@@ -33,16 +38,28 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 		"saved_at_utc_ms": meta["saved_at_utc_ms"],
 		"settled_until_utc_ms": meta["settled_until_utc_ms"],
 		"sim_tick": meta["sim_tick"],
-		"state": state.to_snapshot_dict(),
+		"state": snapshot,
 		"rng_streams": rng_streams,
 		"last_offline_report": meta.get("last_offline_report", null),
 	}
 	# Hash the numeric representation that the decoder actually reads. JSON's
 	# default float serialization may round a value across a normalization edge.
 	# Keep the existing verifier for old snapshots; no schema or gameplay change.
-	envelope = JSON.parse_string(JSON.stringify(envelope, "", true))
-	envelope["checksum"] = compute_checksum(envelope)
-	return {"ok": true, "json": JSON.stringify(envelope, "", true), "error": ""}
+	var profile_roundtrip := RuntimeProfile.begin()
+	var json_text := JSON.stringify(envelope, "", true)
+	envelope = JSON.parse_string(json_text)
+	RuntimeProfile.end("encode_roundtrip", profile_roundtrip)
+	var profile_checksum := RuntimeProfile.begin()
+	var checksum := compute_checksum(envelope)
+	RuntimeProfile.end("encode_checksum", profile_checksum)
+	var profile_json := RuntimeProfile.begin()
+	# Reuse the exact numeric representation just parsed and hashed. The only
+	# new field is a fixed-name SHA256 hex string; no escaping or game data is
+	# spliced into JSON. Do not serialize the normalized checksum payload: its
+	# approximate integer normalization must never change persisted values.
+	json_text = json_text.left(json_text.length() - 1) + ',"checksum":"' + checksum + '"}'
+	RuntimeProfile.end("encode_json", profile_json)
+	return {"ok": true, "json": json_text, "error": ""}
 
 static func decode(json_text: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(json_text)
