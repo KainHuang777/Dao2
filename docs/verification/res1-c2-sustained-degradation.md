@@ -1,6 +1,6 @@
 # RES1-C2-PERF-R2｜持續劣化定位：本輪未重現
 
-2026-10-05（Asia/Taipei）。**R2／C／C2 IN_PROGRESS，D TODO**。本輪正常版四組恢復 gate PASS；前輪 DPR1.25 的失敗仍未被同條件排除，沒有修復根因或完成 R2 的宣告。
+2026-10-05（Asia/Taipei）。本輪正常版四組恢復 gate PASS；前輪 DPR1.25 的失敗仍未被同條件排除，當時沒有修復根因或完成 R2 的宣告。**後續（同日）已由 AGY 完成根因修復並 PASS，見[效能修復驗收](res1-c2-agy-r2.md)與 [ROADMAP／README／development-status 頂部]；本頁保留為修復前的定位歷史。**
 
 ## 重現條件與結果
 

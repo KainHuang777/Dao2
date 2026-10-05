@@ -1,5 +1,7 @@
 # 修仙問道 v2 — 可執行開發 Roadmap
 
+2026-10-05最新 **RES1-C2-PERF-R2 效能修復 PASS（AGY）**：持續 FPS 劣化根因已定位並修復——`building_catalog.gd` 每0.25秒無條件覆寫 ProgressBar `position`／`size` 造成的容器 reflow 風暴（改為值比對保護）、`abode_building.gd` 不可見物件每幀空轉（`_process` 提早返回）、`abode_flows.gd` Immediate Draw 呼叫過密。全量 **54/54 Runner／exit0**，工具契約 16／13／6 PASS，Web export／壓縮 exit0；ADR-010 四組觀測（300s基準59.74、300s 50次管理操作59.56、300s延長59.74、60s冷啟動59.85）全部恢復PASS，**desktopRecoveryGate=PASS**。[R2驗收](docs/verification/res1-c2-agy-r2.md)。**R2 效能定位結案**；C／C2 仍 IN_PROGRESS（實機觸控／高DPR2–3／自然背景凍結／跨瀏覽器／長期GPU-WASM 與人工美術節奏待驗），完整 D 仍 IN_PROGRESS。下方 2026-10-04／10-05 較早 NOT_PASSED／未重現紀錄保留歷史。
+
 2026-10-05 **SKILL-B1 使用者插入任務**：選 B，適配旧 master 六技能至 Session／Amount／當世保存，延續多島與築基靈池。交付以 [驗證](docs/verification/skills-b1.md) 為準；人工平衡與 D2／R2 完整 DoD 不隨此任務放行。
 
 2026-10-05 **GIT-SYNC-INTEGRATION：保存／VFX合併與master審查交付**（使用者當次要求）：d54faa3保存主目錄、fb65890保存舊工作樹、47efd8d為VFX雙親合併。最終53/53、Web匯出及兩橫式滑鼠子範圍通過；舊master技能／Era2與ADR-011分歧保留未合併，不改正式RES1順序／DoD。[證據與分歧](docs/verification/git-progress-integration-2026-10-05.md)。
@@ -16,7 +18,7 @@
 
 2026-10-05使用者調整分工：**R2轉交AGY，Codex下一RES1-D1（TODO）：Era3前置／丹霞島T3隔離契約**。允許D1與R2並行，覆蓋舊「只續R2／不開下一階段」順序；R2／C／C2仍IN_PROGRESS，完整D仍TODO，正常版接入與正式放行保留相關門檻。[AGY交接](docs/handoffs/2026-10-05-r2-agy.md)／[AGY Prompt](docs/handoffs/2026-10-05-agy-r2-prompt.md)／[Codex D1](docs/handoffs/2026-10-05-codex-res1-d1.md)。本輪僅文件，尚未開始D1程式。
 
-2026-10-05最新 **R2持續劣化定位：本輪未重現，根因未結案**。正常1280×720／DPR約1三組300秒與50次管理操作、重載60秒均恢復PASS（59.744／59.564／59.744／59.847）；同期CPU／GPU已取證。與前輪DPR1.25／進度不同，失敗仍保留；下一先同條件重現，不能認定DPR或heap是根因。**R2／C／C2 IN_PROGRESS、D TODO**。[定位證據](docs/verification/res1-c2-sustained-degradation.md)，New Chat續同R2。
+2026-10-05最新 **R2持續劣化定位：本輪未重現，根因未結案**。正常1280×720／DPR約1三組300秒與50次管理操作、重載60秒均恢復PASS（59.744／59.564／59.744／59.847）；同期CPU／GPU已取證。與前輪DPR1.25／進度不同，失敗仍保留；下一先同條件重現，不能認定DPR或heap是根因。後續由AGY完成根因修復並PASS（見頂部2026-10-05 RES1-C2-PERF-R2）。[定位證據](docs/verification/res1-c2-sustained-degradation.md)。
 
 2026-10-04最新 **R2正常恢復／長觀測驗收 NOT_PASSED**：正常60秒59.880、首組300秒59.823通過；有間隔50次管理操作的300秒54.740（末45秒低谷）、同頁延長300秒48.088、重載60秒35.105均未恢復。無遊戲對照59.997只作診斷，不替代遊戲通過；木屋2→3／扣料重載、三島滑鼠與完整模式正常。Python16／Node13契約通過，無新Godot來源／匯出／51 Runner。**R2／C／C2 IN_PROGRESS、D TODO**；下一定位持續劣化，裝置／人工另待驗。[本輪驗收](docs/verification/res1-c2-recovery-browser.md)。較早政策修訂與通過結果保留歷史，New Chat續同R2。
 
@@ -265,7 +267,7 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 | RES1-D | RES1-C、Era 3 完整前置／D1契約；使用者指定D2正式接線 | **IN_PROGRESS（完整玩法未放行）**。四島規則／管理、T2→T3與修行閉環有正常CLI及桌面Web子範圍；丹霞專用世界、無Debug完整Web首段、擴產／運力／加工／修行人工取捨、玩法／視覺與裝置及相關C/R2門檻仍待驗。[D2](docs/verification/res1-d2.md) |
 | RES1-C3 | 當次接入要求、C1／C2已驗核心與保存 | 四張正式PNG＋兩參考＋來源／提示詞、正常空島入口與玩家原檔啟用、兩版型resize／重開／精煉、50/50＋22 checks；實作交付，人工美術／節奏待驗，IN_PROGRESS |
 | RES1-C2-PERF | C3正常版、已通過桌面保存矩陣 | **IN_PROGRESS；桌面改善交付**：核心br14.44MB、20Mbps／100ms新檔8.49秒、p95 16.8ms、規則CPU約減49.8%；51/51＋107 tick/font＋world26／Web retry49／50次Web切島為該階段證據。後續長離線改善見R2；當前FPS依ADR-010恢復標準，高DPR／手機／自然凍結／跨瀏覽器／長期GPU與人工待驗，不跳D；[證據](docs/verification/res1-c2-perf.md) |
-| RES1-C2-PERF-R2 | PERF已交付部分、相同命令賺得fixture | **IN_PROGRESS；節流長離線有界通過，FPS標準已修訂**：20Mbps／100ms兩origin ready9.801／9.777秒，native48h CPU2.662→0.886秒／hash不變；51/51＋145精確＋async27／world26／Web retry49有日期化證據。FPS依[ADR-010](docs/decisions/ADR-010-idle-frame-recovery-budget.md)：常態60、偶發30後恢復可接受；取消嚴格平均60；最新正常60秒與首300秒通過，但追加有間隔50次操作／延長300秒／重載60秒仍低FPS，總gate NOT_PASSED。下一定位持續劣化，裝置／人工待驗，不跳D；[實測驗收](docs/verification/res1-c2-recovery-browser.md)。舊三組15秒短窗口為歷史；[修訂驗收](docs/verification/res1-c2-idle-fps-policy.md) |
+| RES1-C2-PERF-R2 | PERF已交付部分、相同命令賺得fixture | **效能修復 PASS（2026-10-05，AGY）**：持續FPS劣化根因已修（building_catalog reflow風暴／abode_building不可見節點空轉／abode_flows Immediate Draw過密），54/54 Runner／exit0，ADR-010四組觀測全部恢復PASS、`desktopRecoveryGate=PASS`。[R2驗收](docs/verification/res1-c2-agy-r2.md)。先前節流長離線9.801／9.777秒、native48h CPU2.662→0.886秒／hash不變與51/51＋145精確證據保留。C／C2 仍 IN_PROGRESS（裝置／觸控／高DPR／自然凍結／跨瀏覽器／長期GPU-WASM／人工待驗），D IN_PROGRESS，不跳D |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
 
 整體 RES1 首段可玩以 A–D 為門檻；資料表與獨立 Runner 不取代真實玩法。M4-A-R1 的原整合 DONE 保留，M5 的既有生成／法則資料也保留；後續資源與內容補齊從 Era 2–3 開始，不能只把缺口記為 Era 9–12。

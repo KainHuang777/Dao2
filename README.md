@@ -1,5 +1,7 @@
 # 修仙問道 v2
 
+2026-10-05最新 **RES1-C2-PERF-R2 效能修復 PASS（AGY）**：持續 FPS 劣化根因已定位並修復（`building_catalog.gd` 每0.25秒無條件覆寫 ProgressBar 位置／尺寸的 reflow 風暴改值比對保護、`abode_building.gd` 不可見物件 `_process` 提早返回、`abode_flows.gd` Immediate Draw 呼叫減量）。全量 **54/54 Runner／exit0**，ADR-010 四組觀測全部恢復 PASS、`desktopRecoveryGate=PASS`。[R2驗收](docs/verification/res1-c2-agy-r2.md)。**R2 效能定位結案**；C／C2（實機觸控／高DPR／自然凍結／跨瀏覽器／長期GPU-WASM／人工美術節奏）與完整 D 仍 IN_PROGRESS，不跳 D。下方 2026-10-04／10-05 較早 NOT_PASSED 紀錄保留歷史。
+
 2026-10-05 **SKILL-B1：採用使用者選 B**，保留六項一般技能並延續多島供給；修行→技能，築基後建藏經閣研習。舊成果完整保留，舊 Era2 經濟不覆蓋主線。[ADR-012](docs/decisions/ADR-012-optional-skills-with-islands.md)／[驗證](docs/verification/skills-b1.md)。
 
 2026-10-05 **Git進度整合**：主目錄成果已checkpoint，舊Codex工作樹VFX已合併至main；最終53/53 Runner、獨立Web匯出與桌面／短橫式試播通過。master一般技能／舊Era2經濟與ADR-011分歧，已保存並審查、未套回；正式開發以E:/WORK/Dao2的main為準。後續git pull --ff-only origin main，分歧須回報。[整合紀錄](docs/verification/git-progress-integration-2026-10-05.md)。FX3／D2／C／R2完整驗收狀態保持原限制。
@@ -16,7 +18,7 @@
 
 2026-10-05最新分工：使用者將 **R2交AGY**，Codex下一 **RES1-D1：Era3前置／丹霞T3隔離契約（TODO）**，可並行；R2／C／C2仍IN_PROGRESS、完整D仍TODO。已建[交接](docs/handoffs/2026-10-05-r2-agy.md)、[AGY Prompt](docs/handoffs/2026-10-05-agy-r2-prompt.md)與[Codex下一範圍／Prompt](docs/handoffs/2026-10-05-codex-res1-d1.md)，本輪未開始D1程式或新驗收。此分工覆蓋以下歷史「Codex只續R2／不跳D」接手順序，保留正式放行門檻。
 
-2026-10-05最新 **R2持續劣化定位：本輪未重現，根因未結案**。同版正常1280×720／DPR約1，三組300秒59.744／59.564（50次管理操作）／59.744、重載60秒59.847均恢復PASS；同期CPU／GPU取證已保存。DPR與進度不同，不能消除前輪DPR1.25失敗；GPU process高CPU與heap大小不足以單獨解釋。**R2／C／C2 IN_PROGRESS、D TODO**，下一同進度DPR1.25重現／對照。[定位證據](docs/verification/res1-c2-sustained-degradation.md)。
+2026-10-05最新 **R2持續劣化定位：本輪未重現，根因未結案**。同版正常1280×720／DPR約1，三組300秒59.744／59.564（50次管理操作）／59.744、重載60秒59.847均恢復PASS；同期CPU／GPU取證已保存。DPR與進度不同，不能消除前輪DPR1.25失敗；GPU process高CPU與heap大小不足以單獨解釋。後續由AGY完成根因修復並PASS（見頂部2026-10-05）。[定位證據](docs/verification/res1-c2-sustained-degradation.md)。
 
 2026-10-04最新 **R2正常恢復／長觀測驗收 NOT_PASSED**：正常60秒59.880、首組300秒59.823通過；有間隔50次管理操作的300秒54.740（末45秒低谷）、同頁延長300秒48.088、重載60秒35.105均未恢復。無遊戲對照59.997只作診斷，不替代遊戲通過；木屋2→3／扣料重載、三島滑鼠與完整模式正常。Python16／Node13契約通過，無新Godot來源／匯出／51 Runner。**R2／C／C2 IN_PROGRESS、D TODO**；下一定位持續劣化，裝置／人工另待驗。[本輪驗收](docs/verification/res1-c2-recovery-browser.md)。較早政策修訂與通過結果保留歷史，New Chat續同R2。
 

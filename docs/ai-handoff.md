@@ -1,5 +1,7 @@
 # 2026-10-05 R2最新接手提示
 
+2026-10-05最新 **RES1-C2-PERF-R2 效能修復 PASS（AGY）**：持續 FPS 劣化根因已定位並修復（`building_catalog.gd` 每0.25秒無條件覆寫 ProgressBar 位置／尺寸的 reflow 風暴改為值比對保護、`abode_building.gd` 不可見物件 `_process` 提早返回、`abode_flows.gd` Immediate Draw 呼叫減量）；全量54/54 Runner／exit0，ADR-010 四組觀測全部恢復PASS、`desktopRecoveryGate=PASS`。[R2驗收](verification/res1-c2-agy-r2.md)。**R2 效能定位結案**；C／C2（實機觸控／高DPR／自然凍結／跨瀏覽器／長期GPU-WASM 與人工美術節奏）與完整 D 仍 IN_PROGRESS。下方 2026-10-04 NOT_PASSED／未重現紀錄為歷史。
+
 2026-10-05 **SKILL-B1 已採用 B**：先讀 [ADR-012](decisions/ADR-012-optional-skills-with-islands.md) 與 [驗證](verification/skills-b1.md)。六技能選修，不回復舊Era2經濟或技能門檻；main為唯一正式開發入口，git pull --ff-only origin main，分歧先回報。舊保存分支保留。
 
 2026-10-05 **Git接手入口**：正式進度只從E:/WORK/Dao2的main接續；舊7c23/Dao2工作樹已保存於codex/preserve-vfx-20261005並真正合併，原工作樹留備份分支勿當最新版。master ff86f85另保留於codex/preserve-master-20261005，一般技能／舊Era2模型與ADR-011衝突、未合併。後續明確使用git pull --ff-only origin main；兩側提交分歧或dirty阻擋須回報，不自動reset/rebase/force push。[整合驗證](verification/git-progress-integration-2026-10-05.md)。
@@ -16,7 +18,7 @@
 
 **同日最新使用者分工覆蓋下方接手順序：R2交AGY，Codex下一RES1-D1隔離子階段（TODO），可並行。**先讀[AGY交接](handoffs/2026-10-05-r2-agy.md)、[AGY Prompt](handoffs/2026-10-05-agy-r2-prompt.md)、[D1範圍與Codex Prompt](handoffs/2026-10-05-codex-res1-d1.md)。R2／C／C2仍IN_PROGRESS、完整D TODO，不以並行消除效能／保存／裝置放行門檻。本輪只建文件，未開始D1或對外傳送prompt。共享檔與build先協調；AGY量FPS時Codex暂停高負載測試／匯出。
 
-先讀[持續劣化定位](verification/res1-c2-sustained-degradation.md)與updata頂部。本輪正常頂層1280×720／DPR約1三組300秒（含50次有間隔管理開關）與重載60秒59.744／59.564／59.744／59.847均恢復PASS；CPU237／GPU150同期資料、6／16／13契約PASS。沒有Godot來源／匯出／51 Runner變更。共用GPU process高CPU時仍近60、heap大小與FPS非單一對應；不是根因修復。前輪DPR1.25與木屋3階、此輪DPR1／木屋2階不同，原失敗未消除。R2／C／C2 IN_PROGRESS、D TODO。4248服務沿用，分頁停launcher／override reset，已有進度按開啟遊戲，勿種檔。下一同進度DPR1.25重現／DPR對照，再按失速證據分層追蹤；New Chat開始下一大型階段。
+先讀[持續劣化定位](verification/res1-c2-sustained-degradation.md)與updata頂部。本輪正常頂層1280×720／DPR約1三組300秒（含50次有間隔管理開關）與重載60秒59.744／59.564／59.744／59.847均恢復PASS；CPU237／GPU150同期資料、6／16／13契約PASS。沒有Godot來源／匯出／51 Runner變更。共用GPU process高CPU時仍近60、heap大小與FPS非單一對應；不是根因修復。前輪DPR1.25與木屋3階、此輪DPR1／木屋2階不同，原失敗未消除。R2／C／C2 IN_PROGRESS、D TODO。4248服務沿用，分頁停launcher／override reset，已有進度按開啟遊戲，勿種檔。後續由AGY完成根因修復並PASS（見頂部2026-10-05 RES1-C2-PERF-R2）。
 
 # 給下一位 AI 的開發交接
 

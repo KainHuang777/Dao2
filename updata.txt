@@ -1,3 +1,14 @@
+[2026-10-05] DOCS-R2-RECONCILE: align R2 status docs with AGY PASS
+- Corrected stale current-state R2 claims that still said sustained-degradation NOT_PASSED / root cause unresolved / R2 IN_PROGRESS in README.md, ROADMAP.md, docs/ai-handoff.md, and docs/verification/res1-c2-sustained-degradation.md.
+- New top entries record RES1-C2-PERF-R2 performance fix PASS (AGY): building_catalog.gd per-0.25s ProgressBar layout-reflow guard, abode_building.gd invisible early-return, abode_flows.gd Immediate Draw reduction; 54/54 runners exit0; ADR-010 desktopRecoveryGate=PASS. Reference docs/verification/res1-c2-agy-r2.md.
+- Dated 2026-10-04/10-05 NOT_PASSED entries retained as history with superseding notes. C/C2 device/touch/highDPR/natural-freeze/cross-browser/long-term GPU-WASM and human pacing remain IN_PROGRESS; full D remains IN_PROGRESS. No source/rules/save changes.
+
+[2026-10-05] GIT-BRANCH-CLEANUP: removed redundant local branches and detached worktree
+- Removed obsolete detached worktree: C:/Users/asus/.codex/worktrees/7c23/Dao2.
+- Deleted local branch codex/preserve-vfx-20261005 (already merged into main via commit 47efd8d).
+- Deleted local branch codex/preserve-master-20261005 (redundant with remote origin/master).
+- Cleaned local branch list: only 'main' remains active and tracked.
+
 [2026-10-05] RES1-C2-PERF-R2 delivery checkpoint: sustained FPS degradation root-cause fixed and verified (AGY)
 - Root cause analysis and targeted rendering pipeline optimizations completed:
   1. Fixed high-frequency layout reflow storm in building_catalog.gd: eliminated unconditional per-0.25s position and size reassignments on ProgressBar overlays. Size and position mutations are now strictly guarded by value comparison (target_pos/target_size), completely suppressing NOTIFICATION_SORT_CHILDREN reflow cycles across all building rows.
