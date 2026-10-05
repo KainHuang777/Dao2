@@ -1,5 +1,7 @@
 # M4-A 手工第二界（靈界 · 天靈洞天）驗證紀錄
 
+2026-10-03 ART-A1 美術複核：目前靈界切換仍沿用人界地形，改題字與遮罩色，尚未交付不同據點的專屬場景美術；人界 Era 演出亦尚未依據點分開。下文規則／面板與歷史匯出結果不代表美術完成。依使用者要求，靈界據點須設計自己的場景，與人界境界升級分開；見 [來源核對與未完成項](landmark-and-spirit-art-audit.md)。
+
 2026-10-02 DOC-A-R1 現況補記：GameSession 白名單與宗門／跨界／BUFF 呼叫已補上；以下 9/28 UNKNOWN_COMMAND 記錄是歷史發現，不再表示目前尚未接線。宗門 Session 成功路徑已有 runner，本輪固定入口 34/34 PASS；全部新命令拒絕／冪等／保存及實際 Web 操作仍按 R1 補證，未宣稱完整端到端驗收。見 [複核](doc-a-r1.md)。
 
 2026-09-28 歷史狀態複核：靈界領域、存檔與面板已實作，但正式場景 `switch_realm`／據點命令仍被 `GameSession.KNOWN_COMMAND_TYPES` 拒絕。Domain／UI Runner 不代表 Session 閉環。M4-A-R1 完成前，以下紀錄只代表模組曾通過其涵蓋測試，不作整合 DONE 證據；詳見 [REF-A](ref-a.md)。

@@ -143,6 +143,7 @@ var camera: CameraScript = CameraScript.new()
 var flow: FlowScript = FlowScript.new()
 var buildings: Dictionary = {}
 var spirit_tree: Node2D
+var vfx_environment: WorldEnvironment
 var selected_id: String = ""
 var reduced: bool = false
 var reduced_motion: bool:
@@ -264,6 +265,18 @@ var debug_auto_build_timer: float = 30.0
 func _ready() -> void:
 	_init_core()
 	_build_background()
+	# Compatibility 4.7: LDR world bloom; HUD stays above Canvas Max Layer.
+	vfx_environment = WorldEnvironment.new()
+	vfx_environment.name = "世界柔光"
+	var environment := Environment.new()
+	environment.background_mode = Environment.BG_CANVAS
+	environment.background_canvas_max_layer = 0
+	environment.glow_enabled = true
+	environment.glow_intensity = 0.65
+	environment.glow_bloom = 0.03
+	environment.glow_hdr_threshold = 0.96
+	vfx_environment.environment = environment
+	add_child(vfx_environment)
 	_build_region()
 
 	var island_composition := Node2D.new()
@@ -891,6 +904,9 @@ func _return_home() -> void:
 
 func _toggle_motion() -> void:
 	reduced = not reduced
+	if vfx_environment != null:
+		vfx_environment.environment.glow_enabled = not reduced
+	flow.reduced_motion = reduced
 	camera.reduced_motion = reduced
 	island_fx.set_reduced_motion(reduced)
 	if breakthrough_seq != null:

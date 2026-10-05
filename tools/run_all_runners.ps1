@@ -1,5 +1,6 @@
+param([string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe')
 $ErrorActionPreference = 'Stop'
-$daoEngine = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
+$daoEngine = $EnginePath
 $runners = @(
     'tools/test_runner.gd',
     'tests/abode_state_runner.gd',
