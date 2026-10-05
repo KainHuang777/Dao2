@@ -1,5 +1,14 @@
 # 開發狀態與交接紀錄
 
+### 2026-10-05 GIT-SYNC-INTEGRATION：兩處成果保存、VFX合併與master審查交付
+
+d54faa3主目錄checkpoint；舊detached工作樹改保存分支codex/preserve-vfx-20261005／fb65890，47efd8d雙親merge已把VFX納入main。解決兩個場景程式與三個交接文件衝突，保留D2／R2較新接線；修正短橫式演出遠景題字重疊並加跨四版型回歸。master ff86f85保存本地參照，其一般技能／舊Era2／保存模型與ADR-011及多島權威供給衝突，審查已交付、功能未合併；已向使用者提出決策選擇，未收到改案前維持核定規則。
+
+Godot4.7.2／import exit0；初輪及最終53/53 Runner exit0、指定突破exit0、獨立Web兩輪export／Node compression exit0。真實IAB新origin4264：試播／低特效／返回／重載／重播，最終1280×720及844×390題字避讓通過，返回仍練氣1/10，warn/error查詢空。既有RID／ObjectDB退出訊息保留，原始Runner日誌尾端空白使staged diff-check曾非零，源碼／文件另查。修改／命令／截圖／範圍見[整合紀錄](verification/git-progress-integration-2026-10-05.md)。
+
+更新README／ROADMAP／本檔／ai-handoff／英文updata，保存測試日誌與隔離fixture；pull.ff=only已設定，主線採普通push並核對遠端。舊工作樹及master備份保留；正式开发固定main。FX3／D2／C／R2完整DoD未因Git整合放行，R2仍交AGY。依Context Guard完成本輪有界整合後停，不展開重新設計一般技能；下一New Chat續既有驗收，或依使用者決策另處理技能分歧。
+
+
 ### 2026-10-05 GIT-SYNC-AUDIT：分支／工作樹檢查完成，整合未執行
 
 依使用者要求完成遠端 fetch 與版本稽核。main d0e5282 比 origin/main f20d3ef ahead 1／behind 0，無 main 拉取合併需求；origin/master ff86f85 與 main 分歧 7／1，其技能／內容模型須另行審查。舊 detached 工作樹 7c23/Dao2 停 main 祖先4dd4ddb（落後5提交），仍有17 tracked修改及未追蹤VFX，未整合；主目錄記錄寫入前45 tracked修改／273 untracked檔案。未merge／pull／commit／push／刪除工作樹。fetch升權exit0，唯讀status/log/rev-list/cherry/diff完成；初sandbox拒寫／網路／工作樹status失敗經後續成功檢查釐清。詳[稽核與整合順序](verification/git-sync-audit-2026-10-05.md)。新增稽核文件，更新本檔及updata英文checkpoint；遊戲狀態不变。下一先保存兩處dirty成果，再評估VFX與master逐項整合；New Chat接續整合，D2/R2驗收仍依原分工。

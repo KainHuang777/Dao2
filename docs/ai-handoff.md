@@ -1,5 +1,8 @@
 # 2026-10-05 R2最新接手提示
 
+2026-10-05 **Git接手入口**：正式進度只從E:/WORK/Dao2的main接續；舊7c23/Dao2工作樹已保存於codex/preserve-vfx-20261005並真正合併，原工作樹留備份分支勿當最新版。master ff86f85另保留於codex/preserve-master-20261005，一般技能／舊Era2模型與ADR-011衝突、未合併。後續明確使用git pull --ff-only origin main；兩側提交分歧或dirty阻擋須回報，不自動reset/rebase/force push。[整合驗證](verification/git-progress-integration-2026-10-05.md)。
+
+
 2026-10-05追加 **D2-R1 Web 保存子階段 PASS；完整D2-R1／D2／D與C／C2／R2仍IN_PROGRESS**。先讀[Web驗收](verification/res1-d2-web-r1.md)與updata頂部。最終53/53／exit0、world38／管理89；九案例16報告400 checks，空白流程是自動正常命令／模擬秒（含215共用診斷），不是完整滑鼠通關。D2真實保存矩陣176項通過；正常開局滑鼠及丹霞拒寫／重試追加，保存恢復提示修復。4258新檔、4259金丹試玩存檔保留，頁面停launcher／override reset；4259按開啟隔離遊戲，勿再Seed。新正常包build/res1d2-web-live，測試包build/res1d2-web，原web／res1d2／res1d2r1不變。下一New Chat續自然時間完整滑鼠流程、人工／裝置／C-R2；R2交AGY，不重做已過保存矩陣或跳Era4。下方日期化歷史保留。
 
 2026-10-05最新 **D2-R1世界／美術子階段交付，完整D2-R1／D2／D IN_PROGRESS**：丹霞兩張獨立PNG與雙向世界／管理入口、貨運視覺、控制列換行及遠景題字避讓已接。53/53／exit0；最後world38＋管理87、原三島26／響應式回歸、獨立Web與1280×720.4／844×390滑鼠重載證據見[驗收](verification/res1-d2-r1.md)。下一New Chat續正常Web空白完整首段與D2瀏覽器保存故障矩陣；人工／裝置／C-R2仍待驗，R2交AGY。先讀updata頂部，4257/launcher沿用進度，勿再種檔；build/res1d2r1獨立，原web／res1d2包不變。

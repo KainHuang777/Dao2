@@ -1,5 +1,8 @@
 # 修仙問道 v2 — 可執行開發 Roadmap
 
+2026-10-05 **GIT-SYNC-INTEGRATION：保存／VFX合併與master審查交付**（使用者當次要求）：d54faa3保存主目錄、fb65890保存舊工作樹、47efd8d為VFX雙親合併。最終53/53、Web匯出及兩橫式滑鼠子範圍通過；舊master技能／Era2與ADR-011分歧保留未合併，不改正式RES1順序／DoD。[證據與分歧](docs/verification/git-progress-integration-2026-10-05.md)。
+
+
 2026-10-05追加 **D2-R1 Web 保存矩陣子階段 PASS，完整 D2-R1／D2／D 仍 IN_PROGRESS**：最終53/53 Runner／exit0；九案例／16報告共400 checks（含215共用規則／MemoryAdapter診斷），自動空白正常命令以模擬秒到金丹十層，真實保存／重載及D2故障矩陣通過。正常滑鼠開局與丹霞拒寫／重試追加，保存恢復後錯誤提示已修正。[Web驗收](docs/verification/res1-d2-web-r1.md)。下一自然時間完整滑鼠流程、人工玩法／美術與裝置／C-R2放行；R2交AGY。New Chat接續，以下為歷史。
 
 2026-10-05最新 **RES1-D2-R1 世界／美術子階段交付；完整D2-R1／D2／D仍IN_PROGRESS**：丹霞獨立赤岩島體＋藥坊PNG、世界／管理雙向入口、真實貨運視覺及四島控制換行／題字避讓已接入。全量53/53／exit0，最後世界38＋管理87及三島26／響應式回歸通過；獨立Web匯出與兩橫式滑鼠／重載證據見[本輪驗收](docs/verification/res1-d2-r1.md)。正常Web新檔完整首段、D2保存故障矩陣與人工／裝置／C-R2放行仍待驗；R2仍交AGY。依Context Guard於世界子階段checkpoint，下一New Chat續D2-R1剩餘Web驗收。下方同日記錄保留歷史。
