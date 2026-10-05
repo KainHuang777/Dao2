@@ -1,5 +1,20 @@
 # 開發狀態與交接紀錄
 
+### 2026-10-05 RES1-C2-PERF-R2：效能劣化定位與修復驗收 PASS（AGY 交付）
+
+依據 ADR-010 恢復預算標準與使用者要求，完成持續 FPS 劣化定位與實作修復：
+1. **排查與修復**：
+   - 消除 `building_catalog.gd` 每 0.25 秒對全部建築列無條件覆寫 `meter.position` / `meter.size` 所引發的容器重新排版（Layout Reflow）風暴，加入前後位置比對保護。
+   - `abode_building.gd` 在 `_process()` 首行加入 `if not visible: return` 提早返回，徹底阻斷不可見世界建築每幀文字字串格式化與 `queue_redraw()` 開銷。
+   - `abode_flows.gd` 大幅降低祭壇靈氣粒子與拖尾 CanvasItem Immediate 繪圖命令密度，平抑 WebGL/Compatibility 批次呼叫開銷。
+2. **驗證與交付**：
+   - 全量 54/54 Runner 通過（exit 0）。
+   - 幀統計工具自我測試（16 PASS）、observer 測試（13 PASS）、負載摘要契約（6 PASS）全數通過。
+   - Web 匯出與 Node Brotli/Gzip 壓縮正常。
+   - ADR-010 幀率門檻驗收：四組觀測（300s 基準 59.74 FPS、300s 50次管理操作 59.56 FPS、300s 延長 59.74 FPS、60s 冷啟動 59.85 FPS）全數近目標 ≥55 FPS 佔比達 98.3%~100%，末 10 秒恢復正常，總體判定 `desktopRecoveryGate=PASS`。詳見 [R2驗收報告](verification/res1-c2-agy-r2.md)。
+3. **後續接軌**：
+   - R2 效能修復交付完成。後續可在乾淨上下文中無縫推進 RES1-D 系列任務與完整自然時間驗收。
+
 ### 2026-10-05 SKILL-B1：B 方案技能與多島融合
 
 使用者明確選 B，接回六項技能，保持 Era2 2／1.2／200、金丹容量2000、築基靈池和島嶼加工所有權。新增藏經閣／經書殿與修行技能頁；Session命令扣點、防重扣；Production加成、輪迴重置；schema3 skills版本、原JSON雜湊備份與讀回後雙槽提交。相關檔案為content/skills/era2.json、content/buildings/study.json、skill_system、GameState／GameSession、Production／TimeAdvancer／CommandProcessor、ReincarnationRules、SaveCodec／SaveManager及原生導航面板。

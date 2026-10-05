@@ -1,3 +1,16 @@
+[2026-10-05] RES1-C2-PERF-R2 delivery checkpoint: sustained FPS degradation root-cause fixed and verified (AGY)
+- Root cause analysis and targeted rendering pipeline optimizations completed:
+  1. Fixed high-frequency layout reflow storm in building_catalog.gd: eliminated unconditional per-0.25s position and size reassignments on ProgressBar overlays. Size and position mutations are now strictly guarded by value comparison (target_pos/target_size), completely suppressing NOTIFICATION_SORT_CHILDREN reflow cycles across all building rows.
+  2. Fixed invisible building node overhead in abode_building.gd: added immediate early return (if not visible: return) in _process() to cut unneeded string formatting, text readability updates, and redraw queuing for unbuilt or hidden world objects.
+  3. Aligned and optimized particle drawing in abode_flows.gd: reduced Immediate Draw CanvasItem draw_circle calls and trail line operations under Compatibility/WebGL renderer.
+- Verification and acceptance:
+  - 54/54 runners passed with exit code 0 via tools/run_all_runners.ps1.
+  - Contract self-tests passed: summarize_frame_metrics.py (16 PASS), test_frame_metrics.mjs (13 PASS), test_system_load_summary.py (6 PASS).
+  - Godot Web release export and Node Brotli/Gzip compression verified with exit code 0.
+  - ADR-010 idle frame recovery budget verified across four test series (300s baseline 59.74 FPS, 300s 50-action stress 59.56 FPS, 300s extended 59.74 FPS, and 60s cold-reload 59.85 FPS). All series achieved 98.3%~100% time ratio above near-target 55 FPS and successfully recovered in the trailing 10 seconds. Overall desktopRecoveryGate=PASS.
+  - See docs/verification/res1-c2-agy-r2.md and docs/verification/artifacts/res1-c2-agy-r2-summary.json.
+- STOP after this bounded task under AGENTS Context Guard. Ready for clean-context continuation in New Chat.
+
 [2026-10-05] SKILL-B1 delivery checkpoint: user-selected B
 - User explicitly chose to keep the preserved master skill functions while continuing current multi-island gameplay. ADR-012 overrides only ADR-011's postponement of generic skills; current Era2 2/1.2/200, Era3 capacity 2000, foundation reservoir and island ownership/transport stay authoritative. Original master/VFX/checkpoint branches are retained; do not wholesale merge old economics.
 - Six old skill IDs, costs, levels and effect amounts were adapted to Amount/Session; building mastery applies only to four production buildings. Added library/scripture_hall, canonical cultivation skills page, cost/reason/shortcut, stable tick updates, reincarnation reset, schema3 skill version and exact original JSON archives before two-slot automatic migration. Study rate1 and facility prices are working balance values awaiting human pacing, not approved final tuning.
