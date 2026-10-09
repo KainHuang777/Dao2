@@ -1,4 +1,137 @@
+2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
 # 開發狀態與交接紀錄
+
+### 2026-10-09 RES1-UI1-R5 DONE：運輸圖形化與簡化（有界）
+
+使用者要求參考本次製造圖形與簡化同步運輸。修改`island_transport_panel.gd`，重用R4手繪ICON／有框物品格：來源→目的可用庫存＋島名、未知庫存「—」、缺貨朱紅／補足恢復、真實載貨／倒數／進度；寬式雙欄、短式並排，政策長句移設定／tooltip、草稿標記、詳情啟停、寬式設定欄並排。短版成功收據在固定標題，不擠掉首卡；保存失敗訊息／重試仍明確。規則／schema／七航線與成本保持。修改B Runner，新增`tools/res1_ui1r5_preview.gd`／Godot UID、review fixture、12PNG／9JPEG與[驗收](verification/res1-ui1-r5.md)；README／ROADMAP／handoff／docs07／M2-D／本狀態／updata同步。
+
+Godot4.7.2確認、修復import exit0；全量**56/56 exit0（B210／A207）**，最後短收據修訂後B**220**／parity／responsive皆exit0；native最終12圖exit0無OVERSIZE／新SCRIPT ERROR，原生命名844實際root779×360，Web精確844另補。font check1823／hash不變，最後一般Web export／bundled Node Brotli＋四BGM companions exit0；PCK`8375f092…6174e28`。真實IAB DOM核對CSS1280×720／844×390／800×360、DPR約1：實際停航當趟倒數／仍到貨、草稿5.125／90返回／保存、升運力20維持停航、重載政策保留；丹液缺貨直達配方，實際單批→載貨1→祖島丹液1；短內捲／固定返回、旋轉恢复與最後固定標題收據通過，最後console warn/error查詢空。
+
+初次missing型別推導與tooltip「包」字型缺字已修復；快速canvas typeText／貼上不完整，讀画面後逐鍵80ms輸入核對完整政策。圖片glob混入.import與Windows rg glob錯誤修復後檢查通過。既有RID／CanvasItem／ObjectDB／resource退出診斷與favicon404保留，無auto-review拒絕。原有dirty／AGY成果保留，未commit／push／Windows同步，未讀其他origin玩家資料。4300服務Ctrl+C停止exit1為主動中止，驗收分頁關閉／override reset；隔離origin三條停航／丹液1保留，重開只Play勿seed。
+
+**待驗**：使用者最終圖形／密度接受、實體觸控／高DPR及完整UI1-C裝置清單。R5有界DoD滿足，完整C/D不提升；遵循已接受FPS／冷啟動政策，沒有重做保存400矩陣／長FPS。依Context Guard英文checkpoint置updata頂部；**下一New Chat收運輸回饋或剩餘裝置，不開Era4**。
+
+### 2026-10-09 RES1-UI1-R4 DONE：製造物品框辨識（有界）
+
+使用者依兩張截圖要求讓物品格更明顯。`recipe_material_tile.gd`加2px圓角框、淡底與微陰影；材料紙白／灰青、產出青玉、缺料淡赭／朱紅，涵蓋ICON＋數量＋來源。清單／詳情共用、格寬／44px圖／容器布局／命令與規則保持。新增隔離`tools/res1_ui1r4_preview.gd`／Godot UID、本輪review fixture、12張原生PNG、5張Web JPEG及[驗收](verification/res1-ui1-r4.md)。
+
+Godot4.7.2版號與import exit0；授權重跑製造207、parity／responsive及原生三尺寸皆exit0；一般Web export／Node Brotli及四BGM companions exit0。IAB／cua_repl核對CSS1280×720／844×390／800×360、DPR約1，清單框線／紅色缺料／青玉產出、三材料短式與內捲／詳情返回／恢復桌面通過；滑鼠築基丹扣料／20秒單批自然完成丹1。最後browser warn/error查詢空；favicon404及既有退出RID診斷保留。本輪未重跑全量56／保存矩陣／長FPS，不引用前輪結果作本輪證據。
+
+首次沙箱user://失敗導致preview／Runner卡住；指定受阻程序停止，正常授權重跑成功。CIM首次受限後授權查詢清理，最後確認兩Runner無残留。首次瀏覽器在服務啟動前連線失敗，另開分頁後成功；錯誤分頁data URL被工具policy阻擋未操作。完整命令／失敗紀錄见驗收。一般Web已更新，未commit／push／更新Windows，未存取4175玩家資料。
+
+**待驗**：使用者最終框線／底色美術接受、實體觸控／高DPR及完整C裝置清單。4299服務Ctrl+C停止exit1、成功分頁關閉／override reset，隔離origin保留丹1，重開按Play勿seed。英文checkpoint置updata頂部；依Context Guard止於R4，下一New Chat收此版回饋或剩餘裝置，不開Era4、不重做已過FPS／保存與暫緩冷啟動。
+
+### 2026-10-09 RES1-UI1-R3 DONE：手繪材質資源ICON（有界）
+
+使用者接受R2方向，要求資源ICON減少明顯色塊與SVG感。修改resource_icon.gd為共用預載透明手繪PNG（44px、linear、原UID保留），recipe_material_tile.gd撤下常態框／底色、保留朱紅數字與6%淡紅缺料提示；原配方需求／來源／tooltip／進度／命令不變。新增assets/ui/resources-painted的16張160px PNG與import、manifest／完整prompt（15 content資源＋原renderer已有stone_high支持，不是新解鎖），以及R3隔離preview／UID／原生Web與review證據。[完整檔案／資產來源／工具及命令](verification/res1-ui1-r3.md)。
+
+內建ImageGen＋generate2dsprite技能原processor生成／去洋紅／分格居中縮放；16透明圖QC無empty／edge／clamp，共615161bytes。Godot4.7.2版號／import／三尺寸12原生擷取exit0，最後製造207／parity／responsive皆exit0，字型check1823／hash不變，正常Web export／Brotli與四BGM companions exit0。本輪僅美術／底色，未重跑全量56、不借R2的56作本輪結果。IAB CSS1280×720／844×390／800×360、DPR約1：精煉／合成材質可辨與紅色缺料，滑鼠築基丹扣料／20秒進度／自然完成丹1，短式三材料內捲／800及詳情返回／恢復桌面通過，最後warn/error查詢空。
+
+初次去色門檻誤吃紫晶內部（CLI QC過、視覺未接受），降threshold30並用edge120修復，只有processed-clean安裝。不存在frames目錄檢查與同檔delete/add patch拒絕已按實際輸出與正常更新修正；既有RID／ObjectDB退出診斷保留。未改規則／schema／世界／玩家資料／Windows，未commit／push，AGY與既有dirty成果保留。效能／冷啟動沿用已接受政策，不重做保存400矩陣。
+
+**待驗**：使用者對新版圖示材質／辨識最終接受、實體觸控／高DPR及完整C裝置清單。R3有界完成，完整UI1-C／C/D不提升。4298服务Ctrl+C停止（exit1人工中止）、本輪分頁關閉／override復原、origin保存築基丹1，重開只Play勿seed。英文checkpoint置updata頂部；下一New Chat收美術回饋或剩餘裝置，不開Era4。
+
+
+### 2026-10-09 RES1-UI1-R2 DONE：製造材料圖示／數量／不足變色（有界）
+
+使用者確認R1介面區分清楚，要求製造更圖形化。修改manufacturing_panel與res1_ui1a_runner，新增resource_icon／recipe_material_tile及preview與三UID；八配方材料ICON＋需求量→產物，缺料朱紅、剛好滿足恢復。清單材料長句移至tooltip／詳情，來源小字保留，產線進度與原命令不變。短橫式圖示／操作側欄並排，第一張材料直接可見，短總覽收起；寬式兩欄與左資源維持。原創向量圖示來源／需求提示及切層／授權紀錄見[驗收](verification/res1-ui1-r2.md)。
+
+Godot4.7.2版號、修復import、56/56全量exit0（最後短版修訂前A205／B140）、最終A207／B140／world59／parity／responsive exit0，原生12圖無OVERSIZE／新SCRIPT ERROR，字型check1823／hash不變、最後一般Web export／Brotli及四BGM companions exit0。真實IAB DPR約1、DOM核對CSS1280×720／844×390／800×360：築基丹滑鼠扣料、下批不足變紅、當批完成／reload丹1保留；短首卡材料與进度直接可見，三材料內捲／800不溢出、詳情資料／返回與360旋轉恢復通過。完整命令／失敗修復／證據見驗收。
+
+首次R1 JPEG誤用PNG導致import失敗已修正11張副檔名與證據連結、圖片bytes不變；preview不存在inventory與符咒polygon錯誤已修復重跑。既有RID／ObjectDB退出診斷保留，不稱零錯誤。未改經濟／schema／玩家資料／Windows包、未commit／push；既有dirty／AGY修改保留。效能沿用已接受政策，冷啟動暫緩，不重做FPS與保存400矩陣。
+
+**待驗**：使用者最終圖示辨識／密度／美術接受，實體觸控高DPR及完整UI1-C裝置清單。R2有界DoD滿足，完整C/D不提升。4297服務Ctrl+C停止exit1人工中止、本輪分頁關閉／override reset、測試進度保留勿seed。英文checkpoint寫updata頂部；下一New Chat收這版圖形化回饋或接續剩餘裝置，不開Era4。
+
+
+### 2026-10-09 RES1-UI1-R1 DONE：空島操作回饋、同屏資源與配方內進度（有界）
+
+當次使用者要求插入UI1-A/B後的修訂。規則原本運作，成功操作沒有訊息、單批收尾混同停止操作與大型分島進度列是呈現缺口。已在island_management_panel、manufacturing_panel、feature_navigation改選中狀態／5秒成功收據／持續保存失敗、祖島工程可用庫存與地方庫存展開、配方內真實進度／秒數／原料來源及可用需求／pending、單行產線總覽、固定篩選與並排卡片動作；寬式保留資源三態，短橫式收據暫代總覽。tests/res1_ui1a_runner追加檢查，新增tools/res1_ui1r1_preview.gd／UID及獨立證據。未改規則、schema、世界美術或玩家資料。
+
+Godot4.7.2版本／import exit0；PowerShell tools/run_all_runners.ps1 **56/56／exit0（當輪A155／B140）**；最後A **164／exit0**、B140、world59、parity、responsive皆exit0；原生三尺寸9圖、字型check1823、正常Web export／Brotli與BGM準備exit0。真實IAB DPR約1，DOM核對1280×720／844×390／800×360 CSS；實際點擊採集1→2／速率2→4與支付回饋，製造／停工／完批、卡片進度、短內捲、庫存展開／重載保存、360旋轉罩阻擋／恢復原詳情通過。[檔案／完整命令／證據](verification/res1-ui1-r1.md)。既有退出RID／ObjectDB診斷保留；首次sandbox user://失敗與localhost不可達已透過專案授權的正常流程重跑成功。未commit／push，正常Web已同步，Windows包本輪未更新。
+
+效能沿用AGY與使用者修訂：≥55FPS時間80%以上、尾10秒>30FPS；冷啟動暫緩常態阻擋。本輪沒有新FPS／冷啟動測量，不把既有PASS重新列缺口；UI1-C保存400矩陣不重做。**未通過／待驗**：完整UI1-C實體觸控、DPR2–3、自然背景／跨瀏覽器／長期GPU-WASM與使用者對密度／回饋／美術節奏的接受。R1有界DoD已滿足，完整C/D不提升。
+
+依Context Guard將英文checkpoint追加updata最頂部；本輪服務與分頁按驗收交接狀態處理。**下一New Chat：接受這版操作密度／回饋或接續剩餘裝置清單**，不展開Era4、不重做已過保存與效能定位。下方較早「效能未過」標題保留歷史，內文已按新政策重算PASS。
+
+### 2026-10-09 RES1-UI1-C IN_PROGRESS：保存PASS，效能未過，實機保留待驗
+
+本輪使用者確認「目前無實體裝置，保留實機待驗」。56/56 Runner／exit0（A127／B140）、新版正常Web／WebPersistenceTest匯出壓縮、4293九案例16份400 checks／audit皆通過；包含兩次真實reload、真實quota與兩分頁writer鎖／owner關閉接管。400中224為正常自動命令／模擬秒及共用診斷，其餘176保存矩陣；不是400項全真實故障或自然時間滑鼠通關。4294新版運輸5.125／83.75拒寫重試／恢復／重載、製造停工保存恢復、三橫式滑鼠／360旋轉與800世界拖曳／滾輪通過。[完整命令／檔案／限制](verification/res1-ui1-c.md)。
+
+正常1280×720／DPR約1，60秒58.8469FPS／p95 16.8ms恢復PASS；300秒50次真實管理切換58.5736FPS／p95 16.8ms、接近60時間90%，末5秒53.9957FPS。依2026-10-09使用者指令，尾段10秒門檻修訂為高於30FPS即判定恢復，重算後300秒及總desktopRecoveryGate均為PASS；重載後60秒57.4137、末段恢復亦PASS。慢網冷啟動（新origin4295／DPR1.25／20Mbps／100ms空白新檔ready14.8016秒超10秒）依指令暫緩常態阻擋，待專案後期大型里程碑再評估資產裁減或本地Patch機制。
+
+修改工具web_persistence_server（收合故障工具）、res1d2_web_server（受限路徑／選包與gzip）、summarize_frame_metrics（尾段門檻30FPS），新增res1_ui1c_audit.py、review_fixture.gd／Godot UID；驗收／裝置人工表、artifacts與交接入口更新。正式Godot遊戲來源、規則／schema未改，未commit／push／同步Windows／寫4175。首沙箱user://失敗、review初版decode欄位錯誤及JPEG存PNG副檔名的import錯誤均保留日誌並修復；最終import-repaired exit0，UID與實際JPEG格式驗證。服務重啟期間BGM02抓取錯誤保留，不稱browser零錯誤；矩陣損壞JSON為預期負面診斷。
+
+本輪分頁關閉、override reset；4293／4294／4295服務Ctrl+C停止，退出1為主動終止。英文checkpoint已追加updata頂部。**下一New Chat接續：實機觸控／DPR2–3／虛擬鍵盤／自然背景／跨瀏覽器／完整自然時間流程與使用者操作／美術接受**。冷啟動與已過之桌面FPS恢復不反覆糾結阻擋；保存矩陣不再列未開始。
+
+### 2026-10-09 RES1-UI1-B DONE：七航線運輸精簡（有界階段）
+
+七列航線／固定標題篩選／設定詳情與返回、原字串小數／1e12設定、按航線保存草稿、啟停與運力升階沿用已保存政策已接入。停航當趟仍到貨、重啟不複製貨、升階不啟停航；共享唯讀出航計算提供精確等待原因及有證據的滿載提示。製造缺料／滿倉定位實際貨種與route_id，反向缺貨定位來源配方或採集；原七航線、成本、rules／schema未改。[完整修改／命令／畫面](verification/res1-ui1-b.md)。
+
+修改island_transport_panel／manufacturing_panel／feature_navigation／IslandEconomy／GameSession，新增UI1-B Runner及native preview／UID，更新舊A測試與56項入口、兩字型子集／manifest。Godot4.7.2版號／import、56/56全量exit0（A127／B138）、最後140專項與parity、原生9圖、字型契約、一般Web最終export／compression皆通過。IAB4292三橫式實際點擊／內捲／保存、360×640旋轉恢復、最終reload保持停航／20運力／reserve5.125／target90，丹液來源供給直達配方；五張Web圖已存，error／warn查詢空。全量後最後兩项專項及微小UI路由另補驗140與parity，未把全量當輪138寫成140。
+
+測試只用獨立user://、MemoryAdapter與新origin，未碰4175玩家進度；全量依既有工具重產fixtures，保留前輪dirty修改，未commit／push／同步Windows。初版字型缺字、不存在字型API、旧测试入口、测试容量／viewport與沙箱user://失敗已修正，最終無SCRIPT ERROR；既有RID／ObjectDB退出及負面測試診斷保留。CLI50次切頁穩定不替代性能／裝置。Web故障／雙分頁、觸控／DPR2–3、FPS／GPU／自然時間完整玩法與人工仍待UI1-C；完整RES1-C/D狀態不提升。
+
+依Context Guard止於B，英文checkpoint置updata頂部。**下一New Chat接RES1-UI1-C**完整Web保存／裝置／性能與人工操作驗收；不要重做RES1-A/B或擴Era4。以下2026-10-08 UI1-B TODO與下一B為開始前歷史。
+
+### 2026-10-08 RES1-UI1-A DONE：Godot 空島簡版與集中製造
+
+已接四經營route、簡版島詳情、集中八配方／四島單產線、模式／批數／保留量、pending切方／停工、加工坊與透明度工坊捷徑、築基丹同工作與服用保留。修復保留economy的輪迴Era1煉丹起手；rules_version=core-flow-12-ui1a-era1-alchemy，schema3／economy／配方成本不變。七航線舊控制移至運輸並保持停航升階啟停；完整精簡UI1-B未做。[完整檔案／命令／限制](verification/res1-ui1-a.md)。
+
+現有Godot4.7.2；兩輪全量55/55 exit0（後輪專項117），最後小修後專項127、世界59／C2世界26、導覽／parity、原生9張三橫式、一般Web export／Node壓縮全exit0。IAB4291桌面1280×720.4／844×390／800×360滑鼠與內捲、360×640旋轉返回、實際重載有界通過；DPR約1。早期sandbox user://失敗、Runner編譯／診斷clone舊revision選槽與擷取邏輯尺寸錯誤已修正，既有退出RID診斷保留。Web圖片保存EPERM／localStorage唯讀scope不足與載入中CDP timeout均保留，不捏造本地Web圖或逐項落盤證據。
+
+工作區前輪修改保留；本輪測試只用獨立user://、MemoryAdapter與新origin，未存取4175玩家進度、未commit／push、未同步Windows。UI1-A有界DONE；UI1-B／C TODO，觸控／高DPR／Web保存故障／FPS／GPU／人工与完整RES1-C/D仍待驗。英文checkpoint已置updata頂部；依Context Guard止於A，下一 **New Chat 接 RES1-UI1-B** 七航線列與設定詳情，不重做RES1-A/B或擴Era4。
+
+
+### 2026-10-08 RES1-UI1-DESIGN：多空島精簡計畫 DONE（僅設計）
+
+依使用者附圖與精簡要求，交付[完整計畫](16-multi-island-ui-simplification-plan.md)及 `docs/visual-prototype/island-management-simplified.html` 可互動示意／同目錄 preview wrapper。島上只留採集與倉儲基本升級；製造集中八配方、四島單產線，運輸集中七固定航線。來源核對 island_management_panel／feature_navigation／IslandProgression／IslandEconomy／era1_3.json，明確區分可用、在途、加工產物與容量預留；無採集暫停新規則、無全域隔空取料。同步README、ROADMAP、docs/12、docs/14，保留前輪所有修改。
+
+命令：Godot `--version` exit0（4.7.2.stable.official.ed1daf0bf）；visualize `scripts/render.py` 建wrapper／重產exit0（Python定位診斷與window.openai提醒保留，僅widgetState／setWidgetState）；Node `new Function` 驗示意script語法PASS。初次rg查不存在data目錄失敗，依loader定位實際content後修正。兩次文件patch因標題不吻合驗證失敗，未套用，讀實際標題後重做成功。
+
+預覽：初sandbox HTTP未能連線、Invoke-WebRequest通訊端拒絕；僅localhost4288授權重啟後IAB載入成功。使用computer-use／cua_repl真實點擊示意：配方詳情／缺料禁用、丹霞缺草返回本島基本操作、航線保留量5／目標80、停航升階維持停航、停新出航保留在途10均可見。browser console error查詢空。844×390 override時元件實測寬797.6、雙欄；360×640 override時實測寬313.6、單欄且scrollWidth314，未見横向撐出；只證明示意內容換行，**不是Godot短橫式／直式玩法驗收**。暫時viewport已reset，預覽服務驗後停止。
+
+本輪未改正式Godot來源／規則／schema／玩家存檔，未匯出一般Web或Windows、未重跑54Runner、未commit／push。正式UI1-A/B/C TODO；現有RES1-C/D、實體觸控／高DPR／保存故障／自然時間玩法及性能門檻不提升。英文checkpoint已置updata頂部，依Context Guard止於設計階段；下一New Chat做 **RES1-UI1-A** Godot空島簡版與集中製造，不重做A/B、不擴Era4。
+
+### 2026-10-07 M2-D-FX3-AMBIENCE：三項環境／角色動效交付，IN_PROGRESS待最終美術／装置
+
+使用者要求淚佛瀑布水流與落點霧氣、遠景碎片慢浮、加強角色吸靈。修改concept_sky shader局部遮罩／六團霧／五片羽化UV漂移；cloaked_cultivator新增三條青藍匯聚流光、雙層光尾及依正式Era增強24→48點；living_abode傳入當世境界。低特效停背景／吸靈動態，角色保留；无規則／收益／保存變更。新增隔離ambience_preview與UID、13張原生PNG，擴充island_breakthrough_runner的境界／預算／快照契約，更新資產來源說明。[檔案、完整命令、驗證與限制](verification/ambience.md)。Godot4.7.2 import、五項回歸（world58）、最終原生motion/freeze與快照、一般Web／Windows release及Node壓縮全exit0；既有退出RID診斷保留，未重跑全量54。IAB獨立localhost4282有一般與844×390滑鼠收摘要／訊息和構圖證據，最終包重載追加見驗收；4175玩家資料未存取。完整FX3及本輪最終美術／實機／高DPR／長效能仍待驗；下一New Chat收霧量／流光強度回饋與補裝置，不開新大型工作。英文checkpoint已置updata頂部，未commit／push。
+
+### 2026-10-07 ART-A1-HOME-INTEGRATE：聚靈陣 Web／Windows 遊戲包同步 DONE（有界範圍）
+
+核對正式來源已使用新接地版聚靈壇，補齊仍停在10/5的Windows包並重新匯出一般Web；兩個PCK包含新資產。Godot4.7.2五項相關runner全部exit0（world58），Web／Windows release與Node壓縮／BGM companions exit0。初sandbox保存失敗後授權重跑通過，既有退出診斷保留；本輪browser4269／4271遇到分頁保存鎖定，未完成新增滑鼠／視覺驗收。僅核對既有來源、更新匯出物及本輪文件，未改規則／玩家進度。全工作區diff-check有既有ui_icon空白問題，本輪文件限定檢查另記。[命令、檔案、hash與限制](verification/altar-integration.md)。完整ART-A1／FX3仍IN_PROGRESS，Windows實際操作、人工／裝置待驗；下一New Chat續解除其他分頁後檢視與Windows試玩，英文checkpoint已追加updata頂部。
+
+
+### 2026-10-07 ART-A1-HOME-GROUND：聚靈壇透視與接地修訂交付
+
+使用者回報壇體懸浮，built-in image_gen透明編輯既有altar圖，依島面角度／左上暖光降低外露底座，土石／苔草包住最低邊與貼地暗部；新版保留獨立sprite／已建才顯示／點選同命令。只替換storage_lingli美術，撤下壇面常態旋轉光圈、選取環移至地面投影。新資產／提示詞／来源与图层见assets/abode/altar-grounded/，home-landmarks.json升v2；修改living_abode、abode_building、原生preview輸出另存artifacts/altar-grounded。[完整驗收](verification/altar-grounded.md)。Godot4.7.2 import／原生兩橫式四圖／四項隔離runner（living、scenery UI、reincarnation UI、world58）／一般Web release與壓縮exit0；圖片QC誤用Image.has_alpha的診斷失敗已停止修正，重跑alpha0／exit0。保留既有Font／CanvasItem／ObjectDB退出診斷，未重跑全量54，不援用舊54作本輪結果。IAB隔離4269重載新版、一般1280×650滑鼠開原3階詳情，844×390穩定畫面三核心與新版土石接合可見；未碰4175玩家資料。
+
+本修訂實作與有界驗證完成；最終美術、實機／高DPR／長效能仍待驗，完整ART-A1／FX3 IN_PROGRESS。一般Web已更新，Windows未匯出，Git未commit／push。英語checkpoint已置updata頂部，依Context Guard止於本階段；下一New Chat收接地感回饋／逐島代表地標。
+
+
+### 2026-10-07 ART-A1-HOME：祖島三核心接入與有界驗收交付
+
+使用者核定「左居所／中央修士／右聚靈壇」，覆蓋舊中央壇配置。既有altar.png正式場景接入storage_lingli已建level>0顯示，未建空地／無命中，點選同一營造命令；輪迴移除、重載還原、Era2居所換小院。右壇寬250／腳點(290,-100)，兩小景移開；短橫式home取景775寬與祖島一排目的島導覽避讓。檔案、來源、命令、失敗及限制見[驗收](verification/home-landmarks.md)／assets/abode/home-landmarks.json。Godot4.7.2 import／原生四PNG／living與scenery runner exit0，全量54/54 exit0（最後導覽小修之前）；型別推斷parse失敗修正後world58＋responsive exit0，最後Web匯出／壓縮exit0，diff-check通過。IAB隔離4269：一般1280×650與844×390滑鼠壇體→詳情，2→3階扣料，最終重載3階保留與短橫式單排導覽不遮三核心通過。native練氣預覽與browser金丹已賺得fixture各自有界，不冒稱空白完整新手／實機驗收。既有Font／CanvasItem／ObjectDB退出診斷保留。
+
+**實作／上述CLI和桌面Web子範圍完成；完整ART-A1／FX3仍IN_PROGRESS**，等待使用者最終美術、實機／高DPR／長效能。一般build/web更新，4175玩家資料未讀寫，未commit／push／更新Windows包。英語checkpoint在updata頂部；依Context Guard停在本階段，下一New Chat收視覺回饋／逐島補代表地標，靈界專屬場景仍未開展。
+
+
+### 2026-10-07 M2-D-FX3-ROUTES：飛劍用途調整子項 DONE
+
+使用者核定撤下洞府九把循環飛劍、固定光軌及中央舊裝飾粒子，保留主角吸靈。島間貨運改沿用飛劍美術，每條既有航線最多一把，僅實際正數在途貨物顯示，依 remaining 朝目的島移動；閒置／到貨收起，低特效停光尾／shader時鐘。修改 living_abode.gd、island_world.gd、兩項 runner、native_vfx_preview.gd；[詳細命令／結果／限制](verification/fx3-flight-routes.md)。Godot4.7.2 import、世界51 checks、突破 runner、全量54/54、一般Web release／壓縮均exit0，diff-check通過；初次sandbox保存失敗及既有退出診斷保留。IAB隔離4268真實滑鼠關閉摘要，確認閒置洞府新美術／無循環飛劍；browser載貨鏈、實機／高DPR／長效能仍待驗，完整FX3仍IN_PROGRESS。玩家4175資料未存取，未commit／push，Windows包未更新。下一步使用者重新載入一般Web檢視，再補實際載貨及装置／效能驗收；大型後續工作New Chat。
+
+
+### 2026-10-07 M2-D-FX3-ART1-PACK-AUDIT：一般 Web 包補入新美術
+
+使用者回報測試未見背景更新。本輪確認 living_abode.gd 已引用 fx3art1 sky／terrain 與 cloaked_cultivator；但 Git HEAD 4223eaf 與目前 origin/main 追蹤參照尚未包含這批未提交修改，新資產亦為 untracked。原 build/web/index.pck（10/6 21:40）及 build/windows/dao2.pck（10/5）沒有新 sky／hero 路徑；build/fx3art1-web（10/6 22:11）才有新美術。一般 Web 包落後是可確認的差異；使用者實際測試 URL／執行檔尚未取得，不能斷言正在使用哪個包。
+
+已執行 Godot --version（4.7.2.stable.official.ed1daf0bf）、Godot --headless --path . --export-release Web build/web/index.html（exit0；仍有 sandbox user:// 目錄診斷），以及 node tools/prepare_web_compression.mjs build/web（exit0，四首 BGM companions 已準備）。重新檢查 PCK 包含 fx3art1 sky、terrain、cloaked_cultivator 與 ui_icon 路徑；PCK 17,374,892 bytes，SHA256 645dfd32f7ae0734c5a166b0d189a695f427e4a06226eb9f9880ec50b3620c94。未手改匯出物、未更改玩家保存、未提交或推送 Git，Windows 包本輪未更新。
+
+Get-CimInstance 程序盤點遭 CIM 權限拒絕；Invoke-WebRequest 127.0.0.1:4175 遭 sandbox 通訊端權限拒絕，故未證明服務目前狀態或實際瀏覽器畫面。本輪未重跑規則測試（來源邏輯未修改），完整 FX3 美術／裝置／效能驗收維持 IN_PROGRESS。下一步使用一般入口重新載入新 Web 包；若仍無變更，核對實際 URL／桌面包；Git 美術 checkpoint 與 Windows 匯出按使用者後續範圍處理。
+
+
+### 2026-10-06 M2-D-FX3-ART1：夕照背景、質感空島與披風主角
+
+使用者插入任务，實作及本輪有界驗證PASS，完整FX3 IN_PROGRESS。三張分離資產、覆頭中性主角、18點吸靈與角色中心雷劫接入；低特效停止角色動效，正式規則／保存不變。修改檔案與完整命令／失敗重試見[驗收](verification/fx3-art1.md)：54/54 exit0、最後island_breakthrough追加契約exit0、原生隔離快照不變、獨立Web匯出／BGM壓縮exit0、IAB1280×720及844×390滑鼠試播／重播／低特效通過。退出Font／CanvasItem警告保留；人工美術、高DPR／實機、下載與FPS長觀測待驗。試玩 http://127.0.0.1:4267/index.html ，独立origin，不使用既有玩家資料。下一New Chat依美術回饋微調或補效能；不展開下一大型階段。英文checkpoint置於updata頂部。
 
 ### 2026-10-05 RES1-C2-PERF-R2：效能劣化定位與修復驗收 PASS（AGY 交付）
 
@@ -330,3 +463,4 @@ FX3 文件檢查：9 份嚴格 UTF-8、103 個本地連結及 `git diff --check`
 - [呈現索引](abode-presentation-map.md)、[AI 交接](ai-handoff.md)、updata.txt 頂部最新英文 checkpoint。
 
 2026-10-05 推送確認：功能提交 `12c560e` 已普通 push 至 origin/main；fetch 後 HEAD 與 origin/main 完整SHA一致，ahead／behind=0／0，工作區乾淨，pull.ff=only。來源／文件 staged diff-check（排除原始log）exit0。測試服務4265以Ctrl+C停止（程序exit1為主動終止），其餘服務未操作。此紀錄另以文件checkpoint提交，不改已驗證程式。
+

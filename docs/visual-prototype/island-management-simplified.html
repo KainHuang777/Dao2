@@ -1,0 +1,111 @@
+<style>
+#dao-islands { --dao-paper:light-dark(#e9e3d0,#302f29); --dao-ink:light-dark(#303e38,#e7e3d6); --dao-jade:light-dark(#466b60,#72998a); --dao-line:light-dark(#b7ad92,#726c5c); --dao-soft:light-dark(#f4efdf,#3c3d33); --dao-warning:light-dark(#9c442f,#efab87); color:var(--dao-ink); font:18px/1.5 'Microsoft JhengHei',sans-serif; }
+#dao-islands * { box-sizing:border-box; }
+#dao-islands .dao-window { background:var(--dao-paper); padding:20px; border:1px solid var(--dao-line); border-radius:10px; }
+#dao-islands .dao-heading { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:12px; padding-right:80px; }
+#dao-islands h2 { font-size:24px; font-weight:600; margin:0; }
+#dao-islands h3 { font-size:20px; font-weight:600; margin:0; }
+#dao-islands p { margin:8px 0; }
+#dao-islands .dao-note { font-size:16px; }
+#dao-islands .dao-nav, #dao-islands .dao-actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+#dao-islands .dao-nav { margin-bottom:16px; }
+#dao-islands button, #dao-islands select, #dao-islands input { font:inherit; min-height:44px; padding:8px 12px; color:var(--dao-ink); background:var(--dao-soft); border:1px solid var(--dao-line); border-radius:6px; max-width:100%; }
+#dao-islands button:disabled { opacity:.65; }
+#dao-islands button[aria-pressed=true], #dao-islands button[data-start] { background:var(--dao-jade); color:light-dark(#fff7df,#151f1b); }
+#dao-islands .dao-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+#dao-islands .dao-card { background:var(--dao-soft); border:1px solid var(--dao-line); border-radius:7px; padding:14px; min-width:0; }
+#dao-islands .dao-card button { margin-top:8px; }
+#dao-islands .dao-meta { display:flex; gap:8px; justify-content:space-between; flex-wrap:wrap; }
+#dao-islands .dao-recipe { margin:10px 0; }
+#dao-islands .dao-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px solid var(--dao-line); }
+#dao-islands .dao-row > div { flex:1 1 220px; min-width:0; }
+#dao-islands .dao-row .dao-actions { flex:0 1 auto; }
+#dao-islands .dao-warning { color:var(--dao-warning); }
+#dao-islands label { display:grid; gap:4px; margin:10px 0; }
+#dao-islands .dao-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+#dao-islands details { margin:14px 0; }
+#dao-islands summary { min-height:44px; padding:10px 0; }
+#dao-islands progress { width:100%; height:10px; accent-color:var(--dao-jade); }
+#dao-islands .dao-output { margin-top:14px; }
+#dao-islands .dao-list .dao-grid { grid-template-columns:1fr; }
+#dao-islands .dao-list .dao-card { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+#dao-islands .dao-list .dao-card button { margin:0; }
+@media(max-width:620px) { #dao-islands .dao-grid, #dao-islands .dao-form { grid-template-columns:1fr; } #dao-islands .dao-window { padding:14px; } #dao-islands .dao-heading { padding-right:0; } }
+</style>
+<div id="dao-islands" aria-label="多空島管理設計預覽">
+ <div class="dao-window">
+  <div class="dao-heading"><h2>經營 · 空島產業</h2><span class="dao-note">設計預覽 · 示意資料</span></div>
+  <nav class="dao-nav" aria-label="產業管理分頁">
+   <button type="button" class="cursor-interaction" data-page="islands" aria-pressed="false">空島</button>
+   <button type="button" class="cursor-interaction" data-page="craft" aria-pressed="true">製造</button>
+   <button type="button" class="cursor-interaction" data-page="routes" aria-pressed="false">運輸</button>
+  </nav>
+  <div id="dao-content"></div>
+  <div id="dao-feedback" class="dao-output" aria-live="polite"></div>
+ </div>
+</div>
+<script>
+(() => {
+ const root=document.getElementById('dao-islands'), content=root.querySelector('#dao-content'), feedback=root.querySelector('#dao-feedback');
+ const layout={kind:'卡片'};
+ const recipes=[
+  {id:'timber',name:'靈材',island:'青木島',group:'精煉',time:10,inputs:[['靈木',10,80],['下品靈石',5,30]]},
+  {id:'bronze',name:'銅精',island:'玄礦島',group:'精煉',time:10,inputs:[['玄銅',10,60],['下品靈石',5,40]]},
+  {id:'liquid',name:'丹液',island:'丹霞島',group:'精煉',time:10,inputs:[['低階靈草',5,0],['祖島靈力',50,1640]]},
+  {id:'stone',name:'中品靈石',island:'祖島',group:'精煉',time:10,inputs:[['下品靈石',5,80],['靈力',10,1640]]},
+  {id:'core',name:'陣芯',island:'祖島',group:'合成',time:20,inputs:[['靈材',2,8],['銅精',2,6]]},
+  {id:'foundation',name:'築基丹',island:'祖島',group:'合成',time:20,inputs:[['低階靈草',50,80],['玄銅',20,60],['靈力',200,1640]]},
+  {id:'golden',name:'金丹丹藥',island:'祖島',group:'合成',time:30,inputs:[['築基丹',3,3],['百年靈草',2,10],['中品靈石',5,8]]},
+  {id:'talisman',name:'符咒',island:'祖島',group:'合成',time:10,inputs:[['靈木',10,80],['下品靈石',5,80],['靈力',50,1640]]}
+ ];
+ const islands=[{name:'祖島',role:'修行與合成',goods:'祖業與修行設施',stock:''},{name:'青木島',role:'林業',goods:'靈木',stock:'80 / 100 · 採集 2 / 秒'},{name:'玄礦島',role:'採礦',goods:'玄銅、下品靈石',stock:'玄銅 60 / 100 · 下品靈石 40 / 100'},{name:'丹霞島',role:'靈植',goods:'低階靈草、百年靈草',stock:'低階靈草 0 / 100 · 百年靈草 10 / 100'}];
+ const routes=[
+  {id:'wood_ore',from:'青木島',to:'玄礦島',goods:'靈木',enabled:true,reserve:0,target:100,level:1},
+  {id:'ore_wood',from:'玄礦島',to:'青木島',goods:'下品靈石',enabled:true,reserve:0,target:100,level:1,cargo:10},
+  {id:'timber_home',from:'青木島',to:'祖島',goods:'靈材',enabled:true,reserve:0,target:100,level:1},
+  {id:'bronze_home',from:'玄礦島',to:'祖島',goods:'銅精',enabled:true,reserve:0,target:100,level:1},
+  {id:'grass_home',from:'丹霞島',to:'祖島',goods:'低階靈草',enabled:false,reserve:0,target:100,level:1},
+  {id:'herb_home',from:'丹霞島',to:'祖島',goods:'百年靈草',enabled:false,reserve:0,target:100,level:1},
+  {id:'liquid_home',from:'丹霞島',to:'祖島',goods:'丹液',enabled:false,reserve:0,target:100,level:1}
+ ];
+ const jobs={'青木島':{id:'timber',repeat:true,stopping:false}};
+ let page='craft',group='精煉',selected=null,filter=null;
+ const btn=(text,attrs='')=>`<button type="button" class="cursor-interaction" ${attrs}>${text}</button>`;
+ function saveChoice(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{page,group},privateContent:null}).catch(()=>{});}
+ function tell(text){feedback.textContent=text;}
+ function card(r){const busy=jobs[r.island], shortage=r.inputs.some(i=>i[2]<i[1]);let state=busy?.id===r.id?(busy.stopping?'本批後停止 · 剩餘4秒':(busy.repeat?'持續製作':'單批製作')+' · 剩餘4秒'):shortage?'缺料 · 低階靈草':busy?'本島產線使用中':'可製作';return `<article class="dao-card"><div><div class="dao-meta"><h3>${r.name}</h3><span class="dao-note">${r.island} · ${r.time}秒 / 批</span></div><div class="dao-recipe">${r.inputs.map(i=>i[0]+i[1]).join(' ＋ ')} → ${r.name}1</div><div class="dao-note ${shortage?'dao-warning':''}">${state}</div></div>${btn('查看配方',`data-recipe="${r.id}"`)}</article>`;}
+ function render(){root.querySelectorAll('[data-page]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.page===page)));content.classList.toggle('dao-list',layout.kind==='清單');
+  if(page==='islands'){
+   if(selected){const i=islands.find(x=>x.name===selected);content.innerHTML=`${btn('← 空島清單','data-back')}<h3>${i.name} · ${i.role}</h3><p>${i.goods}${i.stock?'：'+i.stock:''}</p>${i.name==='祖島'?'<p>祖島設施由洞府建築管理</p>':`<div class="dao-row"><div>採集一階 → 二階<p class="dao-note">下一階採集率加倍 · 祖島支付靈木20＋銅精2</p></div>${btn('升級採集','data-demo="採集升級"')}</div><div class="dao-row"><div>倉儲一階 → 二階<p class="dao-note">各項容量100 → 200 · 祖島支付靈材2＋下品靈石20</p></div>${btn('升級倉儲','data-demo="倉儲升級"')}</div>`}<div class="dao-actions">${btn('查看製造',`data-jump="craft" data-island="${i.name}"`)}${btn('查看運輸',`data-jump="routes" data-island="${i.name}"`)}</div>`;}
+   else content.innerHTML=`<div class="dao-grid">${islands.map(i=>`<article class="dao-card"><h3>${i.name} · ${i.role}</h3><p>${i.goods}</p><div class="dao-note">${i.stock||'洞府建築管理祖業'}</div>${btn('基本操作',`data-island-detail="${i.name}"`)}</article>`).join('')}</div><p>${btn('靈界洞天','data-demo="靈界洞天入口"')}</p>`;
+  }else if(page==='craft'){
+   if(selected){const r=recipes.find(x=>x.id===selected), busy=jobs[r.island], missing=r.inputs.filter(i=>i[2]<i[1]), same=busy?.id===r.id;
+    content.innerHTML=`${btn('← 配方清單','data-back')}<h3>${r.name} · ${r.island}</h3><p>${r.inputs.map(i=>i[0]+i[1]).join(' ＋ ')} → ${r.name}1 · ${r.time}秒 / 批</p>${r.inputs.map(i=>`<div class="dao-row"><div>${i[0]}</div><span class="${i[2]<i[1]?'dao-warning':''}">可用 ${i[2]} / 需求 ${i[1]}</span></div>`).join('')}<p class="dao-note">輸出可用 8 / 100 · 在途到貨 0 · 加工待完成 ${same?1:0}</p>${same?`<progress max="10" value="6" aria-label="示意加工進度"></progress><p>${busy.stopping?'已安排本批後停止':(busy.repeat?'持續製作':'單批製作')+' · 剩餘4秒'}</p>${btn('本批後停止',`data-stop="${r.island}" ${busy.stopping?'disabled':''}`)}`:`<label>製作模式<select id="dao-mode"><option value="once">單批</option><option value="repeat">持續製作</option></select></label>${btn(busy?'本批後切換':missing.length?'缺少'+missing[0][0]:'開始製作',`data-start="${r.id}" ${missing.length?'disabled':''}`)}`}${missing.length?`<p>${btn('查看原料產地',`data-source="${r.island}"`)}</p>`:''}<details><summary class="cursor-interaction">加工設定</summary><p class="dao-note">加工坊一階 · 每批${r.time}秒</p>${btn('升級加工坊','data-demo="加工坊升級"')}<p class="dao-note">指定批數與原料保留量在正式詳情提供</p></details>`;
+   }else{const list=recipes.filter(r=>r.group===group&&(!filter||r.island===filter));content.innerHTML=`<div class="dao-nav" aria-label="配方分類">${['精煉','合成'].map(g=>btn(g,`data-group="${g}" aria-pressed="${group===g}"`)).join('')}${filter?btn('全部島嶼','data-clear'):''}</div>${filter?'<p>'+filter+'產線</p>':''}<div class="dao-grid">${list.map(card).join('')}</div>${list.length?'':'<p>本島沒有此分類配方</p>'}`;}
+  }else{
+   if(selected){const r=routes.find(x=>x.id===selected);content.innerHTML=`${btn('← 航線清單','data-back')}<h3>${r.goods} · ${r.from} → ${r.to}</h3><p>${r.enabled?'啟用':'停航'} · ${r.level*10} / 10秒</p><div class="dao-form"><label>來源保留量<input id="dao-reserve" type="number" min="0" value="${r.reserve}"></label><label>目標庫存<input id="dao-target" type="number" min="0" value="${r.target}"></label></div>${btn('保存設定',`data-save-route="${r.id}"`)}<div class="dao-row"><div>運力一階 → 二階<p class="dao-note">10 → 20 / 10秒 · 祖島支付靈材2＋銅精2</p></div>${btn(r.level===2?'已升階':'升階',`data-upgrade="${r.id}" ${r.level===2?'disabled':''}`)}</div>`;}
+   else content.innerHTML=`${filter?'<div class="dao-actions"><h3>'+filter+'相關航線</h3>'+btn('全部航線','data-clear')+'</div>':''}${routes.filter(r=>!filter||r.from===filter||r.to===filter).map(r=>`<article class="dao-row"><div><h3>${r.goods} · ${r.from} → ${r.to}</h3><p class="dao-note">${r.enabled?'啟用':'停航'} · ${r.level*10} / 10秒${r.cargo?' · 在途10，6秒後到貨':r.enabled?' · 等待來源餘貨':''}</p></div><div class="dao-actions">${btn(r.enabled?'停航':'啟動',`data-toggle-route="${r.id}"`)}${btn('設定',`data-route="${r.id}"`)}</div></article>`).join('')}`;
+  }
+ }
+ root.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;const d=b.dataset;
+  if(d.page){page=d.page;selected=null;filter=null;tell('');}
+  else if('back'in d){selected=null;tell('');}
+  else if(d.group){group=d.group;}
+  else if('clear'in d){filter=null;}
+  else if(d.recipe){selected=d.recipe;}
+  else if(d.islandDetail){selected=d.islandDetail;}
+  else if(d.route){selected=d.route;}
+  else if(d.jump){page=d.jump;filter=d.island;selected=null;if(page==='craft')group=filter==='祖島'?'合成':'精煉';tell('');}
+  else if(d.source){page='islands';selected=d.source;filter=null;tell('');} else if(d.stop){jobs[d.stop].stopping=true;tell('示意：本批完成後停止；不退原料。');}
+  else if(d.start){const r=recipes.find(x=>x.id===d.start),busy=jobs[r.island];if(busy){busy.pending=r.id;tell('示意：已安排本批後切換為'+r.name+'。');}else{jobs[r.island]={id:r.id,repeat:root.querySelector('#dao-mode').value==='repeat',stopping:false};tell('示意：已開始'+r.name+'；未寫入遊戲。');}}
+  else if(d.toggleRoute){const r=routes.find(x=>x.id===d.toggleRoute);r.enabled=!r.enabled;tell(r.enabled?'示意：沿用原設定啟動。':'示意：停止新出航；當趟仍會到貨。');}
+  else if(d.saveRoute){const r=routes.find(x=>x.id===d.saveRoute),a=Number(root.querySelector('#dao-reserve').value),v=Number(root.querySelector('#dao-target').value);if(!Number.isFinite(a)||!Number.isFinite(v)||a<0||v<0){tell('請輸入非負數值。');return;}r.reserve=a;r.target=v;tell('示意：設定已更新，航線啟停不變。');}
+  else if(d.upgrade){const r=routes.find(x=>x.id===d.upgrade);r.level=2;tell('示意：運力已提高；保留'+(r.enabled?'啟用':'停航')+'狀態。');}
+  else if(d.demo){tell('示意：'+d.demo+'會導向既有Godot命令／頁面。');}
+  render();saveChoice();
+ });
+ const saved=window.openai?.widgetState?.modelContent;if(saved&&['islands','craft','routes'].includes(saved.page))page=saved.page;if(saved&&['精煉','合成'].includes(saved.group))group=saved.group;
+ render();
+ if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:render});tweak.addSelect(layout,'kind',{label:'配方排列',options:['卡片','清單']});}
+})();
+</script>

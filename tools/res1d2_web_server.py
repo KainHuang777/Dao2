@@ -2,10 +2,11 @@
 import argparse
 import json
 from functools import partial
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from http.server import ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 from web_persistence_server import INSTRUMENT, LIVE
+from web_static_server import CompressedStaticHandler, prewarm
 
 ROOT = Path(__file__).resolve().parent.parent
 BUILD = ROOT / 'build/res1d2-web'
@@ -15,7 +16,8 @@ CASES = ['d2progress', 'd2retry', 'd2quota', 'd2indexreload',
          'd2quotareload', 'd2lock', 'd2denied', 'd2corrupt', 'd2migration']
 
 
-class Handler(SimpleHTTPRequestHandler):
+class Handler(CompressedStaticHandler):
+    gzip_enabled = False
     def do_GET(self):
         path = urlsplit(self.path).path
         if path == '/d2-fixture':
@@ -74,6 +76,22 @@ class Handler(SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=4259)
+    parser.add_argument('--build', default='res1d2-web', help='Probe directory name inside build/')
+    parser.add_argument('--release', default='res1d2-web-live', help='Normal export directory name inside build/')
+    parser.add_argument('--evidence', default='res1-d2-web-browser.jsonl', help='Evidence path inside docs/verification/artifacts/')
+    parser.add_argument('--gzip', action='store_true')
     args = parser.parse_args()
+    def confined(base, relative):
+        target = (base / relative).resolve()
+        if not target.is_relative_to(base.resolve()) or target == base.resolve():
+            parser.error('Test paths must remain inside their project directory')
+        return target
+    BUILD = confined(ROOT / 'build', args.build)
+    RELEASE = confined(ROOT / 'build', args.release)
+    EVIDENCE = confined(ROOT / 'docs/verification/artifacts', args.evidence)
+    EVIDENCE.parent.mkdir(parents=True, exist_ok=True)
+    Handler.gzip_enabled = args.gzip
+    prewarm(BUILD, Handler)
+    prewarm(RELEASE, Handler)
     print(f'D2 isolated browser matrix http://127.0.0.1:{args.port}/?case=d2progress', flush=True)
     ThreadingHTTPServer(('127.0.0.1', args.port), partial(Handler, directory=str(BUILD))).serve_forever()

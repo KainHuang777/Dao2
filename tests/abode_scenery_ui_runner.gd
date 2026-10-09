@@ -54,6 +54,15 @@ func _run() -> void:
 	top_left = (top_left - abode.camera.position) * abode.camera.zoom + Vector2(422, 195)
 	bottom_right = (bottom_right - abode.camera.position) * abode.camera.zoom + Vector2(422, 195)
 	check(top_left.x > abode.header.get_global_rect().end.x and top_left.y >= 0 and bottom_right.y < abode.toolbar.position.y, "short home frame keeps full landmark in available world area")
+	abode.session.state.buildings["storage_lingli"] = 1
+	abode._refresh_hud()
+	var altar = abode.buildings.storage_lingli
+	var altar_transform: Transform2D = altar.sprite.global_transform
+	var altar_top := altar_transform * Vector2(-altar.sprite.texture.get_width() * 0.5, -altar.sprite.texture.get_height() * 0.5)
+	var altar_bottom := altar_transform * Vector2(altar.sprite.texture.get_width() * 0.5, altar.sprite.texture.get_height() * 0.5)
+	altar_top = (altar_top - abode.camera.position) * abode.camera.zoom + Vector2(422, 195)
+	altar_bottom = (altar_bottom - abode.camera.position) * abode.camera.zoom + Vector2(422, 195)
+	check(altar.visible and altar_top.x > abode.header.get_global_rect().end.x and altar_top.y >= 0 and altar_bottom.x < 844 and altar_bottom.y < abode.toolbar.position.y, "short home frame also fits full right altar beside HUD")
 	abode.camera.target_position += Vector2(30, 20)
 	var user_position: Vector2 = abode.camera.target_position
 	abode._layout_for_size(Vector2(800, 390))

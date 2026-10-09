@@ -1,7 +1,13 @@
 # Godot engine cache and build outputs
 .godot/
 build/
+build/windows/
 tools/__pycache__/
+
+# Desktop (Windows) export artifacts (WindowsDesktop preset)
+*.exe
+*.pck
+*.pdb
 
 # Godot engine binaries and export templates (download/install locally per machine)
 tools/godot/

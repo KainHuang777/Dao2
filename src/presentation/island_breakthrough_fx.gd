@@ -4,6 +4,8 @@ extends Node2D
 
 const DURATION := 5.6
 const GOLD := Color(1.0, 0.79, 0.35)
+const FOCUS := Vector2(0, -85)
+const CORE := Vector2(0, -170)
 
 class FormationLayer extends Node2D:
 	var director: IslandBreakthroughFx
@@ -24,6 +26,7 @@ var upper_aura: Sprite2D
 var sparks: CPUParticles2D
 var _particles_active: bool = false
 var lightning: Array[Sprite2D] = []
+var cultivator: CloakedCultivator
 
 ## Bounded presentation tiers; independent of gameplay tribulation rules.
 func set_era(value: int) -> void:
@@ -48,7 +51,7 @@ func _ready() -> void:
 	front_layer.front = true
 	front_layer.z_index = 4
 	add_child(front_layer)
-	lower_aura = NativeVfx.ring(back_layer, Vector2(0, 115), Vector2(1550, 440), GOLD)
+	lower_aura = NativeVfx.ring(back_layer, FOCUS, Vector2(1050, 300), GOLD)
 	upper_aura = NativeVfx.ring(back_layer, Vector2(0, -590), Vector2(1050, 300), Color("9abfff"))
 	sparks = NativeVfx.particles(96, Color("ffdf85"), 1.1)
 	sparks.position = Vector2(0, 70)
@@ -102,6 +105,8 @@ func _process(delta: float) -> void:
 
 func _refresh() -> void:
 	visible = active or attained
+	if cultivator != null:
+		cultivator.present(reduced_motion, energy)
 	if lower_aura != null:
 		var strength := energy if active else (0.22 if attained else 0.0)
 		var clock := 0.0 if reduced_motion else (phase_time if active else _idle_time)
@@ -120,7 +125,7 @@ func _refresh() -> void:
 		for index in range(lightning.size()):
 			var bolt := lightning[index]
 			bolt.visible = active and not reduced_motion and index < bolts
-			bolt.position = Vector2((float(index) - float(bolts - 1) * 0.5) * 140.0, -280)
+			bolt.position = Vector2((float(index) - float(bolts - 1) * 0.5) * 50.0, -570)
 			bolt.material.set_shader_parameter("clock", clock)
 			bolt.material.set_shader_parameter("strength", energy * smoothstep(1.2, 2.0, phase_time))
 	if back_layer != null:
@@ -132,8 +137,8 @@ func draw_layer(canvas: Node2D, front: bool) -> void:
 	if strength <= 0.0:
 		return
 	var rotation := 0.0 if reduced_motion else (phase_time * 0.18 if active else _idle_time * 0.025)
-	var radius := 645.0 + (energy * 36.0 if active else 0.0)
-	_draw_formation(canvas, Vector2(0, 115), radius, 0.26, rotation, strength, front)
+	var radius := 485.0 + energy * 36.0 if active else 100.0
+	_draw_formation(canvas, FOCUS, radius, 0.26, rotation, strength, front)
 	if not active or reduced_motion:
 		return
 	if not front:
@@ -143,7 +148,7 @@ func draw_layer(canvas: Node2D, front: bool) -> void:
 	else:
 		_draw_lightning(canvas, strength)
 		_draw_sparks_and_rocks(canvas, strength)
-		var core := Vector2(0, -105)
+		var core := CORE
 		for i in range(4, 0, -1):
 			canvas.draw_circle(core, float(i) * 17.0, Color(1.0, 0.83, 0.46, strength * 0.05))
 		canvas.draw_circle(core, 6.0, Color(1.0, 0.96, 0.76, strength * 0.8))
@@ -189,7 +194,7 @@ func _draw_formation(canvas: Node2D, center: Vector2, radius: float, flatten: fl
 
 func _draw_beam(canvas: Node2D, alpha: float) -> void:
 	var beam_alpha := alpha * smoothstep(1.1, 1.9, phase_time)
-	var bottom := Vector2(0, -105)
+	var bottom := CORE
 	var top := Vector2(0, -700)
 	for i in range(5, 0, -1):
 		var width := float(i * i) * 4.5 * float(visual_profile().glow)
@@ -221,8 +226,8 @@ func _draw_lightning(canvas: Node2D, alpha: float) -> void:
 				t += sin(float(step) * 5.1 + float(bolt)) * 0.012
 			var envelope := sin(t * PI)
 			var zigzag := sin(float(step) * 12.989 + float(bolt) * 78.233) * 45.0 + sin(float(step) * 4.17 + float(bolt)) * 23.0 + sin(phase_time * 0.7 + float(step)) * 12.0
-			var x := lane * lerpf(170.0, 105.0, t) + envelope * zigzag
-			path.append(Vector2(x, lerpf(-690.0 + absf(lane) * 45.0, 100.0, t)))
+			var x := lane * lerpf(170.0, 0.0, t) + envelope * zigzag
+			path.append(Vector2(x, lerpf(-690.0 + absf(lane) * 45.0, CORE.y, t)))
 		_draw_bolt(canvas, path, charge, float(profile.glow))
 		for branch in [7, 13, 17]:
 			var origin := path[branch]

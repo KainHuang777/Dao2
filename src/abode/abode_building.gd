@@ -52,6 +52,9 @@ func _process(delta: float) -> void:
 	else:
 		status_text = "%d階%s" % [level, "" if running else "·停"]
 	caption.text = "%s · %s" % [title, status_text]
+	# The low altar remains legible without a permanent nameplate across the ground.
+	if building_id == "storage_lingli":
+		caption.visible = selected
 	UiMaterial.keep_world_text_readable(caption, 18)
 	var pulse: float = 0.0 if reduced_motion else sin(clock_time * 1.6) * 0.018
 	if (building_id == "garden" or building_id == "herb_farm") and running and level > 0:
@@ -77,12 +80,8 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, base_radius + 14, 0, TAU, 64, Color(0.35, 0.82, 0.90, aura_alpha * 0.25), 6.0, true)
 		draw_set_transform(Vector2.ZERO)
 	elif selected or upgrade_flash > 0.0:
-		draw_set_transform(Vector2(0, -12), 0, Vector2(1, 0.4))
+		var contact := Vector2(0, -body_size.y * 0.35) if building_id == "storage_lingli" else Vector2(0, -12)
+		draw_set_transform(contact, 0, Vector2(1, 0.4))
 		draw_arc(Vector2.ZERO, body_size.x * 0.5 + 9 + upgrade_flash * 30, 0, TAU, 80, Color(tint, 0.75), 3.0, true)
 		draw_arc(Vector2.ZERO, body_size.x * 0.5 + 16, 0, TAU, 80, Color(tint, 0.2), 8.0, true)
-		draw_set_transform(Vector2.ZERO)
-	if building_id == "altar" and level > 0:
-		var alpha: float = 0.4 if reduced_motion else 0.35 + sin(clock_time * 1.5) * 0.15
-		draw_set_transform(Vector2(0, -body_size.y * 0.44), clock_time * 0.08 if not reduced_motion else 0, Vector2(1, 0.42))
-		draw_arc(Vector2.ZERO, body_size.x * 0.28, 0, TAU, 80, Color("d9e9ba", alpha), 2.0 + level, true)
 		draw_set_transform(Vector2.ZERO)

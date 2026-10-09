@@ -41,6 +41,32 @@ func _run() -> void:
 	check(world.landmarks.herb.visible, "earned opened Danxia shows workshop")
 	var source: GameState = abode.session.state
 	var before := snapshot(source)
+	var cargo_state := source.duplicate_state()
+	abode.session.state = cargo_state
+	cargo_state.economy.trips = {}
+	world.refresh()
+	for sword in world.cargo_swords.values():
+		check(not sword.visible, "idle routes have no flight")
+	cargo_state.economy.trips = {"liquid_home": {"remaining": 10, "cargo": 1}}
+	var cargo_before := snapshot(cargo_state)
+	world.refresh()
+	var cargo_sword: Sprite2D = world.cargo_swords.liquid_home
+	check(cargo_sword.visible and cargo_sword.position.is_equal_approx(world.LOCATIONS.herb + Vector2(-280, 40)), "loaded flight starts at source island")
+	cargo_state.economy.trips.liquid_home.remaining = 5
+	world.refresh()
+	check(cargo_sword.position.is_equal_approx((world.LOCATIONS.herb * 0.5) + Vector2(-280, 40)), "flight follows core remaining time")
+	check(is_equal_approx(cargo_sword.rotation, (Vector2.ZERO - world.LOCATIONS.herb).angle()), "flight faces destination")
+	abode.reduced = true
+	world.refresh()
+	check(cargo_sword.visible and float(cargo_sword.material.get_shader_parameter("clock")) == 0.0, "low effects preserve cargo marker without shader motion")
+	abode.reduced = false
+	cargo_state.economy.trips.liquid_home.remaining = 10
+	check(snapshot(cargo_state) == cargo_before, "cargo rendering changes no inventory or rule state")
+	cargo_state.economy.trips = {}
+	world.refresh()
+	check(not cargo_sword.visible, "delivery removes flight without empty return")
+	abode.session.state = source
+	world.refresh()
 	var nodes := int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
 	for index in range(50):
 		world.enter(["herb", "wood", "ore", "home"][index % 4])
@@ -48,9 +74,22 @@ func _run() -> void:
 	check(snapshot(source) == before, "50 world switches leave complete rule state unchanged")
 	check(int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)) == nodes, "50 switches retain nodes")
 	world.enter("herb")
-	abode._pick_world(world.LOCATIONS.herb)
+	abode._pick_world(world.LOCATIONS.herb + Vector2(300, 50))
 	check(abode.feature_navigation.page == "outposts" and abode.feature_navigation.island_panel.island == "herb", "Danxia world hit uses canonical management")
-	check(abode.feature_navigation.island_panel.body.get_child(0) is Button and abode.feature_navigation.island_panel.body.get_child(0).text == "前往此島世界", "Danxia management offers reverse world route")
+	var basics = abode.feature_navigation.island_panel
+	check(basics.world_button.text == "前往丹霞島" and basics.short_world_button.tooltip_text == "前往丹霞島", "Danxia management offers reverse world route")
+	var mask: BitMap = world.landmark_masks.herb
+	var picked := false
+	for y in range(0, mask.get_size().y, 16):
+		for x in range(0, mask.get_size().x, 16):
+			if mask.get_bitv(Vector2i(x, y)):
+				var art: Sprite2D = world.landmarks.herb
+				var point := art.global_transform * (art.get_rect().position + Vector2(x, y))
+				picked = world.pick(point)
+				break
+		if picked:
+			break
+	check(picked and abode.feature_navigation.page == "manufacturing" and abode.feature_navigation.manufacturing_panel.selected_recipe == "liquid", "opaque workshop hit enters the same Danxia manufacturing job")
 	world.enter("home")
 	check(world.current == "home" and abode.feature_navigation.group == "home", "ancestor return")
 	var diagnostic: GameState = source.duplicate_state()
@@ -88,6 +127,13 @@ func _run() -> void:
 		check(world.buttons.herb.get_global_rect().end.x <= size.x and world.buttons.home.get_global_rect().position.x >= 0, "world controls fit " + str(size))
 		check(world.rail.get_global_rect().size.x <= size.x, "rail fits " + str(size))
 		check(world.buttons.herb.get_global_rect().end.y <= abode.toolbar.get_global_rect().position.y, "rail above navigation " + str(size))
+		world.enter("home")
+		world.refresh()
+		if size.y < 500:
+			check(not world.title.visible and not world.buttons.home.visible and not world.manage_button.visible, "compact home rail leaves core landmarks visible")
+			check(world.buttons.wood.visible and world.buttons.ore.visible and world.buttons.herb.visible, "compact home retains destination island controls")
+		world.enter("herb")
+		check(world.title.visible and world.buttons.home.visible and world.manage_button.visible, "remote rail retains return and management controls")
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	abode._layout_for_size(Vector2(1280, 720))

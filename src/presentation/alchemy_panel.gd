@@ -216,7 +216,11 @@ func _update_pill_row(row: PanelContainer, p: Dictionary, view: Dictionary) -> v
 
 	var refine_btn: Button = row.find_child("RefineButton", true, false)
 	if refine_btn != null:
-		refine_btn.disabled = not bool(p["can_refine"])
+		var linked := bool(p.get("manufacturing_link", false))
+		refine_btn.text = "製造" if linked else "煉製"
+		refine_btn.disabled = not linked and not bool(p["can_refine"])
+		if linked and cost_lbl != null:
+			cost_lbl.text = "祖島產線・前往製造查看材料與工作"
 
 	var consume_btn: Button = row.find_child("ConsumeButton", true, false)
 	if consume_btn != null:

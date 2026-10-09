@@ -1,4 +1,36 @@
+2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](docs/verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
 # 修仙問道 v2
+
+2026-10-09 **RES1-UI1-R5 DONE（有界運輸圖形化）**：七航線套用製造R4手繪物品框，來源→目的可用庫存、缺貨朱紅與真實载貨／倒數／進度；寬式雙欄、短式並排／固定成功回饋。56/56（B210）、最後B220／parity／responsive、精確Web三橫式／補料回運／自訂設定重載通過，一般Web同步。[驗收](docs/verification/res1-ui1-r5.md)。最終美術／實機待驗，下一New Chat收運輸回饋。
+
+2026-10-09 **RES1-UI1-R4 DONE（有界物品框修訂）**：依使用者示意恢復ICON＋數量＋來源整格2px框與淡底；材料灰青／產出青玉／缺料朱紅。207／parity／responsive、原生三尺寸與Web三橫式／實際製作通過，一般Web同步。[驗收](docs/verification/res1-ui1-r4.md)。最終美術／實機待驗；下一New Chat收回饋。下方R3無框為歷史版本。
+
+2026-10-09 **RES1-UI1-R3 DONE（有界手繪ICON）**：依使用者接受R2方向後的回饋，資源改內建ImageGen手繪材質透明PNG，撤下平塗多邊形與常態材料格框／底色，缺料朱紅數字與淡提示保留。207／呈現parity／responsive、16圖透明QC／三尺寸原生與Web製造通過，一般Web同步。[驗收](docs/verification/res1-ui1-r3.md)。最終圖示質感／實機仍待驗，下一New Chat收回饋。
+
+2026-10-09 **RES1-UI1-R2 DONE（有界圖形化製造）**：八配方改材料ICON＋需求量→產物，不足朱紅、滿足恢复；名稱／來源／可用量保留tooltip及詳情。寬式兩欄／同屏資源，短式材料與操作並排、收起總覽。56/56（當輪A205）、最終207／B140／world59／parity／responsive及三橫式Web實測通過，一般Web同步。[驗收](docs/verification/res1-ui1-r2.md)。最終圖示美術／實機仍待驗，下一New Chat收使用者回饋。
+
+2026-10-09 **RES1-UI1-R1 DONE（有界空島／製造修訂）**：操作成功回饋、島選中與工程可用庫存、可展開地方原料／產物、配方卡內秒數／進度與緊湊總覽、寬式同屏資源及短橫式固定篩選已接入。56/56回歸、最終164／運輸140、三橫式Web滑鼠／重載／旋轉通過，一般Web同步。[驗收](docs/verification/res1-ui1-r1.md)。效能依AGY與使用者最新標準，不重做已過FPS與保存矩陣；完整UI1-C實機／人工仍待驗。下一New Chat接受操作密度／回饋與剩餘裝置驗收。
+
+2026-10-09 **RES1-UI1-C IN_PROGRESS**：保存矩陣16份／400 checks與56/56回歸通過，新製造／運輸拒寫重試／重載、三橫式／旋轉及世界滑鼠已驗。效能未放行：300秒／50次切頁尾窗約54FPS未恢復（重載60秒恢復），20Mbps／100ms冷啟動14.80秒超10秒；無實體裝置，使用者指定保留觸控待驗。[驗收與下一New Chat](docs/verification/res1-ui1-c.md)。完整C/D及人工接受仍待驗，不跳Era4。
+
+2026-10-09 **RES1-UI1-B DONE（有界階段）**：七航線已改精簡列表與設定詳情，草稿／小數自訂值保留；停航仍到貨、升階保留停航、缺料與來源供給可精確定位。56/56 Runner、最終140專項、三橫式Web／旋轉恢復與自訂政策重載通過，一般Web已同步。[驗收](docs/verification/res1-ui1-b.md)。下一New Chat接UI1-C，完整保存故障／裝置／性能與人工仍待驗。
+
+2026-10-08 **RES1-UI1-A DONE（有界階段）**：Godot 空島簡版與集中製造已接入，經營四分頁、八配方／四產線、批數／持續／切方／停工、加工坊與煉丹相同工作。55/55 Runner、最後專項127／世界59／C2世界26／parity、原生9圖与隔離Web三橫式操作／旋轉／重載通過；一般Web已同步。運輸目前保留舊控制，下一UI1-B；完整UI1-C裝置／保存／效能待驗。[驗收](docs/verification/res1-ui1-a.md)。
+
+
+2026-10-08 **RES1-UI1-DESIGN**：多空島精簡[計畫](docs/16-multi-island-ui-simplification-plan.md)與可操作示意已整理：島上採集／倉儲基本操作、集中配方卡與航線管理。僅設計交付，正式Godot接入／Web與裝置驗收待UI1-A/B/C。
+
+2026-10-07 **M2-D-FX3-AMBIENCE**：淚瀑下行擾動／落點變化霧氣、五處遠景碎片慢浮、三條匯聚流光及Era1–7吸靈24→48點已接入；五項回歸、原生13圖與低特效像素凍結／快照不變通過，一般Web／Windows同步。桌面隔離browser兩橫式滑鼠已補驗，人工／裝置／長效能仍待驗，完整FX3 IN_PROGRESS。[驗收](docs/verification/ambience.md)。
+
+2026-10-07 **ART-A1-HOME-INTEGRATE**：新接地版聚靈陣已核對正式接線，一般Web與Windows包同步成功；五項回歸exit0。追加browser被分頁保存鎖定阻擋，人工／装置與Windows實際操作待驗。[驗收](docs/verification/altar-integration.md)。
+
+2026-10-07 **ART-A1-HOME-GROUND**：聚靈壇改低矮底座、土石／苔草包邊與貼地暗部，撤下常態旋轉圈；四項回歸／原生兩橫式／一般Web匯出壓縮與隔離browser新版檢視通過，最終美術／裝置仍待驗。[驗收](docs/verification/altar-grounded.md)。
+
+2026-10-07 **ART-A1-HOME**：祖島左居所／中央修士／右已建聚靈壇已接入；輪迴／重載與54/54、最後world58／responsive通過，一般Web已更新，兩橫式滑鼠升級／重載驗證通過。最終美術／裝置／長效能仍待驗，完整ART-A1／FX3 IN_PROGRESS。[驗收](docs/verification/home-landmarks.md)。
+
+2026-10-07 **M2-D-FX3-ROUTES**：洞府裝飾循環飛劍撤下，保留主角吸靈；飛劍只顯示實際島間在途貨物。54/54與世界51 checks通過，一般Web包已更新；browser載貨／裝置／長效能待驗，完整FX3仍IN_PROGRESS。[驗收](docs/verification/fx3-flight-routes.md)。
+
+2026-10-06 **FX3-ART1**：使用者概念圖背景去近景、質感空島、覆頭中性披風主角與角色中心吸靈／雷劫已接入；54/54及最後角色契約PASS，兩橫式Web滑鼠試播通過，完整FX3人工／裝置／效能仍待驗。[驗收與資產](docs/verification/fx3-art1.md)。
 
 2026-10-05最新 **RES1-C2-PERF-R2 效能修復 PASS（AGY）**：持續 FPS 劣化根因已定位並修復（`building_catalog.gd` 每0.25秒無條件覆寫 ProgressBar 位置／尺寸的 reflow 風暴改值比對保護、`abode_building.gd` 不可見物件 `_process` 提早返回、`abode_flows.gd` Immediate Draw 呼叫減量）。全量 **54/54 Runner／exit0**，ADR-010 四組觀測全部恢復 PASS、`desktopRecoveryGate=PASS`。[R2驗收](docs/verification/res1-c2-agy-r2.md)。**R2 效能定位結案**；C／C2（實機觸控／高DPR／自然凍結／跨瀏覽器／長期GPU-WASM／人工美術節奏）與完整 D 仍 IN_PROGRESS，不跳 D。下方 2026-10-04／10-05 較早 NOT_PASSED 紀錄保留歷史。
 
@@ -99,3 +131,4 @@ M4-A-R1 正式 Session／桌面 Web 整合驗收已完成：251 checks、40/40 R
 | 舊進度原文 | `docs/archive/`；保留日期供查考，不作目前狀態依據 |
 
 技術基線與尚未完成的設計見 [ROADMAP](ROADMAP.md) 及專題文件；規則實際狀態以程式和測試為準。舊參考專案 `E:\Python\test1`、`E:\WORK\GodTower` 僅唯讀。
+

@@ -1,3 +1,23 @@
+2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
+# 2026-10-09 RES1-UI1-C 最新接手
+
+2026-10-09 **RES1-UI1-R5最新接手**：先讀[運輸圖形化驗收](verification/res1-ui1-r5.md)與updata。使用者要求製造圖形／簡化同步運輸；七航線現有手繪物品格與來源→目的庫存、缺貨紅框、真實載貨／倒數／進度、雙欄／短橫式並排與固定標題收據已接入。56/56（B210），最終B220／parity／responsive與Web三橫式／丹液補料回運／設定重載通過，一般build/web已同步。4300服務停止、驗收分頁關閉／override reset；origin有三條停航與丹液1，重開只Play勿seed。實機／高DPR／最終美術及完整C/D仍待驗，未更新Windows／commit／push。下一New Chat收運輸回饋或剩餘裝置，不重做既有FPS／400保存與暫緩冷啟動。
+
+2026-10-09 **RES1-UI1-R4最新接手**：先讀[驗收](verification/res1-ui1-r4.md)與updata頂部。使用者示意要求更清楚物品框，recipe_material_tile改2px框／淡底／微陰影，灰青材料／青玉產出／朱紅缺料，取代R3無框樣式；ICON原圖不變。207／parity／responsive、三尺寸原生12圖及Web三橫式／製作築基丹1通過；build/web已同步。4299隔離服務停止／成功分頁關閉／override reset，origin已有丹1，重開按Play勿seed。未更新Windows／commit／push，完整UI1-C／C/D與實機仍待驗。下一New Chat收此版框線／底色回饋，不重做已過效能／保存、不開Era4。
+
+2026-10-09 **RES1-UI1-R3最新接手**：先讀[驗收](verification/res1-ui1-r3.md)／updata頂部。資源ICON已從平塗向量換成ImageGen手繪透明PNG（assets/ui/resources-painted），完整prompt／source／QC／切層在manifest；材料格常態框與底色撤下，紅數字／6%淡紅缺料保留。207／parity／responsive、原生三尺寸12圖及Web三尺寸／實際製造通過，build/web已更新。4298隔離origin已有築基丹1，服務／本輪分頁已停止／關閉、override復原；重開按Play勿seed。未更新Windows／commit／push。最終質感／辨識與實機待驗，下一New Chat收回饋，保持完整C/D未放行限制。
+
+2026-10-09 **RES1-UI1-R2最新接手**：先讀[驗收](verification/res1-ui1-r2.md)與updata頂部。使用者接受R1分類，改要求製造更圖形化；八配方ICON＋需求量→產物、不足紅色／補料復原、tooltip及詳情、短橫式材料／操作並排已完成。56/56當輪A205，最後207／B140／world59／parity／responsive與Web三橫式／reload／旋轉通過；一般build/web已更新。4297服務與本輪分頁已停止／關閉，override復原；隔離進度已有築基丹1，重開按Play勿seed。最終圖示美術／觸控高DPR待驗，完整UI1-C/D狀態不提升。下一New Chat收圖形介面回饋，效能與保存已驗部分不重做。
+
+2026-10-09 **RES1-UI1-R1最新接手**：先讀[本輪驗收](verification/res1-ui1-r1.md)與updata頂部。空島選中／成功收據／工程可用庫存／可展開本地原料產物，以及製造卡片內進度／來源庫存／單行總覽／固定篩選與寬式同屏資源已交付。56/56、最終164及運輸140／world59／parity／responsive、三橫式CSS滑鼠／重載／旋轉PASS，正常build/web已更新。完整UI1-C裝置／人工仍待驗；遵守最新AGY效能政策，冷啟動暫緩常態阻擋，不重做保存400矩陣。4296隔離試玩origin已有進度，沿用原檔；本輪停止服務並關閉分頁後可用驗收頁命令重開，按開啟隔離遊戲，不再seed。未commit／push、未改規則／schema／Windows包／4175玩家存檔。下一New Chat接使用者操作密度／回饋接受或剩餘裝置，不開Era4。
+
+**IN_PROGRESS**：56/56回歸、九案例16份400 checks與新製造／運輸Web拒寫重試／重載／雙分頁保存PASS；三橫式／旋轉／世界滑鼠已有本輪證據。依 2026-10-09 使用者指令，效能門檻調整：
+1. 末 10 秒幀率恢復只要高於 30 FPS 即可通過，300 秒/50 次切頁末 5 秒為 53.9957 FPS，重算後 `desktopRecoveryGate=PASS`。
+2. 20Mbps 慢網冷啟動（14.80 秒）暫緩常態要求，待專案後期大型里程碑時再回報與集中優化（資產剪裁/本地儲存 Patch）。AI 與 CODEX 不得在此反覆糾結阻塞。
+目前實體裝置觸控與人工驗收仍待驗。先讀[本輪驗收](verification/res1-ui1-c.md)及updata頂部。不重做已過保存矩陣，不跳Era4。
+
+4293／4294／4295本輪服務已停止，全部本輪browser分頁關閉、override reset，origin資料保留。4294已有Era3測試進度，重開按開啟遊戲、勿再seed；4175玩家資料未觸碰。4293首次空白矩陣已結束，重新跑空白要新origin與新evidence並調整audit的精確來源；禁止刪玩家資料。重跑命令／版本hash、JPEG證據与待驗清單見驗收。本輪僅工具與紀錄變更，正式Godot來源／規則／schema未改；效能定位與美術壓縮尚未開始。
+
 # 2026-10-05 R2最新接手提示
 
 2026-10-05最新 **RES1-C2-PERF-R2 效能修復 PASS（AGY）**：持續 FPS 劣化根因已定位並修復（`building_catalog.gd` 每0.25秒無條件覆寫 ProgressBar 位置／尺寸的 reflow 風暴改為值比對保護、`abode_building.gd` 不可見物件 `_process` 提早返回、`abode_flows.gd` Immediate Draw 呼叫減量）；全量54/54 Runner／exit0，ADR-010 四組觀測全部恢復PASS、`desktopRecoveryGate=PASS`。[R2驗收](verification/res1-c2-agy-r2.md)。**R2 效能定位結案**；C／C2（實機觸控／高DPR／自然凍結／跨瀏覽器／長期GPU-WASM 與人工美術節奏）與完整 D 仍 IN_PROGRESS。下方 2026-10-04 NOT_PASSED／未重現紀錄為歷史。
@@ -196,3 +216,4 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 ## RES1-B 冷啟動入口（2026-10-03）
 
 先讀 [B 驗收](verification/res1-b.md) 及 updata 頂部：核心 251 checks／native 三程序交付，整體 IN_PROGRESS；下一 RES1-B／M1-C/D Web 故障矩陣，尚未進 RES1-C。重跑 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_res1b_verification.ps1`。測試資料只在 docs/verification/artifacts/res1-b-cross-process；全量最近一輪 44/45、exit 1（其他新增 DebugActions 面板失敗），不要忽略。schema3 decoder支援舊schema2，但正式processing catalog仍未啟用；瀏覽器matrix不能由native結果推定。
+

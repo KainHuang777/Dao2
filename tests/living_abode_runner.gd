@@ -49,6 +49,26 @@ func _run() -> void:
 		_fail("The selected building upgrade must update the independent state")
 		return
 	# A core-generated spirit wood find replaces the former permanent +1 tree.
+	if abode.buildings["storage_lingli"].visible:
+		_fail("Unbuilt altar must leave the right platform empty")
+		return
+	abode.session.state.buildings["storage_lingli"] = 1
+	abode._refresh_hud()
+	var altar = abode.buildings["storage_lingli"]
+	if not altar.visible or altar.position.x <= abode.cultivator.position.x:
+		_fail("Built altar must appear on the right of the central cultivator")
+		return
+	var landmark_before: Dictionary = abode.session.state.to_snapshot_dict()
+	abode._pick_world(altar.to_global(Vector2(0, -100)))
+	if abode.selected_id != "storage_lingli" or not abode.building_catalog.visible or abode.session.state.to_snapshot_dict() != landmark_before:
+		_fail("Altar hit opens canonical management without changing rule state")
+		return
+	abode._close_detail()
+	abode.session.state.buildings.erase("storage_lingli")
+	abode._refresh_hud()
+	if altar.visible or altar.contains_point(altar.to_global(Vector2(0, -100))):
+		_fail("Removed altar must leave no invisible world hit target")
+		return
 	AbodeScenery.advance(abode.session.state, 12)
 	abode._refresh_hud()
 	var wood_before: float = abode.session.state.resources["wood"].value.to_float()

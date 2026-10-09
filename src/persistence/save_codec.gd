@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 3
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-11-skills-b1"
+const RULES_VERSION := "core-flow-12-ui1a-era1-alchemy"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 

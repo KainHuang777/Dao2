@@ -1,0 +1,117 @@
+{
+  "version": "res1-ui1-r3-painted-v1",
+  "source": "OpenAI built-in image_gen",
+  "skill": "generate2dsprite prop pack",
+  "prompt": "Use case: stylized-concept. Asset type: clean HD 2D RPG inventory icon PROP PACK.\nCreate one coherent production sprite sheet with exactly 4 columns by 4 rows, sixteen equally spaced square invisible cells. Each cell contains one individual inventory object, all objects centered with at least 16% solid magenta padding on all four sides. Each complete silhouette occupies about 65-70% of its cell. Uniform object scale and 3/4 perspective. No cell borders, no grid lines, no text, no labels, no numbers, no UI, no scene, no ground plate.\nART DIRECTION: Chinese xianxia game, tasteful hand-painted gouache/oil miniature item illustrations, subtly organic contour, rich but restrained natural material shading, tiny brush marks, gently worn surfaces. Soft warm light from upper left, clear dark underside and softly painted highlights. Smooth painted tonal transitions, not vector graphics, not SVG, not flat color blocks, not geometric pictograms, not low-poly, not pixel art, not cartoon outlined stickers, not photorealistic product photos. Make silhouettes clear and chunky enough to be read when reduced to 44 pixels. Avoid fragile fine details and noisy edges. Each object has believable volume, wood grain, rough mineral texture, jade translucency, ceramic glaze, plant veins or aged paper as appropriate. No large decorative halos or detached sparkles. All objects isolated on an EXACT SOLID FLAT #FF00FF background, no background gradients, no background texture, no cast shadow extending far from silhouette, no magenta in the objects.\nExact cell subjects, left to right then top to bottom:\nROW 1: (1) ordinary spirit wood: one short natural brown cut log, irregular bark and cut-end grain; (2) refined spirit timber: a polished warm brown wooden billet with subtle green jade-like natural grain, clearly still wood; (3) raw black copper: rough dark charcoal mineral nugget with warm copper flecks; (4) refined copper essence: one softly worn warm copper ingot, rounded bevels and brushed metal highlight.\nROW 2: (5) low-grade spirit stone: irregular pale slate-blue translucent mineral chunk; (6) middle-grade spirit stone: deep teal jade mineral chunk with soft translucency, organic crystalline form without perfectly geometric facets; (7) high-grade spirit stone: violet luminous mineral chunk, distinct but same family; (8) formation core: small aged bronze-and-jade engraved disc, central jade inset, tactile antique material, no floating decoration.\nROW 3: (9) low-grade spirit grass: fresh green leafy medicinal sprig, broad readable leaves; (10) century spirit grass: mature sage-teal medicinal sprig with a small pale golden bud, distinct from normal grass; (11) elixir liquid: small round glazed celadon medicine flask, brown cork and amber-green liquid, slightly irregular handmade ceramic; (12) talisman: narrow aged ochre parchment strip, curling corner, painted abstract cinnabar brush mark, no legible text.\nROW 4: (13) foundation pill: a single terracotta-red pill, organic round sphere with subtle warm golden marbling; (14) golden core pill: a single warm golden pill with deep amber shaded underside and gently painted highlight; (15) money: two overlapping ancient brass coins, worn surface, square center holes; (16) spiritual energy: a compact softly painted pale turquoise wisp/flame shaped like curled mist, connected silhouette, no star pictogram, restrained glow staying inside the object.\nThese are small inventory objects, not landscape props. Exact sixteen cells, generous magenta isolation, no missing or repeated objects.\n",
+  "raw_source": "docs/verification/artifacts/res1-ui1-r3/raw-sheet.png",
+  "raw_sha256": "da0c5d2b748a238615f208a95071b7da683bef70f98c595b2557342bca498f1f",
+  "processing": "generate2dsprite.py process; 4x4,160px,fit0.90,center,all,threshold30,edge_threshold120,edge_clean_depth1,strictQC",
+  "metadata": "docs/verification/artifacts/res1-ui1-r3/processed-clean/pipeline-meta.json",
+  "purpose": "manufacturing material and output illustrations, 44 logical px",
+  "layers": [
+    "transparent painted item PNG",
+    "separate quantity Label",
+    "source caption",
+    "shortage tint from spendable amount"
+  ],
+  "rights": "AI-generated original item illustrations; no third-party graphic copied. Reference UI layout was not used as artwork input. Retain prompt and generation source; final commercial suitability subject to project review.",
+  "icons": [
+    {
+      "id": "wood",
+      "file": "wood.png",
+      "sheet_cell": 0,
+      "sha256": "fb39217c1f8aa5110f88e8e1763f13525c6a96d03f899a30975af390634014a8"
+    },
+    {
+      "id": "spirit_timber",
+      "file": "spirit_timber.png",
+      "sheet_cell": 1,
+      "sha256": "191dc207138c6f44c57d2f721ebf89a4c691711fed1e8ee2a719934ef278e9a4"
+    },
+    {
+      "id": "black_copper",
+      "file": "black_copper.png",
+      "sheet_cell": 2,
+      "sha256": "859da03259e408a2e151769ed3a363b3148296e02bbec920bfe7098aa9148245"
+    },
+    {
+      "id": "bronze_essence",
+      "file": "bronze_essence.png",
+      "sheet_cell": 3,
+      "sha256": "0eca3c2e75276995470440d22a95919a4cee4db01ac49218b6fbda966dd120d0"
+    },
+    {
+      "id": "stone_low",
+      "file": "stone_low.png",
+      "sheet_cell": 4,
+      "sha256": "554907a9dfb4476a0df0740f34298fb9857aae5fc0984b58009c4b3d277dfbe2"
+    },
+    {
+      "id": "stone_mid",
+      "file": "stone_mid.png",
+      "sheet_cell": 5,
+      "sha256": "56f23e3821f8b82707192617f1f3aa132113c3f019c26a3173bff43b93bf145b"
+    },
+    {
+      "id": "stone_high",
+      "file": "stone_high.png",
+      "sheet_cell": 6,
+      "sha256": "7cd3eeb48c906fd294dbe752f7374753b981ae933181785d4a7de568b9fe1863"
+    },
+    {
+      "id": "formation_core",
+      "file": "formation_core.png",
+      "sheet_cell": 7,
+      "sha256": "4214b21302a77ab5d7c9c110bd07dbed4827d7528ed5c43a1593737f7466ead5"
+    },
+    {
+      "id": "spirit_grass_low",
+      "file": "spirit_grass_low.png",
+      "sheet_cell": 8,
+      "sha256": "83b27620373242c4fa13e8718544c5727188ef2278c9d05e27d139384230a4b4"
+    },
+    {
+      "id": "spirit_grass_100y",
+      "file": "spirit_grass_100y.png",
+      "sheet_cell": 9,
+      "sha256": "12d0146918913f1f6e2b7bf8ab0d18d296ef4c25516f1ffc89678a639145130e"
+    },
+    {
+      "id": "liquid",
+      "file": "liquid.png",
+      "sheet_cell": 10,
+      "sha256": "3aa0372734ae189a7ffc410cf574ce311d1b3cabc773ead670e730e5f6e21c41"
+    },
+    {
+      "id": "talisman",
+      "file": "talisman.png",
+      "sheet_cell": 11,
+      "sha256": "b3dcbb2f5a3624fe6051cd428a03c0ec93d83bdf096bb5ef2a490680dec43f3f"
+    },
+    {
+      "id": "foundation_pill",
+      "file": "foundation_pill.png",
+      "sheet_cell": 12,
+      "sha256": "0a0345d73c9cce2d19d921ab489f35d8a61e38ecd8985f9f95a992b42cec85e4"
+    },
+    {
+      "id": "golden_core_pill",
+      "file": "golden_core_pill.png",
+      "sheet_cell": 13,
+      "sha256": "6a5adf3f33e9bc4e3030e8a296a97fd4ef7f453434410ca6bdfee57dcb515acd"
+    },
+    {
+      "id": "money",
+      "file": "money.png",
+      "sheet_cell": 14,
+      "sha256": "f5b9d9eb6225d912bf45fbfe9276e55ce428340363db8b531399485ca7f7a8fb"
+    },
+    {
+      "id": "lingli",
+      "file": "lingli.png",
+      "sheet_cell": 15,
+      "sha256": "ff7428a55c297f1a3870abe5c705325925af88d5c259b00f93d20c1f005cc889"
+    }
+  ],
+  "unused_support": "stone_high matches prior renderer support; not a newly unlocked recipe/resource"
+}

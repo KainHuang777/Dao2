@@ -1,0 +1,239 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 專案初始化中 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在掃描檔案結構…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在載入全域類別名稱…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在驗證 GDExtension…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在建立自動載入腳本…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 初始化外掛程式...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 開始掃描檔案...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 掃描動作中... (91 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | web-climax-844x390.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | web-climax-1280x720.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | web-final-1280x720.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | web-idle-844x390.png[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | web-idle-1280x720.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | web-reduced-844x390.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | web-reduced-trial-844x390.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | web-tribulation-result-1280x720.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | web-home-1280x720.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | web-low-1280x720.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | web-neon-1280x720.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | web-portrait-360x640.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | web-replay-frame-7.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | web-replay-frame-15.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | web-replay-frame-23.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | web-trial-844x390.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | web-trial-1280x720.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | web-trial-low-844x390.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | web-alchemy-844x390.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | web-beasts-844x390.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | web-beasts-1280x720.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | web-decisions-844x390.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | web-fortune-844x390.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | web-outposts-844x390.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | web-portrait-cold-start-360x640.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | web-realms-844x390.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | web-realms-1280x720.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | web-800-restored.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | web-844-list.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | web-reload-policy.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | web-source-liquid.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | web-stopped-upgraded.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | web-800-restored.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | web-800-world-drag.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | web-844-settings.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | web-844-stop.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | web-manufacturing-blocked.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | web-manufacturing-recovered.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | web-portrait.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | web-reload-policy.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | web-secondary.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | web-startup-blocked.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | web-transport-blocked.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | web-transport-recovered.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | res1-c2-degradation-actions-end.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | res1-c2-degradation-actions-mid.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | res1-c2-degradation-extended.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | res1-c2-degradation-reload.png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | res1-c2-encode-desktop.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | res1-c2-encode-reload.png[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | res1-c2-encode-reloaded-level.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | res1-c2-encode-short.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | res1-c2-encode-web-retry.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-bgm-toggle.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-browser-retry49.png[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-cold-final.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-home-short.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-offline-progress.png[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-offline-reload.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-offline-summary.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-ore-short-scroll.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-ore-short.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-r2-fps-v3-review.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-web-switch-10.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-web-switch-20.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-web-switch-30.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-web-switch-40.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-web-switch-50.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-wood-desktop.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | res1-c2-perf-wood-management.png[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | res1-c2-task-normal.png[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-compact-final.png[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-compact-stop.png[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-desktop.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-management.png[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-release-compact.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-release-desktop.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-release-home.png[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | res1-d2-r1-release-management.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | skills-b1-compact.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | skills-b1-desktop.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | text-level-desktop.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | text-level-reload.png[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | text-level-short.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | world-text-desktop.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | world-text-far.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | world-text-minimum.png[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | world-text-short.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | ui-first-glimpse-v1.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | ui-home-v1.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | ui-nine-realms-v1.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started （重新）匯入素材 (12 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[   7% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  15% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  23% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  30% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  38% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  46% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  53% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  61% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  69% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  76% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[  84% ] [90m[1mreimport[22m | 正在準備重新匯入檔案…[39m[0m
+[   0% ] [90m[1mreimport[22m | 執行預先重新匯入作業…[39m[0m
+[   0% ] [90m[1mreimport[22m | web-800-restored.png[39m[0m
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-secondary.png'.
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: load_image (core/io/image_loader.cpp:102)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-manufacturing-blocked.png'.
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-844-settings.png'.
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-portrait.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-800-restored.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+   at: load_image (core/io/image_loader.cpp:102)
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-844-stop.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-800-world-drag.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-manufacturing-recovered.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-reload-policy.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-secondary.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-800-restored.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   7% ] [90m[1mreimport[22m | web-800-world-drag.png[39m[0m
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-portrait.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-844-stop.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  15% ] [90m[1mreimport[22m | web-844-settings.png[39m[0m
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-844-settings.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-startup-blocked.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-manufacturing-blocked.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-reload-policy.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-800-world-drag.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-transport-blocked.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/res1-ui1-c/web-transport-recovered.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-manufacturing-recovered.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  23% ] [90m[1mreimport[22m | web-844-stop.png[39m[0m
+[  30% ] [90m[1mreimport[22m | web-manufacturing-blocked.png[39m[0m
+[  38% ] [90m[1mreimport[22m | web-manufacturing-recovered.png[39m[0m
+[  46% ] [90m[1mreimport[22m | web-portrait.png[39m[0m
+[  53% ] [90m[1mreimport[22m | web-reload-policy.png[39m[0m
+[  61% ] [90m[1mreimport[22m | web-secondary.png[39m[0m
+[  69% ] [90m[1mreimport[22m | web-startup-blocked.png[39m[0m
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-startup-blocked.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  76% ] [90m[1mreimport[22m | web-transport-blocked.png[39m[0m
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-transport-blocked.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  84% ] [90m[1mreimport[22m | web-transport-recovered.png[39m[0m
+ERROR: Error importing 'res://docs/verification/artifacts/res1-ui1-c/web-transport-recovered.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  92% ] [90m[1mreimport[22m | 完成素材匯入...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started （重新）匯入素材 (12 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 執行重新匯入後續處理作業…[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在載入編輯器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在載入編輯器佈局…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在載入面板…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

@@ -1,5 +1,10 @@
 # 修仙問道 v2｜Godot AI-first 技術架構
 
+2026-10-08 **RES1-UI1-A**：GameSession.get_view追加純唯讀manufacturing，IslandEconomy將_start既有門檻抽為_check_start供執行／View共用；沒有Node經濟。製造route獨立Control，UI選擇／草稿不保存；煉丹築基丹以相同祖島工作接線。Era1起手bugfix另記rules_version core-flow-12-ui1a-era1-alchemy，schema3不變。[驗收](verification/res1-ui1-a.md)。
+
+
+2026-10-07 **ART-A1-HOME（當次使用者核定）**：祖島左居所／中央修士／右聚靈壇已接入，覆蓋下方10/3中央放壇的歷史配置。聚靈壇只在storage_lingli已建時顯示，世界／營造同命令，輪迴空地；人工美術與裝置門檻待驗。見[本輪驗收](verification/home-landmarks.md)。靈界專屬場景本輪未開展。
+
 2026-10-05 D2-R1：Godot IslandWorld包含丹霞独立body／landmark；世界／管理雙向路由共用herb狀態，所有航船讀實際trips，不發收益。四島HFlowContainer以HUD／紙面內距／導航安全範圍換行；遠島隱藏祖島遠景題字，規則／schema3／res1-d-2／core-flow-10-danxia不變。53/53、最後world38＋管理87與獨立Web子範圍見[驗收](verification/res1-d2-r1.md)，完整D2與R2仍未放行。
 
 2026-10-04 R2診斷增補：profile從_process入口含preflight開始，提前返回結束，背景結算await前關閉以免將等待當CPU；只在隔離profile頁觀察Long Animation Frames並保存scalar脚本入口，summary不加總browser與GDScript elapsed spans。83.3ms rAF對應MainLoop_runner84.1ms、process0.4ms，只縮小到Web引擎入口，無WASM內call stack／GPU根因。正常橋接關閉且與profile export同PCK；51/51／world26通過，嚴格60未過。[證據與限制](verification/res1-c2-main-loop-tracing.md)。

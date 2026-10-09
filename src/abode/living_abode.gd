@@ -1,9 +1,10 @@
 extends Node2D
 ## Living Abode Controller: bridges Godot scene with GameSession, CommandProcessor, TimeAdvancer, and SaveManager.
 
-const TERRAIN: Texture2D = preload("res://assets/abode/terrain.png")
-const SKY: Texture2D = preload("res://assets/abode/sky_tearfall_island_v6.png")
-const SKY_SHADER: Shader = preload("res://assets/abode/tearfall_sky.gdshader")
+const TERRAIN: Texture2D = preload("res://assets/abode/fx3art1/terrain.png")
+const SKY: Texture2D = preload("res://assets/abode/fx3art1/sky.png")
+const SKY_SHADER: Shader = preload("res://assets/abode/fx3art1/concept_sky.gdshader")
+const CultivatorScript = preload("res://src/presentation/cloaked_cultivator.gd")
 const IslandFxScript = preload("res://src/presentation/island_breakthrough_fx.gd")
 const HUT: Texture2D = preload("res://assets/abode/hut.png")
 const COURTYARD: Texture2D = preload("res://assets/abode/island1/courtyard.png")
@@ -13,13 +14,13 @@ const SCENERY_ART := {
 	"stone": preload("res://assets/abode/island1/stone.png"),
 }
 const SceneryPropScript = preload("res://src/abode/abode_scenery_prop.gd")
-const SCENERY_SLOTS := [Vector2(40, -220), Vector2(240, -170), Vector2(280, -70), Vector2(-100, -90)]
+const SCENERY_SLOTS := [Vector2(40, -220), Vector2(110, -210), Vector2(130, 0), Vector2(-100, -90)]
 const GARDEN: Texture2D = preload("res://assets/abode/garden.png")
 const ALTAR: Texture2D = preload("res://assets/abode/altar.png")
+const GROUNDED_ALTAR: Texture2D = preload("res://assets/abode/altar-grounded/altar-grounded-v2.png")
 
 const CameraScript = preload("res://src/abode/abode_camera.gd")
 const BuildingScript = preload("res://src/abode/abode_building.gd")
-const FlowScript = preload("res://src/abode/abode_flows.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
 
 const BUILDING_NAMES := {
@@ -151,7 +152,6 @@ var session: GameSession
 var content: GameContent
 var state: AbodeStateCompat
 var camera: CameraScript = CameraScript.new()
-var flow: FlowScript = FlowScript.new()
 var buildings: Dictionary = {}
 var scenery_props: Dictionary = {}
 var scenery_parent: Node2D
@@ -173,6 +173,7 @@ var sky: TextureRect
 var shade: ColorRect
 var sky_material: ShaderMaterial
 var island_fx: IslandBreakthroughFx
+var cultivator: CloakedCultivator
 var _sky_flow_time: float = 0.0
 var _last_sky_energy: float = -1.0
 var _last_sky_reduced: int = -1
@@ -331,6 +332,9 @@ func _ready() -> void:
 	island_fx = IslandFxScript.new()
 	island_fx.name = "空島突破法陣"
 	island_composition.add_child(island_fx)
+	cultivator = CultivatorScript.new()
+	island_composition.add_child(cultivator)
+	island_fx.cultivator = cultivator
 
 	var props := Node2D.new()
 	props.name = "可互動建築"
@@ -339,9 +343,6 @@ func _ready() -> void:
 
 	_setup_buildings(props)
 
-	flow.name = "獨立飛劍與靈氣"
-	flow.z_index = 3
-	island_composition.add_child(flow)
 
 	home_marker = _label("你的洞府 · 靈氣生生不息", 65, Color("ffe5a3"))
 	UiMaterial.apply_world_caption(home_marker, UiTypography.chapter_font(), 65)
@@ -480,14 +481,14 @@ func _show_storage_block(message: String) -> void:
 	)
 
 func _setup_buildings(props: Node2D) -> void:
-	# Only the hut is a world landmark; all other facilities stay in the catalogue.
+	# Home landmarks: residence on the left, cultivator at centre, built altar on the right.
 	scenery_parent = props
 	_add_building(props, "hut", "茅屋", HUT, Vector2(-245, -210), 225)
 	_add_building(props, "forest_farm", "林場", GARDEN, Vector2(0, -240), 145)
 	_add_building(props, "stone_mine", "採石場", ALTAR, Vector2(245, -220), 145)
 	_add_building(props, "wooden_house", "木屋", HUT, Vector2(-335, -85), 155)
 	_add_building(props, "herb_farm", "靈植場", GARDEN, Vector2(-90, -85), 160)
-	_add_building(props, "storage_lingli", "聚靈壇", ALTAR, Vector2(175, -85), 160)
+	_add_building(props, "storage_lingli", "聚靈壇", GROUNDED_ALTAR, Vector2(290, -100), 250)
 	_add_building(props, "storage_money", "錢莊", HUT, Vector2(-335, 35), 120)
 	_add_building(props, "storage_wood", "木料庫", HUT, Vector2(-110, 35), 120)
 	_add_building(props, "storage_stone", "靈石庫", ALTAR, Vector2(115, 35), 120)
@@ -521,7 +522,7 @@ func _build_background() -> void:
 	layer.add_child(sky)
 
 	shade = ColorRect.new()
-	shade.color = Color(0.015, 0.085, 0.13, 0.24)
+	shade.color = Color(0.055, 0.045, 0.065, 0.10)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(shade)
 
@@ -640,10 +641,10 @@ func _layout_for_size(vp: Vector2) -> void:
 	camera.home_position = Vector2(0, -40)
 	camera.home_zoom = 0.70
 	if vp.y < 540.0:
-		# Fit the landmark + authored find slots beside the actual left HUD.
+		# Fit the residence, central actor, right altar and finds beside the actual left HUD.
 		var left: float = maxf(header.get_global_rect().end.x, resource_ribbon.get_global_rect().end.x) + 12.0
 		var safe := Rect2(Vector2(left, 16), Vector2(maxf(160.0, vp.x - left - 16.0), maxf(140.0, toolbar.position.y - 28.0)))
-		var bounds := Rect2(Vector2(-330, -350), Vector2(670, 400))
+		var bounds := Rect2(Vector2(-330, -350), Vector2(775, 400))
 		camera.home_zoom = clampf(minf(safe.size.x / bounds.size.x, safe.size.y / bounds.size.y), 0.34, 0.70)
 		camera.home_position = bounds.get_center() - (safe.get_center() - vp * 0.5) / camera.home_zoom
 	if was_home:
@@ -832,10 +833,6 @@ func _process(delta: float) -> void:
 			session.state.training_seconds = needed_sec
 			_frame_view = {}
 
-	flow.garden_running = state.garden_running
-	var altar_level: int = int(view.buildings.get("storage_lingli", {}).get("level", 0))
-	flow.intensity = float(altar_level) + float(view.buildings.get("hut", {}).get("level", 0))
-	flow.reduced_motion = reduced
 
 	var distant: float = clampf((0.42 - camera.zoom.x) / 0.18, 0.0, 1.0)
 	var viewing_remote_island: bool = island_world != null and island_world.current != "home"
@@ -856,6 +853,7 @@ func _process(delta: float) -> void:
 	if not reduced:
 		_sky_flow_time += delta
 		sky_material.set_shader_parameter("flow_time", _sky_flow_time)
+	cultivator.present(reduced, island_fx.energy, session.state.era_id)
 	if absf(_last_sky_energy - island_fx.energy) > 0.001:
 		_last_sky_energy = island_fx.energy
 		sky_material.set_shader_parameter("energy", island_fx.energy)
@@ -890,10 +888,10 @@ func _update_buildings_visual(view: Dictionary) -> void:
 		var b_node = buildings[id]
 		var is_vis: bool = bool(b_view.get("visible", false))
 
-		# The island shows built landmarks or unbuilt ghost blueprints when affordable.
+		# Only the hut offers a starter blueprint. An unbuilt altar leaves its platform empty.
 		b_node.level = int(b_view.get("level", 0))
 		var affordable: bool = bool(b_view.get("affordable", false))
-		b_node.visible = is_vis and target_id == "hut" and (b_node.level > 0 or affordable)
+		b_node.visible = (is_vis and (b_node.level > 0 or affordable)) if target_id == "hut" else (target_id == "storage_lingli" and b_node.level > 0)
 		b_node.selected = (id == selected_id or target_id == selected_id)
 		b_node.running = state.garden_running if (target_id == "herb_farm") else true
 		b_node.reduced_motion = reduced
@@ -1165,16 +1163,16 @@ func _return_home() -> void:
 	building_catalog.visible = false
 	_layout_for_size(hud.size)
 	camera.focus_home()
-	hint.text = "回到洞府。點茅屋引氣；其他建築請開啟營造設施。"
+	hint.text = "回到洞府。點茅屋聚氣引靈；建造升級請開啟「經營」（營造簿）。"
 	print("ABODE_HOME")
 
 func _toggle_motion() -> void:
 	reduced = not reduced
 	if vfx_environment != null:
 		vfx_environment.environment.glow_enabled = not reduced
-	flow.reduced_motion = reduced
 	camera.reduced_motion = reduced
 	island_fx.set_reduced_motion(reduced)
+	cultivator.present(reduced, island_fx.energy, session.state.era_id)
 	if breakthrough_seq != null:
 		breakthrough_seq.reduced_motion = reduced
 	motion_button.text = "標準特效" if reduced else "低特效"
@@ -1648,7 +1646,7 @@ func _settle_web_background(cursor: int) -> bool:
 		breakthrough_seq.set_save_status(true)
 	_refresh_hud()
 	if feature_navigation != null and feature_navigation.island_panel != null:
-		feature_navigation.island_panel.storage_recovered()
+		feature_navigation.storage_recovered()
 		feature_navigation.action_panel.storage_recovered()
 	print("WEB_BACKGROUND_SETTLED: ", JSON.stringify(result.report))
 	return true
@@ -1751,7 +1749,7 @@ func _on_reincarnation_sequence_finished() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and feature_navigation != null and feature_navigation.group != "home":
-		feature_navigation.home()
+		feature_navigation.back()
 		get_viewport().set_input_as_handled()
 
 var _settlement_layer: CanvasLayer

@@ -23,6 +23,11 @@ PAGE = '''<!doctype html><meta charset="utf-8"><title>RES1-C 三島隔離驗收<
 <p id="status">獨立測試origin／dao2_islands_preview；不讀玩家dao2_saves。</p><iframe id="game" title="三島Godot預覽"></iframe>
 <script>
 const prefix='dao2_islands_preview:';
+for (const [width,height] of [[1280,720],[800,360],[360,640]]) {
+ const button=document.createElement('button');button.textContent=width+'×'+height+' 測試';
+ document.querySelector('.tools').appendChild(button);
+ button.onclick=()=>{const frame=document.getElementById('game');frame.style.width=width+'px';frame.style.maxWidth='100%';frame.style.height=height+'px';frame.style.alignSelf='start';document.getElementById('status').textContent='測試iframe '+width+'×'+height+' CSS px；非實體裝置驗收。';};
+}
 const diagnosticSeconds=new URLSearchParams(location.search).get('profileSeconds')==='60' ? '?profileSeconds=60' : '';
 const normalSeconds=new URLSearchParams(location.search).get('sampleSeconds');
 const normalSample=['60','300'].includes(normalSeconds) ? '?sampleSeconds='+normalSeconds : '';
@@ -129,6 +134,7 @@ if __name__ == '__main__':
     parser.add_argument('--port', type=int, default=4197)
     parser.add_argument('--offline-fixture', action='store_true')
     parser.add_argument('--review-fixture', action='store_true')
+    parser.add_argument('--fixture', help='Existing JSON fixture filename inside docs/verification/artifacts; isolated origin only')
     parser.add_argument('--normal-build', action='store_true', help='Serve normal Web export on a separate test origin with its normal save namespace')
     parser.add_argument('--profile-build', action='store_true', help='Serve build/web-profile with normal namespace; use launcher?profile=1 to opt into timings')
     parser.add_argument('--unopened-fixture', action='store_true', help='Fresh re-enveloped command-earned Era2 source before island activation')
@@ -138,6 +144,14 @@ if __name__ == '__main__':
     parser.add_argument('--metrics-log', default='res1-c2-closure-metrics.jsonl', help='Evidence filename inside docs/verification/artifacts')
     parser.add_argument('--bgm-fail-once', action='store_true', help='Test-only transient failure of first optional music download')
     args = parser.parse_args()
+    if args.fixture:
+        if Path(args.fixture).name != args.fixture or not args.fixture.endswith('.json') or args.offline_fixture or args.review_fixture or args.unopened_fixture:
+            parser.error('fixture must be one JSON filename and cannot be combined with preset fixture switches')
+        FIXTURE = ROOT / 'docs' / 'verification' / 'artifacts' / args.fixture
+        if not FIXTURE.is_file():
+            parser.error('fixture does not exist')
+        PAGE = PAGE.replace('載入從空白命令走出的築基測試檔', '載入隔離地標測試檔')
+        PAGE = PAGE.replace('已載入命令生成築基檔；開拓／加工尚未啟用。', '已載入指定隔離測試檔；此頁不是正常新手流程驗收。')
     BGM_FAIL_ONCE = args.bgm_fail_once
     if Path(args.metrics_log).name != args.metrics_log:
         parser.error('metrics-log must be a filename')

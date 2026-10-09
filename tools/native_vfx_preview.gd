@@ -26,7 +26,6 @@ func _run() -> void:
 		root.content_scale_size = viewport
 		await process_frame
 		abode._layout_for_size(root.get_visible_rect().size)
-		abode.flow.elapsed = 3.4
 		await create_timer(0.5).timeout
 		await _capture("home-%dx%d" % [viewport.x, viewport.y])
 		abode._toggle_motion()

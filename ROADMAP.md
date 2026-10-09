@@ -1,4 +1,36 @@
+2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](docs/verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
 # 修仙問道 v2 — 可執行開發 Roadmap
+
+2026-10-09 **RES1-UI1-R5（使用者插入）DONE，有界**。相依UI1-B與製造R4滿足；範圍為七航線來源／目的ICON＋可用量＋島名、缺貨框、載貨／倒數／進度、精簡設定與響應式卡片。DoD：七航線原命令／草稿／停航當趟／升階／保存回歸、三橫式Web操作與一般Web同步；56/56（B210）、最後B220／parity／responsive及Web重載政策通過。[驗收](docs/verification/res1-ui1-r5.md)。完整UI1-C／C/D不提升，下一New Chat收運輸美術／操作回饋或剩餘裝置，不開Era4。
+
+2026-10-09 **RES1-UI1-R4（使用者插入）DONE，有界**。相依R3已滿足；範圍為每個材料／產出ICON＋數量＋来源整格框與底色，灰青材料／青玉產出／朱紅缺料。DoD：三橫式無新增溢出、詳情同款、既有製造／呈現回歸與一般Web同步；207／parity／responsive及三尺寸原生／Web操作通過。[驗收](docs/verification/res1-ui1-r4.md)。最終美術與實機仍待驗，完整C/D不提升；下方R3無框保留歷史，下一New Chat收此版回饋或剩餘裝置。
+
+2026-10-09 **RES1-UI1-R3（當次使用者插入）DONE，有界**。相依R2已滿足，使用者確認方向OK、要求ICON避免色塊與SVG感。交付手繪透明材質圖、紙面無常態材料框／底色、缺料色保留；DoD為原素材／數量／命令回歸、44px及三橫式呈現、Web包同步。207及parity／responsive、原圖處理16QC、原生12图、Web三尺寸／製造完成通過。[紀錄](docs/verification/res1-ui1-r3.md)。下一New Chat收圖示質感／辨識回饋或實機，不重開已驗效能／保存矩陣。
+
+2026-10-09 **RES1-UI1-R2（當次使用者插入）DONE，有界**。相依UI1-A/B/R1已滿足；八配方需求圖示／數量／缺料變色、材料→產物、短式並排卡片完成。DoD：同命令扣料／完工、材料數量及不足→剛好滿足顏色、三橫式圖形版型／Web滑鼠／重載／旋轉。56/56當輪205、最終207與四相關回歸、一般Web同步。[證據](docs/verification/res1-ui1-r2.md)。完整C裝置與使用者圖示美術接受另待驗；下一New Chat收圖形介面回饋，不重開效能／保存矩陣或Era4。
+
+2026-10-09 **RES1-UI1-R1（當次使用者插入）DONE：有界實作與桌面驗證**。相依UI1-A/B已滿足；修正空島選取／成功回饋與支付庫存，製造改配方內進度、單行產線總覽、寬式同屏資源與短橫式固定篩選。DoD為既有命令／保存回歸、三橫式版型與瀏覽器真實點擊／捲動／重載／旋轉；56/56、最後164／140及相關呈現回歸、Web已通過。[詳細檔案／命令／證據](docs/verification/res1-ui1-r1.md)。完整UI1-C的實機及人工接受另待驗；效能依最新AGY／使用者政策，冷啟動暫緩常態阻擋。下方10/9較早效能未過／下一效能記錄保留歷史，不作現行順序。下一New Chat接操作密度／回饋接受與剩餘UI1-C装置清單，不開Era4。
+
+2026-10-09 **RES1-UI1-C IN_PROGRESS**：56/56、400 checks／真實reload與雙分頁保存PASS，新製造／運輸故障恢復、三橫式／旋轉／鏡頭滑鼠通過。60秒與重載60秒恢復PASS；300秒／50次管理切頁末5秒53.9957FPS未恢复、20Mbps／100ms冷啟動14.8016秒超10秒，效能NOT_PASSED。使用者無實體裝置，觸控保留待驗；完整C/D與人工接受不提升。[證據](docs/verification/res1-ui1-c.md)。下一New Chat續同UI1-C效能與剩餘門檻，不重做已過保存矩陣。
+
+2026-10-09 **RES1-UI1-B DONE（有界運輸精簡）**：七列／設定詳情、草稿與小數自訂政策、停航到貨／停航升階、精確供給捷徑通過；56/56與最終140、三橫式Web／旋轉／政策重載有證據。[驗收](docs/verification/res1-ui1-b.md)。下一New Chat接UI1-C完整保存故障／裝置／性能／人工，現有RES1-C/D限制保持。下方下一B是開始前歷史。
+
+2026-10-08 **RES1-UI1-A DONE（Godot接入與有界驗證）**：空島基本詳情／製造八配方四產線／煉丹同工作、55/55及最後127專項、世界59／26、原生9圖、隔離Web三橫式操作與旋轉／重載已交付。[證據](docs/verification/res1-ui1-a.md)。下一 UI1-B，完整裝置／保存故障／性能與人工驗收屬UI1-C，現有RES1-C/D状态不提升。
+
+
+2026-10-08 **RES1-UI1-DESIGN（使用者插入）**：多空島詳情精簡計畫與可互動示意，採空島基本操作／集中製造／集中運輸；保留地方庫存、每島單產線與七條固定航線。[計畫](docs/16-multi-island-ui-simplification-plan.md)。僅設計階段；正式Godot介面仍待 UI1-A/B/C，不放行既有 RES1-C/D 或裝置驗收。
+
+2026-10-07 **M2-D-FX3-AMBIENCE**：淚瀑下行擾動／落點變化霧氣、五處遠景碎片慢浮、三條匯聚流光及Era1–7吸靈24→48點已接入；五項回歸、原生13圖與低特效像素凍結／快照不變通過，一般Web／Windows同步。桌面隔離browser兩橫式滑鼠已補驗，人工／裝置／長效能仍待驗，完整FX3 IN_PROGRESS。[驗收](docs/verification/ambience.md)。
+
+2026-10-07 **ART-A1-HOME-INTEGRATE**：新接地版聚靈陣已核對正式接線，一般Web與Windows包同步成功；五項回歸exit0。追加browser被分頁保存鎖定阻擋，人工／装置與Windows實際操作待驗。[驗收](docs/verification/altar-integration.md)。
+
+2026-10-07 **ART-A1-HOME-GROUND**：聚靈壇改低矮底座、土石／苔草包邊與貼地暗部，撤下常態旋轉圈；四項回歸／原生兩橫式／一般Web匯出壓縮與隔離browser新版檢視通過，最終美術／裝置仍待驗。[驗收](docs/verification/altar-grounded.md)。
+
+2026-10-07 **ART-A1-HOME**：祖島左居所／中央修士／右已建聚靈壇已接入；輪迴／重載與54/54、最後world58／responsive通過，一般Web已更新，兩橫式滑鼠升級／重載驗證通過。最終美術／裝置／長效能仍待驗，完整ART-A1／FX3 IN_PROGRESS。[驗收](docs/verification/home-landmarks.md)。
+
+2026-10-07 **M2-D-FX3-ROUTES**：洞府裝飾循環飛劍撤下，保留主角吸靈；飛劍只顯示實際島間在途貨物。54/54與世界51 checks通過，一般Web包已更新；browser載貨／裝置／長效能待驗，完整FX3仍IN_PROGRESS。[驗收](docs/verification/fx3-flight-routes.md)。
+
+2026-10-06 **M2-D-FX3-ART1（使用者插入）**：概念圖去近景背景、透明質感島體、覆頭中性披風角色與角色中心吸靈／渡劫已接入。54/54回歸與最後錨點／低特效單項PASS，獨立Web與兩橫式真實滑鼠試播通過；人工美術、高DPR／實機、下載／長期FPS仍待驗，完整FX3維持IN_PROGRESS。[驗收](docs/verification/fx3-art1.md)。
 
 2026-10-05最新 **RES1-C2-PERF-R2 效能修復 PASS（AGY）**：持續 FPS 劣化根因已定位並修復——`building_catalog.gd` 每0.25秒無條件覆寫 ProgressBar `position`／`size` 造成的容器 reflow 風暴（改為值比對保護）、`abode_building.gd` 不可見物件每幀空轉（`_process` 提早返回）、`abode_flows.gd` Immediate Draw 呼叫過密。全量 **54/54 Runner／exit0**，工具契約 16／13／6 PASS，Web export／壓縮 exit0；ADR-010 四組觀測（300s基準59.74、300s 50次管理操作59.56、300s延長59.74、60s冷啟動59.85）全部恢復PASS，**desktopRecoveryGate=PASS**。[R2驗收](docs/verification/res1-c2-agy-r2.md)。**R2 效能定位結案**；C／C2 仍 IN_PROGRESS（實機觸控／高DPR2–3／自然背景凍結／跨瀏覽器／長期GPU-WASM 與人工美術節奏待驗），完整 D 仍 IN_PROGRESS。下方 2026-10-04／10-05 較早 NOT_PASSED／未重現紀錄保留歷史。
 
@@ -268,6 +300,10 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 | RES1-C3 | 當次接入要求、C1／C2已驗核心與保存 | 四張正式PNG＋兩參考＋來源／提示詞、正常空島入口與玩家原檔啟用、兩版型resize／重開／精煉、50/50＋22 checks；實作交付，人工美術／節奏待驗，IN_PROGRESS |
 | RES1-C2-PERF | C3正常版、已通過桌面保存矩陣 | **IN_PROGRESS；桌面改善交付**：核心br14.44MB、20Mbps／100ms新檔8.49秒、p95 16.8ms、規則CPU約減49.8%；51/51＋107 tick/font＋world26／Web retry49／50次Web切島為該階段證據。後續長離線改善見R2；當前FPS依ADR-010恢復標準，高DPR／手機／自然凍結／跨瀏覽器／長期GPU與人工待驗，不跳D；[證據](docs/verification/res1-c2-perf.md) |
 | RES1-C2-PERF-R2 | PERF已交付部分、相同命令賺得fixture | **效能修復 PASS（2026-10-05，AGY）**：持續FPS劣化根因已修（building_catalog reflow風暴／abode_building不可見節點空轉／abode_flows Immediate Draw過密），54/54 Runner／exit0，ADR-010四組觀測全部恢復PASS、`desktopRecoveryGate=PASS`。[R2驗收](docs/verification/res1-c2-agy-r2.md)。先前節流長離線9.801／9.777秒、native48h CPU2.662→0.886秒／hash不變與51/51＋145精確證據保留。C／C2 仍 IN_PROGRESS（裝置／觸控／高DPR／自然凍結／跨瀏覽器／長期GPU-WASM／人工待驗），D IN_PROGRESS，不跳D |
+| RES1-UI1-DESIGN | 使用者10/8要求、現有RES1-A/B/D2契約；呈現設計不依賴未放行裝置 | [精簡計畫](docs/16-multi-island-ui-simplification-plan.md)、功能遷移表與可互動示意；僅文件／設計範圍，正式介面未改 |
+| RES1-UI1-A | UI1-DESIGN | **DONE（有界範圍）**：Godot空島簡版／集中製造與加工坊／煉丹同工作；八配方四產線、啟用開拓、加工成功拒絕，55回歸及最後127專項通過。[驗收](docs/verification/res1-ui1-a.md)；完整裝置／保存／性能仍屬UI1-C。 |
+| RES1-UI1-B | UI1-A | **DONE（有界範圍，2026-10-09）**：七航線精簡列表／設定詳情、運力與精確供給捷徑；停航到貨／升階保留啟停、草稿與自訂值保持。全量56/56、最終140專項、三橫式Web操作／旋轉恢復／自訂值重載通過。[驗收](docs/verification/res1-ui1-b.md)；完整保存故障／裝置／性能／人工仍屬UI1-C。 |
+| RES1-UI1-C | UI1-A/B | **IN_PROGRESS（2026-10-09）**：56回歸／400檢查與真實Web拒寫重試／重載／雙分頁、三橫式／旋轉／世界滑鼠已驗。300秒50操作尾段恢復與14.80秒冷啟動未過；無實體裝置，觸控／DPR2–3／人工仍待驗。[驗收](docs/verification/res1-ui1-c.md)，下一New Chat續同C缺口。 |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
 
 整體 RES1 首段可玩以 A–D 為門檻；資料表與獨立 Runner 不取代真實玩法。M4-A-R1 的原整合 DONE 保留，M5 的既有生成／法則資料也保留；後續資源與內容補齊從 Era 2–3 開始，不能只把缺口記為 Era 9–12。
@@ -365,3 +401,4 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 - 使用者追加優先：飛劍、迷你光環、渡劫雷電／法陣與題字發光；相依 FX2／TEXT1 與既有低特效、正式命令／演出隔離已具備。
 - 交付：原生 CPUParticles2D、少量原創 Shader、Compatibility 世界 Glow 與局部題字泛光；設定中的無收益試播入口。庫／授權及水面、雲霧、溶解、Portal 等後續候選按 [FX3](docs/verification/native-vfx.md)，不整套安裝特效框架。
 - 驗收：36 Runner、零狀態試播／重播／保存重試／低特效、既有記憶體門檻、原生桌面／短橫向與 Web 操作；使用者美術、高 DPR／實機／幀時間未通過前保持 IN_PROGRESS。
+

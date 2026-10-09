@@ -181,6 +181,7 @@ static func get_view(state: GameState) -> Dictionary:
 			"effects": def["effects"],
 			"count": count,
 			"can_refine": can_ref,
+			"manufacturing_link": IslandProgression.active(state) and state.era_id >= 2 and pill_id == "foundation_pill",
 			"can_consume": can_con,
 		})
 	return {

@@ -1,0 +1,59 @@
+{
+  "result": "PASS",
+  "utf8Files": 14,
+  "localLinks": 355,
+  "jpegImages": {
+    "web-800-restored.jpg": [
+      800,
+      360
+    ],
+    "web-800-world-drag.jpg": [
+      800,
+      360
+    ],
+    "web-844-settings.jpg": [
+      843,
+      390
+    ],
+    "web-844-stop.jpg": [
+      843,
+      390
+    ],
+    "web-manufacturing-blocked.jpg": [
+      1280,
+      720
+    ],
+    "web-manufacturing-recovered.jpg": [
+      1280,
+      720
+    ],
+    "web-portrait.jpg": [
+      360,
+      640
+    ],
+    "web-reload-policy.jpg": [
+      1280,
+      720
+    ],
+    "web-secondary.jpg": [
+      1280,
+      720
+    ],
+    "web-startup-blocked.jpg": [
+      1379,
+      850
+    ],
+    "web-transport-blocked.jpg": [
+      1280,
+      720
+    ],
+    "web-transport-recovered.jpg": [
+      1280,
+      720
+    ]
+  },
+  "uid": "present",
+  "successfulLogsNoScriptError": true,
+  "repairedImportNoError": true,
+  "note": "External844 viewport has843px JPEG capture/canvas CSS; actual sizes recorded, no image resizing."
+}

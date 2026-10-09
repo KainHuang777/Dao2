@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.74 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GTX 1660 Ti
+
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+UI1B_CAPTURE routes-1280x720
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+UI1B_CAPTURE settings-1280x720
+UI1B_CAPTURE draft-1280x720
+UI1B_RECT [P: (230.0, 84.0), S: (820.0, 544.0)] viewport=[P: (0.0, 0.0), S: (1280.0, 720.0)] min=(221.0, 72.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+UI1B_CAPTURE routes-844x390
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+UI1B_CAPTURE settings-844x390
+UI1B_CAPTURE draft-844x390
+UI1B_RECT [P: (16.0, 84.0), S: (747.0, 196.0)] viewport=[P: (0.0, 0.0), S: (779.0, 360.0)] min=(221.0, 72.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI1B_CAPTURE routes-800x360
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI1B_CAPTURE settings-800x360
+UI1B_CAPTURE draft-800x360
+UI1B_RECT [P: (16.0, 84.0), S: (768.0, 196.0)] viewport=[P: (0.0, 0.0), S: (800.0, 360.0)] min=(221.0, 72.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

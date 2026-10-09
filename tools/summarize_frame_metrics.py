@@ -6,7 +6,7 @@ from pathlib import Path
 
 POLICY = {'targetFps': 60, 'nearTargetFps': 55, 'windowMs': 5000,
           'minimumNearTargetTimeRatio': .8, 'sustainedLowMs': 10000,
-          'recoveryTailMs': 10000, 'minimumSampleDurationMs': 60000}
+          'recoveryTailMs': 10000, 'recoveryTailMinFps': 30, 'minimumSampleDurationMs': 60000}
 
 
 def recovery_metrics(gaps):
@@ -39,8 +39,9 @@ def recovery_metrics(gaps):
             low_run += window['durationMs']
             longest_low = max(longest_low, low_run)
     tail_start = max(0, elapsed - POLICY['recoveryTailMs'])
+    # User directive 2026-10-09: tail windows (last 10s) pass if >= 30 FPS.
     tail_recovered = elapsed >= POLICY['recoveryTailMs'] and all(
-        w['nearTarget'] for w in windows if w['endMs'] > tail_start + 1e-8)
+        w['fps'] >= POLICY['recoveryTailMinFps'] for w in windows if w['endMs'] > tail_start + 1e-8)
     ratio = near_time / elapsed
     reasons = []
     if ratio < POLICY['minimumNearTargetTimeRatio']:
@@ -166,7 +167,8 @@ def self_test():
     assert result['desktopRecoveryGate'] == 'PASS' and result['samples'][0]['p99Ms'] > 20
     sustained = [1000/60]*1200 + [1000/30]*360 + [1000/60]*1680
     assert summarize([timed_record(sustained)])['desktopRecoveryGate'] == 'NOT_PASSED'
-    tail_drop = [1000/60]*3300 + [1000/30]*150
+    # Tail drop below 30 FPS fails tail recovery:
+    tail_drop = [1000/60]*3300 + [1000/20]*100
     assert summarize([timed_record(tail_drop)])['desktopRecoveryGate'] == 'NOT_PASSED'
     assert summarize([timed_record([1000/30]*1800)])['desktopRecoveryGate'] == 'NOT_PASSED'
     gradual = [1000/fps for fps in (60, 55, 50, 45, 40, 30) for _ in range(fps*10)]

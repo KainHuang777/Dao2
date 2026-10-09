@@ -8,9 +8,10 @@ ROOT = Path(__file__).resolve().parent.parent
 PORT = 4196
 LIVE = r'''
 <aside style="position:fixed;top:0;right:80px;z-index:9999;background:#fff;color:#123;font:14px sans-serif;padding:8px;max-width:240px;overflow-wrap:anywhere">
+<button id="fault-tools-toggle" style="min-height:44px" onclick="const box=document.getElementById('fault-tools-body');box.hidden=!box.hidden;this.textContent=box.hidden?'故障工具':'收合工具'">收合工具</button><div id="fault-tools-body">
 <button id="restore" onclick="window.liveFault='';history.replaceState(null,'',location.pathname);document.getElementById('fault').textContent='正常儲存'">恢復儲存</button>
 <button id="deny" onclick="window.liveFault='write';document.getElementById('fault').textContent='拒絕寫入'">拒絕寫入</button>
-<span id="fault"></span><pre id="live-report">隔離正式遊戲驗證</pre></aside>
+<span id="fault"></span><pre id="live-report">隔離正式遊戲驗證</pre></div></aside>
 <script>
 window.liveFault = new URLSearchParams(location.search).get('fault') || '';
 window.pauseFrames=false;

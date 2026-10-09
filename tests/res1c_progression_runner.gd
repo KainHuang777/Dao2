@@ -211,8 +211,8 @@ func _test_ui(s: GameSession) -> void:
 		panel.set_layout_bounds(Rect2(Vector2(viewport.x - width - 16, 84), Vector2(width, viewport.y - 180)))
 		await process_frame
 		_expect(panel.size.x <= width and panel.get_global_rect().end.x <= viewport.x - 16 and panel.get_global_rect().end.y <= viewport.y - 96, "actual management rail fits " + str(viewport))
-		_expect(panel.work_buttons[2].size.y >= 44, "stop target minimum44")
-		panel.facility_buttons.workshop.pressed.emit()
+		_expect(panel.facility_buttons.extractor.size.y >= 44, "basic upgrade target minimum44")
+		panel.facility_buttons.extractor.pressed.emit()
 		_expect(requested.back()[0] == "upgrade_island_facility" and requested.back()[1].island_id == "wood", "UI emits canonical upgrade command")
 	panel.show_result("操作未保存：SecurityError。原檔已保留，恢復儲存後重試。")
 	panel.storage_recovered()

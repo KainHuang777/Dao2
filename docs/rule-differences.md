@@ -1,5 +1,8 @@
 # 規則差異帳本
 
+2026-10-08 **V2-UI1A-R1（bugfix）**：輪迴後仍保留多島economy，Era1築基丹煉製原被錯送Era>=2才允許的加工路徑，已恢復既有Era1即時煉製；Era>=2仍走祖島唯一產線。費用／產出／服用效果不變，非DAO1全量parity。rules_version=core-flow-12-ui1a-era1-alchemy，schema3形狀不變；舊envelope仍可讀。[127檢查與限制](verification/res1-ui1-a.md)。
+
+
 2026-10-05 **V2-RES1-D2（使用者核定方案，正常接線已交付、節奏待驗）**：採Era＋設施門檻替代一般技能點，不稱技能parity；保留聚靈壇每級100，新築基靈池每級1000、最高3、T1費用／聚靈壇2階前置，兩池階可達2300容量。沒有採用D1「原庫每級250」提案。金丹時間／基本料沿D1舊字面，額外丹液1＋陣芯1為v2初始費；丹霞唯一製丹液／成品回運、祖島T3與丹藥。rules core-flow-10-danxia／economy res1-d-2、schema3形狀不變，旧C归檔后候选提交不自动升版。215 checks、52/52与两版型Web子范围通过；完整D、美術／玩法與C/R2待驗。[ADR-011](decisions/ADR-011-era3-capacity-and-skill-gates.md)／[D2验收](verification/res1-d2.md)。以下D1提案按歷史保留。
 
 2026-10-05 **V2-RES1-D1（isolated proposal，未採用正式平衡）**：fixture保留DAO1 Era3的240／1.22修行時間、2000靈力＋500錢＋50中品石費用、Lv9符咒10、壽元540／倍率2；每次另丹液1＋陣芯1是v2提案。一般技能目前缺失，隔離百年草用Era3門檻替代結丹法；靈力庫每級250提案解除正式1100容量不足2000突破阻擋，現行content與10級上限不變。B開拓包／固定航運仍工作值，未擴張為C正式成本。216 checks／8 source hash通過只證明隔離可達，不宣稱完整legacy_parity、一般技能已承接或Era3正常可玩；詳[來源與用途稽核](verification/res1-d1.md)。

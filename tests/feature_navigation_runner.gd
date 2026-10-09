@@ -26,13 +26,13 @@ func _run() -> void:
 		abode._layout_for_size(viewport)
 		for button in [abode.island_mode_button, abode.building_catalog_button, abode.reincarnation_button, abode.overview_button]:
 			check(button.get_theme_font_size("font_size") == 18, "all four main entries use the same font size")
-		for route in ["buildings", "outposts", "alchemy", "beasts", "reincarnation", "realms", "sect", "fortune", "decisions"]:
+		for route in ["buildings", "outposts", "manufacturing", "transport", "alchemy", "beasts", "reincarnation", "realms", "sect", "fortune", "decisions"]:
 			nav.open(route)
 			abode._layout_for_size(viewport)
 			await process_frame
 			check(nav.bar.get_global_rect().end.y <= abode.toolbar.position.y, "fixed page navigation fits " + route)
 			check(abode.toolbar.get_global_rect().end.x <= viewport.x, "main navigation fits landscape")
-			var count := int(abode.building_catalog.visible) + int(nav.action_panel.visible) + int(abode.nine_realms_preview.visible) + int(nav.island_panel.visible)
+			var count := int(abode.building_catalog.visible) + int(nav.action_panel.visible) + int(abode.nine_realms_preview.visible) + int(nav.island_panel.visible) + int(nav.manufacturing_panel.visible) + int(nav.transport_panel.visible)
 			for key in nav.PANEL_KEYS:
 				count += int(abode.get(key).visible)
 			check(count == 1, "exactly one gameplay page is visible: " + route)

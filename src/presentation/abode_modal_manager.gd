@@ -418,6 +418,9 @@ func _toggle_alchemy_panel() -> void:
 func _on_alchemy_refine_requested(pill_id: String, count: int) -> void:
 	if _abode.session == null:
 		return
+	if pill_id == "foundation_pill" and IslandProgression.active(_abode.session.state) and _abode.session.state.era_id >= 2:
+		_abode.feature_navigation.open_manufacturing("home", pill_id)
+		return
 	var res: Dictionary = _abode.session.refine_pill(pill_id, count)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "丹爐火候純青，煉製成功！"

@@ -1,0 +1,33 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: The member "MaterialTile" already exists in parent class res://src/presentation/island_management_panel.gd.
+   at: GDScript::reload (res://src/presentation/manufacturing_panel.gd:3)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:46)
+SCRIPT ERROR: Parse Error: The member "MaterialTile" already exists in parent class res://src/presentation/island_management_panel.gd.
+   at: GDScript::reload (res://src/presentation/island_transport_panel.gd:3)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:46)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/feature_navigation.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:46)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_hud_controller.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:46)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:46)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:46)
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/res1_ui1a_runner.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1a_runner.gd:53)

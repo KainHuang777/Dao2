@@ -61,7 +61,9 @@ func _run() -> void:
 	abode.session.state.era_id = 2
 	abode.session.state.buildings["hut"] = 3
 	abode.session.state.buildings["wooden_house"] = 2
+	abode.session.state.buildings["storage_lingli"] = 1
 	abode._refresh_hud()
+	_expect(abode.buildings["storage_lingli"].visible, "built altar visible before rebirth")
 	_expect(not abode.lifespan_banner.visible, "lifespan banner must be hidden when lifespan is not exhausted")
 	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled when era >= 2 but no rebirth lotus")
 
@@ -92,6 +94,7 @@ func _run() -> void:
 	_expect(abode.session.state.reincarnation_count == 1, "reincarnation count must be 1 after reincarnating")
 	_expect(abode.session.state.era_id == 1, "era must reset to 1 (练气期)")
 	_expect(abode.session.state.buildings.is_empty(), "island buildings must be reset to empty")
+	_expect(not abode.buildings["storage_lingli"].visible, "rebirth leaves altar platform empty")
 	# 45 (剩餘) + 15 (二階保底) = 60
 	_expect(abode.session.state.dao_heart.to_float() == 60.0, "dao heart must be updated to 60 (45 remaining + 15 floor)")
 	# 天賦 1 階提供 10%，取消自動補給。

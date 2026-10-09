@@ -60,7 +60,7 @@ func _run() -> void:
 	print("C2_MEMORY: native headless static_bytes every10switches=", memory_samples, " nodes=", baseline_nodes)
 	check(before == snapshot(abode.session.state), "50 presentation switches do not change rules")
 	world.enter("wood")
-	abode._pick_world(world.LOCATIONS.wood)
+	abode._pick_world(world.LOCATIONS.wood + Vector2(300, 50))
 	check(abode.feature_navigation.page == "outposts" and abode.feature_navigation.island_panel.island == "wood", "world hit uses canonical management page")
 	world.enter("home")
 	check(abode.feature_navigation.group == "home" and world.current == "home", "explicit ancestor return")

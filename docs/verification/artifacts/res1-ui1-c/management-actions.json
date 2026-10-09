@@ -1,0 +1,205 @@
+{
+  "note": "50 actual mouse page switches in 5 batches; no direct page function calls",
+  "actions": [
+    {
+      "route": "manufacturing",
+      "atMs": 26454
+    },
+    {
+      "route": "transport",
+      "atMs": 26513
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 26576
+    },
+    {
+      "route": "transport",
+      "atMs": 26631
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 26700
+    },
+    {
+      "route": "transport",
+      "atMs": 26770
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 26843
+    },
+    {
+      "route": "transport",
+      "atMs": 26916
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 26963
+    },
+    {
+      "route": "transport",
+      "atMs": 27025
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 78450
+    },
+    {
+      "route": "transport",
+      "atMs": 78496
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 78548
+    },
+    {
+      "route": "transport",
+      "atMs": 78599
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 78662
+    },
+    {
+      "route": "transport",
+      "atMs": 78716
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 78770
+    },
+    {
+      "route": "transport",
+      "atMs": 78834
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 78884
+    },
+    {
+      "route": "transport",
+      "atMs": 78973
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 161831
+    },
+    {
+      "route": "transport",
+      "atMs": 161900
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 161936
+    },
+    {
+      "route": "transport",
+      "atMs": 161987
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 162036
+    },
+    {
+      "route": "transport",
+      "atMs": 162090
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 162173
+    },
+    {
+      "route": "transport",
+      "atMs": 162231
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 162267
+    },
+    {
+      "route": "transport",
+      "atMs": 162315
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 257294
+    },
+    {
+      "route": "transport",
+      "atMs": 257362
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 257417
+    },
+    {
+      "route": "transport",
+      "atMs": 257460
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 257506
+    },
+    {
+      "route": "transport",
+      "atMs": 257555
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 257613
+    },
+    {
+      "route": "transport",
+      "atMs": 257671
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 257722
+    },
+    {
+      "route": "transport",
+      "atMs": 257771
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 288209
+    },
+    {
+      "route": "transport",
+      "atMs": 288274
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 288306
+    },
+    {
+      "route": "transport",
+      "atMs": 288355
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 288394
+    },
+    {
+      "route": "transport",
+      "atMs": 288440
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 288477
+    },
+    {
+      "route": "transport",
+      "atMs": 288525
+    },
+    {
+      "route": "manufacturing",
+      "atMs": 288585
+    },
+    {
+      "route": "transport",
+      "atMs": 288623
+    }
+  ]
+}

@@ -223,6 +223,8 @@ func get_view() -> Dictionary:
 		"revision": state.revision,
 		"island_activation": IslandProgression.preview(state, content) if not content.processing_catalog.is_empty() else {},
 		"economy": IslandEconomy.view(state, content.processing_catalog),
+		"manufacturing": IslandEconomy.manufacturing_view(state, content.processing_catalog),
+		"transport": IslandEconomy.transport_view(state, content.processing_catalog),
 		"abode_scenery": AbodeScenery.get_view(state),
 		"era_id": state.era_id,
 		"level": state.level,

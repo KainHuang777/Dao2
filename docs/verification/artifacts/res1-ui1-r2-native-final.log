@@ -1,0 +1,67 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.74 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GTX 1660 Ti
+
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+UI1_CAPTURE basics-1280x720
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+UI1_CAPTURE recipes-1280x720
+ERROR: Invalid polygon data, triangulation failed.
+   at: canvas_item_add_polygon (servers/rendering/renderer_canvas_cull.cpp:1770)
+   GDScript backtrace (most recent call first):
+       [0] _poly (res://src/presentation/resource_icon.gd:68)
+       [1] _draw (res://src/presentation/resource_icon.gd:53)
+UI1_CAPTURE synthesis-1280x720
+UI1_CAPTURE detail-1280x720
+UI1_DETAIL_RECT [P: (444.0, 84.0), S: (820.0, 544.0)] viewport=[P: (0.0, 0.0), S: (1280.0, 720.0)] min=(284.0, 72.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+UI1_CAPTURE basics-844x390
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+ABODE_LAYOUT mode=compact size=(779.0, 360.0)
+UI1_CAPTURE recipes-844x390
+ERROR: Invalid polygon data, triangulation failed.
+   at: canvas_item_add_polygon (servers/rendering/renderer_canvas_cull.cpp:1770)
+   GDScript backtrace (most recent call first):
+       [0] _poly (res://src/presentation/resource_icon.gd:68)
+       [1] _draw (res://src/presentation/resource_icon.gd:53)
+UI1_CAPTURE synthesis-844x390
+UI1_CAPTURE detail-844x390
+UI1_DETAIL_RECT [P: (16.0, 84.0), S: (747.0, 196.0)] viewport=[P: (0.0, 0.0), S: (779.0, 360.0)] min=(284.0, 72.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI1_CAPTURE basics-800x360
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI1_CAPTURE recipes-800x360
+ERROR: Invalid polygon data, triangulation failed.
+   at: canvas_item_add_polygon (servers/rendering/renderer_canvas_cull.cpp:1770)
+   GDScript backtrace (most recent call first):
+       [0] _poly (res://src/presentation/resource_icon.gd:68)
+       [1] _draw (res://src/presentation/resource_icon.gd:53)
+UI1_CAPTURE synthesis-800x360
+UI1_CAPTURE detail-800x360
+UI1_DETAIL_RECT [P: (16.0, 84.0), S: (768.0, 196.0)] viewport=[P: (0.0, 0.0), S: (800.0, 360.0)] min=(284.0, 72.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

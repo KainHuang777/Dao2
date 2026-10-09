@@ -936,7 +936,7 @@ func _update_onboarding_guidance(view: Dictionary) -> void:
 			return
 		_abode.last_guidance_key = done_key
 		_abode.hint_heading.text = "系統訊息 · 新手引導"
-		_abode.hint.text = "入門建築引導已完成。可在「營造設施」查看資源庫存、每秒產率與後續設施需求。"
+		_abode.hint.text = "入門建築引導已完成。可在「經營」（營造簿）查看資源庫存、每秒產率與後續設施需求。"
 		return
 
 	var objective: Dictionary = objective_value
@@ -966,17 +966,17 @@ func _update_onboarding_guidance(view: Dictionary) -> void:
 	var level: int = int(building.get("level", 0))
 	var action: String = "建造" if level == 0 else "升級"
 	if building_id == "hut" and "lingli" in missing and "lingli" in gatherable_missing:
-		_abode.hint.text = "初入道途，先使用空島下方的「採集靈氣」動作；累積足夠後在營造簿建造茅屋。茅屋啟動後會逐秒產生靈氣。"
+		_abode.hint.text = "初入道途，可於左側資源面板點擊靈氣旁的「採集」（或點擊島上茅屋開啟右側「聚氣引靈」）；累積足夠後在營造簿建造茅屋。茅屋啟動後會逐秒產生靈氣。"
 	elif building_id == "wooden_house" and "money" in missing and "money" in gatherable_missing:
-		_abode.hint.text = "茅屋已立，接下來需要第一筆金錢。請在空島下方選擇採集金錢，足額後於營造簿建造木屋以啟動金錢產線。"
+		_abode.hint.text = "茅屋已立，接下來需要第一筆金錢。請於左側資源面板點擊金錢旁的「採集」，足額後於營造簿建造木屋以啟動金錢產線。"
 	elif missing.is_empty():
-		_abode.hint.text = "下一步：資源已足，前往「營造設施」選擇【%s】並%s。完成後再依清單提示推進下一段建築流程。" % [building_name, action]
+		_abode.hint.text = "下一步：資源已足，前往「經營」（營造簿）選擇【%s】並%s。完成後再依清單提示推進下一段建築流程。" % [building_name, action]
 	else:
 		var missing_names: Array[String] = []
 		for resource_id in missing:
 			missing_names.append(String(_abode.RESOURCE_NAMES.get(resource_id, resource_id)))
-		var gather_text := "可手動採集已解鎖項目；其他需求等待現有產線入庫。" if not gatherable_missing.is_empty() else "請等待已建產線入庫。"
-		_abode.hint.text = "下一步：前往「營造設施」%s【%s】。尚缺：%s。%s" % [action, building_name, "、".join(missing_names), gather_text]
+		var gather_text := "可於左側資源面板手動「採集」已解鎖項目；其他需求等待現有產線入庫。" if not gatherable_missing.is_empty() else "請等待已建產線入庫。"
+		_abode.hint.text = "下一步：前往「經營」（營造簿）%s【%s】。尚缺：%s。%s" % [action, building_name, "、".join(missing_names), gather_text]
 
 func _refresh_detail() -> void:
 	var view: Dictionary = _abode.session.get_view()
@@ -1017,7 +1017,7 @@ func _refresh_detail() -> void:
 
 func _show_help() -> void:
 	_abode.hint_heading.text = "操作說明"
-	_abode.hint.text = "滑鼠拖曳／單指平移；滾輪／雙指縮放。\n營造設施可建造與升級；M 展開山域，Home 歸家。"
+	_abode.hint.text = "滑鼠拖曳／單指平移；滾輪／雙指縮放。\n「經營」（營造簿）可建造與升級；M 展開山域，Home 歸家。"
 	_messages_open = true
 	_messages_explicit = true
 	_abode._layout_for_size(_abode.hud.size)

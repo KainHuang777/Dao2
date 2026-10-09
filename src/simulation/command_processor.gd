@@ -241,7 +241,7 @@ static func _apply_refine_pill(_content: GameContent, state: GameState, payload:
 	var pill_id: String = String(payload.get("pill_id", ""))
 	if pill_id.is_empty():
 		return _failure("EMPTY_PILL_ID", {})
-	if not state.economy.is_empty() and pill_id == "foundation_pill":
+	if not state.economy.is_empty() and state.era_id >= 2 and pill_id == "foundation_pill":
 		return IslandEconomy.command(_content, state, "craft", {"recipe_id": pill_id, "count": payload.get("count", 1)})
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.refine(state, pill_id, count)
