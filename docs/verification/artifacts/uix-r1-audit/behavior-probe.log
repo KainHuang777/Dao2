@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+AUDIT actual route skills at era1: { "state": 2, "reason": "" }
+AUDIT actual route beasts at era1: { "state": 2, "reason": "" }
+AUDIT actual route realms at era1: { "state": 2, "reason": "" }
+AUDIT actual route decisions at era1: { "state": 2, "reason": "" }
+AUDIT DockButton automatic toggle style: before=(0.1647, 0.2471, 0.2196, 1.0) after=(0.7569, 0.6039, 0.3569, 1.0)
+AUDIT GameTab automatic toggle changes style: true
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+AUDIT main_action_box property exists: false
+AUDIT action container position=(0.0, 0.0) header=[P: (16.0, 16.0), S: (320.0, 348.0)]
+AUDIT CloseSeal minimum=(32.0, 32.0)
+ERROR: 9 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.
+ERROR: 2 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 4 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 75 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

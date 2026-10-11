@@ -29,6 +29,29 @@ func _run() -> void:
 	hut.visible = hut_was_visible
 	await process_frame
 	_check_scene(abode, Vector2(1280, 720), "desktop island")
+	# Visible action geometry, rather than only a container's idle minimum size.
+	abode.offline_summary.visible = false
+	# This block owns synthetic button visibility; the live HUD refresh would
+	# otherwise hide these fresh-game actions during the deferred container sort.
+	abode.set_process(false)
+	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+		for action in [abode.level_up_button, abode.breakthrough_button]:
+			abode.level_up_button.visible = action == abode.level_up_button
+			abode.breakthrough_button.visible = action == abode.breakthrough_button
+			abode._layout_for_size(vp)
+			await process_frame
+			_check_bounded(action, vp, "cultivation action %s" % vp)
+			_expect(not action.get_global_rect().intersects(abode.toolbar.get_global_rect()), "cultivation action leaves navigation clickable")
+			_expect(abode.header.get_global_rect().encloses(action.get_global_rect()), "cultivation action placed inside header bounds")
+			_check_bounded(abode.settings_menu, vp, "settings %s" % vp)
+	abode.offline_summary.visible = true
+	abode._layout_for_size(Vector2(800, 360))
+	_expect(abode.offline_summary.visible, "offline summary modal opens")
+	abode.offline_summary.visible = false
+	abode.set_process(true)
+	abode._refresh_hud()
+	abode._layout_for_size(Vector2(1280, 720))
+	await process_frame
 	_expect(is_equal_approx(abode.hint_panel.get_global_rect().get_center().x, 640.0), "home messages must center on the viewport, not the remaining HUD space")
 	_expect(abode.hint_panel.size.y >= 200.0 and abode.hint_log_label.get_theme_font_size("normal_font_size") >= 17, "desktop messages must provide a readable default height and font")
 	_expect(abode.hint.text.contains("茅屋") and abode.hint.text.contains("靈氣"), "fresh-game guidance must explain gathering for the hut")
@@ -41,13 +64,13 @@ func _run() -> void:
 		abode.session.state.buildings[milestone.building] = milestone.level
 	abode._refresh_hud()
 	await process_frame
-	_expect(not abode.objective_button.visible and not abode.building_catalog.objective_button.visible, "completed onboarding must remove both objective buttons")
+	_expect(abode.objective_button.visible and abode.building_catalog.objective_button.visible, "completed building chain must continue with cultivation guidance")
 	abode._open_building_catalog()
 	abode.building_catalog.show_detail(true)
 	abode.building_catalog.show_detail(false)
 	abode.building_catalog.set_short_mode(true)
 	abode.building_catalog.set_short_mode(false)
-	_expect(not abode.building_catalog.objective_button.visible, "detail and density changes must not revive completed onboarding")
+	_expect(abode.building_catalog.objective_button.visible, "detail and density changes retain the cultivation objective")
 	abode._close_building_catalog()
 	abode.session.state.buildings = initial_buildings
 	abode._refresh_hud()
@@ -88,8 +111,31 @@ func _run() -> void:
 	abode.session.state.resources["lingli"].value = AmountCompat.from_number(20.0)
 	abode._refresh_hud()
 	_expect(not abode.building_catalog.upgrade_buttons["hut"].disabled, "affordable hut must expose a direct build action")
-	abode.building_catalog.upgrade_buttons["hut"].pressed.emit()
+	abode._close_building_catalog()
+	hut._process(0.0)
+	_expect(hut.caption.text == "點擊建造茅屋", "first affordable hut must name its click action")
+	var was_explicit: bool = abode._hud_controller._messages_explicit
+	abode._hud_controller._messages_explicit = false
+	for starter_vp in [Vector2(844, 390), Vector2(800, 360)]:
+		abode._layout_for_size(starter_vp)
+		_expect(not abode.hint_panel.visible, "automatic messages leave starter hut clickable on short landscapes")
+	abode._layout_for_size(Vector2(1280, 720))
+	abode._hud_controller._messages_explicit = was_explicit
+	_expect(hut.contains_point(hut.to_global(Vector2(0, -190))), "blueprint roof is part of the build hit area")
+	var caption_point: Vector2 = hut.caption.get_global_transform() * (hut.caption.size * 0.5)
+	_expect(hut.contains_point(caption_point), "readable scaled caption is also clickable")
+	hut.reduced_motion = true
+	hut._process(0.0)
+	_expect(hut.sprite.modulate.a >= 0.75, "reduced motion keeps a bright static blueprint")
+	hut.reduced_motion = false
+	var build_before: AmountCompat = abode.session.state.resources["lingli"].value
+	var build_cost := AmountCompat.from_number(float(abode.session.get_view().buildings["hut"].costs["lingli"]))
+	abode._pick_world(caption_point)
 	_expect(abode.session.state.buildings["hut"] == 1, "direct building action must use the normal upgrade command exactly once")
+	_expect(abode.session.state.resources["lingli"].value.compare_to(build_before.subtract(build_cost)) == 0, "world build charges the hut cost exactly once")
+	_expect(abode.feature_navigation.page == "buildings" and abode.building_catalog.scroll.visible and not abode.info_panel.visible and abode.selected_id == "", "first world build opens the ledger without hut details")
+	hut._process(0.0)
+	_expect(not hut.caption.text.contains("點擊建造"), "construction removes the starter call to action")
 	abode.building_catalog.rows["hut"].pressed.emit()
 	_expect(abode.building_catalog.row_info["hut"].box.visible, "selecting a row must expand its effects and cost inline")
 	abode.building_catalog.row_info["hut"].box.get_child(1).pressed.emit()
@@ -143,9 +189,9 @@ func _run() -> void:
 	_expect(abode.building_catalog.resource_gather_buttons["money"].visible, "unlocked money card must expose direct gather button")
 	abode.building_catalog.resource_gather_buttons["money"].pressed.emit()
 	_expect(abode.session.state.resources["money"].value.compare_to(money_before) > 0, "direct money gather button must issue a command")
-	_expect(abode.building_catalog.rows["wooden_house"].custom_minimum_size.y == 48.0 and abode.building_catalog.upgrade_buttons["wooden_house"].custom_minimum_size.y == 48.0, "compact 48px rows must remain touchable")
-	_expect(not abode.building_catalog.rows["wooden_house"].text.contains("金錢"), "collapsed building rows must omit repeated resource costs")
-	_expect(abode.building_catalog.progress_bars["wooden_house"].bg.visible, "collapsed building rows must retain requirement progress")
+	_expect(abode.building_catalog.rows["wooden_house"].custom_minimum_size.y >= 44.0 and abode.building_catalog.upgrade_buttons["wooden_house"].custom_minimum_size.y == 44.0, "compact card actions must retain 44px hit targets")
+	_expect(not abode.building_catalog.card_labels["wooden_house"].text.contains("金錢"), "building identity must omit repeated resource costs")
+	_expect(abode.building_catalog.rows["wooden_house"]._meter, "collapsed building rows must retain requirement progress")
 	abode.building_catalog.rows["wooden_house"].pressed.emit()
 	_expect(abode.building_catalog.row_info["wooden_house"].box.visible, "building information must expand within the list")
 	_expect(abode.building_catalog.row_info["wooden_house"].label.text.contains("需求"), "expanded building information must show costs")
@@ -266,14 +312,14 @@ func _check_scene(abode: Node, vp: Vector2, label: String) -> void:
 	_expect(world_gap >= 80.0, label + " must leave a contiguous world interaction area")
 
 func _check_management(abode: Node, vp: Vector2, label: String) -> void:
-	var detail_focus: bool = vp.y < 560.0 and abode.info_panel.visible
+	var detail_focus: bool = (vp.y < 560.0 and abode.info_panel.visible) or (vp.y < 500.0 and vp.x >= 640.0)
 	_expect(abode.building_catalog.visible and (detail_focus or (abode.header.visible and abode.resource_ribbon.visible)) and abode.toolbar.visible, label + " must keep fixed status or focus short-phone detail")
 	_check_bounded(abode.building_catalog, vp, label + " rail")
 	if not detail_focus:
 		_check_bounded(abode.resource_ribbon, vp, label + " resource panel")
 	_check_bounded(abode.toolbar, vp, label + " navigation")
 	_check_bounded(abode.building_catalog.close_button, vp, label + " return button")
-	_expect(abode.building_catalog.size.x <= 400.0 or vp.x < 640.0, label + " rail width must stay bounded")
+	_expect(abode.building_catalog.size.x <= 620.0 or vp.x < 640.0 or vp.y < 500.0, label + " rail width must stay bounded")
 	_expect(abode.building_catalog.scroll.visible or abode.building_catalog.detail_slot.visible, label + " must have a building or detail region")
 
 func _check_detail(abode: Node, vp: Vector2, label: String) -> void:

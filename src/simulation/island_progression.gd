@@ -6,7 +6,7 @@ const VERSION := "res1-d-2"
 const NAMES := {"home": "祖島", "wood": "青木島", "ore": "玄礦島", "herb": "丹霞島"}
 const FACILITIES := {"extractor": "採集設施", "workshop": "加工坊", "storage": "倉儲"}
 const RECIPES := {"wood": "spirit_timber", "ore": "bronze_essence", "herb": "liquid"}
-const HOME_RECIPES := ["formation_core", "foundation_pill", "stone_mid", "golden_core_pill", "talisman"]
+const HOME_RECIPES := ["liquid", "formation_core", "foundation_pill", "stone_mid", "golden_core_pill", "talisman"]
 
 static func owns(state: GameState, island: String, recipe: String) -> bool:
 	if state.economy.get("version") == LEGACY_VERSION:
@@ -83,6 +83,7 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 		if not migrated.ok:
 			return migrated
 		state.economy.version = VERSION
+		state.economy.early_supply = Onboarding.initial_supply()
 		for id in state.economy.islands:
 			state.economy.islands[id].facilities = {"extractor": 1, "workshop": 1, "storage": 1}
 		return _ok("islands_activated")
@@ -110,14 +111,17 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 
 static func upgrade_cost(facility: String, level: int) -> Dictionary:
 	match facility:
-		"extractor": return {"wood": 20 * level, "bronze_essence": 2 * level}
-		"workshop": return {"spirit_timber": 2 * level, "bronze_essence": 2 * level}
-		_: return {"spirit_timber": 2 * level, "stone_low": 20 * level}
+		"extractor": return {"wood": 100 * level, "bronze_essence": 5 * level}
+		"workshop": return {"spirit_timber": 5 * level, "bronze_essence": 5 * level}
+		_: return {"spirit_timber": 5 * level, "stone_low": 100 * level}
+
+static func capacity_for_level(level: int) -> float:
+	return 150.0 * mini(maxi(level, 1), 3)
 
 static func capacity(state: GameState, island: String) -> float:
 	if not active(state):
 		return 100.0
-	return 100.0 * int(state.economy.islands[island].get("facilities", {}).get("storage", 1))
+	return capacity_for_level(int(state.economy.islands[island].get("facilities", {}).get("storage", 1)))
 
 static func duration(state: GameState, island: String, recipe: String) -> int:
 	var base: int = IslandEconomy.DURATIONS[recipe]

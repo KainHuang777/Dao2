@@ -18,6 +18,50 @@ func _run() -> void:
 	await process_frame
 	abode.offline_summary.visible = false
 	var nav = abode.feature_navigation
+	# Discovery uses current View, survives unlocks and never rebuilds unchanged tabs.
+	nav.open_group("cultivation")
+	check(not nav.tab_buttons.beasts.visible and not nav.tab_buttons.reincarnation.visible, "Era1 hides distant beast/reincarnation tabs")
+	check(nav.tab_buttons.skills.visible and nav.tab_buttons.skills.text.ends_with("·未開") and nav.tab_buttons.skills.tooltip_text.is_empty(), "Era1 skill preview shows locked state without tooltip")
+	check(nav.tab_buttons.alchemy.get_index() < nav.tab_buttons.achievements.get_index() and nav.tab_buttons.achievements.get_index() < nav.tab_buttons.skills.get_index(), "available pages precede previews in canonical order")
+	check(nav.back_button is CloseSeal and nav.back_button.custom_minimum_size == Vector2(44, 44), "shell uses fixed44 close seal")
+	var original_tab: Button = nav.tab_buttons.skills
+	nav.refresh({"era_id": 2, "buildings": {"library": {"level": 0}}})
+	check(nav.tab_buttons.beasts.visible and nav.tab_buttons.beasts.text.ends_with("·未開") and nav.tab_buttons.beasts.tooltip_text.is_empty(), "Era2 reveals visibly locked beast preview")
+	nav.refresh({"era_id": 3, "buildings": {"library": {"level": 1}}})
+	check(nav.tab_buttons.skills == original_tab and nav.tab_buttons.skills.modulate == Color.WHITE, "unlock updates reused tab in place")
+	check(nav.tab_buttons.beasts.get_meta("availability") == FeatureUnlocks.State.AVAILABLE, "Era3 beast tab available")
+	check(nav.tab_buttons.skills.get_index() == 0 and nav.tab_buttons.beasts.get_index() < nav.tab_buttons.achievements.get_index(), "newly unlocked pages return to canonical available order")
+	check(nav.tab_buttons.alchemy.get_theme_stylebox("normal") == UiMaterial.surface("jade"), "selected feature tab shares resource jade style")
+	check(nav.tab_buttons.alchemy.get_theme_font("font") == UiTypography.body_font(), "feature tabs use shared sans font")
+	nav.refresh({"era_id": 1, "reincarnation_preview": {"reason": "lifespan_exhausted", "eligible": true}})
+	check(nav.tab_buttons.reincarnation.visible, "exhausted life reveals reincarnation immediately")
+	nav.home()
+	nav.remembered.cultivation = "beasts"
+	nav.open_group("cultivation")
+	check(nav.page == "alchemy", "hidden remembered page falls back to available page")
+	nav.open("achievements")
+	nav.home()
+	nav.open_group("cultivation")
+	check(nav.page == "achievements", "available remembered page restored")
+	nav.home()
+	nav.open_group("journey")
+	check(nav.page == "sect" and nav.tab_buttons.sect.text.ends_with("·未開"), "Era1 journey falls back to visibly locked sect preview")
+	nav.home()
+	nav.open_group("management")
+	for route in ["outposts", "manufacturing", "transport"]:
+		check(not nav.tab_buttons[route].visible, "Era1 hides island entry " + route)
+		nav.open(route)
+		check(nav.page == "buildings", "Era1 contextual island link returns to buildings " + route)
+	check(nav.back_button.get_theme_stylebox("normal").bg_color == Color.TRANSPARENT, "close button has no black background")
+	nav.refresh({"era_id": 2})
+	for route in ["outposts", "manufacturing", "transport"]:
+		check(nav.tab_buttons[route].visible, "Era2 reveals island entry " + route)
+	nav.home()
+	for viewport in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+		var wide: Dictionary = nav.presentation_policy("manufacturing", viewport)
+		check(wide.central and wide.wide_stock == (viewport.x >= 1100), "manufacturing resource policy follows viewport")
+		check(not nav.presentation_policy("buildings", viewport).central, "building policy retains shared resource rail")
+		check(not nav.presentation_policy("transport", viewport).wide_stock, "transport uses inline stock")
 	# Warm pre-existing lazy sect/realm views before asserting navigation neutrality.
 	abode.session.get_view()
 	SectSystem.ensure_sect_state(abode.session.state)
@@ -47,7 +91,16 @@ func _run() -> void:
 	abode._layout_for_size(Vector2(1280, 720))
 	nav.open("buildings")
 	await process_frame
-	check(abode.hint_panel.visible, "desktop building rail preserves open system messages")
+	check(not abode.hint_panel.visible and abode.building_catalog.group_grids.core.columns == 2, "two-column catalog prioritizes cards over automatic messages")
+	abode._hud_controller.show_messages()
+	await process_frame
+	check(abode.hint_panel.visible, "explicit messages remain available from a two-column catalog")
+	abode._toggle_guidance()
+	await process_frame
+	check(not abode.hint_panel.visible, "desktop messages can close beside the compact catalog")
+	abode._toggle_guidance()
+	await process_frame
+	check(abode.hint_panel.visible and abode.building_catalog.group_grids.core.columns == 1, "explicit messages reopen beside a single-column catalog")
 	check(not abode.hint_panel.get_global_rect().intersects(abode.building_catalog.get_global_rect()), "desktop messages do not overlap the building rail")
 	abode._toggle_guidance()
 	abode._refresh_hud()
@@ -63,9 +116,9 @@ func _run() -> void:
 	check(abode.hint_panel.visible and is_equal_approx(abode.hint_panel.get_global_rect().get_center().x, 640.0), "return home restores viewport-centered messages")
 	for ready in [false, true]:
 		for pending in [false, true]:
-			nav.refresh({"reincarnation_preview": {"eligible": ready}, "fortune": {"has_pending": pending}})
-			check(abode.reincarnation_button.text == ("修行・輪迴" if ready else "修行"), "cultivation reminder identifies optional reincarnation")
-			check(abode.overview_button.text == ("遊歷・機緣" if pending else "遊歷"), "journey reminder identifies pending fortune")
+			nav.refresh({"era_id": 6, "reincarnation_preview": {"eligible": ready}, "fortune": {"has_pending": pending}})
+			check(abode.reincarnation_button.text == "修行" and abode.reincarnation_button._red_dot.visible == ready, "cultivation uses real reincarnation badge")
+			check(abode.overview_button.text == "遊歷" and abode.overview_button._red_dot.visible == pending, "journey uses real fortune badge")
 			check(abode.reincarnation_button.tooltip_text.contains("輪迴") and abode.overview_button.tooltip_text.contains("機緣"), "reminders explain their distinct destinations")
 	abode._refresh_hud()
 	check(abode.orientation_prompt.z_index > abode.toolbar.z_index and abode.orientation_prompt.z_index > nav.bar.z_index, "rotation guidance covers navigation visually")

@@ -96,13 +96,19 @@ func _run() -> void:
 	_expect(s.state.buildings == SaveCodec.decode(archived).state.buildings, "ancestral buildings preserved")
 	var retry_source := _clone(s)
 	retry_source.state = SaveCodec.decode(archived).state
+	var poor_source := _clone(retry_source)
+	poor_source.state.resources.wood.value = AmountCompat.zero()
+	var poor_before := _snapshot(poor_source)
+	SaveManager.configure(content, MemoryAdapter.new())
+	_expect(not SaveManager.activate_islands(poor_source, META, "wood").ok and _snapshot(poor_source) == poor_before, "insufficient first-open payment leaves initialization and materials untouched")
 	var failed_commit := MemoryAdapter.new()
 	SaveManager.configure(content, failed_commit)
 	failed_commit.fail_write_number = 5 # source payload/index, archive, then candidate payload/index
 	var source_before := _snapshot(retry_source)
-	_expect(not SaveManager.activate_islands(retry_source, META).ok and _snapshot(retry_source) == source_before, "candidate index failure retains live source")
+	_expect(not SaveManager.activate_islands(retry_source, META, "wood").ok and _snapshot(retry_source) == source_before, "first paid opening candidate index failure retains source and materials")
 	failed_commit.fail_write_number = -1
-	_expect(SaveManager.activate_islands(retry_source, META).ok, "candidate failure retry activates once")
+	_expect(SaveManager.activate_islands(retry_source, META, "wood").ok and retry_source.state.economy.islands.wood.opened, "candidate failure retry activates and opens once")
+	_expect(is_equal_approx(IslandEconomy.value(retry_source.state, "home", "wood"), float(SaveCodec.decode(archived).state.resources.wood.value.to_float()) - 20), "first opening retry charges one wood payment")
 	var corrupt_archive := MemoryAdapter.new()
 	SaveManager.configure(content, corrupt_archive)
 	corrupt_archive.data[SaveManager.ISLAND_ARCHIVE_KEY] = "corrupt"
@@ -130,7 +136,7 @@ func _run() -> void:
 	var timber := IslandEconomy.value(s.state, "home", "spirit_timber")
 	var bronze := IslandEconomy.value(s.state, "home", "bronze_essence")
 	_expect(_send(s, "upgrade_island_facility", {"island_id": "wood", "facility_id": "workshop"}, "workshop-upgrade").ok, "T2 consumed by real upgrade")
-	_expect(IslandEconomy.value(s.state, "home", "spirit_timber") == timber - 2 and IslandEconomy.value(s.state, "home", "bronze_essence") == bronze - 2, "exact T2 costs from ancestor")
+	_expect(IslandEconomy.value(s.state, "home", "spirit_timber") == timber - 5 and IslandEconomy.value(s.state, "home", "bronze_essence") == bronze - 5, "exact T2 costs from ancestor")
 	_expect(IslandProgression.duration(s.state, "wood", "spirit_timber") == 5, "workshop doubles future batch throughput")
 	var upgraded := _snapshot(s)
 	_expect(_send(s, "upgrade_island_facility", {"island_id": "wood", "facility_id": "workshop"}, "workshop-upgrade").duplicate and upgraded == _snapshot(s), "upgrade replay does not spend twice")
@@ -140,7 +146,7 @@ func _run() -> void:
 	_expect(_send(s, "configure_route", {"route_id": "wood_ore", "level": 2}).ok, "T2 upgrades operational cargo")
 	_expect(routes_before != _snapshot(s), "transport upgrade changes state")
 	_expect(_send(s, "upgrade_island_facility", {"island_id": "wood", "facility_id": "storage"}).ok, "T2 warehouse upgrade")
-	_expect(IslandProgression.capacity(s.state, "wood") == 200, "warehouse improves capacity")
+	_expect(IslandProgression.capacity(s.state, "wood") == 300, "warehouse improves capacity")
 	_expect(_send(s, "upgrade_island_facility", {"island_id": "ore", "facility_id": "extractor"}).ok, "T2 extractor upgrade")
 	# Transport bottleneck controlled by route capacity, not by animation or source rates.
 	var low := _clone(s)

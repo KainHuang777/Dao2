@@ -8,7 +8,11 @@
     "level_up_requirements": {
       "base_time": 120,
       "time_multiplier": 1.2,
-      "resources": { "lingli": 200 }
+      "resources": { "lingli": 200 },
+      "graded_resources": [
+        { "from_level": 1, "resources": { "spirit_timber": 20, "bronze_essence": 10 } },
+        { "from_level": 5, "resources": { "liquid": 5 } }
+      ]
     },
     "upgrade_requirements": {
       "level": 10,

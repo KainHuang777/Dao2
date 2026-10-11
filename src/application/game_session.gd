@@ -188,6 +188,7 @@ func get_view() -> Dictionary:
 	var can_breakthrough := false
 	var level_up_costs := {}
 	var breakthrough_req := {}
+	var breakthrough_target_name := ""
 	if era_def != null:
 		if state.level < int(era_def.max_level):
 			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
@@ -201,6 +202,7 @@ func get_view() -> Dictionary:
 		else:
 			var next_era = content.era(state.era_id + 1)
 			if next_era != null:
+				breakthrough_target_name = String(next_era.name)
 				var upg: Dictionary = era_def.get("upgrade_requirements", {})
 				var upg_caps: Dictionary = upg.get("capacity", {})
 				breakthrough_req = upg_caps
@@ -239,11 +241,13 @@ func get_view() -> Dictionary:
 		"can_breakthrough": can_breakthrough,
 		"level_up_costs": level_up_costs,
 		"breakthrough_requirements": breakthrough_req,
+		"breakthrough_target_name": breakthrough_target_name,
 		"era": era_view,
 		"resources": resources,
 		"skills": SkillSystem.view(content, state),
 		"buildings": buildings,
 		"next_objective": unlock.next_objective,
+		"early_guidance": Onboarding.early_guidance(state, era_def, resources, can_level_up, can_breakthrough, next_required),
 		"reincarnation_count": state.reincarnation_count,
 		"highest_era": state.highest_era,
 		"dao_heart": state.dao_heart.serialize() if state.dao_heart != null else "0",

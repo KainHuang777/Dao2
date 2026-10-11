@@ -67,7 +67,7 @@ func show_report(report: Dictionary) -> void:
 	_body_label.text = (
 		"實際離開時間：%s\n" % away_sec_str
 		+ "有效收益時間：%s\n" % eff_sec_str
-		+ "年歲變化：%s\n" % age_year_str
+		+ "目前年歲：%s\n" % age_year_str
 		+ "停止原因：%s\n" % stopped_text
 		+ "是否套用上限：%s" % cap_text
 	)

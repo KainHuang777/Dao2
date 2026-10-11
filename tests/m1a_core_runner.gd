@@ -1,4 +1,4 @@
-extends SceneTree
+﻿extends SceneTree
 
 const FIXTURE_PATH := "res://tests/fixtures/legacy/m0-b-v1.json"
 const CONTENT_DIR := "res://content"
@@ -113,7 +113,7 @@ func _test_new_game_blank_state() -> void:
 		_expect_equal(view.resources[resource_id].value, "0", "new game %s starts at zero" % resource_id)
 		_expect_equal(view.resources[resource_id].rate, "0", "new game %s has no rate" % resource_id)
 	_expect_equal(view.resources.lingli.cap, "100", "new game lingli cap")
-	_expect_equal(view.resources.money.cap, "200", "new game money cap")
+	_expect_equal(view.resources.money.cap, "300", "new game money cap")
 	_expect_equal(bool(view.resources.lingli.unlocked), true, "new game lingli unlocked")
 	for resource_id in ["money", "wood", "stone_low", "black_copper", "spirit_grass_low", "foundation_pill"]:
 		_expect_equal(bool(view.resources[resource_id].unlocked), false, "new game %s locked" % resource_id)
@@ -283,7 +283,7 @@ func _test_rates_and_caps() -> void:
 	var money_rate: AmountCompat = AmountCompat.try_parse(built_view.resources.money.rate).value
 	_expect(money_rate.compare_to(AmountCompat.from_number(1.03)) > 0, "wooden_house 1 money rate above 1.03")
 	_expect(money_rate.compare_to(AmountCompat.from_number(1.04)) < 0, "wooden_house 1 money rate below 1.04")
-	_expect_equal(built_view.resources.money.cap, "250", "wooden_house 1 money cap")
+	_expect_equal(built_view.resources.money.cap, "380", "wooden_house 1 money cap")
 	_expect_equal(built_view.resources.lingli.cap, "400", "hut 2 lingli cap")
 	var rates := Production.compute_rates(built.content, built.state.buildings)
 	var direct_rate: AmountCompat = AmountCompat.try_parse(rates.lingli.serialize()).value

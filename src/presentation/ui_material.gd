@@ -9,6 +9,9 @@ const JADE_SELECTED = preload("res://assets/ui/material/jade_selected.svg")
 const CINNABAR = preload("res://assets/ui/material/cinnabar_button.svg")
 const CARD = preload("res://assets/ui/material/jade_card.svg")
 const SILK_PANEL = preload("res://assets/ui/material/silk_panel.svg")
+const UIX_JADE = preload("res://assets/ui/material/uix_jade.svg")
+const UIX_SCROLL = preload("res://assets/ui/material/uix_scroll.svg")
+const UIX_SCROLL_COMPACT = preload("res://assets/ui/material/uix_scroll_compact.svg")
 static var _styles: Dictionary = {}
 static var _focus: StyleBoxFlat
 const INK = Color("343c3d")
@@ -49,6 +52,54 @@ static func hud_paper() -> StyleBoxTexture:
 	style.texture = SILK_PANEL
 	return style
 
+static func scroll_shell() -> StyleBoxTexture:
+	var style: StyleBoxTexture = hud_paper().duplicate()
+	style.texture = UIX_SCROLL
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		style.set_texture_margin(side, 20)
+	style.content_margin_left = 18
+	style.content_margin_right = 18
+	style.content_margin_top = 10
+	style.content_margin_bottom = 10
+	return style
+
+static func apply_jade_navigation(button: Button, selected: bool) -> void:
+	for state in ["normal", "hover", "pressed", "hover_pressed", "disabled"]:
+		var style: StyleBoxTexture = surface("jade", "pressed" if state == "hover_pressed" else state).duplicate()
+		style.texture = UIX_JADE
+		if selected and state in ["normal", "disabled"]:
+			style.modulate_color = Color(1.20, 1.20, 1.12)
+		button.add_theme_stylebox_override(state, style)
+	_set_button_ink(button, LIGHT_TEXT, LIGHT_TEXT if selected else Color("c5cec4"))
+
+static func compact_scroll_shell() -> StyleBoxTexture:
+	var style := scroll_shell()
+	style.texture = UIX_SCROLL_COMPACT
+	return style
+
+## Paper is supplied by the parent scroll; only interaction states add ink.
+## Keep the existing button content margins and hit rectangles.
+static func apply_scroll_button(button: Button, selected: bool = false) -> void:
+	apply_button(button)
+	for state in ["normal", "hover", "pressed", "hover_pressed", "disabled"]:
+		var fill := Color.TRANSPARENT
+		if selected:
+			fill = Color(0.20, 0.40, 0.34, 0.14)
+		if state == "hover":
+			fill = Color(0.20, 0.40, 0.34, 0.22 if selected else 0.09)
+		elif state in ["pressed", "hover_pressed"]:
+			fill = Color(0.20, 0.40, 0.34, 0.28)
+		var style := rounded(fill, 2)
+		style.content_margin_left = 12
+		style.content_margin_right = 12
+		style.content_margin_top = 4
+		style.content_margin_bottom = 4
+		if selected:
+			style.border_color = Color("426c5e")
+			style.border_width_bottom = 2
+		button.add_theme_stylebox_override(state, style)
+	_set_button_ink(button, Color("264f43") if selected else INK, DISABLED_INK)
+
 static func hud_resource_row(full: bool = false) -> StyleBoxFlat:
 	var key := "hud_resource:full" if full else "hud_resource:normal"
 	if _styles.has(key):
@@ -64,6 +115,7 @@ static func hud_resource_row(full: bool = false) -> StyleBoxFlat:
 	return style
 
 static func mark_paper_tab(button: Button, selected: bool) -> void:
+	button.add_theme_font_override("font", UiTypography.body_font())
 	apply_button(button)
 	if not _styles.has("paper_tab:idle"):
 		var base := rounded(Color.TRANSPARENT, 3)

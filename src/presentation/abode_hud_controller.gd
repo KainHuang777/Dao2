@@ -4,6 +4,9 @@ extends RefCounted
 ## Node references are non-owning; no second session or persistent state is created.
 
 var _abode: Node
+var _dao_seal: Node
+var _resource_chip_box: Node
+var _chips: Dictionary = {}
 var _has_guidance: bool = true
 var _messages_open: bool = true
 var _messages_explicit: bool = false
@@ -15,6 +18,15 @@ var _status_scroll: ScrollContainer
 var _status_more: Button
 var _weather_row: HBoxContainer
 var _compact_metrics := false
+var _goal_action: Button
+var _skills_action: Button
+var _sect_action: Button
+var _guidance_details: Button
+var _alchemy_action: Button
+var _goal_scroll: PanelContainer
+var _identity_text: VBoxContainer
+var _active_gatherable_missing: Array[String] = []
+var _current_guidance_text: String = ""
 
 func _init(abode: Node) -> void:
 	_abode = abode
@@ -92,6 +104,10 @@ func _build_hud() -> void:
 	_abode.hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_abode.hud.theme = UiTypography.create_theme()
 	layer.add_child(_abode.hud)
+	var bronze_frame := preload("res://src/presentation/components/hud_bronze_frame.gd").new()
+	bronze_frame.name = "BronzeFrame"
+	bronze_frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_abode.hud.add_child(bronze_frame)
 
 	_abode.header = PanelContainer.new()
 	_abode.header.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
@@ -112,22 +128,10 @@ func _build_hud() -> void:
 	var identity := HBoxContainer.new()
 	identity.add_theme_constant_override("separation", 12)
 	_abode.header_box.add_child(identity)
-	var seal := PanelContainer.new()
-	seal.custom_minimum_size = Vector2(52, 52)
-	var seal_style := UiMaterial.rounded(Color("405e56"), 26)
-	seal_style.border_color = Color("a99768")
-	seal_style.set_border_width_all(2)
-	seal.add_theme_stylebox_override("panel", seal_style)
-	var seal_text := Label.new()
-	seal_text.text = "道"
-	seal_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	seal_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	seal_text.add_theme_font_override("font", UiTypography.chapter_font())
-	seal_text.add_theme_font_size_override("font_size", 28)
-	seal_text.add_theme_color_override("font_color", UiMaterial.LIGHT_TEXT)
-	seal.add_child(seal_text)
-	identity.add_child(seal)
+	_dao_seal = preload("res://src/presentation/components/dao_seal.gd").new()
+	identity.add_child(_dao_seal)
 	var identity_text := VBoxContainer.new()
+	_identity_text = identity_text
 	identity_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	identity_text.add_theme_constant_override("separation", 2)
 	identity.add_child(identity_text)
@@ -135,6 +139,20 @@ func _build_hud() -> void:
 	identity_text.add_child(_abode.realm_label)
 	_rank_label = _abode._label("1/10 層 · 修煉中", 16, UiMaterial.INK, 0)
 	identity_text.add_child(_rank_label)
+
+	_abode.level_up_button = _abode._button("修為晉階", _abode._level_up_cultivation)
+	_abode.level_up_button.custom_minimum_size = Vector2(88, 44)
+	_abode.level_up_button.add_theme_font_size_override("font_size", 15)
+	_abode.level_up_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_abode.level_up_button.visible = false
+	identity.add_child(_abode.level_up_button)
+
+	_abode.breakthrough_button = _abode._button("突破至築基期", _abode._breakthrough_era)
+	_abode.breakthrough_button.custom_minimum_size = Vector2(104, 44)
+	_abode.breakthrough_button.add_theme_font_size_override("font_size", 14)
+	_abode.breakthrough_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_abode.breakthrough_button.visible = false
+	identity.add_child(_abode.breakthrough_button)
 	_training_bar = ProgressBar.new()
 	_training_bar.name = "CultivationProgress"
 	_training_bar.show_percentage = false
@@ -151,22 +169,6 @@ func _build_hud() -> void:
 		text_label.add_theme_constant_override("outline_size", 0)
 		text_label.add_theme_color_override("font_color", Color("393e35"))
 	_abode.realm_label.add_theme_font_override("font", UiTypography.emphasis_font())
-
-	var realm_action_box := HBoxContainer.new()
-	realm_action_box.add_theme_constant_override("separation", 8)
-	_abode.header_box.add_child(realm_action_box)
-
-	_abode.level_up_button = _abode._button("修為晉階", _abode._level_up_cultivation)
-	_abode.level_up_button.custom_minimum_size = Vector2(120, 44)
-	_abode.level_up_button.add_theme_font_size_override("font_size", 20)
-	_abode.level_up_button.visible = false
-	realm_action_box.add_child(_abode.level_up_button)
-
-	_abode.breakthrough_button = _abode._button("突破至築基期", _abode._breakthrough_era)
-	_abode.breakthrough_button.custom_minimum_size = Vector2(180, 44)
-	_abode.breakthrough_button.add_theme_font_size_override("font_size", 20)
-	_abode.breakthrough_button.visible = false
-	realm_action_box.add_child(_abode.breakthrough_button)
 
 	var buff_bar_script = preload("res://src/presentation/buff_hud_bar.gd")
 	_status_row = HBoxContainer.new()
@@ -250,9 +252,26 @@ func _build_hud() -> void:
 	_abode.objective_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_abode.objective_button.add_theme_font_override("font", UiTypography.body_font())
 	_abode.objective_button.add_theme_font_size_override("font_size", 16)
-	_abode.objective_button.pressed.connect(_abode._toggle_guidance)
-	_abode.header_box.add_child(_abode.objective_button)
-	UiMaterial.apply_button(_abode.objective_button)
+	_abode.objective_button.pressed.connect(func():
+		if int(_abode.session.state.era_id) in [2, 3]:
+			_open_current_goal()
+		else:
+			_abode._toggle_guidance())
+	var objective_row := HBoxContainer.new()
+	_goal_scroll = PanelContainer.new()
+	_goal_scroll.name = "GoalScroll"
+	_goal_scroll.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell())
+	_abode.hud.add_child(_goal_scroll)
+	_goal_scroll.add_child(objective_row)
+	_abode.objective_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	objective_row.add_child(_abode.objective_button)
+	_guidance_details = Button.new()
+	_guidance_details.text = "說明"
+	_guidance_details.custom_minimum_size = Vector2(44, 44)
+	_guidance_details.pressed.connect(_show_goal_explanation)
+	objective_row.add_child(_guidance_details)
+	UiMaterial.apply_scroll_button(_guidance_details)
+	UiMaterial.apply_scroll_button(_abode.objective_button)
 	UiMaterial.apply_button(_abode.level_up_button, "primary")
 	UiMaterial.apply_button(_abode.breakthrough_button, "primary")
 
@@ -272,12 +291,12 @@ func _build_hud() -> void:
 	_abode.toolbar.add_theme_constant_override("separation", 12)
 	_abode.hud.add_child(_abode.toolbar)
 
-	_abode.island_mode_button = _abode._button("空島", _abode._close_building_catalog)
+	_abode.island_mode_button = _dock_button("洞府", _abode._close_building_catalog)
 	_abode.toolbar.add_child(_abode.island_mode_button)
-	_abode.building_catalog_button = _abode._button("營造", _abode._open_building_catalog)
+	_abode.building_catalog_button = _dock_button("經營", _abode._open_building_catalog)
 	_abode.toolbar.add_child(_abode.building_catalog_button)
 
-	_abode.overview_button = _abode._button("遊歷", func(): _abode.feature_navigation.open_group("journey"))
+	_abode.overview_button = _dock_button("遊歷", func(): _abode.feature_navigation.open_group("journey"))
 	_abode.toolbar.add_child(_abode.overview_button)
 
 	_abode.motion_button = _abode._button("低特效", _abode._toggle_motion)
@@ -293,7 +312,7 @@ func _build_hud() -> void:
 	_abode.nine_realms_button = _abode._button("九界星圖", _abode._open_nine_realms_overview)
 	_abode.toolbar.add_child(_abode.nine_realms_button)
 
-	_abode.reincarnation_button = _abode._button("修行", func(): _abode.feature_navigation.open_group("cultivation"))
+	_abode.reincarnation_button = _dock_button("修行", func(): _abode.feature_navigation.open_group("cultivation"))
 	_abode.toolbar.add_child(_abode.reincarnation_button)
 
 	_abode.alchemy_button = _abode._button("煉丹房", _abode._toggle_alchemy_panel)
@@ -308,17 +327,22 @@ func _build_hud() -> void:
 	_abode._configure_more_menu()
 	_abode._configure_settings_menu()
 	UiMaterial.apply_button(_abode.settings_menu)
+	_resource_chip_box = HBoxContainer.new()
+	_resource_chip_box.add_theme_constant_override("separation", 8)
+	_abode.hud.add_child(_resource_chip_box)
+	_resource_chip_box.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	_abode.settings_menu.reparent(_resource_chip_box)
 	UiMaterial.apply_button(_abode.island_mode_button, "plaque", true)
 	UiMaterial.apply_button(_abode.building_catalog_button, "plaque", true)
 	UiMaterial.apply_button(_abode.overview_button)
 	UiMaterial.apply_button(_abode.more_menu)
 
 	_abode.hint_panel = PanelContainer.new()
-	var hint_style: StyleBoxTexture = _abode._style(Color(0.008, 0.035, 0.05, 0.88))
-	hint_style.content_margin_left = 14
-	hint_style.content_margin_right = 14
-	hint_style.content_margin_top = 8
-	hint_style.content_margin_bottom = 8
+	var hint_style: StyleBoxTexture = UiMaterial.scroll_shell()
+	hint_style.content_margin_left = 20
+	hint_style.content_margin_right = 20
+	hint_style.content_margin_top = 16
+	hint_style.content_margin_bottom = 16
 	_abode.hint_panel.add_theme_stylebox_override("panel", hint_style)
 	_abode.hud.add_child(_abode.hint_panel)
 	var hint_box := VBoxContainer.new()
@@ -331,7 +355,7 @@ func _build_hud() -> void:
 	hint_title_row.add_theme_constant_override("separation", 6)
 	hint_box.add_child(hint_title_row)
 
-	_abode.hint_heading = _abode._label("系統訊息", 17, Color("f1d58d"), 0)
+	_abode.hint_heading = _abode._label("系統訊息", 17, UiMaterial.INK, 0)
 	_abode.hint_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hint_title_row.add_child(_abode.hint_heading)
 
@@ -363,12 +387,43 @@ func _build_hud() -> void:
 	_abode.hint_log_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	_abode.hint_log_label.add_theme_font_override("normal_font", UiTypography.body_font())
 	_abode.hint_log_label.add_theme_font_size_override("normal_font_size", 17)
+	_abode.hint_log_label.add_theme_color_override("default_color", UiMaterial.INK)
 	_abode.hint_log_label.add_theme_constant_override("line_separation", 6)
 	_abode.hint_scroll.add_child(_abode.hint_log_label)
 
-	_abode.hint = _abode._label("", 17, Color("f2e8c7"), 1)
+	_abode.hint = _abode._label("", 17, UiMaterial.INK, 1)
 	_abode.hint.visible = false
 	hint_box.add_child(_abode.hint)
+	var goal_actions := HBoxContainer.new()
+	hint_box.add_child(goal_actions)
+	_goal_action = Button.new()
+	_goal_action.text = "前往目標"
+	_goal_action.custom_minimum_size.y = 44
+	_goal_action.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_goal_action.pressed.connect(_open_current_goal)
+	goal_actions.add_child(_goal_action)
+	UiMaterial.apply_button(_goal_action)
+	_skills_action = Button.new()
+	_skills_action.text = "可選技能"
+	_skills_action.custom_minimum_size.y = 44
+	_skills_action.pressed.connect(_open_optional_skills)
+	goal_actions.add_child(_skills_action)
+	UiMaterial.apply_button(_skills_action)
+	_sect_action = Button.new()
+	_sect_action.text = "可選宗門"
+	_sect_action.custom_minimum_size.y = 44
+	_sect_action.pressed.connect(func():
+		_close_goal_explanation()
+		_abode.feature_navigation.open("sect"))
+	goal_actions.add_child(_sect_action)
+	UiMaterial.apply_button(_sect_action)
+	_alchemy_action = Button.new()
+	_alchemy_action.text = "可選：煉丹"
+	_alchemy_action.custom_minimum_size.y = 44
+	_alchemy_action.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_alchemy_action.pressed.connect(func(): _abode.feature_navigation.open("alchemy"))
+	goal_actions.add_child(_alchemy_action)
+	UiMaterial.apply_button(_alchemy_action)
 	_abode.hint_panel.visible = true
 
 	_abode.footer = _abode._label("自動存檔運轉中", 18, Color("ffffff"), 0)
@@ -466,7 +521,8 @@ func _build_hud() -> void:
 	_abode.building_catalog.resource_grid.reparent(_abode.resource_scroll)
 	_abode.building_catalog.resource_grid.columns = 1
 	_abode.building_catalog.resource_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_abode._set_resource_display_mode(1)
+	_abode._set_resource_display_mode(_abode.resource_display_mode)
+	_abode.resource_ribbon.visible = false
 	_abode.action_bar = HBoxContainer.new()
 	_abode.action_bar.add_theme_constant_override("separation", 6)
 	_abode.hud.add_child(_abode.action_bar)
@@ -481,6 +537,9 @@ func _build_hud() -> void:
 	_abode.action_bar.add_child(_abode.gather_menu)
 	_abode.info_panel.reparent(_abode.building_catalog.detail_slot)
 	_abode.info_panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	for label in [_abode.detail_title, _abode.detail_body]:
+		label.add_theme_color_override("font_color", UiMaterial.INK)
+		label.add_theme_constant_override("outline_size", 0)
 	_abode.info_panel.custom_minimum_size = Vector2.ZERO
 	_abode.info_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_abode.building_catalog.building_selected.connect(_abode._select_building_from_catalog)
@@ -534,11 +593,9 @@ func _layout_for_size(vp: Vector2) -> void:
 	_abode.header.size.x = (vp.x - margin * 2.0 - 52.0) if portrait else minf(320.0, vp.x * 0.38)
 	_abode.toolbar.position = Vector2(margin, vp.y - margin - 56.0)
 	_abode.toolbar.size = Vector2(vp.x - margin * 2.0 if portrait else minf(480.0, vp.x - margin * 2.0), 56)
-	if _abode.building_catalog.visible and not portrait:
-		_abode.toolbar.position.x = vp.x - margin - _abode.toolbar.size.x
 	if _abode.settings_menu != null:
-		_abode.settings_menu.size = Vector2(44, 44)
-		_abode.settings_menu.position = Vector2(vp.x - margin - 44.0, margin)
+		_abode.settings_menu.custom_minimum_size = Vector2(44, 44)
+	_layout_hud_components(vp, margin)
 	_abode.viewbar.size = Vector2(220, 48)
 	_abode.footer.visible = false
 	_abode.action_bar.visible = false
@@ -549,14 +606,50 @@ func _layout_for_size(vp: Vector2) -> void:
 	_abode._layout_overlay_panels(vp, margin, portrait)
 	print("ABODE_LAYOUT mode=", _abode._layout_mode_name(), " size=", vp.round())
 
+func _dock_button(text: String, action: Callable) -> Button:
+	var button := preload("res://src/presentation/components/dock_button.gd").new()
+	button.text = text
+	button.add_theme_font_override("font", UiTypography.emphasis_font())
+	button.add_theme_font_size_override("font_size", 18)
+	button.pressed.connect(action)
+	return button
+
+func _layout_hud_components(vp: Vector2, margin: float) -> void:
+	if _resource_chip_box != null:
+		var home: bool = _abode.feature_navigation == null or _abode.feature_navigation.group == "home"
+		for chip in _chips.values():
+			chip.visible = home and _abode.resource_display_mode == 0 and bool(_abode._presentation_view().resources.get(chip.get_meta("resource_id", ""), {}).get("visible", false))
+		var chip_size: Vector2 = _resource_chip_box.get_combined_minimum_size()
+		_set_component_offsets(_resource_chip_box, Rect2(-margin - chip_size.x, margin, chip_size.x, chip_size.y))
+
+func _set_component_offsets(control: Control, bounds: Rect2) -> void:
+	# Do not reset anchors/offsets each HUD tick: unchanged geometry must not reflow.
+	var offsets := {"offset_left": bounds.position.x, "offset_top": bounds.position.y, "offset_right": bounds.end.x, "offset_bottom": bounds.end.y}
+	for property in offsets:
+		if not is_equal_approx(float(control.get(property)), float(offsets[property])):
+			control.set(property, offsets[property])
+
 func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
 	_compact_metrics = short_compact and not portrait
+	if short_compact and _abode.building_catalog.visible and not _abode.lifespan_banner.visible:
+		_status_row.visible = false
+	else:
+		_status_row.visible = _abode.buff_hud_bar.visible or _abode.lifespan_banner.visible
 	_abode.realm_progress_label.get_parent().visible = not _compact_metrics
-	var weather_parent: Node = _lifespan_text.get_parent() if _compact_metrics else _weather_row
+	# Short landscape keeps life and weather on separate rows; neither can wrap
+	# its unit into a third line when both compete for one narrow header.
+	var weather_parent: Node = _weather_row
+	var weather_host: Node = _identity_text if _compact_metrics else _abode.header_box
+	if _weather_row.get_parent() != weather_host:
+		_weather_row.reparent(weather_host, false)
+		if not _compact_metrics:
+			_abode.header_box.move_child(_weather_row, _lifespan_text.get_parent().get_index() + 1)
 	if _abode.chrono_label.get_parent() != weather_parent:
 		_abode.chrono_label.reparent(weather_parent, false)
-	_weather_row.visible = not _compact_metrics and not portrait
+	_weather_row.visible = not portrait
+	_lifespan_text.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_abode.chrono_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	_abode.crumb.visible = false
 	_abode.title_label.visible = false
 	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)
@@ -605,6 +698,9 @@ func _reflow_header() -> void:
 	var base_height: float = 88.0 if _abode.layout_mode == _abode.HudLayout.WIDE else 80.0
 	var needed: float = maxf(_abode.header.get_combined_minimum_size().y, _abode.header_box.get_combined_minimum_size().y + 20.0)
 	_abode.header.size.y = maxf(base_height, needed)
+	_goal_scroll.visible = _abode.objective_button.visible and (_abode.feature_navigation == null or _abode.feature_navigation.group == "home")
+	_goal_scroll.position = Vector2(_abode.header.position.x, _abode.header.get_rect().end.y + 8)
+	_goal_scroll.size = Vector2(_abode.header.size.x, _goal_scroll.get_combined_minimum_size().y)
 	_abode.viewbar.position = Vector2(_abode.header.position.x, _abode.header.position.y + _abode.header.size.y + 8.0)
 	_abode.viewbar.visible = false
 	_abode._reflow_resource_ribbon()
@@ -622,9 +718,13 @@ func _reflow_resource_ribbon() -> void:
 	_abode.building_catalog.resource_grid.columns = 1
 	_abode.building_catalog.resource_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_abode.resource_ribbon.position = Vector2(margin, _abode.header.position.y + _abode.header.size.y + 8.0)
+	if _goal_scroll.visible:
+		_abode.resource_ribbon.position.y = _goal_scroll.get_rect().end.y + 8
 	var resource_width: float = vp.x - margin * 2.0 if portrait else _abode.header.size.x
 	var resource_bottom: float = _abode.toolbar.position.y - 8.0
 	var resource_available: float = maxf(44.0, resource_bottom - _abode.resource_ribbon.position.y)
+	var short_alchemy: bool = _abode.feature_navigation != null and _abode.feature_navigation.page == "alchemy" and vp.x >= vp.y and vp.y < 500.0
+	_abode.resource_mode_buttons[0].get_parent().visible = not short_alchemy
 	var visible_count: int = 0
 	for resource_id in _abode.building_catalog.resource_order:
 		if bool(_abode.building_catalog._last_resources.get(resource_id, {}).get("visible", false)):
@@ -635,7 +735,7 @@ func _reflow_resource_ribbon() -> void:
 		var v_sep: float = 6.0
 		var grid_content_height: float = float(visible_count) * card_h + float(maxi(0, visible_count - 1)) * v_sep
 		# 6 (top margin) + 44 (mode_row) + 4 (separation) + grid_content_height + 6 (bottom margin) + 2 (subpixel buffer)
-		wanted_height = 62.0 + grid_content_height
+		wanted_height = (14.0 if short_alchemy else 62.0) + grid_content_height
 	var portrait_max: float = 132.0 if _abode.building_catalog.visible else minf(resource_available, 280.0)
 	var max_resource_height: float = minf(resource_available, portrait_max if portrait else resource_available)
 	_abode.resource_ribbon.size = Vector2(resource_width, minf(wanted_height, max_resource_height))
@@ -661,7 +761,7 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 	_abode.viewbar.visible = _abode.viewbar.visible and not management
 	_abode.footer.visible = false
 	if management:
-		var rail_width: float = vp.x - margin * 2.0 if portrait else minf(400.0, vp.x * 0.44)
+		var rail_width: float = vp.x - margin * 2.0 if portrait else _abode.feature_navigation.building_workspace_width(vp, _messages_open and _messages_explicit)
 		var rail_top: float = margin if detail_focus else (_abode.resource_ribbon.position.y + _abode.resource_ribbon.size.y + 8.0 if portrait else margin)
 		var rail_bottom: float = _abode.action_bar.position.y - 8.0 if portrait and _abode.action_bar.visible else _abode.toolbar.position.y - 8.0
 		if portrait and rail_bottom - rail_top < 104.0:
@@ -672,7 +772,19 @@ func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		_abode.building_catalog.call("set_layout_bounds", Rect2(margin if portrait else vp.x - margin - rail_width, rail_top, rail_width, maxf(72.0, rail_bottom - rail_top)))
 	# Retain the user's open/closed choice while a short management drawer needs the space.
 	var short_management := management and vp.y < 500.0
+	var action_host: Node = _abode.building_catalog.cultivation_actions if short_management and not portrait else _identity_text.get_parent()
+	for action in [_abode.level_up_button, _abode.breakthrough_button]:
+		if action.get_parent() != action_host:
+			action.reparent(action_host, false)
+	if short_management and not portrait:
+		_abode.header.visible = false
+		_abode.resource_ribbon.visible = false
 	_abode.hint_panel.visible = _messages_open and not portrait and (not short_management or _messages_explicit)
+	var starter_hut: Node2D = _abode.buildings.get("hut")
+	if not management and vp.y < 500.0 and not _messages_explicit and starter_hut != null and starter_hut.visible and starter_hut.level == 0:
+		_abode.hint_panel.visible = false
+	if management and not short_management and _abode.building_catalog.position.x - _abode.header.get_global_rect().end.x < 380.0:
+		_abode.hint_panel.visible = false
 	if _abode.hint_panel.visible:
 		var left_limit: float = _abode.header.get_global_rect().end.x + 12.0
 		var right_limit: float = _abode.building_catalog.position.x - 12.0 if management else vp.x - margin
@@ -726,6 +838,10 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	var status: String = "壽元已盡" if remain_life <= 0.0 else ("可突破" if can_bt else ("圓滿" if is_max_lvl else ("可晉階" if can_lvl else ("功滿待晉階" if req_sec > 0.0 and train_sec >= req_sec else "修煉中"))))
 	_rank_label.text = "%d/%d 層 · %s" % [cur_level, int(era_info.get("max_level", 10)), status]
 	_training_bar.value = 100.0 if is_max_lvl else clampf(train_sec / maxf(1.0, req_sec) * 100.0, 0.0, 100.0)
+	if _dao_seal != null:
+		_dao_seal.progress_ratio = 1.0 if is_max_lvl else clampf(train_sec / maxf(1.0, req_sec), 0.0, 1.0)
+		_dao_seal.text = era_name.substr(0, 1) if era_name.length() > 0 else "道"
+		_dao_seal.tooltip_text = "境界：%s\n壽元：%.0f / %.0f 祀" % [era_name, remain_life / 60.0, max_life / 60.0]
 	_training_bar.tooltip_text = "修煉 %.0f / %.0f 秒（累積 %.0f 秒）；晉階仍須符合材料與容量條件。" % [minf(train_sec, req_sec), req_sec, train_sec] if not is_max_lvl else "修煉已圓滿；突破仍須符合靈氣容量與資格條件。"
 	_abode.realm_progress_label.text = ("修煉 圓滿 · 可突破" if can_bt else "修煉 圓滿 · 擴充容量") if is_max_lvl else "修煉 %.0f / %.0f 秒" % [minf(train_sec, req_sec), req_sec]
 	_abode.realm_progress_label.tooltip_text = "需擴充靈氣容量並符合突破條件。" if is_max_lvl and not can_bt else "累積修煉 %.0f 秒；晉階仍須符合材料與資格條件。" % train_sec
@@ -740,6 +856,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode.chrono_label.text = ("%s · %s" if _compact_metrics else "天時 %s · %s") % [wt_name, sc_name]
 		_abode.chrono_label.tooltip_text = "%s\n%s" % [String(wt_info.get("desc", "")), String(sc_info.get("desc", ""))]
 
+	var was_lvl_vis: bool = _abode.level_up_button.visible
+	var was_bt_vis: bool = _abode.breakthrough_button.visible
 	_abode.level_up_button.visible = can_lvl
 	if can_lvl:
 		var cost_dict: Dictionary = view.get("level_up_costs", {})
@@ -751,17 +869,22 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode.level_up_button.tooltip_text = "消耗 %s" % (" · ".join(cost_strs) if cost_strs.size() > 0 else "功滿")
 
 	var cur_era: int = int(view.get("era_id", 1))
-	_abode.breakthrough_button.visible = (cur_level >= 10 and cur_era == 1)
+	var breakthrough_target := String(view.get("breakthrough_target_name", ""))
+	_abode.breakthrough_button.visible = is_max_lvl and not breakthrough_target.is_empty()
 	if _abode.breakthrough_button.visible:
 		_abode.breakthrough_button.disabled = not can_bt
 		if can_bt:
-			_abode.breakthrough_button.text = "★ 突破至築基期 ★"
+			_abode.breakthrough_button.text = "★ 突破至%s ★" % breakthrough_target
+			_abode.breakthrough_button.tooltip_text = "突破至%s；資格與容量已滿足。" % breakthrough_target
 		else:
 			var req_caps: Dictionary = view.get("breakthrough_requirements", {})
 			var req_lingli: int = int(req_caps.get("lingli", 500))
 			var cur_cap: int = int(_abode._parse_amount(view.resources.get("lingli", {}).get("cap", 0)).to_float())
 			_abode.breakthrough_button.text = "突破 · 容量未足"
 			_abode.breakthrough_button.tooltip_text = "靈氣容量需求 %d；當前 %d" % [req_lingli, cur_cap]
+
+	if was_lvl_vis != _abode.level_up_button.visible or was_bt_vis != _abode.breakthrough_button.visible:
+		_abode._reflow_header()
 
 	_abode.replay_breakthrough_button.visible = false
 	_abode.settings_menu.get_popup().set_item_disabled(_abode.settings_menu.get_popup().get_item_index(5), cur_era < 2)
@@ -793,10 +916,11 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode.achievement_panel.call("refresh_achievements", view.get("achievements", {}))
 	if _abode.buff_hud_bar != null:
 		var profile_buff := RuntimeProfile.begin()
-		_abode.buff_hud_bar.update_status(view, _abode.session.state.sect)
+		_abode.buff_hud_bar.update_status(view, _abode.session.state.sect, _abode.debug_auto_build_active)
 		RuntimeProfile.end("hud_buff", profile_buff)
 		_status_scroll.visible = _abode.buff_hud_bar.visible
-		_status_row.visible = _abode.buff_hud_bar.visible or _abode.lifespan_banner.visible
+		var short_management: bool = _abode.building_catalog.visible and _abode.hud.size.y < 500 and _abode.layout_mode == _abode.HudLayout.COMPACT
+		_status_row.visible = _abode.lifespan_banner.visible or (_abode.buff_hud_bar.visible and not short_management)
 	if _abode.realm_modal != null and _abode.realm_modal.visible:
 		_abode.realm_modal.call("refresh", view)
 	if _abode.sect_panel != null and _abode.sect_panel.visible and _abode.session != null and _abode.session.state != null:
@@ -830,6 +954,31 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 
 	RuntimeProfile.end("hud_status", profile_status)
 	var profile_resources := RuntimeProfile.begin()
+	if _resource_chip_box != null:
+		var ResourceChipScript = preload("res://src/presentation/components/resource_chip.gd")
+		var display_order = ["lingli", "money", "wood", "stone_low"]
+		for r_id in display_order:
+			var has_res: bool = view.resources.has(r_id) and bool(view.resources[r_id].visible)
+			if has_res:
+				var r_data: Dictionary = view.resources[r_id]
+				var val: float = _abode._parse_amount(r_data.value).to_float()
+				var cap: float = _abode._parse_amount(r_data.cap).to_float()
+				var chip = _chips.get(r_id)
+				if chip == null:
+					chip = ResourceChipScript.new()
+					_chips[r_id] = chip
+					chip.set_meta("resource_id", r_id)
+					_resource_chip_box.add_child(chip)
+				chip.visible = true
+				chip.setup(r_id, val, val >= cap)
+				var val_str := ("%.2f" % val).rstrip("0").trim_suffix(".")
+				var cap_str := ("%.2f" % cap).rstrip("0").trim_suffix(".")
+				chip.tooltip_text = "%s %s / %s · 點選經營查看產率、容量與採集" % [_abode.RESOURCE_NAMES.get(r_id, r_id), val_str, cap_str]
+			elif _chips.has(r_id):
+				_chips[r_id].visible = false
+		if _abode.settings_menu != null and _abode.settings_menu.get_parent() == _resource_chip_box:
+			_resource_chip_box.move_child(_abode.settings_menu, -1)
+
 	var res_lines := []
 	var res_order := ["lingli", "money", "wood", "stone_low", "black_copper", "spirit_grass_low", "foundation_pill"]
 	for r_id in res_order:
@@ -844,7 +993,14 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 
 	_abode.mini_resource_id = "lingli"
 	var objective_value: Variant = view.get("next_objective", null)
-	_has_guidance = objective_value is Dictionary
+	var early: Dictionary = view.get("early_guidance", {})
+	_has_guidance = objective_value is Dictionary or not early.is_empty()
+	_guidance_details.visible = not early.is_empty() and int(view.era_id) in [2, 3]
+	_goal_action.visible = _has_guidance
+	_alchemy_action.visible = bool(early.get("optional_alchemy", false))
+	_skills_action.visible = bool(early.get("optional_skills", false))
+	_sect_action.visible = bool(early.get("optional_sect", false))
+	_goal_action.text = "前往主目標" if _skills_action.visible or _sect_action.visible else "前往目標"
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
 	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)
 	if objective_value is Dictionary:
@@ -906,9 +1062,22 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 			if String(milestone.building) == objective_id:
 				target_level = int(milestone.level)
 				break
-		objective_text = "下一步：將%s升至 %d 階" % [_abode.BUILDING_NAMES.get(objective_id, "營造設施"), target_level]
+		var cur_bld: Dictionary = view.get("buildings", {}).get(objective_id, {})
+		var cur_lvl: int = int(cur_bld.get("level", 0))
+		var bld_name: String = _abode.BUILDING_NAMES.get(objective_id, "營造設施")
+		if not _active_gatherable_missing.is_empty():
+			var g_names: Array[String] = []
+			for g_id in _active_gatherable_missing:
+				g_names.append(String(_abode.RESOURCE_NAMES.get(g_id, g_id)))
+			objective_text = "下一步：點擊【%s】採集按鈕" % "、".join(g_names)
+		elif cur_lvl == 0:
+			objective_text = "下一步：建造【%s】" % bld_name
+		else:
+			objective_text = "下一步：將%s升至 %d 階" % [bld_name, target_level]
+	elif not early.is_empty():
+		objective_text = String(early.title)
 	_abode.objective_button.text = objective_text
-	_abode.objective_button.tooltip_text = _abode.hint.text
+	_abode.objective_button.tooltip_text = _current_guidance_text if not _current_guidance_text.is_empty() else _abode.hint.text
 	_abode.building_catalog.call("set_context", _abode.realm_label.text, objective_text)
 	_abode._reflow_header()
 
@@ -926,17 +1095,35 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		var profile_navigation := RuntimeProfile.begin()
 		_abode.feature_navigation.refresh(view)
 		_abode.feature_navigation.layout(_abode.hud.size, view)
+		_layout_hud_components(_abode.hud.size, 28.0 if _abode.layout_mode == _abode.HudLayout.WIDE else 16.0)
 		RuntimeProfile.end("hud_navigation", profile_navigation)
 
 func _update_onboarding_guidance(view: Dictionary) -> void:
 	var objective_value: Variant = view.get("next_objective", null)
+	var early: Dictionary = view.get("early_guidance", {})
+	if not early.is_empty():
+		_active_gatherable_missing.clear()
+		_abode.building_catalog.call("clear_gather_highlights")
+		# A stable key avoids replacing command/save-failure feedback every tick.
+		var key := "early:%d:%s:%s:%s:%s" % [int(view.level), String(early.route), str(view.can_level_up), String(view.resources.lingli.cap), String(early.text)]
+		if key != _abode.last_guidance_key:
+			_abode.last_guidance_key = key
+			_abode.hint_heading.text = "系統訊息 · 金丹首段" if int(view.era_id) == 3 or early.get("step") == "F7" else ("系統訊息 · 雙島供給" if int(view.era_id) == 2 else "系統訊息 · 築基準備")
+			_abode.hint.text = String(early.text)
+			_current_guidance_text = _abode.hint.text
+			_push_hint_log(_abode.hint.text)
+		return
 	if objective_value == null:
+		_active_gatherable_missing.clear()
+		_abode.building_catalog.call("clear_gather_highlights")
 		var done_key := "complete:%d" % int(view.get("era_id", 1))
 		if done_key == _abode.last_guidance_key:
 			return
 		_abode.last_guidance_key = done_key
 		_abode.hint_heading.text = "系統訊息 · 新手引導"
-		_abode.hint.text = "入門建築引導已完成。可在「經營」（營造簿）查看資源庫存、每秒產率與後續設施需求。"
+		_abode.hint.text = "已入築基。下一段可到經營→空島保留原檔並啟用產業，再開拓青木與玄礦。" if int(view.get("era_id", 1)) == 2 else "可在「經營」查看資源庫存、每秒產率與後續設施需求。"
+		_current_guidance_text = _abode.hint.text
+		_push_hint_log(_abode.hint.text)
 		return
 
 	var objective: Dictionary = objective_value
@@ -956,27 +1143,48 @@ func _update_onboarding_guidance(view: Dictionary) -> void:
 				gatherable_missing.append(String(resource_id))
 
 	missing.sort()
+	gatherable_missing.sort()
+	_active_gatherable_missing = gatherable_missing
+
+	if not _active_gatherable_missing.is_empty():
+		_abode.building_catalog.call("highlight_gather_buttons", _active_gatherable_missing)
+	else:
+		_abode.building_catalog.call("clear_gather_highlights")
+
 	var state_key := "ready" if missing.is_empty() else "need:" + ",".join(missing)
 	var guidance_key := "%s:%s" % [building_id, state_key]
-	if guidance_key == _abode.last_guidance_key:
-		return
-	_abode.last_guidance_key = guidance_key
-	_abode.hint_heading.text = "系統訊息 · 新手引導"
 	var building_name: String = _abode.BUILDING_NAMES.get(building_id, building_id)
 	var level: int = int(building.get("level", 0))
 	var action: String = "建造" if level == 0 else "升級"
+
+	var new_hint_text := ""
 	if building_id == "hut" and "lingli" in missing and "lingli" in gatherable_missing:
-		_abode.hint.text = "初入道途，可於左側資源面板點擊靈氣旁的「採集」（或點擊島上茅屋開啟右側「聚氣引靈」）；累積足夠後在營造簿建造茅屋。茅屋啟動後會逐秒產生靈氣。"
+		new_hint_text = "初入道途，可於左側資源面板點擊靈氣旁的「採集」（或點擊島上茅屋開啟右側「聚氣引靈」）；累積足夠後在營造簿建造茅屋。茅屋啟動後會逐秒產生靈氣。"
 	elif building_id == "wooden_house" and "money" in missing and "money" in gatherable_missing:
-		_abode.hint.text = "茅屋已立，接下來需要第一筆金錢。請於左側資源面板點擊金錢旁的「採集」，足額後於營造簿建造木屋以啟動金錢產線。"
+		new_hint_text = "茅屋已立，接下來需要第一筆金錢。請於左側資源面板點擊金錢旁的「採集」（閃爍提示），足額後於營造簿建造木屋以啟動金錢產線。"
+	elif not gatherable_missing.is_empty():
+		var gather_names: Array[String] = []
+		for res_id in gatherable_missing:
+			gather_names.append(String(_abode.RESOURCE_NAMES.get(res_id, res_id)))
+		new_hint_text = "下一步：%s【%s】尚缺材料。請點擊左側【%s】旁的「採集」（閃爍提示）手動積累資源。" % [action, building_name, "、".join(gather_names)]
+	elif missing.is_empty() and building_id == "hut" and level == 0:
+		new_hint_text = "靈氣已足，點擊島上亮起的茅屋或「點擊建造茅屋」提示即可建造，完成後自動開啟營造簿。"
 	elif missing.is_empty():
-		_abode.hint.text = "下一步：資源已足，前往「經營」（營造簿）選擇【%s】並%s。完成後再依清單提示推進下一段建築流程。" % [building_name, action]
+		new_hint_text = "下一步：資源已足，前往「經營」（營造簿）選擇【%s】並%s。完成後再依清單提示推進下一段建築流程。" % [building_name, action]
 	else:
 		var missing_names: Array[String] = []
 		for resource_id in missing:
 			missing_names.append(String(_abode.RESOURCE_NAMES.get(resource_id, resource_id)))
 		var gather_text := "可於左側資源面板手動「採集」已解鎖項目；其他需求等待現有產線入庫。" if not gatherable_missing.is_empty() else "請等待已建產線入庫。"
-		_abode.hint.text = "下一步：前往「經營」（營造簿）%s【%s】。尚缺：%s。%s" % [action, building_name, "、".join(missing_names), gather_text]
+		new_hint_text = "下一步：前往「經營」（營造簿）%s【%s】。尚缺：%s。%s" % [action, building_name, "、".join(missing_names), gather_text]
+
+	_current_guidance_text = new_hint_text
+
+	if guidance_key != _abode.last_guidance_key:
+		_abode.last_guidance_key = guidance_key
+		_abode.hint_heading.text = "系統訊息 · 新手引導"
+		_abode.hint.text = new_hint_text
+		_push_hint_log(_abode.hint.text)
 
 func _refresh_detail() -> void:
 	var view: Dictionary = _abode.session.get_view()
@@ -1023,14 +1231,81 @@ func _show_help() -> void:
 	_abode._layout_for_size(_abode.hud.size)
 
 func _toggle_guidance() -> void:
+	# Reopening reads current progress, including after a reload or failed save.
+	_abode.last_guidance_key = ""
+	_update_onboarding_guidance(_abode.session.get_view())
 	_messages_open = not _abode.hint_panel.visible
 	_messages_explicit = _messages_open
 	_abode._layout_for_size(_abode.hud.size)
+
+func _open_current_goal() -> void:
+	var view: Dictionary = _abode.session.get_view()
+	var objective: Variant = view.get("next_objective")
+	var target := String(objective.id) if objective is Dictionary else String(view.get("early_guidance", {}).get("route", ""))
+	if target != "cultivation":
+		_close_goal_explanation()
+	if target == "cultivation":
+		_abode.feature_navigation.home()
+		_abode.hint.text = String(view.early_guidance.text)
+		_push_hint_log(_abode.hint.text)
+	elif target == "outposts":
+		_abode.feature_navigation.open("outposts")
+	elif target == "transport":
+		var route_id := String(view.early_guidance.get("route_id", ""))
+		if route_id.is_empty():
+			_abode.feature_navigation.open("transport")
+		else:
+			_abode.feature_navigation.open_transport(route_id)
+	elif target == "manufacturing":
+		var early: Dictionary = view.early_guidance
+		if early.has("island_id"):
+			_abode.feature_navigation.open_manufacturing(String(early.island_id), String(early.get("recipe_id", "")))
+		else:
+			_abode.feature_navigation.open("manufacturing")
+	elif target == "beasts":
+		_abode.feature_navigation.open("beasts")
+	elif view.buildings.has(target):
+		if not _active_gatherable_missing.is_empty():
+			if _abode.feature_navigation != null:
+				_abode.feature_navigation.home()
+			if _abode.resource_display_mode == 0:
+				_set_resource_display_mode(1)
+			var g_names: Array[String] = []
+			for g_id in _active_gatherable_missing:
+				g_names.append(String(_abode.RESOURCE_NAMES.get(g_id, g_id)))
+			_abode.hint.text = "請點擊左側【%s】旁的「採集」按鈕手動積累資源（按鈕閃爍提示）。" % "、".join(g_names)
+			_push_hint_log(_abode.hint.text)
+			_abode.building_catalog.call("highlight_gather_buttons", _active_gatherable_missing)
+		else:
+			_abode.feature_navigation.open("buildings")
+			_abode._select_building_from_catalog(target)
+
+func _open_optional_skills() -> void:
+	var target := String(_abode.session.get_view().early_guidance.get("skills_route", "skills"))
+	_close_goal_explanation()
+	if target == "skills":
+		_abode.feature_navigation.open("skills")
+	else:
+		_abode.feature_navigation.open("buildings")
+		_abode._select_building_from_catalog(target)
+
+func _close_goal_explanation() -> void:
+	_messages_open = false
+	_messages_explicit = false
+
+func _show_goal_explanation() -> void:
+	# Reading replaces the active workspace; opening its destination closes it.
+	# This keeps compact building costs and optional actions mutually accessible.
+	_abode.feature_navigation.home()
+	_toggle_guidance()
 
 func show_messages() -> void:
 	_messages_open = true
 	_messages_explicit = true
 	_abode._layout_for_size(_abode.hud.size)
+
+func messages_are_explicit() -> bool:
+	return _messages_open and _messages_explicit
 
 func _toggle_hint_expand() -> void:
 	_abode._hint_expanded = not _abode._hint_expanded
@@ -1055,19 +1330,19 @@ func _rebuild_hint_log_display() -> void:
 		return
 	var lines := []
 	for entry in _abode._message_history:
-		var col: String = "e8e1d2"
+		var col: String = "393e35"
 		if entry.contains("受阻") or entry.contains("不足"):
-			col = "e4aea0"
+			col = "8a3028"
 		elif entry.contains("突破") or entry.contains("大圓滿"):
-			col = "dfc38a"
+			col = "735322"
 		elif entry.contains("建造") or entry.contains("升級"):
-			col = "b8cec1"
+			col = "315b4c"
 		elif entry.contains("煉製") or entry.contains("靈丹"):
-			col = "c7cbd5"
+			col = "394d67"
 		elif entry.contains("採集") or entry.contains("採伐"):
-			col = "b8cec1"
+			col = "315b4c"
 		elif entry.contains("[DEBUG]"):
-			col = "dfc38a"
+			col = "735322"
 		lines.append("[color=#%s]%s[/color]" % [col, entry])
 	_abode.hint_log_label.text = "\n".join(lines)
 	if _abode.hint_scroll != null:

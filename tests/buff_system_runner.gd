@@ -248,7 +248,7 @@ func test_buff_hud_bar_ui() -> void:
 	hud_bar.update_buffs([])
 	_assert(hud_bar.visible == false, "BuffHudBar should hide again when buffs clear")
 	_assert(hud_bar.get_child_count() == 0, "BuffHudBar children should be cleaned up")
-	var status_view := {"beast": {"can_feed": false}, "fortune": {"has_pending": false}}
+	var status_view := {"era_id": 3, "beast": {"can_feed": false}, "fortune": {"has_pending": false}}
 	var sect_view := {"unlocked": true, "active_expedition": {"duration": 30, "elapsed": 29}}
 	_assert(BuffHudBar.status_items(status_view, sect_view).is_empty(), "unfinished expeditions and unavailable feeding must not notify")
 	sect_view.active_expedition.elapsed = 30

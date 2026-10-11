@@ -43,10 +43,20 @@ func reject(state: GameState, operation: Callable, error: String) -> void:
 
 func wait_recipe(s: GameSession, id: String, count: int = 1) -> bool:
 	for _attempt in range(1500):
-		var result := craft(s.state, id, "herb" if id == "liquid" else "home", count)
+		var result := craft(s.state, id, "home", count)
 		if result.ok:
 			s.advance_time(IslandEconomy.DURATIONS[id] * count)
-			return not s.state.economy.jobs.has("herb" if id == "liquid" else "home")
+			return not s.state.economy.jobs.has("home")
+		if not result.error in ["INSUFFICIENT_RESOURCE", "JOB_BUSY"]:
+			return false
+		s.advance_time(10)
+	return false
+
+func wait_craft(s: GameSession, id: String, island: String) -> bool:
+	for _attempt in range(150):
+		var result := craft(s.state, id, island, 1, true)
+		if result.ok:
+			return true
 		if not result.error in ["INSUFFICIENT_RESOURCE", "JOB_BUSY"]:
 			return false
 		s.advance_time(10)
@@ -56,7 +66,7 @@ func run() -> Dictionary:
 	content = ContentLoader.load_directory("res://content").content
 	expect(content.era(3) == null, "release Era3 absent")
 	var baseline_caps := Production.compute_caps(content, {"storage_lingli": 10}, 2, 1)
-	expect(baseline_caps.lingli.to_float() == 1100, "audit: capped release storage blocks 2000 requirement")
+	expect(baseline_caps.lingli.to_float() == 1700, "audit: capped release storage blocks 2000 requirement")
 	expect(IslandProgression.attach(content).ok, "normal D2 attachment")
 	expect(content.era(3) != null, "normal Era3 present")
 	var cycle := content.processing_catalog.duplicate(true)
@@ -71,6 +81,17 @@ func run() -> Dictionary:
 	for _i in range(2):
 		expect(build(s, "storage_lingli"), "earned proposed capacity expansion")
 	for era in [1, 2]:
+		if era == 2:
+			expect(send(s, "activate_islands").ok, "normal D2 activation from earned T1")
+			expect(send(s, "open_island", {"island_id": "wood"}).ok, "T2 opening wood")
+			expect(send(s, "open_island", {"island_id": "ore"}).ok, "T2 opening ore")
+			for route in IslandEconomy.ROUTES:
+				if IslandEconomy.ROUTES[route][0] != "herb":
+					expect(send(s, "configure_route", {"route_id": route}).ok, "route " + route)
+			for pair in [["spirit_timber", "wood"], ["bronze_essence", "ore"]]:
+				expect(wait_craft(s, pair[0], pair[1]), "start T2 producer " + pair[0])
+			for _i in range(30):
+				expect(wait_recipe(s, "liquid"), "batched liquid stock for the Level10 gate")
 		for _attempt in range(500):
 			if s.state.level == 10:
 				break
@@ -80,12 +101,11 @@ func run() -> Dictionary:
 				s.advance_time(10)
 		expect(s.state.level == 10, "earned max level Era" + str(era))
 		if era == 2:
-			expect(build(s, "foundation_reservoir") and build(s, "foundation_reservoir"), "earned Era2 T1 capacity facility")
 			var blocked_content: GameContent = ContentLoader.load_directory("res://content").content
 			blocked_content.eras[3] = content.eras[3]
 			var blocked := s.state.duplicate_state()
 			reject(blocked, func(): return CommandProcessor.apply(blocked_content, blocked, {"type": "breakthrough_era", "payload": {}}), "INSUFFICIENT_CAPACITY")
-			expect(send(s, "activate_islands").ok, "normal D2 activation from earned T1")
+			expect(build(s, "foundation_reservoir") and build(s, "foundation_reservoir"), "earned Era2 T1 capacity facility")
 			reject(s.state, func(): return IslandEconomy.command(content, s.state, "open_island", {"island_id": "herb"}), "ERA_REQUIREMENT")
 			for id in ["formation_core", "golden_core_pill", "spirit_grass_100y"]:
 				expect(IslandEconomy.value(s.state, "home", id) == 0, "no future material before Era3 " + id)
@@ -94,6 +114,8 @@ func run() -> Dictionary:
 		return finish()
 	for island in ["wood", "ore", "herb"]:
 		s.advance_time(30)
+		if bool(s.state.economy.islands[island].get("opened", false)):
+			continue
 		var wood := IslandEconomy.value(s.state, "home", "wood")
 		var stone := IslandEconomy.value(s.state, "home", "stone_low")
 		expect(send(s, "open_island", {"island_id": island}).ok, "T1 opening " + island)
@@ -103,12 +125,13 @@ func run() -> Dictionary:
 	s.advance_time(31)
 	expect(IslandEconomy.value(s.state, "home", "spirit_grass_100y") > 0, "Danxia raw delivered, no granted intermediate")
 	for pair in [["spirit_timber", "wood"], ["bronze_essence", "ore"]]:
-		expect(craft(s.state, pair[0], pair[1], 1, true).ok, "start T2 producer " + pair[0])
+		if not s.state.economy.jobs.has(pair[1]):
+			expect(craft(s.state, pair[0], pair[1], 1, true).ok, "start T2 producer " + pair[0])
 	s.advance_time(61)
 	var expansion_timber := IslandEconomy.value(s.state, "home", "spirit_timber")
 	var expansion_bronze := IslandEconomy.value(s.state, "home", "bronze_essence")
 	expect(send(s, "upgrade_island_facility", {"island_id": "herb", "facility_id": "workshop"}).ok, "earned T2 spent on Danxia expansion before cultivation")
-	expect(IslandEconomy.value(s.state, "home", "spirit_timber") == expansion_timber - 2 and IslandEconomy.value(s.state, "home", "bronze_essence") == expansion_bronze - 2, "expansion competes with T3 inputs")
+	expect(IslandEconomy.value(s.state, "home", "spirit_timber") == expansion_timber - 5 and IslandEconomy.value(s.state, "home", "bronze_essence") == expansion_bronze - 5, "expansion competes with T3 inputs")
 	reject(s.state, func(): return craft(s.state, "formation_core", "herb"), "RECIPE_ISLAND_REQUIREMENT")
 	var timber := IslandEconomy.value(s.state, "home", "spirit_timber")
 	var bronze := IslandEconomy.value(s.state, "home", "bronze_essence")

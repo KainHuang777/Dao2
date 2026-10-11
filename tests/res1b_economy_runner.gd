@@ -286,29 +286,26 @@ func _test_persistence() -> void:
 		env.erase("checksum")
 		env.checksum = SaveCodec.compute_checksum(env)
 		_expect(not SaveCodec.decode(JSON.stringify(env)).ok, "reject malformed/unknown " + mode)
-	# Preserve schema 2 bytes before schema 3 commit; failure never advances in-memory state.
+	# v1-era payload (schema_version < 4) is rescued, wiped, and re-seeded as a fresh v2 game.
 	s = _session(false)
-	var old: Dictionary = JSON.parse_string(_encode(s))
-	old.schema_version = 2
-	old.rules_version = "core-flow-5-session-receipts"
-	old.state.erase("economy")
-	old.erase("checksum")
-	old.checksum = SaveCodec.compute_checksum(old)
-	var original := JSON.stringify(old)
-	_expect(SaveCodec.migration_preview(original).ok, "schema2 migration preview")
+	var legacy3: Dictionary = JSON.parse_string(_encode(s))
+	legacy3.schema_version = 3
+	legacy3.erase("checksum")
+	legacy3.checksum = SaveCodec.compute_checksum(legacy3)
+	var legacy3_json := JSON.stringify(legacy3)
 	var adapter := MemoryAdapter.new()
-	var slots := SaveSlots.new(adapter)
-	_expect(slots.commit(original, s.state.revision).ok, "seed isolated old slot")
+	adapter.fail_key = SaveManager.SAVE_PRE_V2_RESCUE_KEY
+	var legend_slots := SaveSlots.new(adapter)
+	_expect(legend_slots.commit(legacy3_json, 3).ok, "seed isolated old slot")
 	SaveManager.configure(s.content, adapter)
-	var restored: GameState = SaveManager.current_state()
-	_expect(restored.economy.is_empty(), "schema2 decode does not enable economy")
-	s.state = restored
-	_expect(_send(s, "migrate_processing").ok, "explicit activation after preview")
-	adapter.fail_key = SaveManager.SCHEMA2_ARCHIVE_KEY
-	_expect(not SaveManager.save(s.state, META).ok, "archive failure blocks migration commit")
+	_expect(SaveManager.current_state() == null, "rescue write failure keeps old-save brick state")
+	_expect(not SaveManager.save(s.state, META).ok, "load fault blocks save until wipe retries")
 	adapter.fail_key = ""
-	_expect(SaveManager.save(s.state, META).ok, "migration retry")
-	_expect(adapter.data[SaveManager.SCHEMA2_ARCHIVE_KEY] == original, "original schema2 bytes retained")
+	var rescued := SaveManager.current_state()
+	_expect(rescued != null and rescued.economy.is_empty(), "old save forces fresh v2 game")
+	_expect(SaveManager.consume_forced_reset() and not SaveManager.is_forced_reset(), "forced reset flag set once")
+	_expect(adapter.data[SaveManager.SAVE_PRE_V2_RESCUE_KEY] == legacy3_json, "original v1-era bytes retained in rescue key")
+	_expect(SaveManager.save(rescued, META).ok, "fresh v2 state persists after wipe")
 	# Offline atomic copy + cursor under payload, readback and index failures.
 	for phase in ["payload", "readback", "index"]:
 		s = _chain()

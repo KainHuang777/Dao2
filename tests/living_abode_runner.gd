@@ -37,8 +37,12 @@ func _run() -> void:
 		_fail("Unbuilt hut must be visible as a ghost blueprint when affordable")
 		return
 	abode._pick_world(abode.buildings["hut"].to_global(Vector2(0, -60)))
-	if abode.session.state.buildings.get("hut", 0) != 1 or abode.selected_id != "hut" or not abode.info_panel.visible or not abode.building_catalog.visible:
-		_fail("Clicking unbuilt hut blueprint must directly construct hut and open management detail")
+	if abode.session.state.buildings.get("hut", 0) != 1 or abode.selected_id != "" or abode.info_panel.visible or not abode.building_catalog.visible:
+		_fail("Clicking unbuilt hut blueprint must directly construct hut and open the management catalog")
+		return
+	abode._select_building_from_catalog("hut")
+	if abode.selected_id != "hut" or not abode.info_panel.visible:
+		_fail("Catalog must restore the built hut selection for upgrade")
 		return
 
 	abode.state.qi = 100.0

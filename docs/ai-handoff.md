@@ -1,3 +1,40 @@
+2026-10-11 **UIX-R4-F3 有界修訂 DONE**：依使用者回饋，建築圖56→88px（約57%放大），卡內改左圖／右資訊：名稱階級＋小動作在右上，材料ICON與庫存／需求在右下，保留雙欄與外環／壓暗禁用。四相關回歸／Web匯出壓縮exit0，三橫式IAB／實付升級／圖像展開詳情返回通過；人工比例／觸控／高DPR待驗。[驗收](verification/uix-r4-f3.md)。此段覆蓋F2卡內上下排版，其他契約保持。下一New Chat收比例回饋，不開大型下一任務。
+2026-10-11 **UIX-R4-F2 有界修訂 DONE**：依使用者兩張參考圖恢復遊戲式雙欄建築卡；56px手繪縮圖、材料與庫存／需求納入同一卡框，僅保留縮圖外環。操作縮窄至64px／至少44px命中，缺料／前置／滿階壓暗。短橫式完整抽屜雙欄、暫收左側資訊，晉階／突破移至固定頁首，關閉恢復；桌面主動訊息可回單欄。最終六相關回歸、Web匯出／壓縮exit0，三橫式IAB／實付建造、升級、內捲、詳情返回與重載保留通過；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r4-f2.md)。此段覆蓋R4-F1常態單欄，保留歷史。下一New Chat收本輪回饋，不開下一大型任務。
+2026-10-11 **UIX-R3-F2 有界修訂 DONE**：依使用者核定統一資源三態／功能分頁／單選篩選的紙面＋青玉選中樣式與黑體，CloseSeal撤黑底；Era1隱藏空島／製造／運輸且情境路由回建築，Era2恢復，煉丹Era1保持。七項相關回歸exit0、Web匯出／壓縮、三橫式Web與隔離Era1／Era2驗收通過。新增[UI UX共用規範](19-ui-ux-guidelines.md)並接AGENTS必讀；人工／觸控／高DPR仍待驗。[驗收](verification/uix-r3-f2.md)。本段覆蓋R3-F1墨字／朱砂小印設計，歷史保留。
+
+2026-10-11 **UIX-R3-F1 有界修訂 DONE**：分頁改卷首墨字目錄與朱砂小印，移除方塊底色／底線；可用項目按原順序排前、未開放項目灰化並標示『未開』排後，遠期隱藏保持，分頁不再使用tooltip。四項相關CLI回歸、Web匯出／壓縮與三橫式Web滑鼠切頁／返回通過；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r3-feedback.md)。
+
+2026-10-11 **UIX-R4-F1 有界修訂 DONE**：依使用者截圖移除重複橫向材料條、僅保留縮圖外環；營造簿上限400px單欄、56px列高／40px縮圖。六項相關回歸與三橫式Web滑鼠建造／升階／內捲／詳情返回通過，一般Web已同步；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r4-feedback.md)。
+
+2026-10-10 **最新接手：UIX-R4 建築清單圖形化有界DONE**。使用者明確指定R4；62/62 exit0及三橫式桌面Web通過，建造升級仍走原signal／Session。圖卡雙欄／短版單欄、就地材料圖示／庫存需求／局部不足、等級點與材料環、詳情紙面已交付；未加世界地塊。[驗收與命令](verification/uix-r4.md)，artifacts/uix-r4含截图、原圖、逐字提示、QC及全量log。保留所有dirty成果。下一New Chat收R4美術回饋，再界定UIX-R5；人工／實體觸控／高DPR待驗，不重跑已接受FPS／保存矩陣或暫緩冷啟動。
+
+2026-10-10 **最新接手：UIX-R3來源／CLI／桌面Web已交付**。使用者已核定繼續UI改造，過往「未核定R3」為歷史。共用分頁／44px關閉、三態接入、分頁記憶回退、資源矩陣已完成；命令／日誌／三橫式與未驗限制見 [驗收](verification/uix-r3.md)。保留所有dirty成果；下一New Chat先收R3美術回饋，再續UIX-R4建築清單（必讀docs/08）。EARLY-FLOW人類節奏／觸控／高DPR保持待驗，勿重跑已接受FPS／保存矩陣或暫緩冷啟動。
+
+2026-10-10 **UIX-R2-F1 卷軸試玩修訂已交付（美術回饋待確認）**：不放大外框，分頁／返回／目標／說明移除內層厚紙牌，選中用淡青玉與細底線，短卷軸換細青銅軸。HUD52、導航、responsive、B110與三尺寸原生渲染exit0；Web匯出壓縮／桌面滑鼠切製造／800×360返回通過。最終美術／實體觸控／高DPR仍待驗，節奏規則不改。
+[修改與驗收](verification/uix-r2-f1.md)
+
+2026-10-10 **EARLY-FLOW1-D 自然流程有界 PASS；完整 D 仍 IN_PROGRESS**：同一隔離Web進度、真實滑鼠與自然時間，築基一層／F7→十層→金丹→丹液加工回運→中品石50／陣芯1→金丹二層→靈狐首次餵養成長50及最終重載通過。修復築基圓滿主突破按鈕隱藏與離線累計年歲標示；D132、R2 HUD52、B110、responsive、M2-B／離線回歸及Web匯出壓縮exit0。約41分鐘至十層、中品石规则500秒；全觀測約69分鐘含修復／診斷，非純玩家預算。使用者決定「先保留基線，試玩後判定」，未調成本或工時。人類節奏／實體觸控／高DPR仍待驗；R2有界DONE保持。下一New Chat收試玩節奏／裝置結果，不開R3或後段、不重做已過保存／FPS。較早自然流程待驗聲明保留為歷史。
+[本輪驗收與證據](verification/early-flow1d-natural.md)
+
+2026-10-10 **UIX-R2 DONE（有界主 HUD／共用卷軸＋CLI／桌面 Web；使用者美術接受）**：本次使用者確認美術接受，R2 DoD 中的觸控／高 DPR 為獨立待驗項，不阻擋此有界範圍結案。現版 Godot 4.7.2 HUD 專項重跑 **52/52、exit0**；既有61/61（最終微調之前）、最終五相關回歸及三橫式 Web／實付晉階／重載證據有效，現有 PCK hash 與驗收一致。實體觸控／高 DPR、EARLY-FLOW1-D 自然時間及完整 UI1-C／C／D 仍待驗。本輪只核對與更新文件，未修改遊戲、匯出或玩家存檔。下一 New Chat 優先續 **EARLY-FLOW1-D 自然流程與節奏驗收**，可繼續既有四島／前期工作；未核定 UIX-R3，不直接跳 Era4–12。以下 IN_PROGRESS／等待美術段落保留為本日較早歷史。
+2026-10-10 **UIX-R2 IN_PROGRESS（主 HUD／共用卷軸實作交付）**：青玉道印與四入口、朱紅真實待辦、青銅轉角、獨立目標掛軸、資源摘要／清單互斥與短橫式壽元已接入；空島／製造／運輸／系統頁共用卷軸，未全面重做頁內內容。61/61 全量後追加掛軸／短式微調，最終52專項＋五項相關回歸exit0；Web匯出／壓縮與三橫式實際滑鼠／金丹晉階重載通過。人工美術、實體觸控／高DPR待驗，不提升EARLY-FLOW1-D自然流程與C/D裝置缺口。下一New Chat收R2美術／裝置回饋，不開下一大型階段。
+[驗收與命令](verification/uix-r2.md)
+
+2026-10-10 **UIX-R2-DESIGN 已記錄（設計交付）**：使用者提供五張參考圖，指定玉質道印／主導覽與朱紅提示、卷軸詳細頁、青銅外框及少量雲紋；高解析／像素風共用設計語意。此前等待設計已解除，正式 UIX-R2 實作仍 TODO。範圍與驗收見 [UIX 設計](18-uix-components-and-hud-plan.md)。本輪僅文件，未改遊戲／匯出。
+
+2026-10-10 最新使用者補充：**UIX-R2有指定設計，稍後提供**。R1有界收尾已完成；R2前置已滿足但等待設計稿，以下預設HUD分區只是暫擬，未核定、未開始R2實作。新對話接使用者設計再修訂範圍。
+
+2026-10-10 **UIX-R1收尾DONE（有界），下一UIX-R2**：先讀[驗收](verification/uix-r1-finish.md)、[UIX範圍](18-uix-components-and-hud-plan.md)與updata頂部。R1正式ID／View、44px／裝飾輸入、主操作錨點／彈窗暫收、紙底對比、BGM跨境記錄與非掛起測試已修。60/60、74專項、最後六相關回歸及Web三橫式操作／真實突破晉階／重載通過，一般Web同步。48210已有金丹二層、48211已有築基進度；重開服務只Play勿seed，不碰4175。依Context Guard本輪不硬展開R2，下一New Chat正式HUD分區／短橫式可讀性；EARLY-FLOW1-D自然流程與裝置缺口不提升。
+
+2026-10-10 **EARLY-FLOW1-D IN_PROGRESS（接入／CLI／桌面Web有界階段）**：F5技能／F6宗門可延後、F7金丹容量與主線、G1丹霞製作回運／G2祖島加工／G3實付首次晉階／G4靈狐首次餵食已接入。118專項、來源修正後59項分段回歸與Web匯出壓縮通過；三隔離origin驗入口、丹液到貨、實際晉階／餵食与重載。整段F7→G4自然時間、人類接受／實機仍待驗，不標DONE。[驗收](verification/early-flow1d.md)。下一New Chat續EARLY-FLOW1-D剩餘自然流程，不重做B／C、保存／FPS或暫緩冷啟動。
+
+2026-10-10 **EARLY-FLOW1-C DONE（F1–F4 CLI／桌面Web／三橫式有界）**：啟用與雙島開拓→真實送料→兩島首批完工→兩種產物回祖島已接入。當世版本化供給紀錄支援部分小數到貨、材料已花掉、重載、拒寫重試／損壞復原與輪迴重置；舊檔不強迫補做。58/58 Runner、最後104專項、Web匯出／壓縮、正常命令築基fixture後真實滑鼠雙島約4分鐘與重載通過。人類接受／實機／高DPR及原UI1-C／C／D保留待驗，整體EARLY-FLOW1仍IN_PROGRESS。[驗收](verification/early-flow1c.md)。下一New Chat續EARLY-FLOW1-D（F5–G4），不重做C。
+
+2026-10-10 **EARLY-FLOW1-B DONE（本段CLI／桌面Web／三橫式）**：核定Q1建築→Q2可選聚靈丹→Q3首次築基；目標／容量庫存澄清／可選入口／築基空島交接已接入。最終110專項、57/57 Runner、Web匯出／壓縮及正常新檔約13分鐘滑鼠築基／重載通過。人類節奏接受、實機／高DPR與原UI1-C／C／D保留待驗，整體EARLY-FLOW1仍IN_PROGRESS。[驗收](verification/early-flow1b.md)。下一New Chat續EARLY-FLOW1-C（F1–F4雙島供給），不重做B。
+
+2026-10-10 **EARLY-FLOW1 IN_PROGRESS：現況稽核與流程提案已交付**。見[前期流程](17-early-progression-and-onboarding-plan.md)／[驗收](verification/early-flow1.md)：建築→可選煉丹→築基→雙島送料／加工／回運→可延後技能／宗門→金丹首升級→靈狐首次餵食為建議，具體次序尚未核定。實際門檻／完成／下一提示／卡關與保存設計邊界已整理；D2 215 checks、煉丹與靈獸回歸exit0，非自然時間或新教學Web驗收。未改遊戲規則／UI／schema／匯出，完整UI1-C／C／D待驗維持。下一New Chat核定順序後接EARLY-FLOW1-B練氣至首次築基。
+
+2026-10-10 **EARLY-FLOW1 TODO（使用者核定優先方向）**：先整理練氣至金丹首段的開放順序與引導，沿玩家流程逐段調整系統。築基同時開宗門／技能／青木玄礦，但介紹次序與完成後引導尚未統一。已加入 [Roadmap](../ROADMAP.md) 的相依、交付與驗收；具體排序／新規則未核定，本輪未改程式。修改 ROADMAP.md、docs/development-status.md、docs/ai-handoff.md、updata.txt；以 PowerShell／apply_patch 編輯及回讀驗證，文件任務不跑遊戲測試。下一 New Chat 接 EARLY-FLOW1 現況與流程表，不開後段擴充，完整UI1-C／C／D待驗保持。
 2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
 # 2026-10-09 RES1-UI1-C 最新接手
 
@@ -216,4 +253,3 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 ## RES1-B 冷啟動入口（2026-10-03）
 
 先讀 [B 驗收](verification/res1-b.md) 及 updata 頂部：核心 251 checks／native 三程序交付，整體 IN_PROGRESS；下一 RES1-B／M1-C/D Web 故障矩陣，尚未進 RES1-C。重跑 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_res1b_verification.ps1`。測試資料只在 docs/verification/artifacts/res1-b-cross-process；全量最近一輪 44/45、exit 1（其他新增 DebugActions 面板失敗），不要忽略。schema3 decoder支援舊schema2，但正式processing catalog仍未啟用；瀏覽器matrix不能由native結果推定。
-

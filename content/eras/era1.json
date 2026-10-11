@@ -8,7 +8,12 @@
     "level_up_requirements": {
       "base_time": 60,
       "time_multiplier": 1.15,
-      "resources": { "lingli": 50 }
+      "resources": { "lingli": 50 },
+      "graded_resources": [
+        { "from_level": 3, "resources": { "wood": 40 } },
+        { "from_level": 5, "resources": { "stone_low": 40 } },
+        { "from_level": 7, "resources": { "spirit_grass_low": 30 } }
+      ]
     },
     "upgrade_requirements": {
       "level": 10,

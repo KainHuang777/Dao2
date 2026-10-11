@@ -1,0 +1,146 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started 專案初始化中 (5 steps)
+[   0% ] first_scan_filesystem | 正在掃描檔案結構…
+[  16% ] first_scan_filesystem | 正在載入全域類別名稱…
+[  33% ] first_scan_filesystem | 正在驗證 GDExtension…
+[  50% ] first_scan_filesystem | 正在建立自動載入腳本…
+[  66% ] first_scan_filesystem | 初始化外掛程式...
+[  83% ] first_scan_filesystem | 開始掃描檔案...
+[ DONE ] first_scan_filesystem
+
+[   0% ] _update_scan_actions | Started 掃描動作中... (106 steps)
+[   0% ] _update_scan_actions | f7-capacity-met.jpg
+[   0% ] _update_scan_actions | f7-guidance-1280.jpg
+[   1% ] _update_scan_actions | f7-reload-lv4.jpg
+[   2% ] _update_scan_actions | f7-reservoir1.jpg
+[   3% ] _update_scan_actions | foundation4-ready.jpg
+[   4% ] _update_scan_actions | lv3-ready.jpg
+[   5% ] _update_scan_actions | web-climax-844x390.png
+[   6% ] _update_scan_actions | web-climax-1280x720.png
+[   7% ] _update_scan_actions | web-final-1280x720.png
+[   8% ] _update_scan_actions | web-idle-844x390.png
+[   9% ] _update_scan_actions | web-idle-1280x720.png
+[  10% ] _update_scan_actions | web-reduced-844x390.png
+[  11% ] _update_scan_actions | web-reduced-trial-844x390.png
+[  12% ] _update_scan_actions | web-tribulation-result-1280x720.png
+[  13% ] _update_scan_actions | web-home-1280x720.png
+[  14% ] _update_scan_actions | web-low-1280x720.png
+[  14% ] _update_scan_actions | web-neon-1280x720.png
+[  15% ] _update_scan_actions | web-portrait-360x640.png
+[  16% ] _update_scan_actions | web-replay-frame-7.png
+[  17% ] _update_scan_actions | web-replay-frame-15.png
+[  18% ] _update_scan_actions | web-replay-frame-23.png
+[  19% ] _update_scan_actions | web-trial-844x390.png
+[  20% ] _update_scan_actions | web-trial-1280x720.png
+[  21% ] _update_scan_actions | web-trial-low-844x390.png
+[  22% ] _update_scan_actions | web-alchemy-844x390.png
+[  23% ] _update_scan_actions | web-beasts-844x390.png
+[  24% ] _update_scan_actions | web-beasts-1280x720.png
+[  25% ] _update_scan_actions | web-decisions-844x390.png
+[  26% ] _update_scan_actions | web-fortune-844x390.png
+[  27% ] _update_scan_actions | web-outposts-844x390.png
+[  28% ] _update_scan_actions | web-portrait-cold-start-360x640.png
+[  28% ] _update_scan_actions | web-realms-844x390.png
+[  29% ] _update_scan_actions | web-realms-1280x720.png
+[  30% ] _update_scan_actions | web-800-restored.png
+[  31% ] _update_scan_actions | web-844-list.png
+[  32% ] _update_scan_actions | web-reload-policy.png
+[  33% ] _update_scan_actions | web-source-liquid.png
+[  34% ] _update_scan_actions | web-stopped-upgraded.png
+[  35% ] _update_scan_actions | web-costs.png
+[  36% ] _update_scan_actions | web-extractor-upgrade.png
+[  37% ] _update_scan_actions | web-ore-1280.png
+[  38% ] _update_scan_actions | web-reload.png
+[  39% ] _update_scan_actions | web-upgrade-800.png
+[  40% ] _update_scan_actions | web-upgrade.png
+[  41% ] _update_scan_actions | web-wood-800.png
+[  42% ] _update_scan_actions | web-wood-844.png
+[  42% ] _update_scan_actions | web-breakthrough-800.png
+[  43% ] _update_scan_actions | web-final-800.png
+[  44% ] _update_scan_actions | web-final-844.png
+[  45% ] _update_scan_actions | web-final-1280.png
+[  46% ] _update_scan_actions | web-final-overlay-844.png
+[  47% ] _update_scan_actions | web-home-1280.png
+[  48% ] _update_scan_actions | web-home-800.png
+[  49% ] _update_scan_actions | web-home-844.png
+[  50% ] _update_scan_actions | web-home-1280.png
+[  51% ] _update_scan_actions | web-management-800.png
+[  52% ] _update_scan_actions | web-portrait.png
+[  53% ] _update_scan_actions | web-scroll-800.png
+[  54% ] _update_scan_actions | web-settings-844.png
+[  55% ] _update_scan_actions | res1-c2-degradation-actions-end.png
+[  56% ] _update_scan_actions | res1-c2-degradation-actions-mid.png
+[  57% ] _update_scan_actions | res1-c2-degradation-extended.png
+[  57% ] _update_scan_actions | res1-c2-degradation-reload.png
+[  58% ] _update_scan_actions | res1-c2-encode-desktop.png
+[  59% ] _update_scan_actions | res1-c2-encode-reload.png
+[  60% ] _update_scan_actions | res1-c2-encode-reloaded-level.png
+[  61% ] _update_scan_actions | res1-c2-encode-short.png
+[  62% ] _update_scan_actions | res1-c2-encode-web-retry.png
+[  63% ] _update_scan_actions | res1-c2-perf-bgm-toggle.png
+[  64% ] _update_scan_actions | res1-c2-perf-browser-retry49.png
+[  65% ] _update_scan_actions | res1-c2-perf-cold-final.png
+[  66% ] _update_scan_actions | res1-c2-perf-home-short.png
+[  67% ] _update_scan_actions | res1-c2-perf-offline-progress.png
+[  68% ] _update_scan_actions | res1-c2-perf-offline-reload.png
+[  69% ] _update_scan_actions | res1-c2-perf-offline-summary.png
+[  70% ] _update_scan_actions | res1-c2-perf-ore-short-scroll.png
+[  71% ] _update_scan_actions | res1-c2-perf-ore-short.png
+[  71% ] _update_scan_actions | res1-c2-perf-r2-fps-v3-review.png
+[  72% ] _update_scan_actions | res1-c2-perf-web-switch-10.png
+[  73% ] _update_scan_actions | res1-c2-perf-web-switch-20.png
+[  74% ] _update_scan_actions | res1-c2-perf-web-switch-30.png
+[  75% ] _update_scan_actions | res1-c2-perf-web-switch-40.png
+[  76% ] _update_scan_actions | res1-c2-perf-web-switch-50.png
+[  77% ] _update_scan_actions | res1-c2-perf-wood-desktop.png
+[  78% ] _update_scan_actions | res1-c2-perf-wood-management.png
+[  79% ] _update_scan_actions | res1-c2-task-normal.png
+[  80% ] _update_scan_actions | res1-d2-r1-compact-final.png
+[  81% ] _update_scan_actions | res1-d2-r1-compact-stop.png
+[  82% ] _update_scan_actions | res1-d2-r1-desktop.png
+[  83% ] _update_scan_actions | res1-d2-r1-management.png
+[  84% ] _update_scan_actions | res1-d2-r1-release-compact.png
+[  85% ] _update_scan_actions | res1-d2-r1-release-desktop.png
+[  85% ] _update_scan_actions | res1-d2-r1-release-home.png
+[  86% ] _update_scan_actions | res1-d2-r1-release-management.png
+[  87% ] _update_scan_actions | skills-b1-compact.png
+[  88% ] _update_scan_actions | skills-b1-desktop.png
+[  89% ] _update_scan_actions | text-level-desktop.png
+[  90% ] _update_scan_actions | text-level-reload.png
+[  91% ] _update_scan_actions | text-level-short.png
+[  92% ] _update_scan_actions | world-text-desktop.png
+[  93% ] _update_scan_actions | world-text-far.png
+[  94% ] _update_scan_actions | world-text-minimum.png
+[  95% ] _update_scan_actions | world-text-short.png
+[  96% ] _update_scan_actions | ui-first-glimpse-v1.png
+[  97% ] _update_scan_actions | ui-home-v1.png
+[  98% ] _update_scan_actions | ui-nine-realms-v1.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started （重新）匯入素材 (6 steps)
+[   0% ] reimport | 正在準備重新匯入檔案…
+[  14% ] reimport | 正在準備重新匯入檔案…
+[  28% ] reimport | 正在準備重新匯入檔案…
+[  42% ] reimport | 正在準備重新匯入檔案…
+[  57% ] reimport | 正在準備重新匯入檔案…
+[  71% ] reimport | 正在準備重新匯入檔案…
+[   0% ] reimport | 執行預先重新匯入作業…
+[   0% ] reimport | f7-capacity-met.jpg
+[  14% ] reimport | f7-guidance-1280.jpg
+[  28% ] reimport | f7-reload-lv4.jpg
+[  42% ] reimport | f7-reservoir1.jpg
+[  57% ] reimport | foundation4-ready.jpg
+[  71% ] reimport | lv3-ready.jpg
+[  85% ] reimport | 完成素材匯入...
+[ DONE ] reimport
+
+[   0% ] reimport | Started （重新）匯入素材 (6 steps)
+[   0% ] reimport | 執行重新匯入後續處理作業…
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started 正在載入編輯器 (5 steps)
+[   0% ] loading_editor_layout | 正在載入編輯器佈局…
+[  16% ] loading_editor_layout | 正在載入面板…
+[ DONE ] loading_editor_layout
+

@@ -28,6 +28,9 @@ func _run() -> void:
 	_expect(abode.reincarnation_panel.visible, "canonical cultivation tab must open reincarnation")
 	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled for new game (Era 1, full lifespan)")
 	_expect(abode.reincarnation_panel._eligibility_label.text.find("往生蓮臺") >= 0, "eligibility label must explain requirement")
+	abode.reincarnation_panel.refresh({"dao_heart": "6.150000000000001", "dao_proof": 10})
+	_expect(abode.reincarnation_panel._currency_label.text == "道心: 6.15  |  道證: 10", "dao_heart float with IEEE precision artifacts formats to 2 decimal places")
+	abode.reincarnation_panel.refresh(abode.session.get_view())
 
 	# 2. 分頁切換至道心天賦
 	abode.reincarnation_panel._talents_button.pressed.emit()

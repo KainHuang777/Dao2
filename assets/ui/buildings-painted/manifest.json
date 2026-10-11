@@ -1,0 +1,21 @@
+{
+  "source": "Built-in OpenAI ImageGen, generated2026-10-10",
+  "usage": "Godot building catalog thumbnails only; no world placement or economy changes",
+  "license": "Original generated generic architecture; project artwork provenance, no third-party commercial rights inferred",
+  "processing": "generate2dsprite deterministic chroma key/extraction192px, strictQC12frames PASS after row padding",
+  "layers": "12 independent RGBA thumbnails, UI text/rings/pips rendered separately in Godot",
+  "files": {
+    "wooden_house.png": "cae7702f2767ce0dbd1d3f210f327fa101ccc43c3baa6f3dfc150abf2398e52b",
+    "forest_farm.png": "e298a46355ffc9b2692c258e43b2d1422756f7e25e1bf650f0feef53003b3bb8",
+    "stone_mine.png": "94064d8671522fa3362accae25bf8dd03dc2f6509f8fa96fbe888f39f6ec9c55",
+    "herb_farm.png": "2d154a318c66761c6c7832e538691f63f61a58e580d165a0f8c7ca633e66d201",
+    "storage_money.png": "a1736b457cf67c14a51cb5aac976da1a37211193f7ef50413b6c74e658816da2",
+    "storage_wood.png": "f9d3cfc4180dbcd242d7ab8c83d4cdd6a775bc5227a4457b7b59a963289c204f",
+    "storage_stone.png": "4154d7f2e12a45c8bcae468a0313809830940e54c2f6e03b68f80d888d1cca1b",
+    "storage_herb.png": "9eb50ac203f44cac1fb8c61929b09b025695589d31aa7bf924f05d55a6a7d614",
+    "foundation_reservoir.png": "a2a6dc6a3561fbbeea9943e17701171f6cba5908e7aa3e9977721d73c1cdd948",
+    "library.png": "7179bfe1807b8192404ce977fca19a2ee0146ef34ba637753d05bae4d370bc05",
+    "scripture_hall.png": "cd7b80ea748d769d5c850a1af9ed334ec81246ec0a8d1e4d356670e0e2412381",
+    "courtyard.png": "115925a3867fc3b46ccf3a2eb4a91f3c8c5421ceb5b0f9d3328ad33d1162be40"
+  }
+}

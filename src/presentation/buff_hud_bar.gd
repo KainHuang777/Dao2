@@ -33,15 +33,14 @@ func _init() -> void:
 	add_theme_constant_override("separation", 6)
 	visible = false
 
-static func status_items(view: Dictionary, sect: Dictionary = {}) -> Array:
+static func status_items(view: Dictionary, sect: Dictionary = {}, debug_auto_build: bool = false) -> Array:
 	var items: Array = []
-	var expedition = sect.get("active_expedition")
-	if bool(sect.get("unlocked", false)) and expedition is Dictionary and int(expedition.get("duration", 0)) > 0 and int(expedition.get("elapsed", 0)) >= int(expedition.duration):
+	var flags := FeatureUnlocks.notification_flags(view, sect)
+	if flags.sect:
 		items.append({"id": "sect_ready", "seal": "宗", "text": "任務完成", "route": "sect", "tip": "宗門任務已完成，前往宗門領取獎勵。"})
-	var beast: Dictionary = view.get("beast", {})
-	if bool(beast.get("can_feed", false)):
+	if flags.beasts:
 		items.append({"id": "beast_feed", "seal": "獸", "text": "可以餵養", "route": "beasts", "tip": "靈獸餵食冷卻結束，且餵料足夠。前往靈獸查看成本與成長。"})
-	if bool(view.get("fortune", {}).get("has_pending", false)):
+	if flags.fortune:
 		items.append({"id": "fortune_pending", "seal": "緣", "text": "機緣待決", "route": "fortune", "tip": "有待決機緣，前往機緣選擇。"})
 	for buff in view.get("buffs", []):
 		var title := String(buff.get("name", buff.get("id", "增益")))
@@ -54,10 +53,19 @@ static func status_items(view: Dictionary, sect: Dictionary = {}) -> Array:
 			tip_lines.append("持續：%s" % remaining)
 		var tip_text := "\n".join(tip_lines)
 		items.append({"id": "buff:" + String(buff.get("id", title)), "seal": String(buff.get("icon_text", "符")), "text": title + " " + remaining, "route": "", "tip": tip_text})
+	if debug_auto_build:
+		items.append({"id": "debug:auto_build", "seal": "建", "text": "Debug 自動建造", "route": "", "tip": "Debug 自動建造\n每 30 秒自動隨機建造／升級可用建築。\n持續：Debug 自動建造開啟期間；可於 Debug 面板關閉。"})
+	var pill_effects: Dictionary = view.get("alchemy", {}).get("effects", {})
+	var lifespan := float(pill_effects.get("lifespan_bonus_years", 0.0))
+	var production := float(pill_effects.get("production_multiplier", 0.0)) * 100.0
+	if lifespan > 0.0:
+		items.append({"id": "pill:lifespan", "seal": "壽", "route": "", "tip": "丹藥延壽\n壽元上限 +%s 祀\n持續：當世；輪迴後清除。" % str(lifespan)})
+	if production > 0.0:
+		items.append({"id": "pill:production", "seal": "丹", "route": "", "tip": "丹藥產率加成\n全洞府資源產率 +%s%%\n持續：當世；輪迴後清除。" % str(production)})
 	return items
 
-func update_status(view: Dictionary, sect: Dictionary = {}) -> void:
-	_update_items(status_items(view, sect))
+func update_status(view: Dictionary, sect: Dictionary = {}, debug_auto_build: bool = false) -> void:
+	_update_items(status_items(view, sect, debug_auto_build))
 
 func update_buffs(active_buffs: Array) -> void:
 	update_status({"buffs": active_buffs})

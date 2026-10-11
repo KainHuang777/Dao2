@@ -4,6 +4,10 @@ extends RefCounted
 const DEFAULT_CONTENT_DIR := "res://content"
 const DEFAULT_SAVE_DIR := "user://saves"
 const LEGACY_RAW_KEY := "legacy_import_raw"
+const SAVE_PRE_V2_RESCUE_KEY := "save_pre_v2_rescue"
+const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
+const ISLAND_ARCHIVE_KEY := "save_before_islands"
+const D2_ARCHIVE_KEY := "save_before_d2"
 
 static var _content: GameContent = null
 static var _slots: SaveSlots = null
@@ -13,11 +17,9 @@ static var _adapter: StorageAdapter = null
 static var _schema2_original: String = ""
 static var _skills_original: String = ""
 static var _load_error: String = ""
-const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
-const ISLAND_ARCHIVE_KEY := "save_before_islands"
-const D2_ARCHIVE_KEY := "save_before_d2"
+static var _forced_reset := false
 
-static func activate_islands(session: GameSession, meta: Dictionary) -> Dictionary:
+static func activate_islands(session: GameSession, meta: Dictionary, first_island: String = "") -> Dictionary:
 	# Persist the current source first; archive those exact bytes before C activation.
 	# The live Session is only replaced after a verified two-slot commit.
 	var checked := IslandProgression.preview(session.state, session.content)
@@ -37,12 +39,13 @@ static func activate_islands(session: GameSession, meta: Dictionary) -> Dictiona
 	if not original.ok:
 		if original.get("error") != "missing":
 			return {"ok": false, "error": "ISLAND_ARCHIVE_READ_FAILED"}
-		var written := adapter().write(archive_key, source.json)
+		var written := adapter().write(archive_key, String(source.json))
 		if not written.ok:
 			return {"ok": false, "error": "ISLAND_ARCHIVE_WRITE_FAILED"}
 		original = adapter().read(archive_key)
 		if not original.ok or original.data != source.json:
 			return {"ok": false, "error": "ISLAND_ARCHIVE_READBACK"}
+	var source_json := String(source.json)
 	var archived := SaveCodec.decode(original.data)
 	if not archived.ok or archived.envelope.save_id != String(meta.get("save_id", "local")):
 		return {"ok": false, "error": "ISLAND_ARCHIVE_CONFLICT"}
@@ -55,6 +58,10 @@ static func activate_islands(session: GameSession, meta: Dictionary) -> Dictiona
 	var result := candidate.submit({"command_id": "activate-islands-" + str(session.state.revision), "type": "activate_islands", "expected_revision": session.state.revision, "payload": {}})
 	if not result.ok:
 		return result
+	if not first_island.is_empty():
+		result = candidate.submit({"command_id": "first-island-" + str(candidate.state.revision), "type": "open_island", "expected_revision": candidate.state.revision, "payload": {"island_id": first_island}})
+		if not result.ok:
+			return result
 	var committed := save(candidate.state, meta)
 	if not committed.ok:
 		return committed
@@ -242,12 +249,36 @@ static func reset_for_tests() -> void:
 	_schema2_original = ""
 	_skills_original = ""
 	_load_error = ""
+	_forced_reset = false
 
 static func _load_from_slots() -> GameState:
+	var adapter_obj: StorageAdapter = adapter()
+	for slot_name in [SaveSlots.SLOT_MAIN, SaveSlots.SLOT_BACKUP]:
+		var raw: Dictionary = adapter_obj.read(slot_name)
+		if not bool(raw.get("ok", false)) or String(raw.get("data", "")) == "":
+			continue
+		var parsed: Variant = JSON.parse_string(String(raw.data))
+		if not (parsed is Dictionary):
+			continue
+		if SaveCodec.classify_envelope(parsed) != "older":
+			continue
+		if adapter_obj is WebStorageAdapter and adapter_obj.session_status() != "ready":
+			break
+		var written: Dictionary = adapter_obj.write(SAVE_PRE_V2_RESCUE_KEY, String(raw.data))
+		if not bool(written.get("ok", false)):
+			_load_error = "LOAD_FAILED"
+			return null
+		slots().reset()
+		var verify: Dictionary = adapter_obj.read(SaveSlots.SLOT_MAIN)
+		if bool(verify.get("ok", false)) and String(verify.get("data", "")) != "":
+			_load_error = "LOAD_FAILED"
+			return null
+		_load_error = ""
+		_forced_reset = true
+		return null
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
 		var decode_result: Dictionary = SaveCodec.decode(json_text)
 		if not bool(decode_result.get("ok", false)):
-			print("SAVE_SLOT_REJECTED: ", decode_result.get("error", "DECODE_FAILED"))
 			return -1
 		var decoded_state: GameState = decode_result["state"]
 		return decoded_state.revision
@@ -273,6 +304,14 @@ static func _new_state() -> GameState:
 		return null
 	var session: GameSession = GameSession.create_new_game(content_obj)
 	return session.state
+
+static func is_forced_reset() -> bool:
+	return _forced_reset
+
+static func consume_forced_reset() -> bool:
+	var ret := _forced_reset
+	_forced_reset = false
+	return ret
 
 static func _normalize_meta(meta: Dictionary) -> Dictionary:
 	var normalized: Dictionary = {

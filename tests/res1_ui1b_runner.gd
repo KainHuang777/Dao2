@@ -111,7 +111,7 @@ func _run() -> void:
 		panel.upgrade_button.pressed.emit()
 		route = abode.session.state.economy.routes[id]
 		check(route.level == 2 and not route.enabled and route.reserve == "5.125" and panel.reserve.text == "9", "upgrade preserves stop/committed policy/draft " + id)
-		check(IslandEconomy.value(abode.session.state, "home", "spirit_timber") == timber - 2 and IslandEconomy.value(abode.session.state, "home", "bronze_essence") == bronze - 2, "upgrade charges home once " + id)
+		check(IslandEconomy.value(abode.session.state, "home", "spirit_timber") == timber - 10 and IslandEconomy.value(abode.session.state, "home", "bronze_essence") == bronze - 10, "upgrade charges home once " + id)
 		widget.toggle.pressed.emit()
 		check(abode.session.state.economy.routes[id].enabled and abode.session.state.economy.routes[id].reserve == "5.125", "restart uses committed custom policy " + id)
 		# Real rule ticks, actual cargo, stop + restart + upgrade never clone the trip.
@@ -182,7 +182,7 @@ func _run() -> void:
 		check(nav.page == "transport" and panel.selected_route == entry[2] and snapshot() == before, "exact missing resource route " + entry[2])
 	for entry in [["spirit_timber", "wood", "timber_home"], ["bronze_essence", "ore", "bronze_home"], ["liquid", "herb", "liquid_home"]]:
 		reset()
-		IslandEconomy._put(abode.session.state, entry[1], entry[0], 100)
+		IslandEconomy._put(abode.session.state, entry[1], entry[0], IslandProgression.capacity(abode.session.state, entry[1]))
 		nav.open_manufacturing(entry[1], entry[0])
 		nav.manufacturing_panel.supply_button.pressed.emit()
 		check(nav.page == "transport" and panel.selected_route == entry[2], "exact output full route " + entry[2])

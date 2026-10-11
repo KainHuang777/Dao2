@@ -1,0 +1,30 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Cannot open file 'res://scenes/abode/living_abode.tscn'.
+   at: load (scene/resources/resource_format_text.cpp:1442)
+   GDScript backtrace (most recent call first):
+       [0] check_ui (res://tests/early_flow1c_runner.gd:145)
+       [1] run (res://tests/early_flow1c_runner.gd:134)
+ERROR: Failed loading resource: res://scenes/abode/living_abode.tscn.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] check_ui (res://tests/early_flow1c_runner.gd:145)
+       [1] run (res://tests/early_flow1c_runner.gd:134)
+SCRIPT ERROR: Attempt to call function 'instantiate' in base 'null instance' on a null instance.
+   at: check_ui (res://tests/early_flow1c_runner.gd:145)
+   GDScript backtrace (most recent call first):
+       [0] check_ui (res://tests/early_flow1c_runner.gd:145)
+       [1] run (res://tests/early_flow1c_runner.gd:134)
+EARLY-FLOW1-C: 85 checks (earned normal commands; simulated time, not browser timing).
+ERROR: earned upgrade consumes returned products
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1c_runner.gd:139)
+ERROR: returned products spent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1c_runner.gd:139)
+ERROR: reincarnation clears current-life supply history
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1c_runner.gd:139)

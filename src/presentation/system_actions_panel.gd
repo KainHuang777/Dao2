@@ -13,9 +13,11 @@ var _skill_summary: Label
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	theme = UiTypography.create_theme()
+	theme.set_color("font_color", "Label", UiMaterial.INK)
 	var surface := PanelContainer.new()
 	surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	surface.add_theme_stylebox_override("panel", UiTypography.dialog_surface())
+	surface.add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
 	add_child(surface)
 	box = VBoxContainer.new()
 	surface.add_child(box)

@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SAVE_SLOT_REJECTED: ECONOMY_EARLY_SUPPLY
+UNINTERRUPTED {"early_supply":{"bronze_done":true,"bronze_home":1,"ore_delivered":5.0,"timber_done":true,"timber_home":1,"version":1},"islands":{"herb":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":false},"home":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":true},"ore":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{"black_copper":"100","bronze_essence":"0","stone_low":"92"},"opened":true},"wood":{"facilities":{"extractor":1,"storage":1,"workshop":2},"inventory":{"spirit_timber":"0","stone_low":"60","wood":"100"},"opened":true}},"jobs":{},"routes":{"bronze_home":{"enabled":true,"level":1,"reserve":"0","target":"2"},"ore_wood":{"enabled":true,"level":1,"reserve":"0","target":"100"},"timber_home":{"enabled":true,"level":1,"reserve":"0","target":"2"}},"tick":126,"trips":{"ore_wood":{"cargo":"10","remaining":9,"version":1}},"version":"res1-d-2"}
+PARTITIONED {"early_supply":{"bronze_done":true,"bronze_home":1,"ore_delivered":5,"timber_done":true,"timber_home":1,"version":1},"islands":{"herb":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":false},"home":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":true},"ore":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{"black_copper":"100","bronze_essence":"0","stone_low":"92"},"opened":true},"wood":{"facilities":{"extractor":1,"storage":1,"workshop":2},"inventory":{"spirit_timber":"0","stone_low":"60","wood":"100"},"opened":true}},"jobs":{},"routes":{"bronze_home":{"enabled":true,"level":1,"reserve":"0","target":"2"},"ore_wood":{"enabled":true,"level":1,"reserve":"0","target":"100"},"timber_home":{"enabled":true,"level":1,"reserve":"0","target":"2"}},"tick":126,"trips":{"ore_wood":{"cargo":"10","remaining":9,"version":1}},"version":"res1-d-2"}
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1600.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1600.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1600.0, 720.0)
+EARLY-FLOW1-C: 104 checks (earned normal commands; simulated time, not browser timing).
+ERROR: chunk/reload deterministic history after JSON number normalization
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1c_runner.gd:193)
+       [1] check_ui (res://tests/early_flow1c_runner.gd:222)

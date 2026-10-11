@@ -21,30 +21,30 @@ func _run() -> void:
 	var entry := {"visible": true, "level": 0, "level_cap": 10, "costs": {"wood": "100", "money": "100"}, "affordable": false}
 	catalog.refresh({"hut": entry}, resources)
 	await process_frame
-	var meter: ProgressBar = catalog.progress_bars.hut.bg
-	_expect(is_equal_approx(meter.value, 0.25), "Demand meter uses the least sufficient material, not an average")
+	var meter: Button = catalog.rows.hut
+	_expect(is_equal_approx(meter._ratio, 0.25), "Demand meter uses the least sufficient material, not an average")
 	_expect(catalog.upgrade_buttons.hut.disabled, "Partial materials keep construction disabled")
-	_expect(meter.mouse_filter == Control.MOUSE_FILTER_IGNORE, "Demand decoration does not steal row input")
-	_expect(meter.position.x > 0 and meter.position.y + meter.size.y < catalog.rows.hut.size.y, "Meter stays inside authored borders")
+	_expect(meter.get_child_count() == 0, "Drawn ring needs no input-intercepting progress overlay")
+	_expect(meter.get_theme_constant("icon_max_width") + 14 <= meter.size.y, "Ring and milestones fit the compact row")
 	resources.wood.value = "100"
 	entry.prereq = {"building": "wooden_house", "level": 2}
 	catalog.refresh({"hut": entry}, resources)
-	_expect(is_equal_approx(meter.value, 1.0), "Full materials show a full requirement meter")
-	_expect(catalog.upgrade_buttons.hut.disabled and catalog.upgrade_buttons.hut.text == "前置不足", "Full meter does not enable a blocked command")
-	_expect(catalog.rows.hut.text.contains("前置不足"), "Blocked state has a visible text label")
+	_expect(is_equal_approx(meter._ratio, 1.0), "Full materials show a full requirement meter")
+	_expect(catalog.upgrade_buttons.hut.disabled and catalog.upgrade_buttons.hut.text.replace("\n", "") == "前置不足", "Full meter does not enable a blocked command")
+	_expect(catalog.card_labels.hut.text.contains("前置不足"), "Blocked state has a visible text label")
 	entry.affordable = true
 	catalog.refresh({"hut": entry}, resources)
 	_expect(not catalog.upgrade_buttons.hut.disabled and catalog.upgrade_buttons.hut.text == "建造", "Domain affordability enables construction")
-	_expect(catalog.rows.hut.text.contains("可建"), "Ready state remains readable without color")
+	_expect(catalog.card_labels.hut.text.contains("可建"), "Ready state remains readable without color")
 	entry.level = 10
 	entry.affordable = false
 	catalog.refresh({"hut": entry}, resources)
-	_expect(not meter.visible and catalog.upgrade_buttons.hut.disabled, "Capped rows hide progress and reject upgrades")
+	_expect(not meter._meter and catalog.upgrade_buttons.hut.disabled, "Capped rows hide progress and reject upgrades")
 	entry.level = 1
 	resources.wood.value = "0"
 	catalog.refresh({"hut": entry}, resources)
-	_expect(meter.visible and is_zero_approx(meter.value), "After refresh the old ready/full state is cleared")
-	_expect(catalog.rows.hut.get_theme_stylebox("normal") is StyleBoxTexture, "Paper material survives status refreshes")
+	_expect(meter._meter and is_zero_approx(meter._ratio), "After refresh the old ready/full state is cleared")
+	_expect(catalog.cards.hut.get_theme_stylebox("panel") is StyleBoxTexture, "Whole card paper frame survives status refreshes")
 	catalog.queue_free()
 	await process_frame
 	var sect := SectPanel.new()

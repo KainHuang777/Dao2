@@ -14,6 +14,9 @@ class FaultAdapter extends StorageAdapter:
 			return {"ok": false, "error": "QuotaExceededError"}
 		data[key] = value
 		return {"ok": true}
+	func erase(key: String) -> Dictionary:
+		data.erase(key)
+		return {"ok": true}
 	func exists(key: String) -> bool:
 		return data.has(key)
 
@@ -50,24 +53,27 @@ func _init() -> void:
 	SaveManager.configure(content, a)
 	_check(SaveManager.current_state() == null, "both corrupt refuses new game")
 	_check(not SaveManager.save(s.state, _meta(4000)).ok, "corrupt data retained")
-	# An existing migration archive must match the actual source bytes.
+	# A pre-v2 payload rescued into an occupied key blocks load until released.
 	a = FaultAdapter.new()
 	var encoded := SaveCodec.encode(s.state, content.content_version, _meta(1000))
 	var raw: Dictionary = JSON.parse_string(encoded.json)
-	raw.schema_version = 2
+	raw.schema_version = 3
 	raw.state.erase("economy")
 	raw.erase("checksum")
 	raw.checksum = SaveCodec.compute_checksum(raw)
 	var original := JSON.stringify(raw)
 	a.data[SaveSlots.SLOT_MAIN] = original
-	a.data[SaveManager.SCHEMA2_ARCHIVE_KEY] = "different original"
+	a.data[SaveManager.SAVE_PRE_V2_RESCUE_KEY] = "occupied"
+	a.fail_write = SaveManager.SAVE_PRE_V2_RESCUE_KEY
 	SaveManager.configure(content, a)
-	var legacy := SaveManager.current_state()
-	_check(legacy != null, "archive conflict fixture loads")
-	_check(SaveManager.save(legacy, _meta(2000)).error == "MIGRATION_ARCHIVE_READBACK", "conflicting existing archive blocks migration")
-	_check(a.data[SaveSlots.SLOT_MAIN] == original, "archive conflict preserves source bytes")
-	a.data[SaveManager.SCHEMA2_ARCHIVE_KEY] = original
-	_check(SaveManager.save(legacy, _meta(2000)).ok, "matching archive permits retry")
+	_check(SaveManager.current_state() == null and SaveManager.load_error() == "LOAD_FAILED", "occupied rescue archive blocks quarantine release")
+	a.fail_write = ""
+	a.erase(SaveManager.SAVE_PRE_V2_RESCUE_KEY)
+	var recovered: GameState = SaveManager.current_state()
+	_check(recovered != null and recovered.economy.is_empty(), "rescue recovers blank state and forced reset")
+	_check(SaveManager.consume_forced_reset(), "forced reset consumed after quarantine release")
+	_check(String(a.data.get(SaveManager.SAVE_PRE_V2_RESCUE_KEY, "")) == original, "rescue archive preserves exact pre-v2 fixture bytes")
+	_check(String(a.data.get(SaveSlots.SLOT_MAIN, "")) == "" and String(a.data.get(SaveSlots.SLOT_BACKUP, "")) == "", "rescue release wipes both save slots")
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
 		print("PASS: Web persistence fault core %d checks." % checks)

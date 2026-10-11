@@ -106,7 +106,7 @@ func refresh() -> void:
 	_refresh_cargo(available)
 	if available and current != "home" and framed_size != abode.hud.size:
 		_focus_remote()
-	rail.visible = available and abode.feature_navigation.group == "home" and not abode.offline_summary.visible and not abode.save_controls.visible and not abode.debug_panel.visible
+	rail.visible = available and abode.feature_navigation.group == "home" and not abode.offline_summary.visible and not abode.save_controls.visible and not abode.debug_panel.visible and not abode._hud_controller.messages_are_explicit()
 	for id in roots:
 		if available:
 			_ensure_art(id)

@@ -184,7 +184,7 @@ func _switch_tab(tab_name: String) -> void:
 func refresh(view: Dictionary) -> void:
 	var dh: String = String(view.get("dao_heart", "0"))
 	var dp: int = int(view.get("dao_proof", 0))
-	_currency_label.text = "道心: %s  |  道證: %d" % [dh, dp]
+	_currency_label.text = "道心: %s  |  道證: %d" % [_format_amount_str(dh), dp]
 
 	# 1. 刷新輪迴轉世分頁
 	var preview: Dictionary = view.get("reincarnation_preview", {})
@@ -223,7 +223,7 @@ func refresh(view: Dictionary) -> void:
 
 	_preview_label.text = (
 		"• 本世島上建築等階總和：%d\n" % b_sum
-		+ "• 轉世預期獲得道心：+%s（含境界保底 %d）\n" % [gain_dh, floor_val]
+		+ "• 轉世預期獲得道心：+%s（含境界保底 %d）\n" % [_format_amount_str(gain_dh), floor_val]
 		+ "• 轉世預期獲得道證：+%d\n" % gain_dp
 		+ "• 資源傳承天賦：新開局庫容的 %.0f%%（無自動補給）" % inher_ratio
 	)
@@ -319,7 +319,7 @@ func _update_talent_row(row: PanelContainer, _talent_id: String, def: Dictionary
 	else:
 		var cost_amount: AmountCompat = TalentSystem.get_cost(_talent_id, cur_lvl)
 		var cost_str := cost_amount.serialize()
-		cost_label.text = "需道心: %s" % cost_str
+		cost_label.text = "需道心: %s" % _format_amount_str(cost_str)
 
 		var parse_dh := AmountCompat.try_parse(current_dh_str)
 		var has_enough := false
@@ -342,3 +342,12 @@ func _on_reincarnate_action_pressed() -> void:
 func _on_close_pressed() -> void:
 	visible = false
 	close_requested.emit()
+
+static func _format_amount_str(raw: Variant) -> String:
+	var parsed := AmountCompat.try_parse(str(raw))
+	if not parsed.get("ok", false):
+		return str(raw)
+	var amount: AmountCompat = parsed["value"]
+	if amount.layer == 0 and absf(amount.to_float()) < 1000000.0:
+		return ("%.2f" % amount.to_float()).rstrip("0").trim_suffix(".")
+	return amount.to_display_string()

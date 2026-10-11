@@ -1,5 +1,81 @@
+2026-10-11 **EAR2-UI-F1 IN_PROGRESS（來源／CLI／原生交付，Web待驗）**：首次空島直接顯示青木材料圖格／可用需求與開拓，首次付款在候選保存交易內初始化＋開拓；原檔、缺料拒絕與重試保留。說明移系統訊息，本島庫存預設展開；短橫式開拓固定頁首。六相關回歸（UI220／C1 91）、三橫式原生與Web匯出壓縮exit0。[驗收](verification/ear2-ui-f1.md)。下一New Chat續隔離Web付款／重載及人工裝置驗收。
+
+2026-10-11 **EARLY-PACING 第7節 v2 調參核定與全量回歸 DONE（66/66 exit 0）**：使用者核定前期基線報告第 7 節提案後，本工作樹已完成首批核定實作：Era1/2 內容調參（`content/eras/era1.json` 分段修煉需求 wood 40 (L3+)/stone_low 40 (L5+)/spirit_grass_low 30 (L7+)；era2 分段 spirit_timber 20/bronze_essence 10 (L1+)、liquid 5 (L5+)；`content/buildings/era1.json` 各建築 cost_factor／容量上限放寬；`content/resources/era1.json` 基礎上限提升）＋ `src/simulation/island_progression.gd` 島產能/升級成本重調（capacity 150×clamp(lvl,1,3)、激活附 facilities 1/1/1＋early_supply）＋ 首茅屋建造直開營造簿之洞府流程（見 UIX-R4-F4）。本次續作核定最小語意修正：**era2 L5+ liquid 需求**原唯一產線在丹霞（era3 才可開拓）造成 era2 L1→L10 死鎖；經 `liquid` 加入 `island_progression.gd` HOME_RECIPES（recipe 本為 era2、靈草園@home×3 內容合法）解除梯鎖，探針（一次性、已刪）證實 L1→L10 全程可達。對齊三個滯後 runner：`res1d2_contract.gd`（受限容量審計 1100→1700 比照 D1、era2 段改 activate→開拓→非丹霞路線→repeat 產線→25~30 批 liquid 儲備→修梯；247 checks PASS exit 0）、`early_flow1d_runner.gd`（本土形 hang 修：指引鍵安全 `.get()`、F7 fail-fast、心跳、persist() decode guard；161 checks PASS exit 0）、`res1c2_perf_runner.gd`（2000 刻固定暖機改 bounded 等待穩態迴圈；145 checks PASS）、`web_persistence_fault_runner.gd`（舊 schema2 遷移場景改為 pre-v2 rescue 契約：FaultAdapter 增 erase、LOAD_FAILED 衝突→清除後恢復／強制重置／字節保留／雙槽清空 5 檢查；20 checks PASS）、`living_abode_runner.gd`＋`m2a_abode_runner.gd`（與核定首茅屋營造簿流程對齊，均 PASS exit 0）。**全量迴歸：vendor-neutral 66 runner 掃描 exit 0、0 FAIL、無 SCRIPT ERROR（本輪三次迭代後收斂）**。孤兒 Godot 進程已清（960532/961540/963328/970844）。待驗保留：Web 冷啟動屬暫緩項；該組 runner 未含真實瀏覽器證據。下一 New Chat：續前期第 7 節其餘核定項／游離置放與中段 sink，或依使用者指定。
+
+
+
+2026-10-11 **UIX-R5-ALCHEMY IN_PROGRESS（來源／CLI／原生交付，Web待驗）**：使用者指定煉丹保留左HUD／BUFF／資源；配方改材料圖格＋可用／需求→丹藥持有量＋煉製／服用，長內容TIP，紙底深墨。延壽／產率當世效果即時入BUFF區。八相關回歸、三橫式原生與Web匯出壓縮exit0；IAB localhost逾時。[驗收](verification/uix-alchemy.md)。下一New Chat續隔離Web實際服丹與人工／裝置回饋。
+
+2026-10-11 **UIX-R2-F3 IN_PROGRESS（來源／CLI／原生交付，Web待驗）**：Debug自動建造開啟時BUFF區即時顯示「建」圖示，TIP／點擊沿共用詳情，關閉即移除；與一般BUFF／＋N共存。HUD100 checks、BUFF／responsive與三橫式原生、Web匯出壓縮exit0；Web滑鼠／觸控／高DPR待驗。[驗收](verification/uix-r2-f3.md)。下一New Chat續本輪與茅屋隔離Web驗收。
+
+2026-10-11 **UIX-R4-F4 IN_PROGRESS（來源／CLI／原生已交付，Web待驗）**：茅屋首次建成直接開營造簿；首次可建藍圖加亮／粗光圈／金色下指與「點擊建造茅屋」可點文字，短橫式自動訊息避讓。五相關回歸／三橫式原生／Web匯出壓縮exit0，IAB localhost逾時；不宣稱Web／觸控／高DPR通過。[驗收](verification/uix-r4-f4.md)。下一New Chat續隔離Web實際點擊與人工回饋，不開大型下一階段。
+
+2026-10-11 **RES1-D1 runner 卡死修復 DONE（240 checks PASS exit 0）**：上個任務停於執行 `tests/res1d1_contract_runner.gd`，並遺留未完成編輯：進度梯 `for _attempt` 區塊被意外自 `for era` 迴圈內調出縮排＋新增 D1-HEARTBEAT 心跳未落地，造成 `var stuck` 孤立縮排之 GDScript 解析錯誤（`Expected statement, found "Indent"`）。修回梯程於 era 迴圈內之正確縮排並保留心跳；另修復工作區未完成改動之真正死結：trio 迴圈新加之「liquid 於 home 啟動 repeat 燒製」佔用家島唯一工作槽，使 T3 `formation_core` 以非 repeat 起製時永遠 JOB_BUSY 而 repeat 任務永不自行清除（`island_economy.gd` 348 行僅在 `batches==0 and not repeat` 刪除），先前作者寫的無上限 while 等待無法收斂。依已驗證之 committed 基線語意移除該 `["liquid","home"]` 對（liquid 後續由既有 `wait_recipe` 呼叫覆蓋）、保留 wood/ore repeat 製造，並去除 golden 區塊重複之 `duplicate_state()` 行。新增 stage()/心跳租約診斷輸出。最終 D1-PROBE 梯程跑至 Era3 Lv10、EARNED sim=11752s、240 checks PASS、stderr 無 SCRIPT ERROR。未登記進 `run_all_runners.ps1`（維持既況）；完整迴歸未重跑。
+2026-10-11 **EARLY-PACING 基線稽核完成（報告模式；未改任何遊戲數值）**：首跑 `tools/early_pacing_audit.gd` exit 0（10 findings、1 FAIL），先前交接推算全部實測證實：練氣純時鐘 1007s≈16.8 分、築基 2496s≈41.6 分、積極／放置倍率 4.0x／鏈完成 5.85x／突破就緒 2700s→1076s（可縮 60%；用聚靈丹 584s、72%）。白身 EAR1 LV9→LV10 單一等待窗約 3.5 分（183s 訓練＋50 靈力採補 32s），符合使用者「單段等待 ≤5-10 分、LV9→LV10 ≤10 分」標準，無需為此調值。C1 FAIL=42/92 行為錢／靈力庫存上限先決的交錯升級（非全域死鎖）；C8=88% headroom 與 gate 無關；C10=Era2 全部島設施升級僅佔 240s／2496s 無中段 sink。修正 audit GDScript 型別推導錯誤；新增 `tests/early_pacing_runner.gd`（31 checks 0 failures）並登記 `run_all_runners.ps1`。第二階段 v2 調參提案（建築線接管 gate、主動操作可換修煉進度且不溢滿浪費、庫存交錯消鎖、Era2 鏈與中段 sink、舊存檔強制清除）已寫入基線報告第 7 節待使用者核定。[基線報告](verification/early-pacing-baseline.md)。**迴歸：新 runner 登記後全量 `tools/run_all_runners.ps1` 64/64 exit 0、當次 log 無 SCRIPT ERROR。**
+**【2026-10-11 追記】第 7 節提案已獲使用者核定，首批實作已落地並通過全量 66/66 回歸**：內容分段修煉需求／建築成本容量重調、島產能升級成本重調、激活附 facilities 與 early_supply、首茅屋直開營造簿；era2 液體梯鎖以 HOME_RECIPES 加入 liquid 最小語意修正解除。詳見本檔頂部 2026-10-11「EARLY-PACING 第7節 v2 調參核定與全量回歸 DONE」條目。第 7 節其餘項目（主動操作換修煉進度不浪費、庫存交錯消鎖中段 sink、游離置放、舊存檔強制清除之執行細節）仍待後續批次。
+2026-10-11 **新手引導金錢採集文字與按鈕呼吸閃爍 DONE**：依使用者反應，在茅屋達到2階、木屋待建（缺少金錢且尚無產線）時，引導文字正確指向「點擊金錢採集按鈕」，且營造簿資源清單中對應資源之【採集】按鈕啟動金色呼吸發光閃爍（Pulsing tween，滿倉或充足後自動停止與清理）。修正引導狀態切換時遺漏推入日誌與被採集動作回饋覆蓋之問題；頂部目標橫幅動態依是否缺少可採集基礎資源顯示「下一步：點擊【金錢】採集按鈕」或「下一步：建造【木屋】」；點擊「前往目標」於缺少採集材料時自動切換回首頁並展開資源欄（模式1）。新增隔離測試 `tests/gather_guidance_highlight_runner.gd`（11 checks, 0 failures），全量 runner exit 0。
+2026-10-11 **UIX-R2-F2 IN_PROGRESS（來源／CLI／原生渲染已交付，Web互動待驗）**：資源數量／完整清單前加既有24px手繪圖示，無專用圖之跨世貨幣／獸魂用字印；四Dock保持洞府左下位置，開建築不再移右。BUFF未移除，無生效狀態隱藏，有效時在天時下；短橫式建築全抽屜暫收HUD，返回恢復。HUD92 checks／三相關Runner／Web匯出壓縮exit0，原生三橫式六圖；IAB localhost逾時，未宣稱Web／觸控／高DPR通過。[驗收](verification/uix-r2-f2.md)。下一New Chat續Web實際命中／多資源比例回饋，不開大型下一任務。
+2026-10-11 **UIX-R4-F3 有界修訂 DONE**：依使用者回饋，建築圖56→88px（約57%放大），卡內改左圖／右資訊：名稱階級＋小動作在右上，材料ICON與庫存／需求在右下，保留雙欄與外環／壓暗禁用。四相關回歸／Web匯出壓縮exit0，三橫式IAB／實付升級／圖像展開詳情返回通過；人工比例／觸控／高DPR待驗。[驗收](verification/uix-r4-f3.md)。此段覆蓋F2卡內上下排版，其他契約保持。下一New Chat收比例回饋，不開大型下一任務。
+2026-10-11 **UIX-R4-F2 有界修訂 DONE**：依使用者兩張參考圖恢復遊戲式雙欄建築卡；56px手繪縮圖、材料與庫存／需求納入同一卡框，僅保留縮圖外環。操作縮窄至64px／至少44px命中，缺料／前置／滿階壓暗。短橫式完整抽屜雙欄、暫收左側資訊，晉階／突破移至固定頁首，關閉恢復；桌面主動訊息可回單欄。最終六相關回歸、Web匯出／壓縮exit0，三橫式IAB／實付建造、升級、內捲、詳情返回與重載保留通過；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r4-f2.md)。此段覆蓋R4-F1常態單欄，保留歷史。下一New Chat收本輪回饋，不開下一大型任務。
+2026-10-11 **修為晉階與突破按鈕整編至左上 HUD DONE**：針對使用者反應修為晉階按鈕原在右下角、在開啟營造等非首頁面板時被隱藏導致正流程卡死之問題，依核定將右下角 `_main_action_box` 完全移除，將「修為晉階」（`level_up_button`）與「境界突破」（`breakthrough_button`）直接遷入左上角常駐 HUD 的 `identity` 橫列內（道印與境界層數右側），維持 44px 觸控點擊高度與硃砂醒目樣式。按鈕於任何面板下常駐可見，狀態改變觸發 `_reflow_header()` 自適應高度。更新 `tests/m2d_responsive_ui_runner.gd` 斷言；全量 62 個 runner 全數 PASS。
+
+2026-10-11 **數值顯示精度修訂 DONE**：針對使用者截圖反應之浮點長尾（建築營造材料庫存 Tooltip `22.5860542520968` 及輪迴天道面板道心貨幣 `6.150000000000001`），將 UI 顯示層統一格式化為最多兩位小數（剔除末尾多餘零），底層高精度計算不受影響。修改 `building_catalog.gd`、`reincarnation_panel.gd`、`abode_hud_controller.gd`、`recipe_material_tile.gd`；追加 `uix_r4_building_cards_runner.gd` 與 `m3a_reincarnation_ui_runner.gd` 單元斷言；全量 62 個 runner 全數 PASS。
+
+2026-10-11 **UIX-R3-F2 有界修訂 DONE**：依使用者核定統一資源三態／功能分頁／單選篩選的紙面＋青玉選中樣式與黑體，CloseSeal撤黑底；Era1隱藏空島／製造／運輸且情境路由回建築，Era2恢復，煉丹Era1保持。七項相關回歸exit0、Web匯出／壓縮、三橫式Web與隔離Era1／Era2驗收通過。新增[UI UX共用規範](19-ui-ux-guidelines.md)並接AGENTS必讀；人工／觸控／高DPR仍待驗。[驗收](verification/uix-r3-f2.md)。本段覆蓋R3-F1墨字／朱砂小印設計，歷史保留。
+
+2026-10-11 **UIX-R3-F1 有界修訂 DONE**：分頁改卷首墨字目錄與朱砂小印，移除方塊底色／底線；可用項目按原順序排前、未開放項目灰化並標示『未開』排後，遠期隱藏保持，分頁不再使用tooltip。四項相關CLI回歸、Web匯出／壓縮與三橫式Web滑鼠切頁／返回通過；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r3-feedback.md)。
+
+2026-10-11 **UIX-R4-F1 有界修訂 DONE**：依使用者截圖移除重複橫向材料條、僅保留縮圖外環；營造簿上限400px單欄、56px列高／40px縮圖。六項相關回歸與三橫式Web滑鼠建造／升階／內捲／詳情返回通過，一般Web已同步；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r4-feedback.md)。
+
+2026-10-10 **UIX-R4 DONE（有界來源／CLI／桌面Web）**：圖卡網格、局部材料庫存/需求、等級點與需求環；寬版680px雙欄，主動訊息時單欄並排，短橫式內捲，詳情墨字。修改catalog/card_button/navigation/HUD、runtime字型與manifest、12張建築縮圖、R4新runner／導航及響應式runner／全量腳本。62/62 exit0、final圖卡／responsive exit0、Godot import／export／Node壓縮／字型覆蓋1831 exit0；三橫式滑鼠、詳情／旋轉／實付建造升級及重載通過。首次QC／400px及訊息舊斷言／字型檢查失敗已修復；既有退出洩漏警告保留。[全部命令、證據及限制](verification/uix-r4.md)。人工美術／觸控／高DPR待驗；已prepend英文updata checkpoint，下一New Chat收R4回饋後界定UIX-R5，不於本輪開下一大型任務。
+
+2026-10-10 **UIX-R3 DONE（有界頁面外殼／三態／集中資源策略、CLI／桌面Web）**：使用者核定接續UI改造；GameTab、44px關閉印、預告鎖字／hidden分頁／View更新、記憶頁隱藏回退、PAGE_POLICY已接入。固定四Dock及資源三態保持；原×字元缺字修正為runtime支援字。61/61、最終navigation／components74／responsive、專項HUD67／UI1-A/B／D及Web匯出壓縮exit0；三橫式滑鼠／內捲／返回／旋轉恢復有證據。修改來源／測試、命令／失敗與限制見 [R3驗收](verification/uix-r3.md)。人工美術／實體觸控／高DPR及前期人類節奏仍待驗；下一New Chat收R3回饋後續UIX-R4建築清單，必讀docs/08。本輪checkpoint不開R4。
+
+2026-10-10 **UIX-R2-NOTIFY 修復交付**：紅點／HUD提示共用解鎖與待辦判定，tooltip只列實際項目，保留Era1壽盡輪迴與輪迴後宗門例外。Godot4.7.2 HUD67／元件74與導航、BUFF、responsive exit0；Web匯出壓縮exit0，隔離新檔真實採集建茅屋→成就紅點／開頁保留已驗。Web tooltip停留／實體觸控／高DPR待驗，玩家進度未改。[驗收與命令](verification/uix-r2-notify.md)。下一New Chat收提示回饋，不開下一大型階段。
+
+2026-10-10 **UIX-R2-F1 卷軸試玩修訂已交付（美術回饋待確認）**：不放大外框，分頁／返回／目標／說明移除內層厚紙牌，選中用淡青玉與細底線，短卷軸換細青銅軸。HUD52、導航、responsive、B110與三尺寸原生渲染exit0；Web匯出壓縮／桌面滑鼠切製造／800×360返回通過。最終美術／實體觸控／高DPR仍待驗，節奏規則不改。
+[修改與驗收](verification/uix-r2-f1.md)
+
+2026-10-10 **EARLY-FLOW1-D 自然流程有界 PASS；完整 D 仍 IN_PROGRESS**：同一隔離Web進度、真實滑鼠與自然時間，築基一層／F7→十層→金丹→丹液加工回運→中品石50／陣芯1→金丹二層→靈狐首次餵養成長50及最終重載通過。修復築基圓滿主突破按鈕隱藏與離線累計年歲標示；D132、R2 HUD52、B110、responsive、M2-B／離線回歸及Web匯出壓縮exit0。約41分鐘至十層、中品石规则500秒；全觀測約69分鐘含修復／診斷，非純玩家預算。使用者決定「先保留基線，試玩後判定」，未調成本或工時。人類節奏／實體觸控／高DPR仍待驗；R2有界DONE保持。下一New Chat收試玩節奏／裝置結果，不開R3或後段、不重做已過保存／FPS。較早自然流程待驗聲明保留為歷史。
+[本輪驗收與證據](verification/early-flow1d-natural.md)
+
+本輪修改來源／測試／工具／字型／證據及七份交接文件，完整名單与命令、responsive首次失敗／修正及匯入診斷見驗收。最終PCK SHA256=8828C81712F7516494D0C1F5DD8A3476C6739C959A5588EE720CF98572712EE3；字型1831通過，文件UTF-8／diff檢查通過。未更新Windows、未commit／push，48214停止、分頁清理，玩家4175未碰。
+
+2026-10-10 **UIX-R2 DONE（有界主 HUD／共用卷軸＋CLI／桌面 Web；使用者美術接受）**：本次使用者確認美術接受，R2 DoD 中的觸控／高 DPR 為獨立待驗項，不阻擋此有界範圍結案。現版 Godot 4.7.2 HUD 專項重跑 **52/52、exit0**；既有61/61（最終微調之前）、最終五相關回歸及三橫式 Web／實付晉階／重載證據有效，現有 PCK hash 與驗收一致。實體觸控／高 DPR、EARLY-FLOW1-D 自然時間及完整 UI1-C／C／D 仍待驗。本輪只核對與更新文件，未修改遊戲、匯出或玩家存檔。下一 New Chat 優先續 **EARLY-FLOW1-D 自然流程與節奏驗收**，可繼續既有四島／前期工作；未核定 UIX-R3，不直接跳 Era4–12。以下 IN_PROGRESS／等待美術段落保留為本日較早歷史。
+2026-10-10 **UIX-R2 IN_PROGRESS（主 HUD／共用卷軸實作交付）**：青玉道印與四入口、朱紅真實待辦、青銅轉角、獨立目標掛軸、資源摘要／清單互斥與短橫式壽元已接入；空島／製造／運輸／系統頁共用卷軸，未全面重做頁內內容。61/61 全量後追加掛軸／短式微調，最終52專項＋五項相關回歸exit0；Web匯出／壓縮與三橫式實際滑鼠／金丹晉階重載通過。人工美術、實體觸控／高DPR待驗，不提升EARLY-FLOW1-D自然流程與C/D裝置缺口。下一New Chat收R2美術／裝置回饋，不開下一大型階段。
+[驗收與命令](verification/uix-r2.md)
+
+2026-10-10 **UIX-R2-DESIGN 已記錄（設計交付）**：使用者提供五張參考圖，指定玉質道印／主導覽與朱紅提示、卷軸詳細頁、青銅外框及少量雲紋；高解析／像素風共用設計語意。此前等待設計已解除，正式 UIX-R2 實作仍 TODO。範圍與驗收見 [UIX 設計](18-uix-components-and-hud-plan.md)。本輪僅文件，未改遊戲／匯出。
+
+本輪修改：README.md、ROADMAP.md、docs/18-uix-components-and-hud-plan.md、docs/ai-handoff.md、docs/development-status.md、updata.txt。PowerShell／rg 核對文件與現有變更、apply_patch／UTF-8 寫入成功；Godot --version=4.7.2.stable.official.ed1daf0bf；文件 git diff --check exit0（僅 CRLF 正規化警告）。未執行 Runner／Web，未製作素材或開始 R2；美術／實機待驗。下一 New Chat：依指定設計接 UIX-R2 主 HUD 與共用卷軸外殼。
+
+2026-10-10 最新使用者補充：**UIX-R2有指定設計，稍後提供**。R1有界收尾已完成；R2前置已滿足但等待設計稿，以下預設HUD分區只是暫擬，未核定、未開始R2實作。新對話接使用者設計再修訂範圍。
+
+2026-10-10 **UIX-R1 DONE（有界收尾），R2前置放行**：修改FeatureUnlocks／六元件、abode_hud_controller／feature_navigation／living_abode、元件／responsive／BGM測試及正常命令fixture工具；全量60/60、74專項與最後六項相關回歸exit0，最終Web匯出／壓縮、三橫式真實滑鼠突破／晉階／設定／經營返回與重載通過。最後小修之後為六項相關回歸，非重跑60項；退出診斷保留。[完整檔案、命令、限制](verification/uix-r1-finish.md)。下一New Chat開始[UIX-R2主HUD](18-uix-components-and-hud-plan.md)，短橫式壽元換行／資源重複列入R2；觸控／高DPR／人工與EARLY-FLOW1-D自然流程保持待驗。未commit／push。下方AUDIT未放行為本日較早歷史。
+
+2026-10-10 **UIX-R1-AUDIT DONE；R1 放行仍 IN_PROGRESS，暫不開始 R2**：六元件／FeatureUnlocks／57專項已交付，固定Godot4.7.2、隔離元件57與現版responsive均exit0。探針確認正式頁面ID落入AVAILABLE fallback、晉階／突破新容器未定位；舊版面／資源模式驗收有註解，CloseSeal只有32px minimum。修改本驗收頁、development-status、updata及新增隔離診斷腳本／日誌，未改正式來源；全量結果與命令、首次user://沙箱失敗／退出診斷见[稽核](verification/uix-r1-audit.md)。沒有新版Web／觸控／FPS證據，EARLY-FLOW1-D待驗不提升。下一New Chat先UIX-R1收尾＋等價CLI／三橫式Web验收，再R2；歷史Sonnet DONE聲明保留，不作完整放行。
+
+UIX-R1-AUDIT 全量追加結果：隔離重跑到第43個不同Runner（BGM）時 `bgm_era_playlist_runner.gd:75` 輪迴曲目回退斷言失敗，Runner未退出，以Ctrl+C中止／exit1；後17項未由全量執行，元件專項另已通過。本輪不能確認60/60，因果歸屬待定位。詳見上述稽核與隔離日誌。
+
+2026-10-10 **EARLY-FLOW1-D IN_PROGRESS（接入／CLI／桌面Web有界階段）**：F5技能／F6宗門可延後、F7金丹容量與主線、G1丹霞製作回運／G2祖島加工／G3實付首次晉階／G4靈狐首次餵食已接入。118專項、來源修正後59項分段回歸與Web匯出壓縮通過；三隔離origin驗入口、丹液到貨、實際晉階／餵食与重載。整段F7→G4自然時間、人類接受／實機仍待驗，不標DONE。[驗收](verification/early-flow1d.md)。下一New Chat續EARLY-FLOW1-D剩餘自然流程，不重做B／C、保存／FPS或暫緩冷啟動。
+
+2026-10-10 **EARLY-FLOW1-C DONE（F1–F4 CLI／桌面Web／三橫式有界）**：啟用與雙島開拓→真實送料→兩島首批完工→兩種產物回祖島已接入。當世版本化供給紀錄支援部分小數到貨、材料已花掉、重載、拒寫重試／損壞復原與輪迴重置；舊檔不強迫補做。58/58 Runner、最後104專項、Web匯出／壓縮、正常命令築基fixture後真實滑鼠雙島約4分鐘與重載通過。人類接受／實機／高DPR及原UI1-C／C／D保留待驗，整體EARLY-FLOW1仍IN_PROGRESS。[驗收](verification/early-flow1c.md)。下一New Chat續EARLY-FLOW1-D（F5–G4），不重做C。
+
+2026-10-10 **EARLY-FLOW1-B DONE（本段CLI／桌面Web／三橫式）**：核定Q1建築→Q2可選聚靈丹→Q3首次築基；目標／容量庫存澄清／可選入口／築基空島交接已接入。最終110專項、57/57 Runner、Web匯出／壓縮及正常新檔約13分鐘滑鼠築基／重載通過。人類節奏接受、實機／高DPR與原UI1-C／C／D保留待驗，整體EARLY-FLOW1仍IN_PROGRESS。[驗收](verification/early-flow1b.md)。下一New Chat續EARLY-FLOW1-C（F1–F4雙島供給），不重做B。
+
+2026-10-10 **EARLY-FLOW1 IN_PROGRESS：現況稽核與流程提案已交付**。見[前期流程](17-early-progression-and-onboarding-plan.md)／[驗收](verification/early-flow1.md)：建築→可選煉丹→築基→雙島送料／加工／回運→可延後技能／宗門→金丹首升級→靈狐首次餵食為建議，具體次序尚未核定。實際門檻／完成／下一提示／卡關與保存設計邊界已整理；D2 215 checks、煉丹與靈獸回歸exit0，非自然時間或新教學Web驗收。未改遊戲規則／UI／schema／匯出，完整UI1-C／C／D待驗維持。下一New Chat核定順序後接EARLY-FLOW1-B練氣至首次築基。
+
+2026-10-10 **EARLY-FLOW1 TODO（使用者核定優先方向）**：先整理練氣至金丹首段的開放順序與引導，沿玩家流程逐段調整系統。築基同時開宗門／技能／青木玄礦，但介紹次序與完成後引導尚未統一。已加入 [Roadmap](../ROADMAP.md) 的相依、交付與驗收；具體排序／新規則未核定，本輪未改程式。修改 ROADMAP.md、docs/development-status.md、docs/ai-handoff.md、updata.txt；以 PowerShell／apply_patch 編輯及回讀驗證，文件任務不跑遊戲測試。下一 New Chat 接 EARLY-FLOW1 現況與流程表，不開後段擴充，完整UI1-C／C／D待驗保持。
 2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
 # 開發狀態與交接紀錄
+
+### 2026-10-10 EARLY-FLOW1-C DONE：F1–F4雙島供給（有界）
+
+修改`onboarding.gd`、`island_economy.gd`、`island_progression.gd`、`reincarnation_rules.gd`與`abode_hud_controller.gd`，新增`early_flow1c_runner.gd`／UID與固定Runner入口；更新衍生字型、docs17、驗收與交接。F1–F4按真實完工／累計到貨推進；schema3選填當世`early_supply.version=1`固定有界六欄，花掉材料不倒退、舊檔不補造歷史、拒寫重試只保存、損壞退回有效世代、輪迴新世清空。沒有成本／工時／資格／獎勵變更。
+
+命令結果：Godot4.7.2確認；`tools/run_all_runners.ps1` **58/58 exit0（C96）**，最後C **104 checks exit0**；bundled Python字型生成／check1826、Godot Web export、bundled Node壓縮與BGM companions均exit0；13檔UTF-8、20連結與`git diff --check`通過。CUA新48174 origin從正常命令築基fixture接續，真實滑鼠啟用／雙島開拓／送料／首批加工／回運、三橫式／旋轉恢復及重載完成提示通過，HUD約4分鐘且壽元有餘裕。非完整Web練氣新檔通關；本輪沒有新實測quota／IndexedDB／跨瀏覽器，故障追加屬隔離Adapter證據。早期沙箱保存／測試錯路徑與型別、追加JSON5.0／5終態比較失敗已修復；既有RID／ObjectDB退出診斷與favicon404保留。完整命令／檔案／證據及失敗紀錄見[驗收](verification/early-flow1c.md)。
+
+待驗：人類接受、實機觸控／高DPR、既有直式提示偏小及原UI1-C／C／D；整體EARLY-FLOW1保持IN_PROGRESS。保留開工dirty，僅還原四份起初乾淨的歷史fixture與八個本輪生成的R6 import sidecar；未commit／push／更新Windows。48174Ctrl+C停止exit1、分頁關閉、viewport reset，其他服務未操作。英文checkpoint已置updata頂部，依Context Guard本輪停止；**下一New Chat續EARLY-FLOW1-D（F5–G4）**。
 
 ### 2026-10-09 RES1-UI1-R5 DONE：運輸圖形化與簡化（有界）
 
@@ -464,3 +540,4 @@ FX3 文件檢查：9 份嚴格 UTF-8、103 個本地連結及 `git diff --check`
 
 2026-10-05 推送確認：功能提交 `12c560e` 已普通 push 至 origin/main；fetch 後 HEAD 與 origin/main 完整SHA一致，ahead／behind=0／0，工作區乾淨，pull.ff=only。來源／文件 staged diff-check（排除原始log）exit0。測試服務4265以Ctrl+C停止（程序exit1為主動終止），其餘服務未操作。此紀錄另以文件checkpoint提交，不改已驗證程式。
 
+2026-10-10 UIX-R2-NOTIFY追加：桌面Web實際領取仙家草廬成就後修行紅點清除；隔離tab／48216服務已關閉。

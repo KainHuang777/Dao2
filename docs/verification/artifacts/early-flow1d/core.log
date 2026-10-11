@@ -1,0 +1,136 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid access to property or key 'processing_catalog' on a base object of type 'Nil'.
+   at: command (res://src/simulation/island_economy.gd:45)
+   GDScript backtrace (most recent call first):
+       [0] command (res://src/simulation/island_economy.gd:45)
+       [1] craft (res://src/simulation/processing_system.gd:7)
+       [2] apply (res://src/simulation/command_processor.gd:15)
+       [3] submit (res://src/application/game_session.gd:86)
+       [4] send (res://src/verification/res1d2_contract.gd:17)
+       [5] send_session (res://src/verification/res1d2_contract.gd:190)
+       [6] craft (res://src/verification/res1d2_contract.gd:36)
+       [7] wait_recipe (res://src/verification/res1d2_contract.gd:46)
+       [8] run (res://tests/early_flow1d_runner.gd:129)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: GameSession.submit (res://src/application/game_session.gd:88)
+   GDScript backtrace (most recent call first):
+       [0] submit (res://src/application/game_session.gd:88)
+       [1] send (res://src/verification/res1d2_contract.gd:17)
+       [2] send_session (res://src/verification/res1d2_contract.gd:190)
+       [3] craft (res://src/verification/res1d2_contract.gd:36)
+       [4] wait_recipe (res://src/verification/res1d2_contract.gd:46)
+       [5] run (res://tests/early_flow1d_runner.gd:129)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: wait_recipe (res://src/verification/res1d2_contract.gd:47)
+   GDScript backtrace (most recent call first):
+       [0] wait_recipe (res://src/verification/res1d2_contract.gd:47)
+       [1] run (res://tests/early_flow1d_runner.gd:129)
+SCRIPT ERROR: Invalid access to property or key 'processing_catalog' on a base object of type 'Nil'.
+   at: command (res://src/simulation/island_economy.gd:45)
+   GDScript backtrace (most recent call first):
+       [0] command (res://src/simulation/island_economy.gd:45)
+       [1] craft (res://src/simulation/processing_system.gd:7)
+       [2] apply (res://src/simulation/command_processor.gd:15)
+       [3] submit (res://src/application/game_session.gd:86)
+       [4] send (res://src/verification/res1d2_contract.gd:17)
+       [5] send_session (res://src/verification/res1d2_contract.gd:190)
+       [6] craft (res://src/verification/res1d2_contract.gd:36)
+       [7] wait_recipe (res://src/verification/res1d2_contract.gd:46)
+       [8] run (res://tests/early_flow1d_runner.gd:131)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: GameSession.submit (res://src/application/game_session.gd:88)
+   GDScript backtrace (most recent call first):
+       [0] submit (res://src/application/game_session.gd:88)
+       [1] send (res://src/verification/res1d2_contract.gd:17)
+       [2] send_session (res://src/verification/res1d2_contract.gd:190)
+       [3] craft (res://src/verification/res1d2_contract.gd:36)
+       [4] wait_recipe (res://src/verification/res1d2_contract.gd:46)
+       [5] run (res://tests/early_flow1d_runner.gd:131)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: wait_recipe (res://src/verification/res1d2_contract.gd:47)
+   GDScript backtrace (most recent call first):
+       [0] wait_recipe (res://src/verification/res1d2_contract.gd:47)
+       [1] run (res://tests/early_flow1d_runner.gd:131)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:68)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:248)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:247)
+       [4] current_state (res://src/persistence/save_manager.gd:96)
+       [5] run (res://tests/early_flow1d_runner.gd:166)
+SAVE_SLOT_REJECTED: JSON_PARSE
+ERROR: Attempt to open script 'res://src/application/session_save_facade.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1139)
+   GDScript backtrace (most recent call first):
+       [0] ui (res://tests/early_flow1d_runner.gd:175)
+       [1] run (res://tests/early_flow1d_runner.gd:168)
+ERROR: Failed loading resource: res://src/application/session_save_facade.gd.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] ui (res://tests/early_flow1d_runner.gd:175)
+       [1] run (res://tests/early_flow1d_runner.gd:168)
+SCRIPT ERROR: Invalid assignment of property or key 'save_dir_override' with value of type 'String' on a base object of type 'null instance'.
+   at: ui (res://tests/early_flow1d_runner.gd:176)
+   GDScript backtrace (most recent call first):
+       [0] ui (res://tests/early_flow1d_runner.gd:176)
+       [1] run (res://tests/early_flow1d_runner.gd:168)
+EARLY-FLOW1-D: 94 checks; normal commands, simulated waits, sim seconds=4560.0
+ERROR: optional task dispatched
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: earned fifty mid stones serial job
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: second home recipe follows first
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: earned core from returned materials
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: all intermediates available
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: Golden first level ready
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: G3 actual paid level
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: exact paid lingli
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: exact paid money
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: exact paid stone_mid
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: exact paid liquid
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: exact paid formation_core
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: acquisition isn't feeding
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)
+ERROR: first feed remains egg
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/early_flow1d_runner.gd:171)

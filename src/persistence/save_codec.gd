@@ -1,9 +1,9 @@
 class_name SaveCodec
 extends RefCounted
 
-const SCHEMA_VERSION := 3
+const SCHEMA_VERSION := 4
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-12-ui1a-era1-alchemy"
+const RULES_VERSION := "early-pacing-v2-1"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -73,7 +73,7 @@ static func decode(json_text: String) -> Dictionary:
 	var envelope: Dictionary = parsed
 	if not envelope.has("schema_version") or not _is_int(envelope["schema_version"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_TYPE"}
-	if not _to_int(envelope["schema_version"]) in [2, SCHEMA_VERSION]:
+	if not _to_int(envelope["schema_version"]) in [2, 3, SCHEMA_VERSION]:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_UNKNOWN"}
 	if not verify_checksum(envelope):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "CHECKSUM"}
@@ -120,6 +120,18 @@ static func _normalize_numbers(value: Variant) -> Variant:
 		return normalized_dict
 	return value
 
+static func classify_envelope(save_dict: Variant) -> String:
+	if save_dict is Dictionary:
+		var sv: Variant = save_dict.get("schema_version")
+		if _is_int(sv):
+			var version := _to_int(sv)
+			if version == SCHEMA_VERSION:
+				return "current"
+			if version < SCHEMA_VERSION:
+				return "older"
+			return "newer"
+	return "invalid"
+
 static func verify_checksum(envelope: Dictionary) -> bool:
 	if not envelope.has("checksum") or not (envelope["checksum"] is String):
 		return false
@@ -151,6 +163,8 @@ static func _validate_envelope_types(envelope: Dictionary) -> String:
 	if not _is_int(envelope.get("generator_version")):
 		return "FIELD_TYPE:generator_version"
 	return ""
+
+
 
 static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	if not (snapshot is Dictionary):
@@ -354,7 +368,6 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.economy = _normalize_numbers(state.economy)
 	state.command_receipts = _normalize_numbers(receipts)
 	return {"ok": true, "state": state, "error": ""}
-
 
 
 static func _is_int(value: Variant) -> bool:

@@ -22,6 +22,13 @@ func create_panels() -> void:
 	_abode.offline_summary.position = Vector2(300, 100)
 	_abode.hud.add_child(_abode.offline_summary)
 
+	var v2_rules_script = preload("res://src/presentation/v2_rules_notice.gd")
+	_abode.v2_rules_notice = v2_rules_script.new()
+	_abode.v2_rules_notice.visible = false
+	_abode.v2_rules_notice.position = Vector2(300, 100)
+	_abode.hud.add_child(_abode.v2_rules_notice)
+	_abode.v2_rules_notice.closed.connect(_on_v2_notice_closed)
+
 	var bt_seq_script = preload("res://src/presentation/breakthrough_sequence.gd")
 	_abode.breakthrough_seq = bt_seq_script.new()
 	_abode.hud.add_child(_abode.breakthrough_seq)
@@ -129,6 +136,11 @@ func layout_panels(vp: Vector2, margin: float, portrait: bool) -> void:
 		if portrait:
 			offline_rect = Rect2(12, vp.y * 0.32, vp.x - 24, vp.y * 0.60)
 		_abode.offline_summary.call("set_layout_bounds", offline_rect)
+	if _abode.v2_rules_notice != null:
+		var v2_rect := Rect2(margin, margin, minf(480.0, vp.x - margin * 2.0), minf(300.0, vp.y - margin - 80.0))
+		if portrait:
+			v2_rect = Rect2(12, vp.y * 0.32, vp.x - 24, vp.y * 0.60)
+		_abode.v2_rules_notice.call("set_layout_bounds", v2_rect)
 	if _abode.nine_realms_preview != null:
 		_abode.nine_realms_preview.position = Vector2.ZERO
 		_abode.nine_realms_preview.size = vp
@@ -222,6 +234,16 @@ func _display_offline_summary(report: Dictionary) -> void:
 	if _abode.offline_summary and not report.is_empty():
 		_abode.offline_summary.show_report(report)
 		_abode._layout()
+
+func show_v2_rules_notice() -> void:
+	if _abode.v2_rules_notice != null:
+		_abode.v2_rules_notice.show_notice()
+		_abode._layout()
+
+func _on_v2_notice_closed() -> void:
+	if _abode.session and _abode.session.state != null:
+		_abode.session.state.tutorial_flags["v2_rules_notice_seen"] = true
+	_abode._refresh_hud()
 
 func _on_settings_menu_pressed(id: int) -> void:
 	if id in [2, 8, 102, 103]:
@@ -424,12 +446,14 @@ func _on_alchemy_refine_requested(pill_id: String, count: int) -> void:
 	var res: Dictionary = _abode.session.refine_pill(pill_id, count)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "丹爐火候純青，煉製成功！"
+		_abode.alchemy_panel.show_feedback("煉製成功・%s +%d" % [AlchemySystem.PILLS[pill_id].name, count], true)
 		_abode._save_game()
 		_abode._refresh_hud()
 		if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
 			_abode.alchemy_panel.call("update_view", _abode.session.get_view())
 	else:
 		_abode.hint.text = "煉丹受阻：%s" % str(res.get("error", "FAIL"))
+		_abode.alchemy_panel.show_feedback(_abode.hint.text, false)
 
 func _on_alchemy_consume_requested(pill_id: String, count: int) -> void:
 	if _abode.session == null:
@@ -437,12 +461,14 @@ func _on_alchemy_consume_requested(pill_id: String, count: int) -> void:
 	var res: Dictionary = _abode.session.consume_pill(pill_id, count)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "靈丹入腹，化作滾滾修為生機！"
+		_abode.alchemy_panel.show_feedback("已服用・%s ×%d" % [AlchemySystem.PILLS[pill_id].name, count], true)
 		_abode._save_game()
 		_abode._refresh_hud()
 		if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
 			_abode.alchemy_panel.call("update_view", _abode.session.get_view())
 	else:
 		_abode.hint.text = "服丹受阻：%s" % str(res.get("error", "FAIL"))
+		_abode.alchemy_panel.show_feedback(_abode.hint.text, false)
 
 func _on_alchemy_closed() -> void:
 	if _abode.alchemy_panel != null:
@@ -524,6 +550,7 @@ func _on_debug_auto_build_toggled(enabled: bool) -> void:
 		if _abode.debug_panel != null:
 			_abode.debug_panel.call("set_status_message", msg)
 			_abode.debug_panel.call("update_auto_build_ui", 0.0)
+	_abode._refresh_hud()
 
 func _on_debug_manual_upgrade_requested() -> void:
 	_abode._debug_perform_random_upgrade()

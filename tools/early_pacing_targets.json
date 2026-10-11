@@ -1,0 +1,30 @@
+{
+  "_note": "Pacing audit thresholds and assumptions. Edit here when tuning; the audit tool reads this file.",
+  "assumptions": {
+    "active_clicks_per_second": 2,
+    "idle_visit_interval_seconds": 300,
+    "idle_visit_clicks": 20,
+    "sim_max_seconds": 3600,
+    "score_horizon_seconds": 600,
+    "static_levels_per_building": 10,
+    "reference_chain": {
+      "hut": 2, "wooden_house": 2, "forest_farm": 3,
+      "stone_mine": 3, "herb_farm": 3, "storage_lingli": 1
+    }
+  },
+  "thresholds": {
+    "C2_pressure_low": 1.2,
+    "C2_pressure_high": 4.0,
+    "C3_afford_low_seconds": 15.0,
+    "C3_afford_high_seconds": 600.0,
+    "C4_afford_fill_low": 0.3,
+    "C4_afford_fill_high": 0.9,
+    "C5_min_gain_first_levels": 0.15,
+    "C5_levels_checked": 10,
+    "C6_overflow_low": 0.3,
+    "C6_overflow_high": 0.9,
+    "C7_active_over_idle_min": 2.0,
+    "C9_reducible_share_min": 0.3,
+    "C10_island_fill_max_seconds": 120.0
+  }
+}

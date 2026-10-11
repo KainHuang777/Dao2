@@ -212,7 +212,7 @@ var resource_ribbon: PanelContainer
 var resource_ribbon_box: VBoxContainer
 var resource_scroll: ScrollContainer
 var resource_mode_buttons: Array[Button] = []
-var resource_display_mode: int = 1
+var resource_display_mode: int = 0
 var objective_button: Button
 var building_catalog_button: Button
 var island_mode_button: Button
@@ -238,6 +238,7 @@ var nine_realms_preview: Control = null
 var breakthrough_seq: Control = null
 var save_controls: Control = null
 var offline_summary: Control = null
+var v2_rules_notice: Control = null
 var reincarnation_panel: Control = null
 var alchemy_panel: Control = null
 var alchemy_button: Button
@@ -418,6 +419,9 @@ func _init_core() -> void:
 		session.state = loaded_state
 	else:
 		session = GameSession.create_new_game(content)
+
+	if SaveManager.consume_forced_reset():
+		_modal_manager.call_deferred("show_v2_rules_notice")
 
 	state = AbodeStateCompat.new(session)
 
@@ -980,9 +984,9 @@ func _pick_world(point: Vector2) -> void:
 			if b_node.level == 0:
 				var b_view: Dictionary = session.get_view().buildings.get(target_id, {})
 				if bool(b_view.get("affordable", false)):
-					_upgrade_building_from_catalog(target_id)
-					b_node.pulse_upgrade()
-					print("ABODE_DIRECT_BUILD: ", target_id)
+					if _upgrade_building_from_catalog(target_id):
+						print("ABODE_DIRECT_BUILD: ", target_id)
+					return
 			_select_building_from_catalog(target_id)
 			print("ABODE_SELECT: ", id)
 			return
@@ -1113,6 +1117,7 @@ func _upgrade_selected() -> void:
 	_upgrade_building_from_catalog(selected_id)
 
 func _upgrade_building_from_catalog(building_id: String) -> bool:
+	var first_hut := building_id == "hut" and int(session.state.buildings.get("hut", 0)) == 0
 	var cmd := {
 		"command_id": "upg_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "upgrade_building",
@@ -1126,6 +1131,9 @@ func _upgrade_building_from_catalog(building_id: String) -> bool:
 		hint.text = "建造／升級完成！產出與洞府生息已擴展。"
 		_save_game()
 		_refresh_hud()
+		if first_hut:
+			_close_detail()
+			_open_building_catalog()
 		print("ABODE_UPGRADE: ", building_id, " level=", session.state.buildings.get(building_id, 0))
 		return true
 	else:
@@ -1275,6 +1283,7 @@ func _play_bgm_track_at_index(playlist_index: int) -> void:
 	if playlist.is_empty():
 		return
 	_current_bgm_index = playlist_index % playlist.size()
+	_last_known_era_id = cur_era
 	var track: Dictionary = playlist[_current_bgm_index]
 	_bgm_selected_path = String(track.path)
 	var stream: AudioStream = track.get("stream")
@@ -1347,7 +1356,7 @@ func _check_and_update_bgm_era() -> void:
 		return
 	var current_still_valid: bool = false
 	for i in range(playlist.size()):
-		if bgm_player != null and bgm_player.stream == playlist[i].get("stream"):
+		if _bgm_selected_path == String(playlist[i].path):
 			_current_bgm_index = i
 			current_still_valid = true
 			break

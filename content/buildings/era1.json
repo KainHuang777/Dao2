@@ -13,31 +13,31 @@
     "id": "wooden_house",
     "era": 1,
     "max_level": 50,
-    "cost_factor": 1.6,
+    "cost_factor": 1.45,
     "prereq": { "building": "hut", "level": 2 },
     "base_cost": { "money": 20, "lingli": 30 },
     "effect_weight": 2,
-    "effects": { "money": 0.2, "money_max": 50 }
+    "effects": { "money": 0.2, "money_max": 80 }
   },
   {
     "id": "storage_lingli",
     "era": 1,
     "max_level": 30,
-    "cost_factor": 1.25,
+    "cost_factor": 1.2,
     "prereq": { "building": "herb_farm", "level": 3 },
     "base_cost": { "money": 50, "wood": 20 },
     "effect_weight": null,
-    "effects": { "lingli_max": 100 }
+    "effects": { "lingli_max": 160 }
   },
   {
     "id": "storage_money",
     "era": 1,
     "max_level": 30,
-    "cost_factor": 1.4,
+    "cost_factor": 1.3,
     "prereq": null,
     "base_cost": { "money": 100, "wood": 50 },
     "effect_weight": null,
-    "effects": { "money_max": 500 }
+    "effects": { "money_max": 700 }
   },
   {
     "id": "forest_farm",
@@ -63,17 +63,17 @@
     "id": "storage_stone",
     "era": 1,
     "max_level": 30,
-    "cost_factor": 1.4,
+    "cost_factor": 1.3,
     "prereq": null,
     "base_cost": { "money": 40, "stone_low": 10 },
     "effect_weight": null,
-    "effects": { "stone_low_max": 200 }
+    "effects": { "stone_low_max": 300 }
   },
   {
     "id": "herb_farm",
     "era": 1,
     "max_level": 100,
-    "cost_factor": 2,
+    "cost_factor": 1.7,
     "prereq": { "building": "stone_mine", "level": 3 },
     "base_cost": { "stone_low": 10, "wood": 20 },
     "effect_weight": 0.1,
@@ -83,20 +83,20 @@
     "id": "storage_wood",
     "era": 1,
     "max_level": 30,
-    "cost_factor": 1.4,
+    "cost_factor": 1.3,
     "prereq": null,
     "base_cost": { "money": 30, "wood": 10 },
     "effect_weight": null,
-    "effects": { "wood_max": 200 }
+    "effects": { "wood_max": 300 }
   },
   {
     "id": "storage_herb",
     "era": 1,
     "max_level": 30,
-    "cost_factor": 1.4,
+    "cost_factor": 1.3,
     "prereq": null,
     "base_cost": { "money": 60, "wood": 30 },
     "effect_weight": null,
-    "effects": { "spirit_grass_low_max": 100 }
+    "effects": { "spirit_grass_low_max": 160 }
   }
 ]

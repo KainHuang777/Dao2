@@ -146,7 +146,7 @@ static func _configure_route(state: GameState, p: Dictionary) -> Dictionary:
 	if int(level) > int(old.level):
 		var costs := {"wood": 20}
 		if IslandProgression.active(state):
-			costs = {"spirit_timber": 2, "bronze_essence": 2}
+			costs = {"spirit_timber": 10, "bronze_essence": 10}
 		for resource in costs:
 			if value(state, "home", resource) < float(costs[resource]):
 				return _fail("INSUFFICIENT_RESOURCE")
@@ -323,6 +323,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		if int(trip.remaining) == 0:
 			var def: Array = ROUTES[id]
 			_put(state, def[1], def[2], value(state, def[1], def[2]) + float(trip.cargo))
+			Onboarding.supply_arrived(state, id, float(trip.cargo))
 			state.economy.trips.erase(id)
 			events.append({"kind": "cargo_arrived", "route_id": id})
 	var islands: Array = state.economy.jobs.keys()
@@ -335,6 +336,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		if int(job.remaining) == 0:
 			var id: String = job.recipe_id
 			_put(state, island, id, value(state, island, id) + float(catalog.recipes[id].output))
+			Onboarding.supply_completed(state, island, id)
 			events.append({"kind": "processing_completed", "island_id": island, "recipe_id": id})
 	for island in islands:
 		var job: Dictionary = state.economy.jobs[island]
@@ -429,6 +431,8 @@ static func validate(state: GameState) -> String:
 	var e := state.economy
 	if e.is_empty():
 		return ""
+	if e.has("early_supply") and not Onboarding.validate_supply(e.early_supply):
+		return "ECONOMY_EARLY_SUPPLY"
 	if not e.get("version") in [VERSION, IslandProgression.VERSION, IslandProgression.LEGACY_VERSION] or not _integer(e.get("tick"), 0, 2000000000):
 		return "ECONOMY_VERSION_OR_TICK"
 	for key in ["islands", "jobs", "routes", "trips"]:

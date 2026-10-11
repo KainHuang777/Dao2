@@ -12,9 +12,8 @@ static var _chapter: FontVariation
 
 static func chapter_font() -> Font:
 	if _chapter == null:
-		_chapter = FontVariation.new()
-		_chapter.base_font = CHAPTER_FONT
-		_chapter.variation_opentype = {WEIGHT_AXIS: 800}
+		# UI headings share the same sans family as body text and controls.
+		_chapter = _weighted_font(600)
 	return _chapter
 
 static func body_font() -> Font:

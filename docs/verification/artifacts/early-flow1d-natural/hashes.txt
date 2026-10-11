@@ -1,0 +1,13 @@
+
+Algorithm : SHA256
+Hash      : EA4B831ECA37D9BBFAD901C5C95AEFDE1BA886D2095389584378AC7E47970EC5
+Path      : E:\WORK\Dao2\docs\verification\artifacts\early-flow1d-foundation.json
+
+Algorithm : SHA256
+Hash      : 4507F66D661245EECE2CEC935213DE7A298D554B1B63CBF859799AD96C06DD65
+Path      : E:\WORK\Dao2\docs\verification\artifacts\early-flow1d-natural-foundation.json
+
+Algorithm : SHA256
+Hash      : 74031FCC7DF17D3517C08B58FCB085DD33B5EA952D8F6DB665FF3EED75921937
+Path      : E:\WORK\Dao2\build\web\index.pck
+

@@ -6,6 +6,15 @@ const GROUPS := {
 	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"]]},
 }
 const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal", "achievement_panel"]
+## Page presentation policy; costs and command eligibility remain in Session.
+const PAGE_POLICY := {
+	"buildings": {"workspace": "rail", "resources": "shared"},
+	"outposts": {"workspace": "rail", "resources": "shared"},
+	"manufacturing": {"workspace": "large", "resources": "wide_stock"},
+	"transport": {"workspace": "large", "resources": "inline"},
+	"alchemy": {"workspace": "large", "resources": "hud_stock"},
+}
+const DEFAULT_POLICY := {"workspace": "central", "resources": "inline"}
 var abode: Node
 var group := "home"
 var page := ""
@@ -24,6 +33,8 @@ var _changing := false
 var _camera_before := false
 var _tab_group := ""
 var _main_selected: Dictionary = {}
+var _home_resource_mode := 0
+var _tab_signature := ""
 
 func _init(scene: Node) -> void:
 	abode = scene
@@ -31,7 +42,10 @@ func _init(scene: Node) -> void:
 func build() -> void:
 	bar = PanelContainer.new()
 	bar.name = "FeatureTabs"
-	bar.add_theme_stylebox_override("panel", UiMaterial.surface("card"))
+	var tab_shell := UiMaterial.compact_scroll_shell()
+	tab_shell.content_margin_top = 8
+	tab_shell.content_margin_bottom = 8
+	bar.add_theme_stylebox_override("panel", tab_shell)
 	bar.z_index = 40
 	var row := HBoxContainer.new()
 	bar.add_child(row)
@@ -43,12 +57,9 @@ func build() -> void:
 	tabs = HBoxContainer.new()
 	tabs.add_theme_constant_override("separation", 4)
 	scroll.add_child(tabs)
-	var back := Button.new()
+	var back := CloseSeal.new()
 	back_button = back
-	back.text = "返回洞府"
-	back.custom_minimum_size = Vector2(96, 44)
-	UiMaterial.apply_button(back)
-	UiIcon.decorate_button(back, UiIcon.Kind.RETURN_ARROW, UiMaterial.INK, 16)
+	back.tooltip_text = "返回洞府"
 	back.pressed.connect(home)
 	row.add_child(back)
 	abode.hud.add_child(bar)
@@ -99,15 +110,34 @@ func owner(route: String) -> String:
 	return ""
 
 func open_group(id: String) -> void:
-	open(String(remembered.get(id, "buildings")))
+	if not GROUPS.has(id):
+		return
+	var view: Dictionary = abode._presentation_view()
+	var route := String(remembered.get(id, ""))
+	if FeatureUnlocks.check(route, view).state == FeatureUnlocks.State.HIDDEN:
+		route = ""
+		for entry in GROUPS[id].pages:
+			if FeatureUnlocks.check(entry[0], view).state == FeatureUnlocks.State.AVAILABLE:
+				route = entry[0]
+				break
+		for entry in GROUPS[id].pages:
+			if route.is_empty() and FeatureUnlocks.check(entry[0], view).state != FeatureUnlocks.State.HIDDEN:
+				route = entry[0]
+				break
+	open(route)
 
 func open(route: String) -> void:
+	# Contextual links must obey the same early island discovery gate.
+	if route in ["outposts", "manufacturing", "transport"] and abode.session.state.era_id < 2:
+		open("buildings")
+		return
 	var target := owner(route)
 	if target.is_empty() or _changing:
 		return
 	_changing = true
 	if group == "home":
 		_camera_before = abode.camera.input_locked
+		_home_resource_mode = abode.resource_display_mode
 	# Let the original overview restore its camera before replacing it.
 	if abode.nine_realms_preview.visible:
 		abode.nine_realms_preview._on_close_pressed()
@@ -127,9 +157,14 @@ func open(route: String) -> void:
 		"outposts":
 			if not abode.content.processing_catalog.is_empty():
 				island_panel.visible = true
+				if not IslandProgression.active(abode.session.state) or (island_panel.island == "home" and not bool(abode.session.state.economy.get("islands", {}).get("wood", {}).get("opened", false))):
+					island_panel.select_island("wood")
 			else:
 				abode.realm_modal.visible = true
-		"alchemy": abode.alchemy_panel.visible = true
+		"alchemy":
+			abode.alchemy_panel.visible = true
+			if abode.resource_display_mode == 0:
+				abode._set_resource_display_mode(1)
 		"manufacturing":
 			manufacturing_panel.reset_context()
 			manufacturing_panel.visible = true
@@ -144,6 +179,8 @@ func open(route: String) -> void:
 		"beasts", "decisions", "skills":
 			action_panel.mode = page
 			action_panel.visible = true
+	if group == "management" and abode.resource_display_mode == 0:
+		abode._set_resource_display_mode(1)
 	_changing = false
 	abode._refresh_hud()
 	abode._layout_for_size(abode.hud.size)
@@ -172,6 +209,7 @@ func home() -> void:
 	page = ""
 	bar.visible = false
 	_changing = false
+	abode._set_resource_display_mode(_home_resource_mode)
 	abode._layout_for_size(abode.hud.size)
 
 func _on_realms_closed() -> void:
@@ -182,7 +220,9 @@ func _make_tabs() -> void:
 	if _tab_group == group:
 		for route in tab_buttons:
 			tab_buttons[route].button_pressed = route == page
-			UiMaterial.mark_selected(tab_buttons[route], route == page)
+			if tab_buttons[route].get_meta("selected", false) != (route == page):
+				tab_buttons[route]._update_style()
+				tab_buttons[route].set_meta("selected", route == page)
 		return
 	_tab_group = group
 	for child in tabs.get_children():
@@ -191,16 +231,73 @@ func _make_tabs() -> void:
 	tab_buttons.clear()
 	for entry in GROUPS[group].pages:
 		var route: String = entry[0]
-		var button := Button.new()
+		var button := GameTab.new()
 		button.text = entry[1]
 		button.custom_minimum_size = Vector2(80, 44)
 		button.toggle_mode = true
 		button.button_pressed = route == page
-		UiMaterial.apply_button(button)
-		UiMaterial.mark_selected(button, route == page)
+		button._update_style()
+		button.set_meta("selected", route == page)
 		button.pressed.connect(func(): open(route))
 		tabs.add_child(button)
 		tab_buttons[route] = button
+	_tab_signature = ""
+	_refresh_tabs(abode._presentation_view())
+
+func _refresh_tabs(view: Dictionary) -> void:
+	if group == "home":
+		return
+	var signature := group + ":" + page + ":" + str(view.get("achievements", {}).get("unclaimed_count", 0)) + ":" + str(view.get("fortune", {}).get("has_pending", false)) + ":" + str(view.get("reincarnation_preview", {}).get("eligible", false))
+	for route in tab_buttons:
+		var availability := FeatureUnlocks.check(route, view)
+		signature += ":%s:%s:%s" % [route, availability.state, availability.reason]
+	if signature == _tab_signature:
+		return
+	_tab_signature = signature
+	for route in tab_buttons:
+		var availability := FeatureUnlocks.check(route, view)
+		var button: Button = tab_buttons[route]
+		var label := ""
+		for entry in GROUPS[group].pages:
+			if entry[0] == route:
+				label = entry[1]
+		if group != "management":
+			for entry in GROUPS[group].pages:
+				if entry[0] == route:
+					label = entry[1]
+			if availability.state == FeatureUnlocks.State.AVAILABLE:
+				if route == "achievements" and int(view.get("achievements", {}).get("unclaimed_count", 0)) > 0:
+					label = "成就•%d" % int(view.achievements.unclaimed_count)
+				elif route == "fortune" and bool(view.get("fortune", {}).get("has_pending", false)):
+					label = "機緣待決"
+				elif route == "reincarnation" and bool(view.get("reincarnation_preview", {}).get("eligible", false)):
+					label = "輪迴可用"
+		# Explicit contextual links may still open existing read-only previews.
+		# Hiding a tab is discovery policy, never a replacement for core gates.
+		button.visible = availability.state != FeatureUnlocks.State.HIDDEN or route == page
+		button.modulate = Color(0.72, 0.72, 0.72) if availability.state == FeatureUnlocks.State.PREVIEW else Color.WHITE
+		button.tooltip_text = ""
+		button.set_meta("availability", availability.state)
+		button.text = label + ("·未開" if availability.state == FeatureUnlocks.State.PREVIEW else "")
+	# Stable partition: keep the canonical order inside each availability group.
+	# Reuse buttons so unlock refreshes preserve input connections and page state.
+	var index := 0
+	for state in [FeatureUnlocks.State.AVAILABLE, FeatureUnlocks.State.PREVIEW, FeatureUnlocks.State.HIDDEN]:
+		for entry in GROUPS[group].pages:
+			var button: Button = tab_buttons[entry[0]]
+			if button.get_meta("availability") == state:
+				if button.get_index() != index:
+					tabs.move_child(button, index)
+				index += 1
+
+static func presentation_policy(route: String, vp: Vector2) -> Dictionary:
+	var policy: Dictionary = PAGE_POLICY.get(route, DEFAULT_POLICY)
+	return {
+		"central": policy.workspace != "rail",
+		"large": policy.workspace == "large",
+		"wide_stock": policy.resources == "wide_stock" and vp.x >= 1100.0 and vp.y >= 500.0,
+		"hud_stock": policy.resources == "hud_stock" and vp.x >= vp.y,
+	}
 
 func layout(vp: Vector2, view: Dictionary = {}) -> void:
 	var main_buttons := [abode.island_mode_button, abode.building_catalog_button, abode.reincarnation_button, abode.overview_button]
@@ -209,10 +306,11 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 		var button: Button = main_buttons[i]
 		button.visible = true
 		button.disabled = ids[i] == group
+		button.set_pressed_no_signal(ids[i] == group)
 		button.custom_minimum_size = Vector2(72 if vp.x < 640.0 else 88, 56)
 		var selected: bool = ids[i] == group
 		if _main_selected.get(button) != selected:
-			UiMaterial.mark_selected(button, selected)
+			UiMaterial.apply_jade_navigation(button, selected)
 			_main_selected[button] = selected
 	abode.island_mode_button.text = "洞府"
 	abode.building_catalog_button.text = "經營"
@@ -229,11 +327,15 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 	if group == "home":
 		return
 	var margin := 16.0
-	var central := page in ["manufacturing", "transport"] or group != "management"
+	var policy := presentation_policy(page, vp)
+	var central: bool = policy.central
 	var right_rail := not central and vp.x >= 640.0
-	var width := minf(400.0, vp.x * 0.44) if right_rail else minf(820.0 if page in ["manufacturing", "transport"] else 680.0, vp.x - 2.0 * margin)
+	var width := building_workspace_width(vp, abode._hud_controller._messages_open and abode._hud_controller._messages_explicit) if right_rail and page == "buildings" else (minf(400.0, vp.x * 0.44) if right_rail else minf(820.0 if policy.large else 680.0, vp.x - 2.0 * margin))
 	var x := vp.x - margin - width if right_rail else (vp.x - width) * 0.5
-	var manufacturing_stock := page == "manufacturing" and vp.x >= 1100.0 and vp.y >= 500.0
+	var manufacturing_stock: bool = policy.wide_stock
+	if policy.hud_stock:
+		width = maxf(240.0, vp.x - abode.header.get_global_rect().end.x - margin * 2.0)
+		x = vp.x - margin - width
 	if manufacturing_stock:
 		var stock_width := minf(300.0, abode.header.size.x)
 		width = minf(820.0, vp.x - stock_width - margin * 3.0)
@@ -241,25 +343,24 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 		abode.resource_ribbon.position = Vector2(margin, margin + 68.0)
 		abode.resource_ribbon.size = Vector2(stock_width, maxf(80.0, abode.toolbar.position.y - margin - 76.0))
 	bar.position = Vector2(x, margin)
-	bar.size = Vector2(width - 56.0 if x + width > abode.settings_menu.position.x else width, 60)
+	bar.size = Vector2(width - 56.0 if x + width > abode.settings_menu.get_global_rect().position.x else width, 60)
 	if right_rail:
 		# Keep the four management tabs visible above the world safe region.
-		var nav_width := minf(560.0, vp.x - abode.header.size.x - 2.0 * margin)
+		var focused_buildings := page == "buildings" and vp.y < 500.0
+		var nav_width := vp.x - 2.0 * margin if focused_buildings else minf(560.0, vp.x - abode.header.size.x - 2.0 * margin)
 		bar.position.x = vp.x - margin - nav_width
 		bar.size.x = nav_width - 56.0
-	back_button.text = "返回" if right_rail and vp.x < 960.0 else "返回洞府"
+	back_button.text = "×"
 	back_button.tooltip_text = "返回洞府"
-	back_button.custom_minimum_size.x = 64 if right_rail and vp.x < 960.0 else 96
+	back_button.custom_minimum_size = Vector2(44, 44)
 	if group == "management":
 		for button in tab_buttons.values():
 			button.custom_minimum_size.x = 64 if right_rail and vp.x < 960.0 else 80
 		tab_buttons.buildings.text = "建築" if vp.x < 960.0 else "洞府建築"
 		tab_buttons.outposts.text = "洞天" if vp.x < 960.0 else "洞天據點"
-		tab_buttons.buildings.tooltip_text = "洞府建築"
-		tab_buttons.outposts.tooltip_text = "洞天據點"
 		if not abode.content.processing_catalog.is_empty():
 			tab_buttons.outposts.text = "空島"
-			tab_buttons.outposts.tooltip_text = "空島產業與靈界洞天・築基開拓首批產業島"
+	_refresh_tabs(view)
 	var bounds := Rect2(x, margin + 68.0, width, maxf(80.0, abode.toolbar.position.y - margin - 76.0))
 	if page == "buildings":
 		abode.building_catalog.set_layout_bounds(bounds)
@@ -279,12 +380,19 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 		panel.set_layout_bounds(bounds)
 	# Central pages temporarily replace HUD space; resource management retains its rail.
 	if central:
-		abode.header.visible = false
-		abode.resource_ribbon.visible = manufacturing_stock
+		abode.header.visible = policy.hud_stock
+		abode.resource_ribbon.visible = manufacturing_stock or policy.hud_stock
 	# The building rail shares the world HUD; its message layout and user choice
 	# are already handled by AbodeHudController. Other pages replace that space.
 	if page != "buildings":
 		abode.hint_panel.visible = false
+
+static func building_workspace_width(vp: Vector2, show_messages: bool = false) -> float:
+	if vp.y < 500.0:
+		return vp.x - 32.0
+	if show_messages and vp.y >= 500.0:
+		return minf(400.0, vp.x * 0.44)
+	return minf(620.0, vp.x - 280.0)
 
 func refresh(view: Dictionary) -> void:
 	var realm: Dictionary = view.get("realm", {})
@@ -309,6 +417,7 @@ func refresh(view: Dictionary) -> void:
 		abode.call_deferred("_layout")
 	abode.sect_button.visible = false
 	_refresh_main_notifications(view)
+	_refresh_tabs(view)
 	if action_panel.visible:
 		action_panel.refresh(view)
 	if island_panel.visible:
@@ -318,25 +427,27 @@ func refresh(view: Dictionary) -> void:
 		if panel.visible:
 			panel.expire_success()
 			panel.refresh(view, abode.content.processing_catalog)
-	if bar.visible:
-		if tab_buttons.has("reincarnation"):
-			tab_buttons.reincarnation.text = "輪迴可用" if bool(view.get("reincarnation_preview", {}).get("eligible", false)) else "輪迴天賦"
-		if tab_buttons.has("achievements"):
-			var unclaimed := int(view.get("achievements", {}).get("unclaimed_count", 0))
-			tab_buttons.achievements.text = ("成就•%d" % unclaimed) if unclaimed > 0 else "成就"
-		if tab_buttons.has("fortune"):
-			tab_buttons.fortune.text = "機緣待決" if bool(view.get("fortune", {}).get("has_pending", false)) else "機緣"
 
 func _refresh_main_notifications(view: Dictionary) -> void:
-	var narrow: bool = abode.hud.size.x < 640.0
-	var reincarnation_ready := bool(view.get("reincarnation_preview", {}).get("eligible", false))
-	var fortune_pending := bool(view.get("fortune", {}).get("has_pending", false))
-	var has_unclaimed_ach := int(view.get("achievements", {}).get("unclaimed_count", 0)) > 0
-	var cult_notify := reincarnation_ready or has_unclaimed_ach
-	abode.reincarnation_button.text = ("修行•" if narrow else ("修行・輪迴" if reincarnation_ready else "修行・成就")) if cult_notify else "修行"
-	abode.reincarnation_button.tooltip_text = "已符合輪迴資格或有成就獎勵可領取。" if cult_notify else "技能、煉丹、靈獸、成就與輪迴天賦"
-	abode.overview_button.text = ("遊歷•" if narrow else "遊歷・機緣") if fortune_pending else "遊歷"
-	abode.overview_button.tooltip_text = "有待決機緣，可至「機緣」查看並選擇。" if fortune_pending else "九界、宗門、機緣與天道決策"
+	var flags := FeatureUnlocks.notification_flags(view, abode.session.state.sect)
+	var cultivation: Array[String] = []
+	var journey: Array[String] = []
+	if flags.reincarnation:
+		cultivation.append("輪迴可用")
+	if flags.achievements:
+		cultivation.append("成就待領")
+	if flags.beasts:
+		cultivation.append("靈獸可餵養")
+	if flags.fortune:
+		journey.append("機緣待決")
+	if flags.sect:
+		journey.append("宗門任務待領")
+	abode.reincarnation_button.text = "修行"
+	abode.reincarnation_button.set_red_dot(not cultivation.is_empty())
+	abode.reincarnation_button.tooltip_text = "／".join(cultivation) + "；前往修行查看。" if not cultivation.is_empty() else "技能、煉丹、靈獸、成就與輪迴天賦"
+	abode.overview_button.text = "遊歷"
+	abode.overview_button.set_red_dot(not journey.is_empty())
+	abode.overview_button.tooltip_text = "／".join(journey) + "；前往遊歷查看。" if not journey.is_empty() else "九界、宗門、機緣與天道決策"
 
 func _on_action(kind: String, id: String) -> void:
 	if kind == "study":
@@ -361,9 +472,10 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 	var target_panel: Control = manufacturing_panel if page == "manufacturing" else transport_panel if page == "transport" else island_panel
 	var result: Dictionary
 	var save_failed := false
-	if kind == "activate_islands":
+	var first_open: bool = kind == "open_island" and abode.session.state.economy.get("version") != IslandProgression.VERSION
+	if kind == "activate_islands" or first_open:
 		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
-		result = SaveManager.activate_islands(abode.session, {"save_id": "local", "saved_at_utc_ms": now, "settled_until_utc_ms": now, "sim_tick": str(int(abode.session.state.total_elapsed_seconds))})
+		result = SaveManager.activate_islands(abode.session, {"save_id": "local", "saved_at_utc_ms": now, "settled_until_utc_ms": now, "sim_tick": str(int(abode.session.state.total_elapsed_seconds))}, String(payload.get("island_id", "")) if first_open else "")
 		if result.ok:
 			abode.state = abode.AbodeStateCompat.new(abode.session)
 	else:
@@ -379,6 +491,8 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 	var feedback := ""
 	if not result.ok:
 		feedback = "操作未保存：%s。恢復儲存後重試保存。" % error if save_failed else errors.get(error, "啟用未完成：%s。原檔保留，修復後再次啟用。" % error if kind == "activate_islands" else "操作未完成：%s" % error)
+		if first_open:
+			feedback = "開拓未完成：%s。原檔與材料保留，可再次按開拓重試。" % errors.get(error, error)
 	if not result.ok:
 		target_panel.show_result(feedback)
 	else:

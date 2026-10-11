@@ -93,6 +93,10 @@ func _run() -> void:
 		return
 
 	# 4. Chained Unlock after Hut Level 2
+	abode._select_building_from_catalog("hut")
+	if abode.selected_id != "hut" or not abode.info_panel.visible:
+		_fail("Catalog must re-select the built hut before the second upgrade")
+		return
 	abode.session.state.resources["lingli"].value = AmountCompat.from_number(100.0)
 	abode._refresh_hud()
 	abode._upgrade_selected()

@@ -6,6 +6,7 @@ const SUPPORTED_MANIFEST_VERSION := 1
 const DEFAULT_COST_FACTOR := 1.15
 const RESOURCE_TYPES := ["basic", "crafted"]
 const ALLOWED_BONUS_KEYS := ["all_rate", "all_max", "synthetic_max_mult"]
+const DEFERRED_RESOURCE_IDS := ["bronze_essence", "spirit_timber", "spirit_grass_100y", "golden_core_pill", "stone_mid", "liquid", "formation_core", "talisman", "stone_high", "star_metal", "void_crystal"]
 
 static func load_directory(base_dir: String) -> Dictionary:
 	var manifest_path := base_dir.path_join(MANIFEST_FILE)
@@ -246,6 +247,15 @@ static func _validate_era_references(era_defs: Array, resource_ids: Dictionary, 
 		var lv9 = level_up.lv9_item
 		if lv9 != null and not resource_ids.has(lv9.type):
 			errors.append("%s: level_up_requirements.lv9_item references unknown resource '%s'" % [label, lv9.type])
+		var allowed_ids := {}
+		for resource_id in resource_ids:
+			allowed_ids[resource_id] = true
+		for deferred_id in DEFERRED_RESOURCE_IDS:
+			allowed_ids[deferred_id] = true
+		for graded_entry in level_up.graded_resources:
+			for resource_id in graded_entry.resources:
+				if not allowed_ids.has(resource_id):
+					errors.append("%s: level_up_requirements.graded_resources references unknown resource '%s'" % [label, resource_id])
 		var upgrade: Dictionary = def.upgrade_requirements
 		for key in upgrade.capacity:
 			var target := String(key)
@@ -312,6 +322,47 @@ static func _validate_eras(raw: Array, errors: Array) -> Array:
 			clean_resources[String(resource_id)] = float(amount)
 		if not resources_valid:
 			continue
+		var raw_graded = level_up.get("graded_resources", [])
+		if raw_graded == null:
+			raw_graded = []
+		if typeof(raw_graded) != TYPE_ARRAY:
+			errors.append("%s: level_up_requirements.graded_resources must be an array" % label)
+			continue
+		var graded_clean: Array = []
+		var graded_valid := true
+		for graded_index in range(raw_graded.size()):
+			var graded_entry = raw_graded[graded_index]
+			var graded_label := "%s.graded_resources[%d]" % [label, graded_index]
+			if typeof(graded_entry) != TYPE_DICTIONARY:
+				errors.append("%s: expected an object" % graded_label)
+				graded_valid = false
+				break
+			var raw_from_level = graded_entry.get("from_level", 1)
+			if not _is_number(raw_from_level) or float(raw_from_level) != floor(float(raw_from_level)) or float(raw_from_level) < 1.0 or float(raw_from_level) > 99.0:
+				errors.append("%s: from_level must be an integer between 1 and 99" % graded_label)
+				graded_valid = false
+				break
+			var raw_graded_resources = graded_entry.get("resources")
+			if typeof(raw_graded_resources) != TYPE_DICTIONARY or raw_graded_resources.is_empty():
+				errors.append("%s: resources must be a non-empty object" % graded_label)
+				graded_valid = false
+				break
+			var clean_graded_resources := {}
+			for graded_resource_id in raw_graded_resources:
+				var graded_amount = raw_graded_resources[graded_resource_id]
+				if typeof(graded_resource_id) != TYPE_STRING or String(graded_resource_id).is_empty() or not _is_number(graded_amount) or float(graded_amount) < 0.0:
+					errors.append("%s: resources must map non-empty ids to numbers >= 0" % graded_label)
+					graded_valid = false
+					break
+				clean_graded_resources[String(graded_resource_id)] = float(graded_amount)
+			if not graded_valid:
+				break
+			graded_clean.append({
+				"from_level": int(raw_from_level),
+				"resources": clean_graded_resources,
+			})
+		if not graded_valid:
+			continue
 		var lv9_clean: Variant = null
 		var raw_lv9 = level_up.get("lv9_item", null)
 		if raw_lv9 != null:
@@ -355,6 +406,7 @@ static func _validate_eras(raw: Array, errors: Array) -> Array:
 				"base_time": float(base_time),
 				"time_multiplier": float(time_multiplier),
 				"resources": clean_resources,
+				"graded_resources": graded_clean,
 				"lv9_item": lv9_clean,
 			},
 			"upgrade_requirements": upgrade_clean,

@@ -88,9 +88,15 @@ func _run() -> void:
 			expect(int(prepared.economy.get("idle_ticks", 0)) > 0, "long run actually exercises stationary economy shortcut")
 	# A home stock sink must wake blocked routes even within shared preparation.
 	var idle := source.duplicate_state()
-	TimeAdvancer.advance(idle, content, 2000)
-	var idle_prepared := TimeAdvancer.prepare_advance(idle, content)
-	TimeAdvancer.advance(idle, content, 10, idle_prepared)
+	var idle_warmed := 0
+	var idle_prepared: Dictionary = {}
+	while idle_warmed < 8000:
+		TimeAdvancer.advance(idle, content, 1)
+		idle_warmed += 1
+		idle_prepared = TimeAdvancer.prepare_advance(idle, content)
+		TimeAdvancer.advance(idle, content, 10, idle_prepared)
+		if idle_prepared.economy.has("idle_home"):
+			break
 	expect(idle_prepared.economy.has("idle_home"), "stationary economy detected")
 	idle.resources.spirit_timber.value = AmountCompat.zero()
 	var woken := idle.duplicate_state()

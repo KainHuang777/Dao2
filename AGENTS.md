@@ -8,6 +8,7 @@
 2. 按任務讀 `docs/02-technical-architecture.md`；涉及世界場景、HUD、輸入、畫面尺寸、Web shell 或 Web 匯出時，必讀 `docs/07-responsive-ui-web-spec.md`；涉及建築顯示、Era 擴充或布置時，必讀 `docs/08-building-presentation-and-era-expansion.md`；涉及舊規則再讀 `docs/00-source-baseline.md` 和具體來源。
 3. 檢查工作區實際檔案與變更。2026-09-13 此目錄尚不是 Git repository；不要假設可用 git diff、分支或 rollback。若後來已建 Git，以實際狀態為準。
 4. 從 Roadmap 選一個相依條件已滿足的任務，先說明 ID、交付範圍與驗收；完成後更新狀態。不因換模型重做整個計畫。
+5. 涉及任何 UI／UX 修改，必讀 `docs/19-ui-ux-guidelines.md`。共用分頁、字型、關閉與未開放入口不得在單一頁面自行另創樣式；當次使用者核定的新通則須同步更新該規範。
 
 ## 開發約束
 

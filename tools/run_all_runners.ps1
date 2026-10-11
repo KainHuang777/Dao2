@@ -2,6 +2,12 @@ param([string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_conso
 $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
 $runners = @(
+    'tests/uix_r4_building_cards_runner.gd',
+    'tests/uix_r2_hud_runner.gd',
+    'tests/gather_guidance_highlight_runner.gd',
+    'tests/early_pacing_runner.gd',
+    'tests/early_pacing2_runner.gd',
+    'tests/early_pacing2_pill_runner.gd',
     'tools/test_runner.gd',
     'tests/abode_state_runner.gd',
     'tests/living_abode_runner.gd',
@@ -39,6 +45,9 @@ $runners = @(
     'tests/buff_system_runner.gd',
     'tests/debug_features_runner.gd',
     'tests/core_positive_flow_runner.gd',
+    'tests/early_flow1b_runner.gd',
+    'tests/early_flow1c_runner.gd',
+    'tests/early_flow1d_runner.gd',
     'tests/m4a_realm_runner.gd',
     'tests/m4a_session_integration_runner.gd',
     'tests/bgm_era_playlist_runner.gd',
@@ -57,7 +66,8 @@ $runners = @(
     'tests/debug_autobuild_and_time_runner.gd',
     'tests/debug_actions_runner.gd',
     'tests/runtime_inspector_runner.gd',
-    'tests/simulation_sandbox_runner.gd'
+    'tests/simulation_sandbox_runner.gd',
+    'tests/uix_r1_components_runner.gd'
 )
 
 

@@ -1,0 +1,1 @@
+PASS: strict UTF-8 on 6 documents; 7 local links in new documents; git diff --check exit0. Generated D2 fixture restored; gameplay sources unchanged.

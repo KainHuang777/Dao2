@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:747)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:747)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:939)
+       [2] check_ui (res://tests/early_flow1b_runner.gd:114)
+SCRIPT ERROR: Invalid access to property or key 'pressed' on a base object of type 'Nil'.
+   at: check_ui (res://tests/early_flow1b_runner.gd:115)
+   GDScript backtrace (most recent call first):
+       [0] check_ui (res://tests/early_flow1b_runner.gd:115)
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:747)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:747)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:939)
+       [2] check_handoff_ui (res://tests/early_flow1b_runner.gd:157)
+SCRIPT ERROR: Invalid access to property or key 'text' on a base object of type 'Nil'.
+   at: check_handoff_ui (res://tests/early_flow1b_runner.gd:158)
+   GDScript backtrace (most recent call first):
+       [0] check_handoff_ui (res://tests/early_flow1b_runner.gd:158)
+EARLY-FLOW1-B: 93 checks; simulated natural-rate wait 1010s (not wall-clock/browser evidence).

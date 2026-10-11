@@ -249,10 +249,19 @@ static func _apply_refine_pill(_content: GameContent, state: GameState, payload:
 		return _failure(String(result.get("error", "REFINE_FAILED")), result.get("details", {}))
 	return result
 
-static func _apply_consume_pill(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+static func _apply_consume_pill(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var pill_id: String = String(payload.get("pill_id", ""))
 	if pill_id.is_empty():
 		return _failure("EMPTY_PILL_ID", {})
+	var training_ceiling := -1.0
+	if pill_id == "cultivation_pill":
+		var era_def: Variant = content.era(state.era_id)
+		if era_def == null:
+			return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
+		var req: float = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+		if state.training_seconds >= req - AFFORD_TOLERANCE:
+			return _failure("TRAINING_ALREADY_COMPLETE", {"required": req, "available": state.training_seconds})
+		training_ceiling = req
 	var canonical_before := 0.0
 	if not state.economy.is_empty() and pill_id == "foundation_pill":
 		if not IslandEconomy._integer(payload.get("count", 1), 1, 1000000):
@@ -262,7 +271,7 @@ static func _apply_consume_pill(_content: GameContent, state: GameState, payload
 			return _failure(slot.error, {})
 		canonical_before = slot.value.to_float()
 	var count: int = int(payload.get("count", 1))
-	var result := AlchemySystem.consume(state, pill_id, count)
+	var result := AlchemySystem.consume(state, pill_id, count, training_ceiling)
 	if result.get("ok", false) and not state.economy.is_empty() and pill_id == "foundation_pill":
 		# Preserve migrated stock above legacy's clamp; mirror one authoritative delta.
 		ProcessingInventory.write(state, pill_id, AmountCompat.from_number(canonical_before - count))

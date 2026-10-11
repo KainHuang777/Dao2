@@ -33,7 +33,7 @@ const PILLS := {
 		"id": "foundation_pill",
 		"name": "築基丹",
 		"tier": 2,
-		"description": "洗髓伐毛、固本培元之極品靈丹，為突破築基之至寶。服用後永久提高全洞府資源產率 10%。",
+		"description": "固本培元之靈丹，服用後永久提高當世全洞府資源產率 10%。不是突破至築基的必需品。",
 		"cost": {
 			"spirit_grass_low": 50.0,
 			"black_copper": 20.0,
@@ -129,7 +129,7 @@ static func can_consume(state: GameState, pill_id: String, count: int = 1) -> Di
 		}
 	return {"can_consume": true, "count": count}
 
-static func consume(state: GameState, pill_id: String, count: int = 1) -> Dictionary:
+static func consume(state: GameState, pill_id: String, count: int = 1, training_ceiling: float = -1.0) -> Dictionary:
 	var check := can_consume(state, pill_id, count)
 	if not bool(check.get("can_consume", false)):
 		return {"ok": false, "error": String(check.get("reason", "CANNOT_CONSUME")), "details": check}
@@ -141,9 +141,12 @@ static func consume(state: GameState, pill_id: String, count: int = 1) -> Dictio
 	var effects: Dictionary = def.get("effects", {})
 	var applied_effects: Dictionary = {}
 	if effects.has("instant_training_seconds"):
-		var training_gain := float(effects["instant_training_seconds"]) * float(count)
-		state.training_seconds += training_gain
-		applied_effects["training_gain"] = training_gain
+		var applied_gain := float(effects["instant_training_seconds"]) * float(count)
+		if training_ceiling > 0.0:
+			var allowed := maxf(training_ceiling - state.training_seconds, 0.0)
+			applied_gain = minf(applied_gain, allowed)
+		state.training_seconds += applied_gain
+		applied_effects["training_gain"] = applied_gain
 	if effects.has("lifespan_bonus_years"):
 		var lifespan_gain := float(effects["lifespan_bonus_years"]) * float(count)
 		state.pill_effects["lifespan_bonus_years"] = float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + lifespan_gain

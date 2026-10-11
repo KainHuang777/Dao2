@@ -32,10 +32,27 @@ static func next_level_required_seconds(era_def: Dictionary, era_level: int, tim
 
 static func level_up_cost(era_def: Dictionary, era_level: int, cost_reduction: float) -> Dictionary:
 	var req: Dictionary = era_def["level_up_requirements"]
-	var costs: Dictionary[String, AmountCompat] = {}
+	var totals: Dictionary[String, AmountCompat] = {}
 	var resources: Dictionary = req["resources"]
 	for resource_id in resources:
-		costs[String(resource_id)] = AmountCompat.from_number(float(resources[resource_id])).multiply(AmountCompat.from_number(1.0 - cost_reduction)).floor_amount()
+		totals[String(resource_id)] = AmountCompat.from_number(float(resources[resource_id]))
+	var graded: Array = req.get("graded_resources", [])
+	if graded != null:
+		for graded_entry in graded:
+			var entry: Dictionary = graded_entry
+			if int(entry["from_level"]) > era_level:
+				continue
+			var graded_resources: Dictionary = entry["resources"]
+			for resource_id in graded_resources:
+				var key := String(resource_id)
+				var graded_amount := AmountCompat.from_number(float(graded_resources[resource_id]))
+				if totals.has(key):
+					totals[key] = totals[key].add(graded_amount)
+				else:
+					totals[key] = graded_amount
+	var costs: Dictionary[String, AmountCompat] = {}
+	for resource_id in totals:
+		costs[resource_id] = totals[resource_id].multiply(AmountCompat.from_number(1.0 - cost_reduction)).floor_amount()
 	if era_level == 9:
 		var raw_lv9: Variant = req.get("lv9_item", null)
 		if raw_lv9 is Dictionary:

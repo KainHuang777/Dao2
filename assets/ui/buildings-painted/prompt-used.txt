@@ -1,0 +1,8 @@
+UIX-R4, built-in ImageGen, 2026-10-10. One compact architecture thumbnail prop atlas, not world geometry.
+Exact requested canvas 2048x1152, 3 rows x 4 columns with wide 512x384 slots. Solid #FF00FF background. Each miniature stays inside central65% width/70% height, full silhouette, generous margin. Hand-painted ink/gouache, warm textured timber, muted jade roofs, mossy stone, bronze accents. Three-quarter elevated view, readable at64px. No text/labels/grid/people/watermark/vector/pixel art.
+Row1: timber coin workshop house with coin tray; forestry shed with saw/logs; quarry entrance with furnace/ore; herb cultivation pavilion with planted beds.
+Row2: coin treasury and chest; timber warehouse/log stacks; spirit-stone warehouse/crystal bins; herb storehouse/drying racks.
+Row3: low circular qi reservoir and pump shelter; scroll library pavilion; scripture hall with scroll cabinet; foundation courtyard residence with low wall/gate.
+Original generic xianxia architecture, no copyrighted game designs. Each portrait independently centered, clear uncut roof/platform inside its own slot. Magenta keyed by generate2dsprite deterministic processor; separate PNG frames for catalog use only.
+
+Full verbatim built-in prompt is stored in docs/verification/artifacts/uix-r4/prompt-verbatim.txt. Raw output1672x941 differed from requested dimensions. Deterministic row extraction(0:295,295:590,590:941) and padding to351-high rows fixed source-slot overlap without scaling or repainting; final processor strictQC12/12, no edge touch/clamp/empty.

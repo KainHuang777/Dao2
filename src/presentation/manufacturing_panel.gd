@@ -235,7 +235,7 @@ func _refresh_cards() -> void:
 		if not category_buttons[text].has_meta("selection") or bool(category_buttons[text].get_meta("selection", false)) != (text == category):
 			category_buttons[text].toggle_mode = true
 			category_buttons[text].button_pressed = text == category
-			UiMaterial.mark_selected(category_buttons[text], text == category)
+			UiMaterial.mark_paper_tab(category_buttons[text], text == category)
 			category_buttons[text].set_meta("selection", text == category)
 	var running := 0
 	var waiting := 0

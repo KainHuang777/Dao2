@@ -386,7 +386,7 @@ func _test_summary_no_reward() -> void:
     var text: String = summary._body_label.text
     _expect(text.contains("實際離開時間：10714 秒"), "summary text: away time simplified to seconds")
     _expect(text.contains("有效收益時間：10714 秒"), "summary text: effective time simplified to seconds")
-    _expect(text.contains("年歲變化：80 年"), "summary text: age change calculated in in-game years")
+    _expect(text.contains("目前年歲：80 年"), "summary text: cumulative age is labelled as current age in in-game years")
     _expect(text.contains("停止原因：壽元耗盡"), "summary text: stop reason translated to user friendly term")
     _expect(text.contains("是否套用上限：否"), "summary text: cap flag displayed")
     summary.free()
