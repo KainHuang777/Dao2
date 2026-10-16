@@ -1,0 +1,175 @@
+{"utc":"2026-10-15T16:37:06.386Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:37:06.388Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:37:06.428Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":15.0,\"away_ms\":13549,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":13549,\"effective_ticks\":14,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082212847,\"report_id\":\"offline:1792082226396\",\"rollback\":false,\"settled_at_utc_ms\":1792082226396,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:37:36.712Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:37:41.896Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:38:29.178Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":98.0,\"away_ms\":82605,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":82605,\"effective_ticks\":83,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082226548,\"report_id\":\"offline:1792082309153\",\"rollback\":false,\"settled_at_utc_ms\":1792082309153,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:39:43.438Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:39:43.438Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:39:43.439Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:39:43.439Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:39:43.477Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":172.0,\"away_ms\":74132,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":74132,\"effective_ticks\":74,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082309319,\"report_id\":\"offline:1792082383451\",\"rollback\":false,\"settled_at_utc_ms\":1792082383451,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:39:43.478Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":172.0,\"away_ms\":74132,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":74132,\"effective_ticks\":74,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082309319,\"report_id\":\"offline:1792082383451\",\"rollback\":false,\"settled_at_utc_ms\":1792082383451,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:41:17.380Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:41:17.381Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:41:17.424Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":266.0,\"away_ms\":93317,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":93317,\"effective_ticks\":93,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082384073,\"report_id\":\"offline:1792082477390\",\"rollback\":false,\"settled_at_utc_ms\":1792082477390,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:41:17.445Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:41:17.446Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:42:02.200Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:42:02.202Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:42:02.227Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:42:02.236Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:42:02.237Z","text":"ABODE_UPGRADE: hut level=1"}
+{"utc":"2026-10-15T16:42:02.237Z","text":"ABODE_DIRECT_BUILD: hut"}
+{"utc":"2026-10-15T16:42:02.772Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:42:02.773Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:42:02.777Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:42:02.798Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":267.0,\"away_ms\":606,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":606,\"effective_ticks\":0,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082522180,\"report_id\":\"offline:1792082522786\",\"rollback\":false,\"settled_at_utc_ms\":1792082522786,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:44:16.910Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":401.0,\"away_ms\":133860,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":133860,\"effective_ticks\":133,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082522964,\"report_id\":\"offline:1792082656824\",\"rollback\":false,\"settled_at_utc_ms\":1792082656824,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:44:16.911Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":401.0,\"away_ms\":133860,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":133860,\"effective_ticks\":133,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082522964,\"report_id\":\"offline:1792082656824\",\"rollback\":false,\"settled_at_utc_ms\":1792082656824,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:44:48.726Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 730.0)"}
+{"utc":"2026-10-15T16:44:48.728Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:44:48.780Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:44:48.781Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T16:44:48.800Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":433.0,\"away_ms\":31472,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":31472,\"effective_ticks\":31,\"forfeited_ms\":0,\"left_at_utc_ms\":1792082657270,\"report_id\":\"offline:1792082688742\",\"rollback\":false,\"settled_at_utc_ms\":1792082688742,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-15T16:45:05.893Z","text":"ABODE_UPGRADE: hut level=2"}
+{"utc":"2026-10-15T16:45:36.731Z","text":"ABODE_UPGRADE: wooden_house level=1"}
+{"utc":"2026-10-15T16:46:06.491Z","text":"ABODE_UPGRADE: wooden_house level=2"}
+{"utc":"2026-10-15T16:46:49.128Z","text":"ABODE_UPGRADE: forest_farm level=1"}
+{"utc":"2026-10-15T16:47:04.462Z","text":"ABODE_UPGRADE: forest_farm level=2"}
+{"utc":"2026-10-15T16:47:04.666Z","text":"ABODE_UPGRADE: forest_farm level=3"}
+{"utc":"2026-10-15T16:47:57.172Z","text":"ABODE_UPGRADE: stone_mine level=1"}
+{"utc":"2026-10-15T16:47:57.175Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:47:57.383Z","text":"ABODE_UPGRADE: stone_mine level=2"}
+{"utc":"2026-10-15T16:47:57.596Z","text":"ABODE_UPGRADE: stone_mine level=3"}
+{"utc":"2026-10-15T16:48:47.423Z","text":"ABODE_UPGRADE: herb_farm level=1"}
+{"utc":"2026-10-15T16:48:47.426Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:48:47.617Z","text":"ABODE_UPGRADE: herb_farm level=2"}
+{"utc":"2026-10-15T16:48:47.823Z","text":"ABODE_UPGRADE: herb_farm level=3"}
+{"utc":"2026-10-15T16:48:47.826Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:49:25.219Z","text":"ABODE_UPGRADE: storage_lingli level=1"}
+{"utc":"2026-10-15T16:49:25.416Z","text":"ABODE_UPGRADE: storage_lingli level=2"}
+{"utc":"2026-10-15T16:51:57.977Z","text":"ABODE_UPGRADE: storage_money level=1"}
+{"utc":"2026-10-15T16:51:58.184Z","text":"ABODE_UPGRADE: storage_stone level=1"}
+{"utc":"2026-10-15T16:51:58.389Z","text":"ABODE_UPGRADE: storage_wood level=1"}
+{"utc":"2026-10-15T16:51:58.606Z","text":"ABODE_UPGRADE: storage_herb level=1"}
+{"utc":"2026-10-15T16:52:30.862Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:30.870Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:30.871Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:30.873Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:30.874Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:31.078Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:51.664Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T16:52:51.844Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:03:32.104Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:03.076Z","text":"BGM_WEB_READY: 02_The_Weight_of_Heaven.mp3 seconds=58.3050117492676"}
+{"utc":"2026-10-15T17:04:04.543Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:04.759Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:04.791Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:04.801Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:22.517Z","text":"ABODE_UPGRADE: foundation_reservoir level=1"}
+{"utc":"2026-10-15T17:04:22.763Z","text":"ABODE_UPGRADE: foundation_reservoir level=2"}
+{"utc":"2026-10-15T17:04:22.978Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:23.038Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:54.376Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:04:54.424Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:10.274Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:25.552Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:25.581Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:39.584Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:39.594Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:39.595Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:05:56.585Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:06:13.645Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:06:13.684Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:06:58.773Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:06:58.807Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:09:04.121Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:09:04.154Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:11:34.787Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:11:34.802Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:11:34.804Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:13:43.879Z","text":"Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"}
+{"utc":"2026-10-15T17:13:44.078Z","text":"OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"}
+{"utc":"2026-10-15T17:13:44.210Z","text":"Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."}
+{"utc":"2026-10-15T17:13:45.394Z","text":"OFFLINE_SETTLEMENT_BEGIN"}
+{"utc":"2026-10-15T17:13:45.504Z","text":"OFFLINE_SETTLEMENT_END: ok=true"}
+{"utc":"2026-10-15T17:13:46.201Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:13:46.202Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T17:13:46.294Z","text":"ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"}
+{"utc":"2026-10-15T17:13:46.303Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:13:46.321Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:13:46.323Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:13:46.816Z","text":"BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"}
+{"utc":"2026-10-15T17:14:26.475Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:14:26.495Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:14:26.509Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:14:26.520Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:14:26.746Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:14:26.786Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:15:28.938Z","text":"BGM_WEB_READY: 02_The_Weight_of_Heaven.mp3 seconds=58.3050117492676"}
+{"utc":"2026-10-15T17:16:20.822Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:16:20.823Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-15T17:18:06.287Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:18:06.302Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-15T17:18:06.304Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:17:21.823Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 878.0)"}
+{"utc":"2026-10-16T13:17:21.824Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-16T13:17:21.963Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:17:21.963Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-16T13:17:21.963Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":12000.0,\"away_ms\":69096,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":69096,\"effective_ticks\":69,\"forfeited_ms\":0,\"left_at_utc_ms\":1792156572735,\"report_id\":\"offline:1792156641831\",\"rollback\":false,\"settled_at_utc_ms\":1792156641831,\"stopped\":\"lifespan_exhausted\",\"time_only_ticks\":0}"}
+{"utc":"2026-10-16T13:22:35.917Z","text":"BGM_WEB_READY: 02_The_Weight_of_Heaven.mp3 seconds=58.3050117492676"}
+{"utc":"2026-10-16T13:23:34.948Z","text":"BGM_WEB_READY: 03_Rungs_of_the_Infinite.mp3 seconds=61.8839912414551"}
+{"utc":"2026-10-16T13:25:06.327Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:26:52.392Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:26:52.423Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:26:52.464Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:28:50.845Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:28:50.886Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:33:49.380Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:33:49.431Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:39:26.004Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:39:26.032Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:42:35.868Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:42:35.909Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:45:48.237Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:45:48.266Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:49:35.637Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:49:35.650Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:49:35.652Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:49:35.885Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:49:35.909Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:49:35.938Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:50:51.174Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:50:51.205Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:58:39.874Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T13:58:39.930Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:13.823Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:13.836Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:13.837Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:14.038Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:14.056Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:14.072Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:14.085Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:14.296Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:58.152Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:01:58.182Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:02:42.059Z","text":"Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"}
+{"utc":"2026-10-16T14:02:42.398Z","text":"OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"}
+{"utc":"2026-10-16T14:02:42.802Z","text":"Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."}
+{"utc":"2026-10-16T14:02:44.242Z","text":"OFFLINE_SETTLEMENT_BEGIN"}
+{"utc":"2026-10-16T14:02:44.374Z","text":"OFFLINE_SETTLEMENT_END: ok=true"}
+{"utc":"2026-10-16T14:02:45.167Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:02:45.167Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-16T14:02:45.290Z","text":"ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"}
+{"utc":"2026-10-16T14:02:45.298Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:02:45.323Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:02:45.324Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:02:45.803Z","text":"BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"}
+{"utc":"2026-10-16T14:08:08.940Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 878.0)"}
+{"utc":"2026-10-16T14:08:08.942Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-16T14:08:09.001Z","text":"ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"}
+{"utc":"2026-10-16T14:08:09.001Z","text":"ABODE_CAMERA_HOME"}
+{"utc":"2026-10-16T14:08:09.070Z","text":"WEB_BACKGROUND_SETTLED: {\"age_seconds\":14832.0,\"away_ms\":26999,\"bootstrap\":false,\"cap_applied\":false,\"effective_ms\":26999,\"effective_ticks\":27,\"forfeited_ms\":0,\"left_at_utc_ms\":1792159661947,\"report_id\":\"offline:1792159688946\",\"rollback\":false,\"settled_at_utc_ms\":1792159688946,\"stopped\":null,\"time_only_ticks\":0}"}
+{"utc":"2026-10-16T14:08:25.073Z","text":"BGM_WEB_READY: 02_The_Weight_of_Heaven.mp3 seconds=58.3050117492676"}
+{"utc":"2026-10-16T14:09:24.059Z","text":"BGM_WEB_READY: 03_Rungs_of_the_Infinite.mp3 seconds=61.8839912414551"}

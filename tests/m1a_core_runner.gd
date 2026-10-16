@@ -343,7 +343,7 @@ func _report_errors(errors: Array, label: String) -> void:
 		failures.append("%s error: %s" % [label, String(error)])
 
 func _new_session() -> GameSession:
-	return GameSession.create_new_game(_main_content())
+	return GameSession.create_new_game(_main_content(), 1)
 
 func _main_content() -> GameContent:
 	if _content == null:

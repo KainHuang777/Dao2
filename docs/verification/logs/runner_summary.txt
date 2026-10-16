@@ -1,0 +1,66 @@
+﻿0	0	tests/uix_r4_building_cards_runner.gd	
+0	0	tests/uix_r2_hud_runner.gd	UIX-R2 HUD: 100 checks, 0 failures
+0	0	tests/gather_guidance_highlight_runner.gd	GATHER GUIDANCE HIGHLIGHT: 11 checks, 0 failures
+0	0	tests/early_pacing_runner.gd	31 checks, 0 failures
+0	0	tests/early_pacing2_runner.gd	53 checks, 0 failures
+0	0	tests/early_pacing2_pill_runner.gd	PASS: 35  FAIL: 0
+0	0	tests/abode_state_runner.gd	
+0	0	tests/living_abode_runner.gd	
+0	0	tests/m0c_compat_v3_runner.gd	
+0	0	tests/m1a_core_runner.gd	
+0	0	tests/res1a_processing_runner.gd	
+0	0	tests/res1b_economy_runner.gd	
+0	0	tests/res1c_progression_runner.gd	
+0	0	tests/res1d2_integration_runner.gd	
+0	0	tests/res1d2_world_runner.gd	
+0	0	tests/res1_ui1a_runner.gd	
+0	0	tests/res1_ui1b_runner.gd	
+0	0	tests/res1c2_offline_runner.gd	
+0	0	tests/res1c2_perf_runner.gd	
+0	0	tests/resource_feedback_runner.gd	
+0	0	tests/m1b_time_runner.gd	
+0	0	tests/m1c_persistence_runner.gd	
+0	0	tests/web_persistence_fault_runner.gd	
+0	0	tests/m1d_offline_runner.gd	
+0	0	tests/m1e_import_runner.gd	
+0	0	tests/m2a_abode_runner.gd	
+0	0	tests/m2b_breakthrough_runner.gd	
+0	0	tests/island_breakthrough_runner.gd	
+0	0	tests/m2c_nine_realms_runner.gd	
+0	0	tests/m2d_responsive_ui_runner.gd	
+0	0	tests/ui_material_states_runner.gd	
+0	0	tests/text_transition_runner.gd	
+0	0	tests/m2d_slice_release_runner.gd	
+0	0	tests/m3a_reincarnation_runner.gd	
+0	0	tests/m3a_reincarnation_ui_runner.gd	
+0	0	tests/m3b_alchemy_runner.gd	
+0	0	tests/m3b_alchemy_ui_runner.gd	
+0	0	tests/m3b_sect_runner.gd	
+0	0	tests/m3b_sect_ui_runner.gd	
+0	0	tests/buff_system_runner.gd	
+0	0	tests/debug_features_runner.gd	
+0	0	tests/core_positive_flow_runner.gd	
+1	0	tests/early_flow1b_runner.gd	
+0	0	tests/early_flow1c_runner.gd	
+0	0	tests/early_flow1d_runner.gd	
+0	0	tests/m4a_realm_runner.gd	
+0	0	tests/m4a_session_integration_runner.gd	PASS: M4-A-R1 Session integration (251 checks, 0 failures).
+0	0	tests/bgm_era_playlist_runner.gd	
+0	0	tests/m3b_chrono_runner.gd	
+0	0	tests/m4b_scale_law_runner.gd	
+0	0	tests/m5a_world_gen_runner.gd	
+0	0	tests/m3b_fortune_runner.gd	
+0	0	tests/m3b_fortune_ui_runner.gd	
+0	0	tests/m5b_realm_content_runner.gd	
+0	0	tests/feature_navigation_runner.gd	
+0	0	tests/skills_b1_runner.gd	
+0	0	tests/m3b_spirit_beast_runner.gd	
+0	0	tests/abode_scenery_runner.gd	
+0	0	tests/abode_scenery_ui_runner.gd	
+0	0	tests/m3b_achievement_runner.gd	
+0	0	tests/debug_autobuild_and_time_runner.gd	
+0	0	tests/debug_actions_runner.gd	
+0	0	tests/runtime_inspector_runner.gd	
+0	0	tests/simulation_sandbox_runner.gd	
+0	0	tests/uix_r1_components_runner.gd	
+0	0	tests/batch_a_pills_runner.gd	61 checks, 0 failures

@@ -44,12 +44,14 @@ var content: GameContent
 var state: GameState
 var clock: GameClock
 
-static func create_new_game(content: GameContent) -> GameSession:
+static func create_new_game(content: GameContent, tribulation_seed: int = -1) -> GameSession:
 	var session := GameSession.new()
 	session.content = content
 	session.clock = GameClock.create(0.0)
 	var state := GameState.new()
 	state.era_id = 1
+	state.tribulation_seed = tribulation_seed if tribulation_seed >= 0 else draw_tribulation_seed()
+	state.tribulation_roll_index = 0
 	state.level = 1
 	state.onboarding_version = Onboarding.SCHEMA_VERSION
 	var unlock := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
@@ -281,12 +283,17 @@ func get_view() -> Dictionary:
 	}
 
 
+static func draw_tribulation_seed() -> int:
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	return rng.randi() & 0x7FFFFFFF
+
 func reincarnate(mode: String = "normal") -> Dictionary:
 	return submit({
 		"command_id": "reincarnate_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
 		"type": "reincarnate",
 		"expected_revision": state.revision,
-		"payload": {"mode": mode},
+		"payload": {"mode": mode, "tribulation_seed": draw_tribulation_seed()},
 	})
 
 func learn_talent(talent_id: String) -> Dictionary:

@@ -1,0 +1,23 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Godot_v4.7.2-stable_win64_console.exe : ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned cha
+r *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+位於 線路:1 字元:372
++ ... ) + ".txt"; & $e --headless --path . --script ("res://$r") 2>&1 | Out ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ERROR: Conditio...rning: String():String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] decode_input (res://src/persistence/legacy_importer.gd:20)
+       [1] import_text (res://src/persistence/legacy_importer.gd:209)
+       [2] _test_corrupt (res://tests/m1e_import_runner.gd:381)
+       [3] _init (res://tests/m1e_import_runner.gd:23)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] import_text (res://src/persistence/legacy_importer.gd:213)
+       [1] _test_corrupt (res://tests/m1e_import_runner.gd:384)
+       [2] _init (res://tests/m1e_import_runner.gd:23)
+PASS: M1-E legacy import decode, mapping, reports, and slot commit.

@@ -94,14 +94,14 @@ func _test_non_cultivation_pills(content: GameContent) -> void:
 	var life := AlchemySystem.consume(state, "lifespan_pill", 1)
 	_expect(bool(life.get("ok", false)), "lifespan_pill default ceiling: consume ok")
 	_expect_close(state.training_seconds, 40.0, "lifespan_pill default ceiling: training unchanged")
-	_expect_close(float(state.pill_effects.get("lifespan_bonus_years", 0.0)), 5.0, "lifespan_pill default ceiling: bonus 5")
+	_expect_close(float(state.pill_effects.get("lifespan_bonus_years", 0.0)), 10.0, "lifespan_pill default ceiling: bonus 10")
 	var clamped_state := _fresh_state(content)
 	clamped_state.training_seconds = 50.0
 	clamped_state.pills["lifespan_pill"] = 1
 	var life2 := AlchemySystem.consume(clamped_state, "lifespan_pill", 1, 100.0)
 	_expect(bool(life2.get("ok", false)), "lifespan_pill ceiling 100: consume ok")
 	_expect_close(clamped_state.training_seconds, 50.0, "lifespan_pill ceiling 100: training unchanged")
-	_expect_close(float(_applied(life2).get("lifespan_gain", 0.0)), 5.0, "lifespan_pill ceiling 100: bonus applied")
+	_expect_close(float(_applied(life2).get("lifespan_gain", 0.0)), 10.0, "lifespan_pill ceiling 100: bonus applied")
 	var foundation_state := _fresh_state(content)
 	foundation_state.training_seconds = 55.0
 	foundation_state.pills["foundation_pill"] = 2
@@ -131,7 +131,7 @@ func _test_command_other_pill_unaffected(content: GameContent) -> void:
 	var res: Dictionary = CommandProcessor.apply(content, state, {"type": "consume_pill", "payload": {"pill_id": "lifespan_pill", "count": 1}})
 	_expect(bool(res.get("ok", false)), "processor other pill at gate: consume ok")
 	_expect_close(state.training_seconds, req, "processor other pill at gate: training unchanged")
-	_expect_close(float(state.pill_effects.get("lifespan_bonus_years", 0.0)), 5.0, "processor other pill at gate: bonus applied")
+	_expect_close(float(state.pill_effects.get("lifespan_bonus_years", 0.0)), 10.0, "processor other pill at gate: bonus applied")
 
 func _fresh_state(content: GameContent) -> GameState:
 	var session := GameSession.create_new_game(content)

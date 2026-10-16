@@ -64,3 +64,5 @@ IAB、獨立 `http://127.0.0.1:4256/launcher`、normal Web預設 `dao2_saves` na
 共享修改範圍在[單方修改交接](../handoffs/2026-10-05-codex-res1-d2.md)先記錄；未聯絡／啟動AGY，無實際FPS時段協調證據，不冒稱協調完成。工程取得的程序快照不能證明另一位開發者沒有活動。
 
 下一 **RES1-D2-R1**：丹霞專用分層美術與世界入口、正常Web無Debug從新檔完整首段／重開與故障矩陣、人工擴產／運力／修行取捨及辨識度、實機／高DPR與相關C/R2放行。使用者選定技能替代已完成，不需重問；容量工作值／金丹費用仍可依玩法回饋調平衡。D2與完整D不標DONE，C/R2也不因D2程序通過而改狀態。依Context Guard完成此有界接線階段，英文checkpoint置updata頂部，下一大型開發使用New Chat。
+
+2026-10-14 追記：本檔所記 215 checks 已因 2026-10-11 EARLY-PACING v2 調參提升至 247 checks（`src/verification/res1d2_contract.gd`），見 [development-status](../development-status.md)。

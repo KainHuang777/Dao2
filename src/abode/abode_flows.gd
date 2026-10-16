@@ -53,6 +53,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	elapsed += delta
+	if not is_visible_in_tree():
+		return
 	_update_native_fx()
 	queue_redraw()
 

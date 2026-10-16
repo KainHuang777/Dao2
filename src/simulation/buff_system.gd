@@ -1,5 +1,6 @@
 class_name BuffSystem
 extends RefCounted
+const MAX_TIMED_DURATION := 3600.0
 
 const DEFINITIONS := {
 	"spirit_surge": {
@@ -99,6 +100,32 @@ const DEFINITIONS := {
 		"effects": {
 			"lifespan_bonus_years": 10.0
 		}
+	},
+	"spirit_tide": {
+		"id": "spirit_tide",
+		"name": "靈潮",
+		"icon_text": "潮",
+		"color": "#4fd1ff",
+		"description": "引動靈潮，全洞府產率 +50%。",
+		"default_duration": 300.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"production_multiplier": 0.50
+		}
+	},
+	"quick_output": {
+		"id": "quick_output",
+		"name": "速產",
+		"icon_text": "速",
+		"color": "#ffb347",
+		"description": "丹力催發，全洞府產率 +20%。",
+		"default_duration": 600.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"production_multiplier": 0.20
+		}
 	}
 }
 
@@ -134,6 +161,8 @@ static func apply_buff(state: GameState, buff_id: String, duration: float = -1.0
 	for k in custom_effects:
 		effects[k] = custom_effects[k]
 
+	if not is_permanent:
+		duration = minf(duration, MAX_TIMED_DURATION)
 	var remaining := 0.0 if is_permanent else maxf(0.0, duration)
 	if state.buffs.has(buff_id):
 		var existing: Dictionary = state.buffs[buff_id]

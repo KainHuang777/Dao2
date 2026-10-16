@@ -1,5 +1,7 @@
 # 多島擴充與首批正式美術
 
+2026-10-14 追記：丹霞第四島已由 RES1-D2／D2-R1 於 2026-10-05 交付（[驗收](verification/res1-d2-r1.md)），下方「第四島尚未實作／現有三座」等 2026-10-04 C3 陳述屬歷史，完成數以本追記為準；RES1-C2-PERF 已於 2026-10-12／13 全案收結，含閉式分段路徑（[offline-closed-form-v1.md](verification/offline-closed-form-v1.md)）與自然分頁凍結真實瀏覽器驗證（[res1-c2-natural-freeze-web.md](verification/res1-c2-natural-freeze-web.md)）。剩餘門檻僅剩人類美術／節奏驗收。以下歷史文字保留不改。
+
 2026-10-05最新D2-R1：第四座丹霞已接正常管理及獨立赤岩島體／藥坊世界；築基可查看、金丹D2開拓。兩runtime PNG、一張reference與三份提示詞／manifest在assets/abode/res1d2，reference不入Web包；[驗收](verification/res1-d2-r1.md)。下方「第四島尚未實作／現有三座」是2026-10-04 C3歷史，此段覆蓋目前完成數；30+方向、實機／效能及人工門檻保持。
 
 2026-10-04 · RES1-C3。依使用者本輪指示，優先製作正式美術並接入正常遊戲；覆蓋先前「僅隔離預覽、下一步先效能」的順序。C2 效能與實機缺口仍保留，不因此視為通過。

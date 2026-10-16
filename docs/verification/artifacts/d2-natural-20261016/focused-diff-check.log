@@ -1,0 +1,4 @@
+warning: in the working copy of 'ROADMAP.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/19-ui-ux-guidelines.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/simulation/island_economy.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/res1_ui1a_runner.gd', LF will be replaced by CRLF the next time Git touches it

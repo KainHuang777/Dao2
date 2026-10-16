@@ -58,3 +58,5 @@ IAB、独立 `http://127.0.0.1:4257/launcher`、正常Web namespace dao2_saves�
 剩餘：正常Web空白玩家完整T1→築基→金丹→丹霞／T3／修行首段；D2實際瀏覽器quota／保存中斷／重試／双分頁等矩陣；人工美術／擴產、運力、加工與修行取捨／平衡；實體手機觸控／高DPR／自然背景凍結／跨瀏覽器／長期GPU-WASM及相關C/R2放行。沒有新的FPS／IndexedDB或這些裝置證據。下一仍**D2-R1剩餘Web驗收**，不跳Era4或大型島群，R2仍交AGY。
 
 按[AGENTS Context Guard](../../AGENTS.md)「單一 Session 完成當前階段任務（測試與驗收通過）」停止本世界子階段；英文checkpoint置updata頂部，下一大型Web矩陣與玩法工作使用New Chat。這項停止是明示專案交接要求，並非D2完整DoD已完成。
+
+2026-10-14 追記：本檔所記 215 checks 已因 2026-10-11 EARLY-PACING v2 調參提升至 247 checks（`src/verification/res1d2_contract.gd`），見 [development-status](../development-status.md)。

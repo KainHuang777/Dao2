@@ -1,0 +1,5 @@
+D2NATURAL: start config cdp=9235 http=4277 stepDir=docs/verification/artifacts/res1d2-natural-mouse
+D2NATURAL: info detail=driver connected: pageId=4DC0A5D2C06F707E74D00C572AE19221 url=http://127.0.0.1:4277/index.html
+D2NATURAL: milestone=S01_hut_build timeout hut=0
+D2NATURAL: milestone=S01_hut_build ok=true detail=done_in=298s era=1 lv=1 rev=56 lingli=0/0 hut=0 storage_lingli=0 reservoir=0
+D2NATURAL: done detail=steps=1 events=127 jsonl=docs\verification\artifacts\res1d2-natural-mouse\res1d2-natural-mouse-events.jsonl

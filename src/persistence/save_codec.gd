@@ -284,6 +284,14 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["pill_effects"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:pill_effects"}
 		state.pill_effects = (snapshot_dict["pill_effects"] as Dictionary).duplicate(true)
+	if snapshot_dict.has("tribulation_seed"):
+		if not _is_int(snapshot_dict["tribulation_seed"]):
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:tribulation_seed"}
+		state.tribulation_seed = _to_int(snapshot_dict["tribulation_seed"])
+	if snapshot_dict.has("tribulation_roll_index"):
+		if not _is_int(snapshot_dict["tribulation_roll_index"]) or _to_int(snapshot_dict["tribulation_roll_index"]) < 0:
+			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:tribulation_roll_index"}
+		state.tribulation_roll_index = _to_int(snapshot_dict["tribulation_roll_index"])
 	if snapshot_dict.has("buffs"):
 		if not (snapshot_dict["buffs"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:buffs"}

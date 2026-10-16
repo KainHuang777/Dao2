@@ -1,6 +1,6 @@
 class_name ProcessingCatalog
 extends RefCounted
-## Opt-in RES1-A contract. Release activation requires the RES1-B Web save gate and RES1-C integration.
+## Opt-in RES1-A contract. RES1-B Web save gate DONE (2026-10-03) and C/D runtime attach landed; formal enablement still awaits user art/pacing sign-off.
 
 static func load_file(path: String = "res://content/recipes/era1_3.json") -> Dictionary:
 	if not FileAccess.file_exists(path):

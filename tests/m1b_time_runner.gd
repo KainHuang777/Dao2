@@ -100,14 +100,14 @@ func _test_segmented_equals_once() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for segmented equals")
     # Session A: one advance_time(600.0)
-    var session_a := GameSession.create_new_game(content)
+    var session_a := GameSession.create_new_game(content, 1)
     session_a.state.buildings["hut"] = 1
     var result_a := session_a.advance_time(600.0)
     _expect_equal(int(result_a.new_revision), 1, "session A revision")
     _expect_equal(result_a.ticks_advanced, 600, "session A ticks advanced")
     _expect_equal(session_a.state.total_elapsed_seconds, 600.0, "session A total_elapsed_seconds")
     # Session B: ten times advance_time(60.0)
-    var session_b := GameSession.create_new_game(content)
+    var session_b := GameSession.create_new_game(content, 1)
     session_b.state.buildings["hut"] = 1
     for i in range(10):
         var result_b := session_b.advance_time(60.0)
@@ -123,7 +123,7 @@ func _test_segmented_equals_once() -> void:
 func _test_capacity_clamp() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for capacity clamp")
-    var session := GameSession.create_new_game(content)
+    var session := GameSession.create_new_game(content, 1)
     session.state.buildings["hut"] = 1
     var result := session.advance_time(4800.0)
     _expect_equal(result.ticks_advanced, 4800, "capacity clamp ticks advanced to lifespan limit")
@@ -137,7 +137,7 @@ func _test_capacity_clamp() -> void:
 func _test_insufficient_resource() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for insufficient resource")
-    var session := GameSession.create_new_game(content)
+    var session := GameSession.create_new_game(content, 1)
     var result := session.advance_time(300.0)
     _expect_equal(session.state.level, 1, "insufficient resource level stays 1")
     _expect_equal(session.state.training_seconds, 300.0, "insufficient resource training_seconds 300.0")
@@ -145,7 +145,7 @@ func _test_insufficient_resource() -> void:
 func _test_level_up_consumes_and_resets_training() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for level up test")
-    var session := GameSession.create_new_game(content)
+    var session := GameSession.create_new_game(content, 1)
     session.state.resources.lingli.value = AmountCompat.from_number(100.0)
     var result := session.advance_time(60.0)
     _expect_equal(session.state.level, 1, "time alone does not spend resources or level up")
@@ -164,7 +164,7 @@ func _test_level_up_consumes_and_resets_training() -> void:
 func _test_age_not_reset_by_level_up() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for age not reset test")
-    var session := GameSession.create_new_game(content)
+    var session := GameSession.create_new_game(content, 1)
     session.state.total_elapsed_seconds = 1000.0
     session.state.resources.lingli.value = AmountCompat.from_number(100.0)
     var result := session.advance_time(60.0)
@@ -176,7 +176,7 @@ func _test_age_not_reset_by_level_up() -> void:
 func _test_max_level_no_level_up() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for max level test")
-    var session := GameSession.create_new_game(content)
+    var session := GameSession.create_new_game(content, 1)
     session.state.level = 10
     var result := session.advance_time(120.0)
     _expect_equal(session.state.level, 10, "max level stays 10")
@@ -192,13 +192,13 @@ func _test_lifespan_exhausted_boundary() -> void:
     # First session: 79 ticks, should not stop
     var content := _load_content()
     _expect(content != null, "content loaded for lifespan boundary")
-    var session1 := GameSession.create_new_game(content)
+    var session1 := GameSession.create_new_game(content, 1)
     var result1 := session1.advance_time(4740.0)
     _expect_equal(result1.stopped, null, "lifespan boundary session1 stopped null")
     _expect_equal(result1.ticks_advanced, 4740, "lifespan boundary session1 ticks 79")
     _expect_equal(session1.state.total_elapsed_seconds, 4740.0, "lifespan boundary session1 elapsed 4740.0")
     # Second session: 80 ticks, should stop
-    var session2 := GameSession.create_new_game(content)
+    var session2 := GameSession.create_new_game(content, 1)
     var result2 := session2.advance_time(4800.0)
     _expect_equal(result2.stopped, "lifespan_exhausted", "lifespan boundary session2 stopped lifespan_exhausted")
     _expect_equal(result2.ticks_advanced, 4800, "lifespan boundary session2 ticks 80")
@@ -211,7 +211,7 @@ func _test_lifespan_exhausted_boundary() -> void:
             break
     _expect(exhaust_event_exists, "lifespan boundary event kind lifespan_exhausted exists")
     # Third session: 6000 seconds stops early
-    var session3 := GameSession.create_new_game(content)
+    var session3 := GameSession.create_new_game(content, 1)
     var result3 := session3.advance_time(6000.0)
     _expect_equal(result3.ticks_advanced, 4800, "lifespan boundary session3 ticks 80")
     _expect_equal(result3.stopped, "lifespan_exhausted", "lifespan boundary session3 stopped lifespan_exhausted")
@@ -239,8 +239,8 @@ func _scan_dir_for_clock(path: String) -> void:
 func _test_determinism() -> void:
     var content := _load_content()
     _expect(content != null, "content loaded for determinism")
-    var first := GameSession.create_new_game(content)
-    var second := GameSession.create_new_game(content)
+    var first := GameSession.create_new_game(content, 1)
+    var second := GameSession.create_new_game(content, 1)
     # Sequence: advance_time(600.0), gather lingli, advance_time(180.0)
     var first_result := first.advance_time(600.0)
     var gather_cmd := {"command_id": "det1", "type": "gather", "payload": {"resource_id": "lingli"}, "expected_revision": int(first_result.new_revision)}

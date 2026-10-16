@@ -61,3 +61,9 @@ IAB Chromium 154／Windows，獨立 `127.0.0.1:4202`，原始結果追加於 [br
 本輪 [試玩入口](http://127.0.0.1:4205/launcher) 已用命令取得的兩座開拓岛／雙鏈／四條航線狀態初始化；只刷新測試封套，未加入Debug資源。桌面1280×720青木／短橫式844×390玄礦真實滑鼠切島、固定返回和管理入口補看，畫面见 [青木](artifacts/res1-c2-closure-review-wood.jpg)／[玄礦短橫式](artifacts/res1-c2-closure-review-ore-short.jpg)。fixture不是T2升級完成檔，請依本輪已有供給進行試玩；原T2升級／重載證據見前輪C2。裝置覆寫在交付前重設，遊戲分頁回launcher釋放寫鎖。可再點「開啟隔離遊戲」，已有進度不會被載入按鈕覆寫。
 
 **未通過／未取得**：效能預算（以上實測超標）、使用者美術／節奏放行（明確保留待驗）、實體手機觸控／DPR2或3、自然OS凍結／跨瀏覽器、長期Web／GPU記憶體。整體C2不標DONE、正式manifest不啟用、不進D。下一 **RES1-C2-PERF：下載與正常世界幀成本、長離線成本的有界改善及重測**，再補使用者／裝置驗收。按AGENTS Context Guard本階段收尾並將英文checkpoint放updata頂部；大型後續使用New Chat。
+
+---
+
+## 2026-10-13 追記：自然分頁凍結恢復已取得桌面 Edge 真實瀏覽器證據
+
+上段所列「自然OS凍結」之切分頁子項：以 CDP 驅動真實 Edge 155 guest，120s／45s 兩段自然隱藏（瀏覽器層聚焦切換、rAF 自然停擺）後聚焦回復，每週期恰好一次 `WEB_BACKGROUND_SETTLED:`、零 `WEB_BACKGROUND_SAVE_FAILED`、復原後無雙重結算，兩輪獨立重跑一致。詳見 [res1-c2-natural-freeze-web.md](res1-c2-natural-freeze-web.md) 與 [artifacts/res1c2-freeze-2026-10-13.jsonl](artifacts/res1c2-freeze-2026-10-13.jsonl)。**仍待驗**：OS 系統休眠／電池節流長凍結、跨瀏覽器（Firefox／Safari／Chrome）、實體裝置觸控／高 DPR、使用者美術／節奏放行、正式 manifest 啟用。本追記不改變上段「整體C2不標DONE」狀態。

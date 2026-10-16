@@ -1,0 +1,25 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== BGM ERA PLAYLIST TEST START ===
+Loaded tracks count: 4
+Track 0: 01_The_Unresolved_Ascent.mp3
+Track 1: 02_The_Weight_of_Heaven.mp3
+Track 2: 03_Rungs_of_the_Infinite.mp3
+Track 3: 04_Where_Starlight_Settles.mp3
+Playlist filtering logic verified successfully!
+Era 2 playlist looping verified successfully!
+Era 4 full playlist looping verified successfully!
+Reincarnation fallback verified successfully!
+=== BGM ERA PLAYLIST TEST PASS ===
+Godot_v4.7.2-stable_win64_console.exe : WARNING: 1 RID of type "CanvasItem" was leaked.
+位於 線路:1 字元:372
++ ... ) + ".txt"; & $e --headless --path . --script ("res://$r") 2>&1 | Out ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: 1 RID ...em" was leaked.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,4 +1,4 @@
-param([string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe')
+﻿param([string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe')
 $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
 $runners = @(
@@ -21,6 +21,7 @@ $runners = @(
     'tests/res1_ui1a_runner.gd',
     'tests/res1_ui1b_runner.gd',
     'tests/res1c2_offline_runner.gd',
+    'tests/offline_closed_form_parity_runner.gd',
     'tests/res1c2_perf_runner.gd',
     'tests/resource_feedback_runner.gd',
     'tests/m1b_time_runner.gd',
@@ -67,7 +68,8 @@ $runners = @(
     'tests/debug_actions_runner.gd',
     'tests/runtime_inspector_runner.gd',
     'tests/simulation_sandbox_runner.gd',
-    'tests/uix_r1_components_runner.gd'
+    'tests/uix_r1_components_runner.gd',
+    'tests/batch_a_pills_runner.gd'
 )
 
 

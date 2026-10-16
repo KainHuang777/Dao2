@@ -92,6 +92,19 @@ func _run() -> void:
 		check(abode.session.state.economy.islands[id].opened, "UI opens " + id)
 	nav.island_panel.select_island("herb")
 	check(nav.island_panel.opening.disabled, "Era2 cannot open Danxia through basics")
+	# The normal Era2 ladder requires liquid before Danxia can open.
+	var liquid_state: GameState = abode.session.state.duplicate_state()
+	ProcessingInventory.write(liquid_state, "spirit_grass_low", AmountCompat.from_number(50))
+	ProcessingInventory.write(liquid_state, "lingli", AmountCompat.from_number(500))
+	liquid_state.buildings.herb_farm = 3
+	var liquid_view := IslandEconomy.manufacturing_view(liquid_state, abode.content.processing_catalog)
+	check(liquid_view.recipes.liquid.island == "home" and liquid_view.recipes.liquid.reason.is_empty(), "Era2 liquid UI uses available ancestral recipe before Danxia")
+	var liquid_work := IslandEconomy.command(abode.content, liquid_state, "craft", {"island_id": "home", "recipe_id": "liquid", "count": 1})
+	check(liquid_work.ok and liquid_state.economy.jobs.home.recipe_id == "liquid", "Era2 liquid displayed owner accepts real core craft command")
+	liquid_state.era_id = 3
+	liquid_state.economy.islands.herb.opened = true
+	liquid_view = IslandEconomy.manufacturing_view(liquid_state, abode.content.processing_catalog)
+	check(liquid_view.recipes.liquid.island == "herb", "Era3 liquid UI retains Danxia default owner")
 	adapter = MemoryAdapter.new()
 	SaveManager.configure(abode.content, adapter)
 	reset()

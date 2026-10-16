@@ -38,6 +38,8 @@ var achievements: Dictionary = {}
 var economy: Dictionary = {}
 var skill_version: int = 0
 var skills: Dictionary = {}
+var tribulation_seed: int = 0
+var tribulation_roll_index: int = 0
 
 func duplicate_state() -> GameState:
 	var copy := GameState.new()
@@ -75,6 +77,8 @@ func duplicate_state() -> GameState:
 	copy.economy = economy.duplicate(true)
 	copy.skill_version = skill_version
 	copy.skills = skills.duplicate(true)
+	copy.tribulation_seed = tribulation_seed
+	copy.tribulation_roll_index = tribulation_roll_index
 	for resource_id in resources:
 		var entry: Dictionary = resources[resource_id]
 		copy.resources[resource_id] = {
@@ -135,4 +139,6 @@ func to_snapshot_dict() -> Dictionary:
 		"economy": economy.duplicate(true),
 		"skill_version": skill_version,
 		"skills": skills.duplicate(true),
+		"tribulation_seed": tribulation_seed,
+		"tribulation_roll_index": tribulation_roll_index,
 	}

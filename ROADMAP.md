@@ -1,3 +1,5 @@
+2026-10-16 **RES1-D2／D2-R1 自然時間真實滑鼠續驗 IN_PROGRESS**：同一隔離空白進度已走完練氣→築基、容量2420、雙島四航線／首批供給，並修正築基祖島丹液 UI 錯指未開丹霞。UI1-A223／UI1-B220／D2 247與正常Web匯出壓縮exit0；同檔新版已實製丹液及扣料晉階。Context Guard交接時有界程序續至築基十層即停，下一New Chat先核對live log，不重設存檔。完整金丹／丹霞／兩次重載及裝置缺口未放行。[本輪驗收](docs/verification/res1-d2-natural-web-20261016.md)。
+
 2026-10-11 **EAR2-UI-F1 IN_PROGRESS（來源／CLI／原生交付，Web待驗）**：首次空島直接顯示青木材料圖格／可用需求與開拓，首次付款在候選保存交易內初始化＋開拓；原檔、缺料拒絕與重試保留。說明移系統訊息，本島庫存預設展開；短橫式開拓固定頁首。六相關回歸（UI220／C1 91）、三橫式原生與Web匯出壓縮exit0。[驗收](docs/verification/ear2-ui-f1.md)。下一New Chat續隔離Web付款／重載及人工裝置驗收。
 
 2026-10-11 **UIX-R5-ALCHEMY IN_PROGRESS（來源／CLI／原生交付，Web待驗）**：使用者指定煉丹保留左HUD／BUFF／資源；配方改材料圖格＋可用／需求→丹藥持有量＋煉製／服用，長內容TIP，紙底深墨。延壽／產率當世效果即時入BUFF區。八相關回歸、三橫式原生與Web匯出壓縮exit0；IAB localhost逾時。[驗收](docs/verification/uix-alchemy.md)。下一New Chat續隔離Web實際服丹與人工／裝置回饋。

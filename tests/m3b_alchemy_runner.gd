@@ -86,6 +86,7 @@ func _test_refine_and_consume_effects(content: GameContent) -> void:
 	_expect_equal(session.state.training_seconds, prev_training + 60.0, "training increased by 60s")
 
 	# 2. Refine lifespan_pill
+	session.state.era_id = 4
 	var r2 := session.refine_pill("lifespan_pill", 1)
 	_expect(bool(r2.ok), "refine lifespan_pill ok")
 	_expect_equal(int(session.state.pills.get("lifespan_pill", 0)), 1, "lifespan_pill count 1")
@@ -93,7 +94,8 @@ func _test_refine_and_consume_effects(content: GameContent) -> void:
 	# Consume lifespan_pill: lifespan_bonus_years
 	var c2 := session.consume_pill("lifespan_pill", 1)
 	_expect(bool(c2.ok), "consume lifespan_pill ok")
-	_expect_equal(float(session.state.pill_effects.get("lifespan_bonus_years", 0.0)), 5.0, "lifespan bonus years 5")
+	_expect_equal(float(session.state.pill_effects.get("lifespan_bonus_years", 0.0)), 10.0, "lifespan bonus years 10")
+	session.state.era_id = 1
 
 	# 3. Refine foundation_pill (and verify resource sync)
 	var r3 := session.refine_pill("foundation_pill", 1)

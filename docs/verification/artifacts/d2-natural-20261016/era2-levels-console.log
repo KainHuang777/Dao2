@@ -1,0 +1,50 @@
+{"era":2,"level":2,"training":41.75,"required":144,"missing":[]}
+{"era":2,"level":2,"training":94.6500000000001,"required":144,"missing":[]}
+LEVEL_VERIFIED 2:3
+{"era":2,"level":3,"training":11.5,"required":172.79999999999998,"missing":[["spirit_timber",20]]}
+{"era":2,"level":3,"training":81.65,"required":172.79999999999998,"missing":[]}
+{"era":2,"level":3,"training":151.8,"required":172.79999999999998,"missing":[]}
+LEVEL_VERIFIED 2:4
+{"era":2,"level":4,"training":31.05,"required":207.35999999999996,"missing":[["spirit_timber",20]]}
+{"era":2,"level":4,"training":82.8,"required":207.35999999999996,"missing":[]}
+{"era":2,"level":4,"training":151.95,"required":207.35999999999996,"missing":[]}
+{"era":2,"level":4,"training":207.36,"required":207.35999999999996,"missing":[]}
+LEVEL_VERIFIED 2:5
+{"era":2,"level":5,"training":58,"required":248.832,"missing":[]}
+{"era":2,"level":5,"training":104,"required":248.832,"missing":[]}
+{"era":2,"level":5,"training":165,"required":248.832,"missing":[]}
+{"era":2,"level":5,"training":226,"required":248.832,"missing":[]}
+LEVEL_VERIFIED 2:6
+{"era":2,"level":6,"training":28,"required":298.5983999999999,"missing":[]}
+{"era":2,"level":6,"training":74,"required":298.5983999999999,"missing":[]}
+{"era":2,"level":6,"training":135,"required":298.5983999999999,"missing":[]}
+{"era":2,"level":6,"training":196,"required":298.5983999999999,"missing":[]}
+{"era":2,"level":6,"training":242,"required":298.5983999999999,"missing":[]}
+LEVEL_VERIFIED 2:7
+{"era":2,"level":7,"training":13,"required":358.3180799999999,"missing":[]}
+{"era":2,"level":7,"training":76.6,"required":358.3180799999999,"missing":[]}
+{"era":2,"level":7,"training":125,"required":358.3180799999999,"missing":[]}
+{"era":2,"level":7,"training":187,"required":358.3180799999999,"missing":[]}
+{"era":2,"level":7,"training":248,"required":358.3180799999999,"missing":[]}
+{"era":2,"level":7,"training":293,"required":358.3180799999999,"missing":[]}
+{"era":2,"level":7,"training":354,"required":358.3180799999999,"missing":[]}
+LEVEL_VERIFIED 2:8
+{"era":2,"level":8,"training":44,"required":429.9816959999999,"missing":[]}
+{"era":2,"level":8,"training":105,"required":429.9816959999999,"missing":[]}
+{"era":2,"level":8,"training":150,"required":429.9816959999999,"missing":[]}
+{"era":2,"level":8,"training":212,"required":429.9816959999999,"missing":[]}
+{"era":2,"level":8,"training":273,"required":429.9816959999999,"missing":[]}
+{"era":2,"level":8,"training":318,"required":429.9816959999999,"missing":[]}
+{"era":2,"level":8,"training":380,"required":429.9816959999999,"missing":[]}
+LEVEL_VERIFIED 2:9
+{"era":2,"level":9,"training":16.25,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":88.5000000000001,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":141.4,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":211.550000000001,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":281.7,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":334.599999999999,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":402.499999999998,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":463.499999999998,"required":515.9780351999998,"missing":[]}
+{"era":2,"level":9,"training":509.499999999998,"required":515.9780351999998,"missing":[]}
+LEVEL_VERIFIED 2:10
+LEVEL_SEQUENCE_COMPLETE era=2

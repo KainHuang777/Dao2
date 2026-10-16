@@ -46,7 +46,11 @@ static func settle(state: GameState, content: GameContent, now_utc_ms: int, last
 	var time_only_ticks := maxi(0, away_ticks - full_ticks)
 	var stopped = null
 	if full_ticks > 0:
-		var result: Dictionary = TimeAdvancer.advance(state, content, full_ticks)
+		var prepared := TimeAdvancer.prepare_advance(state, content)
+		var first: Dictionary = OfflineClosedForm.advance(state, content, full_ticks, prepared)
+		var result: Dictionary = first
+		if bool(first.get("unsupported", false)):
+			result = TimeAdvancer.advance(state, content, maxi(0, full_ticks - int(first.get("executed", 0))))
 		stopped = result["stopped"]
 		if stopped == null and time_only_ticks > 0:
 			var time_only_result: Dictionary = TimeAdvancer.advance_time_only(state, content, time_only_ticks)

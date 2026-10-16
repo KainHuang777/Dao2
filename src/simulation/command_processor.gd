@@ -214,22 +214,55 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 				"current_capacity": current_cap.to_float()
 			})
 	var from_era := state.era_id
+	var tribulation := TribulationRules.requires_tribulation(from_era)
+	var probability := -1.0
+	if tribulation:
+		var roll_value: float = TribulationRules.roll(state.tribulation_seed, state.tribulation_roll_index)
+		var tribulation_pill: String = TribulationRules.pill_for_era(from_era)
+		var pill_count: int = AlchemySystem.stack_count(state, tribulation_pill)
+		probability = TribulationRules.success_probability(from_era, pill_count)
+		var success: bool = TribulationRules.is_success(roll_value, probability)
+		state.tribulation_roll_index += 1
+		AlchemySystem.reset_stacks(state)
+		if not success:
+			state.era_id = from_era - 1
+			_sync_processing_unlocks(content, state)
+			var demoted_def: Variant = content.era(state.era_id)
+			state.level = int(demoted_def.max_level)
+			state.training_seconds = 0.0
+			return {
+				"ok": true,
+				"events": [{"kind": "tribulation_failed", "from_era": from_era, "to_era": state.era_id, "probability": probability}],
+				"changed_ids": ["era_id", "cultivation_level", "buffs", "pill_effects"]
+			}
 	state.era_id += 1
-	if not state.economy.is_empty():
-		for id in content.processing_catalog.resources:
-			state.resources[id].unlocked = int(content.processing_catalog.resources[id].era) <= state.era_id
+	_sync_processing_unlocks(content, state)
 	state.level = 1
 	state.training_seconds = 0.0
+	AlchemySystem.reset_stacks(state)
 	BuffSystem.apply_buff(state, "breakthrough_resonance", 120.0)
+	var events: Array = [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}]
+	if tribulation:
+		events.append({"kind": "tribulation_passed", "from_era": from_era, "to_era": state.era_id, "probability": probability})
 	return {
 		"ok": true,
-		"events": [{"kind": "era_breakthrough", "from_era": from_era, "to_era": state.era_id}],
-		"changed_ids": ["era_id", "cultivation_level", "buffs"]
+		"events": events,
+		"changed_ids": ["era_id", "cultivation_level", "buffs", "pill_effects"]
 	}
+
+static func _sync_processing_unlocks(content: GameContent, state: GameState) -> void:
+	if state.economy.is_empty():
+		return
+	for id in content.processing_catalog.resources:
+		state.resources[id].unlocked = int(content.processing_catalog.resources[id].era) <= state.era_id
 
 static func _apply_reincarnate(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var mode: String = String(payload.get("mode", "normal"))
-	return ReincarnationRules.apply_reincarnation(state, content, mode)
+	var result: Dictionary = ReincarnationRules.apply_reincarnation(state, content, mode)
+	if bool(result.get("ok", false)) and payload.has("tribulation_seed"):
+		state.tribulation_seed = int(payload["tribulation_seed"])
+		state.tribulation_roll_index = 0
+	return result
 
 static func _apply_learn_talent(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var talent_id: String = String(payload.get("talent_id", ""))
@@ -254,7 +287,7 @@ static func _apply_consume_pill(content: GameContent, state: GameState, payload:
 	if pill_id.is_empty():
 		return _failure("EMPTY_PILL_ID", {})
 	var training_ceiling := -1.0
-	if pill_id == "cultivation_pill":
+	if pill_id == "cultivation_pill" or pill_id == "high_cultivation_pill":
 		var era_def: Variant = content.era(state.era_id)
 		if era_def == null:
 			return _failure("UNKNOWN_ERA", {"era_id": state.era_id})

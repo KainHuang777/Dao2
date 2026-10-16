@@ -29,7 +29,7 @@ func _init() -> void:
 func _session() -> GameSession:
 	var content: GameContent = ContentLoader.load_directory("res://content").content
 	content.processing_catalog = catalog.duplicate(true)
-	var session := GameSession.create_new_game(content)
+	var session := GameSession.create_new_game(content, 1)
 	session.state.era_id = 3
 	session.state.buildings = {"hut": 2, "herb_farm": 3, "stone_mine": 3}
 	for id in catalog.resources:

@@ -1,0 +1,14 @@
+D2NATURAL: start config cdp=9235 http=4277 stepDir=docs/verification/artifacts/res1d2-natural-mouse
+D2NATURAL: info detail=driver connected: pageId=132F61B29FB6C150B1A7C2CE9101E25A url=http://127.0.0.1:4277/index.html
+D2NATURAL: info detail=runList=S02_era1_level10
+D2NATURAL: info detail=step_begin S02_era1_level10
+D2NATURAL: progress step=S02_era1_level10 waited=1s era=1 lv=3 rev=1871 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-001-S02-progress-1.png
+D2NATURAL: progress step=S02_era1_level10 waited=43s era=1 lv=3 rev=1917 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-002-S02-progress-3.png
+D2NATURAL: progress step=S02_era1_level10 waited=84s era=1 lv=3 rev=1964 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-003-S02-progress-5.png
+D2NATURAL: progress step=S02_era1_level10 waited=126s era=1 lv=3 rev=2011 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-004-S02-progress-7.png
+D2NATURAL: progress step=S02_era1_level10 waited=167s era=1 lv=3 rev=2041 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-005-S02-progress-9.png
+D2NATURAL: progress step=S02_era1_level10 waited=209s era=1 lv=3 rev=2088 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-006-S02-progress-11.png
+D2NATURAL: progress step=S02_era1_level10 waited=252s era=1 lv=3 rev=2135 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-007-S02-progress-13.png
+D2NATURAL: progress step=S02_era1_level10 waited=293s era=1 lv=3 rev=2181 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-008-S02-progress-15.png
+D2NATURAL: progress step=S02_era1_level10 waited=335s era=1 lv=3 rev=2213 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-009-S02-progress-17.png
+D2NATURAL: progress step=S02_era1_level10 waited=376s era=1 lv=3 rev=2258 lingli=400/0 hut=2 storage_lingli=0 reservoir=0 shot=docs\verification\artifacts\res1d2-natural-mouse\step-010-S02-progress-19.png

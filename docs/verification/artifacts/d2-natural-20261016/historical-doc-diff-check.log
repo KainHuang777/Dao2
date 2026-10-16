@@ -1,0 +1,7 @@
+warning: in the working copy of 'docs/development-status.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'updata.txt', LF will be replaced by CRLF the next time Git touches it
+docs/development-status.md:563: new blank line at EOF.
+updata.txt:14: trailing whitespace.
++-茅屋 build: catalog card click (902,433) does NOT build; the BUILD happens via world click on the beam marker位置 (450,548) after coins/materials (靈氣20 in current blank-era pacing) — world click (450,548) built hut immediately (hut 0→1, rev+6). 
+updata.txt:27: trailing whitespace.
++NEXT NEW CHAT: cross-browser natural-freeze verification OR Roadmap next (RES1-C3/D or RES1-B); do not re-litigate FPS standard (user 2026-10-09 version) or cold-start (deferred); do not re-run the invalid closed-form-web (first) jsonl. Run_all robot has a known pre-existing failure: tests/early_flow1b_runner.gd (foundation handoff HUD, unrelated). 

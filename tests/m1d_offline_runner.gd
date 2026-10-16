@@ -107,7 +107,7 @@ func _test_cap_24h() -> void:
     if _content == null:
         _expect(false, "cap 24h: content not loaded")
         return
-    var state: GameState = GameSession.create_new_game(_content).state
+    var state: GameState = GameSession.create_new_game(_content, 1).state
     var settled: Dictionary = OfflineSettlement.settle(state, _content, TWO_DAYS_MS + BASE_CURSOR_MS, BASE_CURSOR_MS)
     var report: Dictionary = settled["report"]
     _expect_equal(int(report["away_ms"]), TWO_DAYS_MS, "cap 24h: report away_ms covers the full 48h interval")
@@ -124,7 +124,7 @@ func _test_reopen_no_double_grant() -> void:
     if _content == null:
         _expect(false, "reopen no double grant: content not loaded")
         return
-    var state: GameState = GameSession.create_new_game(_content).state
+    var state: GameState = GameSession.create_new_game(_content, 1).state
     state.era_id = 8
     var first: Dictionary = OfflineSettlement.settle(state, _content, TWO_DAYS_MS + BASE_CURSOR_MS, BASE_CURSOR_MS)
     var first_report: Dictionary = first["report"]
@@ -185,7 +185,7 @@ func _test_rollback() -> void:
     if _content == null:
         _expect(false, "rollback: content not loaded")
         return
-    var state: GameState = GameSession.create_new_game(_content).state
+    var state: GameState = GameSession.create_new_game(_content, 1).state
     state.total_elapsed_seconds = 100.0
     var settled: Dictionary = OfflineSettlement.settle(state, _content, 1000000000, 2000000000)
     var report: Dictionary = settled["report"]
@@ -196,7 +196,7 @@ func _test_rollback() -> void:
     var adapter: FileStorageAdapter = FileStorageAdapter.new(TEST_SLOTS_DIR)
     SaveManager.configure(_content, adapter)
     SaveManager.slots().reset()
-    var seed_state: GameState = GameSession.create_new_game(_content).state
+    var seed_state: GameState = GameSession.create_new_game(_content, 1).state
     var seed_meta: Dictionary = {"save_id": "local", "saved_at_utc_ms": "2000000000", "settled_until_utc_ms": "2000000000", "sim_tick": "0"}
     var seeded: Dictionary = SaveManager.save(seed_state, seed_meta)
     _expect(bool(seeded.get("ok", false)), "rollback: seed save at the future cursor commits")
@@ -209,7 +209,7 @@ func _test_age_full_interval() -> void:
     if _content == null:
         _expect(false, "age full interval: content not loaded")
         return
-    var state: GameState = GameSession.create_new_game(_content).state
+    var state: GameState = GameSession.create_new_game(_content, 1).state
     state.era_id = 8
     var settled: Dictionary = OfflineSettlement.settle(state, _content, TWO_DAYS_MS + BASE_CURSOR_MS, BASE_CURSOR_MS)
     var report: Dictionary = settled["report"]
@@ -218,7 +218,7 @@ func _test_age_full_interval() -> void:
     _expect_equal(int(report["effective_ticks"]), 86400, "age full interval: only the first 24h of ticks earned rewards")
     _expect_equal(int(report["time_only_ticks"]), 86400, "age full interval: the second 24h of ticks was age-only")
     _expect_equal(float(report["age_seconds"]), state.total_elapsed_seconds, "age full interval: report age_seconds matches the settled state age")
-    var era1: GameState = GameSession.create_new_game(_content).state
+    var era1: GameState = GameSession.create_new_game(_content, 1).state
     var era1_settled: Dictionary = OfflineSettlement.settle(era1, _content, TWO_DAYS_MS + BASE_CURSOR_MS, BASE_CURSOR_MS)
     var era1_report: Dictionary = era1_settled["report"]
     var era1_stopped: Variant = era1_report["stopped"]
@@ -229,7 +229,7 @@ func _test_lifespan_limit() -> void:
     if _content == null:
         _expect(false, "lifespan limit: content not loaded")
         return
-    var state: GameState = GameSession.create_new_game(_content).state
+    var state: GameState = GameSession.create_new_game(_content, 1).state
     var settled: Dictionary = OfflineSettlement.settle(state, _content, 1000000000, BASE_CURSOR_MS)
     var report: Dictionary = settled["report"]
     var stopped: Variant = report["stopped"]
@@ -246,7 +246,7 @@ func _test_save_failure_retry() -> void:
     var toggle: ToggleAdapter = ToggleAdapter.new(FileStorageAdapter.new(TEST_SLOTS_DIR))
     SaveManager.configure(_content, toggle)
     SaveManager.slots().reset()
-    var base: GameState = GameSession.create_new_game(_content).state
+    var base: GameState = GameSession.create_new_game(_content, 1).state
     var base_meta: Dictionary = {"save_id": "local", "saved_at_utc_ms": "1000", "settled_until_utc_ms": "1000", "sim_tick": "0"}
     var seeded: Dictionary = SaveManager.save(base, base_meta)
     _expect(bool(seeded.get("ok", false)), "save failure retry: baseline save at cursor 1000 commits")
@@ -266,7 +266,7 @@ func _test_save_failure_retry() -> void:
     var second: Dictionary = OfflineCoordinator.settle(172800000)
     _expect_equal(bool(second["ok"]), true, "save failure retry: retry after storage recovers reports ok true")
     _expect_equal(bool(second["committed"]), true, "save failure retry: retry after storage recovers commits")
-    var control: GameState = GameSession.create_new_game(_content).state
+    var control: GameState = GameSession.create_new_game(_content, 1).state
     var control_settled: Dictionary = OfflineSettlement.settle(control, _content, 172800000, 1000)
     var control_report: Dictionary = control_settled["report"]
     var second_report: Dictionary = second["report"]
@@ -290,7 +290,7 @@ func _test_cursor_commit() -> void:
     var adapter: FileStorageAdapter = FileStorageAdapter.new(TEST_SLOTS_DIR)
     SaveManager.configure(_content, adapter)
     SaveManager.slots().reset()
-    var initial: GameState = GameSession.create_new_game(_content).state
+    var initial: GameState = GameSession.create_new_game(_content, 1).state
     var initial_meta: Dictionary = {"save_id": "local", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": "0"}
     var seeded: Dictionary = SaveManager.save(initial, initial_meta)
     _expect(bool(seeded.get("ok", false)), "cursor commit: initial save at cursor 0 commits")
@@ -322,8 +322,8 @@ func _test_determinism() -> void:
     if _content == null:
         _expect(false, "determinism: content not loaded")
         return
-    var state_a: GameState = GameSession.create_new_game(_content).state
-    var state_b: GameState = GameSession.create_new_game(_content).state
+    var state_a: GameState = GameSession.create_new_game(_content, 1).state
+    var state_b: GameState = GameSession.create_new_game(_content, 1).state
     var settled_a: Dictionary = OfflineSettlement.settle(state_a, _content, 172800001, 1)
     var settled_b: Dictionary = OfflineSettlement.settle(state_b, _content, 172800001, 1)
     var report_a: Dictionary = settled_a["report"]

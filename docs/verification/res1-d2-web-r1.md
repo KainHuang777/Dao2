@@ -64,3 +64,5 @@ audit **exit0**：九案例／16份／400checks皆PASS、正常新包排除全�
 4258 正常新檔及 4259 金丹試玩檔保留，頁面停 launcher 釋放遊戲 writer／GPU，override 已 reset。4259 [正常試玩](http://127.0.0.1:4259/launcher) 按「開啟隔離遊戲」，**勿再 Seed**；[矩陣入口](http://127.0.0.1:4259/?case=d2progress) 既有 progress 會走重載分支，重跑空白流程須使用新的測試origin，不能刪改玩家存檔。服務重啟用上列命令；4258 用 `tools/res1d2r1_preview_server.py --port 4258`，它仍服務原D2-R1包。
 
 **下一仍 D2-R1：** 正常畫面自然時間完整空白T1→築基／靈池→金丹→丹霞／T3／修行、人類擴產／運力／加工／修行取捨及美術；實體手機／DPR2–3／跨瀏覽器／自然凍結／長期GPU-WASM与C/R2放行。已通過的D2保存矩陣不再列為未開始。依 [AGENTS](../../AGENTS.md)「單一 Session 完成當前階段任務（測試與驗收通過）」完成此有界Web保存子階段，checkpoint追加updata頂部，使用New Chat接續；不跳Era4或大型島群。
+
+2026-10-14 追記：本檔所記 215 checks 已因 2026-10-11 EARLY-PACING v2 調參提升至 247 checks（`src/verification/res1d2_contract.gd`），見 [development-status](../development-status.md)。

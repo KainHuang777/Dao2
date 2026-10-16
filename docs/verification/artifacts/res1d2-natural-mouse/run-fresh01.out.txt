@@ -1,0 +1,42 @@
+D2NATURAL: start config cdp=9235 http=4277 stepDir=docs/verification/artifacts/res1d2-natural-mouse
+D2NATURAL: info detail=driver connected: pageId=132F61B29FB6C150B1A7C2CE9101E25A url=http://127.0.0.1:4277/index.html
+D2NATURAL: info detail=runList=S00_launch,S01_hut_build
+D2NATURAL: info detail=step_begin S00_launch
+D2NATURAL: milestone=S00_launch ok=true detail=done_in=5s era=1 lv=1 rev=2 lingli=0/0 hut=0 storage_lingli=0 reservoir=0
+D2NATURAL: info detail=step_begin S01_hut_build
+D2NATURAL: info detail=popup_close_iter=0
+D2NATURAL: info detail=popup_close_iter=1
+D2NATURAL: info detail=popup_close_iter=2
+D2NATURAL: info detail=popup_sequence_done
+D2NATURAL: info detail=gather_iter=0
+D2NATURAL: info detail=gather_iter=1
+D2NATURAL: info detail=gather_iter=2
+D2NATURAL: info detail=gather_iter=3
+D2NATURAL: info detail=gather_iter=4
+D2NATURAL: info detail=gather_iter=5
+D2NATURAL: info detail=gather_iter=6
+D2NATURAL: info detail=gather_iter=7
+D2NATURAL: info detail=gather_iter=8
+D2NATURAL: info detail=gather_iter=9
+D2NATURAL: info detail=gather_iter=10
+D2NATURAL: info detail=gather_iter=11
+D2NATURAL: info detail=gather_iter=12
+D2NATURAL: info detail=gather_iter=13
+D2NATURAL: info detail=gather_iter=14
+D2NATURAL: info detail=gather_iter=15
+D2NATURAL: info detail=gather_iter=16
+D2NATURAL: info detail=gather_iter=17
+D2NATURAL: info detail=gather_iter=18
+D2NATURAL: info detail=gather_iter=19
+D2NATURAL: info detail=gather_iter=20
+D2NATURAL: info detail=gather_iter=21
+D2NATURAL: info detail=gather_iter=22
+D2NATURAL: info detail=gather_iter=23
+D2NATURAL: info detail=gather_iter=24
+D2NATURAL: info detail=gather_iter=25
+D2NATURAL: info detail=gather_iter=26
+D2NATURAL: info detail=gather_iter=27
+D2NATURAL: info detail=gather_iter=28
+D2NATURAL: milestone=S01_hut_build ok hut=1
+D2NATURAL: milestone=S01_hut_build ok=true detail=done_in=51s era=1 lv=1 rev=75 lingli=1/0 hut=1 storage_lingli=0 reservoir=0
+D2NATURAL: done detail=steps=2 events=83 jsonl=docs\verification\artifacts\res1d2-natural-mouse\res1d2-natural-mouse-events.jsonl

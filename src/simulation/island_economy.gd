@@ -244,6 +244,10 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 		for owner in IslandProgression.RECIPES:
 			if IslandProgression.RECIPES[owner] == id:
 				island = owner
+		# Era2's approved home recipe must be reachable through the same UI
+		# contract as commands; Danxia becomes the default owner at Era3.
+		if id == "liquid" and state.era_id == 2:
+			island = "home"
 		var recipe: Dictionary = catalog.recipes[id]
 		var reason := "ECONOMY_NOT_MIGRATED"
 		if active:
