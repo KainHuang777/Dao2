@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 4
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "early-pacing-v2-1"
+const RULES_VERSION := "core-flow-12-skills-p1"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -235,9 +235,9 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.tick_remainder_seconds = _to_float(remainder)
 	var skill_version: Variant = snapshot_dict.get("skill_version", 0)
 	var skills: Variant = snapshot_dict.get("skills", {})
-	if not _is_int(skill_version) or int(skill_version) not in [0, SkillSystem.VERSION] or not skills is Dictionary or skills.size() > 6:
+	if not _is_int(skill_version) or int(skill_version) not in [0, 1, 2] or not skills is Dictionary or skills.size() > 7:
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
-	var supported := {"basic_meditation": 5, "qi_condensation": 5, "foundation_building": 5, "qi_storage_1": 1, "body_strengthening_1": 1, "building_mastery_1": 1}
+	var supported := {"basic_meditation": 5, "qi_condensation": 5, "foundation_building": 5, "qi_storage_1": 1, "body_strengthening_1": 1, "building_mastery_1": 1, "golden_core_formation": 5}
 	for id in skills:
 		if not supported.has(id) or not _is_int(skills[id]) or int(skills[id]) < 0 or int(skills[id]) > int(supported[id]):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}

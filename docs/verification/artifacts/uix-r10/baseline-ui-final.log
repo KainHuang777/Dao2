@@ -1,0 +1,128 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "enough" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://src/presentation/fortune_modal.gd:236)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+
+--- Running M3-B Fortune UI Runner ---
+Testing FortuneModal node creation and structure...
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: test_modal_structure (res://tests/m3b_fortune_ui_runner.gd:27)
+Testing FortuneModal refresh with empty and pending encounter views...
+   GDScript backtrace (most recent call first):
+       [0] test_modal_structure (res://tests/m3b_fortune_ui_runner.gd:27)
+       [1] _run (res://tests/m3b_fortune_ui_runner.gd:11)
+       [2] _init (res://tests/m3b_fortune_ui_runner.gd:7)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: test_modal_refresh_and_options (res://tests/m3b_fortune_ui_runner.gd:47)
+   GDScript backtrace (most recent call first):
+       [0] test_modal_refresh_and_options (res://tests/m3b_fortune_ui_runner.gd:47)
+       [1] _run (res://tests/m3b_fortune_ui_runner.gd:12)
+       [2] _init (res://tests/m3b_fortune_ui_runner.gd:7)
+Testing FortuneModal signals for trigger, resolve, and close...
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: test_modal_signals (res://tests/m3b_fortune_ui_runner.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] test_modal_signals (res://tests/m3b_fortune_ui_runner.gd:103)
+       [1] _run (res://tests/m3b_fortune_ui_runner.gd:13)
+       [2] _init (res://tests/m3b_fortune_ui_runner.gd:7)
+Testing FortuneModal responsive layout bounds...
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: test_modal_responsive_layouts (res://tests/m3b_fortune_ui_runner.gd:145)
+   GDScript backtrace (most recent call first):
+       [0] test_modal_responsive_layouts (res://tests/m3b_fortune_ui_runner.gd:145)
+       [1] _run (res://tests/m3b_fortune_ui_runner.gd:14)
+       [2] _init (res://tests/m3b_fortune_ui_runner.gd:7)
+Testing LivingAbode scene integration with FortuneModal...
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:112)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:112)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:563)
+       [2] _build_hud (res://src/abode/living_abode.gd:614)
+       [3] _ready (res://src/abode/living_abode.gd:362)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:106)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:565)
+       [2] _build_hud (res://src/abode/living_abode.gd:614)
+       [3] _ready (res://src/abode/living_abode.gd:362)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: ASSERTION FAILED: LivingAbode must have instantiated fortune_modal
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _assert (res://tests/m3b_fortune_ui_runner.gd:21)
+       [1] test_living_abode_integration (res://tests/m3b_fortune_ui_runner.gd:168)
+FAIL: LivingAbode must have instantiated fortune_modal
+SCRIPT ERROR: Invalid access to property or key 'visible' on a base object of type 'Nil'.
+   at: test_living_abode_integration (res://tests/m3b_fortune_ui_runner.gd:169)
+   GDScript backtrace (most recent call first):
+       [0] test_living_abode_integration (res://tests/m3b_fortune_ui_runner.gd:169)
+PASS: M3-B fortune UI structure, options, signals, layouts, and living_abode integration.
+
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

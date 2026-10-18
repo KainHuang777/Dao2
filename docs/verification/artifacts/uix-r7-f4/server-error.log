@@ -1,0 +1,11 @@
+127.0.0.1 - - [18/Oct/2026 02:59:16] "GET /launcher HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:16] code 404, message File not found
+127.0.0.1 - - [18/Oct/2026 02:59:16] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [18/Oct/2026 02:59:21] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:21] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:21] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:21] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:21] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:23] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:23] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Oct/2026 02:59:24] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -

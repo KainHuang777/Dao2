@@ -6,7 +6,14 @@ config_version=5
 config/name="修仙問道 v2 — 洞府探針"
 config/name.desktop_control="修仙問道 v2 — 桌面對照"
 run/main_scene="res://scenes/living_abode.tscn"
+run/main_scene.r11_acceptance="res://src/verification/uix_r11_acceptance.tscn"
+run/main_scene.r10_acceptance="res://src/verification/uix_r10_acceptance.tscn"
 run/main_scene.persistence_verification="res://scenes/web_persistence_probe.tscn"
+run/main_scene.r6_acceptance="res://src/verification/uix_r6_acceptance.tscn"
+run/main_scene.r7_acceptance="res://src/verification/uix_r7_acceptance.tscn"
+run/main_scene.hud_readiness_acceptance="res://src/verification/hud_readiness_acceptance.tscn"
+run/main_scene.r9_acceptance="res://src/verification/uix_r9_acceptance.tscn"
+run/main_scene.r8_acceptance="res://src/verification/uix_r8_acceptance.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display/window]

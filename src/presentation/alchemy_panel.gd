@@ -15,6 +15,7 @@ var _scroll: ScrollContainer
 var _pills_list: GridContainer
 var _pill_rows: Dictionary = {}
 var _widgets: Dictionary = {}
+var _margin: MarginContainer
 
 func _ready() -> void:
 	_build_ui()
@@ -23,6 +24,8 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
 	if _pills_list != null:
+		_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell())
+		UiMaterial.apply_scroll_content_margins(_margin, size.y < 350)
 		_pills_list.columns = 2 if size.x >= 850.0 else 1
 		_summary_label.visible = size.y >= 350.0
 		_title_row.visible = size.y >= 350.0
@@ -35,9 +38,9 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 	var margin := MarginContainer.new()
+	_margin = margin
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left", "right", "top", "bottom"]:
-		margin.add_theme_constant_override("margin_" + side, 12)
+	UiMaterial.apply_scroll_content_margins(margin)
 	add_child(margin)
 	_content = VBoxContainer.new()
 	_content.add_theme_constant_override("separation", 8)

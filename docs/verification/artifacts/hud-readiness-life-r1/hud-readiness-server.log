@@ -1,0 +1,19 @@
+HUD isolated fixture http://127.0.0.1:48810/index.html
+127.0.0.1 - - [17/Oct/2026 21:33:46] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:46] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:46] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:46] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:46] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:46] "GET /index.icon.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:49] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:49] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:33:50] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:30] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:30] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:30] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:30] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:30] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:30] "GET /index.icon.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:32] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:32] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Oct/2026 21:34:33] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -

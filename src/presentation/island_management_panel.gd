@@ -341,6 +341,9 @@ func storage_recovered() -> void:
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
+	add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if bounds.size.y < 400 else UiMaterial.scroll_shell())
+	if get_child_count() > 0:
+		get_child(0).add_theme_constant_override("separation", 4 if bounds.size.y < 400 else 8)
 	if _island_basics:
 		var short := bounds.size.y < 400
 		selectors.visible = not short

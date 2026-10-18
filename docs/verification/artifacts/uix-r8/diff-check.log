@@ -1,0 +1,21 @@
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/fonts/runtime/Dao2Sans-VF.ttf.import', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/fonts/runtime/Dao2Serif-VF.ttf.import', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/07-responsive-ui-web-spec.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'project.godot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/abode/living_abode.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/abode_modal_manager.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/achievement_panel.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/alchemy_panel.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/island_management_panel.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/reincarnation_sequence.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/ui_material.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/early_flow1b_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/m3a_reincarnation_ui_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/uix_r2_hud_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/run_all_runners.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'updata.txt', LF will be replaced by CRLF the next time Git touches it
+export_presets.cfg:264: new blank line at EOF.
+project.godot:28: new blank line at EOF.
+src/presentation/system_actions_panel.gd:144: new blank line at EOF.
+src/simulation/skill_system.gd:141: new blank line at EOF.

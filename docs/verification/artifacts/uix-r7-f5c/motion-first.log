@@ -1,0 +1,151 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/mist_back.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/disc_face.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5b-f1/disc_face.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:32)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/disc_rim_fixed.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/tassels.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/lotus.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/lotus_emission.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/light_ribbon.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/mist_front_left.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/mist_front_right.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _run (res://tests/reincarnation_motion_runner.gd:10)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/mist_back.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/disc_face.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5b-f1/disc_face.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:32)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/disc_rim_fixed.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/tassels.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/lotus.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/lotus_emission.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/light_ribbon.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/mist_front_left.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ERROR: No loader found for resource: res://assets/ui/reincarnation-layered-f5a/mist_front_right.png (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://src/presentation/reincarnation_fx/layered_effect.gd:31)
+       [1] _ready (res://src/presentation/reincarnation_mandala.gd:13)
+       [2] _build_ui (res://src/presentation/reincarnation_sequence.gd:96)
+       [3] _ready (res://src/presentation/reincarnation_sequence.gd:38)
+       [4] _run (res://tests/reincarnation_motion_runner.gd:26)
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_FINISHED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_FINISHED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_FINISHED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+ABODE_REINCARNATION_SEQUENCE_FINISHED: cycle=1
+REINCARNATION-MOTION failures=0

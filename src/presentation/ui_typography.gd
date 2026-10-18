@@ -43,3 +43,10 @@ static func _weighted_font(weight: int) -> FontVariation:
 	result.base_font = BASE_FONT
 	result.variation_opentype = {WEIGHT_AXIS: weight}
 	return result
+
+# Decorative performance roles only; body and controls retain the shared sans.
+static func reincarnation_font() -> Font:
+	return preload("res://assets/fonts/reincarnation-f5b/LXGWWenKaiTC-Regular.ttf")
+
+static func reincarnation_mantra_font() -> Font:
+	return preload("res://assets/fonts/reincarnation-f5b/NotoSansDevanagari-Regular.ttf")

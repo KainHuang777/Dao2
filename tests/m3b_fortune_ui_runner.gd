@@ -91,8 +91,8 @@ func test_modal_refresh_and_options() -> void:
 	var options_box: VBoxContainer = modal.get("_options_container")
 	_assert(options_box.get_child_count() == 2, "Must create 2 option buttons")
 
-	var btn0: Button = options_box.get_child(0) as Button
-	var btn1: Button = options_box.get_child(1) as Button
+	var btn0: Button = modal._option_rows[0].button
+	var btn1: Button = modal._option_rows[1].button
 	_assert(not btn0.disabled, "Option 0 has no cost and should be enabled")
 	_assert(btn1.disabled, "Option 1 costs 100 money but player only has 50 -> must be disabled")
 
@@ -129,7 +129,7 @@ func test_modal_signals() -> void:
 	}
 	modal.refresh(pending_view)
 	var options_box: VBoxContainer = modal.get("_options_container")
-	var opt_btn: Button = options_box.get_child(0) as Button
+	var opt_btn: Button = modal._option_rows[0].button
 	opt_btn.pressed.emit()
 	_assert(resolve_arg[0] == 0, "resolve_requested signal must fire with option index 0")
 

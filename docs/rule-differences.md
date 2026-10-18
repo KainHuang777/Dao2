@@ -1,5 +1,7 @@
 # 規則差異帳本
 
+2026-10-18 **V2-SKS-P1（legacy parity 承接，棄 `time_reduction` 名、取 `time_multiplier` 語意）**：舊版 `golden_core_formation`（結丹法）effect_type `time_reduction`、amount 0.9、maxLevel 5、cost 7650 skill_point、prereq_era 3＋foundation_building。v2 承接為 `time_multiplier` 0.9 命名效果（`_multiplier` 後綴 → `pow(0.9, level)` 乘法效果通道），實際語意與舊版訓練時間 −10%／級一致（`Cultivation.apply_time_bonuses` 以 `t*=maxf(0.1, 1-time_reduction)` 對照：`maxf(0.1, 0.9^N)` 同式同界）。舊版為每級 −10% 累乘、非扣同一常數；runner 以 `base*pow(0.9,N)` 對照向量鎖定。新增 def 欄位 `era`（預設 2）與 `requires {skill_id, level}` 為 v2 擴充（舊版以 prereq_era／逗號前置字串表達）。skill_version 2、rules `core-flow-12-skills-p1`；v1 存檔沿 save_manager reconcile→archive 遷移。與 Era3 突破契約互不借用。[驗收](verification/res1-e-skills-p1.md)。
+
 2026-10-08 **V2-UI1A-R1（bugfix）**：輪迴後仍保留多島economy，Era1築基丹煉製原被錯送Era>=2才允許的加工路徑，已恢復既有Era1即時煉製；Era>=2仍走祖島唯一產線。費用／產出／服用效果不變，非DAO1全量parity。rules_version=core-flow-12-ui1a-era1-alchemy，schema3形狀不變；舊envelope仍可讀。[127檢查與限制](verification/res1-ui1-a.md)。
 
 

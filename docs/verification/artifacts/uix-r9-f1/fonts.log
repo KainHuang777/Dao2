@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 109, in <module>
+    main()
+    ~~~~^^
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 94, in main
+    font.save(output)
+    ~~~~~~~~~^^^^^^^^
+  File "E:\WORK\Dao2\build\tool-deps\fontTools\ttLib\ttFont.py", line 391, in save
+    with open(file, "wb") as file:
+         ~~~~^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument: 'E:\\WORK\\Dao2\\assets\\fonts\\runtime\\Dao2Serif-VF.ttf'

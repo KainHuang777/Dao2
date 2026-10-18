@@ -171,15 +171,9 @@ func test_era_eligibility_button_states() -> void:
 	panel.set_layout_bounds(Rect2(0, 0, 620, 600))
 	
 	var buttons_found := 0
-	for child in panel._tab_content_container.get_children():
-		if child is PanelContainer:
-			for row_child in child.get_children():
-				if row_child is HBoxContainer:
-					for sub in row_child.get_children():
-						if sub is Button:
-							buttons_found += 1
-							assert(sub.disabled == true, "Join button in Era 1 must be disabled")
-							assert(sub.text == "需達築基期", "Button text should explain foundation requirement")
+	for button in _join_buttons(panel._tab_content_container):
+		buttons_found += 1
+		assert(button.disabled and button.text == "需達築基期", "Era1 joins explain requirement")
 	assert(buttons_found == 5, "5 sect cards should have disabled join buttons in Era 1")
 	
 	# Era 2: Eligible (buttons must be enabled)
@@ -188,15 +182,15 @@ func test_era_eligibility_button_states() -> void:
 	panel.set_layout_bounds(Rect2(0, 0, 620, 600))
 	
 	var enabled_buttons := 0
-	for child in panel._tab_content_container.get_children():
-		if child is PanelContainer:
-			for row_child in child.get_children():
-				if row_child is HBoxContainer:
-					for sub in row_child.get_children():
-						if sub is Button:
-							enabled_buttons += 1
-							assert(sub.disabled == false, "Join button in Era 2 must be enabled")
-							assert(sub.text == "立誓拜入", "Button text should be 立誓拜入")
+	for button in _join_buttons(panel._tab_content_container):
+		enabled_buttons += 1
+		assert(not button.disabled and button.text == "立誓拜入", "Era2 joins enabled")
 	assert(enabled_buttons == 5, "5 sect cards should have enabled join buttons in Era 2")
 	
 	panel.queue_free()
+
+func _join_buttons(node: Node) -> Array[Button]:
+	var result: Array[Button] = []
+	if node is Button and node.text in ["需達築基期", "立誓拜入"]: result.append(node)
+	for child in node.get_children(): result.append_array(_join_buttons(child))
+	return result

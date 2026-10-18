@@ -1,0 +1,151 @@
+{
+  "task": "UIX-R8-SKILLS",
+  "date": "2026-10-17",
+  "generator": "built-in ImageGen",
+  "source": "Original AI-generated art; no external reference images",
+  "license_status": "Generated for this project; no third-party commercial license asserted",
+  "layers": "One RGBA object grouping per image. Controls, text and state remain Godot.",
+  "assets": [
+    {
+      "id": "basic_meditation",
+      "game_id": "basic_meditation",
+      "source": "docs/verification/artifacts/uix-r8/originals/basic_meditation.png",
+      "runtime": "assets/ui/skills-painted/basic_meditation.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact skill icon",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/basic_meditation-prompt.txt",
+      "sha256": "c7ce5b633a2364a7f0b00154b8947dd623752a46e15b3923dee661c4014bb78a"
+    },
+    {
+      "id": "qi_condensation",
+      "game_id": "qi_condensation",
+      "source": "docs/verification/artifacts/uix-r8/originals/qi_condensation.png",
+      "runtime": "assets/ui/skills-painted/qi_condensation.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact skill icon",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/qi_condensation-prompt.txt",
+      "sha256": "f3c0ceba6f5d0bd7127217eb509fcc9a7290174bf7dab985200003bb24812e4c"
+    },
+    {
+      "id": "foundation_building",
+      "game_id": "foundation_building",
+      "source": "docs/verification/artifacts/uix-r8/originals/foundation_building.png",
+      "runtime": "assets/ui/skills-painted/foundation_building.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact skill icon",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/foundation_building-prompt.txt",
+      "sha256": "bb20572d9328c8b1bb36423317a053985bd4e695102085b2be4d568ac93a31df"
+    },
+    {
+      "id": "qi_storage_1",
+      "game_id": "qi_storage_1",
+      "source": "docs/verification/artifacts/uix-r8/originals/qi_storage_1.png",
+      "runtime": "assets/ui/skills-painted/qi_storage_1.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact skill icon",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/qi_storage_1-prompt.txt",
+      "sha256": "24f808bf0fa321bc56b2ef953149cfdc89c31577e1b344d59cfb2a1df6c74077"
+    },
+    {
+      "id": "body_strengthening_1",
+      "game_id": "body_strengthening_1",
+      "source": "docs/verification/artifacts/uix-r8/originals/body_strengthening_1.png",
+      "runtime": "assets/ui/skills-painted/body_strengthening_1.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact skill icon",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/body_strengthening_1-prompt.txt",
+      "sha256": "6a3f8c559fcaa88eafe6da8052724416aa8485b1fba301907ca7840659f5e1bb"
+    },
+    {
+      "id": "building_mastery_1",
+      "game_id": "building_mastery_1",
+      "source": "docs/verification/artifacts/uix-r8/originals/building_mastery_1.png",
+      "runtime": "assets/ui/skills-painted/building_mastery_1.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact skill icon",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/building_mastery_1-prompt.txt",
+      "sha256": "984c6cb0ca7119a90827be37c574b7e99c3ff5a79440830f5ba4c830ae3cfbe4"
+    },
+    {
+      "id": "study_scroll",
+      "game_id": null,
+      "source": "docs/verification/artifacts/uix-r8/originals/study_scroll.png",
+      "runtime": "assets/ui/skills-painted/study_scroll.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "64px desktop header",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r8/study_scroll-prompt.txt",
+      "sha256": "5a23a63f54ba31ad9a0783135c0c55093901757b696b313bb91b29dd8547930d"
+    },
+    {
+      "id": "golden_core_formation",
+      "game_id": "golden_core_formation",
+      "status": "pending_art",
+      "runtime_png": "assets/ui/skills-painted/golden_core_formation.png",
+      "purpose": "112px desktop / 80px compact skill icon",
+      "prompt": "docs/verification/artifacts/uix-r8/golden_core_formation-prompt.txt"
+    }
+  ]
+}

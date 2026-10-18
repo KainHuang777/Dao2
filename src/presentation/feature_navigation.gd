@@ -8,11 +8,16 @@ const GROUPS := {
 const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal", "achievement_panel"]
 ## Page presentation policy; costs and command eligibility remain in Session.
 const PAGE_POLICY := {
+	"decisions": {"workspace": "large", "resources": "inline", "max_width": 1120.0},
+	"fortune": {"workspace": "large", "resources": "inline", "max_width": 1120.0},
+	"sect": {"workspace": "large", "resources": "inline", "max_width": 1120.0},
+	"skills": {"workspace": "large", "resources": "inline", "max_width": 1120.0},
 	"buildings": {"workspace": "rail", "resources": "shared"},
 	"outposts": {"workspace": "rail", "resources": "shared"},
 	"manufacturing": {"workspace": "large", "resources": "wide_stock"},
 	"transport": {"workspace": "large", "resources": "inline"},
 	"alchemy": {"workspace": "large", "resources": "hud_stock"},
+	"achievements": {"workspace": "large", "resources": "inline", "max_width": 1120.0},
 }
 const DEFAULT_POLICY := {"workspace": "central", "resources": "inline"}
 var abode: Node
@@ -295,6 +300,7 @@ static func presentation_policy(route: String, vp: Vector2) -> Dictionary:
 	return {
 		"central": policy.workspace != "rail",
 		"large": policy.workspace == "large",
+		"max_width": policy.get("max_width", 820.0 if policy.workspace == "large" else 680.0),
 		"wide_stock": policy.resources == "wide_stock" and vp.x >= 1100.0 and vp.y >= 500.0,
 		"hud_stock": policy.resources == "hud_stock" and vp.x >= vp.y,
 	}
@@ -330,7 +336,7 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 	var policy := presentation_policy(page, vp)
 	var central: bool = policy.central
 	var right_rail := not central and vp.x >= 640.0
-	var width := building_workspace_width(vp, abode._hud_controller._messages_open and abode._hud_controller._messages_explicit) if right_rail and page == "buildings" else (minf(400.0, vp.x * 0.44) if right_rail else minf(820.0 if policy.large else 680.0, vp.x - 2.0 * margin))
+	var width := building_workspace_width(vp, abode._hud_controller._messages_open and abode._hud_controller._messages_explicit) if right_rail and page == "buildings" else (minf(400.0, vp.x * 0.44) if right_rail else minf(policy.max_width, vp.x - 2.0 * margin))
 	var x := vp.x - margin - width if right_rail else (vp.x - width) * 0.5
 	var manufacturing_stock: bool = policy.wide_stock
 	if policy.hud_stock:
@@ -343,7 +349,9 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 		abode.resource_ribbon.position = Vector2(margin, margin + 68.0)
 		abode.resource_ribbon.size = Vector2(stock_width, maxf(80.0, abode.toolbar.position.y - margin - 76.0))
 	bar.position = Vector2(x, margin)
-	bar.size = Vector2(width - 56.0 if x + width > abode.settings_menu.get_global_rect().position.x else width, 60)
+	# Reserve the settings slot from viewport bounds; the home HUD may still
+	# have stale menu geometry when a central page is reopened in this frame.
+	bar.size = Vector2(minf(width, vp.x - margin - 56.0 - x), 60)
 	if right_rail:
 		# Keep the four management tabs visible above the world safe region.
 		var focused_buildings := page == "buildings" and vp.y < 500.0
@@ -450,6 +458,13 @@ func _refresh_main_notifications(view: Dictionary) -> void:
 	abode.overview_button.tooltip_text = "／".join(journey) + "；前往遊歷查看。" if not journey.is_empty() else "九界、宗門、機緣與天道決策"
 
 func _on_action(kind: String, id: String) -> void:
+	if kind == "retry_save":
+		var retry: Dictionary = abode._save_game()
+		if retry.ok:
+			action_panel.storage_recovered()
+		else:
+			action_panel.show_save_failure("保存仍失敗；恢復儲存後請重試保存。")
+		return
 	if kind == "study":
 		open("buildings")
 		return
@@ -462,6 +477,10 @@ func _on_action(kind: String, id: String) -> void:
 		"decision": result = abode.session.execute_realm_decision(abode.session.state.current_realm, id)
 		_: return
 	action_panel.show_result("操作完成，進度已更新。" if bool(result.get("ok", false)) else "操作未完成：%s" % result.get("message", result.get("error", "原因不明")))
+	if kind == "decision" and bool(result.get("ok", false)):
+		for event in result.get("events", []):
+			if event.get("kind", "") == "realm_decision_executed":
+				action_panel.show_result(str(event.get("log_text", "法令已施行。")))
 	if bool(result.get("ok", false)):
 		var saved: Dictionary = abode._save_game()
 		if not saved.ok:

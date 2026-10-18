@@ -1,0 +1,13 @@
+[
+  {
+    "id": "golden_core_formation",
+    "name": "結丹法",
+    "era": 3,
+    "requires": {"skill_id": "foundation_building", "level": 1},
+    "max_level": 5,
+    "cost": 7650,
+    "effect": "time_multiplier",
+    "amount": 0.9,
+    "description": "提升修練效率"
+  }
+]

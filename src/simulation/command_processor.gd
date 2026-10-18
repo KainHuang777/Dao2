@@ -161,7 +161,7 @@ static func _apply_level_up(content: GameContent, state: GameState, _payload: Di
 		return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
 	if state.level >= int(era_def.max_level):
 		return _failure("MAX_LEVEL_REACHED", {"era_id": state.era_id, "level": state.level})
-	var req_time := Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+	var req_time := Cultivation.next_level_required_seconds(era_def, state.level, 0.0, SkillSystem.effect(content, state.skills, "time_multiplier"))
 	if state.training_seconds < req_time - AFFORD_TOLERANCE:
 		return _failure("INSUFFICIENT_TRAINING", {"required": req_time, "available": state.training_seconds})
 	var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
@@ -291,7 +291,7 @@ static func _apply_consume_pill(content: GameContent, state: GameState, payload:
 		var era_def: Variant = content.era(state.era_id)
 		if era_def == null:
 			return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
-		var req: float = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+		var req: float = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, SkillSystem.effect(content, state.skills, "time_multiplier"))
 		if state.training_seconds >= req - AFFORD_TOLERANCE:
 			return _failure("TRAINING_ALREADY_COMPLETE", {"required": req, "available": state.training_seconds})
 		training_ceiling = req
@@ -464,6 +464,8 @@ static func _apply_resolve_fortune(_content: GameContent, state: GameState, payl
 static func _apply_execute_realm_decision(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var realm_id: String = String(payload.get("realm_id", state.current_realm))
 	var decision_id: String = String(payload.get("decision_id", ""))
+	if realm_id != state.current_realm:
+		return _failure("REALM_MISMATCH", {"message":"只能施行目前所在界域的法令。"})
 	var res := RealmDecisionSystem.execute_decision(state, realm_id, decision_id)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "EXECUTE_DECISION_FAILED")), {"message": res.get("message", "")})

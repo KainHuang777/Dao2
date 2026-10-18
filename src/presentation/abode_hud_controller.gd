@@ -2,6 +2,8 @@ extends RefCounted
 ## HUD construction, responsive layout, status and guidance presentation.
 ## The scene facade owns public properties; callbacks stay bound to the scene.
 ## Node references are non-owning; no second session or persistent state is created.
+const ResourceIconScript = preload("res://src/presentation/resource_icon.gd")
+const CultivationLevelUpButtonScript = preload("res://src/presentation/cultivation_level_up_button.gd")
 
 var _abode: Node
 var _dao_seal: Node
@@ -27,6 +29,15 @@ var _goal_scroll: PanelContainer
 var _identity_text: VBoxContainer
 var _active_gatherable_missing: Array[String] = []
 var _current_guidance_text: String = ""
+var _rank_full_text := ""
+var _rank_compact_text := ""
+
+static func lifespan_color(elapsed: float, maximum: float) -> Color:
+	var used := maxf(0.0, elapsed)
+	if maximum <= 0.0 or used >= maximum * 0.9: return Color("b43832")
+	if used * 3.0 >= maximum * 2.0: return Color("b45a18")
+	if used * 3.0 >= maximum: return Color("907000")
+	return Color("39734d")
 
 func _init(abode: Node) -> void:
 	_abode = abode
@@ -138,13 +149,19 @@ func _build_hud() -> void:
 	_abode.realm_label = _abode._label("練氣期", 22, UiMaterial.INK, 0)
 	identity_text.add_child(_abode.realm_label)
 	_rank_label = _abode._label("1/10 層 · 修煉中", 16, UiMaterial.INK, 0)
+	_rank_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	identity_text.add_child(_rank_label)
 
-	_abode.level_up_button = _abode._button("修為晉階", _abode._level_up_cultivation)
-	_abode.level_up_button.custom_minimum_size = Vector2(88, 44)
-	_abode.level_up_button.add_theme_font_size_override("font_size", 15)
-	_abode.level_up_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	_abode.level_up_button.visible = false
+	var lvl_btn := CultivationLevelUpButtonScript.new()
+	lvl_btn.text = "修為晉階"
+	lvl_btn.custom_minimum_size = Vector2(88, 44)
+	lvl_btn.add_theme_font_override("font", UiTypography.emphasis_font())
+	lvl_btn.add_theme_font_size_override("font_size", 15)
+	lvl_btn.add_theme_color_override("font_color", Color("f4e7be"))
+	lvl_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	lvl_btn.visible = false
+	lvl_btn.pressed.connect(_abode._level_up_cultivation)
+	_abode.level_up_button = lvl_btn
 	identity.add_child(_abode.level_up_button)
 
 	_abode.breakthrough_button = _abode._button("突破至築基期", _abode._breakthrough_era)
@@ -162,7 +179,7 @@ func _build_hud() -> void:
 	_training_bar.add_theme_stylebox_override("fill", UiMaterial.rounded(Color("537b66"), 3))
 	_abode.header_box.add_child(_training_bar)
 	_abode.realm_progress_label = _status_line("修煉 0 / 60 秒", UiIcon.Kind.LOTUS)
-	_lifespan_text = _status_line("壽元 80 / 80 祀", UiIcon.Kind.HOURGLASS)
+	_lifespan_text = _status_line("壽元 0 / 80 祀", UiIcon.Kind.HOURGLASS)
 	_abode.chrono_label = _status_line("天時 坎水運 · 子時", UiIcon.Kind.SPARKLE)
 	_weather_row = _abode.chrono_label.get_parent()
 	for text_label in [_abode.crumb, _abode.title_label, _abode.realm_label, _abode.realm_progress_label, _abode.chrono_label]:
@@ -632,6 +649,7 @@ func _set_component_offsets(control: Control, bounds: Rect2) -> void:
 func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
 	_compact_metrics = short_compact and not portrait
+	if not _rank_full_text.is_empty(): _rank_label.text = _rank_compact_text if _compact_metrics else _rank_full_text
 	if short_compact and _abode.building_catalog.visible and not _abode.lifespan_banner.visible:
 		_status_row.visible = false
 	else:
@@ -833,19 +851,39 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	var can_lvl: bool = bool(view.get("can_level_up", false))
 	var can_bt: bool = bool(view.get("can_breakthrough", false))
 	var is_max_lvl: bool = cur_level >= int(era_info.get("max_level", 10))
+	var training_complete := bool(view.get("training_complete", req_sec > 0.0 and train_sec >= req_sec - CommandProcessor.AFFORD_TOLERANCE)) and not is_max_lvl
+	var shortages: Array[String] = []
+	for resource_id in view.get("level_up_missing_resources", {}):
+		shortages.append(String(_abode.RESOURCE_NAMES.get(resource_id,resource_id)))
+	var shortage_text := "、".join(shortages) if not shortages.is_empty() else "材料"
 
 	_abode.realm_label.text = era_name
-	var status: String = "壽元已盡" if remain_life <= 0.0 else ("可突破" if can_bt else ("圓滿" if is_max_lvl else ("可晉階" if can_lvl else ("功滿待晉階" if req_sec > 0.0 and train_sec >= req_sec else "修煉中"))))
+	var status: String = "壽元已盡" if remain_life <= 0.0 else ("可突破" if can_bt else ("圓滿" if is_max_lvl else ("可晉階" if can_lvl else ("功滿 · 材料不足" if training_complete else "修煉中"))))
+	if training_complete and not can_lvl and remain_life > 0.0: status = "功滿 · 缺" + shortage_text
 	_rank_label.text = "%d/%d 層 · %s" % [cur_level, int(era_info.get("max_level", 10)), status]
+	_rank_label.tooltip_text = status
+	if training_complete:
+		var action_status := "壽元已盡" if remain_life <= 0.0 else ("可晉階" if can_lvl else "缺" + (shortages[0] + ("等" if shortages.size() > 1 else "") if not shortages.is_empty() else "材料"))
+		_rank_label.text = "%d/%d 層\n%s" % [cur_level, int(era_info.get("max_level", 10)), action_status]
+	_rank_full_text = _rank_label.text
+	_rank_compact_text = "%d/%d 層" % [cur_level, int(era_info.get("max_level", 10))] if training_complete else _rank_full_text
+	_rank_label.text = _rank_compact_text if _compact_metrics else _rank_full_text
 	_training_bar.value = 100.0 if is_max_lvl else clampf(train_sec / maxf(1.0, req_sec) * 100.0, 0.0, 100.0)
 	if _dao_seal != null:
 		_dao_seal.progress_ratio = 1.0 if is_max_lvl else clampf(train_sec / maxf(1.0, req_sec), 0.0, 1.0)
 		_dao_seal.text = era_name.substr(0, 1) if era_name.length() > 0 else "道"
-		_dao_seal.tooltip_text = "境界：%s\n壽元：%.0f / %.0f 祀" % [era_name, remain_life / 60.0, max_life / 60.0]
-	_training_bar.tooltip_text = "修煉 %.0f / %.0f 秒（累積 %.0f 秒）；晉階仍須符合材料與容量條件。" % [minf(train_sec, req_sec), req_sec, train_sec] if not is_max_lvl else "修煉已圓滿；突破仍須符合靈氣容量與資格條件。"
-	_abode.realm_progress_label.text = ("修煉 圓滿 · 可突破" if can_bt else "修煉 圓滿 · 擴充容量") if is_max_lvl else "修煉 %.0f / %.0f 秒" % [minf(train_sec, req_sec), req_sec]
-	_abode.realm_progress_label.tooltip_text = "需擴充靈氣容量並符合突破條件。" if is_max_lvl and not can_bt else "累積修煉 %.0f 秒；晉階仍須符合材料與資格條件。" % train_sec
-	_lifespan_text.text = "壽元 %.0f / %.0f 祀" % [remain_life / 60.0, max_life / 60.0]
+		_dao_seal.tooltip_text = "境界：%s\n壽元（已用／上限）：%d / %d 祀" % [era_name, int(floor(clampf(elapsed_sec,0.0,max_life) / 60.0)), int(max_life / 60.0)]
+	_training_bar.tooltip_text = "修煉 %.2f / %.2f 秒；%s。晉階仍須符合材料與容量條件。" % [minf(train_sec, req_sec), req_sec, "功滿" if training_complete else "尚未功滿"] if not is_max_lvl else "修煉已圓滿；突破仍須符合靈氣容量與資格條件。"
+	var display_required := int(ceil(req_sec))
+	var display_training := display_required if training_complete else mini(int(floor(maxf(0.0, train_sec))), maxi(0,display_required - 1))
+	_abode.realm_progress_label.text = ("修煉 圓滿 · 可突破" if can_bt else "修煉 圓滿 · 擴充容量") if is_max_lvl else "修煉 %d / %d 秒" % [display_training, display_required]
+	_abode.realm_progress_label.tooltip_text = "需擴充靈氣容量並符合突破條件。" if is_max_lvl and not can_bt else "累積修煉 %.2f 秒；晉階仍須符合材料與資格條件。" % train_sec
+	_lifespan_text.text = "壽元 %d / %d 祀" % [int(floor(clampf(elapsed_sec,0.0,max_life) / 60.0)), int(max_life / 60.0)]
+	_lifespan_text.tooltip_text = "已用壽元／壽元上限；達上限即壽盡。\n已用 %.2f 祀；剩餘 %.2f 祀。" % [elapsed_sec / 60.0, remain_life / 60.0]
+	var life_color := lifespan_color(elapsed_sec,max_life)
+	_lifespan_text.add_theme_color_override("font_color", life_color)
+	var life_icon: UiIcon = _lifespan_text.get_parent().get_child(0)
+	life_icon.tint = life_color
 
 	if "chrono_label" in _abode and _abode.chrono_label != null and view.has("chrono"):
 		var chrono_info: Dictionary = view["chrono"]
@@ -857,16 +895,26 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode.chrono_label.tooltip_text = "%s\n%s" % [String(wt_info.get("desc", "")), String(sc_info.get("desc", ""))]
 
 	var was_lvl_vis: bool = _abode.level_up_button.visible
+	var was_lvl_disabled: bool = _abode.level_up_button.disabled
 	var was_bt_vis: bool = _abode.breakthrough_button.visible
-	_abode.level_up_button.visible = can_lvl
-	if can_lvl:
+	_abode.level_up_button.visible = training_complete
+	_abode.level_up_button.disabled = not can_lvl or remain_life <= 0.0
+	if training_complete:
 		var cost_dict: Dictionary = view.get("level_up_costs", {})
 		var cost_strs := []
 		for r_id in cost_dict:
 			var req_val: float = _abode._parse_amount(cost_dict[r_id]).to_float()
-			cost_strs.append("%d %s" % [int(req_val), _abode.RESOURCE_NAMES.get(r_id, r_id)])
-		_abode.level_up_button.text = "修為晉階"
+			cost_strs.append("%s %s" % [ResourceIconScript.format_amount(req_val), _abode.RESOURCE_NAMES.get(r_id, r_id)])
+		_abode.level_up_button.text = "壽元已盡" if remain_life <= 0.0 else ("修為晉階" if can_lvl else "晉階 · 缺料")
 		_abode.level_up_button.tooltip_text = "消耗 %s" % (" · ".join(cost_strs) if cost_strs.size() > 0 else "功滿")
+		var missing: Dictionary = view.get("level_up_missing_resources", {})
+		for resource_id in missing:
+			var entry: Dictionary = missing[resource_id]
+			var avail_str: String = ResourceIconScript.format_amount(entry.available)
+			var req_str: String = ResourceIconScript.format_amount(entry.required)
+			_abode.level_up_button.tooltip_text += "\n缺少%s：持有 %s／需要 %s" % [_abode.RESOURCE_NAMES.get(resource_id, resource_id), avail_str, req_str]
+		if _abode.level_up_button.has_method("update_tooltip_data"):
+			_abode.level_up_button.update_tooltip_data(cost_dict, missing, can_lvl, remain_life <= 0.0)
 
 	var cur_era: int = int(view.get("era_id", 1))
 	var breakthrough_target := String(view.get("breakthrough_target_name", ""))
@@ -883,7 +931,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 			_abode.breakthrough_button.text = "突破 · 容量未足"
 			_abode.breakthrough_button.tooltip_text = "靈氣容量需求 %d；當前 %d" % [req_lingli, cur_cap]
 
-	if was_lvl_vis != _abode.level_up_button.visible or was_bt_vis != _abode.breakthrough_button.visible:
+	if was_lvl_vis != _abode.level_up_button.visible or was_lvl_disabled != _abode.level_up_button.disabled or was_bt_vis != _abode.breakthrough_button.visible:
 		_abode._reflow_header()
 
 	_abode.replay_breakthrough_button.visible = false
@@ -902,6 +950,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 			_abode._reflow_header()
 
 	if _abode.reincarnation_panel != null and _abode.reincarnation_panel.visible:
+		_abode.reincarnation_panel._hero.reduced_motion = _abode.reduced
 		_abode.reincarnation_panel.call("refresh", view)
 	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
 		_abode.fortune_modal.call("refresh", view)

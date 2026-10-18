@@ -59,9 +59,16 @@ static func scroll_shell() -> StyleBoxTexture:
 		style.set_texture_margin(side, 20)
 	style.content_margin_left = 18
 	style.content_margin_right = 18
-	style.content_margin_top = 10
-	style.content_margin_bottom = 10
+	style.content_margin_top = 20
+	style.content_margin_bottom = 20
 	return style
+
+## A Panel paints its style but does not inset sibling content like PanelContainer.
+## Keep manual content margins tied to the actual skin, including its bottom rod.
+static func apply_scroll_content_margins(content: MarginContainer, compact: bool = false) -> void:
+	var skin := compact_scroll_shell() if compact else scroll_shell()
+	for side in ["left", "top", "right", "bottom"]:
+		content.add_theme_constant_override("margin_" + side, int(skin.get("content_margin_" + side)))
 
 static func apply_jade_navigation(button: Button, selected: bool) -> void:
 	for state in ["normal", "hover", "pressed", "hover_pressed", "disabled"]:
@@ -75,6 +82,8 @@ static func apply_jade_navigation(button: Button, selected: bool) -> void:
 static func compact_scroll_shell() -> StyleBoxTexture:
 	var style := scroll_shell()
 	style.texture = UIX_SCROLL_COMPACT
+	style.content_margin_top = 10
+	style.content_margin_bottom = 14
 	return style
 
 ## Paper is supplied by the parent scroll; only interaction states add ink.

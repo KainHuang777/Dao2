@@ -10,6 +10,11 @@ const DEFAULT_DECISIONS_PATH := "res://content/realms/realm_decisions.json"
 static var _cached_decisions: Array = []
 static var _is_initialized: bool = false
 
+## Resolve legacy content names against the active economy, retaining old fixtures.
+static func resource_key(resources: Dictionary, raw_id: String) -> String:
+	var canonical := str({"herb":"spirit_grass_low", "lingqi":"lingli"}.get(raw_id,raw_id))
+	return canonical if resources.has(canonical) else raw_id
+
 static func load_decisions(path: String = DEFAULT_DECISIONS_PATH) -> Array:
 	if _is_initialized and not _cached_decisions.is_empty():
 		return _cached_decisions
@@ -81,6 +86,7 @@ static func get_realm_decisions_view(state: GameState, realm_id: String) -> Arra
 		view_item["is_ready"] = era_met and cd_ready and costs_met
 		view_item["era_met"] = era_met
 		view_item["costs_met"] = costs_met
+		view_item["usage_count"] = int(state.realm_decisions.get("usage_counts", {}).get(d_id, 0))
 		views.append(view_item)
 
 	return views
@@ -91,8 +97,9 @@ static func check_costs_met(state: GameState, costs: Dictionary) -> bool:
 	if costs.is_empty():
 		return true
 
-	for res_id in costs:
-		var cost_val: float = float(costs[res_id])
+	for raw_id in costs:
+		var res_id := resource_key(state.resources, str(raw_id))
+		var cost_val: float = float(costs[raw_id])
 		if cost_val <= 0.0:
 			continue
 		if res_id == "lifespan_seconds":
@@ -130,8 +137,9 @@ static func execute_decision(state: GameState, realm_id: String, decision_id: St
 		return {"ok": false, "error": "INSUFFICIENT_COSTS", "message": "資糧不足，無法施行天道決策"}
 
 	# Deduct costs atomically
-	for res_id in costs:
-		var cost_val: float = float(costs[res_id])
+	for raw_id in costs:
+		var res_id := resource_key(state.resources, str(raw_id))
+		var cost_val: float = float(costs[raw_id])
 		if cost_val <= 0.0:
 			continue
 		if res_id == "lifespan_seconds":
@@ -156,8 +164,9 @@ static func execute_decision(state: GameState, realm_id: String, decision_id: St
 	# 1. Resource grants
 	if effects.has("resources") and effects["resources"] is Dictionary:
 		var res_dict: Dictionary = effects["resources"]
-		for res_key in res_dict:
-			var gain_val: float = float(res_dict[res_key])
+		for raw_key in res_dict:
+			var res_key := resource_key(state.resources, str(raw_key))
+			var gain_val: float = float(res_dict[raw_key])
 			if gain_val > 0.0:
 				if not state.resources.has(res_key):
 					state.resources[res_key] = {

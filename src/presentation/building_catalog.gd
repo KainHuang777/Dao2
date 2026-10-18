@@ -348,10 +348,11 @@ func configure(groups: Array) -> void:
 			title_label.add_theme_color_override("font_color", UiMaterial.INK)
 			materials_row.add_child(title_label)
 			card_labels[id] = title_label
-			var costs := HFlowContainer.new()
+			# Stock text changes every refresh; keep one material per row so its
+			# length cannot move another material or change the card's height.
+			var costs := VBoxContainer.new()
 			costs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			costs.add_theme_constant_override("h_separation", 6)
-			costs.add_theme_constant_override("v_separation", 2)
+			costs.add_theme_constant_override("separation", 2)
 			information.add_child(costs)
 			var upgrade := Button.new()
 			upgrade.custom_minimum_size = Vector2(64, 44)

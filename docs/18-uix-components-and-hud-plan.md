@@ -1,3 +1,9 @@
+2026-10-17 **UIX-R7-REINCARNATION DONE（桌面／Web有界；使用者美術接受）**：使用者明確回覆「R7 美術接受」，接受含F1圖像式壽盡／自動開頁、F2卷軸安全邊界與F3移除空白壽元槽的最終呈現。既有最終75 checks、三橫式原生／桌面Web、確認取消／天賦保存恢復／轉世重載與相關回歸證據有效，一般Web PCK hash與F3驗收一致。本輪只更新文件並核對既有log／hash，未改遊戲／匯出／玩家資料，未重跑Godot或Web。觸控／實機延期，非當前阻擋；未commit/push。下一候選為UIX-R8-SKILLS，待新對話明確開工，本輪不實作。[最終驗收](verification/uix-r7-f3.md)。
+
+2026-10-17 **UIX-R7-REINCARNATION 實作／技術驗收已交付，IN_PROGRESS（美術待接受）**：使用者「R7開工」已覆蓋歷史不開R7指示。四張ImageGen透明手繪圖、固定GameTab／內捲／確認取消、天賦圖卡與保存重試已接入；修復轉世結算世次與導覽遮擋／輸入順序。R7專項55 checks、輪迴核心／UI及四相關回歸皆exit0，三尺寸15張原生圖、隔離Web實付參悟／拒寫恢復不重扣／確認取消／新世重載與返回已驗。一般Web與獨立驗收版匯出／壓縮成功，既有退出診斷及中間失敗如實保留。未commit/push；下一New Chat只接R7美術回饋，不開R8。[驗收與命令](verification/uix-r7.md)。
+
+2026-10-17 **UIX-R6-ACHIEVEMENTS IN_PROGRESS（成就頁來源／資產／CLI／原生交付）**：18枚內建ImageGen獨立透明手繪徽章、六分類代表圖與SegmentChips、功業／待領總覽、寬式雙欄／短橫單欄、固定回饋與返回已接入；領取保存失敗可明確重試，不重送獎勵。最終6項相關Runner皆exit0（成就頁188 checks）、三橫式12張原生圖、字型check、Web匯出／音樂與壓縮companions通過。IAB 127.0.0.1及localhost均ERR_CONNECTION_TIMED_OUT，Web實際互動／重載、人工美術／觸控／高DPR待驗，不標完整DONE。保留既有dirty成果與玩家進度，未commit/push。下一New Chat只收成就回饋與剩餘驗收，不開始R7輪迴。[驗收與命令](verification/uix-r6.md)。
+
 2026-10-11 **UIX-R5-ALCHEMY IN_PROGRESS（來源／CLI／原生交付，Web待驗）**：使用者指定煉丹保留左HUD／BUFF／資源；配方改材料圖格＋可用／需求→丹藥持有量＋煉製／服用，長內容TIP，紙底深墨。延壽／產率當世效果即時入BUFF區。八相關回歸、三橫式原生與Web匯出壓縮exit0；IAB localhost逾時。[驗收](verification/uix-alchemy.md)。下一New Chat續隔離Web實際服丹與人工／裝置回饋。
 
 2026-10-11 **UIX-R4-F3 有界修訂 DONE**：依使用者回饋，建築圖56→88px（約57%放大），卡內改左圖／右資訊：名稱階級＋小動作在右上，材料ICON與庫存／需求在右下，保留雙欄與外環／壓暗禁用。四相關回歸／Web匯出壓縮exit0，三橫式IAB／實付升級／圖像展開詳情返回通過；人工比例／觸控／高DPR待驗。[驗收](verification/uix-r4-f3.md)。此段覆蓋F2卡內上下排版，其他契約保持。下一New Chat收比例回饋，不開大型下一任務。
@@ -19,6 +25,8 @@
 
 2026-10-10 **UIX-R2 DONE（有界主 HUD／共用卷軸＋CLI／桌面 Web；使用者美術接受）**：本次使用者確認美術接受，R2 DoD 中的觸控／高 DPR 為獨立待驗項，不阻擋此有界範圍結案。現版 Godot 4.7.2 HUD 專項重跑 **52/52、exit0**；既有61/61（最終微調之前）、最終五相關回歸及三橫式 Web／實付晉階／重載證據有效，現有 PCK hash 與驗收一致。實體觸控／高 DPR、EARLY-FLOW1-D 自然時間及完整 UI1-C／C／D 仍待驗。本輪只核對與更新文件，未修改遊戲、匯出或玩家存檔。下一 New Chat 優先續 **EARLY-FLOW1-D 自然流程與節奏驗收**，可繼續既有四島／前期工作；未核定 UIX-R3，不直接跳 Era4–12。以下 IN_PROGRESS／等待美術段落保留為本日較早歷史。
 # UIX：共用元件與主 HUD
+
+2026-10-16 **UIX-ART-PLAN 規劃DONE**：使用者核定六頁依序逐輪生成資產與重構：R6成就、R7輪迴、R8技能、R9宗門、R10機緣、R11天道決策；每輪只處理一頁。下一輪從R6成就開始；R5煉丹及既有Web待驗保留。[資產／版面／DoD與接手入口](20-feature-interface-art-plan.md)。六輪實作均TODO。
 
 2026-10-10 **UIX-R2 IN_PROGRESS，主HUD／共用卷軸已實作**：使用者本次明確要求開始；以下僅設計／TODO為較早歷史。交付、61全量與最終52專項／五相關回歸、三橫式Web與人工／裝置缺口見[本輪驗收](verification/uix-r2.md)。下一New Chat收美術與實機回饋，不開始下一大型階段。
 

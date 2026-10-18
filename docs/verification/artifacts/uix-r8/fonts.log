@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 109, in <module>
+    main()
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 95, in main
+    records.append(inspect(source, output, chars))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 41, in inspect
+    raise ValueError(f'{output.name}: missing glyphs {sorted(missing)}; regenerate fonts')
+ValueError: Dao2Sans-VF.ttf: missing glyphs [31278]; regenerate fonts

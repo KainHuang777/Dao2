@@ -1,0 +1,2354 @@
+[RUNNING] tests/uix_r10_fortune_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/uix_r10_fortune_ui_runner.gd:24)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/uix_r10_fortune_ui_runner.gd:24)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+R10_GEOMETRY (1280, 720) margin=(1120.0, 544.0) content=(1084.0, 504.0) scroll=(1084.0, 356.0) min=(469.0, 188.0) mode=1
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+R10_GEOMETRY (844, 390) margin=(812.0, 226.0) content=(776.0, 202.0) scroll=(776.0, 146.0) min=(193.0, 80.0) mode=1
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+R10_GEOMETRY (800, 360) margin=(768.0, 196.0) content=(732.0, 172.0) scroll=(732.0, 116.0) min=(193.0, 80.0) mode=1
+UIX-R10 58 checks failed=false
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/hud_readiness_life_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/hud_readiness_life_runner.gd:17)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/hud_readiness_life_runner.gd:17)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+HUD readiness/life 57 checks failed=false
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/uix_r9_sect_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:30)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:30)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UIX-R9 166 checks failed=false
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/uix_r4_building_cards_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UIX-R4 building cards: PASS
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 5 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/uix_r2_hud_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+UIX-R2 HUD: 100 checks, 0 failures
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/gather_guidance_highlight_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+GATHER GUIDANCE HIGHLIGHT: 11 checks, 0 failures
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/early_pacing_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+31 checks, 0 failures
+PACING RUNNER DONE
+[RUNNING] tests/early_pacing2_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+53 checks, 0 failures
+EARLY PACING 2 RUNNER DONE
+[RUNNING] tests/early_pacing2_pill_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[RUNNING] tests/early_pacing2_pill_runner.gd
+PASS: 35  FAIL: 0
+PILL CEILING RUNNER DONE
+[RUNNING] tools/test_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: project script, JSON serialization, user storage, and Traditional Chinese font glyphs are available.
+[RUNNING] tests/abode_state_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: abode state advances independently from visual flow, upgrades, and garden pause.
+[RUNNING] tests/living_abode_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/living_abode_runner.gd:18)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/living_abode_runner.gd:18)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=1
+ABODE_DIRECT_BUILD: hut
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SELECT: altar
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +6
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_GARDEN_RUNNING: false
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_REGION
+ABODE_REGION: same world and simulation retained
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+PASS: living abode selects buildings, upgrades, pauses production, and changes scale.
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m0c_compat_v3_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M0-C AmountCompat canonical contract and SeededRandomCompat match the fixture.
+[RUNNING] tests/m1a_core_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-A core contract, content validation, cost/onboarding parity, commands, idempotency, determinism.
+[RUNNING] tests/res1a_processing_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: RES1-A 145 checks; sources, closure, atomic Craft, canonical inventory, Amount, Session replay.
+[RUNNING] tests/res1b_economy_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:260)
+       [1] current_state (res://src/persistence/save_manager.gd:103)
+       [2] _test_persistence (res://tests/res1b_economy_runner.gd:350)
+       [3] _init (res://tests/res1b_economy_runner.gd:33)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:68)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:280)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:279)
+       [4] current_state (res://src/persistence/save_manager.gd:103)
+       [5] _test_persistence (res://tests/res1b_economy_runner.gd:350)
+       [6] _init (res://tests/res1b_economy_runner.gd:33)
+PASS: RES1-B 251 checks; timed batches, local inventory, cargo conservation, time, migration, offline retry, reincarnation.
+[RUNNING] tests/res1c_progression_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:68)
+       [1] activate_islands (res://src/persistence/save_manager.gd:49)
+       [2] _run (res://tests/res1c_progression_runner.gd:118)
+RES1C_OFFLINE_CPU_MS: 487 ticks=86400
+PASS: RES1-C1 91 checks; blank Era2, T2 sinks, bottleneck, migration retry, saves, time and UI.
+[RUNNING] tests/res1d2_integration_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:68)
+       [1] <anonymous lambda> (res://src/verification/res1d2_contract.gd:319)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _test_persistence (res://src/verification/res1d2_contract.gd:319)
+       [4] run (res://src/verification/res1d2_contract.gd:176)
+       [5] _run (res://tests/res1d2_integration_runner.gd:7)
+EARNED: Era3 Lv10 sim_seconds=11851.0
+PASS: RES1-D2 247 checks; normal earned Era3, Danxia, T2/T3 consumption, atomic refusal, transport, conservation, 600s partitions.
+[RUNNING] tests/res1d2_world_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/res1d2_world_runner.gd:27)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/res1d2_world_runner.gd:27)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+D2_RAIL_GEOMETRY size=(1280.0, 720.0) hud=(1280.0, 720.0) rail=[P: (0.0, 0.0), S: (1280.0, 720.0)] herb=[P: (879.0, 522.0), S: (100.0, 44.0)] toolbar=[P: (28.0, 636.0), S: (480.0, 56.0)] header=(320.0, 236.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+D2_RAIL_GEOMETRY size=(844.0, 390.0) hud=(844.0, 390.0) rail=[P: (0.0, 0.0), S: (844.0, 390.0)] herb=[P: (690.0, 204.0), S: (100.0, 44.0)] toolbar=[P: (16.0, 318.0), S: (480.0, 56.0)] header=(320.0, 197.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+D2_RAIL_GEOMETRY size=(640.0, 360.0) hud=(640.0, 360.0) rail=[P: (0.0, 0.0), S: (640.0, 360.0)] herb=[P: (417.0, 174.0), S: (100.0, 44.0)] toolbar=[P: (16.0, 288.0), S: (480.0, 56.0)] header=(273.0, 197.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+PASS: RES1-D2-R1 Danxia world 59 checks; nodes=1567
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/res1_ui1a_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/res1_ui1a_runner.gd:50)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/res1_ui1a_runner.gd:50)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(866.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+PASS: RES1-UI1-A 223 checks; diagnostic UI, job ownership, gates and save retry
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/res1_ui1b_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "available" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://src/presentation/fortune_modal.gd:249)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1b_runner.gd:46)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_modal_manager.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1b_runner.gd:46)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1b_runner.gd:46)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1_ui1b_runner.gd:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:112)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:112)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:563)
+       [2] _build_hud (res://src/abode/living_abode.gd:614)
+       [3] _ready (res://src/abode/living_abode.gd:362)
+       [4] _run (res://tests/res1_ui1b_runner.gd:50)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:106)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:565)
+       [2] _build_hud (res://src/abode/living_abode.gd:614)
+       [3] _ready (res://src/abode/living_abode.gd:362)
+       [4] _run (res://tests/res1_ui1b_runner.gd:50)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/res1_ui1b_runner.gd:50)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _ready (res://src/abode/living_abode.gd:368)
+       [8] _run (res://tests/res1_ui1b_runner.gd:50)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:816)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:737)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:616)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:642)
+       [6] _layout (res://src/abode/living_abode.gd:618)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:74)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:84)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:98)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:99)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:122)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:168)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _open_island_page (res://src/presentation/feature_navigation.gd:539)
+       [3] _open_supply (res://src/presentation/island_transport_panel.gd:392)
+       [4] _run (res://tests/res1_ui1b_runner.gd:172)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:179)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:411)
+       [4] _run (res://tests/res1_ui1b_runner.gd:181)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:179)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:411)
+       [4] _run (res://tests/res1_ui1b_runner.gd:181)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:179)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:411)
+       [4] _run (res://tests/res1_ui1b_runner.gd:181)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:179)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:411)
+       [4] _run (res://tests/res1_ui1b_runner.gd:181)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:179)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:411)
+       [4] _run (res://tests/res1_ui1b_runner.gd:181)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:186)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:396)
+       [4] _run (res://tests/res1_ui1b_runner.gd:187)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:186)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:396)
+       [4] _run (res://tests/res1_ui1b_runner.gd:187)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:186)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:396)
+       [4] _run (res://tests/res1_ui1b_runner.gd:187)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:191)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _open_island_page (res://src/presentation/feature_navigation.gd:539)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:406)
+       [4] _run (res://tests/res1_ui1b_runner.gd:192)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _run (res://tests/res1_ui1b_runner.gd:196)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _open_island_page (res://src/presentation/feature_navigation.gd:539)
+       [3] _open_supply (res://src/presentation/manufacturing_panel.gd:414)
+       [4] _run (res://tests/res1_ui1b_runner.gd:197)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:204)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_manufacturing (res://src/presentation/feature_navigation.gd:530)
+       [3] _open_supply (res://src/presentation/island_transport_panel.gd:387)
+       [4] _run (res://tests/res1_ui1b_runner.gd:205)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:212)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _open_island_page (res://src/presentation/feature_navigation.gd:539)
+       [3] _open_supply (res://src/presentation/island_transport_panel.gd:392)
+       [4] _run (res://tests/res1_ui1b_runner.gd:213)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:220)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:248)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:262)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1558.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:262)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(866.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:262)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 480.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:262)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:288)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] open_transport (res://src/presentation/feature_navigation.gd:548)
+       [3] _run (res://tests/res1_ui1b_runner.gd:285)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(600.0, 360.0)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:196)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:196)
+       [1] open (res://src/presentation/feature_navigation.gd:148)
+       [2] _run (res://tests/res1_ui1b_runner.gd:287)

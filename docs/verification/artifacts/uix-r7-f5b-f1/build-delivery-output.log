@@ -1,0 +1,78 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 專案初始化中 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在掃描檔案結構…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在載入全域類別名稱…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在驗證 GDExtension…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在建立自動載入腳本…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 初始化外掛程式...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 開始掃描檔案...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 註冊全域類別中... (2 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在載入編輯器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在載入編輯器佈局…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在載入面板…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 專案初始化中 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在掃描檔案結構…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在載入全域類別名稱…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在驗證 GDExtension…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在建立自動載入腳本…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 初始化外掛程式...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 開始掃描檔案...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1msavepack[22m | Started 打包中 (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/LXGWWenKaiTC-Regular.ttf-905beae3ab0ae8f9fd3e9d083572c038.fontdata[39m[0m
+[   1% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/reincarnation-f5b/LXGWWenKaiTC-Regular.ttf.import[39m[0m
+[   5% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/NotoSansDevanagari-Regular.ttf-2148c3e6797093e8a84a0192f0969b83.fontdata[39m[0m
+[   5% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/reincarnation-f5b/NotoSansDevanagari-Regular.ttf.import[39m[0m
+[   9% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/Dao2Sans-VF.ttf-93c938a13c81f767b04e1ece3e529da0.fontdata[39m[0m
+[   9% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/runtime/Dao2Sans-VF.ttf.import[39m[0m
+[  13% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/disc_face.png-7feaadf5b9db18e510e374b1391dae2d.ctex[39m[0m
+[  13% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/disc_face.png.import[39m[0m
+[  17% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/disc_rim_fixed.png-1ec55c8bac346aaea663bf03406afeb8.ctex[39m[0m
+[  17% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/disc_rim_fixed.png.import[39m[0m
+[  21% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/light_ribbon.png-7be48ba75b4ee9fdadabc303bea87177.ctex[39m[0m
+[  21% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/light_ribbon.png.import[39m[0m
+[  26% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/lotus.png-a1ebbc3acb5176e0f1fbe83437df45f5.ctex[39m[0m
+[  26% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/lotus.png.import[39m[0m
+[  30% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/lotus_emission.png-d4ec7be1998d6bea88444ba9890f4699.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/lotus_emission.png.import[39m[0m
+[  33% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/manifest.json[39m[0m
+[  37% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/mist_back.png-b60ceb454d0f839af4f69ec89f4ac5dc.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/mist_back.png.import[39m[0m
+[  41% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/mist_front_left.png-80ac8f9d1dc0ed0c579c6faa234562da.ctex[39m[0m
+[  41% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/mist_front_left.png.import[39m[0m
+[  45% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/mist_front_right.png-f1c3c138e8adef34e52e4602ccee8847.ctex[39m[0m
+[  45% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/mist_front_right.png.import[39m[0m
+[  50% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/tassels.png-4d22e619ad0c50922faf93bff80d5d2e.ctex[39m[0m
+[  50% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5a/tassels.png.import[39m[0m
+[  54% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/disc_face.png-36dfcf3b8f8b4cc874cc49ea1dba267b.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5b-f1/disc_face.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 儲存檔案：res://assets/ui/reincarnation-layered-f5b-f1/manifest.json[39m[0m
+[  62% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/reincarnation-f5b/OFL.txt[39m[0m
+[  66% ] [90m[1msavepack[22m | 儲存檔案：res://effect.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | 儲存檔案：res://glyph_glow.gdshader[39m[0m
+[  74% ] [90m[1msavepack[22m | 儲存檔案：res://local_glow.gdshader[39m[0m
+[  78% ] [90m[1msavepack[22m | 儲存檔案：res://mist.gdshader[39m[0m
+[  82% ] [90m[1msavepack[22m | 儲存檔案：res://preview.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/exported/133200997/export-73c9835ab34314e9b492dfbff7cbfb05-preview.scn[39m[0m
+[  90% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/SourceHanSans-LICENSE.txt[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/reincarnation-f5b/Noto-OFL.txt[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://effect.gd.remap[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://preview.gd.remap[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://preview.tscn.remap[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/global_script_class_cache.cfg[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/uid_cache.bin[39m[0m
+[  94% ] [90m[1msavepack[22m | 儲存檔案：res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m

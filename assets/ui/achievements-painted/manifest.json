@@ -1,0 +1,370 @@
+{
+  "task": "UIX-R6-ACHIEVEMENTS",
+  "date": "2026-10-16 to 2026-10-17",
+  "generator": "built-in ImageGen",
+  "source": "AI-generated original assets; no external reference image used",
+  "license_status": "Generated for this project; no third-party commercial license asserted",
+  "layers": "One generated RGBA badge per achievement. UI text, state, rewards and interaction remain Godot Controls.",
+  "assets": [
+    {
+      "asset_id": "achievement_era_qi",
+      "achievement_id": "era_qi",
+      "category": "cultivation",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/era_qi.png",
+      "runtime": "assets/ui/achievements-painted/era_qi.png",
+      "source_size": [
+        1262,
+        1246
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/era_qi.txt",
+      "runtime_sha256": "6a2e1b890dc194c2fd01c758420666960905a692c88defe312a4d2eaf97ef244"
+    },
+    {
+      "asset_id": "achievement_era_foundation",
+      "achievement_id": "era_foundation",
+      "category": "cultivation",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/era_foundation.png",
+      "runtime": "assets/ui/achievements-painted/era_foundation.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/era_foundation.txt",
+      "runtime_sha256": "d555462262bd529bb219283a8b111b12fe68c911c5cee64aba1ebff24a3b36d5"
+    },
+    {
+      "asset_id": "achievement_era_golden_core",
+      "achievement_id": "era_golden_core",
+      "category": "cultivation",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/era_golden_core.png",
+      "runtime": "assets/ui/achievements-painted/era_golden_core.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/era_golden_core.txt",
+      "runtime_sha256": "92b6183e1fc9575e11b51d42c7a9756ec5e90b5e04fe3541fe3fee6f3b5654c0"
+    },
+    {
+      "asset_id": "achievement_era_nascent_soul",
+      "achievement_id": "era_nascent_soul",
+      "category": "cultivation",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/era_nascent_soul.png",
+      "runtime": "assets/ui/achievements-painted/era_nascent_soul.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/era_nascent_soul.txt",
+      "runtime_sha256": "7ad32820c4da66cb53f5596e0b6a432db9c7b5b21bc81da5b1224efd7c367053"
+    },
+    {
+      "asset_id": "achievement_build_first_hut",
+      "achievement_id": "build_first_hut",
+      "category": "abode",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/build_first_hut.png",
+      "runtime": "assets/ui/achievements-painted/build_first_hut.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/build_first_hut.txt",
+      "runtime_sha256": "6e55360d2cc462586b56a2a97ad23978a23a2f7ff19f232fb76dd4937f9b4abe"
+    },
+    {
+      "asset_id": "achievement_build_sum_10",
+      "achievement_id": "build_sum_10",
+      "category": "abode",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/build_sum_10.png",
+      "runtime": "assets/ui/achievements-painted/build_sum_10.png",
+      "source_size": [
+        1297,
+        1213
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/build_sum_10.txt",
+      "runtime_sha256": "d566d7549e77f58fc0b6d20deb1f179f0dd7daf4b6124fdf3787cdc944f88202"
+    },
+    {
+      "asset_id": "achievement_build_lingqi_array",
+      "achievement_id": "build_lingqi_array",
+      "category": "abode",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/build_lingqi_array.png",
+      "runtime": "assets/ui/achievements-painted/build_lingqi_array.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/build_lingqi_array.txt",
+      "runtime_sha256": "b531070bf685adc8ffb1619828349da9eada09095671b603c0f33ecfe72cece5"
+    },
+    {
+      "asset_id": "achievement_scenery_harvest",
+      "achievement_id": "scenery_harvest",
+      "category": "abode",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/scenery_harvest.png",
+      "runtime": "assets/ui/achievements-painted/scenery_harvest.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/scenery_harvest.txt",
+      "runtime_sha256": "0e02f7491805a8d10a7db80d368af963630165b50e43c2de99faf299bbab350a"
+    },
+    {
+      "asset_id": "achievement_craft_first_pill",
+      "achievement_id": "craft_first_pill",
+      "category": "alchemy",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/craft_first_pill.png",
+      "runtime": "assets/ui/achievements-painted/craft_first_pill.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/craft_first_pill.txt",
+      "runtime_sha256": "4b7b3d586f4ece920209690e47b0652e8b21bd303f72fa1934ce1ec0bc407e74"
+    },
+    {
+      "asset_id": "achievement_consume_pill",
+      "achievement_id": "consume_pill",
+      "category": "alchemy",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/consume_pill.png",
+      "runtime": "assets/ui/achievements-painted/consume_pill.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/consume_pill.txt",
+      "runtime_sha256": "0e14434bb25e9df289489e7c4ca49e36cb9f56b011564307c8013392f3b228e6"
+    },
+    {
+      "asset_id": "achievement_join_first_sect",
+      "achievement_id": "join_first_sect",
+      "category": "sect",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/join_first_sect.png",
+      "runtime": "assets/ui/achievements-painted/join_first_sect.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/join_first_sect.txt",
+      "runtime_sha256": "382c6f23b7101d662d4e6789a5463873e986097b91604da44120638bd9a751d4"
+    },
+    {
+      "asset_id": "achievement_complete_expedition",
+      "achievement_id": "complete_expedition",
+      "category": "sect",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/complete_expedition.png",
+      "runtime": "assets/ui/achievements-painted/complete_expedition.png",
+      "source_size": [
+        1293,
+        1216
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/complete_expedition.txt",
+      "runtime_sha256": "b8f31b1e887f1017c609a6ee77a256fe18043ed43c40206d5e9a6cb8598753cf"
+    },
+    {
+      "asset_id": "achievement_learn_technique",
+      "achievement_id": "learn_technique",
+      "category": "sect",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/learn_technique.png",
+      "runtime": "assets/ui/achievements-painted/learn_technique.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/learn_technique.txt",
+      "runtime_sha256": "b2df61a6485713aceab7ab825effcf8f7b707ad54e0675c911007b42e1cae335"
+    },
+    {
+      "asset_id": "achievement_bond_beast",
+      "achievement_id": "bond_beast",
+      "category": "beast_fate",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/bond_beast.png",
+      "runtime": "assets/ui/achievements-painted/bond_beast.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/bond_beast.txt",
+      "runtime_sha256": "c9230d7297d9dd072c44d102ec8b3c4527b26d9fa611b79e8edd966d15060c86"
+    },
+    {
+      "asset_id": "achievement_feed_beast",
+      "achievement_id": "feed_beast",
+      "category": "beast_fate",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/feed_beast.png",
+      "runtime": "assets/ui/achievements-painted/feed_beast.png",
+      "source_size": [
+        1278,
+        1230
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/feed_beast.txt",
+      "runtime_sha256": "aa86c1676d86f145d44a61a9504f0a3156061493edb76d58abd21506167a5150"
+    },
+    {
+      "asset_id": "achievement_fortune_choice",
+      "achievement_id": "fortune_choice",
+      "category": "beast_fate",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/fortune_choice.png",
+      "runtime": "assets/ui/achievements-painted/fortune_choice.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/fortune_choice.txt",
+      "runtime_sha256": "e48b37be49925ac736b6f080c998d8f5abaf002cb91c6a8518422f2c9f5cd92e"
+    },
+    {
+      "asset_id": "achievement_first_reincarnate",
+      "achievement_id": "first_reincarnate",
+      "category": "reincarnation",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/first_reincarnate.png",
+      "runtime": "assets/ui/achievements-painted/first_reincarnate.png",
+      "source_size": [
+        1285,
+        1224
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/first_reincarnate.txt",
+      "runtime_sha256": "729d66861eb01de44f7cb6502127274ca51f5b00820fd6cc33da0fd23f6985ee"
+    },
+    {
+      "asset_id": "achievement_dao_heart_100",
+      "achievement_id": "dao_heart_100",
+      "category": "reincarnation",
+      "purpose": "72px achievement card badge; category representative reused at 24px",
+      "source": "docs/verification/artifacts/uix-r6/originals/dao_heart_100.png",
+      "runtime": "assets/ui/achievements-painted/dao_heart_100.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        224,
+        224
+      ],
+      "alpha": "preserved generated RGBA",
+      "processing": "alpha bounding-box fit to 200px in 224px transparent square; no painted pixels or state variants",
+      "prompt": "docs/verification/artifacts/uix-r6/prompts/dao_heart_100.txt",
+      "runtime_sha256": "7b55f5438905414d38a7e8a86edd4d8321a09ae89b7de55ffc8756fe81c45fb7"
+    }
+  ]
+}

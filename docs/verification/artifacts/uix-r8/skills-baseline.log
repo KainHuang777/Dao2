@@ -1,0 +1,129 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:119)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:42)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:119)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:42)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:120)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:42)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:120)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:42)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:121)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:42)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:121)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:42)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:119)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:125)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:119)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:125)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:120)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:125)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:120)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:125)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:121)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:125)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:121)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:125)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:119)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:128)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:119)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:128)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:120)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:128)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:120)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:128)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:121)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:128)
+ERROR: String formatting error: unsupported format character.
+   at: validated_evaluate (core/variant/variant_op.h:829)
+   GDScript backtrace (most recent call first):
+       [0] _effect_text (res://src/simulation/skill_system.gd:121)
+       [1] view (res://src/simulation/skill_system.gd:111)
+       [2] get_view (res://src/application/game_session.gd:226)
+       [3] _run (res://tests/skills_b1_runner.gd:128)
+PASS: SKILL-B1 41 checks

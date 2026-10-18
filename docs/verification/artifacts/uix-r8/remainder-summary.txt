@@ -1,0 +1,111 @@
+Partial captured terminal output from the sequential remainder command (some earlier tool chunks were truncated). Command used the ordered runner list in tools/run_all_runners.ps1, starting at tests/early_flow1b_runner.gd, throwing on any nonzero engine exit. Final shell exit0 and REMAINDER25 RUNNERS PASSED. First44 runners passed before the obsolete B assertion stopped the initial all-runners invocation. Total69 runners passed across the two segments.
+
+EARLY-FLOW1-B: 110 checks; simulated natural-rate wait 1010s (not wall-clock/browser evidence).
+[RUNNING] tests/early_flow1c_runner.gd
+EARLY-FLOW1-C: 104 checks (earned normal commands; simulated time, not browser timing).
+[RUNNING] tests/early_flow1d_runner.gd
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+NAV1 navigation, neutrality, resource integration and UI command checks completed
+[RUNNING] tests/skills_b1_runner.gd
+PASS: SKILL-B1 41 checks
+[RUNNING] tests/uix_r8_skills_ui_runner.gd
+UIX-R8 92 checks failed=false
+[RUNNING] tests/m3b_spirit_beast_runner.gd
+  Beast configs & acquisition: PASS
+  Feeding, cooldowns & stages: PASS
+  Talents tree & effects: PASS
+  Reincarnation beast soul settlement: PASS
+  GameSession commands & simulation integration: PASS
+  SaveCodec roundtrip & backward compatibility: PASS
+[M3B_BEAST_RUNNER] ALL M3-B SPIRIT BEAST TESTS PASSED (exit 0)
+[RUNNING] tests/abode_scenery_runner.gd
+ISLAND1_CORE PASS
+[RUNNING] tests/abode_scenery_ui_runner.gd
+ISLAND1_UI PASS
+[RUNNING] tests/m3b_achievement_runner.gd
+[SUCCESS] 全部 6 項 M3-B 成就系統測試案例 PASS！
+[RUNNING] tests/debug_autobuild_and_time_runner.gd
+  -> PASS: Background 10s catch-up advanced 10.000000 seconds.
+  -> PASS: Focus-in immediate settlement advanced 5.000000 seconds.
+  -> PASS: DEBUG auto-build promoted cultivation from level 1 to 2.
+  -> PASS: DEBUG auto-build strictly preserved tribulation barrier (era=1, level=10).
+ALL DEBUG AUTO-BUILD AND BACKGROUND TIME TESTS PASSED (exit 0)
+[RUNNING] tests/debug_actions_runner.gd
+狀態健康評估: 【健全 PASS】
+狀態健康評估: 【健全 PASS】
+[DEBUG_ACTIONS_RUNNER] ALL DEBUG ACTION TESTS PASSED (exit 0)
+[RUNNING] tests/runtime_inspector_runner.gd
+狀態健康評估: 【健全 PASS】
+狀態健康評估: 【健全 PASS】
+[RUNTIME_INSPECTOR_RUNNER] ALL RUNTIME INSPECTOR TESTS PASSED (exit 0)
+[RUNNING] tests/simulation_sandbox_runner.gd
+[SIMULATION_SANDBOX_RUNNER] ALL SIMULATION SANDBOX TESTS PASSED (exit 0)
+[RUNNING] tests/uix_r1_components_runner.gd
+UIX-R1: 80 checks passed with 0 failures.
+[RUNNING] tests/batch_a_pills_runner.gd
+[RUNNING] tests/batch_a_pills_runner.gd
+PASS: content loads from res://content
+PASS: requires_tribulation(2) is false
+PASS: requires_tribulation(3) is true
+PASS: base_rate(3)=0.80
+PASS: base_rate(4)=0.70
+PASS: base_rate(5)=0.60
+PASS: base_rate(9)=0.30
+PASS: base_rate(10)=0.30
+PASS: golden pill bonus 1 ~0.03
+PASS: tribulation pill bonus 1 ~0.05
+PASS: golden pill bonus 0 is 0
+PASS: golden pill bonus 99 in (0.199,0.2]
+PASS: golden pill bonus is diminishing
+PASS: success_probability(3,0)~0.80
+PASS: success_probability(3,1)~0.83
+PASS: success_probability(3,99)=0.95
+PASS: success_probability(9,0)~0.30
+PASS: is_success(0.2,0.3) is true
+PASS: is_success(0.3,0.3) is false
+PASS: roll(7,3) is stable
+PASS: roll(7,3) in [0,1)
+PASS: roll(7,0) differs from roll(7,1)
+PASS: roll determinism over seed 0..19 and idx 0..49
+PASS: high_cultivation fresh count1 consume ok
+PASS: high_cultivation fresh count1 grants 300
+PASS: high_cultivation stack is 1 after one pill
+PASS: high_cultivation second count1 consume ok
+PASS: high_cultivation second count1 grants 255
+PASS: high_cultivation fresh count2 consume ok
+PASS: high_cultivation fresh count2 grants 555
+PASS: high_cultivation count 100 is rejected
+PASS: high_cultivation count 100 error is INVALID_COUNT
+PASS: high_cultivation stack overflow is rejected
+PASS: high_cultivation stack overflow error is PILL_STACK_LIMIT
+PASS: lifespan_pill count2 consume ok
+PASS: lifespan_pill count2 grants 20 years
+PASS: lifespan refine at era1 is rejected
+PASS: lifespan refine at era1 reason is PILL_LOCKED
+PASS: lifespan refine at era1 reports required_era 4
+PASS: lifespan refine at era4 is allowed
+PASS: lifespan refine at era4 ok
+PASS: lifespan pill count is 1 after refine
+PASS: refine count 100 is rejected
+PASS: refine count 100 reason is INVALID_COUNT
+PASS: spirit_tide_pill count1 consume ok
+PASS: spirit_tide remaining 300 after one pill
+PASS: spirit_tide_pill count20 consume ok
+PASS: spirit_tide merged remaining capped at 3600
+PASS: quick_output_pill count1 consume ok
+PASS: quick_output remaining 600 after one pill
+PASS: breakthrough fixture found a success roll index
+PASS: breakthrough fixture found a failure roll index
+PASS: tribulation success returns ok
+PASS: tribulation success advances to era 4
+PASS: tribulation success increments roll index
+PASS: tribulation success event kind is era_breakthrough
+PASS: tribulation failure returns ok true
+PASS: tribulation failure drops to era 2
+PASS: tribulation failure level equals era 2 max level
+PASS: tribulation failure increments roll index
+PASS: tribulation failure event kind is tribulation_failed
+61 checks, 0 failures
+REMAINDER 25 RUNNERS PASSED
+

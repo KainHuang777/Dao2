@@ -187,20 +187,24 @@ func get_view() -> Dictionary:
 	var next_required := 0.0
 	var era_view := {}
 	var can_level_up := false
+	var training_complete := false
+	var level_up_missing_resources := {}
 	var can_breakthrough := false
 	var level_up_costs := {}
 	var breakthrough_req := {}
 	var breakthrough_target_name := ""
 	if era_def != null:
 		if state.level < int(era_def.max_level):
-			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, 1.0)
+			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, SkillSystem.effect(content, state.skills, "time_multiplier"))
 			var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
-			can_level_up = (state.training_seconds >= next_required)
+			training_complete = state.training_seconds >= next_required - CommandProcessor.AFFORD_TOLERANCE
+			can_level_up = training_complete
 			for r_id in costs:
 				level_up_costs[r_id] = costs[r_id].serialize()
 				var res_entry: Dictionary = state.resources.get(r_id, {})
-				if res_entry.is_empty() or res_entry.value.add(AmountCompat.from_number(0.000001)).compare_to(costs[r_id]) < 0:
+				if res_entry.is_empty() or res_entry.value.add(AmountCompat.from_number(CommandProcessor.AFFORD_TOLERANCE)).compare_to(costs[r_id]) < 0:
 					can_level_up = false
+					level_up_missing_resources[r_id] = {"required": costs[r_id].serialize(), "available": res_entry.get("value", AmountCompat.zero()).serialize()}
 		else:
 			var next_era = content.era(state.era_id + 1)
 			if next_era != null:
@@ -240,6 +244,8 @@ func get_view() -> Dictionary:
 		"next_level_required_seconds": next_required,
 		"max_lifespan_seconds": max_lifespan,
 		"can_level_up": can_level_up,
+		"training_complete": training_complete,
+		"level_up_missing_resources": level_up_missing_resources,
 		"can_breakthrough": can_breakthrough,
 		"level_up_costs": level_up_costs,
 		"breakthrough_requirements": breakthrough_req,

@@ -1,3 +1,5 @@
+2026-10-17 追記：使用者核定「RES1-C3 放行」，人類美術／節奏驗收通過；RES1-C3 收結（[驗收](verification/res1-c3-art-integration.md)）。上方「剩餘門檻僅剩人類美術／節奏驗收」自此解除，歷史文字保留不改。
+
 # 多島擴充與首批正式美術
 
 2026-10-14 追記：丹霞第四島已由 RES1-D2／D2-R1 於 2026-10-05 交付（[驗收](verification/res1-d2-r1.md)），下方「第四島尚未實作／現有三座」等 2026-10-04 C3 陳述屬歷史，完成數以本追記為準；RES1-C2-PERF 已於 2026-10-12／13 全案收結，含閉式分段路徑（[offline-closed-form-v1.md](verification/offline-closed-form-v1.md)）與自然分頁凍結真實瀏覽器驗證（[res1-c2-natural-freeze-web.md](verification/res1-c2-natural-freeze-web.md)）。剩餘門檻僅剩人類美術／節奏驗收。以下歷史文字保留不改。

@@ -1,0 +1,267 @@
+{
+	"assets": [
+		{
+			"bounds": [
+				67,
+				600,
+				894,
+				141
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "mist_back.png",
+			"id": "mist_back",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Reference original wheel palette and brushwork. Create ONLY its independent BACK MIST layer: one wide airy winding horizontal band of pale ivory and faint celadon Chinese auspicious cloud mist, delicate hand-painted gouache translucent washes, subtle fine ink curling edges, much thinner and airier than foreground clouds. Wisps taper naturally and all edges fade to genuine transparent alpha. Entire cloud isolated with ample padding, no rectangular haze. No wheel or fragments of wheel, no lotus, gold objects, beads, tassels, light ribbon, lettering or background. Width about three times height. Complete ends. Not a scene, single game VFX layer.",
+			"sha256": "3cd5dcf99c859b980b627748978a686802cf63ca6ee2bc7c98e08e135e8618ec",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/mist_back.png",
+			"source_sha256": "031b1824793ed4f2fe211df4573d6b563655689cf260ce5b3e7597a9876ff4c8",
+			"transform_space": "composition",
+			"z_index": 0
+		},
+		{
+			"bounds": [
+				254,
+				237,
+				526,
+				527
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "disc_face.png",
+			"id": "disc_face",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Edit target: attached original reincarnation wheel. Create ONLY its reconstructed rotating DISC FACE as a standalone transparent game asset. Preserve recognizable antique gold engraved scrolling clouds, celadon mineral jade annulus, small cinnabar triple-swirl medallions from the reference. Rebuild entire obscured circumference and central area. Perfect geometrical CIRCLE viewed straight on orthographically, no tilt, no ellipse, no side thickness. Complete opaque jade/bronze center with fine circular engraving (no hole). No lotus, mist, light ribbons, tassels, external fixed ornaments, pedestal or shadows outside circle. Soft nondirectional painterly lighting. One distinct cinnabar medallion at top, smaller subtle asymmetric cloud engravings allow rotation tracking. Square 1024 canvas, disc centered at (512,512), radius 400, transparent 112px margins. Actual transparent alpha. No text, no labels. Hand-painted detailed gouache and fine ink matching reference.",
+			"sha256": "c1d371e6e1c777776fad3c03fb6b0f3720f78deaad1367a59b11fd679b13da33",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/disc_face.png",
+			"source_sha256": "9a63a6e3d03c1932cb1e62040ea1f9f8b07b1d4b88454fee7a971a4b357dc65d",
+			"transform_space": "disc_plane",
+			"z_index": 1
+		},
+		{
+			"bounds": [
+				102,
+				102,
+				819,
+				820
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "disc_rim_fixed.png",
+			"id": "disc_rim_fixed",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Edit target original jade wheel. Extract/reconstruct ONLY stationary OUTER RIM housing. A thin circular antique bronze ring, frontal orthographic perfectly round opening, TRANSPARENT EMPTY CENTER taking 86 percent of outer diameter. Narrow celadon jade strip and subtle gold curling engraving on rim. Four small outward ornamental jade finials at cardinal points, elegant matching original. Visible shallow dark bronze side thickness along bottom/right edge only. NO inner disc, no central carving, no lotus, mist, ribbons, tassels or pedestal. Entire center genuinely transparent. Complete circle not cropped. Square canvas with generous clear margin. Hand-painted gouache and fine ink same palette as reference. This housing will surround a separate rotating circular disc; do not draw any rotating medallions. Actual transparent background.",
+			"sha256": "56c8ae9dc65334171d1d2265ad9e5204f80ae56b2e352bf8a87673bff8e74b40",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/disc_rim_fixed.png",
+			"source_sha256": "a71e5b41ae9047a7edabc872110e07d18cae0ed87e3c3a7f72e0af4a8a7b1d55",
+			"transform_space": "disc_plane",
+			"z_index": 2
+		},
+		{
+			"bounds": [
+				122,
+				440,
+				786,
+				280
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "tassels.png",
+			"id": "tassels",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Using reference original wheel for style, generate ONLY a pair of hanging jade-bead and cinnabar silk tassels, one left and one right separated by broad empty space. Each has a small antique gold hook at top, round pale celadon bead, tiny gold spacers, long graceful red silk fringe curling gently downward/outward. Match original hand-painted mineral pigment/gouache/fine ink. Complete isolated tassels with clean transparent edges. No wheel, ring, lotus, mist, ribbon of light, pedestal, text, background or cast shadow. Both hang vertically, same scale, attachment points at same height. Genuine transparent alpha, generous padding.",
+			"sha256": "8208900925b9bd2b75d73c1ff8722c9c1b538bb4ba6bdcdf32073259429bdc86",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/tassels.png",
+			"source_sha256": "1ede03846691d62466c605a07084ba6a8e8f6dde9cec34f59db14c9128de2823",
+			"transform_space": "composition",
+			"z_index": 3
+		},
+		{
+			"bounds": [
+				252,
+				293,
+				474,
+				304
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "lotus.png",
+			"id": "lotus",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Edit target original wheel: isolate and reconstruct ONLY the luminous ivory lotus blossom from its center. Match original petal shapes, warm gold fine edges, celadon shadows, painterly gouache mineral pigment and fine ink. Complete clean petals including previously obscured bottom tips. Upright frontal three-quarter blossom, symmetrical silhouette, petals opening upward, luminous small heart, restrained brightness. NO disc, circle, bronze ornament, cloud, mist, light ribbon, pedestal, stem, text or backdrop. Single floating blossom on actual transparent background, very generous margins. It will overlay a separately rotating jade disc. Keep soft glow only inside/very near petals; no broad halo.",
+			"sha256": "61e65b42ff57a90ecbbcdb83745a829563d19f12f0fa26fcdee778d72c4b3a65",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/lotus.png",
+			"source_sha256": "ddc9580b0208337c202e03ec692996bf82507374cb9527cd410bf4c133f99218",
+			"transform_space": "composition",
+			"z_index": 4
+		},
+		{
+			"bounds": [
+				299,
+				291,
+				426,
+				306
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "lotus_emission.png",
+			"id": "lotus_emission",
+			"mask_of": "lotus",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Correct ONLY emission mask background/interiors. Preserve precisely all existing white petal contour lines and their positions in reference. DELETE all gray filled petal interiors and ALL broad soft outer glow. They must become fully transparent alpha. Output only thin soft white contour lines tracing the petals, and a few small heart highlights; like delicate white linework on transparent acetate. No filled petal surfaces whatsoever, no halo, no gray wash, no background. Keep same canvas and coordinates and exact geometry. Actual transparent PNG.",
+			"sha256": "2db5f60b185f2cd55fc43cb7987fecfb39012f54cdf471a1bdef3803794c0edc",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/lotus_emission_v2.png",
+			"source_sha256": "79d48c7947cadf09e578e1600e12c3eec122caea6cbd8912afb5930292f05061",
+			"transform_space": "composition",
+			"z_index": 5
+		},
+		{
+			"bounds": [
+				457,
+				511,
+				171,
+				379
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "light_ribbon.png",
+			"id": "light_ribbon",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Use original jade wheel image as STYLE reference. Isolate/repaint ONLY the winding river of golden ivory light which flows downward from beneath lotus. A narrow vertical S-curved ribbon, thin at top, gently widening near bottom, wispy fine brush strands, translucent warm ivory with subtle gold edges and a few tiny gold motes. Shape gently snakes down, full uncut ends fading into alpha, generous transparent padding. No lotus, petals, wheel, jade, bronze, clouds, tassels, text, objects or scene. Keep the light restrained, painterly gouache and fine ink fantasy game VFX. Actual transparent background, not black backdrop. Independently compositable single light ribbon.",
+			"sha256": "4391f5f696de12f5d1527a0d7200877f591d01f3179f5bce23f63556298c696a",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/light_ribbon.png",
+			"source_sha256": "39b3ae09bb123aca36fe64e9db6f55b14e0ebd093f3886ee76d6076f67214eb2",
+			"transform_space": "composition",
+			"z_index": 6
+		},
+		{
+			"bounds": [
+				87,
+				732,
+				513,
+				158
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "mist_front_left.png",
+			"id": "mist_front_left",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Reference original wheel art. Generate ONLY independent FRONT LEFT CLOUD: a low curl of warm ivory auspicious Chinese mist with gentle celadon shading and restrained antique-gold hairline curls. Hand-painted gouache with soft organic edges. Main rounded curling cluster to left, slender wisps extending to right. Airy translucent tips, complete cloud no cut edge, transparent background with ample margins. No wheel, bronze fragments, pedestal, lotus, tassel, beads, light ribbon, lettering or scene. Single isolated game VFX cloud layer, width about twice height. Must be able to move without revealing baked-in pieces of other objects.",
+			"sha256": "d0397456ce122e98431c67b46ac6885c7a93310b46fa7cd51843394c925ae94a",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/mist_front_left.png",
+			"source_sha256": "467d046b5188f3e91b250b1e398e6b9bcd40a3571f6daeda04a16b8ead4bb53e",
+			"transform_space": "composition",
+			"z_index": 7
+		},
+		{
+			"bounds": [
+				430,
+				767,
+				514,
+				152
+			],
+			"canvas": [
+				1024,
+				1024
+			],
+			"file": "mist_front_right.png",
+			"id": "mist_front_right",
+			"mask_of": "",
+			"pivot": [
+				512,
+				512
+			],
+			"prompt": "Reference original wheel art. Generate ONLY independent FRONT RIGHT CLOUD: a low curling warm ivory auspicious Chinese mist bank, celadon shading, restrained antique-gold fine curls. Main rounded curling cluster on RIGHT, fine horizontal wisps trailing LEFT. Distinct shape from left cloud. Hand-painted gouache mineral pigment, soft translucent wispy edges, complete isolated shape with transparent generous margins. No wheel, bronze objects, pedestal, lotus, tassels, beads, light ribbon, text or scene. About twice as wide as tall. Actual transparent alpha. A movable independent VFX layer.",
+			"sha256": "27ceb3847cd9def4cb5f0461d3f54c6476341b4a59e982e3fedb9d96b5aeb1be",
+			"source": "docs/verification/artifacts/uix-r7-f5a/originals/mist_front_right.png",
+			"source_sha256": "b5f1226ef5c7e32dc2b9fec9e6226725f8adc67cebeecbd62a2b91d776421e5c",
+			"transform_space": "composition",
+			"z_index": 8
+		}
+	],
+	"baseline_scale": 1,
+	"canvas": [
+		1024,
+		1024
+	],
+	"compositing": "straight alpha; emission excluded from baseline static composite; source atlas has no gameplay text",
+	"date": "2026-10-18",
+	"disc_pivot": [
+		512,
+		512
+	],
+	"emission_encoding": "white RGB / alpha strength from generated grayscale smoothstep(0.88,0.98), multiplied by source alpha; same full source canvas as lotus",
+	"generator": "built-in ImageGen",
+	"license": "AI-generated for this project from project-owned AI reference; no third-party commercial license asserted",
+	"origin": [
+		0,
+		0
+	],
+	"projected_disc_center": [
+		512,
+		450
+	],
+	"projection": {
+		"order": "rotate disc around pivot THEN project; rim projects without rotation",
+		"scale": [
+			0.939453125,
+			0.900390625
+		],
+		"translation": [
+			31,
+			-11
+		]
+	},
+	"reproduction": "Godot 4.7.2 --headless --path . --script res://tools/uix_r7f5a_assets.gd",
+	"runtime_resolution": "1024 selected candidate: preserves thin mask contours; 512/768/1024 offline comparison at 460px saved. F5-B may revise after real rendering/performance evidence.",
+	"source_reference": "docs/verification/artifacts/uix-r7/originals/reincarnation_wheel.png",
+	"status": "candidate_pending_visual_acceptance",
+	"task": "UIX-R7-F5-A"
+}

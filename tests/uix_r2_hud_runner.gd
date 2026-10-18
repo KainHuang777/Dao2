@@ -50,7 +50,7 @@ func _run() -> void:
 		check(not summary.get_child(0).visible, "workspace suppresses home summary %s" % vp)
 		check(not nav.bar.get_global_rect().intersects(abode.settings_menu.get_global_rect()), "fixed return clears settings %s" % vp)
 		check(nav.bar.get_global_rect().end.y <= nav.manufacturing_panel.position.y, "fixed tabs clear scroll shell %s" % vp)
-		check(nav.manufacturing_panel.get_theme_stylebox("panel").texture == UiMaterial.UIX_SCROLL, "shared manufacturing scroll shell")
+		check(nav.manufacturing_panel.get_theme_stylebox("panel").texture == (UiMaterial.UIX_SCROLL_COMPACT if nav.manufacturing_panel.size.y < 400 else UiMaterial.UIX_SCROLL), "shared manufacturing scroll shell follows R7 rod safety")
 		nav.home()
 		abode.session.state.era_id = 1
 		abode._refresh_hud()

@@ -9,24 +9,41 @@ var _signature := ""
 var _last_mode := ""
 var buttons: Dictionary = {}
 var save_failed := false
-var _skill_summary: Label
+var _scroll: ScrollContainer
+var _surface: PanelContainer
+var skill_view: Control
+var decision_view: Control
+var retry_button: Button
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	theme = UiTypography.create_theme()
 	theme.set_color("font_color", "Label", UiMaterial.INK)
 	var surface := PanelContainer.new()
+	_surface = surface
 	surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	surface.add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
 	add_child(surface)
 	box = VBoxContainer.new()
 	surface.add_child(box)
+	var feedback_row := HBoxContainer.new()
+	box.add_child(feedback_row)
 	status = Label.new()
+	status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	status.visible = false
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.add_theme_font_size_override("font_size", 16)
-	box.add_child(status)
+	feedback_row.add_child(status)
+	retry_button = Button.new()
+	retry_button.text = "重試保存"
+	retry_button.custom_minimum_size = Vector2(0, 44)
+	UiMaterial.apply_button(retry_button)
+	retry_button.hide()
+	retry_button.pressed.connect(func(): action_requested.emit("retry_save", ""))
+	feedback_row.add_child(retry_button)
+	retry_button.custom_minimum_size.x = 112
 	var scroll := ScrollContainer.new()
+	_scroll = scroll
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	box.add_child(scroll)
@@ -34,10 +51,19 @@ func _ready() -> void:
 	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_theme_constant_override("separation", 8)
 	scroll.add_child(content)
+	skill_view = preload("res://src/presentation/skill_study_view.gd").new()
+	box.add_child(skill_view)
+	skill_view.action_requested.connect(func(kind: String, id: String): action_requested.emit(kind, id))
+	skill_view.hide()
+	decision_view = preload("res://src/presentation/realm_decision_view.gd").new()
+	box.add_child(decision_view)
+	decision_view.action_requested.connect(func(kind: String, id: String): action_requested.emit(kind, id))
+	decision_view.hide()
 
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
+	_surface.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if bounds.size.y < 350 else UiMaterial.scroll_shell())
 
 func show_result(message: String) -> void:
 	status.text = message
@@ -62,17 +88,24 @@ func _action(text: String, kind: String, id: String, enabled: bool) -> void:
 
 func refresh(view: Dictionary) -> void:
 	if _last_mode != mode:
-		status.visible = false
+		status.visible = save_failed
 		_last_mode = mode
+	skill_view.visible = mode == "skills"
+	decision_view.visible = mode == "decisions"
+	_scroll.visible = mode not in ["skills", "decisions"]
+	retry_button.visible = save_failed
+	if mode == "decisions":
+		decision_view.refresh(view)
+		buttons = decision_view.buttons.duplicate()
+		_signature = ""
+		return
+	if mode == "skills":
+		skill_view.refresh(view)
+		buttons = skill_view.buttons.duplicate()
+		_signature = ""
+		return
 	var data: Variant = view.get("beast", {}) if mode == "beasts" else view.get("realm_decisions", [])
-	if mode == "skills":
-		data = view.get("skills", {})
 	var signature_data: Variant = data
-	if mode == "skills":
-		if is_instance_valid(_skill_summary):
-			_skill_summary.text = _skill_heading(view, data)
-		signature_data = data.duplicate(true)
-		signature_data.erase("available")
 	var signature := mode + JSON.stringify(signature_data)
 	if signature == _signature:
 		return
@@ -81,22 +114,6 @@ func refresh(view: Dictionary) -> void:
 		content.remove_child(child)
 		child.queue_free()
 	buttons.clear()
-	if mode == "skills":
-		_text(_skill_heading(view, data))
-		_skill_summary = content.get_child(content.get_child_count()-1)
-		_action("前往經營建築", "study", "", true)
-		for item in data.get("items", []):
-			_text("%s · %d/%d\n%s\n每階消耗 %s 技能點" % [item.name, item.level, item.max_level, item.description, item.cost])
-			var reason: String = {"SKILL_STUDY_LOCKED": "築基並建藏經閣後開放", "SKILL_MAX_LEVEL": "已達上限", "INSUFFICIENT_SKILL_POINT": "技能點不足"}.get(item.reason, "研習")
-			_action(reason, "skill", item.id, item.can_learn)
-		return
-	if mode == "decisions":
-		_text("天道決策 · 當前界域\n只施行目前所在界域的法則取捨，其他界域不會因預覽而解鎖。")
-		for item in data:
-			_text("%s\n%s\n代價：%s\n冷卻：%.0f 秒" % [item.get("name", item.id), item.get("description", ""), _costs(item.get("costs", {})), item.get("cooldown_remaining", 0.0)])
-			var reason := "境界不足" if not bool(item.get("era_met", false)) else ("資糧不足" if not bool(item.get("costs_met", false)) else "等待冷卻")
-			_action("施行" if bool(item.get("is_ready", false)) else reason, "decision", item.id, bool(item.get("is_ready", false)))
-		return
 	_text("靈獸培育 · 成熟獸魂與天賦可跨世繼承")
 	var active: Dictionary = data.get("active", {})
 	if not active.is_empty():
@@ -121,11 +138,10 @@ func _costs(costs: Dictionary) -> String:
 
 func show_save_failure(message: String) -> void:
 	save_failed = true
+	retry_button.show()
 	show_result(message)
 func storage_recovered() -> void:
 	if save_failed:
 		save_failed = false
+		retry_button.hide()
 		show_result("已恢復保存，進度已寫入。")
-
-func _skill_heading(view: Dictionary, data: Dictionary) -> String:
-	return "技能研習 · 技能點 %s/%s\n築基後建藏經閣產生技能點；經書殿擴容。技能為選修加成，輪迴後重置，不限制空島或配方。" % [data.get("available", "0"), view.get("resources", {}).get("skill_point", {}).get("cap", "200")]

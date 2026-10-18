@@ -1,0 +1,128 @@
+{
+  "task": "UIX-R11-DECISIONS",
+  "date": "2026-10-18",
+  "generator": "built-in ImageGen",
+  "source": "Original AI-generated art; no external reference",
+  "license_status": "Generated for project; no third-party commercial license asserted",
+  "layers": "Single RGBA object; all UI text, values and actions remain Godot",
+  "assets": [
+    {
+      "id": "human_compile_dao_canon",
+      "decision_id": "human_compile_dao_canon",
+      "purpose": "Theme emblem only; effects rendered by Godot",
+      "source": "docs/verification/artifacts/uix-r11/originals/human_compile_dao_canon.png",
+      "runtime": "assets/ui/decisions-painted/human_compile_dao_canon.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r11/human_compile_dao_canon-prompt.txt",
+      "sha256": "49bab8db0bb0faaaa3c819cb7ed7205946ce247526dfb4a97dd72810ed038583"
+    },
+    {
+      "id": "human_irrigate_spiritual_vein",
+      "decision_id": "human_irrigate_spiritual_vein",
+      "purpose": "Theme emblem only; effects rendered by Godot",
+      "source": "docs/verification/artifacts/uix-r11/originals/human_irrigate_spiritual_vein.png",
+      "runtime": "assets/ui/decisions-painted/human_irrigate_spiritual_vein.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r11/human_irrigate_spiritual_vein-prompt.txt",
+      "sha256": "a4d79d9e6c9c3a60a6340e568ed6c01582c52c509dd815163f5125fdc99de7dd"
+    },
+    {
+      "id": "spirit_attune_lingchao",
+      "decision_id": "spirit_attune_lingchao",
+      "purpose": "Theme emblem only; effects rendered by Godot",
+      "source": "docs/verification/artifacts/uix-r11/originals/spirit_attune_lingchao.png",
+      "runtime": "assets/ui/decisions-painted/spirit_attune_lingchao.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r11/spirit_attune_lingchao-prompt.txt",
+      "sha256": "1f3a5f3cdaeed5fc1bf04b2754944efb364c0b5c507d3d81d5d15da71ae6c83f"
+    },
+    {
+      "id": "spirit_nurture_celestial_herb",
+      "decision_id": "spirit_nurture_celestial_herb",
+      "purpose": "Theme emblem only; effects rendered by Godot",
+      "source": "docs/verification/artifacts/uix-r11/originals/spirit_nurture_celestial_herb.png",
+      "runtime": "assets/ui/decisions-painted/spirit_nurture_celestial_herb.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r11/spirit_nurture_celestial_herb-prompt.txt",
+      "sha256": "059fa48cafa12324628f1c823d3718c3c34d95781c6f9bace6cac2ea48280dc7"
+    }
+  ],
+  "deferred_unreachable": [
+    {
+      "id": "nether_refine_soul_fire",
+      "realm_id": "realm_nether"
+    },
+    {
+      "id": "nether_ferry_departed_souls",
+      "realm_id": "realm_nether"
+    },
+    {
+      "id": "beast_blood_forge_vein",
+      "realm_id": "realm_beast"
+    },
+    {
+      "id": "beast_hunt_primordial_beast",
+      "realm_id": "realm_beast"
+    },
+    {
+      "id": "demon_burn_soul_breakthrough",
+      "realm_id": "realm_demon"
+    },
+    {
+      "id": "demon_slay_inner_demon",
+      "realm_id": "realm_demon"
+    },
+    {
+      "id": "immortal_pure_yang_meditation",
+      "realm_id": "realm_immortal"
+    },
+    {
+      "id": "buddha_recite_diamond_sutra",
+      "realm_id": "realm_buddha"
+    },
+    {
+      "id": "chaos_recast_five_elements",
+      "realm_id": "realm_chaos"
+    },
+    {
+      "id": "origin_spin_genesis_wheel",
+      "realm_id": "realm_origin"
+    }
+  ]
+}

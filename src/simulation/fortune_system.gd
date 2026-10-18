@@ -4,6 +4,11 @@ extends RefCounted
 const DEFAULT_ENCOUNTERS_PATH := "res://content/encounters/encounters.json"
 static var _cached_encounters: Array = []
 
+## Encounter data retains legacy names; use the live economy when available.
+static func resource_key(resources: Dictionary, raw_id: String) -> String:
+	var canonical := str({"herb":"spirit_grass_low", "lingqi":"lingli"}.get(raw_id,raw_id))
+	return canonical if resources.has(canonical) else raw_id
+
 static func get_encounters() -> Array:
 	if not _cached_encounters.is_empty():
 		return _cached_encounters
@@ -165,8 +170,9 @@ static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRan
 	var costs: Dictionary = option.get("costs", {})
 	
 	# 檢查消耗資源
-	for res_id in costs:
-		var cost_val: float = float(costs[res_id])
+	for raw_id in costs:
+		var res_id := resource_key(state.resources,str(raw_id))
+		var cost_val: float = float(costs[raw_id])
 		if cost_val > 0.0:
 			if not state.resources.has(res_id):
 				return {"ok": false, "error": "INSUFFICIENT_RESOURCE:" + res_id}
@@ -175,8 +181,9 @@ static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRan
 				return {"ok": false, "error": "INSUFFICIENT_RESOURCE:" + res_id}
 	
 	# 扣除消耗
-	for res_id in costs:
-		var cost_val: float = float(costs[res_id])
+	for raw_id in costs:
+		var res_id := resource_key(state.resources,str(raw_id))
+		var cost_val: float = float(costs[raw_id])
 		if cost_val > 0.0:
 			var cur_amt: AmountCompat = state.resources[res_id].value
 			state.resources[res_id]["value"] = cur_amt.subtract(AmountCompat.from_number(cost_val))
@@ -187,8 +194,9 @@ static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRan
 	
 	# 1. 資源獎勵
 	var res_rewards: Dictionary = rewards.get("resources", {})
-	for res_id in res_rewards:
-		var gain_val: float = float(res_rewards[res_id])
+	for raw_id in res_rewards:
+		var res_id := resource_key(state.resources,str(raw_id))
+		var gain_val: float = float(res_rewards[raw_id])
 		if gain_val > 0.0:
 			if not state.resources.has(res_id):
 				state.resources[res_id] = {

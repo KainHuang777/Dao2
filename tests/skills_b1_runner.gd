@@ -39,7 +39,7 @@ func _run() -> void:
 	var version := c.content_version
 	check(IslandProgression.attach(c).ok and c.content_version == version, "idempotent content attachment")
 	var s := GameSession.create_new_game(c)
-	check(s.state.skill_version == 1 and s.get_view().skills.items.size() == 6, "new state and six skill view")
+	check(s.state.skill_version == 2 and s.get_view().skills.items.size() == 7, "new state and seven skill view")
 	var before := s.state.to_snapshot_dict()
 	check(not send(s, "learn_skill", {"skill_id": "basic_meditation"}).ok and s.state.to_snapshot_dict() == before, "atomic locked refusal")
 	s.state.era_id = 2
@@ -56,6 +56,7 @@ func _run() -> void:
 	s.advance_time(3000)
 	check(s.state.resources.skill_point.value.to_float() == 6200, "points capped at enlarged capacity")
 	for id in c.skill_defs:
+		if id == "golden_core_formation": continue
 		s.state.resources.skill_point.value = AmountCompat.from_number(6200)
 		var cost := float(c.skill_defs[id].cost)
 		var result := send(s, "learn_skill", {"skill_id": id})
@@ -93,7 +94,7 @@ func _run() -> void:
 	memory.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c, memory)
 	var migrated := SaveManager.current_state()
-	check(migrated != null and migrated.skill_version == 1 and migrated.skills.is_empty() and migrated.revision == old.state.revision+1, "old save migration")
+	check(migrated != null and migrated.skill_version == 2 and migrated.skills.is_empty() and migrated.revision == old.state.revision+1, "old save migration")
 	var key := "save_before_skills_" + original.sha256_text()
 	memory.fail = key
 	check(not SaveManager.save(migrated, meta).ok and memory.data[SaveSlots.SLOT_MAIN] == original, "archive failure preserves old slot")
@@ -103,7 +104,7 @@ func _run() -> void:
 	memory.data.erase(key)
 	check(SaveManager.save(migrated, meta).ok and memory.data[key] == original, "archive exact bytes and retry")
 	SaveManager.configure(c, memory)
-	check(SaveManager.current_state().skill_version == 1, "restart migration success")
+	check(SaveManager.current_state().skill_version == 2, "restart migration success")
 	SaveManager.reset_for_tests()
 	s.state.era_id = 3
 	s.state.level = 10
@@ -127,7 +128,7 @@ func _run() -> void:
 	fixture.advance_time(1)
 	panel.refresh(fixture.get_view())
 	check(panel.buttons["skill:basic_meditation"] == first_button, "point tick preserves button and scroll identity")
-	check(panel.buttons.size() == 7 and not first_button.disabled, "six skill actions plus study shortcut")
+	check(panel.buttons.size() == 8 and not first_button.disabled, "seven skill actions plus study shortcut")
 	panel.show_save_failure("injected")
 	panel.storage_recovered()
 	check(not panel.save_failed and panel.status.text.contains("已恢復保存"), "save recovery status")

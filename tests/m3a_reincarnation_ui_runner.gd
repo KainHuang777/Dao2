@@ -92,6 +92,11 @@ func _run() -> void:
 
 	# 執行轉世
 	abode.reincarnation_panel._reincarnate_action_button.pressed.emit()
+	_expect(abode.session.state.reincarnation_count == 0, "first click only opens confirmation")
+	abode.reincarnation_panel._cancel_button.pressed.emit()
+	_expect(abode.session.state.reincarnation_count == 0, "cancel preserves current life")
+	abode.reincarnation_panel._reincarnate_action_button.pressed.emit()
+	abode.reincarnation_panel._reincarnate_action_button.pressed.emit()
 	await process_frame
 
 	_expect(abode.session.state.reincarnation_count == 1, "reincarnation count must be 1 after reincarnating")
@@ -140,6 +145,10 @@ func _run() -> void:
 	abode.reincarnation_seq._skip_button.pressed.emit()
 	_expect(is_equal_approx(abode.camera.target_zoom, 0.70), "skip must restore camera to home zoom (0.70)")
 	_expect(abode.reincarnation_seq._result_card.visible, "skip must directly show result card")
+	_expect(abode.reincarnation_seq._result_summary.text.contains("第 2 世"), "first reincarnation starts second life")
+	_expect(abode.reincarnation_seq.z_index > 0, "sequence must draw above layout-refreshed HUD and dock")
+	_expect(abode.reincarnation_seq.get_index() == abode.hud.get_child_count() - 1, "sequence must intercept input ahead of the dock")
+	_expect(abode.reincarnation_seq._skip_button.size_flags_vertical == Control.SIZE_SHRINK_BEGIN, "skip stays at top with its 44px hit target")
 
 	# 驗證完成按鈕關閉
 	abode.reincarnation_seq._finish_button.pressed.emit()

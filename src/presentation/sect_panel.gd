@@ -1,6 +1,11 @@
 class_name SectPanel
 extends Control
 
+const ResourceIconScript = preload("res://src/presentation/resource_icon.gd")
+const CONTRIBUTION_ICON = preload("res://assets/ui/icons/sect-contribution.svg")
+const DISPATCH_ICON = preload("res://assets/ui/icons/sect-dispatch.svg")
+const RARITY_ICON = preload("res://assets/ui/icons/sect-rarity.svg")
+const RARITY_COLORS := {"common":Color("ffffff"), "uncommon":Color("65b765"), "rare":Color("539ee8"), "epic":Color("b476d6"), "legendary":Color("edc052")}
 const UiIconScript = preload("res://src/presentation/ui_icon.gd")
 
 signal join_sect_requested(sect_name: String)
@@ -10,6 +15,7 @@ signal claim_expedition_requested()
 signal learn_technique_requested(tech_id: String)
 signal buy_market_item_requested(item_id: String)
 signal close_requested()
+signal retry_save_requested()
 
 enum TabMode { EXPEDITIONS, TECHNIQUES, MARKET }
 
@@ -17,6 +23,7 @@ var _background: Panel
 var _header_container: VBoxContainer
 var _title_row: HBoxContainer
 var _title_label: Label
+var _contrib_row: HBoxContainer
 var _contrib_label: Label
 var _close_button: Button
 
@@ -40,13 +47,26 @@ var _cached_sect_data: Dictionary = {}
 var _cached_resources: Dictionary = {}
 var _cached_is_eligible_to_join: bool = false
 var _header_reflow_pending := false
+var _compact := false
+var _art_nodes: Array[TextureRect] = []
+var _dynamic: Array[Callable] = []
+var _feedback: Label
+var _retry: Button
+var _feedback_row: HBoxContainer
+var _pending_save := false
+var _margin: MarginContainer
+var _root_box: VBoxContainer
+var _grids: Array[GridContainer] = []
+var _join_intro: PanelContainer
+const ART_DIR := "res://assets/ui/sects-painted/"
+const SECT_ART := {"太虛天闕":"taixu", "天劍聖宗":"tianjian", "縹緲仙宮":"piaomiao", "萬佛靈宗":"wanfo", "紫霄玄門":"zixiao"}
 
 const SECT_FLAVORS := {
-	"太虛天闕": "道門正宗 · 吐納浩然，周天靈氣生生不息",
-	"天劍聖宗": "劍道至尊 · 凌厲殺伐，一心向道修為精進",
-	"縹緲仙宮": "仙家勝境 · 造化靈秀，草木靈根產量豐沛",
-	"萬佛靈宗": "佛光普照 · 金身不滅，壽元綿長道心無漏",
-	"紫霄玄門": "九天雷動 · 天威正氣，天地資產周流不息",
+	"太虛天闕": "雲闕道門 · 太虛清修",
+	"天劍聖宗": "劍道山門 · 以劍問道",
+	"縹緲仙宮": "縹緲仙境 · 月下蘭庭",
+	"萬佛靈宗": "金蓮佛門 · 明心見性",
+	"紫霄玄門": "紫霄玄門 · 雷法清修",
 }
 
 func _ready() -> void:
@@ -59,36 +79,49 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	clip_contents = true
 	if _background != null:
 		_background.size = size
-	var pad := 14.0
-	var avail_w := maxf(0.0, size.x - pad * 2.0)
-	var header_h := 0.0
-	if _header_container != null:
-		_header_container.position = Vector2(pad, pad)
-		_header_container.size = Vector2(avail_w, 0)
-		header_h = _header_container.get_combined_minimum_size().y
-		_header_container.size = Vector2(avail_w, header_h)
-	if _scroll != null:
-		var scroll_top := pad + header_h + 10.0
-		var scroll_h := maxf(60.0, size.y - scroll_top - pad)
-		_scroll.position = Vector2(pad, scroll_top)
-		_scroll.size = Vector2(avail_w, scroll_h)
-		_scroll.custom_minimum_size = Vector2(0, 0)
-		_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-		_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_compact = size.y < 350
+	_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell())
+	UiMaterial.apply_scroll_content_margins(_margin, _compact)
+	_banner_panel.visible = not _compact and not bool(_cached_sect_data.get("unlocked", false))
+	_header_container.add_theme_constant_override("separation", 4 if _compact else 8)
+	var joined := bool(_cached_sect_data.get("unlocked",false))
+	if is_instance_valid(_join_intro): _join_intro.visible = not _compact
+	if not joined:
+		_title_label.text = ("擇一拜入山門" if _cached_is_eligible_to_join else "需達築基或歷經轉世") if _compact else "【尋仙訪道】· 拜入山門"
+	_title_row.visible = not (_compact and joined)
+	_close_button.visible = not _compact
+	var contribution_parent: Node = _tab_row if _compact and joined else _title_row
+	if _contrib_row.get_parent() != contribution_parent:
+		_contrib_row.reparent(contribution_parent)
+	if _pending_save:
+		_feedback.text = "保存失敗；請重試保存。" if _compact else _feedback.tooltip_text
+	for art in _art_nodes:
+		if is_instance_valid(art): art.custom_minimum_size = Vector2.ONE * (80 if _compact else 112)
+	for grid in _grids:
+		if is_instance_valid(grid): grid.columns = 2 if size.x >= 1040 else 1
+	_margin.size = size
+	_scroll.custom_minimum_size = Vector2.ZERO
 
 func _build_ui() -> void:
 	clip_contents = true
+	theme = UiTypography.create_theme()
+	_margin = MarginContainer.new()
 	_background = Panel.new()
-	var bg_box := UiTypography.dialog_surface()
+	var bg_box := UiMaterial.scroll_shell()
 	_background.add_theme_stylebox_override("panel", bg_box)
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
+	add_child(_margin)
+	_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_root_box = VBoxContainer.new()
+	_root_box.add_theme_constant_override("separation",6)
+	_margin.add_child(_root_box)
 
 	_header_container = VBoxContainer.new()
 	_header_container.name = "SectHeaderContainer"
 	_header_container.add_theme_constant_override("separation", 10)
 	_header_container.minimum_size_changed.connect(_queue_header_reflow)
-	add_child(_header_container)
+	_root_box.add_child(_header_container)
 
 	# 1. 頂部標題列
 	_title_row = HBoxContainer.new()
@@ -96,31 +129,35 @@ func _build_ui() -> void:
 	_header_container.add_child(_title_row)
 
 	_title_label = Label.new()
-	_title_label.text = "【宗門外務】· 太虛天闕"
+	_title_label.text = "宗門外務"
+	_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 20)
-	_title_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
+	_title_label.add_theme_color_override("font_color", UiMaterial.INK)
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_title_row.add_child(_title_label)
 
+	_contrib_row = HBoxContainer.new()
+	_title_row.add_child(_contrib_row)
+	_add_small_icon(_contrib_row, CONTRIBUTION_ICON, "宗門貢獻")
 	_contrib_label = Label.new()
 	_contrib_label.text = "貢獻：0 點"
-	_contrib_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
-	_title_row.add_child(_contrib_label)
+	_contrib_label.add_theme_color_override("font_color", UiMaterial.INK)
+	_contrib_row.add_child(_contrib_label)
 
 	var space := Control.new()
 	space.custom_minimum_size = Vector2(10, 0)
 	_title_row.add_child(space)
 
-	_close_button = Button.new()
-	_close_button.text = "關閉"
-	_close_button.custom_minimum_size = Vector2(70, 32)
+	_close_button = CloseSeal.new()
+
+	_close_button.custom_minimum_size = Vector2(44, 44)
 	_close_button.pressed.connect(func(): close_requested.emit())
 	_title_row.add_child(_close_button)
 
 	# 2. 狀態或概覽橫幅
 	_banner_panel = PanelContainer.new()
-	var b_box := UiMaterial.card()
+	var b_box := UiMaterial.hud_paper()
 	b_box.content_margin_left = 12
 	b_box.content_margin_right = 12
 	b_box.content_margin_top = 6
@@ -129,8 +166,8 @@ func _build_ui() -> void:
 	_header_container.add_child(_banner_panel)
 
 	_banner_label = Label.new()
-	_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。"
-	_banner_label.add_theme_color_override("font_color", Color(0.8, 0.9, 1.0))
+	_banner_label.text = "歷練獲取貢獻，用於參悟功法與坊市兌換。"
+	_banner_label.add_theme_color_override("font_color", UiMaterial.INK)
 	_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_banner_panel.add_child(_banner_label)
 
@@ -140,23 +177,38 @@ func _build_ui() -> void:
 	_tab_row.add_theme_constant_override("separation", 8)
 	_header_container.add_child(_tab_row)
 
-	_tab_expeditions_btn = Button.new()
+	_tab_expeditions_btn = GameTab.new()
 	_tab_expeditions_btn.text = "歷練委託"
 	_tab_expeditions_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_expeditions_btn.pressed.connect(func(): _switch_tab(TabMode.EXPEDITIONS))
 	_tab_row.add_child(_tab_expeditions_btn)
 
-	_tab_techniques_btn = Button.new()
+	_tab_techniques_btn = GameTab.new()
 	_tab_techniques_btn.text = "秘術傳承"
 	_tab_techniques_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_techniques_btn.pressed.connect(func(): _switch_tab(TabMode.TECHNIQUES))
 	_tab_row.add_child(_tab_techniques_btn)
 
-	_tab_market_btn = Button.new()
+	_tab_market_btn = GameTab.new()
 	_tab_market_btn.text = "宗門坊市"
 	_tab_market_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_market_btn.pressed.connect(func(): _switch_tab(TabMode.MARKET))
 	_tab_row.add_child(_tab_market_btn)
+
+	_feedback_row = HBoxContainer.new()
+	_header_container.add_child(_feedback_row)
+	_feedback = Label.new()
+	_feedback.add_theme_color_override("font_color", UiMaterial.INK)
+	_feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_feedback.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_feedback.add_theme_font_size_override("font_size", 16)
+	_feedback_row.add_child(_feedback)
+	_retry = Button.new()
+	_retry.text = "重試保存"
+	_retry.custom_minimum_size = Vector2(96,44)
+	_retry.pressed.connect(func(): retry_save_requested.emit())
+	_feedback_row.add_child(_retry)
+	_feedback_row.hide()
 
 	# 4. 滾動主區域（作為 SectPanel 同級子節點，獨立受控於 set_layout_bounds）
 	_scroll = ScrollContainer.new()
@@ -165,7 +217,7 @@ func _build_ui() -> void:
 	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	add_child(_scroll)
+	_root_box.add_child(_scroll)
 
 	_tab_content_container = VBoxContainer.new()
 	_tab_content_container.name = "TabContent"
@@ -183,7 +235,7 @@ func update_view(state: GameState) -> void:
 	if state == null:
 		return
 	var sect: Dictionary = state.sect
-	_cached_sect_data = sect
+	_cached_sect_data = sect.duplicate(true)
 	_cached_resources = state.resources
 	_cached_is_eligible_to_join = SectSystem.is_unlocked(state)
 
@@ -191,23 +243,28 @@ func update_view(state: GameState) -> void:
 	var s_name := String(sect.get("sect_name", "太虛天闕"))
 	var contrib_str := String(sect.get("contribution", "0"))
 	var c_parsed := AmountCompat.try_parse(contrib_str)
-	var contrib_display := int(c_parsed["value"].to_float()) if bool(c_parsed.get("ok", false)) else 0
+	var contrib_display: String = c_parsed["value"].to_display_string() if bool(c_parsed.get("ok", false)) else "0"
 
 	_title_label.text = "【宗門外務】· " + s_name if is_unlocked else "【尋仙訪道】· 拜入山門"
-	_contrib_label.text = "宗門貢獻：%d 點" % contrib_display if is_unlocked else ""
+	_contrib_label.text = contrib_display
+	_contrib_row.visible = is_unlocked
+	_contrib_label.tooltip_text = "宗門貢獻：" + contrib_str
 	_tab_row.visible = is_unlocked
 	if not is_unlocked:
-		_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。" if _cached_is_eligible_to_join else "仙途漫漫，唯仙基穩固（築基期或歷經轉世）方具立誓拜入仙門之資。"
+		_banner_label.text = "歷練獲取貢獻，用於參悟功法與坊市兌換。" if _cached_is_eligible_to_join else "仙途漫漫，唯仙基穩固（築基期或歷經轉世）方具立誓拜入仙門之資。"
 	else:
-		_banner_label.text = "派遣門下弟子遊歷天下，獲取天地靈珍與宗門功勳，參悟護道真訣。"
+		_banner_label.text = "歷練獲取貢獻，用於參悟功法與坊市兌換。"
 
-	var resource_values := {}
-	for id in _cached_resources:
-		resource_values[id] = _cached_resources[id].value.serialize()
-	var signature := JSON.stringify([sect, resource_values, _cached_is_eligible_to_join])
+	var structural := sect.duplicate(true)
+	structural.erase("next_refresh_seconds")
+	var active = structural.get("active_expedition")
+	if active is Dictionary:
+		active.erase("elapsed")
+	var signature := JSON.stringify([structural, _cached_is_eligible_to_join])
 	if signature != _render_signature and not _has_pressed_button(_tab_content_container):
 		_render_signature = signature
 		_render_current_tab()
+	for refresh in _dynamic: refresh.call()
 	set_layout_bounds(Rect2(position, size))
 
 var _render_signature := ""
@@ -221,6 +278,10 @@ func _has_pressed_button(node: Node) -> bool:
 	return false
 
 func _render_current_tab() -> void:
+	_dynamic.clear()
+	_art_nodes.clear()
+	_grids.clear()
+	_join_intro = null
 	# 清空容器
 	for child in _tab_content_container.get_children():
 		_tab_content_container.remove_child(child)
@@ -229,12 +290,14 @@ func _render_current_tab() -> void:
 	var is_unlocked := bool(_cached_sect_data.get("unlocked", false))
 	if not is_unlocked:
 		_render_join_panel()
+		_wrap_card_labels(_tab_content_container)
 		return
 
 	# 高亮分頁按鈕樣式
-	UiMaterial.mark_selected(_tab_expeditions_btn, _current_tab == TabMode.EXPEDITIONS)
-	UiMaterial.mark_selected(_tab_techniques_btn, _current_tab == TabMode.TECHNIQUES)
-	UiMaterial.mark_selected(_tab_market_btn, _current_tab == TabMode.MARKET)
+	_tab_expeditions_btn.set_pressed_no_signal(_current_tab == TabMode.EXPEDITIONS)
+	_tab_techniques_btn.set_pressed_no_signal(_current_tab == TabMode.TECHNIQUES)
+	_tab_market_btn.set_pressed_no_signal(_current_tab == TabMode.MARKET)
+	for tab in [_tab_expeditions_btn, _tab_techniques_btn, _tab_market_btn]: tab._update_style()
 
 	match _current_tab:
 		TabMode.EXPEDITIONS:
@@ -244,12 +307,17 @@ func _render_current_tab() -> void:
 		TabMode.MARKET:
 			_render_market_tab()
 
+	_wrap_card_labels(_tab_content_container)
+	for refresh in _dynamic: refresh.call()
+
 # ================= 拜入宗門介面 =================
 func _render_join_panel() -> void:
 	var is_eligible := _cached_is_eligible_to_join
 
 	var intro_card := PanelContainer.new()
-	var intro_box := UiMaterial.card()
+	_join_intro = intro_card
+	intro_card.visible = not _compact
+	var intro_box := UiMaterial.hud_paper()
 	intro_box.content_margin_left = 14
 	intro_box.content_margin_right = 14
 	intro_box.content_margin_top = 12
@@ -264,21 +332,21 @@ func _render_join_panel() -> void:
 	var h_lbl := Label.new()
 	if is_eligible:
 		h_lbl.text = "道友仙基初立，可立誓拜入仙門！"
-		h_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
+		h_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 	else:
 		h_lbl.text = "【未達門檻 · 需達築基期方可拜入】"
-		h_lbl.add_theme_color_override("font_color", Color(1.0, 0.45, 0.45))
+		h_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 	h_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
 	h_lbl.add_theme_font_size_override("font_size", 16)
 	intro_vb.add_child(h_lbl)
 
 	var desc_lbl := Label.new()
 	if is_eligible:
-		desc_lbl.text = "拜入宗門後，即可派遣分身弟子外出歷練，採集天地靈草玄鐵、換取專屬秘術傳承，並在宗門坊市兌換珍貴築基丹藥與靈晶。"
+		desc_lbl.text = "入宗後開放歷練委託、秘術傳承與宗門坊市。"
 	else:
 		desc_lbl.text = "各大宗門門規森嚴，需道友突破至第二重境界【築基期】或歷經轉世，方具拜入門戶之資。請先在洞府納靈營造，早日築基！"
-	desc_lbl.add_theme_font_size_override("font_size", 13)
-	desc_lbl.add_theme_color_override("font_color", Color(0.8, 0.88, 0.95))
+	desc_lbl.add_theme_font_size_override("font_size", 16)
+	desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	intro_vb.add_child(desc_lbl)
 
@@ -286,23 +354,25 @@ func _render_join_panel() -> void:
 	var sects_lbl := Label.new()
 	sects_lbl.text = "【名門正派 · 擇一立誓】" if is_eligible else "【五大名門 · 預覽傳承】"
 	sects_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
-	sects_lbl.add_theme_color_override("font_color", Color(0.7, 0.85, 1.0))
+	sects_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 	_tab_content_container.add_child(sects_lbl)
+	var grid := _new_grid()
 
 	# 垂直排列的各宗門卡片，完全自適應且永遠不會水平截斷
 	for s_name in SectSystem.SECT_NAMES:
 		var s_card := PanelContainer.new()
-		var s_box := UiMaterial.card()
+		var s_box := UiMaterial.hud_paper()
 		s_box.content_margin_left = 12
 		s_box.content_margin_right = 12
 		s_box.content_margin_top = 8
 		s_box.content_margin_bottom = 8
 		s_card.add_theme_stylebox_override("panel", s_box)
-		_tab_content_container.add_child(s_card)
+		grid.add_child(s_card)
 
 		var s_row := HBoxContainer.new()
 		s_row.add_theme_constant_override("separation", 10)
 		s_card.add_child(s_row)
+		_add_art(s_row, SECT_ART[s_name])
 
 		var s_info := VBoxContainer.new()
 		s_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -311,13 +381,13 @@ func _render_join_panel() -> void:
 		var s_title := Label.new()
 		s_title.text = "【%s】" % s_name
 		s_title.add_theme_font_override("font", UiTypography.emphasis_font())
-		s_title.add_theme_color_override("font_color", Color(1.0, 0.82, 0.35))
+		s_title.add_theme_color_override("font_color", UiMaterial.INK)
 		s_info.add_child(s_title)
 
 		var s_desc := Label.new()
 		s_desc.text = SECT_FLAVORS.get(s_name, "玄門妙法，各顯神通。")
-		s_desc.add_theme_color_override("font_color", Color(0.75, 0.8, 0.88))
-		s_desc.add_theme_font_size_override("font_size", 12)
+		s_desc.add_theme_color_override("font_color", UiMaterial.INK)
+		s_desc.add_theme_font_size_override("font_size", 16)
 		s_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		s_info.add_child(s_desc)
 
@@ -329,7 +399,7 @@ func _render_join_panel() -> void:
 		else:
 			j_btn.text = "需達築基期"
 			j_btn.disabled = true
-		j_btn.custom_minimum_size = Vector2(96, 36)
+		j_btn.custom_minimum_size = Vector2(96, 44)
 		s_row.add_child(j_btn)
 
 func _queue_header_reflow() -> void:
@@ -351,7 +421,7 @@ func _render_expeditions_tab() -> void:
 
 	# 1. 進行中歷練卡片
 	var active_panel := PanelContainer.new()
-	var act_box := UiMaterial.card()
+	var act_box := UiMaterial.hud_paper()
 	act_box.content_margin_left = 12
 	act_box.content_margin_right = 12
 	act_box.content_margin_top = 10
@@ -371,14 +441,15 @@ func _render_expeditions_tab() -> void:
 		active_icon.set("kind", UiIconScript.Kind.HOURGLASS)
 		active_icon.tint = Color(1.0, 0.85, 0.3)
 		active_title_row.add_child(active_icon)
+		_add_rarity(active_title_row, active)
 		var a_title := Label.new()
-		var rarity_name: String = String(active.get("rarity_name", "普通"))
 		var t_name: String = String(active.get("name", "歷練"))
-		a_title.text = "【當前歷練中】[%s] %s" % [rarity_name, t_name]
-		a_title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
+		a_title.text = "%s  %ds" % [t_name, int(active.get("duration", 0))]
+		a_title.add_theme_color_override("font_color", UiMaterial.INK)
 		a_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		active_title_row.add_child(a_title)
 
+		_add_rewards(act_vb, active.get("rewards", {}))
 		var duration := int(active.get("duration", 0))
 		var elapsed := int(active.get("elapsed", 0))
 		var is_finished := elapsed >= duration
@@ -398,7 +469,7 @@ func _render_expeditions_tab() -> void:
 		var status_lbl := Label.new()
 		status_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		status_lbl.text = "歷練已圓滿完成！請速結算成果。" if is_finished else "歷練剩餘時間：%d 秒" % remain
-		status_lbl.add_theme_color_override("font_color", Color(0.4, 1.0, 0.5) if is_finished else Color(0.8, 0.9, 1.0))
+		status_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		status_row.add_child(status_lbl)
 
 		var claim_btn := Button.new()
@@ -406,20 +477,27 @@ func _render_expeditions_tab() -> void:
 		if is_finished:
 			claim_btn.icon = load("res://assets/ui/icons/gift.svg")
 		claim_btn.disabled = not is_finished
-		claim_btn.custom_minimum_size = Vector2(120, 32)
+		claim_btn.custom_minimum_size = Vector2(120, 44)
 		claim_btn.pressed.connect(_on_claim_expedition_pressed)
 		status_row.add_child(claim_btn)
+		_dynamic.append(func():
+			var live: Dictionary = _cached_sect_data.get("active_expedition", {})
+			var left := maxi(0, int(live.get("duration",0)) - int(live.get("elapsed",0)))
+			a_title.text = "%s  %ds" % [String(live.get("name","歷練")), int(live.get("duration",0))]
+			prog_bar.value = int(live.get("elapsed",0))
+			status_lbl.text = "完成待領" if left == 0 else "派遣中 · %ds" % left
+			claim_btn.disabled = left > 0
+			claim_btn.text = "領取獎勵" if left == 0 else "歷練中"
+		)
 	else:
-		var idle_lbl := Label.new()
-		idle_lbl.text = "當前無進行中歷練，可從下方挑選委託派遣分身。"
-		idle_lbl.add_theme_color_override("font_color", Color(0.6, 0.75, 0.85))
-		act_vb.add_child(idle_lbl)
+		active_panel.hide()
 
 	# 2. 待接委託清單標題與手動刷新
 	var list_header := HBoxContainer.new()
 	_tab_content_container.add_child(list_header)
 
 	var list_title_row := HBoxContainer.new()
+	list_title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	list_title_row.add_theme_constant_override("separation", 6)
 	list_header.add_child(list_title_row)
 	var list_icon: Control = UiIconScript.new()
@@ -438,7 +516,13 @@ func _render_expeditions_tab() -> void:
 	if refresh_cd <= 0:
 		refresh_btn.icon = load("res://assets/ui/icons/refresh.svg")
 	refresh_btn.disabled = refresh_cd > 0
+	refresh_btn.custom_minimum_size = Vector2(140,44)
 	refresh_btn.pressed.connect(_on_refresh_tasks_pressed)
+	_dynamic.append(func():
+		var cd := int(_cached_sect_data.get("next_refresh_seconds",0))
+		refresh_btn.text = "刷新委託" if cd <= 0 else "冷卻 %d秒" % cd
+		refresh_btn.disabled = cd > 0
+	)
 	list_header.add_child(refresh_btn)
 
 	# 3. 委託清單項目
@@ -448,13 +532,14 @@ func _render_expeditions_tab() -> void:
 		empty_lbl.text = "暫無可接委託，請點擊上方刷新委託。"
 		_tab_content_container.add_child(empty_lbl)
 	else:
+		var grid := _new_grid()
 		for task in tasks:
 			var t_card := _create_task_card(task, is_active)
-			_tab_content_container.add_child(t_card)
+			grid.add_child(t_card)
 
 func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	var card := PanelContainer.new()
-	var box := UiMaterial.card()
+	var box := UiMaterial.hud_paper()
 	box.content_margin_left = 12
 	box.content_margin_right = 12
 	box.content_margin_top = 8
@@ -464,47 +549,34 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 10)
 	card.add_child(row)
+	_add_art(row, _task_art(String(task.get("name",""))))
 
 	var info_vb := VBoxContainer.new()
 	info_vb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(info_vb)
 
-	var r_name: String = String(task.get("rarity_name", "普通"))
-	var r_color := Color.from_string(String(task.get("rarity_color", "#cccccc")), Color.WHITE)
-	var t_name: String = String(task.get("name", ""))
-	var duration: int = int(task.get("duration", 60))
-
+	var title_row := HBoxContainer.new()
+	info_vb.add_child(title_row)
+	_add_rarity(title_row, task)
 	var name_lbl := Label.new()
-	name_lbl.text = "[%s] %s  (時長：%d 秒)" % [r_name, t_name, duration]
-	name_lbl.add_theme_color_override("font_color", r_color)
-	info_vb.add_child(name_lbl)
-
-	var desc_lbl := Label.new()
-	desc_lbl.text = String(task.get("desc", ""))
-	desc_lbl.add_theme_color_override("font_color", Color(0.7, 0.75, 0.8))
-	desc_lbl.add_theme_font_size_override("font_size", 12)
-	info_vb.add_child(desc_lbl)
-
-	var rewards: Dictionary = task.get("rewards", {})
-	var r_text := "預期獎勵：貢獻 +%d | 金錢 +%d" % [int(rewards.get("contribution", 0)), int(rewards.get("money", 0))]
-	if rewards.has("stone_low"):
-		r_text += " | 下品靈石 +%d" % int(rewards["stone_low"])
-	if rewards.has("spirit_grass_low"):
-		r_text += " | 靈草 +%d" % int(rewards["spirit_grass_low"])
-	elif rewards.has("herb"):
-		r_text += " | 靈草 +%d" % int(rewards["herb"])
-	if rewards.has("special_buff"):
-		r_text += " | 【頓悟靈光】"
-	var rew_lbl := Label.new()
-	rew_lbl.text = r_text
-	rew_lbl.add_theme_color_override("font_color", Color(0.9, 0.85, 0.4))
-	rew_lbl.add_theme_font_size_override("font_size", 12)
-	info_vb.add_child(rew_lbl)
+	name_lbl.text = "%s  %ds" % [String(task.get("name", "")), int(task.get("duration", 60))]
+	name_lbl.tooltip_text = String(task.get("desc", ""))
+	title_row.add_child(name_lbl)
+	_add_rewards(info_vb, task.get("rewards", {}))
 
 	var start_btn := Button.new()
-	start_btn.text = "派遣歷練"
+	start_btn.name = "Dispatch"
+	start_btn.icon = DISPATCH_ICON
+	start_btn.expand_icon = true
+	start_btn.add_theme_constant_override("icon_max_width", 48)
+	start_btn.tooltip_text = "派遣歷練" if not is_active else "歷練中，完成並領取後可再派遣"
+	for style in ["normal", "hover", "pressed", "disabled"]:
+		start_btn.add_theme_stylebox_override(style, StyleBoxEmpty.new())
+	start_btn.add_theme_color_override("icon_hover_color", Color(1.2, 1.2, 1.1))
+	start_btn.add_theme_color_override("icon_pressed_color", Color(0.7, 0.85, 0.75))
+	start_btn.add_theme_color_override("icon_disabled_color", Color(0.45, 0.45, 0.45, 0.6))
 	start_btn.disabled = is_active
-	start_btn.custom_minimum_size = Vector2(90, 36)
+	start_btn.custom_minimum_size = Vector2(56, 56)
 	var t_id: String = String(task.get("id", ""))
 	start_btn.pressed.connect(_on_start_expedition_pressed.bind(t_id))
 	row.add_child(start_btn)
@@ -514,6 +586,7 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 # ================= 秘術傳承分頁 =================
 func _render_techniques_tab() -> void:
 	var techs: Dictionary = _cached_sect_data.get("techniques", {})
+	var grid := _new_grid()
 
 	for tech_id in SectSystem.TECHNIQUES:
 		var def: Dictionary = SectSystem.TECHNIQUES[tech_id]
@@ -521,16 +594,17 @@ func _render_techniques_tab() -> void:
 		var max_lvl := int(def.get("max_level", 10))
 
 		var card := PanelContainer.new()
-		var box := UiMaterial.card()
+		var box := UiMaterial.hud_paper()
 		box.content_margin_left = 12
 		box.content_margin_right = 12
 		box.content_margin_top = 8
 		box.content_margin_bottom = 8
 		card.add_theme_stylebox_override("panel", box)
-		_tab_content_container.add_child(card)
+		grid.add_child(card)
 
 		var row := HBoxContainer.new()
 		card.add_child(row)
+		_add_art(row, tech_id)
 
 		var info_vb := VBoxContainer.new()
 		info_vb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -539,13 +613,13 @@ func _render_techniques_tab() -> void:
 		var title_lbl := Label.new()
 		title_lbl.text = "%s  (第 %d / %d 重)" % [String(def.name), cur_lvl, max_lvl]
 		title_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
-		title_lbl.add_theme_color_override("font_color", Color(0.4, 0.8, 1.0))
+		title_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		info_vb.add_child(title_lbl)
 
 		var desc_lbl := Label.new()
 		desc_lbl.text = String(def.desc)
-		desc_lbl.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
-		desc_lbl.add_theme_font_size_override("font_size", 12)
+		desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+		desc_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(desc_lbl)
 
 		var is_max := cur_lvl >= max_lvl
@@ -561,20 +635,31 @@ func _render_techniques_tab() -> void:
 
 		var cost_lbl := Label.new()
 		cost_lbl.text = cost_text
-		cost_lbl.add_theme_color_override("font_color", Color(1.0, 0.8, 0.4))
-		cost_lbl.add_theme_font_size_override("font_size", 12)
+		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
 
 		var learn_btn := Button.new()
 		learn_btn.text = "參悟提升" if not is_max else "已圓滿"
 		learn_btn.disabled = is_max
-		learn_btn.custom_minimum_size = Vector2(90, 36)
+		learn_btn.custom_minimum_size = Vector2(90, 44)
 		learn_btn.pressed.connect(_on_learn_technique_pressed.bind(tech_id))
 		row.add_child(learn_btn)
+		_dynamic.append(func():
+			var scale_now := pow(float(def.get("cost_scale",1.5)),float(cur_lvl))
+			var enough := _has_contribution(ceil(float(def.get("base_contrib",50)) * scale_now))
+			for key in ["wood", "stone_low"]:
+				if def.has("base_"+key):
+					var held: AmountCompat = _cached_resources.get(key,{}).get("value",AmountCompat.zero())
+					enough = enough and held.compare_to(AmountCompat.from_number(ceil(float(def["base_"+key])*scale_now))) >= 0
+			learn_btn.disabled = is_max or not enough
+			learn_btn.text = "已圓滿" if is_max else ("參悟提升" if enough else "資源不足")
+		)
 
 # ================= 宗門坊市分頁 =================
 func _render_market_tab() -> void:
 	var purchases: Dictionary = _cached_sect_data.get("market_purchases", {})
+	var grid := _new_grid()
 
 	for item_id in SectSystem.MARKET_ITEMS:
 		var def: Dictionary = SectSystem.MARKET_ITEMS[item_id]
@@ -583,16 +668,17 @@ func _render_market_tab() -> void:
 		var is_sold_out := bought_count >= limit
 
 		var card := PanelContainer.new()
-		var box := UiMaterial.card()
+		var box := UiMaterial.hud_paper()
 		box.content_margin_left = 12
 		box.content_margin_right = 12
 		box.content_margin_top = 8
 		box.content_margin_bottom = 8
 		card.add_theme_stylebox_override("panel", box)
-		_tab_content_container.add_child(card)
+		grid.add_child(card)
 
 		var row := HBoxContainer.new()
 		card.add_child(row)
+		_add_market_art(row, item_id)
 
 		var info_vb := VBoxContainer.new()
 		info_vb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -601,27 +687,32 @@ func _render_market_tab() -> void:
 		var name_lbl := Label.new()
 		name_lbl.text = "%s  (限購：%d / %d)" % [String(def.name), bought_count, limit]
 		name_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
-		name_lbl.add_theme_color_override("font_color", Color(1.0, 0.75, 0.4))
+		name_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		info_vb.add_child(name_lbl)
 
 		var desc_lbl := Label.new()
 		desc_lbl.text = String(def.desc)
-		desc_lbl.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
-		desc_lbl.add_theme_font_size_override("font_size", 12)
+		desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+		desc_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(desc_lbl)
 
 		var cost_lbl := Label.new()
 		cost_lbl.text = "兌換價格：宗門貢獻 %d 點" % int(def.cost)
-		cost_lbl.add_theme_color_override("font_color", Color(0.4, 0.9, 0.6))
-		cost_lbl.add_theme_font_size_override("font_size", 12)
+		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
 
 		var buy_btn := Button.new()
 		buy_btn.text = "售罄" if is_sold_out else "兌換物資"
 		buy_btn.disabled = is_sold_out
-		buy_btn.custom_minimum_size = Vector2(90, 36)
+		buy_btn.custom_minimum_size = Vector2(90, 44)
 		buy_btn.pressed.connect(_on_buy_market_item_pressed.bind(item_id))
 		row.add_child(buy_btn)
+		_dynamic.append(func():
+			var enough := _has_contribution(float(def.cost))
+			buy_btn.disabled = is_sold_out or not enough
+			buy_btn.text = "售罄" if is_sold_out else ("兌換物資" if enough else "貢獻不足")
+		)
 
 func _on_claim_expedition_pressed() -> void:
 	claim_expedition_requested.emit()
@@ -637,3 +728,131 @@ func _on_learn_technique_pressed(tech_id: String) -> void:
 
 func _on_buy_market_item_pressed(item_id: String) -> void:
 	buy_market_item_requested.emit(item_id)
+
+func _add_small_icon(parent: Node, texture: Texture2D, tip: String) -> TextureRect:
+	var icon := TextureRect.new()
+	icon.texture = texture
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.custom_minimum_size = Vector2(28, 28)
+	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	icon.tooltip_text = tip
+	icon.mouse_filter = Control.MOUSE_FILTER_PASS
+	parent.add_child(icon)
+	return icon
+
+func _add_rarity(parent: Node, task: Dictionary) -> void:
+	var icon := _add_small_icon(parent, RARITY_ICON, String(task.get("rarity_name", "普通")))
+	icon.name = "Rarity"
+	icon.custom_minimum_size = Vector2(22, 22)
+	icon.self_modulate = RARITY_COLORS.get(String(task.get("rarity", "common")), Color.WHITE)
+
+func _add_rewards(parent: Node, rewards: Dictionary) -> void:
+	var flow := HFlowContainer.new()
+	flow.name = "Rewards"
+	flow.add_theme_constant_override("h_separation", 12)
+	flow.add_theme_constant_override("v_separation", 2)
+	parent.add_child(flow)
+	var names := {"contribution":"宗門貢獻", "money":"金錢", "stone_low":"下品靈石", "spirit_grass_low":"靈草", "herb":"靈草", "black_copper":"玄銅", "special_buff":"頓悟靈光"}
+	for key in rewards:
+		var reward := HBoxContainer.new()
+		reward.add_theme_constant_override("separation", 3)
+		reward.tooltip_text = String(names.get(key, key))
+		flow.add_child(reward)
+		var id: String = "spirit_grass_low" if key == "herb" else String(key)
+		var texture: Texture2D = CONTRIBUTION_ICON if key == "contribution" else ResourceIconScript.TEXTURES.get(id)
+		if texture != null: _add_small_icon(reward, texture, reward.tooltip_text)
+		var value := Label.new()
+		value.set_meta("reward_value", true)
+		value.text = "+%s" % str(rewards[key]) if texture != null else ("頓悟靈光" if key == "special_buff" else "%s +%s" % [reward.tooltip_text, str(rewards[key])])
+		value.add_theme_font_size_override("font_size", 16)
+		reward.add_child(value)
+
+func _add_art(row: HBoxContainer, id: String) -> void:
+	var art := TextureRect.new()
+	art.texture = load(ART_DIR + id + ".png")
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	art.custom_minimum_size = Vector2.ONE * (80 if _compact else 112)
+	_art_nodes.append(art)
+	row.add_child(art)
+
+func _new_grid() -> GridContainer:
+	var grid := GridContainer.new()
+	grid.columns = 2 if size.x >= 1040 else 1
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.add_theme_constant_override("h_separation", 10)
+	grid.add_theme_constant_override("v_separation", 10)
+	_tab_content_container.add_child(grid)
+	_grids.append(grid)
+	return grid
+
+func _add_market_art(row: HBoxContainer, id: String) -> void:
+	var files := {"herb_bundle":"spirit_grass_low", "stone_bundle":"stone_low", "foundation_pill":"foundation_pill"}
+	if files.has(id):
+		var art := TextureRect.new()
+		art.texture = load("res://assets/ui/resources-painted/" + files[id] + ".png")
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		art.custom_minimum_size = Vector2.ONE * (80 if _compact else 112)
+		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_art_nodes.append(art)
+		row.add_child(art)
+	else:
+		var seal := Label.new()
+		seal.text = "晶"
+		seal.custom_minimum_size = Vector2(80,80)
+		seal.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		seal.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		seal.tooltip_text = "靈晶 · 尚無專用圖像，以字印表示"
+		row.add_child(seal)
+
+static func _task_art(task_name: String) -> String:
+	if "採" in task_name or "靈田" in task_name: return "gathering"
+	if "護送" in task_name: return "escort"
+	if "探" in task_name: return "exploration"
+	return "warding"
+
+func _wrap_card_labels(node: Node) -> void:
+	if node is Button: node.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	if node is PanelContainer: node.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if node is Label:
+		node.add_theme_color_override("font_color", UiMaterial.INK)
+		if node.has_meta("reward_value"):
+			return
+		node.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if node.tooltip_text.is_empty(): node.tooltip_text = node.text
+		node.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	for child in node.get_children(): _wrap_card_labels(child)
+
+func _has_contribution(cost: float) -> bool:
+	var parsed := AmountCompat.try_parse(String(_cached_sect_data.get("contribution","0")))
+	return bool(parsed.get("ok",false)) and parsed.value.compare_to(AmountCompat.from_number(cost)) >= 0
+
+func set_command_result(result: Dictionary, saved: Dictionary = {}) -> void:
+	_feedback_row.show()
+	if not bool(result.get("ok",false)):
+		_feedback.text = "操作未完成：" + str(result.get("error","未知"))
+		_retry.visible = _pending_save
+	elif not bool(saved.get("ok",false)):
+		_pending_save = true
+		_feedback.text = "操作已生效，保存失敗：" + str(saved.get("error","未知")) + "；請重試保存。"
+		_retry.show()
+	else:
+		_pending_save = false
+		_feedback.text = "操作已完成並保存。"
+		_retry.hide()
+	_feedback.tooltip_text = _feedback.text
+	_queue_header_reflow()
+
+func set_save_result(result: Dictionary) -> void:
+	if bool(result.get("ok",false)): storage_recovered()
+	else: set_command_result({"ok":true},result)
+
+func storage_recovered() -> void:
+	if _pending_save:
+		_pending_save = false
+		_feedback.text = "保存已恢復，操作結果已保存。"
+		_retry.hide()
+		_queue_header_reflow()

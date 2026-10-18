@@ -43,6 +43,7 @@ func create_panels() -> void:
 	_abode.reincarnation_panel.reincarnate_requested.connect(_abode._on_reincarnate_requested)
 	_abode.reincarnation_panel.learn_talent_requested.connect(_abode._on_learn_talent_requested)
 	_abode.reincarnation_panel.close_requested.connect(_abode._on_reincarnation_closed)
+	_abode.reincarnation_panel.retry_save_requested.connect(func(): _abode.reincarnation_panel.set_save_result(_abode._save_game()))
 	_abode.hud.add_child(_abode.reincarnation_panel)
 
 	var rc_seq_script = preload("res://src/presentation/reincarnation_sequence.gd")
@@ -75,6 +76,7 @@ func create_panels() -> void:
 	_abode.sect_panel.learn_technique_requested.connect(_abode._on_sect_learn_technique_requested)
 	_abode.sect_panel.buy_market_item_requested.connect(_abode._on_sect_buy_market_item_requested)
 	_abode.sect_panel.close_requested.connect(_abode._on_sect_closed)
+	_abode.sect_panel.retry_save_requested.connect(func(): _abode.sect_panel.set_save_result(_abode._save_game()))
 	_abode.hud.add_child(_abode.sect_panel)
 
 	var dbg_script = preload("res://src/presentation/debug_panel.gd")
@@ -95,6 +97,7 @@ func create_panels() -> void:
 	_abode.achievement_panel.visible = false
 	_abode.achievement_panel.claim_requested.connect(_abode._on_achievement_claim_requested)
 	_abode.achievement_panel.close_requested.connect(_abode._on_achievement_closed)
+	_abode.achievement_panel.save_retry_requested.connect(_abode._on_achievement_save_retry)
 	_abode.hud.add_child(_abode.achievement_panel)
 
 	var rlm_script = preload("res://src/presentation/realm_teleport_modal.gd")
@@ -111,6 +114,7 @@ func create_panels() -> void:
 	_abode.fortune_modal.trigger_requested.connect(_abode._on_fortune_trigger_requested)
 	_abode.fortune_modal.resolve_requested.connect(_abode._on_fortune_resolve_requested)
 	_abode.fortune_modal.close_requested.connect(_abode._on_fortune_closed)
+	_abode.fortune_modal.retry_save_requested.connect(func(): _abode.fortune_modal.set_save_result(_abode._save_game()))
 	_abode.hud.add_child(_abode.fortune_modal)
 	_abode.text_transition = preload("res://src/presentation/text_transition.gd").new()
 	_abode.hud.add_child(_abode.text_transition)
@@ -325,9 +329,10 @@ func _on_sect_join_requested(sect_name: String) -> void:
 	var res: Dictionary = _abode.session.join_sect(sect_name)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "恭賀道友拜入【%s】！獲賜外門弟子令，可領取宗門委託。" % sect_name
-		_abode._save_game()
+		_abode.sect_panel.set_command_result(res, _abode._save_game())
 		_abode._refresh_hud()
 	else:
+		_abode.sect_panel.set_command_result(res)
 		var err_str: String = str(res.get("error", "FAIL"))
 		_abode.hint.text = "拜入宗門未遂：%s" % err_str
 	if _abode.sect_panel != null and _abode.sect_panel.visible and _abode.session.state != null:
@@ -339,9 +344,10 @@ func _on_sect_refresh_tasks_requested() -> void:
 	var res: Dictionary = _abode.session.refresh_sect_tasks(false)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "宗門懸賞告示已煥然一新！"
-		_abode._save_game()
+		_abode.sect_panel.set_command_result(res, _abode._save_game())
 		_abode._refresh_hud()
 	else:
+		_abode.sect_panel.set_command_result(res)
 		_abode.hint.text = "刷新委託受阻：%s" % str(res.get("error", "FAIL"))
 
 func _on_sect_start_expedition_requested(task_id: String) -> void:
@@ -350,9 +356,10 @@ func _on_sect_start_expedition_requested(task_id: String) -> void:
 	var res: Dictionary = _abode.session.start_sect_expedition(task_id)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "分身領命出征！正在歷練天下。"
-		_abode._save_game()
+		_abode.sect_panel.set_command_result(res, _abode._save_game())
 		_abode._refresh_hud()
 	else:
+		_abode.sect_panel.set_command_result(res)
 		_abode.hint.text = "派遣受阻：%s" % str(res.get("error", "FAIL"))
 
 func _on_sect_claim_expedition_requested() -> void:
@@ -361,9 +368,10 @@ func _on_sect_claim_expedition_requested() -> void:
 	var res: Dictionary = _abode.session.claim_sect_expedition()
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "歷練弟子圓滿歸來！豐厚物資與宗門功勳已入庫。"
-		_abode._save_game()
+		_abode.sect_panel.set_command_result(res, _abode._save_game())
 		_abode._refresh_hud()
 	else:
+		_abode.sect_panel.set_command_result(res)
 		_abode.hint.text = "結算失敗：%s" % str(res.get("error", "FAIL"))
 
 func _on_sect_learn_technique_requested(tech_id: String) -> void:
@@ -372,9 +380,10 @@ func _on_sect_learn_technique_requested(tech_id: String) -> void:
 	var res: Dictionary = _abode.session.learn_sect_technique(tech_id)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "福至心靈！宗門真訣更進一層。"
-		_abode._save_game()
+		_abode.sect_panel.set_command_result(res, _abode._save_game())
 		_abode._refresh_hud()
 	else:
+		_abode.sect_panel.set_command_result(res)
 		_abode.hint.text = "參悟受阻：%s" % str(res.get("error", "FAIL"))
 
 func _on_sect_buy_market_item_requested(item_id: String) -> void:
@@ -383,9 +392,10 @@ func _on_sect_buy_market_item_requested(item_id: String) -> void:
 	var res: Dictionary = _abode.session.buy_sect_market_item(item_id)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "坊市交割順利，珍稀物資已收歸囊中！"
-		_abode._save_game()
+		_abode.sect_panel.set_command_result(res, _abode._save_game())
 		_abode._refresh_hud()
 	else:
+		_abode.sect_panel.set_command_result(res)
 		_abode.hint.text = "兌換受阻：%s" % str(res.get("error", "FAIL"))
 
 func _on_sect_closed() -> void:
@@ -490,9 +500,11 @@ func _on_fortune_trigger_requested() -> void:
 	var res: Dictionary = _abode.session.trigger_fortune()
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "【機緣感應】心神契合天地，引動天機奇遇降臨！"
-		_abode._save_game()
+		_abode.fortune_modal.set_result_message("")
+		_abode.fortune_modal.set_command_result(res, _abode._save_game())
 	else:
 		_abode.hint.text = "【推演未果】" + String(res.get("error", "暫無機緣"))
+		_abode.fortune_modal.set_command_result(res)
 	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
 		_abode.fortune_modal.call("refresh", _abode.session.get_view())
 	_abode._refresh_hud()
@@ -507,11 +519,12 @@ func _on_fortune_resolve_requested(option_index: int) -> void:
 		if not events.is_empty() and events[0] is Dictionary:
 			log_msg = String(events[0].get("log", "結算機緣成功。"))
 		_abode.hint.text = "【機緣結算】" + log_msg
-		_abode._save_game()
+		_abode.fortune_modal.set_command_result(res, _abode._save_game())
 		if _abode.fortune_modal != null:
 			_abode.fortune_modal.call("set_result_message", log_msg)
 	else:
 		_abode.hint.text = "【機緣抉擇失敗】" + String(res.get("error", "資糧不足"))
+		_abode.fortune_modal.set_command_result(res)
 	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
 		_abode.fortune_modal.call("refresh", _abode.session.get_view())
 	_abode._refresh_hud()
@@ -648,7 +661,8 @@ func _on_learn_talent_requested(talent_id: String) -> void:
 	var res: Dictionary = _abode.session.learn_talent(talent_id)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "參悟成功！道心感應，玄妙自生。"
-		_abode._save_game()
+		var saved: Dictionary = _abode._save_game()
+		_abode.reincarnation_panel.set_save_result(saved)
 		_abode._refresh_hud()
 		if _abode.reincarnation_panel != null and _abode.reincarnation_panel.visible:
 			_abode.reincarnation_panel.call("refresh", _abode.session.get_view())

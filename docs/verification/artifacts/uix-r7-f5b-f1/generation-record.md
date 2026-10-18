@@ -1,0 +1,10 @@
+# ImageGen generation record — 2026-10-18
+
+Mode: built-in image_gen, precise-object-edit, transparent_background=true.
+Edit target: assets/ui/reincarnation-layered-f5a/disc_face.png.
+Result retained as originals/disc_face.png; runtime registration is reproduced with tools/r7f5b_f1_assets.gd. Original candidate remains unchanged.
+The user-supplied magic-circle screenshot is a glow-intensity reference only; its image, lettering and symbols were not copied into game assets. No commercial license for that reference is asserted.
+
+Exact prompt:
+
+Use case: precise-object-edit. Edit target: the supplied rotating jade-and-bronze disc face game asset. Repaint the WHOLE disc face as ONE seamless, flat, frontal orthographic circular plate. Existing candidate has visibly fractured/interrupting central carved circles; FIX THIS. Preserve pale celadon mineral jade, fine antique gold engraving and three small cinnabar swirl medallions as trackable asymmetric rotation landmarks. New center must be an uninterrupted smooth continuous jade field with a single elegant continuous symmetrical gold lotus-scroll engraving, surrounded by two perfectly concentric, closed, consistent-width circular engraved borders. All circular borders share EXACTLY one geometric center. No sector cuts, radial seams, cutout center, separate inset patch, abrupt rectangular edges, overlapping rings or collage fragments. No deep shadows or uneven directional highlights that read as cuts when rotated. Complete filled opaque circular plate, geometrically round, no perspective and no ellipse. Image is square with transparent background; disc centered exactly at canvas midpoint, 76% canvas diameter, generous uniform transparent padding. Outer circumference clean, no ornaments extending outside it. NO stationary housing, tassels, lotus flower, mist, light ribbon, background, letters or text. Painterly delicate high-quality gouache matching existing art. This is ONLY the independent rotating plate, every pixel inside circle must be opaque and continuous. Do not add central sunburst or a concentric hole.

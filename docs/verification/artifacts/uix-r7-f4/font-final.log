@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 109, in <module>
+    main()
+    ~~~~^^
+  File "E:\WORK\Dao2\tools\subset_game_fonts.py", line 99, in main
+    raise ValueError('Font/source hash or coverage changed; regenerate manifest')
+ValueError: Font/source hash or coverage changed; regenerate manifest

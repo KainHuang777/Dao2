@@ -44,9 +44,25 @@ const RESOURCE_NAMES := {
 	"money": "金錢",
 	"wood": "靈木",
 	"stone_low": "下品靈石",
+	"stone_mid": "中品靈石",
+	"stone_high": "上品靈石",
 	"black_copper": "玄銅",
 	"spirit_grass_low": "靈草",
+	"spirit_grass_100y": "百年靈草",
+	"spirit_grass_1000y": "千年靈草",
+	"spirit_timber": "靈材",
+	"bronze_essence": "銅精",
+	"liquid": "丹液",
+	"formation_core": "陣芯",
 	"foundation_pill": "築基丹",
+	"golden_core_pill": "金丹",
+	"talisman": "符咒",
+	"star_metal": "星金",
+	"void_crystal": "虛空結晶",
+	"spirit_crystal": "極品靈晶",
+	"azure_nectar": "天青靈液",
+	"refined_iron": "精鐵",
+	"void_essence": "虛空精華",
 }
 
 const BUILDING_DESCRIPTIONS := {
@@ -255,6 +271,8 @@ var reincarnation_seq: Control = null
 var text_transition: Control = null
 var orientation_prompt: Control = null
 var _reincarnation_hud_snapshot: Dictionary = {}
+var _lifespan_prompted_cycle := -1
+var _lifespan_prompt_queued := false
 var _is_reincarnating: bool = false
 
 var update_elapsed: float = 0.0
@@ -941,6 +959,13 @@ func _refresh_hud(force_view: bool = true) -> void:
 	else:
 		_frame_view = _presentation_view()
 	_hud_controller._refresh_hud(_frame_view)
+	var exhausted := String(_frame_view.get("reincarnation_preview", {}).get("reason", "")) == "lifespan_exhausted"
+	if not exhausted:
+		# A lifespan talent can restore time within the same life; its next expiry is new.
+		_lifespan_prompted_cycle = -1
+	if exhausted and _lifespan_prompted_cycle != session.state.reincarnation_count and not _lifespan_prompt_queued:
+		_lifespan_prompt_queued = true
+		_offer_lifespan_reincarnation.call_deferred()
 	if island_world != null:
 		var profile_island := RuntimeProfile.begin()
 		island_world.refresh()
@@ -956,6 +981,24 @@ func _presentation_view() -> Dictionary:
 		_frame_view_state = session.state
 		_frame_view_revision = session.state.revision
 	return _frame_view
+
+func _offer_lifespan_reincarnation() -> void:
+	_lifespan_prompt_queued = false
+	if session == null or feature_navigation == null or get_tree().paused:
+		return
+	# Wait for storage recovery, offline report and existing cinematics to finish.
+	for overlay in [offline_summary, breakthrough_seq, reincarnation_seq, nine_realms_preview]:
+		if overlay != null and overlay.visible:
+			return
+	var view := session.get_view()
+	if String(view.get("reincarnation_preview", {}).get("reason", "")) != "lifespan_exhausted":
+		return
+	var cycle: int = session.state.reincarnation_count
+	if _lifespan_prompted_cycle == cycle:
+		return
+	_lifespan_prompted_cycle = cycle
+	feature_navigation.open("reincarnation")
+	reincarnation_panel._switch_tab("reincarnate")
 
 func _update_onboarding_guidance(view: Dictionary) -> void:
 	_hud_controller._update_onboarding_guidance(view)
@@ -1586,13 +1629,18 @@ func _on_achievement_claim_requested(achievement_id: String) -> void:
 		return
 	var res := session.claim_achievement(achievement_id)
 	if bool(res.get("ok", false)):
-		_save_game()
+		var saved := _save_game()
 		_refresh_hud()
 		if achievement_panel != null:
-			achievement_panel.call("show_status_message", String(res.get("message", "領取成功！")))
+			achievement_panel.call("set_save_result", saved)
+			if saved.get("ok", false):
+				achievement_panel.call("show_status_message", String(res.get("message", "領取成功！")))
 	else:
 		if achievement_panel != null:
 			achievement_panel.call("show_status_message", String(res.get("message", "領取失敗")))
+
+func _on_achievement_save_retry() -> void:
+	achievement_panel.call("set_save_result", _save_game())
 
 func _on_achievement_closed() -> void:
 	feature_navigation.home()
@@ -1622,6 +1670,16 @@ func _save_game() -> Dictionary:
 		"sim_tick": str(sim_tick),
 	}
 	var result: Dictionary = SaveManager.save(session.state, meta)
+	if bool(result.get("ok", false)) and feature_navigation != null:
+		feature_navigation.action_panel.storage_recovered()
+	if bool(result.get("ok", false)) and achievement_panel != null:
+		achievement_panel.call("storage_recovered")
+	if bool(result.get("ok", false)) and reincarnation_panel != null:
+		reincarnation_panel.call("storage_recovered")
+	if bool(result.get("ok", false)) and sect_panel != null:
+		sect_panel.call("storage_recovered")
+	if bool(result.get("ok", false)) and fortune_modal != null:
+		fortune_modal.call("storage_recovered")
 	if not bool(result.get("ok", false)) and OS.has_feature("web"):
 		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms)
 		get_tree().paused = true
@@ -1657,6 +1715,14 @@ func _settle_web_background(cursor: int) -> bool:
 	if feature_navigation != null and feature_navigation.island_panel != null:
 		feature_navigation.storage_recovered()
 		feature_navigation.action_panel.storage_recovered()
+	if achievement_panel != null:
+		achievement_panel.call("storage_recovered")
+	if reincarnation_panel != null:
+		reincarnation_panel.call("storage_recovered")
+	if sect_panel != null:
+		sect_panel.call("storage_recovered")
+	if fortune_modal != null:
+		fortune_modal.call("storage_recovered")
 	print("WEB_BACKGROUND_SETTLED: ", JSON.stringify(result.report))
 	return true
 
@@ -1741,6 +1807,8 @@ func _retry_breakthrough_save() -> void:
 
 func _on_reincarnation_sequence_started() -> void:
 	_is_reincarnating = true
+	# Mouse hit testing follows sibling order, independently of draw z_index.
+	hud.move_child(reincarnation_seq, -1)
 	_reincarnation_hud_snapshot.clear()
 	for child in hud.get_children():
 		if child is Control and child != reincarnation_seq and child != nine_realms_preview:

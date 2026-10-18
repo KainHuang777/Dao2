@@ -1,0 +1,183 @@
+{
+  "task": "UIX-R10-FORTUNE",
+  "date": "2026-10-17",
+  "generator": "built-in ImageGen",
+  "source": "Original AI-generated art; no external reference",
+  "license_status": "Generated for project; no third-party commercial license asserted",
+  "layers": "Single RGBA vignette; all text/actions/state remain Godot",
+  "assets": [
+    {
+      "id": "ruins",
+      "encounter_ids": [
+        "enc_ancient_cave",
+        "enc_buddha_bodhi_tablet"
+      ],
+      "purpose": "Encounter theme only; does not promise outcome",
+      "source": "docs/verification/artifacts/uix-r10/originals/ruins.png",
+      "runtime": "assets/ui/fortune-painted/ruins.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r10/ruins-prompt.txt",
+      "sha256": "f41c7ee59bc81b6faaf5e81e0f6b975ae7c2d2642910b82d7c4cf8362b231180"
+    },
+    {
+      "id": "spring",
+      "encounter_ids": [
+        "enc_celestial_dew",
+        "enc_primordial_fountain",
+        "enc_human_tea_spring",
+        "enc_spirit_tianqing_tide",
+        "enc_immortal_celestial_feast",
+        "enc_buddha_lotus_blessing"
+      ],
+      "purpose": "Encounter theme only; does not promise outcome",
+      "source": "docs/verification/artifacts/uix-r10/originals/spring.png",
+      "runtime": "assets/ui/fortune-painted/spring.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r10/spring-prompt.txt",
+      "sha256": "725ccc721af7e232da7178597a4f15391c088d2ee33f98a54c4a590442a0209f"
+    },
+    {
+      "id": "traveler",
+      "encounter_ids": [
+        "enc_wandering_taoist",
+        "enc_human_mortal_fair",
+        "enc_spirit_herb_fairy",
+        "enc_nether_ferryman",
+        "enc_nether_judge_brush",
+        "enc_demon_celestial_maiden"
+      ],
+      "purpose": "Encounter theme only; does not promise outcome",
+      "source": "docs/verification/artifacts/uix-r10/originals/traveler.png",
+      "runtime": "assets/ui/fortune-painted/traveler.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r10/traveler-prompt.txt",
+      "sha256": "fe3b889479aa403cd6d369048ef41840033dd501e667c71862f0a07b5ea16111"
+    },
+    {
+      "id": "beast",
+      "encounter_ids": [
+        "enc_beast_relic",
+        "enc_beast_peng_nest",
+        "enc_beast_dragon_bone",
+        "enc_immortal_crane_messenger"
+      ],
+      "purpose": "Encounter theme only; does not promise outcome",
+      "source": "docs/verification/artifacts/uix-r10/originals/beast.png",
+      "runtime": "assets/ui/fortune-painted/beast.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r10/beast-prompt.txt",
+      "sha256": "bde52f358a26ad2fdf8c8b6eaf40ae6d00de316c6d98cb87718dcc2218f7d0fe"
+    },
+    {
+      "id": "omen",
+      "encounter_ids": [
+        "enc_nether_whisper",
+        "enc_demon_heart_tribulation",
+        "enc_falling_star",
+        "enc_demon_blood_sea_tide",
+        "enc_chaos_primordial_rift",
+        "enc_chaos_reversal_matrix",
+        "enc_origin_stellar_loom",
+        "enc_origin_first_dawn"
+      ],
+      "purpose": "Encounter theme only; does not promise outcome",
+      "source": "docs/verification/artifacts/uix-r10/originals/omen.png",
+      "runtime": "assets/ui/fortune-painted/omen.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r10/omen-prompt.txt",
+      "sha256": "2a610b25507834922da36b233c8960720a1feb9d8a38f47380640f7171bdb7ff"
+    },
+    {
+      "id": "sensing",
+      "encounter_ids": [],
+      "purpose": "Encounter theme only; does not promise outcome",
+      "source": "docs/verification/artifacts/uix-r10/originals/sensing.png",
+      "runtime": "assets/ui/fortune-painted/sensing.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        480,
+        480
+      ],
+      "alpha": true,
+      "processing": "Full alpha bounds fitted to448px,16px padding; original alpha retained",
+      "prompt": "docs/verification/artifacts/uix-r10/sensing-prompt.txt",
+      "sha256": "585782d2b3bc1620a7903a6e1f19cd480080145c15049da82d0863fdd4a4b1b1"
+    }
+  ],
+  "encounter_mapping": {
+    "enc_ancient_cave": "ruins",
+    "enc_buddha_bodhi_tablet": "ruins",
+    "enc_celestial_dew": "spring",
+    "enc_primordial_fountain": "spring",
+    "enc_human_tea_spring": "spring",
+    "enc_spirit_tianqing_tide": "spring",
+    "enc_immortal_celestial_feast": "spring",
+    "enc_buddha_lotus_blessing": "spring",
+    "enc_wandering_taoist": "traveler",
+    "enc_human_mortal_fair": "traveler",
+    "enc_spirit_herb_fairy": "traveler",
+    "enc_nether_ferryman": "traveler",
+    "enc_nether_judge_brush": "traveler",
+    "enc_demon_celestial_maiden": "traveler",
+    "enc_beast_relic": "beast",
+    "enc_beast_peng_nest": "beast",
+    "enc_beast_dragon_bone": "beast",
+    "enc_immortal_crane_messenger": "beast",
+    "enc_nether_whisper": "omen",
+    "enc_demon_heart_tribulation": "omen",
+    "enc_falling_star": "omen",
+    "enc_demon_blood_sea_tide": "omen",
+    "enc_chaos_primordial_rift": "omen",
+    "enc_chaos_reversal_matrix": "omen",
+    "enc_origin_stellar_loom": "omen",
+    "enc_origin_first_dawn": "omen"
+  }
+}

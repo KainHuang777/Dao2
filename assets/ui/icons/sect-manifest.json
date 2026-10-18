@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-17",
+  "task": "UIX-R9-F1",
+  "source": "Original project-authored SVG paths; no external artwork or reference image copied.",
+  "license": "Project-authored artwork; no third-party asset license asserted.",
+  "design_brief": "Use a small white/green/blue/purple/gold rarity icon, icon + number rewards including contribution, and a frameless image dispatch button.",
+  "layers": "Independent transparent SVG icons; labels, numbers, tooltips and input rendered by Godot.",
+  "assets": [
+    {
+      "path": "sect-contribution.svg",
+      "purpose": "Contribution token in header and expedition rewards"
+    },
+    {
+      "path": "sect-dispatch.svg",
+      "purpose": "Flying-sword dispatch action with 56px hit target"
+    },
+    {
+      "path": "sect-rarity.svg",
+      "purpose": "22px rarity gem tinted in five tiers"
+    }
+  ]
+}

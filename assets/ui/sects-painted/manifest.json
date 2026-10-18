@@ -1,0 +1,289 @@
+{
+  "task": "UIX-R9-SECT",
+  "date": "2026-10-17",
+  "generator": "built-in ImageGen",
+  "source": "Original AI-generated art; no external reference images",
+  "license_status": "Generated for this project; no third-party commercial license asserted",
+  "layers": "One RGBA object grouping per image. Controls, text and state remain Godot.",
+  "assets": [
+    {
+      "id": "taixu",
+      "game_id": "太虛天闕",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/taixu.png",
+      "runtime": "assets/ui/sects-painted/taixu.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/taixu-prompt.txt",
+      "sha256": "3fd851d6669002c844e6c6858bd5b1cf293082a23fa66c6b60bab3f3d6ac0f18"
+    },
+    {
+      "id": "tianjian",
+      "game_id": "天劍聖宗",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/tianjian.png",
+      "runtime": "assets/ui/sects-painted/tianjian.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/tianjian-prompt.txt",
+      "sha256": "b39f4ecad3bbd861ec27b309faf67be870411ed6f283f0135889e3a018f6c02b"
+    },
+    {
+      "id": "piaomiao",
+      "game_id": "縹緲仙宮",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/piaomiao.png",
+      "runtime": "assets/ui/sects-painted/piaomiao.png",
+      "source_size": [
+        1294,
+        1216
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/piaomiao-prompt.txt",
+      "sha256": "f0e8b41b879804e63a778d856a866e4ac22cdc81c649111d17d29ed0354ba5f5"
+    },
+    {
+      "id": "wanfo",
+      "game_id": "萬佛靈宗",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/wanfo.png",
+      "runtime": "assets/ui/sects-painted/wanfo.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/wanfo-prompt.txt",
+      "sha256": "f687deb57b7004c8f16255ea1b904620aa3ddd2cc4e4a5bc976d8357bcb011d7"
+    },
+    {
+      "id": "zixiao",
+      "game_id": "紫霄玄門",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/zixiao.png",
+      "runtime": "assets/ui/sects-painted/zixiao.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/zixiao-prompt.txt",
+      "sha256": "a3b84c8497a9aaef71ded08ff35186f810d4feb44af2455afee9a0f1da597aaa"
+    },
+    {
+      "id": "divine_farm",
+      "game_id": "divine_farm",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/divine_farm.png",
+      "runtime": "assets/ui/sects-painted/divine_farm.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/divine_farm-prompt.txt",
+      "sha256": "ed7c47d4f38daa6bde4717c8601c00bdf035c3c07ef43433db422e13691a8731"
+    },
+    {
+      "id": "breathing_method",
+      "game_id": "breathing_method",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/breathing_method.png",
+      "runtime": "assets/ui/sects-painted/breathing_method.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/breathing_method-prompt.txt",
+      "sha256": "1e59109819f6472857849ee34b5eb46e4549a0d549854778ea2d3e1da2e479ef"
+    },
+    {
+      "id": "storage_talisman",
+      "game_id": "storage_talisman",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/storage_talisman.png",
+      "runtime": "assets/ui/sects-painted/storage_talisman.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/storage_talisman-prompt.txt",
+      "sha256": "3a7edde9254e71e1ed730f0a3ee053f85b5101eb5aa6c92cf5960c4f61f1474e"
+    },
+    {
+      "id": "essence_array",
+      "game_id": "essence_array",
+      "task_templates": [],
+      "source": "docs/verification/artifacts/uix-r9/originals/essence_array.png",
+      "runtime": "assets/ui/sects-painted/essence_array.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/essence_array-prompt.txt",
+      "sha256": "33ccec181852711578d5cc1f869ac64846e0f1574a796983229243adbaa54c7b"
+    },
+    {
+      "id": "gathering",
+      "game_id": "gathering",
+      "task_templates": [
+        "巡視靈田",
+        "採集晨露草",
+        "採擷玄陰朱果"
+      ],
+      "source": "docs/verification/artifacts/uix-r9/originals/gathering.png",
+      "runtime": "assets/ui/sects-painted/gathering.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/gathering-prompt.txt",
+      "sha256": "52ae43bdb8c56a7612176d1bc2dcb95dca22d5d4fa0d9e7e4a9272cbbe3dd4ee"
+    },
+    {
+      "id": "escort",
+      "game_id": "escort",
+      "task_templates": [
+        "護送百草商隊"
+      ],
+      "source": "docs/verification/artifacts/uix-r9/originals/escort.png",
+      "runtime": "assets/ui/sects-painted/escort.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/escort-prompt.txt",
+      "sha256": "1755c43e6f8260eb349384a814942506bb16f9c1c37de885d41b362e7eab605c"
+    },
+    {
+      "id": "exploration",
+      "game_id": "exploration",
+      "task_templates": [
+        "探查黑風妖窟",
+        "探索上古殘破洞府",
+        "探尋太虛古秘境"
+      ],
+      "source": "docs/verification/artifacts/uix-r9/originals/exploration.png",
+      "runtime": "assets/ui/sects-painted/exploration.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/exploration-prompt.txt",
+      "sha256": "a22066c23d55a8127eaabd506dd4a8829ca49a2fd1a0cc1474fcdbd63933f3b0"
+    },
+    {
+      "id": "warding",
+      "game_id": "warding",
+      "task_templates": [
+        "清剿低階野獸",
+        "修補山門法陣",
+        "斬殺二階赤炎蟒",
+        "鎮壓幽冥魔隙",
+        "奪取天外玄金",
+        "助長老凝練純陽真火",
+        "斬殺四階化形大妖",
+        "護衛九界跨界星陣"
+      ],
+      "source": "docs/verification/artifacts/uix-r9/originals/warding.png",
+      "runtime": "assets/ui/sects-painted/warding.png",
+      "source_size": [
+        1192,
+        1320
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "purpose": "112px desktop / 80px compact sect, technique or expedition art",
+      "processing": "Complete alpha bounds fitted with16px padding; generated alpha preserved; no painted edits",
+      "prompt": "docs/verification/artifacts/uix-r9/warding-prompt.txt",
+      "sha256": "bc3e273c140f62f58b88776b02eef515119831bba4131ae6536a624cef065b57"
+    }
+  ]
+}
