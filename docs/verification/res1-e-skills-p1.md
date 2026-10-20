@@ -1,3 +1,5 @@
+2026-10-20 **結丹法新圖已接受／EARLY-V1-C DONE（桌面／Web有界）**：使用者明確核定「結丹法新圖接受」，SKS-P1 金丹題材圖人工閘門完成；沿用 EARLY-V1-C 既有程式／原生／桌面Web驗證。下方待生成／待接受為歷史，由此更新覆蓋；後續技能批次仍另行核定。
+
 # RES1-E SKS-P1 驗收：`golden_core_formation`（結丹法）承接
 
 日期：2026-10-18（fusion 技能執行輪）。任務 ID：`SKS-P1`（[docs/21 批次 B1](../21-res1-e-skills-expansion-plan.md)）， 使用者核定 P3-1。源頭契約：[ADR-012](../decisions/ADR-012-optional-skills-with-islands.md)、 來源稽核 `docs/verification/artifacts/res1-d1-source-audit.json:83-94`。

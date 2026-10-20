@@ -1,0 +1,626 @@
+{
+	"assets": [
+		{
+			"canvas": [
+				1659,
+				948
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "clean.png",
+			"id": "clean",
+			"kind": "opaque_plate",
+			"padding": 0,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "clean",
+			"sha256": "4dbfb0486e0ec09ad08daee33585f7b2ab11b91c84daf340673873e6f87f28dc",
+			"source": "docs/verification/artifacts/trib-a/originals/clean.png",
+			"source_sha256": "4f17df9d0b6a038b05c9338ef86f39b47cde220e038494f9b66b72749e879ae3",
+			"water_attachment_uv": [],
+			"z_index": 0
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "buddha.png",
+			"id": "buddha",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "buddha",
+			"sha256": "070217a912b939521d48864c1ed0614535629658784eebd2768eff969c7068a1",
+			"source": "docs/verification/artifacts/trib-a/originals/buddha.png",
+			"source_sha256": "98b6b508c965f719e3e8065c15aa228b000589565ffd6d781f385f4f15851326",
+			"water_attachment_uv": [],
+			"z_index": 30
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "waterfalls.png",
+			"id": "waterfalls",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "waterfalls",
+			"sha256": "5e4cd72c85077c5c2d6f81ee8ed9dd4cfa2773b31ad3f66782dfde947ce9851b",
+			"source": "docs/verification/artifacts/trib-a/originals/waterfalls.png",
+			"source_sha256": "6b95877e913cde51bcbf0268b3fe1ddeb518e4ff8ef717b9f525fa313fc22c89",
+			"water_attachment_uv": [],
+			"z_index": 35
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "far_island.png",
+			"id": "far_island",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "far_island",
+			"sha256": "2c5139faec976bf0f265843318827273a2916ad58e1d1f9bc8aa03f549063089",
+			"source": "docs/verification/artifacts/trib-a/originals/far_island.png",
+			"source_sha256": "c86cc47cbbfd658ae2cb8273206d3a171e9b4fbde829533bcf72a7eec262e109",
+			"water_attachment_uv": [],
+			"z_index": 20
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "mist_near.png",
+			"id": "mist_near",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "mist_near",
+			"sha256": "55b9fe28b74f73822ad75a88999d74bad16679e90c482d7af29c48d17d8077e1",
+			"source": "docs/verification/artifacts/trib-a/originals/mist_near.png",
+			"source_sha256": "aa2b0c905b9ef4af1eb5fde67d87b91a7f44f35e6e0876428c68852413edcd56",
+			"water_attachment_uv": [],
+			"z_index": 110
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "mist_far.png",
+			"id": "mist_far",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "mist_far",
+			"sha256": "95b5dc71dacbc4e842ffe4ae2288b1c2afa11174f40c3e5c5ee45a959990d5dd",
+			"source": "docs/verification/artifacts/trib-a/originals/mist_far.png",
+			"source_sha256": "bcc48ec664c11a0c123f9c5b0235d2b392b9949862335cdfdce87e5b5365746f",
+			"water_attachment_uv": [],
+			"z_index": 40
+		},
+		{
+			"canvas": [
+				1672,
+				941
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "star_arc.png",
+			"id": "star_arc",
+			"kind": "opaque_plate",
+			"padding": 0,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "star_arc",
+			"sha256": "1bb294d3bd2c3ed01a5f59e06951aadff9c46502be108a81d39eba4553a11f94",
+			"source": "docs/verification/artifacts/trib-a/originals/star_arc.png",
+			"source_sha256": "d8bfcc15126a5faa7a12f6046c921f6c16bbe3e91e6e134a93450fc898d8fcb8",
+			"water_attachment_uv": [],
+			"z_index": 10
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.561249971389771,
+				0.403750002384186
+			],
+			"core_source_uv": [
+				0.569999992847443,
+				0.389999985694885
+			],
+			"file": "hero_hover.png",
+			"id": "hero_hover",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "hero_hover",
+			"sha256": "f59a19c97781a0544f9362d1d5c26393b3dd88d887a91f98e72a2cdfe02554cf",
+			"source": "docs/verification/artifacts/trib-a/originals/hero_hover.png",
+			"source_sha256": "0bce59efe4197dd102e052e07ebb15a1471bcde1de2c0ed9ed05e58355869d2d",
+			"water_attachment_uv": [],
+			"z_index": 80
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.569999992847443,
+				0.412499994039536
+			],
+			"core_source_uv": [
+				0.579999983310699,
+				0.400000005960464
+			],
+			"file": "hero_hit.png",
+			"id": "hero_hit",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "hero_hit",
+			"sha256": "d52d48601e070d68cbbbc6753921aee147fdfa64e86b6626c7f693361e293035",
+			"source": "docs/verification/artifacts/trib-a/originals/hero_hit.png",
+			"source_sha256": "74290ebdfd48d5608d4b824a337105c8c7acf8f1bc26721064f4f647d1d1ce4e",
+			"water_attachment_uv": [],
+			"z_index": 80
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.675000011920929,
+				0.429999977350235
+			],
+			"core_source_uv": [
+				0.699999988079071,
+				0.419999986886978
+			],
+			"file": "hero_unbalanced.png",
+			"id": "hero_unbalanced",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "hero_unbalanced",
+			"sha256": "c99d84768ee9f9212d2499ae288cec02aa98d39879a85bd4b8fd53fb849222c2",
+			"source": "docs/verification/artifacts/trib-a/originals/hero_unbalanced.png",
+			"source_sha256": "192b0a01ffc967bee6ba3b1165f32d353ebe55ae7160ddf217656dd1eb2014f4",
+			"water_attachment_uv": [],
+			"z_index": 80
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.526250004768372,
+				0.403750002384186
+			],
+			"core_source_uv": [
+				0.529999971389771,
+				0.389999985694885
+			],
+			"file": "hero_recover.png",
+			"id": "hero_recover",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "hero_recover",
+			"sha256": "115bd91664650a7a51bb33860e4cfa26f8ece7127d95eefbe7a5c4b2f926546b",
+			"source": "docs/verification/artifacts/trib-a/originals/hero_recover.png",
+			"source_sha256": "6399e78182ba6aab332abae2ffec1adf0537d8bdff13e86f095f33dbccfb56a0",
+			"water_attachment_uv": [],
+			"z_index": 80
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "shield_intact.png",
+			"id": "shield_intact",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "shield_intact",
+			"sha256": "591c9b7d198d71c7809514d8db0da06b0f528318c60c313c22e3147e70e85f32",
+			"source": "docs/verification/artifacts/trib-a/originals/shield_intact.png",
+			"source_sha256": "0e36d1380c14e0c06cf6385d9a191b1ff0cab8f87d37f6c78365452d5dc96bf7",
+			"water_attachment_uv": [],
+			"z_index": 60
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "shield_cracked.png",
+			"id": "shield_cracked",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "shield_cracked",
+			"sha256": "e4f8a93d5fd4914cbe10825078e3ce1a94c76e06b98c5e641518dc9172e5e43b",
+			"source": "docs/verification/artifacts/trib-a/originals/shield_cracked.png",
+			"source_sha256": "9c472cb7ee10aa5140cc5047d24863bfc68704af4370e7b0d2d5ee116a52e520",
+			"water_attachment_uv": [],
+			"z_index": 60
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "shield_shattered_v2.png",
+			"id": "shield_shattered_v2",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "shield_shattered_v2",
+			"sha256": "5bace33f56cae67c15a157075a0d58cf09248d2819b3d2f8f8dc5095613d7d31",
+			"source": "docs/verification/artifacts/trib-a/originals/shield_shattered_v2.png",
+			"source_sha256": "274a4105984090c99ef73dce4e37a292c430fa265906ac81682ffc13d5a5c1e6",
+			"water_attachment_uv": [],
+			"z_index": 90
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "asura.png",
+			"id": "asura",
+			"kind": "transparent_sprite",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Unmodified generated RGBA; aspect-preserving fit into 896px box on 1024 transparent canvas. No chroma key, painted correction or alpha threshold.",
+			"prompt_id": "asura",
+			"sha256": "60f755c72a2a0b5a3a5c082a871760fb77a0561393f73978878a8e2c6f361641",
+			"source": "docs/verification/artifacts/trib-a/originals/asura.png",
+			"source_sha256": "a6fe96f9cc81d85a2040cdbd5f73b609d5727b29a1c6a12997d92c903de9c966",
+			"water_attachment_uv": [],
+			"z_index": 58
+		},
+		{
+			"canvas": [
+				512,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "waterfall_left.png",
+			"id": "waterfall_left",
+			"kind": "water_region",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Source region [P: (280, 365), S: (330, 880)]; water-only rectangular extraction; eye attachment (0.51,0.103); independent y length fitted to 896.",
+			"prompt_id": "waterfalls",
+			"sha256": "e1ecab4c87367541b72c08adcc7902fc72891c17029cbfc2953a2e30800bd057",
+			"source": "docs/verification/artifacts/trib-a/originals/waterfalls.png",
+			"source_sha256": "6b95877e913cde51bcbf0268b3fe1ddeb518e4ff8ef717b9f525fa313fc22c89",
+			"water_attachment_uv": [
+				0.509999990463257,
+				0.103000000119209
+			],
+			"z_index": 35
+		},
+		{
+			"canvas": [
+				512,
+				1024
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "waterfall_right.png",
+			"id": "waterfall_right",
+			"kind": "water_region",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Source region [P: (690, 300), S: (330, 945)]; water-only rectangular extraction; eye attachment (0.363,0.10); independent y length fitted to 896.",
+			"prompt_id": "waterfalls",
+			"sha256": "f2ec203f4979f42840c80ef5d8a0b3adcf1db6ad7fbf6afea26822a1f147b8c8",
+			"source": "docs/verification/artifacts/trib-a/originals/waterfalls.png",
+			"source_sha256": "6b95877e913cde51bcbf0268b3fe1ddeb518e4ff8ef717b9f525fa313fc22c89",
+			"water_attachment_uv": [
+				0.363000005483627,
+				0.100000001490116
+			],
+			"z_index": 35
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.561249971389771,
+				0.403750002384186
+			],
+			"core_source_uv": [
+				0.569999992847443,
+				0.389999985694885
+			],
+			"file": "hero_hover_emission.png",
+			"id": "hero_hover_emission",
+			"kind": "emission_mask",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "White RGB, alpha=pose alpha * radial smoothstep falloff around measured core; same canvas/padding/anchor as pose. Data mask only, no baked glow.",
+			"prompt_id": "hero_hover",
+			"sha256": "4e8f24e7990913ee126c48c6cf6f4b3148e552a5fb439baced2e6cd91639347c",
+			"source": "assets/tribulation/trib-a/hero_hover.png",
+			"source_sha256": "f59a19c97781a0544f9362d1d5c26393b3dd88d887a91f98e72a2cdfe02554cf",
+			"water_attachment_uv": [],
+			"z_index": 95
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.569999992847443,
+				0.412499994039536
+			],
+			"core_source_uv": [
+				0.579999983310699,
+				0.400000005960464
+			],
+			"file": "hero_hit_emission.png",
+			"id": "hero_hit_emission",
+			"kind": "emission_mask",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "White RGB, alpha=pose alpha * radial smoothstep falloff around measured core; same canvas/padding/anchor as pose. Data mask only, no baked glow.",
+			"prompt_id": "hero_hit",
+			"sha256": "488dafd6e48335992ac37e0d1c8c9e099c3a192c29a967758ea2be6f5287c7c7",
+			"source": "assets/tribulation/trib-a/hero_hit.png",
+			"source_sha256": "d52d48601e070d68cbbbc6753921aee147fdfa64e86b6626c7f693361e293035",
+			"water_attachment_uv": [],
+			"z_index": 95
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.675000011920929,
+				0.429999977350235
+			],
+			"core_source_uv": [
+				0.699999988079071,
+				0.419999986886978
+			],
+			"file": "hero_unbalanced_emission.png",
+			"id": "hero_unbalanced_emission",
+			"kind": "emission_mask",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "White RGB, alpha=pose alpha * radial smoothstep falloff around measured core; same canvas/padding/anchor as pose. Data mask only, no baked glow.",
+			"prompt_id": "hero_unbalanced",
+			"sha256": "eccc9435a625daf860ea87aa4c010117a46f741bceb40c1c2a92ffc1eef05371",
+			"source": "assets/tribulation/trib-a/hero_unbalanced.png",
+			"source_sha256": "c99d84768ee9f9212d2499ae288cec02aa98d39879a85bd4b8fd53fb849222c2",
+			"water_attachment_uv": [],
+			"z_index": 95
+		},
+		{
+			"canvas": [
+				1024,
+				1024
+			],
+			"core_packed_uv": [
+				0.526250004768372,
+				0.403750002384186
+			],
+			"core_source_uv": [
+				0.529999971389771,
+				0.389999985694885
+			],
+			"file": "hero_recover_emission.png",
+			"id": "hero_recover_emission",
+			"kind": "emission_mask",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "White RGB, alpha=pose alpha * radial smoothstep falloff around measured core; same canvas/padding/anchor as pose. Data mask only, no baked glow.",
+			"prompt_id": "hero_recover",
+			"sha256": "98648d962c38386581445ab3e26b289621c868b3922a2785aa6991fca6d97eab",
+			"source": "assets/tribulation/trib-a/hero_recover.png",
+			"source_sha256": "115bd91664650a7a51bb33860e4cfa26f8ece7127d95eefbe7a5c4b2f926546b",
+			"water_attachment_uv": [],
+			"z_index": 95
+		},
+		{
+			"canvas": [
+				512,
+				256
+			],
+			"core_packed_uv": [],
+			"core_source_uv": [],
+			"file": "ground_shadow.png",
+			"id": "ground_shadow",
+			"kind": "original_mask",
+			"padding": 64,
+			"pivot_uv": [
+				0.5,
+				0.5
+			],
+			"processing": "Original analytic soft ellipse, independent island-plane layer; no image reference.",
+			"prompt_id": "",
+			"sha256": "216afb6cbb1d8f632a63123b58d1e810fcd18d5f27abe8d844e10892f71bba1f",
+			"source": "tools/trib_a_assets.gd",
+			"source_sha256": "5b248650e6f63d79a7b3924b432050c674b5227962a17c7e14ec6ee34b1206d5",
+			"water_attachment_uv": [],
+			"z_index": 55
+		}
+	],
+	"compositing": "Straight-alpha RGBA. Per-pose core anchors differ: align stage actor to core_source_uv transformed by 64px padding + 896px fit, not texture center. Shadow stays on terrain. Waterfall independent eye anchors. Shield behind actor; cracks/contact may be foreground. UI separate.",
+	"date": "2026-10-18",
+	"engine": "4.7.2-stable (official)",
+	"generator": "built-in image_gen; 16 originals, first shattered shield rejected",
+	"limits": {
+		"actor_canvas_height_h": [
+			0.32,
+			0.62
+		],
+		"background_offset_uv": [
+			-0.07,
+			0.07
+		],
+		"background_zoom": [
+			1.16,
+			1.32
+		],
+		"buddha_height_h": [
+			0.35,
+			0.85
+		],
+		"buddha_y": [
+			0.4,
+			1.2
+		],
+		"terrain_y": [
+			0.9,
+			1.32
+		]
+	},
+	"prompts": "generation-prompts.json",
+	"references": [
+		"assets/abode/fx3art1/sky.png",
+		"assets/abode/fx3art1/hero/sheet-transparent.png"
+	],
+	"reproduce": "Godot 4.7.2 --headless --path . --script res://tools/trib_a_assets.gd",
+	"reused_terrain": {
+		"path": "assets/abode/fx3art1/terrain.png",
+		"sha256": "4378b835efeb06856431e8bc0fd6c8f4c0b4867050f4fdddad7f875b27c213f5"
+	},
+	"rights": "Project AI-generated derivations; original user concept third-party commercial rights not independently established. No additional third-party library used; generation is not legal clearance.",
+	"scope": "Offline packing/static storyboard only, no dynamic staging, SFX, Web, FPS or final art acceptance.",
+	"status": "accepted_by_user_2026-10-18",
+	"task": "TRIB-A",
+	"z_order": [
+		"clean",
+		"star_arc",
+		"far_island",
+		"buddha",
+		"waterfalls",
+		"mist_far",
+		"terrain",
+		"ground_shadow",
+		"asura_behind_actor",
+		"shield_rear",
+		"actor",
+		"emission",
+		"shield_front_cracks",
+		"lightning_contact",
+		"mist_near",
+		"UI"
+	]
+}

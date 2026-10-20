@@ -2,6 +2,11 @@ param([string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_conso
 $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
 $runners = @(
+	'tests/mfg3_inline_runner.gd',
+	'tests/mfg_controller_runner.gd',
+	'tests/recipe_row_runner.gd',
+	'tests/tribc_integration_runner.gd',
+	'tests/trib0_outcome_runner.gd',
 	'tests/reincarnation_motion_runner.gd',
 	'tests/uix_r11_decisions_ui_runner.gd',
 	'tests/uix_r10_fortune_ui_runner.gd',
@@ -66,6 +71,8 @@ $runners = @(
     'tests/feature_navigation_runner.gd',
     'tests/skills_b1_runner.gd',
     'tests/sks_p1_runner.gd',
+    'tests/early_v1b_talents_runner.gd',
+    'tests/early_v1c_skills_runner.gd',
     'tests/uix_r8_skills_ui_runner.gd',
     'tests/m3b_spirit_beast_runner.gd',
     'tests/abode_scenery_runner.gd',

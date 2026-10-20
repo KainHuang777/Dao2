@@ -12,6 +12,11 @@ var grid: GridContainer
 var compact := false
 var _heading_full := ""
 var _heading_short := ""
+var feedback_message := ""
+
+func set_feedback(message: String) -> void:
+	feedback_message = message
+	_layout()
 
 func _ready() -> void:
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -117,10 +122,14 @@ func refresh(view: Dictionary) -> void:
 func _layout() -> void:
 	if grid == null: return
 	compact = size.y < 340
+	add_theme_constant_override("separation", 2 if compact else 6)
 	grid.columns = 2 if size.x >= 1000 else 1
 	hero.visible = not compact
 	source.visible = not compact
 	heading.text = _heading_short if compact else _heading_full
+	if compact and not feedback_message.is_empty():
+		heading.text = _heading_short.get_slice(" · ", 0) + " · " + feedback_message
+		heading.tooltip_text = _heading_full + "\n藏經閣產點 · 經書殿擴容\n" + feedback_message
 	heading.add_theme_font_size_override("font_size", 18 if compact else 20)
 	for row in cards.values():
 		row.art.custom_minimum_size = Vector2.ONE * (80 if compact else 112)

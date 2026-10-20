@@ -1,0 +1,14 @@
+﻿import fs from 'node:fs';
+import path from 'node:path';
+import { connectDriver, sleep } from '../../res1d2-natural-mouse-driver.mjs';
+const OUT = path.resolve('docs/verification/artifacts/early-v1-d/d2');
+const log = (obj) => fs.appendFileSync(path.join(OUT, 'events-reincarnate-confirm.jsonl'), JSON.stringify({ utc: new Date().toISOString(), ...obj }) + '\n');
+const d = await connectDriver({ cdpPort: 9242, matchPort: '4380' });
+await d.bringToFront();
+const g = await d.geo(); log({ kind: 'geo', ...g });
+log({ kind: 'click-first', ...await d.click({ x: 640, y: 586 }) });
+await sleep(1200);
+await d.screenshot(path.join(OUT, 'confirm-step1.png'));
+await sleep(1500);
+await d.screenshot(path.join(OUT, 'confirm-step1-b.png'));
+await d.close();

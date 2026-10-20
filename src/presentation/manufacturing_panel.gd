@@ -1,6 +1,7 @@
 extends "res://src/presentation/island_management_panel.gd"
-## Presentation-only cards and one detail workspace for the existing island jobs.
+## Presentation-only recipe rows with one shared inline settings accordion.
 const MaterialTile = preload("res://src/presentation/recipe_material_tile.gd")
+const RecipeRow = preload("res://src/presentation/recipe_row.gd")
 var island_filter := ""
 var category := "精煉"
 var filter_picker: OptionButton
@@ -28,6 +29,8 @@ var reserves := {}
 var advanced: VBoxContainer
 var list_scroll := 0
 var compact_cards := false
+var production := ProductionController.new()
+var recipe_drafts := {}
 signal transport_requested(route_id: String)
 
 func _ready() -> void:
@@ -64,43 +67,11 @@ func _rebuild() -> void:
 	grid.add_theme_constant_override("v_separation", 10)
 	list_box.add_child(grid)
 	for id in IslandEconomy.DURATIONS:
-		var card := PanelContainer.new()
-		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		card.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
-		grid.add_child(card)
-		var column := VBoxContainer.new()
-		column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		card.add_child(column)
-		var row := HBoxContainer.new()
-		column.add_child(row)
-		var title := _add_button(row, "", func(): select_recipe(id))
-		title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		title.custom_minimum_size.x = 100
-		var action := _add_button(row, "", func(): _card_action(id))
-		action.custom_minimum_size.x = 112
-		var materials := HBoxContainer.new()
-		materials.alignment = BoxContainer.ALIGNMENT_CENTER
-		column.add_child(materials)
-		var time := _label("")
-		column.add_child(time)
-		var progress := ProgressBar.new()
-		progress.show_percentage = false
-		progress.custom_minimum_size.y = 8
-		column.add_child(progress)
-		column.move_child(progress, 1)
-		var status := _label("")
-		column.add_child(status)
-		column.move_child(status, 2)
-		var compact_row := HBoxContainer.new()
-		compact_row.visible = false
-		compact_row.add_theme_constant_override("separation", 12)
-		column.add_child(compact_row)
-		var sidebar := VBoxContainer.new()
-		sidebar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		sidebar.custom_minimum_size.x = 220
-		compact_row.add_child(sidebar)
-		cards[id] = {"root": card, "column": column, "header": row, "compact_row": compact_row, "sidebar": sidebar, "title": title, "materials": materials, "tiles": {}, "time": time, "progress": progress, "status": status, "action": action}
+		var row := RecipeRow.new()
+		row.setup(id, func(): toggle_recipe(id), func(): _card_action(id))
+		row.mode_requested.connect(_set_recipe_mode)
+		grid.add_child(row)
+		cards[id] = row.as_card_dict()
 		_layout_card(cards[id])
 	detail_box = VBoxContainer.new()
 	detail_box.visible = false
@@ -110,9 +81,15 @@ func _rebuild() -> void:
 func select_recipe(id: String) -> void:
 	if not cards.has(id) or _catalog.is_empty():
 		return
+	_store_draft()
 	if selected_recipe.is_empty():
 		list_scroll = body.get_parent().scroll_vertical
 	selected_recipe = id
+	var refining := id in ["spirit_timber", "bronze_essence", "liquid", "stone_mid"]
+	category = "精煉" if refining else "合成"
+	if not island_filter.is_empty() and island_filter != _view.manufacturing.recipes[id].island:
+		island_filter = ""
+	detail_box.reparent(cards[id].column)
 	for child in detail_box.get_children():
 		detail_box.remove_child(child)
 		child.queue_free()
@@ -121,31 +98,33 @@ func select_recipe(id: String) -> void:
 	island = info.island
 	detail_title = _label("")
 	detail_box.add_child(detail_title)
-	var materials := HBoxContainer.new()
-	materials.alignment = BoxContainer.ALIGNMENT_CENTER
-	detail_box.add_child(materials)
-	detail_materials = {"materials": materials, "tiles": {}}
+	detail_title.visible = false
+	detail_materials = cards[id]
 	detail_stock = _label("")
 	detail_box.add_child(detail_stock)
 	detail_status = _label("")
 	detail_box.add_child(detail_status)
-	detail_progress = ProgressBar.new()
-	detail_progress.show_percentage = false
-	detail_progress.custom_minimum_size.y = 8
-	detail_box.add_child(detail_progress)
+	detail_progress = cards[id].progress
 	mode = OptionButton.new()
 	mode.custom_minimum_size.y = 44
 	for text in ["單批", "指定批數", "持續製作"]:
 		mode.add_item(text)
 	detail_box.add_child(mode)
+	# The mode is chosen on the row; keep its value here for the settings form.
+	mode.visible = false
+	mode.select(int(production.pref(id).mode))
 	batch_count = SpinBox.new()
 	batch_count.min_value = 1
 	batch_count.max_value = 1000000
-	batch_count.value = 1
+	batch_count.value = int(production.pref(id).count)
 	batch_count.prefix = "批數 "
 	batch_count.custom_minimum_size.y = 44
-	batch_count.visible = false
+	batch_count.visible = mode.selected == ProductionController.Mode.COUNT
 	detail_box.add_child(batch_count)
+	detail_box.move_child(batch_count, 0)
+	batch_count.value_changed.connect(func(value: float):
+		production.set_pref(selected_recipe, mode.selected, int(value))
+		_refresh_cards())
 	mode.item_selected.connect(func(index: int): batch_count.visible = index == 1)
 	_add_button(detail_box, "進階設定・原料保留量", func(): advanced.visible = not advanced.visible)
 	advanced = VBoxContainer.new()
@@ -157,7 +136,7 @@ func select_recipe(id: String) -> void:
 		field.max_value = 1000000000000
 		field.prefix = _resource_name(resource) + "保留 "
 		field.custom_minimum_size.y = 44
-		field.value = float(job.get("reserves", {}).get(resource, 0)) if job.get("recipe_id") == id else 0.0
+		field.value = float(recipe_drafts.get(id, {}).get(resource, job.get("reserves", {}).get(resource, 0) if job.get("recipe_id") == id else 0.0))
 		advanced.add_child(field)
 		reserves[resource] = field
 	start_button = _add_button(detail_box, "開始製造", _submit_work)
@@ -168,17 +147,49 @@ func select_recipe(id: String) -> void:
 		else:
 			action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": "workshop"}))
 	supply_button = _add_button(detail_box, "", _open_supply)
-	list_box.visible = false
+	list_box.visible = true
 	detail_box.visible = true
+	back_button.text = "收起"
 	back_button.visible = true
-	filter_picker.visible = false
-	category_row.visible = false
-	body.get_parent().scroll_vertical = 0
+	_refresh_cards()
 	_refresh_detail()
+	_reveal_settings.call_deferred(id)
+
+func toggle_recipe(id: String) -> void:
+	if selected_recipe == id:
+		back_to_list()
+	else:
+		select_recipe(id)
+
+func _reveal_settings(id: String) -> void:
+	await get_tree().process_frame
+	if selected_recipe == id:
+		body.get_parent().ensure_control_visible(cards[id].header)
+
+func _store_draft() -> void:
+	if selected_recipe.is_empty() or not is_instance_valid(mode):
+		return
+	production.set_pref(selected_recipe, mode.selected, int(batch_count.value))
+	var policy := {}
+	for resource in reserves:
+		policy[resource] = reserves[resource].value
+	recipe_drafts[selected_recipe] = policy
+
+func _set_recipe_mode(id: String, index: int) -> void:
+	_store_draft()
+	production.set_pref(id, index, int(production.pref(id).count))
+	if selected_recipe == id:
+		mode.select(index)
+		batch_count.visible = index == ProductionController.Mode.COUNT
+	elif index == ProductionController.Mode.COUNT:
+		select_recipe(id)
+	_refresh_cards()
 
 func back_to_list() -> void:
+	_store_draft()
 	selected_recipe = ""
 	detail_box.visible = false
+	detail_box.reparent(body)
 	list_box.visible = true
 	back_button.visible = false
 	filter_picker.visible = true
@@ -187,24 +198,39 @@ func back_to_list() -> void:
 	_refresh_cards()
 
 func _submit_work() -> void:
+	if selected_recipe.is_empty() or start_button.disabled:
+		return
+	_store_draft()
 	var policy := {}
 	for resource in reserves:
 		policy[resource] = str(reserves[resource].value)
 	var job: Dictionary = _view.get("economy", {}).get("jobs", {}).get(island, {})
-	action_requested.emit("craft" if job.is_empty() else "switch_processing", {"island_id": island, "recipe_id": selected_recipe, "count": int(batch_count.value) if mode.selected == 1 else 1, "repeat": mode.selected == 2, "reserves": policy})
+	action_requested.emit(ProductionController.start_command(job), ProductionController.work_payload(island, selected_recipe, mode.selected, int(batch_count.value), policy))
 
 func _card_action(id: String) -> void:
 	var info: Dictionary = _view.get("manufacturing", {}).get("recipes", {}).get(id, {})
 	var job: Dictionary = _view.get("economy", {}).get("jobs", {}).get(info.get("island", "home"), {})
-	if not job.is_empty() and job.recipe_id == id:
-		if int(job.get("remaining", 0)) > 0 and not job.has("pending") and int(job.get("batches", 0)) == 0 and not job.get("repeat", false):
-			select_recipe(id)
-		else:
-			action_requested.emit("stop_processing", {"island_id": info.island})
+	if ProductionController.is_running(job, id):
+		if not ProductionController.finishing(job):
+			_stop(info.island, job)
 	elif job.is_empty() and String(info.get("reason", "")).is_empty():
-		action_requested.emit("craft", {"island_id": info.island, "recipe_id": id, "count": 1, "repeat": false})
-	else:
-		select_recipe(id)
+		_start(id, info, job)
+
+func _start(id: String, info: Dictionary, job: Dictionary) -> void:
+	_store_draft()
+	var action := ProductionController.start_action(job, info, id, production.pref(id))
+	if not String(action.command).is_empty():
+		# Settings and quick-start use the same per-recipe reserve draft.
+		var policy := {}
+		for resource in recipe_drafts.get(id, {}):
+			policy[resource] = str(recipe_drafts[id][resource])
+		action.payload.reserves = policy
+		action_requested.emit(action.command, action.payload)
+
+func _stop(island_id: String, job: Dictionary) -> void:
+	var action := ProductionController.stop_action(job, island_id)
+	if not String(action.command).is_empty():
+		action_requested.emit(action.command, action.payload)
 
 func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	_view = view
@@ -285,13 +311,47 @@ func _refresh_cards() -> void:
 			elif finishing_job(job):
 				card.status.text += "・收尾"
 		var finishing: bool = current and int(job.get("remaining", 0)) > 0 and not job.has("pending") and int(job.get("batches", 0)) == 0 and not job.get("repeat", false)
-		card.action.text = "單批收尾・設定" if finishing else ("立即停止" if int(job.get("remaining", 0)) == 0 else "本批後停止") if current else "查看／切方" if not job.is_empty() else "製作一批" if String(info.reason).is_empty() else "查看詳情"
-		card.action.disabled = false
+		card.action.text = "本批收尾" if finishing else ("停止" if int(job.get("remaining", 0)) == 0 else "批後停止") if current else "開始"
+		card.action.disabled = finishing or (not current and (not job.is_empty() or not String(info.reason).is_empty()))
+		card.action.tooltip_text = "完成本批後閒置" if finishing else "停止後續批次，當前加工仍會完成" if current else "同島產線使用中；展開設定可明確切方" if not job.is_empty() else reason_text(info.reason) if not String(info.reason).is_empty() else "依列上模式開始製造"
+		if card.has("row"):
+			var pref_state := production.pref(id)
+			var shown_mode: int = ProductionController.Mode.REPEAT if current and job.get("repeat", false) else ProductionController.Mode.COUNT if current and int(job.get("batches", 0)) > 0 else ProductionController.Mode.SINGLE if current else int(pref_state.mode)
+			card.row.show_mode(shown_mode, int(job.get("batches", 0)) + 1 if current else int(pref_state.count))
+			for chip in card.row.modes._buttons:
+				chip.disabled = current
+				chip.tooltip_text = "加工中的模式由當前產線決定；停止後可重新選擇" if current else "選擇模式；批數可於就地設定調整"
+			card.row.settings.text = "收起" if selected_recipe == id else "設定"
+			card.row.set_island(info.island)
+			card.row.recipe_badge.tooltip_text += "\n" + card.time.text
+			var row_obj: RecipeRow = card.row
+			if current:
+				row_obj.set_state_visual(RecipeRow.COLOR_RUNNING, true)
+				row_obj.status_icon.visible = true
+				row_obj.status_icon.kind = UiIcon.Kind.PLAY
+				row_obj.status_icon.tint = RecipeRow.COLOR_RUNNING
+			elif pending:
+				row_obj.set_state_visual(RecipeRow.COLOR_PENDING, true)
+				row_obj.status_icon.visible = true
+				row_obj.status_icon.kind = UiIcon.Kind.REFRESH
+				row_obj.status_icon.tint = RecipeRow.COLOR_PENDING
+			elif info.get("reason") == "INSUFFICIENT_RESOURCE":
+				row_obj.set_state_visual(RecipeRow.COLOR_SHORTAGE, false)
+				row_obj.status_icon.visible = false
+			elif info.get("reason") == "OUTPUT_FULL":
+				row_obj.set_state_visual(RecipeRow.COLOR_OUTPUT_FULL, false)
+				row_obj.status_icon.visible = false
+			else:
+				row_obj.set_state_visual(RecipeRow.COLOR_IDLE, false)
+				row_obj.status_icon.visible = false
 
 func finishing_job(job: Dictionary) -> bool:
 	return int(job.get("remaining", 0)) > 0 and not job.has("pending") and int(job.get("batches", 0)) == 0 and not job.get("repeat", false)
 
 func _layout_card(card: Dictionary) -> void:
+	if card.has("row"):
+		card.row.apply_layout(compact_cards)
+		return
 	card.compact_row.visible = compact_cards
 	if compact_cards:
 		if card.materials.get_parent() != card.compact_row:
@@ -366,7 +426,9 @@ func _refresh_detail() -> void:
 	if not String(info.reason).is_empty():
 		detail_status.text += "\n" + ("下一批：" if job.get("recipe_id") == selected_recipe and int(job.get("remaining", 0)) > 0 else "") + reason_text(info.reason)
 	start_button.text = "開始製造" if job.is_empty() else "立即切換" if int(job.remaining) == 0 else "本批後切換"
-	start_button.disabled = not String(info.reason).is_empty() and (job.is_empty() or not info.reason in ["INSUFFICIENT_RESOURCE", "OUTPUT_FULL"])
+	start_button.disabled = job.get("recipe_id") == selected_recipe or (not String(info.reason).is_empty() and (job.is_empty() or not info.reason in ["INSUFFICIENT_RESOURCE", "OUTPUT_FULL"]))
+	if job.get("recipe_id") == selected_recipe:
+		start_button.text = "此配方加工中"
 	stop_button.visible = not job.is_empty()
 	stop_button.text = "立即停止" if int(job.get("remaining", 0)) == 0 else "本批後停止"
 	stop_button.disabled = not job.is_empty() and int(job.get("remaining", 0)) > 0 and not job.has("pending") and int(job.get("batches", 0)) == 0 and not job.get("repeat", false)

@@ -142,10 +142,33 @@
     {
       "id": "golden_core_formation",
       "game_id": "golden_core_formation",
-      "status": "pending_art",
-      "runtime_png": "assets/ui/skills-painted/golden_core_formation.png",
+      "status": "accepted",
+      "accepted_date": "2026-10-20",
+      "acceptance_basis": "使用者明確核定：結丹法新圖接受",
       "purpose": "112px desktop / 80px compact skill icon",
-      "prompt": "docs/verification/artifacts/uix-r8/golden_core_formation-prompt.txt"
+      "prompt": "docs/verification/artifacts/early-v1-c/golden_core_formation-prompt.txt",
+      "task": "EARLY-V1-C",
+      "date": "2026-10-20",
+      "source": "docs/verification/artifacts/early-v1-c/originals/golden_core_formation.png",
+      "runtime": "assets/ui/skills-painted/golden_core_formation.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "alpha": true,
+      "source_alpha_bounds": [
+        0,
+        17,
+        1240,
+        1254
+      ],
+      "processing": "Complete alpha bounds fitted into 304px with >=16px padding on 336px canvas; LANCZOS resize only; generated alpha preserved; no painted edits",
+      "sha256": "3f953d6dea063856ca2dda1bec01e1485e890815ad67cddbce69adeab9ad32fe",
+      "source_sha256": "2f739aa4a6304b36fcfce5d8703eca002cb9fa635a6fc1b48fe041ac493097a9"
     }
   ]
 }

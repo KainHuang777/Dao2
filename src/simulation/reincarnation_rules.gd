@@ -85,6 +85,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.dao_proof += int(reward["dao_proof"])
 
 	# Reset current life progress
+	# V2-022 (user accepted 2026-10-20): realms_data is independent
+	# cross-life progress; inheritance talents only govern basic resources below.
 	state.abode_scenery = {}
 	state.economy = IslandEconomy.initial() if had_economy else {}
 	if had_progression:

@@ -73,7 +73,7 @@ func _run() -> void:
 		check(page.scroll.size.y >= 64, "readable scroll height")
 		for row_id in page.cards:
 			var row: Dictionary = page.cards[row_id]
-			check(row_id == "golden_core_formation" or row.art.texture != null, "painted skill art")
+			check(row.art.texture != null, "painted skill art: " + row_id)
 			check(row.card.size.x <= page.scroll.size.x + 1, "card fits width")
 			check(row.action.size.y >= 44, "44px action")
 		var y: float = page.heading.global_position.y
@@ -83,6 +83,12 @@ func _run() -> void:
 		var last: Control = page.cards.golden_core_formation.action
 		check(page.scroll.get_global_rect().encloses(last.get_global_rect()), "last action reachable")
 		check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1, "bottom rod safety")
+		panel.show_result("操作完成，進度已更新。")
+		await frames()
+		print("SKILL_FEEDBACK viewport=%s scroll=%s card=%s heading=%s panel=%s" % [vp,page.scroll.size,page.cards.golden_core_formation.card.size,page.heading.size,panel.size])
+		check(page.scroll.size.y >= page.cards.golden_core_formation.card.size.y, "success feedback leaves a complete skill card")
+		if vp.y < 500:
+			check(not panel.status.visible and page.heading.text.contains("操作完成"), "compact feedback merged in fixed heading")
 		page.scroll.scroll_vertical = 0
 		nav.home()
 		check(not panel.visible, "home returns")

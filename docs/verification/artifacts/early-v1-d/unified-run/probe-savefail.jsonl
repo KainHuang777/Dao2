@@ -1,0 +1,5 @@
+{"utc":"2026-10-19T02:10:50.602Z","type":"before","data":{"revision":9221,"era":3}}
+{"utc":"2026-10-19T02:10:50.613Z","type":"inject","data":{"installed":"installed"}}
+{"utc":"2026-10-19T02:11:11.541Z","type":"during_fail","data":{"revision":9221}}
+{"utc":"2026-10-19T02:11:11.542Z","type":"restore","data":{"restored":"restored"}}
+{"utc":"2026-10-19T02:12:12.136Z","type":"verify","data":{"recovered":false,"revision_after":9221,"revision_during_fail":9221,"ok":false}}

@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { connectDriver, sleep } from '../../res1d2-natural-mouse-driver.mjs';
+
+const OUT = path.resolve('docs/verification/artifacts/early-v1-d/d2');
+const eventsPath = path.join(OUT, 'events-phase2.jsonl');
+const log = (obj) => fs.appendFileSync(eventsPath, JSON.stringify({ utc: new Date().toISOString(), ...obj }) + '\n');
+const d = await connectDriver({ cdpPort: 9242, matchPort: '4380' });
+d.onConsoleLine(line => log({ kind: 'console', ...line }));
+await d.bringToFront();
+const g = await d.geo();
+log({ kind: 'geo', ...g });
+await d.screenshot(path.join(OUT, 'phase2-before-close.png'));
+const close = { x: 270, y: 362 };
+log({ kind: 'click-close', ...await d.click(close) });
+await sleep(1500);
+await d.screenshot(path.join(OUT, 'phase2-after-close-1.5s.png'));
+await sleep(2500);
+await d.screenshot(path.join(OUT, 'phase2-after-close-4s.png'));
+const save = await d.readSave();
+fs.writeFileSync(path.join(OUT, 'save-phase2.json'), JSON.stringify(save, null, 2));
+log({ kind: 'save-phase2', revision: save.revision, slot: save.slot, era: save.state?.era_id, total: save.state?.total_elapsed_seconds });
+await d.close();

@@ -1,0 +1,6 @@
+{"utc":"2026-10-19T02:13:34.514Z","type":"before","data":{"revision":9254,"settled_until_utc_ms":"1792376004686","era":3,"level":2}}
+{"utc":"2026-10-19T02:13:34.517Z","type":"navigate_away","data":{}}
+{"utc":"2026-10-19T02:15:04.668Z","type":"navigate_back","data":{"awayReal":90004}}
+{"utc":"2026-10-19T02:15:07.698Z","type":"console","data":{"text":"OFFLINE_SETTLEMENT_BEGIN"}}
+{"utc":"2026-10-19T02:15:07.987Z","type":"console","data":{"text":"OFFLINE_SETTLEMENT_END: ok=true"}}
+{"utc":"2026-10-19T02:15:14.267Z","type":"after","data":{"revision":9255,"settled_until_utc_ms":"1792376107590","report":{"age_seconds":9244,"away_ms":102904,"bootstrap":false,"cap_applied":false,"effective_ms":102904,"effective_ticks":103,"forfeited_ms":0,"left_at_utc_ms":1792376004686,"report_id":"offline:1792376107590","rollback":false,"settled_at_utc_ms":1792376107590,"stopped":null,"time_only_ticks":0}}}

@@ -1,0 +1,14 @@
+import path from 'node:path';
+import { connectDriver, summarizeSave, sleep } from '../res1d2-natural-mouse-driver.mjs';
+const driver = await connectDriver({ cdpPort: Number(process.env.CDP_PORT || '9242'), matchPort: '4380' });
+const DIR = 'docs/verification/artifacts/early-v1-d/unified-run';
+await driver.bringToFront();
+let s = await driver.readSave();
+console.log('rev_before=' + s.revision);
+await driver.screenshot(path.join(DIR, 'probe-state.png'));
+await sleep(20000);
+s = await driver.readSave();
+console.log('rev_after20s=' + s.revision);
+await driver.screenshot(path.join(DIR, 'probe-state2.png'));
+await driver.close();
+process.exit(0);

@@ -1,0 +1,92 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 專案初始化中 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在掃描檔案結構…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在載入全域類別名稱…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在驗證 GDExtension…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在建立自動載入腳本…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 初始化外掛程式...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 開始掃描檔案...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在載入編輯器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在載入編輯器佈局…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在載入面板…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 專案初始化中 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在掃描檔案結構…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在載入全域類別名稱…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在驗證 GDExtension…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在建立自動載入腳本…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 初始化外掛程式...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 開始掃描檔案...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1msavepack[22m | Started 打包中 (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/terrain.png-dc94924432152dd97b5a607fb71e15de.ctex[39m[0m
+[   1% ] [90m[1msavepack[22m | 儲存檔案：res://assets/abode/fx3art1/terrain.png.import[39m[0m
+[   4% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/Dao2Sans-VF.ttf-93c938a13c81f767b04e1ece3e529da0.fontdata[39m[0m
+[   4% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/runtime/Dao2Sans-VF.ttf.import[39m[0m
+[   7% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/asura.png-1c362c2247080cede099805f6d63f349.ctex[39m[0m
+[   7% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/asura.png.import[39m[0m
+[  10% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/buddha.png-d680ebdcc324b2909854a150ef96b2ca.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/buddha.png.import[39m[0m
+[  13% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/clean.png-a81bb9b835652b0b3713166ef5ecb662.ctex[39m[0m
+[  13% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/clean.png.import[39m[0m
+[  17% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/far_island.png-64ee11b2422df106f64b636f30c26d07.ctex[39m[0m
+[  17% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/far_island.png.import[39m[0m
+[  20% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/ground_shadow.png-bc769370e0724dc37e66149d69b3765b.ctex[39m[0m
+[  20% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/ground_shadow.png.import[39m[0m
+[  23% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_hit.png-c95cf3aa66a04b8ce3176ff64176e526.ctex[39m[0m
+[  23% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_hit.png.import[39m[0m
+[  26% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_hit_emission.png-6ad36ca0a0c04cd270a689fea8b074b5.ctex[39m[0m
+[  26% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_hit_emission.png.import[39m[0m
+[  30% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_hover.png-223f06b1a99c84d426687df3ee9760de.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_hover.png.import[39m[0m
+[  33% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_hover_emission.png-495c466ab93d148eccc9372a6e9894cb.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_hover_emission.png.import[39m[0m
+[  35% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_recover.png-6fe8f10b5bfa1c041a26507f641b0a73.ctex[39m[0m
+[  35% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_recover.png.import[39m[0m
+[  38% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_recover_emission.png-e7143a91c791ca3cecff38de285c2702.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_recover_emission.png.import[39m[0m
+[  41% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_unbalanced.png-03ac525bf04be27ce8df8c9bdf08ca95.ctex[39m[0m
+[  41% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_unbalanced.png.import[39m[0m
+[  45% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/hero_unbalanced_emission.png-043e4a08163f34be8f193c830b83eb35.ctex[39m[0m
+[  45% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/hero_unbalanced_emission.png.import[39m[0m
+[  48% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/mist_far.png-68a5ed08834980fcedfce295c3ea0f76.ctex[39m[0m
+[  48% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/mist_far.png.import[39m[0m
+[  51% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/mist_near.png-84bcd918d25cb713d955faadfeb0e015.ctex[39m[0m
+[  51% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/mist_near.png.import[39m[0m
+[  54% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/shield_cracked.png-1ef68fa300685ec941e328fdbd1c7e79.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/shield_cracked.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/shield_intact.png-15bd3897f664ad0a647ea80c1c151819.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/shield_intact.png.import[39m[0m
+[  61% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/shield_shattered_v2.png-96679634a000295f08e8c7c357816798.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/shield_shattered_v2.png.import[39m[0m
+[  64% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/star_arc.png-fbb2070fc4f4037898c4d2bb29edf094.ctex[39m[0m
+[  64% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/star_arc.png.import[39m[0m
+[  66% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/waterfalls.png-cf6f3fdf97dfe8815c9177c6f24e9c8f.ctex[39m[0m
+[  66% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/waterfalls.png.import[39m[0m
+[  69% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/waterfall_left.png-16ebadd05ec3ad7c8ae2ea0ab0eb43a3.ctex[39m[0m
+[  69% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/waterfall_left.png.import[39m[0m
+[  73% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/imported/waterfall_right.png-1956e8e6826c7bfd6f8d4068b694943c.ctex[39m[0m
+[  73% ] [90m[1msavepack[22m | 儲存檔案：res://assets/tribulation/trib-a/waterfall_right.png.import[39m[0m
+[  76% ] [90m[1msavepack[22m | 儲存檔案：res://background.gdshader[39m[0m
+[  79% ] [90m[1msavepack[22m | 儲存檔案：res://assets/fonts/SourceHanSans-LICENSE.txt[39m[0m
+[  82% ] [90m[1msavepack[22m | 儲存檔案：res://emission.gdshader[39m[0m
+[  86% ] [90m[1msavepack[22m | 儲存檔案：res://preview.gdc[39m[0m
+[  89% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/exported/133200997/export-73c9835ab34314e9b492dfbff7cbfb05-preview.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | 儲存檔案：res://sound.gdc[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://stage.gdc[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://preview.gd.remap[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://preview.tscn.remap[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://sound.gd.remap[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://stage.gd.remap[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/global_script_class_cache.cfg[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://.godot/uid_cache.bin[39m[0m
+[  95% ] [90m[1msavepack[22m | 儲存檔案：res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m

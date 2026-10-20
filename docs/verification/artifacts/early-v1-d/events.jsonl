@@ -1,0 +1,45 @@
+{"utc":"2026-10-18T16:09:09.846Z","type":"stdout_line","data":{"line":"EARLYV1D: start config cdp=9240 http=4380 stepDir=docs/verification/artifacts/early-v1-d"}}
+{"utc":"2026-10-18T16:09:09.847Z","type":"run_start","data":{"cdpPort":"9240","httpPort":"4380","resetSave":true,"runSteps":""}}
+{"utc":"2026-10-18T16:09:09.946Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=driver connected: pageId=FD70148AA0035D9885E25378807EE375 url=http://127.0.0.1:4380/index.html"}}
+{"utc":"2026-10-18T16:09:09.971Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=runList=S00_launch_blank,S01_hut_build,S02_era1_level10,S03_era1_capacity,S04_breakthrough_foundation,S05_era2_capacity,S06_economy_open_wood_ore,S07_era2_level10,S08_breakthrough_gold,S09_open_herb,S10_route_liquid_home,S11_craft_liquid,S12_formation_core_stone_mid,S13_era3_first_level_up,S14_reload_persistence,S15_wait_lifespan_exhaustion,S16_first_reincarnation,S17_second_life_supply,S18_final_persistence"}}
+{"utc":"2026-10-18T16:09:10.004Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=step_begin S00_launch_blank"}}
+{"utc":"2026-10-18T16:09:10.004Z","type":"step_start","data":{"name":"S00_launch_blank","index":0}}
+{"utc":"2026-10-18T16:09:10.017Z","type":"origin_cleared","data":{"remaining":0}}
+{"utc":"2026-10-18T16:09:26.538Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-001-S00-ready.png","label":"S00-ready"}}
+{"utc":"2026-10-18T16:09:26.543Z","type":"save_export","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\saves\\s00-blank-start.json","tag":"s00-blank-start","slot":"save_main","bytes":2239}}
+{"utc":"2026-10-18T16:09:26.571Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S00_launch_blank ok era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0"}}
+{"utc":"2026-10-18T16:09:26.612Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S00_launch_blank ok=true detail=done_in=17s era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0"}}
+{"utc":"2026-10-18T16:09:26.612Z","type":"step_done","data":{"name":"S00_launch_blank","index":0,"ms":16641}}
+{"utc":"2026-10-18T16:09:26.613Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=step_begin S01_hut_build"}}
+{"utc":"2026-10-18T16:09:26.613Z","type":"step_start","data":{"name":"S01_hut_build","index":1}}
+{"utc":"2026-10-18T16:09:30.202Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-002-S01-catalog-open.png","label":"S01-catalog-open"}}
+{"utc":"2026-10-18T16:10:01.451Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-003-S01-after-gather.png","label":"S01-after-gather"}}
+{"utc":"2026-10-18T16:10:01.457Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S01_hut_build ok hut=1"}}
+{"utc":"2026-10-18T16:10:01.465Z","type":"save_export","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\saves\\s01-hut.json","tag":"s01-hut","slot":"save_main","bytes":6514}}
+{"utc":"2026-10-18T16:10:01.468Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S01_hut_build ok=true detail=done_in=35s era=1 lv=1 rev=70 cycle=0 lingli=1/0 hut=1"}}
+{"utc":"2026-10-18T16:10:01.468Z","type":"step_done","data":{"name":"S01_hut_build","index":1,"ms":34856}}
+{"utc":"2026-10-18T16:10:01.468Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=step_begin S02_era1_level10"}}
+{"utc":"2026-10-18T16:10:01.468Z","type":"step_start","data":{"name":"S02_era1_level10","index":2}}
+{"utc":"2026-10-18T16:10:01.471Z","type":"click_attempt","data":{"step":"S02","attempt":1,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:10:02.459Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-004-S02-progress-1.png","label":"S02-progress-1"}}
+{"utc":"2026-10-18T16:10:22.469Z","type":"click_attempt","data":{"step":"S02","attempt":2,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:10:42.880Z","type":"click_attempt","data":{"step":"S02","attempt":3,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:10:43.899Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-005-S02-progress-3.png","label":"S02-progress-3"}}
+{"utc":"2026-10-18T16:11:03.916Z","type":"click_attempt","data":{"step":"S02","attempt":4,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:11:24.306Z","type":"click_attempt","data":{"step":"S02","attempt":5,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:11:25.308Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-006-S02-progress-5.png","label":"S02-progress-5"}}
+{"utc":"2026-10-18T16:11:45.321Z","type":"click_attempt","data":{"step":"S02","attempt":6,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:12:05.705Z","type":"click_attempt","data":{"step":"S02","attempt":7,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:12:06.638Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-007-S02-progress-7.png","label":"S02-progress-7"}}
+{"utc":"2026-10-18T16:12:26.649Z","type":"click_attempt","data":{"step":"S02","attempt":8,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:12:47.053Z","type":"click_attempt","data":{"step":"S02","attempt":9,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:12:48.092Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-008-S02-progress-9.png","label":"S02-progress-9"}}
+{"utc":"2026-10-18T16:13:08.099Z","type":"click_attempt","data":{"step":"S02","attempt":10,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:13:28.549Z","type":"click_attempt","data":{"step":"S02","attempt":11,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:13:29.558Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-009-S02-progress-11.png","label":"S02-progress-11"}}
+{"utc":"2026-10-18T16:13:49.563Z","type":"click_attempt","data":{"step":"S02","attempt":12,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:14:11.149Z","type":"click_attempt","data":{"step":"S02","attempt":13,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:14:12.147Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-010-S02-progress-13.png","label":"S02-progress-13"}}
+{"utc":"2026-10-18T16:14:32.169Z","type":"click_attempt","data":{"step":"S02","attempt":14,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:14:52.575Z","type":"click_attempt","data":{"step":"S02","attempt":15,"point":{"x":307,"y":378,"log":"CALIBRATED 3-row 靈木 採集 chip"},"level":1}}
+{"utc":"2026-10-18T16:14:53.571Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\step-011-S02-progress-15.png","label":"S02-progress-15"}}

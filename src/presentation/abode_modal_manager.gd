@@ -36,6 +36,8 @@ func create_panels() -> void:
 	_abode.breakthrough_seq.sequence_started.connect(_abode._on_breakthrough_sequence_started)
 	_abode.breakthrough_seq.sequence_finished.connect(_abode._on_breakthrough_sequence_finished)
 	_abode.breakthrough_seq.save_retry_requested.connect(_abode._retry_breakthrough_save)
+	_abode.breakthrough_seq.confirm_requested.connect(_abode._breakthrough_era)
+	_abode.breakthrough_seq.storm_audio_changed.connect(_abode._on_storm_audio_changed)
 
 	var rc_script = preload("res://src/presentation/reincarnation_panel.gd")
 	_abode.reincarnation_panel = rc_script.new()
@@ -265,6 +267,10 @@ func _on_settings_menu_pressed(id: int) -> void:
 			_abode.breakthrough_seq.play_preview()
 		101:
 			_abode._toggle_bgm()
+		104:
+			_abode.is_sfx_enabled = not _abode.is_sfx_enabled
+			_abode.breakthrough_seq.sound_enabled = _abode.is_sfx_enabled
+			_update_settings_menu_labels()
 		1:
 			_abode._toggle_motion()
 			_update_settings_menu_labels()
@@ -284,6 +290,9 @@ func _update_settings_menu_labels() -> void:
 		var bgm_state: String = "開" if _abode.is_bgm_enabled else "關"
 		popup.set_item_text(bgm_idx, "背景音樂：%s" % bgm_state)
 	var motion_idx: int = popup.get_item_index(1)
+	var sfx_idx: int = popup.get_item_index(104)
+	if sfx_idx >= 0:
+		popup.set_item_text(sfx_idx, "演出音效：%s" % ("開" if _abode.is_sfx_enabled else "關"))
 	if motion_idx >= 0:
 		var motion_state: String = "開" if _abode.reduced_motion else "關"
 		popup.set_item_text(motion_idx, "低特效：%s" % motion_state)
@@ -613,6 +622,7 @@ func _on_reincarnate_requested(mode: String) -> void:
 		return
 	var res: Dictionary = _abode.session.reincarnate(mode)
 	if bool(res.get("ok", false)):
+		_abode._last_breakthrough_result.clear()
 		_abode.hint.text = "天地玄黃，轉世功成！重塑肉身，再續大道仙途。"
 		_abode._save_game()
 		if _abode.reincarnation_panel != null:

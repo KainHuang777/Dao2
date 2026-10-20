@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { connectDriver, sleep } from '../../res1d2-natural-mouse-driver.mjs';
+const OUT = path.resolve('docs/verification/artifacts/early-v1-d/d2');
+const log = (obj) => fs.appendFileSync(path.join(OUT, 'events-close-720.jsonl'), JSON.stringify({ utc: new Date().toISOString(), ...obj }) + '\n');
+const d = await connectDriver({ cdpPort: 9242, matchPort: '4380' });
+await d.bringToFront();
+await sleep(1200);
+const g = await d.geo();
+log({ kind: 'geo-after-override', ...g });
+await d.screenshot(path.join(OUT, 'after-override-1280x720.png'));
+const p = { x: 268, y: 290 };
+log({ kind: 'click-close-720', ...await d.click(p) });
+await sleep(1600);
+await d.screenshot(path.join(OUT, 'after-close-720-a.png'));
+await sleep(2200);
+await d.screenshot(path.join(OUT, 'after-close-720-b.png'));
+await d.close();

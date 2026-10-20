@@ -6,6 +6,7 @@ config_version=5
 config/name="修仙問道 v2 — 洞府探針"
 config/name.desktop_control="修仙問道 v2 — 桌面對照"
 run/main_scene="res://scenes/living_abode.tscn"
+run/main_scene.trib0_acceptance="res://src/verification/trib0_acceptance.tscn"
 run/main_scene.r11_acceptance="res://src/verification/uix_r11_acceptance.tscn"
 run/main_scene.r10_acceptance="res://src/verification/uix_r10_acceptance.tscn"
 run/main_scene.persistence_verification="res://scenes/web_persistence_probe.tscn"

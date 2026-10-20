@@ -1,0 +1,14 @@
+config_version=5
+[application]
+config/name="TRIB-B 渡劫隔離試演"
+run/main_scene="res://preview.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+[display/window]
+size/viewport_width=1280
+size/viewport_height=720
+stretch/mode="canvas_items"
+stretch/aspect="expand"
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.02,0.03,0.06,1)

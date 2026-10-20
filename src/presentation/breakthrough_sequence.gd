@@ -5,6 +5,19 @@ extends Control
 signal sequence_started
 signal sequence_finished
 signal save_retry_requested
+signal confirm_requested
+signal storm_audio_changed(active: bool)
+
+const TribulationStage = preload("res://src/presentation/tribulation/stage.gd")
+var _tribulation_stage: Control
+var _storm_audio: AudioStreamPlayer
+var _storm_active := false
+var _tribulation_mode := false
+var sound_enabled := true:
+	set(value):
+		sound_enabled = value
+		if not value:
+			_stop_storm_audio()
 
 var _bg: ColorRect
 var _margin: MarginContainer
@@ -30,10 +43,98 @@ var _is_playing: bool = false
 var _era_name: String = "築基期"
 var _from_era_name: String = "練氣期"
 var _target_era_id: int = 2
-var reduced_motion: bool = false
+var reduced_motion: bool = false:
+	set(value):
+		reduced_motion = value
+		if value and _tribulation_mode and _is_playing:
+			_finish_animation()
 var world_fx: IslandBreakthroughFx
 var _preview_mode := false
 var _saved_status := true
+var _result_data: Dictionary = {}
+var _preparing := false
+var _confirm_button: Button
+var _detail_label: Label
+
+func prepare(target: String, details: String) -> void:
+	_stop_tribulation()
+	_tribulation_mode = false
+	_result_data = {}
+	_preview_mode = false
+	_preparing = true
+	_is_playing = false
+	_title_label.text = "渡劫準備 · " + target
+	_stage_label.text = "開始後由正式規則判定一次"
+	_subtitle_label.text = "確認渡劫風險"
+	_detail_label.text = details
+	_detail_label.visible = true
+	_save_label.text = "尚未提交 · 取消可返回修煉"
+	_couplet_label.text = ""
+	_confirm_button.visible = true
+	_replay_button.visible = false
+	_retry_button.visible = false
+	_skip_button.visible = false
+	_close_button.text = "取消"
+	_result_panel.visible = true
+	visible = true
+	sequence_started.emit()
+	_layout_for_viewport()
+
+func play_result(data: Dictionary) -> void:
+	play(String(data.from_name), String(data.to_name), int(data.to_era))
+	_result_data = data.duplicate(true)
+	if data.kind == "tribulation_failed":
+		_title_label.text = "渡劫未成"
+		_subtitle_label.text = "%s → %s · 滿層 LV%d" % [data.from_name, data.to_name, int(data.level)]
+		_detail_label.text = "修煉 %.1f → %.1f 秒；丹藥疊層已重置。" % [float(data.training_before), float(data.training_after)]
+		_detail_label.visible = true
+		_couplet_label.text = "護體潰散，返回修煉後可再次準備。"
+		_close_button.text = "返回修煉"
+	elif data.kind == "tribulation_passed":
+		_title_label.text = "渡劫成功"
+	if data.kind in ["tribulation_passed", "tribulation_failed"]:
+		_tribulation_mode = true
+		if world_fx != null:
+			world_fx.stop()
+		_start_tribulation(data.kind == "tribulation_failed")
+	set_save_status(_saved_status)
+
+func _start_tribulation(failed: bool) -> void:
+	if _tribulation_stage == null:
+		_tribulation_stage = TribulationStage.new()
+		_tribulation_stage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		add_child(_tribulation_stage)
+		move_child(_tribulation_stage, 0)
+		_tribulation_stage.set_process(false)
+	_tribulation_stage.failed = failed
+	_tribulation_stage.reduced = reduced_motion
+	_tribulation_stage.visible = true
+	_tribulation_stage.viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_tribulation_stage.seek(13.5 if reduced_motion else 0.0)
+	_stage_label.text = "渡劫演出 · 結果已結算"
+	if not reduced_motion and sound_enabled:
+		if _storm_audio == null:
+			_storm_audio = AudioStreamPlayer.new()
+			_storm_audio.volume_db = -5.0
+			add_child(_storm_audio)
+		# Accepted F1 PCM is packaged once; no synthesis stalls the committed result.
+		_storm_audio.stream = load("res://assets/audio/tribulation/%s.wav" % ("failure" if failed else "success"))
+		_storm_audio.play()
+		_storm_active = true
+		storm_audio_changed.emit(true)
+
+func _stop_storm_audio() -> void:
+	if _storm_audio != null:
+		_storm_audio.stop()
+	if _storm_active:
+		_storm_active = false
+		storm_audio_changed.emit(false)
+
+func _stop_tribulation() -> void:
+	_stop_storm_audio()
+	if _tribulation_stage != null:
+		_tribulation_stage.hide()
+		_tribulation_stage.viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -42,6 +143,9 @@ func _ready() -> void:
 	resized.connect(_layout_for_viewport)
 	_layout_for_viewport()
 	visible = false
+	visibility_changed.connect(func():
+		if not visible:
+			_stop_tribulation())
 
 func _make_label(text_value: String, font_size: int, color: Color) -> Label:
 	var label := Label.new()
@@ -133,6 +237,9 @@ func _build_ui() -> void:
 	_center.add_child(_subtitle_label)
 	_couplet_label = _make_label("雲海深處，殘破石像在靈光中若隱若現。", 18, Color("d0e2d3"))
 	_center.add_child(_couplet_label)
+	_detail_label = _make_label("", 18, Color("d0e2d3"))
+	_detail_label.visible = false
+	_center.add_child(_detail_label)
 	_save_label = _make_label("境界已提升 · 進度已保存", 16, Color("aee2c1"))
 	_center.add_child(_save_label)
 	_button_row = HFlowContainer.new()
@@ -140,6 +247,16 @@ func _build_ui() -> void:
 	_button_row.add_theme_constant_override("h_separation", 8)
 	_button_row.add_theme_constant_override("v_separation", 8)
 	_center.add_child(_button_row)
+	_confirm_button = Button.new()
+	_confirm_button.text = "開始渡劫"
+	_confirm_button.custom_minimum_size = Vector2(112, 48)
+	_confirm_button.visible = false
+	_confirm_button.pressed.connect(func():
+		if not _preparing:
+			return
+		_on_close_pressed()
+		confirm_requested.emit())
+	_button_row.add_child(_confirm_button)
 	_replay_button = Button.new()
 	_replay_button.text = "重溫突破"
 	_replay_button.custom_minimum_size = Vector2(112, 48)
@@ -188,7 +305,10 @@ func set_save_status(saved: bool) -> void:
 		_save_label.text = "視覺試播 · 不提升境界、不發放收益"
 		_retry_button.visible = false
 		return
-	_save_label.text = "境界已提升 · 進度已保存" if saved else "境界已提升 · 保存失敗，請重試"
+	if _preparing:
+		return
+	var result_text := "渡劫未成 · 結果已結算" if _result_data.get("kind", "") == "tribulation_failed" else "境界已提升"
+	_save_label.text = result_text + (" · 進度已保存" if saved else " · 保存失敗，請重試")
 	_save_label.add_theme_color_override("font_color", Color("aee2c1") if saved else Color("ffd28a"))
 	_retry_button.visible = not saved
 
@@ -196,6 +316,14 @@ func play_preview(target_era_id: int = 8) -> void:
 	play("特效樣板", "ERA%d 雷電法陣" % target_era_id, target_era_id, true)
 
 func play(from_era: String, to_era: String, target_era_id: int = 2, preview: bool = false) -> void:
+	_stop_tribulation()
+	_tribulation_mode = false
+	_preparing = false
+	_result_data = {}
+	_detail_label.visible = false
+	_confirm_button.visible = false
+	_replay_button.visible = true
+	_couplet_label.text = "雲海深處，殘破石像在靈光中若隱若現。"
 	_preview_mode = preview
 	set_save_status(_saved_status)
 	_title_label.text = "特效試播 · 雷電法陣" if preview else "天地同感 · 境界突破"
@@ -223,6 +351,12 @@ func _process(delta: float) -> void:
 	if not _is_playing:
 		return
 	_anim_time += delta
+	if _tribulation_mode:
+		if _tribulation_stage != null:
+			_tribulation_stage.seek(13.5 if reduced_motion else _anim_time)
+		if _anim_time >= (1.2 if reduced_motion else 20.0):
+			_finish_animation()
+		return
 	if world_fx != null:
 		world_fx.sample_sequence(_anim_time, reduced_motion)
 	_bg.color.a = 0.04 if reduced_motion else 0.04 + sin(clampf(_anim_time / IslandBreakthroughFx.DURATION, 0.0, 1.0) * PI) * 0.09
@@ -240,8 +374,11 @@ func _process(delta: float) -> void:
 
 func _finish_animation() -> void:
 	_is_playing = false
+	_stop_tribulation()
 	_bg.color.a = 0.04
 	_stage_label.text = "試播完成 · 返回洞府" if _preview_mode else "境界突破 · 功成出關"
+	if _result_data.get("kind", "") == "tribulation_failed":
+		_stage_label.text = "渡劫未成 · 返回修煉"
 	_skip_button.visible = false
 	if _left_spacer != null:
 		_left_spacer.visible = false
@@ -256,12 +393,17 @@ func _on_skip_pressed() -> void:
 	_finish_animation()
 
 func _on_replay_pressed() -> void:
-	play(_from_era_name, _era_name, _target_era_id, _preview_mode)
+	if not _result_data.is_empty():
+		play_result(_result_data.duplicate(true))
+	else:
+		play(_from_era_name, _era_name, _target_era_id, _preview_mode)
 
 func _on_close_pressed() -> void:
 	if not visible:
 		return
 	_is_playing = false
+	_stop_tribulation()
+	_preparing = false
 	if world_fx != null:
 		world_fx.stop()
 	visible = false
@@ -275,3 +417,6 @@ func _input(event: InputEvent) -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and visible:
 		_on_close_pressed()
+
+func _exit_tree() -> void:
+	_stop_storm_audio()

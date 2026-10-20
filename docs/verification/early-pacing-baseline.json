@@ -3,22 +3,22 @@
     {
       "id": "C1",
       "severity": "FAIL",
-      "text": "deadlock: cap < next cost: 42/92 rows. e.g. wooden_house L6, wooden_house L7, wooden_house L8, wooden_house L9, storage_lingli L7, storage_lingli L8, storage_lingli L9, storage_money L2 ..."
+      "text": "deadlock: cap < next cost: 26/92 rows. e.g. wooden_house L8, wooden_house L9, storage_money L4, storage_money L5, storage_money L6, storage_money L7, storage_money L8, storage_money L9 ..."
     },
     {
       "id": "C2",
       "severity": "WARN",
-      "text": "capacity pressure out of band [1.2, 4.0]: 68/92 rows. e.g. hut L0 (25.0), hut L1 (16.1), wooden_house L0 (15.0), wooden_house L1 (9.09), wooden_house L2 (5.36), wooden_house L5 (1.15), wooden_house L6 (0.69), wooden_house L7 (0.41) ..."
+      "text": "capacity pressure out of band [1.2, 4.0]: 60/92 rows. e.g. hut L0 (28.0), hut L1 (18.1), wooden_house L0 (18.7), wooden_house L1 (12.4), wooden_house L2 (8.12), wooden_house L3 (5.33), wooden_house L7 (1.03), wooden_house L8 (0.68) ..."
     },
     {
       "id": "C3",
       "severity": "WARN",
-      "text": "afford time out of [15.0s, 120.0s]: 57/92 rows. e.g. hut L0 (12.8s), wooden_house L4 (151s), wooden_house L5 (252s), wooden_house L6 (420s), wooden_house L7 (697s), wooden_house L8 (1157s), wooden_house L9 (1917s), storage_lingli L5 (127s) ..."
+      "text": "afford time out of [15.0s, 600.0s]: 13/92 rows. e.g. hut L0 (12.8s), wooden_house L9 (790s), storage_money L7 (706s), storage_money L8 (953s), storage_money L9 (1281s), forest_farm L0 (12.8s), forest_farm L9 (715s), stone_mine L9 (929s) ..."
     },
     {
       "id": "C4",
       "severity": "WARN",
-      "text": "afford/fill ratio out of [0.3, 0.9]: 68/92 rows. e.g. hut L0 (0.04), hut L1 (0.06), wooden_house L0 (0.07), wooden_house L1 (0.11), wooden_house L2 (0.19), wooden_house L6 (1.45), wooden_house L7 (2.41), wooden_house L8 (4.01) ..."
+      "text": "afford/fill ratio out of [0.3, 0.9]: 65/92 rows. e.g. hut L0 (0.04), hut L1 (0.06), wooden_house L0 (0.05), wooden_house L1 (0.08), wooden_house L2 (0.12), wooden_house L3 (0.19), wooden_house L4 (0.28), wooden_house L7 (0.97) ..."
     },
     {
       "id": "C5",
@@ -28,7 +28,7 @@
     {
       "id": "C6",
       "severity": "WARN",
-      "text": "5-minute idle overflow out of [30%, 90%]: 12/92 rows. e.g. hut L0 (lingli 0%), hut L1 (lingli 0%), wooden_house L0 (money 4%), forest_farm L0 (wood 0%), forest_farm L1 (wood 4%), stone_mine L0 (stone_low 0%), stone_mine L1 (stone_low 4%), herb_farm L0 (spirit_grass_low 0%) ..."
+      "text": "5-minute idle overflow out of [30%, 90%]: 15/92 rows. e.g. hut L0 (lingli 0%), hut L1 (lingli 0%), wooden_house L0 (money 0%), wooden_house L1 (money 4%), forest_farm L0 (wood 0%), forest_farm L1 (wood 0%), forest_farm L2 (wood 17%), stone_mine L0 (stone_low 0%) ..."
     },
     {
       "id": "C8",
@@ -38,40 +38,40 @@
     {
       "id": "C7",
       "severity": "OK",
-      "text": "active/idle building levels @600s = 4.00x (target >= 2.0x); chain completion idle/active = 5.85x"
+      "text": "active/idle building levels @600s = 4.13x (target >= 2.0x); chain completion idle/active = 6.42x"
     },
     {
       "id": "C9",
       "severity": "OK",
-      "text": "time to breakthrough-ready: idle 2700s vs active 1076s without pills (reducible 60%); with pills idle 2100s vs active 584s (reducible 72%); target >= 30%"
+      "text": "time to breakthrough-ready: idle 2700s vs active 1286s without pills (reducible 52%); with pills idle 2400s vs active 873s (reducible 64%); target >= 30%"
     },
     {
       "id": "C10",
       "severity": "WARN",
-      "text": "Era 2 level-up and breakthrough use no island/processing output (island chain is optional for Era 2 pacing); all island facility upgrades could be done in 10% of the Era-2 clock (240s of 2496s), leaving no mid-Era sink"
+      "text": "Era 2 level-up and breakthrough use no island/processing output (island chain is optional for Era 2 pacing); all island facility upgrades could be done in 24% of the Era-2 clock (600s of 2496s), leaving no mid-Era sink"
     }
   ],
   "summary": {
     "C1": {
       "rows": 92,
-      "violations": 42
+      "violations": 26
     },
     "C10": {
       "era2_gate_needs_island": false,
       "era2_training_seconds": 2495.8682112,
-      "sink_exhaust_seconds": 240.0
+      "sink_exhaust_seconds": 600.0
     },
     "C2": {
       "rows": 92,
-      "violations": 68
+      "violations": 60
     },
     "C3": {
       "rows": 92,
-      "violations": 57
+      "violations": 13
     },
     "C4": {
       "rows": 92,
-      "violations": 68
+      "violations": 65
     },
     "C5": {
       "rows": 92,
@@ -79,7 +79,7 @@
     },
     "C6": {
       "rows": 92,
-      "violations": 12
+      "violations": 15
     },
     "C8": {
       "headroom_free": 69,
@@ -87,8 +87,8 @@
       "share": 0.884615384615385
     },
     "C9": {
-      "reducible_nopills": 0.601481481481482,
-      "reducible_pills": 0.721904761904762
+      "reducible_nopills": 0.523703703703704,
+      "reducible_pills": 0.63625
     },
     "chain_training_seconds": {
       "1": 1007.15051676797,
@@ -97,45 +97,45 @@
     },
     "sim": {
       "active_nopills": {
-        "clicks": 2152,
-        "cult_level_at_horizon": 7,
-        "end_seconds": 1076,
-        "levels_at_horizon": 32,
+        "clicks": 2572,
+        "cult_level_at_horizon": 5,
+        "end_seconds": 1286,
+        "levels_at_horizon": 33,
         "mode": "active",
         "overflow": {
           "lingli": 0.0,
           "money": 0.0,
-          "spirit_grass_low": 145.40389394858,
+          "spirit_grass_low": 17.7290940204235,
           "stone_low": 0.0,
           "wood": 0.0
         },
         "pills": 0,
-        "purchases": 44,
+        "purchases": 53,
         "stuck": false,
-        "t_chain_done": 205.0,
-        "t_lv10": 1076.0,
-        "t_ready": 1076.0,
+        "t_chain_done": 187.0,
+        "t_lv10": 1286.0,
+        "t_ready": 1286.0,
         "use_pills": false
       },
       "active_pills": {
-        "clicks": 1170,
-        "cult_level_at_horizon": 10,
-        "end_seconds": 584,
-        "levels_at_horizon": 28,
+        "clicks": 1748,
+        "cult_level_at_horizon": 7,
+        "end_seconds": 873,
+        "levels_at_horizon": 31,
         "mode": "active",
         "overflow": {
           "lingli": 0.0,
           "money": 0.0,
-          "spirit_grass_low": 0.0,
+          "spirit_grass_low": 7.72909402042345,
           "stone_low": 0.0,
           "wood": 0.0
         },
-        "pills": 10,
-        "purchases": 28,
+        "pills": 13,
+        "purchases": 40,
         "stuck": false,
-        "t_chain_done": 205.0,
-        "t_lv10": 584.0,
-        "t_ready": 584.0,
+        "t_chain_done": 187.0,
+        "t_lv10": 873.0,
+        "t_ready": 873.0,
         "use_pills": true
       },
       "idle_nopills": {
@@ -145,14 +145,14 @@
         "levels_at_horizon": 8,
         "mode": "idle",
         "overflow": {
-          "lingli": 2423.78818557593,
-          "money": 1962.58953861234,
-          "spirit_grass_low": 660.012657568139,
-          "stone_low": 585.494415052819,
-          "wood": 169.68486206678
+          "lingli": 1938.78818557593,
+          "money": 1213.40993186227,
+          "spirit_grass_low": 405.325278549904,
+          "stone_low": 61.3092726122564,
+          "wood": 91.68486206678
         },
         "pills": 0,
-        "purchases": 30,
+        "purchases": 40,
         "stuck": false,
         "t_chain_done": 1200.0,
         "t_lv10": 2700.0,
@@ -160,24 +160,24 @@
         "use_pills": false
       },
       "idle_pills": {
-        "clicks": 140,
+        "clicks": 160,
         "cult_level_at_horizon": 3,
-        "end_seconds": 2100,
+        "end_seconds": 2400,
         "levels_at_horizon": 8,
         "mode": "idle",
         "overflow": {
-          "lingli": 1181.82703144514,
-          "money": 1559.7691453624,
-          "spirit_grass_low": 312.525863941281,
-          "stone_low": 112.309272612256,
-          "wood": 169.68486206678
+          "lingli": 1145.48074948874,
+          "money": 1213.40993186227,
+          "spirit_grass_low": 185.039070314423,
+          "stone_low": 61.3092726122564,
+          "wood": 91.68486206678
         },
         "pills": 12,
-        "purchases": 24,
+        "purchases": 33,
         "stuck": false,
         "t_chain_done": 1200.0,
-        "t_lv10": 2100.0,
-        "t_ready": 2100.0,
+        "t_lv10": 2400.0,
+        "t_ready": 2400.0,
         "use_pills": true
       }
     }

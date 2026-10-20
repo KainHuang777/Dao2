@@ -1,0 +1,16 @@
+﻿import fs from 'node:fs';
+import path from 'node:path';
+import { connectDriver, sleep } from '../../res1d2-natural-mouse-driver.mjs';
+const OUT = path.resolve('docs/verification/artifacts/early-v1-d/d2');
+const log = (obj) => fs.appendFileSync(path.join(OUT, 'events-second-life.jsonl'), JSON.stringify({ utc: new Date().toISOString(), ...obj }) + '\n');
+const d = await connectDriver({ cdpPort: 9242, matchPort: '4380' });
+await d.bringToFront();
+log({ kind: 'click-build-hut', ...await d.click({ x: 911, y: 312 }) });
+await sleep(1200);
+await d.screenshot(path.join(OUT, 'second-life-hut-built-1.2s.png'));
+await sleep(6000);
+await d.screenshot(path.join(OUT, 'second-life-hut-built-7s.png'));
+const save = await d.readSave();
+fs.writeFileSync(path.join(OUT, 'save-second-life-hut.json'), JSON.stringify(save, null, 2));
+log({ kind: 'save-hut', revision: save.revision, total: save.state?.total_elapsed_seconds, lingli: save.state?.resources?.lingli?.value, buildings: save.state?.buildings, achievements: save.state?.achievements });
+await d.close();

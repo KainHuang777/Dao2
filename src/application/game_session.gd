@@ -250,6 +250,7 @@ func get_view() -> Dictionary:
 		"level_up_costs": level_up_costs,
 		"breakthrough_requirements": breakthrough_req,
 		"breakthrough_target_name": breakthrough_target_name,
+		"tribulation_preview": _tribulation_preview(),
 		"era": era_view,
 		"resources": resources,
 		"skills": SkillSystem.view(content, state),
@@ -288,6 +289,14 @@ func get_view() -> Dictionary:
 		"achievements": AchievementSystem.get_achievement_view(state),
 	}
 
+
+func _tribulation_preview() -> Dictionary:
+	var required := TribulationRules.requires_tribulation(state.era_id)
+	var pill := TribulationRules.pill_for_era(state.era_id)
+	var count := AlchemySystem.stack_count(state, pill)
+	return {"required": required, "pill_id": pill, "pill_count": count,
+		"probability": TribulationRules.success_probability(state.era_id, count) if required else 1.0,
+		"failure_era": state.era_id - 1 if required else state.era_id}
 
 static func draw_tribulation_seed() -> int:
 	var rng := RandomNumberGenerator.new()

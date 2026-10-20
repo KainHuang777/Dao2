@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+buddha size=(1254, 1254) alpha=2 used=[P: (0, 3), S: (1240, 1251)] corner=(0.0, 0.0, 0.0, 0.0)
+waterfalls size=(1254, 1254) alpha=2 used=[P: (0, 19), S: (1234, 1235)] corner=(0.0, 0.0, 0.0, 0.0)
+far_island size=(1254, 1254) alpha=2 used=[P: (29, 31), S: (1205, 1203)] corner=(0.0, 0.0, 0.0, 0.0)
+mist_near size=(1671, 941) alpha=2 used=[P: (0, 21), S: (1659, 920)] corner=(0.0, 0.0, 0.0, 0.0)
+mist_far size=(1672, 941) alpha=2 used=[P: (0, 23), S: (1672, 908)] corner=(0.0, 0.0, 0.0, 0.0)
+hero_hover size=(1254, 1254) alpha=2 used=[P: (33, 37), S: (1197, 1161)] corner=(0.0, 0.0, 0.0, 0.0)
+hero_hit size=(1254, 1254) alpha=2 used=[P: (0, 41), S: (1236, 1213)] corner=(0.0, 0.0, 0.0, 0.0)
+hero_unbalanced size=(1254, 1254) alpha=2 used=[P: (0, 51), S: (1228, 1203)] corner=(0.0, 0.0, 0.0, 0.0)
+hero_recover size=(1254, 1254) alpha=2 used=[P: (0, 19), S: (1218, 1173)] corner=(0.0, 0.0, 0.0, 0.0)
+shield_intact size=(1254, 1254) alpha=2 used=[P: (0, 0), S: (1240, 1254)] corner=(0.0, 0.0, 0.0, 0.0)
+shield_cracked size=(1254, 1254) alpha=2 used=[P: (0, 19), S: (1250, 1235)] corner=(0.0, 0.0, 0.0, 0.0)
+shield_shattered_v2 size=(1254, 1254) alpha=2 used=[P: (25, 23), S: (1197, 1198)] corner=(0.0, 0.0, 0.0, 0.0)
+asura size=(1536, 1024) alpha=2 used=[P: (0, 0), S: (1536, 1024)] corner=(0.0039, 0.0, 0.0039, 0.0)

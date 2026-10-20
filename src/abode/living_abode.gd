@@ -197,6 +197,8 @@ var _last_shade_a: float = -1.0
 var _breakthrough_camera_snapshot: Dictionary = {}
 var _breakthrough_hud_snapshot: Dictionary = {}
 var _pending_breakthrough_save: bool = false
+var _last_breakthrough_result: Dictionary = {}
+
 
 var hud: Control
 var header: PanelContainer
@@ -293,6 +295,8 @@ var more_menu: MenuButton
 var settings_menu: MenuButton
 var bgm_player: AudioStreamPlayer
 var is_bgm_enabled: bool = true
+var is_sfx_enabled := true
+var _storm_bgm_volume: Variant = null
 var _bgm_tracks: Array[Dictionary] = []
 var _current_bgm_index: int = -1
 var _last_known_era_id: int = 1
@@ -1108,12 +1112,27 @@ func _level_up_cultivation() -> bool:
 		return true
 	return false
 
+func _request_breakthrough() -> void:
+	if breakthrough_seq.visible or (text_transition != null and text_transition.visible):
+		return
+	var view: Dictionary = session.get_view()
+	if not bool(view.get("can_breakthrough", false)):
+		_breakthrough_era()
+		return
+	var preview: Dictionary = view.tribulation_preview
+	if not preview.required:
+		_breakthrough_era()
+		return
+	breakthrough_seq.prepare(String(view.breakthrough_target_name),
+		"成功率 %.1f%% · 渡劫丹藥疊層 %d\n失敗降至%s滿層；修煉進度歸零、丹藥疊層重置。" % [
+			float(preview.probability) * 100.0, int(preview.pill_count), String(content.era(int(preview.failure_era)).name)])
+
 func _breakthrough_era() -> void:
 	if text_transition != null and text_transition.visible:
 		return
 	if breakthrough_seq != null and breakthrough_seq.visible:
 		return
-	var from_era: int = session.state.era_id
+	var before: Dictionary = session.state.to_snapshot_dict()
 	var cmd := {
 		"command_id": "bt_" + str(Time.get_ticks_usec()) + "_" + str(randi()),
 		"type": "breakthrough_era",
@@ -1122,25 +1141,43 @@ func _breakthrough_era() -> void:
 	}
 	var res: Dictionary = session.submit(cmd)
 	if bool(res.get("ok", false)):
-		hint.text = "破關功成，天地共感，空島靈息煥然一新！"
+		var outcome: Dictionary = {}
+		for event in res.get("events", []):
+			if event.get("kind", "") in ["era_breakthrough", "tribulation_passed", "tribulation_failed"]:
+				outcome = event.duplicate(true)
+				if event.kind == "tribulation_failed":
+					break
+		if outcome.is_empty():
+			push_error("Committed breakthrough has no outcome event")
+			_save_game()
+			_refresh_hud()
+			return
+		outcome.from_name = String(content.era(int(outcome.from_era)).name)
+		outcome.to_name = String(content.era(int(outcome.to_era)).name)
+		outcome.level = session.state.level
+		outcome.training_before = float(before.get("training_seconds", 0.0))
+		outcome.training_after = session.state.training_seconds
+		outcome.pills_before = before.get("pill_effects", {}).duplicate(true)
+		outcome.pills_after = session.state.to_snapshot_dict().get("pill_effects", {}).duplicate(true)
+		_last_breakthrough_result = outcome
+		hint.text = "渡劫未成，已降至%s滿層。" % outcome.to_name if outcome.kind == "tribulation_failed" else "破關功成，天地共感，空島靈息煥然一新！"
 		_pending_breakthrough_save = true
 		_save_game()
 		_refresh_hud()
 		if breakthrough_seq != null:
 			breakthrough_seq.reduced_motion = reduced
 			breakthrough_seq.set_save_status(not _pending_breakthrough_save)
-			breakthrough_seq.play(String(content.era(from_era).name), String(content.era(session.state.era_id).name), session.state.era_id)
+			breakthrough_seq.play_result(_last_breakthrough_result)
 	else:
 		hint.text = "突破受阻：%s。請確認已達本境圓滿，並滿足容量門檻。" % str(res.get("error", "FAIL"))
 		_hud_controller.show_messages()
 		_layout_for_size(hud.size)
 
 func _replay_breakthrough() -> void:
-	if breakthrough_seq != null and session.state.era_id >= 2:
+	if breakthrough_seq != null and not breakthrough_seq.visible and not _last_breakthrough_result.is_empty():
 		breakthrough_seq.reduced_motion = reduced
 		breakthrough_seq.set_save_status(not _pending_breakthrough_save)
-		var target_era: int = session.state.era_id
-		breakthrough_seq.play(String(content.era(target_era - 1).name), String(content.era(target_era).name), target_era)
+		breakthrough_seq.play_result(_last_breakthrough_result)
 
 func trigger_nine_realms_hook(is_replay: bool = false) -> void:
 	_modal_manager.trigger_nine_realms_hook(is_replay)
@@ -1257,6 +1294,16 @@ func _init_bgm() -> void:
 	_last_known_era_id = cur_era
 	if is_bgm_enabled:
 		_play_bgm_track_at_index(0)
+
+func _on_storm_audio_changed(active: bool) -> void:
+	if bgm_player == null:
+		return
+	if active and _storm_bgm_volume == null:
+		_storm_bgm_volume = bgm_player.volume_db
+		bgm_player.volume_db -= 12.0
+	elif not active and _storm_bgm_volume != null:
+		bgm_player.volume_db = float(_storm_bgm_volume)
+		_storm_bgm_volume = null
 
 func _load_bgm_library() -> void:
 	_bgm_tracks.clear()
@@ -1683,7 +1730,12 @@ func _save_game() -> Dictionary:
 	if not bool(result.get("ok", false)) and OS.has_feature("web"):
 		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms)
 		get_tree().paused = true
-		_show_storage_block("進度尚未存妥，請保留此畫面。恢復儲存權限或空間後，按重試保存；操作不會再次扣料。")
+		var storage_message := "進度尚未存妥，請保留此畫面。恢復儲存權限或空間後，按重試保存；操作不會再次扣料。"
+		if _pending_breakthrough_save and not _last_breakthrough_result.is_empty():
+			var outcome := _last_breakthrough_result
+			var summary := "渡劫未成：%s → %s滿層 LV%d。修煉 %.1f → %.1f 秒，丹藥疊層已重置。" % [outcome.from_name, outcome.to_name, int(outcome.level), float(outcome.training_before), float(outcome.training_after)] if outcome.kind == "tribulation_failed" else "突破成功：%s → %s LV%d。" % [outcome.from_name, outcome.to_name, int(outcome.level)]
+			storage_message = summary + "\n結果已結算，保存失敗；恢復儲存後重試，不會再次渡劫。"
+		_show_storage_block(storage_message)
 	if not bool(result.get("ok", false)) and hint != null:
 		hint.text = "進度尚未存妥；請保留此畫面，並檢查儲存權限或空間。" if OS.has_feature("web") else "進度尚未存妥，15 秒後自動重試；請保留此畫面。"
 	if _pending_scenery_save:

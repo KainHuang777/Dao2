@@ -1,0 +1,10 @@
+EARLYV1D: start config cdp=9240 http=4380 stepDir=docs/verification/artifacts/early-v1-d
+EARLYV1D: info detail=driver connected: pageId=FD70148AA0035D9885E25378807EE375 url=http://127.0.0.1:4380/index.html
+EARLYV1D: info detail=runList=S00_launch_blank,S01_hut_build,S02_era1_level10,S03_era1_capacity,S04_breakthrough_foundation,S05_era2_capacity,S06_economy_open_wood_ore,S07_era2_level10,S08_breakthrough_gold,S09_open_herb,S10_route_liquid_home,S11_craft_liquid,S12_formation_core_stone_mid,S13_era3_first_level_up,S14_reload_persistence,S15_wait_lifespan_exhaustion,S16_first_reincarnation,S17_second_life_supply,S18_final_persistence
+EARLYV1D: info detail=step_begin S00_launch_blank
+EARLYV1D: milestone=S00_launch_blank ok era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0
+EARLYV1D: milestone=S00_launch_blank ok=true detail=done_in=17s era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0
+EARLYV1D: info detail=step_begin S01_hut_build
+EARLYV1D: milestone=S01_hut_build ok hut=1
+EARLYV1D: milestone=S01_hut_build ok=true detail=done_in=35s era=1 lv=1 rev=70 cycle=0 lingli=1/0 hut=1
+EARLYV1D: info detail=step_begin S02_era1_level10

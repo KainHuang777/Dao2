@@ -1,3 +1,30 @@
+2026-10-21 **EARLY-V1-D／RES1-D DONE（桌面／Web有界；人工節奏已放行）**：使用者明確核定「放行 EARLY-V1-D／RES1-D」。沿用D-1同版空白新檔至金丹首升、D-2自然壽盡首次輪迴與第二世供給／重載，以及2026-10-20 MFG-3受控桌面回歸與A／B／C既有證據，人工節奏閘門完成；EARLY-V1 A–D前期閉環收結。此前待判定／IN_PROGRESS紀錄保留日期，由本段覆蓋現況。[接受與證據界線](verification/early-v1-d-human-pacing.md)。本輪僅更新文件與英文交接，未重跑Godot／Runner／瀏覽器／匯出，未改規則、資產、schema、玩家進度或凍結包，未commit/push。下一大型任務請開New Chat，由使用者指定。
+
+2026-10-20 **EARLY-V1-D／RES1-D 人工節奏判定資料已交，待使用者決定（IN_PROGRESS）**：D-1／D-2及MFG-3受控桌面回歸已達成；整理單段等待、8420秒金丹首升、44400秒壽盡、首世20道心選擇與結丹法7650／6200容量前置。此次「人工節奏判定」是開啟審閱，不是接受聲明；未代替玩家放行。新增[判定資料](verification/early-v1-d-human-pacing.md)，同步D報告／docs23／交接；PowerShell、rg、git status與Python既有JSON核對通過，文件UTF-8／連結與diff檢查結果見本輪紀錄。未重跑Godot／Runner／瀏覽器／匯出，未改程式／規則／玩家資料，未commit/push。下一步僅收人工決定，不展開下一大型任務。
+
+2026-10-20 **EARLY-V1-C DONE（桌面／Web有界；結丹法新圖已接受）**：使用者明確核定「結丹法新圖接受」。本張金丹／青玉丹座／氣環圖的人工美術閘門完成，沿用同日既有專項159／UI106、原生19 checks、三橫式真實Web研習／保存拒寫恢復／重載不重扣及匯出驗證，收結C。本輪僅更新資產接受metadata與文件；未重跑Godot／瀏覽器／匯出，未改圖片、規則、schema或玩家進度，未commit/push。EARLY-V1-D／RES1-D仍待人工節奏判定，不由本次美術接受代為放行；下一大型任務請開New Chat。下方待接受紀錄保留為歷史，由本段覆蓋。 [驗收](verification/early-v1-c.md)。
+
+2026-10-20 **EARLY-V1-C 實作／桌面Web交付，IN_PROGRESS（僅待金丹新圖人工接受）**：內建ImageGen金丹／青玉丹座透明圖、原稿／prompt／manifest已交；短橫式成功訊息併固定頁首，800完整122px技能卡與44px操作。Godot4.7.2專項159／SKS-P1 58／B1 41／UI106、輪迴及五項共用panel回歸exit0，原生19 checks／三尺寸六圖通過；最終Web三橫式真實滑鼠研習、拒寫再試恢復及重載回執不重扣已驗。字型check／候選匯出／壓縮exit0；build/web-early-v1c，凍結build/web hash7E7E619D…保持。初次訊息高度測試、log路徑／socket／瀏覽器工具失敗及退出診斷詳見驗收。未改規則／schema／玩家進度，未commit/push。下一New Chat收結丹圖美術回饋，本輪停止。 [驗收與命令](verification/early-v1-c.md)。
+
+2026-10-20 **EARLY-V1-B DONE（桌面／Web有界）**：三天賦三橫式真實滑鼠購入、拒寫恢復不重扣、轉世後保留／靈力10／壽元88、重載不重發，零天賦從0靈力採集建屋升2階及重載已驗；完整再築基1010模擬秒仍屬CLI證據。使用者核定靈界據點／靈晶／靈液獨立跨世保留（V2-022），輪迴詳情已同步；527專項與輪迴／靈界回歸、UI75 checks exit0，字型check及候選Web匯出／壓縮exit0。初次測試metadata、證據圖片副檔名／匯出路徑、user目錄／UI初始化與既有退出診斷詳見報告。候選build/web-early-v1b；凍結build/web hash7E7E619D…保持，未改公式／schema／玩家進度，未commit/push。下一New Chat接EARLY-V1-C，本輪停止。[驗收](verification/early-v1-b.md)。
+
+2026-10-20 **MFG-3 DONE（桌面原生／Web有界）**：配方列共用單批／批數／持續籌碼，主動作僅啟停，收尾／缺料／同島忙碌禁用；設定於同一卡內單列展開，批數與絕對保留量草稿留記憶體，短式材料／操作並排。修正RecipeRow重複回呼，百萬批數不撐寬。Godot4.7.2全量82/82 exit0；最終原生65 checks failures=[]、三尺寸六圖，UI1-A223／B220及相關回歸exit0；字型check、候選Web匯出／壓縮／BGM成功。桌面Web三橫式真實三批50→53／持續／批後停止／設定內捲／拒寫恢復與重載已驗。原build/web SHA7E7E619D…保持；候選build/web-mfg3。退出RID／ObjectDB診斷與初次失敗詳見報告；未改經濟／schema／玩家資料，未commit/push。製造受控桌面回歸已補，EARLY-V1-D仍待人工節奏，B/C各自缺口保持。下一New Chat接B/C或前期節奏判定，本輪停止。[驗收與命令](verification/mfg-3.md)。
+2026-10-19 **TRIB-B-F1 雷聲修訂交付，聽感待接受**：依回饋加入0.65／3.65秒預備天空遠雷，三擊改濾波噪聲裂雷＋延遲低頻轟鳴／不規則滾雷／左右回響，保留畫面時間軸。Godot4.7.2隔離import／Web export、原生16專項、兩新版錄影重配音軌exit0；PCM雙聲道20秒／peak0.81757／削波0，Web重載／音效重播自然結束已驗。初次headless退出診斷保留，原生最終清理正常；無代理聽感通過聲稱。B仍IN_PROGRESS，C未開，未改正式場景／規則／玩家資料，未commit/push。下一New Chat先收F1聽感。 [驗收／試聽](verification/trib-b-f1.md)。
+
+2026-10-18 **TRIB-A 已接受／DONE；TRIB-B 隔離動態交付，IN_PROGRESS（待視覺／聽感接受）**：使用者核定「接受 A 素材方向，再開 TRIB-B」。20秒成功／修羅失敗、三擊胸口接觸、分速景深／單一星幕／短時背景魚眼、局部泛光與原創合成音效已交；暫停／定位／單層／低特效／skip。Godot4.7.2隔離import／Web export、最終原生666 checks及480固定影格、兩MP4編碼exit0；桌面Web三橫式滑鼠／兩結局／重載已驗。初輪魚眼拉絲已修、630初檢及連線失敗保留；無FPS聲稱。來源src/verification/tribb、建置tools/build_trib_b.ps1與驗收trib-b。正式場景／一般Web／規則／玩家資料未改，未commit/push。下一New Chat先收B回饋，接受後TRIB-C。 [驗收與觀看](verification/trib-b.md)。
+
+2026-10-18 **TRIB-A 素材／靜態交付，IN_PROGRESS（待視覺接受）**：內建ImageGen保存16原稿、選15張，打包22圖；乾淨雲海／淚佛／獨立瀑布／遠島／前後霧／星幕、四人物姿態與遮罩、護體三態及修羅已交。六構圖×三橫式18圖、黑灰白底與10極值圖已查；Godot4.7.2離線228 checks、22紋理解碼、161來源／hash／prompt／UTF-8檢查exit0，import exit0但保留user目錄診斷。未接正式場景、未做動態／Web／FPS、未改規則／玩家資料，未commit/push。下一New Chat先收A視覺回饋，接受後才TRIB-B。 [素材與驗收](verification/trib-a.md)。
+
+2026-10-18 **TRIB-0 DONE（桌面／Web有界）**：正式事件分流成功／失敗／普通升境，渡劫風險確認、實際降境／訓練／丹藥結果、保存拒寫仍可讀及當次記憶體重播已接入；重試不重擲、重載不推造歷史。Godot4.7.2專項46 checks／原生58 checks與12圖、固定76/76 Runner、正式及隔離Web匯出／壓縮exit0；桌面Web三尺寸失敗、拒寫恢復／重播／重載index10→11及獨立成功案例已驗。正式僅Era1–3，Era4為隔離fixture，不代表開放；新美術／分鏡仍TODO。初次沙箱／測試縮放／BGM配套及既有退出診斷記錄保留；未改規則／schema／玩家進度，未commit/push。下一New Chat接TRIB-A。 [驗收與命令](verification/trib0.md)。
+
+2026-10-18 **VFX-TRIB-PLAN 規劃 DONE；實作 TODO**：依使用者要求提取F5經驗，交付現架構視覺提升優先表、渡劫人物／島／淚佛拆層、2D景深與短時魚眼、星幕、雷擊／音效、成功與修羅／餓鬼失敗意象及完整UX。靜態程式盤點發現渡劫失敗事件仍ok=true，而現介面只按ok播功成，列TRIB-0優先；人物已獨立，淚佛等仍需背景拆層補繪。心境值／新懲罰未新增。下一New Chat先TRIB-0，再A素材→B隔離試演→C正式接入→D簡單驗收；EARLY-V1既有工作保持。 [完整計畫](24-tribulation-and-world-vfx-plan.md)。
+
+2026-10-18 **EARLY-V1 下一大型任務已規劃，實作 TODO**：先重建現版量化基線，繼而驗輪迴天賦與技能在前期兩世的可觀測收益，補 SKS-P1 金丹圖／Web，再完成 RES1-D 同版空白新檔四島至金丹、輪迴再成長的自然流程。RES1-C/C3 已有界 DONE；D 未收結。調參前報告及 docs21 的未承接結丹法描述為歷史；實機延期非阻擋。 [前期版本閉環計畫](23-early-version-closure-plan.md)。
+
+2026-10-18 **UIX-R6～R11 美術接受／桌面Web有界DONE**：使用者本輪明確核定「R6~R11 美術都先標記 已接受」。R6、R7、R10原已接受；R8技能、R9宗門（含F1圖像減字）、R11界域法令現版美術亦接受。依各輪既有CLI、原生及桌面Web驗收，六頁在桌面／Web有界範圍標DONE；本輪僅更新狀態與交接，未重跑Godot、瀏覽器或匯出，未改玩法／資產／玩家進度。觸控、實機與實機高DPR依2026-10-17政策延期，非當前阻擋，亦非已通過。R11其餘10項不可達界域決策仍只是清單；RES1-E-SKS-P1金丹題材圖及後續技能批次是獨立工作。下方「美術待接受／IN_PROGRESS」按原日期保留歷史，由本段覆蓋。 [六頁美術計畫](20-feature-interface-art-plan.md)。
+
+2026-10-18 **F5 全系列 DONE（使用者核定簡單驗收）**：依「進行簡單的驗收 效能不需要過度要求」，以正式演出／滑鼠操作可回應及相關回歸收結，取代F5-D強制長時效能矩陣。動態runner failures=0、UI75 checks通過；正式Web隔離origin實際轉世第2→3世、道心50→65、結算重開、低特效、兩短橫式及重載65不重發已驗。無新FPS數值；舊AGY60／300秒PASS僅背景運行證據，不外推為輪迴負載。PLAN／A素材／B含F1F2／C／D均收結，下方待接受與TODO為歷史。未改遊戲／匯出／玩家資料，未commit/push。下一大型任務New Chat，由使用者指定。 [本次驗收](verification/uix-r7-f5-simple.md)。
+
 2026-10-18 **UIX-R7-F5-D 輪迴動態效能驗收 DONE（桌面／Web有界；desktopRecoveryGate=PASS）**：依使用者「F5-D 效能驗收」指令完成原生與真實 Edge 瀏覽器 Web 效能驗收。原生探針（tools/f5d_native_probe.gd）實測 3600 幀平均 144.83 FPS、p95 6.99ms；真實 Edge 155 視窗（CDP 驅動，1280×720，DPR 1.0）執行 60 秒常態取樣（59.9969 FPS，p95 16.80ms，>20ms 0 幀，100% ≥55 FPS）與 300 秒（5 分鐘）長時段持續運行取樣（59.9969 FPS，60/60 窗口滿幀，尾端 10 秒 59.995 FPS 恢復，longestLowMs 0.0ms）。官方 tools/summarize_frame_metrics.py 判定 desktopRecoveryGate=PASS。冷啟動依政策暫緩常態阻擋；觸控／實機依 2026-10-17 政策延期。F5 拆層輪迴演出整體實作與效能驗收正式結案。[完整驗收](verification/uix-r7-f5d.md)。
 2026-10-18 **UIX-R7-F5-C 匯出與全量回歸交付 DONE**：依使用者指令完成 Web 匯出（Godot 4.7.2 `--export-release Web build/web/index.html` exit 0）、Web 資源 brotli 壓縮及 BGM companion 檢查 exit 0，並於 PowerShell 成功執行全量測試套件 `tools/run_all_runners.ps1`（75/75 Runners 全部通過，exit 0）。正式輪迴演出已接線至 `reincarnation_mandala.gd` / `reincarnation_sequence.gd`，涵蓋三尺寸原生、低特效靜態、跳過與結束清理。
 2026-10-18 **UIX-R7-F5-B 視覺接受／F5-C 開工**：使用者明確核定「F5-B 視覺接受，開始 F5-C」，接受最新B-F2轉盤在外框上方之呈現。B視覺閘門完成；C接正式輪迴頁／演出，驗三桌面尺寸、低特效、skip、保存與重開；D持續效能尚未開始。此段覆蓋下方B待接受歷史。

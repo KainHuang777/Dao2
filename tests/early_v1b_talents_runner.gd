@@ -1,0 +1,480 @@
+extends SceneTree
+var failures: Array[String] = []
+var checks := 0
+var serial := 0
+var income_first := -1.0
+var income_second := -1.0
+var base_lifespan := -1.0
+var base_required := -1.0
+var cap_lingli := -1.0
+var rebuild_seconds := -1.0
+const TALENT_IDS := ["resource_inheritance", "lifespan_extension", "innate_dao_body"]
+const FROZEN_NAMES := {"resource_inheritance": "資源傳承", "lifespan_extension": "長生久視", "innate_dao_body": "先天道體"}
+const FROZEN_BASE_COSTS := {"resource_inheritance": 5.0, "lifespan_extension": 10.0, "innate_dao_body": 15.0}
+const FROZEN_LEVEL_COSTS := {
+	"resource_inheritance": [5.0, 10.0, 20.0, 40.0, 80.0, 160.0, 320.0, 640.0, 1280.0, 2560.0],
+	"lifespan_extension": [10.0, 20.0, 40.0, 80.0, 160.0, 320.0, 640.0, 1280.0, 2560.0, 5120.0],
+	"innate_dao_body": [15.0, 30.0, 60.0, 120.0, 240.0, 480.0, 960.0, 1920.0, 3840.0, 7680.0],
+}
+const TEST_LEVELS := [0, 1, 2, 5, 10]
+const FIXTURE_DAO_HEART := 20000.0
+const FIXTURE_PREVIOUS_LINGLI := 777.0
+
+class Memory extends StorageAdapter:
+	var data := {}
+	var fail := ""
+	func read(key: String) -> Dictionary:
+		return {"ok": data.has(key), "data": data.get(key, ""), "error": "missing"}
+	func write(key: String, value: String) -> Dictionary:
+		if key == fail:
+			return {"ok": false, "error": "injected"}
+		data[key] = value
+		return {"ok": true}
+	func exists(key: String) -> bool:
+		return data.has(key)
+
+func _init() -> void:
+	call_deferred("_run")
+
+func check(ok: bool, label: String) -> void:
+	checks += 1
+	if not ok:
+		failures.append(label)
+
+func send(s: GameSession, kind: String, payload: Dictionary) -> Dictionary:
+	serial += 1
+	return s.submit({"command_id": "early-v1b-" + str(serial), "type": kind, "expected_revision": s.state.revision, "payload": payload})
+
+func frozen_cost(talent_id: String, current_level: int) -> float:
+	var base: float = FROZEN_BASE_COSTS[talent_id]
+	return floor(base * pow(2.0, float(current_level)))
+
+func frozen_cumulative_cost(talent_id: String, levels: int) -> float:
+	if levels <= 0:
+		return 0.0
+	var base: float = FROZEN_BASE_COSTS[talent_id]
+	return floor(base * (pow(2.0, float(levels)) - 1.0))
+
+func buy_levels(s: GameSession, talent_id: String, levels: int) -> float:
+	var spent := 0.0
+	for _i in range(levels):
+		var current_level := int(s.state.talents.get(talent_id, 0))
+		var expected_cost: float = FROZEN_LEVEL_COSTS[talent_id][current_level]
+		var result := send(s, "learn_talent", {"talent_id": talent_id})
+		check(bool(result.ok), "learn " + talent_id + " to level " + str(current_level + 1))
+		if not bool(result.ok):
+			return spent
+		check(is_equal_approx(TalentSystem.get_cost(talent_id, current_level).to_float(), expected_cost), "learn " + talent_id + " level " + str(current_level + 1) + " cost matches frozen table")
+		spent += expected_cost
+	return spent
+
+func fixture_era3_session(content: GameContent) -> GameSession:
+	var s := GameSession.create_new_game(content)
+	s.state.era_id = 3
+	s.state.level = 10
+	s.state.buildings["rebirth_lotus"] = 1
+	s.state.resources["lingli"].value = AmountCompat.from_number(FIXTURE_PREVIOUS_LINGLI)
+	s.state.resources["money"].unlocked = true
+	s.state.resources["wood"].unlocked = true
+	s.state.dao_heart = AmountCompat.from_number(FIXTURE_DAO_HEART)
+	return s
+
+func expected_post_rebirth_start(content: GameContent, resource_id: String, rebirth_count: int, inheritance_bonus: float) -> float:
+	var unlock: Dictionary = Onboarding.unlock_state(1, 1, {})
+	var unlocked: bool = resource_id != "skill_point" and (not bool(unlock["active"]) or resource_id in (unlock["resources"] as Array))
+	if not unlocked:
+		return 0.0
+	var def: Dictionary = content.resources[resource_id]
+	if String(def.get("type", "")) != "basic":
+		return 0.0
+	var caps: Dictionary = Production.compute_caps(content, {}, 1, 1)
+	var cap_amount: AmountCompat = caps.get(resource_id, AmountCompat.from_number(100.0))
+	return ReincarnationRules.compute_start_amount(cap_amount.to_float(), rebirth_count, inheritance_bonus)
+
+func max_level_state(talent_id: String) -> GameState:
+	var state := GameState.new()
+	state.talents[talent_id] = 10
+	return state
+
+func _run() -> void:
+	var loaded := ContentLoader.load_directory("res://content")
+	if not bool(loaded.ok):
+		failures.append("content load failed")
+		_finish()
+		return
+	var content: GameContent = loaded.content
+	var attached := IslandProgression.attach(content)
+	check(bool(attached.ok), "island progression attach")
+	if not bool(attached.ok):
+		_finish()
+		return
+	var caps1: Dictionary = Production.compute_caps(content, {}, 1, 1)
+	cap_lingli = (caps1["lingli"] as AmountCompat).to_float()
+	_run_frozen_table(content)
+	_run_atomicity(content)
+	_run_preview_choice(content)
+	_run_real_reincarnation(content)
+	_run_lifespan(content)
+	_run_cultivation_speed(content)
+	_run_save_reload(content)
+	_run_zero_inheritance_rebuild(content)
+	_run_spirit_cross_life_policy(content)
+	_print_benefit_table()
+	_finish()
+
+func _run_frozen_table(content: GameContent) -> void:
+	var defs: Dictionary = TalentSystem.TALENTS
+	check(defs.size() == 3, "exactly three talents defined")
+	check(TalentSystem.get_definition("unknown_talent") == null, "unknown talent has no definition")
+	check(String(TalentSystem.can_learn(GameState.new(), "unknown_talent")["reason"]) == "UNKNOWN_TALENT", "unknown talent refusal reason")
+	for talent_id in TALENT_IDS:
+		var tid := String(talent_id)
+		var def: Variant = TalentSystem.get_definition(tid)
+		check(def != null, tid + " definition present")
+		if def == null:
+			continue
+		var def_dict: Dictionary = def
+		check(String(def_dict["name"]) == String(FROZEN_NAMES[tid]), tid + " frozen name")
+		check(int(def_dict["max_level"]) == 10, tid + " max level 10")
+		check(is_equal_approx(float(def_dict["base_cost"]), float(FROZEN_BASE_COSTS[tid])), tid + " frozen base cost")
+		check(is_equal_approx(float(def_dict["cost_factor"]), 2.0), tid + " frozen cost factor 2.0")
+		var frozen_levels: Array = FROZEN_LEVEL_COSTS[tid]
+		for level in range(10):
+			var cost := TalentSystem.get_cost(tid, level).to_float()
+			check(is_equal_approx(cost, float(frozen_levels[level])), tid + " level " + str(level) + " frozen cost value")
+			check(is_equal_approx(cost, frozen_cost(tid, level)), tid + " level " + str(level) + " floor(base*2^level) formula")
+		check(String(TalentSystem.can_learn(max_level_state(tid), tid)["reason"]) == "TALENT_MAX_LEVEL", tid + " level 10 can_learn refusal reason")
+	var ladder := GameSession.create_new_game(content)
+	ladder.state.dao_heart = AmountCompat.from_number(30690.0)
+	var ladder_spent := 0.0
+	for talent_id in TALENT_IDS:
+		var tid2 := String(talent_id)
+		for level in range(10):
+			var expected_cost: float = FROZEN_LEVEL_COSTS[tid2][level]
+			var before_dh: float = ladder.state.dao_heart.to_float()
+			var result := send(ladder, "learn_talent", {"talent_id": tid2})
+			check(bool(result.ok), "ladder " + tid2 + " level " + str(level + 1) + " purchase")
+			if not bool(result.ok):
+				continue
+			ladder_spent += expected_cost
+			check(is_equal_approx(before_dh - ladder.state.dao_heart.to_float(), expected_cost), "ladder " + tid2 + " level " + str(level + 1) + " exact deduction")
+			check(int(ladder.state.talents.get(tid2, 0)) == level + 1, "ladder " + tid2 + " level " + str(level + 1) + " recorded")
+	check(is_equal_approx(ladder_spent, 30690.0), "ladder cumulative cost 30690 frozen sum")
+	check(is_equal_approx(ladder.state.dao_heart.to_float(), 0.0), "ladder spends fixture dao heart exactly")
+	var ladder_snapshot: Dictionary = ladder.state.to_snapshot_dict()
+	for talent_id in TALENT_IDS:
+		var tid3 := String(talent_id)
+		var refused := send(ladder, "learn_talent", {"talent_id": tid3})
+		check(not bool(refused.ok) and String(refused.get("error", "")) == "TALENT_MAX_LEVEL", "ladder " + tid3 + " level 10 command refusal")
+	check(ladder.state.to_snapshot_dict() == ladder_snapshot, "ladder max refusal atomic")
+
+func _run_atomicity(content: GameContent) -> void:
+	for talent_id in TALENT_IDS:
+		var tid := String(talent_id)
+		var first_cost := frozen_cost(tid, 0)
+		var s := GameSession.create_new_game(content)
+		var zero_snapshot: Dictionary = s.state.to_snapshot_dict()
+		var poor := send(s, "learn_talent", {"talent_id": tid})
+		check(not bool(poor.ok) and String(poor.get("error", "")) == "INSUFFICIENT_DAO_HEART", tid + " zero dao heart refused")
+		check(s.state.to_snapshot_dict() == zero_snapshot, tid + " zero dao heart refusal atomic")
+		s.state.dao_heart = AmountCompat.from_number(first_cost)
+		var purchased := send(s, "learn_talent", {"talent_id": tid})
+		check(bool(purchased.ok), tid + " exact-cost purchase succeeds")
+		check(is_equal_approx(s.state.dao_heart.to_float(), 0.0), tid + " exact-cost purchase deducts exactly")
+		check(int(s.state.talents.get(tid, 0)) == 1, tid + " level 1 after exact-cost purchase")
+		var spent_snapshot: Dictionary = s.state.to_snapshot_dict()
+		var second := send(s, "learn_talent", {"talent_id": tid})
+		check(not bool(second.ok) and String(second.get("error", "")) == "INSUFFICIENT_DAO_HEART", tid + " insufficient second level refused")
+		check(s.state.to_snapshot_dict() == spent_snapshot, tid + " second refusal atomic")
+		var dup := GameSession.create_new_game(content)
+		dup.state.dao_heart = AmountCompat.from_number(first_cost * 2.0)
+		serial += 1
+		var dup_serial := serial
+		var first_send := dup.submit({"command_id": "early-v1b-" + str(dup_serial), "type": "learn_talent", "expected_revision": dup.state.revision, "payload": {"talent_id": tid}})
+		check(bool(first_send.ok), tid + " duplicate-test first purchase")
+		var dh_after_first: float = dup.state.dao_heart.to_float()
+		var replay := dup.submit({"command_id": "early-v1b-" + str(dup_serial), "type": "learn_talent", "expected_revision": dup.state.revision, "payload": {"talent_id": tid}})
+		check(bool(replay.ok) and bool(replay.get("duplicate", false)), tid + " duplicate command flagged duplicate")
+		check(is_equal_approx(dup.state.dao_heart.to_float(), dh_after_first), tid + " duplicate does not double-charge")
+		check(int(dup.state.talents.get(tid, 0)) == 1, tid + " duplicate keeps level 1")
+
+func _run_preview_choice(content: GameContent) -> void:
+	var s := fixture_era3_session(content)
+	var preview: Dictionary = s.get_reincarnation_preview("normal")
+	check(bool(preview["eligible"]) and String(preview["reason"]) == "rebirth_lotus", "fixture preview eligible via rebirth_lotus fixture")
+	check(int(preview["building_sum"]) == 1, "fixture preview building sum 1")
+	check(String(preview["dao_heart"]) == str(ReincarnationRules.era_dao_heart_floor(3)), "fixture preview dao heart equals era3 floor")
+	check(int(preview["dao_proof"]) == 0, "fixture preview dao proof 0")
+	check(int(preview["era_floor"]) == ReincarnationRules.era_dao_heart_floor(3), "fixture preview era floor")
+	check(int(preview["current_reincarnation_count"]) == 0 and int(preview["next_reincarnation_count"]) == 1, "preview counts 0 to 1")
+	var view0: Dictionary = s.get_view()
+	check((view0["talents"] as Dictionary).is_empty(), "no talents view talents empty")
+	var mults0: Dictionary = view0["multipliers"]
+	check(is_equal_approx(float(mults0["resource_inheritance_bonus"]), 0.0), "no talents inheritance bonus 0")
+	check(is_equal_approx(float(mults0["lifespan_bonus"]), 0.0), "no talents lifespan bonus 0")
+	check(is_equal_approx(float(mults0["cultivation_speed_bonus"]), 0.0), "no talents speed bonus 0")
+	check(float(mults0["dao_heart_bonus"]) > 0.0, "holding fixture dao heart gives dao heart bonus")
+	check(view0["reincarnation_preview"] == preview, "view embeds identical preview")
+	var start_none_lingli := expected_post_rebirth_start(content, "lingli", int(preview["next_reincarnation_count"]), 0.0)
+	var start_none_money := expected_post_rebirth_start(content, "money", int(preview["next_reincarnation_count"]), 0.0)
+	check(is_equal_approx(start_none_lingli, 0.0), "no talents next-life lingli start 0")
+	check(is_equal_approx(start_none_money, 0.0), "no talents next-life money start 0 (locked at fresh era1)")
+	check(send(s, "learn_talent", {"talent_id": "resource_inheritance"}).ok, "preview session inheritance level 1 purchase")
+	var view1: Dictionary = s.get_view()
+	var mults1: Dictionary = view1["multipliers"]
+	check(is_equal_approx(float(mults1["resource_inheritance_bonus"]), 0.1), "level 1 inheritance bonus 0.1")
+	check(is_equal_approx(expected_post_rebirth_start(content, "lingli", 1, float(mults1["resource_inheritance_bonus"])), floor(cap_lingli * 0.1)), "level 1 next-life lingli start floor(cap*0.1)")
+	check(is_equal_approx(expected_post_rebirth_start(content, "money", 1, float(mults1["resource_inheritance_bonus"])), 0.0), "level 1 next-life money start 0 (locked at fresh era1)")
+	check((view1["talents"] as Dictionary).get("resource_inheritance", 0) == 1, "view talents level 1")
+	check(view1["reincarnation_preview"] == preview, "view preview unchanged by talent purchase")
+	check(send(s, "learn_talent", {"talent_id": "resource_inheritance"}).ok, "preview session inheritance level 2 purchase")
+	var view2: Dictionary = s.get_view()
+	var mults2: Dictionary = view2["multipliers"]
+	check(is_equal_approx(float(mults2["resource_inheritance_bonus"]), 0.2), "level 2 inheritance bonus 0.2")
+	check(is_equal_approx(expected_post_rebirth_start(content, "lingli", 1, float(mults2["resource_inheritance_bonus"])), floor(cap_lingli * 0.2)), "level 2 next-life lingli start floor(cap*0.2)")
+	check(is_equal_approx(expected_post_rebirth_start(content, "money", 1, float(mults2["resource_inheritance_bonus"])), 0.0), "level 2 next-life money start 0 (locked at fresh era1)")
+	check((view2["talents"] as Dictionary).get("resource_inheritance", 0) == 2, "view talents level 2")
+	var preview2: Dictionary = s.get_reincarnation_preview("normal")
+	check(int(preview2["current_reincarnation_count"]) == 0 and int(preview2["next_reincarnation_count"]) == 1, "preview counts unchanged by talents")
+	income_first = String(preview["dao_heart"]).to_float()
+
+func _run_real_reincarnation(content: GameContent) -> void:
+	for level in TEST_LEVELS:
+		var lvl := int(level)
+		var s := fixture_era3_session(content)
+		var dh_before: float = s.state.dao_heart.to_float()
+		var spent := buy_levels(s, "resource_inheritance", lvl)
+		var dh_after_buy: float = s.state.dao_heart.to_float()
+		check(is_equal_approx(dh_before - dh_after_buy, spent), "rebirth L" + str(lvl) + " spent matches dao heart drop")
+		var preview_before: Dictionary = s.get_reincarnation_preview("normal")
+		check(int(preview_before["current_reincarnation_count"]) == 0 and int(preview_before["next_reincarnation_count"]) == 1, "rebirth L" + str(lvl) + " preview counts")
+		var reinc := send(s, "reincarnate", {"mode": "normal"})
+		check(bool(reinc.ok), "rebirth L" + str(lvl) + " official reincarnate ok")
+		check(int(s.state.reincarnation_count) == 1, "rebirth L" + str(lvl) + " count increments")
+		check(int(s.state.talents.get("resource_inheritance", 0)) == lvl, "rebirth L" + str(lvl) + " talents persist")
+		check(s.state.era_id == 1 and s.state.level == 1, "rebirth L" + str(lvl) + " era and level reset to 1/1")
+		check(is_equal_approx(s.state.training_seconds, 0.0) and is_equal_approx(s.state.total_elapsed_seconds, 0.0), "rebirth L" + str(lvl) + " time reset")
+		check(s.state.skills.is_empty(), "rebirth L" + str(lvl) + " skills empty")
+		check(s.state.buildings.is_empty(), "rebirth L" + str(lvl) + " buildings cleared")
+		check(s.state.resources["skill_point"].value.to_float() == 0.0 and not bool(s.state.resources["skill_point"].unlocked), "rebirth L" + str(lvl) + " skill point zero and locked")
+		var expected_start := expected_post_rebirth_start(content, "lingli", 1, 0.1 * float(lvl))
+		var actual_start: float = s.state.resources["lingli"].value.to_float()
+		check(absf(actual_start - expected_start) < 0.000001, "rebirth L" + str(lvl) + " lingli start equals floor(cap*ratio)")
+		check(absf(actual_start - floor(FIXTURE_PREVIOUS_LINGLI * 0.1)) > 0.001, "rebirth L" + str(lvl) + " previous stock does not determine start")
+		check(s.state.resources["money"].value.to_float() == 0.0 and not bool(s.state.resources["money"].unlocked), "rebirth L" + str(lvl) + " money zero and locked after rebirth")
+		check(s.state.resources["wood"].value.to_float() == 0.0 and not bool(s.state.resources["wood"].unlocked), "rebirth L" + str(lvl) + " wood zero and locked after rebirth")
+		check(is_equal_approx(s.state.dao_heart.to_float(), dh_after_buy + income_first), "rebirth L" + str(lvl) + " dao heart leftover plus reward")
+		var events: Array = reinc.get("events", [])
+		if not events.is_empty():
+			var ev: Dictionary = events[0]
+			var granted: Dictionary = ev.get("granted_resources", {})
+			var granted_ok := false
+			if expected_start > 0.0:
+				granted_ok = granted.has("lingli") and absf(float(granted["lingli"]) - expected_start) < 0.001 and granted.size() == 1
+			else:
+				granted_ok = granted.is_empty()
+			check(granted_ok, "rebirth L" + str(lvl) + " event granted resources match rule")
+
+func _run_lifespan(content: GameContent) -> void:
+	for level in TEST_LEVELS:
+		var lvl := int(level)
+		var s := GameSession.create_new_game(content)
+		s.state.dao_heart = AmountCompat.from_number(FIXTURE_DAO_HEART)
+		var spent := buy_levels(s, "lifespan_extension", lvl)
+		check(is_equal_approx(spent, frozen_cumulative_cost("lifespan_extension", lvl)), "lifespan L" + str(lvl) + " cumulative cost matches frozen sum")
+		var view: Dictionary = s.get_view()
+		var max_life: float = float(view["max_lifespan_seconds"])
+		var mults: Dictionary = view["multipliers"]
+		check(is_equal_approx(float(mults["lifespan_bonus"]), 0.1 * float(lvl)), "lifespan L" + str(lvl) + " multiplier 0.1*level")
+		if lvl == 0:
+			base_lifespan = max_life
+			check(base_lifespan > 0.0, "lifespan base positive")
+		else:
+			var expected_life: float = floor((base_lifespan / 60.0) * (1.0 + 0.1 * float(lvl))) * 60.0
+			check(absf(max_life - expected_life) < 0.000001, "lifespan L" + str(lvl) + " exactly +10 percent per level over level 0")
+
+func _run_cultivation_speed(content: GameContent) -> void:
+	for level in TEST_LEVELS:
+		var lvl := int(level)
+		var s := GameSession.create_new_game(content)
+		s.state.dao_heart = AmountCompat.from_number(FIXTURE_DAO_HEART)
+		var spent := buy_levels(s, "innate_dao_body", lvl)
+		check(is_equal_approx(spent, frozen_cumulative_cost("innate_dao_body", lvl)), "speed L" + str(lvl) + " cumulative cost matches frozen sum")
+		var view: Dictionary = s.get_view()
+		var required: float = float(view["next_level_required_seconds"])
+		var mults: Dictionary = view["multipliers"]
+		check(is_equal_approx(float(mults["cultivation_speed_bonus"]), 0.1 * float(lvl)), "speed L" + str(lvl) + " multiplier 0.1*level")
+		if lvl == 0:
+			base_required = required
+			check(base_required > 0.0, "era1 level1 required seconds positive")
+		else:
+			check(absf(required - base_required) < 0.000001, "speed L" + str(lvl) + " next_level_required_seconds unaffected by innate level")
+		var before_training: float = s.state.training_seconds
+		s.advance_time(60.0)
+		check(absf(s.state.total_elapsed_seconds - 60.0) < 0.000001, "speed L" + str(lvl) + " advanced exactly 60 simulated seconds")
+		check(absf(s.state.training_seconds - before_training - 60.0 * (1.0 + 0.1 * float(lvl))) < 0.000001, "speed L" + str(lvl) + " training gains 60*(1+0.1*level)")
+
+func _run_save_reload(content: GameContent) -> void:
+	var meta := {"save_id": "early-v1b", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": "0"}
+	var s := GameSession.create_new_game(content)
+	s.state.era_id = 3
+	s.state.level = 10
+	s.state.dao_heart = AmountCompat.from_number(FIXTURE_DAO_HEART)
+	check(buy_levels(s, "resource_inheritance", 2) > 0.0, "save session inheritance purchases")
+	check(buy_levels(s, "lifespan_extension", 1) > 0.0, "save session lifespan purchase")
+	check(buy_levels(s, "innate_dao_body", 2) > 0.0, "save session innate purchases")
+	var talents_before: Dictionary = s.state.talents.duplicate(true)
+	var dh_before: float = s.state.dao_heart.to_float()
+	var mults_before: Dictionary = s.get_view()["multipliers"]
+	var encoded := SaveCodec.encode(s.state, content.content_version, meta)
+	check(bool(encoded.ok), "save encode with three talents")
+	var decoded := SaveCodec.decode(String(encoded.json))
+	check(bool(decoded.ok), "save decode with three talents")
+	var restored_state: GameState = decoded["state"]
+	var restored_talents_match := restored_state.talents.size() == talents_before.size()
+	for talent_key in talents_before:
+		restored_talents_match = restored_talents_match and int(restored_state.talents.get(talent_key, -1)) == int(talents_before[talent_key])
+	check(restored_talents_match, "talents survive save exactly")
+	check(String(restored_state.dao_heart.serialize()) == String(s.state.dao_heart.serialize()), "dao heart survives save exactly")
+	check(absf(restored_state.dao_heart.to_float() - dh_before) < 0.000001, "dao heart value preserved")
+	var restored := GameSession.new()
+	restored.content = content
+	restored.state = restored_state
+	restored.clock = GameClock.create(float(restored_state.total_elapsed_seconds))
+	var mults_after: Dictionary = restored.get_view()["multipliers"]
+	for key in ["dao_heart_bonus", "dao_proof_bonus", "lifespan_bonus", "cultivation_speed_bonus", "resource_inheritance_bonus", "global_production_multiplier"]:
+		check(is_equal_approx(float(mults_after[key]), float(mults_before[key])), "restored multiplier " + String(key) + " matches")
+	var memory := Memory.new()
+	SaveManager.configure(content, memory)
+	check(SaveManager.save(s.state, meta).ok, "isolated SaveManager save with talents")
+	var stored_main: String = String(memory.data.get(SaveSlots.SLOT_MAIN, ""))
+	check(not stored_main.is_empty(), "main slot stored")
+	memory.fail = SaveSlots.SLOT_BACKUP
+	check(not SaveManager.save(s.state, meta).ok, "archive write failure surfaces")
+	check(String(memory.data.get(SaveSlots.SLOT_MAIN, "")) == stored_main, "failed write preserves previous slot bytes")
+	memory.fail = ""
+	check(SaveManager.save(s.state, meta).ok, "retry after archive failure succeeds")
+	var current := SaveManager.current_state()
+	var current_talents_match := current != null and current.talents.size() == talents_before.size()
+	if current_talents_match:
+		for talent_key in talents_before:
+			current_talents_match = current_talents_match and int(current.talents.get(talent_key, -1)) == int(talents_before[talent_key])
+	check(current_talents_match, "SaveManager reload keeps talents")
+	SaveManager.reset_for_tests()
+
+func _run_zero_inheritance_rebuild(content: GameContent) -> void:
+	var s := fixture_era3_session(content)
+	var reinc := send(s, "reincarnate", {"mode": "normal"})
+	check(bool(reinc.ok), "zero-inheritance reincarnate ok")
+	check(int(s.state.reincarnation_count) == 1, "zero-inheritance count 1")
+	var zero_basic := true
+	for resource_id in ["lingli", "money", "wood", "stone_low", "black_copper", "spirit_grass_low"]:
+		if not (s.state.resources[resource_id].value.to_float() == 0.0):
+			zero_basic = false
+	check(zero_basic, "zero-inheritance start basic resources all zero")
+	check(s.state.skills.is_empty(), "zero-inheritance skills empty")
+	check(s.state.buildings.is_empty(), "zero-inheritance buildings cleared")
+	var helper = preload("res://src/verification/res1d2_contract.gd").new()
+	helper.content = content
+	var rebuild_failed := false
+	for milestone in Onboarding.MILESTONES:
+		var milestone_building := String(milestone["building"])
+		var milestone_level := int(milestone["level"])
+		var guard := 0
+		while int(s.state.buildings.get(milestone_building, 0)) < milestone_level and guard < 50:
+			guard += 1
+			if not helper.build(s, milestone_building):
+				rebuild_failed = true
+				break
+		if rebuild_failed:
+			break
+	check(not rebuild_failed, "zero-inheritance earned onboarding building chain")
+	if not rebuild_failed:
+		rebuild_failed = not helper.build(s, "storage_lingli")
+		check(not rebuild_failed, "zero-inheritance earned lingli storage")
+	var level_guard := 0
+	while s.state.level < 10 and level_guard < 9600:
+		level_guard += 1
+		if bool(s.get_view().can_level_up):
+			if not send(s, "level_up_cultivation", {}).ok:
+				rebuild_failed = true
+				break
+		else:
+			s.advance_time(1.0)
+	check(not rebuild_failed and s.state.level == 10, "zero-inheritance natural training reaches era1 lv10")
+	if not rebuild_failed:
+		check(send(s, "breakthrough_era", {}).ok and s.state.era_id == 2, "zero-inheritance rebuild reaches era2 by commands and natural time only")
+	rebuild_seconds = float(s.state.total_elapsed_seconds)
+	var second_preview: Dictionary = s.get_reincarnation_preview("normal")
+	income_second = String(second_preview["dao_heart"]).to_float()
+	check(income_second >= float(ReincarnationRules.era_dao_heart_floor(2)), "second rebirth income at least era2 floor")
+	check(helper.failures.is_empty(), "rebuild helper internal checks clean")
+
+func _run_spirit_cross_life_policy(content: GameContent) -> void:
+	for inheritance_level in [0, 1]:
+		var s := fixture_era3_session(content)
+		if inheritance_level == 1:
+			check(send(s, "learn_talent", {"talent_id": "resource_inheritance"}).ok, "spirit policy inheritance purchase")
+		var spirit := RealmSystem.ensure_spirit_data(s.state)
+		spirit.spirit_crystal = 77.0
+		spirit.azure_nectar = 23.0
+		spirit.outposts = {"celestial_hub": 2, "pure_pool": 2, "void_beacon": 1}
+		var before := SaveCodec.compute_checksum(s.state.realms_data)
+		check(send(s, "reincarnate", {"mode": "normal"}).ok, "spirit policy official reincarnation")
+		check(SaveCodec.compute_checksum(s.state.realms_data) == before, "spirit balances and outposts survive independent of inheritance")
+		check(s.state.era_id == 1 and RealmSystem.is_spirit_realm_unlocked(s.state), "spirit access persists after reincarnation")
+		check(is_zero_approx(RealmSystem.get_feedback_cultivation_boost(s.state)), "preserved pool provides no era1 cultivation feedback")
+		RealmSystem.tick(s.state, 30.0)
+		check(SaveCodec.compute_checksum(s.state.realms_data) == before, "preserved spirit production paused in era1")
+		check(is_equal_approx(s.state.resources.lingli.value.to_float(), 10.0 * inheritance_level), "spirit holdings never become basic resource inheritance")
+		var encoded := SaveCodec.encode(s.state, content.content_version, {"save_id": "early-v1b-spirit", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": "0"})
+		check(encoded.ok, "spirit policy save encode")
+		if encoded.ok:
+			var decoded := SaveCodec.decode(encoded.json)
+			check(decoded.ok, "spirit policy save decode")
+			if decoded.ok:
+				check(SaveCodec.compute_checksum(decoded.state.realms_data) == before, "spirit policy survives serialization")
+		s.state.era_id = 2 # Diagnostic boundary fixture, not a progression claim.
+		check(is_equal_approx(RealmSystem.get_feedback_cultivation_boost(s.state), 0.3), "preserved pool feedback resumes at era2")
+
+func _print_benefit_table() -> void:
+	print("EARLY-V1-B benefit/wait table (simulated seconds only, fixture-driven; not human or Web session evidence):")
+	print("first rebirth dao heart income (era3 fixture preview): %.0f" % income_first)
+	print("hypothetical second rebirth dao heart income (rebuilt era2 state preview): %.0f" % income_second)
+	print("zero-inheritance rebuild era1 to era2 natural-rate simulated seconds: %.1f" % rebuild_seconds)
+	var total_savings := income_first + income_second
+	for talent_id in TALENT_IDS:
+		var tid := String(talent_id)
+		for level in TEST_LEVELS:
+			var lvl := int(level)
+			var cost := frozen_cumulative_cost(tid, lvl)
+			var life_delta := 0.0
+			var speed := 1.0
+			var start_amount := 0.0
+			var note := ""
+			if tid == "lifespan_extension":
+				life_delta = floor((base_lifespan / 60.0) * (1.0 + 0.1 * float(lvl))) * 60.0 - base_lifespan
+				note = "immediate +%.0fs max lifespan this life (simulated seconds)" % life_delta
+			elif tid == "innate_dao_body":
+				speed = 1.0 + 0.1 * float(lvl)
+				note = "immediate training speed x%.1f this life (60s yields %.0fs progress, requirement unchanged)" % [speed, 60.0 * speed]
+			else:
+				start_amount = floor(cap_lingli * 0.1 * float(lvl))
+				note = "next-life lingli start %.0f (floor of fresh era1 cap x 10%% x level); no current-life effect" % start_amount
+			var afford := "covered by first rebirth income"
+			if cost > income_first:
+				afford = "needs later rebirth savings (first income %.0f)" % income_first
+			var two_rebirths := "covered by first two rebirth incomes"
+			if cost > total_savings:
+				two_rebirths = "beyond first two rebirth incomes (%.0f)" % total_savings
+			print("TALENT %s level %d | cumulative cost %.0f dao heart | lifespan delta %.0fs | cultivation speed x%.1f | expected next-life lingli start %.0f | %s | %s | %s" % [tid, lvl, cost, life_delta, speed, start_amount, note, afford, two_rebirths])
+
+func _finish() -> void:
+	if failures.is_empty():
+		print("PASS: EARLY-V1-B %d checks" % checks)
+		quit(0)
+	else:
+		for failure in failures:
+			push_error(failure)
+		print("FAIL: EARLY-V1-B %d checks with %d failures" % [checks, failures.size()])
+		quit(1)

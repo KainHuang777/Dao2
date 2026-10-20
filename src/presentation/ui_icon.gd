@@ -2,7 +2,7 @@ class_name UiIcon
 extends Control
 ## Small scalable UI illustrations drawn by Godot instead of font glyphs.
 
-enum Kind { HOURGLASS, SCROLL, TEMPLE, GIFT, REFRESH, LOTUS, SPARKLE, ARROW, GEAR, RETURN_ARROW, WOOD, ORE, HERB, ISLAND_HOME, MANAGEMENT }
+enum Kind { HOURGLASS, SCROLL, TEMPLE, GIFT, REFRESH, LOTUS, SPARKLE, ARROW, GEAR, RETURN_ARROW, WOOD, ORE, HERB, ISLAND_HOME, MANAGEMENT, PLAY, STOP, INFINITY, BATCH }
 
 @export var kind: Kind = Kind.SPARKLE:
 	set(value):
@@ -119,6 +119,17 @@ func _draw() -> void:
 			_draw_line(Vector2(8, 11), Vector2(8, 18), c, stroke, scale_factor)
 			_draw_line(Vector2(16, 11), Vector2(16, 18), c, stroke, scale_factor)
 			_draw_line(Vector2(12, 11), Vector2(12, 18), c, stroke, scale_factor)
+		Kind.PLAY:
+			draw_colored_polygon(_points([[7, 4], [20, 12], [7, 20]], scale_factor), c)
+		Kind.STOP:
+			draw_rect(Rect2(center.x - 7 * scale_factor, center.y - 7 * scale_factor, 14 * scale_factor, 14 * scale_factor), c)
+		Kind.INFINITY:
+			draw_arc(center + Vector2(-4.5, 0) * scale_factor, 4.5 * scale_factor, 0.0, TAU, 20, c, stroke, true)
+			draw_arc(center + Vector2(4.5, 0) * scale_factor, 4.5 * scale_factor, 0.0, TAU, 20, c, stroke, true)
+		Kind.BATCH:
+			# Three stacked layers read as "several batches".
+			for y in [5.0, 11.0, 17.0]:
+				draw_rect(Rect2(center.x - 8 * scale_factor, (y - 12.0) * scale_factor + center.y - 2 * scale_factor, 16 * scale_factor, 4 * scale_factor), c, false, stroke)
 
 func _draw_line(a: Vector2, b: Vector2, color: Color, width: float, scale_factor: float) -> void:
 	draw_line((a - Vector2(12, 12)) * scale_factor + size * 0.5, (b - Vector2(12, 12)) * scale_factor + size * 0.5, color, width, true)
@@ -243,6 +254,27 @@ static func create_texture(icon_kind: Kind, icon_size_px: int = 18, color := Col
 			draw_l.call(pt.call(20.0, 19.0), pt.call(12.0, 3.0), c)
 			draw_l.call(pt.call(12.0, 10.0), pt.call(8.0, 19.0), c)
 			draw_l.call(pt.call(12.0, 10.0), pt.call(16.0, 19.0), c)
+		Kind.PLAY:
+			for p in [[7.0, 4.0, 20.0, 12.0], [20.0, 12.0, 7.0, 20.0], [7.0, 20.0, 7.0, 4.0]]:
+				draw_l.call(pt.call(p[0], p[1]), pt.call(p[2], p[3]), c)
+			for y in range(6, 19):
+				var half := minf(float(y) - 4.0, 20.0 - float(y)) * 0.8125
+				draw_l.call(pt.call(7.0, float(y)), pt.call(7.0 + half, float(y)), c)
+		Kind.STOP:
+			for y in range(5, 20):
+				draw_l.call(pt.call(5.0, float(y)), pt.call(19.0, float(y)), c)
+		Kind.INFINITY:
+			for cx in [7.5, 16.5]:
+				for i in range(20):
+					var a1 := float(i) * TAU / 20.0
+					var a2 := float(i + 1) * TAU / 20.0
+					draw_l.call(pt.call(cx + cos(a1) * 4.5, 12.0 + sin(a1) * 4.5), pt.call(cx + cos(a2) * 4.5, 12.0 + sin(a2) * 4.5), c)
+		Kind.BATCH:
+			for y in [5.0, 11.0, 17.0]:
+				draw_l.call(pt.call(4.0, y), pt.call(20.0, y), c)
+				draw_l.call(pt.call(4.0, y + 4.0), pt.call(20.0, y + 4.0), c)
+				draw_l.call(pt.call(4.0, y), pt.call(4.0, y + 4.0), c)
+				draw_l.call(pt.call(20.0, y), pt.call(20.0, y + 4.0), c)
 		_:
 			# Default sparkle / diamond
 			draw_l.call(pt.call(12.0, 3.0), pt.call(12.0, 21.0), c)

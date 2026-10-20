@@ -1,0 +1,27 @@
+{
+  "task": "TRIB-A",
+  "labels": [
+    "01 劫兆 · 島面受壓",
+    "02 離塵 · 景深下退",
+    "03 天幕 · 單一劫境",
+    "04 受劫 · 胸口接觸",
+    "05 成功 · 穩定回返",
+    "06 失敗 · 修羅殘相"
+  ],
+  "order": "row-major",
+  "scope": "Static art review; no timing/audio/FPS evidence",
+  "sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ]
+}

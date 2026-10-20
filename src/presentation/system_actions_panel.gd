@@ -64,10 +64,18 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
 	_surface.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if bounds.size.y < 350 else UiMaterial.scroll_shell())
+	_sync_skill_feedback()
+
+func _sync_skill_feedback() -> void:
+	if skill_view == null or status == null: return
+	var merged := mode == "skills" and size.y < 350 and not save_failed and not status.text.is_empty()
+	skill_view.set_feedback(status.text if merged else "")
+	status.visible = not status.text.is_empty() and not merged
 
 func show_result(message: String) -> void:
 	status.text = message
 	status.visible = true
+	_sync_skill_feedback()
 
 func _text(message: String) -> void:
 	var label := Label.new()
@@ -88,6 +96,7 @@ func _action(text: String, kind: String, id: String, enabled: bool) -> void:
 
 func refresh(view: Dictionary) -> void:
 	if _last_mode != mode:
+		if not save_failed: status.text = ""
 		status.visible = save_failed
 		_last_mode = mode
 	skill_view.visible = mode == "skills"
@@ -100,6 +109,7 @@ func refresh(view: Dictionary) -> void:
 		_signature = ""
 		return
 	if mode == "skills":
+		_sync_skill_feedback()
 		skill_view.refresh(view)
 		buttons = skill_view.buttons.duplicate()
 		_signature = ""

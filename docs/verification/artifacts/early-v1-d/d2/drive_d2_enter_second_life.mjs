@@ -1,0 +1,16 @@
+﻿import fs from 'node:fs';
+import path from 'node:path';
+import { connectDriver, sleep } from '../../res1d2-natural-mouse-driver.mjs';
+const OUT = path.resolve('docs/verification/artifacts/early-v1-d/d2');
+const log = (obj) => fs.appendFileSync(path.join(OUT, 'events-second-life.jsonl'), JSON.stringify({ utc: new Date().toISOString(), ...obj }) + '\n');
+const d = await connectDriver({ cdpPort: 9242, matchPort: '4380' });
+await d.bringToFront();
+log({ kind: 'click-enter-second-life', ...await d.click({ x: 640, y: 459 }) });
+await sleep(1200);
+await d.screenshot(path.join(OUT, 'second-life-1.2s.png'));
+await sleep(2500);
+await d.screenshot(path.join(OUT, 'second-life-3.7s.png'));
+const save = await d.readSave();
+fs.writeFileSync(path.join(OUT, 'save-second-life-start.json'), JSON.stringify(save, null, 2));
+log({ kind: 'save-start', revision: save.revision, state: { era: save.state?.era_id, level: save.state?.level, total: save.state?.total_elapsed_seconds, rc: save.state?.reincarnation_count, dh: save.state?.dao_heart, highest: save.state?.highest_era, buildings: save.state?.buildings, achievements: save.state?.achievements, resources: save.state?.resources } });
+await d.close();

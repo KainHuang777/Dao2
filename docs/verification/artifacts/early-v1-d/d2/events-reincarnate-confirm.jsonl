@@ -1,0 +1,7 @@
+{"utc":"2026-10-19T14:55:42.609Z","kind":"geo","rect":{"left":0,"top":0,"width":1279,"height":719,"dpr":1.0000000149011612,"vw":1280,"vh":720,"scrollX":0,"scrollY":0},"scale":0.9986111111111111,"now":1792421742609}
+{"utc":"2026-10-19T14:55:42.839Z","kind":"click-first","viewport":{"x":639.1111111111111,"y":585.1861111111111},"geo":{"rect":{"left":0,"top":0,"width":1279,"height":719,"dpr":1.0000000149011612,"vw":1280,"vh":720,"scrollX":0,"scrollY":0},"scale":0.9986111111111111,"now":1792421742646},"point":{"x":640,"y":586}}
+{"utc":"2026-10-19T14:56:36.845Z","kind":"click-confirm","viewport":{"x":669.0694444444445,"y":585.1861111111111},"geo":{"rect":{"left":0,"top":0,"width":1279,"height":719,"dpr":1.0000000149011612,"vw":1280,"vh":720,"scrollX":0,"scrollY":0},"scale":0.9986111111111111,"now":1792421796587},"point":{"x":670,"y":586}}
+{"utc":"2026-10-19T14:56:38.074Z","kind":"save","name":"seq-0.8s.png","revision":33977,"era":1,"level":1,"total":0,"rc":1,"dh":"20"}
+{"utc":"2026-10-19T14:56:39.915Z","kind":"save","name":"seq-2.3s.png","revision":33977,"era":1,"level":1,"total":0,"rc":1,"dh":"20"}
+{"utc":"2026-10-19T14:56:42.797Z","kind":"save","name":"seq-4.8s.png","revision":33977,"era":1,"level":1,"total":0,"rc":1,"dh":"20"}
+{"utc":"2026-10-19T14:56:46.982Z","kind":"save","name":"seq-8.8s.png","revision":33977,"era":1,"level":1,"total":0,"rc":1,"dh":"20"}

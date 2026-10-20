@@ -1,0 +1,11 @@
+﻿import fs from 'node:fs';
+import path from 'node:path';
+import { connectDriver, sleep } from '../../res1d2-natural-mouse-driver.mjs';
+const OUT = path.resolve('docs/verification/artifacts/early-v1-d/d2');
+const log = (obj) => fs.appendFileSync(path.join(OUT, 'events-second-life.jsonl'), JSON.stringify({ utc: new Date().toISOString(), ...obj }) + '\n');
+const d = await connectDriver({ cdpPort: 9242, matchPort: '4380' });
+await d.bringToFront();
+log({ kind: 'click-resource-mode-quantity', ...await d.click({ x: 139, y: 350 }) });
+await sleep(1200);
+await d.screenshot(path.join(OUT, 'second-life-resource-list.png'));
+await d.close();

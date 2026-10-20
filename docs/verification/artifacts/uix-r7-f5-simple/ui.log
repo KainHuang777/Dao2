@@ -1,0 +1,95 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:823)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:753)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:623)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:658)
+       [6] _layout (res://src/abode/living_abode.gd:634)
+       [7] _ready (res://src/abode/living_abode.gd:384)
+       [8] _run (res://tests/uix_r7_reincarnation_ui_runner.gd:23)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:823)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:753)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:623)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:658)
+       [6] _layout (res://src/abode/living_abode.gd:634)
+       [7] _ready (res://src/abode/living_abode.gd:384)
+       [8] _run (res://tests/uix_r7_reincarnation_ui_runner.gd:23)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:163)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:823)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:753)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:623)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:658)
+       [6] _layout (res://src/abode/living_abode.gd:634)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1236)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:187)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:823)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:753)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:623)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:658)
+       [6] _layout (res://src/abode/living_abode.gd:634)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:240)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1236)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_TALENT_LEARNED: resource_inheritance level=1
+WEB_BACKGROUND_SETTLED: {"age_seconds":0.0,"away_ms":3,"bootstrap":false,"cap_applied":false,"effective_ms":3,"effective_ticks":0,"forfeited_ms":0,"left_at_utc_ms":1792328356888,"report_id":"offline:1792328356891","rollback":false,"settled_at_utc_ms":1792328356891,"stopped":null,"time_only_ticks":0}
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UIX-R7 75 checks failed=false

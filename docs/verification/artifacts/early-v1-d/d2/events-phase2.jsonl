@@ -1,0 +1,3 @@
+{"utc":"2026-10-19T14:40:04.873Z","kind":"geo","rect":{"left":0,"top":0,"width":1265,"height":762,"dpr":1.25,"vw":1266,"vh":763,"scrollX":0,"scrollY":0},"scale":0.98828125,"now":1792420804873}
+{"utc":"2026-10-19T14:40:05.809Z","kind":"click-close","viewport":{"x":266.8359375,"y":357.7578125},"geo":{"rect":{"left":0,"top":0,"width":1265,"height":762,"dpr":1.25,"vw":1266,"vh":763,"scrollX":0,"scrollY":0},"scale":0.98828125,"now":1792420805639},"point":{"x":270,"y":362}}
+{"utc":"2026-10-19T14:40:11.424Z","kind":"save-phase2","revision":33974,"slot":"save_backup","era":3,"total":44400}

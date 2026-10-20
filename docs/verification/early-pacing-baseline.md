@@ -18,143 +18,143 @@ Rates, caps and costs come from `Production` / `BuildingCosts`. Columns: `afford
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | lingli 20.0 | 12.8 | 25.0 | 0.04 | 100000000000000% | 255 | 0% |
-| 1→2 | lingli 31.0 | 19.9 | 16.1 | 0.06 | 84% | 213 | 0% |
+| 0→1 | lingli 20.0 | 12.8 | 28.0 | 0.04 | 100000000000000% | 255 | 0% |
+| 1→2 | lingli 31.0 | 19.9 | 18.1 | 0.06 | 84% | 213 | 0% |
 
 ### wooden_house (rate: money)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 20.0, lingli 30.0 | 19.2 | 15.0 | 0.07 | 100000000000000% | 312 | 4% |
-| 1→2 | money 33.0, lingli 50.0 | 32.1 | 9.09 | 0.11 | 54% | 168 | 38% |
-| 2→3 | money 56.0, lingli 84.0 | 53.9 | 5.36 | 0.19 | 40% | 191 | 55% |
-| 3→4 | money 94.0, lingli 141 | 90.5 | 3.19 | 0.31 | 31% | 211 | 66% |
-| 4→5 | money 157, lingli 235 | 151 | 1.91 | 0.52 | 26% | 229 | 73% |
-| 5→6 | money 262, lingli 393 | 252 | 1.15 | 0.87 | 22% | 246 | 78% |
-| 6→7 | money 436, lingli 654 | 420 | 0.69 | 1.45 | 19% | 262 | 81% |
-| 7→8 | money 724, lingli 1087 | 697 | 0.41 | 2.41 | 17% | 277 | 84% |
-| 8→9 | money 1202, lingli 1803 | 1157 | 0.25 | 4.01 | 15% | 292 | 86% |
-| 9→10 | money 1992, lingli 2989 | 1917 | 0.15 | 6.64 | 14% | 305 | 88% |
+| 0→1 | money 20.0, lingli 30.0 | 19.2 | 18.7 | 0.05 | 100000000000000% | 312 | 0% |
+| 1→2 | money 30.0, lingli 45.0 | 28.9 | 12.4 | 0.08 | 54% | 168 | 4% |
+| 2→3 | money 46.0, lingli 69.0 | 44.3 | 8.12 | 0.12 | 40% | 191 | 31% |
+| 3→4 | money 70.0, lingli 105 | 67.4 | 5.33 | 0.19 | 31% | 211 | 48% |
+| 4→5 | money 106, lingli 159 | 102 | 3.52 | 0.28 | 26% | 229 | 59% |
+| 5→6 | money 160, lingli 240 | 154 | 2.33 | 0.43 | 22% | 246 | 66% |
+| 6→7 | money 241, lingli 362 | 232 | 1.55 | 0.65 | 19% | 262 | 72% |
+| 7→8 | money 363, lingli 545 | 350 | 1.03 | 0.97 | 17% | 277 | 76% |
+| 8→9 | money 547, lingli 820 | 526 | 0.68 | 1.46 | 15% | 292 | 79% |
+| 9→10 | money 821, lingli 1232 | 790 | 0.45 | 2.20 | 14% | 305 | 82% |
 
 ### storage_lingli (capacity only)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 50.0, wood 20.0 | 33.4 | 5.00 | 0.20 | - | - | - |
-| 1→2 | money 65.0, wood 26.0 | 43.4 | 3.85 | 0.26 | - | - | - |
-| 2→3 | money 85.0, wood 34.0 | 56.7 | 2.94 | 0.34 | - | - | - |
-| 3→4 | money 112, wood 44.0 | 73.4 | 2.27 | 0.44 | - | - | - |
-| 4→5 | money 146, wood 58.0 | 96.8 | 1.72 | 0.58 | - | - | - |
-| 5→6 | money 190, wood 76.0 | 127 | 1.32 | 0.76 | - | - | - |
-| 6→7 | money 247, wood 99.0 | 165 | 1.01 | 0.99 | - | - | - |
-| 7→8 | money 321, wood 128 | 214 | 0.78 | 1.28 | - | - | - |
-| 8→9 | money 417, wood 166 | 277 | 0.60 | 1.66 | - | - | - |
-| 9→10 | money 540, wood 216 | 360 | 0.46 | 2.16 | - | - | - |
+| 0→1 | money 50.0, wood 20.0 | 33.4 | 7.50 | 0.13 | - | - | - |
+| 1→2 | money 63.0, wood 25.0 | 41.7 | 6.00 | 0.17 | - | - | - |
+| 2→3 | money 79.0, wood 31.0 | 51.7 | 4.84 | 0.21 | - | - | - |
+| 3→4 | money 99.0, wood 39.0 | 65.1 | 3.85 | 0.26 | - | - | - |
+| 4→5 | money 124, wood 49.0 | 81.7 | 3.06 | 0.33 | - | - | - |
+| 5→6 | money 155, wood 62.0 | 103 | 2.42 | 0.41 | - | - | - |
+| 6→7 | money 194, wood 77.0 | 128 | 1.95 | 0.51 | - | - | - |
+| 7→8 | money 241, wood 96.0 | 160 | 1.56 | 0.64 | - | - | - |
+| 8→9 | money 300, wood 120 | 200 | 1.25 | 0.80 | - | - | - |
+| 9→10 | money 374, wood 149 | 249 | 1.01 | 0.99 | - | - | - |
 
 ### storage_money (capacity only)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 100, wood 50.0 | 83.4 | 2.00 | 0.50 | - | - | - |
-| 1→2 | money 147, wood 73.0 | 122 | 1.37 | 0.73 | - | - | - |
-| 2→3 | money 215, wood 107 | 178 | 0.93 | 1.07 | - | - | - |
-| 3→4 | money 315, wood 157 | 262 | 0.64 | 1.57 | - | - | - |
-| 4→5 | money 460, wood 230 | 384 | 0.43 | 2.30 | - | - | - |
-| 5→6 | money 672, wood 336 | 560 | 0.30 | 3.36 | - | - | - |
-| 6→7 | money 978, wood 489 | 816 | 0.20 | 4.89 | - | - | - |
-| 7→8 | money 1423, wood 711 | 1186 | 0.14 | 7.11 | - | - | - |
-| 8→9 | money 2066, wood 1033 | 1723 | 0.10 | 10.3 | - | - | - |
-| 9→10 | money 2995, wood 1497 | 2497 | 0.07 | 15.0 | - | - | - |
+| 0→1 | money 100, wood 50.0 | 83.4 | 3.00 | 0.33 | - | - | - |
+| 1→2 | money 136, wood 68.0 | 113 | 2.21 | 0.45 | - | - | - |
+| 2→3 | money 185, wood 92.0 | 153 | 1.63 | 0.61 | - | - | - |
+| 3→4 | money 252, wood 126 | 210 | 1.19 | 0.84 | - | - | - |
+| 4→5 | money 342, wood 171 | 285 | 0.88 | 1.14 | - | - | - |
+| 5→6 | money 464, wood 232 | 387 | 0.65 | 1.55 | - | - | - |
+| 6→7 | money 627, wood 313 | 522 | 0.48 | 2.09 | - | - | - |
+| 7→8 | money 847, wood 423 | 706 | 0.35 | 2.82 | - | - | - |
+| 8→9 | money 1142, wood 571 | 953 | 0.26 | 3.81 | - | - | - |
+| 9→10 | money 1537, wood 768 | 1281 | 0.20 | 5.12 | - | - | - |
 
 ### forest_farm (rate: wood)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 20.0, lingli 20.0 | 12.8 | 15.0 | 0.07 | 100000000000000% | 44.5 | 0% |
-| 1→2 | money 31.0, lingli 31.0 | 19.9 | 9.68 | 0.10 | 135% | 60.2 | 4% |
-| 2→3 | money 49.0, lingli 49.0 | 31.4 | 6.12 | 0.16 | 72% | 75.2 | 44% |
-| 3→4 | money 77.0, lingli 77.0 | 49.4 | 3.90 | 0.26 | 49% | 87.7 | 63% |
-| 4→5 | money 121, lingli 121 | 77.6 | 2.48 | 0.40 | 37% | 98.5 | 73% |
-| 5→6 | money 189, lingli 189 | 121 | 1.59 | 0.63 | 30% | 108 | 79% |
-| 6→7 | money 296, lingli 296 | 190 | 1.01 | 0.99 | 25% | 117 | 83% |
-| 7→8 | money 461, lingli 461 | 296 | 0.65 | 1.54 | 21% | 126 | 86% |
-| 8→9 | money 717, lingli 717 | 460 | 0.42 | 2.39 | 19% | 133 | 88% |
-| 9→10 | money 1114, lingli 1114 | 715 | 0.27 | 3.71 | 17% | 141 | 90% |
+| 0→1 | money 20.0, lingli 20.0 | 12.8 | 23.0 | 0.04 | 100000000000000% | 44.5 | 0% |
+| 1→2 | money 31.0, lingli 31.0 | 19.9 | 14.8 | 0.07 | 135% | 60.2 | 0% |
+| 2→3 | money 49.0, lingli 49.0 | 31.4 | 9.39 | 0.11 | 72% | 75.2 | 17% |
+| 3→4 | money 77.0, lingli 77.0 | 49.4 | 5.97 | 0.17 | 49% | 87.7 | 44% |
+| 4→5 | money 121, lingli 121 | 77.6 | 3.80 | 0.26 | 37% | 98.5 | 59% |
+| 5→6 | money 189, lingli 189 | 121 | 2.43 | 0.41 | 30% | 108 | 68% |
+| 6→7 | money 296, lingli 296 | 190 | 1.55 | 0.64 | 25% | 117 | 75% |
+| 7→8 | money 461, lingli 461 | 296 | 1.00 | 1.00 | 21% | 126 | 79% |
+| 8→9 | money 717, lingli 717 | 460 | 0.64 | 1.56 | 19% | 133 | 82% |
+| 9→10 | money 1114, lingli 1114 | 715 | 0.41 | 2.42 | 17% | 141 | 85% |
 
 ### stone_mine (rate: stone_low,black_copper)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | wood 10.0, money 20.0 | 16.7 | 10.0 | 0.10 | 100000000000000% | 66.7 | 0% |
-| 1→2 | wood 15.0, money 31.0 | 25.0 | 6.67 | 0.15 | 135% | 90.3 | 4% |
-| 2→3 | wood 24.0, money 49.0 | 40.0 | 4.17 | 0.24 | 72% | 113 | 44% |
-| 3→4 | wood 38.0, money 77.0 | 63.4 | 2.63 | 0.38 | 49% | 131 | 63% |
-| 4→5 | wood 60.0, money 121 | 100 | 1.67 | 0.60 | 37% | 148 | 73% |
-| 5→6 | wood 94.0, money 189 | 157 | 1.06 | 0.94 | 30% | 163 | 79% |
-| 6→7 | wood 148, money 296 | 247 | 0.68 | 1.48 | 25% | 176 | 83% |
-| 7→8 | wood 230, money 461 | 384 | 0.43 | 2.30 | 21% | 188 | 86% |
-| 8→9 | wood 358, money 717 | 597 | 0.28 | 3.58 | 19% | 200 | 88% |
-| 9→10 | wood 557, money 1114 | 929 | 0.18 | 5.57 | 17% | 211 | 90% |
+| 0→1 | wood 10.0, money 20.0 | 16.7 | 15.0 | 0.07 | 100000000000000% | 66.7 | 0% |
+| 1→2 | wood 15.0, money 31.0 | 25.0 | 10.0 | 0.10 | 135% | 90.3 | 0% |
+| 2→3 | wood 24.0, money 49.0 | 40.0 | 6.25 | 0.16 | 72% | 113 | 17% |
+| 3→4 | wood 38.0, money 77.0 | 63.4 | 3.95 | 0.25 | 49% | 131 | 44% |
+| 4→5 | wood 60.0, money 121 | 100 | 2.50 | 0.40 | 37% | 148 | 59% |
+| 5→6 | wood 94.0, money 189 | 157 | 1.60 | 0.63 | 30% | 163 | 68% |
+| 6→7 | wood 148, money 296 | 247 | 1.01 | 0.99 | 25% | 176 | 75% |
+| 7→8 | wood 230, money 461 | 384 | 0.65 | 1.53 | 21% | 188 | 79% |
+| 8→9 | wood 358, money 717 | 597 | 0.42 | 2.39 | 19% | 200 | 82% |
+| 9→10 | wood 557, money 1114 | 929 | 0.27 | 3.71 | 17% | 211 | 85% |
 
 ### storage_stone (capacity only)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 40.0, stone_low 10.0 | 25.0 | 7.50 | 0.13 | - | - | - |
-| 1→2 | money 58.0, stone_low 14.0 | 36.3 | 5.17 | 0.19 | - | - | - |
-| 2→3 | money 86.0, stone_low 21.0 | 53.8 | 3.49 | 0.29 | - | - | - |
-| 3→4 | money 126, stone_low 31.0 | 78.8 | 2.38 | 0.42 | - | - | - |
-| 4→5 | money 184, stone_low 46.0 | 115 | 1.63 | 0.61 | - | - | - |
-| 5→6 | money 268, stone_low 67.0 | 168 | 1.12 | 0.89 | - | - | - |
-| 6→7 | money 391, stone_low 97.0 | 244 | 0.77 | 1.30 | - | - | - |
-| 7→8 | money 569, stone_low 142 | 356 | 0.53 | 1.90 | - | - | - |
-| 8→9 | money 826, stone_low 206 | 516 | 0.36 | 2.75 | - | - | - |
-| 9→10 | money 1198, stone_low 299 | 749 | 0.25 | 3.99 | - | - | - |
+| 0→1 | money 40.0, stone_low 10.0 | 25.0 | 11.5 | 0.09 | - | - | - |
+| 1→2 | money 54.0, stone_low 13.0 | 33.8 | 8.52 | 0.12 | - | - | - |
+| 2→3 | money 74.0, stone_low 18.0 | 46.3 | 6.22 | 0.16 | - | - | - |
+| 3→4 | money 101, stone_low 25.0 | 63.1 | 4.55 | 0.22 | - | - | - |
+| 4→5 | money 137, stone_low 34.0 | 85.6 | 3.36 | 0.30 | - | - | - |
+| 5→6 | money 185, stone_low 46.0 | 116 | 2.49 | 0.40 | - | - | - |
+| 6→7 | money 250, stone_low 62.0 | 156 | 1.84 | 0.54 | - | - | - |
+| 7→8 | money 338, stone_low 84.0 | 211 | 1.36 | 0.73 | - | - | - |
+| 8→9 | money 456, stone_low 114 | 285 | 1.01 | 0.99 | - | - | - |
+| 9→10 | money 615, stone_low 153 | 384 | 0.75 | 1.34 | - | - | - |
 
 ### herb_farm (rate: spirit_grass_low)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | stone_low 10.0, wood 20.0 | 33.4 | 5.00 | 0.20 | 100000000000000% | 34.6 | 0% |
-| 1→2 | stone_low 21.0, wood 42.0 | 70.1 | 2.38 | 0.42 | 164% | 56.7 | 45% |
-| 2→3 | stone_low 44.0, wood 88.0 | 147 | 1.14 | 0.88 | 79% | 72.4 | 69% |
-| 3→4 | stone_low 92.0, wood 184 | 307 | 0.54 | 1.84 | 52% | 85.3 | 80% |
-| 4→5 | stone_low 192, wood 384 | 641 | 0.26 | 3.84 | 39% | 96.5 | 86% |
-| 5→6 | stone_low 400, wood 800 | 1335 | 0.13 | 8.00 | 31% | 106 | 89% |
-| 6→7 | stone_low 832, wood 1664 | 2776 | 0.06 | 16.6 | 26% | 116 | 91% |
-| 7→8 | stone_low 1728, wood 3456 | 5765 | 0.03 | 34.6 | 22% | 124 | 93% |
-| 8→9 | stone_low 3584, wood 7168 | 11957 | 0.01 | 71.7 | 19% | 132 | 94% |
-| 9→10 | stone_low 7424, wood 14848 | 24768 | 0.01 | 148 | 17% | 139 | 95% |
+| 0→1 | stone_low 10.0, wood 20.0 | 33.4 | 7.50 | 0.13 | 100000000000000% | 34.6 | 0% |
+| 1→2 | stone_low 17.0, wood 35.0 | 58.4 | 4.29 | 0.23 | 164% | 56.7 | 45% |
+| 2→3 | stone_low 31.0, wood 63.0 | 105 | 2.38 | 0.42 | 79% | 72.4 | 69% |
+| 3→4 | stone_low 56.0, wood 112 | 187 | 1.34 | 0.75 | 52% | 85.3 | 80% |
+| 4→5 | stone_low 100, wood 200 | 334 | 0.75 | 1.33 | 39% | 96.5 | 86% |
+| 5→6 | stone_low 177, wood 354 | 591 | 0.42 | 2.36 | 31% | 106 | 89% |
+| 6→7 | stone_low 313, wood 627 | 1046 | 0.24 | 4.18 | 26% | 116 | 91% |
+| 7→8 | stone_low 553, wood 1107 | 1847 | 0.14 | 7.38 | 22% | 124 | 93% |
+| 8→9 | stone_low 976, wood 1953 | 3258 | 0.08 | 13.0 | 19% | 132 | 94% |
+| 9→10 | stone_low 1719, wood 3439 | 5737 | 0.04 | 22.9 | 17% | 139 | 95% |
 
 ### storage_wood (capacity only)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 30.0, wood 10.0 | 18.8 | 10.0 | 0.10 | - | - | - |
-| 1→2 | money 44.0, wood 14.0 | 27.5 | 6.82 | 0.15 | - | - | - |
-| 2→3 | money 64.0, wood 21.0 | 40.0 | 4.69 | 0.21 | - | - | - |
-| 3→4 | money 94.0, wood 31.0 | 58.8 | 3.19 | 0.31 | - | - | - |
-| 4→5 | money 138, wood 46.0 | 86.3 | 2.17 | 0.46 | - | - | - |
-| 5→6 | money 201, wood 67.0 | 126 | 1.49 | 0.67 | - | - | - |
-| 6→7 | money 293, wood 97.0 | 183 | 1.02 | 0.98 | - | - | - |
-| 7→8 | money 426, wood 142 | 266 | 0.70 | 1.42 | - | - | - |
-| 8→9 | money 619, wood 206 | 387 | 0.48 | 2.06 | - | - | - |
-| 9→10 | money 898, wood 299 | 561 | 0.33 | 2.99 | - | - | - |
+| 0→1 | money 30.0, wood 10.0 | 18.8 | 15.0 | 0.07 | - | - | - |
+| 1→2 | money 40.0, wood 13.0 | 25.0 | 11.5 | 0.09 | - | - | - |
+| 2→3 | money 55.0, wood 18.0 | 34.4 | 8.33 | 0.12 | - | - | - |
+| 3→4 | money 75.0, wood 25.0 | 46.9 | 6.00 | 0.17 | - | - | - |
+| 4→5 | money 102, wood 34.0 | 63.8 | 4.41 | 0.23 | - | - | - |
+| 5→6 | money 139, wood 46.0 | 86.9 | 3.26 | 0.31 | - | - | - |
+| 6→7 | money 188, wood 62.0 | 118 | 2.42 | 0.41 | - | - | - |
+| 7→8 | money 254, wood 84.0 | 159 | 1.79 | 0.56 | - | - | - |
+| 8→9 | money 342, wood 114 | 214 | 1.32 | 0.76 | - | - | - |
+| 9→10 | money 461, wood 153 | 288 | 0.98 | 1.02 | - | - | - |
 
 ### storage_herb (capacity only)
 
 | L→L+1 | cost | afford s | pressure | ratio | gain | delay@300 | ovf@300 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0→1 | money 60.0, wood 30.0 | 50.0 | 3.33 | 0.30 | - | - | - |
-| 1→2 | money 88.0, wood 44.0 | 73.4 | 2.27 | 0.44 | - | - | - |
-| 2→3 | money 129, wood 64.0 | 107 | 1.56 | 0.64 | - | - | - |
-| 3→4 | money 189, wood 94.0 | 157 | 1.06 | 0.94 | - | - | - |
-| 4→5 | money 276, wood 138 | 230 | 0.72 | 1.38 | - | - | - |
-| 5→6 | money 403, wood 201 | 335 | 0.50 | 2.01 | - | - | - |
-| 6→7 | money 587, wood 293 | 489 | 0.34 | 2.93 | - | - | - |
-| 7→8 | money 853, wood 426 | 711 | 0.23 | 4.26 | - | - | - |
-| 8→9 | money 1239, wood 619 | 1033 | 0.16 | 6.19 | - | - | - |
-| 9→10 | money 1797, wood 898 | 1498 | 0.11 | 8.98 | - | - | - |
+| 0→1 | money 60.0, wood 30.0 | 50.0 | 5.00 | 0.20 | - | - | - |
+| 1→2 | money 81.0, wood 40.0 | 66.7 | 3.75 | 0.27 | - | - | - |
+| 2→3 | money 111, wood 55.0 | 91.7 | 2.73 | 0.37 | - | - | - |
+| 3→4 | money 151, wood 75.0 | 125 | 2.00 | 0.50 | - | - | - |
+| 4→5 | money 205, wood 102 | 170 | 1.47 | 0.68 | - | - | - |
+| 5→6 | money 278, wood 139 | 232 | 1.08 | 0.93 | - | - | - |
+| 6→7 | money 376, wood 188 | 314 | 0.80 | 1.25 | - | - | - |
+| 7→8 | money 508, wood 254 | 424 | 0.59 | 1.69 | - | - | - |
+| 8→9 | money 685, wood 342 | 570 | 0.44 | 2.28 | - | - | - |
+| 9→10 | money 922, wood 461 | 769 | 0.33 | 3.07 | - | - | - |
 
 ## 3. Gate coupling (C8)
 
@@ -181,17 +181,17 @@ Assumptions: active = 2 clicks/s, acts every second; idle = returns every 300 s,
 
 | run | chain done s | lv10 s | breakthrough-ready s | bldg levels @H | cult lvl @H | purchases | clicks | pills | stuck |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| active_nopills | 205 | 1076 | 1076 | 32 | 7 | 44 | 2152 | 0 | false |
-| idle_nopills | 1200 | 2700 | 2700 | 8 | 3 | 30 | 180 | 0 | false |
-| active_pills | 205 | 584 | 584 | 28 | 10 | 28 | 1170 | 10 | false |
-| idle_pills | 1200 | 2100 | 2100 | 8 | 3 | 24 | 140 | 12 | false |
+| active_nopills | 187 | 1286 | 1286 | 33 | 5 | 53 | 2572 | 0 | false |
+| idle_nopills | 1200 | 2700 | 2700 | 8 | 3 | 40 | 180 | 0 | false |
+| active_pills | 187 | 873 | 873 | 31 | 7 | 40 | 1748 | 13 | false |
+| idle_pills | 1200 | 2400 | 2400 | 8 | 3 | 33 | 160 | 12 | false |
 
 Overflow lost to caps (estimate, units): 
 
-- active_nopills: { "lingli": 0.0, "money": 0.0, "wood": 0.0, "stone_low": 0.0, "spirit_grass_low": 145.40389394858 }
-- idle_nopills: { "lingli": 2423.78818557593, "money": 1962.58953861234, "wood": 169.68486206678, "stone_low": 585.494415052819, "spirit_grass_low": 660.012657568139 }
-- active_pills: { "lingli": 0.0, "money": 0.0, "wood": 0.0, "stone_low": 0.0, "spirit_grass_low": 0.0 }
-- idle_pills: { "lingli": 1181.82703144514, "money": 1559.7691453624, "wood": 169.68486206678, "stone_low": 112.309272612256, "spirit_grass_low": 312.525863941281 }
+- active_nopills: { "lingli": 0.0, "money": 0.0, "wood": 0.0, "stone_low": 0.0, "spirit_grass_low": 17.7290940204235 }
+- idle_nopills: { "lingli": 1938.78818557593, "money": 1213.40993186227, "wood": 91.68486206678, "stone_low": 61.3092726122564, "spirit_grass_low": 405.325278549904 }
+- active_pills: { "lingli": 0.0, "money": 0.0, "wood": 0.0, "stone_low": 0.0, "spirit_grass_low": 7.72909402042345 }
+- idle_pills: { "lingli": 1145.48074948874, "money": 1213.40993186227, "wood": 91.68486206678, "stone_low": 61.3092726122564, "spirit_grass_low": 185.039070314423 }
 
 ## 5. Era 2 islands (static)
 
@@ -205,66 +205,33 @@ Home resource rates at reference chain, Era 2 multiplier: wood 1.20/s, stone_low
 
 | island | extractor lvl | rate/s | storage lvl | cap | fill s (empty→full) |
 | --- | --- | --- | --- | --- | --- |
-| wood | 1 | 2.00 | 1 | 100 | 50.0 |
-| wood | 2 | 4.00 | 2 | 200 | 50.0 |
-| wood | 3 | 6.00 | 3 | 300 | 50.0 |
-| ore | 1 | 2.00 | 1 | 100 | 50.0 |
-| ore | 2 | 4.00 | 2 | 200 | 50.0 |
-| ore | 3 | 6.00 | 3 | 300 | 50.0 |
-| herb | 1 | 2.00 | 1 | 100 | 50.0 |
-| herb | 2 | 4.00 | 2 | 200 | 50.0 |
-| herb | 3 | 6.00 | 3 | 300 | 50.0 |
+| wood | 1 | 2.00 | 1 | 150 | 75.0 |
+| wood | 2 | 4.00 | 2 | 300 | 75.0 |
+| wood | 3 | 6.00 | 3 | 450 | 75.0 |
+| ore | 1 | 2.00 | 1 | 150 | 75.0 |
+| ore | 2 | 4.00 | 2 | 300 | 75.0 |
+| ore | 3 | 6.00 | 3 | 450 | 75.0 |
+| herb | 1 | 2.00 | 1 | 150 | 75.0 |
+| herb | 2 | 4.00 | 2 | 300 | 75.0 |
+| herb | 3 | 6.00 | 3 | 450 | 75.0 |
 
 Island output per extractor level is fixed (2/s × level); only storage (100 × level) bounds the idle stock. At equal extractor and storage level the fill time is constant (see table), i.e. upgrading both never changes the idle-waste window.
 
-Total cost of every Era-2 island facility upgrade (wood+ore islands, 3 facilities × 2 upgrades): { "wood": 120.0, "bronze_essence": 24.0, "spirit_timber": 24.0, "stone_low": 120.0 }
+Total cost of every Era-2 island facility upgrade (wood+ore islands, 3 facilities × 2 upgrades): { "wood": 600.0, "bronze_essence": 60.0, "spirit_timber": 60.0, "stone_low": 600.0 }
 
-Serial production time per sink resource at supply rates: wood 100s, bronze_essence 240s, spirit_timber 240s, stone_low 100s. Longest 240s.
+Serial production time per sink resource at supply rates: wood 500s, bronze_essence 600s, spirit_timber 600s, stone_low 500s. Longest 600s.
 
 ## 6. Findings
 
 | ID | status | detail |
 | --- | --- | --- |
-| C1 | FAIL | deadlock: cap < next cost: 42/92 rows. e.g. wooden_house L6, wooden_house L7, wooden_house L8, wooden_house L9, storage_lingli L7, storage_lingli L8, storage_lingli L9, storage_money L2 ... |
-| C2 | WARN | capacity pressure out of band [1.2, 4.0]: 68/92 rows. e.g. hut L0 (25.0), hut L1 (16.1), wooden_house L0 (15.0), wooden_house L1 (9.09), wooden_house L2 (5.36), wooden_house L5 (1.15), wooden_house L6 (0.69), wooden_house L7 (0.41) ... |
-| C3 | WARN | afford time out of [15.0s, 120.0s]: 57/92 rows. e.g. hut L0 (12.8s), wooden_house L4 (151s), wooden_house L5 (252s), wooden_house L6 (420s), wooden_house L7 (697s), wooden_house L8 (1157s), wooden_house L9 (1917s), storage_lingli L5 (127s) ... |
-| C4 | WARN | afford/fill ratio out of [0.3, 0.9]: 68/92 rows. e.g. hut L0 (0.04), hut L1 (0.06), wooden_house L0 (0.07), wooden_house L1 (0.11), wooden_house L2 (0.19), wooden_house L6 (1.45), wooden_house L7 (2.41), wooden_house L8 (4.01) ... |
+| C1 | FAIL | deadlock: cap < next cost: 26/92 rows. e.g. wooden_house L8, wooden_house L9, storage_money L4, storage_money L5, storage_money L6, storage_money L7, storage_money L8, storage_money L9 ... |
+| C2 | WARN | capacity pressure out of band [1.2, 4.0]: 60/92 rows. e.g. hut L0 (28.0), hut L1 (18.1), wooden_house L0 (18.7), wooden_house L1 (12.4), wooden_house L2 (8.12), wooden_house L3 (5.33), wooden_house L7 (1.03), wooden_house L8 (0.68) ... |
+| C3 | WARN | afford time out of [15.0s, 600.0s]: 13/92 rows. e.g. hut L0 (12.8s), wooden_house L9 (790s), storage_money L7 (706s), storage_money L8 (953s), storage_money L9 (1281s), forest_farm L0 (12.8s), forest_farm L9 (715s), stone_mine L9 (929s) ... |
+| C4 | WARN | afford/fill ratio out of [0.3, 0.9]: 65/92 rows. e.g. hut L0 (0.04), hut L1 (0.06), wooden_house L0 (0.05), wooden_house L1 (0.08), wooden_house L2 (0.12), wooden_house L3 (0.19), wooden_house L4 (0.28), wooden_house L7 (0.97) ... |
 | C5 | WARN | rate gain below 15% in first 10 levels: 1/92 rows. e.g. wooden_house L9 (14%) |
-| C6 | WARN | 5-minute idle overflow out of [30%, 90%]: 12/92 rows. e.g. hut L0 (lingli 0%), hut L1 (lingli 0%), wooden_house L0 (money 4%), forest_farm L0 (wood 0%), forest_farm L1 (wood 4%), stone_mine L0 (stone_low 0%), stone_mine L1 (stone_low 4%), herb_farm L0 (spirit_grass_low 0%) ... |
+| C6 | WARN | 5-minute idle overflow out of [30%, 90%]: 15/92 rows. e.g. hut L0 (lingli 0%), hut L1 (lingli 0%), wooden_house L0 (money 0%), wooden_house L1 (money 4%), forest_farm L0 (wood 0%), forest_farm L1 (wood 0%), forest_farm L2 (wood 17%), stone_mine L0 (stone_low 0%) ... |
 | C8 | WARN | gate-irrelevant headroom share 88% (69/78 levels); buildings without a direct gate effect: wooden_house, storage_money, forest_farm, stone_mine, storage_stone, herb_farm, storage_wood, storage_herb |
-| C7 | OK | active/idle building levels @600s = 4.00x (target >= 2.0x); chain completion idle/active = 5.85x |
-| C9 | OK | time to breakthrough-ready: idle 2700s vs active 1076s without pills (reducible 60%); with pills idle 2100s vs active 584s (reducible 72%); target >= 30% |
-| C10 | WARN | Era 2 level-up and breakthrough use no island/processing output (island chain is optional for Era 2 pacing); all island facility upgrades could be done in 10% of the Era-2 clock (240s of 2496s), leaving no mid-Era sink |
-
-## 7. Baseline conclusions (2026-10-11, first run) and phase-2 tuning proposal
-
-First-run status: `tools/early_pacing_audit.gd` executed successfully (report mode, exit 0, 10 findings, 1 FAIL). The prior handoff estimates are CONFIRMED by measurement:
-
-| claim in handoff | measured | verdict |
-| --- | --- | --- |
-| Era1 training clock 60·1.15^(L-1), total ~1007 s | 1007 s = 16.8 min | confirmed |
-| Era2 training clock 120·1.2^(L-1), total ~2496 s | 2496 s = 41.6 min | confirmed |
-| active beats idle by multiples | levels 4.00x, chain completion 5.85x, breakout-ready 2700 s → 1076 s (60% reducible); with pills 584 s (72%) | confirmed |
-| wooden-house money line detaches from the gate | C8: 88% of headroom levels (69/78) raise no gate resource | confirmed |
-| Era2 island chain optional + no mid-era sink | gates for Era2 use only lingli; all island facility upgrades bought in 240 s of a 2496 s clock (10%) | confirmed |
-
-User pacing criteria (2026-10-11 answers):
-
-1. Do not force a total-length target. The requirement is: no single wait for resources-vs-possible-upgrade exceeds 5–10 minutes.
-2. First round, untalented (白身) Era1: the LV9→LV10 wait must stay under 10 minutes. Measured worst-case components of that single gap: training 60·1.15^8 ≈ 183 s + level-up cost 50 lingli at the hut-capped ~1.56/s ≈ 32 s → a single LV9→LV10 window is ≈ 3.5 min even at idle cadence; the full active run reaches LV10 in ≈ 17.9 min (idle ≈ 45 min). No single segment currently breaches 10 min, so the criterion passes without changes, but the C1/C8 items below are what makes the run feel like "pure clock".
-3. Phase 2 MAY change cultivation rules as a v2 change; old saves need no compat (this build may force-clear old-version saves), but the concrete plan must be approved first.
-
-### C1 FAIL interpretation
-The 42/92 "cap < next cost" rows are all money/lingli storage-bounded levels (wooden_house L6+, storage_lingli L7+ …): at the reference onboarding-chain state the next cost exceeds the current cap, so intermediate storage upgrades must interleave. Not an unpayable global deadlock, but it silently lengthens the run and produces the C3 minutes-long waits (wooden_house L9 = 1917 s).
-
-### Proposed v2 tuning direction (NOT implemented; needs approval)
-**【2026-10-11 UPDATE】Approved and first batch implemented.** The user approved the section-7 proposal on 2026-10-11; directions A, C (content/property retune), D (Era2 chain supply via `liquid` in HOME_RECIPES + capacity/cost retunes + activation early_supply) and the first-hut ledger flow are in the working tree and passed the vendor-neutral 66/66 runner scan (0 FAIL, no SCRIPT ERROR). Direction B (active-play→training conversion) and the remaining items are still pending a later batch. See top entry of `docs/development-status.md`.
-- A. Couple the building line to the gate: add wood / stone / herb的要求 to Era1 level-up costs (e.g. wood from L3, stone from L5, herb from L7) so building upgrades feed the main progression; keeps GLOBAL_BASE_LEVEL_CAP=10 (skill-grown caps stay as-is).
-- B. Convert active play into training progress: 運功/灌注/聚靈丹 add `training_seconds` directly (at a controlled per-level rate), and make the pill grant never waste: since level-up resets `training_seconds`, cap the purchasable amount to the remaining requirement (buy-until-full semantics), eliminating the current over-purchase loss.
-- C. Fix the storage-bounded deadlock feel: level resource-production caps and storage cost growth so C1 rows shrink to near zero (cost/pressure stays inside the C2 band at every step of a properly interleaved storage chain).
-- D. Era2 chain: make island output → transport → home consumption the mandatory lingli gate for Era2 upgrades (or give level-up a mid-tier resource), and add a mid-era sink (e.g. more facility levels or a periodic formation upkeep) so the 240 s ≤ 2496 s sink-exhaustion gap closes; raise the extractor/storage feedback so upgrades shorten the wall clock visibly.
-- E. Save policy: schema bump with force-clear of pre-v2 saves (user-approved; implement versioned wipe + first-run notice).
-
-### Phase-2 record notes
-- `tests/early_pacing_runner.gd` added to `tools/run_all_runners.ps1`; 31 checks, 0 failures, exit 0 (2026-10-11 first run).
-- Fixed one GDScript parse error in `tools/early_pacing_audit.gd` (Variant→float inference in the island table loop); engine outputs clean, no SCRIPT ERROR.
+| C7 | OK | active/idle building levels @600s = 4.13x (target >= 2.0x); chain completion idle/active = 6.42x |
+| C9 | OK | time to breakthrough-ready: idle 2700s vs active 1286s without pills (reducible 52%); with pills idle 2400s vs active 873s (reducible 64%); target >= 30% |
+| C10 | WARN | Era 2 level-up and breakthrough use no island/processing output (island chain is optional for Era 2 pacing); all island facility upgrades could be done in 24% of the Era-2 clock (600s of 2496s), leaving no mid-Era sink |

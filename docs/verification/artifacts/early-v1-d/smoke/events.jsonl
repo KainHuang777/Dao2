@@ -1,0 +1,36 @@
+{"utc":"2026-10-18T16:07:31.985Z","type":"stdout_line","data":{"line":"EARLYV1D: start config cdp=9240 http=4380 stepDir=docs/verification/artifacts/early-v1-d/smoke"}}
+{"utc":"2026-10-18T16:07:31.987Z","type":"run_start","data":{"cdpPort":"9240","httpPort":"4380","resetSave":true,"runSteps":"0"}}
+{"utc":"2026-10-18T16:07:32.059Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=driver connected: pageId=FD70148AA0035D9885E25378807EE375 url=http://127.0.0.1:4380/index.html"}}
+{"utc":"2026-10-18T16:07:32.063Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=runList=S00_launch_blank"}}
+{"utc":"2026-10-18T16:07:32.063Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=step_begin S00_launch_blank"}}
+{"utc":"2026-10-18T16:07:32.063Z","type":"step_start","data":{"name":"S00_launch_blank","index":0}}
+{"utc":"2026-10-18T16:07:33.280Z","type":"origin_cleared","data":{"remaining":0}}
+{"utc":"2026-10-18T16:07:50.020Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\step-001-S00-ready.png","label":"S00-ready"}}
+{"utc":"2026-10-18T16:07:50.026Z","type":"save_export","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\saves\\s00-blank-start.json","tag":"s00-blank-start","slot":"save_main","bytes":2239}}
+{"utc":"2026-10-18T16:07:50.032Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S00_launch_blank ok era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0"}}
+{"utc":"2026-10-18T16:07:50.039Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S00_launch_blank ok=true detail=done_in=18s era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0"}}
+{"utc":"2026-10-18T16:07:50.039Z","type":"step_done","data":{"name":"S00_launch_blank","index":0,"ms":17976}}
+{"utc":"2026-10-18T16:07:50.039Z","type":"run_done","data":{"stepsRun":1,"events":12}}
+{"utc":"2026-10-18T16:07:50.039Z","type":"stdout_line","data":{"line":"EARLYV1D: done detail=steps=1 events=13 jsonl=docs\\verification\\artifacts\\early-v1-d\\smoke\\events.jsonl"}}
+{"utc":"2026-10-18T16:07:59.431Z","type":"stdout_line","data":{"line":"EARLYV1D: start config cdp=9240 http=4380 stepDir=docs/verification/artifacts/early-v1-d/smoke"}}
+{"utc":"2026-10-18T16:07:59.432Z","type":"run_start","data":{"cdpPort":"9240","httpPort":"4380","resetSave":true,"runSteps":"0-1"}}
+{"utc":"2026-10-18T16:07:59.507Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=driver connected: pageId=FD70148AA0035D9885E25378807EE375 url=http://127.0.0.1:4380/index.html"}}
+{"utc":"2026-10-18T16:07:59.523Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=runList=S00_launch_blank,S01_hut_build"}}
+{"utc":"2026-10-18T16:07:59.523Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=step_begin S00_launch_blank"}}
+{"utc":"2026-10-18T16:07:59.523Z","type":"step_start","data":{"name":"S00_launch_blank","index":0}}
+{"utc":"2026-10-18T16:07:59.552Z","type":"origin_cleared","data":{"remaining":0}}
+{"utc":"2026-10-18T16:08:16.114Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\step-001-S00-ready.png","label":"S00-ready"}}
+{"utc":"2026-10-18T16:08:16.124Z","type":"save_export","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\saves\\s00-blank-start.json","tag":"s00-blank-start","slot":"save_main","bytes":2239}}
+{"utc":"2026-10-18T16:08:16.126Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S00_launch_blank ok era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0"}}
+{"utc":"2026-10-18T16:08:16.128Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S00_launch_blank ok=true detail=done_in=17s era=1 lv=1 rev=1 cycle=0 lingli=0/0 hut=0"}}
+{"utc":"2026-10-18T16:08:16.128Z","type":"step_done","data":{"name":"S00_launch_blank","index":0,"ms":16605}}
+{"utc":"2026-10-18T16:08:16.128Z","type":"stdout_line","data":{"line":"EARLYV1D: info detail=step_begin S01_hut_build"}}
+{"utc":"2026-10-18T16:08:16.128Z","type":"step_start","data":{"name":"S01_hut_build","index":1}}
+{"utc":"2026-10-18T16:08:19.672Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\step-002-S01-catalog-open.png","label":"S01-catalog-open"}}
+{"utc":"2026-10-18T16:08:50.908Z","type":"screenshot","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\step-003-S01-after-gather.png","label":"S01-after-gather"}}
+{"utc":"2026-10-18T16:08:50.911Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S01_hut_build ok hut=1"}}
+{"utc":"2026-10-18T16:08:50.914Z","type":"save_export","data":{"file":"docs\\verification\\artifacts\\early-v1-d\\smoke\\saves\\s01-hut.json","tag":"s01-hut","slot":"save_main","bytes":6516}}
+{"utc":"2026-10-18T16:08:50.917Z","type":"stdout_line","data":{"line":"EARLYV1D: milestone=S01_hut_build ok=true detail=done_in=35s era=1 lv=1 rev=70 cycle=0 lingli=1/0 hut=1"}}
+{"utc":"2026-10-18T16:08:50.918Z","type":"step_done","data":{"name":"S01_hut_build","index":1,"ms":34790}}
+{"utc":"2026-10-18T16:08:50.918Z","type":"run_done","data":{"stepsRun":2,"events":20}}
+{"utc":"2026-10-18T16:08:50.918Z","type":"stdout_line","data":{"line":"EARLYV1D: done detail=steps=2 events=21 jsonl=docs\\verification\\artifacts\\early-v1-d\\smoke\\events.jsonl"}}

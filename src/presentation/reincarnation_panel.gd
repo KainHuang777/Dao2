@@ -221,7 +221,7 @@ func _build_ui() -> void:
 	UiMaterial.apply_button(_details_button)
 	_details_button.pressed.connect(func(): _reincarnate_desc_label.visible = not _reincarnate_desc_label.visible)
 	life.add_child(_details_button)
-	_reincarnate_desc_label = _label("保留 · 最高境界、道心、道證、天賦與已記錄功業。\n重置 · 境界／修行、年歲、建築、技能、丹藥與當世產業；資源依傳承天賦重新起算。宗門需重新加入；靈獸重置，成熟靈獸化為獸魂。")
+	_reincarnate_desc_label = _label("保留 · 最高境界、道心、道證、天賦與已記錄功業；靈界據點、靈晶與靈液獨立跨世保留，不受資源傳承天賦影響。\n重置 · 境界／修行、年歲、人界建築、技能、丹藥與當世產業；資源依傳承天賦重新起算。宗門需重新加入；靈獸重置，成熟靈獸化為獸魂。")
 	_reincarnate_box.add_child(_reincarnate_desc_label)
 	_reincarnate_desc_label.hide()
 	_talents_box = VBoxContainer.new()

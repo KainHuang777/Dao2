@@ -95,6 +95,7 @@ func _configure_settings_menu() -> void:
 	var popup: PopupMenu = _abode.settings_menu.get_popup()
 	var bgm_text: String = "背景音樂：開" if _abode.is_bgm_enabled else "背景音樂：關"
 	popup.add_item(bgm_text, 101)
+	popup.add_item("演出音效：開" if _abode.is_sfx_enabled else "演出音效：關", 104)
 	var motion_text: String = "低特效：開" if _abode.reduced_motion else "低特效：關"
 	popup.add_item(motion_text, 1)
 	popup.add_item("存檔管理", 2)
@@ -164,7 +165,7 @@ func _build_hud() -> void:
 	_abode.level_up_button = lvl_btn
 	identity.add_child(_abode.level_up_button)
 
-	_abode.breakthrough_button = _abode._button("突破至築基期", _abode._breakthrough_era)
+	_abode.breakthrough_button = _abode._button("突破至築基期", _abode._request_breakthrough)
 	_abode.breakthrough_button.custom_minimum_size = Vector2(104, 44)
 	_abode.breakthrough_button.add_theme_font_size_override("font_size", 14)
 	_abode.breakthrough_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -935,7 +936,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode._reflow_header()
 
 	_abode.replay_breakthrough_button.visible = false
-	_abode.settings_menu.get_popup().set_item_disabled(_abode.settings_menu.get_popup().get_item_index(5), cur_era < 2)
+	_abode.settings_menu.get_popup().set_item_disabled(_abode.settings_menu.get_popup().get_item_index(5), _abode._last_breakthrough_result.is_empty())
 
 	var rc_eligible: bool = false
 	var is_lifespan_exhausted: bool = false
