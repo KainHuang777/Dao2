@@ -1,3 +1,13 @@
+2026-10-21 **ATM-LIFE-DESIGN 討論中（敘事視角已選）**：使用者選擇「有人為你寫下一篇傳記」，已記入[研究文件](26-cultivation-life-atmosphere-research.md)的核定方向。採旁觀記述、真實行跡與克制留白；第三人稱／省略主詞為文案候選，不虛構史官或故人。只核定敘事視角，版面、F-B／F-C字體、篇幅、保存及實作範圍仍待討論；未改遊戲或UI通則。
+
+2026-10-21 **ATM-LIFE-RESEARCH 研究DONE；設計／實作TODO**：依使用者指定研究《江湖千萬人》文字人生、結局與字體，交付[修仙氣氛研究](26-cultivation-life-atmosphere-research.md)、參考圖與觀察JSON。瀏覽器確認公開內嵌前端、57個結局ID與文楷／Noto Serif TC字體宣告；未取得完整原碼包／授權，未驗全部結局。建議先當世小傳、再里程碑／前世卷冊及事件回聲，所有設計仍提案。僅文件與研究證據，未改遊戲／schema／build／玩家資料，未commit/push。下一New Chat討論ATM-LIFE-DESIGN，不自動展開實作。
+
+本輪命令與結果：PowerShell `Get-Content`／`rg`／`git status --short`核對現況；初次rg兩個假設路徑不存在，改以rg --files找到實際reincarnation_rules／ui_typography後完成核對。Godot `--version` exit0，4.7.2.stable.official.ed1daf0bf。web.open inaccessible；Invoke-WebRequest主機解析失敗，未下載HTML。cua_repl真實瀏覽器首頁／出生／34歲有界代選樣本／校對入口與唯讀DOM成功，研究分頁已關閉；沒有完整一生／全部結局驗證聲稱。Copy-Item保存使用者參考圖；7檔嚴格UTF-8、觀察JSON解析、研究文件3個本地連結、PNG存在與新文件尾隨空白檢查PASS；`git diff --check -- README.md ROADMAP.md docs/ai-handoff.md docs/development-status.md updata.txt` exit0，僅LF→CRLF提示。新增docs26與artifacts，追加README／ROADMAP／handoff／本狀態及英文updata頂部；既有docs21／docs25與其他dirty成果保留。未執行Runner／原生／Web匯出，研究不等於遊戲驗收。
+
+2026-10-21 **CONTENT-EXP-PLAN 規劃DONE；擴充實作TODO**：依使用者要求確認後續工作；EARLY-V1／RES1-D已收結，TRIB-B/F1接受與C/D驗收仍待收結，RES1-E／SKS-P2～P4待逐段承接。新增[各系統內容數量擴充計畫](25-system-content-expansion-plan.md)與26份來源hash／ID靜態盤點；技能7／輪迴天賦3／丹藥8為基線，P1提案12／6／12，再按Era4–6、7–9、10–12分批；宗門、靈獸、成就、機緣、法令與產業均有安排。數量／名稱／新效果為提案，未新增正式內容。下一建議CONTENT-P1-DESIGN，交5技能／3天賦／4丹藥逐項規則與收益對照表；新對話開始，不在本輪續做實作。僅文件與盤點，未跑Godot／Runner／瀏覽器／匯出，未改規則／玩家資料，未commit/push。
+
+本次CONTENT-EXP-PLAN驗證：PowerShell執行Python靜態盤點／嚴格UTF-8／來源SHA256／基線數量／11列階段數量增額核對，8份檔案、8個計畫本地連結及26份未變來源hash全部PASS；指定8份檔案git diff --check exit0。修改檔：docs25、source-inventory.json、docs21、README、ROADMAP、ai-handoff、development-status、updata。未通過項：規劃範圍無；內容實作與新效果核定仍TODO，不列為本輪已完成。下一CONTENT-P1-DESIGN於New Chat開始，或由使用者指定TRIB收尾。
+
 2026-10-21 **EARLY-V1-D／RES1-D DONE（桌面／Web有界；人工節奏已放行）**：使用者明確核定「放行 EARLY-V1-D／RES1-D」。沿用D-1同版空白新檔至金丹首升、D-2自然壽盡首次輪迴與第二世供給／重載，以及2026-10-20 MFG-3受控桌面回歸與A／B／C既有證據，人工節奏閘門完成；EARLY-V1 A–D前期閉環收結。此前待判定／IN_PROGRESS紀錄保留日期，由本段覆蓋現況。[接受與證據界線](verification/early-v1-d-human-pacing.md)。本輪僅更新文件與英文交接，未重跑Godot／Runner／瀏覽器／匯出，未改規則、資產、schema、玩家進度或凍結包，未commit/push。下一大型任務請開New Chat，由使用者指定。
 
 本次收結檢查：PowerShell執行Python嚴格UTF-8／接受原話／目前DONE狀態、39個現況段落本地連結、Roadmap三列及docs23任務列核對，9份文件全部PASS；指定9份檔案git diff --check exit0。未通過項：本次有界範圍無。下一任務：New Chat由使用者指定；本輪不開下一大型工作。

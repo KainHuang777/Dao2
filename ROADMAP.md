@@ -1,3 +1,7 @@
+2026-10-21 **ATM-LIFE-RESEARCH 研究DONE；設計／實作TODO**：依使用者指定研究《江湖千萬人》文字人生、結局與字體，交付[修仙氣氛研究](docs/26-cultivation-life-atmosphere-research.md)、參考圖與觀察JSON。瀏覽器確認公開內嵌前端、57個結局ID與文楷／Noto Serif TC字體宣告；未取得完整原碼包／授權，未驗全部結局。建議先當世小傳、再里程碑／前世卷冊及事件回聲，所有設計仍提案。僅文件與研究證據，未改遊戲／schema／build／玩家資料，未commit/push。下一New Chat討論ATM-LIFE-DESIGN，不自動展開實作。
+
+2026-10-21 **CONTENT-EXP-PLAN 規劃DONE；擴充實作TODO**：依使用者要求確認後續工作；EARLY-V1／RES1-D已收結，TRIB-B/F1接受與C/D驗收仍待收結，RES1-E／SKS-P2～P4待逐段承接。新增[各系統內容數量擴充計畫](docs/25-system-content-expansion-plan.md)與26份來源hash／ID靜態盤點；技能7／輪迴天賦3／丹藥8為基線，P1提案12／6／12，再按Era4–6、7–9、10–12分批；宗門、靈獸、成就、機緣、法令與產業均有安排。數量／名稱／新效果為提案，未新增正式內容。下一建議CONTENT-P1-DESIGN，交5技能／3天賦／4丹藥逐項規則與收益對照表；新對話開始，不在本輪續做實作。僅文件與盤點，未跑Godot／Runner／瀏覽器／匯出，未改規則／玩家資料，未commit/push。
+
 2026-10-21 **EARLY-V1-D／RES1-D DONE（桌面／Web有界；人工節奏已放行）**：使用者明確核定「放行 EARLY-V1-D／RES1-D」。沿用D-1同版空白新檔至金丹首升、D-2自然壽盡首次輪迴與第二世供給／重載，以及2026-10-20 MFG-3受控桌面回歸與A／B／C既有證據，人工節奏閘門完成；EARLY-V1 A–D前期閉環收結。此前待判定／IN_PROGRESS紀錄保留日期，由本段覆蓋現況。[接受與證據界線](docs/verification/early-v1-d-human-pacing.md)。本輪僅更新文件與英文交接，未重跑Godot／Runner／瀏覽器／匯出，未改規則、資產、schema、玩家進度或凍結包，未commit/push。下一大型任務請開New Chat，由使用者指定。
 
 2026-10-20 **EARLY-V1-D／RES1-D 人工節奏判定資料已交，待使用者決定（IN_PROGRESS）**：D-1／D-2及MFG-3受控桌面回歸已達成；整理單段等待、8420秒金丹首升、44400秒壽盡、首世20道心選擇與結丹法7650／6200容量前置。此次「人工節奏判定」是開啟審閱，不是接受聲明；未代替玩家放行。新增[判定資料](docs/verification/early-v1-d-human-pacing.md)，同步D報告／docs23／交接；PowerShell、rg、git status與Python既有JSON核對通過，文件UTF-8／連結與diff檢查結果見本輪紀錄。未重跑Godot／Runner／瀏覽器／匯出，未改程式／規則／玩家資料，未commit/push。下一步僅收人工決定，不展開下一大型任務。
@@ -461,8 +465,9 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 | RES1-UI1-A | UI1-DESIGN | **DONE（有界範圍）**：Godot空島簡版／集中製造與加工坊／煉丹同工作；八配方四產線、啟用開拓、加工成功拒絕，55回歸及最後127專項通過。[驗收](docs/verification/res1-ui1-a.md)；完整裝置／保存／性能仍屬UI1-C。 |
 | RES1-UI1-B | UI1-A | **DONE（有界範圍，2026-10-09）**：七航線精簡列表／設定詳情、運力與精確供給捷徑；停航到貨／升階保留啟停、草稿與自訂值保持。全量56/56、最終140專項、三橫式Web操作／旋轉恢復／自訂值重載通過。[驗收](docs/verification/res1-ui1-b.md)；完整保存故障／裝置／性能／人工仍屬UI1-C。 |
 | RES1-UI1-C | UI1-A/B | **桌面／Web有界驗收已交付；整體狀態併 EARLY-V1 再核定**：56回歸／400檢查、實際保存故障恢復／雙分頁、三橫式與滑鼠命中已驗；先前300秒尾段問題由R2修復及後續恢復證據覆蓋。慢網冷啟動、觸控／實機DPR依使用者政策延期，非當前阻擋。自然四島與玩家節奏屬 RES1-D／EARLY-V1；[原驗收](docs/verification/res1-ui1-c.md)。 |
+| CONTENT-EXP-PLAN | 已放行RES1-D、各系統現況盤點 | **規劃DONE（2026-10-21），實作TODO**：一般技能／輪迴天賦／丹藥與宗門、靈獸、成就、機緣、法令分四批擴充；[計畫與累計目標](docs/25-system-content-expansion-plan.md)。下一CONTENT-P1-DESIGN：5技能／3天賦／4丹藥逐項設計，不直接改數值。 |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
-| RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1 規則批次已交付，圖像／Web待補；SKS-P2～P4 TODO**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
+| RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1與EARLY-V1-C已DONE（圖像已接受、桌面Web已驗）；SKS-P2～P4 TODO**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
 
 整體 RES1 首段可玩以 A–D 為門檻；資料表與獨立 Runner 不取代真實玩法。M4-A-R1 的原整合 DONE 保留，M5 的既有生成／法則資料也保留；後續資源與內容補齊從 Era 2–3 開始，不能只把缺口記為 Era 9–12。
 

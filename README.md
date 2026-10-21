@@ -1,3 +1,7 @@
+2026-10-21 **ATM-LIFE-RESEARCH 研究DONE；設計／實作TODO**：依使用者指定研究《江湖千萬人》文字人生、結局與字體，交付[修仙氣氛研究](docs/26-cultivation-life-atmosphere-research.md)、參考圖與觀察JSON。瀏覽器確認公開內嵌前端、57個結局ID與文楷／Noto Serif TC字體宣告；未取得完整原碼包／授權，未驗全部結局。建議先當世小傳、再里程碑／前世卷冊及事件回聲，所有設計仍提案。僅文件與研究證據，未改遊戲／schema／build／玩家資料，未commit/push。下一New Chat討論ATM-LIFE-DESIGN，不自動展開實作。
+
+2026-10-21 **CONTENT-EXP-PLAN 規劃DONE；擴充實作TODO**：依使用者要求確認後續工作；EARLY-V1／RES1-D已收結，TRIB-B/F1接受與C/D驗收仍待收結，RES1-E／SKS-P2～P4待逐段承接。新增[各系統內容數量擴充計畫](docs/25-system-content-expansion-plan.md)與26份來源hash／ID靜態盤點；技能7／輪迴天賦3／丹藥8為基線，P1提案12／6／12，再按Era4–6、7–9、10–12分批；宗門、靈獸、成就、機緣、法令與產業均有安排。數量／名稱／新效果為提案，未新增正式內容。下一建議CONTENT-P1-DESIGN，交5技能／3天賦／4丹藥逐項規則與收益對照表；新對話開始，不在本輪續做實作。僅文件與盤點，未跑Godot／Runner／瀏覽器／匯出，未改規則／玩家資料，未commit/push。
+
 2026-10-21 **EARLY-V1-D／RES1-D DONE（桌面／Web有界；人工節奏已放行）**：使用者明確核定「放行 EARLY-V1-D／RES1-D」。沿用D-1同版空白新檔至金丹首升、D-2自然壽盡首次輪迴與第二世供給／重載，以及2026-10-20 MFG-3受控桌面回歸與A／B／C既有證據，人工節奏閘門完成；EARLY-V1 A–D前期閉環收結。此前待判定／IN_PROGRESS紀錄保留日期，由本段覆蓋現況。[接受與證據界線](docs/verification/early-v1-d-human-pacing.md)。本輪僅更新文件與英文交接，未重跑Godot／Runner／瀏覽器／匯出，未改規則、資產、schema、玩家進度或凍結包，未commit/push。下一大型任務請開New Chat，由使用者指定。
 
 2026-10-20 **EARLY-V1-D／RES1-D 人工節奏判定資料已交，待使用者決定（IN_PROGRESS）**：D-1／D-2及MFG-3受控桌面回歸已達成；整理單段等待、8420秒金丹首升、44400秒壽盡、首世20道心選擇與結丹法7650／6200容量前置。此次「人工節奏判定」是開啟審閱，不是接受聲明；未代替玩家放行。新增[判定資料](docs/verification/early-v1-d-human-pacing.md)，同步D報告／docs23／交接；PowerShell、rg、git status與Python既有JSON核對通過，文件UTF-8／連結與diff檢查結果見本輪紀錄。未重跑Godot／Runner／瀏覽器／匯出，未改程式／規則／玩家資料，未commit/push。下一步僅收人工決定，不展開下一大型任務。

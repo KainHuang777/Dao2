@@ -1,5 +1,7 @@
 # RES1-E-SKILLS-PLAN：技能擴充盤點與分境界可執行清單
 
+2026-10-21 **RES1-D已放行；跨系統數量擴充總表已建立**：[CONTENT-EXP-PLAN](25-system-content-expansion-plan.md)提出P1於Era2–3新增5項一般技能（7→12），後續SKS-P2／P3／P4各新增12項，累計24／36／48；均為數量提案，非正式新增。P2的nascent_soul_incubation含在12項內；高境界候選仍待RES1-E逐段稽核後命名／定值。本檔保留既有技能取得、保存、輪迴與SKS批次契約；新增CONTENT-P1-DESIGN先交5技能／3天賦／4丹藥逐項設計表，核定該部分後才實作。Era1維持0技能，宗門功法獨立計數。
+
 2026-10-18 現況校正：SKS-P1 結丹法及正式修煉時間倍率已由使用者核定並接入，現行 schema4／rules core-flow-12-skills-p1／skill_version 2；58 專項與相關回歸通過。EARLY-V1-C 已補 Web 匯出、字型、壓縮及七項技能可達性／成本／輪迴清除證據；2026-10-20已補金丹題材圖（`accepted`）、三橫式真實瀏覽器研習／拒寫恢復／重載；使用者已核定「結丹法新圖接受」，EARLY-V1-C DONE（桌面／Web有界），見[EARLY-V1-C 報告](verification/early-v1-c.md)與[SKS-P1 驗收](verification/res1-e-skills-p1.md)。下文「未承接／提案／schema3」是 2026-10-17 原盤點歷史，不能作現況。SKS-P2～P4 仍依 RES1-D 與逐段稽核相依，前期版本不以 Era4–12 為放行條件；下一階段見[EARLY-V1](23-early-version-closure-plan.md)。
 
 2026-10-17 規劃交付（使用者指定本批美術改造尾階段；依 [20-feature-interface-art-plan.md](20-feature-interface-art-plan.md) 尾階段 DoD）。**本輪僅規劃與盤點，未新增任何技能；不因規劃成立宣稱技能已擴增或 Era4–12 可玩。** 一般技能契約沿 [ADR-012](decisions/ADR-012-optional-skills-with-islands.md)；宗門功法（R9）與一般技能為不同取得通道，不互相冒稱承接。
