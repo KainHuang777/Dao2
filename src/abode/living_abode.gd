@@ -281,6 +281,7 @@ var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
 var _background_retry_cursor: int = 0
 var _storage_block_layer: CanvasLayer = null
+var _pending_life_report: Dictionary = {}
 enum HudLayout { WIDE, COMPACT, PORTRAIT }
 var layout_mode: int = HudLayout.WIDE
 var header_box: VBoxContainer
@@ -310,10 +311,15 @@ var _frame_view: Dictionary = {}
 var _frame_view_state: GameState
 var _frame_view_revision: int = -1
 
+static func _web_storage_namespace() -> String:
+	if OS.has_feature("content_p1_story_acceptance"): return "dao2_content_p1_story_acceptance"
+	if OS.has_feature("content_p1_sect_acceptance"): return "dao2_content_p1_sect_acceptance"
+	return "dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves"
+
 func _ready() -> void:
 	RuntimeProfile.configure_web()
 	if OS.has_feature("web") and save_dir_override.is_empty():
-		var web_adapter := WebStorageAdapter.new("dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves")
+		var web_adapter := WebStorageAdapter.new(_web_storage_namespace())
 		var status := web_adapter.begin_session()
 		while status == "pending":
 			await get_tree().process_frame
@@ -323,7 +329,8 @@ func _ready() -> void:
 			return
 	await _init_core()
 	if session == null:
-		_show_storage_block("存檔讀取或離線保存失敗，原有進度已保留。請恢復儲存權限或空間後重試。")
+		var detail := "\n宗門資料驗證：" + SaveManager.load_error() if SaveManager.load_error().begins_with("SECT_") else ""
+		_show_storage_block("存檔讀取或離線保存失敗，原有進度已保留。請恢復儲存權限或空間後重試。" + detail)
 		return
 	_build_background()
 	# Compatibility 4.7: LDR world bloom; HUD stays above Canvas Max Layer.
@@ -413,7 +420,7 @@ func _init_core() -> void:
 	if save_dir_override != "":
 		adapter = FileStorageAdapter.new(save_dir_override)
 	elif OS.has_feature("web"):
-		adapter = WebStorageAdapter.new("dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves")
+		adapter = WebStorageAdapter.new(_web_storage_namespace())
 	else:
 		adapter = FileStorageAdapter.new(SaveManager.DEFAULT_SAVE_DIR)
 
@@ -468,14 +475,22 @@ func _show_storage_block(message: String) -> void:
 	layer.add_child(panel)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	panel.theme = UiTypography.create_theme()
-	var center := CenterContainer.new()
+	if feature_navigation != null and feature_navigation.shell != null:
+		feature_navigation.shell.apply(hud.size)
+	var decision_book: Dictionary = session.get_decision_book() if session != null else {}
+	var has_reading: bool = not _pending_life_report.is_empty() or not decision_book.get("receipts", []).is_empty()
+	var center: Container = MarginContainer.new() if has_reading else CenterContainer.new()
+	if has_reading:
+		panel.add_theme_stylebox_override("panel", UiMaterial.surface("paper"))
+		center.add_theme_constant_override("margin_top", 16)
+		center.add_theme_constant_override("margin_bottom", 16)
 	panel.add_child(center)
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 24)
 	margin.add_theme_constant_override("margin_right", 24)
 	center.add_child(margin)
 	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation", 20)
+	column.add_theme_constant_override("separation", 6 if has_reading else 20)
 	margin.add_child(column)
 	var label := Label.new()
 	label.text = message
@@ -484,6 +499,38 @@ func _show_storage_block(message: String) -> void:
 	label.add_theme_font_override("font", UiTypography.body_font())
 	label.add_theme_font_size_override("font_size", 18)
 	column.add_child(label)
+	if has_reading:
+		label.add_theme_color_override("font_color", UiMaterial.INK)
+		var reading := ScrollContainer.new()
+		reading.name = "PendingLifeReading"
+		reading.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		reading.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		column.add_child(reading)
+		var read_column := VBoxContainer.new()
+		read_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		reading.add_child(read_column)
+		if not _pending_life_report.is_empty():
+			var report := LifeReportView.new()
+			read_column.add_child(report)
+			report.show_report(_pending_life_report, String(_pending_life_report.life.end_state.reason))
+			report.set_compact(get_viewport_rect().size.y < 500)
+			panel.resized.connect(func(): report.set_compact(get_viewport_rect().size.y < 500))
+			decision_book = _pending_life_report.life.get("decisions", {})
+			var accounts_view := ResourceAccountsView.new()
+			read_column.add_child(accounts_view)
+			accounts_view.show_book(_pending_life_report.life.get("accounts", {}))
+		if not decision_book.get("receipts", []).is_empty():
+			var book_view := DecisionBookView.new()
+			read_column.add_child(book_view)
+			book_view.show_book(decision_book)
+
+		if session != null:
+			var history_view := LifeHistoryView.new()
+			read_column.add_child(history_view)
+			history_view.show_record(session.get_life_record())
+			history_view.set_compact(get_viewport_rect().size.y < 500)
+			panel.resized.connect(func(): history_view.set_compact(get_viewport_rect().size.y < 500))
+
 	var retry := Button.new()
 	retry.text = "重試保存" if _background_retry_cursor > 0 else "重新載入並重試"
 	retry.custom_minimum_size.y = 44
@@ -1684,7 +1731,7 @@ func _on_achievement_claim_requested(achievement_id: String) -> void:
 				achievement_panel.call("show_status_message", String(res.get("message", "領取成功！")))
 	else:
 		if achievement_panel != null:
-			achievement_panel.call("show_status_message", String(res.get("message", "領取失敗")))
+			achievement_panel.call("show_status_message", StoryProgress.reason(String(res.get("error", "領取失敗"))))
 
 func _on_achievement_save_retry() -> void:
 	achievement_panel.call("set_save_result", _save_game())
@@ -1717,6 +1764,9 @@ func _save_game() -> Dictionary:
 		"sim_tick": str(sim_tick),
 	}
 	var result: Dictionary = SaveManager.save(session.state, meta)
+	if bool(result.get("ok", false)): _pending_life_report.clear()
+	if feature_navigation != null and feature_navigation.shell != null:
+		feature_navigation.shell.set_save_result(result)
 	if bool(result.get("ok", false)) and feature_navigation != null:
 		feature_navigation.action_panel.storage_recovered()
 	if bool(result.get("ok", false)) and achievement_panel != null:
@@ -1757,10 +1807,13 @@ func _settle_web_background(cursor: int) -> bool:
 		print("WEB_BACKGROUND_SAVE_FAILED: ", result.get("detail", ""))
 		return false
 	session.state = result.state
+	_pending_life_report.clear()
 	session.clock = GameClock.create(session.state.total_elapsed_seconds)
 	state = AbodeStateCompat.new(session)
 	_pending_scenery_save = false
 	_pending_breakthrough_save = false
+	if feature_navigation != null and feature_navigation.shell != null:
+		feature_navigation.shell.set_save_result({"ok": true})
 	if breakthrough_seq != null:
 		breakthrough_seq.set_save_status(true)
 	_refresh_hud()
@@ -1877,7 +1930,7 @@ func _on_reincarnation_sequence_finished() -> void:
 	_refresh_hud()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and feature_navigation != null and feature_navigation.group != "home":
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and feature_navigation != null:
 		feature_navigation.back()
 		get_viewport().set_input_as_handled()
 

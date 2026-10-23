@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ATM-LIFE-DESIGN · 一世卷末</title>
+<style>body{margin:0;background:#253730;color:#f1eadb;font:16px system-ui}header,main{padding:16px}h1{font-size:24px}label{display:inline-flex;align-items:center;gap:8px;margin:6px 16px 6px 0}select,input,button{font:inherit;min-height:44px}iframe{display:block;border:0}main{overflow:auto}p{line-height:1.6}a{color:#dbe9c8}</style>
+<header><h1>一世卷末 · 候選審閱</h1><p>虛構事實樣本，非玩家紀錄。F-C 已選定；布局、題名與保存數量仍供審閱。每段小傳可點「查記錄」核對來源。</p>
+<label>尺寸<select id="size"><option>1280×720</option><option>844×390</option><option>800×360</option></select></label>
+<label>人生樣本<select id="sample"></select></label>
+<label>時機<select id="mode"><option value="ended">壽盡</option><option value="early">提前轉世預覽</option><option value="living">在世查看</option></select></label>
+<label>敘事字體<select id="font"><option value="c">F-C 粗明體／文楷</option><option value="b">F-B 黑體同文對照</option></select></label>
+<label><input type="checkbox" id="error">保存異常樣張</label><label><input type="checkbox" id="long">長文閱讀壓力</label>
+<p>另可在畫框內開啟「機緣流程」樣張，暫收後重開同一事件、查看設計收據。所有操作只改當頁記憶體。</p></header>
+<main><iframe id="preview" title="卷末設計樣張"></iframe></main>
+<script type="module">
+const data=await(await fetch('cases.json')).json();sample.innerHTML=data.titles.map(x=>`<option value="${x.id}">${x.title}</option>`).join('');
+function update(){const [w,h]=size.value.split('×');preview.width=w;preview.height=h;let q=new URLSearchParams;for(let id of ['sample','mode','font'])q.set(id,document.getElementById(id).value);for(let id of ['error','long'])q.set(id,document.getElementById(id).checked?'1':'0');preview.src='screen.html?'+q}for(let id of ['size','sample','mode','font','error','long'])document.getElementById(id).onchange=update;update();
+</script></html>

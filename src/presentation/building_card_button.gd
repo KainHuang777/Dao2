@@ -5,6 +5,15 @@ var _ratio := 0.0
 var _level := 0
 var _cap := 1
 var _meter := false
+var _portrait: UiIllustration
+
+func _init() -> void:
+	_portrait = UiIllustration.new()
+	add_child(_portrait)
+	# Keep Button.icon for its established layout/minimum-size contract.
+	# Its artwork is rendered once by the shared child, with no shader on text/rings.
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		add_theme_color_override("icon_" + state + "_color", Color.TRANSPARENT)
 
 func refresh_portrait(id: String, era: int, level: int, cap: int, ratio: float, meter: bool) -> void:
 	var path := "res://assets/ui/buildings-painted/%s.png" % id
@@ -17,6 +26,7 @@ func refresh_portrait(id: String, era: int, level: int, cap: int, ratio: float, 
 	var next_icon: Texture2D = _textures[path]
 	if icon != next_icon:
 		icon = next_icon
+	_portrait.texture = next_icon
 	if [_ratio, _level, _cap, _meter] == [ratio, level, cap, meter]:
 		return
 	_ratio = ratio
@@ -31,6 +41,8 @@ func _draw() -> void:
 	var extent := float(get_theme_constant("icon_max_width"))
 	var face := get_theme_stylebox("normal")
 	var center := Vector2(face.content_margin_left + extent * 0.5, size.y * 0.5)
+	_portrait.position = center - Vector2.ONE * extent * 0.5
+	_portrait.size = Vector2.ONE * extent
 	if _meter:
 		draw_arc(center, extent * 0.5 + 2, -PI * 0.5, PI * 1.5, 40, Color("b0a58b"), 2, true)
 		if _ratio > 0:

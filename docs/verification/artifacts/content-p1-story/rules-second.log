@@ -1,0 +1,583 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+FAIL enc_p1_dry_spring option 1
+FAIL enc_p1_dry_spring atomic cost
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] run (res://tests/content_p1_story_runner.gd:130)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:134)
+SCRIPT ERROR: Invalid call. Nonexistent function 'compare_to' in base 'Nil'.
+   at: transaction_error (res://src/simulation/story_progress.gd:118)
+   GDScript backtrace (most recent call first):
+       [0] transaction_error (res://src/simulation/story_progress.gd:118)
+       [1] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [2] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [3] _apply (res://src/simulation/command_processor.gd:66)
+       [4] apply (res://src/simulation/command_processor.gd:9)
+       [5] submit (res://src/application/game_session.gd:92)
+       [6] send (res://tests/content_p1_story_runner.gd:26)
+       [7] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: resolve_fortune (res://src/simulation/fortune_system.gd:214)
+   GDScript backtrace (most recent call first):
+       [0] resolve_fortune (res://src/simulation/fortune_system.gd:214)
+       [1] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [2] _apply (res://src/simulation/command_processor.gd:66)
+       [3] apply (res://src/simulation/command_processor.gd:9)
+       [4] submit (res://src/application/game_session.gd:92)
+       [5] send (res://tests/content_p1_story_runner.gd:26)
+       [6] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:137)
+FAIL enc_p1_dry_spring atomic precision
+FAIL enc_p1_dry_spring atomic digest
+FAIL enc_p1_dry_spring atomic stale
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+FAIL enc_p1_seed_merchant atomic cost
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] run (res://tests/content_p1_story_runner.gd:130)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:134)
+SCRIPT ERROR: Invalid call. Nonexistent function 'compare_to' in base 'Nil'.
+   at: transaction_error (res://src/simulation/story_progress.gd:118)
+   GDScript backtrace (most recent call first):
+       [0] transaction_error (res://src/simulation/story_progress.gd:118)
+       [1] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [2] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [3] _apply (res://src/simulation/command_processor.gd:66)
+       [4] apply (res://src/simulation/command_processor.gd:9)
+       [5] submit (res://src/application/game_session.gd:92)
+       [6] send (res://tests/content_p1_story_runner.gd:26)
+       [7] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: resolve_fortune (res://src/simulation/fortune_system.gd:214)
+   GDScript backtrace (most recent call first):
+       [0] resolve_fortune (res://src/simulation/fortune_system.gd:214)
+       [1] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [2] _apply (res://src/simulation/command_processor.gd:66)
+       [3] apply (res://src/simulation/command_processor.gd:9)
+       [4] submit (res://src/application/game_session.gd:92)
+       [5] send (res://tests/content_p1_story_runner.gd:26)
+       [6] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:137)
+FAIL enc_p1_seed_merchant atomic precision
+FAIL enc_p1_seed_merchant atomic digest
+FAIL enc_p1_seed_merchant atomic stale
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+FAIL enc_p1_workshop_offcuts atomic cost
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] run (res://tests/content_p1_story_runner.gd:130)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:134)
+SCRIPT ERROR: Invalid call. Nonexistent function 'compare_to' in base 'Nil'.
+   at: transaction_error (res://src/simulation/story_progress.gd:118)
+   GDScript backtrace (most recent call first):
+       [0] transaction_error (res://src/simulation/story_progress.gd:118)
+       [1] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [2] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [3] _apply (res://src/simulation/command_processor.gd:66)
+       [4] apply (res://src/simulation/command_processor.gd:9)
+       [5] submit (res://src/application/game_session.gd:92)
+       [6] send (res://tests/content_p1_story_runner.gd:26)
+       [7] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: resolve_fortune (res://src/simulation/fortune_system.gd:214)
+   GDScript backtrace (most recent call first):
+       [0] resolve_fortune (res://src/simulation/fortune_system.gd:214)
+       [1] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [2] _apply (res://src/simulation/command_processor.gd:66)
+       [3] apply (res://src/simulation/command_processor.gd:9)
+       [4] submit (res://src/application/game_session.gd:92)
+       [5] send (res://tests/content_p1_story_runner.gd:26)
+       [6] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:137)
+FAIL enc_p1_workshop_offcuts atomic precision
+FAIL enc_p1_workshop_offcuts atomic digest
+FAIL enc_p1_workshop_offcuts atomic stale
+FAIL enc_p1_returning_boat atomic cost
+FAIL enc_p1_returning_boat atomic capacity
+FAIL enc_p1_returning_boat atomic precision
+FAIL enc_p1_returning_boat atomic digest
+FAIL enc_p1_returning_boat atomic stale
+FAIL enc_p1_sect_lamp atomic cost
+FAIL enc_p1_sect_lamp atomic capacity
+FAIL enc_p1_sect_lamp atomic precision
+FAIL enc_p1_sect_lamp atomic digest
+FAIL enc_p1_sect_lamp atomic stale
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+FAIL enc_p1_supply_margin atomic cost
+FAIL enc_p1_supply_margin atomic capacity
+FAIL enc_p1_supply_margin atomic precision
+FAIL enc_p1_supply_margin atomic digest
+FAIL enc_p1_supply_margin atomic stale
+FAIL enc_p1_alchemist_measures atomic cost
+FAIL enc_p1_alchemist_measures atomic capacity
+FAIL enc_p1_alchemist_measures atomic precision
+FAIL enc_p1_alchemist_measures atomic digest
+FAIL enc_p1_alchemist_measures atomic stale
+FAIL enc_p1_fourfold_note atomic cost
+FAIL enc_p1_fourfold_note atomic capacity
+FAIL enc_p1_fourfold_note atomic precision
+FAIL enc_p1_fourfold_note atomic digest
+FAIL enc_p1_fourfold_note atomic stale
+FAIL enc_p1_fox_path atomic cost
+FAIL enc_p1_fox_path atomic capacity
+FAIL enc_p1_fox_path atomic precision
+FAIL enc_p1_fox_path atomic digest
+FAIL enc_p1_fox_path atomic stale
+FAIL enc_p1_fox_nightwatch atomic cost
+FAIL enc_p1_fox_nightwatch atomic capacity
+FAIL enc_p1_fox_nightwatch atomic precision
+FAIL enc_p1_fox_nightwatch atomic digest
+FAIL enc_p1_fox_nightwatch atomic stale
+FAIL enc_p1_old_lamp atomic cost
+FAIL enc_p1_old_lamp atomic precision
+FAIL enc_p1_old_lamp atomic digest
+FAIL enc_p1_old_lamp atomic stale
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [3] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [4] _apply (res://src/simulation/command_processor.gd:66)
+       [5] apply (res://src/simulation/command_processor.gd:9)
+       [6] submit (res://src/application/game_session.gd:92)
+       [7] send (res://tests/content_p1_story_runner.gd:26)
+       [8] run (res://tests/content_p1_story_runner.gd:99)
+FAIL enc_p1_wisdom_exchange atomic cost
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] run (res://tests/content_p1_story_runner.gd:130)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:134)
+SCRIPT ERROR: Invalid call. Nonexistent function 'compare_to' in base 'Nil'.
+   at: transaction_error (res://src/simulation/story_progress.gd:118)
+   GDScript backtrace (most recent call first):
+       [0] transaction_error (res://src/simulation/story_progress.gd:118)
+       [1] resolve_fortune (res://src/simulation/fortune_system.gd:188)
+       [2] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [3] _apply (res://src/simulation/command_processor.gd:66)
+       [4] apply (res://src/simulation/command_processor.gd:9)
+       [5] submit (res://src/application/game_session.gd:92)
+       [6] send (res://tests/content_p1_story_runner.gd:26)
+       [7] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: resolve_fortune (res://src/simulation/fortune_system.gd:214)
+   GDScript backtrace (most recent call first):
+       [0] resolve_fortune (res://src/simulation/fortune_system.gd:214)
+       [1] _apply_resolve_fortune (res://src/simulation/command_processor.gd:466)
+       [2] _apply (res://src/simulation/command_processor.gd:66)
+       [3] apply (res://src/simulation/command_processor.gd:9)
+       [4] submit (res://src/application/game_session.gd:92)
+       [5] send (res://tests/content_p1_story_runner.gd:26)
+       [6] run (res://tests/content_p1_story_runner.gd:135)
+SCRIPT ERROR: Invalid call. Nonexistent function 'serialize' in base 'Nil'.
+   at: GameState.to_snapshot_dict (res://src/domain/game_state.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] to_snapshot_dict (res://src/domain/game_state.gd:107)
+       [1] run (res://tests/content_p1_story_runner.gd:137)
+FAIL enc_p1_wisdom_exchange atomic precision
+FAIL enc_p1_wisdom_exchange atomic digest
+FAIL enc_p1_wisdom_exchange atomic stale
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+FAIL p1_golden_specialist claim
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+FAIL p1_four_pills_used claim
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'cap_wood_herb' on a base object of type 'Dictionary'.
+   at: cap (res://src/simulation/story_progress.gd:103)
+   GDScript backtrace (most recent call first):
+       [0] cap (res://src/simulation/story_progress.gd:103)
+       [1] transaction_error (res://src/simulation/story_progress.gd:123)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+SCRIPT ERROR: Invalid access to property or key 'sign' on a base object of type 'Nil'.
+   at: AmountCompat.compare_to (res://src/domain/amount_compat.gd:104)
+   GDScript backtrace (most recent call first):
+       [0] compare_to (res://src/domain/amount_compat.gd:104)
+       [1] transaction_error (res://src/simulation/story_progress.gd:124)
+       [2] claim (res://src/simulation/story_progress.gd:132)
+       [3] claim_reward (res://src/simulation/achievement_system.gd:414)
+       [4] _apply_claim_achievement (res://src/simulation/command_processor.gd:529)
+       [5] _apply (res://src/simulation/command_processor.gd:76)
+       [6] apply (res://src/simulation/command_processor.gd:9)
+       [7] submit (res://src/application/game_session.gd:92)
+       [8] send (res://tests/content_p1_story_runner.gd:26)
+       [9] run (res://tests/content_p1_story_runner.gd:173)
+FAIL v1 encode
+CONTENT-P1-STORY 447 checks failures=["enc_p1_dry_spring option 1", "enc_p1_dry_spring atomic cost", "enc_p1_dry_spring atomic precision", "enc_p1_dry_spring atomic digest", "enc_p1_dry_spring atomic stale", "enc_p1_seed_merchant atomic cost", "enc_p1_seed_merchant atomic precision", "enc_p1_seed_merchant atomic digest", "enc_p1_seed_merchant atomic stale", "enc_p1_workshop_offcuts atomic cost", "enc_p1_workshop_offcuts atomic precision", "enc_p1_workshop_offcuts atomic digest", "enc_p1_workshop_offcuts atomic stale", "enc_p1_returning_boat atomic cost", "enc_p1_returning_boat atomic capacity", "enc_p1_returning_boat atomic precision", "enc_p1_returning_boat atomic digest", "enc_p1_returning_boat atomic stale", "enc_p1_sect_lamp atomic cost", "enc_p1_sect_lamp atomic capacity", "enc_p1_sect_lamp atomic precision", "enc_p1_sect_lamp atomic digest", "enc_p1_sect_lamp atomic stale", "enc_p1_supply_margin atomic cost", "enc_p1_supply_margin atomic capacity", "enc_p1_supply_margin atomic precision", "enc_p1_supply_margin atomic digest", "enc_p1_supply_margin atomic stale", "enc_p1_alchemist_measures atomic cost", "enc_p1_alchemist_measures atomic capacity", "enc_p1_alchemist_measures atomic precision", "enc_p1_alchemist_measures atomic digest", "enc_p1_alchemist_measures atomic stale", "enc_p1_fourfold_note atomic cost", "enc_p1_fourfold_note atomic capacity", "enc_p1_fourfold_note atomic precision", "enc_p1_fourfold_note atomic digest", "enc_p1_fourfold_note atomic stale", "enc_p1_fox_path atomic cost", "enc_p1_fox_path atomic capacity", "enc_p1_fox_path atomic precision", "enc_p1_fox_path atomic digest", "enc_p1_fox_path atomic stale", "enc_p1_fox_nightwatch atomic cost", "enc_p1_fox_nightwatch atomic capacity", "enc_p1_fox_nightwatch atomic precision", "enc_p1_fox_nightwatch atomic digest", "enc_p1_fox_nightwatch atomic stale", "enc_p1_old_lamp atomic cost", "enc_p1_old_lamp atomic precision", "enc_p1_old_lamp atomic digest", "enc_p1_old_lamp atomic stale", "enc_p1_wisdom_exchange atomic cost", "enc_p1_wisdom_exchange atomic precision", "enc_p1_wisdom_exchange atomic digest", "enc_p1_wisdom_exchange atomic stale", "p1_golden_specialist claim", "p1_four_pills_used claim", "v1 encode"]

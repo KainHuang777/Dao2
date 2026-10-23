@@ -15,12 +15,17 @@ var _scroll: ScrollContainer
 var _pills_list: GridContainer
 var _pill_rows: Dictionary = {}
 var _widgets: Dictionary = {}
+var _feedback_pill := ""
+var _feedback_success := false
+var _last_view := {}
+var _short := false
 var _margin: MarginContainer
 
 func _ready() -> void:
 	_build_ui()
 
 func set_layout_bounds(bounds: Rect2) -> void:
+	_short = bounds.size.y < 350.0
 	position = bounds.position
 	size = bounds.size
 	if _pills_list != null:
@@ -29,6 +34,8 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		_pills_list.columns = 2 if size.x >= 850.0 else 1
 		_summary_label.visible = size.y >= 350.0
 		_title_row.visible = size.y >= 350.0
+		_feedback.visible = not _feedback.text.is_empty() and not (_short and _feedback_success)
+		if not _last_view.is_empty(): update_view(_last_view)
 
 func _build_ui() -> void:
 	_background = Panel.new()
@@ -79,13 +86,16 @@ func _build_ui() -> void:
 	_pills_list.add_theme_constant_override("v_separation", 10)
 	_scroll.add_child(_pills_list)
 
-func show_feedback(text: String, success: bool) -> void:
+func show_feedback(text: String, success: bool, pill_id: String = "") -> void:
+	_feedback_pill = pill_id
+	_feedback_success = success
 	_feedback.text = text
 	_feedback.tooltip_text = text
 	_feedback.add_theme_color_override("font_color", UiMaterial.INK if success else Color("a23e32"))
-	_feedback.visible = true
+	_feedback.visible = not (_short and success)
 
 func update_view(view: Dictionary) -> void:
+	_last_view = view
 	var data: Dictionary = view.get("alchemy", {})
 	var effects: Dictionary = data.get("effects", {})
 	_summary_label.text = "壽元 +%s祀 · 產率 +%.0f%% · 服丹 %d顆" % [str(effects.get("lifespan_bonus_years", 0)), float(effects.get("production_multiplier", 0)) * 100.0, int(effects.get("total_consumed", 0))]
@@ -150,17 +160,45 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	UiMaterial.apply_button(consume)
 	consume.pressed.connect(func(): consume_requested.emit(id, 1))
 	actions.add_child(consume)
-	_widgets[id] = {"title": title, "count": count, "materials": materials, "tiles": {}, "output": output, "refine": refine, "consume": consume}
+	var status := Label.new()
+	status.name = "PillStatus"
+	status.add_theme_font_size_override("font_size", 16)
+	status.add_theme_color_override("font_color", UiMaterial.INK)
+	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	status.visible = id in AlchemySystem.P1_IDS
+	column.add_child(status)
+	_widgets[id] = {"status": status,"title": title, "count": count, "materials": materials, "tiles": {}, "column": column, "actions": actions, "output": output, "refine": refine, "consume": consume}
 	return row
 
 func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 	var w: Dictionary = _widgets[String(p.id)]
 	var description := String(p.description)
+	var paper: StyleBoxTexture = UiMaterial.hud_paper()
+	if _short:
+		for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]: paper.set_content_margin(side, 4)
+	_pill_rows[String(p.id)].add_theme_stylebox_override("panel", paper)
+	w.column.add_theme_constant_override("separation", 2 if _short else 6)
+	w.title.text = String(p.name)
 	_pill_rows[String(p.id)].tooltip_text = String(p.name) + "\n" + description
 	w.title.tooltip_text = description
 	w.count.text = "持有 %d" % int(p.count)
 	w.consume.disabled = not bool(p.can_consume)
 	w.consume.tooltip_text = description if p.can_consume else "尚未持有此丹藥。\n" + description
+	if String(p.id) in AlchemySystem.P1_IDS:
+		var reason := String(p.get("consume_reason", ""))
+		var target := {"wood_nurture_pill":"靈木", "herb_nurture_pill":"下品靈草", "wealth_gathering_pill":"金錢", "qi_absorption_pill":"靈力"}
+		w.status.text = "祖島%s +100%% · 餘 %.0f秒 · 單顆淨延 %.0f秒" % [target[String(p.id)], float(p.get("remaining_seconds", 0)), float(p.get("net_extension_seconds", 0))]
+		if reason == "PILL_NO_EXTENSION": w.status.text += "；等到期再用"
+		if bool(p.locked_by_era): w.status.text = "未開：需%s期；祖島%s +100%%／300秒" % ["築基" if int(p.min_era) == 2 else "金丹",target[String(p.id)]]
+		w.consume.tooltip_text = w.status.text + "\n" + description
+		w.status.visible = not _short
+		if _short:
+			w.title.text += " · 祖島%s+100%%" % target[String(p.id)]
+			w.count.text = "餘%.0f秒" % float(p.get("remaining_seconds", 0))
+			if _feedback_pill == String(p.id) and _feedback_success:
+				w.title.text += " · " + ("已服" if "已服用" in _feedback.text else "已煉")
+				w.title.tooltip_text = _feedback.text + "\n" + description
+			if bool(p.locked_by_era): w.title.text += " · 未開"
 	var linked := bool(p.get("manufacturing_link", false))
 	w.refine.text = "製造" if linked else "煉製"
 	w.refine.disabled = not linked and not bool(p.can_refine)
@@ -181,9 +219,14 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 		w.tiles[resource].refresh(resource, String(RESOURCE_NAMES.get(resource, resource)), required, available, "祖島")
 		w.tiles[resource].quantity.text = "%s/%s" % [_number(available), _number(required)]
 	# Early pills share the existing pill-family illustration; names and TIP identify effects.
-	w.output.refresh("foundation_pill", String(p.name), 1, float(p.count), "丹藥", true)
+	w.output.refresh(String(p.id) if String(p.id) in AlchemySystem.P1_IDS else "foundation_pill", String(p.name), 1, float(p.count), "丹藥", true)
 	w.output.quantity.text = "×%d" % int(p.count)
 	w.output.caption.text = "丹藥"
+	for tile in w.tiles.values() + [w.output]:
+		tile.icon.custom_minimum_size = Vector2(28,28) if _short else Vector2(44,44)
+	if _short and String(p.id) in AlchemySystem.P1_IDS:
+		w.output.caption.add_theme_font_size_override("font_size", 16)
+		w.output.caption.text = "淨延%.0f秒" % float(p.get("net_extension_seconds", 0))
 	w.output.tooltip_text = "%s\n持有 %d顆\n%s" % [String(p.name), int(p.count), description]
 
 func _number(value: float) -> String:

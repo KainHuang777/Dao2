@@ -64,7 +64,7 @@ func _run() -> void:
 	abode._refresh_hud()
 	check(panel._talent_rows.innate_dao_body.find_child("LearnButton",true,false).disabled,"max talent disabled")
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
-	for vp in [Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)]:
+	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))
@@ -124,6 +124,7 @@ func _run() -> void:
 	check(absf(panel._reincarnate_action_button.get_global_rect().get_center().x - panel.get_global_rect().get_center().x) < 2, "primary action centered")
 	abode.feature_navigation.home()
 	abode.session.state.reincarnation_count += 1
+	StoryProgress.next_life(abode.session.state) # Keep synthetic life fixture consistent with story v1.
 	abode.session.state.total_elapsed_seconds = 0.0
 	abode._refresh_hud()
 	await process_frame

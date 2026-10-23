@@ -1,11 +1,13 @@
 class_name SkillSystem
 extends RefCounted
 ## Adapted from preserved master ff86f85: optional bonuses, authoritative Amount stock.
-const VERSION := 2
-const CONTENT_TAG := "+skills-p1"
-const SUPPORTED_VERSIONS := [0, 1, 2]
+const VERSION := 3
+const CONTENT_TAG := "+content-p1-skills"
+const SUPPORTED_VERSIONS := [0, 1, 2, 3]
+const P1_LIMITS := {"greenwood_nourishment": 3, "ore_breath_refinement": 3, "herbal_spirit_nurture": 3, "warehouse_preparation": 3, "alchemical_breath_control": 3}
+const MATERIALS := ["wood", "stone_low", "spirit_grass_low"]
 const PRODUCTION_BUILDINGS := ["wooden_house", "forest_farm", "stone_mine", "herb_farm"]
-const EFFECTS := ["lingli_multiplier", "lingli_rate", "money_multiplier", "lingli_max", "money_max", "building_level_cap", "time_multiplier"]
+const EFFECTS := ["lingli_multiplier", "lingli_rate", "money_multiplier", "lingli_max", "money_max", "building_level_cap", "time_multiplier", "wood_multiplier", "stone_low_multiplier", "spirit_grass_low_multiplier", "p1_material_capacity_flat", "p1_alchemy_lingli_discount"]
 
 static func attach(content: GameContent) -> Dictionary:
 	if not content.skill_defs.is_empty():
@@ -110,7 +112,7 @@ static func learn(content: GameContent, state: GameState, id: String) -> Diction
 	var cost := AmountCompat.from_number(float(def.cost))
 	if entry.value.compare_to(cost) < 0:
 		return _failure("INSUFFICIENT_SKILL_POINT")
-	entry.value = entry.value.subtract(cost)
+	entry.value = ResourceLedger.change(state, "home", "skill_point", entry.value, entry.value.subtract(cost), "skill")
 	state.skills[id] = level + 1
 	return {"ok": true, "events": [{"kind": "skill_learned", "skill_id": id, "new_level": level + 1, "cost": cost.serialize()}], "changed_ids": ["skills", "skill_point"]}
 
@@ -165,6 +167,11 @@ static func _effect_text(def: Dictionary, level: int) -> String:
 		"money_max": return "金錢容量 +%.0f" % (amount * level)
 		"building_level_cap": return "四種生產設施上限 +%d" % int(amount * level)
 		"time_multiplier": return "修煉時間 ×%.3f" % pow(amount, level)
+		"wood_multiplier": return "祖島木產率 ×%.3f" % pow(amount, level)
+		"stone_low_multiplier": return "祖島下品靈石產率 ×%.3f" % pow(amount, level)
+		"spirit_grass_low_multiplier": return "祖島低階草產率 ×%.3f" % pow(amount, level)
+		"p1_material_capacity_flat": return "祖島木／石／草庫容各 +%.0f" % (amount * level)
+		"p1_alchemy_lingli_discount": return "指定直煉靈力費 ×%.2f" % (1.0 - amount * level)
 	return def.description
 
 static func _failure(error: String) -> Dictionary:
@@ -172,6 +179,10 @@ static func _failure(error: String) -> Dictionary:
 
 static func validate(version: int, skills: Dictionary) -> String:
 	var limits := {"basic_meditation": 5, "qi_condensation": 5, "foundation_building": 5, "qi_storage_1": 1, "body_strengthening_1": 1, "building_mastery_1": 1, "golden_core_formation": 5}
+	if version < 2:
+		limits.erase("golden_core_formation")
+	if version >= 3:
+		limits.merge(P1_LIMITS)
 	if version not in SUPPORTED_VERSIONS or (version == 0 and not skills.is_empty()):
 		return "STATE_FIELD_TYPE:skills"
 	for id in skills:

@@ -49,7 +49,7 @@ func _run() -> void:
 		abode._request_breakthrough()
 		expect(seq._preparing and seq._detail_label.text.contains("83.0%"), "prepare reads pill-adjusted probability")
 		expect(abode.session.state.to_snapshot_dict() == before, "prepare never rolls")
-		for vp in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+		for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 			root.size = vp
 			root.content_scale_size = vp
 			abode._layout_for_size(Vector2(vp))
@@ -69,7 +69,7 @@ func _run() -> void:
 		seq._process(7.6)
 		expect(seq._tribulation_stage.strike > .5, "first bolt hits the pose core")
 		var stage_time: float = seq._tribulation_stage.clock
-		for vp in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+		for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 			root.size = vp
 			root.content_scale_size = vp
 			abode._layout_for_size(Vector2(vp))
@@ -119,7 +119,7 @@ func _run() -> void:
 		abode._retry_breakthrough_save()
 		expect(not abode._pending_breakthrough_save and not seq._retry_button.visible, "retry recovers durability")
 		expect(abode.session.state.to_snapshot_dict() == committed, "retry never rolls or changes state")
-		for vp in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+		for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 			root.size = vp
 			root.content_scale_size = vp
 			abode._layout_for_size(Vector2(vp))

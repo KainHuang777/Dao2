@@ -1,15 +1,28 @@
 class_name SaveCodec
 extends RefCounted
 
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 const GAME_VERSION := "0.1.0"
-const RULES_VERSION := "core-flow-12-skills-p1"
+const RULES_VERSION := "core-flow-17-content-p1-story"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
 		return {"ok": false, "json": "", "error": "STATE_MISSING"}
+	var story_error := StorySaveContract.validate(state)
+	if not story_error.is_empty(): return {"ok": false, "json": "", "error": story_error}
+	var sect_error := SectSaveContract.validate(state.sect_version, state.sect)
+	if not sect_error.is_empty(): return {"ok": false, "json": "", "error": sect_error}
+	var pill_error := AlchemySystem.validate(state.pill_version, state.pills, state.buffs)
+	if not pill_error.is_empty(): return {"ok": false, "json": "", "error": pill_error}
+	var talent_error := TalentSystem.validate(state.talent_version, state.talents)
+	if not talent_error.is_empty(): return {"ok": false, "json": "", "error": talent_error}
+	var ledger_error := LifeLedger.validate(state.life_ledger, state.reincarnation_count + 1) if not state.life_ledger.is_empty() else ""
+	if not ledger_error.is_empty():
+		return {"ok": false, "json": "", "error": ledger_error}
+	var fortune_error := DecisionReceipt.validate_pending(state.fortune)
+	if not fortune_error.is_empty(): return {"ok": false, "json": "", "error": fortune_error}
 	var skill_error := SkillSystem.validate(state.skill_version, state.skills)
 	if not skill_error.is_empty():
 		return {"ok": false, "json": "", "error": skill_error}
@@ -73,7 +86,7 @@ static func decode(json_text: String) -> Dictionary:
 	var envelope: Dictionary = parsed
 	if not envelope.has("schema_version") or not _is_int(envelope["schema_version"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_TYPE"}
-	if not _to_int(envelope["schema_version"]) in [2, 3, SCHEMA_VERSION]:
+	if not _to_int(envelope["schema_version"]) in [2, 3, 4, SCHEMA_VERSION]:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_UNKNOWN"}
 	if not verify_checksum(envelope):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "CHECKSUM"}
@@ -82,9 +95,13 @@ static func decode(json_text: String) -> Dictionary:
 		return {"ok": false, "state": null, "envelope": envelope, "error": type_error}
 	if int(envelope.schema_version) == 2 and envelope.state.get("economy", {}) != {}:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA2_ECONOMY"}
+	if int(envelope.schema_version) == SCHEMA_VERSION and not envelope.state.has("life_ledger"):
+		return {"ok": false, "state": null, "envelope": envelope, "error": "LEDGER_MISSING"}
 	var state_result := _state_from_snapshot(envelope["state"])
 	if not bool(state_result["ok"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": String(state_result["error"])}
+	if int(envelope.schema_version) < SCHEMA_VERSION and not envelope.state.has("life_ledger"):
+		LifeLedger.initialize(state_result.state)
 	if _to_int(state_result["state"].revision) != _to_int(envelope["revision"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "REVISION_MISMATCH"}
 	return {"ok": true, "state": state_result["state"], "envelope": envelope, "error": ""}
@@ -235,12 +252,8 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.tick_remainder_seconds = _to_float(remainder)
 	var skill_version: Variant = snapshot_dict.get("skill_version", 0)
 	var skills: Variant = snapshot_dict.get("skills", {})
-	if not _is_int(skill_version) or int(skill_version) not in [0, 1, 2] or not skills is Dictionary or skills.size() > 7:
+	if not _is_int(skill_version) or int(skill_version) not in SkillSystem.SUPPORTED_VERSIONS or not skills is Dictionary or skills.size() > 12:
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
-	var supported := {"basic_meditation": 5, "qi_condensation": 5, "foundation_building": 5, "qi_storage_1": 1, "body_strengthening_1": 1, "building_mastery_1": 1, "golden_core_formation": 5}
-	for id in skills:
-		if not supported.has(id) or not _is_int(skills[id]) or int(skills[id]) < 0 or int(skills[id]) > int(supported[id]):
-			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
 	if not SkillSystem.validate(int(skill_version), skills).is_empty():
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
 	state.skill_version = int(skill_version)
@@ -276,6 +289,12 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["talents"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:talents"}
 		state.talents = (snapshot_dict["talents"] as Dictionary).duplicate(true)
+	var talent_version: Variant = snapshot_dict.get("talent_version", 1)
+	if not _is_int(talent_version): return {"ok": false, "state": null, "error": "TALENT_VERSION"}
+	state.talent_version = int(talent_version)
+	var talent_error := TalentSystem.validate(state.talent_version, state.talents)
+	if not talent_error.is_empty(): return {"ok": false, "state": null, "error": talent_error}
+	for id in state.talents: state.talents[id] = int(state.talents[id])
 	if snapshot_dict.has("pills"):
 		if not (snapshot_dict["pills"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:pills"}
@@ -296,6 +315,12 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["buffs"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:buffs"}
 		state.buffs = (snapshot_dict["buffs"] as Dictionary).duplicate(true)
+	var pill_version: Variant = snapshot_dict.get("pill_version", 0)
+	var pill_error := AlchemySystem.validate(pill_version, state.pills, state.buffs)
+	if not pill_error.is_empty(): return {"ok": false, "state": null, "error": pill_error}
+	state.pill_version = int(pill_version)
+	for id in AlchemySystem.P1_IDS:
+		if state.pills.has(id): state.pills[id] = int(state.pills[id])
 	if snapshot_dict.has("current_realm"):
 		if not (snapshot_dict["current_realm"] is String):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:current_realm"}
@@ -308,6 +333,10 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["sect"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:sect"}
 		state.sect = (snapshot_dict["sect"] as Dictionary).duplicate(true)
+	var sect_version: Variant = snapshot_dict.get("sect_version", 0)
+	var sect_error := SectSaveContract.validate(sect_version, state.sect)
+	if not sect_error.is_empty(): return {"ok": false, "state": null, "error": sect_error}
+	state.sect_version = int(sect_version)
 	if snapshot_dict.has("chrono"):
 		if not (snapshot_dict["chrono"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:chrono"}
@@ -329,6 +358,8 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	if snapshot_dict.has("fortune"):
 		if not (snapshot_dict["fortune"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:fortune"}
+		var pending_error := DecisionReceipt.validate_pending(snapshot_dict["fortune"])
+		if not pending_error.is_empty(): return {"ok": false, "state": null, "error": pending_error}
 		state.fortune = (snapshot_dict["fortune"] as Dictionary).duplicate(true)
 	if snapshot_dict.has("realm_decisions"):
 		if not (snapshot_dict["realm_decisions"] is Dictionary):
@@ -375,6 +406,20 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		return {"ok": false, "state": null, "error": economy_error}
 	state.economy = _normalize_numbers(state.economy)
 	state.command_receipts = _normalize_numbers(receipts)
+	var ledger: Variant = snapshot_dict.get("life_ledger", {})
+	if not ledger is Dictionary:
+		return {"ok": false, "state": null, "error": "LEDGER_STRUCTURE"}
+	if not ledger.is_empty():
+		var ledger_error := LifeLedger.validate(ledger, state.reincarnation_count + 1)
+		if not ledger_error.is_empty():
+			return {"ok": false, "state": null, "error": ledger_error}
+	state.life_ledger = LifeLedger.from_snapshot(ledger)
+	var story_version: Variant = snapshot_dict.get("story_version", 0)
+	if not SectSaveContract.integer(story_version, StoryProgress.VERSION): return {"ok": false, "state": null, "error": "STORY_VERSION"}
+	state.story_version = int(story_version)
+	var story_error := StorySaveContract.validate(state)
+	if not story_error.is_empty(): return {"ok": false, "state": null, "error": story_error}
+	StorySaveContract.normalize(state)
 	return {"ok": true, "state": state, "error": ""}
 
 

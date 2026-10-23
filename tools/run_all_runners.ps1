@@ -1,7 +1,50 @@
-param([string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe', [string]$StartAt = '')
+<#
+分級驗收（見 AGENTS.md「分級驗收」）：
+  L1/L2 日常：  -Only 'content_p1_skills*','uix_r8*'   只跑受影響 runner，預設單一尺寸 1280x720
+  L3 收尾：     -Full -Parallel 3                     全部 runner、全尺寸矩陣、並行；並行失敗會串行重跑確認
+  舊用法：      無參數＝全量串行單尺寸；-StartAt 續跑
+#>
+param(
+    [string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe',
+    [string]$StartAt = '',
+    [string[]]$Only = @(),
+    [switch]$Full,
+    [int]$Parallel = 1,
+    [int]$TimeoutSeconds = 45
+)
 $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
+$env:DAO_VIEWPORT_MATRIX = if ($Full) { 'full' } else { 'single' }
 $runners = @(
+	'tests/content_p1_story_runner.gd',
+	'tests/content_p1_story_events_runner.gd',
+	'tests/content_p1_story_progression_runner.gd',
+	'tests/content_p1_story_ui_runner.gd',
+	'tests/content_p1_sect_progression_runner.gd',
+	'tests/content_p1_sect_runner.gd',
+	'tests/content_p1_sect_ui_runner.gd',
+	'tests/content_p1_pills_runner.gd',
+	'tests/content_p1_pills_ui_runner.gd',
+	'tests/ui_art_edge_runner.gd',
+	'tests/content_p1_talents_runner.gd',
+	'tests/content_p1_talents_ui_runner.gd',
+	'tests/content_p1_skills_runner.gd',
+	'tests/content_p1_skills_progression_runner.gd',
+	'tests/content_p1_skills_ui_runner.gd',
+	'tests/life_echo_runner.gd',
+	'tests/life_echo_ui_runner.gd',
+	'tests/life_history_runner.gd',
+	'tests/life_history_ui_runner.gd',
+	'tests/resource_accounts_runner.gd',
+	'tests/resource_accounts_ui_runner.gd',
+	'tests/decision_receipt_runner.gd',
+	'tests/decision_ui_runner.gd',
+	'tests/life_report_runner.gd',
+	'tests/life_report_ui_runner.gd',
+	'tests/life_ledger_runner.gd',
+	'tests/ui_shell_matrix_runner.gd',
+	'tests/ui_shell_integration_runner.gd',
+	'tests/ui_shell_policy_runner.gd',
 	'tests/mfg3_inline_runner.gd',
 	'tests/mfg_controller_runner.gd',
 	'tests/recipe_row_runner.gd',
@@ -87,21 +130,93 @@ $runners = @(
 )
 
 
-$passed = 0
+$Only = @($Only | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 $started = [string]::IsNullOrEmpty($StartAt)
 if (-not $started -and $StartAt -notin $runners) { throw "Unknown runner: $StartAt" }
+$selected = @()
 foreach ($r in $runners) {
-	if ($r -eq $StartAt) { $started = $true }
-	if (-not $started) { continue }
-    Write-Host "[RUNNING] $r" -ForegroundColor Cyan
-    & $daoEngine --headless --path . --script ("res://$r")
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
-        exit $LASTEXITCODE
+    if ($r -eq $StartAt) { $started = $true }
+    if (-not $started) { continue }
+    if ($Only.Count -gt 0 -and -not ($Only | Where-Object { $r -like "*$_*" })) { continue }
+    $selected += $r
+}
+if ($selected.Count -eq 0) { throw 'No runner matched the selection' }
+Write-Host "[MODE] matrix=$($env:DAO_VIEWPORT_MATRIX) runners=$($selected.Count) parallel=$Parallel" -ForegroundColor Yellow
+
+function Stop-RunnerTree([int]$procId) {
+    $children = Get-CimInstance Win32_Process -Filter "ParentProcessId = $procId" -ErrorAction SilentlyContinue
+    foreach ($c in $children) {
+        Stop-RunnerTree $c.ProcessId
     }
-    $passed++
+    try { Stop-Process -Id $procId -Force -ErrorAction SilentlyContinue } catch {}
 }
 
+$timings = @{}
+function Invoke-Serial([string[]]$list) {
+    foreach ($r in $list) {
+        Write-Host "[RUNNING] $r" -ForegroundColor Cyan
+        $sw = [Diagnostics.Stopwatch]::StartNew()
+        & $daoEngine --headless --path . --script ("res://$r")
+        $code = $LASTEXITCODE
+        $timings[$r] = $sw.Elapsed.TotalSeconds
+        if ($code -ne 0) {
+            Write-Error "Runner failed: $r with exit code $code"
+            exit $code
+        }
+    }
+}
+
+if ($Parallel -le 1) {
+    Invoke-Serial $selected
+} else {
+    $logDir = Join-Path $env:TEMP 'dao2_runners'
+    New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+    $resolvedEngine = (Resolve-Path $daoEngine).Path
+    $queue = [System.Collections.Queue]::new($selected)
+    $running = @()
+    $failed = @()
+    while ($queue.Count -gt 0 -or $running.Count -gt 0) {
+        while ($queue.Count -gt 0 -and $running.Count -lt $Parallel) {
+            $r = $queue.Dequeue()
+            $log = Join-Path $logDir (($r -replace '[\\/]', '_') + '.log')
+            $err = $log + '.err'
+            Write-Host "[START] $r" -ForegroundColor Cyan
+            $psi = New-Object System.Diagnostics.ProcessStartInfo
+            $psi.FileName = "cmd.exe"
+            $psi.Arguments = "/c `"`"$resolvedEngine`" --headless --path . --script res://$r > `"$log`" 2> `"$err`"`""
+            $psi.UseShellExecute = $false
+            $psi.CreateNoWindow = $true
+            $p = [System.Diagnostics.Process]::Start($psi)
+            $running += [pscustomobject]@{ Runner = $r; Proc = $p; Started = Get-Date }
+        }
+        Start-Sleep -Milliseconds 300
+        foreach ($j in @($running)) {
+            $elapsed = ((Get-Date) - $j.Started).TotalSeconds
+            if ($j.Proc.HasExited) {
+                $code = $j.Proc.ExitCode
+                $timings[$j.Runner] = $elapsed
+                if ($code -ne 0) {
+                    $failed += $j.Runner
+                    Write-Host "[FAIL-PARALLEL] $($j.Runner) exit $code" -ForegroundColor Yellow
+                }
+                $running = @($running | Where-Object { $_ -ne $j })
+            } elseif ($elapsed -gt $TimeoutSeconds) {
+                Write-Host "[TIMEOUT-PARALLEL] $($j.Runner) exceeded ${TimeoutSeconds}s, killing..." -ForegroundColor Red
+                Stop-RunnerTree $j.Proc.Id
+                $timings[$j.Runner] = $elapsed
+                $failed += $j.Runner
+                $running = @($running | Where-Object { $_ -ne $j })
+            }
+        }
+    }
+    if ($failed.Count -gt 0) {
+        Write-Host "[RETRY-SERIAL] $($failed.Count) runner(s) failed in parallel; rerun serially to confirm" -ForegroundColor Yellow
+        Invoke-Serial $failed
+    }
+}
+
+Write-Host '--- slowest 8 runners (s) ---'
+$timings.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 8 | ForEach-Object { Write-Host ("{0,8:N1}  {1}" -f $_.Value, $_.Key) }
 Write-Host "========================================" -ForegroundColor Green
-Write-Host "ALL $passed RUNNERS PASSED WITH EXIT CODE 0!" -ForegroundColor Green
+Write-Host "ALL $($selected.Count) RUNNERS PASSED WITH EXIT CODE 0! (matrix=$($env:DAO_VIEWPORT_MATRIX))" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green

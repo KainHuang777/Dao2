@@ -30,7 +30,7 @@ func _run() -> void:
 	nav.open("skills")
 	var panel = nav.action_panel
 	var page = panel.skill_view
-	check(page.cards.size() == 7, "seven skill cards")
+	check(page.cards.size() == 12, "twelve skill cards")
 	check(page.buttons["skill:basic_meditation"].disabled, "Era1 unavailable")
 	abode.session.state.era_id = 2
 	abode._refresh_hud()
@@ -64,7 +64,7 @@ func _run() -> void:
 	abode._refresh_hud()
 	check(page.buttons["skill:qi_storage_1"].disabled and page.buttons["skill:qi_storage_1"].text == "已滿級", "max level")
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
-	for vp in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+	for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))
@@ -80,7 +80,7 @@ func _run() -> void:
 		page.scroll.scroll_vertical = 10000
 		await frames()
 		check(is_equal_approx(y,page.heading.global_position.y), "heading fixed")
-		var last: Control = page.cards.golden_core_formation.action
+		var last: Control = page.cards.alchemical_breath_control.action
 		check(page.scroll.get_global_rect().encloses(last.get_global_rect()), "last action reachable")
 		check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1, "bottom rod safety")
 		panel.show_result("操作完成，進度已更新。")
@@ -88,7 +88,7 @@ func _run() -> void:
 		print("SKILL_FEEDBACK viewport=%s scroll=%s card=%s heading=%s panel=%s" % [vp,page.scroll.size,page.cards.golden_core_formation.card.size,page.heading.size,panel.size])
 		check(page.scroll.size.y >= page.cards.golden_core_formation.card.size.y, "success feedback leaves a complete skill card")
 		if vp.y < 500:
-			check(not panel.status.visible and page.heading.text.contains("操作完成"), "compact feedback merged in fixed heading")
+			check(not panel.status.visible and nav.shell.resource_button.tooltip_text.contains("操作完成") and nav.shell.resource_button.text.contains("已更新"), "compact feedback merged in fixed shell resource summary")
 		page.scroll.scroll_vertical = 0
 		nav.home()
 		check(not panel.visible, "home returns")
@@ -96,6 +96,8 @@ func _run() -> void:
 		await frames()
 		check(not nav.bar.get_global_rect().intersects(abode.settings_menu.get_global_rect()), "reopen close clears settings")
 	# A long future amount must wrap without moving the cost/action column.
+	abode._layout_for_size(Vector2(1280,720))
+	await frames()
 	var view: Dictionary = abode.session.get_view()
 	view.skills.available = "123456789012345678901234567890"
 	page.refresh(view)
@@ -108,7 +110,7 @@ func _run() -> void:
 	nav.open("decisions")
 	check(not page.visible and not panel.buttons.is_empty(), "decisions shared mode preserved")
 	nav.open("skills")
-	check(page.buttons.size() == 8 and panel.buttons.size() == 8, "skills buttons survive shared-mode roundtrip")
+	check(page.buttons.size() == 13 and panel.buttons.size() == 13, "skills buttons survive shared-mode roundtrip")
 	abode.queue_free()
 	await process_frame
 	print("UIX-R8 %d checks failed=%s" % [checks,failed])

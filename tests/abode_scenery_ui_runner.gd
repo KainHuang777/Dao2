@@ -22,6 +22,7 @@ func _run() -> void:
 	root.add_child(abode)
 	abode.set_process(false)
 	await process_frame
+	abode.offline_summary.hide() # Complete the report before testing feature input.
 	abode.session.state.buildings.hut = 2
 	abode.session.state.resources.wood.unlocked = true
 	AbodeScenery.advance(abode.session.state, 12)
@@ -41,7 +42,9 @@ func _run() -> void:
 	escape.pressed = true
 	escape.keycode = KEY_ESCAPE
 	abode._unhandled_key_input(escape)
-	check(abode.feature_navigation.group == "home" and not abode.building_catalog.visible, "Escape from landmark detail restores home")
+	check(abode.feature_navigation.page == "buildings" and not abode.info_panel.visible, "Escape from landmark detail restores building list")
+	abode.feature_navigation.back()
+	check(abode.feature_navigation.group == "home" and not abode.building_catalog.visible, "second Escape restores home")
 	abode.session.state.era_id = 1
 	abode._refresh_hud()
 	check(abode.buildings.hut.sprite.texture == old_art, "new life appearance reverts to hut")

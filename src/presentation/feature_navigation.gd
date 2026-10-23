@@ -1,10 +1,7 @@
 extends RefCounted
 ## Canonical ownership of player features. Routes share the existing Session.
-const GROUPS := {
-	"management": {"title": "經營", "pages": [["buildings", "洞府建築"], ["outposts", "空島"], ["manufacturing", "製造"], ["transport", "運輸"]]},
-	"cultivation": {"title": "修行", "pages": [["skills", "技能"], ["alchemy", "煉丹"], ["beasts", "靈獸"], ["achievements", "成就"], ["reincarnation", "輪迴天賦"]]},
-	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"]]},
-}
+const ShellPolicy = preload("res://src/presentation/ui_shell_policy.gd")
+const GROUPS := ShellPolicy.GROUPS
 const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal", "achievement_panel"]
 ## Page presentation policy; costs and command eligibility remain in Session.
 const PAGE_POLICY := {
@@ -40,6 +37,7 @@ var _tab_group := ""
 var _main_selected: Dictionary = {}
 var _home_resource_mode := 0
 var _tab_signature := ""
+var shell: RefCounted
 
 func _init(scene: Node) -> void:
 	abode = scene
@@ -106,13 +104,11 @@ func build() -> void:
 	for key in PANEL_KEYS:
 		abode.get(key).close_requested.connect(home)
 	abode.nine_realms_preview.preview_closed.connect(_on_realms_closed)
+	shell = preload("res://src/presentation/ui_shell_controller.gd").new(abode)
+	shell.build()
 
 func owner(route: String) -> String:
-	for id in GROUPS:
-		for entry in GROUPS[id].pages:
-			if entry[0] == route:
-				return id
-	return ""
+	return ShellPolicy.owner(route)
 
 func open_group(id: String) -> void:
 	if not GROUPS.has(id):
@@ -138,6 +134,14 @@ func open(route: String) -> void:
 		return
 	var target := owner(route)
 	if target.is_empty() or _changing:
+		return
+	if shell != null:
+		if not shell.navigate(route):
+			return
+		route = shell.state.snapshot().route
+		target = owner(route)
+	if route == "home":
+		home()
 		return
 	_changing = true
 	if group == "home":
@@ -168,13 +172,9 @@ func open(route: String) -> void:
 				abode.realm_modal.visible = true
 		"alchemy":
 			abode.alchemy_panel.visible = true
-			if abode.resource_display_mode == 0:
-				abode._set_resource_display_mode(1)
 		"manufacturing":
-			manufacturing_panel.reset_context()
 			manufacturing_panel.visible = true
 		"transport":
-			transport_panel.reset_context()
 			transport_panel.visible = true
 		"achievements": abode.achievement_panel.visible = true
 		"reincarnation": abode.reincarnation_panel.visible = true
@@ -184,8 +184,6 @@ func open(route: String) -> void:
 		"beasts", "decisions", "skills":
 			action_panel.mode = page
 			action_panel.visible = true
-	if group == "management" and abode.resource_display_mode == 0:
-		abode._set_resource_display_mode(1)
 	_changing = false
 	abode._refresh_hud()
 	abode._layout_for_size(abode.hud.size)
@@ -203,6 +201,8 @@ func _hide_pages() -> void:
 func home() -> void:
 	if _changing or group == "home":
 		return
+	if shell != null and not shell.navigate("home"):
+		return
 	_changing = true
 	if abode.nine_realms_preview.visible:
 		abode.nine_realms_preview._on_close_pressed()
@@ -212,9 +212,9 @@ func home() -> void:
 	abode.camera.contacts.clear()
 	group = "home"
 	page = ""
-	bar.visible = false
 	_changing = false
-	abode._set_resource_display_mode(_home_resource_mode)
+	if shell != null:
+		abode._set_resource_display_mode(int(shell.state.snapshot().home_preferences.resource_mode))
 	abode._layout_for_size(abode.hud.size)
 
 func _on_realms_closed() -> void:
@@ -329,71 +329,10 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 	# Reapply bounds after labels/visibility invalidate the container minimum size.
 	var nav_margin: float = 28.0 if abode.layout_mode == abode.HudLayout.WIDE else 16.0
 	abode.toolbar.size.x = minf(480.0, vp.x - nav_margin * 2.0)
-	bar.visible = group != "home"
-	if group == "home":
+	if shell != null and shell.managed():
+		if group != "home": _refresh_tabs(view)
+		shell.apply(vp)
 		return
-	var margin := 16.0
-	var policy := presentation_policy(page, vp)
-	var central: bool = policy.central
-	var right_rail := not central and vp.x >= 640.0
-	var width := building_workspace_width(vp, abode._hud_controller._messages_open and abode._hud_controller._messages_explicit) if right_rail and page == "buildings" else (minf(400.0, vp.x * 0.44) if right_rail else minf(policy.max_width, vp.x - 2.0 * margin))
-	var x := vp.x - margin - width if right_rail else (vp.x - width) * 0.5
-	var manufacturing_stock: bool = policy.wide_stock
-	if policy.hud_stock:
-		width = maxf(240.0, vp.x - abode.header.get_global_rect().end.x - margin * 2.0)
-		x = vp.x - margin - width
-	if manufacturing_stock:
-		var stock_width := minf(300.0, abode.header.size.x)
-		width = minf(820.0, vp.x - stock_width - margin * 3.0)
-		x = vp.x - margin - width
-		abode.resource_ribbon.position = Vector2(margin, margin + 68.0)
-		abode.resource_ribbon.size = Vector2(stock_width, maxf(80.0, abode.toolbar.position.y - margin - 76.0))
-	bar.position = Vector2(x, margin)
-	# Reserve the settings slot from viewport bounds; the home HUD may still
-	# have stale menu geometry when a central page is reopened in this frame.
-	bar.size = Vector2(minf(width, vp.x - margin - 56.0 - x), 60)
-	if right_rail:
-		# Keep the four management tabs visible above the world safe region.
-		var focused_buildings := page == "buildings" and vp.y < 500.0
-		var nav_width := vp.x - 2.0 * margin if focused_buildings else minf(560.0, vp.x - abode.header.size.x - 2.0 * margin)
-		bar.position.x = vp.x - margin - nav_width
-		bar.size.x = nav_width - 56.0
-	back_button.text = "×"
-	back_button.tooltip_text = "返回洞府"
-	back_button.custom_minimum_size = Vector2(44, 44)
-	if group == "management":
-		for button in tab_buttons.values():
-			button.custom_minimum_size.x = 64 if right_rail and vp.x < 960.0 else 80
-		tab_buttons.buildings.text = "建築" if vp.x < 960.0 else "洞府建築"
-		tab_buttons.outposts.text = "洞天" if vp.x < 960.0 else "洞天據點"
-		if not abode.content.processing_catalog.is_empty():
-			tab_buttons.outposts.text = "空島"
-	_refresh_tabs(view)
-	var bounds := Rect2(x, margin + 68.0, width, maxf(80.0, abode.toolbar.position.y - margin - 76.0))
-	if page == "buildings":
-		abode.building_catalog.set_layout_bounds(bounds)
-	elif page == "realms":
-		abode.nine_realms_preview.set_workspace_bounds(bounds)
-	else:
-		var panel: Control = action_panel
-		match page:
-			"manufacturing": panel = manufacturing_panel
-			"transport": panel = transport_panel
-			"outposts": panel = abode.realm_modal if _legacy_outposts or abode.content.processing_catalog.is_empty() else island_panel
-			"alchemy": panel = abode.alchemy_panel
-			"achievements": panel = abode.achievement_panel
-			"reincarnation": panel = abode.reincarnation_panel
-			"sect": panel = abode.sect_panel
-			"fortune": panel = abode.fortune_modal
-		panel.set_layout_bounds(bounds)
-	# Central pages temporarily replace HUD space; resource management retains its rail.
-	if central:
-		abode.header.visible = policy.hud_stock
-		abode.resource_ribbon.visible = manufacturing_stock or policy.hud_stock
-	# The building rail shares the world HUD; its message layout and user choice
-	# are already handled by AbodeHudController. Other pages replace that space.
-	if page != "buildings":
-		abode.hint_panel.visible = false
 
 static func building_workspace_width(vp: Vector2, show_messages: bool = false) -> float:
 	if vp.y < 500.0:
@@ -403,6 +342,11 @@ static func building_workspace_width(vp: Vector2, show_messages: bool = false) -
 	return minf(620.0, vp.x - 280.0)
 
 func refresh(view: Dictionary) -> void:
+	if shell != null and shell.state.snapshot().overlay.is_empty() and group != "home":
+		var legal := ShellPolicy.legal_route(page, view)
+		if legal != page:
+			if legal == "home": home()
+			else: open(legal)
 	var realm: Dictionary = view.get("realm", {})
 	var entries := {}
 	var names := {"realm_crystal": "極品靈晶", "realm_nectar": "天青靈液", "dao_heart": "道心", "dao_proof": "道證"}
@@ -426,13 +370,13 @@ func refresh(view: Dictionary) -> void:
 	abode.sect_button.visible = false
 	_refresh_main_notifications(view)
 	_refresh_tabs(view)
-	if action_panel.visible:
+	if is_instance_valid(action_panel) and action_panel.visible:
 		action_panel.refresh(view)
-	if island_panel.visible:
+	if is_instance_valid(island_panel) and island_panel.visible:
 		island_panel.expire_success()
 		island_panel.refresh(view, abode.content.processing_catalog)
 	for panel in [manufacturing_panel, transport_panel]:
-		if panel.visible:
+		if is_instance_valid(panel) and panel.visible:
 			panel.expire_success()
 			panel.refresh(view, abode.content.processing_catalog)
 
@@ -533,6 +477,7 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 
 func open_manufacturing(island_id: String, recipe_id: String = "") -> void:
 	open("manufacturing")
+	if page != "manufacturing" or not shell.state.snapshot().overlay.is_empty(): return
 	manufacturing_panel.reset_context(island_id)
 	if not recipe_id.is_empty():
 		manufacturing_panel.select_recipe(recipe_id)
@@ -542,6 +487,7 @@ func _open_island_page(route: String, island_id: String) -> void:
 		open_manufacturing(island_id)
 	else:
 		open(route)
+		if page != route or not shell.state.snapshot().overlay.is_empty(): return
 		if route == "outposts":
 			island_panel.select_island(island_id)
 		elif route == "transport":
@@ -551,16 +497,42 @@ func open_transport(route_id: String) -> void:
 	if not IslandEconomy.ROUTES.has(route_id):
 		return
 	open("transport")
+	if page != "transport" or not shell.state.snapshot().overlay.is_empty(): return
 	transport_panel.select_island(IslandEconomy.ROUTES[route_id][0])
 	transport_panel.select_route(route_id)
 
 func back() -> void:
-	if page == "manufacturing" and not manufacturing_panel.selected_recipe.is_empty():
+	if shell != null and shell.managed() and shell.back():
+		return
+	if page == "reincarnation" and abode.reincarnation_panel._confirming:
+		abode.reincarnation_panel._cancel_confirmation()
+	elif abode.info_panel.visible:
+		abode._close_detail()
+	elif page == "manufacturing" and not manufacturing_panel.selected_recipe.is_empty():
 		manufacturing_panel.back_to_list()
 	elif page == "transport" and not transport_panel.selected_route.is_empty():
 		transport_panel.back_to_list()
 	else:
 		home()
+
+func layout_page(bounds: Rect2) -> void:
+	if page == "buildings":
+		abode.building_catalog.set_short_mode(bounds.size.y < 400)
+		abode.building_catalog.set_layout_bounds(bounds)
+	elif page == "realms":
+		abode.nine_realms_preview.set_workspace_bounds(bounds)
+	else:
+		var panel: Control = action_panel
+		match page:
+			"manufacturing": panel = manufacturing_panel
+			"transport": panel = transport_panel
+			"outposts": panel = abode.realm_modal if _legacy_outposts or abode.content.processing_catalog.is_empty() else island_panel
+			"alchemy": panel = abode.alchemy_panel
+			"achievements": panel = abode.achievement_panel
+			"reincarnation": panel = abode.reincarnation_panel
+			"sect": panel = abode.sect_panel
+			"fortune": panel = abode.fortune_modal
+		panel.set_layout_bounds(bounds)
 
 func storage_recovered() -> void:
 	for panel in [island_panel, manufacturing_panel, transport_panel]:

@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid call. Nonexistent function 'to_snapshot' in base 'RefCounted (GameState)'.
+   at: run (res://tests/life_report_runner.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/life_report_runner.gd:63)

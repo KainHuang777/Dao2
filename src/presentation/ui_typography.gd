@@ -9,6 +9,25 @@ const WEIGHT_AXIS: int = 0x77676874 # OpenType wght tag; verified by TextServer.
 static var _body: FontVariation
 static var _emphasis: FontVariation
 static var _chapter: FontVariation
+static var _epilogue_title: FontVariation
+static var _epilogue_seal: FontVariation
+
+static func epilogue_title_font() -> Font:
+	if _epilogue_title == null:
+		_epilogue_title = FontVariation.new()
+		_epilogue_title.base_font = CHAPTER_FONT
+		_epilogue_title.variation_opentype = {WEIGHT_AXIS: 800}
+	return _epilogue_title
+
+static func epilogue_seal_font() -> Font:
+	if _epilogue_seal == null:
+		_epilogue_seal = FontVariation.new()
+		_epilogue_seal.base_font = CHAPTER_FONT
+		_epilogue_seal.variation_opentype = {WEIGHT_AXIS: 900}
+	return _epilogue_seal
+
+static func biography_font() -> Font:
+	return reincarnation_font()
 
 static func chapter_font() -> Font:
 	if _chapter == null:

@@ -30,7 +30,7 @@ func _run() -> void:
 	var adapter := ToggleAdapter.new()
 	SaveSlots.new(adapter).reset()
 	SaveManager.configure(abode.content,adapter)
-	check(panel._mapping.size()==26,"all26 real event IDs mapped")
+	check(panel._mapping.size()==38,"all38 real event IDs mapped")
 	for enc in FortuneSystem.get_encounters():
 		check(panel._mapping.has(enc.id) and ResourceLoader.exists(panel.ART_DIR+str(panel._mapping.get(enc.id))+".png"),"art for"+str(enc.id))
 	abode.session.state.fortune.cooldown_remaining = 600
@@ -87,7 +87,7 @@ func _run() -> void:
 	view.resources.spirit_grass_low.value = "123456789012345678901234567890"
 	panel.refresh(view)
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
-	for vp in [Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)]:
+	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))

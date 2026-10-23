@@ -194,7 +194,7 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	box.name = "HBox"
 	box.add_theme_constant_override("separation", 12)
 	card.add_child(box)
-	var badge := TextureRect.new()
+	var badge := UiIllustration.new()
 	badge.name = "Badge"
 	badge.custom_minimum_size = Vector2.ONE * (112 if size.y < 350 else 128)
 	badge.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -210,10 +210,11 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	info.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	box.add_child(info)
-	for role in ["Title", "Reward"]:
+	for role in ["Title", "Reward", "Reason"]:
 		var label := _label(role, 18 if role == "Title" else 16)
 		if role == "Title": label.add_theme_font_override("font", UiTypography.emphasis_font())
 		info.add_child(label)
+		if role == "Reason": label.hide()
 	var action := Button.new()
 	action.name = "Action"
 	action.custom_minimum_size = Vector2(100, 44)
@@ -226,9 +227,14 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	return card
 
 func _update_card(card: PanelContainer, ach: Dictionary) -> void:
+	card.tooltip_text = String(ach.get("desc", ""))
 	card.get_node("HBox/Info/Title").text = String(ach.name)
 	card.get_node("HBox/Info/Reward").text = "獎勵 · " + String(ach.rewards_desc)
+	var error := String(ach.get("reason", ""))
+	card.get_node("HBox/Info/Reason").text = error
+	card.get_node("HBox/Info/Reason").visible = not error.is_empty()
 	var action: Button = card.get_node("HBox/Action")
+	action.tooltip_text = error
 	var claimed := bool(ach.get("claimed", false))
 	var ready := bool(ach.get("can_claim", false))
 	action.text = "已領取" if claimed else ("領取獎勵" if ready else "未達成")

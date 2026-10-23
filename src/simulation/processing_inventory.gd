@@ -16,8 +16,8 @@ static func read(state: GameState, resource_id: String) -> Dictionary:
 			return {"ok": false, "error": "INVENTORY_CONFLICT"}
 	return {"ok": true, "value": value.duplicate_amount(), "unlocked": bool(entry.get("unlocked", false))}
 
-static func write(state: GameState, resource_id: String, value: AmountCompat) -> void:
-	state.resources[resource_id].value = value
+static func write(state: GameState, resource_id: String, value: AmountCompat, category: String = "processing") -> void:
+	state.resources[resource_id].value = value if category == "untracked" else ResourceLedger.change(state, "home", resource_id, state.resources[resource_id].value, value, category)
 	state.resources[resource_id].ever_obtained = bool(state.resources[resource_id].ever_obtained) or value.sign > 0
 	if resource_id == "foundation_pill":
 		state.pills[resource_id] = int(value.mag) if value.sign > 0 else 0

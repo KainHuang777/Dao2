@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid access of index '0' on a base object of type: 'Array'.
+   at: time_parity (res://tests/life_ledger_runner.gd:149)
+   GDScript backtrace (most recent call first):
+       [0] time_parity (res://tests/life_ledger_runner.gd:149)
+       [1] compute_async (res://src/application/offline_coordinator.gd:86)
+       [2] _advance_yielding (res://src/application/offline_coordinator.gd:93)
+SCRIPT ERROR: Invalid access to property or key 'save_main' on a base object of type 'Dictionary'.
+   at: archive_and_faults (res://tests/life_ledger_runner.gd:229)
+   GDScript backtrace (most recent call first):
+       [0] archive_and_faults (res://tests/life_ledger_runner.gd:229)
+       [1] run (res://tests/life_ledger_runner.gd:96)
+       [2] time_parity (res://tests/life_ledger_runner.gd:149)
+       [3] compute_async (res://src/application/offline_coordinator.gd:86)
+       [4] _advance_yielding (res://src/application/offline_coordinator.gd:93)
+{"checks":285,"failures":["fast path exercised","online/batch/fast/offline/async facts","economy and RNG unchanged across time modes"],"retained_lives":9,"schema":5}

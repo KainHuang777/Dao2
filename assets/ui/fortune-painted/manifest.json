@@ -178,6 +178,19 @@
     "enc_chaos_primordial_rift": "omen",
     "enc_chaos_reversal_matrix": "omen",
     "enc_origin_stellar_loom": "omen",
-    "enc_origin_first_dawn": "omen"
-  }
+    "enc_origin_first_dawn": "omen",
+    "enc_p1_dry_spring": "spring",
+    "enc_p1_seed_merchant": "traveler",
+    "enc_p1_workshop_offcuts": "industry",
+    "enc_p1_returning_boat": "industry",
+    "enc_p1_sect_lamp": "sect",
+    "enc_p1_supply_margin": "sect",
+    "enc_p1_alchemist_measures": "traveler",
+    "enc_p1_fourfold_note": "traveler",
+    "enc_p1_fox_path": "beast",
+    "enc_p1_fox_nightwatch": "beast",
+    "enc_p1_old_lamp": "ruins",
+    "enc_p1_wisdom_exchange": "ruins"
+  },
+  "content_p1_story_manifest": "assets/ui/fortune-painted/content-p1-story-manifest.json"
 }

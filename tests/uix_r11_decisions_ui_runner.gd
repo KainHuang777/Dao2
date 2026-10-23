@@ -83,7 +83,7 @@ func _run() -> void:
 	abode._refresh_hud()
 	check(not page.buttons["decision:spirit_attune_lingchao"].disabled, "cooldown expiry re-enables")
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
-	for vp in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+	for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))
@@ -94,6 +94,7 @@ func _run() -> void:
 		panel.refresh(long_view)
 		await frames()
 		check(panel.get_global_rect().encloses(page.scroll.get_global_rect()), "scroll within paper")
+		print("R11 viewport=%s panel=%s content=%s feedback=%s" % [vp, panel.size, page.scroll.size, panel.status.size])
 		check(page.scroll.size.y >= 64, "readable viewport")
 		for row in page.cards.values():
 			check(row.art.texture != null, "painted decision art")

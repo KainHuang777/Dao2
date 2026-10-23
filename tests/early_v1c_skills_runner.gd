@@ -149,7 +149,7 @@ func _run() -> void:
 	helper.content = content
 	var attach := IslandProgression.attach(content)
 	check(bool(attach.get("ok", false)), "official content attach")
-	check(content.skill_defs.size() == 7, "seven skill definitions")
+	check(content.skill_defs.size() == 12, "twelve skill definitions")
 	var version_before := content.content_version
 	var attach_again := IslandProgression.attach(content)
 	check(bool(attach_again.get("ok", false)) and content.content_version == version_before, "attach idempotent")
@@ -189,8 +189,8 @@ func _run() -> void:
 
 func play_prefix() -> bool:
 	var s := GameSession.create_new_game(content, 20261018)
-	check(s.state.era_id == 1 and s.state.skill_version == 2, "blank save skill state v2")
-	check(s.get_view().skills.items.size() == 7, "seven skill view items")
+	check(s.state.era_id == 1 and s.state.skill_version == 3, "blank save skill state v3")
+	check(s.get_view().skills.items.size() == 12, "twelve skill view items")
 	check(not bool(s.state.resources.skill_point.unlocked) and points(s) == 0.0, "skill_point locked and zero on blank save")
 	var blank_opened := bool((s.get_view().skills as Dictionary).opened)
 	check(not blank_opened, "study panel closed on blank save")
@@ -451,7 +451,7 @@ func run_persistence_session() -> void:
 	if not bool(decoded.get("ok", false)):
 		return
 	var restored: GameState = decoded.state
-	check(restored.skill_version == 2 and restored.skills == s.state.skills, "roundtrip preserves skills and version")
+	check(restored.skill_version == 3 and restored.skills == s.state.skills, "roundtrip preserves skills and version")
 	check(int(restored.skills.get("golden_core_formation", 0)) == 1 and int(restored.skills.get("foundation_building", 0)) == 1, "roundtrip golden and foundation levels")
 	check(restored.resources["skill_point"]["value"].serialize() == s.state.resources["skill_point"]["value"].serialize(), "roundtrip skill_point")
 	check(int(restored.buildings.get("library", 0)) == 1 and int(restored.buildings.get("scripture_hall", 0)) == 1, "roundtrip study buildings")

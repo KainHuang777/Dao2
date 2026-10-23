@@ -6,6 +6,7 @@ var _column: VBoxContainer
 var _share_text: TextEdit
 var _legacy_text: TextEdit
 var _status_label: Label
+var _scroll: ScrollContainer
 
 func _ready() -> void:
 	_build_ui()
@@ -15,19 +16,27 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	if _background != null:
 		_background.size = size
-	if _column != null:
-		_column.position = Vector2(16, 16)
-		_column.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
+	if _scroll != null:
+		_scroll.position = Vector2(16, 60)
+		_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 76.0))
 
 func _build_ui() -> void:
 	_background = Panel.new()
 	_background.add_theme_stylebox_override("panel", UiTypography.dialog_surface())
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
+	var close_seal := CloseSeal.new()
+	close_seal.position = Vector2(16, 8)
+	close_seal.pressed.connect(func(): visible = false)
+	add_child(close_seal)
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	add_child(_scroll)
 	_column = VBoxContainer.new()
+	_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_column.name = "SaveColumn"
 	_column.add_theme_constant_override("separation", 10)
-	add_child(_column)
+	_scroll.add_child(_column)
 	var buttons := HFlowContainer.new()
 	buttons.name = "SaveButtons"
 	buttons.add_theme_constant_override("h_separation", 8)

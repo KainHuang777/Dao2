@@ -57,7 +57,7 @@ func _run() -> void:
 	for route in ["outposts", "manufacturing", "transport"]:
 		check(nav.tab_buttons[route].visible, "Era2 reveals island entry " + route)
 	nav.home()
-	for viewport in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+	for viewport in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		var wide: Dictionary = nav.presentation_policy("manufacturing", viewport)
 		check(wide.central and wide.wide_stock == (viewport.x >= 1100), "manufacturing resource policy follows viewport")
 		check(not nav.presentation_policy("buildings", viewport).central, "building policy retains shared resource rail")
@@ -66,7 +66,7 @@ func _run() -> void:
 	abode.session.get_view()
 	SectSystem.ensure_sect_state(abode.session.state)
 	var before: Dictionary = abode.session.state.to_snapshot_dict()
-	for viewport in [Vector2(1280, 720), Vector2(844, 390), Vector2(640, 360)]:
+	for viewport in ([Vector2(1280, 720), Vector2(844, 390), Vector2(640, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(viewport)
 		for button in [abode.island_mode_button, abode.building_catalog_button, abode.reincarnation_button, abode.overview_button]:
 			check(button.get_theme_font_size("font_size") == 18, "all four main entries use the same font size")
@@ -100,8 +100,8 @@ func _run() -> void:
 	check(not abode.hint_panel.visible, "desktop messages can close beside the compact catalog")
 	abode._toggle_guidance()
 	await process_frame
-	check(abode.hint_panel.visible and abode.building_catalog.group_grids.core.columns == 1, "explicit messages reopen beside a single-column catalog")
-	check(not abode.hint_panel.get_global_rect().intersects(abode.building_catalog.get_global_rect()), "desktop messages do not overlap the building rail")
+	check(abode.hint_panel.visible and nav.shell.shield.visible and abode.building_catalog.group_grids.core.columns == 2, "explicit messages reopen as modal without resizing catalog")
+	check(not nav.shell.effective.page_input, "desktop reading blocks covered work actions")
 	abode._toggle_guidance()
 	abode._refresh_hud()
 	abode._layout_for_size(Vector2(1280, 720))
@@ -111,6 +111,7 @@ func _run() -> void:
 	abode._layout_for_size(Vector2(844, 390))
 	abode._hud_controller.show_messages()
 	check(abode.hint_panel.visible and abode.building_catalog.visible, "explicit short-landscape messages are not forcibly hidden by navigation")
+	nav.back()
 	nav.home()
 	abode._layout_for_size(Vector2(1280, 720))
 	check(abode.hint_panel.visible and is_equal_approx(abode.hint_panel.get_global_rect().get_center().x, 640.0), "return home restores viewport-centered messages")
@@ -128,11 +129,12 @@ func _run() -> void:
 	check(abode.camera.input_locked, "home no-op preserves another presentation's camera lock")
 	nav.open("beasts")
 	nav.home()
-	check(abode.camera.input_locked, "page close restores previous camera lock")
+	check(abode.camera.input_locked == not nav.shell.effective.world_input, "page close recalculates current shell input instead of restoring a stale lock bit")
 	abode.camera.input_locked = false
 	# Session-backed interactions through the real UI signal, in isolated data only.
 	abode.session.state.era_id = 3
 	abode.session.state.resources["spirit_grass_low"] = {"value": AmountCompat.from_number(500), "unlocked": true, "ever_obtained": true}
+	abode._refresh_hud()
 	nav.open("beasts")
 	nav.action_panel.buttons["acquire:jade_fox"].pressed.emit()
 	check(abode.session.state.beasts.get("active", {}).get("id", "") == "jade_fox", "UI acquires via Session")

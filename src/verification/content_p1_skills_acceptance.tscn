@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/verification/content_p1_skills_acceptance.gd" id="1"]
+
+[node name="ContentP1SkillsAcceptance" type="Node"]
+script = ExtResource("1")

@@ -16,6 +16,7 @@ func _run() -> void:
 	var abode = load(SCENE_PATH).instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide()
 
 	print("--- Running M3-A Reincarnation UI Runner ---")
 
@@ -25,7 +26,12 @@ func _run() -> void:
 	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be closed initially")
 
 	abode.feature_navigation.open("reincarnation")
-	_expect(abode.reincarnation_panel.visible, "canonical cultivation tab must open reincarnation")
+	_expect(not abode.reincarnation_panel.visible, "new-game canonical route obeys hidden discovery gate")
+	abode.feature_navigation.home()
+	# The following component fixture reads an ineligible first-life preview.
+	# Real canonical opening is tested below through the exhausted-life shortcut.
+	abode.reincarnation_panel.show()
+	abode.reincarnation_panel.refresh(abode.session.get_view())
 	_expect(abode.reincarnation_panel._reincarnate_action_button.disabled, "reincarnate button must be disabled for new game (Era 1, full lifespan)")
 	_expect(abode.reincarnation_panel._eligibility_label.text.find("往生蓮臺") >= 0, "eligibility label must explain requirement")
 	abode.reincarnation_panel.refresh({"dao_heart": "6.150000000000001", "dao_proof": 10})
@@ -111,22 +117,6 @@ func _run() -> void:
 	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be automatically closed upon rebirth")
 	_expect(not abode.lifespan_banner.visible, "lifespan banner must be hidden after reincarnation")
 
-	# 5. 直式版型與 more_menu 整合
-	abode._layout_for_size(Vector2(360, 640))
-	_expect(not abode.more_menu.visible, "legacy More must remain hidden in portrait")
-	_expect(abode.reincarnation_button.visible, "cultivation section remains discoverable beneath the rotation prompt")
-
-	abode.feature_navigation.open("reincarnation")
-	abode._layout_for_size(Vector2(360, 640))
-	_expect(abode.reincarnation_panel.visible, "more_menu item 6 must toggle reincarnation panel in portrait layout")
-	_expect(abode.reincarnation_panel.size.x <= 360.0, "reincarnation panel must fit within 360 CSS px bounds")
-	_expect(abode.reincarnation_panel.position.x >= 0.0, "reincarnation panel position must be inside screen")
-
-
-	# 關閉面板
-	abode.reincarnation_panel._close_button.pressed.emit()
-	_expect(not abode.reincarnation_panel.visible, "clicking close button must close the panel")
-
 	# 6. 轉生特效表演（ReincarnationSequence）測試
 	_expect(abode.reincarnation_seq != null, "reincarnation_seq node must exist")
 	_expect(abode.reincarnation_seq.visible, "reincarnation_seq must be visible after reincarnation triggered")
@@ -153,7 +143,19 @@ func _run() -> void:
 	# 驗證完成按鈕關閉
 	abode.reincarnation_seq._finish_button.pressed.emit()
 	_expect(not abode.reincarnation_seq.visible, "finish button must hide reincarnation sequence")
+	# First reincarnation also has a separate nine-realms hook. Finish that
+	# lifecycle and restore landscape before expecting world input to unlock.
+	if abode.nine_realms_preview.visible: abode.nine_realms_preview._on_close_pressed()
+	abode._layout_for_size(Vector2(1280,720))
 	_expect(not abode.camera.input_locked, "camera input must be unlocked after sequence finishes")
+	# Navigation waits for the sequence; portrait retains the route behind rotation.
+	abode.feature_navigation.open("reincarnation")
+	abode._layout_for_size(Vector2(360, 640))
+	_expect(not abode.more_menu.visible, "legacy More must remain hidden in portrait")
+	_expect(abode.reincarnation_panel.visible, "canonical page retained beneath rotation prompt")
+	_expect(abode.reincarnation_panel.size.x <= 360.0 and abode.reincarnation_panel.position.x >= 0.0, "portrait page stays bounded")
+	abode.reincarnation_panel._close_button.pressed.emit()
+	_expect(not abode.reincarnation_panel.visible and abode.camera.input_locked, "portrait close retains rotation input lock")
 
 	slots.reset()
 

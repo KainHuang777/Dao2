@@ -605,7 +605,8 @@ func _layout_for_size(vp: Vector2) -> void:
 	var margin: float = 28.0 if _abode.layout_mode == _abode.HudLayout.WIDE else 16.0
 	var portrait: bool = _abode.layout_mode == _abode.HudLayout.PORTRAIT
 	var compact: bool = _abode.layout_mode != _abode.HudLayout.WIDE
-	_abode.toolbar.visible = true
+	if _abode.feature_navigation == null or _abode.feature_navigation.shell == null or not _abode.feature_navigation.shell.managed():
+		_abode.toolbar.visible = true
 	_abode._apply_hud_density(compact, portrait)
 	_abode.header.position = Vector2(margin, margin)
 	_abode.header.size.x = (vp.x - margin * 2.0 - 52.0) if portrait else minf(320.0, vp.x * 0.38)
@@ -702,7 +703,7 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_abode.detail_title.add_theme_font_size_override("font_size", 22)
 	_abode.detail_body.add_theme_font_size_override("font_size", 16)
 	_abode.more_menu.visible = true
-	if _abode.settings_menu != null:
+	if _abode.settings_menu != null and (_abode.feature_navigation == null or _abode.feature_navigation.shell == null or not _abode.feature_navigation.shell.managed()):
 		_abode.settings_menu.visible = true
 	_abode.motion_button.visible = false
 	_abode.save_button.visible = false
@@ -714,6 +715,10 @@ func _apply_hud_density(compact: bool, portrait: bool) -> void:
 	_abode.replay_breakthrough_button.visible = false
 
 func _reflow_header() -> void:
+	if _abode.feature_navigation != null and _abode.feature_navigation.shell != null and _abode.feature_navigation.group != "home":
+		_goal_scroll.hide()
+		_abode.feature_navigation.shell.apply(_abode.hud.size)
+		return
 	var base_height: float = 88.0 if _abode.layout_mode == _abode.HudLayout.WIDE else 80.0
 	var needed: float = maxf(_abode.header.get_combined_minimum_size().y, _abode.header_box.get_combined_minimum_size().y + 20.0)
 	_abode.header.size.y = maxf(base_height, needed)
@@ -761,6 +766,10 @@ func _reflow_resource_ribbon() -> void:
 	_abode.resource_scroll.visible = _abode.resource_display_mode != 0
 
 func _set_resource_display_mode(mode: int) -> void:
+	if _abode.feature_navigation != null and _abode.feature_navigation.shell != null and _abode.feature_navigation.group == "home":
+		_abode.feature_navigation.shell.home_preferences(mode, _messages_open)
+		if mode == 0 and _abode.feature_navigation.shell.state.snapshot().overlay == "resources":
+			_abode.feature_navigation.shell.close_overlay()
 	_abode.resource_display_mode = clampi(mode, 0, 2)
 	for index in _abode.resource_mode_buttons.size():
 		_abode.resource_mode_buttons[index].button_pressed = index == _abode.resource_display_mode
@@ -773,54 +782,6 @@ func _set_resource_display_mode(mode: int) -> void:
 		_abode._layout_for_size(_abode.hud.size)
 
 func _layout_overlay_panels(vp: Vector2, margin: float, portrait: bool) -> void:
-	var management: bool = _abode.building_catalog != null and _abode.building_catalog.visible
-	var detail_focus: bool = management and portrait and vp.y < 560.0 and _abode.info_panel.visible
-	_abode.header.visible = not detail_focus
-	_abode.resource_ribbon.visible = not detail_focus
-	_abode.viewbar.visible = _abode.viewbar.visible and not management
-	_abode.footer.visible = false
-	if management:
-		var rail_width: float = vp.x - margin * 2.0 if portrait else _abode.feature_navigation.building_workspace_width(vp, _messages_open and _messages_explicit)
-		var rail_top: float = margin if detail_focus else (_abode.resource_ribbon.position.y + _abode.resource_ribbon.size.y + 8.0 if portrait else margin)
-		var rail_bottom: float = _abode.action_bar.position.y - 8.0 if portrait and _abode.action_bar.visible else _abode.toolbar.position.y - 8.0
-		if portrait and rail_bottom - rail_top < 104.0:
-			_abode.resource_ribbon.size.y = 56.0
-			_abode.resource_scroll.visible = false
-			rail_top = _abode.resource_ribbon.position.y + _abode.resource_ribbon.size.y + 8.0
-		_abode.building_catalog.call("set_short_mode", vp.y < 560.0)
-		_abode.building_catalog.call("set_layout_bounds", Rect2(margin if portrait else vp.x - margin - rail_width, rail_top, rail_width, maxf(72.0, rail_bottom - rail_top)))
-	# Retain the user's open/closed choice while a short management drawer needs the space.
-	var short_management := management and vp.y < 500.0
-	var action_host: Node = _abode.building_catalog.cultivation_actions if short_management and not portrait else _identity_text.get_parent()
-	for action in [_abode.level_up_button, _abode.breakthrough_button]:
-		if action.get_parent() != action_host:
-			action.reparent(action_host, false)
-	if short_management and not portrait:
-		_abode.header.visible = false
-		_abode.resource_ribbon.visible = false
-	_abode.hint_panel.visible = _messages_open and not portrait and (not short_management or _messages_explicit)
-	var starter_hut: Node2D = _abode.buildings.get("hut")
-	if not management and vp.y < 500.0 and not _messages_explicit and starter_hut != null and starter_hut.visible and starter_hut.level == 0:
-		_abode.hint_panel.visible = false
-	if management and not short_management and _abode.building_catalog.position.x - _abode.header.get_global_rect().end.x < 380.0:
-		_abode.hint_panel.visible = false
-	if _abode.hint_panel.visible:
-		var left_limit: float = _abode.header.get_global_rect().end.x + 12.0
-		var right_limit: float = _abode.building_catalog.position.x - 12.0 if management else vp.x - margin
-		if short_management:
-			left_limit = margin
-			right_limit = vp.x - margin
-		var hint_width: float = minf(540.0, right_limit - left_limit)
-		var hint_h: float = minf(300.0 if _abode._hint_expanded else 220.0, vp.y * 0.48)
-		var hint_x: float = left_limit + (right_limit - left_limit - hint_width) * 0.5
-		if not management:
-			# Home messages align with the viewport; compact HUDs still need clearance.
-			hint_x = maxf(left_limit, (vp.x - hint_width) * 0.5)
-		var bottom_anchor: float = (_abode.action_bar.position.y if _abode.action_bar.visible else _abode.toolbar.position.y)
-		var hint_y: float = bottom_anchor - hint_h - 6.0
-		_abode.hint_panel.size = Vector2(hint_width, hint_h)
-		_abode.hint_panel.position = Vector2(hint_x, hint_y)
-
 	_abode._modal_manager.layout_panels(vp, margin, portrait)
 	if _abode.feature_navigation != null:
 		_abode.feature_navigation.layout(vp)
@@ -1276,11 +1237,13 @@ func _refresh_detail() -> void:
 func _show_help() -> void:
 	_abode.hint_heading.text = "操作說明"
 	_abode.hint.text = "滑鼠拖曳／單指平移；滾輪／雙指縮放。\n「經營」（營造簿）可建造與升級；M 展開山域，Home 歸家。"
+	if _shell_messages(true): return
 	_messages_open = true
 	_messages_explicit = true
 	_abode._layout_for_size(_abode.hud.size)
 
 func _toggle_guidance() -> void:
+	if _shell_messages(): return
 	# Reopening reads current progress, including after a reload or failed save.
 	_abode.last_guidance_key = ""
 	_update_onboarding_guidance(_abode.session.get_view())
@@ -1289,6 +1252,8 @@ func _toggle_guidance() -> void:
 	_abode._layout_for_size(_abode.hud.size)
 
 func _open_current_goal() -> void:
+	if _abode.feature_navigation.shell.managed() and _abode.feature_navigation.shell.state.snapshot().overlay == "messages":
+		_abode.feature_navigation.shell.close_overlay()
 	var view: Dictionary = _abode.session.get_view()
 	var objective: Variant = view.get("next_objective")
 	var target := String(objective.id) if objective is Dictionary else String(view.get("early_guidance", {}).get("route", ""))
@@ -1342,20 +1307,38 @@ func _open_optional_skills() -> void:
 func _close_goal_explanation() -> void:
 	_messages_open = false
 	_messages_explicit = false
+	if _abode.feature_navigation != null and _abode.feature_navigation.shell != null and _abode.feature_navigation.shell.managed():
+		var shell = _abode.feature_navigation.shell
+		if shell.state.snapshot().overlay == "messages": shell.close_overlay()
+		if shell.state.snapshot().route == "home": shell.home_preferences(_abode.resource_display_mode, false)
 
 func _show_goal_explanation() -> void:
+	if _shell_messages(true): return
 	# Reading replaces the active workspace; opening its destination closes it.
 	# This keeps compact building costs and optional actions mutually accessible.
 	_abode.feature_navigation.home()
 	_toggle_guidance()
 
 func show_messages() -> void:
+	if _shell_messages(true): return
 	_messages_open = true
 	_messages_explicit = true
 	_abode._layout_for_size(_abode.hud.size)
 
 func messages_are_explicit() -> bool:
 	return _messages_open and _messages_explicit
+
+func _shell_messages(force_open: bool = false) -> bool:
+	if _abode.feature_navigation == null or _abode.feature_navigation.shell == null or not _abode.feature_navigation.shell.managed(): return false
+	var shell = _abode.feature_navigation.shell
+	if shell.state.snapshot().route == "home" and shell.state.snapshot().overlay.is_empty():
+		_messages_open = force_open or not bool(shell.state.snapshot().home_preferences.messages_open)
+		_messages_explicit = _messages_open
+		shell.home_preferences(_abode.resource_display_mode, _messages_open)
+		_abode._layout_for_size(_abode.hud.size)
+	else:
+		if not force_open or shell.state.snapshot().overlay != "messages": shell.toggle_overlay("messages")
+	return true
 
 func _toggle_hint_expand() -> void:
 	_abode._hint_expanded = not _abode._hint_expanded

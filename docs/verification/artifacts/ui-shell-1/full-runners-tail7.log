@@ -1,0 +1,304 @@
+[RUNNING] tests/m3b_alchemy_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+--- Running M3-B Alchemy UI Runner ---
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+PASS: M3-B alchemy UI, refining, consuming, responsiveness, and state updates.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_sect_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Sect System Runner (Expeditions, Techniques & Market) ---
+Testing sect unlock conditions and joining...
+Testing expedition task start, time advance, and claim...
+Testing sect technique learning and multipliers...
+Testing sect market item exchange and limits...
+Testing SaveCodec roundtrip with sect state...
+Testing sect state reset on reincarnation...
+PASS: M3-B sect unlock, expeditions, techniques, market, multipliers, persistence, and reincarnation.
+[RUNNING] tests/m3b_sect_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Sect UI Runner ---
+Testing SectPanel node creation, tabs and interactions...
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:35)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:36)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] <anonymous lambda> (res://tests/m3b_sect_ui_runner.gd:45)
+       [3] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:49)
+       [4] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:62)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:64)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] <anonymous lambda> (res://tests/m3b_sect_ui_runner.gd:73)
+       [3] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:77)
+       [4] _init (res://tests/m3b_sect_ui_runner.gd:8)
+Testing SectPanel responsive layouts...
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:116)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:119)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:124)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:129)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:9)
+Testing GameSession sect commands integration (KNOWN_COMMAND_TYPES)...
+Testing SectPanel button states in Era 1 vs Era 2...
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:170)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:171)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] update_view (res://src/presentation/sect_panel.gd:268)
+       [2] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:181)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:182)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:11)
+PASS: M3-B sect UI, tabs, joining, expeditions, techniques, market, responsiveness, and GameSession integration.
+[RUNNING] tests/buff_system_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running Buff System Runner ---
+Testing BUFF lifecycle, refresh, and time tick decay...
+Testing BUFF production multipliers and specific resource bonus in TimeAdvancer...
+Testing BUFF cultivation speed and lifespan extension...
+Testing automatic breakthrough_resonance buff upon era breakthrough...
+Testing SaveCodec encode and decode roundtrip with BUFFs...
+Testing ReincarnationRules clearing mortal buffs and preserving transmigratable buffs...
+Testing BuffHudBar UI node rendering and responsive hide/show...
+PASS: Buff system definition, decay, multipliers, breakthrough trigger, persistence, reincarnation, and HUD bar.
+
+[RUNNING] tests/debug_features_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:102)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:782)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+--- Running Debug Features Runner ---
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ASSERTION FAILED: settings_menu item 8 must open debug_panel
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=1
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+[FAIL] Debug Features Runner encountered errors!
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/debug_features_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:101 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

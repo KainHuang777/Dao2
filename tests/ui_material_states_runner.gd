@@ -24,7 +24,10 @@ func _run() -> void:
 	var meter: Button = catalog.rows.hut
 	_expect(is_equal_approx(meter._ratio, 0.25), "Demand meter uses the least sufficient material, not an average")
 	_expect(catalog.upgrade_buttons.hut.disabled, "Partial materials keep construction disabled")
-	_expect(meter.get_child_count() == 0, "Drawn ring needs no input-intercepting progress overlay")
+	# Shared illustration children are presentation only; the ring stays drawn
+	# on the original Button and all input must still reach that Button.
+	for child in meter.get_children():
+		_expect(child is Control and child.mouse_filter == Control.MOUSE_FILTER_IGNORE, "Portrait children never intercept the building action")
 	_expect(meter.get_theme_constant("icon_max_width") + 14 <= meter.size.y, "Ring and milestones fit the compact row")
 	resources.wood.value = "100"
 	entry.prereq = {"building": "wooden_house", "level": 2}

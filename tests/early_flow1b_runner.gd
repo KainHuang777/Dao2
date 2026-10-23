@@ -108,6 +108,7 @@ func check_ui(earned: GameSession) -> void:
 	var abode = preload("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide() # Complete the report before testing feature input.
 	abode.set_process(false)
 	abode.session = earned
 	abode.state = abode.AbodeStateCompat.new(earned)
@@ -120,7 +121,7 @@ func check_ui(earned: GameSession) -> void:
 	await process_frame
 	check(abode.feature_navigation.page == "alchemy" and abode.alchemy_panel.visible, "optional button routes to existing alchemy")
 	abode.feature_navigation.home()
-	for size in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+	for size in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(size)
 		abode._hud_controller.show_messages()
 		await process_frame
@@ -151,6 +152,7 @@ func check_handoff_ui(earned: GameSession) -> void:
 	var abode = preload("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide() # Complete the report before testing feature input.
 	abode.set_process(false)
 	abode.session = earned
 	abode.state = abode.AbodeStateCompat.new(earned)

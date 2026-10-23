@@ -1,0 +1,413 @@
+{
+  "version": "atm-life-design-1",
+  "kind": "fictional design fixtures, not production facts",
+  "facts": {
+    "hut": {
+      "id": "hut",
+      "label": "築屋完成",
+      "order": 1,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "wood": {
+      "id": "wood",
+      "label": "開拓青木島",
+      "order": 2,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "ore": {
+      "id": "ore",
+      "label": "開拓玄礦島",
+      "order": 3,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "core": {
+      "id": "core",
+      "label": "首次結丹",
+      "order": 4,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "failed": {
+      "id": "failed",
+      "label": "渡劫失敗",
+      "order": 5,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "later": {
+      "id": "later",
+      "label": "劫後晉階",
+      "order": 6,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "arrival": {
+      "id": "arrival",
+      "label": "航船首次到貨",
+      "order": 7,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "beast": {
+      "id": "beast",
+      "label": "取得靈獸",
+      "order": 8,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "mature": {
+      "id": "mature",
+      "label": "靈獸成熟",
+      "order": 9,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "sect": {
+      "id": "sect",
+      "label": "加入宗門",
+      "order": 10,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "quest": {
+      "id": "quest",
+      "label": "宗門委託完成",
+      "order": 11,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "build": {
+      "id": "build",
+      "label": "靈草圃建成",
+      "order": 12,
+      "life_id": "fixture-life-2",
+      "committed": true
+    },
+    "level": {
+      "id": "level",
+      "label": "完成一次晉階",
+      "order": 13,
+      "life_id": "fixture-life-2",
+      "committed": true
+    }
+  },
+  "titles": [
+    {
+      "id": "cloud",
+      "title": "雲外初行",
+      "priority": 1,
+      "requires": [
+        "hut",
+        "wood",
+        "ore",
+        "core"
+      ],
+      "fixture": [
+        "hut",
+        "wood",
+        "ore",
+        "core"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "初居山中，築屋修行。",
+          "refs": [
+            "hut"
+          ]
+        },
+        {
+          "text": "其後開拓青木、玄礦兩島，往來漸遠。",
+          "refs": [
+            "wood",
+            "ore"
+          ]
+        },
+        {
+          "text": "及至結丹，山中所記又添一頁。",
+          "refs": [
+            "core"
+          ]
+        }
+      ],
+      "traces": [
+        "hut",
+        "wood",
+        "core"
+      ],
+      "endpoint": "金丹一層",
+      "max_age": 740
+    },
+    {
+      "id": "after",
+      "title": "劫後續途",
+      "priority": 2,
+      "requires": [
+        "failed",
+        "later"
+      ],
+      "fixture": [
+        "failed",
+        "later"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "曾於渡劫中受挫。",
+          "refs": [
+            "failed"
+          ]
+        },
+        {
+          "text": "此後仍有晉階之記，修行未止於當日。",
+          "refs": [
+            "later"
+          ]
+        }
+      ],
+      "traces": [
+        "failed",
+        "later"
+      ],
+      "endpoint": "築基二層",
+      "max_age": 200
+    },
+    {
+      "id": "core",
+      "title": "丹成有記",
+      "priority": 3,
+      "requires": [
+        "core"
+      ],
+      "fixture": [
+        "core"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "此世曾結金丹，留下一頁修行之記。",
+          "refs": [
+            "core"
+          ]
+        }
+      ],
+      "traces": [
+        "core"
+      ],
+      "endpoint": "金丹一層",
+      "max_age": 740
+    },
+    {
+      "id": "routes",
+      "title": "雲路相連",
+      "priority": 4,
+      "requires": [
+        "wood",
+        "ore",
+        "arrival"
+      ],
+      "fixture": [
+        "wood",
+        "ore",
+        "arrival"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "先後開拓青木、玄礦兩島。",
+          "refs": [
+            "wood",
+            "ore"
+          ]
+        },
+        {
+          "text": "航船已有貨物運抵，雲路開始承載往來。",
+          "refs": [
+            "arrival"
+          ]
+        }
+      ],
+      "traces": [
+        "wood",
+        "ore",
+        "arrival"
+      ],
+      "endpoint": "築基一層",
+      "max_age": 200
+    },
+    {
+      "id": "companion",
+      "title": "同行一程",
+      "priority": 5,
+      "requires": [
+        "beast",
+        "mature"
+      ],
+      "fixture": [
+        "beast",
+        "mature"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "此世得一靈獸。",
+          "refs": [
+            "beast"
+          ]
+        },
+        {
+          "text": "後見其長成，同行之日於此有記。",
+          "refs": [
+            "mature"
+          ]
+        }
+      ],
+      "traces": [
+        "beast",
+        "mature"
+      ],
+      "endpoint": "築基一層",
+      "max_age": 200
+    },
+    {
+      "id": "sect",
+      "title": "山門留跡",
+      "priority": 6,
+      "requires": [
+        "sect",
+        "quest"
+      ],
+      "fixture": [
+        "sect",
+        "quest"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "此世入宗門，留名山中。",
+          "refs": [
+            "sect"
+          ]
+        },
+        {
+          "text": "委託已有完成之記，不只一紙派遣。",
+          "refs": [
+            "quest"
+          ]
+        }
+      ],
+      "traces": [
+        "sect",
+        "quest"
+      ],
+      "endpoint": "築基一層",
+      "max_age": 200
+    },
+    {
+      "id": "garden",
+      "title": "草木成居",
+      "priority": 7,
+      "requires": [
+        "hut",
+        "build"
+      ],
+      "fixture": [
+        "hut",
+        "build"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "先築一屋，而後建成靈草圃。",
+          "refs": [
+            "hut",
+            "build"
+          ]
+        },
+        {
+          "text": "居處之外，又添一處草木之地。",
+          "refs": [
+            "build"
+          ]
+        }
+      ],
+      "traces": [
+        "hut",
+        "build"
+      ],
+      "endpoint": "煉氣二層",
+      "max_age": 80
+    },
+    {
+      "id": "hut",
+      "title": "一屋初築",
+      "priority": 8,
+      "requires": [
+        "hut"
+      ],
+      "fixture": [
+        "hut"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "此世有築屋之記，山中初有棲身之所。",
+          "refs": [
+            "hut"
+          ]
+        }
+      ],
+      "traces": [
+        "hut"
+      ],
+      "endpoint": "煉氣一層",
+      "max_age": 80
+    },
+    {
+      "id": "quiet",
+      "title": "靜修有痕",
+      "priority": 9,
+      "requires": [
+        "level"
+      ],
+      "fixture": [
+        "level"
+      ],
+      "coverage": "full",
+      "sentences": [
+        {
+          "text": "此世修行曾進一層，留有晉階之記。",
+          "refs": [
+            "level"
+          ]
+        }
+      ],
+      "traces": [
+        "level"
+      ],
+      "endpoint": "煉氣二層",
+      "max_age": 80
+    },
+    {
+      "id": "fallback",
+      "title": "此世行跡",
+      "priority": 10,
+      "requires": [],
+      "fixture": [],
+      "coverage": "partial",
+      "sentences": [
+        {
+          "text": "卷中所存有限，未有完整紀錄。",
+          "refs": []
+        }
+      ],
+      "traces": [],
+      "endpoint": "煉氣一層",
+      "max_age": 80
+    }
+  ],
+  "stress": "【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。【長文壓力樣本，非新增事實】此處重複閱讀說明，以檢查長段落與內部捲動。卷中只載已知行跡；所未能記者，留白待考。"
+}

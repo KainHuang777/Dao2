@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid type in function 'amount' in base 'GDScript'. Cannot convert argument 1 from Nil to String.
+   at: run (res://tests/life_history_runner.gd:68)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/life_history_runner.gd:68)

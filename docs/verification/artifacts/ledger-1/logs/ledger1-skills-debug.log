@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PARTITION ROW home:lingli { "opening": "0", "closing": "264", "income": { "production": "264" }, "expense": {  }, "adjustment": "0", "overflow": "0" } / { "opening": "0", "closing": "264.00000000000017", "income": { "production": "264.0000000000001" }, "expense": {  }, "adjustment": "0", "overflow": "7.460698725481053e-14" }
+ERROR: tick partitions
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/skills_b1_runner.gd:157)

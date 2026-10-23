@@ -89,6 +89,88 @@ const TASK_TEMPLATES := {
 	],
 }
 
+const VERSION := 1
+const P1_TECHNIQUES := [
+	"alchemy_herb_conservation",
+	"fox_feed_conservation"
+]
+const P1_TASKS := {
+	"home_supply_register": {
+		"template_id": "home_supply_register",
+		"name": "核錄祖島木料",
+		"desc": "核對祖島木料收支，將可用餘料交還外門營造處。",
+		"rarity": "common",
+		"min_era": 2,
+		"requires_open_islands": [],
+		"requires_active_beast": "",
+		"rewards": {
+			"wood": 80
+		}
+	},
+	"wood_ore_convoy": {
+		"template_id": "wood_ore_convoy",
+		"name": "協調雙島回運",
+		"desc": "核對青木與玄礦兩島回運清單，整理玄礦餘料。",
+		"rarity": "uncommon",
+		"min_era": 2,
+		"requires_open_islands": [
+			"wood",
+			"ore"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"stone_low": 8
+		}
+	},
+	"herb_island_inventory": {
+		"template_id": "herb_island_inventory",
+		"name": "盤點丹霞藥圃",
+		"desc": "替丹霞島清點採收入庫的靈草，領回分配予丹房的藥材。",
+		"rarity": "rare",
+		"min_era": 3,
+		"requires_open_islands": [
+			"herb"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"spirit_grass_low": 80
+		}
+	},
+	"specialist_pill_preparation": {
+		"template_id": "specialist_pill_preparation",
+		"name": "籌備四脈丹材",
+		"desc": "整理養木、育草、聚財與納靈四類丹材，回收可用草石。",
+		"rarity": "epic",
+		"min_era": 3,
+		"requires_open_islands": [],
+		"requires_active_beast": "",
+		"rewards": {
+			"spirit_grass_low": 120,
+			"stone_low": 20
+		}
+	},
+	"jade_fox_nursery": {
+		"template_id": "jade_fox_nursery",
+		"name": "整備靈狐育苑",
+		"desc": "協助靈狐育苑整理靈草與圍欄用料，領回餘下養成物資。",
+		"rarity": "legendary",
+		"min_era": 3,
+		"requires_open_islands": [],
+		"requires_active_beast": "jade_fox",
+		"rewards": {
+			"wood": 300,
+			"stone_low": 30,
+			"spirit_grass_low": 150
+		}
+	}
+}
+const HERB_DISCOUNT_PILLS := [
+	"cultivation_pill",
+	"wood_nurture_pill",
+	"wealth_gathering_pill",
+	"qi_absorption_pill"
+]
+
 const TECHNIQUES := {
 	"divine_farm": {
 		"name": "神農靈訣",
@@ -122,6 +204,25 @@ const TECHNIQUES := {
 		"cost_scale": 1.5,
 		"max_level": 10,
 	},
+	"alchemy_herb_conservation": {
+	"name": "丹房調息訣",
+	"min_era": 2,
+	"max_level": 5,
+	"base_contrib": 60,
+	"cost_scale": 1.5,
+	"base_stone_low": 5,
+	"desc": "已入宗且築基：四丹下品靈草費每階減2%，上限10%。"
+},
+	"fox_feed_conservation": {
+	"name": "靈契養成法",
+	"min_era": 3,
+	"max_level": 5,
+	"base_contrib": 90,
+	"cost_scale": 1.5,
+	"base_wood": 100,
+	"desc": "已入宗且金丹：僅靈狐餵料每階減2%，最後取整，上限10%。"
+},
+
 }
 
 const MARKET_ITEMS := {
@@ -157,10 +258,63 @@ const MARKET_ITEMS := {
 		"grant_amount": 2.0,
 		"limit": 5,
 	},
+	"greenwood_bundle": {
+	"name": "青木補給匣",
+	"min_era": 2,
+	"cost": 60,
+	"limit": 10,
+	"grant_resource": "wood",
+	"grant_amount": 100,
+	"desc": "祖島靈木100；需足額空倉，終身限購10次。"
+},
+	"herb_nurture_supply": {
+	"name": "育草丹補給",
+	"min_era": 2,
+	"cost": 45,
+	"limit": 10,
+	"grant_pill": "herb_nurture_pill",
+	"grant_count": 1,
+	"desc": "育草丹1顆；祖島產草+100%／300秒，需另行服用，終身限購10次。"
+},
 }
 
 static func is_unlocked(state: GameState) -> bool:
 	return state.era_id >= UNLOCK_ERA or state.reincarnation_count >= 1
+
+static func active_level(state: GameState, id: String) -> int:
+	if state == null or not P1_TECHNIQUES.has(id): return 0
+	if not bool(state.sect.get("unlocked", false)) or state.era_id < int(TECHNIQUES[id].min_era): return 0
+	return clampi(int(state.sect.get("techniques", {}).get(id, 0)), 0, 5)
+
+static func eligible_templates(state: GameState, rarity: String) -> Array:
+	var result: Array = TASK_TEMPLATES[rarity].duplicate(true)
+	if state == null or not bool(state.sect.get("unlocked", false)): return result
+	for id in P1_TASKS:
+		var t: Dictionary = P1_TASKS[id]
+		if t.rarity != rarity or state.era_id < int(t.min_era): continue
+		var eligible := true
+		for island in t.requires_open_islands:
+			eligible = eligible and bool(state.economy.get("islands", {}).get(island, {}).get("opened", false))
+		if not String(t.requires_active_beast).is_empty():
+			eligible = eligible and state.beasts.get("active", {}).get("id", "") == t.requires_active_beast
+		if eligible: result.append(t.duplicate(true))
+	return result
+
+static func market_destination_error(state: GameState, id: String, content: GameContent = null) -> String:
+	if id not in ["greenwood_bundle", "herb_nurture_supply"]: return ""
+	if state.era_id < 2: return "MARKET_ERA_LOCKED"
+	if id == "herb_nurture_supply":
+		return "PILL_INVENTORY_CAP" if int(state.pills.get("herb_nurture_pill", 0)) > 999998 else ""
+	if content == null: return "MARKET_CONTENT_REQUIRED"
+	var cap: AmountCompat = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills).get("wood", AmountCompat.zero())
+	var capacity_state := state.duplicate_state()
+	var bonus := float(compute_multipliers(state).storage_bonus) + float(ChronoSystem.compute_multipliers(capacity_state).storage_bonus) + float(BeastSystem.compute_multipliers(capacity_state).all_capacity_mult)
+	if bonus > 0: cap = cap.multiply(AmountCompat.from_number(1 + bonus))
+	if not state.economy.is_empty() and content.processing_catalog.resources.has("wood"):
+		cap = AmountCompat.from_number(minf(cap.to_float(), float(content.processing_catalog.resources.wood.cap)))
+		cap = cap.subtract(AmountCompat.from_number(IslandEconomy.reserved(state, "home", "wood", content.processing_catalog)))
+	var held: AmountCompat = state.resources.get("wood", {}).get("value", AmountCompat.zero())
+	return "MARKET_DESTINATION_FULL" if held.add(AmountCompat.from_number(100)).compare_to(cap) > 0 else ""
 
 static func ensure_sect_state(state: GameState) -> Dictionary:
 	if not (state.sect is Dictionary) or state.sect.is_empty():
@@ -184,6 +338,8 @@ static func join_sect(state: GameState, sect_name: String = "") -> Dictionary:
 	var sect: Dictionary = ensure_sect_state(state)
 	if bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "ALREADY_JOINED_SECT"}
+	if int(sect.get("task_counter", 0)) > 2147483647 - EXPEDITION_SLOTS:
+		return {"ok": false, "error": "TASK_COUNTER_EXHAUSTED"}
 	
 	sect["unlocked"] = true
 	if not sect_name.is_empty():
@@ -211,9 +367,11 @@ static func refresh_tasks(state: GameState, force: bool = false) -> Dictionary:
 	if not force and not current_tasks.is_empty() and int(sect.get("next_refresh_seconds", 0)) > 0:
 		return {"ok": false, "error": "REFRESH_COOLDOWN"}
 	
+	if int(sect.get("task_counter", 0)) > 2147483647 - EXPEDITION_SLOTS:
+		return {"ok": false, "error": "TASK_COUNTER_EXHAUSTED"}
 	var new_tasks: Array = []
 	for i in range(EXPEDITION_SLOTS):
-		var task: Dictionary = _generate_random_task(state.era_id, i + 1, sect)
+		var task: Dictionary = _generate_random_task(state.era_id, i + 1, sect, state)
 		new_tasks.append(task)
 	
 	sect["available_tasks"] = new_tasks
@@ -225,10 +383,10 @@ static func refresh_tasks(state: GameState, force: bool = false) -> Dictionary:
 		"events": [{"kind": "tasks_refreshed", "count": new_tasks.size()}],
 	}
 
-static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary = {}) -> Dictionary:
+static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary = {}, state: GameState = null) -> Dictionary:
 	var rarity_key := _pick_rarity()
 	var r_cfg: Dictionary = RARITY_CONFIGS[rarity_key]
-	var templates: Array = TASK_TEMPLATES[rarity_key]
+	var templates: Array = eligible_templates(state, rarity_key)
 	var t_index := randi() % templates.size()
 	var tmpl: Dictionary = templates[t_index]
 	
@@ -256,7 +414,11 @@ static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary
 		rewards["black_copper"] = 5
 		rewards["special_buff"] = "epiphany"
 	
-	return {
+	if tmpl.has("template_id"):
+		for key in rewards.keys():
+			if key not in ["contribution", "money"]: rewards.erase(key)
+		rewards.merge(tmpl.rewards, true)
+	var task := {
 		"id": task_id,
 		"name": tmpl["name"],
 		"desc": tmpl["desc"],
@@ -267,6 +429,11 @@ static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary
 		"elapsed": 0,
 		"rewards": rewards,
 	}
+
+	if tmpl.has("template_id"):
+		task["template_id"] = tmpl.template_id
+		task["generation_era"] = era_id
+	return task
 
 static func _pick_rarity() -> String:
 	var total_weight := 0
@@ -353,7 +520,7 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 		var target_id: String = reward_aliases.get(res_id, res_id)
 		if state.resources.has(target_id):
 			var entry: Dictionary = state.resources[target_id]
-			entry.value = (entry.value as AmountCompat).add(AmountCompat.from_number(amount))
+			entry.value = ResourceLedger.change(state, "home", target_id, entry.value, (entry.value as AmountCompat).add(AmountCompat.from_number(amount)), "sect", AmountCompat.from_number(amount))
 			entry.ever_obtained = true
 			entry.unlocked = true
 			granted[target_id] = amount
@@ -363,6 +530,7 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 		BuffSystem.apply_buff(state, "epiphany", 60.0)
 		granted["buff"] = "epiphany"
 	
+	if active.get("template_id", "") in ["home_supply_register", "wood_ore_convoy"]: StoryProgress.mark(state, "new_supply_claimed")
 	sect["active_expedition"] = null
 	
 	return {
@@ -383,6 +551,8 @@ static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
 		return {"ok": false, "error": "UNKNOWN_TECHNIQUE"}
 	
 	var def: Dictionary = TECHNIQUES[tech_id]
+	if state.era_id < int(def.get("min_era", 1)):
+		return {"ok": false, "error": "TECHNIQUE_ERA_LOCKED"}
 	var techs: Dictionary = sect.get("techniques", {})
 	var cur_lvl := int(techs.get(tech_id, 0))
 	if cur_lvl >= int(def.get("max_level", MAX_TECHNIQUE_LEVEL)):
@@ -417,11 +587,11 @@ static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
 	if def.has("base_wood"):
 		var req_wood := int(ceil(float(def.get("base_wood", 100)) * scale))
 		var w_entry: Dictionary = state.resources["wood"]
-		w_entry.value = (w_entry.value as AmountCompat).subtract(AmountCompat.from_number(float(req_wood)))
+		w_entry.value = ResourceLedger.change(state, "home", "wood", w_entry.value, (w_entry.value as AmountCompat).subtract(AmountCompat.from_number(float(req_wood))), "sect")
 	if def.has("base_stone_low"):
 		var req_stone := int(ceil(float(def.get("base_stone_low", 5)) * scale))
 		var s_entry: Dictionary = state.resources["stone_low"]
-		s_entry.value = (s_entry.value as AmountCompat).subtract(AmountCompat.from_number(float(req_stone)))
+		s_entry.value = ResourceLedger.change(state, "home", "stone_low", s_entry.value, (s_entry.value as AmountCompat).subtract(AmountCompat.from_number(float(req_stone))), "sect")
 	
 	techs[tech_id] = next_lvl
 	sect["techniques"] = techs
@@ -437,7 +607,7 @@ static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
 		}],
 	}
 
-static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
+static func buy_market_item(state: GameState, item_id: String, content: GameContent = null) -> Dictionary:
 	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
@@ -445,6 +615,8 @@ static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
 		return {"ok": false, "error": "UNKNOWN_MARKET_ITEM"}
 	
 	var def: Dictionary = MARKET_ITEMS[item_id]
+	var destination_error := market_destination_error(state, item_id, content)
+	if not destination_error.is_empty(): return {"ok": false, "error": destination_error}
 	var purchases: Dictionary = sect.get("market_purchases", {})
 	var count := int(purchases.get(item_id, 0))
 	var limit := int(def.get("limit", 10))
@@ -471,10 +643,11 @@ static func buy_market_item(state: GameState, item_id: String) -> Dictionary:
 		var amount: float = float(def["grant_amount"])
 		if res_id == "spirit_crystal":
 			var realm_data := RealmSystem.ensure_spirit_data(state)
+			ResourceLedger.change(state, "realm_spirit", "spirit_crystal", AmountCompat.from_number(float(realm_data.get("spirit_crystal", 0))), AmountCompat.from_number(float(realm_data.get("spirit_crystal", 0)) + amount), "sect")
 			realm_data.spirit_crystal = float(realm_data.get("spirit_crystal", 0.0)) + amount
 		elif state.resources.has(res_id):
 			var entry: Dictionary = state.resources[res_id]
-			entry.value = (entry.value as AmountCompat).add(AmountCompat.from_number(amount))
+			entry.value = ResourceLedger.change(state, "home", res_id, entry.value, (entry.value as AmountCompat).add(AmountCompat.from_number(amount)), "sect", AmountCompat.from_number(amount))
 			entry.ever_obtained = true
 			entry.unlocked = true
 	elif def.has("grant_pill"):
@@ -512,7 +685,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 		mults.lingqi_cap_bonus += float(techs["essence_array"]) * 0.20
 	return mults
 
-static func tick(state: GameState, elapsed_seconds: float) -> void:
+static func tick(state: GameState, elapsed_seconds: float, start_age: float = -1.0) -> void:
 	if not (state.sect is Dictionary) or state.sect.is_empty():
 		return
 	var sect: Dictionary = state.sect
@@ -522,6 +695,11 @@ static func tick(state: GameState, elapsed_seconds: float) -> void:
 	# Advance active expedition
 	var active = sect.get("active_expedition")
 	if active != null and active is Dictionary:
+		var previous_elapsed := int(active.get("elapsed", 0))
+		var duration := int(active.get("duration", 0))
+		if previous_elapsed < duration and previous_elapsed + int(ceil(elapsed_seconds)) >= duration:
+			var start := state.total_elapsed_seconds - elapsed_seconds if start_age < 0.0 else start_age
+			LifeLedger.note(state, "expedition_completed", "sect", "expedition:" + str(start + float(duration - previous_elapsed)), start + float(duration - previous_elapsed))
 		active["elapsed"] = mini(int(active.get("duration", 0)), int(active.get("elapsed", 0)) + int(ceil(elapsed_seconds)))
 	
 	# Advance refresh cooldown

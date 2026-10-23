@@ -164,6 +164,7 @@ func test_living_abode_integration() -> void:
 	var abode = LivingAbodeScene.instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide() # Complete the report before testing feature input.
 
 	_assert(abode.fortune_modal != null, "LivingAbode must have instantiated fortune_modal")
 	_assert(not abode.fortune_modal.visible, "fortune_modal should be initially hidden")

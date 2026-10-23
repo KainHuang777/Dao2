@@ -271,7 +271,7 @@ func _test_persistence(s: GameSession) -> void:
 	var offline: GameState = restored.state
 	TimeAdvancer.advance(online, content, 600)
 	OfflineSettlement.settle(offline, content, 700000, 100000)
-	expect(normalized(online) == normalized(offline), "600s offline equals online after reload")
+	expect(equivalent_snapshot(online, offline), "600s offline equals online after reload")
 	var partition := s.state.duplicate_state()
 	for seconds in [7, 23, 101, 169, 300]:
 		TimeAdvancer.advance(partition, content, seconds)
@@ -324,7 +324,7 @@ func _test_persistence(s: GameSession) -> void:
 	expect(not failed.ok and source == normalized(s.state), "offline failed commit leaves live source")
 	adapter.fail_key = ""
 	var retry := OfflineCoordinator.settle_state(s.state, content, 700000, 100000)
-	expect(retry.ok and normalized(retry.state) == normalized(online_with_revision(online)), "offline retry grants once")
+	expect(retry.ok and equivalent_snapshot(retry.state, online_with_revision(online)), "offline retry grants once")
 	var reborn := s.state.duplicate_state()
 	TimeAdvancer.advance(reborn, content, 50000) # earn exhaustion, no direct age injection
 	expect(ReincarnationRules.apply_reincarnation(reborn, content, "normal").ok, "D2 reincarnation")
@@ -339,3 +339,14 @@ func online_with_revision(state: GameState) -> GameState:
 
 func finish() -> Dictionary:
 	return {"checks": checks, "failures": failures, "state": earned_state, "active_fixture": active_fixture_json}
+
+func equivalent_snapshot(a: GameState, b: GameState) -> bool:
+	if not ResourceLedger.equivalent(a.life_ledger.current.get("accounts", {}), b.life_ledger.current.get("accounts", {})): return false
+	if not LifeHistory.equivalent(a.life_ledger.current.get("history", {}), b.life_ledger.current.get("history", {})): return false
+	var aa := a.to_snapshot_dict()
+	var bb := b.to_snapshot_dict()
+	aa.life_ledger.current.erase("accounts")
+	bb.life_ledger.current.erase("accounts")
+	aa.life_ledger.current.erase("history")
+	bb.life_ledger.current.erase("history")
+	return JSON.stringify(SaveCodec._normalize_numbers(aa), "", true) == JSON.stringify(SaveCodec._normalize_numbers(bb), "", true)

@@ -69,8 +69,8 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 			return _fail("ERA_REQUIREMENT")
 		if value(state, "home", "wood") < 20 or value(state, "home", "stone_low") < 10:
 			return _fail("INSUFFICIENT_RESOURCE")
-		_put(state, "home", "wood", value(state, "home", "wood") - 20)
-		_put(state, "home", "stone_low", value(state, "home", "stone_low") - 10)
+		_put(state, "home", "wood", value(state, "home", "wood") - 20, "building")
+		_put(state, "home", "stone_low", value(state, "home", "stone_low") - 10, "building")
 		state.economy.islands[island].opened = true
 		return _success("island_opened")
 	if kind == "configure_route":
@@ -151,7 +151,7 @@ static func _configure_route(state: GameState, p: Dictionary) -> Dictionary:
 			if value(state, "home", resource) < float(costs[resource]):
 				return _fail("INSUFFICIENT_RESOURCE")
 		for resource in costs:
-			_put(state, "home", resource, value(state, "home", resource) - float(costs[resource]))
+			_put(state, "home", resource, value(state, "home", resource) - float(costs[resource]), "building")
 	# Current trip keeps its cargo and duration; settings only affect the next departure.
 	state.economy.routes[id] = {"enabled": enabled, "reserve": reserve, "target": target, "level": int(level)}
 	return _success("route_configured")
@@ -163,9 +163,14 @@ static func value(state: GameState, island: String, id: String) -> float:
 		return state.resources[id].value.to_float()
 	return float(state.economy.islands[island].inventory.get(id, "0"))
 
-static func _put(state: GameState, island: String, id: String, amount: float) -> void:
+static func _put(state: GameState, island: String, id: String, amount: float, category: String = "processing", nominal: float = 0.0) -> void:
+	var scope := "home" if island == "home" or id in GLOBAL else island
+	var before := AmountCompat.from_number(value(state, island, id))
+	var observed := AmountCompat.from_number(amount)
+	if scope != "home": observed = ResourceLedger.amount(observed.serialize())
+	ResourceLedger.change(state, scope, id, before, observed, category, AmountCompat.from_number(nominal) if nominal != 0 else null)
 	if island == "home" or id in GLOBAL:
-		ProcessingInventory.write(state, id, AmountCompat.from_number(amount))
+		ProcessingInventory.write(state, id, AmountCompat.from_number(amount), "untracked")
 	else:
 		state.economy.islands[island].inventory[id] = AmountCompat.from_number(amount).serialize()
 
@@ -266,6 +271,12 @@ static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dicti
 	# no timers; its only external input is home stock (production/realm sinks).
 	if prepared.has("idle_home") and _same_home(state, prepared.idle_home):
 		state.economy.tick = int(state.economy.tick) + 1
+		for island in ISLANDS:
+			if island == "home" or not state.economy.islands[island].opened: continue
+			for id in ISLANDS[island].rates:
+				var rate := float(ISLANDS[island].rates[id]) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1)
+				var held := AmountCompat.from_number(value(state, island, id))
+				ResourceLedger.change(state, island, id, held, held, "production", AmountCompat.from_number(rate))
 		prepared.idle_ticks = int(prepared.get("idle_ticks", 0)) + 1
 		return []
 	prepared.erase("idle_home")
@@ -318,7 +329,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 			var multiplier := int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1
 			var rate := float(ISLANDS[island].rates[id]) * multiplier
 			var delta := minf(rate, free_space(state, island, id, catalog))
-			_put(state, island, id, value(state, island, id) + delta)
+			_put(state, island, id, value(state, island, id) + delta, "production", rate)
 	var routes: Array = state.economy.trips.keys()
 	routes.sort()
 	for id in routes:
@@ -326,9 +337,12 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		trip.remaining = int(trip.remaining) - 1
 		if int(trip.remaining) == 0:
 			var def: Array = ROUTES[id]
-			_put(state, def[1], def[2], value(state, def[1], def[2]) + float(trip.cargo))
+			var story_before := IslandEconomy.value(state, def[1], def[2])
+			_put(state, def[1], def[2], value(state, def[1], def[2]) + float(trip.cargo), "transfer", float(trip.cargo))
+			StoryProgress.arrived(state, id, IslandEconomy.value(state, def[1], def[2]) - story_before)
 			Onboarding.supply_arrived(state, id, float(trip.cargo))
 			state.economy.trips.erase(id)
+			LifeLedger.cargo_arrived(state, String(id))
 			events.append({"kind": "cargo_arrived", "route_id": id})
 	var islands: Array = state.economy.jobs.keys()
 	islands.sort()
@@ -340,6 +354,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		if int(job.remaining) == 0:
 			var id: String = job.recipe_id
 			_put(state, island, id, value(state, island, id) + float(catalog.recipes[id].output))
+			StoryProgress.completed(state, island, id)
 			Onboarding.supply_completed(state, island, id)
 			events.append({"kind": "processing_completed", "island_id": island, "recipe_id": id})
 	for island in islands:
@@ -363,7 +378,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		var def: Array = ROUTES[id]
 		var cargo: float = departure_info(state, catalog, id, route).cargo
 		if cargo > 0:
-			_put(state, def[0], def[2], value(state, def[0], def[2]) - cargo)
+			_put(state, def[0], def[2], value(state, def[0], def[2]) - cargo, "transfer", -cargo)
 			state.economy.trips[id] = {"version": 1, "cargo": AmountCompat.from_number(cargo).serialize(), "remaining": 10}
 			events.append({"kind": "cargo_departed", "route_id": id})
 	return events

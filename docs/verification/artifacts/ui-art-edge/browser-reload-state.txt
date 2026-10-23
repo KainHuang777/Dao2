@@ -1,0 +1,17 @@
+Browser tab: 3, Title: "UI-SHELL isolated fixture", URL: "http://127.0.0.1:4424/review".
+1 AXWebArea UI-SHELL isolated fixture, URL: 127.0.0.1:4424/review
+	2 button 1280×720
+	3 button 844×390
+	4 button 800×360
+	5 button 拒寫
+	6 button 恢復寫入
+	7 text 隔離測試材料；不是自然進度
+	13 text {"dao_heart":"10","fixture":"explicit Era3 -> formal CLI rebirth; paused isolated desktop UI","reincarnation_count":1,"revision":5,"rows":{"alchemical_past_wisdom":{"disabled":false,"h":44.0,"w":100.0,"x":1134.0,"y":734.0},"artisan_past_wisdom":{"disabled":false,"h":44.0,"w":100.0,"x":1134.0,"y":872.0},"beast_bond_past_wisdom":{"disabled":false,"h":44.0,"w":100.0,"x":1134.0,"y":1010.0},"innate_dao_body":{"disabled":true,"h":44.0,"w":100.0,"x":1134.0,"y":596.0},"lifespan_extension":{"disabled":false,"h":44.0,"w":100.0,"x":1134.0,"y":458.0},"resource_inheritance":{"disabled":false,"h":44.0,"w":100.0,"x":1134.0,"y":320.0}},"save_failed":false,"tab":"talents","talent_version":2,"talents":{"alchemical_past_wisdom":1,"beast_bond_past_wisdom":1}}
+	9 container Description: Godot 正式場景, ID: game
+		10 AXWebArea 修仙問道 v2 — 洞府探針, URL: 127.0.0.1:4424/index.html
+			11 image  Your browser does not support the canvas tag. , ID: canvas
+				12 text 
+			Your browser does not support the canvas tag.
+		
+
+The focused UI element is 11 image  Your browser does not support the canvas tag. , ID: canvas

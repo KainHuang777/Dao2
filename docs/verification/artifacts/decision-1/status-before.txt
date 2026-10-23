@@ -1,0 +1,138 @@
+ M .gitignore
+ M README.md
+ M ROADMAP.md
+ M assets/fonts/README.md
+ M assets/fonts/reincarnation-f5b/README.md
+ M assets/fonts/runtime/Dao2Sans-VF.ttf
+ M assets/fonts/runtime/Dao2Serif-VF.ttf
+ M assets/fonts/runtime/manifest.json
+ M docs/07-responsive-ui-web-spec.md
+ M docs/12-feature-navigation-and-integration-spec.md
+ M docs/19-ui-ux-guidelines.md
+ M docs/26-cultivation-life-atmosphere-research.md
+ M docs/ai-handoff.md
+ M docs/development-status.md
+ M docs/verification/m2-d.md
+ M export_presets.cfg
+ M project.godot
+ M src/abode/living_abode.gd
+ M src/application/game_session.gd
+ M src/domain/game_state.gd
+ M src/persistence/save_codec.gd
+ M src/persistence/save_manager.gd
+ M src/presentation/abode_hud_controller.gd
+ M src/presentation/abode_modal_manager.gd
+ M src/presentation/feature_navigation.gd
+ M src/presentation/island_management_panel.gd
+ M src/presentation/island_transport_panel.gd
+ M src/presentation/manufacturing_panel.gd
+ M src/presentation/recipe_row.gd
+ M src/presentation/reincarnation_panel.gd
+ M src/presentation/save_controls.gd
+ M src/presentation/sect_panel.gd
+ M src/presentation/system_actions_panel.gd
+ M src/presentation/ui_typography.gd
+ M src/simulation/command_processor.gd
+ M src/simulation/island_economy.gd
+ M src/simulation/offline_closed_form.gd
+ M src/simulation/offline_economy_jump.gd
+ M src/simulation/reincarnation_rules.gd
+ M src/simulation/sect_system.gd
+ M src/simulation/time_advancer.gd
+ M tests/abode_presentation_parity_runner.gd
+ M tests/abode_scenery_ui_runner.gd
+ M tests/debug_features_runner.gd
+ M tests/early_flow1b_runner.gd
+ M tests/early_flow1c_runner.gd
+ M tests/feature_navigation_runner.gd
+ M tests/hud_readiness_life_runner.gd
+ M tests/island_breakthrough_runner.gd
+ M tests/m2c_nine_realms_runner.gd
+ M tests/m2d_responsive_ui_runner.gd
+ M tests/m3a_reincarnation_ui_runner.gd
+ M tests/m3b_alchemy_ui_runner.gd
+ M tests/m3b_fortune_ui_runner.gd
+ M tests/m3b_sect_runner.gd
+ M tests/res1_ui1a_runner.gd
+ M tests/res1b_economy_runner.gd
+ M tests/text_transition_runner.gd
+ M tests/uix_r11_decisions_ui_runner.gd
+ M tests/uix_r8_skills_ui_runner.gd
+ M tests/uix_r9_sect_ui_runner.gd
+ M tests/web_persistence_fault_runner.gd
+ M tools/run_all_runners.ps1
+ M updata.txt
+?? docs/27-life-report-and-decision-ux-integration-plan.md
+?? docs/28-unified-ui-shell-and-visibility-plan.md
+?? docs/29-ui-shell-design-proposal.md
+?? docs/30-atm-life-design.md
+?? docs/decisions/ADR-013-bounded-life-facts.md
+?? docs/research/
+?? docs/verification/artifacts/atm-life-a/
+?? docs/verification/artifacts/atm-life-design/
+?? docs/verification/artifacts/atmosphere-life-research/user-ending-reference.png.import
+?? docs/verification/artifacts/early-v1-c/final-reload.png.import
+?? docs/verification/artifacts/ledger-0/
+?? docs/verification/artifacts/life-ux-integration/
+?? docs/verification/artifacts/ui-shell-0/
+?? docs/verification/artifacts/ui-shell-1/
+?? docs/verification/artifacts/ui-shell-2/
+?? docs/verification/artifacts/ui-shell-design/
+?? docs/verification/artifacts/ui-shell-plan/
+?? docs/verification/atm-life-a.md
+?? docs/verification/atm-life-design.md
+?? docs/verification/ledger-0-preflight.md
+?? docs/verification/ledger-0.md
+?? docs/verification/ui-shell-0.md
+?? docs/verification/ui-shell-1.md
+?? docs/verification/ui-shell-2.md
+?? docs/verification/ui-shell-design.md
+?? docs/visual-prototype/atm-life-design/
+?? docs/visual-prototype/ui-shell-design/
+?? src/domain/life_ledger.gd
+?? src/domain/life_ledger.gd.uid
+?? src/domain/life_report.gd
+?? src/domain/life_report.gd.uid
+?? src/presentation/life_report_view.gd
+?? src/presentation/life_report_view.gd.uid
+?? src/presentation/ui_shell_controller.gd
+?? src/presentation/ui_shell_controller.gd.uid
+?? src/presentation/ui_shell_policy.gd
+?? src/presentation/ui_shell_policy.gd.uid
+?? src/presentation/ui_shell_resources.gd
+?? src/presentation/ui_shell_resources.gd.uid
+?? src/presentation/ui_shell_state.gd
+?? src/presentation/ui_shell_state.gd.uid
+?? src/verification/ledger_acceptance.gd
+?? src/verification/ledger_acceptance.gd.uid
+?? src/verification/ledger_acceptance.tscn
+?? src/verification/life_report_acceptance.gd
+?? src/verification/life_report_acceptance.gd.uid
+?? src/verification/life_report_acceptance.tscn
+?? src/verification/life_report_fixture.gd
+?? src/verification/life_report_fixture.gd.uid
+?? src/verification/ui_shell_2_fixture.json
+?? src/verification/ui_shell_acceptance.gd
+?? src/verification/ui_shell_acceptance.gd.uid
+?? src/verification/ui_shell_acceptance.tscn
+?? tests/life_ledger_runner.gd
+?? tests/life_ledger_runner.gd.uid
+?? tests/life_report_runner.gd
+?? tests/life_report_runner.gd.uid
+?? tests/life_report_ui_runner.gd
+?? tests/life_report_ui_runner.gd.uid
+?? tests/ui_shell_integration_runner.gd
+?? tests/ui_shell_integration_runner.gd.uid
+?? tests/ui_shell_matrix_runner.gd
+?? tests/ui_shell_matrix_runner.gd.uid
+?? tests/ui_shell_policy_runner.gd
+?? tests/ui_shell_policy_runner.gd.uid
+?? tools/atm_life_design_artifacts.py
+?? tools/atm_life_design_audit.py
+?? tools/atm_life_design_server.py
+?? tools/ui_shell_audit.ps1
+?? tools/ui_shell_design_artifacts.py
+?? tools/ui_shell_design_capture.mjs
+?? tools/ui_shell_design_checkpoint.py
+?? tools/ui_shell_design_server.py
+?? tools/ui_shell_server.py

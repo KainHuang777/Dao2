@@ -4,6 +4,7 @@ extends RefCounted
 var revision: int = 0
 const COMMAND_RECEIPT_LIMIT := 256
 var command_receipts: Dictionary = {}
+var life_ledger: Dictionary = {}
 var era_id: int = 1
 var level: int = 1
 var onboarding_version: int = 1
@@ -18,6 +19,10 @@ var highest_era: int = 1
 var dao_heart: AmountCompat = AmountCompat.zero()
 var dao_proof: int = 0
 var talents: Dictionary = {}
+var talent_version: int = TalentSystem.VERSION
+var story_version: int = StoryProgress.VERSION
+var sect_version: int = SectSystem.VERSION
+var pill_version: int = AlchemySystem.VERSION
 var pills: Dictionary = {}
 var pill_effects: Dictionary = {}
 var buffs: Dictionary = {}
@@ -45,6 +50,7 @@ func duplicate_state() -> GameState:
 	var copy := GameState.new()
 	copy.revision = revision
 	copy.command_receipts = command_receipts.duplicate(true)
+	copy.life_ledger = life_ledger.duplicate(true)
 	copy.era_id = era_id
 	copy.level = level
 	copy.onboarding_version = onboarding_version
@@ -57,6 +63,10 @@ func duplicate_state() -> GameState:
 	copy.dao_heart = dao_heart.duplicate_amount() if dao_heart != null else AmountCompat.zero()
 	copy.dao_proof = dao_proof
 	copy.talents = talents.duplicate(true)
+	copy.talent_version = talent_version
+	copy.story_version = story_version
+	copy.sect_version = sect_version
+	copy.pill_version = pill_version
 	copy.pills = pills.duplicate(true)
 	copy.pill_effects = pill_effects.duplicate(true)
 	copy.buffs = buffs.duplicate(true)
@@ -105,6 +115,7 @@ func to_snapshot_dict() -> Dictionary:
 	return {
 		"revision": revision,
 		"command_receipts": command_receipts.duplicate(true),
+		"life_ledger": life_ledger.duplicate(true),
 		"era_id": era_id,
 		"level": level,
 		"onboarding_version": onboarding_version,
@@ -119,6 +130,10 @@ func to_snapshot_dict() -> Dictionary:
 		"dao_heart": dao_heart.serialize() if dao_heart != null else "0",
 		"dao_proof": dao_proof,
 		"talents": talents.duplicate(true),
+		"talent_version": talent_version,
+		"story_version": story_version,
+		"sect_version": sect_version,
+		"pill_version": pill_version,
 		"pills": pills.duplicate(true),
 		"pill_effects": pill_effects.duplicate(true),
 		"buffs": buffs.duplicate(true),

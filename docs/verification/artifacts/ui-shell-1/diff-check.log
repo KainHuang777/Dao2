@@ -1,0 +1,21 @@
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ROADMAP.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/07-responsive-ui-web-spec.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/12-feature-navigation-and-integration-spec.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/19-ui-ux-guidelines.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/ai-handoff.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/development-status.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/verification/artifacts/early-v1-c/runner-measurement.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'project.godot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/abode/living_abode.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/save_controls.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/debug_features_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/feature_navigation_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/hud_readiness_life_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/island_breakthrough_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/m2c_nine_realms_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/m3a_reincarnation_ui_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/text_transition_runner.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'updata.txt', LF will be replaced by CRLF the next time Git touches it
+export_presets.cfg:486: new blank line at EOF.

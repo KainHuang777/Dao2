@@ -258,6 +258,15 @@ func set_state_visual(p_color: Color, glow: bool = false) -> void:
 
 ## Backwards-compatible layout helper for compact landscape mode.
 func apply_layout(compact: bool) -> void:
+	var paper := UiMaterial.hud_paper()
+	if compact:
+		paper.content_margin_top = 2
+		paper.content_margin_bottom = 4
+	add_theme_stylebox_override("panel", paper)
+	materials.size_flags_vertical = Control.SIZE_SHRINK_BEGIN if compact else Control.SIZE_FILL
+	for tile in materials.get_children():
+		if "quantity" in tile:
+			tile.icon.custom_minimum_size = Vector2.ONE * (28 if compact else 44)
 	compact_row.visible = compact
 	time_box.visible = not compact
 	if compact:

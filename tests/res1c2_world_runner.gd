@@ -64,7 +64,7 @@ func _run() -> void:
 	check(abode.feature_navigation.page == "outposts" and abode.feature_navigation.island_panel.island == "wood", "world hit uses canonical management page")
 	world.enter("home")
 	check(abode.feature_navigation.group == "home" and world.current == "home", "explicit ancestor return")
-	for size in [Vector2(1280, 720), Vector2(844, 390)]:
+	for size in ([Vector2(1280, 720), Vector2(844, 390)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		root.size = Vector2i(size)
 		await process_frame
 		abode._layout_for_size(size)

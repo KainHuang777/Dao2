@@ -39,7 +39,7 @@ func _run() -> void:
 	var version := c.content_version
 	check(IslandProgression.attach(c).ok and c.content_version == version, "idempotent content attachment")
 	var s := GameSession.create_new_game(c)
-	check(s.state.skill_version == 2 and s.get_view().skills.items.size() == 7, "new state and seven skill view")
+	check(s.state.skill_version == 3 and s.get_view().skills.items.size() == 12, "new state and twelve skill view")
 	var before := s.state.to_snapshot_dict()
 	check(not send(s, "learn_skill", {"skill_id": "basic_meditation"}).ok and s.state.to_snapshot_dict() == before, "atomic locked refusal")
 	s.state.era_id = 2
@@ -56,7 +56,7 @@ func _run() -> void:
 	s.advance_time(3000)
 	check(s.state.resources.skill_point.value.to_float() == 6200, "points capped at enlarged capacity")
 	for id in c.skill_defs:
-		if id == "golden_core_formation": continue
+		if int(c.skill_defs[id].get("era", 2)) > 2: continue
 		s.state.resources.skill_point.value = AmountCompat.from_number(6200)
 		var cost := float(c.skill_defs[id].cost)
 		var result := send(s, "learn_skill", {"skill_id": id})
@@ -84,7 +84,26 @@ func _run() -> void:
 	a.advance_time(60)
 	for i in 60: b.advance_time(1)
 	a.state.revision = b.state.revision
-	check(a.state.to_snapshot_dict() == b.state.to_snapshot_dict(), "tick partitions")
+	var partition_a := a.state.to_snapshot_dict()
+	var partition_b := b.state.to_snapshot_dict()
+	var history_a: Dictionary = partition_a.life_ledger.current.history
+	var history_b: Dictionary = partition_b.life_ledger.current.history
+	check(LifeHistory.validate(history_a, partition_a.life_ledger.current).is_empty() and LifeHistory.validate(history_b, partition_b.life_ledger.current).is_empty(), "partition observations validate")
+	# This legacy aggregate advances from age3100 to3160 without observing3120.
+	# The one-second reference can observe it; neither path invents missing points.
+	check(history_a.samples.size() + 1 == history_b.samples.size(), "legacy aggregate leaves the unobserved minute absent")
+	var shared := 0
+	for point_a in history_a.samples:
+		for point_b in history_b.samples:
+			if point_a.at == point_b.at:
+				shared += 1
+				check(point_a == point_b, "shared historical points remain exact")
+	check(shared == history_a.samples.size(), "all retained aggregate points corroborated")
+	partition_a.life_ledger.current.erase("history")
+	partition_b.life_ledger.current.erase("history")
+	partition_a.life_ledger.current.erase("accounts")
+	partition_b.life_ledger.current.erase("accounts")
+	check(partition_a == partition_b and ResourceLedger.equivalent(a.state.life_ledger.current.get("accounts", {}), b.state.life_ledger.current.get("accounts", {})), "tick partitions")
 	var roundtrip := SaveCodec.decode(SaveCodec.encode(s.state, c.content_version, meta).json)
 	check(roundtrip.ok and roundtrip.state.skills == s.state.skills, "save skill roundtrip")
 	s.state.skills.unknown = 1
@@ -94,7 +113,7 @@ func _run() -> void:
 	memory.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c, memory)
 	var migrated := SaveManager.current_state()
-	check(migrated != null and migrated.skill_version == 2 and migrated.skills.is_empty() and migrated.revision == old.state.revision+1, "old save migration")
+	check(migrated != null and migrated.skill_version == 3 and migrated.skills.is_empty() and migrated.revision == old.state.revision+1, "old save migration")
 	var key := "save_before_skills_" + original.sha256_text()
 	memory.fail = key
 	check(not SaveManager.save(migrated, meta).ok and memory.data[SaveSlots.SLOT_MAIN] == original, "archive failure preserves old slot")
@@ -104,7 +123,7 @@ func _run() -> void:
 	memory.data.erase(key)
 	check(SaveManager.save(migrated, meta).ok and memory.data[key] == original, "archive exact bytes and retry")
 	SaveManager.configure(c, memory)
-	check(SaveManager.current_state().skill_version == 2, "restart migration success")
+	check(SaveManager.current_state().skill_version == 3, "restart migration success")
 	SaveManager.reset_for_tests()
 	s.state.era_id = 3
 	s.state.level = 10
@@ -128,7 +147,7 @@ func _run() -> void:
 	fixture.advance_time(1)
 	panel.refresh(fixture.get_view())
 	check(panel.buttons["skill:basic_meditation"] == first_button, "point tick preserves button and scroll identity")
-	check(panel.buttons.size() == 8 and not first_button.disabled, "seven skill actions plus study shortcut")
+	check(panel.buttons.size() == 13 and not first_button.disabled, "twelve skill actions plus study shortcut")
 	panel.show_save_failure("injected")
 	panel.storage_recovered()
 	check(not panel.save_failed and panel.status.text.contains("已恢復保存"), "save recovery status")

@@ -24,7 +24,7 @@ static func inspect_production(session: GameSession) -> Dictionary:
 	var pill_prod_multiplier := 1.0 + float(state.pill_effects.get("production_multiplier", 0.0)) + float(buff_multipliers.global_production_multiplier)
 
 	var global_prod_total := era_multiplier * float(multipliers.global_production_multiplier) * (pill_prod_multiplier + float(chrono_multipliers.global_production_multiplier) + float(beast_multipliers.global_production_multiplier))
-	var rates := Production.compute_rates(content, state.buildings, global_prod_total)
+	var rates := Production.compute_rates(content, state.buildings, global_prod_total, state.skills, state.talents)
 	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version)
 	
 	var spec_multipliers: Dictionary = buff_multipliers.get("specific_resource_multipliers", {})

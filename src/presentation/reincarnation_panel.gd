@@ -53,6 +53,20 @@ var _compact_rewards: Label
 var _life_info: VBoxContainer
 var _last_view: Dictionary = {}
 var _margin: MarginContainer
+var history_provider: Callable
+var _history_view: LifeHistoryView
+var _history_button: Button
+var accounts_provider: Callable
+var _accounts_view: ResourceAccountsView
+var _accounts_toggle: Button
+var decision_provider: Callable
+var _decision_view: DecisionBookView
+var _decision_toggle: Button
+var report_provider: Callable
+var report_identity_provider: Callable
+var _report_view: LifeReportView
+var _report_revision: int = -1
+var _report_identity: int = -1
 signal retry_save_requested()
 
 func _ready() -> void:
@@ -71,18 +85,31 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		var compact := bounds.size.y < 350
 		_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if compact else UiMaterial.scroll_shell())
 		UiMaterial.apply_scroll_content_margins(_margin, compact)
-		_hero.visible = true
-		_hero.custom_minimum_size = Vector2.ONE * (56 if compact else 300)
+		_hero.visible = not compact
+		_life_title.visible = not compact
+		_report_view.set_compact(compact)
+		if _history_view != null: _history_view.set_compact(compact)
+		_hero.custom_minimum_size = Vector2.ONE * (56 if compact else 144)
 		_preview_label.visible = not compact
-		var details_parent: Node = _reincarnate_box if compact else _life_info
+		var details_parent: Node = _footer
 		if _details_button.get_parent() != details_parent:
 			_details_button.reparent(details_parent)
 		_life_info.add_theme_constant_override("separation", 0 if compact else 4)
 		_cycle_label.visible = not compact
 		_life_title.add_theme_font_size_override("font_size", 22 if compact else 28)
 		_eligibility_label.visible = not compact
-		_reward_cards.visible = not compact
-		_compact_rewards.visible = compact
+		_reward_cards.hide()
+		_compact_rewards.visible = _active_tab == "reincarnate"
+		_details_button.text = "保留／重置" if compact else "傳承與重置詳情"
+		var tabs_parent: Node = _footer if compact else _root_box
+		if _tab_row.get_parent() != tabs_parent:
+			_tab_row.reparent(tabs_parent)
+			tabs_parent.move_child(_tab_row, 0 if compact else 1)
+		_currency_label.visible = not compact
+		_reincarnate_button.text = "輪迴" if compact else "轉世輪迴"
+		_talents_button.text = "天賦" if compact else "道心天賦"
+		_fit_save_feedback()
+		_apply_footer_visibility()
 		_title_row.visible = not compact
 		_root_box.add_theme_constant_override("separation", 4 if compact else 10)
 		for row in _talent_rows.values():
@@ -94,6 +121,11 @@ func _fit_talents() -> void:
 	var edge := 112 if size.y >= 350 else clampi(int(_body_scroll.size.y) - 16, 44, 80)
 	for row in _talent_rows.values():
 		row.find_child("TalentArt", true, false).custom_minimum_size = Vector2.ONE * edge
+		var style: StyleBox = row.get_theme_stylebox("panel")
+		style.content_margin_top = 2 if size.y < 350 else 8
+		style.content_margin_bottom = 2 if size.y < 350 else 8
+		var description_box: VBoxContainer = row.find_child("TalentDesc", true, false).get_parent()
+		description_box.add_theme_constant_override("separation", 2 if size.y < 350 else 4)
 
 func _update_talent_description(row: PanelContainer) -> void:
 	if not row.has_meta("talent_id"): return
@@ -101,11 +133,14 @@ func _update_talent_description(row: PanelContainer) -> void:
 	var level: int = row.get_meta("level", 0)
 	var label: Label = row.find_child("TalentDesc", true, false)
 	var definition: Dictionary = TalentSystem.TALENTS[id]
-	if size.y >= 350:
-		label.text = "%s\n目前加成：%d%%" % [definition.description, level * 10]
-	else:
-		var effects := {"resource_inheritance":"轉世開局資源 +%d%% 庫容\n下次轉世生效", "lifespan_extension":"壽元上限 +%d%%", "innate_dao_body":"修行積累速度 +%d%%"}
-		label.text = effects[id] % (level * 10)
+	var percent := int(round(level * (8 if id == "artisan_past_wisdom" else (20 if id == "beast_bond_past_wisdom" else 10))))
+	var effects := {"resource_inheritance":"轉世開局資源 +%d%% 庫容\n下次轉世生效", "lifespan_extension":"壽元上限 +%d%%", "innate_dao_body":"修行積累速度 +%d%%", "alchemical_past_wisdom":"兩種聚靈丹修煉 +%d%%\n衰減後計算，受當層上限限制", "artisan_past_wisdom":"祖島四設施產率貢獻 +%d%%\n不含庫容／茅屋／產點／遠島", "beast_bond_past_wisdom":"靈狐餵養經驗 +%d%%\n與獸魂成長相加；冷卻不變"}
+	label.text = ("%s\n目前加成：%d%%" % [definition.description, percent]) if size.y >= 350 else effects[id] % percent
+	if id in TalentSystem.P1_IDS:
+		var per_rank := 8 if id == "artisan_past_wisdom" else (20 if id == "beast_bond_past_wisdom" else 10)
+		var next_percent := mini(level + 1, 5) * per_rank
+		var next_text := "已圓滿" if level >= 5 else "下階 +%d%%" % next_percent
+		label.text = label.text.replace("目前加成：%d%%" % percent, "目前 +%d%% · %s" % [percent, next_text]) if size.y >= 350 else label.text.replace("+%d%%" % percent, "+%d%% → %s" % [percent, next_text])
 	label.tooltip_text = definition.description
 
 func _label(text_value: String, font_size: int = 16) -> Label:
@@ -118,7 +153,7 @@ func _label(text_value: String, font_size: int = 16) -> Label:
 	return label
 
 func _art(id: String, edge: int) -> TextureRect:
-	var image := TextureRect.new()
+	var image := UiIllustration.new()
 	image.custom_minimum_size = Vector2.ONE * edge
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -159,6 +194,10 @@ func _build_ui() -> void:
 	_talents_button.text = "道心天賦"
 	_talents_button.pressed.connect(func(): _switch_tab("talents"))
 	_tab_row.add_child(_talents_button)
+	_history_button = GameTab.new()
+	_history_button.text = "歷世"
+	_history_button.pressed.connect(func(): _switch_tab("history"))
+	_tab_row.add_child(_history_button)
 	_currency_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_currency_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_tab_row.add_child(_currency_label)
@@ -181,7 +220,7 @@ func _build_ui() -> void:
 	_hero = preload("res://src/presentation/reincarnation_mandala.gd").new()
 	_hero.texture = load(ART_DIR + "reincarnation_wheel.png")
 	_hero.custom_minimum_size = Vector2.ONE * 300
-	_hero.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_hero.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	overview.add_child(_hero)
 	var life := VBoxContainer.new()
 	_life_info = life
@@ -193,9 +232,28 @@ func _build_ui() -> void:
 	_life_title = _label("再續仙途", 28)
 	_life_title.add_theme_font_override("font", UiTypography.emphasis_font())
 	life.add_child(_life_title)
+	_report_view = LifeReportView.new()
+	life.add_child(_report_view)
+	_accounts_toggle = GameTab.new()
+	_accounts_toggle.text = "帳目"
+	_accounts_toggle.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	life.add_child(_accounts_toggle)
+	_accounts_view = ResourceAccountsView.new()
+	life.add_child(_accounts_view)
+	_accounts_view.hide()
+	_accounts_toggle.pressed.connect(func(): _accounts_view.visible = _accounts_toggle.button_pressed)
+	_decision_toggle = GameTab.new()
+	_decision_toggle.text = "抉擇簿"
+	_decision_toggle.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	life.add_child(_decision_toggle)
+	_decision_view = DecisionBookView.new()
+	life.add_child(_decision_view)
+	_decision_view.hide()
+	_decision_toggle.pressed.connect(func(): _decision_view.visible = _decision_toggle.button_pressed)
 	_eligibility_label = _label("")
 	life.add_child(_eligibility_label)
 	_compact_rewards = _label("", 16)
+	_compact_rewards.autowrap_mode = TextServer.AUTOWRAP_OFF
 	_compact_rewards.visible = false
 	life.add_child(_compact_rewards)
 	var rewards := HBoxContainer.new()
@@ -247,6 +305,10 @@ func _build_ui() -> void:
 	_footer = HBoxContainer.new()
 	_footer.alignment = BoxContainer.ALIGNMENT_CENTER
 	_root_box.add_child(_footer)
+	_reward_cards.reparent(_footer)
+	_compact_rewards.reparent(_footer)
+	_compact_rewards.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_details_button.reparent(_footer)
 	_confirm_label = _label("將重置本世進度，請確認。")
 	_confirm_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_confirm_label.visible = false
@@ -264,6 +326,8 @@ func _build_ui() -> void:
 	UiMaterial.apply_button(_reincarnate_action_button)
 	_reincarnate_action_button.pressed.connect(_on_reincarnate_action_pressed)
 	_footer.add_child(_reincarnate_action_button)
+	_history_view = LifeHistoryView.new()
+	_content.add_child(_history_view)
 	_switch_tab("reincarnate")
 
 func _cancel_confirmation() -> void:
@@ -281,12 +345,24 @@ func _switch_tab(tab_name: String) -> void:
 	if not _pending_save and tab_name == "reincarnate": _feedback_row.hide()
 	_reincarnate_box.visible = tab_name == "reincarnate"
 	_talents_box.visible = tab_name == "talents"
-	_footer.visible = tab_name == "reincarnate"
+	_history_view.visible = tab_name == "history"
+	_history_button.set_pressed_no_signal(tab_name == "history")
+	UiMaterial.mark_paper_tab(_history_button, tab_name == "history")
+	_apply_footer_visibility()
 	_reincarnate_button.set_pressed_no_signal(tab_name == "reincarnate")
 	_talents_button.set_pressed_no_signal(tab_name == "talents")
 	UiMaterial.mark_paper_tab(_reincarnate_button, tab_name == "reincarnate")
 	UiMaterial.mark_paper_tab(_talents_button, tab_name == "talents")
 	_body_scroll.scroll_vertical = 0
+	if not _last_view.is_empty(): refresh(_last_view)
+
+func _apply_footer_visibility() -> void:
+	var reading := _active_tab == "reincarnate"
+	_footer.visible = reading or size.y < 350
+	_reincarnate_action_button.visible = reading
+	_details_button.visible = reading
+	_compact_rewards.visible = reading
+	_reward_cards.hide()
 
 func set_save_result(result: Dictionary) -> void:
 	_pending_save = not bool(result.get("ok", false))
@@ -294,8 +370,12 @@ func set_save_result(result: Dictionary) -> void:
 	_feedback.show()
 	_feedback_row.show()
 	_retry_button.visible = _pending_save
-	if not _pending_save and _active_tab == "reincarnate" and size.y < 350:
-		_feedback_row.hide()
+	_fit_save_feedback()
+
+func _fit_save_feedback() -> void:
+	var compact := size.y < 350
+	_feedback_row.visible = _pending_save or (not compact and not _feedback.text.is_empty())
+	_talents_button.text = ("天賦 · 已存" if not _pending_save and not _feedback.text.is_empty() else "天賦") if compact else "道心天賦"
 
 func storage_recovered() -> void:
 	if _pending_save:
@@ -307,15 +387,28 @@ func refresh(view: Dictionary) -> void:
 	var dp: int = int(view.get("dao_proof", 0))
 	_currency_label.text = "道心: %s  |  道證: %d" % [_format_amount_str(dh), dp]
 
+	if _active_tab == "history" and history_provider.is_valid():
+		_history_view.show_record(history_provider.call())
+
 	# 1. 刷新輪迴轉世分頁
 	var preview: Dictionary = view.get("reincarnation_preview", {})
 	var r_count: int = int(preview.get("current_reincarnation_count", 0))
-	var highest_era: int = int(view.get("highest_era", 1))
-	_cycle_label.text = "第 %d 世  ·  最高 %d 階" % [r_count + 1, highest_era]
+	_cycle_label.text = "第 %d 世 · 當前境界 %d · %d 層 · %d 歲" % [r_count + 1, int(view.get("era_id", 1)), int(view.get("level", 1)), int(float(view.get("total_elapsed_seconds", 0)) / 60.0)]
 
 	var eligible: bool = bool(preview.get("eligible", false))
 	var reason: String = String(preview.get("reason", ""))
 	_exhausted = reason == "lifespan_exhausted"
+	if report_provider.is_valid() and _active_tab == "reincarnate":
+		# Explicit read only while this page is visible. Cache by committed revision and ending.
+		var revision := int(view.get("revision", -1))
+		var identity := int(report_identity_provider.call()) if report_identity_provider.is_valid() else 0
+		if identity != _report_identity or revision != _report_revision or _report_view.get_meta("reason", "") != reason:
+			_report_view.show_report(report_provider.call(), reason)
+			if accounts_provider.is_valid(): _accounts_view.show_book(accounts_provider.call())
+			if decision_provider.is_valid(): _decision_view.show_book(decision_provider.call())
+			_report_revision = revision
+			_report_identity = identity
+			_report_view.set_meta("reason", reason)
 	_life_title.text = "命燈已熄" if _exhausted else "再續仙途"
 	if size.y < 350 and not _exhausted:
 		_life_title.text = "可轉世重修" if eligible else "輪迴尚未開啟"

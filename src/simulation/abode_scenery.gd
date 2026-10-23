@@ -71,7 +71,7 @@ static func claim(content: GameContent, state: GameState, find_id: String) -> Di
 		var amount := AmountCompat.from_number(int(entry.amount))
 		if amount.compare_to(room) > 0:
 			amount = room
-		resource.value = value.add(amount)
+		resource.value = ResourceLedger.change(state, "home", resource_id, resource.value, value.add(amount), "scenery", AmountCompat.from_number(int(entry.amount)))
 		resource.ever_obtained = true
 		entries.remove_at(index)
 		AchievementSystem.record_stat(state, "total_harvests", 1)

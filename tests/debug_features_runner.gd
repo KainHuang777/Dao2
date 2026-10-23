@@ -16,6 +16,8 @@ func _run() -> void:
 	var abode = load(SCENE_PATH).instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide()
+	abode._layout_for_size(Vector2(1280, 720))
 
 	print("--- Running Debug Features Runner ---")
 

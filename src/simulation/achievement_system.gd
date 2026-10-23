@@ -10,7 +10,159 @@ const CATEGORIES := {
 	"reincarnation": "輪迴超脫"
 }
 
-const DEFINITIONS := {
+const P1_DEFINITIONS := {
+	"p1_greenwood_student": {
+		"id": "p1_greenwood_student",
+		"name": "青木入卷",
+		"category": "cultivation",
+		"desc": "當世青木養元法至少一階。",
+		"rewards": {
+			"resource": {
+				"wood": 60
+			}
+		},
+		"rewards_desc": "靈木 +60"
+	},
+	"p1_golden_specialist": {
+		"id": "p1_golden_specialist",
+		"name": "丹火藏息",
+		"category": "cultivation",
+		"desc": "當世靈倉整備法、丹火調息法各至少一階。",
+		"rewards": {
+			"resource": {
+				"lingli": 120
+			}
+		},
+		"rewards_desc": "靈力 +120"
+	},
+	"p1_timber_workshop": {
+		"id": "p1_timber_workshop",
+		"name": "木作有聲",
+		"category": "abode",
+		"desc": "更新後，在青木島完成一批靈材。",
+		"rewards": {
+			"resource": {
+				"stone_low": 40
+			}
+		},
+		"rewards_desc": "靈石 +40"
+	},
+	"p1_homebound_cargo": {
+		"id": "p1_homebound_cargo",
+		"name": "雙舟歸倉",
+		"category": "abode",
+		"desc": "更新後，木材歸航與銅精歸航各實際入庫一次（可跨世）。",
+		"rewards": {
+			"resource": {
+				"wood": 60,
+				"stone_low": 40
+			}
+		},
+		"rewards_desc": "靈木 +60、靈石 +40"
+	},
+	"p1_two_specialist_pills": {
+		"id": "p1_two_specialist_pills",
+		"name": "草木分爐",
+		"category": "alchemy",
+		"desc": "更新後，親煉養木丹、育草丹各一顆（可跨世）。",
+		"rewards": {
+			"resource": {
+				"spirit_grass_low": 30
+			}
+		},
+		"rewards_desc": "低階靈草 +30"
+	},
+	"p1_four_pills_used": {
+		"id": "p1_four_pills_used",
+		"name": "四脈試丹",
+		"category": "alchemy",
+		"desc": "更新後，成功服用四種專精丹（可跨世）。",
+		"rewards": {
+			"resource": {
+				"lingli": 120
+			}
+		},
+		"rewards_desc": "靈力 +120"
+	},
+	"p1_supply_commission": {
+		"id": "p1_supply_commission",
+		"name": "供給有章",
+		"category": "sect",
+		"desc": "更新後，領取祖島供給簿或木礦聯運委託。",
+		"rewards": {
+			"sect_contribution": 25
+		},
+		"rewards_desc": "貢獻 +25"
+	},
+	"p1_two_sect_specialties": {
+		"id": "p1_two_sect_specialties",
+		"name": "丹契同參",
+		"category": "sect",
+		"desc": "丹房調息訣、靈契養成法各至少一階。",
+		"rewards": {
+			"sect_contribution": 40
+		},
+		"rewards_desc": "貢獻 +40"
+	},
+	"p1_mature_jade_fox": {
+		"id": "p1_mature_jade_fox",
+		"name": "青丘長伴",
+		"category": "beast_fate",
+		"desc": "現有成熟靈狐，或更新後曾養成成熟靈狐。",
+		"rewards": {
+			"resource": {
+				"spirit_grass_low": 60
+			}
+		},
+		"rewards_desc": "低階靈草 +60"
+	},
+	"p1_fox_soul_choice": {
+		"id": "p1_fox_soul_choice",
+		"name": "靈魂有託",
+		"category": "beast_fate",
+		"desc": "解鎖通靈媚影獸魂天賦。",
+		"rewards": {
+			"resource": {
+				"stone_low": 60
+			}
+		},
+		"rewards_desc": "靈石 +60"
+	},
+	"p1_second_foundation": {
+		"id": "p1_second_foundation",
+		"name": "再築道基",
+		"category": "reincarnation",
+		"desc": "完成至少一次輪迴，且當世已築基。",
+		"rewards": {
+			"resource": {
+				"wood": 80,
+				"stone_low": 40
+			}
+		},
+		"rewards_desc": "靈木 +80、靈石 +40"
+	},
+	"p1_three_past_wisdoms": {
+		"id": "p1_three_past_wisdoms",
+		"name": "三慧歸心",
+		"category": "reincarnation",
+		"desc": "丹心、百工、靈契宿慧各至少一階。",
+		"rewards": {
+			"resource": {
+				"lingli": 100
+			}
+		},
+		"rewards_desc": "靈力 +100"
+	}
+}
+
+static var DEFINITIONS: Dictionary = _definitions()
+
+static func _definitions() -> Dictionary:
+	var definitions := LEGACY_DEFINITIONS.duplicate(true)
+	definitions.merge(P1_DEFINITIONS)
+	return definitions
+
+const LEGACY_DEFINITIONS := {
 	# 修道境界
 	"era_qi": {
 		"id": "era_qi",
@@ -237,8 +389,10 @@ static func check_achievements(state: GameState, content: GameContent = null) ->
 				var dh_val := state.dao_heart.to_float() if state.dao_heart != null else 0.0
 				is_met = dh_val >= 100.0
 
+		if P1_DEFINITIONS.has(id):
+			is_met = StoryProgress.achievement_met(state, id)
 		if is_met:
-			unlocked[id] = state.total_elapsed_seconds
+			unlocked[id] = 0.0 if P1_DEFINITIONS.has(id) else state.total_elapsed_seconds
 			newly_unlocked.append(id)
 
 	return newly_unlocked
@@ -256,6 +410,8 @@ static func claim_reward(state: GameState, content: GameContent, achievement_id:
 	if bool(claimed.get(achievement_id, false)):
 		return {"ok": false, "error": "ALREADY_CLAIMED", "message": "此成就獎勵已領取"}
 
+	if P1_DEFINITIONS.has(achievement_id):
+		return StoryProgress.claim(state, content, achievement_id)
 	var rewards: Dictionary = def.get("rewards", {})
 	if rewards.has("dao_heart"):
 		var dh_add := float(rewards["dao_heart"])
@@ -281,10 +437,10 @@ static func claim_reward(state: GameState, content: GameContent, achievement_id:
 				entry.unlocked = true
 				entry.ever_obtained = true
 				if entry.has("value") and entry.value is AmountCompat:
-					entry.value = entry.value.add(AmountCompat.from_number(add_val))
+					entry.value = ResourceLedger.change(state, "home", res_id, entry.value, entry.value.add(AmountCompat.from_number(add_val)), "achievement", AmountCompat.from_number(add_val))
 			else:
 				state.resources[res_id] = {
-					"value": AmountCompat.from_number(add_val),
+					"value": ResourceLedger.change(state, "home", res_id, AmountCompat.zero(), AmountCompat.from_number(add_val), "achievement", AmountCompat.from_number(add_val)),
 					"unlocked": true,
 					"ever_obtained": true
 				}
@@ -304,7 +460,7 @@ static func reset_achievements(state: GameState) -> void:
 		"stats": {}
 	}
 
-static func get_achievement_view(state: GameState) -> Dictionary:
+static func get_achievement_view(state: GameState, content: GameContent = null) -> Dictionary:
 	var ach := ensure_achievements_state(state)
 	var unlocked: Dictionary = ach["unlocked"]
 	var claimed: Dictionary = ach["claimed"]
@@ -314,6 +470,7 @@ static func get_achievement_view(state: GameState) -> Dictionary:
 	var claimed_count := claimed.size()
 	var unclaimed_count := 0
 
+	var limits := {}
 	var list: Array[Dictionary] = []
 	for id in DEFINITIONS:
 		var def: Dictionary = DEFINITIONS[id]
@@ -321,6 +478,11 @@ static func get_achievement_view(state: GameState) -> Dictionary:
 		var is_claimed := bool(claimed.get(id, false))
 		if is_unlocked and not is_claimed:
 			unclaimed_count += 1
+		var error := ""
+		if content != null and P1_DEFINITIONS.has(id) and is_unlocked and not is_claimed:
+			for resource in def.rewards.get("resource", {}):
+				if not limits.has(resource): limits[resource] = StoryProgress.cap(state,content,resource)
+			error = StoryProgress.claim_error(state,content,id,limits)
 		list.append({
 			"id": id,
 			"name": def.name,
@@ -330,7 +492,8 @@ static func get_achievement_view(state: GameState) -> Dictionary:
 			"rewards_desc": def.rewards_desc,
 			"unlocked": is_unlocked,
 			"claimed": is_claimed,
-			"can_claim": is_unlocked and not is_claimed
+			"reason": StoryProgress.reason(error),
+			"can_claim": is_unlocked and not is_claimed and error.is_empty()
 		})
 
 	var completion_percent := (float(unlocked_count) / float(total_count) * 100.0) if total_count > 0 else 0.0

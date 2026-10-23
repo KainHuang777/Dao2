@@ -1,0 +1,509 @@
+[RUNNING] tests/m4a_realm_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M4-A Realm Runner (Spirit Realm & Dual-Realm Parity) ---
+Testing Spirit Realm unlock conditions...
+Testing realm switching and seamless return to human abode...
+Testing Spirit Realm outpost construction and upgrades...
+Testing parallel dual-realm tick simulation and stone consumption opportunity cost...
+Testing pure pool cultivation feedback boost to human cultivation speed...
+Testing SaveCodec encode and decode roundtrip with dual-realm data...
+Testing RealmTeleportModal node rendering and state refresh...
+PASS: M4-A spirit realm unlock, dual-realm parallel simulation, opportunity costs, feedback boost, persistence, and modal UI.
+
+[RUNNING] tests/m4a_session_integration_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+REJECT: join_sect SECT_LOCKED
+REJECT: refresh_sect_tasks SECT_LOCKED
+REJECT: start_sect_expedition 
+REJECT: claim_sect_expedition SECT_LOCKED
+REJECT: learn_sect_technique 
+REJECT: buy_sect_market_item 
+REJECT: switch_realm SPIRIT_REALM_LOCKED
+REJECT: upgrade_realm_outpost REALM_LOCKED
+REJECT: apply_buff EMPTY_BUFF_ID
+REJECT: remove_buff EMPTY_BUFF_ID
+REJECT: upgrade_realm_outpost INSUFFICIENT_HUMAN_RESOURCE
+SUCCESS + REPLAY + RELOAD: join_sect
+REJECT: join_sect ALREADY_JOINED_SECT
+REJECT: refresh_sect_tasks REFRESH_COOLDOWN
+SUCCESS + REPLAY + RELOAD: refresh_sect_tasks
+REJECT: start_sect_expedition TASK_NOT_FOUND
+SUCCESS + REPLAY + RELOAD: start_sect_expedition
+REJECT: start_sect_expedition EXPEDITION_ALREADY_ACTIVE
+REJECT: claim_sect_expedition EXPEDITION_NOT_FINISHED
+SUCCESS + REPLAY + RELOAD: claim_sect_expedition
+REJECT: claim_sect_expedition NO_ACTIVE_EXPEDITION
+REJECT: learn_sect_technique UNKNOWN_TECHNIQUE
+REJECT: buy_sect_market_item UNKNOWN_MARKET_ITEM
+REJECT: learn_sect_technique INSUFFICIENT_CONTRIBUTION
+REJECT: buy_sect_market_item INSUFFICIENT_CONTRIBUTION
+REJECT: learn_sect_technique INSUFFICIENT_WOOD
+SUCCESS + REPLAY + RELOAD: learn_sect_technique
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+REJECT: buy_sect_market_item PURCHASE_LIMIT_REACHED
+REJECT: learn_sect_technique TECHNIQUE_MAX_LEVEL
+REJECT: switch_realm INVALID_REALM
+SUCCESS + REPLAY + RELOAD: switch_realm
+REJECT: upgrade_realm_outpost UNKNOWN_OUTPOST
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+REJECT: upgrade_realm_outpost INSUFFICIENT_CRYSTAL
+SUCCESS + REPLAY + RELOAD: buy_sect_market_item
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+SUCCESS + REPLAY + RELOAD: upgrade_realm_outpost
+REJECT: upgrade_realm_outpost MAX_LEVEL
+SUCCESS + REPLAY + RELOAD: apply_buff
+SUCCESS + REPLAY + RELOAD: remove_buff
+SUCCESS + REPLAY + RELOAD: apply_buff
+SUCCESS + REPLAY + RELOAD: start_sect_expedition
+SUCCESS + REPLAY + RELOAD: claim_sect_expedition
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:291)
+       [1] current_state (res://src/persistence/save_manager.gd:107)
+       [2] _test_receipt_recovery (res://tests/m4a_session_integration_runner.gd:184)
+       [3] _init (res://tests/m4a_session_integration_runner.gd:84)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:75)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:311)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:310)
+       [4] current_state (res://src/persistence/save_manager.gd:107)
+       [5] _test_receipt_recovery (res://tests/m4a_session_integration_runner.gd:184)
+       [6] _init (res://tests/m4a_session_integration_runner.gd:84)
+REJECT: claim_sect_expedition REWARD_RESOURCE_MISSING
+PASS: M4-A-R1 Session integration (251 checks, 0 failures).
+[RUNNING] tests/bgm_era_playlist_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== BGM ERA PLAYLIST TEST START ===
+Loaded tracks count: 4
+Track 0: 01_The_Unresolved_Ascent.mp3
+Track 1: 02_The_Weight_of_Heaven.mp3
+Track 2: 03_Rungs_of_the_Infinite.mp3
+Track 3: 04_Where_Starlight_Settles.mp3
+Playlist filtering logic verified successfully!
+Era 2 playlist looping verified successfully!
+Era 4 full playlist looping verified successfully!
+Reincarnation fallback verified successfully!
+=== BGM ERA PLAYLIST TEST PASS ===
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_chrono_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Chrono System Runner (Weather & Shichen) ---
+Testing Shichen 12-stage cycle progression...
+Testing Five Elements Celestial Weather cycle...
+Testing Chrono multipliers computation...
+Testing TimeAdvancer integration with Chrono...
+Testing Chrono persistence roundtrip with SaveCodec...
+Testing GameSession get_view() exposes chrono...
+PASS: M3-B chrono system shichen progression, five-element weather cycle, multipliers, time advancer integration, persistence, and session view.
+
+[RUNNING] tests/m4b_scale_law_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+--- Running M4-B Scale & Laws Runner ---
+Testing WorldAddress structure and parser...
+  WorldAddress contract: PASS
+Testing spatial ScaleTier mapping...
+  ScaleTier mapping: PASS
+Testing ContentLoader.load_realms data integrity...
+  Realms data integrity: PASS
+Testing ScaleLawContract deterministic arithmetic...
+  ScaleLawContract calculations: PASS
+Testing GameState & SaveCodec persistence roundtrip...
+  Persistence roundtrip: PASS
+Testing RealmSystem & GameSession integration...
+  RealmSystem & Session integration: PASS
+--- M4-B Scale & Laws Runner: ALL PASS ---
+[RUNNING] tests/m5a_world_gen_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M5A_RUNNER] Starting M5-A World Generation & Nine Realms Law Tests...
+--- 1. Testing Deterministic Generation ---
+  Determinism verified: identical inputs -> identical output.
+--- 2. Testing Nine Realms Law Compliance Across All 9 Realms ---
+  Nine Realms Law compliance verified across all 9 realms.
+--- 3. Testing Anti-Arbitrage Validation & Safe Fallback ---
+  Anti-arbitrage and safe fallback verified.
+--- 4. Testing Celestial Aspiration Resonance (心印嚮往) ---
+  Celestial Aspiration Resonance mathematical contract verified.
+--- 5. Testing WorldDescriptor Serialization & SaveCodec Integration ---
+  WorldDescriptor and SaveCodec roundtrip verified.
+[M5A_RUNNER] ALL M5-A TESTS PASSED (exit 0)
+[RUNNING] tests/m3b_fortune_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Fortune & Encounter System Runner ---
+Testing era cooldown and max-per-hour contracts...
+Testing advance_time and pending encounter cooldown pause...
+Testing celestial aspiration and weather bias weights...
+Testing resolve_fortune rewards, costs, and state mutation...
+Testing GameSession submit commands and get_view for fortune...
+Testing SaveCodec encode and decode roundtrip with fortune...
+Testing ReincarnationRules reset of fortune...
+PASS: M3-B fortune cooldown contracts, trigger, bias, resolution, persistence, and reincarnation.
+
+[RUNNING] tests/m3b_fortune_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+--- Running M3-B Fortune UI Runner ---
+Testing FortuneModal node creation and structure...
+Testing FortuneModal refresh with empty and pending encounter views...
+Testing FortuneModal signals for trigger, resolve, and close...
+Testing FortuneModal responsive layout bounds...
+Testing LivingAbode scene integration with FortuneModal...
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: M3-B fortune UI structure, options, signals, layouts, and living_abode integration.
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m5b_realm_content_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M5B_RUNNER] Starting M5-B Realm Content & Strategic Decisions Tests...
+--- 1. Testing Realm Decisions Integrity & Execution ---
+  Realm decisions integrity & execution: PASS
+--- 2. Testing Deepened Terrain Traits & Mutual Exclusion ---
+  Deepened terrain traits & mutual exclusion: PASS
+--- 3. Testing Realm-Specific Encounters & Current Realm Bias ---
+  Realm-specific encounters & bias: PASS
+--- 4. Testing GameSession Decision Command & View Exposure ---
+  GameSession command & view exposure: PASS
+--- 5. Testing SaveCodec Persistence Roundtrip ---
+  SaveCodec persistence roundtrip: PASS
+[M5B_RUNNER] ALL M5-B TESTS PASSED (exit 0)
+[RUNNING] tests/feature_navigation_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/feature_navigation_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/feature_navigation_runner.gd:16)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=compact size=(640.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+NAV1 navigation, neutrality, resource integration and UI command checks completed
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/skills_b1_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: SKILL-B1 53 checks
+[RUNNING] tests/sks_p1_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: SKS-P1 58 checks
+ALL 12 RUNNERS PASSED WITH EXIT CODE 0!

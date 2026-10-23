@@ -2,7 +2,70 @@ class_name BuffSystem
 extends RefCounted
 const MAX_TIMED_DURATION := 3600.0
 
+const P1_IDS := ["p1_wood_nurture", "p1_herb_nurture", "p1_wealth_gathering", "p1_qi_absorption"]
+
 const DEFINITIONS := {
+	"p1_wood_nurture": {
+		"id": "p1_wood_nurture",
+		"name": "養木丹效",
+		"icon_text": "養",
+		"color": "#8a9d64",
+		"description": "祖島靈木被動產率 +100%；不加速遠島、加工或航運。",
+		"default_duration": 300.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"specific_resource_multiplier": {
+				"wood": 1.0
+			}
+		}
+	},
+	"p1_herb_nurture": {
+		"id": "p1_herb_nurture",
+		"name": "育草丹效",
+		"icon_text": "育",
+		"color": "#689b72",
+		"description": "祖島下品靈草被動產率 +100%；不加速遠島、加工或航運。",
+		"default_duration": 300.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"specific_resource_multiplier": {
+				"spirit_grass_low": 1.0
+			}
+		}
+	},
+	"p1_wealth_gathering": {
+		"id": "p1_wealth_gathering",
+		"name": "聚財丹效",
+		"icon_text": "聚",
+		"color": "#cba55a",
+		"description": "祖島金錢被動產率 +100%；不加速遠島、加工或航運。",
+		"default_duration": 300.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"specific_resource_multiplier": {
+				"money": 1.0
+			}
+		}
+	},
+	"p1_qi_absorption": {
+		"id": "p1_qi_absorption",
+		"name": "納靈丹效",
+		"icon_text": "納",
+		"color": "#74b7b0",
+		"description": "祖島靈力被動產率 +100%；不加速遠島、加工或航運。",
+		"default_duration": 300.0,
+		"is_permanent": false,
+		"transmigratable": false,
+		"effects": {
+			"specific_resource_multiplier": {
+				"lingli": 1.0
+			}
+		}
+	},
+
 	"spirit_surge": {
 		"id": "spirit_surge",
 		"name": "天靈氣湧",
@@ -135,6 +198,8 @@ static func get_definition(buff_id: String) -> Variant:
 static func apply_buff(state: GameState, buff_id: String, duration: float = -1.0, custom_effects: Dictionary = {}, transmigratable: bool = false) -> Dictionary:
 	if state == null:
 		return {"ok": false, "error": "NULL_STATE"}
+	if buff_id in P1_IDS and (not custom_effects.is_empty() or transmigratable):
+		return {"ok": false, "error": "PILL_BUFF_OVERRIDE"}
 	var def: Variant = get_definition(buff_id)
 	var name: String = buff_id
 	var icon_text: String = "符"
@@ -177,7 +242,7 @@ static func apply_buff(state: GameState, buff_id: String, duration: float = -1.0
 		"color": color,
 		"description": description,
 		"is_permanent": is_permanent,
-		"duration_seconds": duration,
+		"duration_seconds": maxf(duration, remaining) if buff_id in P1_IDS else duration,
 		"remaining_seconds": remaining,
 		"transmigratable": trans,
 		"effects": effects,
@@ -231,6 +296,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 
 	for buff_id in state.buffs:
 		var entry: Dictionary = state.buffs[buff_id]
+		if buff_id in P1_IDS and float(entry.get("remaining_seconds", 0.0)) <= 0.0: continue
 		var effects: Dictionary = entry.get("effects", {})
 		if effects.has("production_multiplier"):
 			res.global_production_multiplier += float(effects["production_multiplier"])

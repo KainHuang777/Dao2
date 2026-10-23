@@ -1,0 +1,171 @@
+{
+  "task_id": "CONTENT-P1-SECT",
+  "date": "2026-10-23",
+  "status": "APPROVED_FOR_IMPLEMENTATION",
+  "approval": {
+    "date": "2026-10-23",
+    "user_quote": "採Q",
+    "groups": [
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q-save"
+    ]
+  },
+  "origin": "v2 original design; not legacy parity",
+  "baseline": {
+    "techniques": 4,
+    "task_templates": 15,
+    "market_items": 4
+  },
+  "target": {
+    "techniques": 6,
+    "task_templates": 20,
+    "market_items": 6
+  },
+  "techniques": [
+    {
+      "id": "alchemy_herb_conservation",
+      "name": "丹房調息訣",
+      "min_era": 2,
+      "max_level": 5,
+      "base_contrib": 60,
+      "resource_cost": {
+        "stone_low": 5
+      },
+      "cost_scale": "1.5",
+      "effect_per_level": "0.02",
+      "effect": "direct_low_herb_discount",
+      "pill_allowlist": [
+        "cultivation_pill",
+        "wood_nurture_pill",
+        "wealth_gathering_pill",
+        "qi_absorption_pill"
+      ]
+    },
+    {
+      "id": "fox_feed_conservation",
+      "name": "靈契養成法",
+      "min_era": 3,
+      "max_level": 5,
+      "base_contrib": 90,
+      "resource_cost": {
+        "wood": 100
+      },
+      "cost_scale": "1.5",
+      "effect_per_level": "0.02",
+      "effect": "jade_fox_feed_discount",
+      "beast_allowlist": [
+        "jade_fox"
+      ]
+    }
+  ],
+  "market_items": [
+    {
+      "id": "greenwood_bundle",
+      "name": "青木補給匣",
+      "min_era": 2,
+      "cost": 60,
+      "limit": 10,
+      "grant_resource": "wood",
+      "grant_amount": 100
+    },
+    {
+      "id": "herb_nurture_supply",
+      "name": "育草丹補給",
+      "min_era": 2,
+      "cost": 45,
+      "limit": 10,
+      "grant_pill": "herb_nurture_pill",
+      "grant_count": 1
+    }
+  ],
+  "task_templates": [
+    {
+      "template_id": "home_supply_register",
+      "name": "核錄祖島木料",
+      "desc": "核對祖島木料收支，將可用餘料交還外門營造處。",
+      "rarity": "common",
+      "min_era": 2,
+      "requires_open_islands": [],
+      "requires_active_beast": "",
+      "rewards": {
+        "wood": 80
+      }
+    },
+    {
+      "template_id": "wood_ore_convoy",
+      "name": "協調雙島回運",
+      "desc": "核對青木與玄礦兩島回運清單，整理玄礦餘料。",
+      "rarity": "uncommon",
+      "min_era": 2,
+      "requires_open_islands": [
+        "wood",
+        "ore"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "stone_low": 8
+      }
+    },
+    {
+      "template_id": "herb_island_inventory",
+      "name": "盤點丹霞藥圃",
+      "desc": "替丹霞島清點採收入庫的靈草，領回分配予丹房的藥材。",
+      "rarity": "rare",
+      "min_era": 3,
+      "requires_open_islands": [
+        "herb"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "spirit_grass_low": 80
+      }
+    },
+    {
+      "template_id": "specialist_pill_preparation",
+      "name": "籌備四脈丹材",
+      "desc": "整理養木、育草、聚財與納靈四類丹材，回收可用草石。",
+      "rarity": "epic",
+      "min_era": 3,
+      "requires_open_islands": [],
+      "requires_active_beast": "",
+      "rewards": {
+        "spirit_grass_low": 120,
+        "stone_low": 20
+      }
+    },
+    {
+      "template_id": "jade_fox_nursery",
+      "name": "整備靈狐育苑",
+      "desc": "協助靈狐育苑整理靈草與圍欄用料，領回餘下養成物資。",
+      "rarity": "legendary",
+      "min_era": 3,
+      "requires_open_islands": [],
+      "requires_active_beast": "jade_fox",
+      "rewards": {
+        "wood": 300,
+        "stone_low": 30,
+        "spirit_grass_low": 150
+      }
+    }
+  ],
+  "task_policy": "Keep rarity weights, durations, contribution ranges and era-scaled money. New templates replace only non-money resource rewards and omit special_buff. Old templates retain their payload. Eligibility filters templates within the selected rarity, never rerolls rarity. Freeze template_id and rewards in generated instances; do not revalidate generation eligibility at claim.",
+  "inheritance": "New technique levels, contribution and purchase counts persist; new effects require joined membership and current era >= min_era. Expeditions/tasks reset and membership becomes false, following current behavior. Limits are lifetime, not per life.",
+  "save_plan": {
+    "schema": 5,
+    "sect_version": 1,
+    "legacy_missing_version": 0,
+    "rules_version": "core-flow-16-content-p1-sect",
+    "content_tag": "+content-p1-sect",
+    "max_available_tasks": 3,
+    "max_active_tasks": 1,
+    "max_sect_utf8_bytes": 32768
+  },
+  "delivery": {
+    "status": "DONE",
+    "date": "2026-10-23",
+    "user_quote": "美術接受",
+    "scope": "CLI/native/desktop Web bounded acceptance; runtime 6 techniques / 20 templates / 6 market items"
+  }
+}

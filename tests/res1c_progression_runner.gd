@@ -1,4 +1,5 @@
 extends SceneTree
+const AccountChecks = preload("res://tests/resource_account_assertions.gd")
 ## Blank-save player-command flow, real T2 sinks and migration retry isolation.
 var checks := 0
 var failures: Array[String] = []
@@ -181,7 +182,7 @@ func _run() -> void:
 	var online := _clone(s)
 	TimeAdvancer.advance(online.state, content, 600)
 	OfflineSettlement.settle(offline.state, content, 700000, 100000)
-	_expect(_snapshot(offline) == _snapshot(online), "offline actual C profile equals online")
+	_expect(AccountChecks.same(offline.state, online.state), "offline actual C profile equals online")
 	var offline_start := Time.get_ticks_msec()
 	var stress := _clone(s)
 	var stress_result := OfflineSettlement.settle(stress.state, content, 172900000, 100000)
@@ -212,7 +213,7 @@ func _test_ui(s: GameSession) -> void:
 	panel.refresh(s.get_view(), s.content.processing_catalog)
 	var requested: Array = []
 	panel.action_requested.connect(func(kind: String, payload: Dictionary): requested.append([kind, payload]))
-	for viewport in [Vector2(1280, 720), Vector2(844, 390)]:
+	for viewport in ([Vector2(1280, 720), Vector2(844, 390)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		var width: float = minf(400, viewport.x * 0.44)
 		panel.set_layout_bounds(Rect2(Vector2(viewport.x - width - 16, 84), Vector2(width, viewport.y - 180)))
 		await process_frame

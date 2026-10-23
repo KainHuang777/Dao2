@@ -1,0 +1,259 @@
+{
+  "task": "CONTENT-P1-STORY",
+  "date": "2026-10-23",
+  "human_acceptance": "PENDING",
+  "assets": [
+    {
+      "id": "p1_greenwood_student",
+      "path": "assets/ui/achievements-painted/p1_greenwood_student.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_greenwood_student.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-374b877f-fc26-4d81-95d3-d5e25ce8820f.png",
+      "sha256": "fbb6254ab2a2890d3d148dde202eaa90da109682666270f59892645f8737dff4",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: fresh greenwood twigs and jade green leaves embracing a half opened blank cultivation scroll. Elegant ornate antique GOLD circular frame, watercolor gouache brushwork, muted jade, warm brown ink, parchment cream inside frame, rich legible silhouette at 128px. Entire badge centered, isolated, generous transparent outer margin. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark. Do not imitate a franchise. Output a single complete badge, not a sheet. Asset ID p1_greenwood_student. Preserve painterly material and gold framed achievement style.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_golden_specialist",
+      "path": "assets/ui/achievements-painted/p1_golden_specialist.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_golden_specialist.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-4e25182f-60c2-4a60-91dc-b041b2ce898b.png",
+      "sha256": "02005a7d161b44bc61a0b6cf2154d12bbd1d581e7c13db91315ae48551284819",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a softly glowing golden cultivation pearl above a small bronze alchemy furnace with TWO blank scrolls. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_golden_specialist.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_timber_workshop",
+      "path": "assets/ui/achievements-painted/p1_timber_workshop.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_timber_workshop.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-6ce65388-ed69-415c-8cbf-b745b8230ce4.png",
+      "sha256": "7a6ff92d516ba5cba53ecef018a8cc6bd56b38bdeac34145f4087e7266f39138",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a traditional wood plane, curling wood shavings and neatly bound spirit timber. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_timber_workshop.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_homebound_cargo",
+      "path": "assets/ui/achievements-painted/p1_homebound_cargo.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_homebound_cargo.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-e288c9f0-a729-494c-8011-5bcaf093c2fc.png",
+      "sha256": "6c233000634217bf3e3f3e562561cf543f544189e96d5a5a6b4a0cf9fe4071ee",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: TWO small ancient Chinese cargo boats sailing toward the SAME warehouse gate. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_homebound_cargo.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_two_specialist_pills",
+      "path": "assets/ui/achievements-painted/p1_two_specialist_pills.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_two_specialist_pills.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-6307f1c9-a04b-427e-b867-4630178b05e4.png",
+      "sha256": "bf8a6e553007dbd3fdff2575f86c52f98ae34297f7fddbcec61d0b28d60f5db7",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: one green wood leaf and fresh herb sprout flanking TWO subtly different jade green alchemical pills. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_two_specialist_pills.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_four_pills_used",
+      "path": "assets/ui/achievements-painted/p1_four_pills_used.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_four_pills_used.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-e087cb1f-1ef6-4b57-9e6f-6992a5062cc5.png",
+      "sha256": "098962b7df0a0525617d39943902145ae69531360536232f329707cd66bcb35e",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: FOUR distinct alchemical pills in green, fresh herb green, amber gold and pale cyan, arranged in a small ring. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_four_pills_used.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_supply_commission",
+      "path": "assets/ui/achievements-painted/p1_supply_commission.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_supply_commission.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-b891484a-2281-479e-b164-79e6dce3abee.png",
+      "sha256": "bf23bc7d84b7f3a1fdf3e1d6101fee3fcf120fada702d6412b75f4f8d97bd97b",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a blank traditional shipping ledger and small cinnabar sect seal, no readable markings. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_supply_commission.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_two_sect_specialties",
+      "path": "assets/ui/achievements-painted/p1_two_sect_specialties.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_two_sect_specialties.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-63b69138-f258-4e40-a85f-94c465a43ec9.png",
+      "sha256": "a4972dba01b8291551a9d86b89d52a7e9ae137deca569bdd3eb57b7553178ad2",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a bronze alchemy furnace and white fox tail interwoven between TWO blank scrolls. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_two_sect_specialties.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_mature_jade_fox",
+      "path": "assets/ui/achievements-painted/p1_mature_jade_fox.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_mature_jade_fox.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-a6b653da-0994-4a4e-ab23-dd79904bb898.png",
+      "sha256": "d0f1d451ed45e3985db196ffc4641c19515a1a69411938b74ccb44faf7305ab7",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a mature white spirit fox sitting calmly on a grassy green hill stone. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_mature_jade_fox.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_fox_soul_choice",
+      "path": "assets/ui/achievements-painted/p1_fox_soul_choice.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_fox_soul_choice.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-956384a0-bf55-4140-b55f-79d765535d8f.png",
+      "sha256": "ec09075087acd5140f9084ef907e49222208030c61567fcfe2702967a3b8d8d3",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a warm glowing fox silhouette condensing into a luminous jade soul seal. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_fox_soul_choice.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_second_foundation",
+      "path": "assets/ui/achievements-painted/p1_second_foundation.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_second_foundation.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-bd9785d9-4223-4101-8283-74a5ccdd4898.png",
+      "sha256": "587966432ac111dde1e781631678c53fbb30b0e46d08e9c4c13e9ba575ad7df1",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: a fresh jade cultivation foundation emerging from old pale ashes. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_second_foundation.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    },
+    {
+      "id": "p1_three_past_wisdoms",
+      "path": "assets/ui/achievements-painted/p1_three_past_wisdoms.png",
+      "original": "docs/verification/artifacts/content-p1-story/originals/p1_three_past_wisdoms.png",
+      "source_path": "C:\\Users\\asus\\.codex\\generated_images\\01a16863-1fcb-7dc1-ba7d-48d13a2d753c\\exec-45564150-b4c8-4208-92fa-c0d6ace93f82.png",
+      "sha256": "72e30212b8921ee54ed05b5914f32f046982199541d7c2ee3ed97c056647f8f5",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "prompt": "Use case: stylized-concept. Create ONE original Chinese xianxia achievement badge for a hand painted cultivation game. Subject: THREE gentle light motifs: alchemical flame, artisan hammer and fox silhouette gathering toward a small heart lamp. Elegant ornate antique GOLD circular frame, parchment cream inside frame. Watercolor gouache brushwork, muted jade, warm brown ink, rich legible silhouette at 128px. Entire composition centered, isolated, generous transparent outer margin, no crop. Transparent RGBA background outside frame. No words, no glyphs, no lettering, no UI, no buttons, no watermark, no franchise. A single complete asset, not a sheet. Asset ID p1_three_past_wisdoms.",
+      "purpose": "achievement badge",
+      "layers": "single independent transparent RGBA; no world placement",
+      "tool": "built-in image_gen",
+      "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
+      "human_acceptance": "PENDING"
+    }
+  ]
+}

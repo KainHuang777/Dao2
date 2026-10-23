@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:275)
+       [1] current_state (res://src/persistence/save_manager.gd:105)
+       [2] _test_persistence (res://tests/res1b_economy_runner.gd:351)
+       [3] _init (res://tests/res1b_economy_runner.gd:34)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:73)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:295)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:294)
+       [4] current_state (res://src/persistence/save_manager.gd:105)
+       [5] _test_persistence (res://tests/res1b_economy_runner.gd:351)
+       [6] _init (res://tests/res1b_economy_runner.gd:34)
+PASS: RES1-B 251 checks; timed batches, local inventory, cargo conservation, time, migration, offline retry, reincarnation.

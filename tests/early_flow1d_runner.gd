@@ -234,7 +234,7 @@ func ui(s: GameSession) -> void:
 	scene.session = s
 	scene.state = scene.AbodeStateCompat.new(s)
 	scene.set_process(false)
-	for size in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+	for size in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = size
 		scene._layout_for_size(Vector2(size))
 		scene._refresh_hud()
@@ -255,7 +255,7 @@ func ui(s: GameSession) -> void:
 			scene._hud_controller._open_optional_skills()
 			check(scene.feature_navigation.page == "buildings" and scene.selected_id == "storage_wood", "optional skill routes capacity")
 			scene.feature_navigation.home()
-			for size in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+			for size in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 				root.size = size
 				scene._layout_for_size(Vector2(size))
 				scene._refresh_hud()
@@ -269,7 +269,7 @@ func ui(s: GameSession) -> void:
 				check(scene.island_world.rail.visible, "closing explanation restores rail " + str(size))
 	s.state = foundation_ready.duplicate_state()
 	scene.feature_navigation.home()
-	for size in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+	for size in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = size
 		scene._layout_for_size(Vector2(size))
 		scene._refresh_hud()

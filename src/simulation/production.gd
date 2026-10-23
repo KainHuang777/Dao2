@@ -4,7 +4,7 @@ extends RefCounted
 const BASIC_RESOURCE_KEYS := ["lingli", "money", "wood", "stone_low", "spirit_grass_low"]
 const SYNTHETIC_RESOURCE_KEYS := ["stone_mid", "stone_high", "liquid", "talisman", "star_metal", "void_crystal"]
 
-static func compute_rates(content: GameContent, buildings: Dictionary, resource_multiplier: float = 1.0, skills: Dictionary = {}) -> Dictionary:
+static func compute_rates(content: GameContent, buildings: Dictionary, resource_multiplier: float = 1.0, skills: Dictionary = {}, talents: Dictionary = {}) -> Dictionary:
 	var rates := {}
 	for resource_id in content.resource_ids:
 		var definition: Dictionary = content.resources[resource_id]
@@ -20,6 +20,8 @@ static func compute_rates(content: GameContent, buildings: Dictionary, resource_
 			if String(key) == "synthetic_max_mult":
 				continue
 			var scaled := _scaled_amount(definition, String(key), level)
+			if building_id in TalentSystem.ARTISAN_BUILDINGS:
+				scaled = scaled.multiply(AmountCompat.from_number(1.0 + TalentSystem.p1_bonus(talents, "artisan_past_wisdom")))
 			if String(key) == "all_rate":
 				for resource_id in BASIC_RESOURCE_KEYS:
 					if rates.has(resource_id):
@@ -74,6 +76,8 @@ static func compute_caps(content: GameContent, buildings: Dictionary, era_id: in
 				caps[resource_id] = caps[resource_id].multiply(factor)
 	for resource_id in caps:
 		var addition := SkillSystem.effect(content, skills, String(resource_id) + "_max")
+		if resource_id in SkillSystem.MATERIALS:
+			addition += SkillSystem.effect(content, skills, "p1_material_capacity_flat")
 		if addition != 0:
 			caps[resource_id] = caps[resource_id].add(AmountCompat.from_number(addition))
 		caps[resource_id] = caps[resource_id].floor_amount()

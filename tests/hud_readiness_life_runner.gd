@@ -53,6 +53,7 @@ func _run() -> void:
 	abode.level_up_button.pressed.emit()
 	check(session.state.level == 6 and session.state.training_seconds == 0,"real HUD command advances and resets training")
 	abode.breakthrough_seq.hide()
+	abode.text_transition.skip()
 	var base: Dictionary = session.get_view()
 	base.level = 5
 	base.next_level_required_seconds = req
@@ -75,7 +76,7 @@ func _run() -> void:
 	hud._refresh_hud(base)
 	check(hud._lifespan_text.text == "壽元 72 / 120 祀" and hud._lifespan_text.get_theme_color("font_color") == Color("907000"),"life extension keeps age and reevaluates proportion")
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
-	for vp in [Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)]:
+	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))
@@ -85,6 +86,9 @@ func _run() -> void:
 		check(abode.level_up_button.size.y >= 44,"44px action")
 		check(hud._lifespan_text.get_line_count() == 1,"age remains single line")
 		check(abode.header.get_global_rect().encloses(hud._rank_label.get_global_rect()),"multiple shortages wrap inside HUD")
+	abode.feature_navigation.open("alchemy")
+	hud._refresh_hud(base)
+	check(abode.feature_navigation.shell.life_metrics.text == hud._lifespan_text.text and abode.feature_navigation.shell.life_metrics.get_theme_color("font_color") == Color("907000"), "compact shell preserves life value and threshold color")
 	abode.queue_free()
 	await process_frame
 	print("HUD readiness/life %d checks failed=%s" % [checks,failed])

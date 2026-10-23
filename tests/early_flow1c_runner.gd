@@ -200,10 +200,11 @@ func check_ui(s: GameSession) -> void:
 	var scene = preload("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame
+	scene.offline_summary.hide() # Complete the report before testing feature input.
 	scene.session = s
 	scene.set_process(false)
 	scene.state = scene.AbodeStateCompat.new(s)
-	for size in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+	for size in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = size
 		scene._layout_for_size(Vector2(size))
 		scene._refresh_hud()

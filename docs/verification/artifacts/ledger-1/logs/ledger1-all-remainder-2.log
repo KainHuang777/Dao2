@@ -1,0 +1,39 @@
+[RUNNING] tests/res1c_progression_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:73)
+       [1] activate_islands (res://src/persistence/save_manager.gd:50)
+       [2] _run (res://tests/res1c_progression_runner.gd:119)
+RES1C_OFFLINE_CPU_MS: 1916 ticks=86400
+PASS: RES1-C1 91 checks; blank Era2, T2 sinks, bottleneck, migration retry, saves, time and UI.
+[RUNNING] tests/res1d2_integration_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:73)
+       [1] <anonymous lambda> (res://src/verification/res1d2_contract.gd:319)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _test_persistence (res://src/verification/res1d2_contract.gd:319)
+       [4] run (res://src/verification/res1d2_contract.gd:176)
+       [5] _run (res://tests/res1d2_integration_runner.gd:7)
+EARNED: Era3 Lv10 sim_seconds=11851.0
+ERROR: 600s offline equals online after reload
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1d2_integration_runner.gd:13)
+ERROR: offline retry grants once
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1d2_integration_runner.gd:13)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/res1d2_integration_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:109 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

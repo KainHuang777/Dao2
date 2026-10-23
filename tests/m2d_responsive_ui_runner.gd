@@ -15,6 +15,7 @@ func _run() -> void:
 	var abode = load(SCENE_PATH).instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide()
 
 	# State A: world, cultivation, passive resource readouts, and explicit gather action.
 	abode._layout_for_size(Vector2(1280, 720))
@@ -34,7 +35,7 @@ func _run() -> void:
 	# This block owns synthetic button visibility; the live HUD refresh would
 	# otherwise hide these fresh-game actions during the deferred container sort.
 	abode.set_process(false)
-	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		for action in [abode.level_up_button, abode.breakthrough_button]:
 			abode.level_up_button.visible = action == abode.level_up_button
 			abode.breakthrough_button.visible = action == abode.breakthrough_button
@@ -96,13 +97,13 @@ func _run() -> void:
 	_expect(abode.building_catalog.resource_buttons["lingli"].visible, "left resource list must show lingli")
 	_expect(abode.resource_ribbon.get_global_rect().end.x < abode.building_catalog.get_global_rect().position.x, "desktop resources and buildings must occupy separate columns")
 	_expect(abode.building_catalog.resource_buttons["lingli"].size.x > 100.0, "resource readout cards must fill the ribbon width instead of collapsing: %s" % abode.building_catalog.resource_buttons["lingli"].size)
-	_expect(abode.resource_ribbon.position.y >= abode.header.position.y + abode.header.size.y, "resource ribbon must not overlap header: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
+	_expect(abode.resource_ribbon.position.y >= abode.feature_navigation.shell.compact_hud.get_global_rect().end.y, "resource ribbon must not overlap header: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
 
 	# Test level up button appearance and dynamic reflow without overlap
 	abode.level_up_button.visible = true
 	abode._reflow_header()
 	await process_frame
-	_expect(abode.resource_ribbon.position.y >= abode.header.position.y + abode.header.size.y, "resource ribbon must dynamically move down when header expands with level up button: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
+	_expect(abode.resource_ribbon.position.y >= abode.feature_navigation.shell.compact_hud.get_global_rect().end.y, "resource ribbon must dynamically move down when header expands with level up button: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
 	abode.level_up_button.visible = false
 	abode._reflow_header()
 	await process_frame
@@ -222,24 +223,19 @@ func _run() -> void:
 		if is_equal_approx(vp.x, 844.0) and is_equal_approx(vp.y, 390.0):
 			_expect(abode.layout_mode == abode.HudLayout.COMPACT, "844x390 mobile landscape must adopt compact layout instead of desktop wide")
 	abode._close_detail()
-	abode._layout_for_size(Vector2(360, 640))
+	abode._layout_for_size(Vector2(800, 360))
 	await process_frame
-	_expect(abode.resource_ribbon.visible and abode.building_catalog.scroll.visible, "return from detail must restore the building ledger")
-	abode._layout_for_size(Vector2(360, 480))
-	abode.resource_mode_buttons[2].pressed.emit()
-	await process_frame
-	abode._layout_for_size(Vector2(360, 480))
-	await process_frame
-	_check_bounded(abode.resource_ribbon, Vector2(360, 480), "expanded short-phone resources")
-	_check_bounded(abode.building_catalog, Vector2(360, 480), "expanded short-phone building ledger")
-	_expect(abode.building_catalog.scroll.size.y > 0.0, "expanded short-phone resources must leave a usable building list")
-	abode.resource_scroll.scroll_vertical = 100
-	await process_frame
-	_expect(abode.resource_scroll.scroll_vertical > 0, "full short-phone resources must scroll inside their fixed panel")
-	abode.resource_mode_buttons[0].pressed.emit()
-	_expect(not abode.resource_scroll.visible, "closed resource mode must hide the list but retain mode controls")
-	abode.resource_mode_buttons[1].pressed.emit()
-	_expect(abode.resource_display_mode == 1 and (abode.resource_scroll.visible or (abode.layout_mode == abode.HudLayout.PORTRAIT and abode.hud.size.y < 560.0)), "summary mode preserves its selection; a short portrait management rail may reserve the resource list space")
+	_expect(abode.building_catalog.scroll.visible and abode.feature_navigation.shell.compact_hud.visible, "detail returns to compact workspace")
+	# Resource modes belong to home; work-page temporary collapse is independent.
+	abode.feature_navigation.home()
+	for mode in [0, 2, 1]:
+		abode._set_resource_display_mode(mode)
+		_expect(abode.resource_display_mode == mode, "home resource preference retained")
+		abode.feature_navigation.open("buildings")
+		abode._layout_for_size(Vector2(800,360))
+		_expect(abode.feature_navigation.shell.state.snapshot().home_preferences.resource_mode == mode, "work resources do not overwrite home mode")
+		abode.feature_navigation.home()
+	abode.feature_navigation.open("buildings")
 	var resource_normal_color: Color = abode.building_catalog.resource_value_labels["lingli"].get_theme_color("font_color")
 	abode.session.state.resources["lingli"].value = AmountCompat.from_number(400.0)
 	abode._refresh_hud()
@@ -249,7 +245,7 @@ func _run() -> void:
 	abode._refresh_hud()
 	_expect(not abode.building_catalog.resource_gather_buttons["lingli"].visible, "Era 2 must not show manual gather buttons on resource cards")
 	await process_frame
-	abode._layout_for_size(Vector2(360, 480))
+	abode._layout_for_size(Vector2(800, 360))
 	await process_frame
 	abode.building_catalog.scroll.scroll_vertical = 300
 	await process_frame
@@ -275,6 +271,8 @@ func _run() -> void:
 	abode._layout_for_size(Vector2(360, 640))
 	_expect(abode.save_controls.visible and abode.save_controls.size.x <= 336.0, "save controls must remain available in portrait")
 	abode._toggle_save_controls()
+	abode.session.state.era_id = 3
+	abode._refresh_hud()
 	abode._open_nine_realms_overview()
 	await process_frame
 	var preview = abode.nine_realms_preview
@@ -300,11 +298,14 @@ func _run() -> void:
 	quit(0)
 
 func _check_scene(abode: Node, vp: Vector2, label: String) -> void:
-	_expect(abode.header.visible and abode.resource_ribbon.visible and not abode.building_catalog.visible and abode.toolbar.visible, label + " must show cultivation, resources, world, and primary actions")
-	_expect(abode.hint_panel.visible == (vp.x >= vp.y), label + " must open messages by default in landscape")
+	if vp.x < vp.y:
+		_expect(not abode.header.visible and not abode.toolbar.visible and not abode.hint_panel.visible and abode.camera.input_locked, label + " rotation blocks gameplay without losing route")
+		return
+	_expect(abode.header.visible and abode.feature_navigation.shell.resource_button.visible and not abode.building_catalog.visible and abode.toolbar.visible, label + " must show cultivation, resource access, world, and primary actions")
+	_expect(abode.hint_panel.visible == (abode.feature_navigation.shell.effective.messages == "home"), label + " follows effective message policy")
 	if abode.hint_panel.visible:
 		_check_bounded(abode.hint_panel, vp, label + " system messages")
-		_expect(not abode.hint_panel.get_global_rect().intersects(abode.header.get_global_rect()) and not abode.hint_panel.get_global_rect().intersects(abode.resource_ribbon.get_global_rect()), label + " messages must leave status and resources accessible")
+		_expect(not abode.hint_panel.get_global_rect().intersects(abode.header.get_global_rect()) and (not abode.resource_ribbon.visible or not abode.hint_panel.get_global_rect().intersects(abode.resource_ribbon.get_global_rect())), label + " messages must leave status and resources accessible")
 	_check_bounded(abode.header, vp, label + " HUD")
 	_check_bounded(abode.resource_ribbon, vp, label + " resource ribbon")
 	_check_bounded(abode.toolbar, vp, label + " primary navigation")
@@ -312,17 +313,21 @@ func _check_scene(abode: Node, vp: Vector2, label: String) -> void:
 	_expect(world_gap >= 80.0, label + " must leave a contiguous world interaction area")
 
 func _check_management(abode: Node, vp: Vector2, label: String) -> void:
-	var detail_focus: bool = (vp.y < 560.0 and abode.info_panel.visible) or (vp.y < 500.0 and vp.x >= 640.0)
-	_expect(abode.building_catalog.visible and (detail_focus or (abode.header.visible and abode.resource_ribbon.visible)) and abode.toolbar.visible, label + " must keep fixed status or focus short-phone detail")
-	_check_bounded(abode.building_catalog, vp, label + " rail")
-	if not detail_focus:
-		_check_bounded(abode.resource_ribbon, vp, label + " resource panel")
+	var shell = abode.feature_navigation.shell
+	if vp.x < vp.y:
+		_expect(not shell.compact_hud.visible and not abode.toolbar.visible and abode.camera.input_locked, label + " rotation preserves route with gameplay blocked")
+		return
+	_expect(abode.building_catalog.visible and shell.compact_hud.visible and not abode.header.visible and abode.toolbar.visible, label + " shared compact status and navigation")
+	_check_bounded(abode.building_catalog, vp, label + " workspace")
+	_check_bounded(shell.compact_hud, vp, label + " compact HUD")
 	_check_bounded(abode.toolbar, vp, label + " navigation")
 	_check_bounded(abode.building_catalog.close_button, vp, label + " return button")
-	_expect(abode.building_catalog.size.x <= 620.0 or vp.x < 640.0 or vp.y < 500.0, label + " rail width must stay bounded")
-	_expect(abode.building_catalog.scroll.visible or abode.building_catalog.detail_slot.visible, label + " must have a building or detail region")
+	_expect(abode.building_catalog.scroll.visible or abode.building_catalog.detail_slot.visible, label + " has building or detail region")
 
 func _check_detail(abode: Node, vp: Vector2, label: String) -> void:
+	if vp.x < vp.y:
+		_expect(abode.camera.input_locked, label + " rotation blocks detail commands")
+		return
 	_expect(abode.building_catalog.visible and abode.info_panel.visible and abode.building_catalog.detail_slot.visible and not abode.building_catalog.scroll.visible, label + " must replace the list inside the same rail")
 	_check_bounded(abode.info_panel, vp, label + " detail")
 	var close_button: Button = abode.info_panel.get_child(0).get_child(0).get_child(1)

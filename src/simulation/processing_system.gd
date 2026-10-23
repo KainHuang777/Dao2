@@ -58,7 +58,13 @@ static func craft(content: GameContent, state: GameState, payload: Dictionary) -
 	amounts[id] = new_value
 	# Validation completed; commit all deltas together. No clamping or partial batches.
 	for resource in touched:
-		ProcessingInventory.write(state, resource, amounts[resource])
+		var before: AmountCompat = state.resources[resource].value
+		var paid: AmountCompat = AmountCompat.try_parse(recipe.inputs.get(resource, "0")).value.multiply(batch)
+		var intermediate := before.subtract(paid)
+		ResourceLedger.change(state, "home", resource, before, intermediate, "processing")
+		if resource == id:
+			ResourceLedger.change(state, "home", resource, intermediate, amounts[resource], "processing", output)
+		ProcessingInventory.write(state, resource, amounts[resource], "untracked")
 	return {"ok": true, "events": [{"kind": "resource_crafted", "recipe_id": id, "recipe_version": 1, "count": int(count), "output": output.serialize()}], "changed_ids": touched}
 
 static func _failure(error: String, resource_id: String = "") -> Dictionary:

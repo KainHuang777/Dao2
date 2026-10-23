@@ -329,7 +329,7 @@ static func feed_beast(state: GameState) -> Dictionary:
 		var needed: float = final_costs[res_id]
 		var cur_entry: Dictionary = state.resources[res_id]
 		var cur_val: AmountCompat = cur_entry["value"]
-		cur_entry["value"] = cur_val.subtract(AmountCompat.from_number(needed))
+		cur_entry.value = ResourceLedger.change(state, "home", res_id, cur_entry.value, cur_val.subtract(AmountCompat.from_number(needed)), "beast")
 
 	# Compute exp gain with talent boost
 	var growth_boost := 0.0
@@ -340,6 +340,10 @@ static func feed_beast(state: GameState) -> Dictionary:
 				growth_boost += float(t_conf.get("value", 0.0))
 
 	var exp_gain := int(floor(float(BASE_EXP_PER_FEED) * (1.0 + growth_boost)))
+	if beast_id == "jade_fox":
+		# floor(x + integer) = floor(x) + integer. Each P1 rank adds exactly
+		# 10 XP; keep the old soul calculation and avoid 2.3*50 rounding to 114.
+		exp_gain += 10 * clampi(int(state.talents.get("beast_bond_past_wisdom", 0)), 0, 5)
 	var cur_exp: int = int(beast.get("exp", 0)) + exp_gain
 	beast["exp"] = cur_exp
 
@@ -357,6 +361,7 @@ static func feed_beast(state: GameState) -> Dictionary:
 			else:
 				break
 	beast["stage"] = new_stage
+	if beast_id == "jade_fox" and new_stage == "mature": StoryProgress.mark(state, "fox_matured")
 
 	# Set cooldown
 	state.beasts["cooldown_remaining"] = BASE_COOLDOWN
@@ -523,7 +528,9 @@ static func feed_costs(state: GameState, beast_id: String) -> Dictionary:
 				discount += float(talent.value)
 	var costs := {}
 	for id in BEAST_CONFIGS.get(beast_id, {}).get("feed_resource", {}):
-		costs[id] = maxf(1.0, floor(float(BEAST_CONFIGS[beast_id].feed_resource[id]) * maxf(0.1, 1.0 - discount)))
+		var soul_percent := maxi(10, 100 - int(round(discount * 100)))
+		var sect_percent := 100 - 2 * SectSystem.active_level(state, "fox_feed_conservation") if beast_id == "jade_fox" else 100
+		costs[id] = float(maxi(1, int(BEAST_CONFIGS[beast_id].feed_resource[id]) * soul_percent * sect_percent / 10000))
 	return costs
 
 static func get_view(state: GameState) -> Dictionary:

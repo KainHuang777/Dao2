@@ -3,11 +3,34 @@
     "id": "golden_core_formation",
     "name": "結丹法",
     "era": 3,
-    "requires": {"skill_id": "foundation_building", "level": 1},
+    "requires": {
+      "skill_id": "foundation_building",
+      "level": 1
+    },
     "max_level": 5,
     "cost": 7650,
     "effect": "time_multiplier",
     "amount": 0.9,
     "description": "提升修練效率"
+  },
+  {
+    "id": "warehouse_preparation",
+    "name": "靈倉整備法",
+    "era": 3,
+    "max_level": 3,
+    "cost": 1200,
+    "effect": "p1_material_capacity_flat",
+    "amount": 200,
+    "description": "每階祖島木／下品石／低階草庫容各加200，再套既有容量乘區；不含技能點、加工品或地方倉庫。"
+  },
+  {
+    "id": "alchemical_breath_control",
+    "name": "丹火調息法",
+    "era": 3,
+    "max_level": 3,
+    "cost": 1800,
+    "effect": "p1_alchemy_lingli_discount",
+    "amount": 0.05,
+    "description": "每階指定直煉丹藥的靈力原料費減5%，最多15%；聚靈丹、上品聚靈丹、靈潮丹與後續四種專精丹適用。不減其他材料，不含築基丹或加工。"
   }
 ]

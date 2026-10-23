@@ -1,6 +1,12 @@
 extends Control
 ## Shared, cached hand-painted item textures. See the artwork manifest for source/QC.
+const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 const TEXTURES := {
+	"wood_nurture_pill": preload("res://assets/ui/pills-painted/wood_nurture_pill.png"),
+	"herb_nurture_pill": preload("res://assets/ui/pills-painted/herb_nurture_pill.png"),
+	"wealth_gathering_pill": preload("res://assets/ui/pills-painted/wealth_gathering_pill.png"),
+	"qi_absorption_pill": preload("res://assets/ui/pills-painted/qi_absorption_pill.png"),
+
 	"wood": preload("res://assets/ui/resources-painted/wood.png"),
 	"spirit_timber": preload("res://assets/ui/resources-painted/spirit_timber.png"),
 	"black_copper": preload("res://assets/ui/resources-painted/black_copper.png"),
@@ -46,7 +52,11 @@ const NAMES := {
 	"void_essence": "虛空精華"
 }
 
-var resource_id := ""
+var _art: UiIllustration
+var resource_id := "":
+	set(value):
+		resource_id = value
+		if is_instance_valid(_art): _art.texture = resource_texture()
 
 func _ready() -> void:
 	custom_minimum_size = Vector2(44, 44)
@@ -60,39 +70,14 @@ static func get_resource_texture(id: String) -> Texture2D:
 	return TEXTURES.get(id)
 
 static func format_amount(raw: Variant) -> String:
-	if raw == null:
-		return "0"
-	var val: float = 0.0
-	if raw is AmountCompat:
-		if raw.layer == 0:
-			val = raw.mag * float(raw.sign)
-		else:
-			return raw.to_display_string()
-	elif typeof(raw) == TYPE_STRING:
-		var parsed: Dictionary = AmountCompat.try_parse(raw)
-		if bool(parsed.get("ok", false)):
-			var a: AmountCompat = parsed["value"]
-			if a.layer == 0:
-				val = a.mag * float(a.sign)
-			else:
-				return a.to_display_string()
-		else:
-			val = float(raw)
-	elif typeof(raw) in [TYPE_FLOAT, TYPE_INT]:
-		val = float(raw)
-
-	if is_equal_approx(val, floor(val)):
-		return str(int(val))
-	if val >= 10.0:
-		return str(int(floor(val)))
-	return "%.1f" % val
+	return NumberFormatter.format_amount(raw)
 
 func resource_texture() -> Texture2D:
 	return TEXTURES.get(resource_id)
 
 func _draw() -> void:
-	var texture := resource_texture()
-	if texture == null:
-		return
-	var extent := minf(size.x, size.y)
-	draw_texture_rect(texture, Rect2((size - Vector2.ONE * extent) * 0.5, Vector2.ONE * extent), false)
+	if not is_instance_valid(_art):
+		_art = UiIllustration.new()
+		add_child(_art)
+		_art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_art.texture = resource_texture()

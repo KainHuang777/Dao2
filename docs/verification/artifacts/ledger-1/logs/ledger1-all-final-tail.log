@@ -1,0 +1,14 @@
+[RUNNING] tests/skills_b1_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: tick partitions
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/skills_b1_runner.gd:149)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/skills_b1_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:109 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

@@ -118,7 +118,17 @@ func _test_segmented_equals_once() -> void:
     var snap_b := session_b.state.to_snapshot_dict()
     snap_a.erase("revision")
     snap_b.erase("revision")
-    _expect_equal(snap_a, snap_b, "segmented equals after revision erase")
+    var history_a: Dictionary = snap_a.life_ledger.current.history
+    var history_b: Dictionary = snap_b.life_ledger.current.history
+    _expect_equal(history_a.samples.size(), 2, "aggregate legacy path keeps only actual initial/final observations")
+    _expect_equal(history_b.samples.size(), 11, "segmented legacy path records actual minute observations")
+    _expect(LifeHistory.validate(history_a, snap_a.life_ledger.current).is_empty() and LifeHistory.validate(history_b, snap_b.life_ledger.current).is_empty(), "both sparse resolutions validate")
+    for point in [0, 1]:
+        var other: int = 0 if point == 0 else history_b.samples.size() - 1
+        _expect_equal(history_a.samples[point], history_b.samples[other], "shared real endpoints agree without invented intermediate values")
+    snap_a.life_ledger.current.erase("history")
+    snap_b.life_ledger.current.erase("history")
+    _expect_equal(snap_a, snap_b, "segmented exact economic/RNG/account snapshot after revision erase")
 
 func _test_capacity_clamp() -> void:
     var content := _load_content()

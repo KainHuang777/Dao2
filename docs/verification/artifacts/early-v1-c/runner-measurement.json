@@ -1,6 +1,6 @@
 {
-  "checks": 159,
-  "content_version": "c1b7f1520764d30194af498e0b0c9a12683f53c182716283dd3742ecfde67384+res1-d-2+skills-p1",
+  "checks": 164,
+  "content_version": "c1b7f1520764d30194af498e0b0c9a12683f53c182716283dd3742ecfde67384+res1-d-2+content-p1-skills",
   "engine": {
     "build": "official",
     "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
@@ -158,7 +158,7 @@
     "derived formula: Era3 Lv10 base training 1436.977 s = 240 x 1.22^9; golden LvN multiplies by pow(0.9,N); cumulative saved over N=1..5 is 1888.777 simulated seconds",
     "fixture-driven: rebirth_lotus eligibility flag (no live content entry); reincarnate itself is the official command, matching SKS-P1 precedent"
   ],
-  "rules_version": "core-flow-12-skills-p1",
+  "rules_version": "core-flow-14-content-p1-talents",
   "task": "early-v1-c",
   "time_basis": "simulated seconds only"
 }

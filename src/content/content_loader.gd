@@ -67,6 +67,7 @@ static func build_content(resources: Array, buildings: Array, eras: Array = []) 
 		content.era_ids.append(def.id)
 		content.eras[def.id] = def
 	content.content_version = _compute_version(resource_defs, building_defs, era_defs)
+	content.content_version = (content.content_version + FileAccess.get_file_as_string("res://content/encounters/encounters.json") + JSON.stringify(AchievementSystem.DEFINITIONS, "", true)).sha256_text()
 	return {"ok": true, "content": content}
 
 static func _validate_resources(raw: Array, errors: Array) -> Array:
@@ -450,7 +451,7 @@ static func _detect_prereq_cycle(building_defs: Array) -> Array:
 	return []
 
 static func _compute_version(resource_defs: Array, building_defs: Array, era_defs: Array) -> String:
-	var payload := JSON.stringify({"resources": resource_defs, "buildings": building_defs, "eras": era_defs})
+	var payload := JSON.stringify({"resources": resource_defs, "buildings": building_defs, "eras": era_defs, "pills": AlchemySystem.PILLS, "pill_buffs": BuffSystem.DEFINITIONS})
 	var context := HashingContext.new()
 	context.start(HashingContext.HASH_SHA256)
 	context.update(payload.to_utf8_buffer())
@@ -568,6 +569,11 @@ static func _validate_encounters(encounters: Array, errors: Array) -> Array:
 		if typeof(options) != TYPE_ARRAY or options.is_empty():
 			errors.append("encounter %s: must have non-empty options array" % id_str)
 			continue
+		if id_str.begins_with("enc_p1_") or entry.has("content_batch"):
+			var story_error := StorySaveContract.definition_error(entry)
+			if not story_error.is_empty():
+				errors.append(story_error + ":" + id_str)
+				continue
 		validated.append(entry.duplicate(true))
 	return validated
 

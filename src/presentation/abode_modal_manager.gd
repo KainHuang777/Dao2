@@ -41,6 +41,11 @@ func create_panels() -> void:
 
 	var rc_script = preload("res://src/presentation/reincarnation_panel.gd")
 	_abode.reincarnation_panel = rc_script.new()
+	_abode.reincarnation_panel.history_provider = func(): return _abode.session.get_life_record() if _abode.session != null else {}
+	_abode.reincarnation_panel.accounts_provider = func(): return _abode.session.get_resource_accounts() if _abode.session != null else {}
+	_abode.reincarnation_panel.decision_provider = func(): return _abode.session.get_decision_book() if _abode.session != null else {}
+	_abode.reincarnation_panel.report_provider = func(): return _abode.session.get_life_report() if _abode.session != null else {}
+	_abode.reincarnation_panel.report_identity_provider = func(): return _abode.session.state.get_instance_id() if _abode.session != null else 0
 	_abode.reincarnation_panel.visible = false
 	_abode.reincarnation_panel.reincarnate_requested.connect(_abode._on_reincarnate_requested)
 	_abode.reincarnation_panel.learn_talent_requested.connect(_abode._on_learn_talent_requested)
@@ -113,6 +118,8 @@ func create_panels() -> void:
 	var ftn_script = preload("res://src/presentation/fortune_modal.gd")
 	_abode.fortune_modal = ftn_script.new()
 	_abode.fortune_modal.visible = false
+	_abode.fortune_modal.book_provider = func(): return _abode.session.get_decision_book() if _abode.session != null else {}
+	_abode.fortune_modal.identity_provider = func(): return _abode.session.state.get_instance_id() if _abode.session != null else 0
 	_abode.fortune_modal.trigger_requested.connect(_abode._on_fortune_trigger_requested)
 	_abode.fortune_modal.resolve_requested.connect(_abode._on_fortune_resolve_requested)
 	_abode.fortune_modal.close_requested.connect(_abode._on_fortune_closed)
@@ -128,7 +135,9 @@ func create_panels() -> void:
 		_abode.camera.contacts.clear()
 		_abode.camera.input_locked = true)
 	_abode.text_transition.sequence_finished.connect(func(_skipped: bool):
-		_abode.camera.input_locked = _text_camera_was_locked)
+		_abode.camera.input_locked = _text_camera_was_locked
+		if _abode.feature_navigation != null and _abode.feature_navigation.shell != null and _abode.feature_navigation.shell.managed():
+			_abode._layout())
 
 
 func layout_panels(vp: Vector2, margin: float, portrait: bool) -> void:
@@ -231,6 +240,9 @@ func _on_nine_realms_closed() -> void:
 	_abode._refresh_hud()
 
 func _toggle_save_controls() -> void:
+	if _abode.feature_navigation.shell.managed():
+		_abode.feature_navigation.shell.open_tool(_abode.save_controls)
+		return
 	_abode.debug_panel.visible = false
 	if _abode.save_controls:
 		_abode.save_controls.visible = not _abode.save_controls.visible
@@ -252,7 +264,7 @@ func _on_v2_notice_closed() -> void:
 	_abode._refresh_hud()
 
 func _on_settings_menu_pressed(id: int) -> void:
-	if id in [2, 8, 102, 103]:
+	if id in [2, 8, 102, 103] and (_abode.feature_navigation.shell == null or not _abode.feature_navigation.shell.managed()):
 		_abode.feature_navigation.home()
 	match id:
 		5:
@@ -465,7 +477,7 @@ func _on_alchemy_refine_requested(pill_id: String, count: int) -> void:
 	var res: Dictionary = _abode.session.refine_pill(pill_id, count)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "丹爐火候純青，煉製成功！"
-		_abode.alchemy_panel.show_feedback("煉製成功・%s +%d" % [AlchemySystem.PILLS[pill_id].name, count], true)
+		_abode.alchemy_panel.show_feedback("煉製成功・%s +%d" % [AlchemySystem.PILLS[pill_id].name, count], true, pill_id)
 		_abode._save_game()
 		_abode._refresh_hud()
 		if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
@@ -480,7 +492,10 @@ func _on_alchemy_consume_requested(pill_id: String, count: int) -> void:
 	var res: Dictionary = _abode.session.consume_pill(pill_id, count)
 	if bool(res.get("ok", false)):
 		_abode.hint.text = "靈丹入腹，化作滾滾修為生機！"
-		_abode.alchemy_panel.show_feedback("已服用・%s ×%d" % [AlchemySystem.PILLS[pill_id].name, count], true)
+		var message := "已服用・%s ×%d" % [AlchemySystem.PILLS[pill_id].name, count]
+		if pill_id in AlchemySystem.P1_IDS:
+			message += " · 淨延長 %.0f 秒（同效不疊強度）" % float(res.events[0].applied_effects.net_extension_seconds)
+		_abode.alchemy_panel.show_feedback(message, true, pill_id)
 		_abode._save_game()
 		_abode._refresh_hud()
 		if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
@@ -521,7 +536,7 @@ func _on_fortune_trigger_requested() -> void:
 func _on_fortune_resolve_requested(option_index: int) -> void:
 	if _abode.session == null:
 		return
-	var res: Dictionary = _abode.session.resolve_fortune(option_index)
+	var res: Dictionary = _abode.session.resolve_fortune(option_index, _abode.fortune_modal.displayed_instance)
 	if bool(res.get("ok", false)):
 		var events: Array = res.get("events", [])
 		var log_msg: String = "結算機緣成功。"
@@ -545,6 +560,9 @@ func _on_fortune_closed() -> void:
 
 
 func _toggle_debug_panel() -> void:
+	if _abode.feature_navigation.shell.managed():
+		_abode.feature_navigation.shell.open_tool(_abode.debug_panel)
+		return
 	_abode.save_controls.visible = false
 	if _abode.debug_panel == null:
 		return
@@ -623,6 +641,7 @@ func _on_reincarnate_requested(mode: String) -> void:
 	var res: Dictionary = _abode.session.reincarnate(mode)
 	if bool(res.get("ok", false)):
 		_abode._last_breakthrough_result.clear()
+		_abode._pending_life_report = _abode.session.get_life_report(_abode.session.state.reincarnation_count)
 		_abode.hint.text = "天地玄黃，轉世功成！重塑肉身，再續大道仙途。"
 		_abode._save_game()
 		if _abode.reincarnation_panel != null:

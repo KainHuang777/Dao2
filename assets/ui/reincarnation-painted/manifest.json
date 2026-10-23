@@ -91,5 +91,21 @@
       "prompt": "Use case: stylized-concept. Asset type: standalone transparent game UI illustration for a Chinese xianxia reincarnation screen. Subject: an ancient bronze lotus oil lamp whose life flame has just gone out, blackened wick with one tiny red ember, graceful pale ash smoke curling upwards and a few scattered fading sparks, wilted lotus petals at the base. Hand painted detailed fantasy inventory art, muted jade bronze, ivory ash and restrained cinnabar. Solemn end of a mortal lifetime, dignified, not horror. Centered square full object with generous transparent margins, strong silhouette legible at 96px and 220px. No scene background, no text, no lettering, no UI, no frame. Actual transparent alpha.\n",
       "sha256": "fafee699a32ccb979d2f6988981c6ca2264fd85225e0d17f636467cd7671de13"
     }
-  ]
+  ],
+  "content_p1_talents": {
+    "date": "2026-10-23",
+    "manifest": "docs/verification/artifacts/content-p1-talents/art-manifest.json",
+    "ids": [
+      "alchemical_past_wisdom",
+      "artisan_past_wisdom",
+      "beast_bond_past_wisdom"
+    ],
+    "art_acceptance": "accepted",
+    "acceptance": {
+      "status": "accepted",
+      "date": "2026-10-23",
+      "user_statement": "美術接受",
+      "scope": "Three CONTENT-P1-TALENT illustrations and their current talent-card presentation; no approval of P pill design."
+    }
+  }
 }

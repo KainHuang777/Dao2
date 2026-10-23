@@ -9,7 +9,12 @@ func expect(ok: bool, label: String) -> void:
 	if not ok:
 		failures.append(label)
 func snapshot(state: GameState) -> String:
-	return JSON.stringify(SaveCodec._normalize_numbers(state.to_snapshot_dict()), "", true)
+	var data := state.to_snapshot_dict()
+	var ledger: Dictionary = data.get("life_ledger", {})
+	if not ledger.is_empty():
+		ledger.current.erase("accounts")
+		for life in ledger.archive: life.erase("accounts")
+	return JSON.stringify(SaveCodec._normalize_numbers(data), "", true)
 func _run() -> void:
 	var content: GameContent = ContentLoader.load_directory("res://content").content
 	IslandProgression.attach(content)
@@ -71,11 +76,13 @@ func _run() -> void:
 			if old.ticks_advanced > 0:
 				executed += 1
 				events.append_array(IslandEconomy.tick(slow, content.processing_catalog))
+				LifeHistory.observe(slow, content)
 			events.append_array(old.events)
 			stopped = old.stopped
 			if stopped != null:
 				break
 		var result := TimeAdvancer.advance(fast, content, ticks)
+		expect(ResourceLedger.equivalent(fast.life_ledger.current.get("accounts", {}), slow.life_ledger.current.get("accounts", {})), mode + " resource Amount parity")
 		expect(snapshot(fast) == snapshot(slow), mode + " exact snapshot / RNG / cargo / reservations")
 		expect(events == result.events and executed == result.ticks_advanced and stopped == result.stopped, mode + " event order / lifespan")
 		var prepared := TimeAdvancer.prepare_advance(chunked, content)
@@ -103,6 +110,7 @@ func _run() -> void:
 	var woke := TimeAdvancer.advance(idle, content, 1, idle_prepared)
 	var wake_old := TimeAdvancer._advance_legacy(woken, content, 1)
 	var wake_events := IslandEconomy.tick(woken, content.processing_catalog)
+	LifeHistory.observe(woken, content)
 	wake_events.append_array(wake_old.events)
 	expect(snapshot(idle) == snapshot(woken) and woke.events == wake_events, "home stock sink invalidates stationary cache")
 	expect(idle.economy.trips.has("timber_home"), "blocked route departs immediately after stock sink")
@@ -114,6 +122,7 @@ func _run() -> void:
 	TimeAdvancer.advance(changed, content, 1)
 	TimeAdvancer._advance_legacy(reference, content, 1)
 	IslandEconomy.tick(reference, content.processing_catalog)
+	LifeHistory.observe(reference, content)
 	expect(snapshot(changed) == snapshot(reference), "new settlement refreshes building invariants")
 	# Godot coverage and metrics stay independent of installed system fonts.
 	for pair in [[UiTypography.BASE_FONT, "res://assets/fonts/SourceHanSansTW-VF.ttf"], [UiTypography.CHAPTER_FONT, "res://assets/fonts/NotoSerifTC-VF.ttf"]]:

@@ -49,6 +49,7 @@ func test_unlock_gating() -> void:
 	# Era 1 with reincarnation_count = 1 -> unlocked
 	state.era_id = 1
 	state.reincarnation_count = 1
+	StoryProgress.next_life(state) # Keep synthetic life fixture consistent with story v1.
 	_assert(RealmSystem.is_spirit_realm_unlocked(state), "spirit realm should unlock after reincarnation")
 
 func test_realm_switching_and_return_home() -> void:

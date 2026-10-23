@@ -155,6 +155,7 @@ func test_session_and_command_integration() -> void:
 	_assert(view.fortune.max_per_hour == 1, "Era 1 max per hour must be 1")
 
 	# Trigger via session command
+	session.state.fortune["cooldown_remaining"] = 0.0
 	var cmd_res := session.trigger_fortune()
 	_assert(cmd_res.ok, "Session trigger_fortune command should succeed")
 	_assert(session.state.fortune.pending_encounter.size() > 0, "Pending encounter should be set")

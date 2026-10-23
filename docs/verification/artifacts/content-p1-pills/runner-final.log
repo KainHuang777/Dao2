@@ -1,0 +1,48 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:309)
+       [1] current_state (res://src/persistence/save_manager.gd:109)
+       [2] run (res://tests/content_p1_pills_runner.gd:216)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:77)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:329)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:328)
+       [4] current_state (res://src/persistence/save_manager.gd:109)
+       [5] run (res://tests/content_p1_pills_runner.gd:216)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:309)
+       [1] current_state (res://src/persistence/save_manager.gd:109)
+       [2] run (res://tests/content_p1_pills_runner.gd:219)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:309)
+       [1] current_state (res://src/persistence/save_manager.gd:109)
+       [2] run (res://tests/content_p1_pills_runner.gd:219)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:77)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:329)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:328)
+       [4] current_state (res://src/persistence/save_manager.gd:109)
+       [5] run (res://tests/content_p1_pills_runner.gd:219)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:77)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:329)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:328)
+       [4] current_state (res://src/persistence/save_manager.gd:109)
+       [5] run (res://tests/content_p1_pills_runner.gd:219)
+CONTENT-P1-PILL 609 checks failures=[]

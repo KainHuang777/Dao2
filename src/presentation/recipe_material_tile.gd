@@ -1,6 +1,7 @@
 extends PanelContainer
 ## Required quantity stays legible; shortage changes only the tile's colors.
 const Icon = preload("res://src/presentation/resource_icon.gd")
+const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 const NORMAL := Color("355f58")
 const SHORTAGE := Color("a23e32")
 var quantity: Label
@@ -51,8 +52,8 @@ func refresh(resource: String, name_text: String, amount: float, available: floa
 	style.border_color = Color("ad6552") if shortage else Color("4e7c6c") if output else Color("89917d")
 	quantity.add_theme_color_override("font_color", color)
 	caption.add_theme_color_override("font_color", color)
-	var amount_str := ("%.2f" % amount).rstrip("0").trim_suffix(".") if amount != floorf(amount) else str(int(amount))
-	var avail_str := ("%.2f" % available).rstrip("0").trim_suffix(".") if available != floorf(available) else str(int(available))
+	var amount_str := NumberFormatter.format_amount(amount)
+	var avail_str := NumberFormatter.format_amount(available)
 	quantity.text = amount_str
 	caption.text = "產出" if output else source
 	tooltip_text = "%s\n%s：可用 %s／%s %s" % [name_text, source, avail_str, "產出" if output else "需求", amount_str]

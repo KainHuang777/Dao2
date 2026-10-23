@@ -1,0 +1,31 @@
+{
+  "task": "CONTENT-P1-SECT",
+  "generator": "built-in image_gen",
+  "date": "2026-10-23",
+  "approval": "ACCEPTED_BY_USER",
+  "origin": "Original AI-generated xianxia illustrations; no third-party reference image used. Commercial rights subject to applicable OpenAI terms; no third-party licence inferred.",
+  "layers": "Single RGBA layer per technique; soft vapor alpha preserved. UiIllustration provides shared B outline and shadow at runtime.",
+  "assets": [
+    {
+      "id": "alchemy_herb_conservation",
+      "file": "alchemy_herb_conservation.png",
+      "prompt": "Use case: stylized-concept. Production transparent inventory illustration for an original Chinese xianxia cultivation game, technique Danfang breath harmonization: a small ancient celadon bronze alchemy censer with a calm warm ember, three clearly drawn medicinal herb leaves gathered beside it, thin pale jade curling vapor forming a quiet circular breath around the herbs, illustrating conservation of herbs. Traditional hand-painted watercolor and fine Chinese ink illustration, muted moss jade, aged bronze, warm ivory highlights; tasteful, readable silhouette at 112px. One centered isolated object group occupying 80% of square canvas, all objects fully visible with generous transparent margin. Actual transparent background, no paper backdrop, no text, no letters, no numbers, no UI frame, no border, no cast shadow outside the object, no photographic realism, no pixel art. Original generic design, no third party characters.",
+      "raw": "C:/Users/asus/.codex/generated_images/01a16793-7259-7fc0-b374-4bf411f2c823/exec-2cc15d02-b607-4cfa-a817-e37cdbf7a747.png"
+    },
+    {
+      "id": "fox_feed_conservation",
+      "file": "fox_feed_conservation.png",
+      "prompt": "Use case: stylized-concept. Production transparent technique illustration for an original Chinese xianxia cultivation game, spirit fox nurturing method. A single gentle small white jade spirit fox sitting beside a shallow celadon feeding dish with three small medicinal green leaves; one lightly unfurled ivory cultivation scroll with abstract unlettered brush marks beneath the dish, symbolizing careful training and saving feed. Traditional fine Chinese ink and hand-painted watercolor, soft ivory fur, muted jade accents, warm brown brush contours, tiny restrained amber eyes. Cohesive calm game inventory art, readable at 112px. One centered isolated object group fully visible, square canvas with transparent margin, no environment, actual transparent background. No text, letters, numbers, UI frame, border, no photographic realism, no pixel art, no excessive magic, no extra animals or humans. Original generic design.",
+      "raw": "C:/Users/asus/.codex/generated_images/01a16793-7259-7fc0-b374-4bf411f2c823/exec-4ba59684-d283-4f12-a1c7-775a8b17cf5d.png"
+    }
+  ],
+  "human_acceptance": {
+    "date": "2026-10-23",
+    "user_quote": "美術接受",
+    "scope": [
+      "alchemy_herb_conservation image",
+      "fox_feed_conservation image",
+      "CONTENT-P1-SECT batch card presentation"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+[RUNNING] tests/content_p1_skills_runner.gd
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CONTENT-P1-SKILL 277 checks; failures=[]
+[RUNNING] tests/life_echo_runner.gd
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected '}'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:275)
+       [1] current_state (res://src/persistence/save_manager.gd:105)
+       [2] run (res://tests/life_echo_runner.gd:110)
+ERROR: Parse JSON failed. Error at line 0: Expected '}'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:73)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:295)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:294)
+       [4] current_state (res://src/persistence/save_manager.gd:105)
+       [5] run (res://tests/life_echo_runner.gd:110)
+{"checks":117,"echo_bytes":1276,"failures":[],"report_bytes":1554,"suite":"ATM-LIFE-C"}
+[RUNNING] tests/life_echo_ui_runner.gd
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=File not found load=
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: run (res://tests/life_echo_ui_runner.gd:22)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/life_echo_ui_runner.gd:22)
+       [1] frames (res://tests/life_echo_ui_runner.gd:10)

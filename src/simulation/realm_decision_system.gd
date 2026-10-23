@@ -147,7 +147,7 @@ static func execute_decision(state: GameState, realm_id: String, decision_id: St
 			state.total_elapsed_seconds += cost_val
 		elif state.resources.has(res_id):
 			var cur_amt: AmountCompat = state.resources[res_id].value
-			state.resources[res_id]["value"] = cur_amt.subtract(AmountCompat.from_number(cost_val))
+			state.resources[res_id].value = ResourceLedger.change(state, "home", res_id, state.resources[res_id].value, cur_amt.subtract(AmountCompat.from_number(cost_val)), "decision")
 
 	# Apply cooldown and usage
 	var base_cd: float = float(dec.get("cooldown_seconds", 60.0))
@@ -170,13 +170,13 @@ static func execute_decision(state: GameState, realm_id: String, decision_id: St
 			if gain_val > 0.0:
 				if not state.resources.has(res_key):
 					state.resources[res_key] = {
-						"value": AmountCompat.from_number(gain_val),
+						"value": ResourceLedger.change(state, "home", res_key, AmountCompat.zero(), AmountCompat.from_number(gain_val), "decision", AmountCompat.from_number(gain_val)),
 						"unlocked": true,
 						"ever_obtained": true
 					}
 				else:
 					var cur_amt: AmountCompat = state.resources[res_key].value
-					state.resources[res_key]["value"] = cur_amt.add(AmountCompat.from_number(gain_val))
+					state.resources[res_key].value = ResourceLedger.change(state, "home", res_key, state.resources[res_key].value, cur_amt.add(AmountCompat.from_number(gain_val)), "decision", AmountCompat.from_number(gain_val))
 					state.resources[res_key]["unlocked"] = true
 					state.resources[res_key]["ever_obtained"] = true
 		applied_summary["resources"] = res_dict

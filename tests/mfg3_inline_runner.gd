@@ -71,7 +71,7 @@ func _run() -> void:
 	abode.feature_navigation.open("manufacturing")
 	panel = abode.feature_navigation.manufacturing_panel
 	panel.action_requested.connect(func(kind: String, _payload: Dictionary): commands.append(kind))
-	for vp in [Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)]:
+	for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))

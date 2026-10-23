@@ -60,7 +60,7 @@ func _label(value: String, font_size: int = 16) -> Label:
 	return label
 
 func _art(id: String, edge: int) -> TextureRect:
-	var art := TextureRect.new()
+	var art := UiIllustration.new()
 	art.custom_minimum_size = Vector2.ONE * edge
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

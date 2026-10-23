@@ -16,7 +16,12 @@ func expect(ok: bool, label: String) -> void:
 		failures.append(label)
 
 func snapshot(state: GameState) -> String:
-	return JSON.stringify(SaveCodec._normalize_numbers(state.to_snapshot_dict()), "", true)
+	var data := state.to_snapshot_dict()
+	var ledger: Dictionary = data.get("life_ledger", {})
+	if not ledger.is_empty():
+		ledger.current.erase("accounts")
+		for life in ledger.archive: life.erase("accounts")
+	return JSON.stringify(SaveCodec._normalize_numbers(data), "", true)
 
 func _prepare(state: GameState) -> void:
 	state.tick_remainder_seconds = 0.4
@@ -89,6 +94,7 @@ func _run() -> void:
 		var settlement_b: Dictionary = manual_settle(state_b, content, now_ms, LAST_MS)
 		if is_big:
 			reference_ms = float(Time.get_ticks_usec() - t0) / 1000.0
+		expect(ResourceLedger.equivalent(state_a.life_ledger.current.get("accounts", {}), state_b.life_ledger.current.get("accounts", {})), "resource Amount parity " + str(duration))
 		expect(snapshot(state_a) == snapshot(state_b), "closed form snapshot equality " + str(duration))
 		expect(bool(settlement_a["report"] == settlement_b["report"]), "closed form report equality " + str(duration))
 	var det_a: GameState = fixture.duplicate_state()

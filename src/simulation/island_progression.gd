@@ -42,6 +42,10 @@ static func attach(content: GameContent) -> Dictionary:
 	# Content identity includes the progression contract, not just legacy tables.
 	if not ("+" + VERSION) in content.content_version:
 		content.content_version += "+" + VERSION
+	if not "+content-p1-story" in content.content_version:
+		content.content_version += "+content-p1-story"
+	if not "+content-p1-sect" in content.content_version:
+		content.content_version += "+content-p1-sect"
 	return SkillSystem.attach(content)
 
 static func active(state: GameState) -> bool:
@@ -105,7 +109,7 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 		if IslandEconomy.value(state, "home", id) < float(costs[id]):
 			return _fail("INSUFFICIENT_RESOURCE")
 	for id in costs:
-		IslandEconomy._put(state, "home", id, IslandEconomy.value(state, "home", id) - float(costs[id]))
+		IslandEconomy._put(state, "home", id, IslandEconomy.value(state, "home", id) - float(costs[id]), "building")
 	state.economy.islands[island].facilities[facility] = level + 1
 	return _ok("island_facility_upgraded")
 

@@ -1,4 +1,5 @@
 extends SceneTree
+const AccountChecks = preload("res://tests/resource_account_assertions.gd")
 var checks := 0
 var failures: Array[String] = []
 var callbacks := 0
@@ -61,7 +62,7 @@ func _run() -> void:
 		var expected := OfflineSettlement.settle(direct, content, 100000 + duration, 100000)
 		callbacks = 0
 		var actual := await OfflineCoordinator.compute_async(chunked, content, 100000 + duration, 100000, self, func(_done: int, _planned: int): callbacks += 1)
-		expect(snapshot(direct) == snapshot(chunked), "chunk state equality " + str(duration))
+		expect(AccountChecks.same(direct, chunked), "chunk state equality " + str(duration))
 		expect(expected == actual, "report equality " + str(duration))
 		if duration >= 600000:
 			expect(callbacks > 1, "multiple frame yields " + str(duration))

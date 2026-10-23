@@ -1,3 +1,5 @@
+2026-10-22 REPORT-1A: shared UiTypography epilogue title800/seal900 now uses the existing Dao2 Serif variable derivative; biography/closing reuse the unchanged OFL WenKai TC font from reincarnation-f5b. Runtime Sans/Serif subsets regenerated with the existing pinned tool for the production prose corpus; originals, licenses, axes and metrics retained. No font download or new upstream provenance claim.
+
 # Game typography sources and runtime derivatives
 
 2026-10-04 RES1-C2-PERF: `runtime/Dao2Sans-VF.ttf` (920,700 bytes) and `runtime/Dao2Serif-VF.ttf` (1,293,488 bytes) are modified OFL derivatives of the two unchanged source TTFs below. `tools/subset_game_fonts.py` uses pinned fonttools4.61.1, the src/content/scenes text corpus and Latin-1. Each output retains all 1,809 corpus codepoints supported by its source, advance widths, vertical metrics and the original wght axis. Existing body400/emphasis600/chapter800 roles are unchanged. Original sources are retained but excluded from Web; both copyright/license files remain distributed.

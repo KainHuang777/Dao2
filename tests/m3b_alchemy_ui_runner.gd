@@ -16,6 +16,7 @@ func _run() -> void:
 	var abode = load(SCENE_PATH).instantiate()
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide()
 
 	print("--- Running M3-B Alchemy UI Runner ---")
 
@@ -65,15 +66,16 @@ func _run() -> void:
 	abode.alchemy_panel._widgets.lifespan_pill.consume.pressed.emit()
 	abode.alchemy_panel._widgets.foundation_pill.consume.pressed.emit()
 	_expect(abode.buff_hud_bar.badges.has("pill:lifespan") and abode.buff_hud_bar.badges.has("pill:production"), "consuming persistent-effect pills immediately adds HUD status badges")
-	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(vp)
 		await process_frame
-		_expect(abode.header.visible and abode.resource_ribbon.visible and abode.buff_hud_bar.is_visible_in_tree(), "alchemy retains HUD, buffs and resource list %s" % vp)
-		_expect(abode.header.get_global_rect().end.x < abode.alchemy_panel.position.x, "alchemy avoids left HUD %s" % vp)
+		_expect(abode.feature_navigation.shell.compact_hud.visible and not abode.header.visible and abode.buff_hud_bar.is_visible_in_tree(), "alchemy uses shared compact HUD and buffs %s" % vp)
+		_expect(abode.resource_ribbon.visible == (vp.y >= 500), "alchemy rail only in wide layout %s" % vp)
+		_expect(abode.feature_navigation.shell.compact_hud.get_global_rect().end.y <= abode.feature_navigation.bar.position.y, "alchemy clears compact HUD %s" % vp)
 		_expect(abode.alchemy_panel._scroll.get_global_rect().end.y <= abode.alchemy_panel.get_global_rect().end.y + 1, "alchemy scroll stays in panel")
 		var close: Button = abode.alchemy_panel._close_button if abode.alchemy_panel._title_row.visible else abode.feature_navigation.back_button
 		_expect(close.get_global_rect().end.y <= abode.alchemy_panel._scroll.get_global_rect().position.y, "close remains above scrolling recipes")
-		_expect(abode.resource_scroll.size.y >= 38.0, "resource list retains a readable row on alchemy page")
+		_expect(abode.feature_navigation.shell.resource_button.visible, "resource drawer entry remains available")
 	var tile = abode.alchemy_panel._widgets.cultivation_pill.tiles.spirit_grass_low
 	_expect(tile.quantity.text.contains("/10"), "material tile shows current stock and required amount")
 	_expect(abode.alchemy_panel._widgets.cultivation_pill.output.tooltip_text.contains("60 秒"), "pill effect remains available as TIP")

@@ -11,6 +11,7 @@ func _run() -> void:
 	var content: GameContent = ContentLoader.load_directory("res://content").content
 	var s := GameSession.create_new_game(content)
 	s.state.reincarnation_count = 3
+	StoryProgress.next_life(s.state) # Keep synthetic life fixture consistent with story v1.
 	s.state.buildings.stone_mine = 3
 	s.state.resources.stone_low.unlocked = true
 	s.state.resources.stone_low.value = AmountCompat.from_number(3.22)
@@ -50,12 +51,13 @@ func _run() -> void:
 	await process_frame
 	abode.offline_summary.visible = false
 	abode.session.state.reincarnation_count = 3
+	StoryProgress.next_life(abode.session.state) # Keep synthetic life fixture consistent with story v1.
 	abode.session.state.dao_heart = AmountCompat.from_number(104)
 	abode.session.state.dao_proof = 5
 	abode.session.state.beast_souls = {"jade_fox": 2}
 	RealmSystem.ensure_spirit_data(abode.session.state)
 	abode._refresh_hud()
-	for vp in [Vector2(1280, 720), Vector2(844, 390)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(vp)
 		for mode in [0, 1, 2]:
 			abode._set_resource_display_mode(mode)

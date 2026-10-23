@@ -1,3 +1,9 @@
+2026-10-22 UI-SHELL-2：十三個canonical功能頁均遷移共用殼。FeatureNavigation只管自身頁面、分頁與bounds；共用HUD／資源／訊息及工具／相機政策由UiShellController套用。隱藏入口回退與實際畫面一致，工具返回合法原route／子頁；Escape先取消未提交確認／詳情，再回洞府。製造／航線草稿與捲動不因正常跨頁重設，背景模態下情境捷徑不修改草稿。[驗收](verification/ui-shell-2.md)。
+
+2026-10-22 **UI-SHELL-1 DONE（home／alchemy）**：共同顯示改由UiShellController套用；設定／存檔／Debug與主動訊息維持原route，保存保護／報告／演出優先。已遷移頁跳過舊共同visible覆寫，其他12頁仍保留legacy布局；下一UI-SHELL-2遷移完整矩陣。[驗收／命令／限制](verification/ui-shell-1.md)。
+
+2026-10-21 **UI-SHELL-PLAN（規劃，未實作）**：使用者指定一併重規畫HUD／資源／訊息與返回，完整route矩陣見[docs28](28-unified-ui-shell-and-visibility-plan.md)。候選以單一殼解析顯示、區分洞府偏好與頁面情境；工具關閉回原合法route、功能頁不各自覆寫全域visible。這是未來重構方向，下方既有「中央頁暫收HUD／工具先回洞府」等仍為歷史／目前實作基線；不得混作新通則或已實作。下一先UI-SHELL-DESIGN樣張。
+
 2026-10-11 **UIX-R3-F2 有界修訂 DONE**：依使用者核定統一資源三態／功能分頁／單選篩選的紙面＋青玉選中樣式與黑體，CloseSeal撤黑底；Era1隱藏空島／製造／運輸且情境路由回建築，Era2恢復，煉丹Era1保持。七項相關回歸exit0、Web匯出／壓縮、三橫式Web與隔離Era1／Era2驗收通過。新增[UI UX共用規範](19-ui-ux-guidelines.md)並接AGENTS必讀；人工／觸控／高DPR仍待驗。[驗收](verification/uix-r3-f2.md)。本段覆蓋R3-F1墨字／朱砂小印設計，歷史保留。
 
 2026-10-11 **UIX-R3-F1 有界修訂 DONE**：分頁改卷首墨字目錄與朱砂小印，移除方塊底色／底線；可用項目按原順序排前、未開放項目灰化並標示『未開』排後，遠期隱藏保持，分頁不再使用tooltip。四項相關CLI回歸、Web匯出／壓縮與三橫式Web滑鼠切頁／返回通過；人工美術／實體觸控／高DPR待驗。[驗收](verification/uix-r3-feedback.md)。

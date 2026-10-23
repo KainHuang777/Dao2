@@ -1,0 +1,676 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Could not open 'user://' directory: 'user://'.
+   at: _get_and_create_snapshot_storage_dir (modules/objectdb_profiler/editor/objectdb_profiler_panel.cpp:157)
+[   0% ] first_scan_filesystem | Started 專案初始化中 (5 steps)
+[   0% ] first_scan_filesystem | 正在掃描檔案結構…
+WARNING: Detected another project.godot at res://src/verification/r7f5b. The folder will be ignored.
+   at: _should_skip_directory (editor/file_system/editor_file_system.cpp:3497)
+[  16% ] first_scan_filesystem | 正在載入全域類別名稱…
+[  33% ] first_scan_filesystem | 正在驗證 GDExtension…
+[  50% ] first_scan_filesystem | 正在建立自動載入腳本…
+[  66% ] first_scan_filesystem | 初始化外掛程式...
+[  83% ] first_scan_filesystem | 開始掃描檔案...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started 註冊全域類別中... (12 steps)
+[   0% ] update_scripts_classes | GameSession
+[   7% ] update_scripts_classes | GameState
+[  15% ] update_scripts_classes | LifeLedger
+[  23% ] update_scripts_classes | SaveCodec
+[  30% ] update_scripts_classes | SaveManager
+[  38% ] update_scripts_classes | CommandProcessor
+[  46% ] update_scripts_classes | IslandEconomy
+[  53% ] update_scripts_classes | OfflineClosedForm
+[  61% ] update_scripts_classes | OfflineEconomyJump
+[  69% ] update_scripts_classes | ReincarnationRules
+[  76% ] update_scripts_classes | SectSystem
+[  84% ] update_scripts_classes | TimeAdvancer
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started 掃描動作中... (331 steps)
+[   0% ] _update_scan_actions | after-800x360.png
+[   0% ] _update_scan_actions | cloud-800x360.png
+[   0% ] _update_scan_actions | cloud-844x390.png
+[   0% ] _update_scan_actions | cloud-1280x720.png
+[   1% ] _update_scan_actions | companion-800x360.png
+[   1% ] _update_scan_actions | confirmation-844x390.png
+[   1% ] _update_scan_actions | contact-1.jpg
+[   2% ] _update_scan_actions | contact-2.jpg
+[   2% ] _update_scan_actions | contact-3.jpg
+[   2% ] _update_scan_actions | core-800x360.png
+[   3% ] _update_scan_actions | early-800x360.png
+[   3% ] _update_scan_actions | early-844x390.png
+[   3% ] _update_scan_actions | early-1280x720.png
+[   3% ] _update_scan_actions | fb-800x360.png
+[   4% ] _update_scan_actions | fb-844x390.png
+[   4% ] _update_scan_actions | fb-1280x720.png
+[   4% ] _update_scan_actions | fortune-insufficient-800x360.png
+[   5% ] _update_scan_actions | fortune-pending-800x360.png
+[   5% ] _update_scan_actions | fortune-receipt-800x360.png
+[   5% ] _update_scan_actions | garden-800x360.png
+[   6% ] _update_scan_actions | hut-800x360.png
+[   6% ] _update_scan_actions | living-800x360.png
+[   6% ] _update_scan_actions | living-844x390.png
+[   6% ] _update_scan_actions | living-1280x720.png
+[   7% ] _update_scan_actions | long-error-800x360.png
+[   7% ] _update_scan_actions | long-error-844x390.png
+[   7% ] _update_scan_actions | long-error-1280x720.png
+[   8% ] _update_scan_actions | long-error-scrolled-800x360.png
+[   8% ] _update_scan_actions | partial-800x360.png
+[   8% ] _update_scan_actions | partial-844x390.png
+[   9% ] _update_scan_actions | partial-1280x720.png
+[   9% ] _update_scan_actions | quiet-800x360.png
+[   9% ] _update_scan_actions | routes-800x360.png
+[   9% ] _update_scan_actions | sect-800x360.png
+[  10% ] _update_scan_actions | sources-844x390.png
+[  10% ] _update_scan_actions | user-ending-reference.png
+[  10% ] _update_scan_actions | final-reload.png
+[  11% ] _update_scan_actions | final-web-800.png
+[  11% ] _update_scan_actions | final-web-844.png
+[  11% ] _update_scan_actions | final-web-1280.png
+[  12% ] _update_scan_actions | final-web-denied-844.png
+[  12% ] _update_scan_actions | web-before-1280.png
+[  12% ] _update_scan_actions | web-denied-1280.png
+[  12% ] _update_scan_actions | web-golden-844.png
+[  13% ] _update_scan_actions | web-learned-800.png
+[  13% ] _update_scan_actions | web-learned-844.png
+[  13% ] _update_scan_actions | web-learned-1280.png
+[  14% ] _update_scan_actions | web-climax-844x390.png
+[  14% ] _update_scan_actions | web-climax-1280x720.png
+[  14% ] _update_scan_actions | web-final-1280x720.png
+[  15% ] _update_scan_actions | web-idle-844x390.png
+[  15% ] _update_scan_actions | web-idle-1280x720.png
+[  15% ] _update_scan_actions | web-reduced-844x390.png
+[  15% ] _update_scan_actions | web-reduced-trial-844x390.png
+[  16% ] _update_scan_actions | web-tribulation-result-1280x720.png
+[  16% ] _update_scan_actions | web-after-level-up.png
+[  16% ] _update_scan_actions | web-expired-800.png
+[  17% ] _update_scan_actions | web-orange.png
+[  17% ] _update_scan_actions | web-ready-before-click.png
+[  17% ] _update_scan_actions | web-red-844.png
+[  18% ] _update_scan_actions | web-reload-level6.png
+[  18% ] _update_scan_actions | web-yellow.png
+[  18% ] _update_scan_actions | web-home-1280x720.png
+[  18% ] _update_scan_actions | web-low-1280x720.png
+[  19% ] _update_scan_actions | web-neon-1280x720.png
+[  19% ] _update_scan_actions | web-portrait-360x640.png
+[  19% ] _update_scan_actions | web-replay-frame-7.png
+[  20% ] _update_scan_actions | web-replay-frame-15.png
+[  20% ] _update_scan_actions | web-replay-frame-23.png
+[  20% ] _update_scan_actions | web-trial-844x390.png
+[  21% ] _update_scan_actions | web-trial-1280x720.png
+[  21% ] _update_scan_actions | web-trial-low-844x390.png
+[  21% ] _update_scan_actions | web-alchemy-844x390.png
+[  21% ] _update_scan_actions | web-beasts-844x390.png
+[  22% ] _update_scan_actions | web-beasts-1280x720.png
+[  22% ] _update_scan_actions | web-decisions-844x390.png
+[  22% ] _update_scan_actions | web-fortune-844x390.png
+[  23% ] _update_scan_actions | web-outposts-844x390.png
+[  23% ] _update_scan_actions | web-portrait-cold-start-360x640.png
+[  23% ] _update_scan_actions | web-realms-844x390.png
+[  24% ] _update_scan_actions | web-realms-1280x720.png
+[  24% ] _update_scan_actions | web-800-restored.png
+[  24% ] _update_scan_actions | web-844-list.png
+[  25% ] _update_scan_actions | web-reload-policy.png
+[  25% ] _update_scan_actions | web-source-liquid.png
+[  25% ] _update_scan_actions | web-stopped-upgraded.png
+[  25% ] _update_scan_actions | web-costs.png
+[  26% ] _update_scan_actions | web-extractor-upgrade.png
+[  26% ] _update_scan_actions | web-ore-1280.png
+[  26% ] _update_scan_actions | web-reload.png
+[  27% ] _update_scan_actions | web-upgrade-800.png
+[  27% ] _update_scan_actions | web-upgrade.png
+[  27% ] _update_scan_actions | web-wood-800.png
+[  28% ] _update_scan_actions | web-wood-844.png
+[  28% ] _update_scan_actions | web-denied.png
+[  28% ] _update_scan_actions | web-failure-800.png
+[  28% ] _update_scan_actions | web-failure-844.png
+[  29% ] _update_scan_actions | web-failure.png
+[  29% ] _update_scan_actions | web-reload-no-replay.png
+[  29% ] _update_scan_actions | web-success.png
+[  30% ] _update_scan_actions | achievements-800x360.png
+[  30% ] _update_scan_actions | alchemy-800x360.png
+[  30% ] _update_scan_actions | beasts-800x360.png
+[  31% ] _update_scan_actions | buildings-800x360.png
+[  31% ] _update_scan_actions | contact-800.png
+[  31% ] _update_scan_actions | decisions-800x360.png
+[  31% ] _update_scan_actions | decisions-844x390.png
+[  32% ] _update_scan_actions | fortune-800x360.png
+[  32% ] _update_scan_actions | fortune-844x390.png
+[  32% ] _update_scan_actions | manufacturing-800x360.png
+[  33% ] _update_scan_actions | outposts-800x360.png
+[  33% ] _update_scan_actions | realms-800x360.png
+[  33% ] _update_scan_actions | realms-844x390.png
+[  34% ] _update_scan_actions | reincarnation-800x360.png
+[  34% ] _update_scan_actions | sect-800x360.png
+[  34% ] _update_scan_actions | sect-844x390.png
+[  34% ] _update_scan_actions | skills-800x360.png
+[  35% ] _update_scan_actions | transport-800x360.png
+[  35% ] _update_scan_actions | web-draft-844.png
+[  35% ] _update_scan_actions | web-final-skills-800.png
+[  36% ] _update_scan_actions | web-save-denied.png
+[  36% ] _update_scan_actions | web-skills-recovered.png
+[  36% ] _update_scan_actions | web-skills-reload.png
+[  37% ] _update_scan_actions | web-transport-800.png
+[  37% ] _update_scan_actions | web-transport-wide.png
+[  37% ] _update_scan_actions | web-wide-buildings.png
+[  37% ] _update_scan_actions | web-breakthrough-800.png
+[  38% ] _update_scan_actions | web-final-800.png
+[  38% ] _update_scan_actions | web-final-844.png
+[  38% ] _update_scan_actions | web-final-1280.png
+[  39% ] _update_scan_actions | web-final-overlay-844.png
+[  39% ] _update_scan_actions | web-home-1280.png
+[  39% ] _update_scan_actions | web-home-800.png
+[  40% ] _update_scan_actions | web-home-844.png
+[  40% ] _update_scan_actions | web-home-1280.png
+[  40% ] _update_scan_actions | web-management-800.png
+[  40% ] _update_scan_actions | web-portrait.png
+[  41% ] _update_scan_actions | web-scroll-800.png
+[  41% ] _update_scan_actions | web-settings-844.png
+[  41% ] _update_scan_actions | web-buildings-800.png
+[  42% ] _update_scan_actions | web-cultivation-1280.png
+[  42% ] _update_scan_actions | web-home-800.png
+[  42% ] _update_scan_actions | web-journey-800.png
+[  43% ] _update_scan_actions | web-manufacturing-800.png
+[  43% ] _update_scan_actions | web-manufacturing-1280.png
+[  43% ] _update_scan_actions | web-skills-844.png
+[  43% ] _update_scan_actions | cultivation-800.png
+[  44% ] _update_scan_actions | cultivation-844.png
+[  44% ] _update_scan_actions | era1-844.png
+[  44% ] _update_scan_actions | era2-800.png
+[  45% ] _update_scan_actions | transport-1280.png
+[  45% ] _update_scan_actions | chapters.png
+[  45% ] _update_scan_actions | web-800.png
+[  46% ] _update_scan_actions | web-844.png
+[  46% ] _update_scan_actions | web-1280.png
+[  46% ] _update_scan_actions | web-800.png
+[  46% ] _update_scan_actions | web-844.png
+[  47% ] _update_scan_actions | web-1280.png
+[  47% ] _update_scan_actions | web-detail.png
+[  47% ] _update_scan_actions | web-portrait.png
+[  48% ] _update_scan_actions | web-scroll.png
+[  48% ] _update_scan_actions | catalog-final.png
+[  48% ] _update_scan_actions | web-800.png
+[  49% ] _update_scan_actions | web-844.png
+[  49% ] _update_scan_actions | web-1280.png
+[  49% ] _update_scan_actions | web-build.png
+[  50% ] _update_scan_actions | web-close.png
+[  50% ] _update_scan_actions | web-detail.png
+[  50% ] _update_scan_actions | web-scroll.png
+[  50% ] _update_scan_actions | catalog-final.png
+[  51% ] _update_scan_actions | web-800.png
+[  51% ] _update_scan_actions | web-844.png
+[  51% ] _update_scan_actions | web-1280.png
+[  52% ] _update_scan_actions | web-detail.png
+[  52% ] _update_scan_actions | web-upgrade.png
+[  52% ] _update_scan_actions | web-800-building.png
+[  53% ] _update_scan_actions | web-800-scrolled.png
+[  53% ] _update_scan_actions | web-844-reincarnation-before-resize-fix.png
+[  53% ] _update_scan_actions | web-1280-building.png
+[  53% ] _update_scan_actions | web-final-800-selected.png
+[  54% ] _update_scan_actions | web-final-844-selected.png
+[  54% ] _update_scan_actions | web-final-1280-building.png
+[  54% ] _update_scan_actions | web-360-portrait.png
+[  55% ] _update_scan_actions | web-800-building.png
+[  55% ] _update_scan_actions | web-800-scrolled.png
+[  55% ] _update_scan_actions | web-844-alchemy.png
+[  56% ] _update_scan_actions | web-844-beasts.png
+[  56% ] _update_scan_actions | web-844-building.png
+[  56% ] _update_scan_actions | web-844-cultivation.png
+[  56% ] _update_scan_actions | web-844-reincarnation.png
+[  57% ] _update_scan_actions | web-844-scrolled.png
+[  57% ] _update_scan_actions | web-844-sect.png
+[  57% ] _update_scan_actions | web-1280-before-claim.png
+[  58% ] _update_scan_actions | web-1280-building-filter.png
+[  58% ] _update_scan_actions | web-1280-claimed.png
+[  58% ] _update_scan_actions | web-1280-scrolled.png
+[  59% ] _update_scan_actions | web-final-800-building.png
+[  59% ] _update_scan_actions | web-final-844-building.png
+[  59% ] _update_scan_actions | web-final-recovered.png
+[  59% ] _update_scan_actions | web-final-reload-wood100.png
+[  60% ] _update_scan_actions | web-final-reloaded-claimed.png
+[  60% ] _update_scan_actions | web-final-write-denied.png
+[  60% ] _update_scan_actions | web-reloaded-claimed.png
+[  61% ] _update_scan_actions | web-rotation-restored.png
+[  61% ] _update_scan_actions | web-stale-error-before-fix.png
+[  61% ] _update_scan_actions | web-wood100.png
+[  62% ] _update_scan_actions | web-write-denied.png
+[  62% ] _update_scan_actions | web-800.png
+[  62% ] _update_scan_actions | web-844.png
+[  62% ] _update_scan_actions | web-1280.png
+[  63% ] _update_scan_actions | web-result.png
+[  63% ] _update_scan_actions | web-800.png
+[  63% ] _update_scan_actions | web-844.png
+[  64% ] _update_scan_actions | web-low.png
+[  64% ] _update_scan_actions | web-motion.png
+[  64% ] _update_scan_actions | web-page.png
+[  65% ] _update_scan_actions | web-reload.png
+[  65% ] _update_scan_actions | web-result.png
+[  65% ] _update_scan_actions | web-800-css-final.png
+[  65% ] _update_scan_actions | web-800-final-paused.png
+[  66% ] _update_scan_actions | web-800-paper.png
+[  66% ] _update_scan_actions | web-844-composite.png
+[  66% ] _update_scan_actions | web-844-css-final.png
+[  67% ] _update_scan_actions | web-844-final-reduced.png
+[  67% ] _update_scan_actions | web-844-final.png
+[  67% ] _update_scan_actions | web-844-reduced.png
+[  68% ] _update_scan_actions | web-1280-bare.png
+[  68% ] _update_scan_actions | web-1280-final-dpr125.png
+[  68% ] _update_scan_actions | web-1280-glow-off.png
+[  68% ] _update_scan_actions | web-1280-paused.png
+[  69% ] _update_scan_actions | web-final.png
+[  69% ] _update_scan_actions | web-800-reduced.png
+[  69% ] _update_scan_actions | web-800.png
+[  70% ] _update_scan_actions | web-844.png
+[  70% ] _update_scan_actions | web-bare.png
+[  70% ] _update_scan_actions | web-final.png
+[  71% ] _update_scan_actions | web-glow-off.png
+[  71% ] _update_scan_actions | web-glow-on.png
+[  71% ] _update_scan_actions | web-bare.png
+[  71% ] _update_scan_actions | web-claimed-1280.png
+[  72% ] _update_scan_actions | web-desktop-portrait-overlay.png
+[  72% ] _update_scan_actions | web-iframe800-reopened.png
+[  72% ] _update_scan_actions | web-iframe844-last.png
+[  73% ] _update_scan_actions | web-long-800.png
+[  73% ] _update_scan_actions | web-long-844.png
+[  73% ] _update_scan_actions | web-long-1280-restored.png
+[  74% ] _update_scan_actions | web-long-desktop.png
+[  74% ] _update_scan_actions | web-market-viewport800x360.png
+[  74% ] _update_scan_actions | web-reload-technique2.png
+[  75% ] _update_scan_actions | web-second-tab-blocked.png
+[  75% ] _update_scan_actions | web-storage-recovered.png
+[  75% ] _update_scan_actions | web-technique-last-801x361.png
+[  75% ] _update_scan_actions | web-technique-last-844.png
+[  76% ] _update_scan_actions | web-write-denied.png
+[  76% ] _update_scan_actions | web-final-pending.png
+[  76% ] _update_scan_actions | web-landscape-restored.png
+[  77% ] _update_scan_actions | web-last-800.png
+[  77% ] _update_scan_actions | web-last-844.png
+[  77% ] _update_scan_actions | web-long-800-cost.png
+[  78% ] _update_scan_actions | web-long-800-last.png
+[  78% ] _update_scan_actions | web-long-844-cost.png
+[  78% ] _update_scan_actions | web-long-844-last.png
+[  78% ] _update_scan_actions | web-long-1280-last.png
+[  79% ] _update_scan_actions | web-long-1280-top.png
+[  79% ] _update_scan_actions | web-pending-1280.png
+[  79% ] _update_scan_actions | web-pending-reloaded.png
+[  80% ] _update_scan_actions | web-portrait-overlay.png
+[  80% ] _update_scan_actions | web-reloaded-one-claim.png
+[  80% ] _update_scan_actions | web-save-recovered.png
+[  81% ] _update_scan_actions | web-write-denied.png
+[  81% ] _update_scan_actions | web-fault-reloaded.png
+[  81% ] _update_scan_actions | web-human-executed.png
+[  81% ] _update_scan_actions | web-last-800.png
+[  82% ] _update_scan_actions | web-last-844.png
+[  82% ] _update_scan_actions | web-long-800.png
+[  82% ] _update_scan_actions | web-long-844.png
+[  83% ] _update_scan_actions | web-long-1280.png
+[  83% ] _update_scan_actions | web-portrait-landscape-restored.png
+[  83% ] _update_scan_actions | web-portrait-overlay.png
+[  84% ] _update_scan_actions | web-reloaded-one-execution.png
+[  84% ] _update_scan_actions | web-save-recovered.png
+[  84% ] _update_scan_actions | web-spirit-1280.png
+[  84% ] _update_scan_actions | web-spirit-executed.png
+[  85% ] _update_scan_actions | web-write-denied.png
+[  85% ] _update_scan_actions | res1-c2-degradation-actions-end.png
+[  85% ] _update_scan_actions | res1-c2-degradation-actions-mid.png
+[  86% ] _update_scan_actions | res1-c2-degradation-extended.png
+[  86% ] _update_scan_actions | res1-c2-degradation-reload.png
+[  86% ] _update_scan_actions | res1-c2-encode-desktop.png
+[  87% ] _update_scan_actions | res1-c2-encode-reload.png
+[  87% ] _update_scan_actions | res1-c2-encode-reloaded-level.png
+[  87% ] _update_scan_actions | res1-c2-encode-short.png
+[  87% ] _update_scan_actions | res1-c2-encode-web-retry.png
+[  88% ] _update_scan_actions | res1-c2-perf-bgm-toggle.png
+[  88% ] _update_scan_actions | res1-c2-perf-browser-retry49.png
+[  88% ] _update_scan_actions | res1-c2-perf-cold-final.png
+[  89% ] _update_scan_actions | res1-c2-perf-home-short.png
+[  89% ] _update_scan_actions | res1-c2-perf-offline-progress.png
+[  89% ] _update_scan_actions | res1-c2-perf-offline-reload.png
+[  90% ] _update_scan_actions | res1-c2-perf-offline-summary.png
+[  90% ] _update_scan_actions | res1-c2-perf-ore-short-scroll.png
+[  90% ] _update_scan_actions | res1-c2-perf-ore-short.png
+[  90% ] _update_scan_actions | res1-c2-perf-r2-fps-v3-review.png
+[  91% ] _update_scan_actions | res1-c2-perf-web-switch-10.png
+[  91% ] _update_scan_actions | res1-c2-perf-web-switch-20.png
+[  91% ] _update_scan_actions | res1-c2-perf-web-switch-30.png
+[  92% ] _update_scan_actions | res1-c2-perf-web-switch-40.png
+[  92% ] _update_scan_actions | res1-c2-perf-web-switch-50.png
+[  92% ] _update_scan_actions | res1-c2-perf-wood-desktop.png
+[  93% ] _update_scan_actions | res1-c2-perf-wood-management.png
+[  93% ] _update_scan_actions | res1-c2-task-normal.png
+[  93% ] _update_scan_actions | res1-d2-r1-compact-final.png
+[  93% ] _update_scan_actions | res1-d2-r1-compact-stop.png
+[  94% ] _update_scan_actions | res1-d2-r1-desktop.png
+[  94% ] _update_scan_actions | res1-d2-r1-management.png
+[  94% ] _update_scan_actions | res1-d2-r1-release-compact.png
+[  95% ] _update_scan_actions | res1-d2-r1-release-desktop.png
+[  95% ] _update_scan_actions | res1-d2-r1-release-home.png
+[  95% ] _update_scan_actions | res1-d2-r1-release-management.png
+[  96% ] _update_scan_actions | skills-b1-compact.png
+[  96% ] _update_scan_actions | skills-b1-desktop.png
+[  96% ] _update_scan_actions | text-level-desktop.png
+[  96% ] _update_scan_actions | text-level-reload.png
+[  97% ] _update_scan_actions | text-level-short.png
+[  97% ] _update_scan_actions | world-text-desktop.png
+[  97% ] _update_scan_actions | world-text-far.png
+[  98% ] _update_scan_actions | world-text-minimum.png
+[  98% ] _update_scan_actions | world-text-short.png
+[  98% ] _update_scan_actions | ui-first-glimpse-v1.png
+[  99% ] _update_scan_actions | ui-home-v1.png
+[  99% ] _update_scan_actions | ui-nine-realms-v1.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started （重新）匯入素材 (33 steps)
+[   0% ] reimport | 正在準備重新匯入檔案…
+[   2% ] reimport | 正在準備重新匯入檔案…
+[   5% ] reimport | 正在準備重新匯入檔案…
+[   8% ] reimport | 正在準備重新匯入檔案…
+[  11% ] reimport | 正在準備重新匯入檔案…
+[  14% ] reimport | 正在準備重新匯入檔案…
+[  17% ] reimport | 正在準備重新匯入檔案…
+[  20% ] reimport | 正在準備重新匯入檔案…
+[  23% ] reimport | 正在準備重新匯入檔案…
+[  26% ] reimport | 正在準備重新匯入檔案…
+[  29% ] reimport | 正在準備重新匯入檔案…
+[  32% ] reimport | 正在準備重新匯入檔案…
+[  35% ] reimport | 正在準備重新匯入檔案…
+[  38% ] reimport | 正在準備重新匯入檔案…
+[  41% ] reimport | 正在準備重新匯入檔案…
+[  44% ] reimport | 正在準備重新匯入檔案…
+[  47% ] reimport | 正在準備重新匯入檔案…
+[  50% ] reimport | 正在準備重新匯入檔案…
+[  52% ] reimport | 正在準備重新匯入檔案…
+[  55% ] reimport | 正在準備重新匯入檔案…
+[  58% ] reimport | 正在準備重新匯入檔案…
+[  61% ] reimport | 正在準備重新匯入檔案…
+[  64% ] reimport | 正在準備重新匯入檔案…
+[  67% ] reimport | 正在準備重新匯入檔案…
+[  70% ] reimport | 正在準備重新匯入檔案…
+[  73% ] reimport | 正在準備重新匯入檔案…
+[  76% ] reimport | 正在準備重新匯入檔案…
+[  79% ] reimport | 正在準備重新匯入檔案…
+[  82% ] reimport | 正在準備重新匯入檔案…
+[  85% ] reimport | 正在準備重新匯入檔案…
+[  88% ] reimport | 正在準備重新匯入檔案…
+[  91% ] reimport | 正在準備重新匯入檔案…
+[  94% ] reimport | 正在準備重新匯入檔案…
+[   0% ] reimport | 執行預先重新匯入作業…
+[   0% ] reimport | final-reload.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/early-v1-c/final-reload.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/early-v1-c/final-reload.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   2% ] reimport | partial-1280x720.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/partial-1280x720.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/partial-1280x720.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   5% ] reimport | partial-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/partial-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/partial-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   8% ] reimport | partial-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/partial-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/partial-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  11% ] reimport | long-error-scrolled-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/long-error-scrolled-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/long-error-scrolled-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  14% ] reimport | long-error-1280x720.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/long-error-1280x720.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/long-error-1280x720.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  17% ] reimport | long-error-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/long-error-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/long-error-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  20% ] reimport | long-error-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/long-error-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/long-error-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  23% ] reimport | living-1280x720.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/living-1280x720.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/living-1280x720.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  26% ] reimport | living-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/living-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/living-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  29% ] reimport | living-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/living-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/living-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  32% ] reimport | hut-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/hut-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/hut-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  35% ] reimport | garden-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/garden-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/garden-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  38% ] reimport | fortune-receipt-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/fortune-receipt-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/fortune-receipt-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  41% ] reimport | fortune-pending-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/fortune-pending-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/fortune-pending-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  44% ] reimport | fortune-insufficient-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/fortune-insufficient-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/fortune-insufficient-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  47% ] reimport | after-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/after-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/after-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  50% ] reimport | cloud-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/cloud-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/cloud-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  52% ] reimport | cloud-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/cloud-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/cloud-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  55% ] reimport | cloud-1280x720.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/cloud-1280x720.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/cloud-1280x720.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  58% ] reimport | companion-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/companion-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/companion-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  61% ] reimport | confirmation-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/confirmation-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/confirmation-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  64% ] reimport | core-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/core-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/core-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  67% ] reimport | early-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/early-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/early-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  70% ] reimport | early-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/early-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/early-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  73% ] reimport | early-1280x720.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/early-1280x720.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/early-1280x720.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  76% ] reimport | fb-800x360.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/fb-800x360.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/fb-800x360.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  79% ] reimport | fb-844x390.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/fb-844x390.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/fb-844x390.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  82% ] reimport | fb-1280x720.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://docs/verification/artifacts/atm-life-design/fb-1280x720.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://docs/verification/artifacts/atm-life-design/fb-1280x720.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  85% ] reimport | final-reload.png
+[  88% ] reimport | partial-1280x720.png
+[  91% ] reimport | partial-844x390.png
+[  94% ] reimport | partial-800x360.png
+[  97% ] reimport | 完成素材匯入...
+[ DONE ] reimport
+
+[   0% ] reimport | Started （重新）匯入素材 (33 steps)
+[   0% ] reimport | 執行重新匯入後續處理作業…
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started 正在載入編輯器 (5 steps)
+[   0% ] loading_editor_layout | 正在載入編輯器佈局…
+[  16% ] loading_editor_layout | 正在載入面板…
+[ DONE ] loading_editor_layout
+

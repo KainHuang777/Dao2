@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>淡紙底 · 圖像輪廓比較</title>
+<style>
+@font-face{font-family:Dao;src:url('/assets/fonts/runtime/Dao2Sans-VF.ttf');font-weight:200 900}
+*{box-sizing:border-box}body{margin:0;background:#e6e2d7;color:#343c3d;font:16px Dao,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:24px 24px 30px}h1{font-size:28px;margin:0 0 8px;font-weight:650;letter-spacing:.04em}
+.intro{margin:0;color:#626359;font-size:15px;line-height:1.6}.toolbar{display:flex;align-items:center;gap:8px;margin:18px 0}
+button{font:inherit;min-width:90px;min-height:44px;border:1px solid #aba78f;border-radius:5px;background:#f0eddc;color:#343c3d;cursor:pointer}
+button[aria-pressed=true]{background:#52766c;color:#fff8e8;border-color:#52766c}.toolbar span{margin-left:auto;font-size:14px;color:#626359}
+.columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:12px}
+.heading{padding:13px 16px;background:#f0eddc;border-top:2px solid #b6a46c;border-radius:4px}.heading strong{display:block;font-size:19px;font-weight:650}
+.heading small{display:block;font-size:13px;line-height:1.5;color:#626359;margin-top:5px}
+.group{margin:0 0 15px}.group h2{font-size:16px;font-weight:600;margin:0 0 6px;letter-spacing:.06em}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{min-width:0;border:14px solid transparent;border-image:url('/assets/ui/material/silk_row.svg') 14 fill stretch;padding:0 4px;display:flex;align-items:center;justify-content:center;gap:10px;height:232px}
+.large{width:230px;height:204px;display:grid;place-items:center;flex:1;min-width:0}.large img{width:var(--edge,192px);height:var(--edge,192px);object-fit:contain;display:block}
+.mini{width:70px;flex:none;align-self:center;text-align:center}.mini img{width:64px;height:64px;object-fit:contain;display:block;margin:auto}.mini span{display:block;font-size:12px;color:#717265;margin-top:8px}
+img{pointer-events:none}.fine img{filter:url(#fine-edge)}.sticker img{filter:url(#sticker-edge)}
+.note{margin:12px 0 0;font-size:13px;color:#626359;line-height:1.7}.defs{position:absolute;width:0;height:0;overflow:hidden}
+@media(max-width:800px){main{padding:16px}.columns,.cards{gap:6px}.card{padding:6px;height:170px}.mini{display:none}.large{height:150px}.large img{max-width:100%;max-height:146px}.heading{padding:8px}.heading strong{font-size:16px}.heading small{font-size:12px}.toolbar{flex-wrap:wrap}.toolbar span{width:100%;margin:0}}
+</style>
+<svg class="defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Presentation-only, screen-pixel filters. The source bitmap is unchanged. -->
+<filter id="fine-edge" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+ <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="discrete" tableValues="0 0 0 1"/></feComponentTransfer>
+ <feMorphology in="solid" operator="dilate" radius="1.15" result="expanded"/>
+ <feComposite in="expanded" in2="solid" operator="out" result="ring"/>
+ <feFlood flood-color="#5c5345" flood-opacity=".58" result="ink"/>
+ <feComposite in="ink" in2="ring" operator="in" result="outline"/>
+ <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+ <feOffset in="blur" dx="0" dy="1.8" result="offset"/>
+ <feFlood flood-color="#514b3d" flood-opacity=".24" result="shadowColor"/>
+ <feComposite in="shadowColor" in2="offset" operator="in" result="shadow"/>
+ <feMerge><feMergeNode in="shadow"/><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+<filter id="sticker-edge" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+ <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="discrete" tableValues="0 0 1 1"/></feComponentTransfer>
+ <feMorphology in="solid" operator="dilate" radius="3" result="paperShape"/>
+ <feMorphology in="solid" operator="dilate" radius="4" result="outerShape"/>
+ <feComposite in="outerShape" in2="paperShape" operator="out" result="outerRing"/>
+ <feFlood flood-color="#706451" flood-opacity=".65" result="ink"/>
+ <feComposite in="ink" in2="outerRing" operator="in" result="outline"/>
+ <feFlood flood-color="#fff8e8" result="cream"/>
+ <feComposite in="cream" in2="paperShape" operator="in" result="paper"/>
+ <feGaussianBlur in="outerShape" stdDeviation="1.7" result="blur"/>
+ <feOffset in="blur" dx="0" dy="2" result="offset"/>
+ <feFlood flood-color="#514b3d" flood-opacity=".20" result="shadowColor"/>
+ <feComposite in="shadowColor" in2="offset" operator="in" result="shadow"/>
+ <feMerge><feMergeNode in="shadow"/><feMergeNode in="outline"/><feMergeNode in="paper"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+</svg>
+<main>
+ <h1>淡紙底 · 圖像輪廓比較</h1>
+ <p class="intro">同一張原圖、相同圖案大小、相同正式紙面素材。比較輪廓辨識、白狐毛邊與丹爐光霧的保留程度。</p>
+ <div class="toolbar" aria-label="比較尺寸">
+  <button type="button" data-size="192" aria-pressed="true">放大 192px</button>
+  <button type="button" data-size="112" aria-pressed="false">常用 112px</button>
+  <span>右側小圖固定 64px · 外框厚度以顯示像素計</span>
+ </div>
+ <div class="columns">
+  <div class="heading"><strong>A　原版</strong><small>透明原圖<br>無描邊、無投影</small></div>
+  <div class="heading"><strong>B　細描邊投影 · 已選定</strong><small>暖灰褐細邊約 1.15px<br>柔影向下 1.8px；微光保持柔邊</small></div>
+  <div class="heading"><strong>C　貼紙框</strong><small>米白出血邊 3px ＋ 深色外緣 1px<br>柔影向下 2px</small></div>
+ </div>
+ <div id="samples"></div>
+ <p class="note">三欄均使用正式天賦卡的 silk_row 紙底與九宮格拉伸；圖片沿透明 alpha 即時繪製外框，沒有重畫或修改原始 PNG。<br>2026-10-23 已選定 B，並納入共用 UI 規範；正式 Godot 共用呈現接線待實作。</p>
+</main>
+<script>
+const items=[['alchemical_past_wisdom','丹爐 · 丹心宿慧'],['artisan_past_wisdom','百工器具 · 百工宿慧'],['beast_bond_past_wisdom','白狐 · 靈契宿慧']];
+const types=['original','fine','sticker'];
+for(const [id,name] of items){
+ const group=document.createElement('section');group.className='group';
+ const title=document.createElement('h2');title.textContent=name;group.append(title);
+ const cards=document.createElement('div');cards.className='cards';
+ for(const type of types){
+  const card=document.createElement('div');card.className='card '+type;card.dataset.asset=id;card.dataset.style=type;
+  for(const size of ['large','mini']){
+   const stage=document.createElement('div');stage.className=size;
+   const image=new Image();image.src='/assets/ui/reincarnation-painted/'+id+'.png';image.alt=name+' '+type;stage.append(image);
+   if(size==='mini'){const caption=document.createElement('span');caption.textContent='64px';stage.append(caption)}
+   card.append(stage);
+  }
+  cards.append(card);
+ }
+ group.append(cards);document.getElementById('samples').append(group);
+}
+for(const button of document.querySelectorAll('[data-size]'))button.addEventListener('click',()=>{
+ document.documentElement.style.setProperty('--edge',button.dataset.size+'px');
+ for(const b of document.querySelectorAll('[data-size]'))b.setAttribute('aria-pressed',String(b===button));
+});
+</script>
+</html>

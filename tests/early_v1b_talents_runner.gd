@@ -124,7 +124,7 @@ func _run() -> void:
 
 func _run_frozen_table(content: GameContent) -> void:
 	var defs: Dictionary = TalentSystem.TALENTS
-	check(defs.size() == 3, "exactly three talents defined")
+	check(defs.size() == 6, "six talents defined after CONTENT-P1-TALENT; original three verified below")
 	check(TalentSystem.get_definition("unknown_talent") == null, "unknown talent has no definition")
 	check(String(TalentSystem.can_learn(GameState.new(), "unknown_talent")["reason"]) == "UNKNOWN_TALENT", "unknown talent refusal reason")
 	for talent_id in TALENT_IDS:

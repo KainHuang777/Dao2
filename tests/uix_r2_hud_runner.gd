@@ -26,7 +26,7 @@ func _run() -> void:
 	var dock: Button = abode.building_catalog_button
 	check(dock.get_theme_stylebox("pressed").modulate_color != dock.get_theme_stylebox("normal").modulate_color, "jade press has distinct feedback")
 	check(dock.get_theme_stylebox("hover").modulate_color != dock.get_theme_stylebox("disabled").modulate_color, "jade hover and disabled differ")
-	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(vp)
 		await process_frame
 		abode._layout_for_size(vp)

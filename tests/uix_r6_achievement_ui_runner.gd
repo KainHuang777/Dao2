@@ -86,7 +86,7 @@ func _run() -> void:
 			check(item.visible == (item.get_meta("category") == panel._category_ids[index]), "filter visibility")
 	panel._filters._buttons[0].pressed.emit()
 	panel.show_status_message("")
-	for vp in [Vector2(1280,720),Vector2(844,390),Vector2(800,360)]:
+	for vp in ([Vector2(1280,720),Vector2(844,390),Vector2(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280,720)]):
 		abode._layout_for_size(vp)
 		for frame in 5: await process_frame
 		check(panel._scroll.size.y > 20, "scroll has usable height")

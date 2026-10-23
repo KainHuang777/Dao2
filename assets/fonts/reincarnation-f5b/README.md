@@ -1,3 +1,5 @@
+2026-10-22 REPORT-1A reuse: the unchanged WenKai TC Regular font is also used by UiTypography.biography_font() for approved production biography and closing prose. Existing hash, copyright and OFL license below remain applicable; no new binary or upstream source was introduced.
+
 # F5-B decorative font candidate
 
 Downloaded 2026-10-18 from the official Google Fonts repository:

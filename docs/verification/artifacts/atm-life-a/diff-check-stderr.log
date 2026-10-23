@@ -1,0 +1,6 @@
+warning: in the working copy of 'export_presets.cfg', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'project.godot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/abode/living_abode.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/application/game_session.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/presentation/ui_typography.gd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/run_all_runners.ps1', LF will be replaced by CRLF the next time Git touches it

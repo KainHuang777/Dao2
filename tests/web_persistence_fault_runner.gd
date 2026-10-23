@@ -57,7 +57,7 @@ func _init() -> void:
 	a = FaultAdapter.new()
 	var encoded := SaveCodec.encode(s.state, content.content_version, _meta(1000))
 	var raw: Dictionary = JSON.parse_string(encoded.json)
-	raw.schema_version = 3
+	raw.schema_version = 1
 	raw.state.erase("economy")
 	raw.erase("checksum")
 	raw.checksum = SaveCodec.compute_checksum(raw)

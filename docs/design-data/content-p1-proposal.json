@@ -1,0 +1,24 @@
+{
+  "task": "CONTENT-P1-DESIGN",
+  "revision": 1,
+  "status": "PROPOSED_NOT_APPROVED",
+  "origin": "v2 original design; no DAO1 parity claim",
+  "skills": [
+    {"id":"greenwood_nourishment","name":"青木養元法","era":2,"cost":120,"max_level":3,"effect":"wood_multiplier","amount":"1.10","targets":["wood"],"scope":"home_passive_production"},
+    {"id":"ore_breath_refinement","name":"玄礦煉息訣","era":2,"cost":120,"max_level":3,"effect":"stone_low_multiplier","amount":"1.10","targets":["stone_low"],"scope":"home_passive_production"},
+    {"id":"herbal_spirit_nurture","name":"百草培靈術","era":2,"cost":120,"max_level":3,"effect":"spirit_grass_low_multiplier","amount":"1.10","targets":["spirit_grass_low"],"scope":"home_passive_production"},
+    {"id":"warehouse_preparation","name":"靈倉整備法","era":3,"cost":1200,"max_level":3,"effect":"p1_material_capacity_flat","amount":"200","targets":["wood","stone_low","spirit_grass_low"],"scope":"home_capacity"},
+    {"id":"alchemical_breath_control","name":"丹火調息法","era":3,"cost":1800,"max_level":3,"effect":"p1_alchemy_lingli_discount","amount":"0.05","targets":["cultivation_pill","high_cultivation_pill","spirit_tide_pill","wood_nurture_pill","herb_nurture_pill","wealth_gathering_pill","qi_absorption_pill"],"scope":"direct_alchemy_lingli_cost"}
+  ],
+  "talents": [
+    {"id":"alchemical_past_wisdom","name":"丹心宿慧","base_cost":5,"cost_factor":2,"max_level":5,"effect":"p1_instant_training_bonus","amount":"0.10","targets":["cultivation_pill","high_cultivation_pill"]},
+    {"id":"artisan_past_wisdom","name":"百工宿慧","base_cost":5,"cost_factor":2,"max_level":5,"effect":"p1_building_output_bonus","amount":"0.08","targets":["wooden_house","forest_farm","stone_mine","herb_farm"]},
+    {"id":"beast_bond_past_wisdom","name":"靈契宿慧","base_cost":5,"cost_factor":2,"max_level":5,"effect":"p1_beast_feed_exp_bonus","amount":"0.20","targets":["jade_fox"]}
+  ],
+  "pills": [
+    {"id":"wood_nurture_pill","name":"養木丹","era":2,"target":"wood","cost":{"spirit_grass_low":10,"lingli":40},"buff_id":"p1_wood_nurture","bonus":"1.00","duration":300},
+    {"id":"herb_nurture_pill","name":"育草丹","era":2,"target":"spirit_grass_low","cost":{"wood":10,"lingli":40},"buff_id":"p1_herb_nurture","bonus":"1.00","duration":300},
+    {"id":"wealth_gathering_pill","name":"聚財丹","era":3,"target":"money","cost":{"spirit_grass_low":10,"stone_low":10,"lingli":40},"buff_id":"p1_wealth_gathering","bonus":"1.00","duration":300},
+    {"id":"qi_absorption_pill","name":"納靈丹","era":3,"target":"lingli","cost":{"spirit_grass_low":10,"stone_low":10},"buff_id":"p1_qi_absorption","bonus":"1.00","duration":300}
+  ]
+}

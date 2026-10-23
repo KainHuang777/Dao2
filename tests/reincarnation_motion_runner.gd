@@ -38,7 +38,7 @@ func _run() -> void:
 	check(art._effect.visible and not art._effect.glyphs[0].visible, "compact art omits decorative text")
 	var sequence := ReincarnationSequence.new()
 	root.add_child(sequence)
-	for vp in [Vector2(1280,720),Vector2(844,390),Vector2(800,360)]:
+	for vp in ([Vector2(1280,720),Vector2(844,390),Vector2(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280,720)]):
 		sequence.set_layout_bounds(Rect2(Vector2.ZERO,vp))
 		sequence.play(null, 1, 15, Callable(), false)
 		for frame in 8: await process_frame

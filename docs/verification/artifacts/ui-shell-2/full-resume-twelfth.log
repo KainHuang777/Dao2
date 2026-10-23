@@ -1,0 +1,760 @@
+[RUNNING] tests/m2d_responsive_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=1
+ABODE_DIRECT_BUILD: hut
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1920.0, 902.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 480.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_CAMERA_COSMOS
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+PASS: M2-D island/management tabs, three resource modes, compact building rows, detail return, and responsive bounds.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/ui_material_states_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] update_view (res://src/presentation/sect_panel.gd:277)
+       [2] _run (res://tests/ui_material_states_runner.gd:56)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] _run (res://tests/ui_material_states_runner.gd:58)
+PASS: material demand ratio, prerequisites, ready/capped/reset states, borders and input isolation
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/text_transition_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+       [8] _run (res://tests/text_transition_runner.gd:56)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+       [8] _run (res://tests/text_transition_runner.gd:56)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+PASS: text transition replay/skip/completion, reduced motion, fade and responsive long titles
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/m2d_slice_release_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+NINE_REALMS_ASPIRE: realm_spirit
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=1
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_CAMERA_REGION
+NINE_REALMS_HOOK_FINISHED
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_REINCARNATION: cycle=1
+NINE_REALMS_HOOK_TRIGGERED
+ABODE_CAMERA_COSMOS
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+NINE_REALMS_CINEMATIC_DONE
+ABODE_CAMERA_HOME
+NINE_REALMS_HOOK_FINISHED
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+       [8] _run (res://tests/m2d_slice_release_runner.gd:182)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+       [8] _run (res://tests/m2d_slice_release_runner.gd:182)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+PASS: M2-D full slice release, end-to-end progression, 50x view switching memory stability (418.14 KB), and save integrity.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3a_reincarnation_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+--- Running M3-A Reincarnation Runner ---
+Testing golden fixture parity against m0-b-v1.json...
+Testing eligibility gating...
+Testing reincarnation execution, state reset, and resource inheritance...
+Testing talent purchasing, multipliers, and lifespan bonus...
+Testing persistence encode/decode roundtrip for reincarnation state...
+PASS: M3-A lifecycle, reward golden parity, v2 talent-only inheritance, reset/preserve and persistence.
+[RUNNING] tests/m3a_reincarnation_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _ready (res://src/abode/living_abode.gd:388)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:69)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:167)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:191)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:784)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:759)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:664)
+       [6] _layout (res://src/abode/living_abode.gd:640)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:247)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1275)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+--- Running M3-A Reincarnation UI Runner ---
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ERROR: FAILED: canonical cultivation tab must open reincarnation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:29)
+FAILED: canonical cultivation tab must open reincarnation
+ERROR: FAILED: reincarnate button must be disabled for new game (Era 1, full lifespan)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:30)
+FAILED: reincarnate button must be disabled for new game (Era 1, full lifespan)
+ERROR: FAILED: eligibility label must explain requirement
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:31)
+FAILED: eligibility label must explain requirement
+ERROR: FAILED: talent rows must receive a real height inside the outer scroll body
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:46)
+FAILED: talent rows must receive a real height inside the outer scroll body
+ERROR: FAILED: first talent purchase must be visible in the scroll viewport
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:47)
+FAILED: first talent purchase must be visible in the scroll viewport
+ERROR: FAILED: learn button must be enabled when player has 50 dao heart (cost=5)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:52)
+FAILED: learn button must be enabled when player has 50 dao heart (cost=5)
+ABODE_TALENT_LEARNED: resource_inheritance level=1
+ERROR: FAILED: talent row label must reflect new level [1 / 10 階]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:58)
+FAILED: talent row label must reflect new level [1 / 10 階]
+ERROR: FAILED: reincarnate button must be enabled when rebirth lotus is built
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:78)
+FAILED: reincarnate button must be enabled when rebirth lotus is built
+ERROR: FAILED: reincarnate button must be enabled when lifespan is exhausted
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:86)
+FAILED: reincarnate button must be enabled when lifespan is exhausted
+ERROR: FAILED: eligibility label must display lifespan exhausted qualification
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:87)
+FAILED: eligibility label must display lifespan exhausted qualification
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_REINCARNATION: cycle=1
+NINE_REALMS_HOOK_TRIGGERED
+ABODE_CAMERA_COSMOS
+ABODE_REINCARNATION_SEQUENCE_STARTED: cycle=1
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_CAMERA_HOME
+ABODE_CAMERA_HOME
+ABODE_REINCARNATION_SEQUENCE_FINISHED: cycle=1
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: FAILED: camera input must be unlocked after sequence finishes
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:141)
+FAILED: camera input must be unlocked after sequence finishes
+ABODE_LAYOUT mode=portrait size=(360.0, 640.0)
+ERROR: FAILED: canonical page retained beneath rotation prompt
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _expect (res://tests/m3a_reincarnation_ui_runner.gd:162)
+       [1] _run (res://tests/m3a_reincarnation_ui_runner.gd:146)
+FAILED: canonical page retained beneath rotation prompt
+FAIL: M3-A reincarnation UI tests failed.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/m3a_reincarnation_ui_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:102 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

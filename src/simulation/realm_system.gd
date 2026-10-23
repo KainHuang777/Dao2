@@ -142,12 +142,14 @@ static func upgrade_outpost(state: GameState, outpost_id: String) -> Dictionary:
 	for res_id in costs:
 		var req := float(costs[res_id])
 		if res_id == "spirit_crystal":
+			ResourceLedger.change(state, "realm_spirit", "spirit_crystal", AmountCompat.from_number(float(data.get("spirit_crystal", 0))), AmountCompat.from_number(maxf(0, float(data.get("spirit_crystal", 0)) - req)), "realm")
 			data["spirit_crystal"] = maxf(0.0, float(data.get("spirit_crystal", 0.0)) - req)
 		elif res_id == "azure_nectar":
+			ResourceLedger.change(state, "realm_spirit", "azure_nectar", AmountCompat.from_number(float(data.get("azure_nectar", 0))), AmountCompat.from_number(maxf(0, float(data.get("azure_nectar", 0)) - req)), "realm")
 			data["azure_nectar"] = maxf(0.0, float(data.get("azure_nectar", 0.0)) - req)
 		else:
 			var entry: Dictionary = state.resources[res_id]
-			entry.value = entry.value.subtract(AmountCompat.from_number(req)).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(999999999.0))
+			entry.value = ResourceLedger.change(state, "home", res_id, entry.value, entry.value.subtract(AmountCompat.from_number(req)).clamp_amount(AmountCompat.zero(), AmountCompat.from_number(999999999.0)), "realm")
 	data["outposts"][outpost_id] = int(data["outposts"].get(outpost_id, 0)) + 1
 	return {
 		"ok": true,
@@ -193,12 +195,15 @@ static func tick(state: GameState, elapsed_seconds: float) -> Dictionary:
 		var crystal_gain := minf(maxf(0.0, crystal_cap - cur_crystal), float(hub_lvl) * 0.1 * realm_mult * elapsed_seconds)
 		crystal_gain = minf(crystal_gain, cur_stone * realm_mult * 0.5)
 		if crystal_gain > 0.0:
-			stone_entry.value = stone_entry.value.subtract(AmountCompat.from_number(crystal_gain * 2.0 / realm_mult))
+			stone_entry.value = ResourceLedger.change(state, "home", "stone_low", stone_entry.value, stone_entry.value.subtract(AmountCompat.from_number(crystal_gain * 2.0 / realm_mult)), "realm")
+			ResourceLedger.change(state, "realm_spirit", "spirit_crystal", AmountCompat.from_number(cur_crystal), AmountCompat.from_number(cur_crystal + crystal_gain), "realm")
 			cur_crystal += crystal_gain
 	if pool_lvl > 0:
 		var nectar_gain := minf(maxf(0.0, nectar_cap - cur_nectar), float(pool_lvl) * 0.05 * realm_mult * elapsed_seconds)
 		nectar_gain = minf(nectar_gain, cur_crystal * realm_mult)
 		if nectar_gain > 0.0:
+			ResourceLedger.change(state, "realm_spirit", "spirit_crystal", AmountCompat.from_number(cur_crystal), AmountCompat.from_number(cur_crystal - nectar_gain / realm_mult), "realm")
+			ResourceLedger.change(state, "realm_spirit", "azure_nectar", AmountCompat.from_number(cur_nectar), AmountCompat.from_number(cur_nectar + nectar_gain), "realm")
 			cur_crystal -= nectar_gain / realm_mult
 			cur_nectar += nectar_gain
 

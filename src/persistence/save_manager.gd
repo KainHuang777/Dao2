@@ -16,6 +16,11 @@ static var _envelope: Dictionary = {}
 static var _adapter: StorageAdapter = null
 static var _schema2_original: String = ""
 static var _skills_original: String = ""
+static var _talents_original: String = ""
+static var _story_original: String = ""
+static var _sect_original: String = ""
+static var _pills_original: String = ""
+static var _ledger_original: String = ""
 static var _load_error: String = ""
 static var _forced_reset := false
 
@@ -75,6 +80,11 @@ static func configure(content: GameContent, adapter: StorageAdapter = null) -> v
 		use_adapter = FileStorageAdapter.new(DEFAULT_SAVE_DIR)
 	_schema2_original = ""
 	_skills_original = ""
+	_talents_original = ""
+	_story_original = ""
+	_sect_original = ""
+	_pills_original = ""
+	_ledger_original = ""
 	_load_error = ""
 	_adapter = use_adapter
 	_slots = SaveSlots.new(use_adapter)
@@ -143,12 +153,72 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 			original = adapter().read(archive_key)
 		if not original.ok or original.data != _skills_original:
 			return {"ok": false, "error": "SKILL_ARCHIVE_READBACK"}
+	if not _talents_original.is_empty():
+		var archive_key := "save_before_talents_" + _talents_original.sha256_text()
+		var original := adapter().read(archive_key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "TALENT_ARCHIVE_READ_FAILED"}
+			if not adapter().write(archive_key, _talents_original).ok:
+				return {"ok": false, "error": "TALENT_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok or original.data != _talents_original:
+			return {"ok": false, "error": "TALENT_ARCHIVE_READBACK"}
+	if not _story_original.is_empty():
+		var archive_key := "save_before_story_" + _story_original.sha256_text()
+		var original := adapter().read(archive_key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "STORY_ARCHIVE_READ_FAILED"}
+			if not adapter().write(archive_key, _story_original).ok:
+				return {"ok": false, "error": "STORY_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok or original.data != _story_original:
+			return {"ok": false, "error": "STORY_ARCHIVE_READBACK"}
+	if not _sect_original.is_empty():
+		var archive_key := "save_before_sect_" + _sect_original.sha256_text()
+		var original := adapter().read(archive_key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "SECT_ARCHIVE_READ_FAILED"}
+			if not adapter().write(archive_key, _sect_original).ok:
+				return {"ok": false, "error": "SECT_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok or original.data != _sect_original:
+			return {"ok": false, "error": "SECT_ARCHIVE_READBACK"}
+	if not _pills_original.is_empty():
+		var archive_key := "save_before_pills_" + _pills_original.sha256_text()
+		var original := adapter().read(archive_key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "PILL_ARCHIVE_READ_FAILED"}
+			if not adapter().write(archive_key, _pills_original).ok:
+				return {"ok": false, "error": "PILL_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok or original.data != _pills_original:
+			return {"ok": false, "error": "PILL_ARCHIVE_READBACK"}
+	if not _ledger_original.is_empty():
+		var key := "save_before_ledger_" + _ledger_original.sha256_text()
+		var original := adapter().read(key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "LEDGER_ARCHIVE_READ_FAILED"}
+			if not adapter().write(key, _ledger_original).ok:
+				return {"ok": false, "error": "LEDGER_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(key)
+		if not original.ok or original.data != _ledger_original:
+			return {"ok": false, "error": "LEDGER_ARCHIVE_READBACK"}
 	var profile_commit := RuntimeProfile.begin()
 	var commit_result: Dictionary = slots().commit(String(encode_result["json"]), state.revision)
 	RuntimeProfile.end("save_commit", profile_commit)
 	if bool(commit_result.get("ok", false)):
 		_current_state = state
 		_skills_original = ""
+		_talents_original = ""
+		_story_original = ""
+		_sect_original = ""
+		_pills_original = ""
+		_ledger_original = ""
 		_envelope = _normalize_meta(meta)
 	return commit_result
 
@@ -237,7 +307,17 @@ static func import_share_string(share: String) -> Dictionary:
 	var decode_result: Dictionary = SaveCodec.decode(json_text)
 	if not bool(decode_result.get("ok", false)):
 		return {"ok": false, "state": null, "error": String(decode_result.get("error", "DECODE_FAILED"))}
+	if decode_result.state.story_version < StoryProgress.VERSION:
+		_story_original = json_text
+		StoryProgress.migrate(decode_result.state)
 	SkillSystem.reconcile(content(), decode_result["state"])
+	TalentSystem.reconcile(decode_result["state"])
+	if decode_result.state.pill_version < AlchemySystem.VERSION:
+		_pills_original = json_text
+		decode_result.state.pill_version = AlchemySystem.VERSION
+	if decode_result.state.sect_version < SectSystem.VERSION:
+		_sect_original = json_text
+		decode_result.state.sect_version = SectSystem.VERSION
 	return {"ok": true, "state": decode_result["state"], "error": ""}
 
 static func reset_for_tests() -> void:
@@ -248,6 +328,11 @@ static func reset_for_tests() -> void:
 	_adapter = null
 	_schema2_original = ""
 	_skills_original = ""
+	_talents_original = ""
+	_story_original = ""
+	_sect_original = ""
+	_pills_original = ""
+	_ledger_original = ""
 	_load_error = ""
 	_forced_reset = false
 
@@ -260,7 +345,7 @@ static func _load_from_slots() -> GameState:
 		var parsed: Variant = JSON.parse_string(String(raw.data))
 		if not (parsed is Dictionary):
 			continue
-		if SaveCodec.classify_envelope(parsed) != "older":
+		if SaveCodec.classify_envelope(parsed) != "older" or int(parsed.get("schema_version", 0)) >= 2:
 			continue
 		if adapter_obj is WebStorageAdapter and adapter_obj.session_status() != "ready":
 			break
@@ -276,25 +361,46 @@ static func _load_from_slots() -> GameState:
 		_load_error = ""
 		_forced_reset = true
 		return null
+	var sect_decode_error := {"value":""}
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
 		var decode_result: Dictionary = SaveCodec.decode(json_text)
 		if not bool(decode_result.get("ok", false)):
+			if String(decode_result.get("error", "")).begins_with("SECT_") or String(decode_result.get("error", "")).begins_with("STORY_"):
+				sect_decode_error.value = String(decode_result.error)
 			return -1
 		var decoded_state: GameState = decode_result["state"]
 		return decoded_state.revision
 	)
 	if not bool(best.get("ok", false)):
 		_load_error = "" if best.get("error") == "empty_storage" else String(best.get("error", "LOAD_FAILED"))
+		if not String(sect_decode_error.value).is_empty(): _load_error = String(sect_decode_error.value)
 		return null
 	var decode_result: Dictionary = SaveCodec.decode(String(best["json"]))
 	if not bool(decode_result.get("ok", false)):
 		return null
 	_envelope = decode_result["envelope"]
+	if int(_envelope.schema_version) < SaveCodec.SCHEMA_VERSION:
+		_ledger_original = String(best["json"])
 	if int(_envelope.schema_version) == 2:
 		_schema2_original = String(best["json"])
 	var loaded_state: GameState = decode_result["state"]
 	if content() != null and SkillSystem.reconcile(content(), loaded_state):
 		_skills_original = String(best["json"])
+		loaded_state.revision += 1
+	if TalentSystem.reconcile(loaded_state):
+		_talents_original = String(best["json"])
+		loaded_state.revision += 1
+	if loaded_state.pill_version < AlchemySystem.VERSION:
+		_pills_original = String(best["json"])
+		loaded_state.pill_version = AlchemySystem.VERSION
+		loaded_state.revision += 1
+	if loaded_state.sect_version < SectSystem.VERSION:
+		_sect_original = String(best["json"])
+		loaded_state.sect_version = SectSystem.VERSION
+		loaded_state.revision += 1
+	if loaded_state.story_version < StoryProgress.VERSION:
+		_story_original = String(best["json"])
+		StoryProgress.migrate(loaded_state)
 		loaded_state.revision += 1
 	return loaded_state
 

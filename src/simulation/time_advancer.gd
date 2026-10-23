@@ -9,6 +9,8 @@ static func ticks_for_elapsed(elapsed_seconds: float) -> int:
 	return int(floor(elapsed_seconds / float(SECONDS_PER_TICK)))
 
 static func advance(state: GameState, content: GameContent, ticks: int, prepared: Dictionary = {}) -> Dictionary:
+	if ticks > 0:
+		LifeLedger.initialize(state)
 	if state.economy.is_empty():
 		return _advance_legacy(state, content, ticks)
 	if content.processing_catalog.is_empty():
@@ -28,6 +30,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 			economy_events.append_array(result.events)
 			result.events = economy_events
 			result.changed_ids.append("economy")
+			LifeHistory.observe(state, content)
 		return result
 	# Fixed one-second boundaries also split buffs, weather and lifespan. No frame RNG.
 	for _tick in range(maxi(0, ticks)):
@@ -35,6 +38,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		if int(result.ticks_advanced) > 0:
 			executed += 1
 			events.append_array(IslandEconomy.tick_prepared(state, content.processing_catalog, prepared.economy))
+			LifeHistory.observe(state, content)
 		for id in result.changed_ids:
 			if not id in changed:
 				changed.append(id)
@@ -118,7 +122,7 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 	if prepared.has("rates") and prepared.get("rate_multiplier") == global_prod_total:
 		rates = prepared.rates
 	else:
-		rates = Production.compute_rates(content, state.buildings, global_prod_total, state.skills)
+		rates = Production.compute_rates(content, state.buildings, global_prod_total, state.skills, state.talents)
 		if not prepared.is_empty():
 			prepared.rates = rates
 			prepared.rate_multiplier = global_prod_total
@@ -159,7 +163,10 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": state.total_elapsed_seconds, "max_lifespan_seconds": max_seconds})
+		LifeLedger.exhausted(state)
 		stopped = "lifespan_exhausted"
+	LifeLedger.observe(state)
+	if state.economy.is_empty(): LifeHistory.observe(state, content)
 	return {"ticks_advanced": executed, "events": events, "changed_ids": changed_ids, "stopped": stopped}
 
 static func _produce_uncached(state: GameState, content: GameContent, rates: Dictionary, caps: Dictionary, spec_multipliers: Dictionary, chrono_spec: Dictionary, sect_multipliers: Dictionary, chrono_multipliers: Dictionary, beast_multipliers: Dictionary, elapsed: float) -> Array:
@@ -199,6 +206,7 @@ static func _produce_uncached(state: GameState, content: GameContent, rates: Dic
 			cap_limit = AmountCompat.from_number(maxf(entry.value.to_float(), maxf(0, effective_cap)))
 		if caps.has(resource_id) and new_value.compare_to(cap_limit) > 0:
 			new_value = cap_limit
+		ResourceLedger.change(state, "home", resource_id, entry.value, new_value if new_value.compare_to(entry.value) != 0 else entry.value, "production", delta)
 		if new_value.compare_to(entry.value) != 0:
 			entry.value = new_value
 			changed_ids.append(String(resource_id))
@@ -244,6 +252,9 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 	# changing reservations. Amount identity also catches realm resource sinks.
 	# Rebuilding multipliers above always invalidates this shortcut first.
 	if prepared.economy.has("idle_home") and prepared.has("production_home") and IslandEconomy._same_home(state, prepared.production_home):
+		for id in prepared.production:
+			var held: AmountCompat = state.resources[id].value
+			ResourceLedger.change(state, "home", id, held, held, "production", prepared.production[id].delta)
 		return []
 	var changed: Array = []
 	for id in prepared.production:
@@ -259,10 +270,12 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 		var delta: AmountCompat = item.delta
 		# Full/contraction caps with nonnegative production cannot change the Amount.
 		if item.limited and delta.sign >= 0 and current.compare_to(cap) == 0:
+			ResourceLedger.change(state, "home", id, current, current, "production", delta)
 			continue
 		var next := current.add(delta)
 		if item.limited and next.compare_to(cap) > 0:
 			next = cap
+		ResourceLedger.change(state, "home", id, current, next if next.compare_to(current) != 0 else current, "production", delta)
 		if next.compare_to(current) != 0:
 			entry.value = next
 			changed.append(String(id))
@@ -271,6 +284,8 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 	return changed
 
 static func advance_time_only(state: GameState, content: GameContent, ticks: int) -> Dictionary:
+	if ticks > 0:
+		LifeLedger.initialize(state)
 	if ticks <= 0:
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null}
 	var lifespan_bonus := float(TalentSystem.compute_multipliers(state).lifespan_bonus)
@@ -293,5 +308,8 @@ static func advance_time_only(state: GameState, content: GameContent, ticks: int
 	var stopped = null
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": state.total_elapsed_seconds, "max_lifespan_seconds": max_seconds})
+		LifeLedger.exhausted(state)
 		stopped = "lifespan_exhausted"
+	LifeLedger.observe(state)
+	LifeHistory.observe(state, content, true)
 	return {"ticks_advanced": executed, "events": events, "changed_ids": [], "stopped": stopped}

@@ -25,6 +25,7 @@ func _run() -> void:
 	abode.set_process(false)
 	root.add_child(abode)
 	await process_frame
+	abode.offline_summary.hide() # Complete the report before testing feature input.
 	# Existing get_view/panels lazily initialize sect and realm presentation data.
 	abode._toggle_sect_panel()
 	abode._toggle_realm_modal()
@@ -46,7 +47,7 @@ func _run() -> void:
 		shown += int(abode.feature_navigation.island_panel.visible)
 		shown += int(abode.building_catalog.visible)
 		_expect(shown == 1, "section changes must show only one gameplay page")
-	for bounds in [Vector2(1280, 720), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)]:
+	for bounds in ([Vector2(1280, 720), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(bounds)
 		abode._refresh_hud()
 		for key in panels:

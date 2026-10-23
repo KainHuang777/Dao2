@@ -109,7 +109,7 @@ func _run() -> void:
 	SaveManager.configure(abode.content, adapter)
 	reset()
 	var before := snapshot()
-	for vp in [Vector2i(1280, 720), Vector2i(844, 390), Vector2i(800, 360)]:
+	for vp in ([Vector2i(1280, 720), Vector2i(844, 390), Vector2i(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280, 720)]):
 		root.size = vp
 		root.content_scale_size = vp
 		await process_frame
@@ -119,10 +119,11 @@ func _run() -> void:
 		await process_frame
 		check(panel.grid.columns == (2 if vp.x == 1280 else 1), "responsive recipe columns " + str(vp))
 		if vp.x != 1280:
+			print("UI1A viewport=%s material=%s scroll=%s" % [vp,panel.cards.bronze_essence.materials.get_global_rect(),panel.body.get_parent().get_global_rect()])
 			check(not panel.production_summary.visible and panel.cards.bronze_essence.materials.get_global_rect().end.y <= panel.body.get_parent().get_global_rect().end.y, "short first card exposes materials without initial scroll " + str(vp))
-		check(not abode.header.visible and abode.resource_ribbon.visible == (vp.x == 1280), "manufacturing keeps wide stock rail; short cards show sources")
+		check(not abode.header.visible and nav.shell.context_paper.visible == (vp.x == 1280), "manufacturing keeps scoped wide stock rail; short cards show sources")
 		if vp.x == 1280:
-			check(abode.resource_ribbon.get_global_rect().end.x < panel.position.x, "stock rail does not overlap manufacturing")
+			check(nav.shell.context_paper.get_global_rect().end.x < panel.position.x, "stock rail does not overlap manufacturing")
 		check(panel.get_global_rect().end.x <= vp.x and panel.get_global_rect().end.y <= abode.toolbar.position.y, "workspace fits " + str(vp))
 		panel.select_recipe("spirit_timber")
 		await process_frame
@@ -258,7 +259,7 @@ func _run() -> void:
 	IslandEconomy._put(abode.session.state, "home", "bronze_essence", 10)
 	abode._refresh_hud()
 	check(not basics.facility_cards.extractor.tiles.bronze_essence.shortage, "upgrade cost clears shortage at exact required stock")
-	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		abode._layout_for_size(vp)
 		await process_frame
 		await process_frame

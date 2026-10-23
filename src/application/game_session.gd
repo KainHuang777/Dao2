@@ -64,6 +64,10 @@ static func create_new_game(content: GameContent, tribulation_seed: int = -1) ->
 	for building_id in content.building_ids:
 		state.buildings[building_id] = 0
 	SkillSystem.reconcile(content, state)
+	StoryProgress.ensure(state)
+	LifeLedger.initialize(state, true)
+	ResourceLedger.initialize(state, true)
+	LifeHistory.observe(state, content, true)
 	session.state = state
 	return session
 
@@ -126,7 +130,7 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 func get_view() -> Dictionary:
 	var era_definition: Variant = content.era(state.era_id)
 	var era_multiplier := 1.0 if era_definition == null else float(era_definition.resource_multiplier)
-	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier), state.skills)
+	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier), state.skills, state.talents)
 	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 	if caps.has("skill_point"):
 		caps.skill_point = SkillSystem.study_cap(state, caps.skill_point)
@@ -253,6 +257,7 @@ func get_view() -> Dictionary:
 		"tribulation_preview": _tribulation_preview(),
 		"era": era_view,
 		"resources": resources,
+		"sect": {"contribution": state.sect.get("contribution", "0"), "unlocked": bool(state.sect.get("unlocked", false))},
 		"skills": SkillSystem.view(content, state),
 		"buildings": buildings,
 		"next_objective": unlock.next_objective,
@@ -277,6 +282,8 @@ func get_view() -> Dictionary:
 		},
 		"fortune": {
 			"cooldown_remaining": float(state.fortune.get("cooldown_remaining", 0.0)) if state.fortune is Dictionary else 0.0,
+			"instance_id": DecisionReceipt.pending_id(state),
+			"option_errors": fortune_option_errors(),
 			"has_pending": not (state.fortune.get("pending_encounter", {}) as Dictionary).is_empty() if state.fortune is Dictionary else false,
 			"pending_encounter": (state.fortune.get("pending_encounter", {}) as Dictionary).duplicate(true) if state.fortune is Dictionary else {},
 			"encounter_history_count": int(state.fortune.get("encounter_history_count", 0)) if state.fortune is Dictionary else 0,
@@ -286,7 +293,7 @@ func get_view() -> Dictionary:
 		"realm_decisions": RealmDecisionSystem.get_realm_decisions_view(state, state.current_realm),
 		"beast": BeastSystem.get_view(state),
 		"world_address": state.world_address,
-		"achievements": AchievementSystem.get_achievement_view(state),
+		"achievements": AchievementSystem.get_achievement_view(state, content),
 	}
 
 
@@ -334,6 +341,43 @@ func consume_pill(pill_id: String, count: int = 1) -> Dictionary:
 		"expected_revision": state.revision,
 		"payload": {"pill_id": pill_id, "count": count},
 	})
+
+# Explicit read API: history is not cloned into the per-frame HUD view.
+func get_decision_book(life_id: int = 0) -> Dictionary:
+	var life: Dictionary = state.life_ledger.get("current", {})
+	if life_id > 0 and life_id != int(life.get("life_id", 0)):
+		life = {}
+		for archived in state.life_ledger.get("archive", []):
+			if int(archived.life_id) == life_id:
+				life = archived
+				break
+	return life.get("decisions", {}).duplicate(true)
+
+func get_resource_accounts(life_id: int = 0) -> Dictionary:
+	var life: Dictionary = state.life_ledger.get("current", {})
+	if life_id > 0 and life_id != int(life.get("life_id", 0)):
+		life = {}
+		for old in state.life_ledger.get("archive", []):
+			if int(old.life_id) == life_id:
+				life = old
+				break
+	return life.get("accounts", {}).duplicate(true)
+
+func get_life_record() -> Dictionary:
+	return state.life_ledger.duplicate(true)
+
+func get_life_report(life_id: int = 0) -> Dictionary:
+	var life: Dictionary = state.life_ledger.get("current", {})
+	if life_id > 0 and life_id != int(life.get("life_id", 0)):
+		life = {}
+		for archived in state.life_ledger.get("archive", []):
+			if int(archived.life_id) == life_id:
+				life = archived
+				break
+	if life.is_empty():
+		return {}
+	var reason: String = String(get_reincarnation_preview().reason)
+	return {"life": life.duplicate(true), "report": LifeReport.read(life, reason)}
 
 func get_reincarnation_preview(mode: String = "normal") -> Dictionary:
 	var b_sum := ReincarnationRules.building_level_sum(state.buildings)
@@ -510,12 +554,12 @@ func trigger_fortune() -> Dictionary:
 		"payload": {},
 	})
 
-func resolve_fortune(option_index: int) -> Dictionary:
+func resolve_fortune(option_index: int, instance_id: String = "") -> Dictionary:
 	return submit({
 		"command_id": "fortune_res_" + str(option_index) + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
 		"type": "resolve_fortune",
 		"expected_revision": state.revision,
-		"payload": {"option_index": option_index},
+		"payload": {"option_index": option_index, "instance_id": instance_id if not instance_id.is_empty() else DecisionReceipt.pending_id(state)},
 	})
 
 func execute_realm_decision(realm_id: String, decision_id: String) -> Dictionary:
@@ -561,3 +605,11 @@ func claim_achievement(achievement_id: String) -> Dictionary:
 		"payload": {"achievement_id": achievement_id},
 	})
 
+
+func fortune_option_errors() -> Array:
+	var errors: Array = []
+	var pending: Dictionary = state.fortune.get("pending_encounter", {})
+	if pending.get("content_batch") != "content-p1-story": return errors
+	for option in pending.get("options", []):
+		errors.append(StoryProgress.transaction_error(state, content, option.get("costs", {}), option.get("rewards", {})))
+	return errors

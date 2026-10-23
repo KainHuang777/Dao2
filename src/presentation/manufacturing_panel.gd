@@ -40,7 +40,7 @@ func _ready() -> void:
 	filter_picker.add_item("全部空島")
 	for id in IslandProgression.NAMES:
 		filter_picker.add_item(IslandProgression.NAMES[id])
-	filter_picker.item_selected.connect(func(index: int): island_filter = "" if index == 0 else String(IslandProgression.NAMES.keys()[index - 1]); _refresh_cards())
+	filter_picker.item_selected.connect(func(index: int): island_filter = "" if index == 0 else String(IslandProgression.NAMES.keys()[index - 1]); _refresh_cards(); context_changed.emit())
 	heading_label.get_parent().add_child(filter_picker)
 	heading_label.get_parent().move_child(filter_picker, 1)
 	category_row = HBoxContainer.new()
@@ -154,6 +154,7 @@ func select_recipe(id: String) -> void:
 	_refresh_cards()
 	_refresh_detail()
 	_reveal_settings.call_deferred(id)
+	context_changed.emit()
 
 func toggle_recipe(id: String) -> void:
 	if selected_recipe == id:
@@ -494,3 +495,4 @@ func reset_context(filter_id: String = "") -> void:
 	if not selected_recipe.is_empty():
 		back_to_list()
 	_refresh_cards()
+	context_changed.emit()

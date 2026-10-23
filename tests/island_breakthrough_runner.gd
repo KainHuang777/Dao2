@@ -34,6 +34,7 @@ func _run() -> void:
 	root.add_child(abode)
 	await process_frame
 	abode.set_process(false)
+	abode.offline_summary.hide()
 	abode.camera.set_process(false)
 	abode.session = GameSession.create_new_game(abode.content)
 	abode.state = abode.AbodeStateCompat.new(abode.session)
@@ -97,7 +98,7 @@ func _run() -> void:
 	_expect(abode.vfx_environment.environment.glow_enabled and abode.vfx_environment.environment.background_canvas_max_layer < 10, "native world glow must exclude the HUD layer")
 	_expect(abode.island_fx.sparks.emitting and abode.island_fx.lightning[0].visible, "climax activates engine particles and lightning shader")
 	var fx_children: int = abode.island_fx.front_layer.get_child_count()
-	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390), Vector2(360, 640), Vector2(360, 480)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		root.size = Vector2i(vp)
 		root.content_scale_size = Vector2i(vp)
 		abode._layout_for_size(vp)
@@ -138,6 +139,8 @@ func _run() -> void:
 	abode.island_fx.set_era(999)
 	_expect(abode.island_fx.era_id == 12, "Presentation profile clamps unsupported Era input")
 	_expect(abode.session.state.to_snapshot_dict() == committed, "Visual tiers and replay do not grant high Era progress")
+	# Returning from portrait must recalculate shell input before testing world unlock.
+	abode._layout_for_size(Vector2(1280, 720))
 	seq._on_close_pressed()
 	_expect(not abode.camera.input_locked and abode.camera.position == original_position and abode.camera.target_position == original_target and abode.camera.zoom == original_zoom, "closing must restore the original camera and unlock input")
 	_expect(abode.header.visible and abode.toolbar.visible, "closing must restore normal HUD")

@@ -6,6 +6,13 @@ const AFFORD_TOLERANCE := 0.000001
 const ZERO_SNAP := 0.000000001
 
 static func apply(content: GameContent, state: GameState, command: Dictionary) -> Dictionary:
+	var result := _apply(content, state, command)
+	if bool(result.get("ok", false)):
+		LifeLedger.command_committed(state, command, result.get("events", []))
+		LifeHistory.observe(state, content, true)
+	return result
+
+static func _apply(content: GameContent, state: GameState, command: Dictionary) -> Dictionary:
 	match String(command.type):
 		"activate_islands", "upgrade_island_facility":
 			return IslandProgression.command(content, state, command.type, command.payload)
@@ -24,7 +31,7 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 		"breakthrough_era":
 			return _apply_breakthrough(content, state, command.payload)
 		"reincarnate":
-			return _apply_reincarnate(content, state, command.payload)
+			return _apply_reincarnate(content, state, command.payload, String(command.get("command_id", "direct-reincarnation:" + str(state.reincarnation_count + 1))))
 		"learn_skill":
 			return SkillSystem.learn(content, state, String(command.payload.get("skill_id", "")))
 		"learn_talent":
@@ -56,7 +63,7 @@ static func apply(content: GameContent, state: GameState, command: Dictionary) -
 		"trigger_fortune":
 			return _apply_trigger_fortune(content, state, command.payload)
 		"resolve_fortune":
-			return _apply_resolve_fortune(content, state, command.payload)
+			return _apply_resolve_fortune(content, state, command.payload, str(command.get("command_id", "")))
 		"execute_realm_decision":
 			return _apply_execute_realm_decision(content, state, command.payload)
 		"acquire_beast":
@@ -91,7 +98,7 @@ static func _apply_gather(content: GameContent, state: GameState, payload: Dicti
 	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
 	var amount := AmountCompat.from_number(1.0)
 	var new_value: AmountCompat = entry.value.add(amount).clamp_amount(AmountCompat.zero(), caps[resource_id])
-	entry.value = new_value
+	entry.value = ResourceLedger.change(state, "home", resource_id, entry.value, new_value, "gather", amount)
 	entry.ever_obtained = true
 	return {
 		"ok": true,
@@ -137,7 +144,7 @@ static func _apply_upgrade(content: GameContent, state: GameState, payload: Dict
 		var after: AmountCompat = paid_entry.value.subtract(costs[resource_id])
 		if after.compare_to(AmountCompat.from_number(ZERO_SNAP)) < 0:
 			after = AmountCompat.zero()
-		paid_entry.value = after
+		paid_entry.value = ResourceLedger.change(state, "home", resource_id, paid_entry.value, after, "building")
 	state.buildings[building_id] = level + 1
 	SkillSystem.sync_unlock(state)
 	var unlock_after := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
@@ -181,7 +188,7 @@ static func _apply_level_up(content: GameContent, state: GameState, _payload: Di
 		var after: AmountCompat = entry.value.subtract(costs[resource_id])
 		if after.compare_to(AmountCompat.from_number(ZERO_SNAP)) < 0:
 			after = AmountCompat.zero()
-		entry.value = after
+		entry.value = ResourceLedger.change(state, "home", resource_id, entry.value, after, "cultivation")
 	state.level += 1
 	state.training_seconds = 0.0
 	return {
@@ -256,9 +263,9 @@ static func _sync_processing_unlocks(content: GameContent, state: GameState) -> 
 	for id in content.processing_catalog.resources:
 		state.resources[id].unlocked = int(content.processing_catalog.resources[id].era) <= state.era_id
 
-static func _apply_reincarnate(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+static func _apply_reincarnate(content: GameContent, state: GameState, payload: Dictionary, source: String) -> Dictionary:
 	var mode: String = String(payload.get("mode", "normal"))
-	var result: Dictionary = ReincarnationRules.apply_reincarnation(state, content, mode)
+	var result: Dictionary = ReincarnationRules.apply_reincarnation(state, content, mode, source)
 	if bool(result.get("ok", false)) and payload.has("tribulation_seed"):
 		state.tribulation_seed = int(payload["tribulation_seed"])
 		state.tribulation_roll_index = 0
@@ -276,6 +283,8 @@ static func _apply_refine_pill(_content: GameContent, state: GameState, payload:
 		return _failure("EMPTY_PILL_ID", {})
 	if not state.economy.is_empty() and state.era_id >= 2 and pill_id == "foundation_pill":
 		return IslandEconomy.command(_content, state, "craft", {"recipe_id": pill_id, "count": payload.get("count", 1)})
+	if pill_id in AlchemySystem.P1_IDS and not IslandEconomy._integer(payload.get("count", 1), 1, 99):
+		return _failure("INVALID_COUNT", {})
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.refine(state, pill_id, count)
 	if not bool(result.get("ok", false)):
@@ -303,6 +312,8 @@ static func _apply_consume_pill(content: GameContent, state: GameState, payload:
 		if not slot.ok:
 			return _failure(slot.error, {})
 		canonical_before = slot.value.to_float()
+	if pill_id in AlchemySystem.P1_IDS and not IslandEconomy._integer(payload.get("count", 1), 1, 99):
+		return _failure("INVALID_COUNT", {})
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.consume(state, pill_id, count, training_ceiling)
 	if result.get("ok", false) and not state.economy.is_empty() and pill_id == "foundation_pill":
@@ -423,11 +434,11 @@ static func _apply_learn_sect_technique(_content: GameContent, state: GameState,
 		"changed_ids": ["sect", "resources"],
 	}
 
-static func _apply_buy_sect_market_item(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+static func _apply_buy_sect_market_item(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var item_id := String(payload.get("item_id", ""))
 	if item_id.is_empty():
 		return _failure("MISSING_ITEM_ID", {})
-	var res := SectSystem.buy_market_item(state, item_id)
+	var res := SectSystem.buy_market_item(state, item_id, content)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "BUY_MARKET_ITEM_FAILED")), {})
 	return {
@@ -441,6 +452,8 @@ static func _apply_trigger_fortune(_content: GameContent, state: GameState, _pay
 	var pending: Dictionary = state.fortune.get("pending_encounter", {})
 	if not pending.is_empty():
 		return _failure("HAS_PENDING_ENCOUNTER", {"pending_id": pending.get("id", "")})
+	if float(state.fortune.get("cooldown_remaining", 0)) > 0:
+		return _failure("FORTUNE_COOLDOWN", {})
 	var enc := FortuneSystem.trigger_fortune(state)
 	if enc.is_empty():
 		return _failure("NO_ENCOUNTER_AVAILABLE", {})
@@ -450,14 +463,14 @@ static func _apply_trigger_fortune(_content: GameContent, state: GameState, _pay
 		"changed_ids": ["fortune"],
 	}
 
-static func _apply_resolve_fortune(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+static func _apply_resolve_fortune(_content: GameContent, state: GameState, payload: Dictionary, source: String = "") -> Dictionary:
 	var option_index: int = int(payload.get("option_index", -1))
-	var res := FortuneSystem.resolve_fortune(state, option_index)
+	var res := FortuneSystem.resolve_fortune(state, option_index, null, source, str(payload.get("instance_id", "")), _content)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "RESOLVE_FORTUNE_FAILED")), {})
 	return {
 		"ok": true,
-		"events": [{"kind": "fortune_resolved", "log": res.get("log", ""), "rewards": res.get("rewards", {})}],
+		"events": [{"kind": "fortune_resolved", "log": res.get("log", ""), "rewards": res.get("rewards", {}), "receipt": res.get("receipt", {})}],
 		"changed_ids": ["fortune", "resources", "pills", "buffs", "cultivation_level"],
 	}
 
@@ -520,7 +533,7 @@ static func _apply_claim_achievement(content: GameContent, state: GameState, pay
 		return _failure(String(res.get("error", "CLAIM_ACHIEVEMENT_FAILED")), res)
 	return {
 		"ok": true,
-		"events": [{"kind": "achievement_claimed", "achievement_id": achievement_id, "rewards": res.get("rewards", {})}],
+		"events": [{"kind": "achievement_claimed", "achievement_id": achievement_id, "rewards": res.get("rewards", {}), "contribution": res.get("contribution", {}), "receipt": res.get("receipt", {})}],
 		"changed_ids": ["achievements", "resources", "dao_heart", "dao_proof", "sect"],
 	}
 

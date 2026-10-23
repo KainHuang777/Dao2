@@ -214,6 +214,7 @@ func _test_persistence_roundtrip() -> bool:
 	state.era_id = 1
 	state.level = 2
 	state.reincarnation_count = 3
+	StoryProgress.next_life(state) # Keep synthetic life fixture consistent with story v1.
 	state.highest_era = 2
 	state.dao_heart = AmountCompat.from_number(4200.0)
 	state.dao_proof = 77

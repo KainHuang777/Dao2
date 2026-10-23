@@ -253,7 +253,7 @@ func _run() -> void:
 	reset()
 	panel.drafts.clear()
 	before = snapshot()
-	for vp in [Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360), Vector2(600, 360)]:
+	for vp in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360), Vector2(600, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		root.size = Vector2i(vp)
 		root.content_scale_size = Vector2i(vp)
 		await process_frame

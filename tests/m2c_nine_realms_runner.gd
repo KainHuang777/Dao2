@@ -129,6 +129,11 @@ func _run() -> void:
 		return
 
 	# 7. Replay / Manual overview test
+	abode2.offline_summary.hide()
+	# Manual route obeys the shared Era3 preview discovery gate; the first-life
+	# cinematic above is still tested at its original trigger without this fixture.
+	state2.era_id = 3
+	abode2._refresh_hud()
 	abode2._open_nine_realms_overview()
 	if not abode2.nine_realms_preview.visible or not abode2.nine_realms_preview._overview_panel.visible:
 		_fail("Manual overview must open overview panel")

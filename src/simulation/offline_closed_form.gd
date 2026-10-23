@@ -11,6 +11,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null, "exact": true}
 	if prepared.is_empty():
 		prepared = TimeAdvancer.prepare_advance(state, content)
+	LifeLedger.initialize(state)
 	var start_elapsed: float = state.total_elapsed_seconds
 	if not _is_int_float(start_elapsed):
 		return _unsupported("fractional_elapsed")
@@ -122,7 +123,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		var chrono_m: Dictionary = ChronoSystem.compute_multipliers(state)
 		var pill_prod: float = 1.0 + float(state.pill_effects.get("production_multiplier", 0.0)) + float(buff_m["global_production_multiplier"])
 		var global_prod_total: float = era_mult * float(talents["global_production_multiplier"]) * (pill_prod + float(chrono_m["global_production_multiplier"]) + float(beast_m["global_production_multiplier"]))
-		var rates: Dictionary = Production.compute_rates(content, state.buildings, global_prod_total, state.skills)
+		var rates: Dictionary = Production.compute_rates(content, state.buildings, global_prod_total, state.skills, state.talents)
 		var count_now := state.buffs.size()
 		var max_seconds: float
 		if not is_nan(max_cached) and count_now == max_count:
@@ -155,6 +156,14 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		var hb: int = OfflineEconomyJump.next_home_boundary(state, content, prepared, ticks_left)
 		if hb >= 1:
 			n = mini(n, hb)
+		# Split at fact boundaries too: preserve exact ordering and ages across modes.
+		if not state.economy.is_empty():
+			n = mini(n, OfflineEconomyJump._next_event_offset(state, content.processing_catalog, n))
+		var expedition: Variant = state.sect.get("active_expedition")
+		if expedition is Dictionary:
+			var remaining := int(expedition.get("duration", 0)) - int(expedition.get("elapsed", 0))
+			if remaining > 0:
+				n = mini(n, remaining)
 		n = mini(n, run_cap)
 		if n <= 0:
 			n = 1
@@ -180,7 +189,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		state.training_seconds = _seq_add(state.training_seconds, training_speed, n)
 		BuffSystem.tick(state, float(n))
 		RealmDecisionSystem.advance_time(state, float(n))
-		SectSystem.tick(state, float(n))
+		SectSystem.tick(state, float(n), state.total_elapsed_seconds)
 		BeastSystem.tick(state, float(n))
 		var eco: Dictionary = OfflineEconomyJump.advance(state, content, n, prepared)
 		if bool(eco.get("unsupported", false)):
@@ -199,7 +208,10 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		FortuneSystem.advance_time(state, float(n))
 		if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 			events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": float(state.total_elapsed_seconds), "max_lifespan_seconds": max_seconds})
+			LifeLedger.exhausted(state)
 			stopped = "lifespan_exhausted"
+		LifeLedger.observe(state)
+		LifeHistory.observe(state, content)
 		executed += n
 		ticks_left -= n
 	var changed_final: Array = []
@@ -268,6 +280,14 @@ static func _seq_add(total: float, speed: float, n_ticks: int) -> float:
 	return t
 
 static func _fill(item: Dictionary, n_ticks: int, state: GameState, catalog: Dictionary) -> int:
+	var before: AmountCompat = item.entry.value
+	var result := _fill_unobserved(item, n_ticks, state, catalog)
+	if result != 2:
+		var nominal := AmountCompat.from_number(float(item.delta_sign) * float(item.delta_mag) * n_ticks)
+		ResourceLedger.change(state, "home", item.id, before, item.entry.value, "production", nominal)
+	return result
+
+static func _fill_unobserved(item: Dictionary, n_ticks: int, state: GameState, catalog: Dictionary) -> int:
 	var limited: bool = bool(item["limited"])
 	var d: float = float(int(item["delta_sign"])) * float(item["delta_mag"])
 	var cap_base: float = float(item["cap"])

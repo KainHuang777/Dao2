@@ -17,6 +17,7 @@ func _create_test_state(era: int = 2) -> GameState:
 	state.era_id = era
 	state.level = 1
 	state.reincarnation_count = 0
+	StoryProgress.next_life(state) # Keep synthetic life fixture consistent with story v1.
 	state.resources["money"] = {"value": AmountCompat.from_number(1000.0), "unlocked": true, "ever_obtained": true}
 	state.resources["lingqi"] = {"value": AmountCompat.from_number(100.0), "unlocked": true, "ever_obtained": true}
 	state.resources["wood"] = {"value": AmountCompat.from_number(1000.0), "unlocked": true, "ever_obtained": true}
@@ -138,7 +139,7 @@ func test_gamesession_sect_command_integration() -> void:
 	content.resource_ids = ["money", "lingqi", "wood", "stone_low", "herb"]
 	content.building_ids = []
 	for r in content.resource_ids:
-		content.resources[r] = {"id": r, "type": "basic", "unlocked_at_era": 1}
+		content.resources[r] = {"id": r, "type": "basic", "unlocked_at_era": 1, "max": 1000000}
 	
 	var session := GameSession.create_new_game(content)
 	session.state.era_id = 2 # Era 2 Foundation period

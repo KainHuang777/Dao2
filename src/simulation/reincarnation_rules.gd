@@ -57,7 +57,7 @@ static func check_eligibility(state: GameState, content: GameContent) -> Diction
 		return {"can_reincarnate": true, "reason": "rebirth_lotus"}
 	return {"can_reincarnate": false, "reason": "NOT_ELIGIBLE"}
 
-static func apply_reincarnation(state: GameState, content: GameContent, mode: String = "normal") -> Dictionary:
+static func apply_reincarnation(state: GameState, content: GameContent, mode: String = "normal", source: String = "") -> Dictionary:
 	var check := check_eligibility(state, content)
 	if not bool(check.get("can_reincarnate", false)):
 		return {
@@ -77,6 +77,10 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	var had_progression := IslandProgression.active(state)
 	var had_supply_history := state.economy.has("early_supply")
 	var progression_version: String = state.economy.get("version", "")
+
+	LifeHistory.observe(state, content, true)
+	state.life_ledger.current.settlement = {"dao_heart": (reward.dao_heart as AmountCompat).serialize(), "dao_proof": reward.dao_proof}
+	LifeLedger.seal(state, String(check.reason), source if not source.is_empty() else "reincarnation:" + str(state.reincarnation_count + 1))
 
 	# Update meta progress
 	state.reincarnation_count += 1
@@ -159,6 +163,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			if resource_id == "skill_point":
 				entry.ever_obtained = false
 
+	StoryProgress.next_life(state)
+	LifeLedger.begin_next(state)
 	var event_payload := {
 		"kind": "reincarnated",
 		"economy_preview": economy_preview,

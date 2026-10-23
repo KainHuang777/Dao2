@@ -1,3 +1,102 @@
+2026-10-23 **RUNNER-TIMEOUT-FIX DONE（測試腳本超時防護與卡死根治；L1驗收通過）**：排查並徹底解決 runner 卡死問題。根因：(1) Godot headless runner 出現 SCRIPT ERROR 中斷時未執行到 quit()，導致 Godot 行程 hang 在背景；(2) tools/run_all_runners.ps1 缺乏逾時保護機制；(3) PowerShell 5.1 Start-Process 退出碼為 null 瑕疵；(4) resource_icon/recipe_material_tile/island_management_panel/ui_shell_resources 缺少 NumberFormatter preload 引發編譯失敗；(5) feature_navigation/abode_modal_manager 存取 shell/panel 時缺少空值保護。修復：加入 -TimeoutSeconds 45 與遞迴殺行程 Stop-RunnerTree，改用 .NET 原生 ProcessStartInfo 穩定取得退出碼，補齊 preload 與空值保護。L1 分級驗收 4 支 runner（recipe_row, uix_r8, text_transition, hud_readiness）在 Parallel 2 下全數 EXIT CODE 0 通過（<8s）。未改動玩家進度，未 commit/push。
+
+2026-10-23 **CONTENT-P1-STORY 方案R已核定；實作TODO，整體IN_PROGRESS**：使用者明確回覆「採R」，接受R1十二成就／R2十二機緣與36分支／R-save保存政策／R-art十二徽章與兩題圖製作計畫，無需重問數值或文稿。實際新圖仍待生成後美術接受。本輪僅核定metadata、稽核接受斷言、文件與英文交接；Python靜態稽核451 checks／failures=[]，1,195正式來源／資產／凍結包hash保持，未重跑Godot／Runner／瀏覽器／匯出，未改玩家進度、未commit/push。見[已核定方案](33-content-p1-story-design.md)、[驗收與命令](verification/content-p1-story.md)。本階段停止；下一New Chat依R接同一CONTENT-P1-STORY正式實作，不開CONTENT-P1-ACCEPT。下方待核定文字保留為日期化歷史。
+
+2026-10-23 **CONTENT-P1-STORY 設計交付完成；R待核定，實作TODO／整體IN_PROGRESS**：依使用者指定交付12成就（六類各2）與12機緣／36分支的逐項ID、條件、原創選文、代價／結果、終身／當世旗標、滿倉整筆拒絕與story_version1保存方案。R1不增道心／道證；R2新題各權重60，第二世金丹全條件新池27.48%，指定新題2.29%，不是自然流程證據。R-art為12徽章＋2題圖製作提案。最終靜態稽核451 checks／failures=[]，1,195正式來源／資產／凍結包hash保持；初輪Era2可用題數錯誤及修正保留。見[逐項設計與核定表](33-content-p1-story-design.md)、[驗收與命令](verification/content-p1-story.md)。僅Godot4.7.2版本查驗，未跑Runner／原生／瀏覽器／生成圖／匯出，未改玩家資料、未commit/push。本設計階段停止；下一New Chat核定或修訂R1／R2／R-save／R-art後接同一STORY實作，不開P1-ACCEPT。
+
+2026-10-23 **CONTENT-P1-SECT DONE（兩圖／本批卡片美術已接受；桌面／Web有界）**：使用者明確回覆「美術接受」，接受丹房調息訣、靈契養成法兩圖與本批功法／商品卡片。沿用6,778專項／16合法築基路徑／69原生、107／107唯一Runner與三橫式Web付費、五模板、拒寫恢復／重載及自然委託證據。本輪僅更新接受metadata、文件、稽核接受斷言與英文交接；Python交付稽核另跑，未重跑Godot／瀏覽器／匯出，未改PNG／規則／玩家進度，未commit/push。見[接受與驗收](verification/content-p1-sect.md)。下方待接受文字保留為日期化歷史。本階段停止；下一New Chat由使用者指定大型任務，不自動開STORY。
+
+2026-10-23 **CONTENT-P1-SECT 實作與桌面交付，IN_PROGRESS（兩功法圖／本批卡片待美術接受）**：依已核定Q完成兩項五階功法、五模板、兩終身限購商品；schema5／sect_version1／rules core-flow-16-content-p1-sect，原文備份與只保存重試已接。最終6,778專項／16合法築基命令路徑／69原生、107／107唯一固定Runner（含tools入口）分段通過；三橫式逐項實際滑鼠、五模板派遣／領取、拒寫恢復重載及合法築基自然委託→首階／首購→重載33貢獻已驗。兩張內建ImageGen透明原圖／prompt與候選兩包交付；53項交付稽核failures=[]，15份先前fixture還原，凍結build/web SHA74aa640f…保持。初輪失敗及既有退出診斷保留；未改玩家進度、未commit/push。見[驗收與命令](verification/content-p1-sect.md)。英文checkpoint已更新，本階段停止；下一New Chat只收兩圖／卡片美術回饋，不開STORY。下方TODO為歷史。
+
+2026-10-23 **CONTENT-P1-SECT 方案Q已核定；實作TODO，整體IN_PROGRESS**：使用者明確回覆「採Q」，接受Q1兩功法／Q2五委託／Q3兩商品／Q-save保存方案，提案approval已記錄，無需重問數值。見[已核定方案](32-content-p1-sect-design.md)。本輪僅核定metadata／文件與英文交接，合成稽核另跑；未改正式來源／玩家進度，未commit/push。依階段交接規定，下一New Chat接CONTENT-P1-SECT正式實作，不開STORY。下方待核定文字保留為歷史。
+
+2026-10-23 **CONTENT-P1-SECT 設計交付；Q待核定，整體IN_PROGRESS**：S／T／P前置已完成，宗門目前4功法／15模板／4商品保持；交付兩項五階2%節料功法、五品階供給／丹道／靈狐委託與木／育草丹兩商品的逐項成本、條件、收益、跨世／終身限購及sect_version1保存方案。依docs25批次設計先核定再實作，本輪未接正式定義。最終合成稽核8,199 checks／failures=[]，1,156來源／資產／凍結包檔案hash保持；初輪平均值錯誤與修正保留。見[方案Q](32-content-p1-sect-design.md)、[驗收與命令](verification/content-p1-sect.md)。未跑Godot Runner／原生／瀏覽器／匯出，未改玩家進度、未commit/push。英文checkpoint已更新；下一New Chat核定Q後接同一任務實作，不開STORY。
+
+2026-10-23 **CONTENT-P1-PILL DONE（四圖與丹卡美術已接受；桌面／Web有界）**：使用者明確回覆「美術接受」，接受養木／育草／聚財／納靈四圖與本批丹卡呈現；沿用609專項／102原生、104／104唯一Runner及三橫式Web保存恢復／重載證據。本輪僅更新接受metadata、文件與英文交接，Python稽核另跑；未重跑Godot／Runner／瀏覽器／匯出，未改PNG／規則／玩家進度，未commit/push。見[接受與驗收](verification/content-p1-pills.md)。S／T／P均已收結；下方待接受／待核定文字保留為日期化歷史，本階段停止，下一New Chat由使用者指定大型任務。
+
+2026-10-23 **CONTENT-P1-PILL 實作與桌面交付，IN_PROGRESS（四新圖／丹卡待美術接受）**：使用者核定P，新增養木／育草／聚財／納靈四丹，祖島單資源+100%／300模擬秒；Era2兩／Era3兩、刷新淨延拒絕、999999庫存上限，原八丹順序及加工8配方保持。schema5／pill_version1／rules core-flow-15-content-p1-pills，舊原文備份與只保存重試已接。最終609專項／102原生、104／104唯一Runner分段通過；三桌面橫式Web、40→34折扣、四BUFF並存、拒寫／重試／恢復／重載及淨延7秒已驗。正常候選build/web-content-p1-pills；兩包匯出／壓縮／四BGM交付，14份既有JSON還原，原build/web沿本輪起點hash74aa640f…保持。四張內建ImageGen透明原圖／prompt／hash與審閱見[驗收](verification/content-p1-pills.md)。未改玩家資料，未commit/push；英文交接已更新，本階段停止，下一New Chat先收四圖與丹卡美術回饋。
+
+2026-10-23 **UI-ART-EDGE DONE（CLI／原生／桌面Web有界）**：已核定B接入正式UiIllustration＋Compatibility shader；技能／天賦／機緣／法令／宗門／材料／建築縮圖共用，金框成就與<40px密集圖集中免加邊。最終161專項／166原生、固定102／102唯一Runner分段與三橫式Web通過；丹心／靈契購入、10道心重載已驗，字型及兩候選Web／壓縮／BGM完成。初輪失敗、舊斷言修正、fixture還原及build/web於空檔被替換的觀測見[驗收](verification/ui-art-edge.md)。138份圖檔／規則／保存來源保持；未改玩家進度，未commit/push。英文交接已更新，本階段停止；下一大型任務請New Chat由使用者指定，P未開工。
+
+2026-10-23 **UI-ART-EDGE-COMPARE DONE（B已選定並納入共用規則）**：使用者核定「選擇 B 並且帶入共用規則」。淡紙底透明手繪UI插圖採暖灰褐1.15px細邊＋柔和投影，完整參數／適用範圍／光霧柔邊與小圖例外已納入[共用UI規範](19-ui-ux-guidelines.md)，docs07及比較頁同步。此輪為規範採納，正式Godot共用呈現接線仍TODO；未改PNG／規則／玩家資料，未重跑Godot／Runner／匯出，未commit/push。見[選定與證據](verification/ui-art-edge-compare.md)。下一New Chat接共用呈現實作，沿B執行，不重問方向；P丹藥未開工。
+
+2026-10-23 **UI-ART-EDGE-COMPARE 樣張交付DONE；方案待選**：依使用者指定，丹爐／百工器具／白狐三圖同正式淡紙底，比較A原版、B細描邊柔影、C米白貼紙框；192／112主圖及64小圖、真實瀏覽器九格18圖載入與尺寸切換已查，原PNG／正式來源／凍結包hash保持。僅比較頁與截圖，不是正式Godot接線或全介面通則；未commit/push。見[比較圖與互動頁](verification/ui-art-edge-compare.md)。本階段停止，下一New Chat收方向後再接共用呈現；P丹藥未開工。
+
+2026-10-23 **CONTENT-P1-TALENT DONE（三圖美術已接受；桌面／Web有界）**：使用者明確回覆「美術接受」，接受丹心／百工／靈契三圖與本批天賦卡呈現；沿用913專項／117原生、固定100／100 Runner分段與三橫式Web購入／拒寫恢復／重載證據。本輪只更新接受metadata、狀態與英文交接，Python稽核另跑；未重跑Godot／瀏覽器／匯出，未改PNG／規則／玩家進度，未commit/push。見[接受與驗收](verification/content-p1-talents.md)。下一New Chat可接CONTENT-P1-PILL並採用P方案；P尚未由本次美術接受核定，本輪不自動開工。下方待接受紀錄保留為歷史。
+
+2026-10-23 **CONTENT-P1-TALENT 實作與桌面Web交付，IN_PROGRESS（三張新圖待美術接受）**：依使用者指定採T方案，新增丹心／百工／靈契三項五階天賦，成本5／10／20／40／80道心；talent_version2／schema5／rules core-flow-14-content-p1-talents，舊三項保留，原文備份與雙槽重試已接。913專項／117原生、三桌面橫式逐項真實滑鼠購入與拒寫恢復／重載5道心已驗；現行固定100／100 Runner分段通過，各支最後SCRIPT ERROR0。正常候選build/web-content-p1-talents，凍結build/web保持；初輪失敗、診斷、命令及三圖審閱見[驗收與審閱](verification/content-p1-talents.md)。未改玩家資料，未commit/push。英文交接已更新，本階段停止；下一New Chat先收三圖／天賦卡美術回饋，P丹藥仍待核定。
+
+2026-10-23 **CONTENT-P1-SKILL DONE（五圖美術已接受；桌面／Web有界）**：使用者明確回覆「美術接受，確認下一步驟」，五圖與本批技能卡呈現接受，沿用370專項／75取得／84原生、99支Runner與三橫式Web／保存證據。本次只更新接受metadata、狀態與英文交接，Python稽核另跑；未重跑Godot／瀏覽器／匯出，未改PNG／規則／玩家資料，未commit/push。見[接受與驗收](verification/content-p1-skills.md)。下一New Chat先核定T方案，再開CONTENT-P1-TALENT；本次不自動實作T／P。
+
+2026-10-23 **CONTENT-P1-SKILL 實作與桌面交付，IN_PROGRESS（五張新圖待美術接受）**：依指定任務採S方案，新增三材料倍率／靈倉／丹火五技能，原七項保持；skill_version3／schema5／rules core-flow-13-content-p1-skills，沿原文備份與雙槽重試。370專項／75無宗門正式命令取得／84原生、三橫式逐ID真實滑鼠及折扣420→372.5、拒寫恢復／重載已驗；現行99／99 Runner分段通過，完整回歸與命令見[驗收](verification/content-p1-skills.md)。五張ImageGen透明圖／prompt／來源hash已交，T／P仍待各自核定。正常候選build/web-content-p1-skills，凍結build/web保持；未改玩家資料，未commit/push。本階段停止，下一New Chat先收五圖美術回饋。
+
+2026-10-23 **CONTENT-P1-DESIGN 設計交付完成；S／T／P待核定，實作TODO**：交付5技能／3輪迴天賦／4丹藥逐項ID、Era、成本、公式、上限、疊加、輪迴與保存方案；列祖島／遠島作用邊界、持有道心機會成本及限時／永久全產丹對照。新增可重跑合成算表與25份來源hash，650份正式來源／測試／凍結包hash保持；非新內容Godot或Web驗收。見[完整設計](31-content-p1-design.md)、[驗收](verification/content-p1-design.md)。
+
+- 任務ID：`CONTENT-P1-DESIGN`；12項設計及可核定選項已交付，S／T／P仍未核定，三個實作批次維持TODO。
+- 新增：`docs/31-content-p1-design.md`、`docs/design-data/content-p1-proposal.json`、`tools/content_p1_design_audit.py`、`docs/verification/content-p1-design.md`及專項artifacts；同步README／ROADMAP／docs21／25／ai-handoff／本狀態與updata。
+- 命令與結果：PowerShell／rg／git status查讀；現有Godot `--version` exit0（4.7.2.stable.official.ed1daf0bf）；Python靜態audit／py_compile／文件diff-check結果見專項command-results.json。初輪audit因分析產物尚未落盤出現兩個自引用連結失敗exit1，原始結果保留，修正後重驗。沒有import／Runner／原生／瀏覽器／匯出或玩家存檔操作。
+- 未通過項：S／T／P設計核定、後續正式內容／自然取得／保存及美術驗收尚未進行；不拿既有96Runner及舊D流程冒稱本批證據。新增輪迴天賦各五階、專精丹只祖島、丹火只直煉白名單皆屬待核定提案。
+- 下一任務：新對話先收三組內容決策；核定S後開CONTENT-P1-SKILL。未commit/push；本階段停止，英文checkpoint已置頂。
+
+2026-10-23 **ATM-LIFE-C DONE（CLI／原生／桌面Web有界）**：石壁參悟後晉階、入宗後委託領取、同一靈獸取得／成熟三條原創回聲已接當世／卷末／歷世；查記錄可核對前因，轉世時原frozen_text一併凍結。schema5、九世／352KiB與原收益／RNG保持。最後117專項／25原生、固定96／96 Runner（8＋88分段）通過，各支最後SCRIPT ERROR0；三桌面橫式滑鼠、取消／拒寫重試／恢復／重載與歷世同份封存、20道心已驗。正常候選build/web-atm-life-c，凍結build/web保持；初輪修正及既有診斷見[驗收與命令](verification/atm-life-c.md)。十份生成fixture已還原，未改玩家資料、未commit/push。英文交接已更新；本階段停止，下一大型工作請New Chat由使用者指定。
+
+本輪修改：LifeEcho新純函式與UID、LifeReport版本／凍結讀回、LifeReportView回聲／來源；117／25新Runner與固定入口、合成fixture／隔離acceptance與preset／feature、既有runtime字型subset、ADR-017與相關規範／驗收／稽核工具。詳細逐檔hash見驗收manifest。
+
+命令結果：既有Godot4.7.2版本／import exit0；core-verified-117、ui-verified及舊小傳16,400項exit0；固定全量首段8項＋小傳起88項通過，batch_a附帶丹藥三支重跑；font generate/check、兩包export／Node Brotli及四BGM companions均exit0。IAB隔離4406三橫式閱讀／來源／取消、拒寫count1→2／archive1／heart20、再試／恢復／重載封存完全相等；歷世選第二世重讀已驗。Python稽核與diff-check見驗收。
+
+未通過／限制：最初解析型別、economy version前置、未達入口fixture、JSON整數往返、Release assert省略命令與parity不同command_id均已修正重驗，原log保留。Font RID／CanvasItem／ObjectDB退出診斷及故意損壞保存JSON診斷保持；早期timeout分頁停data-URL無法由政策關閉，成功分頁／4406自有服務已清理。沒有FPS或自然一生聲稱。下一任務：New Chat由使用者指定內容擴充或其他，ATM-LIFE-D另議；本輪停止。
+
+2026-10-22 **REPORT-2 DONE（CLI／原生／桌面Web有界）**：歷世重讀／同單位比較、有界庫存／容量觀測、同齡事件與區間精查／精確表格已接；history v1每世6KiB／16點／12列含於原schema5、九世／352KiB，舊世不補造。282專項／58原生、固定94／94 Runner分段通過；最後各支SCRIPT ERROR0，初輪失敗與舊fixture診斷保留。三桌面橫式滑鼠、取消／拒寫再試／恢復／重載同份封存與20道心已驗。兩候選匯出／壓縮／字型check與稽核通過，正常候選build/web-report-2；凍結build/web保持。見[驗收](verification/report-2.md)、[ADR-016](decisions/ADR-016-bounded-life-history.md)。未改收益／RNG／玩家資料，未commit/push；英文交接已更新。本階段停止，下一New Chat由使用者指定ATM-LIFE-C或其他任務。
+
+REPORT-2 本輪修改：`src/domain/life_history.gd`／`life_ledger.gd`；GameSession、CommandProcessor、TimeAdvancer／OfflineClosedForm、ReincarnationRules；LifeHistoryView／Plot、輪迴頁／共用modal／保存保護；合成fixture與acceptance場景、282／58專項、既有比較／fixture修正、固定runner入口、匯出preset與既有字型subset。完整逐檔及來源hash見驗收／manifest。
+
+命令與結果：既有Godot4.7.2 `--version`／import確認；life_history_runner 282 exit0、life_history_ui_runner最後CLI／原生58 exit0；`tools/run_all_runners.ps1`與StartAt分段42＋2＋35＋15覆蓋固定94／94，宗門fixture另補乾淨exit0；最後各支SCRIPT ERROR0。font subset／check、兩候選Web export／Node壓縮與四BGM companions皆exit0；`python tools/life_history_audit.py`65份UTF-8來源／UID、9連結／12原生PNG／兩包hash通過，`git diff --check` exit0。實際IAB三橫式取消／拒寫再試／恢復／最終包重載完整archive一致（count3／heart20／archive3）。
+
+未通過與界線：初輪資料／測試／解析錯誤、舊宗門fixture4筆script error、原生退出診斷及未歸屬MutationObserver保留於驗收，不把舊log稱為乾淨。兩個早期失敗data-URL暫時分頁無法由URL政策關閉；成功分頁與自有4405服務已清理。沒有新FPS／GPU或自然一生聲稱；觸控／實機依既有政策延期，非當前阻擋。下一任務：New Chat由使用者指定ATM-LIFE-C事件回聲或其他內容；本輪停止，不自動展開。
+
+2026-10-22 **LEDGER-1／REPORT-1B DONE（CLI／原生／桌面Web有界）**：全路徑資源分類收支、真實在途／字串入庫、完整小數與輪迴帳目條／表已接；48列／每世12KiB含於原九世／352KiB，schema5保持。最終1,419專項／30原生、完整92／92 Runner exit0且SCRIPT ERROR 0；三桌面橫式Web取消／拒寫再試／恢復／重載同份帳（期初100、入30、出20、期末110）與20道心已驗。正常候選build/web-ledger-1；凍結build/web hash7e7e619d…保持。初輪修正、數值邊界及命令見[驗收](verification/ledger-1.md)、[ADR-015](decisions/ADR-015-resource-life-accounts.md)。未改收益／RNG／玩家資料，未commit/push。英文交接已更新；本階段停止，下一New Chat由使用者指定REPORT-2。
+
+2026-10-22 **DECISION-1 DONE（CLI／原生／桌面Web有界）**：正式機緣固定效果、穩定待決實例、暫收／重開及權威分項收據已接；當世／九世封存簿API與輪迴報告重讀、保存故障只讀沿共用殼。每世最近8件／16KiB含於原352KiB敘事額度，schema5與原入庫規則保持。最終1665專項／28原生、90／90 Runner exit0且SCRIPT ERROR 0；三桌面橫式Web暫收、拒寫重試／恢復／重載同份收據（靈草50→30、延壽丹1）已驗。正常候選build/web-decision-1，凍結build/web hash7e7e619d…保持；初輪修正、Amount精度及既有診斷見[驗收](verification/decision-1.md)、[ADR-014](decisions/ADR-014-fortune-choice-receipts.md)。未改玩家資料、未commit/push。英文交接已更新，本階段停止；下一大型工作請New Chat由使用者指定LEDGER-1／REPORT-1B。
+
+2026-10-22 **ATM-LIFE-A／REPORT-1A DONE（CLI／原生／桌面Web有界）**：使用者已核定布局、十題優先與文稿；正式確定性題名／小傳／三件留痕、逐句來源及轉世時凍結文字已接，schema5與最近9世／352KiB保持。最終16,400專項／137原生、88／88 Runner exit0、SCRIPT ERROR 0；三桌面橫式及Web取消／拒寫只讀／重試恢復／重載同份封存與20道心已驗。兩候選匯出／壓縮／BGM完成；正常候選build/web-atm-life-a，凍結build/web hash7e7e619d…保持。初輪修正、既有退出／browser診斷及證據界線見[驗收](verification/atm-life-a.md)。未改玩家資料或經濟規則，未commit/push。英文交接已更新，本階段停止；下一大型工作請New Chat接DECISION-1，由使用者指定。
+
+2026-10-22 **LEDGER-0 DONE（CLI／桌面Web有界；保存九世已核定）**：正式最小事實／覆蓋／觀測峰值、schema5與舊2／3／4原文備份導入、轉世清空前封存／來源去重已接；最近9世、64事件／32KiB每世、當世64KiB、敘事總352KiB。最終302專項／86／86 Runner exit0、SCRIPT ERROR 0；Web9項核對取消／拒寫重試／恢復／重載15道心及單份相同封存，最終候選重載亦驗。兩候選匯出／壓縮／BGM完成，凍結build/web hash7e7e619d…保持；初輪測試／import／browser診斷與證據界線見[驗收](verification/ledger-0.md)、[ADR-013](decisions/ADR-013-bounded-life-facts.md)。未改玩家資料，未commit/push。英文交接已更新，本階段停止；下一New Chat接ATM-LIFE-A／REPORT-1A前仍收布局／選文審閱，容量不重問。
+
+2026-10-22 **ATM-LIFE-DESIGN 設計交付，IN_PROGRESS（待布局／選文／容量審閱）**：沿已選F-C800／900與已完成共用殼，交付[卷末專項方案](30-atm-life-design.md)：十題／17句逐句來源、壽盡／提前／在世／缺紀錄、待決暫收／資源重驗／選後收據樣張及最近10世／384KiB敘事上限提案。真實桌面IAB三橫式32圖、7項樣張互動最終failures=[]；設計8192組條件與UTF-8容量盤點exit0。初輪圖片載入競態、不可達沙箱服務與DOM代理decode失敗保留於[驗收](verification/atm-life-design.md)。全部事實為虛構fixture，非正式Godot或持久化驗收；未改GDScript／規則／schema／build／玩家資料，未commit/push。下一New Chat收設計決策，核定後接LEDGER-0；本輪停止，沒有自動開工。
+
+2026-10-22 **UI-SHELL-2 DONE（十三功能頁，桌面／Web有界）**：其餘12頁已遷移共用殼，精簡HUD、當地／專項資源、訊息／工具合法返回與即時子頁情境統一；保留原命令／保存、確認取消、製造／航線草稿及機緣成本刷新。整輪85／85 Runner exit0／SCRIPT ERROR 0，最後原生1,709項與39圖、三桌面橫式真實滑鼠、研習拒寫／恢復／重載仍1階、航線草稿17跨頁及resize已驗。字型check、兩包Web匯出／壓縮／BGM成功；正常候選build/web-ui-shell-2，凍結build/web SHA7e7e619d…保持。初輪失敗、舊測試遷移與診斷界線見[驗收](verification/ui-shell-2.md)。未改經濟規則／schema／玩家資料，未commit/push。英文checkpoint已更新；下一大型任務New Chat接LEDGER-0，由使用者指定，本輪停止。
+
+本輪修改檔案：新增 `ui_shell_resources.gd/.uid`、`ui_shell_matrix_runner.gd/.uid`、`src/verification/ui_shell_2_fixture.json` 與驗收／artifacts；更新 UiShellController／State／Policy、FeatureNavigation、AbodeHudController、SystemActionsPanel、SectPanel、RecipeRow、三個空島／製造／運輸頁、GameSession View、隔離驗收場景script、export preset、server／固定Runner及受影響測試。docs07／12／19／28、README／ROADMAP／handoff與updata同步。
+
+命令：Godot4.7.2版本；原生矩陣1,709項、固定全量85／85、字型check、Web及UiShellMatrixAcceptance匯出、compression與BGM companions均exit0。全量開始後最後洞府目標紙面修正由追加117斷言的原生1,709項、三尺寸渲染與最後Web包補驗；整輪第一個矩陣log為1,592項，未回寫。十份原先乾淨fixture已按HEAD bytes還原。完整失敗／命令／hash／瀏覽器與保存界線見驗收；未完成項僅獨立後續小傳／帳目／美術接受，不構成本任務桌面DoD缺口。
+
+2026-10-22 **UI-SHELL-1 DONE（洞府＋煉丹，桌面／Web有界）**：正式 UiShellController 接共同狀態／政策；洞府完整HUD、煉丹精簡HUD與原晉階／突破／BUFF，寬式庫存欄、短式摘要／抽屜，偏好與當頁暫收分離；訊息／工具原route返回及保存保護已接。最終原生90項、政策263項、HUD58項及固定全量84／84 Runner exit0、SCRIPT ERROR 0；字型check、兩包Web匯出／壓縮／BGM成功。桌面三橫式滑鼠開關／跨頁、拒寫保護與恢復／重載80靈草／2丹不重扣已驗；原生18圖。其餘12頁留UI-SHELL-2，不擴大為全頁美術或卷末接受。正常候選build/web-ui-shell-1，凍結build/web SHA7e7e619d…保持。初輪修正、舊測試前置及既有診斷見[驗收與命令](verification/ui-shell-1.md)。未改規則／schema／玩家資料，未commit/push。下一New Chat接UI-SHELL-2，本輪停止。
+
+本輪修改檔案：新增 `src/presentation/ui_shell_controller.gd`、`src/verification/ui_shell_acceptance.gd/.tscn`、`tests/ui_shell_integration_runner.gd` 與 `tools/ui_shell_server.py`；更新 `ui_shell_policy.gd`、`feature_navigation.gd`、`abode_hud_controller.gd`、`abode_modal_manager.gd`、`save_controls.gd`、`src/abode/living_abode.gd`、`project.godot`／`export_presets.cfg`、固定Runner入口及受影響測試fixture。規範07／12／19／28、README／ROADMAP／交接與驗收同步更新，新增.uid保留。
+
+命令結果：Godot 4.7.2 `--script` 原生90／政策263／HUD58；`tools/run_all_runners.ps1` 84／84；字型check、Web／UiShellAcceptance匯出與compression均exit0；37檔UTF-8、10驗收連結、15hash與diff-check通過。初輪失敗與既有退出／import診斷詳見驗收，無未完成的當輪桌面DoD。下一任務只在New Chat接UI-SHELL-2。
+
+2026-10-22 **UI-SHELL-0 DONE（政策／狀態與盤點）；整體正式接入 IN_PROGRESS**：依「接續正式遊戲接入」開始共用殼政策／狀態，13頁canonical註冊由正式FeatureNavigation共用；洞府偏好、本頁暫收、覆層token、合法route返回與確認／詳情取消契約已加入。最終專項261 checks／failures=[]／exit0，9來源hash盤點完成；全量83／83 Runner exit0；import exit0但保留既有JPEG誤名PNG／user目錄診斷，不宣稱乾淨匯入。[驗收與接線界線](verification/ui-shell-0.md)。新政策尚未接管Control顯示，UI-SHELL-1／2及小傳資料仍TODO；未把本次接續指令當所有樣張美術或題名條件接受。未改規則／schema／玩家資料或Web包，未commit/push。此前日期化待實作文字保留歷史，由本段覆蓋本階段。
+
+本輪修改：新增ui_shell_policy.gd／ui_shell_state.gd及Godot產生的.uid、ui_shell_policy_runner.gd／.uid、tools/ui_shell_audit.ps1、驗收ui-shell-0與artifact；修改FeatureNavigation共用GROUPS／owner、固定Runner入口，以及README／ROADMAP／handoff／docs07／19／28／29／本狀態／updata。Godot4.7.2 --version、最終專項261與全量83／83 exit0；PowerShell audit9來源hash、16檔嚴格UTF-8、驗收5本地連結及diff檢查通過。全量初次沙箱SAVE_FAILED／Nil.hide已中止exit1，非沙箱重跑成功；git restore初次index.lock拒寫後授權重試exit0，只還原10份本輪生成且開始時乾淨的fixture，既有dirty工作保留。
+
+未通過／界線：editor --import雖exit0，既有final-reload.png實為JPEG而報ERR_FILE_CORRUPT（與HEAD blob一致），另有user:// profiler目錄及巢狀專案忽略警告，非乾淨資源匯入。新程式無SCRIPT ERROR，三份UID已由Godot產生；完整日誌及既有退出RID／ObjectDB診斷留存。未新增畫面，未跑本輪原生渲染／Web／FPS，未改build或玩家存檔，未commit/push。UI-SHELL-0僅契約與盤點DoD DONE，共用visible實際單方套用、HUD／資源／訊息／工具接線及正式三橫式互動仍在UI-SHELL-1／2。依Context Guard於此停階，下一New Chat接UI-SHELL-1（洞府＋一工作頁），再2完整矩陣；不再重開設計研究或擴成小傳／帳目大型任務。
+2026-10-21 **F-C粗明體修訂已交付**：依使用者「執行」，樣張卷末題名改Noto Serif TC真實字重800、題簽900；小傳／卷末句文楷、數字與操作黑體保持。比較頁預設開啟卷末F-C。三橫式含長文保存異常共6張專項圖通過（字重800／900、字型載入、44px與布局無溢出），見[新版樣張](verification/artifacts/ui-shell-design/heavy-serif/fc800-1280x720.png)。本次只調設計樣張與共用規範，正式Godot字型接線留待共用殼實作；整體布局仍待確認，UI-SHELL-DESIGN仍IN_PROGRESS。未改GDScript／build／玩家資料，未commit/push。
+
+2026-10-21 **UI-SHELL-DESIGN 字體F-C已選定；布局仍待確認**：使用者明確回覆「F-C」。核定卷末題名用明體、小傳與卷末句用文楷；數字、帳目、收據、按鈕及分頁仍用思源黑體。此為限定敘事角色的共用規範例外，後續經UiTypography集中接入，不授權各頁自行載字或全面換字。正式字型接線尚未實作；整體布局、題名條件與保存世數未因本次字體選擇接受，任務仍IN_PROGRESS。[方案與比較](29-ui-shell-design-proposal.md)。本輪僅記錄決策，未重跑引擎／瀏覽器／匯出，未改正式程式／build／玩家資料，未commit/push。
+
+2026-10-21 **UI-SHELL-DESIGN 樣張交付，IN_PROGRESS（待布局／字體選擇）**：[三橫式候選與圖索引](29-ui-shell-design-proposal.md)已交，六類頁面、F-B／F-C同文、長文保存異常／資源抽屜／訊息返回；隔離Edge三橫式29圖、9項樣張互動／resize檢查通過，非Godot正式UI或保存驗收。沿既有31份資產／字檔／授權來源，未新增美術或字型；未改GDScript／schema／build／玩家進度，未commit/push。本機比較工具為docs/visual-prototype/ui-shell-design；驗收見verification/ui-shell-design.md。下一New Chat先收布局與F-B／F-C選擇，接受後UI-SHELL-0；未自行展開實作。
+
+本輪命令結果：Godot `--version` exit0；`node --experimental-websocket tools/ui_shell_design_capture.mjs` exit0（29圖／9互動／failures=[]）；`python tools/ui_shell_design_artifacts.py` exit0（31來源hash、3總覽）；`python tools/ui_shell_design_checkpoint.py` exit0（11 UTF-8／33本地連結）；targeted `git diff --check` exit0。新增docs29、驗收頁、HTML樣張、4個tools與artifact；`.gitignore`排除本輪隔離browser profile。初次沙箱連線與布局失敗見驗收，已修訂；未通過項為使用者布局／字體接受，任務仍IN_PROGRESS。
+
+2026-10-21 **UI-SHELL-PLAN 規劃DONE；實作TODO**：依使用者追加要求，整合HUD／資源／中央訊息及開關恢復；[完整顯示矩陣與版型](28-unified-ui-shell-and-visibility-plan.md)提出一般頁精簡HUD、按任務自動帶資源、中央長訊息於洞府／主動閱讀顯示、頁內結果與全域異常分工。靜態盤點發現導覽／HUD多處覆寫visible與單頁例外，未聲稱瀏覽器已重現。同步docs07／12／19規劃入口及docs27前置順序；具體方案仍候選。下一New Chat接UI-SHELL-DESIGN三橫式樣張（含小傳字體），再共用殼與各頁遷移；未改程式／build／玩家資料，未commit/push。
+
+本輪驗證：Get-Content／rg／rg --files核對FeatureNavigation、AbodeHudController、AbodeModalManager；初次兩個猜測路徑不存在後已更正。一次多檔apply_patch因文件原文不符未套用，改精確寫入完成。新增docs28及source-audit.json；更新docs07／12／19／27與README／ROADMAP／handoff／status／updata。12檔嚴格UTF-8、JSON、4份來源SHA256未變、兩份整合計畫9個本地連結／尾隨空白、git diff --check PASS（只有LF→CRLF提示）。未執行遊戲測試；新規則仍是候選，不把規劃DONE當實作DONE。
+
+2026-10-21 **ATM-LIFE-INTEGRATION-PLAN 規劃DONE；實作TODO**：指定1in8b報告原不在main，於origin/master e71a316找到，僅取回原文與7張JPEG（8檔blob一致），未合併master程式。與docs26整合為[一世卷末規劃](27-life-report-and-decision-ux-integration-plan.md)：立傳小傳／三件留痕先行、抉擇收據與待決收合、完整資源帳目後接；修正壽命、淨差帳、當世峰值、現有UI與字體等歷史衝突。只有敘事視角已選，版面／F-B-F-C仍候選。下一New Chat接ATM-LIFE-DESIGN樣張與選文條件；未改遊戲／schema／build／玩家資料，未commit/push。
+
+本輪命令與驗證：Test-Path／Get-Content確認本機缺檔（初讀報錯保留），rg／git log搜尋及git fetch origin定位origin/master e71a316；git archive＋tar只取研究路徑，git rev-parse／hash-object確認8檔blob一致，Get-FileHash記來源SHA256。目視既有01／03／06／07四圖，不聲稱重新完成網站互動驗收。修改README／ROADMAP／docs26／handoff／本狀態／updata，新增docs27、原報告及7圖、provenance.json。9檔嚴格UTF-8、JSON解析、18個本地連結、新文件尾隨空白與git diff --check PASS（僅LF→CRLF提示）。未跑Godot／Runner／import／原生／Web匯出，未合併master其他功能。規劃DoD已達；樣張、字體核定、資料／保存及正式UI實作保持TODO。
+
 2026-10-21 **ATM-LIFE-DESIGN 討論中（敘事視角已選）**：使用者選擇「有人為你寫下一篇傳記」，已記入[研究文件](26-cultivation-life-atmosphere-research.md)的核定方向。採旁觀記述、真實行跡與克制留白；第三人稱／省略主詞為文案候選，不虛構史官或故人。只核定敘事視角，版面、F-B／F-C字體、篇幅、保存及實作範圍仍待討論；未改遊戲或UI通則。
 
 2026-10-21 **ATM-LIFE-RESEARCH 研究DONE；設計／實作TODO**：依使用者指定研究《江湖千萬人》文字人生、結局與字體，交付[修仙氣氛研究](26-cultivation-life-atmosphere-research.md)、參考圖與觀察JSON。瀏覽器確認公開內嵌前端、57個結局ID與文楷／Noto Serif TC字體宣告；未取得完整原碼包／授權，未驗全部結局。建議先當世小傳、再里程碑／前世卷冊及事件回聲，所有設計仍提案。僅文件與研究證據，未改遊戲／schema／build／玩家資料，未commit/push。下一New Chat討論ATM-LIFE-DESIGN，不自動展開實作。

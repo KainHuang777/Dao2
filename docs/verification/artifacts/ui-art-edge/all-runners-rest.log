@@ -1,0 +1,615 @@
+[RUNNING] tests/early_v1b_talents_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+EARLY-V1-B benefit/wait table (simulated seconds only, fixture-driven; not human or Web session evidence):
+first rebirth dao heart income (era3 fixture preview): 20
+hypothetical second rebirth dao heart income (rebuilt era2 state preview): 15
+zero-inheritance rebuild era1 to era2 natural-rate simulated seconds: 1010.0
+TALENT resource_inheritance level 0 | cumulative cost 0 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 0 | next-life lingli start 0 (floor of fresh era1 cap x 10% x level); no current-life effect | covered by first rebirth income | covered by first two rebirth incomes
+TALENT resource_inheritance level 1 | cumulative cost 5 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 10 | next-life lingli start 10 (floor of fresh era1 cap x 10% x level); no current-life effect | covered by first rebirth income | covered by first two rebirth incomes
+TALENT resource_inheritance level 2 | cumulative cost 15 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 20 | next-life lingli start 20 (floor of fresh era1 cap x 10% x level); no current-life effect | covered by first rebirth income | covered by first two rebirth incomes
+TALENT resource_inheritance level 5 | cumulative cost 155 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 50 | next-life lingli start 50 (floor of fresh era1 cap x 10% x level); no current-life effect | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+TALENT resource_inheritance level 10 | cumulative cost 5115 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 100 | next-life lingli start 100 (floor of fresh era1 cap x 10% x level); no current-life effect | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+TALENT lifespan_extension level 0 | cumulative cost 0 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 0 | immediate +0s max lifespan this life (simulated seconds) | covered by first rebirth income | covered by first two rebirth incomes
+TALENT lifespan_extension level 1 | cumulative cost 10 dao heart | lifespan delta 480s | cultivation speed x1.0 | expected next-life lingli start 0 | immediate +480s max lifespan this life (simulated seconds) | covered by first rebirth income | covered by first two rebirth incomes
+TALENT lifespan_extension level 2 | cumulative cost 30 dao heart | lifespan delta 960s | cultivation speed x1.0 | expected next-life lingli start 0 | immediate +960s max lifespan this life (simulated seconds) | needs later rebirth savings (first income 20) | covered by first two rebirth incomes
+TALENT lifespan_extension level 5 | cumulative cost 310 dao heart | lifespan delta 2400s | cultivation speed x1.0 | expected next-life lingli start 0 | immediate +2400s max lifespan this life (simulated seconds) | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+TALENT lifespan_extension level 10 | cumulative cost 10230 dao heart | lifespan delta 4800s | cultivation speed x1.0 | expected next-life lingli start 0 | immediate +4800s max lifespan this life (simulated seconds) | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+TALENT innate_dao_body level 0 | cumulative cost 0 dao heart | lifespan delta 0s | cultivation speed x1.0 | expected next-life lingli start 0 | immediate training speed x1.0 this life (60s yields 60s progress, requirement unchanged) | covered by first rebirth income | covered by first two rebirth incomes
+TALENT innate_dao_body level 1 | cumulative cost 15 dao heart | lifespan delta 0s | cultivation speed x1.1 | expected next-life lingli start 0 | immediate training speed x1.1 this life (60s yields 66s progress, requirement unchanged) | covered by first rebirth income | covered by first two rebirth incomes
+TALENT innate_dao_body level 2 | cumulative cost 45 dao heart | lifespan delta 0s | cultivation speed x1.2 | expected next-life lingli start 0 | immediate training speed x1.2 this life (60s yields 72s progress, requirement unchanged) | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+TALENT innate_dao_body level 5 | cumulative cost 465 dao heart | lifespan delta 0s | cultivation speed x1.5 | expected next-life lingli start 0 | immediate training speed x1.5 this life (60s yields 90s progress, requirement unchanged) | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+TALENT innate_dao_body level 10 | cumulative cost 15345 dao heart | lifespan delta 0s | cultivation speed x2.0 | expected next-life lingli start 0 | immediate training speed x2.0 this life (60s yields 120s progress, requirement unchanged) | needs later rebirth savings (first income 20) | beyond first two rebirth incomes (35)
+PASS: EARLY-V1-B 527 checks
+[RUNNING] tests/early_v1c_skills_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MEASURE | library Lv1 point rate 2.000000/s at Era2 multiplier (formula 1 x pow(L,1.5) x 2)
+MEASURE | library Lv2 point rate 5.656854/s at Era2 multiplier (formula 1 x pow(L,1.5) x 2)
+MEASURE | library Lv3 point rate 10.392305/s at Era2 multiplier (formula 1 x pow(L,1.5) x 2)
+EARLY-V1-C measurement table (simulated seconds only; official commands unless labelled fixture-driven or derived):
+MEASURE | basic_meditation | era=2 cost=90 max=5 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=45.0s session_wait=0.0s prereq=none effect1=lingli_multiplier 1.1 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | qi_condensation | era=2 cost=1800 max=5 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=900.0s session_wait=800.0s prereq=none effect1=lingli_rate 2.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | foundation_building | era=2 cost=3600 max=5 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=1800.0s session_wait=1700.0s prereq=none effect1=money_multiplier 1.2 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | qi_storage_1 | era=2 cost=120 max=1 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=60.0s session_wait=0.0s prereq=none effect1=lingli_max 200.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | body_strengthening_1 | era=2 cost=1000 max=1 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=500.0s session_wait=400.0s prereq=none effect1=money_max 2000.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | building_mastery_1 | era=2 cost=200 max=1 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=100.0s session_wait=0.0s prereq=none effect1=building_level_cap 10.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | golden_core_formation | era=3 cost=7650 max=5 rate=2.0/s cap_ctx=6200 without bonus (insufficient) / 8060 with sect storage_talisman Lv3 acq_derived=3825.0s session_wait=730.0s prereq=foundation_building:1 effect1=time_multiplier 0.9 | official learn with fixture sect contribution/wood setup only
+GOLDEN | reachable=true cap_no_bonus=6200.000 cap_talisman3=8060.000 gap_7650_minus_6200=1450.000 era3_lv10_total_saved_Lv1_to_Lv5=1888.777 s (derived)
+NOTE | library Lv1 measured rate 2.0/s (content rate 1 x Era2 multiplier 2); cap 200 reached in 100 simulated seconds
+NOTE | era2 points bank 6200 filled in 630 simulated seconds at library Lv1
+NOTE | finding: golden cost 7650 exceeds base scripture cap 6200 by 1450; natural accumulation stuck at 6200 after 16000 simulated seconds
+NOTE | fixture-driven: sect contribution 1000 and wood 950 (exact talisman Lv1-3 cost) injected after official join_sect; expedition task RNG is not deterministic, technique purchases use official learn_sect_technique
+NOTE | derived formula: Era3 Lv10 base training 1436.977 s = 240 x 1.22^9; golden LvN multiplies by pow(0.9,N); cumulative saved over N=1..5 is 1888.777 simulated seconds
+NOTE | fixture-driven: rebirth_lotus eligibility flag (no live content entry); reincarnate itself is the official command, matching SKS-P1 precedent
+PASS: EARLY-V1-C 164 checks
+[RUNNING] tests/uix_r8_skills_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/uix_r8_skills_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/uix_r8_skills_ui_runner.gd:25)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+SKILL_FEEDBACK viewport=(1280, 720) scroll=(1212.0, 354.0) card=(600.0, 132.0) heading=(1028.0, 30.0) panel=(1248.0, 492.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+SKILL_FEEDBACK viewport=(844, 390) scroll=(776.0, 162.0) card=(776.0, 122.0) heading=(1028.0, 30.0) panel=(812.0, 186.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+SKILL_FEEDBACK viewport=(800, 360) scroll=(732.0, 132.0) card=(732.0, 122.0) heading=(1028.0, 30.0) panel=(768.0, 156.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+UIX-R8 151 checks failed=false
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/m3b_spirit_beast_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M3B_BEAST_RUNNER] Starting M3-B Spirit Beast System Tests...
+--- 1. Testing Beast Configurations & Acquisition ---
+  Beast configs & acquisition: PASS
+--- 2. Testing Beast Feeding, Cooldowns & Stage Progression ---
+  Feeding, cooldowns & stages: PASS
+--- 3. Testing Beast Talents Tree, Costs & Effects ---
+  Talents tree & effects: PASS
+--- 4. Testing Reincarnation Settlement with Beast Souls ---
+  Reincarnation beast soul settlement: PASS
+--- 5. Testing GameSession Beast Commands & Time Advancement ---
+  GameSession commands & simulation integration: PASS
+--- 6. Testing SaveCodec Roundtrip with Beast State ---
+  SaveCodec roundtrip & backward compatibility: PASS
+[M3B_BEAST_RUNNER] ALL M3-B SPIRIT BEAST TESTS PASSED (exit 0)
+[RUNNING] tests/abode_scenery_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ISLAND1_CORE PASS
+[RUNNING] tests/abode_scenery_ui_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/abode_scenery_ui_runner.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/abode_scenery_ui_runner.gd:22)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_SELECT: hut
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 390.0)
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +6
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +7
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ISLAND1_UI PASS
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+[RUNNING] tests/m3b_achievement_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+==================================================
+  M3-B 成就系統 (Achievements) 契約與規則驗證
+==================================================
+
+[CASE 1] 驗證成就定義完整度與維度...
+  -> 通過：18 項成就定義結構完整，涵蓋 6 大維度。
+
+[CASE 2] 驗證成就條件判定與自動解鎖...
+  -> 通過：建築建造、境界突破與修為提升之成就自動解鎖判定精確。
+
+[CASE 3] 驗證成就獎勵發放、防重領取與非法領取拒絕...
+  -> 通過：獎勵發放原子性保證、重領防護與未達成攔截均正確。
+
+[CASE 4] 驗證六道輪迴後成就進度之跨世永久繼承...
+  -> 通過：輪迴轉世重塑肉身後，已達成與已領取成就完好繼承。
+
+[CASE 5] 驗證 DEBUG 調試重置成就功能...
+  -> 通過：DEBUG 重置功能可成功清空全部成就進度與狀態。
+
+[CASE 6] 驗證 SaveCodec 快照序列化與舊存檔向後相容...
+  -> 通過：SaveCodec 快照往返序列化與舊檔相容驗證完好。
+
+[SUCCESS] 全部 6 項 M3-B 成就系統測試案例 PASS！
+[RUNNING] tests/debug_autobuild_and_time_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/debug_autobuild_and_time_runner.gd:21)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _ready (res://src/abode/living_abode.gd:389)
+       [8] _run (res://tests/debug_autobuild_and_time_runner.gd:21)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:111)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:798)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:703)
+       [6] _layout (res://src/abode/living_abode.gd:679)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1314)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+=== CASE 1: Background Wall-Clock Catch-Up ===
+  -> PASS: Background 10s catch-up advanced 10.000000 seconds.
+=== CASE 2: Focus In Immediate Settlement ===
+  -> PASS: Focus-in immediate settlement advanced 5.000000 seconds.
+=== CASE 3: DEBUG Auto-Build Level Up Cultivation ===
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_UPGRADE: hut level=1
+  -> PASS: DEBUG auto-build promoted cultivation from level 1 to 2.
+=== CASE 4: DEBUG Auto-Build Strictly Skips Breakthrough Era (Tribulation) ===
+ABODE_UPGRADE: hut level=2
+  -> PASS: DEBUG auto-build strictly preserved tribulation barrier (era=1, level=10).
+==================================================
+ALL DEBUG AUTO-BUILD AND BACKGROUND TIME TESTS PASSED (exit 0)
+==================================================
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+[RUNNING] tests/debug_actions_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[DEBUG_ACTIONS_RUNNER] Starting DebugActions tests...
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 2 (LV1) | 修煉時長: 12000.0s | 存檔修訂: rev 3
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x2.24 (Era: x2.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.12)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+• money: 存量 0 / 300 (正常) | 秒產: +0/s
+• wood: 存量 0 / 150 (正常) | 秒產: +0/s
+• stone_low: 存量 0 / 150 (正常) | 秒產: +0/s
+• black_copper: 存量 0 / 300 (正常) | 秒產: +0/s
+• spirit_grass_low: 存量 0 / 50 (正常) | 秒產: +0/s
+• foundation_pill: 存量 0 / 200 (正常) | 秒產: +0/s
+======================================================
+
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 2 (LV1) | 修煉時長: 12000.0s | 存檔修訂: rev 3
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x2.24 (Era: x2.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.12)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+• money: 存量 0 / 300 (正常) | 秒產: +0/s
+• wood: 存量 0 / 150 (正常) | 秒產: +0/s
+• stone_low: 存量 0 / 150 (正常) | 秒產: +0/s
+• black_copper: 存量 0 / 300 (正常) | 秒產: +0/s
+• spirit_grass_low: 存量 0 / 50 (正常) | 秒產: +0/s
+• foundation_pill: 存量 0 / 200 (正常) | 秒產: +0/s
+======================================================
+
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 1.0 天 (86400 秒)
+實際推進時長: 0 分鐘 (0 秒, 0 ticks)
+提前停止原因: lifespan_exhausted
+推演運算耗時: 0.02 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 0.00 年
+  剩餘壽元: 0.0 年 (0 秒)
+  ⚠️ 警告: 推演期間壽元已自然耗盡！
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 0 (增量: +0 / 上限: 100)
+  - money       : 0 -> 0 (增量: +0 / 上限: 300)
+  - wood        : 0 -> 0 (增量: +0 / 上限: 150)
+  - stone_low   : 0 -> 0 (增量: +0 / 上限: 150)
+  - black_copper: 0 -> 0 (增量: +0 / 上限: 300)
+  - spirit_grass_low: 0 -> 0 (增量: +0 / 上限: 50)
+  - foundation_pill: 0 -> 0 (增量: +0 / 上限: 200)
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 30.0 天 (2592000 秒)
+實際推進時長: 0 分鐘 (0 秒, 0 ticks)
+提前停止原因: lifespan_exhausted
+推演運算耗時: 0.02 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 0.00 年
+  剩餘壽元: 0.0 年 (0 秒)
+  ⚠️ 警告: 推演期間壽元已自然耗盡！
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 0 (增量: +0 / 上限: 100)
+  - money       : 0 -> 0 (增量: +0 / 上限: 300)
+  - wood        : 0 -> 0 (增量: +0 / 上限: 150)
+  - stone_low   : 0 -> 0 (增量: +0 / 上限: 150)
+  - black_copper: 0 -> 0 (增量: +0 / 上限: 300)
+  - spirit_grass_low: 0 -> 0 (增量: +0 / 上限: 50)
+  - foundation_pill: 0 -> 0 (增量: +0 / 上限: 200)
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+[DEBUG_ACTIONS_RUNNER] ALL DEBUG ACTION TESTS PASSED (exit 0)
+[RUNNING] tests/runtime_inspector_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[RUNTIME_INSPECTOR_RUNNER] Starting RuntimeInspector diagnostics tests...
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 1 (LV1) | 修煉時長: 0.0s | 存檔修訂: rev 0
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x1.00 (Era: x1.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.00)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+======================================================
+
+
+================ [遊戲運行時診斷報告] ================
+狀態健康評估: 【健全 PASS】
+修為境界: Era 1 (LV1) | 修煉時長: 0.0s | 存檔修訂: rev 0
+無重大邏輯或資料衝突異常。
+
+---------------- [資源產銷與乘區拆解] ----------------
+全域產率倍率: x1.00 (Era: x1.0 | 天賦: x1.00 | 靈丹BUFF: x0.00 | 天時: +0.00 | 靈獸: +0.00)
+• lingli: 存量 0 / 100 (正常) | 秒產: +0/s
+======================================================
+
+[RUNTIME_INSPECTOR_RUNNER] ALL RUNTIME INSPECTOR TESTS PASSED (exit 0)
+[RUNNING] tests/simulation_sandbox_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[SIMULATION_SANDBOX_RUNNER] Starting SimulationSandbox unit tests...
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 1.0 小時 (3600 秒)
+實際推進時長: 1.0 小時 (3600 秒, 3600 ticks)
+推演運算耗時: 0.76 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 60.00 年
+  剩餘壽元: 20.0 年 (1200 秒)
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 250 (增量: +250 / 上限: 250) [已滿倉]
+  ⚠️ 共有 1 項資源已達倉容上限，後續產量將溢出浪費。
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+
+==================================================
+       【離線數值推演與沙盒分析報告】
+==================================================
+請求快進時長: 1.0 天 (86400 秒)
+實際推進時長: 1.3 小時 (4800 秒, 4800 ticks)
+提前停止原因: lifespan_exhausted
+推演運算耗時: 0.99 ms
+--------------------------------------------------
+[壽元分析]
+  消耗壽元: 80.00 年
+  剩餘壽元: 0.0 年 (0 秒)
+  ⚠️ 警告: 推演期間壽元已自然耗盡！
+--------------------------------------------------
+[資源產銷與滿倉狀況]
+  - lingli      : 0 -> 250 (增量: +250 / 上限: 250) [已滿倉]
+  ⚠️ 共有 1 項資源已達倉容上限，後續產量將溢出浪費。
+--------------------------------------------------
+[子系統結算狀況]
+  BUFF 到期數量: 0 項
+  宗門完成派遣: 0 項
+  靈獸餵養冷卻: 未就緒/未出戰
+  機緣冷卻狀況: 已冷卻完畢
+==================================================
+
+[SIMULATION_SANDBOX_RUNNER] ALL SIMULATION SANDBOX TESTS PASSED (exit 0)
+[RUNNING] tests/uix_r1_components_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UIX-R1: 80 checks passed with 0 failures.
+[RUNNING] tests/batch_a_pills_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[RUNNING] tests/batch_a_pills_runner.gd
+PASS: content loads from res://content
+PASS: requires_tribulation(2) is false
+PASS: requires_tribulation(3) is true
+PASS: base_rate(3)=0.80
+PASS: base_rate(4)=0.70
+PASS: base_rate(5)=0.60
+PASS: base_rate(9)=0.30
+PASS: base_rate(10)=0.30
+PASS: golden pill bonus 1 ~0.03
+PASS: tribulation pill bonus 1 ~0.05
+PASS: golden pill bonus 0 is 0
+PASS: golden pill bonus 99 in (0.199,0.2]
+PASS: golden pill bonus is diminishing
+PASS: success_probability(3,0)~0.80
+PASS: success_probability(3,1)~0.83
+PASS: success_probability(3,99)=0.95
+PASS: success_probability(9,0)~0.30
+PASS: is_success(0.2,0.3) is true
+PASS: is_success(0.3,0.3) is false
+PASS: roll(7,3) is stable
+PASS: roll(7,3) in [0,1)
+PASS: roll(7,0) differs from roll(7,1)
+PASS: roll determinism over seed 0..19 and idx 0..49
+PASS: high_cultivation fresh count1 consume ok
+PASS: high_cultivation fresh count1 grants 300
+PASS: high_cultivation stack is 1 after one pill
+PASS: high_cultivation second count1 consume ok
+PASS: high_cultivation second count1 grants 255
+PASS: high_cultivation fresh count2 consume ok
+PASS: high_cultivation fresh count2 grants 555
+PASS: high_cultivation count 100 is rejected
+PASS: high_cultivation count 100 error is INVALID_COUNT
+PASS: high_cultivation stack overflow is rejected
+PASS: high_cultivation stack overflow error is PILL_STACK_LIMIT
+PASS: lifespan_pill count2 consume ok
+PASS: lifespan_pill count2 grants 20 years
+PASS: lifespan refine at era1 is rejected
+PASS: lifespan refine at era1 reason is PILL_LOCKED
+PASS: lifespan refine at era1 reports required_era 4
+PASS: lifespan refine at era4 is allowed
+PASS: lifespan refine at era4 ok
+PASS: lifespan pill count is 1 after refine
+PASS: refine count 100 is rejected
+PASS: refine count 100 reason is INVALID_COUNT
+PASS: spirit_tide_pill count1 consume ok
+PASS: spirit_tide remaining 300 after one pill
+PASS: spirit_tide_pill count20 consume ok
+PASS: spirit_tide merged remaining capped at 3600
+PASS: quick_output_pill count1 consume ok
+PASS: quick_output remaining 600 after one pill
+PASS: breakthrough fixture found a success roll index
+PASS: breakthrough fixture found a failure roll index
+PASS: tribulation success returns ok
+PASS: tribulation success advances to era 4
+PASS: tribulation success increments roll index
+PASS: tribulation success event kind is era_breakthrough
+PASS: tribulation failure returns ok true
+PASS: tribulation failure drops to era 2
+PASS: tribulation failure level equals era 2 max level
+PASS: tribulation failure increments roll index
+PASS: tribulation failure event kind is tribulation_failed
+61 checks, 0 failures
+========================================
+ALL 13 RUNNERS PASSED WITH EXIT CODE 0!
+========================================

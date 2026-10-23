@@ -35,17 +35,17 @@ func _run() -> void:
 		quit(1)
 		return
 	check(attached.ok, "attach skill content")
-	check(c.skill_defs.size() == 7 and c.skill_defs.has("golden_core_formation"), "seven skill definitions after attach")
+	check(c.skill_defs.size() == 12 and c.skill_defs.has("golden_core_formation"), "twelve skill definitions after attach")
 	var version := c.content_version
 	check(IslandProgression.attach(c).ok and c.content_version == version, "idempotent content attachment")
-	check(c.skill_defs.size() == 7, "second attach keeps seven skills")
+	check(c.skill_defs.size() == 12, "second attach keeps twelve skills")
 	check(SkillSystem.attach(c).ok, "skill attach idempotent")
-	check(SkillSystem.VERSION == 2 and SkillSystem.CONTENT_TAG == "+skills-p1", "skill system version and tag")
+	check(SkillSystem.VERSION == 3 and SkillSystem.CONTENT_TAG == "+content-p1-skills", "skill system version and tag")
 	var golden: Dictionary = c.skill_defs.golden_core_formation
 	var golden_requires: Dictionary = golden.get("requires", {})
 	check(String(golden.name) == "結丹法" and int(golden.max_level) == 5 and int(golden.era) == 3 and float(golden.cost) == 7650.0 and String(golden.effect) == "time_multiplier" and is_equal_approx(float(golden.amount), 0.9) and String(golden_requires.get("skill_id", "")) == "foundation_building" and int(golden_requires.get("level", 0)) == 1, "golden core definition frozen numbers")
 	var s := GameSession.create_new_game(c)
-	check(s.state.skill_version == 2 and s.get_view().skills.items.size() == 7, "new state and seven skill view")
+	check(s.state.skill_version == 3 and s.get_view().skills.items.size() == 12, "new state and twelve skill view")
 	s.state.era_id = 2
 	for id in ["money", "wood", "stone_low", "spirit_grass_low", "black_copper"]:
 		s.state.resources[id].value = AmountCompat.from_number(10000)
@@ -118,7 +118,7 @@ func _run() -> void:
 	check(consumed_pill.ok and absf(s2.state.training_seconds - reduced_three) <= 0.000001 and int(s2.state.pills.get("cultivation_pill", 0)) == 1, "pill clamps to reduced ceiling")
 	check(send(s2, "level_up_cultivation", {}).ok and s2.state.level == 4, "progression consistent after pill")
 	var roundtrip := SaveCodec.decode(SaveCodec.encode(s2.state, c.content_version, meta).json)
-	check(roundtrip.ok and int(roundtrip.state.skill_version) == 2 and roundtrip.state.skills == s2.state.skills, "save skill roundtrip version 2")
+	check(roundtrip.ok and int(roundtrip.state.skill_version) == 3 and roundtrip.state.skills == s2.state.skills, "save skill roundtrip version 3")
 	check(roundtrip.ok and int(roundtrip.state.skills.get("golden_core_formation", 0)) == 2, "golden level preserved in roundtrip")
 	s2.state.skills.unknown = 1
 	check(not SaveCodec.encode(s2.state, c.content_version, meta).ok, "reject unknown skill")
@@ -135,13 +135,13 @@ func _run() -> void:
 	var legacy_envelope: Dictionary = {"schema_version": SaveCodec.SCHEMA_VERSION, "game_version": SaveCodec.GAME_VERSION, "content_version": c.content_version, "rules_version": SaveCodec.RULES_VERSION, "amount_format_version": SaveCodec.AMOUNT_FORMAT_VERSION, "generator_version": SaveCodec.GENERATOR_VERSION, "save_id": meta.save_id, "revision": int(old.state.revision), "saved_at_utc_ms": meta.saved_at_utc_ms, "settled_until_utc_ms": meta.settled_until_utc_ms, "sim_tick": meta.sim_tick, "state": snapshot, "rng_streams": {}, "last_offline_report": null}
 	legacy_envelope.checksum = SaveCodec.compute_checksum(legacy_envelope)
 	var original := JSON.stringify(legacy_envelope)
-	check(SaveCodec.RULES_VERSION == "core-flow-12-skills-p1", "rules version skills p1")
+	check(SaveCodec.RULES_VERSION == "core-flow-17-content-p1-story", "rules version content p1 story")
 	check(SaveCodec.decode(original).ok, "v1 save decodes")
 	var memory := Memory.new()
 	memory.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c, memory)
 	var migrated := SaveManager.current_state()
-	check(migrated != null and migrated.skill_version == 2, "v1 migration bumps skill version to 2")
+	check(migrated != null and migrated.skill_version == 3, "v1 migration bumps skill version to 3")
 	check(migrated != null and migrated.skills.size() == 6 and not migrated.skills.has("golden_core_formation"), "v1 migration keeps b1 skills without golden")
 	check(migrated != null and migrated.revision == old.state.revision + 1, "v1 migration bumps revision")
 	var key := "save_before_skills_" + original.sha256_text()
@@ -153,7 +153,7 @@ func _run() -> void:
 	memory.data.erase(key)
 	check(SaveManager.save(migrated, meta).ok and memory.data[key] == original, "archive exact bytes and retry")
 	SaveManager.configure(c, memory)
-	check(SaveManager.current_state() != null and SaveManager.current_state().skill_version == 2, "restart migration success")
+	check(SaveManager.current_state() != null and SaveManager.current_state().skill_version == 3, "restart migration success")
 	SaveManager.reset_for_tests()
 	s.state.buildings.rebirth_lotus = 1
 	check(send(s, "reincarnate", {"mode": "normal"}).ok, "reincarnation command accepted")
@@ -171,8 +171,8 @@ func _run() -> void:
 	panel.mode = "skills"
 	panel.refresh(fixture.get_view())
 	var page = panel.skill_view
-	check(page.cards.size() == 7, "seven skill cards")
-	check(panel.buttons.size() == 8, "seven skill actions plus study shortcut")
+	check(page.cards.size() == 12, "twelve skill cards")
+	check(panel.buttons.size() == 13, "twelve skill actions plus study shortcut")
 	var golden_button: Button = page.buttons["skill:golden_core_formation"]
 	check(golden_button.text == "境界未達" and golden_button.disabled, "era-locked button label and disabled")
 	var fixture_two := GameSession.create_new_game(c)
@@ -189,3 +189,4 @@ func _run() -> void:
 	else:
 		for failure in failures: push_error(failure)
 		quit(1)
+

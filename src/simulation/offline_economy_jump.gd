@@ -139,8 +139,7 @@ static func _jump(state: GameState, catalog: Dictionary, n: int) -> void:
 			var v0 := IslandEconomy.value(state, island, id)
 			var reserved_c := IslandEconomy.reserved(state, island, id, catalog)
 			var target := minf(v0 + rate * float(n), cap - reserved_c)
-			if target != v0:
-				IslandEconomy._put(state, island, id, target)
+			IslandEconomy._put(state, island, id, target, "production", rate * n)
 
 static func _countdown(state: GameState, n: int) -> void:
 	state.economy.tick = int(state.economy.tick) + n
@@ -162,14 +161,13 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 			var delta := minf(rate, IslandEconomy.free_space(state, island, id, catalog))
 			if not _is_int(delta):
 				return null
-			fills.append([island, id, delta])
+			fills.append([island, id, delta, rate])
 	state.economy.tick = int(state.economy.tick) + 1
 	for pair in fills:
 		var island: String = pair[0]
 		var id: String = pair[1]
 		var delta: float = pair[2]
-		if delta != 0.0:
-			IslandEconomy._put(state, island, id, IslandEconomy.value(state, island, id) + delta)
+		IslandEconomy._put(state, island, id, IslandEconomy.value(state, island, id) + delta, "production", float(pair[3]))
 	var events: Array = []
 	var routes: Array = state.economy.trips.keys()
 	routes.sort()
@@ -179,9 +177,12 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		if int(trip.remaining) == 0:
 			var def: Array = IslandEconomy.ROUTES[id]
 			var cargo := float(trip.cargo)
-			IslandEconomy._put(state, def[1], def[2], IslandEconomy.value(state, def[1], def[2]) + cargo)
+			var story_before := IslandEconomy.value(state, def[1], def[2])
+			IslandEconomy._put(state, def[1], def[2], IslandEconomy.value(state, def[1], def[2]) + cargo, "transfer", cargo)
+			StoryProgress.arrived(state, id, IslandEconomy.value(state, def[1], def[2]) - story_before)
 			Onboarding.supply_arrived(state, id, cargo)
 			state.economy.trips.erase(id)
+			LifeLedger.cargo_arrived(state, String(id))
 			events.append({"kind": "cargo_arrived", "route_id": id})
 	var islands: Array = state.economy.jobs.keys()
 	islands.sort()
@@ -193,6 +194,7 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		if int(job.remaining) == 0:
 			var id: String = job.recipe_id
 			IslandEconomy._put(state, island, id, IslandEconomy.value(state, island, id) + float(catalog.recipes[id].output))
+			StoryProgress.completed(state, island, id)
 			Onboarding.supply_completed(state, island, id)
 			events.append({"kind": "processing_completed", "island_id": island, "recipe_id": id})
 	for island in islands:
@@ -217,7 +219,7 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		var cargo := float(info.cargo)
 		if cargo > 0:
 			var def: Array = IslandEconomy.ROUTES[id]
-			IslandEconomy._put(state, def[0], def[2], IslandEconomy.value(state, def[0], def[2]) - cargo)
+			IslandEconomy._put(state, def[0], def[2], IslandEconomy.value(state, def[0], def[2]) - cargo, "transfer", -cargo)
 			state.economy.trips[id] = {"version": 1, "cargo": AmountCompat.from_number(cargo).serialize(), "remaining": 10}
 			events.append({"kind": "cargo_departed", "route_id": id})
 	return events

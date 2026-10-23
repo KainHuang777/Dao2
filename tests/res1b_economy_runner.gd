@@ -1,5 +1,6 @@
 extends SceneTree
 
+const AccountChecks = preload("res://tests/resource_account_assertions.gd")
 var failures: Array[String] = []
 var checks := 0
 var catalog: Dictionary
@@ -242,7 +243,7 @@ func _test_time() -> void:
 	var offline := c.state.duplicate_state()
 	OfflineSettlement.settle(offline, c.content, 601000, 1000)
 	TimeAdvancer.advance(c.state, c.content, 600)
-	_expect(JSON.stringify(SaveCodec._normalize_numbers(offline.to_snapshot_dict()), "", true) == _snap(c), "offline same 600 seconds")
+	_expect(AccountChecks.same(offline, c.state), "offline same 600 seconds")
 	c = _chain()
 	var lifespan := Lifespan.max_lifespan_seconds(c.content.era_lifespan_entries(), c.state.era_id)
 	c.state.total_elapsed_seconds = lifespan - 3
@@ -273,7 +274,7 @@ func _test_persistence() -> void:
 		var copy: GameState = decoded.state
 		TimeAdvancer.advance(copy, s.content, 593)
 		TimeAdvancer.advance(s.state, s.content, 593)
-		_expect(JSON.stringify(SaveCodec._normalize_numbers(copy.to_snapshot_dict()), "", true) == _snap(s), "reload remaining times equal uninterrupted")
+		_expect(AccountChecks.same(copy, s.state), "reload remaining times equal uninterrupted")
 	for mode in ["recipe", "route", "overflow", "negative", "version", "fractional_tick"]:
 		var env: Dictionary = JSON.parse_string(raw)
 		match mode:
@@ -286,10 +287,10 @@ func _test_persistence() -> void:
 		env.erase("checksum")
 		env.checksum = SaveCodec.compute_checksum(env)
 		_expect(not SaveCodec.decode(JSON.stringify(env)).ok, "reject malformed/unknown " + mode)
-	# v1-era payload (schema_version < 4) is rescued, wiped, and re-seeded as a fresh v2 game.
+	# Unsupported v1 payload (schema_version < 2) is rescued, wiped, and re-seeded as a fresh v2 game.
 	s = _session(false)
 	var legacy3: Dictionary = JSON.parse_string(_encode(s))
-	legacy3.schema_version = 3
+	legacy3.schema_version = 1
 	legacy3.erase("checksum")
 	legacy3.checksum = SaveCodec.compute_checksum(legacy3)
 	var legacy3_json := JSON.stringify(legacy3)
@@ -328,7 +329,7 @@ func _test_persistence() -> void:
 		var expected: GameState = s.state.duplicate_state()
 		TimeAdvancer.advance(expected, s.content, 600)
 		expected.revision += 1
-		_expect(JSON.stringify(SaveCodec._normalize_numbers(expected.to_snapshot_dict()), "", true) == JSON.stringify(SaveCodec._normalize_numbers(retry.state.to_snapshot_dict()), "", true), "no double settlement " + phase)
+		_expect(AccountChecks.same(expected, retry.state), "no double settlement " + phase)
 		SaveManager.configure(s.content, adapter)
 		var loaded: GameState = SaveManager.current_state()
 		var same := JSON.stringify(SaveCodec._normalize_numbers(loaded.to_snapshot_dict()), "", true)

@@ -71,10 +71,13 @@ func _rebuild() -> void:
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		text.custom_minimum_size.x = 156
 		content.add_child(text)
+		var title_row := HBoxContainer.new()
+		text.add_child(title_row)
 		var title := _label(_resource_name(IslandEconomy.ROUTES[id][2]))
+		title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		title.add_theme_font_size_override("font_size", 18)
 		title.add_theme_font_override("font", UiTypography.emphasis_font())
-		text.add_child(title)
+		title_row.add_child(title)
 		var status := _label("")
 		text.add_child(status)
 		var progress := _progress(text)
@@ -87,7 +90,7 @@ func _rebuild() -> void:
 		toggle.custom_minimum_size.x = 64
 		var settings := _add_button(actions, "設定", func(): select_route(id))
 		settings.custom_minimum_size.x = 64
-		route_widgets[id] = {"root": row, "title": title, "status": status, "policy": policy, "toggle": toggle, "settings": settings, "visual": visual, "progress": progress}
+		route_widgets[id] = {"root": row, "title": title, "title_row": title_row, "actions": actions, "text": text, "status": status, "policy": policy, "toggle": toggle, "settings": settings, "visual": visual, "progress": progress}
 	detail_box = VBoxContainer.new()
 	detail_box.add_theme_constant_override("separation", 10)
 	detail_box.visible = false
@@ -183,8 +186,8 @@ func _refresh_visual(visual: Dictionary, id: String) -> void:
 		visual.source.style.border_color = Color("ad6552")
 		visual.source.quantity.add_theme_color_override("font_color", MaterialTile.SHORTAGE)
 		visual.source.caption.add_theme_color_override("font_color", MaterialTile.SHORTAGE)
-	visual.source.tooltip_text = "%s・%s\n可用 %s・保留 %s\n保留後餘貨 %s" % [source_name, name_text, str(source), settings.reserve, str(stock.get("surplus", 0))] if not stock.is_empty() else source_name + "・" + name_text + "\n端點未開拓或空島未啟用"
-	visual.destination.tooltip_text = "%s・%s\n可用 %s・目標 %s\n容量預留 %s・剩餘空間 %s" % [destination_name, name_text, str(destination), settings.target, str(stock.get("reserved", 0)), str(stock.get("space", 0))] if not stock.is_empty() else destination_name + "・" + name_text + "\n端點未開拓或空島未啟用"
+	visual.source.tooltip_text = "%s・%s\n可用 %s・保留 %s\n保留後餘貨 %s" % [source_name, name_text, NumberFormatter.format_amount(source), NumberFormatter.format_amount(settings.reserve), NumberFormatter.format_amount(stock.get("surplus", 0))] if not stock.is_empty() else source_name + "・" + name_text + "\n端點未開拓或空島未啟用"
+	visual.destination.tooltip_text = "%s・%s\n可用 %s・目標 %s\n容量預留 %s・剩餘空間 %s" % [destination_name, name_text, NumberFormatter.format_amount(destination), NumberFormatter.format_amount(settings.target), NumberFormatter.format_amount(stock.get("reserved", 0)), NumberFormatter.format_amount(stock.get("space", 0))] if not stock.is_empty() else destination_name + "・" + name_text + "\n端點未開拓或空島未啟用"
 
 func _refresh_progress(progress: ProgressBar, info: Dictionary) -> void:
 	var trip: Dictionary = info.get("trip", {})
@@ -258,6 +261,7 @@ func select_route(id: String) -> void:
 	filter_picker.visible = false
 	body.get_parent().scroll_vertical = 0
 	_refresh_detail()
+	context_changed.emit()
 
 func back_to_list() -> void:
 	selected_route = ""
@@ -269,6 +273,7 @@ func back_to_list() -> void:
 		filter_picker.visible = true
 	body.get_parent().set_deferred("scroll_vertical", list_scroll)
 	_refresh_rows()
+	context_changed.emit()
 
 func select_island(id: String) -> void:
 	if not IslandProgression.NAMES.has(id):
@@ -277,6 +282,7 @@ func select_island(id: String) -> void:
 	if not selected_route.is_empty():
 		back_to_list()
 	_refresh_rows()
+	context_changed.emit()
 
 func reset_context() -> void:
 	select_island("home")
@@ -364,7 +370,7 @@ func _refresh_detail() -> void:
 	var stock: Dictionary = info.get("stock", {})
 	detail_stock.text = ""
 	if not stock.is_empty():
-		detail_stock.text = "餘貨 %s・目的容量預留 %s／空間 %s\n運力%d／10秒・已保存保留%s／目標%s" % [str(stock.surplus), str(stock.reserved), str(stock.space), 10 * int(settings.level), settings.reserve, settings.target]
+		detail_stock.text = "餘貨 %s・目的容量預留 %s／空間 %s\n運力%d／10秒・已保存保留%s／目標%s" % [NumberFormatter.format_amount(stock.surplus), NumberFormatter.format_amount(stock.reserved), NumberFormatter.format_amount(stock.space), 10 * int(settings.level), NumberFormatter.format_amount(settings.reserve), NumberFormatter.format_amount(settings.target)]
 	var draft := _draft(selected_route)
 	draft_status.text = "未保存草稿；返回或切頁會保留，本次遊戲關閉後不保留。" if bool(draft.dirty) else "已保存設定；啟停與升階沿用此設定。" if _view.get("economy", {}).get("routes", {}).has(selected_route) else "尚未配置；預設保留0、目標100。保存設定後仍維持停航。"
 	save_button.disabled = not bool(info.get("ready", false))
@@ -402,6 +408,15 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		for widget in route_widgets.values():
 			var content: BoxContainer = widget.visual.root.get_parent()
 			content.vertical = bounds.size.x < 430
+			var action_host: Node = widget.title_row if short_layout and not content.vertical else widget.text
+			if widget.actions.get_parent() != action_host: widget.actions.reparent(action_host)
+			var paper := UiMaterial.hud_paper()
+			if short_layout:
+				paper.content_margin_top = 2
+				paper.content_margin_bottom = 2
+			widget.root.add_theme_stylebox_override("panel", paper)
+			for tile in [widget.visual.source, widget.visual.destination]:
+				tile.icon.custom_minimum_size = Vector2.ONE * (24 if short_layout else 44)
 	if policy_fields != null:
 		policy_fields.columns = 2 if bounds.size.x >= 620 else 1
 	if route_summary != null:

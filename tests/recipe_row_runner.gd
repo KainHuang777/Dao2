@@ -66,7 +66,7 @@ func _init() -> void:
 	root.add_child(root_node)
 	root_node.add_child(row)
 
-	for vp in [Vector2i(1280, 720), Vector2i(844, 390), Vector2i(800, 360)]:
+	for vp in ([Vector2i(1280, 720), Vector2i(844, 390), Vector2i(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280, 720)]):
 		root_node.size = Vector2(vp)
 		row.apply_layout(vp.y < 400)
 		check(row.action.custom_minimum_size.y >= 44, "action minimum 44px hit size for " + str(vp))

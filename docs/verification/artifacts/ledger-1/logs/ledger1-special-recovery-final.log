@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ACCOUNT_BENCH seconds=1 online_us=2225 offline_us=3866 bytes=2624
+ACCOUNT_BENCH seconds=60 online_us=82754 offline_us=40767 bytes=3402
+ACCOUNT_BENCH seconds=240 online_us=348464 offline_us=137060 bytes=3432
+ACCOUNT_BENCH seconds=1800 online_us=2391602 offline_us=957673 bytes=3457
+LEDGER-1 1412 checks failures=[]

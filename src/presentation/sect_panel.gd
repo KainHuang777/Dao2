@@ -45,6 +45,7 @@ var _tab_content_container: VBoxContainer
 # 快取當前 view
 var _cached_sect_data: Dictionary = {}
 var _cached_resources: Dictionary = {}
+var _cached_state: GameState
 var _cached_is_eligible_to_join: bool = false
 var _header_reflow_pending := false
 var _compact := false
@@ -84,6 +85,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	UiMaterial.apply_scroll_content_margins(_margin, _compact)
 	_banner_panel.visible = not _compact and not bool(_cached_sect_data.get("unlocked", false))
 	_header_container.add_theme_constant_override("separation", 4 if _compact else 8)
+	_root_box.add_theme_constant_override("separation", 2 if _compact else 6)
 	var joined := bool(_cached_sect_data.get("unlocked",false))
 	if is_instance_valid(_join_intro): _join_intro.visible = not _compact
 	if not joined:
@@ -93,10 +95,23 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	var contribution_parent: Node = _tab_row if _compact and joined else _title_row
 	if _contrib_row.get_parent() != contribution_parent:
 		_contrib_row.reparent(contribution_parent)
+	# Short workspaces share the fixed tab/title row with operation feedback.
+	# Keep the original result and retry controls, without a second header row.
+	var feedback_parent: Node = (_tab_row if joined else _title_row) if _compact else _feedback_row
+	for control in [_feedback, _retry]:
+		if control.get_parent() != feedback_parent: control.reparent(feedback_parent)
+	_feedback_row.visible = not _compact and (_pending_save or not _feedback.text.is_empty())
+	_feedback.clip_text = _compact
+	_feedback.autowrap_mode = TextServer.AUTOWRAP_OFF if _compact else TextServer.AUTOWRAP_WORD_SMART
 	if _pending_save:
 		_feedback.text = "保存失敗；請重試保存。" if _compact else _feedback.tooltip_text
 	for art in _art_nodes:
-		if is_instance_valid(art): art.custom_minimum_size = Vector2.ONE * (80 if _compact else 112)
+		if is_instance_valid(art): art.custom_minimum_size = Vector2.ONE * (64 if size.y < 220 else (80 if _compact else 112))
+	for node in _tab_content_container.find_children("*", "Label", true, false):
+		if node.has_meta("p1_description"): node.visible = not _compact
+		if node.has_meta("p1_market_cost"):
+			var item: Dictionary = SectSystem.MARKET_ITEMS[node.get_meta("p1_market_cost")]
+			node.text = "%d貢獻 → %s · 需築基" % [int(item.cost), "靈木100" if item.has("grant_resource") else "育草丹1"]
 	for grid in _grids:
 		if is_instance_valid(grid): grid.columns = 2 if size.x >= 1040 else 1
 	_margin.size = size
@@ -206,6 +221,7 @@ func _build_ui() -> void:
 	_retry = Button.new()
 	_retry.text = "重試保存"
 	_retry.custom_minimum_size = Vector2(96,44)
+	_retry.hide()
 	_retry.pressed.connect(func(): retry_save_requested.emit())
 	_feedback_row.add_child(_retry)
 	_feedback_row.hide()
@@ -228,6 +244,8 @@ func _build_ui() -> void:
 func _switch_tab(mode: TabMode) -> void:
 	_current_tab = mode
 	_render_current_tab()
+	set_layout_bounds(Rect2(position, size))
+	_queue_header_reflow()
 
 func update_view(state: GameState) -> void:
 	if _header_container == null:
@@ -237,6 +255,7 @@ func update_view(state: GameState) -> void:
 	var sect: Dictionary = state.sect
 	_cached_sect_data = sect.duplicate(true)
 	_cached_resources = state.resources
+	_cached_state = state
 	_cached_is_eligible_to_join = SectSystem.is_unlocked(state)
 
 	var is_unlocked := bool(sect.get("unlocked", false))
@@ -260,7 +279,7 @@ func update_view(state: GameState) -> void:
 	var active = structural.get("active_expedition")
 	if active is Dictionary:
 		active.erase("elapsed")
-	var signature := JSON.stringify([structural, _cached_is_eligible_to_join])
+	var signature := JSON.stringify([structural, _cached_is_eligible_to_join, state.era_id, state.beast_talents])
 	if signature != _render_signature and not _has_pressed_button(_tab_content_container):
 		_render_signature = signature
 		_render_current_tab()
@@ -400,6 +419,7 @@ func _render_join_panel() -> void:
 			j_btn.text = "需達築基期"
 			j_btn.disabled = true
 		j_btn.custom_minimum_size = Vector2(96, 44)
+		j_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		s_row.add_child(j_btn)
 
 func _queue_header_reflow() -> void:
@@ -618,6 +638,10 @@ func _render_techniques_tab() -> void:
 
 		var desc_lbl := Label.new()
 		desc_lbl.text = String(def.desc)
+		if tech_id in SectSystem.P1_TECHNIQUES:
+			desc_lbl.set_meta("p1_description", true)
+			title_lbl.text += " · " + ("築基" if int(def.min_era) == 2 else "金丹")
+			title_lbl.tooltip_text = String(def.desc)
 		desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		desc_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(desc_lbl)
@@ -635,6 +659,13 @@ func _render_techniques_tab() -> void:
 
 		var cost_lbl := Label.new()
 		cost_lbl.text = cost_text
+		if tech_id == "alchemy_herb_conservation":
+			cost_lbl.tooltip_text = "僅聚靈／養木／聚財／納靈四丹下品草；現行每顆%s草，下一階%s草；批量不取整。退宗或當世境界不足時停用。" % [str(10.0 * (100 - 2 * SectSystem.active_level(_cached_state, tech_id)) / 100), str(10.0 * (100 - 2 * mini(cur_lvl + 1, 5)) / 100)]
+		elif tech_id == "fox_feed_conservation":
+			var preview := _cached_state.duplicate_state()
+			preview.sect.techniques[tech_id] = mini(cur_lvl + 1, 5)
+			cost_lbl.tooltip_text = "靈狐現行每餵%s草；下一階實際%s草。最後取整，部分階不減少。退宗或當世境界不足時停用。" % [str(BeastSystem.feed_costs(_cached_state, "jade_fox").spirit_grass_low), str(BeastSystem.feed_costs(preview, "jade_fox").spirit_grass_low)]
+
 		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
@@ -652,8 +683,9 @@ func _render_techniques_tab() -> void:
 				if def.has("base_"+key):
 					var held: AmountCompat = _cached_resources.get(key,{}).get("value",AmountCompat.zero())
 					enough = enough and held.compare_to(AmountCompat.from_number(ceil(float(def["base_"+key])*scale_now))) >= 0
-			learn_btn.disabled = is_max or not enough
-			learn_btn.text = "已圓滿" if is_max else ("參悟提升" if enough else "資源不足")
+			var locked := _cached_state.era_id < int(def.get("min_era", 1))
+			learn_btn.disabled = is_max or not enough or locked
+			learn_btn.text = "已圓滿" if is_max else ("境界未達" if locked else ("參悟提升" if enough else "資源不足"))
 		)
 
 # ================= 宗門坊市分頁 =================
@@ -685,19 +717,22 @@ func _render_market_tab() -> void:
 		row.add_child(info_vb)
 
 		var name_lbl := Label.new()
-		name_lbl.text = "%s  (限購：%d / %d)" % [String(def.name), bought_count, limit]
+		name_lbl.text = "%s  (%s：%d / %d)" % [String(def.name), "終身限購" if def.has("min_era") else "限購", bought_count, limit]
+		name_lbl.tooltip_text = String(def.desc)
 		name_lbl.add_theme_font_override("font", UiTypography.emphasis_font())
 		name_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		info_vb.add_child(name_lbl)
 
 		var desc_lbl := Label.new()
 		desc_lbl.text = String(def.desc)
+		if def.has("min_era"): desc_lbl.set_meta("p1_description", true)
 		desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		desc_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(desc_lbl)
 
 		var cost_lbl := Label.new()
 		cost_lbl.text = "兌換價格：宗門貢獻 %d 點" % int(def.cost)
+		if def.has("min_era"): cost_lbl.set_meta("p1_market_cost", item_id)
 		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
@@ -710,8 +745,10 @@ func _render_market_tab() -> void:
 		row.add_child(buy_btn)
 		_dynamic.append(func():
 			var enough := _has_contribution(float(def.cost))
-			buy_btn.disabled = is_sold_out or not enough
-			buy_btn.text = "售罄" if is_sold_out else ("兌換物資" if enough else "貢獻不足")
+			var destination := SectSystem.market_destination_error(_cached_state, item_id, SaveManager.content())
+			buy_btn.disabled = is_sold_out or not enough or not destination.is_empty()
+			buy_btn.text = "售罄" if is_sold_out else ("境界未達" if destination == "MARKET_ERA_LOCKED" else ("庫存已滿" if not destination.is_empty() else ("兌換物資" if enough else "貢獻不足")))
+			buy_btn.tooltip_text = "需當世築基；全額交付，空間不足不扣貢獻也不占次數。" if def.has("min_era") else ""
 		)
 
 func _on_claim_expedition_pressed() -> void:
@@ -730,7 +767,7 @@ func _on_buy_market_item_pressed(item_id: String) -> void:
 	buy_market_item_requested.emit(item_id)
 
 func _add_small_icon(parent: Node, texture: Texture2D, tip: String) -> TextureRect:
-	var icon := TextureRect.new()
+	var icon := UiIllustration.new()
 	icon.texture = texture
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -769,7 +806,7 @@ func _add_rewards(parent: Node, rewards: Dictionary) -> void:
 		reward.add_child(value)
 
 func _add_art(row: HBoxContainer, id: String) -> void:
-	var art := TextureRect.new()
+	var art := UiIllustration.new()
 	art.texture = load(ART_DIR + id + ".png")
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -789,9 +826,19 @@ func _new_grid() -> GridContainer:
 	return grid
 
 func _add_market_art(row: HBoxContainer, id: String) -> void:
-	var files := {"herb_bundle":"spirit_grass_low", "stone_bundle":"stone_low", "foundation_pill":"foundation_pill"}
+	if id == "herb_nurture_supply":
+		var art := UiIllustration.new()
+		art.texture = load("res://assets/ui/pills-painted/herb_nurture_pill.png")
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		art.custom_minimum_size = Vector2.ONE * (80 if _compact else 112)
+		_art_nodes.append(art)
+		row.add_child(art)
+		return
+	var files := {"greenwood_bundle":"wood", "herb_bundle":"spirit_grass_low", "stone_bundle":"stone_low", "foundation_pill":"foundation_pill"}
 	if files.has(id):
-		var art := TextureRect.new()
+		var art := UiIllustration.new()
 		art.texture = load("res://assets/ui/resources-painted/" + files[id] + ".png")
 		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

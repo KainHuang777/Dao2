@@ -1,0 +1,51 @@
+[RUNNING] tests/m1a_core_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: M1-A core contract, content validation, cost/onboarding parity, commands, idempotency, determinism.
+[RUNNING] tests/res1a_processing_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: RES1-A 145 checks; sources, closure, atomic Craft, canonical inventory, Amount, Session replay.
+[RUNNING] tests/res1b_economy_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:345)
+       [1] current_state (res://src/persistence/save_manager.gd:113)
+       [2] _test_persistence (res://tests/res1b_economy_runner.gd:351)
+       [3] _init (res://tests/res1b_economy_runner.gd:34)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:81)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:366)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:365)
+       [4] current_state (res://src/persistence/save_manager.gd:113)
+       [5] _test_persistence (res://tests/res1b_economy_runner.gd:351)
+       [6] _init (res://tests/res1b_economy_runner.gd:34)
+ERROR: offline same 600 seconds
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/res1b_economy_runner.gd:41)
+ERROR: no double settlement payload
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/res1b_economy_runner.gd:41)
+ERROR: no double settlement readback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/res1b_economy_runner.gd:41)
+ERROR: no double settlement index
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/res1b_economy_runner.gd:41)
+E:\WORK\Dao2\tools\run_all_runners.ps1 : Runner failed: tests/res1b_economy_runner.gd with exit code 1
+At E:\WORK\Dao2\tools\run_all_runners.ps1:127 char:9
++         Write-Error "Runner failed: $r with exit code $LASTEXITCODE"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_all_runners.ps1
+ 

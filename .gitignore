@@ -15,6 +15,8 @@ tools/godot/
 
 # Dependencies & environment variables
 node_modules/
+# Local, isolated browser profile used only for UI-SHELL-DESIGN review
+probes/ui-shell-design-browser/
 .env
 .env.*
 !.env.example

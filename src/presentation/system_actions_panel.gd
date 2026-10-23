@@ -64,6 +64,8 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
 	_surface.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if bounds.size.y < 350 else UiMaterial.scroll_shell())
+	box.add_theme_constant_override("separation", 0 if bounds.size.y < 350 else 4)
+	decision_view.add_theme_constant_override("separation", 0 if bounds.size.y < 350 else 6)
 	_sync_skill_feedback()
 
 func _sync_skill_feedback() -> void:

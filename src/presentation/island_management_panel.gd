@@ -6,7 +6,9 @@ signal close_requested()
 signal world_requested(id: String)
 signal page_requested(route: String, island_id: String)
 signal retry_requested()
+signal context_changed()
 const IslandTile = preload("res://src/presentation/recipe_material_tile.gd")
+const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 
 var island := "home"
 var body: VBoxContainer
@@ -237,11 +239,11 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 			stock_cards[id] = {"tile": tile, "rate": rate, "meter": meter}
 		var widgets: Dictionary = stock_cards[id]
 		_stock_tile(widgets.tile, id, float(slot.get("available", 0)), _resource_name(id))
-		widgets.rate.text = "＋%s／秒" % _amount(float(info.rates[id]))
+		widgets.rate.text = "＋%s／秒" % NumberFormatter.format_rate(float(info.rates[id]))
 		widgets.meter.max_value = float(info.capacity)
 		widgets.meter.value = float(slot.get("available", 0)) + float(slot.get("reserved", 0))
-		widgets.tile.tooltip_text = lines[-1] + "\n容量預留 %s" % str(slot.get("reserved", 0))
-	inventory.text = "採集庫存・容量 %s" % _amount(float(info.get("capacity", 0))) if opened and not lines.is_empty() else ""
+		widgets.tile.tooltip_text = lines[-1] + "\n容量預留 %s" % NumberFormatter.format_amount(slot.get("reserved", 0))
+	inventory.text = "採集庫存・容量 %s" % NumberFormatter.format_amount(float(info.get("capacity", 0))) if opened and not lines.is_empty() else ""
 	inventory.visible = size.y >= 400
 	resource_cards.visible = opened
 	stock_expanded = true
@@ -251,7 +253,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	for resource in e.get("inventory", {}).get(island, {}):
 		var slot: Dictionary = e.inventory[island][resource]
 		if float(slot.available) > 0 or float(slot.reserved) > 0 or info.get("rates", {}).has(resource):
-			stock_lines.append("%s：可用%.1f・容量預留%.1f" % [_resource_name(resource), float(slot.available), float(slot.reserved)])
+			stock_lines.append("%s：可用%s・容量預留%s" % [_resource_name(resource), NumberFormatter.format_amount(slot.available), NumberFormatter.format_amount(slot.reserved)])
 			if not local_tiles.has(resource):
 				local_tiles[resource] = _tile(local_cards)
 			_stock_tile(local_tiles[resource], resource, float(slot.available), _resource_name(resource))
@@ -269,7 +271,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		var prices: Array[String] = []
 		var cost := IslandProgression.upgrade_cost(id, level)
 		for resource in cost:
-			prices.append("%s%d（可用%.1f）" % [_resource_name(resource), cost[resource], _home_available(resource)])
+			prices.append("%s%s（可用%s）" % [_resource_name(resource), NumberFormatter.format_amount(cost[resource]), NumberFormatter.format_amount(_home_available(resource))])
 		var effects: Array[String] = []
 		if id == "storage":
 			effects.append("容量%d→%d" % [int(IslandProgression.capacity_for_level(level)), int(IslandProgression.capacity_for_level(mini(3, level + 1)))])
@@ -300,13 +302,11 @@ func _tile(parent: Node) -> Control:
 
 func _stock_tile(tile: Control, resource: String, available: float, title: String) -> void:
 	tile.refresh(resource, _resource_name(resource), available, available, IslandProgression.NAMES[island], true)
-	tile.quantity.text = _amount(available)
+	tile.quantity.text = NumberFormatter.format_amount(available)
 	tile.caption.text = title
 
 func _amount(value: float) -> String:
-	if value >= 10000:
-		return "%.1f萬" % (value / 10000.0)
-	return str(int(value)) if value == floorf(value) else "%.1f" % value
+	return NumberFormatter.format_amount(value)
 
 func _home_available(resource: String) -> float:
 	if not _view.get("economy", {}).get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION]:
@@ -357,3 +357,4 @@ func select_island(id: String) -> void:
 		island = id
 		_rebuild()
 	refresh(_view, _catalog)
+	context_changed.emit()

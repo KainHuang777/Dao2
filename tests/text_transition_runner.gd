@@ -34,7 +34,7 @@ func _run() -> void:
 	panel.set_process(false)
 	panel.advance_presentation(0.4)
 	expect(ends == [true, true] and panel.title_label.visible_ratio == 1, "Replay cancels its predecessor; reduced motion has no character reveal")
-	for viewport in [Vector2i(1280, 720), Vector2i(844, 390), Vector2i(390, 844)]:
+	for viewport in ([Vector2i(1280, 720), Vector2i(844, 390), Vector2i(390, 844)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280, 720)]):
 		root.size = viewport
 		await process_frame
 		panel.title_label.text = "境界等級提升至 LV2・大道初成"
@@ -48,6 +48,7 @@ func _run() -> void:
 	expect(ends == [true, true, false] and not panel.visible, "Natural completion fires once after restart")
 	panel.queue_free()
 	await process_frame
+	root.size = Vector2i(1280, 720)
 	var script = load("res://src/abode/living_abode.gd")
 	script.save_dir_override = "user://text_transition_tests"
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
@@ -55,13 +56,15 @@ func _run() -> void:
 	root.add_child(abode)
 	abode.set_process(false)
 	await process_frame
+	abode.offline_summary.hide()
 	var initial: Dictionary = abode.session.state.to_snapshot_dict()
 	for was_locked in [false, true]:
 		abode.camera.input_locked = was_locked
 		abode.settings_menu.get_popup().id_pressed.emit(102)
 		expect(abode.text_transition.visible and abode.camera.input_locked, "Settings preview opens native overlay and locks camera")
 		abode.text_transition.skip()
-		expect(abode.camera.input_locked == was_locked, "Skip restores prior camera lock ownership")
+		var world_input: bool = bool(abode.feature_navigation.shell.effective.get("world_input", true)) if abode.feature_navigation != null and abode.feature_navigation.shell != null else true
+		expect(abode.camera.input_locked == not world_input, "Skip recomputes current shell input instead of restoring a stale lock bit")
 	expect(initial == abode.session.state.to_snapshot_dict(), "Preview and skip cannot change inventory, Era or save state")
 	var formal_starts := [0]
 	abode.text_transition.sequence_started.connect(func(): formal_starts[0] += 1)

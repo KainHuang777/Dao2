@@ -1,3 +1,17 @@
+2026-10-23 **CONTENT-P1-PILL DONE（四圖與丹卡美術已接受；桌面／Web有界）**：使用者明確回覆「美術接受」，接受養木／育草／聚財／納靈四圖與本批丹卡呈現；沿用609專項／102原生、104／104唯一Runner及三橫式Web保存恢復／重載證據。本輪僅更新接受metadata、文件與英文交接，Python稽核另跑；未重跑Godot／Runner／瀏覽器／匯出，未改PNG／規則／玩家進度，未commit/push。見[接受與驗收](verification/content-p1-pills.md)。S／T／P均已收結；下方待接受／待核定文字保留為日期化歷史，本階段停止，下一New Chat由使用者指定大型任務。
+
+2026-10-23 **CONTENT-P1-PILL 實作與桌面交付，IN_PROGRESS（四新圖／丹卡待美術接受）**：使用者核定P，新增養木／育草／聚財／納靈四丹，祖島單資源+100%／300模擬秒；Era2兩／Era3兩、刷新淨延拒絕、999999庫存上限，原八丹順序及加工8配方保持。schema5／pill_version1／rules core-flow-15-content-p1-pills，舊原文備份與只保存重試已接。最終609專項／102原生、104／104唯一Runner分段通過；三桌面橫式Web、40→34折扣、四BUFF並存、拒寫／重試／恢復／重載及淨延7秒已驗。正常候選build/web-content-p1-pills；兩包匯出／壓縮／四BGM交付，14份既有JSON還原，原build/web沿本輪起點hash74aa640f…保持。四張內建ImageGen透明原圖／prompt／hash與審閱見[驗收](verification/content-p1-pills.md)。未改玩家資料，未commit/push；英文交接已更新，本階段停止，下一New Chat先收四圖與丹卡美術回饋。
+
+2026-10-23後續接受：使用者明確回覆「美術接受」，CONTENT-P1-TALENT三圖與天賦卡呈現已接受，本批DONE（桌面／Web有界）。S／T均已收結；下一CONTENT-P1-PILL仍需獨立採用P方案，不由本次美術接受代為核定，本輪沒有開工。見[接受紀錄](verification/content-p1-talents.md)。下方T待接受文字保留為日期化歷史。
+
+2026-10-23後續：使用者指定`CONTENT-P1-TALENT`，依此採T方案實作三項五階輪迴天賦；正式接線與桌面Web交付完成，三張新圖待美術接受，狀態IN_PROGRESS。S已DONE，P仍待核定；下方T待核定文字為本日較早歷史。見[本批驗收](verification/content-p1-talents.md)。
+
+2026-10-23後續接受：使用者明確接受CONTENT-P1-SKILL五圖美術，本批DONE（桌面／Web有界）。下一CONTENT-P1-TALENT先核定T方案，P仍待核定；本輪只收結，沒有開工T／P。見[接受紀錄](verification/content-p1-skills.md)。下方待美術接受文字保留為本日較早歷史。
+
+2026-10-23 CONTENT-P1-SKILL：S方案五技能已加入正式定義，目前一般技能12（Era2九、Era3三）；skill_version3／schema5。規則與桌面驗收已交付，五圖待美術接受；天賦仍3、丹藥仍8，加工配方仍8。見[驗收](verification/content-p1-skills.md)。下方數量為各自日期基線。
+
+2026-10-23 **CONTENT-P1-DESIGN 設計已交付，待核定**：[docs31逐項方案](31-content-p1-design.md)提出5技能／3五階輪迴天賦／4祖島專精丹與收益對照、保存／新通道及三組S／T／P核定表。下文下一任務為歷史；目前先收設計核定，核定S後接CONTENT-P1-SKILL，不自動將候選視為正式內容。schema現況為5，先前schema4文字按日期保留。
+
 # RES1-E-SKILLS-PLAN：技能擴充盤點與分境界可執行清單
 
 2026-10-21 **RES1-D已放行；跨系統數量擴充總表已建立**：[CONTENT-EXP-PLAN](25-system-content-expansion-plan.md)提出P1於Era2–3新增5項一般技能（7→12），後續SKS-P2／P3／P4各新增12項，累計24／36／48；均為數量提案，非正式新增。P2的nascent_soul_incubation含在12項內；高境界候選仍待RES1-E逐段稽核後命名／定值。本檔保留既有技能取得、保存、輪迴與SKS批次契約；新增CONTENT-P1-DESIGN先交5技能／3天賦／4丹藥逐項設計表，核定該部分後才實作。Era1維持0技能，宗門功法獨立計數。

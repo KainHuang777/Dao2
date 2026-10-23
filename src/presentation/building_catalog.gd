@@ -175,7 +175,7 @@ func configure_resources(names: Dictionary, resource_ids: Array) -> void:
 		var texture: Texture2D = ResourceArt.TEXTURES.get(resource_id)
 		var icon: Control
 		if texture != null:
-			var picture := TextureRect.new()
+			var picture := UiIllustration.new()
 			picture.texture = texture
 			picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -602,7 +602,7 @@ func _update_cost_cells(id: String, costs: Dictionary, resources: Dictionary, ma
 			var box := HBoxContainer.new()
 			box.mouse_filter = Control.MOUSE_FILTER_PASS
 			box.add_theme_constant_override("separation", 2)
-			var icon := TextureRect.new()
+			var icon := UiIllustration.new()
 			icon.texture = ResourceArt.TEXTURES.get(resource_id)
 			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

@@ -17,11 +17,15 @@ func _create_test_state() -> GameState:
 	state.era_id = 1
 	state.level = 1
 	state.reincarnation_count = 0
+	StoryProgress.next_life(state) # Keep synthetic life fixture consistent with story v1.
 	state.resources["money"] = {"value": AmountCompat.from_number(1000.0), "unlocked": true, "ever_obtained": true}
 	state.resources["lingqi"] = {"value": AmountCompat.from_number(50.0), "unlocked": true, "ever_obtained": true}
 	state.resources["wood"] = {"value": AmountCompat.from_number(500.0), "unlocked": true, "ever_obtained": true}
 	state.resources["stone_low"] = {"value": AmountCompat.from_number(100.0), "unlocked": true, "ever_obtained": true}
 	state.resources["spirit_grass_low"] = {"value": AmountCompat.from_number(200.0), "unlocked": true, "ever_obtained": true}
+	# Rare generated tasks may reward copper; the isolated inventory must contain
+	# its canonical entry so claim validation is independent of generated rarity.
+	state.resources["black_copper"] = {"value": AmountCompat.zero(), "unlocked": true, "ever_obtained": false}
 	return state
 
 func test_unlock_and_join() -> void:
@@ -36,10 +40,12 @@ func test_unlock_and_join() -> void:
 	
 	# Unlock via reincarnation
 	state.reincarnation_count = 1
+	StoryProgress.next_life(state) # Keep synthetic life fixture consistent with story v1.
 	assert(SectSystem.is_unlocked(state), "Should be unlocked with reincarnation_count >= 1")
 	
 	# Or unlock via Era 2
 	state.reincarnation_count = 0
+	StoryProgress.next_life(state) # Keep synthetic life fixture consistent with story v1.
 	state.era_id = 2
 	assert(SectSystem.is_unlocked(state), "Should be unlocked in Era 2")
 	
