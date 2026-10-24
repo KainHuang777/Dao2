@@ -121,6 +121,8 @@ $runners = @(
     'tests/feature_navigation_runner.gd',
     'tests/skills_b1_runner.gd',
     'tests/sks_p1_runner.gd',
+    'tests/sks_p2_core_runner.gd',
+    'tests/sks_p2_flow_runner.gd',
     'tests/early_v1b_talents_runner.gd',
     'tests/early_v1c_skills_runner.gd',
     'tests/uix_r8_skills_ui_runner.gd',

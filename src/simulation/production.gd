@@ -35,6 +35,9 @@ static func compute_rates(content: GameContent, buildings: Dictionary, resource_
 			rates[resource_id] = rates[resource_id].add(AmountCompat.from_number(addition))
 		if multiplier != 1:
 			rates[resource_id] = rates[resource_id].multiply(AmountCompat.from_number(multiplier))
+		var p2_multiplier := SksP2Rules.home_rate_multiplier(String(resource_id), skills)
+		if p2_multiplier != 1.0:
+			rates[resource_id] = rates[resource_id].multiply(AmountCompat.from_number(p2_multiplier))
 		rates[resource_id] = rates[resource_id].multiply(AmountCompat.from_number(resource_multiplier))
 	return rates
 
@@ -80,6 +83,9 @@ static func compute_caps(content: GameContent, buildings: Dictionary, era_id: in
 			addition += SkillSystem.effect(content, skills, "p1_material_capacity_flat")
 		if addition != 0:
 			caps[resource_id] = caps[resource_id].add(AmountCompat.from_number(addition))
+		var p2_multiplier := SksP2Rules.cap_multiplier(String(resource_id), skills)
+		if p2_multiplier != 1.0:
+			caps[resource_id] = caps[resource_id].multiply(AmountCompat.from_number(p2_multiplier))
 		caps[resource_id] = caps[resource_id].floor_amount()
 	return caps
 

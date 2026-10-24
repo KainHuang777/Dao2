@@ -2,6 +2,7 @@ extends VBoxContainer
 ## Skills-only presentation. Values and eligibility come from the Session view.
 signal action_requested(kind: String, id: String)
 const ART_DIR := "res://assets/ui/skills-painted/"
+const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 var buttons: Dictionary = {}
 var cards: Dictionary = {}
 var heading: Label
@@ -85,6 +86,8 @@ func _card(item: Dictionary) -> void:
 	row.add_child(info)
 	var title := _label("", 18)
 	info.add_child(title)
+	var scope := _label("", 15)
+	info.add_child(scope)
 	var effect := _label("")
 	info.add_child(effect)
 	var cost := _label("")
@@ -96,11 +99,11 @@ func _card(item: Dictionary) -> void:
 	row.add_child(action)
 	action.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	buttons["skill:" + item.id] = action
-	cards[item.id] = {"card":card, "art":art, "title":title, "effect":effect, "cost":cost, "action":action}
+	cards[item.id] = {"card":card, "art":art, "title":title, "scope":scope, "effect":effect, "cost":cost, "action":action}
 
 func refresh(view: Dictionary) -> void:
 	var data: Dictionary = view.get("skills", {})
-	var points := "%s / %s" % [data.get("available", "0"), view.get("resources", {}).get("skill_point", {}).get("cap", "200")]
+	var points := "%s / %s" % [NumberFormatter.format_amount(data.get("available", "0")), NumberFormatter.format_amount(view.get("resources", {}).get("skill_point", {}).get("cap", "200"))]
 	_heading_full = "研習卷冊 · 技能點 " + points
 	_heading_short = "技能點 " + points + (" · 藏經閣產點" if data.get("opened", false) else " · 研習未開")
 	heading.tooltip_text = _heading_full + "\n築基後建藏經閣產點，經書殿擴容；當世選修，輪迴重置。"
@@ -109,10 +112,14 @@ func refresh(view: Dictionary) -> void:
 		if not cards.has(item.id): _card(item)
 		var row: Dictionary = cards[item.id]
 		row.title.text = "%s · %d/%d" % [item.name, item.level, item.max_level]
+		var scope_text := String(item.get("scope", ""))
+		var scope_note := String(item.get("scope_note", ""))
+		row.scope.text = "" if scope_text.is_empty() else "作用：" + scope_text + (" · " + scope_note if not scope_note.is_empty() else "")
+		row.scope.visible = not scope_text.is_empty()
 		row.effect.text = item.get("current_effect", item.description)
 		if item.level < item.max_level:
 			row.effect.text += "\n下階：" + item.get("next_effect", item.description)
-		row.effect.tooltip_text = item.description
+		row.effect.tooltip_text = item.description if scope_text.is_empty() else item.description + "\n作用：" + scope_text + ("\n" + scope_note if not scope_note.is_empty() else "")
 		row.cost.text = "每階 %s 技能點" % item.cost
 		row.action.text = {"SKILL_STUDY_LOCKED":"研習未開", "SKILL_ERA_LOCKED":"境界未達", "SKILL_PREREQ_LOCKED":"前置未足", "SKILL_MAX_LEVEL":"已滿級", "INSUFFICIENT_SKILL_POINT":"點數不足"}.get(item.reason, "研習")
 		row.action.disabled = not item.can_learn

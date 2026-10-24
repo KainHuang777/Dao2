@@ -5,6 +5,7 @@ const SCHEMA_VERSION := 5
 const GAME_VERSION := "0.1.0"
 const RULES_VERSION := "core-flow-17-content-p1-story"
 const SUPPLY_RULES_VERSION := "core-flow-18-content-p2-supply"
+const SKS_RULES_VERSION := "core-flow-19-content-sks-p2"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -47,7 +48,7 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 		"schema_version": SCHEMA_VERSION,
 		"game_version": GAME_VERSION,
 		"content_version": content_version,
-		"rules_version": SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION,
+		"rules_version": SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
 		"amount_format_version": AMOUNT_FORMAT_VERSION,
 		"generator_version": GENERATOR_VERSION,
 		"save_id": meta["save_id"],
@@ -253,7 +254,7 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.tick_remainder_seconds = _to_float(remainder)
 	var skill_version: Variant = snapshot_dict.get("skill_version", 0)
 	var skills: Variant = snapshot_dict.get("skills", {})
-	if not _is_int(skill_version) or int(skill_version) not in SkillSystem.SUPPORTED_VERSIONS or not skills is Dictionary or skills.size() > 12:
+	if not _is_int(skill_version) or int(skill_version) not in SkillSystem.SUPPORTED_VERSIONS or not skills is Dictionary or skills.size() > SkillSystem.skill_count_limit(_to_int(skill_version)):
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}
 	if not SkillSystem.validate(int(skill_version), skills).is_empty():
 		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:skills"}

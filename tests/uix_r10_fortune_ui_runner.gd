@@ -100,6 +100,11 @@ func _run() -> void:
 		panel._body_scroll.scroll_vertical = 100000
 		await frames()
 		var last: Button = panel._option_rows.back().button
+		# A tall final option may have narrative below its button. At absolute
+		# bottom the button can be above the viewport; verify its reachable
+		# scroll position rather than assuming the bottom is that position.
+		panel._body_scroll.ensure_control_visible(last)
+		await frames()
 		check(last.size.y>=44 and panel._body_scroll.get_global_rect().encloses(last.get_global_rect()),"last option scroll reachable"+str(vp))
 		check(panel._story.get_global_rect().end.x <= panel.get_global_rect().end.x,"long number no horizontal overflow"+str(vp))
 	abode.queue_free()

@@ -336,6 +336,7 @@ var _frame_view_state: GameState
 var _frame_view_revision: int = -1
 
 static func _web_storage_namespace() -> String:
+	if OS.has_feature("sks_p2_acceptance"): return "dao2_sks_p2_acceptance_era" + str(int(JavaScriptBridge.eval("parent.caseEra", true)))
 	if OS.has_feature("content_p1_acceptance"): return "dao2_content_p1_acceptance"
 	if OS.has_feature("content_p1_story_acceptance"): return "dao2_content_p1_story_acceptance"
 	if OS.has_feature("content_p1_sect_acceptance"): return "dao2_content_p1_sect_acceptance"

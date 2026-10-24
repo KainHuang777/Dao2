@@ -121,7 +121,7 @@ func _test_processing() -> void:
 	expect(IslandEconomy.validate(session.state).is_empty(), "running bulk validates")
 	var encoded := SaveCodec.encode(session.state, content.content_version, META)
 	expect(encoded.ok and SaveCodec.decode(encoded.get("json", "")).ok, "running batch snapshot round-trip")
-	expect(JSON.parse_string(encoded.json).rules_version == SaveCodec.SUPPLY_RULES_VERSION, "expanded economy has its own rules identity under schema5")
+	expect(JSON.parse_string(encoded.json).rules_version == SaveCodec.SKS_RULES_VERSION, "expanded v4 economy carries the sks rules identity")
 	for i in range(10): IslandEconomy.tick(session.state, content.processing_catalog)
 	expect(IslandEconomy.value(session.state, "home", "stone_mid") == 100, "bulk completes into mid-stone")
 	expect(IslandEconomy.reserved(session.state, "home", "stone_mid", content.processing_catalog) == 0, "completion releases reservation")

@@ -21,7 +21,7 @@ func send(s: GameSession, kind: String, payload: Dictionary) -> Dictionary:
 func _init() -> void: _run.call_deferred()
 func _run() -> void:
 	var c: GameContent = ContentLoader.load_directory("res://content").content
-	check(IslandProgression.attach(c).ok and c.skill_defs.size() == 12, "12 definitions")
+	check(IslandProgression.attach(c).ok and c.skill_defs.size() == 24, "24 definitions")
 	var base := GameSession.create_new_game(c)
 	for id in SkillSystem.P1_LIMITS:
 		var s := GameSession.create_new_game(c)
@@ -47,7 +47,7 @@ func _run() -> void:
 		check(not send(s,"learn_skill",{"skill_id":id}).ok and snapshot == s.state.to_snapshot_dict(), id+" max atomic")
 		for value in [-1,4,0.5,"1",true,INF]:
 			check(not SkillSystem.validate(3,{id:value}).is_empty(),id+" invalid "+str(value))
-		for version in [0,1,2,4]:
+		for version in [0,1,2,5]:
 			check(not SkillSystem.validate(version,{id:1}).is_empty(),id+" rejects incompatible version "+str(version))
 		check(SkillSystem.validate(3,{id:3}).is_empty(),id+" v3 valid")
 		base.state.skills[id] = 3
@@ -98,7 +98,7 @@ func _run() -> void:
 		a.state.resources.spirit_grass_low.value = AmountCompat.from_number(10)
 		var before := a.state.to_snapshot_dict()
 		check(not send(a,"refine_pill",{"pill_id":"cultivation_pill","count":1}).ok and before == a.state.to_snapshot_dict(),"fractional insufficient atomic")
-	# All 12 IDs survive; v2 cannot smuggle v3 ID, future version rejected.
+	# All 24 IDs survive; v2 cannot smuggle v3 ID, future version rejected.
 	for id in c.skill_defs:
 		if not base.state.skills.has(id): base.state.skills[id] = 1
 	# Reference one-second ticks vs the shipping closed-form/economy-jump path.
@@ -122,8 +122,8 @@ func _run() -> void:
 			check(ResourceLedger.equivalent(reference.life_ledger.current.get("accounts",{}),optimized.life_ledger.current.get("accounts",{})),"offline actual ledger "+str(duration))
 	var encoded := SaveCodec.encode(base.state,c.content_version,META)
 	var decoded := SaveCodec.decode(encoded.json)
-	check(decoded.ok and decoded.state.skills == base.state.skills and decoded.state.skill_version == 3,"12 ID roundtrip")
-	for bad in [2,4]:
+	check(decoded.ok and decoded.state.skills == base.state.skills and decoded.state.skill_version == 4,"24 ID roundtrip")
+	for bad in [2,5]:
 		var raw: Dictionary = JSON.parse_string(encoded.json)
 		raw.state.skill_version = bad
 		raw.checksum = SaveCodec.compute_checksum(raw)
@@ -136,7 +136,7 @@ func _run() -> void:
 	mem.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c,mem)
 	var migrated := SaveManager.current_state()
-	check(migrated.skill_version == 3 and migrated.skills == old.state.skills,"v2 migration preserves only earned skills")
+	check(migrated.skill_version == 4 and migrated.skills == old.state.skills,"v2 migration preserves only earned skills")
 	var archive := "save_before_skills_"+original.sha256_text()
 	mem.fail = archive
 	check(not SaveManager.save(migrated,META).ok and mem.data[SaveSlots.SLOT_MAIN] == original,"archive refusal preserves original")

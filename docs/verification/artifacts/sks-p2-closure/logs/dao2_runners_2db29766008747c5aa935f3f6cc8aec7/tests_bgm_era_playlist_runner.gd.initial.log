@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== BGM ERA PLAYLIST TEST START ===
+Loaded tracks count: 4
+Track 0: 01_The_Unresolved_Ascent.mp3
+Track 1: 02_The_Weight_of_Heaven.mp3
+Track 2: 03_Rungs_of_the_Infinite.mp3
+Track 3: 04_Where_Starlight_Settles.mp3
+Playlist filtering logic verified successfully!
+Era 2 playlist looping verified successfully!
+Era 4 full playlist looping verified successfully!
+Reincarnation fallback verified successfully!
+=== BGM ERA PLAYLIST TEST PASS ===

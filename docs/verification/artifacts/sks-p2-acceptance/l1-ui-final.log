@@ -1,0 +1,10 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_e4a1eea87edc456d9c7c87733f8524dc
+[START:initial] tests/content_p1_skills_ui_runner.gd
+[PASS:initial] tests/content_p1_skills_ui_runner.gd (7.4s)
+[START:initial] tests/uix_r8_skills_ui_runner.gd
+[PASS:initial] tests/uix_r8_skills_ui_runner.gd (7s)
+--- slowest 8 runners (s) ---
+     7.4  tests/content_p1_skills_ui_runner.gd
+     7.0  tests/uix_r8_skills_ui_runner.gd
+SELECTED 2 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Temp\dao2_runners_e4a1eea87edc456d9c7c87733f8524dc

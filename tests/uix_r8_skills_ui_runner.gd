@@ -1,4 +1,5 @@
 extends SceneTree
+const P2_SKILL_IDS := ["nascent_soul_incubation", "nascent_soul_mastery", "heavenly_craft", "deep_vein_resonance", "void_expansion", "spirit_transformation", "ancient_herb_attunement", "spirit_sea_breath", "void_mastery", "void_refinement", "void_essence_attunement", "frontier_storekeeping"]
 var checks := 0
 var failed := false
 class ToggleAdapter extends StorageAdapter:
@@ -30,7 +31,16 @@ func _run() -> void:
 	nav.open("skills")
 	var panel = nav.action_panel
 	var page = panel.skill_view
-	check(page.cards.size() == 12, "twelve skill cards")
+	check(page.cards.size() == 24, "twenty-four skill cards")
+	var scope_closed := 0
+	for item in abode.session.get_view().skills.items:
+		if not P2_SKILL_IDS.has(item.id):
+			continue
+		check(page.cards[item.id].scope.visible and page.cards[item.id].scope.text.begins_with("作用：" + String(item.scope)), "scope card text: " + item.id)
+		if not bool(item.scope_open):
+			check(page.cards[item.id].scope.text.contains("收益 0"), "closed local island shows zero: " + item.id)
+			scope_closed += 1
+	check(scope_closed > 0, "closed local island evidence exists")
 	check(page.buttons["skill:basic_meditation"].disabled, "Era1 unavailable")
 	abode.session.state.era_id = 2
 	abode._refresh_hud()
@@ -80,7 +90,7 @@ func _run() -> void:
 		page.scroll.scroll_vertical = 10000
 		await frames()
 		check(is_equal_approx(y,page.heading.global_position.y), "heading fixed")
-		var last: Control = page.cards.alchemical_breath_control.action
+		var last: Control = page.cards[page.cards.keys()[page.cards.size() - 1]].action
 		check(page.scroll.get_global_rect().encloses(last.get_global_rect()), "last action reachable")
 		check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1, "bottom rod safety")
 		panel.show_result("操作完成，進度已更新。")
@@ -110,7 +120,7 @@ func _run() -> void:
 	nav.open("decisions")
 	check(not page.visible and not panel.buttons.is_empty(), "decisions shared mode preserved")
 	nav.open("skills")
-	check(page.buttons.size() == 13 and panel.buttons.size() == 13, "skills buttons survive shared-mode roundtrip")
+	check(page.buttons.size() == 25 and panel.buttons.size() == 25, "skills buttons survive shared-mode roundtrip")
 	abode.queue_free()
 	await process_frame
 	print("UIX-R8 %d checks failed=%s" % [checks,failed])

@@ -3,6 +3,7 @@
 config_version=5
 
 [application]
+run/main_scene.sks_p2_acceptance="res://src/verification/sks_p2_acceptance.tscn"
 run/main_scene.content_p1_acceptance="res://src/verification/content_p1_acceptance.tscn"
 run/main_scene.content_p1_story_acceptance="res://src/verification/content_p1_story_acceptance.tscn"
 config/name="修仙問道 v2 — 洞府探針"

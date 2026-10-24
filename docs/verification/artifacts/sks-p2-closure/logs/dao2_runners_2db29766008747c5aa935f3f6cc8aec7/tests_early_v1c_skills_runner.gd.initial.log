@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MEASURE | library Lv1 point rate 2.000000/s at Era2 multiplier (formula 1 x pow(L,1.5) x 2)
+MEASURE | library Lv2 point rate 5.656854/s at Era2 multiplier (formula 1 x pow(L,1.5) x 2)
+MEASURE | library Lv3 point rate 10.392305/s at Era2 multiplier (formula 1 x pow(L,1.5) x 2)
+EARLY-V1-C measurement table (simulated seconds only; official commands unless labelled fixture-driven or derived):
+MEASURE | basic_meditation | era=2 cost=90 max=5 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=45.0s session_wait=0.0s prereq=none effect1=lingli_multiplier 1.1 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | qi_condensation | era=2 cost=1800 max=5 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=900.0s session_wait=800.0s prereq=none effect1=lingli_rate 2.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | foundation_building | era=2 cost=3600 max=5 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=1800.0s session_wait=1700.0s prereq=none effect1=money_multiplier 1.2 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | qi_storage_1 | era=2 cost=120 max=1 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=60.0s session_wait=0.0s prereq=none effect1=lingli_max 200.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | body_strengthening_1 | era=2 cost=1000 max=1 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=500.0s session_wait=400.0s prereq=none effect1=money_max 2000.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | building_mastery_1 | era=2 cost=200 max=1 rate=2.0/s cap_ctx=200 base / 6200 with scripture_hall acq_derived=100.0s session_wait=0.0s prereq=none effect1=building_level_cap 10.0 | official commands, cloned fully earned Era2 prefix, natural accumulation
+MEASURE | golden_core_formation | era=3 cost=7650 max=5 rate=2.0/s cap_ctx=6200 without bonus (insufficient) / 8060 with sect storage_talisman Lv3 acq_derived=3825.0s session_wait=730.0s prereq=foundation_building:1 effect1=time_multiplier 0.9 | official learn with fixture sect contribution/wood setup only
+GOLDEN | reachable=true cap_no_bonus=6200.000 cap_talisman3=8060.000 gap_7650_minus_6200=1450.000 era3_lv10_total_saved_Lv1_to_Lv5=1888.777 s (derived)
+NOTE | library Lv1 measured rate 2.0/s (content rate 1 x Era2 multiplier 2); cap 200 reached in 100 simulated seconds
+NOTE | era2 points bank 6200 filled in 630 simulated seconds at library Lv1
+NOTE | finding: golden cost 7650 exceeds base scripture cap 6200 by 1450; natural accumulation stuck at 6200 after 16000 simulated seconds
+NOTE | fixture-driven: sect contribution 1000 and wood 950 (exact talisman Lv1-3 cost) injected after official join_sect; expedition task RNG is not deterministic, technique purchases use official learn_sect_technique
+NOTE | derived formula: Era3 Lv10 base training 1436.977 s = 240 x 1.22^9; golden LvN multiplies by pow(0.9,N); cumulative saved over N=1..5 is 1888.777 simulated seconds
+NOTE | fixture-driven: rebirth_lotus eligibility flag (no live content entry); reincarnate itself is the official command, matching SKS-P1 precedent
+PASS: EARLY-V1-C 176 checks

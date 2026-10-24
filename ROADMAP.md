@@ -1,3 +1,11 @@
+2026-10-24 **SKS-P2 基準提交**：依使用者指示封存已結案的十二技能、已接受圖資、保存／UI 接線與完整驗收證據。沿用同日 L3 118／118 最終通過及桌面 Web 證據；本輪僅做提交前靜態檢查，未重跑遊戲或匯出。提交紀錄見 [基準紀錄](docs/verification/sks-p2-baseline.md)；歷史「未commit/push」保留為當時狀態，本次僅本機 commit，不 push。下一大型任務由 New Chat 指定。
+
+2026-10-24 **SKS-P2 DONE（L3，桌面／Web有界）**：使用者指示「整批收尾」，承接現版節奏／卡片與十二圖接受。118／118唯一runner最終通過（116初跑＋機緣UI70項／供給94項串行重試）；原兩失敗與SCRIPT ERROR保留。正式Web候選build/web-sks-p2、Brotli及四BGM、三桌面橫式滑鼠研習／拒寫／重試／恢復／重載通過。2033份原JSON核對復原，28份變動與既有來源fixture先另存；未改規則／玩家進度，未commit/push。見[整批驗收](docs/verification/sks-p2-closure.md)。本階段停止；下一大型任務請New Chat指定，不自動開其他P2／P3。下方為日期化歷史。
+
+2026-10-24 **SKS-P2／P2-S2 DONE（L2，桌面1280×720有界）；整體 SKS-P2 IN_PROGRESS。** 使用者明確要求合併worktree且美術接受；5d59十二PNG與原圖／prompt／來源manifest已整合，12圖hash一致並標ACCEPTED。移除P2缺圖豁免，補御／艙字型及共用點數格式。三支精選L1通過（核心81／R8最終114／P1 UI29），兩UI補驗通過；當次隔離Web包12 ID真實滑鼠、12項精確扣點、拒寫再次重試／恢復／重載、Era4未來境界鎖與收益0及滿階已驗，24圖穩定載入。沿用同日392項合法流程；原沙箱／連線／字型失敗及重載過渡觀測保留。未L3／全尺寸／FPS、未改玩家進度、未commit/push。見[本段驗收](docs/verification/sks-p2-acceptance.md)。本階段停止；下一New Chat接SKS-P2整合節奏／卡片回饋與唯一整批L3收尾，不重問十二圖美術或重做K／R46。下方為日期化歷史。
+
+2026-10-24 **SKS-P2／P2-S1 核心 DONE（L2 領域，單尺寸）；整體 SKS-P2 IN_PROGRESS。** 使用者指示以 fusion 實作 P2-S1；K1／K2／K3 依設計原案、數值不改，K-art 十二圖留 CODEX／P2-S2。新增 Era4–6 共12技能定義、容量／產率／三島庫容／煉石折扣單一成本函式；skill_version 4、schema5 不變、rules `core-flow-19-content-sks-p2`；economy 維持 `res1-e-46-1`（驗證器不重算已付輸入，無需子版本）。新 runner 81 checks、L2 相關12支修正後全通過、無技能長流程1187秒至煉虛十層及壽盡輪迴通過。未生成圖、未跑 P2-S2 UI／真實滑鼠／L3／Web／全尺寸、未改玩家進度、未commit/push。見[驗收](docs/verification/sks-p2-core.md)、[設計](docs/35-sks-p2-design.md)。下一 New Chat 接 P2-S2 合法流程與卷冊 UI（含 CODEX 產12圖），不重問 K／R46。下方為日期化歷史。
+
 2026-10-24 **SKS-P2 逐項設計交付完成；方案K待核定，實作TODO／整體IN_PROGRESS。** Era4–6各4項共12，含元嬰孕育；交付逐ID費用／前置／公式／白名單、技能點容量與等待、縮時回收、保存與12圖題材。無技能可獨立支付；多數單階等待10–27分鐘明列待核定，不改R46舊時間。L1靜態172項通過、1,270份既有來源／資產／測試／Web檔案hash保持；首輪自連結兩失敗及算例修正保留。未改正式遊戲／玩家資料、未生成圖、未跑Runner／Web／匯出／L3、未commit/push。見[方案K](docs/35-sks-p2-design.md)、[驗收](docs/verification/sks-p2-design.md)。本設計階段停止；下一New Chat核定或修訂K後接同一SKS-P2，不開其他P2／P3。下方為日期化歷史。
 
 2026-10-24 **CONTENT-P2-SUPPLY DONE（整合節奏／UI人工接受，L3／桌面Web有界）**：使用者回覆「接受目前節奏與 UI，完成整批驗收收尾」。L3完整命令exit0，116／116唯一runner最終通過（114初跑＋丹霞世界59項／製造66項串行修復重試）；供給UI三尺寸170項、無技能完整合法供給94項含壽盡輪迴通過。修正丹霞新版本待開拓提示與兩支舊測試接線；R46數值／舊修行時間保持。最終Web候選、Brotli與四BGM及三桌面橫式滑鼠、量產60→160、三級航線拒寫／恢復／重載已驗。994份既有JSON核對，25份變動另存後逐字復原；原失敗／SCRIPT ERROR及退出診斷保留，未改玩家進度、未commit/push。見[整批驗收](docs/verification/content-p2-supply-closure.md)。本供給批次收結；其他P2／新島美術仍另批，本階段停止，下一大型任務請New Chat指定。下方為日期化歷史。
@@ -562,7 +570,7 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 | RES1-E-46 | P1已收結；RES1-D | **設計已核定；供給實作由 CONTENT-P2-SUPPLY 收結**（2026-10-24）；7資源／3島／9設施／容量保存與Era4–6舊修行時間保持。[規則表](docs/34-res1-e-46-design.md)。其他P2／新美術仍另批。 |
 | CONTENT-P2-SUPPLY | R46-A／B／C／S已核定；TRIB已收結 | **DONE（2026-10-24）**：人工節奏／UI接受，L3 116／116最終通過（保留兩支原失敗，串行修復重試成功），完整無技能供給94項、候選包及三桌面橫式保存／重載已驗。[整批驗收](docs/verification/content-p2-supply-closure.md)。 |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
-| RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1與EARLY-V1-C已DONE（圖像已接受、桌面Web已驗）；SKS-P2逐項設計交付／方案K待核定、實作TODO，P3～P4 TODO**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
+| RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1與EARLY-V1-C已DONE（圖像已接受、桌面Web已驗）；SKS-P2 DONE（L3／桌面Web有界，見[收尾](docs/verification/sks-p2-closure.md)），P3～P4 TODO**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
 
 整體 RES1 首段可玩以 A–D 為門檻；資料表與獨立 Runner 不取代真實玩法。M4-A-R1 的原整合 DONE 保留，M5 的既有生成／法則資料也保留；後續資源與內容補齊從 Era 2–3 開始，不能只把缺口記為 Era 9–12。
 

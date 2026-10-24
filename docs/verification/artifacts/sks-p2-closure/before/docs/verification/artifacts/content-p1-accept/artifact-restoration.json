@@ -1,0 +1,23 @@
+{
+  "restored_originally_clean_json_from_head": [
+    "docs/verification/artifacts/content-p1-skills/native-ui.json",
+    "docs/verification/artifacts/early-flow1c-unopened.json",
+    "docs/verification/artifacts/early-flow1d-foundation.json",
+    "docs/verification/artifacts/early-flow1d-golden.json",
+    "docs/verification/artifacts/early-flow1d-ready.json",
+    "docs/verification/artifacts/early-v1-c/runner-measurement.json",
+    "docs/verification/artifacts/mfg-3/fixture.json",
+    "docs/verification/artifacts/res1-c-earned-era2.json",
+    "docs/verification/artifacts/res1-c2-offline-fixture.json",
+    "docs/verification/artifacts/res1-d2-active-fixture.json",
+    "docs/verification/artifacts/res1-d2-earned-era3.json",
+    "docs/verification/artifacts/skills-b1-fixture.json"
+  ],
+  "latest_outputs_copied_to": "refreshed-runner-artifacts",
+  "story_preexisting_dirty_summary": {
+    "restored_checks": 158,
+    "authority": "content-p1-story/ui-label-final.log",
+    "method": "reconstructed prior two-key summary from retained dated log, not an initial byte-backup comparison",
+    "l3_summary_preserved": "story-native-ui-l3.json"
+  }
+}

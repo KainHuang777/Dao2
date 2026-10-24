@@ -1,6 +1,8 @@
 # SKS-P2：Era4–6 技能逐項設計
 
-2026-10-24。**設計交付完成；方案 K 待核定，正式實作 TODO，SKS-P2 整體 IN_PROGRESS。**
+2026-10-24。**SKS-P2 DONE（L3，桌面／Web有界）**：P2-S1／S2與整批驗收均完成；十二圖接受沿用，使用者以「整批收尾」承接現版技能點節奏／卡片。118／118唯一runner最終通過（含兩項串行重試），正常候選與三桌面橫式通過。見[整批驗收](verification/sks-p2-closure.md)。下方原始提案措辭與當時待核定狀態保留為歷史。
+
+2026-10-24 更新：使用者指示以 fusion 進行 P2-S1，K1／K2／K3 依本文件原案實作（數值未改）。skill_version 4、schema5 不變、rules `core-flow-19-content-sks-p2`；economy 維持 `res1-e-46-1`（驗證器不重算已付輸入，故無需子版本）。十二圖仍未生成，留 CODEX／P2-S2。實作與命令見[核心驗收](verification/sks-p2-core.md)。下列 §1–§7 為設計原文，狀態描述保留為當時紀錄。
 
 本輪依使用者指定完成逐項設計，承接 [技能分批契約](21-res1-e-skills-expansion-plan.md)、[內容配額](25-system-content-expansion-plan.md)、[已核定 R46](34-res1-e-46-design.md)及[供給收結](verification/content-p2-supply-closure.md)。供給、P1 與 TRIB 前置已收結；本案不重問 R46、不改舊修行時間。一般技能現行12項，本案每境4項共12項，實作後24項；元嬰孕育計入其中。Era1仍0項，宗門功法不併計。
 

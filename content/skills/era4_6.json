@@ -1,0 +1,138 @@
+[
+  {
+    "id": "nascent_soul_incubation",
+    "name": "元嬰孕育",
+    "era": 4,
+    "requires": {
+      "skill_id": "golden_core_formation",
+      "level": 1
+    },
+    "max_level": 5,
+    "cost": 21250,
+    "effect": "p2_home_capacity_multiplier",
+    "amount": 1.15,
+    "description": "每階使指定祖島與加工庫容乘1.15，含技能點；不含地方倉庫、靈氣與未列入資源。"
+  },
+  {
+    "id": "nascent_soul_mastery",
+    "name": "元嬰大成",
+    "era": 4,
+    "requires": {
+      "skill_id": "golden_core_formation",
+      "level": 1
+    },
+    "max_level": 3,
+    "cost": 21000,
+    "effect": "time_multiplier",
+    "amount": 0.95,
+    "description": "每階使修煉時間乘0.95。"
+  },
+  {
+    "id": "heavenly_craft",
+    "name": "天工煉靈法",
+    "era": 4,
+    "max_level": 3,
+    "cost": 12000,
+    "effect": "p2_craft_lingli_discount",
+    "amount": 0.05,
+    "description": "每階使批量煉石（碎石成堆、上品靈石）的靈力原料費減5%，最多15%；不改礦石、產量與時長。"
+  },
+  {
+    "id": "deep_vein_resonance",
+    "name": "寒脈共鳴訣",
+    "era": 4,
+    "max_level": 3,
+    "cost": 9000,
+    "effect": "p2_deep_rate_multiplier",
+    "amount": 1.1,
+    "description": "每階使寒銀島精鐵、玄銀、寒鐵採集率乘1.1。"
+  },
+  {
+    "id": "void_expansion",
+    "name": "虛空擴展",
+    "era": 5,
+    "max_level": 3,
+    "cost": 30000,
+    "effect": "p2_advanced_capacity_multiplier",
+    "amount": 1.1,
+    "description": "每階使七種高階加工品祖島庫容乘1.1；不含技能點與地方倉庫。"
+  },
+  {
+    "id": "spirit_transformation",
+    "name": "化神凝意法",
+    "era": 5,
+    "requires": {
+      "skill_id": "golden_core_formation",
+      "level": 1
+    },
+    "max_level": 3,
+    "cost": 35000,
+    "effect": "time_multiplier",
+    "amount": 0.93,
+    "description": "每階使修煉時間乘0.93。"
+  },
+  {
+    "id": "ancient_herb_attunement",
+    "name": "古藥養靈術",
+    "era": 5,
+    "max_level": 3,
+    "cost": 15000,
+    "effect": "p2_ancient_rate_multiplier",
+    "amount": 1.1,
+    "description": "每階使古藥島千年靈草採集率乘1.1。"
+  },
+  {
+    "id": "spirit_sea_breath",
+    "name": "神海納息訣",
+    "era": 5,
+    "max_level": 3,
+    "cost": 18000,
+    "effect": "lingli_multiplier",
+    "amount": 1.15,
+    "description": "每階使祖島靈力產率乘1.15。"
+  },
+  {
+    "id": "void_mastery",
+    "name": "太虛御物法",
+    "era": 6,
+    "max_level": 3,
+    "cost": 45000,
+    "effect": "p2_home_rate_multiplier",
+    "amount": 1.1,
+    "description": "每階使祖島靈力、金錢、木、下品石、低階草與技能點產率乘1.1。"
+  },
+  {
+    "id": "void_refinement",
+    "name": "煉虛歸真訣",
+    "era": 6,
+    "requires": {
+      "skill_id": "golden_core_formation",
+      "level": 1
+    },
+    "max_level": 3,
+    "cost": 50000,
+    "effect": "time_multiplier",
+    "amount": 0.9,
+    "description": "每階使修煉時間乘0.9。"
+  },
+  {
+    "id": "void_essence_attunement",
+    "name": "太虛採元術",
+    "era": 6,
+    "max_level": 3,
+    "cost": 24000,
+    "effect": "p2_void_rate_multiplier",
+    "amount": 1.1,
+    "description": "每階使太虛島虛空精華採集率乘1.1。"
+  },
+  {
+    "id": "frontier_storekeeping",
+    "name": "三島藏真法",
+    "era": 6,
+    "max_level": 3,
+    "cost": 20000,
+    "effect": "p2_local_capacity_flat",
+    "amount": 100,
+    "description": "每階使已開寒銀、古藥、太虛島地方庫容各加100；不含祖島與貨艙。"
+  }
+]

@@ -34,7 +34,7 @@ func run() -> void:
 		await frames()
 		check(page.is_visible_in_tree() and panel.visible,"formal skill route visible "+str(vp))
 		print("SKILL_UI_GEOMETRY ",vp," scroll=",page.scroll.get_global_rect()," card=",page.cards.alchemical_breath_control.card.get_global_rect())
-		check(page.cards.size() == 12,"12 cards "+str(vp))
+		check(page.cards.size() == 24,"24 cards "+str(vp))
 		for id in SkillSystem.P1_LIMITS:
 			var row: Dictionary = page.cards[id]
 			check(row.art.texture != null,"art "+id)

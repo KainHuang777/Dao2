@@ -1,0 +1,14 @@
+[
+  {
+    "level": "error",
+    "message": "ERROR: No interface 'dao2RuntimeProfile' registered.",
+    "timestamp": "2026-10-04T05:19:46.779Z",
+    "url": "http://127.0.0.1:4241/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: get_interface (platform/web/javascript_bridge_singleton.cpp:305)",
+    "timestamp": "2026-10-04T05:19:46.780Z",
+    "url": "http://127.0.0.1:4241/index.js"
+  }
+]

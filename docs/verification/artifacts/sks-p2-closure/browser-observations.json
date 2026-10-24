@@ -1,0 +1,1384 @@
+{
+  "sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "observations": [
+    {
+      "step": "844-scroll-bottom",
+      "canvas": [
+        844,
+        390
+      ],
+      "iframe": [
+        "844",
+        "390"
+      ],
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.4"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "325.6",
+              "mithril": "325.6",
+              "refined_iron": "351.2"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.55"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "8826.09114206563"
+        },
+        "revision": 3697,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "800-scroll-bottom",
+      "canvas": [
+        "800",
+        "360"
+      ],
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.16"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "327.3",
+              "mithril": "327.3",
+              "refined_iron": "354.6"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.22"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "9429.67620748723"
+        },
+        "revision": 3714,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "before-refused-study",
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.72"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "329",
+              "mithril": "329",
+              "refined_iron": "358"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.99"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "10070.9853394977"
+        },
+        "revision": 3731,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "study-save-refused-persisted-old",
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.72"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "329",
+              "mithril": "329",
+              "refined_iron": "358"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.99"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "10070.9853394977"
+        },
+        "revision": 3731,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "retry-denied-persisted-old",
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.72"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "329",
+              "mithril": "329",
+              "refined_iron": "358"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.99"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "10070.9853394977"
+        },
+        "revision": 3731,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "recovered-study-once",
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.56"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "331.94",
+              "mithril": "331.94",
+              "refined_iron": "363.88"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.77"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "2127.25920398546"
+        },
+        "revision": 3749,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "deep_vein_resonance": 1,
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "reload-keeps-study",
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.08"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "334.58",
+              "mithril": "334.58",
+              "refined_iron": "369.16"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.11"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "2981.19489313307"
+        },
+        "revision": 3766,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "deep_vein_resonance": 1,
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    },
+    {
+      "step": "1280-reloaded-study-card",
+      "canvas": [
+        "1280",
+        "720"
+      ],
+      "state": {
+        "economy": "res1-e-46-1",
+        "era": 6,
+        "islands": {
+          "ancient": {
+            "inventory": {
+              "spirit_grass_1000y": "0.08"
+            },
+            "opened": true
+          },
+          "deep": {
+            "inventory": {
+              "cold_iron": "348.88",
+              "mithril": "348.88",
+              "refined_iron": "397.76"
+            },
+            "opened": true
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 2
+            },
+            "inventory": {
+              "liquid": "0",
+              "spirit_grass_100y": "150",
+              "spirit_grass_low": "150"
+            },
+            "opened": true
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "black_copper": "150",
+              "bronze_essence": "150",
+              "stone_low": "150",
+              "wood": "100"
+            },
+            "opened": true
+          },
+          "void": {
+            "inventory": {
+              "void_essence": "0.11"
+            },
+            "opened": true
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {
+              "spirit_timber": "150",
+              "stone_low": "100",
+              "wood": "150"
+            },
+            "opened": true
+          }
+        },
+        "level": 1,
+        "points": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "7439.49367181538"
+        },
+        "revision": 3896,
+        "routes": {
+          "ancient_grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "bronze_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "deep_cold_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_iron_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "deep_mithril_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "grass_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "herb_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "liquid_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "ore_wood": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "timber_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          },
+          "void_essence_home": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "3000"
+          },
+          "wood_ore": {
+            "enabled": true,
+            "level": 1,
+            "reserve": "0",
+            "target": "100"
+          }
+        },
+        "skill_version": 4,
+        "skills": {
+          "deep_vein_resonance": 1,
+          "foundation_building": 1,
+          "frontier_storekeeping": 1,
+          "golden_core_formation": 1,
+          "void_essence_attunement": 1,
+          "void_mastery": 1,
+          "void_refinement": 1
+        }
+      }
+    }
+  ],
+  "logs": [],
+  "scope": "normal Web preset; isolated earned fixture; real mouse; natural browser clock",
+  "fees": "reuse prior exact-fee evidence; this run clock is active"
+}

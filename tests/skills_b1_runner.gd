@@ -39,7 +39,7 @@ func _run() -> void:
 	var version := c.content_version
 	check(IslandProgression.attach(c).ok and c.content_version == version, "idempotent content attachment")
 	var s := GameSession.create_new_game(c)
-	check(s.state.skill_version == 3 and s.get_view().skills.items.size() == 12, "new state and twelve skill view")
+	check(s.state.skill_version == 4 and s.get_view().skills.items.size() == 24, "new state and twenty-four skill view")
 	var before := s.state.to_snapshot_dict()
 	check(not send(s, "learn_skill", {"skill_id": "basic_meditation"}).ok and s.state.to_snapshot_dict() == before, "atomic locked refusal")
 	s.state.era_id = 2
@@ -113,7 +113,7 @@ func _run() -> void:
 	memory.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c, memory)
 	var migrated := SaveManager.current_state()
-	check(migrated != null and migrated.skill_version == 3 and migrated.skills.is_empty() and migrated.revision == old.state.revision+1, "old save migration")
+	check(migrated != null and migrated.skill_version == 4 and migrated.skills.is_empty() and migrated.revision == old.state.revision+1, "old save migration")
 	var key := "save_before_skills_" + original.sha256_text()
 	memory.fail = key
 	check(not SaveManager.save(migrated, meta).ok and memory.data[SaveSlots.SLOT_MAIN] == original, "archive failure preserves old slot")
@@ -123,7 +123,7 @@ func _run() -> void:
 	memory.data.erase(key)
 	check(SaveManager.save(migrated, meta).ok and memory.data[key] == original, "archive exact bytes and retry")
 	SaveManager.configure(c, memory)
-	check(SaveManager.current_state().skill_version == 3, "restart migration success")
+	check(SaveManager.current_state().skill_version == 4, "restart migration success")
 	SaveManager.reset_for_tests()
 	s.state.era_id = 3
 	s.state.level = 10
@@ -147,7 +147,7 @@ func _run() -> void:
 	fixture.advance_time(1)
 	panel.refresh(fixture.get_view())
 	check(panel.buttons["skill:basic_meditation"] == first_button, "point tick preserves button and scroll identity")
-	check(panel.buttons.size() == 13 and not first_button.disabled, "twelve skill actions plus study shortcut")
+	check(panel.buttons.size() == 25 and not first_button.disabled, "twenty-four skill actions plus study shortcut")
 	panel.show_save_failure("injected")
 	panel.storage_recovered()
 	check(not panel.save_failed and panel.status.text.contains("已恢復保存"), "save recovery status")

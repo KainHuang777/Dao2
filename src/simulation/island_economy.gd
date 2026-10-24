@@ -47,7 +47,7 @@ static func route_level_cap(state: GameState, id: String) -> int:
 static func rate(state: GameState, island: String, id: String) -> float:
 	if expanded(state) and supply_data().islands.has(island):
 		var focus: String = supply_data().dispatch[island]
-		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0)
+		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills)
 	return float(ISLANDS[island].rates.get(id, 0)) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1)
 
 static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float:
@@ -67,7 +67,7 @@ static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float
 		var bonus := float(beast.all_capacity_mult) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus)
 		if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
 		cap *= 1.0 + bonus
-	return cap
+	return floor(cap)
 const GLOBAL := ["money", "lingli", "lingqi"]
 const ISLANDS := {
 	"home": {"era": 1, "rates": {}, "facility": {}},
@@ -258,13 +258,19 @@ static func free_space(state: GameState, island: String, id: String, catalog: Di
 	var cap := home_cap(state, id, catalog) if island == "home" else IslandProgression.capacity(state, island)
 	return maxf(0, cap - value(state, island, id) - reserved(state, island, id, catalog))
 
+static func effective_inputs(state: GameState, catalog: Dictionary, island: String, recipe_id: String) -> Dictionary:
+	var result := {}
+	for id in catalog.recipes[recipe_id].inputs:
+		result[id] = SksP2Rules.discounted_amount(recipe_id, island, String(id), String(catalog.recipes[recipe_id].inputs[id]), state.skills)
+	return result
+
 static func _start(state: GameState, catalog: Dictionary, island: String, job: Dictionary) -> String:
 	var error := _check_start(state, catalog, island, job)
 	if not error.is_empty():
 		return error
-	var recipe: Dictionary = catalog.recipes[job.recipe_id]
-	for id in recipe.inputs:
-		_put(state, island, id, value(state, island, id) - float(recipe.inputs[id]))
+	var inputs := effective_inputs(state, catalog, island, String(job.recipe_id))
+	for id in inputs:
+		_put(state, island, id, value(state, island, id) - float(inputs[id]))
 	job.remaining = IslandProgression.duration(state, island, job.recipe_id)
 	job.batches = maxi(0, int(job.batches) - 1)
 	job.status = "running"
@@ -281,6 +287,7 @@ static func _check_start(state: GameState, catalog: Dictionary, island: String, 
 	for facility in recipe.facility:
 		if int(facilities.get(facility, 0)) < int(recipe.facility[facility]):
 			return "FACILITY_REQUIREMENT"
+	var inputs := effective_inputs(state, catalog, island, job.recipe_id)
 	for id in recipe.inputs:
 		if island == "home" or id in GLOBAL:
 			var slot := ProcessingInventory.read(state, id)
@@ -288,7 +295,7 @@ static func _check_start(state: GameState, catalog: Dictionary, island: String, 
 				return slot.error
 			if not slot.unlocked:
 				return "RESOURCE_LOCKED"
-		if value(state, island, id) - float(job.reserves.get(id, "0")) < float(recipe.inputs[id]):
+		if value(state, island, id) - float(job.reserves.get(id, "0")) < float(inputs[id]):
 			return "INSUFFICIENT_RESOURCE"
 	if island == "home":
 		var output_slot := ProcessingInventory.read(state, ProcessingCatalog.product_id(catalog, job.recipe_id))
@@ -330,8 +337,9 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 			else:
 				reason = _check_start(state, catalog, island, {"recipe_id": id, "reserves": {}})
 		var inputs := {}
+		var effective := effective_inputs(state, catalog, island, id)
 		for resource in recipe.inputs:
-			inputs[resource] = {"available": value(state, island, resource) if island == "home" or resource in GLOBAL or active else 0.0, "required": float(recipe.inputs[resource]), "source": "home" if resource in GLOBAL else island}
+			inputs[resource] = {"available": value(state, island, resource) if island == "home" or resource in GLOBAL or active else 0.0, "required": float(effective[resource]), "source": "home" if resource in GLOBAL else island}
 		var duration: int = durations(state).get(id, supply_data().durations.get(id, 1))
 		result.recipes[id] = {"island": island, "duration": IslandProgression.duration(state, island, id) if active and durations(state).has(id) else duration, "reason": reason, "inputs": inputs, "output": float(recipe.output), "product_id": ProcessingCatalog.product_id(catalog, id), "capacity": home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog) if island == "home" else result.islands[island].capacity}
 	return result

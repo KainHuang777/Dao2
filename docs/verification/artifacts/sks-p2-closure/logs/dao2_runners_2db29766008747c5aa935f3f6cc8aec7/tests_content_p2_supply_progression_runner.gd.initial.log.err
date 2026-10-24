@@ -1,0 +1,11 @@
+SCRIPT ERROR: Cannot call method 'store_string' on a null value.
+   at: save_snapshot (res://tests/content_p2_supply_progression_runner.gd:88)
+   GDScript backtrace (most recent call first):
+       [0] save_snapshot (res://tests/content_p2_supply_progression_runner.gd:88)
+       [1] run (res://tests/content_p2_supply_progression_runner.gd:148)
+SCRIPT ERROR: Cannot call method 'store_string' on a null value.
+   at: save_snapshot (res://tests/content_p2_supply_progression_runner.gd:88)
+   GDScript backtrace (most recent call first):
+       [0] save_snapshot (res://tests/content_p2_supply_progression_runner.gd:88)
+       [1] ladder (res://tests/content_p2_supply_progression_runner.gd:100)
+       [2] run (res://tests/content_p2_supply_progression_runner.gd:149)

@@ -1,0 +1,435 @@
+{
+  "task": "SKS-P2/K-art",
+  "date": "2026-10-24",
+  "generation_status": "COMPLETE",
+  "human_art_acceptance": "ACCEPTED",
+  "generator": "built-in ImageGen",
+  "source": "Original AI-generated images; text prompts based on sks-p2-proposal-1. No external image inputs.",
+  "license_status": "Generated for this project; no third-party commercial license asserted.",
+  "layers": "One flattened RGBA object grouping per skill; no layered source. UI text, controls and B edge/shadow remain Godot presentation concerns.",
+  "purpose": "12 skill card illustrations for P2-S2. Only resources and delivery metadata produced here; OpenCode owns integration.",
+  "assets": [
+    {
+      "id": "nascent_soul_incubation",
+      "name": "元嬰孕育",
+      "subject": "青玉蓮座上一點純陽元嬰光胎，周圍收納光珠",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/nascent_soul_incubation.png",
+      "runtime": "assets/ui/skills-painted/nascent_soul_incubation.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/nascent_soul_incubation.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        17,
+        1254,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        21,
+        18,
+        310,
+        314
+      ],
+      "source_sha256": "b8021ecea91be6f304133b281bb83c8ec82d8b2d9add4b7b1368cc77f2d9f1c9",
+      "sha256": "e42e776fc3c24623720351e9b4356d86ab0bb09f840813cdbc19b984d0fe4c45",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "nascent_soul_mastery",
+      "name": "元嬰大成",
+      "subject": "蓮座元嬰凝實，三重平緩周天光環",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/nascent_soul_mastery.png",
+      "runtime": "assets/ui/skills-painted/nascent_soul_mastery.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/nascent_soul_mastery.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        9,
+        1246,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        16,
+        17,
+        320,
+        316
+      ],
+      "source_sha256": "6bc59e3f294a5331232f789fc3e44c797263dc65097d1325e57b2fc28190cdc5",
+      "sha256": "e9142d1c7331c3f83d29eb7c36eb308f01d110811ff40839cb6f5cfdc34b34db",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "heavenly_craft",
+      "name": "天工煉靈法",
+      "subject": "小型玉製煉石爐，靈氣細流環繞礦石",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/heavenly_craft.png",
+      "runtime": "assets/ui/skills-painted/heavenly_craft.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/heavenly_craft.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        7,
+        1253,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        30,
+        16,
+        313,
+        319
+      ],
+      "source_sha256": "2f4d6614af6aeb855e17e075c53bab192c98b0da4e64d278e2324a6723ad74a9",
+      "sha256": "110393a25a43dda799188a7fb9bf139c98ea197fa5a71befa5dd335b15183229",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "deep_vein_resonance",
+      "name": "寒脈共鳴訣",
+      "subject": "寒銀礦簇與三股細脈靈光",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/deep_vein_resonance.png",
+      "runtime": "assets/ui/skills-painted/deep_vein_resonance.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/deep_vein_resonance.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        0,
+        1226,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        19,
+        16,
+        313,
+        309
+      ],
+      "source_sha256": "900a12ab7f7b4c3e24c4bd699623219a4d799689cc865abea6c6ea74944c7312",
+      "sha256": "42ff18490776be16491ff014341363b115f84bbcacea6a02881715c0158200f4",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "void_expansion",
+      "name": "虛空擴展",
+      "subject": "打開的納物玉環，七枚微小物料光點",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/void_expansion.png",
+      "runtime": "assets/ui/skills-painted/void_expansion.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/void_expansion.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        19,
+        1253,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        22,
+        28,
+        319,
+        308
+      ],
+      "source_sha256": "714aa2a5ffdc4ef044a17abc15c027105f4972bd1ea823fd396a74a37b00b1a1",
+      "sha256": "e00b065d1ba4c5480932d76813250084bd93587053959bd722972ce2f13a7791",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "spirit_transformation",
+      "name": "化神凝意法",
+      "subject": "青白神識火焰凝為一顆清澈靈珠",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/spirit_transformation.png",
+      "runtime": "assets/ui/skills-painted/spirit_transformation.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/spirit_transformation.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        10,
+        1240,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        38,
+        16,
+        290,
+        311
+      ],
+      "source_sha256": "9ec9a098c5c4430d1d309bf5caf91d8c6bec8ee950454adf481ea13c89ec5c11",
+      "sha256": "aa013b927f4e011377716dffad211ed8aac0146b57d37797f13945172d3892db",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "ancient_herb_attunement",
+      "name": "古藥養靈術",
+      "subject": "千年靈草根系與溫和藥氣",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/ancient_herb_attunement.png",
+      "runtime": "assets/ui/skills-painted/ancient_herb_attunement.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/ancient_herb_attunement.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        31,
+        1240,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        36,
+        22,
+        303,
+        304
+      ],
+      "source_sha256": "a9880c14fd2cb05306f0f33deb33b0b9846ef6e2b4f71db1e87b8abefe139025",
+      "sha256": "e71958680122a575b2941f37024f49b8ba7607fa17758418d363e8ca9162b141",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "spirit_sea_breath",
+      "name": "神海納息訣",
+      "subject": "掌心青玉氣海，靈氣沿內向渦流匯聚",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/spirit_sea_breath.png",
+      "runtime": "assets/ui/skills-painted/spirit_sea_breath.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/spirit_sea_breath.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        19,
+        1212,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        38,
+        20,
+        317,
+        316
+      ],
+      "source_sha256": "f7d3eaa4f5a6c4a5d0c3623a628f7ba92a73b6c16eac4a0b4b6eca45f7a00fd9",
+      "sha256": "605a388f4fd35aa61cb31f8165d1416d59399c3afe0210969b2e57b3814fdf13",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "void_mastery",
+      "name": "太虛御物法",
+      "subject": "虛空玉盤托住六枚生產器物",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/void_mastery.png",
+      "runtime": "assets/ui/skills-painted/void_mastery.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/void_mastery.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        9,
+        1240,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        19,
+        29,
+        319,
+        293
+      ],
+      "source_sha256": "cc8ad647126e6942ae950f524a549ce43dc465a381265c0890bf648c8ec74444",
+      "sha256": "56dad2cc5458f8a4a2ce7cc1edb7ce5f0e90d35418098904f46180ccd30cea1b",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "void_refinement",
+      "name": "煉虛歸真訣",
+      "subject": "一縷虛空靈光收束為平靜的圓環",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/void_refinement.png",
+      "runtime": "assets/ui/skills-painted/void_refinement.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/void_refinement.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        7,
+        1234,
+        1230
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        28,
+        17,
+        313,
+        301
+      ],
+      "source_sha256": "03ae87e2ff0640c43c14b20d0cf23fe5d4f6f732cd5e86f0cadb265fd7137049",
+      "sha256": "fa44ebd76cfe6829a3ff0f998a304629ef4c0501bdbfd1596bbc61a7be20ad39",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "void_essence_attunement",
+      "name": "太虛採元術",
+      "subject": "玉勺從紫青裂隙收取一滴虛空精華",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/void_essence_attunement.png",
+      "runtime": "assets/ui/skills-painted/void_essence_attunement.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/void_essence_attunement.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        27,
+        19,
+        1234,
+        1254
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        46,
+        33,
+        313,
+        289
+      ],
+      "source_sha256": "9138b3c24c35072d544e2c9381564efa38845a37cb7dcafb3b73cede3d07d885",
+      "sha256": "9df2d2c0914eb59fc5b68633a0e3aa023b9dbd0160bc642b83a61f0e712299ae",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    },
+    {
+      "id": "frontier_storekeeping",
+      "name": "三島藏真法",
+      "subject": "三只小型納物匣分別盛寒礦、靈草、虛空光滴",
+      "status": "GENERATED",
+      "human_art_acceptance": "ACCEPTED",
+      "runtime_integration": "MAIN_WORKSPACE_STANDARD_SKILL_ID_PATH",
+      "source": "docs/verification/artifacts/sks-p2-k-art/originals/frontier_storekeeping.png",
+      "runtime": "assets/ui/skills-painted/frontier_storekeeping.png",
+      "prompt": "docs/verification/artifacts/sks-p2-k-art/prompts/frontier_storekeeping.txt",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "runtime_size": [
+        336,
+        336
+      ],
+      "source_alpha_bounds": [
+        0,
+        5,
+        1253,
+        1236
+      ],
+      "alpha": true,
+      "runtime_alpha_bounds": [
+        23,
+        21,
+        318,
+        304
+      ],
+      "source_sha256": "67199232ebaafd7085a3c615afa16da74516d06f515f038add64ad1e67528b0c",
+      "sha256": "c033fa5a96624ab4690930462f92da5f4c713f8d1eac372fecd8f75dfbb040f8",
+      "processing": "Preserve original RGBA; crop complete nonzero alpha bounds, Lanczos fit within 304px, center on transparent 336px canvas with >=16px padding. No repaint, chroma key, baked B outline or shadow."
+    }
+  ],
+  "acceptance_date": "2026-10-24",
+  "acceptance_evidence": "User: 合併 worktree ，美術接受，繼續驗收"
+}

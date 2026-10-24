@@ -182,7 +182,10 @@ static func capacity_for_level(level: int) -> float:
 
 static func capacity(state: GameState, island: String) -> float:
 	if IslandEconomy.expanded(state) and IslandEconomy.supply_data().islands.has(island):
-		return float(IslandEconomy.supply_data().islands[island].local_cap)
+		var cap := float(IslandEconomy.supply_data().islands[island].local_cap)
+		if state.economy.islands.has(island) and bool(state.economy.islands[island].get("opened", false)):
+			cap += SksP2Rules.local_capacity_bonus(island, state.skills)
+		return cap
 	if not active(state):
 		return 100.0
 	return capacity_for_level(int(state.economy.islands[island].get("facilities", {}).get("storage", 1)))
