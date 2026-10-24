@@ -4,6 +4,70 @@ extends RefCounted
 ## All quantities use the RES1-A layer-zero <= 1e12 Amount contract.
 
 const VERSION := "res1-b-1"
+const Supply = preload("res://src/content/supply_content.gd")
+static var _supply: Dictionary = {}
+static var _islands: Dictionary = {}
+static var _routes: Dictionary = {}
+static var _durations: Dictionary = {}
+
+static func supply_data() -> Dictionary:
+	if _supply.is_empty():
+		_supply = Supply.load_file().get("data", {})
+	return _supply
+
+static func expanded(state: GameState) -> bool:
+	return state.economy.get("version") == Supply.VERSION
+
+static func island_defs(state: GameState) -> Dictionary:
+	if not expanded(state): return ISLANDS
+	if _islands.is_empty():
+		_islands = ISLANDS.duplicate(true)
+		for id in supply_data().islands:
+			_islands[id] = supply_data().islands[id].duplicate(true)
+			_islands[id].facility = {}
+	return _islands
+
+static func route_defs(state: GameState) -> Dictionary:
+	if not expanded(state): return ROUTES
+	if _routes.is_empty():
+		_routes = ROUTES.duplicate(true)
+		_routes.merge(supply_data().routes)
+	return _routes
+
+static func durations(state: GameState) -> Dictionary:
+	if not expanded(state): return DURATIONS
+	if _durations.is_empty():
+		_durations = DURATIONS.duplicate()
+		_durations.merge(supply_data().durations)
+	return _durations
+
+static func route_level_cap(state: GameState, id: String) -> int:
+	return 3 if expanded(state) and supply_data().routes.has(id) else 2
+
+static func rate(state: GameState, island: String, id: String) -> float:
+	if expanded(state) and supply_data().islands.has(island):
+		var focus: String = supply_data().dispatch[island]
+		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0)
+	return float(ISLANDS[island].rates.get(id, 0)) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1)
+
+static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float:
+	var cap := float(catalog.resources[id].cap)
+	# Existing profiles retain their original fixed processing caps.
+	if expanded(state):
+		var copy := GameState.new()
+		copy.beasts = state.beasts.duplicate(true)
+		copy.beast_talents = state.beast_talents.duplicate(true)
+		copy.chrono = state.chrono.duplicate(true)
+		copy.total_elapsed_seconds = state.total_elapsed_seconds
+		copy.era_id = state.era_id
+		copy.sect = state.sect
+		var caps := Production.compute_caps(Supply.runtime_content(), state.buildings, state.era_id, state.onboarding_version, state.skills)
+		if caps.has(id): cap = caps[id].to_float()
+		var beast := BeastSystem.compute_multipliers(copy)
+		var bonus := float(beast.all_capacity_mult) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus)
+		if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
+		cap *= 1.0 + bonus
+	return cap
 const GLOBAL := ["money", "lingli", "lingqi"]
 const ISLANDS := {
 	"home": {"era": 1, "rates": {}, "facility": {}},
@@ -52,25 +116,32 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 			if not state.resources.has(id):
 				state.resources[id] = {"value": AmountCompat.zero(), "unlocked": int(content.processing_catalog.resources[id].era) <= state.era_id, "ever_obtained": false}
 		state.economy = initial()
+		if content.processing_catalog.get("version") == Supply.VERSION:
+			state.economy.version = Supply.VERSION
+			for id in state.economy.islands:
+				state.economy.islands[id].facilities = {"extractor": 1, "workshop": 1, "storage": 1}
+			for id in supply_data().islands:
+				state.economy.islands[id] = {"opened": false, "inventory": {}}
 		return _success("economy_migrated")
 	if state.economy.is_empty():
 		return _fail("ECONOMY_NOT_MIGRATED")
 	if IslandProgression.active(state) and state.era_id < 2:
 		return _fail("ERA_REQUIREMENT")
 	var island: Variant = p.get("island_id", "home")
-	if not island is String or not ISLANDS.has(island):
+	if not island is String or not island_defs(state).has(island):
 		return _fail("UNKNOWN_ISLAND")
 	if kind == "open_island":
 		if state.economy.get("version") == IslandProgression.LEGACY_VERSION and island == "herb":
 			return _fail("ERA_REQUIREMENT")
 		if state.economy.islands[island].opened:
 			return _fail("ISLAND_ALREADY_OPEN")
-		if state.era_id < int(ISLANDS[island].era):
+		if state.era_id < int(island_defs(state)[island].era):
 			return _fail("ERA_REQUIREMENT")
-		if value(state, "home", "wood") < 20 or value(state, "home", "stone_low") < 10:
-			return _fail("INSUFFICIENT_RESOURCE")
-		_put(state, "home", "wood", value(state, "home", "wood") - 20, "building")
-		_put(state, "home", "stone_low", value(state, "home", "stone_low") - 10, "building")
+		var costs: Dictionary = island_defs(state)[island].get("cost", {"wood": 20, "stone_low": 10})
+		for id in costs:
+			if value(state, "home", id) < float(costs[id]): return _fail("INSUFFICIENT_RESOURCE")
+		for id in costs:
+			_put(state, "home", id, value(state, "home", id) - float(costs[id]), "building")
 		state.economy.islands[island].opened = true
 		return _success("island_opened")
 	if kind == "configure_route":
@@ -129,24 +200,22 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 
 static func _configure_route(state: GameState, p: Dictionary) -> Dictionary:
 	var id: Variant = p.get("route_id")
-	if not id is String or not ROUTES.has(id):
+	if not id is String or not route_defs(state).has(id):
 		return _fail("UNKNOWN_ROUTE")
-	var def: Array = ROUTES[id]
+	var def: Array = route_defs(state)[id]
 	if not state.economy.islands[def[0]].opened or not state.economy.islands[def[1]].opened:
 		return _fail("ISLAND_NOT_OPEN")
 	var enabled: Variant = p.get("enabled", true)
 	var reserve: Variant = p.get("reserve", "0")
 	var target: Variant = p.get("target", "100")
 	var level: Variant = p.get("level", 1)
-	if not enabled is bool or not _amount(reserve) or not _amount(target) or not _integer(level, 1, 2):
+	if not enabled is bool or not _amount(reserve) or not _amount(target) or not _integer(level, 1, route_level_cap(state, id)):
 		return _fail("INVALID_ROUTE_SETTINGS")
 	var old: Dictionary = state.economy.routes.get(id, {"level": 1})
 	if int(level) < int(old.level):
 		return _fail("ROUTE_LEVEL_DOWNGRADE")
 	if int(level) > int(old.level):
-		var costs := {"wood": 20}
-		if IslandProgression.active(state):
-			costs = {"spirit_timber": 10, "bronze_essence": 10}
+		var costs := route_upgrade_cost(state, int(level) - int(old.level))
 		for resource in costs:
 			if value(state, "home", resource) < float(costs[resource]):
 				return _fail("INSUFFICIENT_RESOURCE")
@@ -178,15 +247,15 @@ static func reserved(state: GameState, island: String, id: String, catalog: Dict
 	var total := 0.0
 	for route in state.economy.get("trips", {}):
 		var trip: Dictionary = state.economy.trips[route]
-		if ROUTES[route][1] == island and ROUTES[route][2] == id:
+		if route_defs(state)[route][1] == island and route_defs(state)[route][2] == id:
 			total += float(trip.cargo)
 	var job: Dictionary = state.economy.get("jobs", {}).get(island, {})
-	if not job.is_empty() and int(job.remaining) > 0 and job.recipe_id == id:
-		total += float(catalog.recipes[id].output)
+	if not job.is_empty() and int(job.remaining) > 0 and ProcessingCatalog.product_id(catalog, job.recipe_id) == id:
+		total += float(catalog.recipes[job.recipe_id].output)
 	return total
 
 static func free_space(state: GameState, island: String, id: String, catalog: Dictionary) -> float:
-	var cap := float(catalog.resources[id].cap) if island == "home" else IslandProgression.capacity(state, island)
+	var cap := home_cap(state, id, catalog) if island == "home" else IslandProgression.capacity(state, island)
 	return maxf(0, cap - value(state, island, id) - reserved(state, island, id, catalog))
 
 static func _start(state: GameState, catalog: Dictionary, island: String, job: Dictionary) -> String:
@@ -208,7 +277,7 @@ static func _check_start(state: GameState, catalog: Dictionary, island: String, 
 		return "RECIPE_ISLAND_REQUIREMENT"
 	if state.era_id < int(recipe.era):
 		return "ERA_REQUIREMENT"
-	var facilities: Dictionary = state.buildings if island == "home" else ISLANDS[island].facility
+	var facilities: Dictionary = state.buildings if island == "home" else island_defs(state)[island].facility
 	for facility in recipe.facility:
 		if int(facilities.get(facility, 0)) < int(recipe.facility[facility]):
 			return "FACILITY_REQUIREMENT"
@@ -222,12 +291,12 @@ static func _check_start(state: GameState, catalog: Dictionary, island: String, 
 		if value(state, island, id) - float(job.reserves.get(id, "0")) < float(recipe.inputs[id]):
 			return "INSUFFICIENT_RESOURCE"
 	if island == "home":
-		var output_slot := ProcessingInventory.read(state, job.recipe_id)
+		var output_slot := ProcessingInventory.read(state, ProcessingCatalog.product_id(catalog, job.recipe_id))
 		if not output_slot.ok:
 			return output_slot.error
 		if not output_slot.unlocked:
 			return "RESOURCE_LOCKED"
-	if free_space(state, island, job.recipe_id, catalog) < float(recipe.output):
+	if free_space(state, island, ProcessingCatalog.product_id(catalog, job.recipe_id), catalog) < float(recipe.output):
 		return "OUTPUT_FULL"
 	return ""
 
@@ -236,13 +305,13 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 	if catalog.is_empty():
 		return result
 	var active := IslandProgression.active(state) and state.era_id >= 2
-	for island in ISLANDS:
+	for island in island_defs(state):
 		var opened: bool = active and bool(state.economy.get("islands", {}).get(island, {}).get("opened", false))
 		var facilities: Dictionary = state.economy.get("islands", {}).get(island, {}).get("facilities", {})
 		var level := int(facilities.get("extractor", 1))
 		var rates := {}
-		for id in ISLANDS[island].rates:
-			rates[id] = float(ISLANDS[island].rates[id]) * level if opened else 0.0
+		for id in island_defs(state)[island].rates:
+			rates[id] = rate(state, island, id) if opened else 0.0
 		result.islands[island] = {"opened": opened, "capacity": IslandProgression.capacity(state, island) if active else 100.0, "rates": rates}
 	for id in catalog.recipes:
 		var island := "home"
@@ -263,7 +332,8 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 		var inputs := {}
 		for resource in recipe.inputs:
 			inputs[resource] = {"available": value(state, island, resource) if island == "home" or resource in GLOBAL or active else 0.0, "required": float(recipe.inputs[resource]), "source": "home" if resource in GLOBAL else island}
-		result.recipes[id] = {"island": island, "duration": IslandProgression.duration(state, island, id) if active else DURATIONS[id], "reason": reason, "inputs": inputs, "output": float(recipe.output), "capacity": float(catalog.resources[id].cap) if island == "home" else result.islands[island].capacity}
+		var duration: int = durations(state).get(id, supply_data().durations.get(id, 1))
+		result.recipes[id] = {"island": island, "duration": IslandProgression.duration(state, island, id) if active and durations(state).has(id) else duration, "reason": reason, "inputs": inputs, "output": float(recipe.output), "product_id": ProcessingCatalog.product_id(catalog, id), "capacity": home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog) if island == "home" else result.islands[island].capacity}
 	return result
 
 static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dictionary) -> Array:
@@ -271,10 +341,10 @@ static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dicti
 	# no timers; its only external input is home stock (production/realm sinks).
 	if prepared.has("idle_home") and _same_home(state, prepared.idle_home):
 		state.economy.tick = int(state.economy.tick) + 1
-		for island in ISLANDS:
+		for island in island_defs(state):
 			if island == "home" or not state.economy.islands[island].opened: continue
-			for id in ISLANDS[island].rates:
-				var rate := float(ISLANDS[island].rates[id]) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1)
+			for id in island_defs(state)[island].rates:
+				var rate := rate(state, island, id)
 				var held := AmountCompat.from_number(value(state, island, id))
 				ResourceLedger.change(state, island, id, held, held, "production", AmountCompat.from_number(rate))
 		prepared.idle_ticks = int(prepared.get("idle_ticks", 0)) + 1
@@ -322,12 +392,11 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 	var events: Array = []
 	state.economy.tick = int(state.economy.tick) + 1
 	# Stable order: production (legacy + local), arrivals, completions, jobs, departures.
-	for island in ISLANDS:
+	for island in island_defs(state):
 		if island == "home" or not state.economy.islands[island].opened:
 			continue
-		for id in ISLANDS[island].rates:
-			var multiplier := int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1
-			var rate := float(ISLANDS[island].rates[id]) * multiplier
+		for id in island_defs(state)[island].rates:
+			var rate := rate(state, island, id)
 			var delta := minf(rate, free_space(state, island, id, catalog))
 			_put(state, island, id, value(state, island, id) + delta, "production", rate)
 	var routes: Array = state.economy.trips.keys()
@@ -336,7 +405,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		var trip: Dictionary = state.economy.trips[id]
 		trip.remaining = int(trip.remaining) - 1
 		if int(trip.remaining) == 0:
-			var def: Array = ROUTES[id]
+			var def: Array = route_defs(state)[id]
 			var story_before := IslandEconomy.value(state, def[1], def[2])
 			_put(state, def[1], def[2], value(state, def[1], def[2]) + float(trip.cargo), "transfer", float(trip.cargo))
 			StoryProgress.arrived(state, id, IslandEconomy.value(state, def[1], def[2]) - story_before)
@@ -353,7 +422,8 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		job.remaining = int(job.remaining) - 1
 		if int(job.remaining) == 0:
 			var id: String = job.recipe_id
-			_put(state, island, id, value(state, island, id) + float(catalog.recipes[id].output))
+			var product := ProcessingCatalog.product_id(catalog, id)
+			_put(state, island, product, value(state, island, product) + float(catalog.recipes[id].output))
 			StoryProgress.completed(state, island, id)
 			Onboarding.supply_completed(state, island, id)
 			events.append({"kind": "processing_completed", "island_id": island, "recipe_id": id})
@@ -375,7 +445,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		var route: Dictionary = state.economy.routes[id]
 		if not route.enabled or state.economy.trips.has(id):
 			continue
-		var def: Array = ROUTES[id]
+		var def: Array = route_defs(state)[id]
 		var cargo: float = departure_info(state, catalog, id, route).cargo
 		if cargo > 0:
 			_put(state, def[0], def[2], value(state, def[0], def[2]) - cargo, "transfer", -cargo)
@@ -385,7 +455,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 
 static func departure_info(state: GameState, catalog: Dictionary, id: String, route: Dictionary) -> Dictionary:
 	# Shared read-only departure calculation: UI waiting reasons use the actual gate.
-	var def: Array = ROUTES[id]
+	var def: Array = route_defs(state)[id]
 	var source := value(state, def[0], def[2])
 	var destination := value(state, def[1], def[2])
 	var reservation := reserved(state, def[1], def[2], catalog)
@@ -397,8 +467,12 @@ static func departure_info(state: GameState, catalog: Dictionary, id: String, ro
 
 static func transport_view(state: GameState, catalog: Dictionary) -> Dictionary:
 	var result := {}
-	for id in ROUTES:
-		var def: Array = ROUTES[id]
+	# Potential routes remain inspectable before opt-in; commands still use state.
+	var definitions := route_defs(state).duplicate(true)
+	var supply_profile: bool = catalog.get("version") == Supply.VERSION
+	if supply_profile: definitions.merge(supply_data().routes)
+	for id in definitions:
+		var def: Array = definitions[id]
 		var route: Dictionary = state.economy.get("routes", {}).get(id, {"enabled": false, "reserve": "0", "target": "100", "level": 1})
 		var trip: Dictionary = state.economy.get("trips", {}).get(id, {})
 		var closed: Array[String] = []
@@ -427,7 +501,7 @@ static func transport_view(state: GameState, catalog: Dictionary) -> Dictionary:
 				reason = "READY"
 		# An actual full load plus remaining supply/demand supports a capacity hint.
 		var loaded_backlog := not info.is_empty() and bool(route.enabled) and not trip.is_empty() and float(trip.cargo) >= float(info.throughput) and float(info.surplus) > 0 and float(info.need) > 0 and float(info.space) > 0
-		result[id] = {"settings": route.duplicate(true), "trip": trip.duplicate(true), "closed": closed, "ready": reason not in ["ECONOMY_NOT_MIGRATED", "ISLAND_NOT_OPEN"], "reason": reason, "stock": info, "loaded_backlog": loaded_backlog}
+		result[id] = {"level_cap": 3 if supply_profile and supply_data().routes.has(id) else route_level_cap(state, id), "upgrade_cost": route_upgrade_cost(state, 1, supply_profile), "settings": route.duplicate(true), "trip": trip.duplicate(true), "closed": closed, "ready": reason not in ["ECONOMY_NOT_MIGRATED", "ISLAND_NOT_OPEN"], "reason": reason, "stock": info, "loaded_backlog": loaded_backlog}
 	return result
 
 static func view(state: GameState, catalog: Dictionary) -> Dictionary:
@@ -435,7 +509,7 @@ static func view(state: GameState, catalog: Dictionary) -> Dictionary:
 		return {}
 	var result := state.economy.duplicate(true)
 	result.inventory = {}
-	for island in ISLANDS:
+	for island in island_defs(state):
 		result.inventory[island] = {}
 		for id in catalog.resources:
 			if island != "home" and id in GLOBAL:
@@ -452,25 +526,25 @@ static func validate(state: GameState) -> String:
 		return ""
 	if e.has("early_supply") and not Onboarding.validate_supply(e.early_supply):
 		return "ECONOMY_EARLY_SUPPLY"
-	if not e.get("version") in [VERSION, IslandProgression.VERSION, IslandProgression.LEGACY_VERSION] or not _integer(e.get("tick"), 0, 2000000000):
+	if not e.get("version") in [VERSION, IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, Supply.VERSION] or not _integer(e.get("tick"), 0, 2000000000):
 		return "ECONOMY_VERSION_OR_TICK"
 	for key in ["islands", "jobs", "routes", "trips"]:
 		if not e.get(key) is Dictionary:
 			return "ECONOMY_FIELD:" + key
-	if e.islands.size() != ISLANDS.size() or e.jobs.size() > ISLANDS.size() or e.routes.size() > ROUTES.size() or e.trips.size() > ROUTES.size():
+	if e.islands.size() != island_defs(state).size() or e.jobs.size() > island_defs(state).size() or e.routes.size() > route_defs(state).size() or e.trips.size() > route_defs(state).size():
 		return "ECONOMY_LIMIT"
-	var loaded := ProcessingCatalog.load_file()
+	var loaded := Supply.load_file() if expanded(state) else ProcessingCatalog.load_file()
 	if not loaded.ok:
 		return "ECONOMY_CONTENT"
 	var catalog: Dictionary = loaded.catalog
 	for id in catalog.resources:
 		if not ProcessingInventory.read(state, id).ok:
 			return "ECONOMY_RESOURCE:" + id
-	for island in ISLANDS:
+	for island in island_defs(state):
 		var slot: Variant = e.islands.get(island)
 		if not slot is Dictionary or not slot.get("opened") is bool or not slot.get("inventory") is Dictionary:
 			return "ECONOMY_ISLAND"
-		if IslandProgression.active(state):
+		if IslandProgression.active(state) and not supply_data().islands.has(island):
 			if not slot.get("facilities") is Dictionary or slot.facilities.size() != 3:
 				return "ECONOMY_FACILITIES"
 			for facility in IslandProgression.FACILITIES:
@@ -480,6 +554,8 @@ static func validate(state: GameState) -> String:
 					return "ECONOMY_CLOSED_FACILITY"
 			if island == "herb" and slot.opened and e.version == IslandProgression.LEGACY_VERSION:
 				return "ECONOMY_FUTURE_ISLAND"
+		if expanded(state) and supply_data().islands.has(island) and slot.size() != 2:
+			return "ECONOMY_NEW_ISLAND_FIELDS"
 		if island == "home" and (not slot.opened or not slot.inventory.is_empty()):
 			return "ECONOMY_HOME_ALIAS"
 		if not slot.opened and not slot.inventory.is_empty():
@@ -489,14 +565,14 @@ static func validate(state: GameState) -> String:
 				return "ECONOMY_LOCAL_AMOUNT"
 	for island in e.jobs:
 		var job: Variant = e.jobs[island]
-		if not ISLANDS.has(island) or not e.islands[island].opened or not job is Dictionary:
+		if not island_defs(state).has(island) or not e.islands[island].opened or not job is Dictionary:
 			return "ECONOMY_JOB"
 		var id: Variant = job.get("recipe_id")
-		if not id is String or not DURATIONS.has(id) or job.get("recipe_version") != 1:
+		if not id is String or not durations(state).has(id) or job.get("recipe_version") != 1:
 			return "ECONOMY_RECIPE_VERSION"
 		if IslandProgression.active(state) and not IslandProgression.owns(state, island, id):
 			return "ECONOMY_RECIPE_ISLAND"
-		if not _integer(job.get("remaining"), 0, DURATIONS[id]) or not _integer(job.get("batches"), 0, 1000000) or not job.get("repeat") is bool or not job.get("status") is String or not job.get("reserves") is Dictionary:
+		if not _integer(job.get("remaining"), 0, durations(state)[id]) or not _integer(job.get("batches"), 0, 1000000) or not job.get("repeat") is bool or not job.get("status") is String or not job.get("reserves") is Dictionary:
 			return "ECONOMY_JOB_FIELDS"
 		for resource in job.reserves:
 			if not catalog.recipes[id].inputs.has(resource) or not _amount(job.reserves[resource]):
@@ -515,24 +591,24 @@ static func validate(state: GameState) -> String:
 				return pending_error
 	for id in e.routes:
 		var route: Variant = e.routes[id]
-		if not ROUTES.has(id) or not route is Dictionary:
+		if not route_defs(state).has(id) or not route is Dictionary:
 			return "ECONOMY_ROUTE"
-		if not route.get("enabled") is bool or not _amount(route.get("reserve")) or not _amount(route.get("target")) or not _integer(route.get("level"), 1, 2):
+		if not route.get("enabled") is bool or not _amount(route.get("reserve")) or not _amount(route.get("target")) or not _integer(route.get("level"), 1, route_level_cap(state, id)):
 			return "ECONOMY_ROUTE_FIELDS"
-		if not e.islands[ROUTES[id][0]].opened or not e.islands[ROUTES[id][1]].opened:
+		if not e.islands[route_defs(state)[id][0]].opened or not e.islands[route_defs(state)[id][1]].opened:
 			return "ECONOMY_CLOSED_ROUTE"
 	for id in e.trips:
 		var trip: Variant = e.trips[id]
 		if not e.routes.has(id) or not trip is Dictionary or trip.get("version") != 1:
 			return "ECONOMY_TRIP_VERSION"
-		if not _integer(trip.get("remaining"), 1, 10) or not _amount(trip.get("cargo")) or float(trip.cargo) <= 0 or float(trip.cargo) > 20:
+		if not _integer(trip.get("remaining"), 1, 10) or not _amount(trip.get("cargo")) or float(trip.cargo) <= 0 or float(trip.cargo) > 10 * route_level_cap(state, id):
 			return "ECONOMY_TRIP_FIELDS"
-	for island in ISLANDS:
+	for island in island_defs(state):
 		for id in catalog.resources:
 			if island != "home" and id in GLOBAL:
 				continue
 			var held := reserved(state, island, id, catalog)
-			var cap := float(catalog.resources[id].cap) if island == "home" else IslandProgression.capacity(state, island)
+			var cap := home_cap(state, id, catalog) if island == "home" else IslandProgression.capacity(state, island)
 			# Existing home stock may exceed the B prototype cap, but no new reservation may.
 			if held > 0 and value(state, island, id) + held > cap:
 				return "ECONOMY_RESERVATION_OVERFLOW"
@@ -552,3 +628,8 @@ static func _fail(error: String) -> Dictionary:
 
 static func _success(kind: String) -> Dictionary:
 	return {"ok": true, "events": [{"kind": kind}], "changed_ids": ["economy", "resources"]}
+
+static func route_upgrade_cost(state: GameState, steps: int = 1, progression_profile: bool = false) -> Dictionary:
+	var costs := {"spirit_timber": 10, "bronze_essence": 10} if IslandProgression.active(state) or progression_profile else {"wood": 20}
+	for id in costs: costs[id] *= steps
+	return costs

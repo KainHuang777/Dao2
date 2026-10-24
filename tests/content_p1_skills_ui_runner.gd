@@ -13,6 +13,11 @@ func shot(name: String) -> void:
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png(DIR+name+".png")
 func run() -> void:
+	# Establish the target viewport before scene setup; each matrix case below
+	# explicitly opens the formal route before checking visible-page geometry.
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	root.size = Vector2i(1280,720)
+	root.content_scale_size = Vector2i(1280,720)
 	var scene = load("res://src/verification/content_p1_skills_acceptance.tscn").instantiate()
 	root.add_child(scene)
 	await frames()
@@ -25,7 +30,10 @@ func run() -> void:
 		root.size = vp
 		root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp))
+		abode.feature_navigation.open("skills")
 		await frames()
+		check(page.is_visible_in_tree() and panel.visible,"formal skill route visible "+str(vp))
+		print("SKILL_UI_GEOMETRY ",vp," scroll=",page.scroll.get_global_rect()," card=",page.cards.alchemical_breath_control.card.get_global_rect())
 		check(page.cards.size() == 12,"12 cards "+str(vp))
 		for id in SkillSystem.P1_LIMITS:
 			var row: Dictionary = page.cards[id]

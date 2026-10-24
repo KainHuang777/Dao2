@@ -81,7 +81,7 @@ func build(scene: Node) -> void:
 		"ore": UiIcon.Kind.ORE,
 		"herb": UiIcon.Kind.HERB
 	}
-	for id in IslandProgression.NAMES:
+	for id in ["home", "wood", "ore", "herb"]:
 		var button := Button.new()
 		button.text = "返回祖島" if id == "home" else IslandProgression.NAMES[id]
 		button.custom_minimum_size = Vector2(90, 44)
@@ -125,7 +125,7 @@ func refresh() -> void:
 		manage_button.visible = not compact_home
 		var status := "祖業保留" if current == "home" else ("產業已開拓" if landmarks[current].visible else "待開拓・可查看條件")
 		if current == "herb" and not landmarks.herb.visible:
-			status = "金丹解鎖・可查看條件" if abode.session.state.era_id < 3 else ("待開拓・可查看條件" if abode.session.state.economy.get("version") == IslandProgression.VERSION else "需接續丹霞產業・保留原檔")
+			status = "金丹解鎖・可查看條件" if abode.session.state.era_id < 3 else ("待開拓・可查看條件" if abode.session.state.economy.get("version") in [IslandProgression.VERSION, IslandProgression.SUPPLY_VERSION] else "需接續丹霞產業・保留原檔")
 		var detail: String = ROLES[current] if Time.get_ticks_msec() < banner_until else status
 		title.text = ("%s・%s" if abode.hud.size.y < 500 else "人界・%s\n%s") % [IslandProgression.NAMES[current], detail]
 		# Wrap the four-island controls inside the safe width; never grow the HUD.
@@ -194,7 +194,7 @@ func _draw() -> void:
 				draw_line(leg.position - direction * segment * 6.0, leg.position - direction * (segment + 1) * 6.0, Color(tint, 0.6 * (1.0 - float(segment) / 6.0)), 2.5, true)
 
 func enter(id: String) -> void:
-	if not IslandProgression.NAMES.has(id) or abode.session.state.era_id < 2:
+	if not id in ["home", "wood", "ore", "herb"] or abode.session.state.era_id < 2:
 		return
 	current = id
 	banner_until = Time.get_ticks_msec() + 2200

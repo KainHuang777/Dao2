@@ -1,3 +1,7 @@
+2026-10-23 **CONTENT-P1-STORY DONE（美術全部接受；保留差異以已揭露例外結案）。** 使用者明確回覆「全部接受」，接受12成就徽章／2機緣插圖及本批卡片；另回覆「接受已揭露例外並結案」。原Web四檔與skills fixture差異、原稽核兩項失敗永久保留，不改寫baseline為通過。L1靜態交付稽核213項中211通過／原2項仍失敗；保留調查5項通過，Web壓縮往返／BGM及fixture固定提交比對已查，覆寫者與命令仍無完整歸因。沿用前輪111支Runner與有界桌面Web證據，本輪未重跑Godot／瀏覽器／匯出／L3、未改玩家資料或PNG、未commit/push。見[接受、差異與命令](verification/content-p1-story.md)。英文checkpoint已更新，本階段停止；下一New Chat由使用者指定任務，不自動開CONTENT-P1-ACCEPT。下方待接受記錄為日期化歷史。
+
+2026-10-23 現行實作狀態：R1／R2／R-save／R-art已實作並完成桌面驗證；30成就／38機緣已附掛，14候選圖已生成但尚待美術接受，整體IN_PROGRESS。下文「實作TODO／尚未生成」為設計階段歷史，由本段覆蓋。見[實作驗收紀錄](verification/content-p1-story.md)。容量拒領顯示原因與「暫不可領」；新成就解鎖時間採0哨兵以保持線上／離線事件序列相同，不聲稱精確達成時間。
+
 2026-10-23 實作追加核定：使用者明確同意「加入獨立、可保存與重放的機緣 RNG」。原正式 TimeAdvancer 未傳 RNG，舊 null fallback 永遠取首題，與本方案自然加權抽取的假設衝突。現採 fortune.rng_version=1／rng_state（uint32），由既有 tribulation_seed 的獨立字串雜湊初始化，跨世保留；有候選且無待決時才消耗一次 Mulberry32 抽題，不消耗突破／天劫 stream。此核定覆蓋下文「舊 RNG 演算次數保持」的歷史限制；舊26題文字／權重與所有固定選後效果保持，舊待決不重抽。開頁／暫收／保存重試／重載不得消耗抽題。
 
 # CONTENT-P1-STORY：逐項設計與核定表（R 提案）

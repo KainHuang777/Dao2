@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=1
+ABODE_DIRECT_BUILD: hut
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_UPGRADE: hut level=2
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SELECT: altar
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +6
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_GARDEN_RUNNING: false
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_REGION
+ABODE_REGION: same world and simulation retained
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+PASS: living abode selects buildings, upgrades, pauses production, and changes scale.
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.

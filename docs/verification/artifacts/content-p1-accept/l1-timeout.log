@@ -1,0 +1,21 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{a2610cbb-c371-45ce-b6dd-c0b3fa1a7651}\AC\Temp\dao2_runners_9be7ee4e8b384804bb931e0f220b7769
+[START:initial] tests/content_p1_accept_runner.gd
+[FAIL:initial] tests/content_p1_accept_runner.gd exit=-1 timeout=True script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+--- slowest 8 runners (s) ---
+    45.8  tests/content_p1_accept_runner.gd
+Runner verification failed: tests/content_p1_accept_runner.gd. Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{a261
+0cbb-c371-45ce-b6dd-c0b3fa1a7651}\AC\Temp\dao2_runners_9be7ee4e8b384804bb931e0f220b7769
+At E:\WORK\Dao2\tools\run_all_runners.ps1:242 char:28
++ ... nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Runner verifica...b931e0f220b7769:String) [], RuntimeException
+    + FullyQualifiedErrorId : Runner verification failed: tests/content_p1_accept_runner.gd. Logs: C:\Users\asus\AppDa 
+   ta\Local\Packages\sandbox.{a2610cbb-c371-45ce-b6dd-c0b3fa1a7651}\AC\Temp\dao2_runners_9be7ee4e8b384804bb931e0f220b  
+  7769
+ 

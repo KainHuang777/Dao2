@@ -4,6 +4,7 @@ extends RefCounted
 const SCHEMA_VERSION := 5
 const GAME_VERSION := "0.1.0"
 const RULES_VERSION := "core-flow-17-content-p1-story"
+const SUPPLY_RULES_VERSION := "core-flow-18-content-p2-supply"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
 
@@ -46,7 +47,7 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 		"schema_version": SCHEMA_VERSION,
 		"game_version": GAME_VERSION,
 		"content_version": content_version,
-		"rules_version": RULES_VERSION,
+		"rules_version": SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION,
 		"amount_format_version": AMOUNT_FORMAT_VERSION,
 		"generator_version": GENERATOR_VERSION,
 		"save_id": meta["save_id"],

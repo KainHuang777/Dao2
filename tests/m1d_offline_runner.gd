@@ -1,7 +1,7 @@
 extends SceneTree
 
 const CONTENT_DIR := "res://content"
-const TEST_SLOTS_DIR := "user://m1d_test_slots"
+var TEST_SLOTS_DIR := OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("m1d") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "user://m1d_test_slots"
 const CAP_MS := 86400000
 const TWO_DAYS_MS := 172800000
 const BASE_CURSOR_MS := 1

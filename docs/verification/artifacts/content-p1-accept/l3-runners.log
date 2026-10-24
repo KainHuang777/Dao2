@@ -1,0 +1,38 @@
+[MODE] matrix=full runners=112 parallel=3
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{66ad6c88-63cc-4a92-8548-4221e1155c44}\AC\Temp\dao2_runners_250b616c14d64989badc392c89e43d58
+[START:initial] tests/content_p1_accept_runner.gd
+[START:initial] tests/content_p1_story_runner.gd
+[START:initial] tests/content_p1_story_events_runner.gd
+[PASS:initial] tests/content_p1_story_events_runner.gd (4.5s)
+[START:initial] tests/content_p1_story_progression_runner.gd
+[PASS:initial] tests/content_p1_story_runner.gd (5.8s)
+[START:initial] tests/content_p1_story_ui_runner.gd
+[FAIL:initial] tests/content_p1_story_ui_runner.gd exit=1 timeout=False script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=File not found load=
+FAIL formal UI initialized
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+[START:initial] tests/content_p1_sect_progression_runner.gd
+[PASS:initial] tests/content_p1_sect_progression_runner.gd (3.7s)
+[START:initial] tests/content_p1_sect_runner.gd
+[PASS:initial] tests/content_p1_sect_runner.gd (4s)
+[START:initial] tests/content_p1_sect_ui_runner.gd
+[PASS:initial] tests/content_p1_story_progression_runner.gd (31.2s)
+[START:initial] tests/content_p1_pills_runner.gd
+[PASS:initial] tests/content_p1_pills_runner.gd (16.6s)
+[START:initial] tests/content_p1_pills_ui_runner.gd
+[PASS:initial] tests/content_p1_accept_runner.gd (154.3s)
+[START:initial] tests/ui_art_edge_runner.gd
+[PASS:initial] tests/ui_art_edge_runner.gd (1.9s)
+[START:initial] tests/content_p1_talents_runner.gd
+[PASS:initial] tests/content_p1_talents_runner.gd (3.7s)
+[START:initial] tests/content_p1_talents_ui_runner.gd

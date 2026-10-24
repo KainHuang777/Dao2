@@ -1231,6 +1231,9 @@ func _refresh_detail() -> void:
 			if int(view.buildings.get(prereq_id, {}).get("level", 0)) < prereq_level:
 				_abode.upgrade_button.text = "需先將%s升至 %d 階" % [_abode.BUILDING_NAMES.get(prereq_id, prereq_id), prereq_level]
 
+	if not bool(b_data.get("island_open", true)):
+		_abode.upgrade_button.text = "先開拓" + IslandProgression.NAMES.get(b_data.get("required_island", ""), "空島")
+		_abode.upgrade_button.disabled = true
 	_abode.pause_button.visible = (b_id == "herb_farm")
 	_abode.pause_button.text = "恢復藥圃" if not _abode.state.garden_running else "暫停藥圃"
 

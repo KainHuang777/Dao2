@@ -1,0 +1,451 @@
+{
+  "task": "RES1-E-46",
+  "version": "proposal-1",
+  "approval": "APPROVED",
+  "scope": "Era4-6 supply/capacity/cultivation/save design only; all new logistics and prices are v2 proposals",
+  "eras": [
+    {
+      "id": 4,
+      "name": "元嬰期",
+      "base_time": 480,
+      "time_multiplier": 1.28,
+      "lifespan": 350,
+      "resource_multiplier": 3,
+      "cost": {
+        "lingli": 5000,
+        "golden_core_pill": 3,
+        "stone_mid": 200
+      },
+      "lv9": {
+        "id": "cold_iron",
+        "amount": 5
+      },
+      "exit_capacity": {
+        "lingli": 50000,
+        "stone_low": 20000,
+        "money": 10000
+      },
+      "required_skills": []
+    },
+    {
+      "id": 5,
+      "name": "化神期",
+      "base_time": 800,
+      "time_multiplier": 1.35,
+      "lifespan": 600,
+      "resource_multiplier": 4.5,
+      "cost": {
+        "lingli": 15000,
+        "money": 5000,
+        "mithril": 5
+      },
+      "lv9": {
+        "id": "spirit_grass_1000y",
+        "amount": 10
+      },
+      "exit_capacity": {
+        "lingli": 200000,
+        "stone_low": 100000
+      },
+      "required_skills": []
+    },
+    {
+      "id": 6,
+      "name": "煉虛期",
+      "base_time": 1500,
+      "time_multiplier": 1.45,
+      "lifespan": 950,
+      "resource_multiplier": 6,
+      "cost": {
+        "lingli": 40000,
+        "money": 15000,
+        "stone_mid": 5000
+      },
+      "lv9": {
+        "id": "trans_pill",
+        "amount": 5
+      },
+      "exit_capacity": null,
+      "required_skills": [],
+      "exit_policy": "Era7 unavailable; next era absent, no substitute reward or forced rebirth"
+    }
+  ],
+  "resources": [
+    {
+      "id": "refined_iron",
+      "era": 4,
+      "home_cap": 3000,
+      "source": "deep extractor 0.1/s",
+      "sinks": [
+        "iron_turtle feed",
+        "mineral_focus upgrade"
+      ]
+    },
+    {
+      "id": "mithril",
+      "era": 4,
+      "home_cap": 3000,
+      "source": "deep extractor 0.05/s",
+      "sinks": [
+        "Era5 levels",
+        "trans_pill",
+        "core_storehouse_5"
+      ]
+    },
+    {
+      "id": "cold_iron",
+      "era": 4,
+      "home_cap": 3000,
+      "source": "deep extractor 0.05/s",
+      "sinks": [
+        "Era4 lv9",
+        "core_storehouse_4",
+        "void opening"
+      ]
+    },
+    {
+      "id": "spirit_grass_1000y",
+      "era": 5,
+      "home_cap": 3000,
+      "source": "ancient extractor 0.04/s",
+      "sinks": [
+        "Era5 lv9",
+        "fire_phoenix feed",
+        "trans_pill"
+      ]
+    },
+    {
+      "id": "stone_high",
+      "era": 5,
+      "home_cap": 10000,
+      "source": "home recipe stone_high",
+      "sinks": [
+        "void opening",
+        "core_storehouse_5",
+        "void_focus"
+      ]
+    },
+    {
+      "id": "trans_pill",
+      "era": 5,
+      "home_cap": 1000,
+      "source": "home recipe trans_pill",
+      "sinks": [
+        "Era6 lv9; crafting material only, no Alchemy consume action"
+      ]
+    },
+    {
+      "id": "void_essence",
+      "era": 6,
+      "home_cap": 3000,
+      "source": "void extractor 0.05/s",
+      "sinks": [
+        "void_focus upgrade; later P2 pill design uses separately approved recipe"
+      ]
+    }
+  ],
+  "islands": [
+    {
+      "id": "deep",
+      "name": "寒銀島",
+      "era": 4,
+      "cost": {
+        "wood": 100,
+        "stone_mid": 20,
+        "formation_core": 2
+      },
+      "rates": {
+        "refined_iron": 0.1,
+        "mithril": 0.05,
+        "cold_iron": 0.05
+      },
+      "local_cap": 300,
+      "route_products": [
+        "refined_iron",
+        "mithril",
+        "cold_iron"
+      ]
+    },
+    {
+      "id": "ancient",
+      "name": "古藥島",
+      "era": 5,
+      "cost": {
+        "wood": 150,
+        "stone_mid": 30,
+        "mithril": 5
+      },
+      "rates": {
+        "spirit_grass_1000y": 0.04
+      },
+      "local_cap": 300,
+      "route_products": [
+        "spirit_grass_1000y"
+      ]
+    },
+    {
+      "id": "void",
+      "name": "太虛島",
+      "era": 6,
+      "cost": {
+        "stone_high": 10,
+        "cold_iron": 10,
+        "formation_core": 5
+      },
+      "rates": {
+        "void_essence": 0.05
+      },
+      "local_cap": 300,
+      "route_products": [
+        "void_essence"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "stone_mid_bulk",
+      "era": 4,
+      "island": "home",
+      "product": "stone_mid",
+      "inputs": {
+        "stone_low": 500,
+        "lingli": 1000
+      },
+      "output": 100,
+      "seconds": 10,
+      "policy": "legacy ratio; new deterministic bulk recipe"
+    },
+    {
+      "id": "stone_high",
+      "era": 5,
+      "island": "home",
+      "product": "stone_high",
+      "inputs": {
+        "stone_mid": 3,
+        "lingli": 50
+      },
+      "output": 1,
+      "seconds": 10,
+      "policy": "legacy ratio; v2 duration"
+    },
+    {
+      "id": "trans_pill",
+      "era": 5,
+      "island": "home",
+      "product": "trans_pill",
+      "inputs": {
+        "golden_core_pill": 2,
+        "spirit_grass_1000y": 1,
+        "mithril": 2
+      },
+      "output": 1,
+      "seconds": 30,
+      "policy": "legacy ratio; v2 duration"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "core_storehouse_3",
+      "era": 3,
+      "max_level": 1,
+      "requires": {
+        "foundation_reservoir": 3
+      },
+      "cost": {
+        "money": 500,
+        "wood": 100,
+        "stone_low": 100,
+        "formation_core": 2
+      },
+      "flat_caps": {
+        "lingli": 10000,
+        "stone_low": 5000,
+        "money": 10000
+      }
+    },
+    {
+      "id": "core_storehouse_4",
+      "era": 4,
+      "max_level": 1,
+      "requires": {
+        "core_storehouse_3": 1
+      },
+      "cost": {
+        "money": 1000,
+        "formation_core": 3,
+        "cold_iron": 5
+      },
+      "flat_caps": {
+        "lingli": 50000,
+        "stone_low": 20000,
+        "money": 20000,
+        "skill_point": 30000
+      }
+    },
+    {
+      "id": "core_storehouse_5",
+      "era": 5,
+      "max_level": 1,
+      "requires": {
+        "core_storehouse_4": 1
+      },
+      "cost": {
+        "money": 2000,
+        "stone_high": 10,
+        "mithril": 10
+      },
+      "flat_caps": {
+        "lingli": 200000,
+        "stone_low": 100000,
+        "money": 100000,
+        "skill_point": 50000
+      }
+    },
+    {
+      "id": "cultivation_focus_4",
+      "era": 4,
+      "max_level": 1,
+      "requires": {
+        "core_storehouse_3": 1
+      },
+      "cost": {
+        "stone_mid": 50,
+        "golden_core_pill": 1
+      },
+      "flat_rates": {
+        "lingli": 100,
+        "money": 20,
+        "stone_low": 20
+      }
+    },
+    {
+      "id": "cultivation_focus_5",
+      "era": 5,
+      "max_level": 1,
+      "requires": {
+        "cultivation_focus_4": 1
+      },
+      "cost": {
+        "mithril": 5,
+        "cold_iron": 5,
+        "formation_core": 3
+      },
+      "flat_rates": {
+        "lingli": 200,
+        "money": 50
+      }
+    },
+    {
+      "id": "cultivation_focus_6",
+      "era": 6,
+      "max_level": 1,
+      "requires": {
+        "cultivation_focus_5": 1
+      },
+      "cost": {
+        "stone_high": 10,
+        "spirit_grass_1000y": 5
+      },
+      "flat_rates": {
+        "lingli": 300,
+        "money": 100
+      }
+    },
+    {
+      "id": "mineral_focus",
+      "era": 4,
+      "max_level": 1,
+      "requires": {},
+      "cost": {
+        "refined_iron": 30,
+        "formation_core": 2
+      },
+      "effect": {
+        "target": "deep rates only",
+        "multiplier": 2
+      }
+    },
+    {
+      "id": "ancient_focus",
+      "era": 5,
+      "max_level": 1,
+      "requires": {},
+      "cost": {
+        "mithril": 10,
+        "liquid": 5
+      },
+      "effect": {
+        "target": "ancient rates only",
+        "multiplier": 2
+      }
+    },
+    {
+      "id": "void_focus",
+      "era": 6,
+      "max_level": 1,
+      "requires": {},
+      "cost": {
+        "void_essence": 10,
+        "stone_high": 5
+      },
+      "effect": {
+        "target": "void rates only",
+        "multiplier": 2
+      }
+    }
+  ],
+  "routes": {
+    "new_count": 5,
+    "direction": "each route_products item to home only",
+    "trip_seconds": 10,
+    "cargo_per_level": 10,
+    "max_level": 3,
+    "cost_to_enable": {},
+    "existing_routes_unchanged": true
+  },
+  "save": {
+    "schema_proposal": 5,
+    "economy_version": "res1-e-46-1",
+    "rules_version": "allocate at implementation; do not overwrite later existing versions",
+    "new_islands_default": "unopened; inventory zero; facilities inactive until paid opening",
+    "migration": "preserve exact old jobs/trips/routes and recipe versions; archive original JSON and readback before candidate commit",
+    "failure": "old slots remain authoritative; retry persists same candidate without command/RNG replay",
+    "unknown_version": "reject and offer verified previous generation; no silent item deletion",
+    "rebirth": "clear human-world inventory/jobs/trips/facilities, keep existing meta/realm policy"
+  },
+  "decisions": [
+    {
+      "id": "R46-A",
+      "topic": "7 resources, 3 islands, 5 routes and 3 recipes; minimal old content subset",
+      "approval": "APPROVED"
+    },
+    {
+      "id": "R46-B",
+      "topic": "9 facilities and flat-rate channel, preceding-era capacity bootstrap, bounded throughput",
+      "approval": "APPROVED"
+    },
+    {
+      "id": "R46-C",
+      "topic": "legacy numerical Era4-6 baseline but optional skills; Era6 terminal boundary",
+      "approval": "APPROVED"
+    },
+    {
+      "id": "R46-S",
+      "topic": "schema5 with versioned economy migration and explicit replay/failure policy",
+      "approval": "APPROVED"
+    }
+  ],
+  "approval_evidence": {
+    "date": "2026-10-24",
+    "actor": "human user",
+    "quote": "四項採原案，保留舊修行時間",
+    "decisions": [
+      "R46-A",
+      "R46-B",
+      "R46-C",
+      "R46-S"
+    ],
+    "scope": "proposal-1 unchanged; preserves legacy cultivation times; design approval only"
+  },
+  "implementation_status": "TODO"
+}

@@ -1,0 +1,3 @@
+[MODE] matrix=single runners=2 parallel=1
+tests/res1d2_integration_runner.gd
+tests/offline_closed_form_parity_runner.gd

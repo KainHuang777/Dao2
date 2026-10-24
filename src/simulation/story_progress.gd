@@ -26,6 +26,8 @@ static func migrate(state: GameState) -> void:
 	unlock_available(state)
 
 static func next_life(state: GameState) -> void:
+	# Legacy version-zero states must remain writable until explicit migration.
+	if state.story_version != VERSION: return
 	var story := ensure(state)
 	story.current = blank(CURRENT)
 	story.current_life_id = state.reincarnation_count + 1
@@ -48,7 +50,7 @@ static func completed(state: GameState, island: String, recipe: String) -> void:
 	if island == "wood" and recipe == "spirit_timber": mark(state, "timber_completed")
 
 static func arrived(state: GameState, route: String, delta: float) -> void:
-	if delta <= 0 or not IslandEconomy.ROUTES.has(route) or IslandEconomy.ROUTES[route][1] != "home": return
+	if delta <= 0 or not IslandEconomy.route_defs(state).has(route) or IslandEconomy.route_defs(state)[route][1] != "home": return
 	mark(state, "positive_home_arrival")
 	if route == "timber_home": mark(state, "timber_arrived")
 	if route == "bronze_home": mark(state, "bronze_arrived")

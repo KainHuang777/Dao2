@@ -33,9 +33,9 @@ func _ready() -> void:
 	super._ready()
 	filter_picker = OptionButton.new()
 	filter_picker.custom_minimum_size = Vector2(112, 44)
-	for text in ["全部航線", "青木島", "玄礦島", "丹霞島"]:
+	for text in ["全部航線"] + IslandProgression.NAMES.values().slice(1):
 		filter_picker.add_item(text)
-	filter_picker.item_selected.connect(func(index: int): select_island(["home", "wood", "ore", "herb"][index]))
+	filter_picker.item_selected.connect(func(index: int): select_island(IslandProgression.NAMES.keys()[index]))
 	heading_label.get_parent().add_child(filter_picker)
 	heading_label.get_parent().move_child(filter_picker, 1)
 	back_button = _add_button(heading_label.get_parent(), "返回航線", back_to_list)
@@ -58,7 +58,7 @@ func _rebuild() -> void:
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 10)
 	list_box.add_child(grid)
-	for id in IslandEconomy.ROUTES:
+	for id in _routes():
 		var row := PanelContainer.new()
 		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
@@ -73,7 +73,7 @@ func _rebuild() -> void:
 		content.add_child(text)
 		var title_row := HBoxContainer.new()
 		text.add_child(title_row)
-		var title := _label(_resource_name(IslandEconomy.ROUTES[id][2]))
+		var title := _label(_resource_name(_routes()[id][2]))
 		title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		title.add_theme_font_size_override("font_size", 18)
 		title.add_theme_font_override("font", UiTypography.emphasis_font())
@@ -131,8 +131,8 @@ func _rebuild() -> void:
 	supply_button = _add_button(detail_box, "", _open_supply)
 	var endpoints := HFlowContainer.new()
 	detail_box.add_child(endpoints)
-	_add_button(endpoints, "來源島", func(): page_requested.emit("outposts", IslandEconomy.ROUTES[selected_route][0]))
-	_add_button(endpoints, "目的島", func(): page_requested.emit("outposts", IslandEconomy.ROUTES[selected_route][1]))
+	_add_button(endpoints, "來源島", func(): page_requested.emit("outposts", _routes()[selected_route][0]))
+	_add_button(endpoints, "目的島", func(): page_requested.emit("outposts", _routes()[selected_route][1]))
 
 func _create_visual(parent: Node) -> Dictionary:
 	var row := HBoxContainer.new()
@@ -164,7 +164,7 @@ func _quantity(value: float) -> String:
 	return str(int(value)) if value == floorf(value) else "%.1f" % value
 
 func _refresh_visual(visual: Dictionary, id: String) -> void:
-	var def: Array = IslandEconomy.ROUTES[id]
+	var def: Array = _routes()[id]
 	var info := _info(id)
 	var stock: Dictionary = info.get("stock", {})
 	var settings := _settings(id)
@@ -203,7 +203,7 @@ func _field() -> LineEdit:
 	return field
 
 func _route_title(id: String) -> String:
-	var def: Array = IslandEconomy.ROUTES[id]
+	var def: Array = _routes()[id]
 	return "%s・%s→%s" % [_resource_name(def[2]), IslandProgression.NAMES[def[0]], IslandProgression.NAMES[def[1]]]
 
 func _info(id: String) -> Dictionary:
@@ -237,7 +237,7 @@ func _toggle(id: String) -> void:
 
 func _upgrade() -> void:
 	var settings := _settings(selected_route)
-	_command(selected_route, bool(settings.enabled), 2, settings)
+	_command(selected_route, bool(settings.enabled), int(settings.level) + 1, settings)
 
 func _save_settings() -> void:
 	_edit_draft()
@@ -322,9 +322,10 @@ func _refresh_rows() -> void:
 	var dirty_count := 0
 	var enabled_count := 0
 	var trip_count := 0
+	if route_widgets.size() != _routes().size(): _rebuild()
 	for id in route_widgets:
 		var widget: Dictionary = route_widgets[id]
-		var def: Array = IslandEconomy.ROUTES[id]
+		var def: Array = _routes()[id]
 		widget.root.visible = island == "home" or island in [def[0], def[1]]
 		widget.title.text = _resource_name(def[2])
 		var info := _info(id)
@@ -351,9 +352,9 @@ func _refresh_rows() -> void:
 		widget.settings.disabled = false
 	draft_notice.text = "%d條未保存草稿已保留；返回設定後保存才會生效。" % dirty_count
 	draft_notice.visible = dirty_count > 0 and not short_layout
-	route_summary.text = "啟航%d／7・在途%d・物品格為兩端可用庫存" % [enabled_count, trip_count]
+	route_summary.text = "啟航%d／%d・在途%d・物品格為兩端可用庫存" % [enabled_count, _routes().size(), trip_count]
 	if filter_picker != null:
-		filter_picker.select(["home", "wood", "ore", "herb"].find(island))
+		filter_picker.select(IslandProgression.NAMES.keys().find(island))
 		filter_picker.tooltip_text = draft_notice.text if dirty_count > 0 else "依來源或目的空島篩選航線"
 
 func _refresh_detail() -> void:
@@ -375,11 +376,15 @@ func _refresh_detail() -> void:
 	draft_status.text = "未保存草稿；返回或切頁會保留，本次遊戲關閉後不保留。" if bool(draft.dirty) else "已保存設定；啟停與升階沿用此設定。" if _view.get("economy", {}).get("routes", {}).has(selected_route) else "尚未配置；預設保留0、目標100。保存設定後仍維持停航。"
 	save_button.disabled = not bool(info.get("ready", false))
 	var level := int(settings.level)
-	var cost := "祖島支付：靈材2＋銅精2" if _view.get("economy", {}).get("version") == IslandProgression.VERSION else "祖島支付：靈木20"
-	upgrade_button.text = ("運力20／10秒・已達上限" if level >= 2 else "運力10→20／10秒・" + cost) + "\n升階保留啟停與已保存設定"
-	upgrade_button.disabled = not bool(info.get("ready", false)) or level >= 2
+	var prices: Array[String] = []
+	for resource in info.get("upgrade_cost", {}):
+		prices.append(_resource_name(resource) + NumberFormatter.format_amount(info.upgrade_cost[resource]))
+	var cost := "祖島支付：" + "＋".join(prices)
+	var cap := int(info.get("level_cap", 2))
+	upgrade_button.text = (("運力%d／10秒・已達上限" % (level * 10)) if level >= cap else ("運力%d→%d／10秒・" % [level * 10, (level + 1) * 10]) + cost) + "\n升階保留啟停與已保存設定"
+	upgrade_button.disabled = not bool(info.get("ready", false)) or level >= cap
 	var reason: String = info.get("reason", "")
-	var def: Array = IslandEconomy.ROUTES[selected_route]
+	var def: Array = _routes()[selected_route]
 	supply_button.visible = reason in ["ECONOMY_NOT_MIGRATED", "ISLAND_NOT_OPEN", "DESTINATION_FULL", "NO_SURPLUS"]
 	var endpoint: String = def[0] if reason == "NO_SURPLUS" else def[1]
 	if reason == "ISLAND_NOT_OPEN":
@@ -388,7 +393,7 @@ func _refresh_detail() -> void:
 
 func _open_supply() -> void:
 	var info := _info(selected_route)
-	var def: Array = IslandEconomy.ROUTES[selected_route]
+	var def: Array = _routes()[selected_route]
 	if info.reason == "NO_SURPLUS" and IslandEconomy.DURATIONS.has(def[2]):
 		manufacturing_requested.emit(def[0], def[2])
 		return

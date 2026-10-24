@@ -44,7 +44,7 @@ func reject(kind: String, payload: Dictionary, reason: String) -> void:
 
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://res1_ui1a_runner"
+	script.save_dir_override = "res://docs/verification/artifacts/content-p2-supply-3/res1_ui1a_runner"
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	abode = script.new()
 	root.add_child(abode)
@@ -53,7 +53,7 @@ func _run() -> void:
 	abode.offline_summary.hide()
 	var decoded := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-d2-earned-era3.json"))
 	check(decoded.ok, "earned fixture decodes")
-	base = decoded.state.duplicate_state()
+	base = IslandProgression.prepare_supply(abode.content, decoded.state).state
 	base.economy.jobs = {}
 	base.economy.routes = {}
 	base.economy.trips = {}
@@ -84,7 +84,7 @@ func _run() -> void:
 	var wood_before := float(abode.session.state.resources.wood.value.to_float())
 	var stone_before := float(abode.session.state.resources.stone_low.value.to_float())
 	nav.island_panel.opening.pressed.emit()
-	check(abode.session.state.economy.get("version") == IslandProgression.VERSION and abode.session.state.economy.islands.wood.opened, "UI atomically activates and opens first island after retry")
+	check(abode.session.state.economy.get("version") == IslandProgression.SUPPLY_VERSION and abode.session.state.economy.islands.wood.opened, "UI atomically activates and opens first island after retry")
 	check(is_equal_approx(IslandEconomy.value(abode.session.state, "home", "wood"), wood_before - 20) and is_equal_approx(IslandEconomy.value(abode.session.state, "home", "stone_low"), stone_before - 10), "first opening pays exactly one cost")
 	for id in ["wood", "ore"]:
 		nav.island_panel.select_island(id)
@@ -135,10 +135,10 @@ func _run() -> void:
 		nav.back()
 		check(nav.group == "home" and abode.header.visible, "Escape list restores home")
 	check(snapshot() == before, "layouts and navigation leave full state unchanged")
-	check(panel.cards.size() == 8 and panel.production_summary.text.contains("4閒置"), "eight recipes; one compact summary of four lines")
+	check(panel.cards.size() == 11 and panel.production_summary.text.contains("4閒置"), "eleven recipes; one compact summary of four actual lines")
 	check(panel.cards.bronze_essence.tiles.black_copper.tooltip_text.contains("玄銅") and panel.filter_picker.selected == 0, "initial graphical material refresh and island picker complete")
 	nav.open("transport")
-	check(nav.transport_panel.route_widgets.size() == 7, "all old transport actions remain reachable")
+	check(nav.transport_panel.route_widgets.size() == 12, "all old transport actions remain reachable")
 	nav.transport_panel.select_route("bronze_home")
 	nav.transport_panel.upgrade_button.pressed.emit()
 	check(abode.session.state.economy.routes.bronze_home.level == 2 and not abode.session.state.economy.routes.bronze_home.enabled, "relocated upgrade preserves stopped route")

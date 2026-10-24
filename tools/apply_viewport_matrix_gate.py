@@ -12,10 +12,10 @@ GATE = 'OS.get_environment("DAO_VIEWPORT_MATRIX") == "full"'
 total = 0
 for path in sorted(ROOT.glob("*.gd")):
     text = path.read_bytes().decode("utf-8")
-    count = 0
 
     def repl(m):
-        global total
+        if text[m.end():].lstrip().startswith(f"if {GATE}"):
+            return m.group(0)
         nonlocal_count[0] += 1
         body = m.group(1).strip()
         first = re.match(r"Vector2i?\([^()]*\)", body).group(0)

@@ -435,7 +435,7 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 	var target_panel: Control = manufacturing_panel if page == "manufacturing" else transport_panel if page == "transport" else island_panel
 	var result: Dictionary
 	var save_failed := false
-	var first_open: bool = kind == "open_island" and abode.session.state.economy.get("version") != IslandProgression.VERSION
+	var first_open: bool = kind == "open_island" and not IslandProgression.active(abode.session.state)
 	if kind == "activate_islands" or first_open:
 		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
 		result = SaveManager.activate_islands(abode.session, {"save_id": "local", "saved_at_utc_ms": now, "settled_until_utc_ms": now, "sim_tick": str(int(abode.session.state.total_elapsed_seconds))}, String(payload.get("island_id", "")) if first_open else "")
@@ -494,11 +494,11 @@ func _open_island_page(route: String, island_id: String) -> void:
 			transport_panel.select_island(island_id)
 
 func open_transport(route_id: String) -> void:
-	if not IslandEconomy.ROUTES.has(route_id):
+	if not transport_panel._routes().has(route_id):
 		return
 	open("transport")
 	if page != "transport" or not shell.state.snapshot().overlay.is_empty(): return
-	transport_panel.select_island(IslandEconomy.ROUTES[route_id][0])
+	transport_panel.select_island(transport_panel._routes()[route_id][0])
 	transport_panel.select_route(route_id)
 
 func back() -> void:

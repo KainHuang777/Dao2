@@ -1,0 +1,41 @@
+[MODE] matrix=full runners=116 parallel=3
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{b1caf634-7fff-455c-bb8c-ba157425b62b}\AC\Temp\dao2_runners_f1bc1075a2444a5f9f4204d552355089
+[START:initial] tests/content_p2_supply_progression_runner.gd
+[START:initial] tests/content_p2_supply_ui_runner.gd
+[START:initial] tests/content_p2_supply_data_runner.gd
+[PASS:initial] tests/content_p2_supply_data_runner.gd (1.7s)
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[FAIL:initial] tests/content_p2_supply_ui_runner.gd exit=1 timeout=False script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SUPPLY-3 UI {"checks":170,"failures":["route level1 deep_iron_home","actual one-step payment deep_iron_home","route level1 deep_mithril_home","actual one-step payment deep_mithril_home","route level1 deep_cold_home","actual one-step payment deep_cold_home","route level1 ancient_grass_home","actual one-step payment ancient_grass_home","route level1 void_essence_home","actual one-step payment void_essence_home","route level1 deep_iron_home","actual one-step payment deep_iron_home","route level1 deep_mithril_home","actual one-step payment deep_mithril_home","route level1 deep_cold_home","actual one-step payment deep_cold_home","route level1 ancient_grass_home","actual one-step payment ancient_grass_home","route level1 void_essence_home","actual one-step payment void_essence_home"],"level":"L1"}
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/content_p1_accept_runner.gd
+[PASS:initial] tests/content_p2_supply_economy_runner.gd (11.6s)
+[START:initial] tests/content_p1_story_runner.gd
+[PASS:initial] tests/content_p1_story_runner.gd (5.4s)
+[START:initial] tests/content_p1_story_events_runner.gd
+[PASS:initial] tests/content_p1_story_events_runner.gd (4.3s)
+[START:initial] tests/content_p1_story_progression_runner.gd
+[PASS:initial] tests/content_p1_story_progression_runner.gd (25.4s)
+[START:initial] tests/content_p1_story_ui_runner.gd
+[FAIL:initial] tests/content_p1_story_ui_runner.gd exit=1 timeout=False script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL formal UI initialized
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+[START:initial] tests/content_p1_sect_progression_runner.gd
+[PASS:initial] tests/content_p1_sect_progression_runner.gd (3.9s)
+[START:initial] tests/content_p1_sect_runner.gd
+[PASS:initial] tests/content_p1_sect_runner.gd (3.8s)
+[START:initial] tests/content_p1_sect_ui_runner.gd

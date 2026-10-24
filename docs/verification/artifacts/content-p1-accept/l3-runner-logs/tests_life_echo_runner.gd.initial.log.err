@@ -1,0 +1,15 @@
+ERROR: Parse JSON failed. Error at line 0: Expected '}'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:345)
+       [1] current_state (res://src/persistence/save_manager.gd:113)
+       [2] run (res://tests/life_echo_runner.gd:110)
+ERROR: Parse JSON failed. Error at line 0: Expected '}'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:81)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:366)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:365)
+       [4] current_state (res://src/persistence/save_manager.gd:113)
+       [5] run (res://tests/life_echo_runner.gd:110)

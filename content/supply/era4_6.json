@@ -1,0 +1,495 @@
+{
+  "version": "res1-e-46-1",
+  "provenance": {
+    "task": "CONTENT-P2-SUPPLY",
+    "proposal": "proposal-1",
+    "source_sha256": "4563ae1218a7a94c63c7b9ecd0fdd93e896ac8954058703ab048eb397173c420",
+    "approval_quote": "四項採原案，保留舊修行時間"
+  },
+  "resources": {
+    "refined_iron": {
+      "name": "精鐵",
+      "era": 4,
+      "tier": 2,
+      "cap": "3000",
+      "source": "deep extractor 0.1/s",
+      "sinks": [
+        "iron_turtle feed",
+        "mineral_focus upgrade"
+      ]
+    },
+    "mithril": {
+      "name": "秘銀",
+      "era": 4,
+      "tier": 2,
+      "cap": "3000",
+      "source": "deep extractor 0.05/s",
+      "sinks": [
+        "Era5 levels",
+        "trans_pill",
+        "core_storehouse_5"
+      ]
+    },
+    "cold_iron": {
+      "name": "寒鐵",
+      "era": 4,
+      "tier": 2,
+      "cap": "3000",
+      "source": "deep extractor 0.05/s",
+      "sinks": [
+        "Era4 lv9",
+        "core_storehouse_4",
+        "void opening"
+      ]
+    },
+    "spirit_grass_1000y": {
+      "name": "千年靈草",
+      "era": 5,
+      "tier": 2,
+      "cap": "3000",
+      "source": "ancient extractor 0.04/s",
+      "sinks": [
+        "Era5 lv9",
+        "fire_phoenix feed",
+        "trans_pill"
+      ]
+    },
+    "stone_high": {
+      "name": "上品靈石",
+      "era": 5,
+      "tier": 2,
+      "cap": "10000",
+      "source": "home recipe stone_high",
+      "sinks": [
+        "void opening",
+        "core_storehouse_5",
+        "void_focus"
+      ]
+    },
+    "trans_pill": {
+      "name": "化神丹",
+      "era": 5,
+      "tier": 2,
+      "cap": "1000",
+      "source": "home recipe trans_pill",
+      "sinks": [
+        "Era6 lv9; crafting material only, no Alchemy consume action"
+      ]
+    },
+    "void_essence": {
+      "name": "虛空精華",
+      "era": 6,
+      "tier": 2,
+      "cap": "3000",
+      "source": "void extractor 0.05/s",
+      "sinks": [
+        "void_focus upgrade; later P2 pill design uses separately approved recipe"
+      ]
+    }
+  },
+  "recipes": {
+    "stone_mid_bulk": {
+      "version": 1,
+      "era": 4,
+      "product": "stone_mid",
+      "inputs": {
+        "stone_low": "500",
+        "lingli": "1000"
+      },
+      "output": "100",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {},
+      "policy": "legacy ratio; new deterministic bulk recipe"
+    },
+    "stone_high": {
+      "version": 1,
+      "era": 5,
+      "product": "stone_high",
+      "inputs": {
+        "stone_mid": "3",
+        "lingli": "50"
+      },
+      "output": "1",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {},
+      "policy": "legacy ratio; v2 duration"
+    },
+    "trans_pill": {
+      "version": 1,
+      "era": 5,
+      "product": "trans_pill",
+      "inputs": {
+        "golden_core_pill": "2",
+        "spirit_grass_1000y": "1",
+        "mithril": "2"
+      },
+      "output": "1",
+      "facility": {
+        "herb_farm": 3
+      },
+      "skills": {},
+      "policy": "legacy ratio; v2 duration"
+    }
+  },
+  "buildings": [
+    {
+      "id": "core_storehouse_3",
+      "name": "三階聚靈庫",
+      "era": 3,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": {
+        "building": "foundation_reservoir",
+        "level": 3
+      },
+      "base_cost": {
+        "money": 500,
+        "wood": 100,
+        "stone_low": 100,
+        "formation_core": 2
+      },
+      "effect_weight": null,
+      "effects": {
+        "lingli_max": 10000,
+        "stone_low_max": 5000,
+        "money_max": 10000
+      }
+    },
+    {
+      "id": "core_storehouse_4",
+      "name": "元嬰聚靈庫",
+      "era": 4,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": {
+        "building": "core_storehouse_3",
+        "level": 1
+      },
+      "base_cost": {
+        "money": 1000,
+        "formation_core": 3,
+        "cold_iron": 5
+      },
+      "effect_weight": null,
+      "effects": {
+        "lingli_max": 50000,
+        "stone_low_max": 20000,
+        "money_max": 20000,
+        "skill_point_max": 30000
+      }
+    },
+    {
+      "id": "core_storehouse_5",
+      "name": "化神聚靈庫",
+      "era": 5,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": {
+        "building": "core_storehouse_4",
+        "level": 1
+      },
+      "base_cost": {
+        "money": 2000,
+        "stone_high": 10,
+        "mithril": 10
+      },
+      "effect_weight": null,
+      "effects": {
+        "lingli_max": 200000,
+        "stone_low_max": 100000,
+        "money_max": 100000,
+        "skill_point_max": 50000
+      }
+    },
+    {
+      "id": "cultivation_focus_4",
+      "name": "元嬰修行陣",
+      "era": 4,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": {
+        "building": "core_storehouse_3",
+        "level": 1
+      },
+      "base_cost": {
+        "stone_mid": 50,
+        "golden_core_pill": 1
+      },
+      "effect_weight": null,
+      "effects": {
+        "lingli": 100,
+        "money": 20,
+        "stone_low": 20
+      }
+    },
+    {
+      "id": "cultivation_focus_5",
+      "name": "化神修行陣",
+      "era": 5,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": {
+        "building": "cultivation_focus_4",
+        "level": 1
+      },
+      "base_cost": {
+        "mithril": 5,
+        "cold_iron": 5,
+        "formation_core": 3
+      },
+      "effect_weight": null,
+      "effects": {
+        "lingli": 200,
+        "money": 50
+      }
+    },
+    {
+      "id": "cultivation_focus_6",
+      "name": "煉虛修行陣",
+      "era": 6,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": {
+        "building": "cultivation_focus_5",
+        "level": 1
+      },
+      "base_cost": {
+        "stone_high": 10,
+        "spirit_grass_1000y": 5
+      },
+      "effect_weight": null,
+      "effects": {
+        "lingli": 300,
+        "money": 100
+      }
+    },
+    {
+      "id": "mineral_focus",
+      "name": "寒銀調度",
+      "era": 4,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": null,
+      "base_cost": {
+        "refined_iron": 30,
+        "formation_core": 2
+      },
+      "effect_weight": null,
+      "effects": {}
+    },
+    {
+      "id": "ancient_focus",
+      "name": "古藥調度",
+      "era": 5,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": null,
+      "base_cost": {
+        "mithril": 10,
+        "liquid": 5
+      },
+      "effect_weight": null,
+      "effects": {}
+    },
+    {
+      "id": "void_focus",
+      "name": "太虛調度",
+      "era": 6,
+      "max_level": 1,
+      "cost_factor": 1,
+      "prereq": null,
+      "base_cost": {
+        "void_essence": 10,
+        "stone_high": 5
+      },
+      "effect_weight": null,
+      "effects": {}
+    }
+  ],
+  "eras": [
+    {
+      "id": 4,
+      "name": "元嬰期",
+      "max_level": 10,
+      "resource_multiplier": 3,
+      "lifespan": 350,
+      "level_up_requirements": {
+        "base_time": 480,
+        "time_multiplier": 1.28,
+        "resources": {
+          "lingli": 5000,
+          "golden_core_pill": 3,
+          "stone_mid": 200
+        },
+        "lv9_item": {
+          "type": "cold_iron",
+          "amount": 5
+        }
+      },
+      "upgrade_requirements": {
+        "level": 10,
+        "capacity": {
+          "lingli": 50000,
+          "stone_low": 20000,
+          "money": 10000
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "化神期",
+      "max_level": 10,
+      "resource_multiplier": 4.5,
+      "lifespan": 600,
+      "level_up_requirements": {
+        "base_time": 800,
+        "time_multiplier": 1.35,
+        "resources": {
+          "lingli": 15000,
+          "money": 5000,
+          "mithril": 5
+        },
+        "lv9_item": {
+          "type": "spirit_grass_1000y",
+          "amount": 10
+        }
+      },
+      "upgrade_requirements": {
+        "level": 10,
+        "capacity": {
+          "lingli": 200000,
+          "stone_low": 100000
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "煉虛期",
+      "max_level": 10,
+      "resource_multiplier": 6,
+      "lifespan": 950,
+      "level_up_requirements": {
+        "base_time": 1500,
+        "time_multiplier": 1.45,
+        "resources": {
+          "lingli": 40000,
+          "money": 15000,
+          "stone_mid": 5000
+        },
+        "lv9_item": {
+          "type": "trans_pill",
+          "amount": 5
+        }
+      },
+      "upgrade_requirements": {
+        "level": 10,
+        "capacity": {}
+      }
+    }
+  ],
+  "islands": {
+    "deep": {
+      "id": "deep",
+      "name": "寒銀島",
+      "era": 4,
+      "cost": {
+        "wood": 100,
+        "stone_mid": 20,
+        "formation_core": 2
+      },
+      "rates": {
+        "refined_iron": 0.1,
+        "mithril": 0.05,
+        "cold_iron": 0.05
+      },
+      "local_cap": 300,
+      "route_products": [
+        "refined_iron",
+        "mithril",
+        "cold_iron"
+      ]
+    },
+    "ancient": {
+      "id": "ancient",
+      "name": "古藥島",
+      "era": 5,
+      "cost": {
+        "wood": 150,
+        "stone_mid": 30,
+        "mithril": 5
+      },
+      "rates": {
+        "spirit_grass_1000y": 0.04
+      },
+      "local_cap": 300,
+      "route_products": [
+        "spirit_grass_1000y"
+      ]
+    },
+    "void": {
+      "id": "void",
+      "name": "太虛島",
+      "era": 6,
+      "cost": {
+        "stone_high": 10,
+        "cold_iron": 10,
+        "formation_core": 5
+      },
+      "rates": {
+        "void_essence": 0.05
+      },
+      "local_cap": 300,
+      "route_products": [
+        "void_essence"
+      ]
+    }
+  },
+  "routes": {
+    "deep_iron_home": [
+      "deep",
+      "home",
+      "refined_iron"
+    ],
+    "deep_mithril_home": [
+      "deep",
+      "home",
+      "mithril"
+    ],
+    "deep_cold_home": [
+      "deep",
+      "home",
+      "cold_iron"
+    ],
+    "ancient_grass_home": [
+      "ancient",
+      "home",
+      "spirit_grass_1000y"
+    ],
+    "void_essence_home": [
+      "void",
+      "home",
+      "void_essence"
+    ]
+  },
+  "durations": {
+    "stone_mid_bulk": 10,
+    "stone_high": 10,
+    "trans_pill": 30
+  },
+  "dispatch": {
+    "deep": "mineral_focus",
+    "ancient": "ancient_focus",
+    "void": "void_focus"
+  },
+  "route_policy": {
+    "seconds": 10,
+    "cargo_per_level": 10,
+    "max_level": 3,
+    "enabled": false,
+    "target": "100"
+  }
+}

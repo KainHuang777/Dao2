@@ -72,6 +72,8 @@ static func create_new_game(content: GameContent, tribulation_seed: int = -1) ->
 	return session
 
 func submit(command: Dictionary) -> Dictionary:
+	if SaveManager.supply_pending(state):
+		return _error_result("SUPPLY_SAVE_REQUIRED", {})
 	if not _is_valid_shape(command):
 		return _error_result("INVALID_COMMAND", {})
 	if not (String(command.type) in KNOWN_COMMAND_TYPES):
@@ -101,10 +103,13 @@ func submit(command: Dictionary) -> Dictionary:
 	return result
 
 func advance_time(elapsed_seconds: float) -> Dictionary:
+	if SaveManager.supply_pending(state):
+		return {"ok": false, "error": "SUPPLY_SAVE_REQUIRED", "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "save_required", "new_revision": state.revision}
 	if is_nan(elapsed_seconds) or is_inf(elapsed_seconds) or elapsed_seconds <= 0.0:
 		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null, "new_revision": state.revision}
 	clock.advance(elapsed_seconds)
-	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus))
+	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(BuffSystem.compute_multipliers(state).lifespan_bonus_years)
+	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus), pill_lifespan_bonus)
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		state.tick_remainder_seconds = 0.0
 		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "lifespan_exhausted", "new_revision": state.revision}
@@ -173,6 +178,12 @@ func get_view() -> Dictionary:
 				var available: AmountCompat = entry.value.add(AmountCompat.from_number(0.000001))
 				if available.compare_to(next_costs[resource_id]) < 0:
 					affordable = false
+		var required_island := ""
+		if content.processing_catalog.get("version") == IslandProgression.SUPPLY_VERSION:
+			for island in IslandEconomy.supply_data().dispatch:
+				if IslandEconomy.supply_data().dispatch[island] == building_id: required_island = island
+		var island_open: bool = required_island.is_empty() or bool(state.economy.get("islands", {}).get(required_island, {}).get("opened", false))
+		affordable = affordable and island_open
 		buildings[building_id] = {
 			"level": level,
 			"level_cap": cap,
@@ -182,6 +193,8 @@ func get_view() -> Dictionary:
 			"visible": visible,
 			"costs": costs,
 			"affordable": affordable,
+			"required_island": required_island,
+			"island_open": island_open,
 		}
 	var era_def = content.era(state.era_id)
 	var buff_multipliers := BuffSystem.compute_multipliers(state)

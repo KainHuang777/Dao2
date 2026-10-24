@@ -1,0 +1,241 @@
+[MODE] matrix=single runners=8 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{a0257dbe-18c8-43a5-9d85-14b27cf11376}\AC\Temp\dao2_runners_c27bd436205c47b293db0b4a7bfe4a26
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[PASS:initial] tests/content_p2_supply_economy_runner.gd (5.8s)
+[START:initial] tests/resource_accounts_runner.gd
+[PASS:initial] tests/resource_accounts_runner.gd (8.2s)
+[START:initial] tests/m1a_core_runner.gd
+[PASS:initial] tests/m1a_core_runner.gd (2.5s)
+[START:initial] tests/res1d2_integration_runner.gd
+[FAIL:initial] tests/res1d2_integration_runner.gd exit=-1 timeout=True script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:82)
+       [1] <anonymous lambda> (res://src/verification/res1d2_contract.gd:319)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _test_persistence (res://src/verification/res1d2_contract.gd:319)
+       [4] run (res://src/verification/res1d2_contract.gd:176)
+       [5] _run (res://tests/res1d2_integration_runner.gd:7)
+
+[START:initial] tests/res1c2_offline_runner.gd
+[PASS:initial] tests/res1c2_offline_runner.gd (19.3s)
+[START:initial] tests/offline_closed_form_parity_runner.gd
+[FAIL:initial] tests/offline_closed_form_parity_runner.gd exit=-1 timeout=True script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/m1c_persistence_runner.gd
+[FAIL:initial] tests/m1c_persistence_runner.gd exit=1 timeout=False script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] import_share_string (res://src/persistence/save_manager.gd:322)
+       [1] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:190)
+       [2] _init (res://tests/m1c_persistence_runner.gd:21)
+ERROR: first commit succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: first commit active slot is save_main
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: first commit sequence is 1
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: second commit succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: second commit active slot is save_backup
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: second commit sequence is 2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: save_main is readable after rotation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: save_backup is readable after rotation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: read_best succeeds after rotation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: initial commit succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: active slot is set before corruption
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: the surviving slot is readable before corruption
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: corrupting the active slot on storage succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: read_best succeeds after active slot corruption
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: valid commit to main succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: raw string commit to the non-active slot is written
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: read_best succeeds after double overwrite attempt
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+ERROR: read_best succeeds
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:32)
+
+[START:initial] tests/m1d_offline_runner.gd
+[FAIL:initial] tests/m1d_offline_runner.gd exit=1 timeout=False script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: reload no regrant: first coordinator settlement commits; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: reload no regrant: cursor is committed to 172800001; expected=172800001 actual=345600000
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: reload no regrant: last_offline_report reads back with the committed report_id; expected=offline:172800001 actual=offline:345600000
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: rollback: seed save at the future cursor commits
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: rollback: coordinator reports a rollback without an error; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: rollback: the cursor never moves backwards; expected=2000000000 actual=345600000
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: baseline save at cursor 1000 commits
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: envelope cursor reads back as 1000; expected=1000 actual=0
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: a failed commit reports ok false; expected=false actual=true
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: a failed commit reports SAVE_FAILED; expected=SAVE_FAILED actual=
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: the failed settlement leaves the cached state untouched; expected=0.0 actual=4800.0
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: the cursor stays at 1000 after a failed save; expected=1000 actual=345600000
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: retry after storage recovers commits; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: retried away_ms equals a single fresh settlement (no double grant); expected=172799000 actual=0
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: retried snapshot equals a single fresh settlement snapshot (no double grant); expected={ "command_receipts": {  }, "life_ledger": { "version": 1, "archive": [], "current": { "life_id": 1, "started_at": 0.0, "until": 4800.0, "coverage": "complete", "omitted_count": 0, "next_sequence": 2, "peak": { "era_id": 1, "level": 1, "at": 0.0 }, "events": [{ "id": "ad5ee3466d66163fd211ab4aa8f47a892f7785c269a5ddfea02634be77f20bcc", "seq": 1, "kind": "lifespan_exhausted", "subject": "life", "at": 4800.0, "era_id": 1, "level": 1, "instance": "" }], "beast_instance": "", "economy_origin": 0.0, "end_state": {  }, "text_version": "", "frozen_text": "", &"accounts": { "version": 1, "started_at": 0.0, "coverage": "complete", "omitted": 0, "estimated_bytes": 1220, "rows": { "home:lingli": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "home:money": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "home:wood": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "home:stone_low": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "home:black_copper": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "home:spirit_grass_low": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "home:foundation_pill": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "realm_spirit:spirit_crystal": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" }, "realm_spirit:azure_nectar": { "opening": "0", "closing": "0", "income": {  }, "expense": {  }, "adjustment": "0", "overflow": "0" } } }, &"history": { "version": 1, "started_at": 0.0, "omitted": 0, "samples": [{ "at": 0.0, "rows": { "home:lingli": ["0", "100"] } }, { "at": 4800.0, "rows": { "home:lingli": ["0", "100"] } }] } } }, "era_id": 1, "level": 1, "onboarding_version": 1, "training_seconds": 4800.0, "total_elapsed_seconds": 4800.0, "tick_remainder_seconds": 0.0, "resources": { "lingli": { "value": "0", "unlocked": true, "ever_obtained": false }, "money": { "value": "0", "unlocked": false, "ever_obtained": false }, "wood": { "value": "0", "unlocked": false, "ever_obtained": false }, "stone_low": { "value": "0", "unlocked": false, "ever_obtained": false }, "black_copper": { "value": "0", "unlocked": false, "ever_obtained": false }, "spirit_grass_low": { "value": "0", "unlocked": false, "ever_obtained": false }, "foundation_pill": { "value": "0", "unlocked": false, "ever_obtained": false } }, "buildings": { "hut": 0, "wooden_house": 0, "storage_lingli": 0, "storage_money": 0, "forest_farm": 0, "stone_mine": 0, "storage_stone": 0, "herb_farm": 0, "storage_wood": 0, "storage_herb": 0 }, "tutorial_flags": {  }, "reincarnation_count": 0, "highest_era": 1, "dao_heart": "0", "dao_proof": 0, "talents": {  }, "talent_version": 2, "story_version": 1, "sect_version": 1, "pill_version": 1, "pills": {  }, "pill_effects": {  }, "buffs": {  }, "current_realm": "realm_human", "realms_data": {  }, "sect": {  }, "chrono": { "unlocked": false, "shichen_index": 8, "weather_id": "earth", "shichen_progress": 0.0, "cycle_day": 7 }, "world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island", "aspiration_realm": "", "discovered_worlds": {  }, "fortune": { "cooldown_remaining": 3600.0, "pending_encounter": { "id": "enc_p1_dry_spring", "title": "枯泉分流", "requires": [], "art": "spring", "desc": "山泉漸細，兩道舊渠只容修復一道。木樁仍在，如何分流由你決定。", "options": [{ "text": "修渠養草", "costs": { "wood": 20.0 }, "rewards": { "resources": { "spirit_grass_low": 25.0 }, "log_text": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。" } }, { "text": "封渠聚息", "costs": { "stone_low": 15.0 }, "rewards": { "resources": { "lingli": 60.0 }, "log_text": "你以靈石封住裂口，收攏六十份散逸靈力；另一道水聲漸止。" } }, { "text": "留泉自流", "costs": {  }, "rewards": { "log_text": "你沒有動用庫藏，任細泉沿舊路入山。" } }], "min_era": 1.0, "weight": 60.0, "content_batch": "content-p1-story", "definition_version": 1.0, "weather_bias": "", "shichen_bias": "", "realm_bias": "", &"definition_digest": "a3e66ca2bbd03be269a4dc854babb08910cfe75bbbb5195a8584ab33458c5925", &"qualifications": { "wood_open": false, "timber_completed": false, "positive_home_arrival": false, "joined_sect": false, "new_supply_claimed": false, "refined_any_p1": false, "two_p1_consumed": false, "active_fox": false, "mature_active_fox": false, "second_life": false, "any_new_talent": false }, &"generation_era": 1, &"generation_realm": "realm_human", "instance_id": "6b1df92e1432486e5463c69f56e2d28ee2230394dae614e84225f6332cbcc3af" }, "encounter_history_count": 1, "total_fortunes_claimed": 0, &"rng_version": 1, &"rng_state": 1790555439 }, "realm_decisions": { "cooldowns": {  }, "usage_counts": {  }, "total_decisions_executed": 0 }, "beasts": { "active": {  }, "cooldown_remaining": 0.0 }, "beast_souls": {  }, "beast_talents": {  }, "abode_scenery": {  }, "achievements": { &"story": { "version": 1, "started_life_id": 1, "started_age_seconds": 0.0, "current_life_id": 1, "lifetime": { "refined_mask": 0, "consumed_mask": 0, "timber_completed": false, "timber_arrived": false, "bronze_arrived": false, "positive_home_arrival": false, "new_supply_claimed": false, "fox_matured": false }, "current": { "refined_mask": 0, "consumed_mask": 0, "timber_completed": false, "positive_home_arrival": false, "new_supply_claimed": false } } }, "economy": {  }, "skill_version": 0, "skills": {  }, "tribulation_seed": 1, "tribulation_roll_index": 0 } actual={ "command_receipts": {  }, "life_ledger": { "archive": [], "current": { "accounts": { "coverage": "complete", "estimated_bytes": 1220, "omitted": 0, "rows": { "home:black_copper": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "home:foundation_pill": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "home:lingli": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "home:money": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "home:spirit_grass_low": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "home:stone_low": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "home:wood": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "realm_spirit:azure_nectar": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" }, "realm_spirit:spirit_crystal": { "adjustment": "0", "closing": "0", "expense": {  }, "income": {  }, "opening": "0", "overflow": "0" } }, "started_at": 0.0, "version": 1 }, "beast_instance": "", "coverage": "complete", "economy_origin": 0.0, "end_state": {  }, "events": [{ "at": 4800.0, "era_id": 1, "id": "ad5ee3466d66163fd211ab4aa8f47a892f7785c269a5ddfea02634be77f20bcc", "instance": "", "kind": "lifespan_exhausted", "level": 1, "seq": 1, "subject": "life" }], "frozen_text": "", "history": { "omitted": 0, "samples": [{ "at": 0.0, "rows": { "home:lingli": ["0", "100"] } }, { "at": 4800.0, "rows": { "home:lingli": ["0", "100"] } }], "started_at": 0.0, "version": 1 }, "life_id": 1, "next_sequence": 2, "omitted_count": 0, "peak": { "at": 0.0, "era_id": 1, "level": 1 }, "started_at": 0.0, "text_version": "", "until": 4800.0 }, "version": 1 }, "era_id": 1, "level": 1, "onboarding_version": 1, "training_seconds": 4800.0, "total_elapsed_seconds": 4800.0, "tick_remainder_seconds": 0.0, "resources": { "black_copper": { "value": "0", "unlocked": false, "ever_obtained": false }, "foundation_pill": { "value": "0", "unlocked": false, "ever_obtained": false }, "lingli": { "value": "0", "unlocked": true, "ever_obtained": false }, "money": { "value": "0", "unlocked": false, "ever_obtained": false }, "spirit_grass_low": { "value": "0", "unlocked": false, "ever_obtained": false }, "stone_low": { "value": "0", "unlocked": false, "ever_obtained": false }, "wood": { "value": "0", "unlocked": false, "ever_obtained": false } }, "buildings": { "forest_farm": 0, "herb_farm": 0, "hut": 0, "stone_mine": 0, "storage_herb": 0, "storage_lingli": 0, "storage_money": 0, "storage_stone": 0, "storage_wood": 0, "wooden_house": 0 }, "tutorial_flags": {  }, "reincarnation_count": 0, "highest_era": 1, "dao_heart": "0", "dao_proof": 0, "talents": {  }, "talent_version": 2, "story_version": 1, "sect_version": 1, "pill_version": 1, "pills": {  }, "pill_effects": {  }, "buffs": {  }, "current_realm": "realm_human", "realms_data": {  }, "sect": {  }, "chrono": { "cycle_day": 7.0, "shichen_index": 8.0, "shichen_progress": 0.0, "unlocked": false, "weather_id": "earth" }, "world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island", "aspiration_realm": "", "discovered_worlds": {  }, "fortune": { "cooldown_remaining": 3600.0, "encounter_history_count": 1.0, "pending_encounter": { "art": "spring", "content_batch": "content-p1-story", "definition_digest": "a3e66ca2bbd03be269a4dc854babb08910cfe75bbbb5195a8584ab33458c5925", "definition_version": 1.0, "desc": "山泉漸細，兩道舊渠只容修復一道。木樁仍在，如何分流由你決定。", "generation_era": 1, "generation_realm": "realm_human", "id": "enc_p1_dry_spring", "instance_id": "6b1df92e1432486e5463c69f56e2d28ee2230394dae614e84225f6332cbcc3af", "min_era": 1.0, "options": [{ "costs": { "wood": 20.0 }, "rewards": { "log_text": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。", "resources": { "spirit_grass_low": 25.0 } }, "text": "修渠養草" }, { "costs": { "stone_low": 15.0 }, "rewards": { "log_text": "你以靈石封住裂口，收攏六十份散逸靈力；另一道水聲漸止。", "resources": { "lingli": 60.0 } }, "text": "封渠聚息" }, { "costs": {  }, "rewards": { "log_text": "你沒有動用庫藏，任細泉沿舊路入山。" }, "text": "留泉自流" }], "qualifications": { "active_fox": false, "any_new_talent": false, "joined_sect": false, "mature_active_fox": false, "new_supply_claimed": false, "positive_home_arrival": false, "refined_any_p1": false, "second_life": false, "timber_completed": false, "two_p1_consumed": false, "wood_open": false }, "realm_bias": "", "requires": [], "shichen_bias": "", "title": "枯泉分流", "weather_bias": "", "weight": 60.0 }, "rng_state": 1790555439, "rng_version": 1, "total_fortunes_claimed": 0.0 }, "realm_decisions": { "cooldowns": {  }, "total_decisions_executed": 0.0, "usage_counts": {  } }, "beasts": { "active": {  }, "cooldown_remaining": 0.0 }, "beast_souls": {  }, "beast_talents": {  }, "abode_scenery": {  }, "achievements": { "story": { "current": { "consumed_mask": 0, "new_supply_claimed": false, "positive_home_arrival": false, "refined_mask": 0, "timber_completed": false }, "current_life_id": 1, "lifetime": { "bronze_arrived": false, "consumed_mask": 0, "fox_matured": false, "new_supply_claimed": false, "positive_home_arrival": false, "refined_mask": 0, "timber_arrived": false, "timber_completed": false }, "started_age_seconds": 0.0, "started_life_id": 1, "version": 1 } }, "economy": {  }, "skill_version": 0, "skills": {  }, "tribulation_seed": 1, "tribulation_roll_index": 0 }
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: save failure retry: cursor committed to now only after the save succeeded; expected=172800000 actual=345600000
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: initial save at cursor 0 commits
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: bootstrap settlement commits; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: settlement from cursor 0 is a bootstrap; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: bootstrap still moves the cursor to now; expected=172800000 actual=345600000
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: a forfeited over-cap interval still commits; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: second stage sees the full 48h interval; expected=172800000 actual=0
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: second stage forfeits 24h beyond the cap; expected=86400000 actual=0
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+ERROR: cursor commit: second stage flags the cap; expected=true actual=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1d_offline_runner.gd:34)
+
+--- slowest 8 runners (s) ---
+    45.6  tests/res1d2_integration_runner.gd
+    45.2  tests/offline_closed_form_parity_runner.gd
+    19.3  tests/res1c2_offline_runner.gd
+     8.2  tests/resource_accounts_runner.gd
+     5.8  tests/content_p2_supply_economy_runner.gd
+     3.1  tests/m1d_offline_runner.gd
+     2.5  tests/m1a_core_runner.gd
+     2.3  tests/m1c_persistence_runner.gd
+Runner verification failed: tests/res1d2_integration_runner.gd, tests/offline_closed_form_parity_runner.gd, tests/m1c_p
+ersistence_runner.gd, tests/m1d_offline_runner.gd. Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{a0257dbe-18c8-43
+a5-9d85-14b27cf11376}\AC\Temp\dao2_runners_c27bd436205c47b293db0b4a7bfe4a26
+At E:\WORK\Dao2\tools\run_all_runners.ps1:244 char:28
++ ... nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Runner verifica...3db0b4a7bfe4a26:String) [], RuntimeException
+    + FullyQualifiedErrorId : Runner verification failed: tests/res1d2_integration_runner.gd, tests/offline_closed_for 
+   m_parity_runner.gd, tests/m1c_persistence_runner.gd, tests/m1d_offline_runner.gd. Logs: C:\Users\asus\AppData\Loca  
+  l\Packages\sandbox.{a0257dbe-18c8-43a5-9d85-14b27cf11376}\AC\Temp\dao2_runners_c27bd436205c47b293db0b4a7bfe4a26
+ 

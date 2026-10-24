@@ -1,3 +1,29 @@
+2026-10-24 **SKS-P2 逐項設計交付完成；方案K待核定，實作TODO／整體IN_PROGRESS。** Era4–6各4項共12，含元嬰孕育；交付逐ID費用／前置／公式／白名單、技能點容量與等待、縮時回收、保存與12圖題材。無技能可獨立支付；多數單階等待10–27分鐘明列待核定，不改R46舊時間。L1靜態172項通過、1,270份既有來源／資產／測試／Web檔案hash保持；首輪自連結兩失敗及算例修正保留。未改正式遊戲／玩家資料、未生成圖、未跑Runner／Web／匯出／L3、未commit/push。見[方案K](35-sks-p2-design.md)、[驗收](verification/sks-p2-design.md)。本設計階段停止；下一New Chat核定或修訂K後接同一SKS-P2，不開其他P2／P3。下方為日期化歷史。
+
+2026-10-24 **CONTENT-P2-SUPPLY DONE（整合節奏／UI人工接受，L3／桌面Web有界）**：使用者回覆「接受目前節奏與 UI，完成整批驗收收尾」。L3完整命令exit0，116／116唯一runner最終通過（114初跑＋丹霞世界59項／製造66項串行修復重試）；供給UI三尺寸170項、無技能完整合法供給94項含壽盡輪迴通過。修正丹霞新版本待開拓提示與兩支舊測試接線；R46數值／舊修行時間保持。最終Web候選、Brotli與四BGM及三桌面橫式滑鼠、量產60→160、三級航線拒寫／恢復／重載已驗。994份既有JSON核對，25份變動另存後逐字復原；原失敗／SCRIPT ERROR及退出診斷保留，未改玩家進度、未commit/push。見[整批驗收](verification/content-p2-supply-closure.md)。本供給批次收結；其他P2／新島美術仍另批，本階段停止，下一大型任務請New Chat指定。下方為日期化歷史。
+
+2026-10-24 **CONTENT-P2-SUPPLY／SUPPLY-3 技術子階段 DONE（L1／L2、桌面有界）；整體 IN_PROGRESS**：正式供給入口與先保存再離線結算、七島／十二線／11配方UI、調度開島門檻、product_id、帳本新島scope／有效容量與舊story0輪迴保存已接。最終UI76項、11支相關runner精選／分段補驗；無技能舊子版本合法命令到煉虛十層150253秒，再158400秒壽盡輪迴，原長流及尾段失敗永久保留，非單次全綠。當次本機包1280×720真實滑鼠量產60→160、三級航線拒寫／恢復／重載已驗；字型補字與同版匯入／匯出完成。未L3、未交付候選包、未改玩家進度、未commit/push。見[本段驗收](verification/content-p2-supply-3.md)。本階段停止；下一New Chat收供給整合節奏／UI回饋及整批收尾驗收，不開其他P2。下方為日期化歷史。
+
+2026-10-24 **CONTENT-P2-SUPPLY／SUPPLY-2 經濟與保存核心交付；整體 IN_PROGRESS**：七島／十二航線版本化經濟、原子開拓與當島調度、配方／產物解耦、祖島有效容量與玄龜、新舊保存原文歸檔讀回／同候選只保存重試、待提交命令及時間鎖、七島輪迴已接。schema5保持，新economy rules core-flow-18。最終新專項283 checks及12支唯一相關Runner（L1＋有界L2）通過；原SCRIPT ERROR、45秒逾時與磁碟測試失敗及修復均保留。正式玩家attach仍D2，供給候選經attach_supply接入；未Web／UI／L3、未改玩家資料／build、未commit/push。見[本段驗收](verification/content-p2-supply-2.md)。本核心階段停止；下一New Chat接SUPPLY-3管理／製造UI、首次遷移保存閘與正式入口，再三境合法流程及當次包桌面抽驗，不重問R46。下方為日期化歷史。
+
+2026-10-24 **CONTENT-P2-SUPPLY／SUPPLY-1 資料契約完成；整體 IN_PROGRESS**：沿已核定R46原案新增可編譯七資源／三島／五航線／三配方／九設施／Era4–6隔離候選資料，保留舊修行時間。驗證器支援recipe/product解耦與逐配方依賴、單階固定產率；未掛正式attach，經濟／保存遷移及玩家Era4開放尚未實作。L1三支Runner最終exit0（新增242／原配方145 checks＋M1-A核心），編譯一致性通過；初輪一項測試失敗與沙箱log診斷保留。未Web／L2／L3、未改玩家資料／build，未commit/push。見[本段驗收](verification/content-p2-supply.md)。依階段交接停止；下一New Chat直接接同任務SUPPLY-2經濟／保存／產物接線，不重問R46。下方為日期化歷史。
+
+2026-10-24 **TRIB-B／F1人工接受、TRIB-C／D既有接線收結 DONE（桌面／Web有界）**：使用者明確回覆「接受既有畫面與 F1 雷聲」。本次來源L2四支相關Runner單尺寸全通過（TRIB-C 71／TRIB-0 34 checks），本機隔離匯出exit0；1280×720桌面真實滑鼠完成成功自然結束／失敗、重播跳過返回、拒寫恢復重試與重載，失敗index10→11／成功0→1，重載無假回放。保留沙箱初始化與初次匯出／連線失敗。未改正式規則／素材／schema／玩家進度，未跑L3、未commit/push。見[獨立驗收](verification/trib-closure.md)。TRIB前置已解除；依階段交接停止，下一New Chat直接實作已核定 `CONTENT-P2-SUPPLY` 供給／容量／保存，不重問R46；實作仍TODO。下方為日期化歷史。
+
+2026-10-24 **RES1-E-46：R46-A／B／C／S 全部原案核定；實作TODO／整體IN_PROGRESS。** 使用者明確回覆「四項採原案，保留舊修行時間」；7資源／3島／5航線／3配方、9設施及容量自救、Era4–6舊數值與技能可選、schema5下economy遷移政策全部沿proposal-1，數值不變。Era4／5／6未加成境內修行約3.92／8.82／25.31小時納入設計接受。僅核定metadata／文件與L1靜態稽核，未改遊戲來源／玩家進度、未跑Runner／瀏覽器／匯出／L3、未commit/push。見[已核定規則表](34-res1-e-46-design.md)、[核定與驗收](verification/res1-e-46.md)。本階段停止；下一New Chat先收結TRIB既有接線驗收，再接CONTENT-P2-SUPPLY供給／容量／保存；其他P2逐項設計與新美術仍另批。下方為日期化歷史。
+
+2026-10-24 **RES1-E-46 設計交付完成；R46-A／B／C／S待核定，實作TODO／整體IN_PROGRESS。** 使用者指定Era4–6來源稽核與規則表；交付7資源／3島／5航線／3加工配方、9設施、前境容量自救、舊境界數值與技能可選、schema5下economy子版本遷移方案。Era6原始境內修行約25.31小時，節奏尚待核定；既有高境界丹獸與舊同名配方分開。L1靜態72項通過，1261份來源／資產／測試／凍結包hash保持；首輪報告連結失敗保留。見[設計與核定表](34-res1-e-46-design.md)、[驗收與命令](verification/res1-e-46.md)。Godot4.7.2版本已查；未跑遊戲Runner／瀏覽器／匯出／L3、未改玩家進度、未commit/push。P1已接受；CONTENT-P2未開工。下一New Chat先核定或修訂R46，再接供給／容量／保存；正式開Era4前收結TRIB既有接線驗收。下方為日期化歷史。
+
+2026-10-24 **CONTENT-P1-ACCEPT DONE；P1 整段收結（人工整合節奏已接受，桌面／Web有界）。** 使用者明確回覆「接受P1整合節奏」，接受三種專長取捨／道心機會成本、四丹300秒定位與材料成本、技能點等候及首次壽盡時間。沿用同日368項整合、L3原111支通過＋技能UI三尺寸87項修復補驗、候選匯出與桌面Web保存／重載證據；原全量命令exit1及STORY已接受例外永久保留。本輪僅更新接受metadata、文件與英文交接，L1靜態檢查見[接受與驗收](verification/content-p1-accept.md)；未重跑Godot／瀏覽器／匯出／L3，未改規則／PNG／玩家進度，未commit/push。下一New Chat可由使用者指定RES1-E-46來源稽核與規則表設計，核定後再接CONTENT-P2；兩者均未開工。下方為日期化歷史。
+
+2026-10-24 **CONTENT-P1-ACCEPT 技術整合交付；IN_PROGRESS，待人工節奏接受。** 本輪當前來源空白CLI→金丹→五技能／四丹／宗門付費／自然新機緣→44,400秒壽盡正式輪迴20道心→第二世重建及七選擇比較，368 checks通過。丹心單丹60→66秒、百工此配置木石草約+6.4%且靈力約-1.5%、靈契20→17餵／1000→850草／少900秒；含花道心機會成本，非瀏覽器自然長跑或最佳節奏。L3原命令exit1：111支通過，舊技能UI runner修正正式開頁後三尺寸87項exit0，合併112／112唯一覆蓋；不改寫原失敗。兩候選匯出／壓縮、三桌面橫式真實滑鼠、百工拒寫重試重載15道心、正常候選採集20→茅屋→重載通過；23項交付稽核通過，10份fixture復原、原build/web起點hash保持。舊美術接受及STORY例外沿用。未改規則／PNG／玩家進度，未commit/push。見[同版對比與驗收](verification/content-p1-accept.md)。本技術階段停止；下一New Chat只接人工整合節奏接受／具體修訂，未接受前不標DONE、不開P2。下方為日期化歷史。
+
+2026-10-23 **CONTENT-P1-STORY DONE（美術全部接受；保留差異以已揭露例外結案）。** 使用者明確回覆「全部接受」，接受12成就徽章／2機緣插圖及本批卡片；另回覆「接受已揭露例外並結案」。原Web四檔與skills fixture差異、原稽核兩項失敗永久保留，不改寫baseline為通過。L1靜態交付稽核213項中211通過／原2項仍失敗；保留調查5項通過，Web壓縮往返／BGM及fixture固定提交比對已查，覆寫者與命令仍無完整歸因。沿用前輪111支Runner與有界桌面Web證據，本輪未重跑Godot／瀏覽器／匯出／L3、未改玩家資料或PNG、未commit/push。見[接受、差異與命令](verification/content-p1-story.md)。英文checkpoint已更新，本階段停止；下一New Chat由使用者指定任務，不自動開CONTENT-P1-ACCEPT。下方待接受記錄為日期化歷史。
+
+2026-10-23 **CONTENT-P1-STORY：依已核定 R 實作與桌面驗證交付；整體 IN_PROGRESS。** 新增12成就／12機緣（36分支），正式定義共30／38；使用者追加核定的獨立可保存機緣RNG已接入自然時間推進。111支固定Runner分段通過，新規則2677／事件25／合法流程66／三尺寸UI474 checks均無失敗；最後滿倉按鈕文案修正另跑單尺寸158 checks通過。瀏覽器實際滑鼠完成三尺寸各12成就、36機緣分支及拒寫→重試→重載。14張原創候選圖已生成、附提示詞與原圖，**仍待使用者美術接受，不標DONE**。
+
+保留稽核另有未通過：起始基準相比，凍結build/web的4檔與舊skills fixture不同；續作時HEAD已由其他來源提交為700d11e，skills現值與該HEAD一致，凍結檔時間為20:14。本輪不覆寫這些已存在異動，不宣稱最終frozen hash保持。詳細命令、證據界線、失敗與檔案見 `docs/verification/content-p1-story.md`（docs內請用相對路徑）。下一New Chat先接受／修訂STORY美術並釐清基準異動；不開CONTENT-P1-ACCEPT、不重做已接受前置。
+
 2026-10-23 **CONTENT-P1-STORY 方案R已核定；實作TODO，整體IN_PROGRESS**：使用者明確回覆「採R」，接受R1十二成就／R2十二機緣與36分支／R-save保存政策／R-art十二徽章與兩題圖製作計畫，無需重問數值或文稿。實際新圖仍待生成後美術接受。本輪僅核定metadata、稽核接受斷言、文件與英文交接；Python靜態稽核451 checks／failures=[]，1,195正式來源／資產／凍結包hash保持，未重跑Godot／Runner／瀏覽器／匯出，未改玩家進度、未commit/push。見[已核定方案](33-content-p1-story-design.md)、[驗收與命令](verification/content-p1-story.md)。本階段停止；下一New Chat依R接同一CONTENT-P1-STORY正式實作，不開CONTENT-P1-ACCEPT。下方待核定文字保留為日期化歷史。
 
 2026-10-23 **CONTENT-P1-STORY 設計交付完成；R待核定，實作TODO／整體IN_PROGRESS**：依使用者指定交付12成就（六類各2）與12機緣／36分支的逐項ID、條件、原創選文、代價／結果、終身／當世旗標、滿倉整筆拒絕與story_version1保存方案。R1不增道心／道證；R2新題各權重60，第二世金丹全條件新池27.48%，指定新題2.29%，不是自然流程證據。R-art為12徽章＋2題圖製作提案。最終靜態稽核451 checks／failures=[]，1,195正式來源／資產／凍結包hash保持；初輪Era2可用題數錯誤及修正保留。見[逐項設計與核定表](33-content-p1-story-design.md)、[驗收與命令](verification/content-p1-story.md)。僅Godot4.7.2版本查驗，未跑Runner／原生／瀏覽器／生成圖／匯出，未改玩家資料、未commit/push。本設計階段停止；下一New Chat核定或修訂R1／R2／R-save／R-art後接同一STORY實作，不開P1-ACCEPT。
@@ -329,9 +355,13 @@
 ```powershell
 # L1/L2：只跑受影響 runner（關鍵字為路徑子字串，逗號分隔；預設單尺寸 1280x720）
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1 -Only 'content_p1_skills,uix_r8'
+# 先預覽選取範圍，不啟動引擎
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1 -Only 'content_p1_skills,uix_r8' -List
 # L3：全部 runner＋全尺寸矩陣＋並行（並行失敗自動串行重跑）
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1 -Full -Parallel 3
 ```
+
+驗收按變更選擇，不因 New Chat／接受美術／純文件更新重跑；可引用同來源與環境的既有證據並標日期。大型任務子階段只做 L1／L2，最終收尾才做 L3。UI 功能完成可合併一次 1280×720 Web 抽驗；需更新本機測試包時可局部匯出，不因此啟動全量。完整規則見 [AGENTS.md](../AGENTS.md)「分級驗收」。無參數執行已拒絕；`-Full` 不可混用篩選，`-Only` 每個 selector 必須匹配。串行與並行均有 45 秒 watchdog，可按已知長測試調整 `-TimeoutSeconds`；完整日誌路徑由 `[LOGS]` 顯示。
 
 以下為完整命令序列（L3 收尾用）：
 
@@ -342,10 +372,14 @@ $daoEngine = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
 if ($LASTEXITCODE -ne 0) { throw 'Godot version check failed' }
 & $daoEngine --headless --path . --import
 if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\run_all_runners.ps1 -Full -Parallel 3
 if ($LASTEXITCODE -ne 0) { throw 'A runner failed' }
-& $daoEngine --headless --path . --script res://tests/abode_presentation_parity_runner.gd
-if ($LASTEXITCODE -ne 0) { throw 'Presentation facade regression failed' }
+$daoPreviousMatrix = $env:DAO_VIEWPORT_MATRIX
+try {
+    $env:DAO_VIEWPORT_MATRIX = 'full'
+    & $daoEngine --headless --path . --script res://tests/abode_presentation_parity_runner.gd
+    if ($LASTEXITCODE -ne 0) { throw 'Presentation facade regression failed' }
+} finally { $env:DAO_VIEWPORT_MATRIX = $daoPreviousMatrix }
 New-Item -ItemType Directory -Path '.\build\web' -Force | Out-Null
 & $daoEngine --headless --path . --export-release Web '.\build\web\index.html'
 if ($LASTEXITCODE -ne 0) { throw 'Web export failed' }
@@ -384,6 +418,8 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 來源 hash 或規則版本：
 修改檔案：
 驗收環境（引擎、OS、瀏覽器、裝置、CSS尺寸/DPR）：
+驗收級別（L1／L2／L3；純文件可標 L1 靜態）：
+選取範圍／理由、引用既有證據日期與未重跑範圍：
 命令／退出碼／結果（實測或未執行）：
 瀏覽器操作、預期、觀察、截圖路徑：
 資料安全／存檔相容影響：

@@ -21,8 +21,13 @@ static var _story_original: String = ""
 static var _sect_original: String = ""
 static var _pills_original: String = ""
 static var _ledger_original: String = ""
+static var _supply_original: String = ""
+static var _supply_candidate: GameState = null
 static var _load_error: String = ""
 static var _forced_reset := false
+
+static func supply_pending(state: GameState) -> bool:
+	return not _supply_original.is_empty() and state == _supply_candidate
 
 static func activate_islands(session: GameSession, meta: Dictionary, first_island: String = "") -> Dictionary:
 	# Persist the current source first; archive those exact bytes before C activation.
@@ -85,6 +90,8 @@ static func configure(content: GameContent, adapter: StorageAdapter = null) -> v
 	_sect_original = ""
 	_pills_original = ""
 	_ledger_original = ""
+	_supply_original = ""
+	_supply_candidate = null
 	_load_error = ""
 	_adapter = use_adapter
 	_slots = SaveSlots.new(use_adapter)
@@ -208,6 +215,15 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 			original = adapter().read(key)
 		if not original.ok or original.data != _ledger_original:
 			return {"ok": false, "error": "LEDGER_ARCHIVE_READBACK"}
+	if not _supply_original.is_empty():
+		var key := "save_before_supply_" + _supply_original.sha256_text()
+		var original := adapter().read(key)
+		if not original.ok:
+			if original.get("error") != "missing": return {"ok": false, "error": "SUPPLY_ARCHIVE_READ_FAILED"}
+			if not adapter().write(key, _supply_original).ok: return {"ok": false, "error": "SUPPLY_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(key)
+		if not original.ok or original.data != _supply_original:
+			return {"ok": false, "error": "SUPPLY_ARCHIVE_READBACK"}
 	var profile_commit := RuntimeProfile.begin()
 	var commit_result: Dictionary = slots().commit(String(encode_result["json"]), state.revision)
 	RuntimeProfile.end("save_commit", profile_commit)
@@ -219,6 +235,8 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		_sect_original = ""
 		_pills_original = ""
 		_ledger_original = ""
+		_supply_original = ""
+		_supply_candidate = null
 		_envelope = _normalize_meta(meta)
 	return commit_result
 
@@ -307,6 +325,12 @@ static func import_share_string(share: String) -> Dictionary:
 	var decode_result: Dictionary = SaveCodec.decode(json_text)
 	if not bool(decode_result.get("ok", false)):
 		return {"ok": false, "state": null, "error": String(decode_result.get("error", "DECODE_FAILED"))}
+	if content() != null and content().processing_catalog.get("version") == IslandProgression.SUPPLY_VERSION and (decode_result.state.economy.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION] or not decode_result.state.resources.has("void_essence")):
+		var prepared := IslandProgression.prepare_supply(content(), decode_result.state)
+		if not prepared.ok: return {"ok": false, "state": null, "error": prepared.error}
+		_supply_original = json_text
+		decode_result.state = prepared.state
+		_supply_candidate = prepared.state
 	if decode_result.state.story_version < StoryProgress.VERSION:
 		_story_original = json_text
 		StoryProgress.migrate(decode_result.state)
@@ -333,6 +357,8 @@ static func reset_for_tests() -> void:
 	_sect_original = ""
 	_pills_original = ""
 	_ledger_original = ""
+	_supply_original = ""
+	_supply_candidate = null
 	_load_error = ""
 	_forced_reset = false
 
@@ -384,6 +410,14 @@ static func _load_from_slots() -> GameState:
 	if int(_envelope.schema_version) == 2:
 		_schema2_original = String(best["json"])
 	var loaded_state: GameState = decode_result["state"]
+	if content() != null and content().processing_catalog.get("version") == IslandProgression.SUPPLY_VERSION and (loaded_state.economy.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION] or not loaded_state.resources.has("void_essence")):
+		var prepared := IslandProgression.prepare_supply(content(), loaded_state)
+		if not prepared.ok:
+			_load_error = String(prepared.get("error", "SUPPLY_MIGRATION"))
+			return null
+		_supply_original = String(best["json"])
+		loaded_state = prepared.state
+		_supply_candidate = loaded_state
 	if content() != null and SkillSystem.reconcile(content(), loaded_state):
 		_skills_original = String(best["json"])
 		loaded_state.revision += 1
@@ -431,3 +465,10 @@ static func _normalize_meta(meta: Dictionary) -> Dictionary:
 	if meta.has("last_offline_report"):
 		normalized["last_offline_report"] = meta["last_offline_report"]
 	return normalized
+
+static func commit_supply_startup() -> Dictionary:
+	var candidate := current_state()
+	if candidate == null: return {"ok": false, "error": "NO_STATE"}
+	if not supply_pending(candidate): return {"ok": true, "committed": false}
+	# Preserve the old settled cursor. Offline settlement happens after this commit.
+	return save(candidate, envelope().duplicate(true))

@@ -22,6 +22,7 @@ static func craft(content: GameContent, state: GameState, payload: Dictionary) -
 	if payload.get("recipe_version", 1) != 1:
 		return _failure("RECIPE_VERSION_MISMATCH")
 	var recipe: Dictionary = catalog.recipes[id]
+	var product := ProcessingCatalog.product_id(catalog, id)
 	if state.era_id < int(recipe.era):
 		return _failure("ERA_REQUIREMENT")
 	for facility in recipe.facility:
@@ -29,8 +30,8 @@ static func craft(content: GameContent, state: GameState, payload: Dictionary) -
 			return _failure("FACILITY_REQUIREMENT", String(facility))
 	var amounts := {}
 	var touched: Array = recipe.inputs.keys()
-	if not id in touched:
-		touched.append(id)
+	if not product in touched:
+		touched.append(product)
 	for resource in touched:
 		var slot := ProcessingInventory.read(state, resource)
 		if not slot.ok:
@@ -49,20 +50,20 @@ static func craft(content: GameContent, state: GameState, payload: Dictionary) -
 			return _failure("INSUFFICIENT_RESOURCE", resource)
 		amounts[resource] = amounts[resource].subtract(cost)
 	var output: AmountCompat = AmountCompat.try_parse(recipe.output).value.multiply(batch)
-	var new_value: AmountCompat = amounts[id].add(output)
-	var cap: AmountCompat = AmountCompat.try_parse(catalog.resources[id].cap).value
+	var new_value: AmountCompat = amounts[product].add(output)
+	var cap: AmountCompat = AmountCompat.try_parse(catalog.resources[product].cap).value
 	if new_value.layer != 0 or new_value.mag > 1.0e12:
-		return _failure("UNSUPPORTED_AMOUNT", id)
+		return _failure("UNSUPPORTED_AMOUNT", product)
 	if new_value.mag > cap.mag:
-		return _failure("OUTPUT_FULL", id)
-	amounts[id] = new_value
+		return _failure("OUTPUT_FULL", product)
+	amounts[product] = new_value
 	# Validation completed; commit all deltas together. No clamping or partial batches.
 	for resource in touched:
 		var before: AmountCompat = state.resources[resource].value
 		var paid: AmountCompat = AmountCompat.try_parse(recipe.inputs.get(resource, "0")).value.multiply(batch)
 		var intermediate := before.subtract(paid)
 		ResourceLedger.change(state, "home", resource, before, intermediate, "processing")
-		if resource == id:
+		if resource == product:
 			ResourceLedger.change(state, "home", resource, intermediate, amounts[resource], "processing", output)
 		ProcessingInventory.write(state, resource, amounts[resource], "untracked")
 	return {"ok": true, "events": [{"kind": "resource_crafted", "recipe_id": id, "recipe_version": 1, "count": int(count), "output": output.serialize()}], "changed_ids": touched}

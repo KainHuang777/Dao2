@@ -1,0 +1,37 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{4a8999a3-c73e-4a6b-87d3-5770af98f9b9}\AC\Temp\dao2_runners_b4909ea8855e4823920b49fe9cb1aad7
+[START:initial] tests/content_p1_accept_runner.gd
+[FAIL:initial] tests/content_p1_accept_runner.gd exit=1 timeout=False script_error=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ACCEPT milestone: blank-to-Era3 legal prefix; accelerated CLI age=5728.0
+ACCEPT milestone: five new skills age=5728.0
+ACCEPT milestone: four paid pills active age=5728.0
+ACCEPT milestone: sect contribution spent age=6629.0
+ACCEPT milestone: natural new fortune age=10829.0
+ACCEPT milestone: lifespan exhausted age=44400.0
+ACCEPT milestone: second life begins age=0.0
+ACCEPT milestone: second life rebuilt to Era3 without buying talents age=3908.0
+ACCEPT compare: retain
+ACCEPT compare: alchemical_past_wisdom
+ACCEPT compare: artisan_past_wisdom
+ACCEPT compare: beast_bond_past_wisdom
+ACCEPT compare: resource_inheritance
+ACCEPT compare: lifespan_extension
+ACCEPT compare: innate_dao_body
+CONTENT-P1-ACCEPT 334 checks failures=["readback identical encoded state reborn"]
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+--- slowest 8 runners (s) ---
+   131.3  tests/content_p1_accept_runner.gd
+Runner verification failed: tests/content_p1_accept_runner.gd. Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{4a89
+99a3-c73e-4a6b-87d3-5770af98f9b9}\AC\Temp\dao2_runners_b4909ea8855e4823920b49fe9cb1aad7
+At E:\WORK\Dao2\tools\run_all_runners.ps1:242 char:28
++ ... nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Runner verifica...20b49fe9cb1aad7:String) [], RuntimeException
+    + FullyQualifiedErrorId : Runner verification failed: tests/content_p1_accept_runner.gd. Logs: C:\Users\asus\AppDa 
+   ta\Local\Packages\sandbox.{4a8999a3-c73e-4a6b-87d3-5770af98f9b9}\AC\Temp\dao2_runners_b4909ea8855e4823920b49fe9cb1  
+  aad7
+ 

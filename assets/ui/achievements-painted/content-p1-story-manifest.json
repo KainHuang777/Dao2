@@ -1,7 +1,7 @@
 {
   "task": "CONTENT-P1-STORY",
   "date": "2026-10-23",
-  "human_acceptance": "PENDING",
+  "human_acceptance": "ACCEPTED_BY_USER",
   "assets": [
     {
       "id": "p1_greenwood_student",
@@ -255,5 +255,10 @@
       "license_note": "Original AI-generated candidate; no external third-party commercial license claimed",
       "human_acceptance": "PENDING"
     }
-  ]
+  ],
+  "acceptance_evidence": {
+    "date": "2026-10-23",
+    "user_quote": "全部接受",
+    "scope": "12 achievement badges, 2 encounter illustrations and this batch card presentation; art-review.png and prior delivered cards"
+  }
 }

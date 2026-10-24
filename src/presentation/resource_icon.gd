@@ -26,6 +26,10 @@ const TEXTURES := {
 }
 
 const NAMES := {
+	"mithril": "秘銀",
+	"cold_iron": "寒鐵",
+	"trans_pill": "化神丹",
+
 	"lingli": "靈氣",
 	"money": "金錢",
 	"wood": "靈木",

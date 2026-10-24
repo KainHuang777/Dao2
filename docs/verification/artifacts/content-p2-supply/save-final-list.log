@@ -1,0 +1,4 @@
+[MODE] matrix=single runners=3 parallel=1
+tests/content_p2_supply_economy_runner.gd
+tests/m1c_persistence_runner.gd
+tests/m1d_offline_runner.gd

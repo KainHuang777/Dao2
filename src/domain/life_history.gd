@@ -54,6 +54,9 @@ static func observed_caps(state: GameState, content: GameContent) -> Dictionary:
 	var chrono := ChronoSystem.compute_multipliers(projection)
 	var beast := BeastSystem.compute_multipliers(projection)
 	for id in caps:
+		if IslandEconomy.expanded(state) and content.processing_catalog.get("resources", {}).has(id):
+			caps[id] = AmountCompat.from_number(IslandEconomy.home_cap(state, id, content.processing_catalog))
+			continue
 		var cap: AmountCompat = caps[id]
 		var bonus := float(sect.storage_bonus) + float(chrono.storage_bonus) + float(beast.all_capacity_mult)
 		if id in ["stone_low", "refined_iron"] and float(beast.cap_stone_iron) > 0: bonus += float(beast.cap_stone_iron)
@@ -96,7 +99,7 @@ static func validate(h: Variant, life: Dictionary) -> String:
 		previous = float(s.at)
 		if not s.rows is Dictionary or s.rows.size() > SERIES_LIMIT: return "HISTORY_ROWS"
 		for key in s.rows:
-			if not key is String or key.length() > 128 or key.split(":").size() != 2 or key.get_slice(":", 0) not in ["home", "wood", "ore", "herb"] or key.get_slice(":", 1).is_empty(): return "HISTORY_KEY"
+			if not key is String or key.length() > 128 or key.split(":").size() != 2 or key.get_slice(":", 0) not in ["home", "wood", "ore", "herb", "deep", "ancient", "void"] or key.get_slice(":", 1).is_empty(): return "HISTORY_KEY"
 			for ch in key:
 				if ch not in "abcdefghijklmnopqrstuvwxyz0123456789_:": return "HISTORY_KEY"
 			var row: Variant = s.rows[key]

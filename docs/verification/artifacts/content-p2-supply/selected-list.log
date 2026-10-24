@@ -1,0 +1,4 @@
+[MODE] matrix=single runners=3 parallel=1
+tests/content_p2_supply_data_runner.gd
+tests/m1a_core_runner.gd
+tests/res1a_processing_runner.gd

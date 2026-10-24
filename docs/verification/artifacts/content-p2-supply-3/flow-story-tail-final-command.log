@@ -1,0 +1,10 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-supply-3\logs\dao2_runners_7e8adaf72e204a1a9992609379c4324c
+[START:initial] tests/content_p2_supply_progression_runner.gd
+[PASS:initial] tests/content_p2_supply_progression_runner.gd (26s)
+[START:initial] tests/content_p2_supply_ui_runner.gd
+[PASS:initial] tests/content_p2_supply_ui_runner.gd (5s)
+--- slowest 8 runners (s) ---
+    26.0  tests/content_p2_supply_progression_runner.gd
+     5.0  tests/content_p2_supply_ui_runner.gd
+SELECTED 2 RUNNERS PASSED (matrix=single). Logs: E:\WORK\Dao2\docs\verification\artifacts\content-p2-supply-3\logs\dao2_runners_7e8adaf72e204a1a9992609379c4324c

@@ -56,4 +56,10 @@ func refresh(resource: String, name_text: String, amount: float, available: floa
 	var avail_str := NumberFormatter.format_amount(available)
 	quantity.text = amount_str
 	caption.text = "產出" if output else source
+	# Unillustrated approved materials keep their complete name visible.
+	if Icon.get_resource_texture(resource) == null:
+		caption.text = name_text + "\n" + caption.text
+		caption.add_theme_font_size_override("font_size", 16)
+	else:
+		caption.add_theme_font_size_override("font_size", 12)
 	tooltip_text = "%s\n%s：可用 %s／%s %s" % [name_text, source, avail_str, "產出" if output else "需求", amount_str]

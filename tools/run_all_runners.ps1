@@ -1,21 +1,28 @@
-<#
+﻿<#
 分級驗收（見 AGENTS.md「分級驗收」）：
   L1/L2 日常：  -Only 'content_p1_skills*','uix_r8*'   只跑受影響 runner，預設單一尺寸 1280x720
   L3 收尾：     -Full -Parallel 3                     全部 runner、全尺寸矩陣、並行；並行失敗會串行重跑確認
-  舊用法：      無參數＝全量串行單尺寸；-StartAt 續跑
+  預覽：        -Only 關鍵字 -List / -Full -List（不啟動引擎）
+  無參數拒絕執行；-StartAt 必須搭配 -Only；-Full 不可搭配篩選。
 #>
 param(
     [string]$EnginePath = '.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe',
     [string]$StartAt = '',
     [string[]]$Only = @(),
     [switch]$Full,
-    [int]$Parallel = 1,
-    [int]$TimeoutSeconds = 45
+    [switch]$List,
+    [ValidateRange(1, 8)][int]$Parallel = 1,
+    [ValidateRange(1, 86400)][int]$TimeoutSeconds = 45
 )
 $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
-$env:DAO_VIEWPORT_MATRIX = if ($Full) { 'full' } else { 'single' }
+$matrix = if ($Full) { 'full' } else { 'single' }
 $runners = @(
+	'tests/content_p2_supply_progression_runner.gd',
+	'tests/content_p2_supply_ui_runner.gd',
+	'tests/content_p2_supply_data_runner.gd',
+	'tests/content_p2_supply_economy_runner.gd',
+	'tests/content_p1_accept_runner.gd',
 	'tests/content_p1_story_runner.gd',
 	'tests/content_p1_story_events_runner.gd',
 	'tests/content_p1_story_progression_runner.gd',
@@ -130,7 +137,13 @@ $runners = @(
 )
 
 
-$Only = @($Only | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
+$projectRoot = Split-Path $PSScriptRoot -Parent
+$Only = @($Only | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+if (-not $Full -and $Only.Count -eq 0) { throw 'Select affected runners with -Only, or explicitly use -Full for L3. Use -List to preview.' }
+if ($Full -and ($Only.Count -gt 0 -or $StartAt)) { throw '-Full requires the complete registry; do not combine with -Only or -StartAt.' }
+foreach ($pattern in $Only) {
+    if (-not @($runners | Where-Object { $_ -like "*$pattern*" }).Count) { throw "Unknown runner selector: $pattern" }
+}
 $started = [string]::IsNullOrEmpty($StartAt)
 if (-not $started -and $StartAt -notin $runners) { throw "Unknown runner: $StartAt" }
 $selected = @()
@@ -141,82 +154,94 @@ foreach ($r in $runners) {
     $selected += $r
 }
 if ($selected.Count -eq 0) { throw 'No runner matched the selection' }
-Write-Host "[MODE] matrix=$($env:DAO_VIEWPORT_MATRIX) runners=$($selected.Count) parallel=$Parallel" -ForegroundColor Yellow
+if (-not $Full -and $selected.Count -eq $runners.Count) { throw 'Selection covers the entire registry; use -Full explicitly for L3.' }
+foreach ($r in $selected) {
+    if (-not (Test-Path -LiteralPath (Join-Path $projectRoot $r))) { throw "Missing runner: $r" }
+}
+Write-Host "[MODE] matrix=$matrix runners=$($selected.Count) parallel=$Parallel" -ForegroundColor Yellow
+if ($List) { $selected | ForEach-Object { Write-Output $_ }; return }
+$resolvedEngine = (Resolve-Path -LiteralPath $daoEngine).Path
+$logDir = Join-Path $env:TEMP ("dao2_runners_" + [guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Path $logDir | Out-Null
+Write-Host "[LOGS] $logDir"
 
 function Stop-RunnerTree([int]$procId) {
-    $children = Get-CimInstance Win32_Process -Filter "ParentProcessId = $procId" -ErrorAction SilentlyContinue
-    foreach ($c in $children) {
-        Stop-RunnerTree $c.ProcessId
-    }
-    try { Stop-Process -Id $procId -Force -ErrorAction SilentlyContinue } catch {}
+    # CIM may be unavailable in a restricted desktop session. The engine is
+    # launched directly, so stopping the owned process still enforces timeout.
+    $children = @()
+    try { $children = @(Get-CimInstance Win32_Process -Filter "ParentProcessId = $procId" -ErrorAction Stop) } catch { Write-Verbose "CIM unavailable; stopping directly owned engine PID $procId" }
+    foreach ($c in $children) { Stop-RunnerTree $c.ProcessId }
+    Stop-Process -Id $procId -Force -ErrorAction SilentlyContinue
 }
 
 $timings = @{}
-function Invoke-Serial([string[]]$list) {
-    foreach ($r in $list) {
-        Write-Host "[RUNNING] $r" -ForegroundColor Cyan
-        $sw = [Diagnostics.Stopwatch]::StartNew()
-        & $daoEngine --headless --path . --script ("res://$r")
-        $code = $LASTEXITCODE
-        $timings[$r] = $sw.Elapsed.TotalSeconds
-        if ($code -ne 0) {
-            Write-Error "Runner failed: $r with exit code $code"
-            exit $code
-        }
-    }
-}
-
-if ($Parallel -le 1) {
-    Invoke-Serial $selected
-} else {
-    $logDir = Join-Path $env:TEMP 'dao2_runners'
-    New-Item -ItemType Directory -Path $logDir -Force | Out-Null
-    $resolvedEngine = (Resolve-Path $daoEngine).Path
-    $queue = [System.Collections.Queue]::new($selected)
+function Invoke-Batch([string[]]$RunnerList, [int]$Slots, [string]$Attempt) {
+    $queue = [System.Collections.Queue]::new($RunnerList)
     $running = @()
     $failed = @()
-    while ($queue.Count -gt 0 -or $running.Count -gt 0) {
-        while ($queue.Count -gt 0 -and $running.Count -lt $Parallel) {
-            $r = $queue.Dequeue()
-            $log = Join-Path $logDir (($r -replace '[\\/]', '_') + '.log')
-            $err = $log + '.err'
-            Write-Host "[START] $r" -ForegroundColor Cyan
-            $psi = New-Object System.Diagnostics.ProcessStartInfo
-            $psi.FileName = "cmd.exe"
-            $psi.Arguments = "/c `"`"$resolvedEngine`" --headless --path . --script res://$r > `"$log`" 2> `"$err`"`""
-            $psi.UseShellExecute = $false
-            $psi.CreateNoWindow = $true
-            $p = [System.Diagnostics.Process]::Start($psi)
-            $running += [pscustomobject]@{ Runner = $r; Proc = $p; Started = Get-Date }
-        }
-        Start-Sleep -Milliseconds 300
-        foreach ($j in @($running)) {
-            $elapsed = ((Get-Date) - $j.Started).TotalSeconds
-            if ($j.Proc.HasExited) {
-                $code = $j.Proc.ExitCode
-                $timings[$j.Runner] = $elapsed
-                if ($code -ne 0) {
-                    $failed += $j.Runner
-                    Write-Host "[FAIL-PARALLEL] $($j.Runner) exit $code" -ForegroundColor Yellow
+    try {
+        while ($queue.Count -gt 0 -or $running.Count -gt 0) {
+            while ($queue.Count -gt 0 -and $running.Count -lt $Slots) {
+                $r = $queue.Dequeue()
+                $log = Join-Path $logDir (($r -replace '[\\/]', '_') + ".$Attempt.log")
+                $err = $log + '.err'
+                Write-Host "[START:$Attempt] $r" -ForegroundColor Cyan
+                # Child-only environment: no DAO_VIEWPORT_MATRIX leak into later commands.
+                $psi = New-Object System.Diagnostics.ProcessStartInfo
+                $psi.FileName = $resolvedEngine
+                $psi.Arguments = "--headless --path `"$projectRoot`" --script res://$r"
+                $psi.WorkingDirectory = $projectRoot
+                $psi.EnvironmentVariables['DAO_VIEWPORT_MATRIX'] = $matrix
+                $psi.UseShellExecute = $false
+                $psi.CreateNoWindow = $true
+                $psi.RedirectStandardOutput = $true
+                $psi.RedirectStandardError = $true
+                $p = [System.Diagnostics.Process]::Start($psi)
+                $running += [pscustomobject]@{
+                    Runner = $r; Proc = $p; Clock = [Diagnostics.Stopwatch]::StartNew()
+                    Out = $p.StandardOutput.ReadToEndAsync(); Err = $p.StandardError.ReadToEndAsync()
+                    Log = $log; ErrorLog = $err
                 }
-                $running = @($running | Where-Object { $_ -ne $j })
-            } elseif ($elapsed -gt $TimeoutSeconds) {
-                Write-Host "[TIMEOUT-PARALLEL] $($j.Runner) exceeded ${TimeoutSeconds}s, killing..." -ForegroundColor Red
-                Stop-RunnerTree $j.Proc.Id
-                $timings[$j.Runner] = $elapsed
-                $failed += $j.Runner
+            }
+            Start-Sleep -Milliseconds 100
+            foreach ($j in @($running)) {
+                $timedOut = -not $j.Proc.HasExited -and $j.Clock.Elapsed.TotalSeconds -gt $TimeoutSeconds
+                if (-not $j.Proc.HasExited -and -not $timedOut) { continue }
+                if ($timedOut) { Stop-RunnerTree $j.Proc.Id }
+                $j.Proc.WaitForExit()
+                $stdout = $j.Out.GetAwaiter().GetResult()
+                $stderr = $j.Err.GetAwaiter().GetResult()
+                [IO.File]::WriteAllText($j.Log, $stdout)
+                [IO.File]::WriteAllText($j.ErrorLog, $stderr)
+                $timings[$j.Runner] = $j.Clock.Elapsed.TotalSeconds
+                $code = $j.Proc.ExitCode
+                $scriptError = ($stdout + $stderr) -match '(?m)^\s*SCRIPT ERROR:'
+                if ($timedOut -or $code -ne 0 -or $scriptError) {
+                    $failed += $j.Runner
+                    Write-Host "[FAIL:$Attempt] $($j.Runner) exit=$code timeout=$timedOut script_error=$scriptError" -ForegroundColor Red
+                    Write-Host ($stdout + $stderr)
+                } else {
+                    Write-Host "[PASS:$Attempt] $($j.Runner) ($([math]::Round($j.Clock.Elapsed.TotalSeconds, 1))s)"
+                }
+                $j.Proc.Dispose()
                 $running = @($running | Where-Object { $_ -ne $j })
             }
         }
+    } finally {
+        foreach ($j in $running) {
+            if (-not $j.Proc.HasExited) { Stop-RunnerTree $j.Proc.Id }
+            $j.Proc.Dispose()
+        }
     }
-    if ($failed.Count -gt 0) {
-        Write-Host "[RETRY-SERIAL] $($failed.Count) runner(s) failed in parallel; rerun serially to confirm" -ForegroundColor Yellow
-        Invoke-Serial $failed
-    }
+    return $failed
 }
 
+$failed = @(Invoke-Batch $selected $Parallel 'initial')
+if ($Parallel -gt 1 -and $failed.Count -gt 0) {
+    Write-Host "[RETRY-SERIAL] $($failed.Count) runner(s); same timeout applies" -ForegroundColor Yellow
+    $failed = @(Invoke-Batch $failed 1 'serial-retry')
+}
 Write-Host '--- slowest 8 runners (s) ---'
 $timings.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 8 | ForEach-Object { Write-Host ("{0,8:N1}  {1}" -f $_.Value, $_.Key) }
-Write-Host "========================================" -ForegroundColor Green
-Write-Host "ALL $($selected.Count) RUNNERS PASSED WITH EXIT CODE 0! (matrix=$($env:DAO_VIEWPORT_MATRIX))" -ForegroundColor Green
-Write-Host "========================================" -ForegroundColor Green
+if ($failed.Count -gt 0) { throw "Runner verification failed: $($failed -join ', '). Logs: $logDir" }
+Write-Host "SELECTED $($selected.Count) RUNNERS PASSED (matrix=$matrix). Logs: $logDir" -ForegroundColor Green

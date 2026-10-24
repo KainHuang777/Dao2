@@ -20,7 +20,7 @@ static func initialize(state: GameState, complete: bool = false) -> void:
 			_row(state, scope, id, amount(state.economy.islands[scope].inventory[id]))
 	for trip_id in state.economy.get("trips", {}):
 		var trip: Dictionary = state.economy.trips[trip_id]
-		var id: String = IslandEconomy.ROUTES[trip_id][2]
+		var id: String = IslandEconomy.route_defs(state)[trip_id][2]
 		var row := _row(state, "transit", id, AmountCompat.zero())
 		if not row.is_empty():
 			row.opening = encode(amount(row.opening).add(amount(trip.cargo)))
@@ -76,7 +76,7 @@ static func change(state: GameState, scope: String, id: String, before: AmountCo
 		if not transit.is_empty():
 			var cargo := AmountCompat.zero()
 			for trip_id in state.economy.get("trips", {}):
-				if IslandEconomy.ROUTES[trip_id][2] == id:
+				if IslandEconomy.route_defs(state)[trip_id][2] == id:
 					cargo = cargo.add(amount(state.economy.trips[trip_id].cargo))
 			change(state, "transit", id, cargo, cargo.subtract(movement), "transfer")
 	if int(book.estimated_bytes) > BUDGET:
@@ -117,7 +117,7 @@ static func validate(book: Variant) -> String:
 	if not book.rows is Dictionary or book.rows.size() > LIMIT or LifeLedger.bytes(book) > BUDGET or int(book.estimated_bytes) < LifeLedger.bytes(book): return "ACCOUNTS_LIMIT"
 	for key in book.rows:
 		if not key is String or key.length() > 128 or key.split(":").size() != 2: return "ACCOUNTS_KEY"
-		if key.get_slice(":", 0) not in ["home", "wood", "ore", "herb", "realm_spirit", "transit"] or key.get_slice(":", 1).is_empty(): return "ACCOUNTS_KEY"
+		if key.get_slice(":", 0) not in ["home", "wood", "ore", "herb", "deep", "ancient", "void", "realm_spirit", "transit"] or key.get_slice(":", 1).is_empty(): return "ACCOUNTS_KEY"
 		for character in key:
 			if character not in "abcdefghijklmnopqrstuvwxyz0123456789_:": return "ACCOUNTS_KEY"
 		var row: Variant = book.rows[key]

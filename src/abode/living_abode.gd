@@ -24,6 +24,16 @@ const BuildingScript = preload("res://src/abode/abode_building.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
 
 const BUILDING_NAMES := {
+	"core_storehouse_3": "三階聚靈庫",
+	"core_storehouse_4": "元嬰聚靈庫",
+	"core_storehouse_5": "化神聚靈庫",
+	"cultivation_focus_4": "元嬰修行陣",
+	"cultivation_focus_5": "化神修行陣",
+	"cultivation_focus_6": "煉虛修行陣",
+	"mineral_focus": "寒銀調度",
+	"ancient_focus": "古藥調度",
+	"void_focus": "太虛調度",
+
 	"library": "藏經閣", "scripture_hall": "經書殿",
 	"foundation_reservoir": "築基靈池",
 	"hut": "茅屋",
@@ -39,6 +49,10 @@ const BUILDING_NAMES := {
 }
 
 const RESOURCE_NAMES := {
+	"mithril": "秘銀",
+	"cold_iron": "寒鐵",
+	"trans_pill": "化神丹",
+
 	"skill_point": "技能點",
 	"lingli": "靈氣",
 	"money": "金錢",
@@ -66,6 +80,16 @@ const RESOURCE_NAMES := {
 }
 
 const BUILDING_DESCRIPTIONS := {
+	"core_storehouse_3": "增加靈氣容量10000、下品靈石容量5000與金錢容量10000；金丹即可建造。",
+	"core_storehouse_4": "增加靈氣容量50000、下品靈石容量20000、金錢容量20000與技能點容量30000。",
+	"core_storehouse_5": "增加靈氣容量200000、下品靈石容量100000、金錢容量100000與技能點容量50000。",
+	"cultivation_focus_4": "祖島基準每秒靈氣＋100、金錢＋20、下品靈石＋20；不縮短修煉時間。",
+	"cultivation_focus_5": "祖島基準每秒靈氣＋200、金錢＋50；不縮短修煉時間。",
+	"cultivation_focus_6": "祖島基準每秒靈氣＋300、金錢＋100；不縮短修煉時間。",
+	"mineral_focus": "先開拓寒銀島；只讓寒銀島精鐵、秘銀、寒鐵產率×2。",
+	"ancient_focus": "先開拓古藥島；只讓古藥島千年靈草產率×2。",
+	"void_focus": "先開拓太虛島；只讓太虛島虛空精華產率×2。",
+
 	"foundation_reservoir": "築基後拓建靈池，每階增加1000靈氣容量，最高三階。金丹突破需容量2000；使用祖島木石與金錢建造。",
 	"hut": "窗內一盞燈，是你的修行根基。初期手動引氣，升級後持續產出靈氣並提供容納空間。",
 	"wooden_house": "簡樸居所。安身立命，產出並儲存金錢。",
@@ -312,6 +336,7 @@ var _frame_view_state: GameState
 var _frame_view_revision: int = -1
 
 static func _web_storage_namespace() -> String:
+	if OS.has_feature("content_p1_acceptance"): return "dao2_content_p1_acceptance"
 	if OS.has_feature("content_p1_story_acceptance"): return "dao2_content_p1_story_acceptance"
 	if OS.has_feature("content_p1_sect_acceptance"): return "dao2_content_p1_sect_acceptance"
 	return "dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves"
@@ -411,7 +436,7 @@ func _init_core() -> void:
 	# RES1-C3: normal play exposes islands; activation still archives the original
 	# save and requires the player's Era-2 management command. Preview builds only
 	# change the storage namespace, never the rules or available art.
-	var attached := IslandProgression.attach(content)
+	var attached := IslandProgression.attach_supply(content)
 	if not attached.ok:
 		push_error("Island progression content invalid: " + str(attached))
 		return
@@ -426,6 +451,11 @@ func _init_core() -> void:
 
 	SaveManager.configure(content, adapter)
 
+	var migration_state: GameState = SaveManager.load_state()
+	while migration_state != null and SaveManager.supply_pending(migration_state):
+		var saved := SaveManager.commit_supply_startup()
+		if saved.ok: break
+		await _wait_supply_retry(String(saved.get("error", "SAVE_FAILED")))
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var offline_res: Dictionary
 	if OS.has_feature("web"):
@@ -789,14 +819,14 @@ func _catalog_groups() -> Array:
 		var group_index := 3
 		if id == "hut" or id == "storage_lingli":
 			group_index = 0
-		elif id.begins_with("storage_") or id == "foundation_reservoir":
+		elif id.begins_with("storage_") or id.begins_with("core_storehouse_") or id == "foundation_reservoir":
 			group_index = 2
-		elif roles.has(id):
+		elif roles.has(id) or "focus" in id:
 			group_index = 1
 		groups[group_index].entries.append({
 			"id": id,
 			"title": BUILDING_NAMES.get(id, id),
-			"role": roles.get(id, "設施"),
+			"role": roles.get(id, BUILDING_DESCRIPTIONS.get(id, "設施")),
 		})
 	return groups
 
@@ -1960,3 +1990,25 @@ func _end_settlement_progress() -> void:
 	_settlement_label = null
 	set_process(true)
 	_last_process_ticks_msec = Time.get_ticks_msec()
+
+func _wait_supply_retry(detail: String) -> void:
+	# Startup has no session yet. Keep the same migration candidate and cursor.
+	var layer := CanvasLayer.new()
+	layer.layer = 120
+	layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(layer)
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.theme = UiTypography.create_theme()
+	layer.add_child(center)
+	var column := VBoxContainer.new()
+	center.add_child(column)
+	var text := Label.new()
+	text.text = "供給資料保存失敗，原檔與離線時間已保留。\n恢復儲存後重試：" + detail
+	column.add_child(text)
+	var retry := Button.new()
+	retry.text = "重試保存"
+	retry.custom_minimum_size = Vector2(160, 44)
+	column.add_child(retry)
+	await retry.pressed
+	layer.queue_free()

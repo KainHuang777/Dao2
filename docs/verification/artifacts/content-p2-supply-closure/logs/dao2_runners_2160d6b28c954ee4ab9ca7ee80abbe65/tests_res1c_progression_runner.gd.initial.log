@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RES1C_OFFLINE_CPU_MS: 3656 ticks=86400
+PASS: RES1-C1 91 checks; blank Era2, T2 sinks, bottleneck, migration retry, saves, time and UI.

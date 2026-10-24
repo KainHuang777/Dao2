@@ -40,7 +40,7 @@ static func next_home_boundary(state: GameState, content: GameContent, prepared:
 	var best := -1
 	for route_id in state.economy.trips:
 		var trip: Dictionary = state.economy.trips[route_id]
-		if IslandEconomy.ROUTES.has(route_id) and String(IslandEconomy.ROUTES[route_id][1]) == "home":
+		if IslandEconomy.route_defs(state).has(route_id) and String(IslandEconomy.route_defs(state)[route_id][1]) == "home":
 			best = _min_offset(best, int(trip.remaining), horizon)
 	var home_job: Dictionary = state.economy.jobs.get("home", {})
 	if not home_job.is_empty():
@@ -52,9 +52,9 @@ static func next_home_boundary(state: GameState, content: GameContent, prepared:
 				best = _min_offset(best, hcand, horizon)
 	for route_id in state.economy.routes:
 		var route: Dictionary = state.economy.routes[route_id]
-		if not IslandEconomy.ROUTES.has(route_id) or not bool(route.enabled) or state.economy.trips.has(route_id):
+		if not IslandEconomy.route_defs(state).has(route_id) or not bool(route.enabled) or state.economy.trips.has(route_id):
 			continue
-		var def: Array = IslandEconomy.ROUTES[route_id]
+		var def: Array = IslandEconomy.route_defs(state)[route_id]
 		if String(def[1]) != "home":
 			continue
 		var info := IslandEconomy.departure_info(state, catalog, route_id, route)
@@ -88,14 +88,14 @@ static func _next_event_offset(state: GameState, catalog: Dictionary, cap: int) 
 				best = _min_offset(best, cand, cap)
 	for route_id in state.economy.routes:
 		var route: Dictionary = state.economy.routes[route_id]
-		if not IslandEconomy.ROUTES.has(route_id) or not bool(route.enabled) or state.economy.trips.has(route_id):
+		if not IslandEconomy.route_defs(state).has(route_id) or not bool(route.enabled) or state.economy.trips.has(route_id):
 			continue
 		var info := IslandEconomy.departure_info(state, catalog, route_id, route)
 		if float(info.cargo) > 0.0:
 			return 1
 		if float(info.need) <= 0.0 or float(info.space) <= 0.0 or float(info.throughput) <= 0.0:
 			continue
-		var def: Array = IslandEconomy.ROUTES[route_id]
+		var def: Array = IslandEconomy.route_defs(state)[route_id]
 		var cross := _surplus_crossing(state, catalog, String(def[0]), String(def[2]), float(route.reserve), cap)
 		if cross >= 1:
 			best = _min_offset(best, cross, cap)
@@ -104,7 +104,7 @@ static func _next_event_offset(state: GameState, catalog: Dictionary, cap: int) 
 static func _surplus_crossing(state: GameState, catalog: Dictionary, source: String, cargo_id: String, reserve: float, horizon: int) -> int:
 	if source == "home" or cargo_id == "home":
 		return -1
-	var rates: Dictionary = IslandEconomy.ISLANDS.get(source, {}).get("rates", {})
+	var rates: Dictionary = IslandEconomy.island_defs(state).get(source, {}).get("rates", {})
 	if not rates.has(cargo_id):
 		return -1
 	var multiplier := int(state.economy.islands[source].facilities.extractor) if IslandProgression.active(state) else 1
@@ -129,13 +129,13 @@ static func _surplus_crossing(state: GameState, catalog: Dictionary, source: Str
 	return -1
 
 static func _jump(state: GameState, catalog: Dictionary, n: int) -> void:
-	for island in IslandEconomy.ISLANDS:
+	for island in IslandEconomy.island_defs(state):
 		if island == "home" or not bool(state.economy.islands[island].opened):
 			continue
 		var extractor := int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1
 		var cap := IslandProgression.capacity(state, island)
-		for id in IslandEconomy.ISLANDS[island].rates:
-			var rate := float(IslandEconomy.ISLANDS[island].rates[id]) * float(extractor)
+		for id in IslandEconomy.island_defs(state)[island].rates:
+			var rate := float(IslandEconomy.island_defs(state)[island].rates[id]) * float(extractor)
 			var v0 := IslandEconomy.value(state, island, id)
 			var reserved_c := IslandEconomy.reserved(state, island, id, catalog)
 			var target := minf(v0 + rate * float(n), cap - reserved_c)
@@ -152,12 +152,12 @@ static func _countdown(state: GameState, n: int) -> void:
 
 static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 	var fills: Array = []
-	for island in IslandEconomy.ISLANDS:
+	for island in IslandEconomy.island_defs(state):
 		if island == "home" or not bool(state.economy.islands[island].opened):
 			continue
 		var extractor := int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1
-		for id in IslandEconomy.ISLANDS[island].rates:
-			var rate := float(IslandEconomy.ISLANDS[island].rates[id]) * float(extractor)
+		for id in IslandEconomy.island_defs(state)[island].rates:
+			var rate := float(IslandEconomy.island_defs(state)[island].rates[id]) * float(extractor)
 			var delta := minf(rate, IslandEconomy.free_space(state, island, id, catalog))
 			if not _is_int(delta):
 				return null
@@ -175,7 +175,7 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		var trip: Dictionary = state.economy.trips[id]
 		trip.remaining = int(trip.remaining) - 1
 		if int(trip.remaining) == 0:
-			var def: Array = IslandEconomy.ROUTES[id]
+			var def: Array = IslandEconomy.route_defs(state)[id]
 			var cargo := float(trip.cargo)
 			var story_before := IslandEconomy.value(state, def[1], def[2])
 			IslandEconomy._put(state, def[1], def[2], IslandEconomy.value(state, def[1], def[2]) + cargo, "transfer", cargo)
@@ -193,7 +193,8 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		job.remaining = int(job.remaining) - 1
 		if int(job.remaining) == 0:
 			var id: String = job.recipe_id
-			IslandEconomy._put(state, island, id, IslandEconomy.value(state, island, id) + float(catalog.recipes[id].output))
+			var product := ProcessingCatalog.product_id(catalog, id)
+			IslandEconomy._put(state, island, product, IslandEconomy.value(state, island, product) + float(catalog.recipes[id].output))
 			StoryProgress.completed(state, island, id)
 			Onboarding.supply_completed(state, island, id)
 			events.append({"kind": "processing_completed", "island_id": island, "recipe_id": id})
@@ -218,7 +219,7 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		var info := IslandEconomy.departure_info(state, catalog, id, route)
 		var cargo := float(info.cargo)
 		if cargo > 0:
-			var def: Array = IslandEconomy.ROUTES[id]
+			var def: Array = IslandEconomy.route_defs(state)[id]
 			IslandEconomy._put(state, def[0], def[2], IslandEconomy.value(state, def[0], def[2]) - cargo, "transfer", -cargo)
 			state.economy.trips[id] = {"version": 1, "cargo": AmountCompat.from_number(cargo).serialize(), "remaining": 10}
 			events.append({"kind": "cargo_departed", "route_id": id})
@@ -227,7 +228,7 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 static func _integer_invariants(state: GameState, catalog: Dictionary) -> bool:
 	if catalog.is_empty():
 		return false
-	for island in IslandEconomy.ISLANDS:
+	for island in IslandEconomy.island_defs(state):
 		if island == "home" or not bool(state.economy.islands[island].opened):
 			continue
 		if IslandProgression.active(state):
@@ -238,8 +239,8 @@ static func _integer_invariants(state: GameState, catalog: Dictionary) -> bool:
 		var cap := IslandProgression.capacity(state, island)
 		if not _is_int(cap):
 			return false
-		for id in IslandEconomy.ISLANDS[island].rates:
-			if not _is_int(float(IslandEconomy.ISLANDS[island].rates[id])):
+		for id in IslandEconomy.island_defs(state)[island].rates:
+			if not _is_int(float(IslandEconomy.island_defs(state)[island].rates[id])):
 				return false
 			var parsed_inv := float(String(state.economy.islands[island].inventory.get(id, "0")))
 			if not _is_int(parsed_inv):
@@ -299,12 +300,12 @@ static func _job_retry_offset(state: GameState, catalog: Dictionary, island: Str
 			continue
 		worst = maxi(worst, found)
 	if worst <= 0:
-		var room0 := IslandEconomy.free_space(state, island, String(job.recipe_id), catalog)
+		var room0 := IslandEconomy.free_space(state, island, ProcessingCatalog.product_id(catalog, String(job.recipe_id)), catalog)
 		if room0 < float(recipe.output):
 			var unlock0 := _output_room_offset(state, catalog, island, String(job.recipe_id), horizon)
 			return unlock0 if unlock0 >= 1 else -1
 		return 1
-	var output_room := IslandEconomy.free_space(state, island, String(job.recipe_id), catalog)
+	var output_room := IslandEconomy.free_space(state, island, ProcessingCatalog.product_id(catalog, String(job.recipe_id)), catalog)
 	if output_room < float(recipe.output):
 		var unlock := _output_room_offset(state, catalog, island, String(job.recipe_id), horizon)
 		if unlock < 0:
@@ -328,7 +329,7 @@ static func _output_room_offset(state: GameState, catalog: Dictionary, island: S
 static func _island_fill_rate(state: GameState, island: String, id: String) -> float:
 	if island == "home":
 		return 0.0
-	var rates: Dictionary = IslandEconomy.ISLANDS.get(island, {}).get("rates", {})
+	var rates: Dictionary = IslandEconomy.island_defs(state).get(island, {}).get("rates", {})
 	if not rates.has(id):
 		return 0.0
 	var extractor := int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1

@@ -1,0 +1,7 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{f34c5916-a4b9-4e46-8842-8ea43a395481}\AC\Temp\dao2_runners_e1d7f37c62164a1393d72bfa2f98a2ee
+[START:initial] tests/m1c_persistence_runner.gd
+[PASS:initial] tests/m1c_persistence_runner.gd (2.2s)
+--- slowest 8 runners (s) ---
+     2.2  tests/m1c_persistence_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{f34c5916-a4b9-4e46-8842-8ea43a395481}\AC\Temp\dao2_runners_e1d7f37c62164a1393d72bfa2f98a2ee

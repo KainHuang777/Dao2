@@ -223,7 +223,7 @@ func _draw_badge() -> void:
 	recipe_badge.draw_rect(r, bg_color, true, -1.0)
 
 	# 2. Draw product texture centered
-	var tex: Texture2D = ResourceIcon.get_resource_texture(recipe_id)
+	var tex: Texture2D = ResourceIcon.get_resource_texture(product_id if not product_id.is_empty() else recipe_id)
 	if tex != null:
 		var tex_size := Vector2(minf(36, b_size.x - 16), minf(36, b_size.y - 16))
 		var tex_rect := Rect2((b_size - tex_size) * 0.5, tex_size)
@@ -315,3 +315,9 @@ func as_card_dict() -> Dictionary:
 		"recipe_badge": recipe_badge,
 		"row": self
 	}
+
+var product_id := ""
+func set_product(id: String, label: String) -> void:
+	product_id = id
+	recipe_badge.tooltip_text = label + "\n空島：" + IslandProgression.NAMES.get(island_id, island_id)
+	recipe_badge.queue_redraw()

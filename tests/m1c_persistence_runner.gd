@@ -8,10 +8,13 @@ var _slots: SaveSlots = null
 var _storage_adapter: StorageAdapter = null
 
 func _init() -> void:
-    _storage_adapter = FileStorageAdapter.new("user://m1c_test_slots")
+    var root := OS.get_environment("DAO_TEST_STORAGE_ROOT")
+    _storage_adapter = FileStorageAdapter.new(root.path_join("m1c") if not root.is_empty() else "user://m1c_test_slots")
     _slots = SaveSlots.new(_storage_adapter)
     _slots.reset()
     _load_content()
+    SaveManager.configure(_content, FileStorageAdapter.new(root.path_join("m1c-session") if not root.is_empty() else "user://m1c_test_session"))
+    SaveManager.slots().reset()
     _test_codec_round_trip()
     _test_envelope_fields()
     _test_checksum()

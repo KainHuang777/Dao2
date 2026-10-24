@@ -1,0 +1,29 @@
+ M docs/design-data/content-p1-story-proposal.json
+ M docs/verification/artifacts/content-p1-story/native-ui.json
+ M docs/verification/artifacts/content-p1-story/web-observations.json
+ M src/presentation/achievement_panel.gd
+?? docs/verification/artifacts/content-p1-story/browser-console.json
+?? docs/verification/artifacts/content-p1-story/compression-acceptance-label.log
+?? docs/verification/artifacts/content-p1-story/compression-normal-label.log
+?? docs/verification/artifacts/content-p1-story/delivery-audit.json
+?? docs/verification/artifacts/content-p1-story/export-acceptance-label.log
+?? docs/verification/artifacts/content-p1-story/export-normal-label.log
+?? docs/verification/artifacts/content-p1-story/resume-workspace-status.txt
+?? docs/verification/artifacts/content-p1-story/ui-label-final.log
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_sect_lamp-1.jpg
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_sect_lamp-1.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_workshop_offcuts-1.jpg
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_workshop_offcuts-1.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_sect_lamp-2.jpg
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_sect_lamp-2.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_workshop_offcuts-2.jpg
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_workshop_offcuts-2.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-full-capacity.jpg
+?? docs/verification/artifacts/content-p1-story/web-full-capacity.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-save-refused.jpg
+?? docs/verification/artifacts/content-p1-story/web-save-refused.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-save-restored.jpg
+?? docs/verification/artifacts/content-p1-story/web-save-restored.jpg.import
+?? src/utils/number_formatter.gd.uid
+?? tests/number_formatter_test.gd.uid
+?? tools/content_p1_story_audit.py

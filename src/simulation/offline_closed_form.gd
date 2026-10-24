@@ -5,6 +5,13 @@ const LAYER_LIMIT := 9.0e15
 const INT_LIMIT := 9007199254740992.0
 
 static func advance(state: GameState, content: GameContent, ticks: int, prepared: Dictionary = {}) -> Dictionary:
+	# The original jump proof assumes integer gathering and local workshops.
+	# R46 fractional gathering uses the authoritative one-second path until a
+	# separate proof covers its event/capacity boundaries.
+	if IslandEconomy.expanded(state):
+		var result := TimeAdvancer.advance(state, content, ticks, prepared)
+		result.exact = true
+		return result
 	if not state.economy.is_empty() and content.processing_catalog.is_empty():
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "processing_content_missing", "exact": true}
 	if ticks <= 0:
@@ -355,7 +362,7 @@ static func _build_prod(state: GameState, content: GameContent, rates: Dictionar
 		if id == "lingqi" and float(sect_m["lingqi_cap_bonus"]) > 0.0 and cap_amount.sign > 0:
 			cap_amount = cap_amount.multiply(AmountCompat.from_number(1.0 + float(sect_m["lingqi_cap_bonus"])))
 		var processing: bool = not economy_empty and catalog.resources.has(id)
-		if processing:
+		if processing and not IslandEconomy.expanded(state):
 			cap_amount = AmountCompat.from_number(minf(cap_amount.to_float(), float(catalog.resources[id].cap)))
 		if delta_amount.layer != 0 or cap_amount.layer != 0:
 			return {"items": [], "unsupported": "non_layer0"}

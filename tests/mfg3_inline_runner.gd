@@ -46,7 +46,11 @@ func _run() -> void:
 	abode.offline_summary.hide()
 	var decoded := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-d2-earned-era3.json"))
 	check(decoded.ok, "diagnostic fixture decodes")
-	abode.session.state = decoded.state.duplicate_state()
+	if not decoded.ok: quit(1); return
+	var prepared := IslandProgression.prepare_supply(abode.content, decoded.state)
+	check(prepared.ok, "diagnostic fixture migrates to current supply content")
+	if not prepared.ok: quit(1); return
+	abode.session.state = prepared.state
 	var state: GameState = abode.session.state
 	state.economy.jobs = {}
 	state.economy.routes = {}

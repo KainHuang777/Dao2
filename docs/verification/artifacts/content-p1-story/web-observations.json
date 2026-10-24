@@ -673,5 +673,2803 @@
       "stone_low": "180",
       "wood": "200"
     }
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_dry_spring",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "105",
+      "stone_low": "80",
+      "wood": "60"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_dry_spring",
+      "instance_id": "10978441a62d42285b19a6d52b9a9841b1849a3130fa6f4c99a193777824fec7",
+      "life_id": 2,
+      "log": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。",
+      "option": "修渠養草",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "spirit_grass_low": {
+          "after": "105",
+          "before": "80",
+          "gained": "25",
+          "nominal": "25",
+          "overflow": "0",
+          "paid": "0"
+        },
+        "wood": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        }
+      },
+      "source": "98ca7555a5aacd67f35c20b54946c5e5b02421236856100c692cacd4d1e853ab",
+      "title": "枯泉分流",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_seed_merchant",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "40",
+      "spirit_grass_low": "115",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_seed_merchant",
+      "instance_id": "9f3256dfe373bcdaade19880bdbf006cf181cc3039c140ee65397d5bffcbd119",
+      "life_id": 2,
+      "log": "你付清盤纏，將三十五份可用藥草安置入庫。",
+      "option": "換取草苗",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "money": {
+          "after": "40",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "40"
+        },
+        "spirit_grass_low": {
+          "after": "115",
+          "before": "80",
+          "gained": "35",
+          "nominal": "35",
+          "overflow": "0",
+          "paid": "0"
+        }
+      },
+      "source": "d82a0226414512d17b7e1349c09dd2b117ebe499c364903f6cc0100c5af20e06",
+      "title": "散修換苗",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_workshop_offcuts",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "60",
+      "wood": "130"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_workshop_offcuts",
+      "instance_id": "7bbeed52754a21e26faf45f72a15cabc7917d2306781e8ef9d9ca8a749f70923",
+      "life_id": 2,
+      "log": "你付出二十靈石修整餘料，五十靈木運回祖島；本次不是加工批次。",
+      "option": "添石整料",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "stone_low": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        },
+        "wood": {
+          "after": "130",
+          "before": "80",
+          "gained": "50",
+          "nominal": "50",
+          "overflow": "0",
+          "paid": "0"
+        }
+      },
+      "source": "1adb40975b4c7516aa4484e59a32474b7d5a4843d55bbd14b31c810a26a40613",
+      "title": "木坊餘料",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_returning_boat",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "115",
+      "wood": "50"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_returning_boat",
+      "instance_id": "44f1ba39672c1bdfd7a41133d5dce012fa3849ab67fef11d56bcd7aad70ce814",
+      "life_id": 2,
+      "log": "你送上三十靈木，船工交付三十五靈石；既有航程與貨物保持原狀。",
+      "option": "以木補帆",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "stone_low": {
+          "after": "115",
+          "before": "80",
+          "gained": "35",
+          "nominal": "35",
+          "overflow": "0",
+          "paid": "0"
+        },
+        "wood": {
+          "after": "50",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "30"
+        }
+      },
+      "source": "a8f78eafabb2456897b5601ab594b50a16c85bb0ce9bf9c6040beb75f5e7b8b9",
+      "title": "歸舟補帆",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_sect_lamp",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "65",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_sect_lamp",
+      "instance_id": "ea2ddc058241afd6db4b3e862d16c73f9d23579974a8d3e163be7860d285eb88",
+      "life_id": 2,
+      "log": "你交出十五份靈草，獲贈養木丹一枚；贈丹不記為親自煉製。",
+      "option": "供草試木丹",
+      "option_index": 0,
+      "pills": {
+        "wood_nurture_pill": {
+          "after": 1,
+          "before": 0,
+          "gained": 1
+        }
+      },
+      "resources": {
+        "spirit_grass_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "6d4342f72b42d3134304396f56a35015eb12973792debcb78da2004f7f319821",
+      "title": "丹房借燈",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_supply_margin",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "65",
+      "stone_low": "65",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_supply_margin",
+      "instance_id": "b86c72ad00014484bf3836b37e0863bce20d313743281e3bbd4ec5bacf78cedb",
+      "life_id": 2,
+      "log": "你補足草石各十五，執事回贈納靈丹一枚，另筆委託不受影響。",
+      "option": "贊助納靈爐",
+      "option_index": 0,
+      "pills": {
+        "qi_absorption_pill": {
+          "after": 1,
+          "before": 0,
+          "gained": 1
+        }
+      },
+      "resources": {
+        "spirit_grass_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        },
+        "stone_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "001e031b479c45665489f10742c199b6c7c7ae61cceef84f0509b92bd680e4f4",
+      "title": "委託簿邊註",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_alchemist_measures",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "65",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_alchemist_measures",
+      "instance_id": "62de7c15619388a0f3976269703819d0a0db65b3d8b68ce2524d6f56e0a998c1",
+      "life_id": 2,
+      "log": "你交給丹師十五份靈草，收得育草丹一枚；此次是交換成丹。",
+      "option": "以草換成丹",
+      "option_index": 0,
+      "pills": {
+        "herb_nurture_pill": {
+          "after": 1,
+          "before": 0,
+          "gained": 1
+        }
+      },
+      "resources": {
+        "spirit_grass_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "9057c03141f19a37da53ba51fb05bb83bac4ec07064510af5903067ad7d50ea2",
+      "title": "丹師校量",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_fourfold_note",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "60",
+      "stone_low": "65",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fourfold_note",
+      "instance_id": "042b966869577f1b6a004e4232d1bb49f59a7d292e9048410dd45b4711c5a217",
+      "life_id": 2,
+      "log": "你付出二十靈草與十五靈石，獲聚財丹一枚，尚未服用便不生藥效。",
+      "option": "試財氣一脈",
+      "option_index": 0,
+      "pills": {
+        "wealth_gathering_pill": {
+          "after": 1,
+          "before": 0,
+          "gained": 1
+        }
+      },
+      "resources": {
+        "spirit_grass_low": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        },
+        "stone_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "39f1608c2653e324912bf5192494e0b2e725e70fa1425ea326200d0b6aaac291",
+      "title": "四脈丹箋",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_fox_path",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "140",
+      "spirit_grass_low": "60",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fox_path",
+      "instance_id": "2aef9c9644f89e700ca753439b5134adb13985bf6b0b1aec1c749bd0f0933a3e",
+      "life_id": 2,
+      "log": "你備二十靈草循香而行，拾得六十金錢；此行沒有執行餵養。",
+      "option": "帶草循香",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "money": {
+          "after": "140",
+          "before": "80",
+          "gained": "60",
+          "nominal": "60",
+          "overflow": "0",
+          "paid": "0"
+        },
+        "spirit_grass_low": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        }
+      },
+      "source": "aaba6c463479cd189e64981311807a26f48be0254a6f451975412211d318d23e",
+      "title": "靈狐引徑",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_fox_nightwatch",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "65",
+      "stone_low": "65",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fox_nightwatch",
+      "instance_id": "5fe232b10f72ff3715d9acffe790ac403c3db2181db886f82dad583983b448a5",
+      "life_id": 2,
+      "log": "你備妥草石各十五，得納靈丹一枚；靈狐不因此增長經驗。",
+      "option": "供草石借爐",
+      "option_index": 0,
+      "pills": {
+        "qi_absorption_pill": {
+          "after": 1,
+          "before": 0,
+          "gained": 1
+        }
+      },
+      "resources": {
+        "spirit_grass_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        },
+        "stone_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "9ee4b92d9ff819509f8b358bf24dee769ec3bca34e71acde595f1851296e35c3",
+      "title": "狐守夜爐",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_old_lamp",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "65"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_old_lamp",
+      "instance_id": "670cd85ba14279f5f5efb95ad56f1cbc572e8b6abef6d4595d1829939c6dc5f5",
+      "life_id": 2,
+      "log": "你添十五靈木讀完殘痕，增加六十秒修煉；這並非前世記錄的重發。",
+      "option": "添木讀痕",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "wood": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "d150ced25af01d40e67574fdcea2afaa864291465bfd32ca0cce7775d41512f9",
+      "title": "前塵舊燈",
+      "training": {
+        "after": 60,
+        "before": 0,
+        "gained": 60
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      1280,
+      720
+    ],
+    "id": "enc_p1_wisdom_exchange",
+    "index": 0,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "55",
+      "wood": "140"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_wisdom_exchange",
+      "instance_id": "b1a592e474ba77226cfe06f81a82ed0ef15ad4e491a2b9d93955ca718de761de",
+      "life_id": 2,
+      "log": "你付出二十五靈石協作修具，行者交付六十靈木；宿慧階數不變。",
+      "option": "供石論百工",
+      "option_index": 0,
+      "pills": {},
+      "resources": {
+        "stone_low": {
+          "after": "55",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "25"
+        },
+        "wood": {
+          "after": "140",
+          "before": "80",
+          "gained": "60",
+          "nominal": "60",
+          "overflow": "0",
+          "paid": "0"
+        }
+      },
+      "source": "97bfd1bfc867ca276cb0f0594d21cd8758576ad3b5bfb2b636c9bfe75ac798af",
+      "title": "宿慧問答",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_dry_spring",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "140",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "65",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_dry_spring",
+      "instance_id": "10978441a62d42285b19a6d52b9a9841b1849a3130fa6f4c99a193777824fec7",
+      "life_id": 2,
+      "log": "你以靈石封住裂口，收攏六十份散逸靈力；另一道水聲漸止。",
+      "option": "封渠聚息",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "lingli": {
+          "after": "140",
+          "before": "80",
+          "gained": "60",
+          "nominal": "60",
+          "overflow": "0",
+          "paid": "0"
+        },
+        "stone_low": {
+          "after": "65",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "15"
+        }
+      },
+      "source": "5e6a596eb7b66afaae0097c5a65191a9d295bd33ca0cfb385756244b9dab989b",
+      "title": "枯泉分流",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_seed_merchant",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "50"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_seed_merchant",
+      "instance_id": "9f3256dfe373bcdaade19880bdbf006cf181cc3039c140ee65397d5bffcbd119",
+      "life_id": 2,
+      "log": "你贈出三十靈木，聽得一段行氣訣，修煉進度增加九十秒。",
+      "option": "贈木問息",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "wood": {
+          "after": "50",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "30"
+        }
+      },
+      "source": "7d709d7170ccf62967b4b321f8ba5f5d65d4a681bde1eee1ebfd6fe539139a89",
+      "title": "散修換苗",
+      "training": {
+        "after": 90,
+        "before": 0,
+        "gained": 90
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_workshop_offcuts",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "125",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "60"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_workshop_offcuts",
+      "instance_id": "7bbeed52754a21e26faf45f72a15cabc7917d2306781e8ef9d9ca8a749f70923",
+      "life_id": 2,
+      "log": "你撥出二十靈木作運費，餘料結得四十五金錢。",
+      "option": "貼補運費",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "money": {
+          "after": "125",
+          "before": "80",
+          "gained": "45",
+          "nominal": "45",
+          "overflow": "0",
+          "paid": "0"
+        },
+        "wood": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        }
+      },
+      "source": "64a81de3eef253e6112783bd9c3c16e5f0a2613306805821545bdeb067f53065",
+      "title": "木坊餘料",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_returning_boat",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "60",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_returning_boat",
+      "instance_id": "44f1ba39672c1bdfd7a41133d5dce012fa3849ab67fef11d56bcd7aad70ce814",
+      "life_id": 2,
+      "log": "你花二十金錢備茶，辨風吐納的心得推進六十秒修煉。",
+      "option": "煮茶問風",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "money": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        }
+      },
+      "source": "732c64da2816477ee0593030a7a3c7941274615edd4d131c95fbf8a2317bc1e7",
+      "title": "歸舟補帆",
+      "training": {
+        "after": 60,
+        "before": 0,
+        "gained": 60
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_sect_lamp",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "60",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_sect_lamp",
+      "instance_id": "ea2ddc058241afd6db4b3e862d16c73f9d23579974a8d3e163be7860d285eb88",
+      "life_id": 2,
+      "log": "你添上二十靈石，觀火有所得，修煉進度增加九十秒。",
+      "option": "供石觀火",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "stone_low": {
+          "after": "60",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "20"
+        }
+      },
+      "source": "dbb397ad0efffd3161c062ca3a0b56d579a285c1bff8c5beb6b51236af59af3b",
+      "title": "丹房借燈",
+      "training": {
+        "after": 90,
+        "before": 0,
+        "gained": 90
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_supply_margin",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "130",
+      "stone_low": "80",
+      "wood": "40"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_supply_margin",
+      "instance_id": "b86c72ad00014484bf3836b37e0863bce20d313743281e3bbd4ec5bacf78cedb",
+      "life_id": 2,
+      "log": "你交出四十靈木，換回五十份靈草；這不是再次領取委託。",
+      "option": "添木換草",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "spirit_grass_low": {
+          "after": "130",
+          "before": "80",
+          "gained": "50",
+          "nominal": "50",
+          "overflow": "0",
+          "paid": "0"
+        },
+        "wood": {
+          "after": "40",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "40"
+        }
+      },
+      "source": "999f5835923551837f00a755d666640498827b10821ae84fd7e581761258182b",
+      "title": "委託簿邊註",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_alchemist_measures",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "30",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_alchemist_measures",
+      "instance_id": "62de7c15619388a0f3976269703819d0a0db65b3d8b68ce2524d6f56e0a998c1",
+      "life_id": 2,
+      "log": "你用五十靈力走完一輪校量，修煉進度增加一百秒。",
+      "option": "同校吐納",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "lingli": {
+          "after": "30",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "50"
+        }
+      },
+      "source": "03c669a4bf989403a1ce4c44c24dabfc0eb3c00e90fda13471d68cefb3cddcda",
+      "title": "丹師校量",
+      "training": {
+        "after": 100,
+        "before": 0,
+        "gained": 100
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_fourfold_note",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "35",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fourfold_note",
+      "instance_id": "042b966869577f1b6a004e4232d1bb49f59a7d292e9048410dd45b4711c5a217",
+      "life_id": 2,
+      "log": "你花四十五金錢換得養木丹一枚，留待需要時使用。",
+      "option": "先補木脈",
+      "option_index": 1,
+      "pills": {
+        "wood_nurture_pill": {
+          "after": 1,
+          "before": 0,
+          "gained": 1
+        }
+      },
+      "resources": {
+        "money": {
+          "after": "35",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "45"
+        }
+      },
+      "source": "9e40db038acb3026c49a068be523795e4ab098d3433ce2c104a77dce1107d5de",
+      "title": "四脈丹箋",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_fox_path",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "20",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fox_path",
+      "instance_id": "2aef9c9644f89e700ca753439b5134adb13985bf6b0b1aec1c749bd0f0933a3e",
+      "life_id": 2,
+      "log": "你以六十靈力照亮石刻，悟得一百二十秒修煉進度；靈狐經驗不變。",
+      "option": "借力讀刻",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "lingli": {
+          "after": "20",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "60"
+        }
+      },
+      "source": "4dc08e8c6fe87824bf9b63daf9b126465273aea8ca6f7fa7f28ce60a7f03ca48",
+      "title": "靈狐引徑",
+      "training": {
+        "after": 120,
+        "before": 0,
+        "gained": 120
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_fox_nightwatch",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "40"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fox_nightwatch",
+      "instance_id": "5fe232b10f72ff3715d9acffe790ac403c3db2181db886f82dad583983b448a5",
+      "life_id": 2,
+      "log": "你添四十靈木守爐，靜坐心得推進一百五十秒修煉；餵養冷卻不變。",
+      "option": "添木共守更",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "wood": {
+          "after": "40",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "40"
+        }
+      },
+      "source": "b7b8a3b16f664612e5b667440cf88a984ef4241cd6a752b195582b29722126bf",
+      "title": "狐守夜爐",
+      "training": {
+        "after": 150,
+        "before": 0,
+        "gained": 150
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_old_lamp",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "50",
+      "money": "110",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_old_lamp",
+      "instance_id": "670cd85ba14279f5f5efb95ad56f1cbc572e8b6abef6d4595d1829939c6dc5f5",
+      "life_id": 2,
+      "log": "你以三十靈力溫燈，從燈座暗格取出三十金錢，沒有改動歷世封存。",
+      "option": "引氣溫燈",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "lingli": {
+          "after": "50",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "30"
+        },
+        "money": {
+          "after": "110",
+          "before": "80",
+          "gained": "30",
+          "nominal": "30",
+          "overflow": "0",
+          "paid": "0"
+        }
+      },
+      "source": "2763103a9bb553fdcaecc0da9491cc156c79040a7bfbe5e5fcac814a7f918c0a",
+      "title": "前塵舊燈",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      779,
+      360
+    ],
+    "id": "enc_p1_wisdom_exchange",
+    "index": 1,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "0",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_wisdom_exchange",
+      "instance_id": "b1a592e474ba77226cfe06f81a82ed0ef15ad4e491a2b9d93955ca718de761de",
+      "life_id": 2,
+      "log": "你用八十靈力回答行氣三問，增加一百八十秒修煉，沒有新增永久加成。",
+      "option": "行氣答三問",
+      "option_index": 1,
+      "pills": {},
+      "resources": {
+        "lingli": {
+          "after": "0",
+          "before": "80",
+          "gained": "0",
+          "nominal": "0",
+          "overflow": "0",
+          "paid": "80"
+        }
+      },
+      "source": "fb43b722166033138fd8eb9bed5344b063aa5e38107bb70cc0ecfefe532548e0",
+      "title": "宿慧問答",
+      "training": {
+        "after": 180,
+        "before": 0,
+        "gained": 180
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_dry_spring",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_dry_spring",
+      "instance_id": "10978441a62d42285b19a6d52b9a9841b1849a3130fa6f4c99a193777824fec7",
+      "life_id": 2,
+      "log": "你沒有動用庫藏，任細泉沿舊路入山。",
+      "option": "留泉自流",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "ee5840c2cdfffd2d3e94e85570c2f5f479aa09860f2da94cce468a85c7abd47c",
+      "title": "枯泉分流",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_seed_merchant",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_seed_merchant",
+      "instance_id": "9f3256dfe373bcdaade19880bdbf006cf181cc3039c140ee65397d5bffcbd119",
+      "life_id": 2,
+      "log": "你收起換苗的念頭，與散修互道珍重。",
+      "option": "互道珍重",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "62a254a0e46ca28018ff9e37595e9fad43185a228ba138aae4f29f117943e61b",
+      "title": "散修換苗",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_workshop_offcuts",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_workshop_offcuts",
+      "instance_id": "7bbeed52754a21e26faf45f72a15cabc7917d2306781e8ef9d9ca8a749f70923",
+      "life_id": 2,
+      "log": "你未動用自己的庫藏，將餘料留給木坊。",
+      "option": "留給木坊",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "2fa48d13d5af164dddb8cfe09b12c212db67ca46e7c9bfe61e072ed4e30ad170",
+      "title": "木坊餘料",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_returning_boat",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_returning_boat",
+      "instance_id": "44f1ba39672c1bdfd7a41133d5dce012fa3849ab67fef11d56bcd7aad70ce814",
+      "life_id": 2,
+      "log": "你送別船工，沒有額外支出或改動航線。",
+      "option": "送舟離岸",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "1706aafca3c60b3c517ad1ac4b67841a2f755a0a4917460c4955f36596909207",
+      "title": "歸舟補帆",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_sect_lamp",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_sect_lamp",
+      "instance_id": "ea2ddc058241afd6db4b3e862d16c73f9d23579974a8d3e163be7860d285eb88",
+      "life_id": 2,
+      "log": "你讓出觀火位置，未添草石，也未帶走丹藥。",
+      "option": "讓位同門",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "403f28bea292e806f464103d44b2a41d75ee778d2cdd935da2be808711717177",
+      "title": "丹房借燈",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_supply_margin",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_supply_margin",
+      "instance_id": "b86c72ad00014484bf3836b37e0863bce20d313743281e3bbd4ec5bacf78cedb",
+      "life_id": 2,
+      "log": "你合上簿冊，將草木留作自己的下一步打算。",
+      "option": "合上簿冊",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "9f17bb237d5b9a48344e77e2c3ed9cbbb0e777270e67d21b6b179fa9b99ca74b",
+      "title": "委託簿邊註",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_alchemist_measures",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_alchemist_measures",
+      "instance_id": "62de7c15619388a0f3976269703819d0a0db65b3d8b68ce2524d6f56e0a998c1",
+      "life_id": 2,
+      "log": "你收好爐記，決定按原有丹方繼續。",
+      "option": "保留爐記",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "814ddc50c3c90bd625922369e14ad945d4009d11f94b556c7ea1954fce836f47",
+      "title": "丹師校量",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_fourfold_note",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fourfold_note",
+      "instance_id": "042b966869577f1b6a004e4232d1bb49f59a7d292e9048410dd45b4711c5a217",
+      "life_id": 2,
+      "log": "你留下丹箋，沒有換取額外丹藥。",
+      "option": "留箋自驗",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "2e040617ac0001eda847b918412893ef9de058a23ef3bf5ea37db7b93f0e480a",
+      "title": "四脈丹箋",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_fox_path",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fox_path",
+      "instance_id": "2aef9c9644f89e700ca753439b5134adb13985bf6b0b1aec1c749bd0f0933a3e",
+      "life_id": 2,
+      "log": "你喚靈狐沿原路歸家，未取山徑中的物件。",
+      "option": "喚狐歸家",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "d9fb668f3f8b05058cbe42460b01c265902aad0b5a916f595b4180ec5b4cd6c1",
+      "title": "靈狐引徑",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_fox_nightwatch",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_fox_nightwatch",
+      "instance_id": "5fe232b10f72ff3715d9acffe790ac403c3db2181db886f82dad583983b448a5",
+      "life_id": 2,
+      "log": "你熄去餘燈，與靈狐一同歇息。",
+      "option": "熄燈歇息",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "46c2885f9d53c9a39fb917286f73474215a7c9d4ee9db6a74357337040e72b40",
+      "title": "狐守夜爐",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_old_lamp",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_old_lamp",
+      "instance_id": "670cd85ba14279f5f5efb95ad56f1cbc572e8b6abef6d4595d1829939c6dc5f5",
+      "life_id": 2,
+      "log": "你將舊燈留在原處，不替模糊刻痕編造前世事蹟。",
+      "option": "留燈於此",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "85cf026d42b56d4bac97a73469c8ab82f0a8a359a912bcd77f6d954b0c7a6bc9",
+      "title": "前塵舊燈",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "fortune",
+    "viewport": [
+      800,
+      360
+    ],
+    "id": "enc_p1_wisdom_exchange",
+    "index": 2,
+    "before": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "after": {
+      "lingli": "80",
+      "money": "80",
+      "spirit_grass_low": "80",
+      "stone_low": "80",
+      "wood": "80"
+    },
+    "receipt": {
+      "at": 0,
+      "buff": {},
+      "encounter_id": "enc_p1_wisdom_exchange",
+      "instance_id": "b1a592e474ba77226cfe06f81a82ed0ef15ad4e491a2b9d93955ca718de761de",
+      "life_id": 2,
+      "log": "你與行者各行其道，保留現有資糧與宿慧選擇。",
+      "option": "各行其道",
+      "option_index": 2,
+      "pills": {},
+      "resources": {},
+      "source": "0a6c7e0bc791042f66592f57bd696a39bda1fd7b7d5c2d506e218828116641ed",
+      "title": "宿慧問答",
+      "training": {
+        "after": 0,
+        "before": 0,
+        "gained": 0
+      },
+      "version": 1
+    },
+    "rng_unchanged": true
+  },
+  {
+    "kind": "save_retry",
+    "pending_reload_stable": true,
+    "rng_reload_stable": true,
+    "failed": {
+      "achievements": {
+        "claimed": {},
+        "stats": {},
+        "story": {
+          "current": {
+            "consumed_mask": 15,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_completed": true
+          },
+          "current_life_id": 2,
+          "lifetime": {
+            "bronze_arrived": true,
+            "consumed_mask": 15,
+            "fox_matured": true,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_arrived": true,
+            "timber_completed": true
+          },
+          "started_age_seconds": 0,
+          "started_life_id": 1,
+          "version": 1
+        },
+        "unlocked": {
+          "bond_beast": 0,
+          "build_first_hut": 0,
+          "build_sum_10": 0,
+          "era_foundation": 0,
+          "era_golden_core": 0,
+          "era_qi": 0,
+          "feed_beast": 0,
+          "first_reincarnate": 0,
+          "learn_technique": 0,
+          "p1_four_pills_used": 0,
+          "p1_fox_soul_choice": 0,
+          "p1_golden_specialist": 0,
+          "p1_greenwood_student": 0,
+          "p1_homebound_cargo": 0,
+          "p1_mature_jade_fox": 0,
+          "p1_second_foundation": 0,
+          "p1_supply_commission": 0,
+          "p1_three_past_wisdoms": 0,
+          "p1_timber_workshop": 0,
+          "p1_two_sect_specialties": 0,
+          "p1_two_specialist_pills": 0
+        }
+      },
+      "age_seconds": 0,
+      "book": {
+        "omitted": 0,
+        "receipts": [
+          {
+            "at": 0,
+            "buff": {},
+            "encounter_id": "enc_p1_dry_spring",
+            "instance_id": "10978441a62d42285b19a6d52b9a9841b1849a3130fa6f4c99a193777824fec7",
+            "life_id": 2,
+            "log": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。",
+            "option": "修渠養草",
+            "option_index": 0,
+            "pills": {},
+            "resources": {
+              "spirit_grass_low": {
+                "after": "105",
+                "before": "80",
+                "gained": "25",
+                "nominal": "25",
+                "overflow": "0",
+                "paid": "0"
+              },
+              "wood": {
+                "after": "60",
+                "before": "80",
+                "gained": "0",
+                "nominal": "0",
+                "overflow": "0",
+                "paid": "20"
+              }
+            },
+            "source": "61bce4daadeb9970c45d865cc060269df2b249d99f730d03ef1f702fab520105",
+            "title": "枯泉分流",
+            "training": {
+              "after": 0,
+              "before": 0,
+              "gained": 0
+            },
+            "version": 1
+          }
+        ],
+        "started_at": 0,
+        "version": 1
+      },
+      "buttons": [
+        {
+          "disabled": false,
+          "name": "@Button@996",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@HBoxContainer@994/@Button@996",
+          "rect": [
+            1202,
+            156,
+            44,
+            44
+          ],
+          "text": "×"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1010",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@ScrollContainer@1000/@HBoxContainer@1001/@VBoxContainer@1003/@HBoxContainer@1004/@Button@1010",
+          "rect": [
+            1166,
+            240,
+            80,
+            44
+          ],
+          "text": "抉擇簿"
+        },
+        {
+          "disabled": true,
+          "name": "@Button@1011",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@ScrollContainer@1000/@HBoxContainer@1001/@VBoxContainer@1003/@Button@1011",
+          "rect": [
+            678,
+            605,
+            200,
+            44
+          ],
+          "text": "感應蓄力 · 1200s"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1015",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@HBoxContainer@1013/@Button@1015",
+          "rect": [
+            1150,
+            512,
+            96,
+            44
+          ],
+          "text": "重試保存"
+        }
+      ],
+      "contribution": "0.5",
+      "era_id": 3,
+      "fixture": "synthetic isolated story",
+      "fortune": {
+        "cooldown_remaining": 1200,
+        "encounter_history_count": 0,
+        "pending_encounter": {},
+        "rng_state": 4244996574,
+        "rng_version": 1,
+        "total_fortunes_claimed": 1
+      },
+      "observation_seq": 41,
+      "overlay_buttons": [
+        {
+          "disabled": false,
+          "name": "@OptionButton@1834",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@1811/@PanelContainer@1812/@MarginContainer@1813/@MarginContainer@1814/@VBoxContainer@1815/PendingLifeReading/@VBoxContainer@1819/@VBoxContainer@1822/@OptionButton@1834",
+          "rect": [
+            36,
+            406,
+            1208,
+            44
+          ],
+          "text": "第 2 世 · 當世"
+        },
+        {
+          "disabled": false,
+          "name": "@OptionButton@1846",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@1811/@PanelContainer@1812/@MarginContainer@1813/@MarginContainer@1814/@VBoxContainer@1815/PendingLifeReading/@VBoxContainer@1819/@VBoxContainer@1822/@OptionButton@1846",
+          "rect": [
+            36,
+            509,
+            1208,
+            44
+          ],
+          "text": "祖島 · 靈氣"
+        },
+        {
+          "disabled": false,
+          "name": "@OptionButton@1857",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@1811/@PanelContainer@1812/@MarginContainer@1813/@MarginContainer@1814/@VBoxContainer@1815/PendingLifeReading/@VBoxContainer@1819/@VBoxContainer@1822/@OptionButton@1857",
+          "rect": [
+            36,
+            557,
+            1208,
+            44
+          ],
+          "text": "全世年齡區間"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1870",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@1811/@PanelContainer@1812/@MarginContainer@1813/@MarginContainer@1814/@VBoxContainer@1815/PendingLifeReading/@VBoxContainer@1819/@VBoxContainer@1822/@VBoxContainer@1862/@Button@1870",
+          "rect": [
+            36,
+            1140,
+            78,
+            44
+          ],
+          "text": "查記錄"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1873",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@1811/@PanelContainer@1812/@MarginContainer@1813/@MarginContainer@1814/@VBoxContainer@1815/PendingLifeReading/@VBoxContainer@1819/@VBoxContainer@1822/@Button@1873",
+          "rect": [
+            36,
+            1243,
+            1208,
+            44
+          ],
+          "text": "封存帳目／抉擇"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1894",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@1811/@PanelContainer@1812/@MarginContainer@1813/@MarginContainer@1814/@VBoxContainer@1815/@Button@1894",
+          "rect": [
+            36,
+            656,
+            1208,
+            44
+          ],
+          "text": "重試保存"
+        }
+      ],
+      "pills": {},
+      "resources": {
+        "lingli": "80",
+        "money": "80",
+        "spirit_grass_low": "105",
+        "stone_low": "80",
+        "wood": "60"
+      },
+      "revision": 1,
+      "save_failed": true,
+      "scroll_rect": [
+        34,
+        240,
+        1212,
+        232
+      ],
+      "story_version": 1,
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    "retried": {
+      "achievements": {
+        "claimed": {},
+        "stats": {},
+        "story": {
+          "current": {
+            "consumed_mask": 15,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_completed": true
+          },
+          "current_life_id": 2,
+          "lifetime": {
+            "bronze_arrived": true,
+            "consumed_mask": 15,
+            "fox_matured": true,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_arrived": true,
+            "timber_completed": true
+          },
+          "started_age_seconds": 0,
+          "started_life_id": 1,
+          "version": 1
+        },
+        "unlocked": {
+          "bond_beast": 0,
+          "build_first_hut": 0,
+          "build_sum_10": 0,
+          "era_foundation": 0,
+          "era_golden_core": 0,
+          "era_qi": 0,
+          "feed_beast": 0,
+          "first_reincarnate": 0,
+          "learn_technique": 0,
+          "p1_four_pills_used": 0,
+          "p1_fox_soul_choice": 0,
+          "p1_golden_specialist": 0,
+          "p1_greenwood_student": 0,
+          "p1_homebound_cargo": 0,
+          "p1_mature_jade_fox": 0,
+          "p1_second_foundation": 0,
+          "p1_supply_commission": 0,
+          "p1_three_past_wisdoms": 0,
+          "p1_timber_workshop": 0,
+          "p1_two_sect_specialties": 0,
+          "p1_two_specialist_pills": 0
+        }
+      },
+      "age_seconds": 39,
+      "book": {
+        "omitted": 0,
+        "receipts": [
+          {
+            "at": 0,
+            "buff": {},
+            "encounter_id": "enc_p1_dry_spring",
+            "instance_id": "10978441a62d42285b19a6d52b9a9841b1849a3130fa6f4c99a193777824fec7",
+            "life_id": 2,
+            "log": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。",
+            "option": "修渠養草",
+            "option_index": 0,
+            "pills": {},
+            "resources": {
+              "spirit_grass_low": {
+                "after": "105",
+                "before": "80",
+                "gained": "25",
+                "nominal": "25",
+                "overflow": "0",
+                "paid": "0"
+              },
+              "wood": {
+                "after": "60",
+                "before": "80",
+                "gained": "0",
+                "nominal": "0",
+                "overflow": "0",
+                "paid": "20"
+              }
+            },
+            "source": "61bce4daadeb9970c45d865cc060269df2b249d99f730d03ef1f702fab520105",
+            "title": "枯泉分流",
+            "training": {
+              "after": 0,
+              "before": 0,
+              "gained": 0
+            },
+            "version": 1
+          }
+        ],
+        "started_at": 0,
+        "version": 1
+      },
+      "buttons": [
+        {
+          "disabled": false,
+          "name": "@Button@996",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@HBoxContainer@994/@Button@996",
+          "rect": [
+            1202,
+            156,
+            44,
+            44
+          ],
+          "text": "×"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1010",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@ScrollContainer@1000/@HBoxContainer@1001/@VBoxContainer@1003/@HBoxContainer@1004/@Button@1010",
+          "rect": [
+            1166,
+            240,
+            80,
+            44
+          ],
+          "text": "抉擇簿"
+        },
+        {
+          "disabled": true,
+          "name": "@Button@1011",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@ScrollContainer@1000/@HBoxContainer@1001/@VBoxContainer@1003/@Button@1011",
+          "rect": [
+            678,
+            605,
+            200,
+            44
+          ],
+          "text": "感應蓄力 · 1161s"
+        }
+      ],
+      "contribution": "0.5",
+      "era_id": 3,
+      "fixture": "synthetic isolated story",
+      "fortune": {
+        "cooldown_remaining": 1161,
+        "encounter_history_count": 0,
+        "pending_encounter": {},
+        "rng_state": 4244996574,
+        "rng_version": 1,
+        "total_fortunes_claimed": 1
+      },
+      "observation_seq": 161,
+      "overlay_buttons": [],
+      "pills": {},
+      "resources": {
+        "lingli": "201.589966691335",
+        "money": "80",
+        "spirit_grass_low": "150.979145825211",
+        "stone_low": "80",
+        "wood": "60"
+      },
+      "revision": 2,
+      "save_failed": false,
+      "scroll_rect": [
+        34,
+        240,
+        1212,
+        304
+      ],
+      "story_version": 1,
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    "restored": {
+      "achievements": {
+        "claimed": {},
+        "stats": {},
+        "story": {
+          "current": {
+            "consumed_mask": 15,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_completed": true
+          },
+          "current_life_id": 2,
+          "lifetime": {
+            "bronze_arrived": true,
+            "consumed_mask": 15,
+            "fox_matured": true,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_arrived": true,
+            "timber_completed": true
+          },
+          "started_age_seconds": 0,
+          "started_life_id": 1,
+          "version": 1
+        },
+        "unlocked": {
+          "bond_beast": 0,
+          "build_first_hut": 0,
+          "build_sum_10": 0,
+          "era_foundation": 0,
+          "era_golden_core": 0,
+          "era_qi": 0,
+          "feed_beast": 0,
+          "first_reincarnate": 0,
+          "learn_technique": 0,
+          "p1_four_pills_used": 0,
+          "p1_fox_soul_choice": 0,
+          "p1_golden_specialist": 0,
+          "p1_greenwood_student": 0,
+          "p1_homebound_cargo": 0,
+          "p1_mature_jade_fox": 0,
+          "p1_second_foundation": 0,
+          "p1_supply_commission": 0,
+          "p1_three_past_wisdoms": 0,
+          "p1_timber_workshop": 0,
+          "p1_two_sect_specialties": 0,
+          "p1_two_specialist_pills": 0
+        }
+      },
+      "age_seconds": 43,
+      "book": {
+        "omitted": 0,
+        "receipts": [
+          {
+            "at": 0,
+            "buff": {},
+            "encounter_id": "enc_p1_dry_spring",
+            "instance_id": "10978441a62d42285b19a6d52b9a9841b1849a3130fa6f4c99a193777824fec7",
+            "life_id": 2,
+            "log": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。",
+            "option": "修渠養草",
+            "option_index": 0,
+            "pills": {},
+            "resources": {
+              "spirit_grass_low": {
+                "after": "105",
+                "before": "80",
+                "gained": "25",
+                "nominal": "25",
+                "overflow": "0",
+                "paid": "0"
+              },
+              "wood": {
+                "after": "60",
+                "before": "80",
+                "gained": "0",
+                "nominal": "0",
+                "overflow": "0",
+                "paid": "20"
+              }
+            },
+            "source": "61bce4daadeb9970c45d865cc060269df2b249d99f730d03ef1f702fab520105",
+            "title": "枯泉分流",
+            "training": {
+              "after": 0,
+              "before": 0,
+              "gained": 0
+            },
+            "version": 1
+          }
+        ],
+        "started_at": 0,
+        "version": 1
+      },
+      "buttons": [
+        {
+          "disabled": false,
+          "name": "@Button@996",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@HBoxContainer@994/@Button@996",
+          "rect": [
+            1202,
+            156,
+            44,
+            44
+          ],
+          "text": "×"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@1010",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@ScrollContainer@1000/@HBoxContainer@1001/@VBoxContainer@1003/@HBoxContainer@1004/@Button@1010",
+          "rect": [
+            1166,
+            240,
+            80,
+            44
+          ],
+          "text": "抉擇簿"
+        },
+        {
+          "disabled": true,
+          "name": "@Button@1011",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@1016/@MarginContainer@993/FortuneContent/@ScrollContainer@1000/@HBoxContainer@1001/@VBoxContainer@1003/@Button@1011",
+          "rect": [
+            678,
+            605,
+            200,
+            44
+          ],
+          "text": "感應蓄力 · 1157s"
+        }
+      ],
+      "contribution": "0.5",
+      "era_id": 3,
+      "fixture": "synthetic isolated story",
+      "fortune": {
+        "cooldown_remaining": 1157,
+        "encounter_history_count": 0,
+        "pending_encounter": {},
+        "rng_state": 4244996574,
+        "rng_version": 1,
+        "total_fortunes_claimed": 1
+      },
+      "observation_seq": 3,
+      "overlay_buttons": [],
+      "pills": {},
+      "resources": {
+        "lingli": "214.060732505831",
+        "money": "80",
+        "spirit_grass_low": "155.694955653438",
+        "stone_low": "80",
+        "wood": "60"
+      },
+      "revision": 4,
+      "save_failed": false,
+      "scroll_rect": [
+        34,
+        240,
+        1212,
+        336
+      ],
+      "story_version": 1,
+      "viewport": [
+        1280,
+        720
+      ]
+    }
+  },
+  {
+    "kind": "full_capacity",
+    "state": {
+      "achievements": {
+        "claimed": {},
+        "stats": {},
+        "story": {
+          "current": {
+            "consumed_mask": 15,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_completed": true
+          },
+          "current_life_id": 2,
+          "lifetime": {
+            "bronze_arrived": true,
+            "consumed_mask": 15,
+            "fox_matured": true,
+            "new_supply_claimed": true,
+            "positive_home_arrival": true,
+            "refined_mask": 15,
+            "timber_arrived": true,
+            "timber_completed": true
+          },
+          "started_age_seconds": 0,
+          "started_life_id": 1,
+          "version": 1
+        },
+        "unlocked": {
+          "bond_beast": 0,
+          "build_first_hut": 0,
+          "build_sum_10": 0,
+          "era_foundation": 0,
+          "era_golden_core": 0,
+          "era_qi": 0,
+          "feed_beast": 0,
+          "first_reincarnate": 0,
+          "learn_technique": 0,
+          "p1_four_pills_used": 0,
+          "p1_fox_soul_choice": 0,
+          "p1_golden_specialist": 0,
+          "p1_greenwood_student": 0,
+          "p1_homebound_cargo": 0,
+          "p1_mature_jade_fox": 0,
+          "p1_second_foundation": 0,
+          "p1_supply_commission": 0,
+          "p1_three_past_wisdoms": 0,
+          "p1_timber_workshop": 0,
+          "p1_two_sect_specialties": 0,
+          "p1_two_specialist_pills": 0
+        }
+      },
+      "age_seconds": 0,
+      "book": {},
+      "buttons": [
+        {
+          "disabled": false,
+          "name": "@Button@961",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@HBoxContainer@960/@Button@961",
+          "rect": [
+            1202,
+            156,
+            44,
+            44
+          ],
+          "text": "×"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@967",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@967",
+          "rect": [
+            34,
+            244,
+            56,
+            44
+          ],
+          "text": "全部"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@968",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@968",
+          "rect": [
+            98,
+            244,
+            116,
+            44
+          ],
+          "text": "修道境界"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@969",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@969",
+          "rect": [
+            222,
+            244,
+            116,
+            44
+          ],
+          "text": "洞府營造"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@970",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@970",
+          "rect": [
+            346,
+            244,
+            116,
+            44
+          ],
+          "text": "丹道仙途"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@971",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@971",
+          "rect": [
+            470,
+            244,
+            116,
+            44
+          ],
+          "text": "宗門修道"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@972",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@972",
+          "rect": [
+            594,
+            244,
+            116,
+            44
+          ],
+          "text": "造化靈獸"
+        },
+        {
+          "disabled": false,
+          "name": "@Button@973",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/@ScrollContainer@966/@HBoxContainer@974/@Button@973",
+          "rect": [
+            718,
+            244,
+            116,
+            44
+          ],
+          "text": "輪迴超脫"
+        },
+        {
+          "disabled": false,
+          "name": "Action",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/AchievementScroll/AchievementsList/Card_era_qi/HBox/Action",
+          "rect": [
+            523,
+            352,
+            100,
+            44
+          ],
+          "text": "領取獎勵"
+        },
+        {
+          "disabled": false,
+          "name": "Action",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/AchievementScroll/AchievementsList/Card_era_foundation/HBox/Action",
+          "rect": [
+            1134,
+            352,
+            100,
+            44
+          ],
+          "text": "領取獎勵"
+        },
+        {
+          "disabled": false,
+          "name": "Action",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/AchievementScroll/AchievementsList/Card_era_golden_core/HBox/Action",
+          "rect": [
+            523,
+            496,
+            100,
+            44
+          ],
+          "text": "領取獎勵"
+        },
+        {
+          "disabled": true,
+          "name": "Action",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/AchievementScroll/AchievementsList/Card_era_nascent_soul/HBox/Action",
+          "rect": [
+            1134,
+            496,
+            100,
+            44
+          ],
+          "text": "未達成"
+        },
+        {
+          "disabled": true,
+          "name": "Action",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/AchievementScroll/AchievementsList/Card_p1_greenwood_student/HBox/Action",
+          "rect": [
+            523,
+            640,
+            100,
+            44
+          ],
+          "text": "暫不可領"
+        },
+        {
+          "disabled": true,
+          "name": "Action",
+          "path": "/root/ContentP1StoryAcceptance/LivingAbode/@CanvasLayer@55/@Control@56/@Control@957/@MarginContainer@959/AchievementContent/AchievementScroll/AchievementsList/Card_p1_golden_specialist/HBox/Action",
+          "rect": [
+            1134,
+            640,
+            100,
+            44
+          ],
+          "text": "暫不可領"
+        }
+      ],
+      "contribution": "0.5",
+      "era_id": 3,
+      "fixture": "synthetic isolated story",
+      "fortune": {
+        "cooldown_remaining": 1200,
+        "encounter_history_count": 0,
+        "pending_encounter": {},
+        "rng_state": 4244996574,
+        "rng_version": 1,
+        "total_fortunes_claimed": 0
+      },
+      "observation_seq": 2,
+      "overlay_buttons": [],
+      "pills": {},
+      "resources": {
+        "lingli": "580",
+        "money": "460",
+        "spirit_grass_low": "250",
+        "stone_low": "350",
+        "wood": "350"
+      },
+      "revision": 0,
+      "save_failed": false,
+      "scroll_rect": [
+        34,
+        306,
+        1212,
+        302
+      ],
+      "story_version": 1,
+      "viewport": [
+        1280,
+        720
+      ]
+    }
   }
 ]

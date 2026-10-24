@@ -1,0 +1,52 @@
+ M AGENTS.md
+ M README.md
+ M ROADMAP.md
+ M assets/ui/achievements-painted/content-p1-story-manifest.json
+ M assets/ui/fortune-painted/content-p1-story-manifest.json
+ M docs/25-system-content-expansion-plan.md
+ M docs/33-content-p1-story-design.md
+ M docs/ai-handoff.md
+ M docs/design-data/content-p1-story-proposal.json
+ M docs/development-status.md
+ M docs/verification/artifacts/content-p1-story/native-ui.json
+ M docs/verification/artifacts/content-p1-story/web-observations.json
+ M docs/verification/content-p1-story.md
+ M src/presentation/achievement_panel.gd
+ M tools/apply_viewport_matrix_gate.py
+ M tools/run_all_runners.ps1
+ M updata.txt
+?? docs/verification/artifacts/content-p1-accept/
+?? docs/verification/artifacts/content-p1-story/baseline-review.json
+?? docs/verification/artifacts/content-p1-story/browser-console.json
+?? docs/verification/artifacts/content-p1-story/closure-decision.json
+?? docs/verification/artifacts/content-p1-story/compression-acceptance-label.log
+?? docs/verification/artifacts/content-p1-story/compression-normal-label.log
+?? docs/verification/artifacts/content-p1-story/delivery-audit-before-art-acceptance.json
+?? docs/verification/artifacts/content-p1-story/delivery-audit.json
+?? docs/verification/artifacts/content-p1-story/export-acceptance-label.log
+?? docs/verification/artifacts/content-p1-story/export-normal-label.log
+?? docs/verification/artifacts/content-p1-story/observed-external-head.txt
+?? docs/verification/artifacts/content-p1-story/resume-workspace-status.txt
+?? docs/verification/artifacts/content-p1-story/ui-label-final.log
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_sect_lamp-1.jpg
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_sect_lamp-1.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_workshop_offcuts-1.jpg
+?? docs/verification/artifacts/content-p1-story/web-779-enc_p1_workshop_offcuts-1.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_sect_lamp-2.jpg
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_sect_lamp-2.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_workshop_offcuts-2.jpg
+?? docs/verification/artifacts/content-p1-story/web-800-enc_p1_workshop_offcuts-2.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-full-capacity.jpg
+?? docs/verification/artifacts/content-p1-story/web-full-capacity.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-save-refused.jpg
+?? docs/verification/artifacts/content-p1-story/web-save-refused.jpg.import
+?? docs/verification/artifacts/content-p1-story/web-save-restored.jpg
+?? docs/verification/artifacts/content-p1-story/web-save-restored.jpg.import
+?? docs/verification/artifacts/test-tier-r1/
+?? docs/verification/test-tier-r1.md
+?? src/utils/number_formatter.gd.uid
+?? tests/number_formatter_test.gd.uid
+?? tools/content_p1_story_audit.py
+?? tools/content_p1_story_baseline_review.py
+?? tools/test_runner_orchestration.ps1
+?? tools/test_viewport_matrix_gate.py

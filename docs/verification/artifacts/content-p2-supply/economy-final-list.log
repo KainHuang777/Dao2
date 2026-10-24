@@ -1,0 +1,2 @@
+[MODE] matrix=single runners=1 parallel=1
+tests/content_p2_supply_economy_runner.gd

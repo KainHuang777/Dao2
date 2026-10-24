@@ -44,7 +44,7 @@ func reject(kind: String, payload: Dictionary, reason: String) -> void:
 
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://res1_ui1b_runner"
+	script.save_dir_override = "res://docs/verification/artifacts/content-p2-supply-3/res1_ui1b_runner"
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	abode = script.new()
 	root.add_child(abode)
@@ -53,7 +53,7 @@ func _run() -> void:
 	abode.offline_summary.hide()
 	var decoded := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-d2-earned-era3.json"))
 	check(decoded.ok, "earned fixture decodes")
-	base = decoded.state.duplicate_state()
+	base = IslandProgression.prepare_supply(abode.content, decoded.state).state
 	base.economy.jobs = {}
 	base.economy.routes = {}
 	base.economy.trips = {}
@@ -72,7 +72,7 @@ func _run() -> void:
 	var nav = abode.feature_navigation
 	var panel = nav.transport_panel
 	nav.open("transport")
-	check(panel.route_widgets.size() == 7 and panel.selected_route.is_empty(), "seven rows without an expanded editor")
+	check(panel.route_widgets.size() == 12 and panel.selected_route.is_empty(), "twelve rows without an expanded editor")
 	for id in IslandEconomy.ROUTES:
 		var def: Array = IslandEconomy.ROUTES[id]
 		var visual: Dictionary = panel.route_widgets[id].visual
@@ -280,6 +280,8 @@ func _run() -> void:
 		check(panel.get_combined_minimum_size().x <= panel.size.x, "settings minimum fits " + str(vp))
 		nav.back()
 		check(nav.page == "transport" and panel.selected_route.is_empty(), "Escape returns to route list " + str(vp))
+	await process_frame
+	await process_frame
 	var nodes := int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
 	for index in 50:
 		nav.open_transport("bronze_home")
@@ -287,13 +289,14 @@ func _run() -> void:
 		nav.open("outposts")
 		nav.open("transport")
 		await process_frame
+	print("SWITCH_DIAGNOSTIC state=", snapshot() == before, " nodes=", nodes, "->", int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)))
 	check(snapshot() == before and int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)) == nodes, "50 route/page switches retain nodes and full rule state")
 	abode.queue_free()
 	await process_frame
 	script.save_dir_override = ""
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
-		print("PASS: RES1-UI1-B ", checks, " checks; seven routes, drafts, exact supply, stop/upgrade/delivery and retry")
+		print("PASS: RES1-UI1-B ", checks, " checks; twelve routes, drafts, exact supply, stop/upgrade/delivery and retry")
 		quit(0)
 	else:
 		for label in failures:

@@ -142,7 +142,7 @@ func _rebuild() -> void:
 	activation = _add_button(body, "保留原檔並啟用空島", func(): action_requested.emit("activate_islands", {}))
 	cost_cards = HFlowContainer.new()
 	body.add_child(cost_cards)
-	for resource in ["wood", "stone_low"]:
+	for resource in (_islands().get(island, {}).get("cost", {"wood": 20, "stone_low": 10})):
 		opening_tiles[resource] = _tile(cost_cards)
 	opening = _add_button(body, "開拓此島", func(): action_requested.emit("open_island", {"island_id": island}))
 	payment_stock = _label("")
@@ -157,7 +157,7 @@ func _rebuild() -> void:
 	body.add_child(local_cards)
 	job_status = _label("")
 	body.add_child(job_status)
-	if island != "home":
+	if island in ["wood", "ore", "herb"]:
 		for id in ["extractor", "storage"]:
 			var card := PanelContainer.new()
 			card.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
@@ -185,10 +185,15 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	if body == null:
 		return
 	var e: Dictionary = view.get("economy", {})
-	var enabled: bool = e.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION]
+	var enabled: bool = e.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, IslandProgression.SUPPLY_VERSION]
 	var info: Dictionary = view.get("manufacturing", {}).get("islands", {}).get(island, {})
 	var opened := bool(info.get("opened", false))
 	for id in island_buttons:
+		island_buttons[id].visible = _islands().has(id)
+		var locked: bool = int(view.get("era_id", 1)) < int(_islands().get(id, {}).get("era", 1))
+		island_buttons[id].text = IslandProgression.NAMES[id] + ("・未開" if locked else "")
+		island_buttons[id].self_modulate = Color(0.65, 0.65, 0.65, 1) if locked else Color.WHITE
+		island_picker.set_item_text(IslandProgression.NAMES.keys().find(id), island_buttons[id].text)
 		island_buttons[id].button_pressed = id == island
 		UiMaterial.mark_paper_tab(island_buttons[id], id == island)
 	heading_label.text = "空島" if size.y < 400 else "人界・%s" % IslandProgression.NAMES[island]
@@ -197,8 +202,12 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	activation.text = "保留三島原檔並接續丹霞" if enabled else "保留原檔並啟用空島"
 	activation.disabled = not bool(view.get("island_activation", {}).get("ok", false))
 	opening.visible = not opened and island != "home"
-	var can_initialize: bool = e.get("version") == IslandProgression.VERSION or bool(view.get("island_activation", {}).get("ok", false))
-	opening.disabled = int(view.get("era_id", 1)) < int(IslandEconomy.ISLANDS[island].era) or not can_initialize or _home_available("wood") < 20 or _home_available("stone_low") < 10
+	var can_initialize: bool = enabled or bool(view.get("island_activation", {}).get("ok", false))
+	var definition: Dictionary = _islands().get(island, {})
+	var costs: Dictionary = definition.get("cost", {"wood": 20, "stone_low": 10})
+	opening.disabled = int(view.get("era_id", 1)) < int(definition.get("era", 1)) or not can_initialize
+	for resource in costs:
+		if _home_available(resource) < float(costs[resource]): opening.disabled = true
 	var short: bool = size.y < 400
 	var opening_host: Node = heading_row if short and opening.visible else body
 	if opening.get_parent() != opening_host:
@@ -207,23 +216,30 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	opening.custom_minimum_size.x = 64 if opening_host == heading_row else 100
 	opening.text = "開拓" if opening_host == heading_row else "開拓%s" % IslandProgression.NAMES[island]
 	short_world_button.visible = short and (opened or island == "home")
-	opening.tooltip_text = "祖島支付靈木20＋下品靈石10。首次開拓會同時啟用產業，保留祖島庫存與建築；輪迴清除當世空島進度。"
+	opening.tooltip_text = "祖島支付；境界需求 %d。首次開拓同時啟用產業，原檔歸檔；輪迴清除當世空島。" % int(definition.get("era", 1))
 	cost_cards.visible = opening.visible
+	if opening_tiles.keys() != costs.keys():
+		for tile in opening_tiles.values(): tile.queue_free()
+		opening_tiles.clear()
+		for resource in costs: opening_tiles[resource] = _tile(cost_cards)
 	for resource in opening_tiles:
-		opening_tiles[resource].refresh(resource, _resource_name(resource), 20 if resource == "wood" else 10, _home_available(resource), "祖島")
-		opening_tiles[resource].quantity.text = "%s/%d" % [_amount(_home_available(resource)), 20 if resource == "wood" else 10]
+		opening_tiles[resource].refresh(resource, _resource_name(resource), costs[resource], _home_available(resource), "祖島")
 	var payment: Array[String] = []
 	for resource in ["wood", "stone_low", "spirit_timber", "bronze_essence"]:
 		payment.append("%s %.1f" % [_resource_name(resource), _home_available(resource)])
 	payment_stock.text = "工程材料由祖島支付"
 	payment_stock.tooltip_text = "祖島工程庫存：" + "・".join(payment)
 	payment_stock.visible = enabled and island != "home" and size.y >= 400
-	var role: String = {"home": "修行與合成・各配方共用一條產線", "wood": "林業・靈木採集", "ore": "採礦・靈石與玄銅", "herb": "藥業・靈草與百年草"}[island]
+	var role: String = {"home": "修行與合成・各配方共用一條產線", "wood": "林業・靈木採集", "ore": "採礦・靈石與玄銅", "herb": "藥業・靈草與百年草"}.get(island, "採集專島・地方容量300・無加工坊")
 	summary.text = "%s・%s" % [role, "已開拓" if opened else ("金丹解鎖" if island == "herb" and int(view.get("era_id", 1)) < 3 else "先開拓第一座空島" if not enabled and island == "wood" else "待開拓")]
-	summary.visible = size.y >= 400
+	if island in IslandEconomy.supply_data().islands:
+		var focus: String = IslandEconomy.supply_data().dispatch[island]
+		summary.text += "・境界需求%d・當島調度%s" % [int(definition.era), "已建（產率×2）" if int(view.get("buildings", {}).get(focus, {}).get("level", 0)) > 0 else "未建（營造簿查看）"]
+	summary.visible = true
 	island_picker.tooltip_text = summary.text
 	for link in page_links:
 		link.visible = opened
+		if island in ["deep", "ancient", "void"] and link == page_links[0]: link.visible = false
 	var lines: Array[String] = []
 	for id in info.get("rates", {}):
 		var slot: Dictionary = e.get("inventory", {}).get(island, {}).get(id, {})
@@ -264,8 +280,8 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 	local_stock.text = "本島可用庫存" if not stock_lines.is_empty() else "本島尚無庫存"
 	local_stock.tooltip_text = "\n".join(stock_lines)
 	var job: Dictionary = e.get("jobs", {}).get(island, {})
-	job_status.text = "產線閒置" if job.is_empty() else "%s・%s" % [_resource_name(job.recipe_id), status_text(job.status)]
-	job_status.visible = opened
+	job_status.text = "產線閒置" if job.is_empty() else "%s・%s" % [_recipe_name(job.recipe_id), status_text(job.status)]
+	job_status.visible = opened and island in ["home", "wood", "ore", "herb"]
 	for id in facility_buttons:
 		var level := int(e.get("islands", {}).get(island, {}).get("facilities", {}).get(id, 1))
 		var prices: Array[String] = []
@@ -289,10 +305,10 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		facility_buttons[id].tooltip_text = "祖島支付：" + "＋".join(prices)
 		facility_buttons[id].visible = opened
 		facility_buttons[id].disabled = level >= 3
-	world_button.text = "前往%s" % IslandProgression.NAMES[island]
-	world_button.disabled = island != "home" and not opened
+	world_button.text = "世界場景未開放・此島以管理清單操作" if island in ["deep", "ancient", "void"] else "前往%s" % IslandProgression.NAMES[island]
+	world_button.disabled = island not in ["home", "wood", "ore", "herb"] or (island != "home" and not opened)
 	short_world_button.disabled = world_button.disabled
-	short_world_button.tooltip_text = world_button.text
+	short_world_button.tooltip_text = "此島目前以管理清單操作，世界美術尚未開放" if island not in ["home", "wood", "ore", "herb"] else world_button.text
 
 func _tile(parent: Node) -> Control:
 	var tile := IslandTile.new()
@@ -309,7 +325,7 @@ func _amount(value: float) -> String:
 	return NumberFormatter.format_amount(value)
 
 func _home_available(resource: String) -> float:
-	if not _view.get("economy", {}).get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION]:
+	if not _view.get("economy", {}).get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, IslandProgression.SUPPLY_VERSION]:
 		return float(_view.get("resources", {}).get(resource, {}).get("value", 0))
 	var slot: Dictionary = _view.get("economy", {}).get("inventory", {}).get("home", {}).get(resource, {})
 	return float(slot.get("available", 0))
@@ -358,3 +374,18 @@ func select_island(id: String) -> void:
 		_rebuild()
 	refresh(_view, _catalog)
 	context_changed.emit()
+
+func _islands() -> Dictionary:
+	var defs := IslandEconomy.ISLANDS.duplicate(true)
+	if _catalog.get("version") == IslandProgression.SUPPLY_VERSION:
+		defs.merge(IslandEconomy.supply_data().islands)
+	return defs
+
+func _routes() -> Dictionary:
+	var defs := IslandEconomy.ROUTES.duplicate(true)
+	if _catalog.get("version") == IslandProgression.SUPPLY_VERSION:
+		defs.merge(IslandEconomy.supply_data().routes)
+	return defs
+
+func _recipe_name(id: String) -> String:
+	return "中品靈石・量產" if id == "stone_mid_bulk" else _resource_name(ProcessingCatalog.product_id(_catalog, id))

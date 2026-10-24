@@ -1,0 +1,16 @@
+PASS: empty invocation refuses full suite
+PASS: each selector validated
+PASS: broad selector cannot bypass explicit Full
+PASS: Full rejects partial selection
+PASS: trimmed comma selectors and preview
+PASS: Full preview never starts engine
+PASS: serial successful engine
+PASS: child engine receives single matrix
+PASS: caller matrix preserved
+PASS: SCRIPT ERROR with exit zero fails
+PASS: serial watchdog terminates hung engine
+PASS: parallel timeout and retry watchdog both enforced
+PASS: parallel failure retries serially
+PASS: confirmed retry failure stays failed
+PASS: parallel queue runs two selected entries
+PASS: 15 orchestration checks; artifacts=C:\Users\asus\AppData\Local\Packages\sandbox.{9837b12d-2565-425f-9e90-463ee95795d9}\AC\Temp\dao2_orchestration_test_57d16dcba566461d973a750c31f2b214

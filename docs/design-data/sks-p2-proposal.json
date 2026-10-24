@@ -1,0 +1,36 @@
+{
+  "task": "SKS-P2",
+  "proposal_version": "sks-p2-proposal-1",
+  "date": "2026-10-24",
+  "approval": "pending",
+  "implementation": "TODO",
+  "schema_proposed": 5,
+  "skill_version_proposed": 4,
+  "existing_resources": ["lingli", "money", "wood", "stone_low", "spirit_grass_low", "skill_point", "black_copper", "bronze_essence", "spirit_timber", "formation_core", "spirit_grass_100y", "liquid", "talisman", "stone_mid", "foundation_pill", "golden_core_pill"],
+  "effect_contracts": {
+    "p2_home_capacity_multiplier": {"mode": "pow", "resources": ["lingli", "money", "wood", "stone_low", "spirit_grass_low", "skill_point", "black_copper", "bronze_essence", "foundation_pill", "spirit_grass_100y", "stone_mid", "golden_core_pill", "liquid", "talisman", "spirit_timber", "formation_core", "refined_iron", "mithril", "cold_iron", "spirit_grass_1000y", "stone_high", "trans_pill", "void_essence"], "scope": "home only, frozen 23 IDs", "exclude": ["lingqi", "sect_contribution", "dao_heart", "dao_proof", "pills_dictionary", "local_inventory", "beast_souls"]},
+    "time_multiplier": {"mode": "pow", "scope": "existing cultivation time skill product; clamp once to >=0.1"},
+    "p2_craft_lingli_discount": {"mode": "linear_discount", "recipes": ["stone_mid_bulk", "stone_high"], "resources": ["lingli"], "scope": "new home jobs only; old single stone_mid recipe excluded"},
+    "p2_deep_rate_multiplier": {"mode": "pow", "island": "deep", "resources": ["refined_iron", "mithril", "cold_iron"]},
+    "p2_advanced_capacity_multiplier": {"mode": "pow", "resources": ["refined_iron", "mithril", "cold_iron", "spirit_grass_1000y", "stone_high", "trans_pill", "void_essence"], "scope": "home only; later-era locked resources remain locked"},
+    "p2_ancient_rate_multiplier": {"mode": "pow", "island": "ancient", "resources": ["spirit_grass_1000y"]},
+    "lingli_multiplier": {"mode": "pow", "resources": ["lingli"], "scope": "home passive production"},
+    "p2_home_rate_multiplier": {"mode": "pow", "resources": ["lingli", "money", "wood", "stone_low", "spirit_grass_low", "skill_point"], "scope": "home passive production; separate from pill additive block"},
+    "p2_void_rate_multiplier": {"mode": "pow", "island": "void", "resources": ["void_essence"]},
+    "p2_local_capacity_flat": {"mode": "linear", "islands": ["deep", "ancient", "void"], "scope": "per resource local capacity; opened islands only, no cargo or home capacity"}
+  },
+  "skills": [
+    {"id": "nascent_soul_incubation", "name": "元嬰孕育", "era": 4, "requires": {"skill_id": "golden_core_formation", "level": 1}, "cost": 21250, "max_level": 5, "effect": "p2_home_capacity_multiplier", "amount": 1.15, "origin": "DAO1 ID/cost/max/multiplier retained; scope and prerequisite are v2 changes", "art_subject": "青玉蓮座上一點純陽元嬰光胎，周圍收納光珠"},
+    {"id": "nascent_soul_mastery", "name": "元嬰大成", "era": 4, "requires": {"skill_id": "golden_core_formation", "level": 1}, "cost": 21000, "max_level": 3, "effect": "time_multiplier", "amount": 0.95, "origin": "DAO1 ID/cost; v2 prerequisite/max/time factor", "art_subject": "蓮座元嬰凝實，三重平緩周天光環"},
+    {"id": "heavenly_craft", "name": "天工煉靈法", "era": 4, "cost": 12000, "max_level": 3, "effect": "p2_craft_lingli_discount", "amount": 0.05, "origin": "DAO1 ID only; v2 bounded processing lingli discount replaces craft_output", "art_subject": "小型玉製煉石爐，靈氣細流環繞礦石"},
+    {"id": "deep_vein_resonance", "name": "寒脈共鳴訣", "era": 4, "cost": 9000, "max_level": 3, "effect": "p2_deep_rate_multiplier", "amount": 1.1, "origin": "v2 new; established deep island products", "art_subject": "寒銀礦簇與三股細脈靈光"},
+    {"id": "void_expansion", "name": "虛空擴展", "era": 5, "cost": 30000, "max_level": 3, "effect": "p2_advanced_capacity_multiplier", "amount": 1.1, "origin": "DAO1 ID/cost; v2 explicit seven-resource home scope/max/factor/prerequisite", "art_subject": "打開的納物玉環，七枚微小物料光點"},
+    {"id": "spirit_transformation", "name": "化神凝意法", "era": 5, "requires": {"skill_id": "golden_core_formation", "level": 1}, "cost": 35000, "max_level": 3, "effect": "time_multiplier", "amount": 0.93, "origin": "DAO1 ID/cost; v2 prerequisite/max/time factor", "art_subject": "青白神識火焰凝為一顆清澈靈珠"},
+    {"id": "ancient_herb_attunement", "name": "古藥養靈術", "era": 5, "cost": 15000, "max_level": 3, "effect": "p2_ancient_rate_multiplier", "amount": 1.1, "origin": "v2 new; established ancient island product", "art_subject": "千年靈草根系與溫和藥氣"},
+    {"id": "spirit_sea_breath", "name": "神海納息訣", "era": 5, "cost": 18000, "max_level": 3, "effect": "lingli_multiplier", "amount": 1.15, "origin": "v2 new; existing home lingli production channel", "art_subject": "掌心青玉氣海，靈氣沿內向渦流匯聚"},
+    {"id": "void_mastery", "name": "太虛御物法", "era": 6, "cost": 45000, "max_level": 3, "effect": "p2_home_rate_multiplier", "amount": 1.1, "origin": "DAO1 ID/cost; v2 home six-resource whitelist/max/factor/prerequisite", "art_subject": "虛空玉盤托住六枚生產器物"},
+    {"id": "void_refinement", "name": "煉虛歸真訣", "era": 6, "requires": {"skill_id": "golden_core_formation", "level": 1}, "cost": 50000, "max_level": 3, "effect": "time_multiplier", "amount": 0.9, "origin": "DAO1 ID/cost/factor; v2 prerequisite/max", "art_subject": "一縷虛空靈光收束為平靜的圓環"},
+    {"id": "void_essence_attunement", "name": "太虛採元術", "era": 6, "cost": 24000, "max_level": 3, "effect": "p2_void_rate_multiplier", "amount": 1.1, "origin": "v2 new; established void island product", "art_subject": "玉勺從紫青裂隙收取一滴虛空精華"},
+    {"id": "frontier_storekeeping", "name": "三島藏真法", "era": 6, "cost": 20000, "max_level": 3, "effect": "p2_local_capacity_flat", "amount": 100, "origin": "v2 new; deep/ancient/void local storage only", "art_subject": "三只小型納物匣分別盛寒礦、靈草、虛空光滴"}
+  ]
+}

@@ -3,7 +3,7 @@ extends VBoxContainer
 ## Exact Amount text is authoritative; bars show relative order of magnitude only.
 const Icon = preload("res://src/presentation/resource_icon.gd")
 const NAMES := {"production":"生產", "gather":"採集", "building":"營造", "cultivation":"修行", "alchemy":"煉丹／服用", "fortune":"機緣", "decision":"法令", "sect":"宗門", "beast":"靈獸", "achievement":"成就", "scenery":"小景", "skill":"研習", "processing":"加工／設施", "transfer":"內部移轉", "realm":"靈界", "adjustment":"調整"}
-const SCOPES := {"home":"祖島", "wood":"青木島", "ore":"玄礦島", "herb":"丹霞島", "realm_spirit":"靈界", "transit":"在途"}
+const SCOPES := {"home":"祖島", "wood":"青木島", "ore":"玄礦島", "herb":"丹霞島", "deep":"寒銀島", "ancient":"古藥島", "void":"太虛島", "realm_spirit":"靈界", "transit":"在途"}
 var selector: OptionButton
 var copy: Label
 var coverage: Label

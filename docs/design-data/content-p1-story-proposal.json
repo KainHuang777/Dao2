@@ -5,13 +5,24 @@
   "approval_evidence": {
     "date": "2026-10-23",
     "user_quote": "採R",
-    "approved_groups": ["R1", "R2", "R-save", "R-art"],
+    "approved_groups": [
+      "R1",
+      "R2",
+      "R-save",
+      "R-art"
+    ],
     "scope": "Full R design, numbers, copy, save policy and art production plan approved; generated art acceptance remains pending after generation"
   },
   "scheme": "R",
   "origin": "Original v2 design; not a legacy parity claim",
-  "baseline": {"achievements": 18, "encounters": 26},
-  "target": {"achievements": 30, "encounters": 38},
+  "baseline": {
+    "achievements": 18,
+    "encounters": 26
+  },
+  "target": {
+    "achievements": 30,
+    "encounters": 38
+  },
   "policy": {
     "realm": "realm_human",
     "encounter_weight": 60,
@@ -36,67 +47,730 @@
     "art": "12 original badges plus 2 original encounter vignettes; existing four themes reused"
   },
   "achievements": [
-    {"key":"A01","id":"p1_greenwood_student","name":"青木入卷","category":"cultivation","era":2,"condition":"Own greenwood_nourishment rank >= 1 in current life","proof":"snapshot","rewards":{"resources":{"wood":60}},"art":"青木枝葉環抱半卷功法"},
-    {"key":"A02","id":"p1_golden_specialist","name":"丹火藏息","category":"cultivation","era":3,"condition":"Own warehouse_preparation and alchemical_breath_control rank >= 1 in current life","proof":"snapshot","rewards":{"resources":{"lingli":120}},"art":"金丹微光照見丹爐旁兩卷功法"},
-    {"key":"A03","id":"p1_timber_workshop","name":"木作有聲","category":"abode","era":2,"condition":"Complete one spirit_timber batch on wood island after update","proof":"lifetime_bit:timber_completed","rewards":{"resources":{"stone_low":40}},"art":"木作刨花與成束靈材"},
-    {"key":"A04","id":"p1_homebound_cargo","name":"雙舟歸倉","category":"abode","era":2,"condition":"Receive positive cargo on both timber_home and bronze_home after update; may span lives","proof":"lifetime_bits:timber_arrived,bronze_arrived","rewards":{"resources":{"wood":60,"stone_low":40}},"art":"兩葉貨舟駛向同一庫門"},
-    {"key":"A05","id":"p1_two_specialist_pills","name":"草木分爐","category":"alchemy","era":2,"condition":"Actually refine wood_nurture_pill and herb_nurture_pill after update; may span lives","proof":"lifetime_bits:refined_wood,refined_herb","rewards":{"resources":{"spirit_grass_low":30}},"art":"木葉與草芽分立雙色丹丸旁"},
-    {"key":"A06","id":"p1_four_pills_used","name":"四脈試丹","category":"alchemy","era":3,"condition":"Successfully consume all four P1 pills after update; may span lives; rejected no-net-extension use does not count","proof":"lifetime_mask:consumed_p1","rewards":{"resources":{"lingli":120}},"art":"四枚不同色澤丹丸圍成小環"},
-    {"key":"A07","id":"p1_supply_commission","name":"供給有章","category":"sect","era":2,"condition":"Actually claim a completed home_supply_register or wood_ore_convoy task after update","proof":"lifetime_bit:new_supply_claimed","rewards":{"sect_contribution":25},"art":"貨單與宗門小印並列"},
-    {"key":"A08","id":"p1_two_sect_specialties","name":"丹契同參","category":"sect","era":3,"condition":"Own alchemy_herb_conservation and fox_feed_conservation rank >= 1; joined membership not required to recognize retained ranks","proof":"snapshot","rewards":{"sect_contribution":40},"art":"丹爐與狐尾交織在雙卷功法間"},
-    {"key":"A09","id":"p1_mature_jade_fox","name":"青丘長伴","category":"beast_fate","era":3,"condition":"Current active jade_fox is mature, or becomes mature after update","proof":"snapshot_or_lifetime_bit:fox_matured","rewards":{"resources":{"spirit_grass_low":60}},"art":"成熟白狐伏坐青丘草石"},
-    {"key":"A10","id":"p1_fox_soul_choice","name":"靈魂有託","category":"beast_fate","era":3,"condition":"Own fox_t1_boost rank >= 1 (existing soul talent; soul inventory alone is insufficient)","proof":"snapshot","rewards":{"resources":{"stone_low":60}},"art":"狐形暖光凝入一枚通靈魂印"},
-    {"key":"A11","id":"p1_second_foundation","name":"再築道基","category":"reincarnation","era":2,"condition":"reincarnation_count >= 1 and current era_id >= 2; highest_era alone is insufficient","proof":"snapshot","rewards":{"resources":{"wood":80,"stone_low":40}},"art":"舊灰中再生青玉道基"},
-    {"key":"A12","id":"p1_three_past_wisdoms","name":"三慧歸心","category":"reincarnation","era":1,"condition":"Own alchemical_past_wisdom, artisan_past_wisdom and beast_bond_past_wisdom rank >= 1","proof":"snapshot","rewards":{"resources":{"lingli":100}},"art":"丹火、工錘、狐形三道微光聚向心燈"}
+    {
+      "key": "A01",
+      "id": "p1_greenwood_student",
+      "name": "青木入卷",
+      "category": "cultivation",
+      "era": 2,
+      "condition": "Own greenwood_nourishment rank >= 1 in current life",
+      "proof": "snapshot",
+      "rewards": {
+        "resources": {
+          "wood": 60
+        }
+      },
+      "art": "青木枝葉環抱半卷功法"
+    },
+    {
+      "key": "A02",
+      "id": "p1_golden_specialist",
+      "name": "丹火藏息",
+      "category": "cultivation",
+      "era": 3,
+      "condition": "Own warehouse_preparation and alchemical_breath_control rank >= 1 in current life",
+      "proof": "snapshot",
+      "rewards": {
+        "resources": {
+          "lingli": 120
+        }
+      },
+      "art": "金丹微光照見丹爐旁兩卷功法"
+    },
+    {
+      "key": "A03",
+      "id": "p1_timber_workshop",
+      "name": "木作有聲",
+      "category": "abode",
+      "era": 2,
+      "condition": "Complete one spirit_timber batch on wood island after update",
+      "proof": "lifetime_bit:timber_completed",
+      "rewards": {
+        "resources": {
+          "stone_low": 40
+        }
+      },
+      "art": "木作刨花與成束靈材"
+    },
+    {
+      "key": "A04",
+      "id": "p1_homebound_cargo",
+      "name": "雙舟歸倉",
+      "category": "abode",
+      "era": 2,
+      "condition": "Receive positive cargo on both timber_home and bronze_home after update; may span lives",
+      "proof": "lifetime_bits:timber_arrived,bronze_arrived",
+      "rewards": {
+        "resources": {
+          "wood": 60,
+          "stone_low": 40
+        }
+      },
+      "art": "兩葉貨舟駛向同一庫門"
+    },
+    {
+      "key": "A05",
+      "id": "p1_two_specialist_pills",
+      "name": "草木分爐",
+      "category": "alchemy",
+      "era": 2,
+      "condition": "Actually refine wood_nurture_pill and herb_nurture_pill after update; may span lives",
+      "proof": "lifetime_bits:refined_wood,refined_herb",
+      "rewards": {
+        "resources": {
+          "spirit_grass_low": 30
+        }
+      },
+      "art": "木葉與草芽分立雙色丹丸旁"
+    },
+    {
+      "key": "A06",
+      "id": "p1_four_pills_used",
+      "name": "四脈試丹",
+      "category": "alchemy",
+      "era": 3,
+      "condition": "Successfully consume all four P1 pills after update; may span lives; rejected no-net-extension use does not count",
+      "proof": "lifetime_mask:consumed_p1",
+      "rewards": {
+        "resources": {
+          "lingli": 120
+        }
+      },
+      "art": "四枚不同色澤丹丸圍成小環"
+    },
+    {
+      "key": "A07",
+      "id": "p1_supply_commission",
+      "name": "供給有章",
+      "category": "sect",
+      "era": 2,
+      "condition": "Actually claim a completed home_supply_register or wood_ore_convoy task after update",
+      "proof": "lifetime_bit:new_supply_claimed",
+      "rewards": {
+        "sect_contribution": 25
+      },
+      "art": "貨單與宗門小印並列"
+    },
+    {
+      "key": "A08",
+      "id": "p1_two_sect_specialties",
+      "name": "丹契同參",
+      "category": "sect",
+      "era": 3,
+      "condition": "Own alchemy_herb_conservation and fox_feed_conservation rank >= 1; joined membership not required to recognize retained ranks",
+      "proof": "snapshot",
+      "rewards": {
+        "sect_contribution": 40
+      },
+      "art": "丹爐與狐尾交織在雙卷功法間"
+    },
+    {
+      "key": "A09",
+      "id": "p1_mature_jade_fox",
+      "name": "青丘長伴",
+      "category": "beast_fate",
+      "era": 3,
+      "condition": "Current active jade_fox is mature, or becomes mature after update",
+      "proof": "snapshot_or_lifetime_bit:fox_matured",
+      "rewards": {
+        "resources": {
+          "spirit_grass_low": 60
+        }
+      },
+      "art": "成熟白狐伏坐青丘草石"
+    },
+    {
+      "key": "A10",
+      "id": "p1_fox_soul_choice",
+      "name": "靈魂有託",
+      "category": "beast_fate",
+      "era": 3,
+      "condition": "Own fox_t1_boost rank >= 1 (existing soul talent; soul inventory alone is insufficient)",
+      "proof": "snapshot",
+      "rewards": {
+        "resources": {
+          "stone_low": 60
+        }
+      },
+      "art": "狐形暖光凝入一枚通靈魂印"
+    },
+    {
+      "key": "A11",
+      "id": "p1_second_foundation",
+      "name": "再築道基",
+      "category": "reincarnation",
+      "era": 2,
+      "condition": "reincarnation_count >= 1 and current era_id >= 2; highest_era alone is insufficient",
+      "proof": "snapshot",
+      "rewards": {
+        "resources": {
+          "wood": 80,
+          "stone_low": 40
+        }
+      },
+      "art": "舊灰中再生青玉道基"
+    },
+    {
+      "key": "A12",
+      "id": "p1_three_past_wisdoms",
+      "name": "三慧歸心",
+      "category": "reincarnation",
+      "era": 1,
+      "condition": "Own alchemical_past_wisdom, artisan_past_wisdom and beast_bond_past_wisdom rank >= 1",
+      "proof": "snapshot",
+      "rewards": {
+        "resources": {
+          "lingli": 100
+        }
+      },
+      "art": "丹火、工錘、狐形三道微光聚向心燈"
+    }
   ],
   "encounters": [
-    {"key":"E01","id":"enc_p1_dry_spring","category":"resource","title":"枯泉分流","era":1,"requires":[],"art":"spring","desc":"山泉漸細，兩道舊渠只容修復一道。木樁仍在，如何分流由你決定。","options":[
-      {"text":"修渠養草","costs":{"wood":20},"rewards":{"resources":{"spirit_grass_low":25}},"log":"你用木樁接起藥渠，將新採的二十五份靈草收入祖島。"},
-      {"text":"封渠聚息","costs":{"stone_low":15},"rewards":{"resources":{"lingli":60}},"log":"你以靈石封住裂口，收攏六十份散逸靈力；另一道水聲漸止。"},
-      {"text":"留泉自流","costs":{},"rewards":{},"log":"你沒有動用庫藏，任細泉沿舊路入山。"}]},
-    {"key":"E02","id":"enc_p1_seed_merchant","category":"resource","title":"散修換苗","era":2,"requires":[],"art":"traveler","desc":"散修帶來一包可立即移栽的幼苗，願換木料，也願以煉息心得交換盤纏。","options":[
-      {"text":"換取草苗","costs":{"money":40},"rewards":{"resources":{"spirit_grass_low":35}},"log":"你付清盤纏，將三十五份可用藥草安置入庫。"},
-      {"text":"贈木問息","costs":{"wood":30},"rewards":{"training_seconds":90},"log":"你贈出三十靈木，聽得一段行氣訣，修煉進度增加九十秒。"},
-      {"text":"互道珍重","costs":{},"rewards":{},"log":"你收起換苗的念頭，與散修互道珍重。"}]},
-    {"key":"E03","id":"enc_p1_workshop_offcuts","category":"industry","title":"木坊餘料","era":2,"requires":["wood_open","timber_completed"],"art":"industry","desc":"木坊完成一批靈材後，匠人攤開剩料。可添石修整為木，也可拿去換得現錢。","options":[
-      {"text":"添石整料","costs":{"stone_low":20},"rewards":{"resources":{"wood":50}},"log":"你付出二十靈石修整餘料，五十靈木運回祖島；本次不是加工批次。"},
-      {"text":"貼補運費","costs":{"wood":20},"rewards":{"resources":{"money":45}},"log":"你撥出二十靈木作運費，餘料結得四十五金錢。"},
-      {"text":"留給木坊","costs":{},"rewards":{},"log":"你未動用自己的庫藏，將餘料留給木坊。"}]},
-    {"key":"E04","id":"enc_p1_returning_boat","category":"industry","title":"歸舟補帆","era":2,"requires":["positive_home_arrival"],"art":"industry","desc":"一艘送貨歸舟停在祖島外。船工願以隨船靈石換修帆木，也願傳授辨風調息的小訣竅。","options":[
-      {"text":"以木補帆","costs":{"wood":30},"rewards":{"resources":{"stone_low":35}},"log":"你送上三十靈木，船工交付三十五靈石；既有航程與貨物保持原狀。"},
-      {"text":"煮茶問風","costs":{"money":20},"rewards":{"training_seconds":60},"log":"你花二十金錢備茶，辨風吐納的心得推進六十秒修煉。"},
-      {"text":"送舟離岸","costs":{},"rewards":{},"log":"你送別船工，沒有額外支出或改動航線。"}]},
-    {"key":"E05","id":"enc_p1_sect_lamp","category":"sect","title":"丹房借燈","era":2,"requires":["joined_sect"],"art":"sect","desc":"宗門丹房今夜校火。值守弟子借一份草料試爐，也可由你供石旁觀控火。","options":[
-      {"text":"供草試木丹","costs":{"spirit_grass_low":15},"rewards":{"pills":{"wood_nurture_pill":1}},"log":"你交出十五份靈草，獲贈養木丹一枚；贈丹不記為親自煉製。"},
-      {"text":"供石觀火","costs":{"stone_low":20},"rewards":{"training_seconds":90},"log":"你添上二十靈石，觀火有所得，修煉進度增加九十秒。"},
-      {"text":"讓位同門","costs":{},"rewards":{},"log":"你讓出觀火位置，未添草石，也未帶走丹藥。"}]},
-    {"key":"E06","id":"enc_p1_supply_margin","category":"sect","title":"委託簿邊註","era":3,"requires":["joined_sect","new_supply_claimed"],"art":"sect","desc":"你領回供給委託後，執事指向簿側兩行註記：可贊助一爐納靈丹，也可替庫房添木換草。","options":[
-      {"text":"贊助納靈爐","costs":{"spirit_grass_low":15,"stone_low":15},"rewards":{"pills":{"qi_absorption_pill":1}},"log":"你補足草石各十五，執事回贈納靈丹一枚，另筆委託不受影響。"},
-      {"text":"添木換草","costs":{"wood":40},"rewards":{"resources":{"spirit_grass_low":50}},"log":"你交出四十靈木，換回五十份靈草；這不是再次領取委託。"},
-      {"text":"合上簿冊","costs":{},"rewards":{},"log":"你合上簿冊，將草木留作自己的下一步打算。"}]},
-    {"key":"E07","id":"enc_p1_alchemist_measures","category":"alchemy","title":"丹師校量","era":2,"requires":["refined_any_p1"],"art":"traveler","desc":"丹師看過你親煉的專精丹，提出兩種試量：以草換育草成丹，或添靈力同校吐納。","options":[
-      {"text":"以草換成丹","costs":{"spirit_grass_low":15},"rewards":{"pills":{"herb_nurture_pill":1}},"log":"你交給丹師十五份靈草，收得育草丹一枚；此次是交換成丹。"},
-      {"text":"同校吐納","costs":{"lingli":50},"rewards":{"training_seconds":100},"log":"你用五十靈力走完一輪校量，修煉進度增加一百秒。"},
-      {"text":"保留爐記","costs":{},"rewards":{},"log":"你收好爐記，決定按原有丹方繼續。"}]},
-    {"key":"E08","id":"enc_p1_fourfold_note","category":"alchemy","title":"四脈丹箋","era":3,"requires":["two_p1_consumed"],"art":"traveler","desc":"試過兩類專精丹後，你在舊箋上辨出木草與財氣的異同。一位丹友願替你補齊其中一脈。","options":[
-      {"text":"試財氣一脈","costs":{"spirit_grass_low":20,"stone_low":15},"rewards":{"pills":{"wealth_gathering_pill":1}},"log":"你付出二十靈草與十五靈石，獲聚財丹一枚，尚未服用便不生藥效。"},
-      {"text":"先補木脈","costs":{"money":45},"rewards":{"pills":{"wood_nurture_pill":1}},"log":"你花四十五金錢換得養木丹一枚，留待需要時使用。"},
-      {"text":"留箋自驗","costs":{},"rewards":{},"log":"你留下丹箋，沒有換取額外丹藥。"}]},
-    {"key":"E09","id":"enc_p1_fox_path","category":"beast","title":"靈狐引徑","era":3,"requires":["active_fox"],"art":"beast","desc":"靈狐停在兩條山徑前：一處有草香，一處有舊修留下的石刻。它等著你作主。","options":[
-      {"text":"帶草循香","costs":{"spirit_grass_low":20},"rewards":{"resources":{"money":60}},"log":"你備二十靈草循香而行，拾得六十金錢；此行沒有執行餵養。"},
-      {"text":"借力讀刻","costs":{"lingli":60},"rewards":{"training_seconds":120},"log":"你以六十靈力照亮石刻，悟得一百二十秒修煉進度；靈狐經驗不變。"},
-      {"text":"喚狐歸家","costs":{},"rewards":{},"log":"你喚靈狐沿原路歸家，未取山徑中的物件。"}]},
-    {"key":"E10","id":"enc_p1_fox_nightwatch","category":"beast","title":"狐守夜爐","era":3,"requires":["mature_active_fox"],"art":"beast","desc":"成熟靈狐伏在夜爐旁守候。丹友願借這份安靜替你煉一枚納靈丹，也可與你靜坐守更。","options":[
-      {"text":"供草石借爐","costs":{"spirit_grass_low":15,"stone_low":15},"rewards":{"pills":{"qi_absorption_pill":1}},"log":"你備妥草石各十五，得納靈丹一枚；靈狐不因此增長經驗。"},
-      {"text":"添木共守更","costs":{"wood":40},"rewards":{"training_seconds":150},"log":"你添四十靈木守爐，靜坐心得推進一百五十秒修煉；餵養冷卻不變。"},
-      {"text":"熄燈歇息","costs":{},"rewards":{},"log":"你熄去餘燈，與靈狐一同歇息。"}]},
-    {"key":"E11","id":"enc_p1_old_lamp","category":"reincarnation","title":"前塵舊燈","era":1,"requires":["second_life"],"art":"ruins","desc":"再世修行時，你在舊燈旁辨出似曾相識的刻痕。燈不會替你重得前世物件，只待一點燃料。","options":[
-      {"text":"添木讀痕","costs":{"wood":15},"rewards":{"training_seconds":60},"log":"你添十五靈木讀完殘痕，增加六十秒修煉；這並非前世記錄的重發。"},
-      {"text":"引氣溫燈","costs":{"lingli":30},"rewards":{"resources":{"money":30}},"log":"你以三十靈力溫燈，從燈座暗格取出三十金錢，沒有改動歷世封存。"},
-      {"text":"留燈於此","costs":{},"rewards":{},"log":"你將舊燈留在原處，不替模糊刻痕編造前世事蹟。"}]},
-    {"key":"E12","id":"enc_p1_wisdom_exchange","category":"reincarnation","title":"宿慧問答","era":2,"requires":["second_life","any_new_talent"],"art":"ruins","desc":"新世重築後，一位行者問起你選擇的宿慧。你可用供給交流實務，也可用靈力演示行氣。","options":[
-      {"text":"供石論百工","costs":{"stone_low":25},"rewards":{"resources":{"wood":60}},"log":"你付出二十五靈石協作修具，行者交付六十靈木；宿慧階數不變。"},
-      {"text":"行氣答三問","costs":{"lingli":80},"rewards":{"training_seconds":180},"log":"你用八十靈力回答行氣三問，增加一百八十秒修煉，沒有新增永久加成。"},
-      {"text":"各行其道","costs":{},"rewards":{},"log":"你與行者各行其道，保留現有資糧與宿慧選擇。"}]}
-  ]
+    {
+      "key": "E01",
+      "id": "enc_p1_dry_spring",
+      "category": "resource",
+      "title": "枯泉分流",
+      "era": 1,
+      "requires": [],
+      "art": "spring",
+      "desc": "山泉漸細，兩道舊渠只容修復一道。木樁仍在，如何分流由你決定。",
+      "options": [
+        {
+          "text": "修渠養草",
+          "costs": {
+            "wood": 20
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_low": 25
+            }
+          },
+          "log": "你用木樁接起藥渠，將新採的二十五份靈草收入祖島。"
+        },
+        {
+          "text": "封渠聚息",
+          "costs": {
+            "stone_low": 15
+          },
+          "rewards": {
+            "resources": {
+              "lingli": 60
+            }
+          },
+          "log": "你以靈石封住裂口，收攏六十份散逸靈力；另一道水聲漸止。"
+        },
+        {
+          "text": "留泉自流",
+          "costs": {},
+          "rewards": {},
+          "log": "你沒有動用庫藏，任細泉沿舊路入山。"
+        }
+      ]
+    },
+    {
+      "key": "E02",
+      "id": "enc_p1_seed_merchant",
+      "category": "resource",
+      "title": "散修換苗",
+      "era": 2,
+      "requires": [],
+      "art": "traveler",
+      "desc": "散修帶來一包可立即移栽的幼苗，願換木料，也願以煉息心得交換盤纏。",
+      "options": [
+        {
+          "text": "換取草苗",
+          "costs": {
+            "money": 40
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_low": 35
+            }
+          },
+          "log": "你付清盤纏，將三十五份可用藥草安置入庫。"
+        },
+        {
+          "text": "贈木問息",
+          "costs": {
+            "wood": 30
+          },
+          "rewards": {
+            "training_seconds": 90
+          },
+          "log": "你贈出三十靈木，聽得一段行氣訣，修煉進度增加九十秒。"
+        },
+        {
+          "text": "互道珍重",
+          "costs": {},
+          "rewards": {},
+          "log": "你收起換苗的念頭，與散修互道珍重。"
+        }
+      ]
+    },
+    {
+      "key": "E03",
+      "id": "enc_p1_workshop_offcuts",
+      "category": "industry",
+      "title": "木坊餘料",
+      "era": 2,
+      "requires": [
+        "wood_open",
+        "timber_completed"
+      ],
+      "art": "industry",
+      "desc": "木坊完成一批靈材後，匠人攤開剩料。可添石修整為木，也可拿去換得現錢。",
+      "options": [
+        {
+          "text": "添石整料",
+          "costs": {
+            "stone_low": 20
+          },
+          "rewards": {
+            "resources": {
+              "wood": 50
+            }
+          },
+          "log": "你付出二十靈石修整餘料，五十靈木運回祖島；本次不是加工批次。"
+        },
+        {
+          "text": "貼補運費",
+          "costs": {
+            "wood": 20
+          },
+          "rewards": {
+            "resources": {
+              "money": 45
+            }
+          },
+          "log": "你撥出二十靈木作運費，餘料結得四十五金錢。"
+        },
+        {
+          "text": "留給木坊",
+          "costs": {},
+          "rewards": {},
+          "log": "你未動用自己的庫藏，將餘料留給木坊。"
+        }
+      ]
+    },
+    {
+      "key": "E04",
+      "id": "enc_p1_returning_boat",
+      "category": "industry",
+      "title": "歸舟補帆",
+      "era": 2,
+      "requires": [
+        "positive_home_arrival"
+      ],
+      "art": "industry",
+      "desc": "一艘送貨歸舟停在祖島外。船工願以隨船靈石換修帆木，也願傳授辨風調息的小訣竅。",
+      "options": [
+        {
+          "text": "以木補帆",
+          "costs": {
+            "wood": 30
+          },
+          "rewards": {
+            "resources": {
+              "stone_low": 35
+            }
+          },
+          "log": "你送上三十靈木，船工交付三十五靈石；既有航程與貨物保持原狀。"
+        },
+        {
+          "text": "煮茶問風",
+          "costs": {
+            "money": 20
+          },
+          "rewards": {
+            "training_seconds": 60
+          },
+          "log": "你花二十金錢備茶，辨風吐納的心得推進六十秒修煉。"
+        },
+        {
+          "text": "送舟離岸",
+          "costs": {},
+          "rewards": {},
+          "log": "你送別船工，沒有額外支出或改動航線。"
+        }
+      ]
+    },
+    {
+      "key": "E05",
+      "id": "enc_p1_sect_lamp",
+      "category": "sect",
+      "title": "丹房借燈",
+      "era": 2,
+      "requires": [
+        "joined_sect"
+      ],
+      "art": "sect",
+      "desc": "宗門丹房今夜校火。值守弟子借一份草料試爐，也可由你供石旁觀控火。",
+      "options": [
+        {
+          "text": "供草試木丹",
+          "costs": {
+            "spirit_grass_low": 15
+          },
+          "rewards": {
+            "pills": {
+              "wood_nurture_pill": 1
+            }
+          },
+          "log": "你交出十五份靈草，獲贈養木丹一枚；贈丹不記為親自煉製。"
+        },
+        {
+          "text": "供石觀火",
+          "costs": {
+            "stone_low": 20
+          },
+          "rewards": {
+            "training_seconds": 90
+          },
+          "log": "你添上二十靈石，觀火有所得，修煉進度增加九十秒。"
+        },
+        {
+          "text": "讓位同門",
+          "costs": {},
+          "rewards": {},
+          "log": "你讓出觀火位置，未添草石，也未帶走丹藥。"
+        }
+      ]
+    },
+    {
+      "key": "E06",
+      "id": "enc_p1_supply_margin",
+      "category": "sect",
+      "title": "委託簿邊註",
+      "era": 3,
+      "requires": [
+        "joined_sect",
+        "new_supply_claimed"
+      ],
+      "art": "sect",
+      "desc": "你領回供給委託後，執事指向簿側兩行註記：可贊助一爐納靈丹，也可替庫房添木換草。",
+      "options": [
+        {
+          "text": "贊助納靈爐",
+          "costs": {
+            "spirit_grass_low": 15,
+            "stone_low": 15
+          },
+          "rewards": {
+            "pills": {
+              "qi_absorption_pill": 1
+            }
+          },
+          "log": "你補足草石各十五，執事回贈納靈丹一枚，另筆委託不受影響。"
+        },
+        {
+          "text": "添木換草",
+          "costs": {
+            "wood": 40
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_low": 50
+            }
+          },
+          "log": "你交出四十靈木，換回五十份靈草；這不是再次領取委託。"
+        },
+        {
+          "text": "合上簿冊",
+          "costs": {},
+          "rewards": {},
+          "log": "你合上簿冊，將草木留作自己的下一步打算。"
+        }
+      ]
+    },
+    {
+      "key": "E07",
+      "id": "enc_p1_alchemist_measures",
+      "category": "alchemy",
+      "title": "丹師校量",
+      "era": 2,
+      "requires": [
+        "refined_any_p1"
+      ],
+      "art": "traveler",
+      "desc": "丹師看過你親煉的專精丹，提出兩種試量：以草換育草成丹，或添靈力同校吐納。",
+      "options": [
+        {
+          "text": "以草換成丹",
+          "costs": {
+            "spirit_grass_low": 15
+          },
+          "rewards": {
+            "pills": {
+              "herb_nurture_pill": 1
+            }
+          },
+          "log": "你交給丹師十五份靈草，收得育草丹一枚；此次是交換成丹。"
+        },
+        {
+          "text": "同校吐納",
+          "costs": {
+            "lingli": 50
+          },
+          "rewards": {
+            "training_seconds": 100
+          },
+          "log": "你用五十靈力走完一輪校量，修煉進度增加一百秒。"
+        },
+        {
+          "text": "保留爐記",
+          "costs": {},
+          "rewards": {},
+          "log": "你收好爐記，決定按原有丹方繼續。"
+        }
+      ]
+    },
+    {
+      "key": "E08",
+      "id": "enc_p1_fourfold_note",
+      "category": "alchemy",
+      "title": "四脈丹箋",
+      "era": 3,
+      "requires": [
+        "two_p1_consumed"
+      ],
+      "art": "traveler",
+      "desc": "試過兩類專精丹後，你在舊箋上辨出木草與財氣的異同。一位丹友願替你補齊其中一脈。",
+      "options": [
+        {
+          "text": "試財氣一脈",
+          "costs": {
+            "spirit_grass_low": 20,
+            "stone_low": 15
+          },
+          "rewards": {
+            "pills": {
+              "wealth_gathering_pill": 1
+            }
+          },
+          "log": "你付出二十靈草與十五靈石，獲聚財丹一枚，尚未服用便不生藥效。"
+        },
+        {
+          "text": "先補木脈",
+          "costs": {
+            "money": 45
+          },
+          "rewards": {
+            "pills": {
+              "wood_nurture_pill": 1
+            }
+          },
+          "log": "你花四十五金錢換得養木丹一枚，留待需要時使用。"
+        },
+        {
+          "text": "留箋自驗",
+          "costs": {},
+          "rewards": {},
+          "log": "你留下丹箋，沒有換取額外丹藥。"
+        }
+      ]
+    },
+    {
+      "key": "E09",
+      "id": "enc_p1_fox_path",
+      "category": "beast",
+      "title": "靈狐引徑",
+      "era": 3,
+      "requires": [
+        "active_fox"
+      ],
+      "art": "beast",
+      "desc": "靈狐停在兩條山徑前：一處有草香，一處有舊修留下的石刻。它等著你作主。",
+      "options": [
+        {
+          "text": "帶草循香",
+          "costs": {
+            "spirit_grass_low": 20
+          },
+          "rewards": {
+            "resources": {
+              "money": 60
+            }
+          },
+          "log": "你備二十靈草循香而行，拾得六十金錢；此行沒有執行餵養。"
+        },
+        {
+          "text": "借力讀刻",
+          "costs": {
+            "lingli": 60
+          },
+          "rewards": {
+            "training_seconds": 120
+          },
+          "log": "你以六十靈力照亮石刻，悟得一百二十秒修煉進度；靈狐經驗不變。"
+        },
+        {
+          "text": "喚狐歸家",
+          "costs": {},
+          "rewards": {},
+          "log": "你喚靈狐沿原路歸家，未取山徑中的物件。"
+        }
+      ]
+    },
+    {
+      "key": "E10",
+      "id": "enc_p1_fox_nightwatch",
+      "category": "beast",
+      "title": "狐守夜爐",
+      "era": 3,
+      "requires": [
+        "mature_active_fox"
+      ],
+      "art": "beast",
+      "desc": "成熟靈狐伏在夜爐旁守候。丹友願借這份安靜替你煉一枚納靈丹，也可與你靜坐守更。",
+      "options": [
+        {
+          "text": "供草石借爐",
+          "costs": {
+            "spirit_grass_low": 15,
+            "stone_low": 15
+          },
+          "rewards": {
+            "pills": {
+              "qi_absorption_pill": 1
+            }
+          },
+          "log": "你備妥草石各十五，得納靈丹一枚；靈狐不因此增長經驗。"
+        },
+        {
+          "text": "添木共守更",
+          "costs": {
+            "wood": 40
+          },
+          "rewards": {
+            "training_seconds": 150
+          },
+          "log": "你添四十靈木守爐，靜坐心得推進一百五十秒修煉；餵養冷卻不變。"
+        },
+        {
+          "text": "熄燈歇息",
+          "costs": {},
+          "rewards": {},
+          "log": "你熄去餘燈，與靈狐一同歇息。"
+        }
+      ]
+    },
+    {
+      "key": "E11",
+      "id": "enc_p1_old_lamp",
+      "category": "reincarnation",
+      "title": "前塵舊燈",
+      "era": 1,
+      "requires": [
+        "second_life"
+      ],
+      "art": "ruins",
+      "desc": "再世修行時，你在舊燈旁辨出似曾相識的刻痕。燈不會替你重得前世物件，只待一點燃料。",
+      "options": [
+        {
+          "text": "添木讀痕",
+          "costs": {
+            "wood": 15
+          },
+          "rewards": {
+            "training_seconds": 60
+          },
+          "log": "你添十五靈木讀完殘痕，增加六十秒修煉；這並非前世記錄的重發。"
+        },
+        {
+          "text": "引氣溫燈",
+          "costs": {
+            "lingli": 30
+          },
+          "rewards": {
+            "resources": {
+              "money": 30
+            }
+          },
+          "log": "你以三十靈力溫燈，從燈座暗格取出三十金錢，沒有改動歷世封存。"
+        },
+        {
+          "text": "留燈於此",
+          "costs": {},
+          "rewards": {},
+          "log": "你將舊燈留在原處，不替模糊刻痕編造前世事蹟。"
+        }
+      ]
+    },
+    {
+      "key": "E12",
+      "id": "enc_p1_wisdom_exchange",
+      "category": "reincarnation",
+      "title": "宿慧問答",
+      "era": 2,
+      "requires": [
+        "second_life",
+        "any_new_talent"
+      ],
+      "art": "ruins",
+      "desc": "新世重築後，一位行者問起你選擇的宿慧。你可用供給交流實務，也可用靈力演示行氣。",
+      "options": [
+        {
+          "text": "供石論百工",
+          "costs": {
+            "stone_low": 25
+          },
+          "rewards": {
+            "resources": {
+              "wood": 60
+            }
+          },
+          "log": "你付出二十五靈石協作修具，行者交付六十靈木；宿慧階數不變。"
+        },
+        {
+          "text": "行氣答三問",
+          "costs": {
+            "lingli": 80
+          },
+          "rewards": {
+            "training_seconds": 180
+          },
+          "log": "你用八十靈力回答行氣三問，增加一百八十秒修煉，沒有新增永久加成。"
+        },
+        {
+          "text": "各行其道",
+          "costs": {},
+          "rewards": {},
+          "log": "你與行者各行其道，保留現有資糧與宿慧選擇。"
+        }
+      ]
+    }
+  ],
+  "delivery_status": "DONE_WITH_DISCLOSED_PRESERVATION_EXCEPTION",
+  "implementation_amendments": {
+    "fortune_rng": {
+      "approved": true,
+      "date": "2026-10-23",
+      "user_quote": "同意修正自然抽取（建議）",
+      "implementation": "Independent persisted replayable fortune.rng_version=1 and uint32 rng_state; no breakthrough/tribulation RNG consumption; overrides original legacy RNG-call constraint."
+    }
+  },
+  "human_art_acceptance": {
+    "status": "ACCEPTED_BY_USER",
+    "date": "2026-10-23",
+    "user_quote": "全部接受",
+    "scope": "All 14 generated assets and batch card presentation"
+  },
+  "closure_evidence": {
+    "task": "CONTENT-P1-STORY",
+    "date": "2026-10-23",
+    "status": "DONE_WITH_DISCLOSED_PRESERVATION_EXCEPTION",
+    "human_art_acceptance": {
+      "user_quote": "全部接受",
+      "scope": "12 badges, 2 encounter illustrations and batch card presentation"
+    },
+    "preservation_exception": {
+      "user_quote": "接受已揭露例外並結案",
+      "scope": "Keep current files and permanently retain original two failed preservation assertions and baseline-review.json; no baseline replacement, overwrite, rollback or new export.",
+      "historical_audit_status": "FAILED_TWO_PRESERVATION_ASSERTIONS",
+      "attribution": "Incomplete; acceptance does not identify actor or command."
+    },
+    "verification_scope": "L1 static review only; reuse previously delivered bounded game/browser evidence; no new L3"
+  }
 }

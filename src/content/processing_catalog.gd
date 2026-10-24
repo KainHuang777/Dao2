@@ -11,11 +11,13 @@ static func validate(raw: Variant) -> Dictionary:
 	var errors: Array = []
 	if not raw is Dictionary or not raw.get("resources") is Dictionary or not raw.get("recipes") is Dictionary:
 		return {"ok": false, "errors": ["resources and recipes must be dictionaries"]}
-	if raw.get("version", "") != "res1-a-1":
+	var extended: bool = raw.get("version", "") == "res1-e-46-1"
+	var max_era := 6 if extended else 3
+	if raw.get("version", "") not in ["res1-a-1", "res1-e-46-1"]:
 		errors.append("unknown processing version")
 	for id in raw.resources:
 		var r: Variant = raw.resources[id]
-		if not r is Dictionary or not _small_integer(r.get("era")) or not _small_integer(r.get("tier")) or not r.get("source") is String or not r.get("sinks") is Array:
+		if not r is Dictionary or not _small_integer(r.get("era"), max_era) or not _small_integer(r.get("tier")) or not r.get("source") is String or not r.get("sinks") is Array:
 			errors.append("invalid resource: " + String(id))
 			continue
 		if r.sinks.is_empty() or r.source.is_empty():
@@ -24,12 +26,13 @@ static func validate(raw: Variant) -> Dictionary:
 			errors.append("invalid cap: " + String(id))
 	for id in raw.recipes:
 		var r: Variant = raw.recipes[id]
-		if not r is Dictionary or not r.get("inputs") is Dictionary or not r.get("facility") is Dictionary or not r.get("skills") is Dictionary or not _small_integer(r.get("era")):
+		if not r is Dictionary or not r.get("inputs") is Dictionary or not r.get("facility") is Dictionary or not r.get("skills") is Dictionary or not _small_integer(r.get("era"), max_era):
 			errors.append("invalid recipe: " + String(id))
 			continue
-		if not raw.resources.has(id) or r.inputs.is_empty() or r.facility.is_empty() or not _positive_amount(r.get("output")) or r.get("version") != 1:
+		var product: Variant = r.get("product", id)
+		if not product is String or (not extended and product != id) or not raw.resources.has(product) or r.inputs.is_empty() or r.facility.is_empty() or not _positive_amount(r.get("output")) or r.get("version") != 1:
 			errors.append("invalid output/version: " + String(id))
-		elif raw.resources[id] is Dictionary and raw.resources[id].get("era") != r.era:
+		elif raw.resources[product] is Dictionary and (not _small_integer(raw.resources[product].get("era"), max_era) or int(raw.resources[product].era) > int(r.era) or (not extended and raw.resources[product].era != r.era)):
 			errors.append("output Era mismatch: " + String(id))
 		for input in r.inputs:
 			if not raw.resources.has(input) or not _positive_amount(r.inputs[input]):
@@ -43,23 +46,31 @@ static func validate(raw: Variant) -> Dictionary:
 	if not errors.is_empty():
 		return {"ok": false, "errors": errors, "catalog": {}}
 	# Dependency closure checks both cycles and gates needing a future Era ingredient.
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors, "catalog": {}}
+	var products: Array = []
+	for id in raw.recipes:
+		products.append(product_id(raw, id))
 	var reachable: Array = []
-	for era in [1, 2, 3]:
+	var recipes_reached: Array = []
+	for era in range(1, max_era + 1):
 		for id in raw.resources:
-			if not raw.recipes.has(id) and raw.resources[id] is Dictionary and int(raw.resources[id].get("era", 99)) <= era and not id in reachable:
+			if not id in products and raw.resources[id] is Dictionary and int(raw.resources[id].get("era", 99)) <= era and not id in reachable:
 				reachable.append(id)
 		for _pass in range(raw.recipes.size()):
 			for id in raw.recipes:
 				var r: Variant = raw.recipes[id]
-				if not r is Dictionary or not r.get("inputs") is Dictionary or int(r.get("era", 99)) > era or id in reachable:
+				if int(r.era) > era or id in recipes_reached:
 					continue
 				var ready := true
 				for input in r.inputs:
 					ready = ready and input in reachable
 				if ready:
-					reachable.append(id)
+					recipes_reached.append(id)
+					if not product_id(raw, id) in reachable:
+						reachable.append(product_id(raw, id))
 		for id in raw.recipes:
-			if raw.recipes[id] is Dictionary and int(raw.recipes[id].get("era", 99)) <= era and not id in reachable:
+			if int(raw.recipes[id].era) <= era and not id in recipes_reached:
 				errors.append("unreachable recipe at Era %d: %s" % [era, id])
 	return {"ok": errors.is_empty(), "errors": errors, "catalog": raw.duplicate(true) if errors.is_empty() else {}}
 
@@ -69,5 +80,8 @@ static func _positive_amount(raw: Variant) -> bool:
 	var parsed := AmountCompat.try_parse(raw)
 	return bool(parsed.ok) and parsed.value.layer == 0 and parsed.value.sign > 0 and parsed.value.mag <= 1.0e12
 
-static func _small_integer(raw: Variant) -> bool:
-	return (raw is int or raw is float) and float(raw) >= 1.0 and float(raw) <= 3.0 and float(raw) == floor(float(raw))
+static func product_id(catalog: Dictionary, recipe_id: String) -> String:
+	return String(catalog.recipes[recipe_id].get("product", recipe_id))
+
+static func _small_integer(raw: Variant, maximum: int = 3) -> bool:
+	return (raw is int or raw is float) and float(raw) >= 1.0 and float(raw) <= maximum and float(raw) == floor(float(raw))

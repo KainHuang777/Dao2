@@ -1,0 +1,48 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'CORRUPTED'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:371)
+       [1] current_state (res://src/persistence/save_manager.gd:120)
+       [2] load_state (res://src/persistence/save_manager.gd:129)
+       [3] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:187)
+       [4] _init (res://tests/m1c_persistence_runner.gd:23)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'CORRUPTED'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:82)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:392)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:391)
+       [4] current_state (res://src/persistence/save_manager.gd:120)
+       [5] load_state (res://src/persistence/save_manager.gd:129)
+       [6] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:187)
+       [7] _init (res://tests/m1c_persistence_runner.gd:23)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'CORRUPTED'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:371)
+       [1] current_state (res://src/persistence/save_manager.gd:120)
+       [2] load_state (res://src/persistence/save_manager.gd:129)
+       [3] _test_export_import_round_trip (res://tests/m1c_persistence_runner.gd:201)
+       [4] _init (res://tests/m1c_persistence_runner.gd:24)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'CORRUPTED'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:82)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:392)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:391)
+       [4] current_state (res://src/persistence/save_manager.gd:120)
+       [5] load_state (res://src/persistence/save_manager.gd:129)
+       [6] _test_export_import_round_trip (res://tests/m1c_persistence_runner.gd:201)
+       [7] _init (res://tests/m1c_persistence_runner.gd:24)
+ERROR: load_state returns a state before import
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:34)
+ERROR: load_state returns a state before export
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:34)

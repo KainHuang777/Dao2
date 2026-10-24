@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW FAILURE earned snapshot earned-reborn
+SNAPSHOT_ERROR earned-reborn STORY_V0_FACTS
+SUPPLY-3 FLOW {"age":0.0,"checks":13,"failures":["earned snapshot earned-reborn"],"level":"L2","source_path":"res://docs/verification/artifacts/content-p2-supply-3/earned-era6-level10.json","source_sha256":"3b3f3e5ffd9b98314431df2719ab92c6cc192e7e504c6d77ee17e015cf6c8884","trace":[],"waits_seconds":{}}

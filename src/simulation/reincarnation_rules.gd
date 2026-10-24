@@ -99,6 +99,9 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			state.economy.early_supply = Onboarding.initial_supply()
 		for island in state.economy.islands:
 			state.economy.islands[island].facilities = {"extractor": 1, "workshop": 1, "storage": 1}
+		if progression_version == IslandProgression.SUPPLY_VERSION:
+			for island in IslandEconomy.supply_data().islands:
+				state.economy.islands[island] = {"opened": false, "inventory": {}}
 	# Extra processing IDs are not in the release manifest: clear them as well.
 	for resource_id in state.resources:
 		if not resource_id in content.resource_ids:

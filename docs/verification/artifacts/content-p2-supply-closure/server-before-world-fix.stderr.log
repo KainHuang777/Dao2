@@ -1,0 +1,24 @@
+127.0.0.1 - - [24/Oct/2026 08:49:11] "GET /launcher HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:11] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 08:49:11] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 08:49:15] "GET /fixture HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:15] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:15] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:15] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:16] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:20] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:23] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:23] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:49:26] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:50:29] "GET /audio/bgm/02_The_Weight_of_Heaven.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:51:29] "GET /audio/bgm/03_Rungs_of_the_Infinite.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:14] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:14] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:14] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:14] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:14] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:18] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:18] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:52:20] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:53:24] "GET /audio/bgm/02_The_Weight_of_Heaven.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 08:54:23] "GET /audio/bgm/03_Rungs_of_the_Infinite.mp3 HTTP/1.1" 200 -

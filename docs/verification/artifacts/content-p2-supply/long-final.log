@@ -1,0 +1,10 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{2d6fe61c-a547-43bf-b7dd-d4dbc6bce1c5}\AC\Temp\dao2_runners_f7abaca4a5484ae0a5215b9652feb4f3
+[START:initial] tests/res1d2_integration_runner.gd
+[PASS:initial] tests/res1d2_integration_runner.gd (74.3s)
+[START:initial] tests/offline_closed_form_parity_runner.gd
+[PASS:initial] tests/offline_closed_form_parity_runner.gd (92.9s)
+--- slowest 8 runners (s) ---
+    92.9  tests/offline_closed_form_parity_runner.gd
+    74.3  tests/res1d2_integration_runner.gd
+SELECTED 2 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{2d6fe61c-a547-43bf-b7dd-d4dbc6bce1c5}\AC\Temp\dao2_runners_f7abaca4a5484ae0a5215b9652feb4f3

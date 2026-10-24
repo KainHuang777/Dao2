@@ -108,6 +108,10 @@ static func _apply_gather(content: GameContent, state: GameState, payload: Dicti
 
 static func _apply_upgrade(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var building_id := String(payload.building_id)
+	if content.processing_catalog.get("version") == IslandProgression.SUPPLY_VERSION:
+		for island in IslandEconomy.supply_data().dispatch:
+			if IslandEconomy.supply_data().dispatch[island] == building_id and not bool(state.economy.get("islands", {}).get(island, {}).get("opened", false)):
+				return _failure("ISLAND_NOT_OPEN", {"island_id": island})
 	var definition = content.building(building_id)
 	if definition == null:
 		return _failure("UNKNOWN_BUILDING", {"building_id": building_id})

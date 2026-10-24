@@ -201,7 +201,7 @@ static func _produce_uncached(state: GameState, content: GameContent, rates: Dic
 			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.lingqi_cap_bonus)))
 		if not state.economy.is_empty() and content.processing_catalog.resources.has(resource_id):
 			var held := IslandEconomy.reserved(state, "home", resource_id, content.processing_catalog)
-			var effective_cap := minf(cap_limit.to_float(), float(content.processing_catalog.resources[resource_id].cap)) - held
+			var effective_cap := (cap_limit.to_float() if IslandEconomy.expanded(state) else minf(cap_limit.to_float(), float(content.processing_catalog.resources[resource_id].cap))) - held
 			# Capacity contraction stops future production; never deletes existing stock.
 			cap_limit = AmountCompat.from_number(maxf(entry.value.to_float(), maxf(0, effective_cap)))
 		if caps.has(resource_id) and new_value.compare_to(cap_limit) > 0:
@@ -241,7 +241,7 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 			if id == "lingqi" and float(sect.lingqi_cap_bonus) > 0.0 and cap.sign > 0:
 				cap = cap.multiply(AmountCompat.from_number(1.0 + float(sect.lingqi_cap_bonus)))
 			var processing: bool = not state.economy.is_empty() and content.processing_catalog.resources.has(id)
-			if processing:
+			if processing and not IslandEconomy.expanded(state):
 				cap = AmountCompat.from_number(minf(cap.to_float(), float(content.processing_catalog.resources[id].cap)))
 			production[id] = {"delta": delta, "cap": cap, "limited": caps.has(id), "processing": processing}
 		prepared.production = production

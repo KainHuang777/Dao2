@@ -26,6 +26,16 @@ var row_info: Dictionary = {}
 var expanded_row_id: String = ""
 var resource_names: Dictionary = {}
 const BUILDING_NAMES := {
+	"core_storehouse_3": "三階聚靈庫",
+	"core_storehouse_4": "元嬰聚靈庫",
+	"core_storehouse_5": "化神聚靈庫",
+	"cultivation_focus_4": "元嬰修行陣",
+	"cultivation_focus_5": "化神修行陣",
+	"cultivation_focus_6": "煉虛修行陣",
+	"mineral_focus": "寒銀調度",
+	"ancient_focus": "古藥調度",
+	"void_focus": "太虛調度",
+
 	"library": "藏經閣", "scripture_hall": "經書殿",
 	"hut": "茅屋",
 	"wooden_house": "木屋",
@@ -478,6 +488,13 @@ func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1,
 			upgrade.disabled = true
 			upgrade.tooltip_text = "%s｜已達等階上限（%d階）" % [role, level_cap]
 			row_info[id].label.text = "%s｜已達上限（%d階）" % [role, level_cap]
+		elif not bool(view.get("island_open", true)):
+			var required_name: String = IslandProgression.NAMES.get(view.get("required_island", ""), "空島")
+			status = "先開拓" + required_name
+			upgrade.text = "先開拓"
+			upgrade.disabled = true
+			upgrade.tooltip_text = status + "；調度只提升當島產率。" + cost_line
+			row_info[id].label.text = status + "｜需求：" + cost_line
 		elif affordable:
 			status = "可建" if level == 0 else "%d階·可升" % level
 			upgrade.text = "建造" if level == 0 else "升級"

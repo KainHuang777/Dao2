@@ -201,7 +201,8 @@ static func _validate_buildings(raw: Array, errors: Array) -> Array:
 		if weight != null and (not _is_number(weight) or float(weight) < 0.0):
 			errors.append("%s: effect_weight must be null or a number >= 0" % label)
 			continue
-		if needs_weight and weight == null:
+		# A single-level flat producer has no level scaling to configure.
+		if needs_weight and weight == null and float(max_level) != 1.0:
 			errors.append("%s: effect_weight is required when rate effects are present" % label)
 			continue
 		defs.append({

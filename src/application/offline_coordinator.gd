@@ -12,6 +12,8 @@ static func settle(now_utc_ms: int) -> Dictionary:
 	return settle_state(state, content, now_utc_ms, last_settled)
 
 static func settle_state(state: GameState, content: GameContent, now_utc_ms: int, last_settled: int) -> Dictionary:
+	if SaveManager.supply_pending(state):
+		return {"ok": false, "report": {}, "error": "SUPPLY_SAVE_REQUIRED", "committed": false, "state": state}
 	# Also used for live background recovery; the source is unchanged on failure.
 	var working: GameState = state.duplicate_state()
 	var settlement: Dictionary = OfflineSettlement.settle(working, content, now_utc_ms, last_settled)
@@ -42,6 +44,8 @@ static func settle_async(now_utc_ms: int, tree: SceneTree, progress: Callable = 
 	return await settle_state_async(state, SaveManager.content(), now_utc_ms, SaveManager.last_settled_utc_ms(), tree, progress)
 
 static func settle_state_async(state: GameState, content: GameContent, now_utc_ms: int, last_settled: int, tree: SceneTree, progress: Callable = Callable()) -> Dictionary:
+	if SaveManager.supply_pending(state):
+		return {"ok": false, "report": {}, "error": "SUPPLY_SAVE_REQUIRED", "committed": false, "state": state}
 	var working := state.duplicate_state()
 	var settlement := await compute_async(working, content, now_utc_ms, last_settled, tree, progress)
 	return _commit(state, working, settlement, now_utc_ms)

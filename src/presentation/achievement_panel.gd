@@ -237,7 +237,7 @@ func _update_card(card: PanelContainer, ach: Dictionary) -> void:
 	action.tooltip_text = error
 	var claimed := bool(ach.get("claimed", false))
 	var ready := bool(ach.get("can_claim", false))
-	action.text = "已領取" if claimed else ("領取獎勵" if ready else "未達成")
+	action.text = "已領取" if claimed else ("領取獎勵" if ready else ("暫不可領" if not error.is_empty() else "未達成"))
 	action.disabled = not ready or claimed
 	card.get_node("HBox/Badge").modulate = Color.WHITE if ready or claimed else Color(0.58, 0.63, 0.60)
 
