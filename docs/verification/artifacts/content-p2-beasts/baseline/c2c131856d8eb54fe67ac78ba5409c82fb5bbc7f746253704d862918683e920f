@@ -1,0 +1,488 @@
+[
+  {
+    "case": "1280 real mouse bought all three",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 4,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 226
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 364
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 502
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 88
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": -50
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": -188
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "844 refused retry and recovery",
+    "state": {
+      "dao_heart": "15",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 3,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 177
+        },
+        "artisan_past_wisdom": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 271
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 365
+        },
+        "innate_dao_body": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 87
+        },
+        "lifespan_extension": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 1
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": -89
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "844 final build three real mouse purchases and saved badge",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 7,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": -20
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 74
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 168
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": -110
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": -196
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": -286
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "800 final build all three real mouse purchases",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 4,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -17
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 77
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 171
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -107
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -193
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -283
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "800 reload preserves all three and 5 hearts",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 6,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 434
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 528
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 622
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 344
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 258
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 168
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "1280 final build reload",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 6,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 734
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 872
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 1010
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 596
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 458
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 1134,
+          "y": 320
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "844 final reload",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 8,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 434
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 528
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 622
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 344
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 258
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 633,
+          "y": 168
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  },
+  {
+    "case": "final next-rank text build reload; artisan8->16 visible",
+    "state": {
+      "dao_heart": "5",
+      "fixture": "explicit Era3 -> formal CLI rebirth; paused isolated desktop UI",
+      "reincarnation_count": 1,
+      "revision": 7,
+      "rows": {
+        "alchemical_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 78
+        },
+        "artisan_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 172
+        },
+        "beast_bond_past_wisdom": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": 266
+        },
+        "innate_dao_body": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -12
+        },
+        "lifespan_extension": {
+          "disabled": true,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -98
+        },
+        "resource_inheritance": {
+          "disabled": false,
+          "h": 44,
+          "w": 100,
+          "x": 654,
+          "y": -188
+        }
+      },
+      "save_failed": false,
+      "tab": "talents",
+      "talent_version": 2,
+      "talents": {
+        "alchemical_past_wisdom": 1,
+        "artisan_past_wisdom": 1,
+        "beast_bond_past_wisdom": 1
+      }
+    }
+  }
+]

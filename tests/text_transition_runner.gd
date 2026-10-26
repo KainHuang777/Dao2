@@ -106,4 +106,4 @@ func _run() -> void:
 	await process_frame
 	if not failed:
 		print("PASS: text transition replay/skip/completion, reduced motion, fade and responsive long titles")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

@@ -1,0 +1,5 @@
+{
+	"checks": 25,
+	"evidence": "actual recipe/arrival tick hooks and formal expedition commands; funded recipe fixtures, not natural player progression",
+	"failures": []
+}

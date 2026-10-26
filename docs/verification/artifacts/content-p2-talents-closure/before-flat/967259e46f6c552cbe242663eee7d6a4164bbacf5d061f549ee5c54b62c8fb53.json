@@ -1,0 +1,82 @@
+[
+  {
+    "path": "src/presentation/ui_shell_controller.gd",
+    "sha256": "f42d2a15e2c05e364d6a1a033a6ae770d76f16dc46d96d13d24cb089232acec8"
+  },
+  {
+    "path": "src/presentation/ui_shell_resources.gd",
+    "sha256": "f9752c363765c0ec7b3cfbe139fb4ec4f66e74e2add611d486f192ac71733b44"
+  },
+  {
+    "path": "src/presentation/ui_shell_policy.gd",
+    "sha256": "d7bcb96bf678fd0b80715cef7c728f5794020dd24ffa1c230d33611ef16b6129"
+  },
+  {
+    "path": "src/presentation/ui_shell_state.gd",
+    "sha256": "28615daf4eadb88a02464c9d3b860c4949b2accc3d4c2585bdab0b1e3d9e1702"
+  },
+  {
+    "path": "src/presentation/feature_navigation.gd",
+    "sha256": "5b2c97cd3d9dbf756b0b17557897535f13d5ed6f034ae0f2d6245bd239f0a330"
+  },
+  {
+    "path": "src/presentation/abode_hud_controller.gd",
+    "sha256": "42693b117be9c5fa96e43239eb9300b27bcd9c9e1b2e5beb54132c09cebb6eb2"
+  },
+  {
+    "path": "src/presentation/sect_panel.gd",
+    "sha256": "eef91d900810d9195163a9c23e87cf476f3e57e337f761faad52188646251ea7"
+  },
+  {
+    "path": "src/presentation/recipe_row.gd",
+    "sha256": "7fbe9af932adaff0600cd726e78125c6486e1b81427aa07a47fb464835e04429"
+  },
+  {
+    "path": "src/presentation/island_management_panel.gd",
+    "sha256": "417ced32ec3ab2671240f39c892c10b1660187050314053be735a0abae80903d"
+  },
+  {
+    "path": "src/presentation/island_transport_panel.gd",
+    "sha256": "c68f90abf2616a01c08ab98f036f72f0a6ab1c4e1d72e38b857de95095f5e28a"
+  },
+  {
+    "path": "src/presentation/manufacturing_panel.gd",
+    "sha256": "712558726b2ab43d806562e42318a0bddfdd823103ac0bee81fa990aef900e8d"
+  },
+  {
+    "path": "src/application/game_session.gd",
+    "sha256": "6b27c8e90da668dca7bebf1ff05a1c74a4fe0fbf4563ac8efed0372ea001732f"
+  },
+  {
+    "path": "src/verification/ui_shell_acceptance.gd",
+    "sha256": "62c75bd2a0bd79190c7107fc2521b97f6f77b5b0f34f2364f359132e0eb3fb43"
+  },
+  {
+    "path": "src/verification/ui_shell_2_fixture.json",
+    "sha256": "a70266a9e7c1a4e23b84cd474b25b99d3307c8dcd6fe296ca207bff23f5d8b53"
+  },
+  {
+    "path": "tests/ui_shell_matrix_runner.gd",
+    "sha256": "5033c0d66075d71f806b00b1160a6cc879f3ce3b1e49800fe9fde5bd855d05e1"
+  },
+  {
+    "path": "export_presets.cfg",
+    "sha256": "1bdeb2cfc507dbeab62a6909cb77fd81e51d59b5756f46c04fc420e0b45914d4"
+  },
+  {
+    "path": "tools/ui_shell_server.py",
+    "sha256": "655d65ea5886c433aac867d39a0be918d9825da2bd1dcdde7c46610d4ca8316e"
+  },
+  {
+    "path": "build/web-ui-shell-2/index.pck",
+    "sha256": "2749e648b43bef41f151ec7b60b641501ca02161f321faeb70c8bf4dc1710a11"
+  },
+  {
+    "path": "build/ui-shell-2-acceptance/index.pck",
+    "sha256": "ec58750379d693011867571d9f597f614e701dd50864ba814afa039af442a778"
+  },
+  {
+    "path": "build/web/index.pck",
+    "sha256": "7e7e619dcaa28fb05e1c397adcc24ce9071d9b53b4e8fa6379c186e0af9f9400"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-22",
+  "kind": "static preflight only",
+  "utf8_files": [
+    "docs/verification/ledger-0.md",
+    "docs/verification/artifacts/ledger-0/source-hashes.json",
+    "ROADMAP.md",
+    "docs/development-status.md",
+    "updata.txt"
+  ],
+  "local_links": 3,
+  "missing_links": [],
+  "tracked_diff_check_exit": 0,
+  "tracked_diff_output": "warning: in the working copy of 'ROADMAP.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/development-status.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'updata.txt', LF will be replaced by CRLF the next time Git touches it\n",
+  "new_document_whitespace_output": "warning: in the working copy of 'E:\\WORK\\Dao2\\docs\\verification\\ledger-0.md', LF will be replaced by CRLF the next time Git touches it\n",
+  "passed": false,
+  "runtime_tests": "NOT RUN; capacity answer pending"
+}

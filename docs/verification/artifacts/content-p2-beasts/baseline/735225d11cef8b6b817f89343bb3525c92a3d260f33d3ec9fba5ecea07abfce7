@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-22",
+  "browser": "Codex in-app desktop browser",
+  "input": "mouse and Escape",
+  "origins": [
+    "http://127.0.0.1:4391/review",
+    "http://127.0.0.1:4392/index.html?shell1=final"
+  ],
+  "dpr": 1.0000000149011612,
+  "css_viewports": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "note": "844x390 CSS maps to approximately 779x360 Godot logical coordinates under the existing scale adapter; no physical-device claim. Screenshots were returned inline by CUA, not saved as native PNGs.",
+  "observations": [
+    {
+      "case": "reading shield",
+      "route": "alchemy",
+      "overlay": "messages",
+      "grass": 100,
+      "pills": 0,
+      "behind_refine_click_changed_inventory": false
+    },
+    {
+      "case": "resource drawer and Escape",
+      "css": [
+        844,
+        390
+      ],
+      "route": "alchemy",
+      "overlay_after_escape": ""
+    },
+    {
+      "case": "save tool on compact page",
+      "css": [
+        800,
+        360
+      ],
+      "route_after_close": "alchemy"
+    },
+    {
+      "case": "first denied refine recovered and reloaded",
+      "grass": 90,
+      "pills": 1
+    },
+    {
+      "case": "final denied refine",
+      "before_grass": 90,
+      "before_pills": 1,
+      "protection_survived_escape_and_denied_retry": true
+    },
+    {
+      "case": "final recovery",
+      "route": "alchemy",
+      "grass": 80,
+      "pills": 2,
+      "save_failed": false
+    },
+    {
+      "case": "home preference and resize",
+      "resource_mode": 2,
+      "route": "home",
+      "collapsed": false
+    },
+    {
+      "case": "final reload",
+      "grass": 80,
+      "pills": 2,
+      "save_failed": false,
+      "home_resource_mode": 0
+    }
+  ],
+  "limitation": "Acceptance fixture supplies explicit test inventory and disables online advancement. Reload still performs the real offline/save pipeline. Results are not natural new-player progression evidence."
+}

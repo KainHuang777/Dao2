@@ -1,0 +1,57 @@
+[
+  {
+    "path": "docs/verification/artifacts/early-flow1c-unopened.json",
+    "generated_sha256": "9aaf643ba66107d3708a10d54d32c19a15bbd864d89ce503071625ab458ffc08",
+    "restored_sha256": "850a45a663760d016fe49310c37b6f3e571b7a73761b9837f882d2f949242448"
+  },
+  {
+    "path": "docs/verification/artifacts/early-flow1d-foundation.json",
+    "generated_sha256": "2ec85f8aa436cc40a7f958e04436bd90ae36784f0b0b15d4e247f76bf67b2f50",
+    "restored_sha256": "6a7d3eb211ebfcbef14fb941736ca78911e4bc44c398c3d27a14dd35926c0159"
+  },
+  {
+    "path": "docs/verification/artifacts/early-flow1d-golden.json",
+    "generated_sha256": "054b9cb4fde2cead55818801750367ed91549480fd244fc6290414f0f922e18e",
+    "restored_sha256": "ae7054b65166e6bdbc7b4eecbedca17b00985cb77b1edf88e5433bc159298078"
+  },
+  {
+    "path": "docs/verification/artifacts/early-flow1d-ready.json",
+    "generated_sha256": "b3913c60aaae9ae3de895118e0290b0f43d1ecfa9620585dab8c9392e68c1b38",
+    "restored_sha256": "587a4d1763e8f1fc16d92497f5c2c20e3215c3d5e8fc1059b05b4128d932d2d4"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-c-earned-era2.json",
+    "generated_sha256": "bb8a86be32473fef27c40675a34a6e0b8b9aba804afb40589f903490e7db1639",
+    "restored_sha256": "8ad970d49785ae291607bfe34235388531348b7d118648c5f63fea698e1434c8"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-c2-offline-fixture.json",
+    "generated_sha256": "a45e12d4359b9d704f6b70495aa5c1ff5ae0523aa03d9b8be1eda74c51f29af4",
+    "restored_sha256": "e86ebfb2893c957adef23bccd5aa330b1bf1da1a28275c4d581912aeccdefe60"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-d2-active-fixture.json",
+    "generated_sha256": "402c847fa1cd225eb04be961b27b6f24e3af36e900a08e79f315f44cd8999b05",
+    "restored_sha256": "4f6fde631e0cb695c565ae7fe0804e1f59a77a231d7c0c475fcbe585b6732e7e"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-d2-earned-era3.json",
+    "generated_sha256": "99fa15f90bf7c8de845e6732203745f980d3d5e67d30274b03eccbcaed50d7b2",
+    "restored_sha256": "a70266a9e7c1a4e23b84cd474b25b99d3307c8dcd6fe296ca207bff23f5d8b53"
+  },
+  {
+    "path": "docs/verification/artifacts/skills-b1-fixture.json",
+    "generated_sha256": "616aace01639a9002554ddcbba96ea7e4d16e174da1aac2437b949ecae2b887c",
+    "restored_sha256": "5281f245e43559d5c02b502fab889c32e5876c0f773242c8e76d3f07590a1a4b"
+  },
+  {
+    "path": "docs/verification/artifacts/early-v1-c/runner-measurement.json",
+    "generated_sha256": "dbf17329a8d00da7974fac6554857a0128d79e9230217d0cb77603d95d1cfe35",
+    "restored_sha256": "c10d682c3b355a05331f70ebf013f71ab2d0eccdff91c8e7ac10516036c12221"
+  },
+  {
+    "path": "docs/verification/artifacts/mfg-3/fixture.json",
+    "generated_sha256": "97ef953b4d5d1bbd3d1fc55d1791bd063a2a25855ee6dda48ec5b665c922dd62",
+    "restored_sha256": "0a3bc2c757056f2af4cedb3cd8572343ffb4fdecd4798e3e9f84a73e8cae3b46"
+  }
+]

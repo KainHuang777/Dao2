@@ -110,4 +110,4 @@ func _run() -> void:
 	var reborn := ReincarnationRules.apply_reincarnation(fresh.state, fresh.content, "normal")
 	check(reborn.ok and fresh.state.abode_scenery.is_empty(), "reincarnation clears old-life finds")
 	print("ISLAND1_CORE ", "FAIL" if failed else "PASS")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

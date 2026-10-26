@@ -1,0 +1,52 @@
+[
+  {
+    "path": "docs/verification/artifacts/early-flow1c-unopened.json",
+    "restored_sha256": "850a45a663760d016fe49310c37b6f3e571b7a73761b9837f882d2f949242448",
+    "generated_sha256": "bd55d689abce17762874de6255c0b4b1f33953e1539cde3ca05eabff4324ace8"
+  },
+  {
+    "path": "docs/verification/artifacts/early-flow1d-foundation.json",
+    "restored_sha256": "6a7d3eb211ebfcbef14fb941736ca78911e4bc44c398c3d27a14dd35926c0159",
+    "generated_sha256": "4b0deee4eaf66ca5b85eab1b6c2fd57a479aa01f433dcc01ab0da36c317a51cb"
+  },
+  {
+    "path": "docs/verification/artifacts/early-flow1d-golden.json",
+    "restored_sha256": "ae7054b65166e6bdbc7b4eecbedca17b00985cb77b1edf88e5433bc159298078",
+    "generated_sha256": "548d07ee40b5cd515bb30337af5c97bd60c33e6165f035cc08ff1e1339b15344"
+  },
+  {
+    "path": "docs/verification/artifacts/early-flow1d-ready.json",
+    "restored_sha256": "587a4d1763e8f1fc16d92497f5c2c20e3215c3d5e8fc1059b05b4128d932d2d4",
+    "generated_sha256": "e222961e422cb2cf19ffa6ff71dfedfcd33d0cf798896f2972a76de497817d1f"
+  },
+  {
+    "path": "docs/verification/artifacts/mfg-3/fixture.json",
+    "restored_sha256": "0a3bc2c757056f2af4cedb3cd8572343ffb4fdecd4798e3e9f84a73e8cae3b46",
+    "generated_sha256": "c3059a0b95624e0426f10182f31c46e502fa08d58378720b718fbcc71868aa94"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-c-earned-era2.json",
+    "restored_sha256": "8ad970d49785ae291607bfe34235388531348b7d118648c5f63fea698e1434c8",
+    "generated_sha256": "fecba660f3a4763f349256672f806d6d3474dacd28f4631f655ca321ae09656f"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-c2-offline-fixture.json",
+    "restored_sha256": "e86ebfb2893c957adef23bccd5aa330b1bf1da1a28275c4d581912aeccdefe60",
+    "generated_sha256": "e03339c5db7fa3881826088ff08a69d491999996cf162869f9cefe91062a6c55"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-d2-active-fixture.json",
+    "restored_sha256": "4f6fde631e0cb695c565ae7fe0804e1f59a77a231d7c0c475fcbe585b6732e7e",
+    "generated_sha256": "920e177ec094c7f49b6f83091c9085c06f41df1d54424365ee70fe44674b4eaa"
+  },
+  {
+    "path": "docs/verification/artifacts/res1-d2-earned-era3.json",
+    "restored_sha256": "a70266a9e7c1a4e23b84cd474b25b99d3307c8dcd6fe296ca207bff23f5d8b53",
+    "generated_sha256": "e937cd90055c731737b9a5d5a0f11b45a1dd8a07c4fbf03ac5450edcfd2e181f"
+  },
+  {
+    "path": "docs/verification/artifacts/skills-b1-fixture.json",
+    "restored_sha256": "5281f245e43559d5c02b502fab889c32e5876c0f773242c8e76d3f07590a1a4b",
+    "generated_sha256": "8d69993f6b015c990684a69ac70a182f85ddaa554190e5bef36298aa3b5c668b"
+  }
+]

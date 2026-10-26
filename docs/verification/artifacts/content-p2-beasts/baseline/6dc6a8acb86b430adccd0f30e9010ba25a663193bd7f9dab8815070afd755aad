@@ -1,0 +1,428 @@
+﻿{
+    "audit_version":  "res1-d1-source-1",
+    "date":  "2026-10-05",
+    "evidence":  "Read-only source/hash audit, not DAO1 runtime parity",
+    "sources":  [
+                    {
+                        "path":  "src/balance/rules/craft.ts",
+                        "expected_sha256":  "685e74d65a003e8c2a7b3dafff806d2a3afb809bd0aa879a6c9d0dd0bb5c6788",
+                        "actual_sha256":  "685e74d65a003e8c2a7b3dafff806d2a3afb809bd0aa879a6c9d0dd0bb5c6788",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/balance/rules/recipe.ts",
+                        "expected_sha256":  "e5f38a70327b4896ff95c914915f999522ad11abbaea0d9860f006fbf592bf0f",
+                        "actual_sha256":  "e5f38a70327b4896ff95c914915f999522ad11abbaea0d9860f006fbf592bf0f",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/data/buildings.csv",
+                        "expected_sha256":  "df6b841034c170b66967bb094541ead768a699cd33d5b38bccfb89e6e63b8e5e",
+                        "actual_sha256":  "df6b841034c170b66967bb094541ead768a699cd33d5b38bccfb89e6e63b8e5e",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/data/eras.csv",
+                        "expected_sha256":  "e71f03abd8755993ff874b5cbd2c9ed7b428423bc455d3c44950eb715deca404",
+                        "actual_sha256":  "e71f03abd8755993ff874b5cbd2c9ed7b428423bc455d3c44950eb715deca404",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/data/Resources.csv",
+                        "expected_sha256":  "41b3e762c40eeb813885a08bd078e5c848c70683428e562d826971843edc74de",
+                        "actual_sha256":  "41b3e762c40eeb813885a08bd078e5c848c70683428e562d826971843edc74de",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/data/skills.csv",
+                        "expected_sha256":  "c45f39dc1aa43661bc4834c32fff5c5a432305d1d2381886a982ba86b082710d",
+                        "actual_sha256":  "c45f39dc1aa43661bc4834c32fff5c5a432305d1d2381886a982ba86b082710d",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/data/storage.csv",
+                        "expected_sha256":  "a3d7ad8e07dcef03e235aacd34f49d587606b6e84a85f379a253eeb12ac6f62b",
+                        "actual_sha256":  "a3d7ad8e07dcef03e235aacd34f49d587606b6e84a85f379a253eeb12ac6f62b",
+                        "matches":  true
+                    },
+                    {
+                        "path":  "src/utils/ResourceManager.ts",
+                        "expected_sha256":  "3c135bb596f07b5b9a871eff1145982c9e3ca6dcaaf7881ec34226db9c6b6e63",
+                        "actual_sha256":  "3c135bb596f07b5b9a871eff1145982c9e3ca6dcaaf7881ec34226db9c6b6e63",
+                        "matches":  true
+                    }
+                ],
+    "skills":  [
+                   {
+                       "id":  "basic_meditation",
+                       "name":  "🧘 基礎冥想",
+                       "description":  "提升靈氣感應能力",
+                       "maxLevel":  "5",
+                       "type":  "passive",
+                       "effect_type":  "lingli_multiplier",
+                       "effect_amount":  "1.1",
+                       "prereq_era":  "2",
+                       "prereq_skills":  "",
+                       "cost_type":  "skill_point",
+                       "cost_amount":  "90"
+                   },
+                   {
+                       "id":  "foundation_building",
+                       "name":  "🛡️ 築基功",
+                       "description":  "加強體質，提升金錢產出",
+                       "maxLevel":  "5",
+                       "type":  "passive",
+                       "effect_type":  "money_multiplier",
+                       "effect_amount":  "1.2",
+                       "prereq_era":  "2",
+                       "prereq_skills":  "",
+                       "cost_type":  "skill_point",
+                       "cost_amount":  "3600"
+                   },
+                   {
+                       "id":  "golden_core_formation",
+                       "name":  "🌕 結丹法",
+                       "description":  "提升修練效率",
+                       "maxLevel":  "5",
+                       "type":  "passive",
+                       "effect_type":  "time_reduction",
+                       "effect_amount":  "0.9",
+                       "prereq_era":  "3",
+                       "prereq_skills":  "foundation_building",
+                       "cost_type":  "skill_point",
+                       "cost_amount":  "7650"
+                   },
+                   {
+                       "id":  "nascent_soul_incubation",
+                       "name":  "👼 元嬰孕育",
+                       "description":  "孕育純陽元嬰，大幅提升各類資源上限。",
+                       "maxLevel":  "5",
+                       "type":  "passive",
+                       "effect_type":  "all_max_multiplier",
+                       "effect_amount":  "1.15",
+                       "prereq_era":  "4",
+                       "prereq_skills":  "golden_core_formation:5",
+                       "cost_type":  "skill_point",
+                       "cost_amount":  "21250"
+                   }
+               ],
+    "skill_buildings":  [
+                            {
+                                "id":  "library",
+                                "name":  "📚 藏書閣",
+                                "description":  "收藏各類功法典籍，研習可獲得技能點。",
+                                "costFactor":  "1.8",
+                                "maxLevel":  "100",
+                                "era":  "2",
+                                "prereqBuilding":  "0",
+                                "prereqTech":  "0",
+                                "basicCost1_type":  "money",
+                                "basicCost1_amount":  "500",
+                                "basicCost2_type":  "wood",
+                                "basicCost2_amount":  "200",
+                                "basicCost3_type":  "stone_low",
+                                "basicCost3_amount":  "50",
+                                "basicCost4_type":  "spirit_grass_low",
+                                "basicCost4_amount":  "20",
+                                "advCost1_type":  "0",
+                                "advCost1_amount":  "0",
+                                "advCost2_type":  "0",
+                                "advCost2_amount":  "0",
+                                "effectWeight":  "0",
+                                "effect1_type":  "skill_point",
+                                "effect1_amount":  "6",
+                                "effect2_type":  "lingli",
+                                "effect2_amount":  "1.23",
+                                "advEffect1_type":  "0",
+                                "advEffect1_amount":  "0",
+                                "advEffect2_type":  "0",
+                                "advEffect2_amount":  "0",
+                                "advEffect3_type":  "0",
+                                "advEffect3_amount":  "0"
+                            },
+                            {
+                                "id":  "scripture_hall",
+                                "name":  "📜 藏經閣",
+                                "description":  "珍藏上古經文，可大幅提升技能點上限。",
+                                "costFactor":  "1.8",
+                                "maxLevel":  "100",
+                                "era":  "2",
+                                "prereqBuilding":  "library",
+                                "prereqTech":  "0",
+                                "basicCost1_type":  "money",
+                                "basicCost1_amount":  "500",
+                                "basicCost2_type":  "wood",
+                                "basicCost2_amount":  "500",
+                                "basicCost3_type":  "stone_low",
+                                "basicCost3_amount":  "300",
+                                "basicCost4_type":  "bronze_essence",
+                                "basicCost4_amount":  "5",
+                                "advCost1_type":  "0",
+                                "advCost1_amount":  "0",
+                                "advCost2_type":  "0",
+                                "advCost2_amount":  "0",
+                                "effectWeight":  "0",
+                                "effect1_type":  "0",
+                                "effect1_amount":  "0",
+                                "effect2_type":  "skill_point_max",
+                                "effect2_amount":  "6000",
+                                "advEffect1_type":  "0",
+                                "advEffect1_amount":  "0",
+                                "advEffect2_type":  "0",
+                                "advEffect2_amount":  "0",
+                                "advEffect3_type":  "0",
+                                "advEffect3_amount":  "0"
+                            }
+                        ],
+    "era_requirements":  [
+                             {
+                                 "id":  "1",
+                                 "name":  "練氣期",
+                                 "description":  "修仙入門階段，感知天地靈氣",
+                                 "maxLevel":  "10",
+                                 "resourceMultiplier":  "1",
+                                 "lifespan":  "80",
+                                 "up_level":  "10",
+                                 "up_skills":  "",
+                                 "up_capacity":  "lingli_max:500",
+                                 "lvl_baseTime":  "60",
+                                 "lvl_timeMult":  "1.15",
+                                 "lvl_skills":  "",
+                                 "lvl_res1_type":  "lingli",
+                                 "lvl_res1_amount":  "50",
+                                 "lvl_res2_type":  "",
+                                 "lvl_res2_amount":  "",
+                                 "lvl_res3_type":  "",
+                                 "lvl_res3_amount":  "",
+                                 "lv9_item_type":  "",
+                                 "lv9_item_amount":  ""
+                             },
+                             {
+                                 "id":  "2",
+                                 "name":  "築基期",
+                                 "description":  "築基煉體，為金丹做準備",
+                                 "maxLevel":  "10",
+                                 "resourceMultiplier":  "1.5",
+                                 "lifespan":  "120",
+                                 "up_level":  "10",
+                                 "up_skills":  "",
+                                 "up_capacity":  "lingli_max:2000,stone_low_max:1000",
+                                 "lvl_baseTime":  "120",
+                                 "lvl_timeMult":  "1.18",
+                                 "lvl_skills":  "basic_meditation:5",
+                                 "lvl_res1_type":  "lingli",
+                                 "lvl_res1_amount":  "500",
+                                 "lvl_res2_type":  "money",
+                                 "lvl_res2_amount":  "100",
+                                 "lvl_res3_type":  "stone_low",
+                                 "lvl_res3_amount":  "50",
+                                 "lv9_item_type":  "",
+                                 "lv9_item_amount":  ""
+                             },
+                             {
+                                 "id":  "3",
+                                 "name":  "金丹期",
+                                 "description":  "凝聚金丹，壽元大增",
+                                 "maxLevel":  "10",
+                                 "resourceMultiplier":  "2",
+                                 "lifespan":  "540",
+                                 "up_level":  "10",
+                                 "up_skills":  "",
+                                 "up_capacity":  "lingli_max:10000,stone_low_max:5000",
+                                 "lvl_baseTime":  "240",
+                                 "lvl_timeMult":  "1.22",
+                                 "lvl_skills":  "foundation_building:5|golden_core_formation:5",
+                                 "lvl_res1_type":  "lingli",
+                                 "lvl_res1_amount":  "2000",
+                                 "lvl_res2_type":  "money",
+                                 "lvl_res2_amount":  "500",
+                                 "lvl_res3_type":  "stone_mid",
+                                 "lvl_res3_amount":  "50",
+                                 "lv9_item_type":  "talisman",
+                                 "lv9_item_amount":  "10"
+                             },
+                             {
+                                 "id":  "4",
+                                 "name":  "元嬰期",
+                                 "description":  "元嬰出竅，神通初顯",
+                                 "maxLevel":  "10",
+                                 "resourceMultiplier":  "3",
+                                 "lifespan":  "350",
+                                 "up_level":  "10",
+                                 "up_skills":  "",
+                                 "up_capacity":  "lingli_max:50000,stone_low_max:20000,money_max:10000",
+                                 "lvl_baseTime":  "480",
+                                 "lvl_timeMult":  "1.28",
+                                 "lvl_skills":  "nascent_soul_incubation:1",
+                                 "lvl_res1_type":  "lingli",
+                                 "lvl_res1_amount":  "5000",
+                                 "lvl_res2_type":  "golden_core_pill",
+                                 "lvl_res2_amount":  "3",
+                                 "lvl_res3_type":  "stone_mid",
+                                 "lvl_res3_amount":  "200",
+                                 "lv9_item_type":  "cold_iron",
+                                 "lv9_item_amount":  "5"
+                             }
+                         ],
+    "resources":  [
+                      {
+                          "id":  "lingli",
+                          "name":  "靈力",
+                          "type":  "basic",
+                          "prereq_era":  "",
+                          "prereq_skill":  "",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "money",
+                          "name":  "金錢",
+                          "type":  "basic",
+                          "prereq_era":  "",
+                          "prereq_skill":  "",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "wood",
+                          "name":  "靈木",
+                          "type":  "basic",
+                          "prereq_era":  "",
+                          "prereq_skill":  "",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "spirit_grass_low",
+                          "name":  "低階靈草",
+                          "type":  "basic",
+                          "prereq_era":  "",
+                          "prereq_skill":  "",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "stone_low",
+                          "name":  "下品靈石",
+                          "type":  "basic",
+                          "prereq_era":  "",
+                          "prereq_skill":  "",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "black_copper",
+                          "name":  "玄銅",
+                          "type":  "basic",
+                          "prereq_era":  "",
+                          "prereq_skill":  "",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "bronze_essence",
+                          "name":  "銅精",
+                          "type":  "crafted",
+                          "prereq_era":  "2",
+                          "prereq_skill":  "",
+                          "recipe":  {
+                                         "black_copper":  10,
+                                         "stone_low":  5
+                                     },
+                          "in_dao2_resource_manifest":  false
+                      },
+                      {
+                          "id":  "foundation_pill",
+                          "name":  "💊 築基丹",
+                          "type":  "crafted",
+                          "prereq_era":  "1",
+                          "prereq_skill":  "",
+                          "recipe":  {
+                                         "spirit_grass_low":  3,
+                                         "lingli":  50
+                                     },
+                          "in_dao2_resource_manifest":  true
+                      },
+                      {
+                          "id":  "spirit_grass_100y",
+                          "name":  "百年靈草",
+                          "type":  "advance",
+                          "prereq_era":  "3",
+                          "prereq_skill":  "golden_core_formation",
+                          "recipe":  {
+
+                                     },
+                          "in_dao2_resource_manifest":  false
+                      },
+                      {
+                          "id":  "stone_mid",
+                          "name":  "💎 中品靈石",
+                          "type":  "crafted",
+                          "prereq_era":  "3",
+                          "prereq_skill":  "",
+                          "recipe":  {
+                                         "stone_low":  5,
+                                         "lingli":  10
+                                     },
+                          "in_dao2_resource_manifest":  false
+                      },
+                      {
+                          "id":  "golden_core_pill",
+                          "name":  "🔮 金丹",
+                          "type":  "crafted",
+                          "prereq_era":  "3",
+                          "prereq_skill":  "",
+                          "recipe":  {
+                                         "foundation_pill":  3,
+                                         "spirit_grass_100y":  2,
+                                         "stone_mid":  5
+                                     },
+                          "in_dao2_resource_manifest":  false
+                      },
+                      {
+                          "id":  "liquid",
+                          "name":  "🍯 丹液",
+                          "type":  "crafted",
+                          "prereq_era":  "2",
+                          "prereq_skill":  "",
+                          "recipe":  {
+                                         "spirit_grass_low":  5,
+                                         "lingli":  50
+                                     },
+                          "in_dao2_resource_manifest":  false
+                      },
+                      {
+                          "id":  "talisman",
+                          "name":  "🏷️ 符咒",
+                          "type":  "crafted",
+                          "prereq_era":  "3",
+                          "prereq_skill":  "",
+                          "recipe":  {
+                                         "wood":  10,
+                                         "stone_low":  5,
+                                         "lingli":  50
+                                     },
+                          "in_dao2_resource_manifest":  false
+                      }
+                  ],
+    "release_lingli_capacity":  {
+                                    "base":  100,
+                                    "storage_effect":  100,
+                                    "global_level_cap":  10,
+                                    "max":  1100,
+                                    "era2_breakthrough_required":  2000
+                                },
+    "proposal":  "tests/fixtures/res1d1/era3.json only; production files unchanged"
+}

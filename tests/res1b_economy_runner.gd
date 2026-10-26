@@ -35,11 +35,11 @@ func _init() -> void:
 	_test_reincarnation()
 	if failures.is_empty():
 		print("PASS: RES1-B %d checks; timed batches, local inventory, cargo conservation, time, migration, offline retry, reincarnation." % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _expect(condition: bool, label: String) -> void:
 	checks += 1

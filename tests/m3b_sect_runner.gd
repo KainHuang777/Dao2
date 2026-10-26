@@ -10,7 +10,7 @@ func _init() -> void:
 	test_save_codec_roundtrip()
 	test_reincarnation_behavior()
 	print("PASS: M3-B sect unlock, expeditions, techniques, market, multipliers, persistence, and reincarnation.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _create_test_state() -> GameState:
 	var state := GameState.new()

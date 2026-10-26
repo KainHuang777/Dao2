@@ -1,0 +1,356 @@
+{
+	"asset_count": 22,
+	"checks": 227,
+	"evidence": "Godot Image CPU packing and static composition, not GPU frame capture or browser interaction. Visual QA recorded separately.",
+	"failures": [],
+	"original_count": 16,
+	"samples": [
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				473,
+				311,
+				316,
+				316
+			],
+			"index": 0,
+			"pose": "hero_recover",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.46000000834465
+			],
+			"hero_canvas": [
+				462,
+				203,
+				316,
+				316
+			],
+			"index": 1,
+			"pose": "hero_hover",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.490000009536743
+			],
+			"hero_canvas": [
+				462,
+				225,
+				316,
+				316
+			],
+			"index": 2,
+			"pose": "hero_hover",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.490000009536743
+			],
+			"hero_canvas": [
+				439,
+				207,
+				352,
+				352
+			],
+			"index": 3,
+			"pose": "hero_hit",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				473,
+				311,
+				316,
+				316
+			],
+			"index": 4,
+			"pose": "hero_recover",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				426,
+				303,
+				316,
+				316
+			],
+			"index": 5,
+			"pose": "hero_unbalanced",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				332,
+				168,
+				171,
+				171
+			],
+			"index": 0,
+			"pose": "hero_recover",
+			"size": [
+				844,
+				390
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.46000000834465
+			],
+			"hero_canvas": [
+				326,
+				110,
+				171,
+				171
+			],
+			"index": 1,
+			"pose": "hero_hover",
+			"size": [
+				844,
+				390
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.490000009536743
+			],
+			"hero_canvas": [
+				326,
+				122,
+				171,
+				171
+			],
+			"index": 2,
+			"pose": "hero_hover",
+			"size": [
+				844,
+				390
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.490000009536743
+			],
+			"hero_canvas": [
+				313,
+				112,
+				191,
+				191
+			],
+			"index": 3,
+			"pose": "hero_hit",
+			"size": [
+				844,
+				390
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				332,
+				168,
+				171,
+				171
+			],
+			"index": 4,
+			"pose": "hero_recover",
+			"size": [
+				844,
+				390
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				306,
+				164,
+				171,
+				171
+			],
+			"index": 5,
+			"pose": "hero_unbalanced",
+			"size": [
+				844,
+				390
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				316,
+				155,
+				158,
+				158
+			],
+			"index": 0,
+			"pose": "hero_recover",
+			"size": [
+				800,
+				360
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.46000000834465
+			],
+			"hero_canvas": [
+				311,
+				101,
+				158,
+				158
+			],
+			"index": 1,
+			"pose": "hero_hover",
+			"size": [
+				800,
+				360
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.490000009536743
+			],
+			"hero_canvas": [
+				311,
+				112,
+				158,
+				158
+			],
+			"index": 2,
+			"pose": "hero_hover",
+			"size": [
+				800,
+				360
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.490000009536743
+			],
+			"hero_canvas": [
+				299,
+				103,
+				176,
+				176
+			],
+			"index": 3,
+			"pose": "hero_hit",
+			"size": [
+				800,
+				360
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				316,
+				155,
+				158,
+				158
+			],
+			"index": 4,
+			"pose": "hero_recover",
+			"size": [
+				800,
+				360
+			]
+		},
+		{
+			"core": [
+				0.5,
+				0.610000014305115
+			],
+			"hero_canvas": [
+				293,
+				151,
+				158,
+				158
+			],
+			"index": 5,
+			"pose": "hero_unbalanced",
+			"size": [
+				800,
+				360
+			]
+		}
+	],
+	"task": "TRIB-A",
+	"transparent_order": [
+		"buddha",
+		"waterfalls",
+		"far_island",
+		"mist_near",
+		"mist_far",
+		"hero_hover",
+		"hero_hit",
+		"hero_unbalanced",
+		"hero_recover",
+		"shield_intact",
+		"shield_cracked",
+		"shield_shattered_v2",
+		"asura",
+		"waterfall_left",
+		"waterfall_right",
+		"hero_hover_emission",
+		"hero_hit_emission",
+		"hero_unbalanced_emission",
+		"hero_recover_emission",
+		"ground_shadow"
+	]
+}

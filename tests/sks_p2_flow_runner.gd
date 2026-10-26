@@ -142,13 +142,14 @@ func load_fixture(era: int) -> bool:
 		return false
 	check(decoded.state.era_id == era, "earned era id " + str(era))
 	check(decoded.state.skills.is_empty(), "earned mainline zero skills era" + str(era))
-	check(decoded.state.skill_version == 3, "earned skill_version 3 era" + str(era))
+	var source_skill_version: int = decoded.state.skill_version
+	check(source_skill_version in [3, 4], "earned supported skill_version 3/4 era" + str(era))
 	check(String(decoded.state.economy.get("version", "")) == IslandProgression.SUPPLY_VERSION, "earned supply economy era" + str(era))
 	s = GameSession.new()
 	s.content = content
 	s.state = decoded.state
 	s.clock = GameClock.create(s.state.total_elapsed_seconds)
-	check(SkillSystem.reconcile(content, s.state), "migrate skills to v4 era" + str(era))
+	check(SkillSystem.reconcile(content, s.state) == (source_skill_version == 3), "legacy migration or current-version no-op era" + str(era))
 	check(s.state.skill_version == 4, "skill_version 4 era" + str(era))
 	return true
 
@@ -182,7 +183,12 @@ func snapshot(name: String) -> void:
 	var encoded := SaveCodec.encode(s.state, content.content_version, {"save_id":"sksp2-flow-" + name, "saved_at_utc_ms":"1000", "settled_until_utc_ms":"1000", "sim_tick":str(int(s.state.total_elapsed_seconds))})
 	check(encoded.ok, "snapshot encode " + name)
 	if encoded.ok:
-		FileAccess.open(DIR + name + ".json", FileAccess.WRITE).store_string(encoded.json)
+		var write_file_snap := FileAccess.open(DIR + name + ".json", FileAccess.WRITE)
+		if write_file_snap == null:
+			push_error("write failed: " + str(DIR + name + ".json"))
+			RunnerResult.finish(self, 1)
+		else:
+			write_file_snap.store_string(encoded.json)
 
 func run_era3() -> void:
 	if not load_fixture(3):
@@ -300,6 +306,11 @@ func run() -> void:
 		"reject_retry":reject_report,
 		"runtime_seconds":float(Time.get_ticks_msec() - started) / 1000.0,
 	}
-	FileAccess.open(DIR + "flow-report.json", FileAccess.WRITE).store_string(JSON.stringify(report, "\t"))
+	var write_file_report := FileAccess.open(DIR + "flow-report.json", FileAccess.WRITE)
+	if write_file_report == null:
+		push_error("write failed: " + str(DIR + "flow-report.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_report.store_string(JSON.stringify(report, "\t"))
 	print("SKS-P2 FLOW ", JSON.stringify(report))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

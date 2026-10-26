@@ -1,0 +1,7845 @@
+{
+  "costs": {
+    "p2_pill_qi_conservation": {
+      "contribution": {
+        "ranks": [
+          120,
+          180,
+          270,
+          405,
+          608
+        ],
+        "sum": 1583
+      },
+      "stone_low": {
+        "ranks": [
+          10,
+          15,
+          23,
+          34,
+          51
+        ],
+        "sum": 133
+      }
+    },
+    "sacred_beast_feed_conservation": {
+      "contribution": {
+        "ranks": [
+          150,
+          225,
+          338,
+          507,
+          760
+        ],
+        "sum": 1980
+      },
+      "wood": {
+        "ranks": [
+          200,
+          300,
+          450,
+          675,
+          1013
+        ],
+        "sum": 2638
+      }
+    }
+  },
+  "feed": [
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 600,
+        "stone_low": 2000
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 480,
+        "stone_low": 1600
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 510,
+        "stone_low": 1700
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 420,
+        "stone_low": 1400
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 450,
+        "stone_low": 1500
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 360,
+        "stone_low": 1200
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 390,
+        "stone_low": 1300
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 330,
+        "stone_low": 1100
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 360,
+        "stone_low": 1200
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 300,
+        "stone_low": 1000
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 300,
+        "stone_low": 1000
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 30,
+        "stone_low": 100
+      },
+      "total": {
+        "refined_iron": 270,
+        "stone_low": 900
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 360,
+        "stone_low": 1200
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 288,
+        "stone_low": 960
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 306,
+        "stone_low": 1020
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 252,
+        "stone_low": 840
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 270,
+        "stone_low": 900
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 216,
+        "stone_low": 720
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 234,
+        "stone_low": 780
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 198,
+        "stone_low": 660
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 216,
+        "stone_low": 720
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 180,
+        "stone_low": 600
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 180,
+        "stone_low": 600
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 18,
+        "stone_low": 60
+      },
+      "total": {
+        "refined_iron": 162,
+        "stone_low": 540
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 580,
+        "stone_low": 1960
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 464,
+        "stone_low": 1568
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 493,
+        "stone_low": 1666
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 406,
+        "stone_low": 1372
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 435,
+        "stone_low": 1470
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 348,
+        "stone_low": 1176
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 377,
+        "stone_low": 1274
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 319,
+        "stone_low": 1078
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 348,
+        "stone_low": 1176
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 290,
+        "stone_low": 980
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 290,
+        "stone_low": 980
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 29,
+        "stone_low": 98
+      },
+      "total": {
+        "refined_iron": 261,
+        "stone_low": 882
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 340,
+        "stone_low": 1160
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 272,
+        "stone_low": 928
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 289,
+        "stone_low": 986
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 238,
+        "stone_low": 812
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 255,
+        "stone_low": 870
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 204,
+        "stone_low": 696
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 221,
+        "stone_low": 754
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 187,
+        "stone_low": 638
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 204,
+        "stone_low": 696
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 170,
+        "stone_low": 580
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 170,
+        "stone_low": 580
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 58
+      },
+      "total": {
+        "refined_iron": 153,
+        "stone_low": 522
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 560,
+        "stone_low": 1920
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 448,
+        "stone_low": 1536
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 476,
+        "stone_low": 1632
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 392,
+        "stone_low": 1344
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 420,
+        "stone_low": 1440
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 336,
+        "stone_low": 1152
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 364,
+        "stone_low": 1248
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 308,
+        "stone_low": 1056
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 336,
+        "stone_low": 1152
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 280,
+        "stone_low": 960
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 280,
+        "stone_low": 960
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 96
+      },
+      "total": {
+        "refined_iron": 252,
+        "stone_low": 864
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 340,
+        "stone_low": 1140
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 272,
+        "stone_low": 912
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 289,
+        "stone_low": 969
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 238,
+        "stone_low": 798
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 255,
+        "stone_low": 855
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 204,
+        "stone_low": 684
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 221,
+        "stone_low": 741
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 187,
+        "stone_low": 627
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 204,
+        "stone_low": 684
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 170,
+        "stone_low": 570
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 170,
+        "stone_low": 570
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 17,
+        "stone_low": 57
+      },
+      "total": {
+        "refined_iron": 153,
+        "stone_low": 513
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 560,
+        "stone_low": 1880
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 448,
+        "stone_low": 1504
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 476,
+        "stone_low": 1598
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 392,
+        "stone_low": 1316
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 420,
+        "stone_low": 1410
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 336,
+        "stone_low": 1128
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 364,
+        "stone_low": 1222
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 308,
+        "stone_low": 1034
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 336,
+        "stone_low": 1128
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 280,
+        "stone_low": 940
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 280,
+        "stone_low": 940
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 28,
+        "stone_low": 94
+      },
+      "total": {
+        "refined_iron": 252,
+        "stone_low": 846
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 320,
+        "stone_low": 1120
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 256,
+        "stone_low": 896
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 272,
+        "stone_low": 952
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 224,
+        "stone_low": 784
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 240,
+        "stone_low": 840
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 192,
+        "stone_low": 672
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 208,
+        "stone_low": 728
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 176,
+        "stone_low": 616
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 192,
+        "stone_low": 672
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 160,
+        "stone_low": 560
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 160,
+        "stone_low": 560
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 56
+      },
+      "total": {
+        "refined_iron": 144,
+        "stone_low": 504
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 540,
+        "stone_low": 1840
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 432,
+        "stone_low": 1472
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 459,
+        "stone_low": 1564
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 378,
+        "stone_low": 1288
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 405,
+        "stone_low": 1380
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 324,
+        "stone_low": 1104
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 351,
+        "stone_low": 1196
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 297,
+        "stone_low": 1012
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 324,
+        "stone_low": 1104
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 270,
+        "stone_low": 920
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 270,
+        "stone_low": 920
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 92
+      },
+      "total": {
+        "refined_iron": 243,
+        "stone_low": 828
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 320,
+        "stone_low": 1100
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 256,
+        "stone_low": 880
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 272,
+        "stone_low": 935
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 224,
+        "stone_low": 770
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 240,
+        "stone_low": 825
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 192,
+        "stone_low": 660
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 208,
+        "stone_low": 715
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 176,
+        "stone_low": 605
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 192,
+        "stone_low": 660
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 160,
+        "stone_low": 550
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 160,
+        "stone_low": 550
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 55
+      },
+      "total": {
+        "refined_iron": 144,
+        "stone_low": 495
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 540,
+        "stone_low": 1800
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 432,
+        "stone_low": 1440
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 459,
+        "stone_low": 1530
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 378,
+        "stone_low": 1260
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 405,
+        "stone_low": 1350
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 324,
+        "stone_low": 1080
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 351,
+        "stone_low": 1170
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 297,
+        "stone_low": 990
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 324,
+        "stone_low": 1080
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 270,
+        "stone_low": 900
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 270,
+        "stone_low": 900
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 27,
+        "stone_low": 90
+      },
+      "total": {
+        "refined_iron": 243,
+        "stone_low": 810
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 320,
+        "stone_low": 1080
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 256,
+        "stone_low": 864
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 272,
+        "stone_low": 918
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 224,
+        "stone_low": 756
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 240,
+        "stone_low": 810
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 192,
+        "stone_low": 648
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 208,
+        "stone_low": 702
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 176,
+        "stone_low": 594
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 192,
+        "stone_low": 648
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 160,
+        "stone_low": 540
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 160,
+        "stone_low": 540
+      }
+    },
+    {
+      "beast": "iron_turtle",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "refined_iron": 16,
+        "stone_low": 54
+      },
+      "total": {
+        "refined_iron": 144,
+        "stone_low": 486
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 200
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 160
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 170
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 140
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 150
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 120
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 130
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 110
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 120
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 10
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 120
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 96
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 102
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 84
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 72
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 78
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 66
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 72
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 0,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 6
+      },
+      "total": {
+        "spirit_grass_1000y": 54
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 180
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 144
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 153
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 126
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 135
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 117
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 99
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 81
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 80
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 85
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 70
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 75
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 65
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 55
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 1,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 45
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 180
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 144
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 153
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 126
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 135
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 117
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 99
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 81
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 80
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 85
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 70
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 75
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 65
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 55
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 2,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 45
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 180
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 144
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 153
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 126
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 135
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 117
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 99
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 81
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 80
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 85
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 70
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 75
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 65
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 55
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 3,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 45
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 180
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 144
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 153
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 126
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 135
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 117
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 99
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 81
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 80
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 85
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 70
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 75
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 65
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 55
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 4,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 45
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 180
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 144
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 153
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 126
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 135
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 117
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 99
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 108
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 90
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 100,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 9
+      },
+      "total": {
+        "spirit_grass_1000y": 81
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 0,
+      "xp": 50,
+      "feeds": 20,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 100
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 0,
+      "growth": 30,
+      "xp": 65,
+      "feeds": 16,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 80
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 0,
+      "xp": 60,
+      "feeds": 17,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 85
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 1,
+      "growth": 30,
+      "xp": 75,
+      "feeds": 14,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 70
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 0,
+      "xp": 70,
+      "feeds": 15,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 75
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 2,
+      "growth": 30,
+      "xp": 85,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 0,
+      "xp": 80,
+      "feeds": 13,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 65
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 3,
+      "growth": 30,
+      "xp": 95,
+      "feeds": 11,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 55
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 0,
+      "xp": 90,
+      "feeds": 12,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 60
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 4,
+      "growth": 30,
+      "xp": 105,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 0,
+      "xp": 100,
+      "feeds": 10,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 50
+      }
+    },
+    {
+      "beast": "fire_phoenix",
+      "rank": 5,
+      "soul_percent": 60,
+      "talent": 5,
+      "growth": 30,
+      "xp": 115,
+      "feeds": 9,
+      "costs": {
+        "spirit_grass_1000y": 5
+      },
+      "total": {
+        "spirit_grass_1000y": 45
+      }
+    }
+  ],
+  "pill_costs": [
+    {
+      "id": "nascent_breath_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "1000"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "5000"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "99000"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "980"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "4900"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "97020"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "960"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "4800"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "95040"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "940"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "4700"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "93060"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "920"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "4600"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "91080"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "900"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "4500"
+    },
+    {
+      "id": "nascent_breath_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "89100"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "3000"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "15000"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "297000"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "2940"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "14700"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "291060"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "2880"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "14400"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "285120"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "2820"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "14100"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "279180"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "2760"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "13800"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "273240"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "2700"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "13500"
+    },
+    {
+      "id": "void_meditation_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "267300"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "1000"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "5000"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "99000"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "980"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "4900"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "97020"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "960"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "4800"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "95040"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "940"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "4700"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "93060"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "920"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "4600"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "91080"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "900"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "4500"
+    },
+    {
+      "id": "ancient_herb_dew_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "89100"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "2000"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "10000"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "198000"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "1960"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "9800"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "194040"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "1920"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "9600"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "190080"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "1880"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "9400"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "186120"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "1840"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "9200"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "182160"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "1800"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "9000"
+    },
+    {
+      "id": "void_gathering_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "178200"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "1000"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "5000"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "99000"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "980"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "4900"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "97020"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "960"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "4800"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "95040"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "940"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "4700"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "93060"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "920"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "4600"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "91080"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "900"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "4500"
+    },
+    {
+      "id": "spirit_vessel_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "89100"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "2000"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "10000"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "198000"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "1960"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "9800"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "194040"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "1920"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "9600"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "190080"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "1880"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "9400"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "186120"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "1840"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "9200"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "182160"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "1800"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "9000"
+    },
+    {
+      "id": "stone_vault_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "178200"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "1000"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "5000"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "99000"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "980"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "4900"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "97020"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "960"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "4800"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "95040"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "940"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "4700"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "93060"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "920"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "4600"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "91080"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "900"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "4500"
+    },
+    {
+      "id": "calm_tribulation_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "89100"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 0,
+      "count": 1,
+      "lingli": "2000"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 0,
+      "count": 5,
+      "lingli": "10000"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 0,
+      "count": 99,
+      "lingli": "198000"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 1,
+      "count": 1,
+      "lingli": "1960"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 1,
+      "count": 5,
+      "lingli": "9800"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 1,
+      "count": 99,
+      "lingli": "194040"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 2,
+      "count": 1,
+      "lingli": "1920"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 2,
+      "count": 5,
+      "lingli": "9600"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 2,
+      "count": 99,
+      "lingli": "190080"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 3,
+      "count": 1,
+      "lingli": "1880"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 3,
+      "count": 5,
+      "lingli": "9400"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 3,
+      "count": 99,
+      "lingli": "186120"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 4,
+      "count": 1,
+      "lingli": "1840"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 4,
+      "count": 5,
+      "lingli": "9200"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 4,
+      "count": 99,
+      "lingli": "182160"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 5,
+      "count": 1,
+      "lingli": "1800"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 5,
+      "count": 5,
+      "lingli": "9000"
+    },
+    {
+      "id": "silver_ward_pill",
+      "rank": 5,
+      "count": 99,
+      "lingli": "178200"
+    }
+  ],
+  "eligibility": [
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 1,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 2,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 3,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 4,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 5,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": []
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": []
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": []
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": []
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog",
+        "phoenix_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": false,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "ancient_dew_register",
+        "ancient_herb_sorting",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart",
+        "phoenix_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "void_supply_chart",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "void_supply_chart",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "void_supply_chart",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": false,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "silver_convoy_accounts",
+        "cold_iron_assay",
+        "void_supply_chart",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": false
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "tribulation_material_check",
+        "phoenix_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "jade_fox",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart",
+        "tribulation_material_check"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "iron_turtle",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart",
+        "tribulation_material_check",
+        "turtle_nursery_reserve"
+      ]
+    },
+    {
+      "era": 6,
+      "opened": {
+        "deep": true,
+        "ancient": true,
+        "void": true
+      },
+      "active_beast": "fire_phoenix",
+      "eligible": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "silver_convoy_accounts",
+        "ancient_herb_sorting",
+        "cold_iron_assay",
+        "ancient_pill_herb_catalog",
+        "void_supply_chart",
+        "tribulation_material_check",
+        "phoenix_nursery_reserve"
+      ]
+    }
+  ],
+  "probabilities": {
+    "common": {
+      "max_new_eligible": 2,
+      "per_new_template_slot_percent": 6.666666666666667,
+      "aggregate_new_slot_percent": 13.333333333333334
+    },
+    "uncommon": {
+      "max_new_eligible": 2,
+      "per_new_template_slot_percent": 5.0,
+      "aggregate_new_slot_percent": 10.0
+    },
+    "rare": {
+      "max_new_eligible": 2,
+      "per_new_template_slot_percent": 3.0,
+      "aggregate_new_slot_percent": 6.0
+    },
+    "epic": {
+      "max_new_eligible": 2,
+      "per_new_template_slot_percent": 1.6666666666666667,
+      "aggregate_new_slot_percent": 3.3333333333333335
+    },
+    "legendary": {
+      "max_new_eligible": 1,
+      "per_new_template_slot_percent": 0.4,
+      "aggregate_new_slot_percent": 0.4
+    }
+  }
+}

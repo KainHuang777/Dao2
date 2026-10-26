@@ -1,0 +1,13 @@
+[MODE] matrix=full runners=3 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_22c5840a6b71470cb6cb450b3f26426b
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_ui_runner.gd (28.7s) result=pass
+[START:initial] tests/content_p1_sect_ui_runner.gd
+[PASS:initial] tests/content_p1_sect_ui_runner.gd (17.3s) result=pass
+[START:initial] tests/uix_r9_sect_ui_runner.gd
+[PASS:initial] tests/uix_r9_sect_ui_runner.gd (20.5s) result=pass
+--- slowest 8 runners (s) ---
+    28.6  tests/content_p2_sect_ui_runner.gd
+    20.5  tests/uix_r9_sect_ui_runner.gd
+    17.3  tests/content_p1_sect_ui_runner.gd
+SELECTED 3 RUNNERS PASSED (matrix=full). Logs: C:\Users\asus\AppData\Local\Temp\dao2_runners_22c5840a6b71470cb6cb450b3f26426b

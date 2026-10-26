@@ -29,11 +29,11 @@ func _init() -> void:
     _slots.reset()
     if failures.is_empty():
         print("PASS: M1-C save codec, two-slot persistence, checksum, export/import.")
-        quit(0)
+        RunnerResult.finish(self, 0)
     else:
         for failure in failures:
             push_error(failure)
-        quit(1)
+        RunnerResult.finish(self, 1)
 
 func _load_content() -> void:
     var loaded := ContentLoader.load_directory(CONTENT_DIR)

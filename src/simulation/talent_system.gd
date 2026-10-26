@@ -1,8 +1,10 @@
 class_name TalentSystem
 extends RefCounted
 
-const VERSION := 2
+const VERSION := 3
+const P2_IDS := ["elixir_conservation_memory", "frontier_prospector_memory", "sacred_beast_nurture_memory"]
 const P1_IDS := ["alchemical_past_wisdom", "artisan_past_wisdom", "beast_bond_past_wisdom"]
+const FRONTIER_RESOURCES := {"deep":["refined_iron", "mithril", "cold_iron"], "ancient":["spirit_grass_1000y"], "void":["void_essence"]}
 const ARTISAN_BUILDINGS := ["wooden_house", "forest_farm", "stone_mine", "herb_farm"]
 
 const TALENTS := {
@@ -42,10 +44,20 @@ const TALENTS := {
 		"id": "beast_bond_past_wisdom", "name": "靈契宿慧", "max_level": 5, "base_cost": 5, "cost_factor": 2.0,
 		"description": "每階使靈狐餵養經驗 +20%；與獸魂成長加數相加，草料／冷卻／成熟上限不變。購入即生效、跨世保留，不追補已餵經驗",
 	},
+	"elixir_conservation_memory": {"id":"elixir_conservation_memory", "name":"丹材宿慧", "max_level":5, "base_cost":10, "cost_factor":2.0, "description":"每階省延壽丹低階草／渡劫丹百年草4%；只折直接草費，不改其他材料與丹效；需已輪迴且最高元嬰，購入即生效、跨世保留"},
+	"frontier_prospector_memory": {"id":"frontier_prospector_memory", "name":"拓脈宿慧", "max_level":5, "base_cost":10, "cost_factor":2.0, "description":"每階使寒銀／古藥／太虛島指定採集產率+10%；未開島收益0，不改庫容與航運；需已輪迴且最高元嬰，購入即生效、跨世保留"},
+	"sacred_beast_nurture_memory": {"id":"sacred_beast_nurture_memory", "name":"玄靈宿慧", "max_level":5, "base_cost":10, "cost_factor":2.0, "description":"每階使玄龜／火鳳每餵經驗+10；火鳳仍須Era6，不改餵費與冷卻；需已輪迴且最高元嬰，購入即生效、跨世保留"},
 }
 
 static func get_definition(talent_id: String) -> Variant:
 	return TALENTS.get(talent_id, null)
+
+static func view(state: GameState) -> Dictionary:
+	var options := {}
+	for id in TALENTS:
+		var eligibility := can_learn(state, id)
+		options[id] = {"can_learn":bool(eligibility.get("can_learn", false)), "reason":String(eligibility.get("reason", ""))}
+	return options
 
 static func get_cost(talent_id: String, current_level: int) -> AmountCompat:
 	var def: Variant = get_definition(talent_id)
@@ -57,15 +69,18 @@ static func get_cost(talent_id: String, current_level: int) -> AmountCompat:
 	return AmountCompat.from_number(cost_val)
 
 static func can_learn(state: GameState, talent_id: String) -> Dictionary:
-	var invalid := validate(state.talent_version, state.talents)
+	var invalid := validate_state(state)
 	if not invalid.is_empty():
 		return {"can_learn": false, "reason": invalid}
 	var def: Variant = get_definition(talent_id)
 	if def == null:
 		return {"can_learn": false, "reason": "UNKNOWN_TALENT"}
 	var cur_level: int = int(state.talents.get(talent_id, 0))
-	if talent_id in P1_IDS and state.talent_version < VERSION:
+	if (talent_id in P1_IDS and state.talent_version < 2) or (talent_id in P2_IDS and state.talent_version < VERSION):
 		return {"can_learn": false, "reason": "TALENT_VERSION"}
+	if talent_id in P2_IDS:
+		if state.reincarnation_count < 1: return {"can_learn":false, "reason":"TALENT_REINCARNATION_REQUIRED"}
+		if state.highest_era < 4: return {"can_learn":false, "reason":"TALENT_HIGHEST_ERA_REQUIRED"}
 	var max_level: int = int(def["max_level"])
 	if cur_level >= max_level:
 		return {"can_learn": false, "reason": "TALENT_MAX_LEVEL"}
@@ -125,17 +140,18 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 	}
 
 static func validate(version: int, talents: Dictionary) -> String:
-	if version not in [1, VERSION]: return "TALENT_VERSION"
+	if version not in [1, 2, VERSION]: return "TALENT_VERSION"
 	if talents.size() > TALENTS.size(): return "TALENT_LIMIT"
 	for id in talents:
 		if not id is String or not TALENTS.has(id): return "TALENT_ID"
-		if version == 1 and id in P1_IDS: return "TALENT_VERSION"
+		if (version == 1 and id in P1_IDS) or (version < 3 and id in P2_IDS): return "TALENT_VERSION"
 		var value: Variant = talents[id]
 		if not (value is int or value is float): return "TALENT_LEVEL"
 		if not is_finite(float(value)) or float(value) != floor(float(value)) or float(value) < 0 or float(value) > float(TALENTS[id].max_level): return "TALENT_LEVEL"
 	return ""
 
 static func reconcile(state: GameState) -> bool:
+	if not validate_state(state).is_empty(): return false
 	if state.talent_version == VERSION: return false
 	state.talent_version = VERSION
 	return true
@@ -146,3 +162,24 @@ static func p1_bonus(talents: Dictionary, id: String) -> float:
 
 static func pill_multiplier(state: GameState, pill_id: String) -> float:
 	return 1.0 + p1_bonus(state.talents, "alchemical_past_wisdom") if pill_id in ["cultivation_pill", "high_cultivation_pill"] else 1.0
+
+static func validate_state(state: GameState) -> String:
+	var invalid := validate(state.talent_version, state.talents)
+	if not invalid.is_empty(): return invalid
+	for id in P2_IDS:
+		if int(state.talents.get(id, 0)) > 0:
+			if state.reincarnation_count < 1: return "TALENT_REINCARNATION_REQUIRED"
+			if state.highest_era < 4: return "TALENT_HIGHEST_ERA_REQUIRED"
+	return ""
+
+static func herb_cost_multiplier(state: GameState, pill: String, resource: String) -> float:
+	if state == null or state.talent_version < VERSION: return 1.0
+	if (pill == "lifespan_pill" and resource == "spirit_grass_low") or (pill == "tribulation_pill" and resource == "spirit_grass_100y"):
+		return 1.0 - 0.04 * int(state.talents.get("elixir_conservation_memory", 0))
+	return 1.0
+
+static func local_rate_multiplier(state: GameState, island: String, resource: String) -> float:
+	if state.talent_version < VERSION: return 1.0
+	if FRONTIER_RESOURCES.has(island) and resource in FRONTIER_RESOURCES[island]:
+		return 1.0 + 0.1 * int(state.talents.get("frontier_prospector_memory", 0))
+	return 1.0

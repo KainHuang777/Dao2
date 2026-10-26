@@ -23,11 +23,22 @@ func run() -> void:
 	var memory := Memory.new(); memory.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c,memory)
 	var state := SaveManager.current_state()
-	check(state != null and state.era_id == 2 and state.sect.is_empty(),"earned Era2 starts unjoined")
-	if state == null: quit(1); return
+	if state == null: RunnerResult.finish(self, 1); return
+	if SaveManager.migration_pending(state):
+		var committed := SaveManager.commit_supply_startup()
+		if not committed.ok:
+			push_error("migration commit failed: " + str(committed.get("error", "")))
+			RunnerResult.finish(self, 1)
+			return
+		state = SaveManager.current_state()
+	check(state.era_id == 2 and state.sect.is_empty(),"earned Era2 starts unjoined")
 	var s := GameSession.new(); s.state = state; s.content = c; s.clock = GameClock.create(state.total_elapsed_seconds)
 	seed(20261023)
 	check(send(s,"join_sect",{"sect_name":"太虛天闕"}).ok,"formal join")
+	if state.sect.is_empty():
+		push_error("sect join did not establish state")
+		RunnerResult.finish(self, 1)
+		return
 	var start_age := state.total_elapsed_seconds
 	var completed := []
 	for i in 15:
@@ -50,8 +61,18 @@ func run() -> void:
 	var reloaded := SaveManager.current_state()
 	check(reloaded.sect.techniques.get("alchemy_herb_conservation",0)==1 and reloaded.pills.get("herb_nurture_pill",0)==1,"earned path reload")
 	var encoded := SaveCodec.encode(state,c.content_version,META)
-	FileAccess.open("res://src/verification/content_p1_sect_earned_fixture.json",FileAccess.WRITE).store_string(encoded.json)
-	FileAccess.open("res://docs/verification/artifacts/content-p1-sect/progression.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"source_sha256":original.sha256_text(),"completed":completed,"simulated_seconds":state.total_elapsed_seconds-start_age,"browser_natural_wait":false},"\t"))
+	var write_file_fixture := FileAccess.open("res://src/verification/content_p1_sect_earned_fixture.json",FileAccess.WRITE)
+	if write_file_fixture == null:
+		push_error("write failed: " + str("res://src/verification/content_p1_sect_earned_fixture.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_fixture.store_string(encoded.json)
+	var write_file_progression := FileAccess.open("res://docs/verification/artifacts/content-p1-sect/progression.json",FileAccess.WRITE)
+	if write_file_progression == null:
+		push_error("write failed: " + str("res://docs/verification/artifacts/content-p1-sect/progression.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_progression.store_string(JSON.stringify({"checks":checks,"failures":failures,"source_sha256":original.sha256_text(),"completed":completed,"simulated_seconds":state.total_elapsed_seconds-start_age,"browser_natural_wait":false},"\t"))
 	SaveManager.reset_for_tests()
 	print("CONTENT-P1-SECT EARNED ",checks," checks failures=",JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

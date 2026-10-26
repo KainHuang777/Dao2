@@ -2,6 +2,14 @@ extends Control
 ## Shared, cached hand-painted item textures. See the artwork manifest for source/QC.
 const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 const TEXTURES := {
+	"nascent_breath_pill": preload("res://assets/ui/pills-painted/nascent_breath_pill.png"),
+	"void_meditation_pill": preload("res://assets/ui/pills-painted/void_meditation_pill.png"),
+	"ancient_herb_dew_pill": preload("res://assets/ui/pills-painted/ancient_herb_dew_pill.png"),
+	"void_gathering_pill": preload("res://assets/ui/pills-painted/void_gathering_pill.png"),
+	"spirit_vessel_pill": preload("res://assets/ui/pills-painted/spirit_vessel_pill.png"),
+	"stone_vault_pill": preload("res://assets/ui/pills-painted/stone_vault_pill.png"),
+	"calm_tribulation_pill": preload("res://assets/ui/pills-painted/calm_tribulation_pill.png"),
+	"silver_ward_pill": preload("res://assets/ui/pills-painted/silver_ward_pill.png"),
 	"wood_nurture_pill": preload("res://assets/ui/pills-painted/wood_nurture_pill.png"),
 	"herb_nurture_pill": preload("res://assets/ui/pills-painted/herb_nurture_pill.png"),
 	"wealth_gathering_pill": preload("res://assets/ui/pills-painted/wealth_gathering_pill.png"),

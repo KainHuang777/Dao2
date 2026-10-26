@@ -136,8 +136,8 @@ func _run() -> void:
 			expect(derived.get_string_size(text) == original.get_string_size(text), "runtime font metrics " + text)
 	if failures.is_empty():
 		print("PASS: RES1-C2-PERF ", checks, " exact tick/font checks")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)

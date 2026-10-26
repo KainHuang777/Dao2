@@ -44,11 +44,11 @@ func _init() -> void:
 		_expect_equal(branch.weighted(["wood", "stone", "herb"], [1, 0, 3]), vector.weighted, "RNG weighted %s" % str(vector.seed))
 	if failures.is_empty():
 		print("PASS: M0-C AmountCompatV2 and SeededRandomCompat match legacy fixture.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _amount(raw: String) -> AmountCompatV2:
 	return AmountCompatV2.try_parse(raw).value

@@ -1,0 +1,12 @@
+{
+	"angles": [
+		0,
+		90,
+		180,
+		270
+	],
+	"checks": "PNG save; 24px safety margins; four-angle central aperture coverage",
+	"engine": "4.7.2-stable (official)",
+	"failures": [],
+	"layer_count": 9
+}

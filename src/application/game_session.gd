@@ -72,8 +72,8 @@ static func create_new_game(content: GameContent, tribulation_seed: int = -1) ->
 	return session
 
 func submit(command: Dictionary) -> Dictionary:
-	if SaveManager.supply_pending(state):
-		return _error_result("SUPPLY_SAVE_REQUIRED", {})
+	if SaveManager.migration_pending(state):
+		return _error_result(SaveManager.migration_error(state), {})
 	if not _is_valid_shape(command):
 		return _error_result("INVALID_COMMAND", {})
 	if not (String(command.type) in KNOWN_COMMAND_TYPES):
@@ -103,8 +103,8 @@ func submit(command: Dictionary) -> Dictionary:
 	return result
 
 func advance_time(elapsed_seconds: float) -> Dictionary:
-	if SaveManager.supply_pending(state):
-		return {"ok": false, "error": "SUPPLY_SAVE_REQUIRED", "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "save_required", "new_revision": state.revision}
+	if SaveManager.migration_pending(state):
+		return {"ok": false, "error": SaveManager.migration_error(state), "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "save_required", "new_revision": state.revision}
 	if is_nan(elapsed_seconds) or is_inf(elapsed_seconds) or elapsed_seconds <= 0.0:
 		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null, "new_revision": state.revision}
 	clock.advance(elapsed_seconds)
@@ -136,7 +136,7 @@ func get_view() -> Dictionary:
 	var era_definition: Variant = content.era(state.era_id)
 	var era_multiplier := 1.0 if era_definition == null else float(era_definition.resource_multiplier)
 	var rates := Production.compute_rates(content, state.buildings, era_multiplier * float(TalentSystem.compute_multipliers(state).global_production_multiplier), state.skills, state.talents)
-	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
+	var caps := Production.pill_caps(state, Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills))
 	if caps.has("skill_point"):
 		caps.skill_point = SkillSystem.study_cap(state, caps.skill_point)
 	var unlock := Onboarding.unlock_state(state.era_id, state.onboarding_version, state.buildings)
@@ -280,6 +280,7 @@ func get_view() -> Dictionary:
 		"dao_heart": state.dao_heart.serialize() if state.dao_heart != null else "0",
 		"dao_proof": state.dao_proof,
 		"talents": state.talents.duplicate(true),
+		"talent_options": TalentSystem.view(state),
 		"pills": state.pills.duplicate(true),
 		"pill_effects": state.pill_effects.duplicate(true),
 		"alchemy": AlchemySystem.get_view(state),
@@ -315,7 +316,7 @@ func _tribulation_preview() -> Dictionary:
 	var pill := TribulationRules.pill_for_era(state.era_id)
 	var count := AlchemySystem.stack_count(state, pill)
 	return {"required": required, "pill_id": pill, "pill_count": count,
-		"probability": TribulationRules.success_probability(state.era_id, count) if required else 1.0,
+		"probability": TribulationRules.state_probability(state) if required else 1.0,
 		"failure_era": state.era_id - 1 if required else state.era_id}
 
 static func draw_tribulation_seed() -> int:

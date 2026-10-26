@@ -46,10 +46,10 @@ func _run() -> void:
 	abode.offline_summary.hide()
 	var decoded := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-d2-earned-era3.json"))
 	check(decoded.ok, "diagnostic fixture decodes")
-	if not decoded.ok: quit(1); return
+	if not decoded.ok: RunnerResult.finish(self, 1); return
 	var prepared := IslandProgression.prepare_supply(abode.content, decoded.state)
 	check(prepared.ok, "diagnostic fixture migrates to current supply content")
-	if not prepared.ok: quit(1); return
+	if not prepared.ok: RunnerResult.finish(self, 1); return
 	abode.session.state = prepared.state
 	var state: GameState = abode.session.state
 	state.economy.jobs = {}
@@ -69,8 +69,12 @@ func _run() -> void:
 	check(encoded.ok, "diagnostic browser fixture encodes")
 	if encoded.ok:
 		var fixture_file := FileAccess.open("res://docs/verification/artifacts/mfg-3/fixture.json", FileAccess.WRITE)
-		fixture_file.store_string(encoded.json)
-		fixture_file.close()
+		if fixture_file == null:
+			push_error("write failed: res://docs/verification/artifacts/mfg-3/fixture.json")
+			RunnerResult.finish(self, 1)
+		else:
+			fixture_file.store_string(encoded.json)
+			fixture_file.close()
 	abode._refresh_hud()
 	abode.feature_navigation.open("manufacturing")
 	panel = abode.feature_navigation.manufacturing_panel
@@ -150,4 +154,4 @@ func _run() -> void:
 	abode.queue_free()
 	await settle()
 	print("MFG3 checks=%d failures=%s" % [checks, failures])
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

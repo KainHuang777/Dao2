@@ -12,13 +12,13 @@ func _init() -> void:
 	test_save_codec_roundtrip()
 	test_reincarnation_reset()
 	print("PASS: M3-B fortune cooldown contracts, trigger, bias, resolution, persistence, and reincarnation.\n")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _assert(condition: bool, msg: String) -> void:
 	if not condition:
 		push_error("ASSERTION FAILED: " + msg)
 		print("FAIL: " + msg)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _create_test_state() -> GameState:
 	var state := GameState.new()

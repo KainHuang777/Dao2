@@ -1,0 +1,27 @@
+{
+	"browser_natural_wait": false,
+	"checks": 16,
+	"completed": [
+		{
+			"contribution": 17,
+			"duration": 60,
+			"id": "task_2_2_2",
+			"name": "清剿低階野獸"
+		},
+		{
+			"contribution": 46,
+			"duration": 120,
+			"id": "task_2_3_3",
+			"name": "修補山門法陣"
+		},
+		{
+			"contribution": 144,
+			"duration": 600,
+			"id": "task_2_1_1",
+			"name": "助長老凝練純陽真火"
+		}
+	],
+	"failures": [],
+	"simulated_seconds": 780.0,
+	"source_sha256": "4507f66d661245eece2cec935213de7a298d554b1b63cbf859799ad96c06dd65"
+}

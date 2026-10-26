@@ -1,0 +1,56 @@
+{
+  "kind": "c2_browser_metrics",
+  "url": "http://127.0.0.1:4220/metrics.html?case=active-full-desktop",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "viewport": [
+    1280,
+    720
+  ],
+  "dpr": 1.25,
+  "note": "Browser rAF callback gaps; not GPU profiler or physical-device evidence",
+  "readyMs": 3236.89999999851,
+  "resources": [
+    {
+      "name": "/index.js",
+      "transferBytes": 64738,
+      "encodedBytes": 64438,
+      "decodedBytes": 279815,
+      "durationMs": 18.399999998509884
+    },
+    {
+      "name": "/index.wasm",
+      "transferBytes": 7997085,
+      "encodedBytes": 7996785,
+      "decodedBytes": 39514754,
+      "durationMs": 284.30000000074506
+    },
+    {
+      "name": "/index.pck",
+      "transferBytes": 6381236,
+      "encodedBytes": 6380936,
+      "decodedBytes": 6519636,
+      "durationMs": 133.20000000298023
+    }
+  ],
+  "jsHeapAtReady": 93990600,
+  "loadedAudioResources": [
+    {
+      "name": "/audio/bgm/01_The_Unresolved_Ascent.mp3",
+      "transferBytes": 1361477,
+      "encodedBytes": 1361177,
+      "decodedBytes": 1361177,
+      "durationMs": 7.899999998509884
+    }
+  ],
+  "frameSample": {
+    "count": 892,
+    "durationMs": 15003.10000000149,
+    "fps": 59.45437942824559,
+    "p95Ms": 16.80000000000291,
+    "maxMs": 49.900000000001455,
+    "visible": "visible",
+    "startedBeforeReady": false,
+    "endedAfterReady": true,
+    "jsHeapBytes": 69748841
+  }
+}

@@ -1,0 +1,13 @@
+{
+	"capture_fps": 24,
+	"draw_order": {
+		"housing": 0,
+		"rotor": 1
+	},
+	"duration_each": 8,
+	"engine": "4.7.2-stable (official)",
+	"failures": [],
+	"frames": 384,
+	"note": "rotor above housing; composite and bare full-turn fixed-time Godot renders; not runtime FPS evidence",
+	"task": "UIX-R7-F5-B-F2"
+}

@@ -1,0 +1,139 @@
+{
+  "slot": "save_backup",
+  "revision": 33974,
+  "schemaVersion": 4,
+  "empty": false,
+  "era": 3,
+  "level": 2,
+  "totalSeconds": 44400,
+  "buildings": {
+    "forest_farm": 3,
+    "foundation_reservoir": 2,
+    "herb_farm": 3,
+    "hut": 2,
+    "library": 0,
+    "scripture_hall": 0,
+    "stone_mine": 3,
+    "storage_herb": 0,
+    "storage_lingli": 5,
+    "storage_money": 0,
+    "storage_stone": 0,
+    "storage_wood": 0,
+    "wooden_house": 2
+  },
+  "resources": {
+    "black_copper": {
+      "value": 345,
+      "cap": 0,
+      "unlocked": true
+    },
+    "bronze_essence": {
+      "value": 100,
+      "cap": 0,
+      "unlocked": true
+    },
+    "formation_core": {
+      "value": 0,
+      "cap": 0,
+      "unlocked": true
+    },
+    "foundation_pill": {
+      "value": 0,
+      "cap": 0,
+      "unlocked": true
+    },
+    "golden_core_pill": {
+      "value": 0,
+      "cap": 0,
+      "unlocked": true
+    },
+    "lingli": {
+      "value": 3169.06450606386,
+      "cap": 0,
+      "unlocked": true
+    },
+    "liquid": {
+      "value": 31,
+      "cap": 0,
+      "unlocked": true
+    },
+    "money": {
+      "value": 529,
+      "cap": 0,
+      "unlocked": true
+    },
+    "skill_point": {
+      "value": 0,
+      "cap": 0,
+      "unlocked": false
+    },
+    "spirit_grass_100y": {
+      "value": 0,
+      "cap": 0,
+      "unlocked": true
+    },
+    "spirit_grass_low": {
+      "value": 100,
+      "cap": 0,
+      "unlocked": true
+    },
+    "spirit_timber": {
+      "value": 100,
+      "cap": 0,
+      "unlocked": true
+    },
+    "stone_low": {
+      "value": 169.897899080445,
+      "cap": 0,
+      "unlocked": true
+    },
+    "stone_mid": {
+      "value": 3604,
+      "cap": 0,
+      "unlocked": true
+    },
+    "talisman": {
+      "value": 0,
+      "cap": 0,
+      "unlocked": true
+    },
+    "wood": {
+      "value": 172.5,
+      "cap": 0,
+      "unlocked": true
+    }
+  },
+  "economy": {
+    "version": null,
+    "islands": {
+      "herb": {
+        "opened": true
+      },
+      "home": {
+        "opened": true
+      },
+      "ore": {
+        "opened": true
+      },
+      "wood": {
+        "opened": true
+      }
+    },
+    "jobs": {
+      "home": 8,
+      "ore": 0,
+      "wood": 0
+    },
+    "trips": {},
+    "routes": [
+      "bronze_home",
+      "grass_home",
+      "ore_wood",
+      "timber_home"
+    ]
+  },
+  "helpers": {
+    "lingliCap": 0,
+    "lingliVal": 3169.06450606386
+  }
+}

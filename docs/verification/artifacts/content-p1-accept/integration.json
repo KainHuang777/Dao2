@@ -1,5 +1,5 @@
 {
-	"checks": 368,
+	"checks": 380,
 	"comparisons": [
 		{
 			"age_at_choice": 3908.0,
@@ -128,7 +128,7 @@
 			}
 		}
 	],
-	"content_version": "3b24f41ca76c5ef3a56d307dfab890c5bf9de6baccfae882bf32920548c23060+res1-d-2+content-p1-story+content-p1-sect+content-p1-skills",
+	"content_version": "7924db69ca115ad03a3a0cfe64e11051b7eaab830e91d4d79ff82d4cbc64436d+res1-d-2+content-p1-story+content-p1-sect+content-p1-skills+content-sks-p2",
 	"evidence": "Current-source legal commands, accelerated simulation, same earned second-life Era3 state at choice. No inventory/era/cooldown/fortune injection. Rates include held-heart opportunity cost. No browser natural-wait claim.",
 	"failures": [],
 	"milestones": [

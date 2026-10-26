@@ -1,0 +1,16 @@
+{
+  "task": "CONTENT-P1-STORY",
+  "date": "2026-10-23",
+  "status": "DONE_WITH_DISCLOSED_PRESERVATION_EXCEPTION",
+  "human_art_acceptance": {
+    "user_quote": "全部接受",
+    "scope": "12 badges, 2 encounter illustrations and batch card presentation"
+  },
+  "preservation_exception": {
+    "user_quote": "接受已揭露例外並結案",
+    "scope": "Keep current files and permanently retain original two failed preservation assertions and baseline-review.json; no baseline replacement, overwrite, rollback or new export.",
+    "historical_audit_status": "FAILED_TWO_PRESERVATION_ASSERTIONS",
+    "attribution": "Incomplete; acceptance does not identify actor or command."
+  },
+  "verification_scope": "L1 static review only; reuse previously delivered bounded game/browser evidence; no new L3"
+}

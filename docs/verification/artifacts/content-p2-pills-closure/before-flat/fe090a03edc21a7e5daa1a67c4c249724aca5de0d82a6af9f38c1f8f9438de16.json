@@ -1,0 +1,170 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-23T17:44:20.909Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-23T17:44:21.264Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-23T17:44:21.603Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "OFFLINE_SETTLEMENT_BEGIN",
+    "timestamp": "2026-10-23T17:44:23.551Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "OFFLINE_SETTLEMENT_END: ok=true",
+    "timestamp": "2026-10-23T17:44:23.568Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:44:24.489Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_CAMERA_HOME",
+    "timestamp": "2026-10-23T17:44:24.489Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords",
+    "timestamp": "2026-10-23T17:44:24.512Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:44:24.521Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:44:24.610Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "TRIB0_FIXTURE_READY era=3 roll_index=0",
+    "timestamp": "2026-10-23T17:44:25.289Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:44:25.299Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457",
+    "timestamp": "2026-10-23T17:44:25.743Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:44:49.408Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:45:40.762Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-23T17:45:41.531Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-23T17:45:41.798Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-23T17:45:41.907Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "OFFLINE_SETTLEMENT_BEGIN",
+    "timestamp": "2026-10-23T17:45:43.523Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "OFFLINE_SETTLEMENT_END: ok=true",
+    "timestamp": "2026-10-23T17:45:43.575Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:45:44.579Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_CAMERA_HOME",
+    "timestamp": "2026-10-23T17:45:44.580Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords",
+    "timestamp": "2026-10-23T17:45:44.672Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:45:44.679Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:45:44.776Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)",
+    "timestamp": "2026-10-23T17:45:44.780Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "TRIB0_FIXTURE_READY era=4 roll_index=1",
+    "timestamp": "2026-10-23T17:45:44.993Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  },
+  {
+    "level": "log",
+    "message": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457",
+    "timestamp": "2026-10-23T17:45:45.344Z",
+    "url": "http://127.0.0.1:48441/fault.html?case=success"
+  }
+]

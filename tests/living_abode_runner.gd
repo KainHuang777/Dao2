@@ -111,8 +111,8 @@ func _run() -> void:
 	slots.reset()
 	LivingAbodeScript.save_dir_override = ""
 	print("PASS: living abode selects buildings, upgrades, pauses production, and changes scale.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _fail(message: String) -> void:
 	push_error(message)
-	quit(1)
+	RunnerResult.finish(self, 1)

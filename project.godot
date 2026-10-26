@@ -3,6 +3,11 @@
 config_version=5
 
 [application]
+run/main_scene.beast2_acceptance="res://src/verification/beast2_acceptance.tscn"
+
+run/main_scene.sect2_acceptance="res://src/verification/sect2_acceptance.tscn"
+run/main_scene.pill2_acceptance="res://src/verification/pill2_acceptance.tscn"
+run/main_scene.talent2_acceptance="res://src/verification/talent2_acceptance.tscn"
 run/main_scene.sks_p2_acceptance="res://src/verification/sks_p2_acceptance.tscn"
 run/main_scene.content_p1_acceptance="res://src/verification/content_p1_acceptance.tscn"
 run/main_scene.content_p1_story_acceptance="res://src/verification/content_p1_story_acceptance.tscn"

@@ -161,10 +161,10 @@ func _run() -> void:
 
 	if _failed:
 		print("FAIL: M3-A reincarnation UI tests failed.")
-		quit(1)
+		RunnerResult.finish(self, 1)
 	else:
 		print("PASS: M3-A reincarnation UI, talent purchasing, responsive layouts, and state transitions.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 
 func _expect(cond: bool, msg: String) -> void:
 	if not cond:

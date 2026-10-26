@@ -68,6 +68,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			"detail": check,
 		}
 
+	var beast_error := BeastSystem.reincarnation_error(state)
+	if not beast_error.is_empty(): return {"ok": false, "error": beast_error, "events": [], "changed_ids": []}
 	var b_sum := building_level_sum(state.buildings)
 	var reward := compute_reward(b_sum, state.era_id, mode)
 	var previous_era := state.era_id

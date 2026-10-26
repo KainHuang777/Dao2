@@ -74,7 +74,7 @@ func _run() -> void:
 	if not bool(decoded.ok):
 		for label in failures:
 			push_error(label)
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	var fixture: GameState = decoded.state
 	var closed_form_ms := 0.0
@@ -117,8 +117,8 @@ func _run() -> void:
 	print("CLOSED_FORM_MS=%.3f REFERENCE_MS=%.3f" % [closed_form_ms, reference_ms])
 	if failures.is_empty():
 		print("PASS: OFFLINE_CLOSED_FORM_PARITY ", checks, " checks")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for label in failures:
 			push_error(label)
-		quit(1)
+		RunnerResult.finish(self, 1)

@@ -351,8 +351,8 @@ func _run() -> void:
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
 		print("PASS: RES1-UI1-A ", checks, " checks; diagnostic UI, job ownership, gates and save retry")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for label in failures:
 			push_error(label)
-		quit(1)
+		RunnerResult.finish(self, 1)

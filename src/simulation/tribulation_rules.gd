@@ -36,3 +36,9 @@ static func roll(seed_value: int, roll_index: int) -> float:
 
 static func is_success(roll_value: float, probability: float) -> bool:
 	return roll_value < probability
+
+static func state_probability(state: GameState) -> float:
+	var bonus := 0.0
+	for id in AlchemySystem.P2_WARDS:
+		bonus += float(AlchemySystem.P2_WARDS[id]) * AlchemySystem.stack_count(state, id)
+	return clampf(base_rate(state.era_id) + pill_bonus(pill_for_era(state.era_id), AlchemySystem.stack_count(state, pill_for_era(state.era_id))) + bonus, P_MIN, P_MAX)

@@ -1,0 +1,26 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "current" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://src/presentation/beast_care_view.gd:115)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/system_actions_panel.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/feature_navigation.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_hud_controller.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)

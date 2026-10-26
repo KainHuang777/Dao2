@@ -1,0 +1,13 @@
+[MODE] matrix=single runners=3 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{a6f91bc5-efec-4d46-9ebf-8cc33b72a453}\AC\Temp\dao2_runners_a6d5d388714f47d798f7021117ea878d
+[START:initial] tests/content_p1_talents_runner.gd
+[PASS:initial] tests/content_p1_talents_runner.gd (3.8s) result=pass
+[START:initial] tests/m3b_alchemy_runner.gd
+[PASS:initial] tests/m3b_alchemy_runner.gd (2.3s) result=pass
+[START:initial] tests/m3b_spirit_beast_runner.gd
+[PASS:initial] tests/m3b_spirit_beast_runner.gd (2.6s) result=pass
+--- slowest 8 runners (s) ---
+     3.8  tests/content_p1_talents_runner.gd
+     2.6  tests/m3b_spirit_beast_runner.gd
+     2.3  tests/m3b_alchemy_runner.gd
+SELECTED 3 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{a6f91bc5-efec-4d46-9ebf-8cc33b72a453}\AC\Temp\dao2_runners_a6d5d388714f47d798f7021117ea878d

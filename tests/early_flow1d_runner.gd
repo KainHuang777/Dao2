@@ -64,10 +64,14 @@ func run() -> void:
 	content = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach(content).ok, "normal attached content")
 	helper.content = content
-	var source := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/early-flow1c-unopened.json"))
+	var source := {}
+	for attempt in 100:
+		source = SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/early-flow1c-unopened.json"))
+		if source.ok: break
+		OS.delay_msec(50)
 	check(source.ok, "C normal command-earned Foundation input")
 	if not source.ok:
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	var s := GameSession.new()
 	s.content = content
@@ -137,7 +141,7 @@ func run() -> void:
 		for failure in failures:
 			push_error(failure)
 		print("EARLY-FLOW1-D: aborted at F7 ladder; level=", s.state.level)
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	check(s.state.skills.is_empty() and not bool(s.state.sect.get("unlocked", false)), "main bypasses both optional branches")
 	s = persist(s)
@@ -148,7 +152,7 @@ func run() -> void:
 		for failure in failures:
 			push_error(failure)
 		print("EARLY-FLOW1-D: aborted at key breakthrough; era=", s.state.era_id)
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	fixture(s, "golden")
 	check(helper.send(s, "open_island", {"island_id": "herb"}).ok, "earned Danxia opening")
@@ -220,7 +224,7 @@ func run() -> void:
 	print("EARLY-FLOW1-D: ", checks, " checks; normal commands, simulated waits, sim seconds=", s.state.total_elapsed_seconds)
 	for failure in failures:
 		push_error(failure)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func ui(s: GameSession) -> void:
 	var original := s.state

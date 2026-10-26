@@ -1,0 +1,19 @@
+{
+  "source": "Retained tool outputs and saved command logs; this is a failure index, not reconstructed raw stdout",
+  "items": [
+    "First legacy UI pair: restricted user:// startup, Nil hide SCRIPT ERROR and 45s timeouts; switched isolated project directories",
+    "New UI initial parse: native class name Panel shadowing; corrected test constant",
+    "New UI 38-check attempt: incorrect test property for output tile; corrected to icon.resource_id",
+    "Flow first probe: incorrect lifespan_seconds View key; corrected to max_lifespan_seconds (initial-invalid report retained)",
+    "Legacy UI initial assertions expected 8 recipes / 7 routes; changed to approved 11 / 12",
+    "Legacy route switch measurement included pending deferred nodes; waited before baseline; final 2750->2750 and exact state",
+    "New boundary unit parse: explicit float type required; repaired; initial core batch exit1 preserved",
+    "Flow 600s timeout: reached Era6, new-island account whitelist rejected saves; fixed scopes/cap observation",
+    "Font check missing 4 glyphs; regenerated OFL derivatives",
+    "Sandbox font import access violation -1073741819; normal-permission engine import/export exit0",
+    "Browser initial inventory/app approval and localhost connection timeouts; hidden background local server resolved HTTP service without firewall changes",
+    "Long legal flow 1121.9s: no-skill Era6 level10 reached, premature reincarnation tail correctly rejected; retained original four failures and resumed only natural-exhaustion tail",
+    "First exhaustion-tail run: reincarnation/reset passed but STORY_V0_FACTS rejected reborn save; version-zero next_life guard repaired, tail13+UI75 passed",
+    "Initial delivery audit73 checks had one false failure due Godot ANSI color escapes around completed savepack; raw log preserved and parser strips ANSI, final failures=[]"
+  ]
+}

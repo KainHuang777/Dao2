@@ -95,4 +95,4 @@ func run() -> void:
 	copy.life.events.append({})
 	check(session.state.life_ledger.current.events.is_empty(), "explicit report deep copy")
 	print(JSON.stringify({"suite":"REPORT-1A", "checks":checks, "failures":failures}))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

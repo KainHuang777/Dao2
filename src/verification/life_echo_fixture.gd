@@ -23,7 +23,7 @@ static func apply(session: GameSession) -> void:
 	# Fast-forward fixture setup is explicit; this is not a natural-life pacing test.
 	state.total_elapsed_seconds = 60
 	LifeLedger.note(state, "cultivation_leveled_up", "3:2", "echo-fixture-level", 60)
-	state.sect.active_expedition = {"name":"合成短程委託", "duration":7, "elapsed":7, "rewards":{"contribution":5}}
+	state.sect.active_expedition = {"id":"echo-fixture-complete", "name":"合成短程委託", "duration":7, "elapsed":7, "rewards":{"contribution":5}}
 	var claimed := session.claim_sect_expedition()
 	state.beasts.active.stage = "growing"
 	state.beasts.active.exp = 990

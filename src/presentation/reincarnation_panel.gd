@@ -133,6 +133,24 @@ func _update_talent_description(row: PanelContainer) -> void:
 	var level: int = row.get_meta("level", 0)
 	var label: Label = row.find_child("TalentDesc", true, false)
 	var definition: Dictionary = TalentSystem.TALENTS[id]
+	if id in TalentSystem.P2_IDS:
+		var next_level := mini(level + 1, 5)
+		var effect := ""
+		var scope := ""
+		match id:
+			"elixir_conservation_memory":
+				effect = "直接草費 −%d%% → −%d%%" % [level * 4, next_level * 4]
+				scope = "延壽丹低階草／渡劫丹百年草；其他材料不變"
+			"frontier_prospector_memory":
+				effect = "地方採集 +%d%% → +%d%%" % [level * 10, next_level * 10]
+				scope = "寒銀／古藥／太虛指定採集；未開島收益 0"
+			"sacred_beast_nurture_memory":
+				effect = "每餵經驗 +%d → +%d" % [level * 10, next_level * 10]
+				scope = "玄龜／火鳳；火鳳煉虛解鎖，餵費／冷卻不變"
+		if level >= 5: effect = effect.get_slice(" → ", 0) + " · 已圓滿"
+		label.text = "%s\n%s" % [effect, scope]
+		label.tooltip_text = "%s\n%s\n需首次輪迴且最高元嬰；當世境界不限。購入即生效、跨世保留。\n花道心會降低祖島持有加成，不追補過去收益。" % [definition.description, scope]
+		return
 	var percent := int(round(level * (8 if id == "artisan_past_wisdom" else (20 if id == "beast_bond_past_wisdom" else 10))))
 	var effects := {"resource_inheritance":"轉世開局資源 +%d%% 庫容\n下次轉世生效", "lifespan_extension":"壽元上限 +%d%%", "innate_dao_body":"修行積累速度 +%d%%", "alchemical_past_wisdom":"兩種聚靈丹修煉 +%d%%\n衰減後計算，受當層上限限制", "artisan_past_wisdom":"祖島四設施產率貢獻 +%d%%\n不含庫容／茅屋／產點／遠島", "beast_bond_past_wisdom":"靈狐餵養經驗 +%d%%\n與獸魂成長相加；冷卻不變"}
 	label.text = ("%s\n目前加成：%d%%" % [definition.description, percent]) if size.y >= 350 else effects[id] % percent
@@ -573,6 +591,14 @@ func _update_talent_row(row: PanelContainer, _talent_id: String, def: Dictionary
 			cost_label.add_theme_color_override("font_color", Color("9b3e30"))
 			learn_btn.disabled = true
 			learn_btn.text = "道心不足"
+	# Read the same rule decision used by the command, including migration gates.
+	var option: Dictionary = _last_view.get("talent_options", {}).get(_talent_id, {})
+	if not option.is_empty():
+		learn_btn.disabled = not bool(option.get("can_learn", false)) or _pending_save
+		var reason := String(option.get("reason", ""))
+		var reasons := {"TALENT_REINCARNATION_REQUIRED":"需首次輪迴", "TALENT_HIGHEST_ERA_REQUIRED":"需最高元嬰", "TALENT_VERSION":"需保存遷移", "TALENT_MAX_LEVEL":"圓滿", "INSUFFICIENT_DAO_HEART":"道心不足"}
+		learn_btn.text = "待保存" if _pending_save else String(reasons.get(reason, "參悟" if not learn_btn.disabled else "不可參悟"))
+		learn_btn.tooltip_text = learn_btn.text + "；需已輪迴且最高元嬰" if _talent_id in TalentSystem.P2_IDS else learn_btn.text
 
 func _on_reincarnate_action_pressed() -> void:
 	if _reincarnate_action_button.disabled:

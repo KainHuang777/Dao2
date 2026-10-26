@@ -1,0 +1,100 @@
+[
+  {
+    "url": "http://127.0.0.1:4202/?case=c2retry",
+    "status": "PASS",
+    "case": "c2retry",
+    "checks": 49,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2quota",
+    "status": "PASS",
+    "case": "c2quota",
+    "checks": 11,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2indexreload",
+    "status": "PASS",
+    "case": "c2indexreload",
+    "checks": 7,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2indexreload",
+    "status": "PASS",
+    "case": "c2indexreload",
+    "checks": 8,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2indexreload",
+    "status": "PASS",
+    "case": "c2indexreload",
+    "checks": 6,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2quotareload",
+    "status": "PASS",
+    "case": "c2quotareload",
+    "checks": 7,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2quotareload",
+    "status": "PASS",
+    "case": "c2quotareload",
+    "checks": 8,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2quotareload",
+    "status": "PASS",
+    "case": "c2quotareload",
+    "checks": 6,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2lock",
+    "status": "PASS",
+    "case": "c2lock",
+    "checks": 8,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2lock",
+    "status": "PASS",
+    "case": "c2lock",
+    "checks": 8,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2lock",
+    "status": "PASS",
+    "case": "c2lock",
+    "checks": 6,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2denied",
+    "status": "PASS",
+    "case": "c2denied",
+    "checks": 11,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2corrupt",
+    "status": "PASS",
+    "case": "c2corrupt",
+    "checks": 11,
+    "failures": []
+  },
+  {
+    "url": "http://127.0.0.1:4202/?case=c2retry",
+    "status": "PASS",
+    "case": "c2retry",
+    "checks": 49,
+    "failures": []
+  }
+]

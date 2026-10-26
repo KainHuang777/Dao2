@@ -5,6 +5,10 @@ const SCHEMA_VERSION := 5
 const GAME_VERSION := "0.1.0"
 const RULES_VERSION := "core-flow-17-content-p1-story"
 const SUPPLY_RULES_VERSION := "core-flow-18-content-p2-supply"
+const BEAST_RULES_VERSION := "core-flow-23-content-p2-beasts"
+const SECT_RULES_VERSION := "core-flow-22-content-p2-sect"
+const PILL_RULES_VERSION := "core-flow-21-content-p2-pills"
+const TALENT_RULES_VERSION := "core-flow-20-content-p2-talents"
 const SKS_RULES_VERSION := "core-flow-19-content-sks-p2"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
@@ -12,13 +16,15 @@ const GENERATOR_VERSION := 1
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
 		return {"ok": false, "json": "", "error": "STATE_MISSING"}
+	var beast_error := BeastSaveContract.validate(state.beast_version, state.beasts, state.beast_souls, state.beast_talents)
+	if not beast_error.is_empty(): return {"ok": false, "json": "", "error": beast_error}
 	var story_error := StorySaveContract.validate(state)
 	if not story_error.is_empty(): return {"ok": false, "json": "", "error": story_error}
 	var sect_error := SectSaveContract.validate(state.sect_version, state.sect)
 	if not sect_error.is_empty(): return {"ok": false, "json": "", "error": sect_error}
-	var pill_error := AlchemySystem.validate(state.pill_version, state.pills, state.buffs)
+	var pill_error := AlchemySystem.validate(state.pill_version, state.pills, state.buffs, state.pill_effects)
 	if not pill_error.is_empty(): return {"ok": false, "json": "", "error": pill_error}
-	var talent_error := TalentSystem.validate(state.talent_version, state.talents)
+	var talent_error := TalentSystem.validate_state(state)
 	if not talent_error.is_empty(): return {"ok": false, "json": "", "error": talent_error}
 	var ledger_error := LifeLedger.validate(state.life_ledger, state.reincarnation_count + 1) if not state.life_ledger.is_empty() else ""
 	if not ledger_error.is_empty():
@@ -48,7 +54,7 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 		"schema_version": SCHEMA_VERSION,
 		"game_version": GAME_VERSION,
 		"content_version": content_version,
-		"rules_version": SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
+		"rules_version": BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
 		"amount_format_version": AMOUNT_FORMAT_VERSION,
 		"generator_version": GENERATOR_VERSION,
 		"save_id": meta["save_id"],
@@ -294,7 +300,7 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	var talent_version: Variant = snapshot_dict.get("talent_version", 1)
 	if not _is_int(talent_version): return {"ok": false, "state": null, "error": "TALENT_VERSION"}
 	state.talent_version = int(talent_version)
-	var talent_error := TalentSystem.validate(state.talent_version, state.talents)
+	var talent_error := TalentSystem.validate_state(state)
 	if not talent_error.is_empty(): return {"ok": false, "state": null, "error": talent_error}
 	for id in state.talents: state.talents[id] = int(state.talents[id])
 	if snapshot_dict.has("pills"):
@@ -318,10 +324,10 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:buffs"}
 		state.buffs = (snapshot_dict["buffs"] as Dictionary).duplicate(true)
 	var pill_version: Variant = snapshot_dict.get("pill_version", 0)
-	var pill_error := AlchemySystem.validate(pill_version, state.pills, state.buffs)
+	var pill_error := AlchemySystem.validate(pill_version, state.pills, state.buffs, state.pill_effects)
 	if not pill_error.is_empty(): return {"ok": false, "state": null, "error": pill_error}
 	state.pill_version = int(pill_version)
-	for id in AlchemySystem.P1_IDS:
+	for id in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS:
 		if state.pills.has(id): state.pills[id] = int(state.pills[id])
 	if snapshot_dict.has("current_realm"):
 		if not (snapshot_dict["current_realm"] is String):
@@ -379,6 +385,13 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 		if not (snapshot_dict["beast_talents"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:beast_talents"}
 		state.beast_talents = (snapshot_dict["beast_talents"] as Dictionary).duplicate(true)
+	var beast_version: Variant = snapshot_dict.get("beast_version", 0)
+	var beast_error := BeastSaveContract.validate(beast_version, state.beasts, state.beast_souls, state.beast_talents)
+	if not beast_error.is_empty(): return {"ok": false, "state": null, "error": beast_error}
+	state.beast_version = int(beast_version)
+	for entries in [state.beast_souls, state.beast_talents]:
+		for id in entries: entries[id] = int(entries[id])
+	if not state.beasts.get("active", {}).is_empty(): state.beasts.active.exp = int(state.beasts.active.exp)
 	var scenery_data: Variant = snapshot_dict.get("abode_scenery", {})
 	var scenery_error := AbodeScenery.validate_snapshot(scenery_data)
 	if not scenery_error.is_empty():

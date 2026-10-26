@@ -14,6 +14,7 @@ var _surface: PanelContainer
 var skill_view: Control
 var decision_view: Control
 var retry_button: Button
+var beast_view: Control
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -60,6 +61,11 @@ func _ready() -> void:
 	decision_view.action_requested.connect(func(kind: String, id: String): action_requested.emit(kind, id))
 	decision_view.hide()
 
+	beast_view = preload("res://src/presentation/beast_care_view.gd").new()
+	box.add_child(beast_view)
+	beast_view.action_requested.connect(func(kind: String, id: String): action_requested.emit(kind, id))
+	beast_view.hide()
+
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
@@ -103,7 +109,8 @@ func refresh(view: Dictionary) -> void:
 		_last_mode = mode
 	skill_view.visible = mode == "skills"
 	decision_view.visible = mode == "decisions"
-	_scroll.visible = mode not in ["skills", "decisions"]
+	_scroll.visible = mode not in ["skills", "decisions", "beasts"]
+	beast_view.visible = mode == "beasts"
 	retry_button.visible = save_failed
 	if mode == "decisions":
 		decision_view.refresh(view)
@@ -116,30 +123,11 @@ func refresh(view: Dictionary) -> void:
 		buttons = skill_view.buttons.duplicate()
 		_signature = ""
 		return
-	var data: Variant = view.get("beast", {}) if mode == "beasts" else view.get("realm_decisions", [])
-	var signature_data: Variant = data
-	var signature := mode + JSON.stringify(signature_data)
-	if signature == _signature:
+	if mode == "beasts":
+		beast_view.refresh(view)
+		buttons = beast_view.buttons.duplicate()
+		_signature = ""
 		return
-	_signature = signature
-	for child in content.get_children():
-		content.remove_child(child)
-		child.queue_free()
-	buttons.clear()
-	_text("靈獸培育 · 成熟獸魂與天賦可跨世繼承")
-	var active: Dictionary = data.get("active", {})
-	if not active.is_empty():
-		_text("%s · %s · 成長 %d\n餵食：%s · 冷卻 %.0f秒" % [BeastSystem.BEAST_CONFIGS.get(active.id, {}).get("name", active.id), BeastSystem.STAGE_CONFIGS.get(active.stage, {}).get("name", active.stage), active.get("exp", 0), _costs(data.get("feed_costs", {})), data.get("cooldown_remaining", 0.0)])
-		_action("餵養靈獸" if bool(data.get("can_feed", false)) else String(data.get("feed_reason", "目前不可餵食")), "feed", "", bool(data.get("can_feed", false)))
-	for id in BeastSystem.BEAST_CONFIGS:
-		var config: Dictionary = BeastSystem.BEAST_CONFIGS[id]
-		_text("%s · 第 %d 境解鎖\n%s · 獸魂 %d" % [config.name, config.unlock_era, config.desc, data.get("souls", {}).get(id, 0)])
-		_action("結契 %s" % config.name, "acquire", id, active.is_empty() and int(view.get("era_id", 1)) >= int(config.unlock_era))
-		for talent in data.get("talents_view", []):
-			if talent.beast_id != id:
-				continue
-			_text("%s · %s" % [talent.name, talent.desc])
-			_action("已領悟" if bool(talent.owned) else "領悟 · %d獸魂" % int(talent.cost), "talent", talent.id, bool(talent.can_unlock))
 
 func _costs(costs: Dictionary) -> String:
 	var parts: Array[String] = []

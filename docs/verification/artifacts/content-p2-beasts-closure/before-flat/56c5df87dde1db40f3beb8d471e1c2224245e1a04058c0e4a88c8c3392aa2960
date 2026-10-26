@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "engine": [
+    4,
+    7,
+    2
+  ],
+  "builds": [
+    {
+      "build": "res1d2r1",
+      "bytes": 10669068,
+      "sha256": "e8a549e394fb26e1cf973de9b85786cf94604a2bd2e794727f76ab760d5f1f84"
+    },
+    {
+      "build": "res1d2",
+      "bytes": 6534560,
+      "sha256": "f7bb896516d3616175faad682788fe03285553b3b5daf33269c1554cd4fa3fc9"
+    },
+    {
+      "build": "web",
+      "bytes": 6529340,
+      "sha256": "134334491bd68be37fec0cdc292916c5f93020fae986e7ae3a6ecfec5e216eba"
+    }
+  ],
+  "danxia_pack_entries": [
+    {
+      "path": ".godot/imported/herb_body.png-639b2b9e79571bdc977db12119f6d088.ctex",
+      "bytes": 2005232
+    },
+    {
+      "path": ".godot/imported/herb_landmark.png-618f9b714215b24e02d8762fe412c70c.ctex",
+      "bytes": 2124408
+    },
+    {
+      "path": "assets/abode/res1d2/herb_body.png.import",
+      "bytes": 198
+    },
+    {
+      "path": "assets/abode/res1d2/herb_landmark.png.import",
+      "bytes": 202
+    },
+    {
+      "path": "assets/abode/res1d2/manifest.json",
+      "bytes": 3911
+    }
+  ],
+  "reference_images_excluded": true,
+  "note": "PCK inventory/hash evidence only; no new FPS/download/cold-boot acceptance"
+}

@@ -19,14 +19,16 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 	var events: Array = []
 	var changed: Array = []
 	var stopped: Variant = null
+	if not prepared.is_empty() and prepared.get("beast_signature", []) != BeastSystem.effect_signature(state): prepared.clear()
 	if prepared.is_empty():
 		prepared = prepare_advance(state, content)
 	# The yielding coordinator requests one tick at a time. Avoid constructing
 	# and merging a second result envelope for that same single tick.
 	if ticks == 1:
+		var local_rates := IslandEconomy.pill_tick_rates(state)
 		var result := _advance_legacy(state, content, 1, prepared)
 		if int(result.ticks_advanced) > 0:
-			var economy_events := IslandEconomy.tick_prepared(state, content.processing_catalog, prepared.economy)
+			var economy_events := IslandEconomy.tick_prepared(state, content.processing_catalog, prepared.economy, local_rates)
 			economy_events.append_array(result.events)
 			result.events = economy_events
 			result.changed_ids.append("economy")
@@ -34,10 +36,11 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 		return result
 	# Fixed one-second boundaries also split buffs, weather and lifespan. No frame RNG.
 	for _tick in range(maxi(0, ticks)):
+		var local_rates := IslandEconomy.pill_tick_rates(state)
 		var result := _advance_legacy(state, content, 1, prepared)
 		if int(result.ticks_advanced) > 0:
 			executed += 1
-			events.append_array(IslandEconomy.tick_prepared(state, content.processing_catalog, prepared.economy))
+			events.append_array(IslandEconomy.tick_prepared(state, content.processing_catalog, prepared.economy, local_rates))
 			LifeHistory.observe(state, content)
 		for id in result.changed_ids:
 			if not id in changed:
@@ -53,7 +56,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 static func prepare_advance(state: GameState, content: GameContent) -> Dictionary:
 	# Scoped to one command-free settlement. Never persist or reuse after commands.
 	# Timers and observed stock still advance at one-second boundaries.
-	return {"talents": TalentSystem.compute_multipliers(state),
+	return {"beast_signature": BeastSystem.effect_signature(state), "talents": TalentSystem.compute_multipliers(state),
 		"caps": Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills),
 		"lifespans": content.era_lifespan_entries(),
 		"sect": SectSystem.compute_multipliers(state), "economy": {},
@@ -199,6 +202,7 @@ static func _produce_uncached(state: GameState, content: GameContent, rates: Dic
 			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + total_storage_bonus))
 		if resource_id == "lingqi" and float(sect_multipliers.lingqi_cap_bonus) > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
 			cap_limit = cap_limit.multiply(AmountCompat.from_number(1.0 + float(sect_multipliers.lingqi_cap_bonus)))
+		cap_limit = Production.add_pill_capacity(state, resource_id, cap_limit)
 		if not state.economy.is_empty() and content.processing_catalog.resources.has(resource_id):
 			var held := IslandEconomy.reserved(state, "home", resource_id, content.processing_catalog)
 			var effective_cap := (cap_limit.to_float() if IslandEconomy.expanded(state) else minf(cap_limit.to_float(), float(content.processing_catalog.resources[resource_id].cap))) - held
@@ -240,6 +244,7 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 				cap = cap.multiply(AmountCompat.from_number(1.0 + bonus))
 			if id == "lingqi" and float(sect.lingqi_cap_bonus) > 0.0 and cap.sign > 0:
 				cap = cap.multiply(AmountCompat.from_number(1.0 + float(sect.lingqi_cap_bonus)))
+			cap = Production.add_pill_capacity(state, id, cap)
 			var processing: bool = not state.economy.is_empty() and content.processing_catalog.resources.has(id)
 			if processing and not IslandEconomy.expanded(state):
 				cap = AmountCompat.from_number(minf(cap.to_float(), float(content.processing_catalog.resources[id].cap)))

@@ -1,0 +1,479 @@
+{
+  "sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "observations": [
+    {
+      "step": "844-before",
+      "state": {
+        "revision": 2497,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {},
+        "hearts": "25",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      },
+      "canvas": [
+        "844",
+        "390"
+      ]
+    },
+    {
+      "step": "800-before-refusal",
+      "state": {
+        "revision": 2529,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {},
+        "hearts": "25",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      },
+      "canvas": [
+        "800",
+        "360"
+      ]
+    },
+    {
+      "step": "refused-persisted",
+      "state": {
+        "revision": 2529,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {},
+        "hearts": "25",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      }
+    },
+    {
+      "step": "retry-denied-persisted",
+      "state": {
+        "revision": 2529,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {},
+        "hearts": "25",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      }
+    },
+    {
+      "step": "recovered-once",
+      "state": {
+        "revision": 2547,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {
+          "frontier_prospector_memory": 1
+        },
+        "hearts": "15",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      }
+    },
+    {
+      "step": "reload-keeps-purchase",
+      "state": {
+        "revision": 2548,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {
+          "frontier_prospector_memory": 1
+        },
+        "hearts": "15",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      }
+    },
+    {
+      "step": "1280-reload-cards",
+      "state": {
+        "revision": 2580,
+        "era": 1,
+        "level": 1,
+        "economy": "res1-e-46-1",
+        "talent_version": 3,
+        "talents": {
+          "frontier_prospector_memory": 1
+        },
+        "hearts": "15",
+        "islands": {
+          "ancient": {
+            "inventory": {},
+            "opened": false
+          },
+          "deep": {
+            "inventory": {},
+            "opened": false
+          },
+          "herb": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "home": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": true
+          },
+          "ore": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          },
+          "void": {
+            "inventory": {},
+            "opened": false
+          },
+          "wood": {
+            "facilities": {
+              "extractor": 1,
+              "storage": 1,
+              "workshop": 1
+            },
+            "inventory": {},
+            "opened": false
+          }
+        },
+        "routes": {}
+      },
+      "canvas": [
+        "1280",
+        "720"
+      ]
+    }
+  ],
+  "purchase_recovery_verified": true,
+  "logs": []
+}

@@ -23,11 +23,11 @@ func _init() -> void:
 func _finish() -> void:
 	if failures.is_empty():
 		print("PASS: M3-B alchemy system, refining, consumption, lifespan boost, production boost, persistence and reincarnation reset.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for f in failures:
 			push_error(f)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _expect(cond: bool, msg: String) -> void:
 	if not cond:

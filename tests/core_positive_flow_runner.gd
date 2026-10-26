@@ -217,8 +217,8 @@ func _finish(fatal: String) -> void:
 		failures.append(fatal)
 	if failures.is_empty():
 		print("PASS: blank game reaches every Era 1 building, first breakthrough and next life; production, money UI, saves, and multipliers.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error("CORE FLOW: " + failure)
-		quit(1)
+		RunnerResult.finish(self, 1)

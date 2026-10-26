@@ -361,6 +361,7 @@ static func _build_prod(state: GameState, content: GameContent, rates: Dictionar
 			cap_amount = cap_amount.multiply(AmountCompat.from_number(1.0 + bonus))
 		if id == "lingqi" and float(sect_m["lingqi_cap_bonus"]) > 0.0 and cap_amount.sign > 0:
 			cap_amount = cap_amount.multiply(AmountCompat.from_number(1.0 + float(sect_m["lingqi_cap_bonus"])))
+		cap_amount = Production.add_pill_capacity(state, id, cap_amount)
 		var processing: bool = not economy_empty and catalog.resources.has(id)
 		if processing and not IslandEconomy.expanded(state):
 			cap_amount = AmountCompat.from_number(minf(cap_amount.to_float(), float(catalog.resources[id].cap)))

@@ -178,8 +178,8 @@ func _run() -> void:
 	test_slots.reset()
 	LivingAbodeScript.save_dir_override = ""
 	print("PASS: M2-B cultivation level up, capacity barrier, breakthrough to Era 2, non-consuming stock, sequence replay, and reload.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _fail(message: String) -> void:
 	push_error("M2-B FAIL: " + message)
-	quit(1)
+	RunnerResult.finish(self, 1)

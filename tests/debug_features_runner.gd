@@ -87,10 +87,10 @@ func _run() -> void:
 
 	if _failed:
 		print("[FAIL] Debug Features Runner encountered errors!")
-		quit(1)
+		RunnerResult.finish(self, 1)
 	else:
 		print("[PASS] Debug Features Runner completed successfully.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 
 func _expect(cond: bool, msg: String) -> void:
 	if not cond:

@@ -125,8 +125,8 @@ func _run() -> void:
 	slots.reset()
 	if failures.is_empty():
 		print("PASS: RESOURCE-FEEDBACK-R1 %d checks" % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)

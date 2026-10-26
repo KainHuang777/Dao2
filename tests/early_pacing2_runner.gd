@@ -19,11 +19,11 @@ func _init() -> void:
 	print("%d checks, %d failures" % [checks, failures.size()])
 	if failures.is_empty():
 		print("EARLY PACING 2 RUNNER DONE")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			print("FAIL: %s" % failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _test_era1_graded_normalized(era_def: Dictionary) -> void:
 	var graded: Array = era_def["level_up_requirements"]["graded_resources"]

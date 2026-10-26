@@ -1,0 +1,20 @@
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:128)
+       [1] run (res://tests/content_p2_sect_ui_runner.gd:35)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:128)
+       [1] update_view (res://src/presentation/sect_panel.gd:298)
+       [2] run (res://tests/content_p2_sect_ui_runner.gd:36)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:128)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:258)
+       [2] run (res://tests/content_p2_sect_ui_runner.gd:38)

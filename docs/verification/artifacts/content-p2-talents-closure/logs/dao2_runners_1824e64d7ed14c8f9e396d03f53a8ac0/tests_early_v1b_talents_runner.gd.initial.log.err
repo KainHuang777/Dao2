@@ -1,0 +1,5 @@
+ERROR: six talents defined after CONTENT-P1-TALENT; original three verified below
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _finish (res://tests/early_v1b_talents_runner.gd:478)
+       [1] _run (res://tests/early_v1b_talents_runner.gd:123)

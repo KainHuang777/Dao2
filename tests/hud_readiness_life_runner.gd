@@ -92,4 +92,4 @@ func _run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("HUD readiness/life %d checks failed=%s" % [checks,failed])
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

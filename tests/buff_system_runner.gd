@@ -10,13 +10,13 @@ func _init() -> void:
 	test_reincarnation_buff_filtering()
 	test_buff_hud_bar_ui()
 	print("PASS: Buff system definition, decay, multipliers, breakthrough trigger, persistence, reincarnation, and HUD bar.\n")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _assert(condition: bool, message: String) -> void:
 	if not condition:
 		push_error("ASSERTION FAILED: " + message)
 		print("FAIL: " + message)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _setup_state_and_content() -> Dictionary:
 	var content := ContentLoader.load_directory("res://content")["content"] as GameContent

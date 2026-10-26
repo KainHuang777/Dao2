@@ -1,0 +1,42 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: `NaN` ("Not a Number") found in argument passed to JSON.stringify(). `NaN` cannot be represented in JSON, so the value has been replaced with `null`. This warning will not be printed for any later NaN occurrences.
+   at: _stringify (core/io/json.cpp:86)
+   GDScript backtrace (most recent call first):
+       [0] validate (res://src/persistence/beast_save_contract.gd:7)
+       [1] _validation (res://tests/content_p2_beasts_save_runner.gd:112)
+       [2] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:464)
+       [1] current_state (res://src/persistence/save_manager.gd:136)
+       [2] _validation (res://tests/content_p2_beasts_save_runner.gd:128)
+       [3] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:464)
+       [1] current_state (res://src/persistence/save_manager.gd:136)
+       [2] _validation (res://tests/content_p2_beasts_save_runner.gd:128)
+       [3] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:89)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:485)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:484)
+       [4] current_state (res://src/persistence/save_manager.gd:136)
+       [5] _validation (res://tests/content_p2_beasts_save_runner.gd:128)
+       [6] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:89)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:485)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:484)
+       [4] current_state (res://src/persistence/save_manager.gd:136)
+       [5] _validation (res://tests/content_p2_beasts_save_runner.gd:128)
+       [6] run (res://tests/content_p2_beasts_save_runner.gd:41)

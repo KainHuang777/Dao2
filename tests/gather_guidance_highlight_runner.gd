@@ -63,4 +63,4 @@ func _run() -> void:
 
 	print("GATHER GUIDANCE HIGHLIGHT: %d checks, %d failures" % [checks, failures])
 	abode.queue_free()
-	quit(0 if failures == 0 else 1)
+	RunnerResult.finish(self, 0 if failures == 0 else 1)

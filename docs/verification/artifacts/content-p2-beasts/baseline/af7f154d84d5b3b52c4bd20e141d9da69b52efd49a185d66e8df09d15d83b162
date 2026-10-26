@@ -1,0 +1,21 @@
+{
+  "engine_version": 0,
+  "initial_import_with_diagnostics": 0,
+  "final_import": 0,
+  "core_initial_revision_fixture_failure": 1,
+  "core_final_370": 0,
+  "progression_75": 0,
+  "native_ui_final_84": 0,
+  "initial_full_unwritable_profile": "interrupted: exit1",
+  "full_until_legacy_b1_era_assumption": 1,
+  "resumed_last15": 0,
+  "current99_unique": "all passed in segments",
+  "fonts_check": 0,
+  "first_normal_export_missing_directory": 1,
+  "normal_export_final": 0,
+  "acceptance_export_final": 0,
+  "compression_normal_and_acceptance": 0,
+  "server_sandbox": "timeout; stopped by Ctrl+C exit1",
+  "server_escalated": "reachable; stopped by Ctrl+C exit1",
+  "audit": 0
+}

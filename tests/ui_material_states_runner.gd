@@ -83,4 +83,4 @@ func _run() -> void:
 	await process_frame
 	if not failed:
 		print("PASS: material demand ratio, prerequisites, ready/capped/reset states, borders and input isolation")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

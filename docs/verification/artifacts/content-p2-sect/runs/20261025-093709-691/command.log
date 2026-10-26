@@ -1,0 +1,19 @@
+[MODE] matrix=single runners=5 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{f0657acf-8e57-4833-9044-59c21453aefc}\AC\Temp\dao2_runners_1e4e74a1859540aeb21c9bc58b4d9d0a
+[START:initial] tests/content_p2_sect_save_runner.gd
+[PASS:initial] tests/content_p2_sect_save_runner.gd (7.1s) result=pass
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[PASS:initial] tests/content_p2_supply_economy_runner.gd (12.5s) result=pass
+[START:initial] tests/m1c_persistence_runner.gd
+[PASS:initial] tests/m1c_persistence_runner.gd (2.8s) result=pass
+[START:initial] tests/m1e_import_runner.gd
+[PASS:initial] tests/m1e_import_runner.gd (2.8s) result=pass
+[START:initial] tests/m4a_session_integration_runner.gd
+[PASS:initial] tests/m4a_session_integration_runner.gd (3.2s) result=pass
+--- slowest 8 runners (s) ---
+    12.5  tests/content_p2_supply_economy_runner.gd
+     7.1  tests/content_p2_sect_save_runner.gd
+     3.2  tests/m4a_session_integration_runner.gd
+     2.8  tests/m1c_persistence_runner.gd
+     2.8  tests/m1e_import_runner.gd
+SELECTED 5 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{f0657acf-8e57-4833-9044-59c21453aefc}\AC\Temp\dao2_runners_1e4e74a1859540aeb21c9bc58b4d9d0a

@@ -1,0 +1,35 @@
+{
+  "task": "UIX-R7-F5-B-F1",
+  "url": "http://127.0.0.1:48915/index.html",
+  "environment": {
+    "canvasHeight": 765,
+    "canvasWidth": 978,
+    "dpr": 1.25,
+    "height": 612,
+    "width": 783
+  },
+  "testedCssSizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "actions": [
+    "pause",
+    "glow off/on at same time",
+    "bare disc",
+    "composite",
+    "reduced on",
+    "reload"
+  ],
+  "errors": [],
+  "note": "Final preview restored to animated composite and default viewport. No sustained FPS test."
+}

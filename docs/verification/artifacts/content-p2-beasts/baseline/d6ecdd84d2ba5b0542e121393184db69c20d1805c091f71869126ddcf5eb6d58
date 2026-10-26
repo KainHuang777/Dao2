@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-24",
+  "level": "L1 plus bounded L2; not L3",
+  "stage": "SUPPLY-2 economy/save core; player entry still D2",
+  "checks": 283,
+  "unique_runners": 12,
+  "runners": {
+    "content_p2_supply_data": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l1-logs\\tests_content_p2_supply_data_runner.gd.initial.log",
+      "sha256": "03206782a437aa9bd9523b490e3b2f37056cf81a5e4960476034939589939be4"
+    },
+    "res1a_processing": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l1-logs\\tests_res1a_processing_runner.gd.initial.log",
+      "sha256": "773a23dbfab4588652237a421947d90e74b5edea298fb5259a053a86ebba6f2c"
+    },
+    "res1b_economy": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l1-logs\\tests_res1b_economy_runner.gd.initial.log",
+      "sha256": "b4c5cdf5a96ebc1a997c261ac4f94617ce61dca571c49ec047a81bc576fc2caf"
+    },
+    "res1c_progression": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l1-logs\\tests_res1c_progression_runner.gd.initial.log",
+      "sha256": "c5ecfaf8b1c04008118d77a58b9222fce4a82c7c727fce6aa8f757464942a240"
+    },
+    "resource_accounts": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l2-logs\\tests_resource_accounts_runner.gd.initial.log",
+      "sha256": "e70b343e5efd769cbb212ed7b72c7a52dc03b2cde82804243aa5618221ca92ba"
+    },
+    "m1a_core": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l2-logs\\tests_m1a_core_runner.gd.initial.log",
+      "sha256": "98dddc16811dc409724f7a49105506ff0697b7c12d6729262c592353da34b313"
+    },
+    "res1c2_offline": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\supply2-l2-logs\\tests_res1c2_offline_runner.gd.initial.log",
+      "sha256": "fac517c36c4c4c18df7d5d2c4e2295b0047c8247378c786ff93dd81186ff9d1a"
+    },
+    "res1d2_integration": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\long-final-logs\\tests_res1d2_integration_runner.gd.initial.log",
+      "sha256": "81e3f31f91f7d0da9c11f428ec80e0c620addc3c81b25ea4ae4e97204f7bde1d"
+    },
+    "offline_closed_form_parity": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\long-final-logs\\tests_offline_closed_form_parity_runner.gd.initial.log",
+      "sha256": "084263e4e7b785b9346611119a4b705a89484e97bc4441120a67c826358e3299"
+    },
+    "m1d_offline": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\save-final-logs\\tests_m1d_offline_runner.gd.initial.log",
+      "sha256": "7d4d88d2ecea9f3f294a58e1d752961bf1d5410e7543cf588543e15827f40ff7"
+    },
+    "m1c_persistence": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\m1c-final-logs\\tests_m1c_persistence_runner.gd.initial.log",
+      "sha256": "30ec48f587d2020a87bf072fa92aa2a35ff6024f35f2a9271bb86658abb85e16"
+    },
+    "content_p2_supply_economy": {
+      "passed": true,
+      "stdout": "docs\\verification\\artifacts\\content-p2-supply\\economy-final-logs\\tests_content_p2_supply_economy_runner.gd.initial.log",
+      "sha256": "4c4b90beea943eab6e35376e13f82e0991660bfc60c221e4589ff534a24bbdf5"
+    }
+  },
+  "source_sha256": {
+    "src/content/supply_content.gd": "71a8ddb4e3300bca2f8d1871186530900e2905d14a179849752521f7c5a1b021",
+    "src/application/game_session.gd": "667227c54eccfd194312fad7db03851dde9baed42006f62c3c41869006339982",
+    "src/application/offline_coordinator.gd": "3203ed09c06935ce179dd2aef3f2acf19cf0c2900d3669c6391924fb857aa0a7",
+    "src/domain/resource_ledger.gd": "fa2994294ceb18a237cbe531133d2202ff711745277c88c0544834005ee054ff",
+    "src/persistence/save_codec.gd": "0d20895220a29a2b41128d940c167a33c291bab869d0831347ad996b01c9b91b",
+    "src/persistence/save_manager.gd": "89f8ea57e3b86ba65e6ce8142c93c9252cba093723caf305f284672fa6888ee8",
+    "src/simulation/island_economy.gd": "20cb650c8f306fb1b209f6f362811fc921cc1f447a7873bf315eb27b593c3b2d",
+    "src/simulation/island_progression.gd": "cf2c9370075b35db759fc05ca8bd9550a6526127284b245530107264c6343174",
+    "src/simulation/processing_system.gd": "1dc2bfbe29a3b75e5d3ffb712e5d6bddb02bcb6275e2c22d836308f9b3f2ee9b",
+    "src/simulation/command_processor.gd": "747b8f06753b9266499b47a3e7c1d5b544c4763abe5e702a454f659087e0292a",
+    "src/simulation/time_advancer.gd": "587ca8541aee42f6a4e5bbf46dd1ae22a425c0fbf6e0060bdbb273eb29abb01e",
+    "src/simulation/offline_closed_form.gd": "2eb4b0fd3e8bf1403014bc49ad75e46f7a283b3de6f0117f5ded18cd72bc8491",
+    "src/simulation/offline_economy_jump.gd": "4d0e86a541283d71c60c257a8418673e05755dfe2f03bf260830c699b11a4b3c",
+    "src/simulation/reincarnation_rules.gd": "7d0bcfb3648ac2c86bb8b35b2cc11df3524ab5d4b1b7121efd9c0c59e83a4430",
+    "src/simulation/story_progress.gd": "1217d1b2cb3479d11c3337aa8c03c9b82c74ae924f4b950345d275bed0128acf",
+    "tests/content_p2_supply_economy_runner.gd": "ee7956ff83e6e435fc8b530cf804f1e6d299e006f40b345292ad7c1b722871e7",
+    "tests/m1c_persistence_runner.gd": "4aea61a0273c9ef8dfa38ba2b7062a6e8ddca56d681465e960ff061746e4df93",
+    "tests/m1d_offline_runner.gd": "7b5ee809a2ce3fddc478361f2a903cb9d4340a0a354b03be9afcd0c7642c8cd6",
+    "tools/run_all_runners.ps1": "c4456a7aa1d7a6526f0fb22ec3c01897ba8e0864cef588ff3c098b227632a121",
+    "docs/verification/content-p2-supply-2.md": "d2a0de01243c1f04208a7590bb4e3e209fd3d509e8d4fbc40883603347ea6ecf"
+  },
+  "failures": []
+}

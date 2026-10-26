@@ -10,7 +10,7 @@ func _init() -> void:
 	test_gamesession_sect_command_integration()
 	test_era_eligibility_button_states()
 	print("PASS: M3-B sect UI, tabs, joining, expeditions, techniques, market, responsiveness, and GameSession integration.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _create_test_state(era: int = 2) -> GameState:
 	var state := GameState.new()

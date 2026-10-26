@@ -14,13 +14,13 @@ func _run() -> void:
 	test_modal_responsive_layouts()
 	await test_living_abode_integration()
 	print("PASS: M3-B fortune UI structure, options, signals, layouts, and living_abode integration.\n")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _assert(condition: bool, msg: String) -> void:
 	if not condition:
 		push_error("ASSERTION FAILED: " + msg)
 		print("FAIL: " + msg)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func test_modal_structure() -> void:
 	print("Testing FortuneModal node creation and structure...")

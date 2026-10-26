@@ -52,7 +52,11 @@ func run() -> void:
 		await frames()
 	print("CONTENT-P1-SKILL UI ",checks," checks failures=",JSON.stringify(failures))
 	var f := FileAccess.open(DIR+"native-ui.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	if f == null:
+		push_error("write failed: " + DIR + "native-ui.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	scene.queue_free()
 	await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

@@ -1,0 +1,32 @@
+{
+  "level": "L1/L2 single",
+  "unique_runners": 14,
+  "latest_pass_evidence": {
+    "content_p2_beasts_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190210-680\\command.log",
+    "content_p2_beasts_save_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190101-375\\command.log",
+    "content_p2_sect_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185550-026\\command.log",
+    "content_p2_talents_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185550-026\\command.log",
+    "m3a_reincarnation_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185550-026\\command.log",
+    "m3b_spirit_beast_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190210-680\\command.log",
+    "content_p2_supply_economy_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185705-420\\command.log",
+    "offline_closed_form_parity_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185816-035\\command.log",
+    "m1c_persistence_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185609-108\\command.log",
+    "m1e_import_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185609-108\\command.log",
+    "m4a_session_integration_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190210-680\\command.log",
+    "content_p2_sect_save_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190006-519\\command.log",
+    "content_p2_pills_save_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190006-519\\command.log",
+    "sks_p2_core_runner": "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190006-519\\command.log"
+  },
+  "all_run_logs_including_failures": [
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185443-604\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185504-688\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185550-026\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185609-108\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185705-420\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185816-035\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-185853-126\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190006-519\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190101-375\\command.log",
+    "docs\\verification\\artifacts\\content-p2-beasts\\runs\\20261026-190210-680\\command.log"
+  ]
+}

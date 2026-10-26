@@ -1,0 +1,8 @@
+[
+  {
+    "level": "error",
+    "message": "RangeError: Invalid array length\n    at Object.genObject (http://127.0.0.1:48472/index.js:1:81031)\n    at _emscripten_glGenVertexArrays (http://127.0.0.1:48472/index.js:1:107718)\n    at wasm://wasm/096bca0a:wasm-function[67308]:0x1fc3c4b\n    at wasm://wasm/096bca0a:wasm-function[19109]:0xb601c3\n    at wasm://wasm/096bca0a:wasm-function[43851]:0x1a9fbd1\n    at wasm://wasm/096bca0a:wasm-function[24112]:0xf6422e\n    at wasm://wasm/096bca0a:wasm-function[65789]:0x1f1eb1d\n    at wasm://wasm/096bca0a:wasm-function[2238]:0x16f0cf\n    at wasm://wasm/096bca0a:wasm-function[43240]:0x1a7d6d4\n    at wasm://wasm/096bca0a:wasm-function[8840]:0x4ffc02",
+    "timestamp": "2026-10-25T01:02:57.972Z",
+    "url": "http://127.0.0.1:48472/index.js"
+  }
+]

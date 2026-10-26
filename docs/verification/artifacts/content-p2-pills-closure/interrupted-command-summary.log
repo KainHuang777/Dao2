@@ -1,0 +1,10 @@
+[MODE] matrix=full runners=125 parallel=3
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{d9311677-fdd7-42c3-b105-96837a9db966}\AC\Temp\dao2_runners_4ab63642e0c94071a42e7acd504d5067
+[START:initial] tests/content_p2_pills_flow_runner.gd
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[START:initial] tests/content_p2_pills_runner.gd
+[PASS:initial] tests/content_p2_pills_runner.gd (12.7s) result=pass
+[START:initial] tests/content_p2_pills_save_runner.gd
+[PASS:initial] tests/content_p2_pills_save_runner.gd (7s) result=pass
+[START:initial] tests/content_p2_talents_flow_runner.gd
+Interrupted incomplete sandbox run. This is captured output summary only; temporary raw log folder was unavailable from the normal host at archival time.

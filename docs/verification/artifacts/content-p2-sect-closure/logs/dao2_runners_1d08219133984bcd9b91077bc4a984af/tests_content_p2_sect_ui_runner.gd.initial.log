@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL card fits [(844, 390), 2, 6, (760.0, 98.0), (760.0, 90.0)]
+FAIL card fits [(844, 390), 2, 7, (760.0, 98.0), (760.0, 90.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 1, 6, (716.0, 80.0), (716.0, 60.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 1, 7, (716.0, 80.0), (716.0, 60.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 2, 6, (716.0, 98.0), (716.0, 60.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 2, 7, (716.0, 98.0), (716.0, 60.0)]
+SECT2 UI 190 failures=["card fits [(844, 390), 2, 6, (760.0, 98.0), (760.0, 90.0)]","card fits [(844, 390), 2, 7, (760.0, 98.0), (760.0, 90.0)]","action reachable","card fits [(800, 360), 1, 6, (716.0, 80.0), (716.0, 60.0)]","action reachable","card fits [(800, 360), 1, 7, (716.0, 80.0), (716.0, 60.0)]","action reachable","card fits [(800, 360), 2, 6, (716.0, 98.0), (716.0, 60.0)]","action reachable","card fits [(800, 360), 2, 7, (716.0, 98.0), (716.0, 60.0)]"]
+RUNNER_RESULT status=FAIL exit=1

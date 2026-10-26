@@ -2,12 +2,14 @@ extends SceneTree
 
 const CONTENT_DIR := "res://content"
 const SAMPLE_DIR := "res://tests/fixtures/legacy/import_samples"
-const TEST_SLOTS_DIR := "user://m1e_test_slots"
+var TEST_SLOTS_DIR := "user://m1e_test_slots"
 
 var failures: Array[String] = []
 var _content: GameContent = null
 
 func _init() -> void:
+    var root := OS.get_environment("DAO_TEST_STORAGE_ROOT")
+    if not root.is_empty(): TEST_SLOTS_DIR = root.path_join("m1e_test_slots")
     SaveManager.reset_for_tests()
     _load_content()
     _test_decode_json()
@@ -29,11 +31,11 @@ func _init() -> void:
     SaveManager.reset_for_tests()
     if failures.is_empty():
         print("PASS: M1-E legacy import decode, mapping, reports, and slot commit.")
-        quit(0)
+        RunnerResult.finish(self, 0)
     else:
         for failure in failures:
             push_error(failure)
-        quit(1)
+        RunnerResult.finish(self, 1)
 
 func _load_content() -> void:
     var loaded: Dictionary = ContentLoader.load_directory(CONTENT_DIR)

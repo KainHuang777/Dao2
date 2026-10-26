@@ -1,0 +1,331 @@
+{
+  "files": [
+    {
+      "path": "src/domain/decision_receipt.gd",
+      "bytes": 5707,
+      "sha256": "bdbefabfe34ea48d30291a3beeb3894719aabd99d1dddebc3efe0d8e296319a0"
+    },
+    {
+      "path": "src/domain/life_ledger.gd",
+      "bytes": 13683,
+      "sha256": "e57e71bb67374a265a4ced5577c7f1f3477083b497bab7ba99b074dbdd29a27a"
+    },
+    {
+      "path": "src/application/game_session.gd",
+      "bytes": 24917,
+      "sha256": "c694c784909c24eada4568c5cf1244068ef97ad8a8c252741e91e4b83ebb759e"
+    },
+    {
+      "path": "src/persistence/save_codec.gd",
+      "bytes": 23429,
+      "sha256": "82f00a837c3e20ff81e666af612a8620457ed12eb1d02b09fdbb3153de407334"
+    },
+    {
+      "path": "src/simulation/command_processor.gd",
+      "bytes": 26060,
+      "sha256": "a657eaf3a3be86b9e97cd8c903e150308f1159997b090ea1934fb0fac413837b"
+    },
+    {
+      "path": "src/simulation/fortune_system.gd",
+      "bytes": 11958,
+      "sha256": "ab9edd933bff101beed5c85e16b7fcc328f91397d739359760a0cc245f900aa8"
+    },
+    {
+      "path": "src/presentation/decision_book_view.gd",
+      "bytes": 3616,
+      "sha256": "c192f080b9fba84848c970bd5b1f6692c52afa2432d2f20d4a7106761f582093"
+    },
+    {
+      "path": "src/presentation/fortune_modal.gd",
+      "bytes": 14684,
+      "sha256": "d42dbfa5681f7ddbd72a48a1c75673b20276166c4e43e82d596808efbc636471"
+    },
+    {
+      "path": "src/presentation/reincarnation_panel.gd",
+      "bytes": 24089,
+      "sha256": "98c8e246aab8366034df47ccd19a29e1117178a80c37b5426f132374f6ae59ca"
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd",
+      "bytes": 31541,
+      "sha256": "8d5b50ffc00be8cf5007dcfd845545a512f752aa7d918f308fc7a14ec36b7953"
+    },
+    {
+      "path": "src/abode/living_abode.gd",
+      "bytes": 77333,
+      "sha256": "54bd7ed108c67d468df820b2612378007d1865b8fa31c4c4fb11932e931560bd"
+    },
+    {
+      "path": "tests/decision_receipt_runner.gd",
+      "bytes": 9111,
+      "sha256": "dcbd98046e8d8b49c22f7dae77544e27e7ed4636e5289ada96bbb66dd75994ef"
+    },
+    {
+      "path": "tests/decision_ui_runner.gd",
+      "bytes": 4563,
+      "sha256": "c4903f727d8d5e8c2617b87beac38d06c2e2441cfdee008261319d59786f3476"
+    },
+    {
+      "path": "tests/life_report_ui_runner.gd",
+      "bytes": 4879,
+      "sha256": "b55f790cee51f905fa9809a981b29e7f4578e8427cc9066cd9a4f32b7d1fed2a"
+    },
+    {
+      "path": "src/verification/decision_acceptance.gd",
+      "bytes": 2652,
+      "sha256": "176f78641f5d87146e36d1e88abb784d576c5ed25b790e5038d0a73b6372ccd0"
+    },
+    {
+      "path": "src/verification/decision_acceptance.tscn",
+      "bytes": 197,
+      "sha256": "796caafb6ef3aa11d241ea189fbecd4a86fc4f6c99db66c088c818b1b117c233"
+    },
+    {
+      "path": "tools/run_all_runners.ps1",
+      "bytes": 4453,
+      "sha256": "0075b0489f278f9ac2d7c7aa6cacc66fed2a1833418f5a1d7e2def9153841494"
+    },
+    {
+      "path": "project.godot",
+      "bytes": 1876,
+      "sha256": "7235baa3b5aab6b13b8f441823c331dd1b48224d07b8c472c08927563c69322a"
+    },
+    {
+      "path": "export_presets.cfg",
+      "bytes": 31735,
+      "sha256": "61c6c21fee5bdb97d9fd0daab50f420044a2946df90ba5e2b6bc8391705243bd"
+    },
+    {
+      "path": "docs/decisions/ADR-014-fortune-choice-receipts.md",
+      "bytes": 4352,
+      "sha256": "8f3e2e50cf9a9c23c94bde38167e7907c1ea91fbf49300423674ed4c23a9b163"
+    },
+    {
+      "path": "docs/verification/decision-1.md",
+      "bytes": 9125,
+      "sha256": "0946df80c7b8db0af1a61c0411493037b8f588a3de535b468d101bfe9b1d7ee0"
+    },
+    {
+      "path": "src/domain/decision_receipt.gd.uid",
+      "bytes": 20,
+      "sha256": "ffce3b97365d2fb631f131d8fcfa1b2f449cda3f20c831a455cf3dc516b6bfd5"
+    },
+    {
+      "path": "src/domain/life_ledger.gd.uid",
+      "bytes": 20,
+      "sha256": "78e4a4f004123dde8fa076ebdf8c30e0d8fd0e7ecad7e1656a975e472251ff89"
+    },
+    {
+      "path": "src/application/game_session.gd.uid",
+      "bytes": 20,
+      "sha256": "f56626128d13c9e5f82c8dbd0e25a6612bd8a74f1f133c22a85c75c7c226e4f6"
+    },
+    {
+      "path": "src/persistence/save_codec.gd.uid",
+      "bytes": 20,
+      "sha256": "9919e1ef75c12ff562c581a83695b8bc8b321620ac46ca27210c49477a4ee5ba"
+    },
+    {
+      "path": "src/simulation/command_processor.gd.uid",
+      "bytes": 20,
+      "sha256": "c1706cbbb10fa0dbf0f1cf86319724ef2c82d980399225c6dd8ae04b37b5fdd7"
+    },
+    {
+      "path": "src/simulation/fortune_system.gd.uid",
+      "bytes": 20,
+      "sha256": "5b7f87d06f4bf2d5b7bdeca15bb2beee731c9c90b9b68c138951ef7f3e32f08f"
+    },
+    {
+      "path": "src/presentation/decision_book_view.gd.uid",
+      "bytes": 20,
+      "sha256": "d312851a809feb96e47ba120300394249930739d702aa8927be2ea8e598504eb"
+    },
+    {
+      "path": "src/presentation/fortune_modal.gd.uid",
+      "bytes": 20,
+      "sha256": "3906eeace1cc32941ae1058182c8f169869262e03030660f164b7b5eb7bdc691"
+    },
+    {
+      "path": "src/presentation/reincarnation_panel.gd.uid",
+      "bytes": 20,
+      "sha256": "84abdb1411a1813834b898ece64baf2da67748b1505bb072f6f0ea3763b8528f"
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd.uid",
+      "bytes": 20,
+      "sha256": "d87a1d9f5998371699d850afcf44d060ab626167444737228888f0ad30e89bae"
+    },
+    {
+      "path": "src/abode/living_abode.gd.uid",
+      "bytes": 19,
+      "sha256": "c83d116e01be11d78d4301a9d0b7ab186f6feb9d45dfedf7ea75f6299a12703f"
+    },
+    {
+      "path": "tests/decision_receipt_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "fcacb7f399de988bcab4377efa8836c7f26bd9cf760bb27c39d0d01667542d22"
+    },
+    {
+      "path": "tests/decision_ui_runner.gd.uid",
+      "bytes": 19,
+      "sha256": "5b6316f09963549cd1d9cd52df5c59f2118174e0dc02a6f853242066dbd9e7a8"
+    },
+    {
+      "path": "tests/life_report_ui_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "a306d7784e7ab5f3aec3784d15cc237d9a50661db2cd78001fe0bc4ba8efc5ba"
+    },
+    {
+      "path": "src/verification/decision_acceptance.gd.uid",
+      "bytes": 20,
+      "sha256": "13ac3a66ae5c6743ba7781c00657757eb7536bdc83c91d1d5fc07f13312fcba5"
+    }
+  ],
+  "pck_sha256": {
+    "build\\web\\index.pck": "7e7e619dcaa28fb05e1c397adcc24ce9071d9b53b4e8fa6379c186e0af9f9400",
+    "build\\web-decision-1\\index.pck": "f2f27fe69c8a45ba4033e60ebd6cfa092415a68e1718cba57e4867e4e5f6591a",
+    "build\\decision-1-acceptance\\index.pck": "9db45697a38bcb520c5e948419b604587af3bb71fd269b4e22465d8a65d56f84"
+  },
+  "links": [
+    {
+      "from": "docs/decisions/ADR-014-fortune-choice-receipts.md",
+      "target": "../verification/decision-1.md",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "../decisions/ADR-014-fortune-choice-receipts.md",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "artifacts/decision-1",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "artifacts/decision-1/web-protection-800.jpg",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "artifacts/decision-1/web-book-1280.jpg",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "artifacts/decision-1/web-book-844.jpg",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "artifacts/decision-1/web-book-800.jpg",
+      "exists": true
+    },
+    {
+      "from": "docs/verification/decision-1.md",
+      "target": "artifacts/decision-1/web-reload.jpg",
+      "exists": true
+    }
+  ],
+  "full_suite_script_errors": 0,
+  "fixture_restoration": [
+    {
+      "path": "docs/verification/artifacts/early-flow1c-unopened.json",
+      "generated_sha256": "0f41bb7aa055a9e45450855e4fa310f259c4c9d1fc04f51d381aa4a875b7b520",
+      "restored_head_sha256": "850a45a663760d016fe49310c37b6f3e571b7a73761b9837f882d2f949242448",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/early-flow1d-foundation.json",
+      "generated_sha256": "7422dc8ccee65363ce918c37400b7b057dd0f5f69e3818f785d3e1b94d85d30b",
+      "restored_head_sha256": "6a7d3eb211ebfcbef14fb941736ca78911e4bc44c398c3d27a14dd35926c0159",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/early-flow1d-golden.json",
+      "generated_sha256": "102b2a63488da6e0de631be093427d71793565df2ee10edea68aa249c5ceddcf",
+      "restored_head_sha256": "ae7054b65166e6bdbc7b4eecbedca17b00985cb77b1edf88e5433bc159298078",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/early-flow1d-ready.json",
+      "generated_sha256": "6d9159d6b3d8e75f7bc6c40b6e8646c90ed682619fd46866970e41f356c4f6dd",
+      "restored_head_sha256": "587a4d1763e8f1fc16d92497f5c2c20e3215c3d5e8fc1059b05b4128d932d2d4",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/mfg-3/fixture.json",
+      "generated_sha256": "6e40d59aa79de39949d52c7a7b604bc2ee05a096d3ac2f0791e8636341fe155c",
+      "restored_head_sha256": "0a3bc2c757056f2af4cedb3cd8572343ffb4fdecd4798e3e9f84a73e8cae3b46",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/res1-c-earned-era2.json",
+      "generated_sha256": "36745026ddc44f58933fbf4e911df1522570db3a380f8a3c7609b8ecc6ed90cc",
+      "restored_head_sha256": "8ad970d49785ae291607bfe34235388531348b7d118648c5f63fea698e1434c8",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/res1-c2-offline-fixture.json",
+      "generated_sha256": "a6c80a44d4d5f3dc15c502beb4eda9e5bbd9e653b6519868683e768dd97ecb1c",
+      "restored_head_sha256": "e86ebfb2893c957adef23bccd5aa330b1bf1da1a28275c4d581912aeccdefe60",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/res1-d2-active-fixture.json",
+      "generated_sha256": "8f66ed2121b6b5811a6b3430d7bbbdbe03cb3b62fed58ea653330e8232948519",
+      "restored_head_sha256": "4f6fde631e0cb695c565ae7fe0804e1f59a77a231d7c0c475fcbe585b6732e7e",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/res1-d2-earned-era3.json",
+      "generated_sha256": "68fe065403a37038459fd5eb1fe57c3b5a61d4b6927e9e87e901bbafe333bd24",
+      "restored_head_sha256": "a70266a9e7c1a4e23b84cd474b25b99d3307c8dcd6fe296ca207bff23f5d8b53",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    },
+    {
+      "path": "docs/verification/artifacts/skills-b1-fixture.json",
+      "generated_sha256": "5b78ab592feaaf3f5807339dd710c4b1b8db856052981964ac47de5cf3da184e",
+      "restored_head_sha256": "5281f245e43559d5c02b502fab889c32e5876c0f773242c8e76d3f07590a1a4b",
+      "basis": "Initially clean tracked generated fixture; generated bytes preserved separately."
+    }
+  ],
+  "browser_observations": [
+    {
+      "check": "reopen-same-pending",
+      "ok": true
+    },
+    {
+      "check": "paid-once-denied-readable",
+      "ok": true
+    },
+    {
+      "check": "denied-retry-no-repeat",
+      "ok": true
+    },
+    {
+      "check": "recovered-same-receipt",
+      "ok": true
+    },
+    {
+      "check": "report-reread-actual-receipt",
+      "ok": true
+    },
+    {
+      "check": "three-landscape-book-scroll",
+      "ok": true
+    },
+    {
+      "check": "reload-exact-receipt-no-regrant",
+      "ok": true
+    },
+    {
+      "check": "final-export-keeps-exact-receipt",
+      "ok": true
+    }
+  ],
+  "services": {
+    "4401": "Stopped with Ctrl+C, owned session55335 exit1; initial sandbox session34445 also stopped exit1."
+  }
+}

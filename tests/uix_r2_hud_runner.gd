@@ -160,4 +160,4 @@ func _run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("UIX-R2 HUD: %d checks, %d failures" % [checks, failures])
-	quit(1 if failures else 0)
+	RunnerResult.finish(self, 1 if failures else 0)

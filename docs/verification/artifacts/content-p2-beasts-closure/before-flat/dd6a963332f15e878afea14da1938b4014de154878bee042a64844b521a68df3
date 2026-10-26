@@ -1,0 +1,33 @@
+{
+	"boundary": "inherited audited Era4 command-earned snapshot -> legal simulated time -> formal rebirth; not a new blank-save or browser natural long run; max/budget fixtures synthetic",
+	"checks": 49,
+	"choices": {
+		"elixir_conservation_memory": {
+			"hearts": "15",
+			"production_multiplier": 1.18061799739839,
+			"talents": {
+				"elixir_conservation_memory": 1
+			}
+		},
+		"frontier_prospector_memory": {
+			"hearts": "15",
+			"production_multiplier": 1.18061799739839,
+			"talents": {
+				"frontier_prospector_memory": 1
+			}
+		},
+		"sacred_beast_nurture_memory": {
+			"hearts": "15",
+			"production_multiplier": 1.18061799739839,
+			"talents": {
+				"sacred_beast_nurture_memory": 1
+			}
+		}
+	},
+	"failures": [],
+	"legal_rebirth_hearts": 25,
+	"max_age": 65400.0,
+	"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era4.json",
+	"source_age": 12753.0,
+	"source_sha256": "5c7b38f649d5aaee6c1c1ac1d2b9ada5d79a1a0aed824816fe246440d11c2895"
+}

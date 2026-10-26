@@ -85,12 +85,12 @@ func _init() -> void:
 	var legacy_rewards := GameSession.create_new_game(content)
 	legacy_rewards.state.era_id = 2
 	legacy_rewards.join_sect()
-	legacy_rewards.state.sect.active_expedition = {"name": "old task", "duration": 1, "elapsed": 1, "rewards": {"contribution": 10, "herb": 15, "bronze": 2}}
+	legacy_rewards.state.sect.active_expedition = {"id":"old-task-instance", "name": "old task", "duration": 1, "elapsed": 1, "rewards": {"contribution": 10, "herb": 15, "bronze": 2}}
 	_check(legacy_rewards.claim_sect_expedition().ok and legacy_rewards.state.resources.spirit_grass_low.value.to_float() == 15 and legacy_rewards.state.resources.black_copper.value.to_float() == 2, "old task reward aliases credit formal inventory")
-	legacy_rewards.state.sect.active_expedition = {"name": "bad task", "duration": 1, "elapsed": 1, "rewards": {"contribution": 10, "missing": 2}}
-	_reject(legacy_rewards, "claim_sect_expedition", {}, "REWARD_RESOURCE_MISSING")
+	legacy_rewards.state.sect.active_expedition = {"id":"bad-task-instance", "name": "bad task", "duration": 1, "elapsed": 1, "rewards": {"contribution": 10, "missing": 2}}
+	_reject(legacy_rewards, "claim_sect_expedition", {}, "SECT_TASK_REWARD:missing")
 	print("%s: M4-A-R1 Session integration (%d checks, %d failures)." % ["PASS" if failures == 0 else "FAIL", checks, failures])
-	quit(0 if failures == 0 else 1)
+	RunnerResult.finish(self, 0 if failures == 0 else 1)
 
 func _command(s: GameSession, kind: String, payload: Dictionary) -> Dictionary:
 	sequence += 1

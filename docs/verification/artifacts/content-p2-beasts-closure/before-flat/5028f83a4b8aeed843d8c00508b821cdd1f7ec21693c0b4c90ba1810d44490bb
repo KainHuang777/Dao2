@@ -1,0 +1,21 @@
+{
+  "src/domain/game_state.gd": "23db84044f305e7e752aa8acd2f2ccbb0c7be8ab36dd8f27fd26667c05e8ae71",
+  "src/persistence/beast_save_contract.gd": "991029c3ce6eb1090faf949d9cb20cf27ac955745581c5d9941719850fca6e79",
+  "src/persistence/save_codec.gd": "605bf3a83549e727d688e68ceac615e88fd8a247931c85d4d257163194193eef",
+  "src/persistence/save_manager.gd": "30c521bc897d19a9e300c8a02f52855e0b86f9451622af39393aee80a88928b0",
+  "src/simulation/beast_system.gd": "71c75e3e0da0fcbb46c9c2f87971814955e1f48c1fe06e3043b871b7378fb61e",
+  "src/simulation/command_processor.gd": "1e2d05e03877bc046ea8dad0023b06aca7b3cfc80eaef000ec54cc5862611cc2",
+  "src/simulation/island_economy.gd": "7e29b6088fabbccc28881b3307b4ced1bec723527e837ad98f9ab26cd5ade4a4",
+  "src/simulation/island_progression.gd": "4f9316f8c55e883fd328e22a1100f69ee2217f0a51ddb870051b209d105046bf",
+  "src/simulation/reincarnation_rules.gd": "cbab7c558fa8c3a90e66ff40b1b3fe5a672e76c58eb9b1fff1bfad6f4ee0d6dd",
+  "src/simulation/time_advancer.gd": "ca5161d751fe6d7b9bcde86d770365532666ded424231b0b9f4baf652e65772d",
+  "tests/content_p2_beasts_runner.gd": "25175e47b25792902b24ce31f63725457fe4ddbf56d0c1fee438897b70e7243c",
+  "tests/content_p2_beasts_save_runner.gd": "436efb01a69580ac13e34cd761c94a03c17ce2bd1174a41205eb81f068886941",
+  "tests/content_p2_pills_save_runner.gd": "39baf52ad3ffff4eb39d816f907ef590a54f62fd17d7b07a9b6efa4205a69965",
+  "tests/content_p2_sect_save_runner.gd": "2f4570bc5fded26a59a28adbcbfe4776fc124982d6dbbef89f675a7948c9bb50",
+  "tests/content_p2_supply_economy_runner.gd": "b7cecba40446030008a128b300884eb2f810de8d432aecbc910f16c78da12214",
+  "tests/m3b_spirit_beast_runner.gd": "9388164972def3fcb60fc9424aaad28ca319f5a22ed68c1a927706da806c9959",
+  "tests/sks_p2_core_runner.gd": "2efd2be1998a6aa712fd5b5dcab09bdfacd2d45456d9cafb2de7a9f452ba0717",
+  "tools/run_all_runners.ps1": "a9f631e5203459b537c42625ab0334595b292bb8a6111f567d2faa1cc9838801",
+  "tools/run_beast1_checks.ps1": "61e48da752fe73c49b195e76ff258d62aedd1d4bfb186d7254b8bba577a02be5"
+}

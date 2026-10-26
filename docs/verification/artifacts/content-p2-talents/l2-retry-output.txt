@@ -1,0 +1,157 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{29e86613-8847-4026-a996-81bea716ba40}\AC\Temp\dao2_runners_7165bfcc082f42e9b81adb74851c6966
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[FAIL:initial] tests/content_p2_supply_economy_runner.gd exit=1 timeout=False script_error=False failure_marker=True result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: SUPPLY-2 283 checks
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:380)
+       [1] current_state (res://src/persistence/save_manager.gd:125)
+       [2] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [3] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:84)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:401)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:400)
+       [4] current_state (res://src/persistence/save_manager.gd:125)
+       [5] _test_persistence (res://tests/content_p2_supply_economy_runner.gd:247)
+       [6] _init (res://tests/content_p2_supply_economy_runner.gd:38)
+ERROR: expanded v4 economy carries the sks rules identity
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/content_p2_supply_economy_runner.gd:43)
+
+[START:initial] tests/m1c_persistence_runner.gd
+[PASS:initial] tests/m1c_persistence_runner.gd (2.5s) result=pass
+--- slowest 8 runners (s) ---
+    13.0  tests/content_p2_supply_economy_runner.gd
+     2.5  tests/m1c_persistence_runner.gd

@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/verification/artifacts/content-p2-pills/core.json",
+    "sha256": "5e2bb27654f132bfba604d4718b7e7057d0e3bbc553022d1bc30411e2c15c418"
+  },
+  {
+    "path": "docs/verification/artifacts/content-p2-pills/save.json",
+    "sha256": "003ecf7ee6cf5b566f5f8992daa3816268d74b81415b731ad696bc425f5e2921"
+  },
+  {
+    "path": "docs/verification/artifacts/content-p1-pills/native-ui.json",
+    "sha256": "b41ef218e7c60aa20e44c99fa0177eea2eb4bf68d155c806a7831845549e31ee"
+  }
+]

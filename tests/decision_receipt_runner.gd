@@ -111,7 +111,7 @@ func run() -> void:
 	LifeLedger.seal(dense, "rebirth_lotus", "dense")
 	check(LifeLedger.bytes(dense.life_ledger.archive[0]) <= LifeLedger.SEALED_BYTES and LifeLedger._validate_life(dense.life_ledger.archive[0], true).is_empty(), "dense seal budget")
 	print("DECISION-1 ", checks, " checks failures=", JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 
 func persistence(session: GameSession) -> void:

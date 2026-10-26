@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "file": "index.js",
+      "bytes": 279815,
+      "gzip_bytes": 69462,
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba"
+    },
+    {
+      "file": "index.wasm",
+      "bytes": 39514754,
+      "gzip_bytes": 10241681,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    {
+      "file": "index.pck",
+      "bytes": 34590244,
+      "gzip_bytes": 34406811,
+      "sha256": "a38dfdc10e89245d9bb50109926d77a87c983362f2e9072d85e122f442ac5697"
+    }
+  ],
+  "raw_bytes": 74384813,
+  "gzip_estimate_bytes": 44717954,
+  "note": "Compression size estimate only; metrics HTTP server serves uncompressed bytes. No build files modified."
+}

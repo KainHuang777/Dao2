@@ -24,7 +24,7 @@ func run() -> void:
 		page.show_feedback("煉製成功・養木丹 +1", true, "wood_nurture_pill")
 		page.update_view(abode.session.get_view())
 		await frames()
-		check(page._pill_rows.size() == 12,"12 cards "+str(vp))
+		check(page._pill_rows.size() == AlchemySystem.PILLS.size(),"all current cards "+str(vp))
 		for id in AlchemySystem.P1_IDS:
 			var row: Control = page._pill_rows[id]
 			var w: Dictionary = page._widgets[id]
@@ -47,7 +47,11 @@ func run() -> void:
 		await frames()
 	print("CONTENT-P1-PILL UI ",checks," checks failures=",JSON.stringify(failures))
 	var f := FileAccess.open(DIR+"native-ui.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	if f == null:
+		push_error("write failed: " + DIR + "native-ui.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	scene.queue_free()
 	await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

@@ -180,12 +180,12 @@ func _run() -> void:
 	write_artifact()
 	if failures.is_empty():
 		print("PASS: EARLY-V1-C %d checks" % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 		return
 	for failure in failures:
 		print("FAIL: " + failure)
 	print("EARLY-V1-C %d checks with %d failures" % [checks, failures.size()])
-	quit(1)
+	RunnerResult.finish(self, 1)
 
 func play_prefix() -> bool:
 	var s := GameSession.create_new_game(content, 20261018)

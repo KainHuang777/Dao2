@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 
 const FIXTURE_PATH := "res://tests/fixtures/legacy/m0-b-v1.json"
 const CONTENT_DIR := "res://content"
@@ -22,11 +22,11 @@ func _init() -> void:
 	_test_rates_and_caps()
 	if failures.is_empty():
 		print("PASS: M1-A core contract, content validation, cost/onboarding parity, commands, idempotency, determinism.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _test_content_load() -> void:
 	var loaded := ContentLoader.load_directory(CONTENT_DIR)

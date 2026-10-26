@@ -1,0 +1,48 @@
+{
+  "kind": "c2_browser_metrics",
+  "measurementVersion": 3,
+  "workload": "game",
+  "url": "http://127.0.0.1:4295/metrics.html?sampleSeconds=60",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "viewport": [
+    1280,
+    720
+  ],
+  "dpr": 1.25,
+  "note": "Browser rAF callback gaps; not GPU profiler or physical-device evidence",
+  "settlementBeginMs": 14306.800000011921,
+  "settlement": {
+    "durationMs": 15.299999952316284,
+    "intervals": 0,
+    "p95Ms": null,
+    "maxMs": null,
+    "visible": "visible",
+    "frameGapsMs": []
+  },
+  "readyMs": 14801.599999964237,
+  "resources": [
+    {
+      "name": "/index.js",
+      "transferBytes": 64738,
+      "encodedBytes": 64438,
+      "decodedBytes": 279815,
+      "durationMs": 338.69999998807907
+    },
+    {
+      "name": "/index.wasm",
+      "transferBytes": 7997085,
+      "encodedBytes": 7996785,
+      "decodedBytes": 39514754,
+      "durationMs": 6516.799999952316
+    },
+    {
+      "name": "/index.pck",
+      "transferBytes": 18717862,
+      "encodedBytes": 18717562,
+      "decodedBytes": 18891452,
+      "durationMs": 11619.900000035763
+    }
+  ],
+  "jsHeapAtReady": 52375181,
+  "loadedAudioResources": []
+}

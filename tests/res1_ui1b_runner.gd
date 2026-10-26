@@ -297,11 +297,11 @@ func _run() -> void:
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
 		print("PASS: RES1-UI1-B ", checks, " checks; twelve routes, drafts, exact supply, stop/upgrade/delivery and retry")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for label in failures:
 			push_error(label)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func edit(field: LineEdit, text: String) -> void:
 	field.text = text

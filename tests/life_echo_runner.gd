@@ -121,7 +121,7 @@ func run() -> void:
 	for invalid in [null, {}, [null], rows + rows]: check(not LifeEcho.valid(invalid), "invalid echo type/limit")
 	await parity(session)
 	print(JSON.stringify({"suite":"ATM-LIFE-C", "checks":checks, "failures":failures, "echo_bytes":LifeLedger.bytes(rows), "report_bytes":LifeLedger.bytes(report)}))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func parity(_session: GameSession) -> void:
 	var seed := GameSession.create_new_game(content, 91)
@@ -136,7 +136,7 @@ func parity(_session: GameSession) -> void:
 	seed.state.beasts.cooldown_remaining = 0.0
 	check(LifeEcho.generate(seed.state.life_ledger.current).is_empty(), "time parity begins with no completed echo")
 	# Real expedition completion crossing in online and every offline path.
-	seed.state.sect.active_expedition = {"name":"回程", "duration":7, "elapsed":0, "rewards":{"contribution":5}}
+	seed.state.sect.active_expedition = {"id":"echo-parity-return", "name":"回程", "duration":7, "elapsed":0, "rewards":{"contribution":5}}
 	var online := seed.state.duplicate_state()
 	for i in 21: TimeAdvancer.advance(online, content, 1)
 	var batch := seed.state.duplicate_state()

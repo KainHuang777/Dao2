@@ -1,0 +1,13 @@
+[MODE] matrix=single runners=3 parallel=1
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts\runs\20261026-190006-519\temp\dao2_runners_561eb78d9406404b82b5f364090bfec9
+[START:initial] tests/content_p2_sect_save_runner.gd
+[PASS:initial] tests/content_p2_sect_save_runner.gd (5.9s) result=pass
+[START:initial] tests/content_p2_pills_save_runner.gd
+[PASS:initial] tests/content_p2_pills_save_runner.gd (6.1s) result=pass
+[START:initial] tests/sks_p2_core_runner.gd
+[PASS:initial] tests/sks_p2_core_runner.gd (2.3s) result=pass
+--- slowest 8 runners (s) ---
+     6.1  tests/content_p2_pills_save_runner.gd
+     5.8  tests/content_p2_sect_save_runner.gd
+     2.3  tests/sks_p2_core_runner.gd
+SELECTED 3 RUNNERS PASSED (matrix=single). Logs: E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts\runs\20261026-190006-519\temp\dao2_runners_561eb78d9406404b82b5f364090bfec9

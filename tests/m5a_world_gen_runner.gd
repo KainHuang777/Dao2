@@ -12,10 +12,10 @@ func _init() -> void:
 
 	if success:
 		print("[M5A_RUNNER] ALL M5-A TESTS PASSED (exit 0)")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		printerr("[M5A_RUNNER] SOME M5-A TESTS FAILED (exit 1)")
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _assert(condition: bool, msg: String) -> bool:
 	if not condition:

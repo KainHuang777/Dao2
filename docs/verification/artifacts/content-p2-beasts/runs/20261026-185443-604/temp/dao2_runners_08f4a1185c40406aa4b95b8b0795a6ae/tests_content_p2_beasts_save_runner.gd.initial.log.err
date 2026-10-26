@@ -1,0 +1,20 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:31)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "result" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:31)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:36)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:101)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:109)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:122)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:123)
+SCRIPT ERROR: Parse Error: Could not resolve class "SaveCodec", because of a parser error.
+   at: GDScript::reload (res://tests/content_p2_beasts_save_runner.gd:123)
+ERROR: Failed to load script "res://tests/content_p2_beasts_save_runner.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

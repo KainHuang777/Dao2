@@ -1,0 +1,5 @@
+[MODE] matrix=single runners=4 parallel=1
+tests/content_p2_beasts_ui_runner.gd
+tests/content_p2_beasts_runner.gd
+tests/content_p2_beasts_save_runner.gd
+tests/feature_navigation_runner.gd

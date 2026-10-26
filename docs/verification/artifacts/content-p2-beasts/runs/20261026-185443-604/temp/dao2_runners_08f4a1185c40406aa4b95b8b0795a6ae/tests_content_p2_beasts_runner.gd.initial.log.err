@@ -1,0 +1,8 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "boost" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/content_p2_beasts_runner.gd:54)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "expected" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/content_p2_beasts_runner.gd:57)
+ERROR: Failed to load script "res://tests/content_p2_beasts_runner.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

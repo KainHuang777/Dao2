@@ -1,0 +1,7 @@
+[MODE] matrix=full runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_6540f33df41d42ddbb928c85c0937e58
+[START:initial] tests/sks_p2_core_runner.gd
+[PASS:initial] tests/sks_p2_core_runner.gd (1.9s) result=pass
+--- slowest 8 runners (s) ---
+     1.9  tests/sks_p2_core_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=full). Logs: C:\Users\asus\AppData\Local\Temp\dao2_runners_6540f33df41d42ddbb928c85c0937e58

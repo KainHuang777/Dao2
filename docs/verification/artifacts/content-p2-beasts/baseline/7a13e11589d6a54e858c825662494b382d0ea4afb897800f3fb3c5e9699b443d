@@ -1,0 +1,111 @@
+{
+	"age": 58903.0,
+	"checks": 65,
+	"failures": [
+		"ladder era5",
+		"no-skill Era6 level10"
+	],
+	"level": "L2",
+	"source_path": "res://docs/verification/artifacts/res1-d2-earned-era3.json",
+	"source_sha256": "902a68acf6263c0e269dac59bdbeb48a1c3f4f75e80dcddb384757e2bcfa37a1",
+	"trace": [
+		{
+			"age": 12183.0,
+			"from": 3,
+			"result": {
+				"changed_ids": [
+					"era_id",
+					"cultivation_level",
+					"buffs",
+					"pill_effects"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"from_era": 3,
+						"kind": "era_breakthrough",
+						"to_era": 4
+					},
+					{
+						"from_era": 3,
+						"kind": "tribulation_passed",
+						"probability": 0.8,
+						"to_era": 4
+					}
+				],
+				"new_revision": 2411,
+				"ok": true
+			},
+			"to": 4
+		},
+		{
+			"age": 26963.0,
+			"from": 4,
+			"result": {
+				"changed_ids": [
+					"era_id",
+					"cultivation_level",
+					"buffs",
+					"pill_effects"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"from_era": 4,
+						"kind": "era_breakthrough",
+						"to_era": 5
+					},
+					{
+						"from_era": 4,
+						"kind": "tribulation_passed",
+						"probability": 0.7,
+						"to_era": 5
+					}
+				],
+				"new_revision": 2957,
+				"ok": true
+			},
+			"to": 5
+		},
+		{
+			"age": 58903.0,
+			"from": 5,
+			"result": {
+				"changed_ids": [
+					"era_id",
+					"cultivation_level",
+					"buffs",
+					"pill_effects"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"from_era": 5,
+						"kind": "tribulation_failed",
+						"probability": 0.6,
+						"to_era": 4
+					}
+				],
+				"new_revision": 3525,
+				"ok": true
+			},
+			"to": 4
+		}
+	],
+	"waits_seconds": {
+		"craft:formation_core": 400.0,
+		"craft:foundation_pill": 1620.0,
+		"craft:golden_core_pill": 810.0,
+		"craft:liquid": 80.0,
+		"craft:stone_high": 100.0,
+		"craft:stone_mid": 4000.0,
+		"craft:stone_mid_bulk": 210.0,
+		"craft:talisman": 100.0,
+		"supply:lingli": 2460.0,
+		"supply:refined_iron": 420.0,
+		"supply:spirit_grass_low": 540.0,
+		"training:era3": 600.0,
+		"training:era4": 11040.0,
+		"training:era5": 31740.0
+	}
+}

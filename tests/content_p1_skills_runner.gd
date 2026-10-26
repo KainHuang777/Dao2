@@ -159,4 +159,4 @@ func _run() -> void:
 	print("CONTENT-P1-SKILL ",checks," checks; failures=",JSON.stringify(failures))
 	var report := FileAccess.open("res://docs/verification/artifacts/content-p1-skills/runner.json",FileAccess.WRITE)
 	if report != null: report.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

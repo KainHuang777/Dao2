@@ -28,7 +28,7 @@ func _init() -> void:
 	content = ContentLoader.load_directory("res://content").content
 	expect(IslandProgression.attach_supply(content).ok, "explicit supply attachment")
 	if content.processing_catalog.get("version") != Supply.VERSION:
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	_test_migration()
 	_test_processing()
@@ -42,7 +42,7 @@ func _init() -> void:
 	if file != null: file.store_string(JSON.stringify({"level": "L1", "stage": "SUPPLY-2", "checks": checks, "failures": failures}, "\t"))
 	for failure in failures: push_error(failure)
 	print("%s: SUPPLY-2 %d checks" % ["PASS" if failures.is_empty() else "FAIL", checks])
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func expect(value: bool, label: String) -> void:
 	checks += 1
@@ -121,7 +121,7 @@ func _test_processing() -> void:
 	expect(IslandEconomy.validate(session.state).is_empty(), "running bulk validates")
 	var encoded := SaveCodec.encode(session.state, content.content_version, META)
 	expect(encoded.ok and SaveCodec.decode(encoded.get("json", "")).ok, "running batch snapshot round-trip")
-	expect(JSON.parse_string(encoded.json).rules_version == SaveCodec.SKS_RULES_VERSION, "expanded v4 economy carries the sks rules identity")
+	expect(JSON.parse_string(encoded.json).rules_version == SaveCodec.BEAST_RULES_VERSION, "beast v1 identity takes precedence over sect pills talents and expanded economy")
 	for i in range(10): IslandEconomy.tick(session.state, content.processing_catalog)
 	expect(IslandEconomy.value(session.state, "home", "stone_mid") == 100, "bulk completes into mid-stone")
 	expect(IslandEconomy.reserved(session.state, "home", "stone_mid", content.processing_catalog) == 0, "completion releases reservation")

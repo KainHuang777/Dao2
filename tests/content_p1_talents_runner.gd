@@ -23,7 +23,7 @@ func _init() -> void: run.call_deferred()
 func run() -> void:
 	var c: GameContent = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach(c).ok,"content attached")
-	check(TalentSystem.TALENTS.size() == 6,"six talents")
+	check(TalentSystem.TALENTS.size() == 9,"nine talents")
 	for id in TalentSystem.P1_IDS:
 		var s := GameSession.create_new_game(c)
 		var before := s.state.to_snapshot_dict()
@@ -103,7 +103,7 @@ func run() -> void:
 		var after_caps: Dictionary = cap_session.get_view().resources
 		for resource in before_caps: check(before_caps[resource].cap == after_caps[resource].cap,"capacity unchanged "+resource)
 	var bad := GameSession.create_new_game(c)
-	for version in [0,3]:
+	for version in [0,4]:
 		bad.state.talent_version = version
 		check(not SaveCodec.encode(bad.state,c.content_version,META).ok,"encode rejects version")
 	bad.state.talent_version = 2
@@ -138,7 +138,7 @@ func run() -> void:
 	mem.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c,mem)
 	var migrated := SaveManager.current_state()
-	check(migrated.talent_version == 2 and migrated.talents == old.state.talents,"old three migrate intact")
+	check(migrated.talent_version == 3 and migrated.talents == old.state.talents,"old three migrate intact")
 	var archive := "save_before_talents_"+original.sha256_text()
 	mem.fail = archive
 	check(not SaveManager.save(migrated,META).ok and mem.data[SaveSlots.SLOT_MAIN] == original,"archive fail preserves slots")
@@ -161,8 +161,16 @@ func run() -> void:
 	earned.state.total_elapsed_seconds = 999999
 	check(send(earned,"reincarnate",{"mode":"normal"}).ok and earned.state.dao_heart.to_float() == 20,"formal reward 20 hearts")
 	var f := FileAccess.open("res://src/verification/content_p1_talents_fixture.json",FileAccess.WRITE)
-	f.store_string(SaveCodec.encode(earned.state,c.content_version,META).json)
+	if f == null:
+		push_error("write failed: res://src/verification/content_p1_talents_fixture.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(SaveCodec.encode(earned.state,c.content_version,META).json)
 	f = FileAccess.open(DIR+"runner.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	if f == null:
+		push_error("write failed: " + DIR + "runner.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P1-TALENT ",checks," checks failures=",JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

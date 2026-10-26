@@ -25,7 +25,13 @@ func _run() -> void:
 		var loaded := SaveManager.current_state()
 		check(loaded != null and loaded.achievements.claimed.get("p1_greenwood_student",false),"earned claim survives reload")
 		var encoded := SaveCodec.encode(s.state,content.content_version,SAVE_META)
-		if encoded.ok: FileAccess.open("res://src/verification/content_p1_story_earned_fixture.json",FileAccess.WRITE).store_string(encoded.json)
+		if encoded.ok:
+			var write_file_fixture := FileAccess.open("res://src/verification/content_p1_story_earned_fixture.json",FileAccess.WRITE)
+			if write_file_fixture == null:
+				push_error("write failed: " + str("res://src/verification/content_p1_story_earned_fixture.json"))
+				RunnerResult.finish(self, 1)
+			else:
+				write_file_fixture.store_string(encoded.json)
 		# Natural pool via real cooldown and legal commands; simulation is accelerated explicitly.
 		var n := branch(s.state)
 		var choices := []
@@ -52,10 +58,15 @@ func _run() -> void:
 			SaveManager.configure(content,memory)
 			var natural_loaded := SaveManager.current_state()
 			check(natural_loaded != null and natural_loaded.fortune.pending_encounter.is_empty() and int(natural_loaded.fortune.total_fortunes_claimed) == int(n.state.fortune.total_fortunes_claimed),"natural choice survives reload")
-		FileAccess.open("res://docs/verification/artifacts/content-p1-story/progression.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"simulated_seconds":s.state.total_elapsed_seconds-start,"wood_before":before,"natural_pool_choices":choices,"natural_pool_simulated_seconds":n.state.total_elapsed_seconds-natural_start,"evidence":"legal CLI commands and accelerated simulation through real cooldowns; no browser natural wait, no cooldown/seed/encounter injection"},"\t"))
+		var write_file_progression := FileAccess.open("res://docs/verification/artifacts/content-p1-story/progression.json",FileAccess.WRITE)
+		if write_file_progression == null:
+			push_error("write failed: " + str("res://docs/verification/artifacts/content-p1-story/progression.json"))
+			RunnerResult.finish(self, 1)
+		else:
+			write_file_progression.store_string(JSON.stringify({"checks":checks,"failures":failures,"simulated_seconds":s.state.total_elapsed_seconds-start,"wood_before":before,"natural_pool_choices":choices,"natural_pool_simulated_seconds":n.state.total_elapsed_seconds-natural_start,"evidence":"legal CLI commands and accelerated simulation through real cooldowns; no browser natural wait, no cooldown/seed/encounter injection"},"\t"))
 
 	print("CONTENT-P1-STORY EARNED ",checks," checks failures=",JSON.stringify(failures))
 	SaveManager.reset_for_tests()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 

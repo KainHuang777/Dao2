@@ -1,0 +1,27 @@
+[MODE] matrix=full runners=129 parallel=3
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{379088f0-d773-4db7-b539-95d0567b7c33}\AC\Temp\dao2_runners_fb6344dbc6324572a091fd21bcda398d
+[START:initial] tests/content_p2_sect_flow_runner.gd
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[START:initial] tests/content_p2_sect_runner.gd
+[PASS:initial] tests/content_p2_sect_runner.gd (14.6s) result=pass
+[START:initial] tests/content_p2_sect_save_runner.gd
+[PASS:initial] tests/content_p2_sect_ui_runner.gd (15.5s) result=pass
+[START:initial] tests/content_p2_pills_flow_runner.gd
+[FAIL:initial] tests/content_p2_pills_flow_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW FAILURE seed dated earned snapshot
+FLOW FAILURE commit migrated candidate
+PILL2 EARNED ERA 4 age=12753.0
+CRAFT foundation_pill { "ok": false, "duplicate": false, "error": "SECT_SAVE_REQUIRED", "new_revision": 2446, "events": [], "changed_ids": [] }
+FLOW FAILURE continuous earned Era4 to Era6
+FLOW FAILURE all eight IDs effective; calm once per era
+PILL2 FLOW 7 checks failures=["seed dated earned snapshot","commit migrated candidate","continuous earned Era4 to Era6","all eight IDs effective; calm once per era"]
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_save_runner.gd (7.8s) result=pass
+[START:initial] tests/content_p2_pills_runner.gd

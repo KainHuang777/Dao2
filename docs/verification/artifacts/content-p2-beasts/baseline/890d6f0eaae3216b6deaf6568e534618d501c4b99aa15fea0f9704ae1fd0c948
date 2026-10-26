@@ -1,0 +1,49 @@
+{
+  "observed_date": "2026-10-21",
+  "timezone": "Asia/Taipei",
+  "task_id": "ATM-LIFE-RESEARCH",
+  "url": "https://yanyu-life.novastargame.net/",
+  "title": "江湖千萬人",
+  "collection_method": "cua_repl browser AX and read-only DOM inspection",
+  "full_source_archived": false,
+  "public_repository_found": false,
+  "license_found": false,
+  "main_inline_script_string_length": 592443,
+  "ending_id_count": 57,
+  "ending_selection": "ENDINGS.find: first matching condition",
+  "variant_selection": "pickStable: deterministic name and deathAge based index",
+  "font_families_declared": [
+    "LXGW WenKai TC:400,700",
+    "Noto Serif TC:600,900"
+  ],
+  "font_css_url": "https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+TC:wght@600;900&display=swap",
+  "review_url": "https://yanyu-life.novastargame.net/#review",
+  "review_observed": "Original versus drafted line label notice; not a verified corpus export",
+  "sampled_play": {
+    "character": "柳若兮",
+    "origin": "塞北黑貂部落牧民",
+    "observed_age": 34,
+    "title": "槍俠",
+    "speed": "4x",
+    "decisions": "fate automatic option",
+    "bonds": 2,
+    "completed_life": false,
+    "observations": [
+      "Childhood everyday events coexist with mechanical events",
+      "Life focus changes are recorded in event log",
+      "Recurring named characters have multi-stage choices and changing relationships",
+      "An event at age 31 explicitly recalls helping a stranger at age 22",
+      "World rumors and public recognition update around personal events"
+    ]
+  },
+  "failures": [
+    "web.open: URL inaccessible",
+    "PowerShell Invoke-WebRequest: host name resolution failed"
+  ],
+  "limits": [
+    "57 ending entries identified statically; not all endings played",
+    "CSS families and weights verified; per-glyph font use not verified",
+    "No source repository or reuse authorization established",
+    "User screenshot is supplied evidence, not an agent-captured ending screenshot"
+  ]
+}

@@ -56,7 +56,9 @@ static func active(state: GameState) -> bool:
 
 static func attach_supply(content: GameContent) -> Dictionary:
 	# Formal supply entry; attach() remains available for legacy contracts.
-	if content.processing_catalog.get("version") == SUPPLY_VERSION: return {"ok": true}
+	if content.processing_catalog.get("version") == SUPPLY_VERSION:
+		if not "+content-p2-beasts" in content.content_version: content.content_version += "+content-p2-beasts"
+		return {"ok": true}
 	var attached := attach(content)
 	if not attached.ok: return attached
 	var prepared := preload("res://src/content/supply_content.gd").prepare(content)
@@ -70,6 +72,10 @@ static func attach_supply(content: GameContent) -> Dictionary:
 	content.era_ids = candidate.era_ids
 	content.processing_catalog = candidate.processing_catalog
 	content.content_version = candidate.content_version
+	if not "+content-p2-sect" in content.content_version:
+		content.content_version += "+content-p2-sect"
+	if not "+content-p2-beasts" in content.content_version:
+		content.content_version += "+content-p2-beasts"
 	return {"ok": true}
 
 static func prepare_supply(content: GameContent, state: GameState) -> Dictionary:
@@ -184,7 +190,7 @@ static func capacity(state: GameState, island: String) -> float:
 	if IslandEconomy.expanded(state) and IslandEconomy.supply_data().islands.has(island):
 		var cap := float(IslandEconomy.supply_data().islands[island].local_cap)
 		if state.economy.islands.has(island) and bool(state.economy.islands[island].get("opened", false)):
-			cap += SksP2Rules.local_capacity_bonus(island, state.skills)
+			cap += SksP2Rules.local_capacity_bonus(island, state.skills) + BeastSystem.local_capacity_bonus(state, island)
 		return cap
 	if not active(state):
 		return 100.0

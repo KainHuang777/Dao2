@@ -352,11 +352,22 @@ func run() -> void:
 	AchievementSystem.check_achievements(s.state,content)
 	for id in s.state.resources: s.state.resources[id].value = AmountCompat.zero()
 	var ui_encoded := SaveCodec.encode(s.state,content.content_version,META)
-	if ui_encoded.ok: FileAccess.open("res://src/verification/content_p1_story_fixture.json",FileAccess.WRITE).store_string(ui_encoded.json)
-	FileAccess.open(DIR+"rules.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	if ui_encoded.ok:
+		var write_file_story_fixture := FileAccess.open("res://src/verification/content_p1_story_fixture.json",FileAccess.WRITE)
+		if write_file_story_fixture == null:
+			push_error("write failed: " + str("res://src/verification/content_p1_story_fixture.json"))
+			RunnerResult.finish(self, 1)
+		else:
+			write_file_story_fixture.store_string(ui_encoded.json)
+	var write_file_rules := FileAccess.open(DIR+"rules.json",FileAccess.WRITE)
+	if write_file_rules == null:
+		push_error("write failed: " + str(DIR+"rules.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_rules.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P1-STORY ",checks," checks failures=",failures)
 	SaveManager.reset_for_tests()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 
 

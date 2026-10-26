@@ -1,0 +1,704 @@
+{
+  "before_consume": {
+    "buffs": {},
+    "fixture": "explicit funded Era3, paused isolated desktop UI",
+    "pill_version": 1,
+    "pills": {
+      "qi_absorption_pill": 1
+    },
+    "resources": {
+      "lingli": "400",
+      "spirit_grass_low": "390",
+      "stone_low": "390",
+      "wood": "400"
+    },
+    "revision": 1,
+    "rows": {
+      "cultivation_pill": {
+        "consume": [
+          698,
+          -1333,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -1383,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": ""
+      },
+      "foundation_pill": {
+        "consume": [
+          698,
+          -1051,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -1101,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": ""
+      },
+      "golden_tribulation_pill": {
+        "consume": [
+          698,
+          -628,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -678,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "herb_nurture_pill": {
+        "consume": [
+          698,
+          -64,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -114,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島下品靈草 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "high_cultivation_pill": {
+        "consume": [
+          698,
+          -910,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -960,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "lifespan_pill": {
+        "consume": [
+          698,
+          -1192,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -1242,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "qi_absorption_pill": {
+        "consume": [
+          698,
+          218,
+          64,
+          44
+        ],
+        "consume_disabled": false,
+        "refine": [
+          698,
+          168,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島靈力 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "quick_output_pill": {
+        "consume": [
+          698,
+          -487,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -537,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "spirit_tide_pill": {
+        "consume": [
+          698,
+          -769,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -819,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "tribulation_pill": {
+        "consume": [
+          698,
+          -346,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -396,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "wealth_gathering_pill": {
+        "consume": [
+          698,
+          77,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          27,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島金錢 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "wood_nurture_pill": {
+        "consume": [
+          698,
+          -205,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -255,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島靈木 +100% · 餘 0秒 · 單顆淨延 300秒"
+      }
+    },
+    "save_failed": false
+  },
+  "consumed": {
+    "buffs": {
+      "p1_qi_absorption": {
+        "color": "#74b7b0",
+        "description": "祖島靈力被動產率 +100%；不加速遠島、加工或航運。",
+        "duration_seconds": 300,
+        "effects": {
+          "specific_resource_multiplier": {
+            "lingli": 1
+          }
+        },
+        "icon_text": "納",
+        "id": "p1_qi_absorption",
+        "is_permanent": false,
+        "name": "納靈丹效",
+        "remaining_seconds": 300,
+        "transmigratable": false
+      }
+    },
+    "fixture": "explicit funded Era3, paused isolated desktop UI",
+    "pill_version": 1,
+    "pills": {
+      "qi_absorption_pill": 0
+    },
+    "resources": {
+      "lingli": "400",
+      "spirit_grass_low": "390",
+      "stone_low": "390",
+      "wood": "400"
+    },
+    "revision": 2,
+    "rows": {
+      "cultivation_pill": {
+        "consume": [
+          698,
+          -1333,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -1383,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": ""
+      },
+      "foundation_pill": {
+        "consume": [
+          698,
+          -1051,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -1101,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": ""
+      },
+      "golden_tribulation_pill": {
+        "consume": [
+          698,
+          -628,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -678,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "herb_nurture_pill": {
+        "consume": [
+          698,
+          -64,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -114,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島下品靈草 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "high_cultivation_pill": {
+        "consume": [
+          698,
+          -910,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -960,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "lifespan_pill": {
+        "consume": [
+          698,
+          -1192,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -1242,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "qi_absorption_pill": {
+        "consume": [
+          698,
+          218,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          168,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島靈力 +100% · 餘 300秒 · 單顆淨延 0秒；等到期再用"
+      },
+      "quick_output_pill": {
+        "consume": [
+          698,
+          -487,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -537,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "spirit_tide_pill": {
+        "consume": [
+          698,
+          -769,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -819,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "tribulation_pill": {
+        "consume": [
+          698,
+          -346,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -396,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "wealth_gathering_pill": {
+        "consume": [
+          698,
+          77,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          27,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島金錢 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "wood_nurture_pill": {
+        "consume": [
+          698,
+          -205,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          698,
+          -255,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島靈木 +100% · 餘 0秒 · 單顆淨延 300秒"
+      }
+    },
+    "save_failed": false
+  },
+  "reloaded": {
+    "buffs": {
+      "p1_qi_absorption": {
+        "color": "#74b7b0",
+        "description": "祖島靈力被動產率 +100%；不加速遠島、加工或航運。",
+        "duration_seconds": 300,
+        "effects": {
+          "specific_resource_multiplier": {
+            "lingli": 1
+          }
+        },
+        "icon_text": "納",
+        "id": "p1_qi_absorption",
+        "is_permanent": false,
+        "name": "納靈丹效",
+        "remaining_seconds": 297,
+        "transmigratable": false
+      }
+    },
+    "fixture": "explicit funded Era3, paused isolated desktop UI",
+    "pill_version": 1,
+    "pills": {
+      "qi_absorption_pill": 0
+    },
+    "resources": {
+      "lingli": "100",
+      "spirit_grass_low": "390",
+      "stone_low": "390",
+      "wood": "400"
+    },
+    "revision": 4,
+    "rows": {
+      "cultivation_pill": {
+        "consume": [
+          685,
+          334,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          685,
+          284,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": ""
+      },
+      "foundation_pill": {
+        "consume": [
+          685,
+          494,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          685,
+          444,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "golden_tribulation_pill": {
+        "consume": [
+          1166,
+          654,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          1166,
+          604,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "herb_nurture_pill": {
+        "consume": [
+          1166,
+          974,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          1166,
+          924,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島下品靈草 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "high_cultivation_pill": {
+        "consume": [
+          1166,
+          494,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          1166,
+          444,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "lifespan_pill": {
+        "consume": [
+          1166,
+          334,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          1166,
+          284,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "qi_absorption_pill": {
+        "consume": [
+          1166,
+          1164,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          1166,
+          1114,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島靈力 +100% · 餘 297秒 · 單顆淨延 3秒"
+      },
+      "quick_output_pill": {
+        "consume": [
+          685,
+          814,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          685,
+          764,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "spirit_tide_pill": {
+        "consume": [
+          685,
+          654,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          685,
+          604,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "tribulation_pill": {
+        "consume": [
+          1166,
+          814,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          1166,
+          764,
+          64,
+          44
+        ],
+        "refine_disabled": true,
+        "status": ""
+      },
+      "wealth_gathering_pill": {
+        "consume": [
+          685,
+          1164,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          685,
+          1114,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島金錢 +100% · 餘 0秒 · 單顆淨延 300秒"
+      },
+      "wood_nurture_pill": {
+        "consume": [
+          685,
+          974,
+          64,
+          44
+        ],
+        "consume_disabled": true,
+        "refine": [
+          685,
+          924,
+          64,
+          44
+        ],
+        "refine_disabled": false,
+        "status": "祖島靈木 +100% · 餘 0秒 · 單顆淨延 300秒"
+      }
+    },
+    "save_failed": false
+  },
+  "origin": "http://127.0.0.1:4427",
+  "scope": "final exported candidate after fixture restoration; actual mouse refine/consume and reload, simulated seconds normally settle on reload"
+}

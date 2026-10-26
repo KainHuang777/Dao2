@@ -11,6 +11,7 @@ func frames() -> void:
 func run() -> void:
 	var scene = load("res://src/verification/content_p1_sect_acceptance.tscn").instantiate()
 	root.add_child(scene)
+	while scene.abode == null or scene.abode.feature_navigation == null: await process_frame
 	await frames()
 	var abode = scene.abode
 	await frames()
@@ -22,7 +23,7 @@ func run() -> void:
 		for tab in [SectPanel.TabMode.TECHNIQUES,SectPanel.TabMode.MARKET]:
 			panel._switch_tab(tab); await frames()
 			var grid: GridContainer = panel._grids[0]
-			check(grid.get_child_count()==6,"6 cards "+str([vp,tab]))
+			check(grid.get_child_count()==8,"8 cards "+str([vp,tab]))
 			for i in [4,5]:
 				var card: Control = grid.get_child(i)
 				panel._scroll.ensure_control_visible(card); await frames()
@@ -40,7 +41,13 @@ func run() -> void:
 					root.get_texture().get_image().save_png(DIR+"native-"+str(vp.x)+"-"+str(tab)+"-"+str(i)+".png")
 		abode.feature_navigation.home(); check(not panel.visible,"return")
 		abode.feature_navigation.open("sect"); await frames()
-	FileAccess.open(DIR+"native-ui.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	var report_path := DIR+"native-ui.json" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("p1-native-ui.json")
+	var write_file_native_ui := FileAccess.open(report_path,FileAccess.WRITE)
+	if write_file_native_ui == null:
+		push_error("write failed: " + str(DIR+"native-ui.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_native_ui.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P1-SECT UI ",checks," checks failures=",JSON.stringify(failures))
 	scene.queue_free(); await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

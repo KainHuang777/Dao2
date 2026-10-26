@@ -17,14 +17,25 @@ static var _adapter: StorageAdapter = null
 static var _schema2_original: String = ""
 static var _skills_original: String = ""
 static var _talents_original: String = ""
+static var _talents_candidate: GameState = null
 static var _story_original: String = ""
+static var _beasts_original: String = ""
+static var _beasts_candidate: GameState = null
 static var _sect_original: String = ""
+static var _sect_candidate: GameState = null
 static var _pills_original: String = ""
+static var _pills_candidate: GameState = null
 static var _ledger_original: String = ""
 static var _supply_original: String = ""
 static var _supply_candidate: GameState = null
 static var _load_error: String = ""
 static var _forced_reset := false
+
+static func migration_pending(state: GameState) -> bool:
+	return (not _beasts_original.is_empty() and state == _beasts_candidate) or (not _sect_original.is_empty() and state == _sect_candidate) or (not _pills_original.is_empty() and state == _pills_candidate) or supply_pending(state) or (not _talents_original.is_empty() and state == _talents_candidate)
+
+static func migration_error(state: GameState) -> String:
+	return "BEAST_SAVE_REQUIRED" if not _beasts_original.is_empty() and state == _beasts_candidate else "SUPPLY_SAVE_REQUIRED" if supply_pending(state) else "PILL_SAVE_REQUIRED" if not _pills_original.is_empty() and state == _pills_candidate else "SECT_SAVE_REQUIRED" if not _sect_original.is_empty() and state == _sect_candidate else "TALENT_SAVE_REQUIRED"
 
 static func supply_pending(state: GameState) -> bool:
 	return not _supply_original.is_empty() and state == _supply_candidate
@@ -86,9 +97,14 @@ static func configure(content: GameContent, adapter: StorageAdapter = null) -> v
 	_schema2_original = ""
 	_skills_original = ""
 	_talents_original = ""
+	_talents_candidate = null
 	_story_original = ""
+	_beasts_original = ""
+	_beasts_candidate = null
 	_sect_original = ""
+	_sect_candidate = null
 	_pills_original = ""
+	_pills_candidate = null
 	_ledger_original = ""
 	_supply_original = ""
 	_supply_candidate = null
@@ -133,6 +149,12 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		return {"ok": false, "error": "LOAD_NOT_TRUSTED"}
 	if state == null:
 		return {"ok": false, "error": "STATE_MISSING"}
+	if _beasts_candidate != null and state != _beasts_candidate:
+		return {"ok": false, "error": "BEAST_CANDIDATE_REQUIRED"}
+	if _sect_candidate != null and state != _sect_candidate:
+		return {"ok": false, "error": "SECT_CANDIDATE_REQUIRED"}
+	if _pills_candidate != null and state != _pills_candidate:
+		return {"ok": false, "error": "PILL_CANDIDATE_REQUIRED"}
 	var content_obj: GameContent = content()
 	if content_obj == null:
 		return {"ok": false, "error": "CONTENT_MISSING"}
@@ -182,9 +204,44 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 			original = adapter().read(archive_key)
 		if not original.ok or original.data != _story_original:
 			return {"ok": false, "error": "STORY_ARCHIVE_READBACK"}
+	if not _beasts_original.is_empty():
+		var archive_key := "save_before_beasts_" + _beasts_original.sha256_text()
+		var original := adapter().read(archive_key)
+		# A failed readback may leave a damaged archive. Preserve those bytes
+		# separately before retrying the same immutable original, never a new state.
+		if original.ok and original.data != _beasts_original:
+			var damaged_key := archive_key + "_damaged_" + String(original.data).sha256_text()
+			if not adapter().write(damaged_key, original.data).ok:
+				return {"ok": false, "error": "BEAST_ARCHIVE_RESCUE_WRITE_FAILED"}
+			var damaged := adapter().read(damaged_key)
+			if not damaged.ok or damaged.data != original.data:
+				return {"ok": false, "error": "BEAST_ARCHIVE_RESCUE_READBACK"}
+			if not adapter().write(archive_key, _beasts_original).ok:
+				return {"ok": false, "error": "BEAST_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok:
+			if original.get("error") != "missing":
+				return {"ok": false, "error": "BEAST_ARCHIVE_READ_FAILED"}
+			if not adapter().write(archive_key, _beasts_original).ok:
+				return {"ok": false, "error": "BEAST_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
+		if not original.ok or original.data != _beasts_original:
+			return {"ok": false, "error": "BEAST_ARCHIVE_READBACK"}
 	if not _sect_original.is_empty():
 		var archive_key := "save_before_sect_" + _sect_original.sha256_text()
 		var original := adapter().read(archive_key)
+		# A failed readback may leave a damaged archive. Preserve those bytes
+		# separately before retrying the same immutable original, never a new state.
+		if original.ok and original.data != _sect_original:
+			var damaged_key := archive_key + "_damaged_" + String(original.data).sha256_text()
+			if not adapter().write(damaged_key, original.data).ok:
+				return {"ok": false, "error": "SECT_ARCHIVE_RESCUE_WRITE_FAILED"}
+			var damaged := adapter().read(damaged_key)
+			if not damaged.ok or damaged.data != original.data:
+				return {"ok": false, "error": "SECT_ARCHIVE_RESCUE_READBACK"}
+			if not adapter().write(archive_key, _sect_original).ok:
+				return {"ok": false, "error": "SECT_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
 		if not original.ok:
 			if original.get("error") != "missing":
 				return {"ok": false, "error": "SECT_ARCHIVE_READ_FAILED"}
@@ -196,6 +253,18 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	if not _pills_original.is_empty():
 		var archive_key := "save_before_pills_" + _pills_original.sha256_text()
 		var original := adapter().read(archive_key)
+		# A failed readback may leave a damaged archive. Preserve those bytes
+		# separately before retrying the same immutable original, never a new state.
+		if original.ok and original.data != _pills_original:
+			var damaged_key := archive_key + "_damaged_" + String(original.data).sha256_text()
+			if not adapter().write(damaged_key, original.data).ok:
+				return {"ok": false, "error": "PILL_ARCHIVE_RESCUE_WRITE_FAILED"}
+			var damaged := adapter().read(damaged_key)
+			if not damaged.ok or damaged.data != original.data:
+				return {"ok": false, "error": "PILL_ARCHIVE_RESCUE_READBACK"}
+			if not adapter().write(archive_key, _pills_original).ok:
+				return {"ok": false, "error": "PILL_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
 		if not original.ok:
 			if original.get("error") != "missing":
 				return {"ok": false, "error": "PILL_ARCHIVE_READ_FAILED"}
@@ -231,9 +300,14 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		_current_state = state
 		_skills_original = ""
 		_talents_original = ""
+		_talents_candidate = null
 		_story_original = ""
+		_beasts_original = ""
+		_beasts_candidate = null
 		_sect_original = ""
+		_sect_candidate = null
 		_pills_original = ""
+		_pills_candidate = null
 		_ledger_original = ""
 		_supply_original = ""
 		_supply_candidate = null
@@ -241,6 +315,8 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	return commit_result
 
 static func import_legacy_text(input_text: String) -> Dictionary:
+	if _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
+		return {"ok": false, "state": null, "report": {}, "error": "MIGRATION_PENDING"}
 	var content_obj: GameContent = content()
 	if content_obj == null:
 		return {"ok": false, "error": "CONTENT_MISSING", "report": {}, "state": null}
@@ -317,6 +393,10 @@ static func export_share_string(state: Variant = null, meta: Dictionary = {}) ->
 	return Marshalls.utf8_to_base64(String(encode_result["json"]))
 
 static func import_share_string(share: String) -> Dictionary:
+	# An outstanding migration owns its exact original and candidate. A second
+	# import must not replace references used by the eventual atomic save.
+	if _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
+		return {"ok": false, "state": null, "error": "MIGRATION_PENDING"}
 	if share.is_empty():
 		return {"ok": false, "state": null, "error": "EMPTY"}
 	var json_text: String = Marshalls.base64_to_utf8(share)
@@ -335,12 +415,20 @@ static func import_share_string(share: String) -> Dictionary:
 		_story_original = json_text
 		StoryProgress.migrate(decode_result.state)
 	SkillSystem.reconcile(content(), decode_result["state"])
-	TalentSystem.reconcile(decode_result["state"])
+	if TalentSystem.reconcile(decode_result["state"]):
+		_talents_original = json_text
+		_talents_candidate = decode_result.state
 	if decode_result.state.pill_version < AlchemySystem.VERSION:
 		_pills_original = json_text
+		_pills_candidate = decode_result.state
 		decode_result.state.pill_version = AlchemySystem.VERSION
+	if decode_result.state.beast_version < BeastSystem.VERSION:
+		_beasts_original = json_text
+		_beasts_candidate = decode_result.state
+		decode_result.state.beast_version = BeastSystem.VERSION
 	if decode_result.state.sect_version < SectSystem.VERSION:
 		_sect_original = json_text
+		_sect_candidate = decode_result.state
 		decode_result.state.sect_version = SectSystem.VERSION
 	return {"ok": true, "state": decode_result["state"], "error": ""}
 
@@ -353,9 +441,14 @@ static func reset_for_tests() -> void:
 	_schema2_original = ""
 	_skills_original = ""
 	_talents_original = ""
+	_talents_candidate = null
 	_story_original = ""
+	_beasts_original = ""
+	_beasts_candidate = null
 	_sect_original = ""
+	_sect_candidate = null
 	_pills_original = ""
+	_pills_candidate = null
 	_ledger_original = ""
 	_supply_original = ""
 	_supply_candidate = null
@@ -391,7 +484,7 @@ static func _load_from_slots() -> GameState:
 	var best: Dictionary = slots().read_best(func(json_text: String) -> int:
 		var decode_result: Dictionary = SaveCodec.decode(json_text)
 		if not bool(decode_result.get("ok", false)):
-			if String(decode_result.get("error", "")).begins_with("SECT_") or String(decode_result.get("error", "")).begins_with("STORY_"):
+			if String(decode_result.get("error", "")).begins_with("BEAST_") or String(decode_result.get("error", "")).begins_with("SECT_") or String(decode_result.get("error", "")).begins_with("STORY_"):
 				sect_decode_error.value = String(decode_result.error)
 			return -1
 		var decoded_state: GameState = decode_result["state"]
@@ -423,13 +516,21 @@ static func _load_from_slots() -> GameState:
 		loaded_state.revision += 1
 	if TalentSystem.reconcile(loaded_state):
 		_talents_original = String(best["json"])
+		_talents_candidate = loaded_state
 		loaded_state.revision += 1
 	if loaded_state.pill_version < AlchemySystem.VERSION:
 		_pills_original = String(best["json"])
+		_pills_candidate = loaded_state
 		loaded_state.pill_version = AlchemySystem.VERSION
+		loaded_state.revision += 1
+	if loaded_state.beast_version < BeastSystem.VERSION:
+		_beasts_original = String(best["json"])
+		_beasts_candidate = loaded_state
+		loaded_state.beast_version = BeastSystem.VERSION
 		loaded_state.revision += 1
 	if loaded_state.sect_version < SectSystem.VERSION:
 		_sect_original = String(best["json"])
+		_sect_candidate = loaded_state
 		loaded_state.sect_version = SectSystem.VERSION
 		loaded_state.revision += 1
 	if loaded_state.story_version < StoryProgress.VERSION:
@@ -469,6 +570,6 @@ static func _normalize_meta(meta: Dictionary) -> Dictionary:
 static func commit_supply_startup() -> Dictionary:
 	var candidate := current_state()
 	if candidate == null: return {"ok": false, "error": "NO_STATE"}
-	if not supply_pending(candidate): return {"ok": true, "committed": false}
+	if not migration_pending(candidate): return {"ok": true, "committed": false}
 	# Preserve the old settled cursor. Offline settlement happens after this commit.
 	return save(candidate, envelope().duplicate(true))

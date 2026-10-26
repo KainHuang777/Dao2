@@ -1,0 +1,18 @@
+{
+  "web-content-p1-talents": {
+    "files": {
+      "index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "index.wasm": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "index.pck": "321d2007ae45e15a7dcacb211f9a1c34c20aa8733bc8e58c75a13604a0306dae"
+    },
+    "bgm_count": 4
+  },
+  "content-p1-talents-acceptance": {
+    "files": {
+      "index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "index.wasm": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "index.pck": "77b875a12c211b0a1e0d77fd02e2094ce5bd5e1624fd6d687bb533354197593b"
+    },
+    "bgm_count": 4
+  }
+}

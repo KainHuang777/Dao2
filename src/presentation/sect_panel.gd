@@ -50,6 +50,8 @@ var _cached_is_eligible_to_join: bool = false
 var _header_reflow_pending := false
 var _compact := false
 var _art_nodes: Array[TextureRect] = []
+var _p2_card_layouts: Array[Dictionary] = []
+var _p2_market_layouts: Array[Dictionary] = []
 var _dynamic: Array[Callable] = []
 var _feedback: Label
 var _retry: Button
@@ -112,6 +114,28 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		if node.has_meta("p1_market_cost"):
 			var item: Dictionary = SectSystem.MARKET_ITEMS[node.get_meta("p1_market_cost")]
 			node.text = "%d貢獻 → %s · 需築基" % [int(item.cost), "靈木100" if item.has("grant_resource") else "育草丹1"]
+	for layout in _p2_card_layouts:
+		var short_card := size.y < 220
+		layout.effect.visible = not short_card
+		layout.short_effect.visible = short_card
+		layout.title.text = layout.short_title if short_card else layout.full_title
+		layout.title.add_theme_font_size_override("font_size", 18 if short_card else 20)
+		layout.cost.text = layout.short_cost if short_card else layout.full_cost
+		layout.title.autowrap_mode = TextServer.AUTOWRAP_OFF if short_card else TextServer.AUTOWRAP_WORD_SMART
+		layout.cost.autowrap_mode = TextServer.AUTOWRAP_OFF if short_card else TextServer.AUTOWRAP_WORD_SMART
+		layout.short_effect.autowrap_mode = TextServer.AUTOWRAP_OFF
+		layout.info.add_theme_constant_override("separation", 0 if short_card else 4)
+		layout.art.custom_minimum_size = Vector2.ONE * (44 if short_card else (80 if _compact else 112))
+		layout.box.content_margin_top = 4 if short_card else 8
+		layout.box.content_margin_bottom = 4 if short_card else 8
+	for layout in _p2_market_layouts:
+		var short_card := size.y < 220
+		layout.title.add_theme_font_size_override("font_size", 18 if short_card else 20)
+		layout.cost.text = layout.short_cost if short_card else layout.full_cost
+		layout.info.add_theme_constant_override("separation", 0 if short_card else 4)
+		layout.art.custom_minimum_size = Vector2.ONE * (44 if short_card else 80)
+		layout.box.content_margin_top = 4 if short_card else 8
+		layout.box.content_margin_bottom = 4 if short_card else 8
 	for grid in _grids:
 		if is_instance_valid(grid): grid.columns = 2 if size.x >= 1040 else 1
 	_margin.size = size
@@ -279,7 +303,7 @@ func update_view(state: GameState) -> void:
 	var active = structural.get("active_expedition")
 	if active is Dictionary:
 		active.erase("elapsed")
-	var signature := JSON.stringify([structural, _cached_is_eligible_to_join, state.era_id, state.beast_talents])
+	var signature := JSON.stringify([structural, _cached_is_eligible_to_join, state.era_id, state.beast_talents, state.sect_version, state.economy.get("version"), _p2_effect_signature(state)])
 	if signature != _render_signature and not _has_pressed_button(_tab_content_container):
 		_render_signature = signature
 		_render_current_tab()
@@ -299,6 +323,8 @@ func _has_pressed_button(node: Node) -> bool:
 func _render_current_tab() -> void:
 	_dynamic.clear()
 	_art_nodes.clear()
+	_p2_card_layouts.clear()
+	_p2_market_layouts.clear()
 	_grids.clear()
 	_join_intro = null
 	# 清空容器
@@ -614,6 +640,7 @@ func _render_techniques_tab() -> void:
 		var max_lvl := int(def.get("max_level", 10))
 
 		var card := PanelContainer.new()
+		card.set_meta("content_id", tech_id)
 		var box := UiMaterial.hud_paper()
 		box.content_margin_left = 12
 		box.content_margin_right = 12
@@ -645,6 +672,15 @@ func _render_techniques_tab() -> void:
 		desc_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		desc_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(desc_lbl)
+		if tech_id in SectSystem.P2_TECHNIQUES:
+			desc_lbl.set_meta("p1_description", true)
+			title_lbl.text += " · 元嬰"
+			var effect := Label.new()
+			effect.name = "EffectPreview"
+			effect.tooltip_text = _p2_pill_names() if tech_id == "p2_pill_qi_conservation" else "玄龜當世元嬰、火鳳當世煉虛才生效；含現有獸魂折扣並最後取整，不加經驗、不縮冷卻；部分階實費相同。"
+			effect.add_theme_font_size_override("font_size", 16)
+			info_vb.add_child(effect)
+			effect.text = _p2_technique_preview(tech_id)
 
 		var is_max := cur_lvl >= max_lvl
 		var cost_text := "已達圓滿"
@@ -669,6 +705,16 @@ func _render_techniques_tab() -> void:
 		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
+		if tech_id in SectSystem.P2_TECHNIQUES:
+			var short_effect := Label.new()
+			short_effect.add_theme_font_size_override("font_size", 16)
+			short_effect.add_theme_color_override("font_color", UiMaterial.INK)
+			short_effect.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			short_effect.text = _p2_short_technique_preview(tech_id)
+			short_effect.tooltip_text = String(def.desc) + "\n" + _p2_technique_preview(tech_id) + "\n" + _p2_pill_names() if tech_id == "p2_pill_qi_conservation" else String(def.desc) + "\n" + _p2_technique_preview(tech_id)
+			short_effect.visible = false
+			row.add_child(short_effect)
+			_p2_card_layouts.append({"title":title_lbl,"cost":cost_lbl,"info":info_vb,"art":row.get_child(0),"box":box,"effect":info_vb.get_node("EffectPreview"),"short_effect":short_effect,"full_title":title_lbl.text,"short_title":"%s %d/%d · 元嬰" % [String(def.name),cur_lvl,max_lvl],"full_cost":cost_text,"short_cost":cost_text.replace("參悟所需：", "").replace(" | ", "／").replace("下品靈石", "石").replace("靈木", "木")})
 
 		var learn_btn := Button.new()
 		learn_btn.text = "參悟提升" if not is_max else "已圓滿"
@@ -684,6 +730,12 @@ func _render_techniques_tab() -> void:
 					var held: AmountCompat = _cached_resources.get(key,{}).get("value",AmountCompat.zero())
 					enough = enough and held.compare_to(AmountCompat.from_number(ceil(float(def["base_"+key])*scale_now))) >= 0
 			var locked := _cached_state.era_id < int(def.get("min_era", 1))
+			if tech_id in SectSystem.P2_TECHNIQUES:
+				var result := SectSystem.technique_requirements(_cached_state, tech_id)
+				learn_btn.disabled = not result.ok
+				learn_btn.text = _technique_status(String(result.get("error", "")))
+				learn_btn.tooltip_text = "需入宗、當世元嬰及已開放供給；跨世保留，退宗或當世境界不足停用。"
+				return
 			learn_btn.disabled = is_max or not enough or locked
 			learn_btn.text = "已圓滿" if is_max else ("境界未達" if locked else ("參悟提升" if enough else "資源不足"))
 		)
@@ -732,7 +784,11 @@ func _render_market_tab() -> void:
 
 		var cost_lbl := Label.new()
 		cost_lbl.text = "兌換價格：宗門貢獻 %d 點" % int(def.cost)
-		if def.has("min_era"): cost_lbl.set_meta("p1_market_cost", item_id)
+		if def.has("min_era") and item_id not in SectSystem.P2_MARKET: cost_lbl.set_meta("p1_market_cost", item_id)
+		if item_id in SectSystem.P2_MARKET:
+			card.set_meta("content_id", item_id)
+			cost_lbl.text = "%d貢獻 → %s%d · 需當世%s／%s · 餘%d次" % [int(def.cost), "精鐵" if item_id == "refined_iron_reserve" else "千年草", int(def.grant_amount), "元嬰" if int(def.min_era) == 4 else "化神", "寒銀已開" if def.requires_open_island == "deep" else "古藥已開", maxi(0, limit-bought_count)]
+			_p2_market_layouts.append({"title":name_lbl,"cost":cost_lbl,"info":info_vb,"art":row.get_child(0),"box":box,"full_cost":cost_lbl.text,"short_cost":cost_lbl.text.get_slice(" · 餘",0).replace("需當世", "當世").replace("千年草", "千草")})
 		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
@@ -747,8 +803,8 @@ func _render_market_tab() -> void:
 			var enough := _has_contribution(float(def.cost))
 			var destination := SectSystem.market_destination_error(_cached_state, item_id, SaveManager.content())
 			buy_btn.disabled = is_sold_out or not enough or not destination.is_empty()
-			buy_btn.text = "售罄" if is_sold_out else ("境界未達" if destination == "MARKET_ERA_LOCKED" else ("庫存已滿" if not destination.is_empty() else ("兌換物資" if enough else "貢獻不足")))
-			buy_btn.tooltip_text = "需當世築基；全額交付，空間不足不扣貢獻也不占次數。" if def.has("min_era") else ""
+			buy_btn.text = "售罄" if is_sold_out else (_market_status(destination) if not destination.is_empty() else ("兌換物資" if enough else "貢獻不足"))
+			buy_btn.tooltip_text = cost_lbl.text + "；含在途預留的祖島有效容量足夠才整包交付，不扣款或占次數於拒絕時。" if item_id in SectSystem.P2_MARKET else ("需當世築基；全額交付，空間不足不扣貢獻也不占次數。" if def.has("min_era") else "")
 		)
 
 func _on_claim_expedition_pressed() -> void:
@@ -794,7 +850,7 @@ func _add_rewards(parent: Node, rewards: Dictionary) -> void:
 	for key in rewards:
 		var reward := HBoxContainer.new()
 		reward.add_theme_constant_override("separation", 3)
-		reward.tooltip_text = String(names.get(key, key))
+		reward.tooltip_text = String(names.get(key, ResourceIconScript.get_resource_name(String(key))))
 		flow.add_child(reward)
 		var id: String = "spirit_grass_low" if key == "herb" else String(key)
 		var texture: Texture2D = CONTRIBUTION_ICON if key == "contribution" else ResourceIconScript.TEXTURES.get(id)
@@ -848,11 +904,11 @@ func _add_market_art(row: HBoxContainer, id: String) -> void:
 		row.add_child(art)
 	else:
 		var seal := Label.new()
-		seal.text = "晶"
+		seal.text = {"refined_iron_reserve":"精鐵", "ancient_herb_reserve":"千草"}.get(id, "晶")
 		seal.custom_minimum_size = Vector2(80,80)
 		seal.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		seal.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		seal.tooltip_text = "靈晶 · 尚無專用圖像，以字印表示"
+		seal.tooltip_text = {"refined_iron_reserve":"精鐵 · 尚無專圖，以具名字印表示", "ancient_herb_reserve":"千年靈草 · 尚無專圖，以具名字印表示"}.get(id, "靈晶 · 尚無專用圖像，以字印表示")
 		row.add_child(seal)
 
 static func _task_art(task_name: String) -> String:
@@ -903,3 +959,44 @@ func storage_recovered() -> void:
 		_feedback.text = "保存已恢復，操作結果已保存。"
 		_retry.hide()
 		_queue_header_reflow()
+
+func _p2_effect_signature(state: GameState) -> Array:
+	return [BeastSystem.feed_costs(state, "iron_turtle"), BeastSystem.feed_costs(state, "fire_phoenix")]
+
+func _p2_technique_preview(id: String) -> String:
+	var level := int(_cached_sect_data.get("techniques", {}).get(id, 0))
+	var preview := _cached_state.duplicate_state()
+	preview.sect.techniques[id] = mini(5, level+1)
+	var next_label := "圓滿" if level >= 5 else "下階"
+	if id == "p2_pill_qi_conservation":
+		var current: AmountCompat = AlchemySystem.refinement_cost(_cached_state, "nascent_breath_pill", 1).lingli
+		var following: AmountCompat = AlchemySystem.refinement_cost(preview, "nascent_breath_pill", 1).lingli
+		return "八丹僅直接靈力 · 凝嬰每顆 %s → %s %s\n其他丹材不折，批量同率；八丹名單見提示。" % [current.to_display_string(), next_label, following.to_display_string()]
+	var turtle := BeastSystem.feed_costs(_cached_state, "iron_turtle")
+	var next_turtle := BeastSystem.feed_costs(preview, "iron_turtle")
+	var phoenix := BeastSystem.feed_costs(_cached_state, "fire_phoenix")
+	var next_phoenix := BeastSystem.feed_costs(preview, "fire_phoenix")
+	return "玄龜 鐵%d／石%d → %s 鐵%d／石%d\n火鳳（煉虛）草%d → %d；第2–5階草費不再降。" % [turtle.refined_iron, turtle.stone_low, next_label, next_turtle.refined_iron, next_turtle.stone_low, phoenix.spirit_grass_1000y, next_phoenix.spirit_grass_1000y]
+
+func _p2_short_technique_preview(id: String) -> String:
+	var level := int(_cached_sect_data.get("techniques", {}).get(id, 0))
+	var preview := _cached_state.duplicate_state()
+	preview.sect.techniques[id] = mini(5, level+1)
+	if id == "p2_pill_qi_conservation":
+		return "凝嬰靈力 %s→%s\n八丹直接靈力；其他不折" % [AlchemySystem.refinement_cost(_cached_state,"nascent_breath_pill",1).lingli.to_display_string(),AlchemySystem.refinement_cost(preview,"nascent_breath_pill",1).lingli.to_display_string()]
+	var turtle := BeastSystem.feed_costs(_cached_state,"iron_turtle")
+	var next_turtle := BeastSystem.feed_costs(preview,"iron_turtle")
+	var phoenix := BeastSystem.feed_costs(_cached_state,"fire_phoenix")
+	var next_phoenix := BeastSystem.feed_costs(preview,"fire_phoenix")
+	return "龜鐵%d石%d→%d／%d\n鳳(煉虛)草%d→%d；2–5階同費" % [turtle.refined_iron,turtle.stone_low,next_turtle.refined_iron,next_turtle.stone_low,phoenix.spirit_grass_1000y,next_phoenix.spirit_grass_1000y]
+
+func _technique_status(error: String) -> String:
+	return {"":"參悟提升", "TECHNIQUE_MAX_LEVEL":"已圓滿", "TECHNIQUE_ERA_LOCKED":"境界未達", "TECHNIQUE_SUPPLY_REQUIRED":"供給未開", "LIFESPAN_EXHAUSTED":"壽元已盡", "SECT_LOCKED":"需先入宗"}.get(error, "資源不足")
+
+func _market_status(error: String) -> String:
+	return {"MARKET_ERA_LOCKED":"境界未達", "MARKET_ISLAND_LOCKED":"來源島未開", "MARKET_SUPPLY_REQUIRED":"供給未開", "LIFESPAN_EXHAUSTED":"壽元已盡", "SECT_LOCKED":"需先入宗", "MARKET_DESTINATION_FULL":"庫存已滿", "PILL_INVENTORY_CAP":"庫存已滿"}.get(error, "容量未就緒")
+
+func _p2_pill_names() -> String:
+	var names := PackedStringArray()
+	for id in SectSystem.P2_PILL_IDS: names.append(String(AlchemySystem.PILLS[id].name))
+	return "、".join(names) + "；僅直接靈力費，不改服用效果。"

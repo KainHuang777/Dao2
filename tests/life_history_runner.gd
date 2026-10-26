@@ -135,5 +135,5 @@ func run() -> void:
 	check(retention.state.life_ledger.archive.size() == 9 and retention.state.life_ledger.archive[0].life_id == 4, "retains latest nine lives only")
 	check(LifeLedger.bytes(retention.state.life_ledger) <= LifeLedger.TOTAL_BYTES and LifeLedger.validate(retention.state.life_ledger, 13).is_empty(), "nine lives within inherited total budget")
 	print("REPORT-2 ", checks, " checks failures=", failures)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 

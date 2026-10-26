@@ -1,0 +1,13 @@
+{
+  "src/simulation/talent_system.gd": "226f9c39cd44ff55d421a0479431abd9673c39fd313ce36768ab79f4fbaeea7a",
+  "src/simulation/reincarnation_rules.gd": "7d0bcfb3648ac2c86bb8b35b2cc11df3524ab5d4b1b7121efd9c0c59e83a4430",
+  "src/simulation/alchemy_system.gd": "21b93a16595ebcedefed7224eb1bc68f3604085e14342de4422385ee383ba6e5",
+  "src/simulation/beast_system.gd": "07f0cbbdce1385f15d86e3bda40673496bbf663dbee81c5e8ef2fdcb3e7c5494",
+  "src/simulation/island_economy.gd": "a1d30217e2806ad0b498084a652da419903f6342d68c2682b9b3e19ca92d6f10",
+  "src/simulation/sks_p2_rules.gd": "2214ea5a049efa3749773de5b328d9f441154c34958feaa8bfe829096150edec",
+  "src/simulation/production.gd": "819411123c0db01b485fedff3d329232fb53cd11a58396050bca54f386437e22",
+  "src/simulation/time_advancer.gd": "587ca8541aee42f6a4e5bbf46dd1ae22a425c0fbf6e0060bdbb273eb29abb01e",
+  "src/persistence/save_codec.gd": "b34eb21810aeb8f75b34ac421e5a3fcea50393425980062f80077e01d76df7de",
+  "src/persistence/save_manager.gd": "8f89362c436cda27523c09ccdfe3a53eda0ea69b3c10b527a524abf45b0878b0",
+  "content/supply/era4_6.json": "687f0786f0b7b80b013c461da117d8da3c2d521abb9d5e0598d68d0bc6ae3482"
+}

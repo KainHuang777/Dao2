@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-26",
+  "tool": "built-in image_gen.imagegen",
+  "transparent_background": true,
+  "purpose": "BEAST-2 creature cards and owning talent thumbnails",
+  "layers": "single RGBA creature per file; no world placement",
+  "processing": "byte-identical copies; no crop, resize, or baked outlines; shared UiIllustration B",
+  "acceptance": "ACCEPTED",
+  "rights": "AI-generated original candidates under applicable OpenAI terms; no third-party references or exclusive-rights claim",
+  "assets": [
+    {
+      "id": "frost_stag",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a177e6-3392-73c3-82ab-8be5a9b0ada3\\exec-70dc28c8-3c20-4231-99f8-31642e1a5477.png",
+      "original": "docs/verification/artifacts/content-p2-beasts-ui/frost_stag-original.png",
+      "runtime": "assets/ui/beasts-painted/frost_stag.png",
+      "sha256": "3f1b1b47bcc6f8031748367c235995ef34807c715c998ae906627eda47af5863",
+      "size": [
+        1227,
+        1282
+      ],
+      "alpha_bbox": [
+        0,
+        17,
+        1218,
+        1258
+      ],
+      "prompt": "Original xianxia spirit creature, frost-antler stag, full body three-quarter view facing left, sturdy ivory deer with pale blue crystalline antlers and subtle dark mineral veins, gentle alert expression, restrained hand-painted gouache and Chinese fantasy ink texture, muted teal ivory and slate palette with tiny warm gold accents, compact readable silhouette, all hooves and antlers fully visible with generous transparent padding, soft painted internal shading, isolated transparent background, no scenery, no text, no UI, no insignia, no existing franchise reference.",
+      "edit_prompt": "Edit the frost stag image. Preserve its identity, painterly style, colors and anatomy. Pull the entire animal back within the image so ALL crystal antler tips and hooves and tail are fully visible, with at least 10 percent generous genuinely transparent empty padding around the entire silhouette on all four sides. Do not crop antlers. No scenery, text, UI or ground. Keep transparent background."
+    },
+    {
+      "id": "herb_crane",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a177e6-3392-73c3-82ab-8be5a9b0ada3\\exec-1894ab84-73d7-4130-ac46-6f415619329d.png",
+      "original": "docs/verification/artifacts/content-p2-beasts-ui/herb_crane-original.png",
+      "runtime": "assets/ui/beasts-painted/herb_crane.png",
+      "sha256": "997e6e8f963f75291efa2014860bfcd1d6e8a6d3f640cc168103032ba3218a7c",
+      "size": [
+        1212,
+        1297
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1200,
+        1297
+      ],
+      "prompt": "Original xianxia spirit creature, herb-bearing crane, full body three-quarter view facing left, elegant ivory crane with muted jade green wing tips, small russet crown and one delicate lingzhi sprig held in its beak, folded wings and both long legs fully visible, calm wise expression, restrained hand-painted gouache and Chinese fantasy ink texture, muted ivory jade and warm ochre palette, tiny warm gold accents, readable compact silhouette with generous transparent padding, soft painted internal shading, isolated transparent background, no scenery, no text, no UI, no insignia, no existing franchise reference.",
+      "edit_prompt": null
+    }
+  ],
+  "draft": {
+    "source": "C:\\Users\\asus\\.codex\\generated_images\\01a177e6-3392-73c3-82ab-8be5a9b0ada3\\exec-7770d1eb-91d4-461c-abde-0a0d1a37db2c.png",
+    "sha256": "a422da23eeb21158e84c2c1f374cc983c8bd8d826df0c11a6e83f0cced2bbb1f",
+    "reason": "antler padding revision"
+  },
+  "acceptance_date": "2026-10-26",
+  "user_quote": "接受，再接整批 L3 收尾"
+}

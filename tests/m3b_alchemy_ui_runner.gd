@@ -100,7 +100,7 @@ func _expect(cond: bool, msg: String) -> void:
 func _finish() -> void:
 	if _failed:
 		print("FAIL: M3-B alchemy UI runner encountered errors.")
-		quit(1)
+		RunnerResult.finish(self, 1)
 	else:
 		print("PASS: M3-B alchemy UI, refining, consuming, responsiveness, and state updates.")
-		quit(0)
+		RunnerResult.finish(self, 0)

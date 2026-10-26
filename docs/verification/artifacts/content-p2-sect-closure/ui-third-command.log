@@ -1,0 +1,7 @@
+[MODE] matrix=full runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_08818177392f4d3fa35b317fc0297220
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_ui_runner.gd (15.6s) result=pass
+--- slowest 8 runners (s) ---
+    15.5  tests/content_p2_sect_ui_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=full). Logs: C:\Users\asus\AppData\Local\Temp\dao2_runners_08818177392f4d3fa35b317fc0297220

@@ -1,0 +1,70 @@
+{
+  "kind": "L2 local test export; not milestone candidate",
+  "files": [
+    {
+      "path": "build/sks-p2-acceptance/audio/bgm/01_The_Unresolved_Ascent.mp3",
+      "sha256": "9c028f2195e5d1c1379522b62dd56b98190a0d05be2de85c413a0bcbeeeb4101",
+      "bytes": 1361177
+    },
+    {
+      "path": "build/sks-p2-acceptance/audio/bgm/02_The_Weight_of_Heaven.mp3",
+      "sha256": "51065b8b3da788144ba327d146dcd765dbcc7fd380580a36cc37fa79098ae07b",
+      "bytes": 1360989
+    },
+    {
+      "path": "build/sks-p2-acceptance/audio/bgm/03_Rungs_of_the_Infinite.mp3",
+      "sha256": "24933ece4065e34ce5a7dd3f5718c24133b2bb3052179c11cb8b1da757222021",
+      "bytes": 1430633
+    },
+    {
+      "path": "build/sks-p2-acceptance/audio/bgm/04_Where_Starlight_Settles.mp3",
+      "sha256": "4fd372ea6928c44cdc02899c2a96e64f0d4c3dfbae32a76ef250ba048bdce532",
+      "bytes": 1194791
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.apple-touch-icon.png",
+      "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "bytes": 11944
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.audio.position.worklet.js",
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "bytes": 2973
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.audio.worklet.js",
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "bytes": 7298
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.html",
+      "sha256": "7cfd15a7b70f31fa5cc3ded0a05e4ba75c5115be195c5b54d520c1197ee4b0d1",
+      "bytes": 5464
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.icon.png",
+      "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "bytes": 5700
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.js",
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "bytes": 279815
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.pck",
+      "sha256": "3a7bc0120339135f6566ff0039f5ccfaa34521d0960845361fdabe2b70ac8d65",
+      "bytes": 86306532
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.png",
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "bytes": 21443
+    },
+    {
+      "path": "build/sks-p2-acceptance/index.wasm",
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "bytes": 39514754
+    }
+  ]
+}

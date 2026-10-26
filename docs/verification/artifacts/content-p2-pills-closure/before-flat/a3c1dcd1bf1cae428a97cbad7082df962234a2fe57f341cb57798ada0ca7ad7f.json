@@ -1,0 +1,1158 @@
+{
+  "date": "2026-10-21",
+  "kind": "HTML design proposal only; not Godot acceptance",
+  "screens": [
+    {
+      "name": "home-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 24.80000114440918,
+          "y": 373.20001220703125,
+          "w": 242.40000915527344,
+          "h": 198
+        }
+      ]
+    },
+    {
+      "name": "buildings-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 24.80000114440918,
+          "y": 142.8000030517578,
+          "w": 202.40000915527344,
+          "h": 500.3999938964844
+        },
+        {
+          "x": 270.8000183105469,
+          "y": 200,
+          "w": 978.4000244140625,
+          "h": 430.3999938964844
+        }
+      ]
+    },
+    {
+      "name": "manufacturing-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 24.80000114440918,
+          "y": 142.8000030517578,
+          "w": 202.40000915527344,
+          "h": 500.3999938964844
+        },
+        {
+          "x": 270.8000183105469,
+          "y": 200,
+          "w": 978.4000244140625,
+          "h": 430.3999938964844
+        }
+      ]
+    },
+    {
+      "name": "skills-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 30.80000114440918,
+          "y": 200,
+          "w": 1218.4000244140625,
+          "h": 430.3999938964844
+        }
+      ]
+    },
+    {
+      "name": "fortune-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 30.80000114440918,
+          "y": 200,
+          "w": 1218.4000244140625,
+          "h": 430.3999938964844
+        }
+      ]
+    },
+    {
+      "name": "life-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 276.8000183105469,
+          "y": 200,
+          "w": 972.4000244140625,
+          "h": 367.6000061035156
+        }
+      ]
+    },
+    {
+      "name": "life-fc-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 276.8000183105469,
+          "y": 200,
+          "w": 972.4000244140625,
+          "h": 367.6000061035156
+        }
+      ]
+    },
+    {
+      "name": "life-long-error-1280x720",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        1280,
+        720
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 276.8000183105469,
+          "y": 200,
+          "w": 972.4000244140625,
+          "h": 304
+        }
+      ]
+    },
+    {
+      "name": "home-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": []
+    },
+    {
+      "name": "buildings-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 810.4000244140625,
+          "h": 166
+        }
+      ]
+    },
+    {
+      "name": "manufacturing-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 810.4000244140625,
+          "h": 166
+        }
+      ]
+    },
+    {
+      "name": "skills-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 157.1999969482422,
+          "w": 810.4000244140625,
+          "h": 166.8000030517578
+        }
+      ]
+    },
+    {
+      "name": "fortune-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 810.4000244140625,
+          "h": 166
+        }
+      ]
+    },
+    {
+      "name": "life-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 810.4000244140625,
+          "h": 134
+        }
+      ]
+    },
+    {
+      "name": "life-fc-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 810.4000244140625,
+          "h": 134
+        }
+      ]
+    },
+    {
+      "name": "life-long-error-844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        844,
+        390
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 810.4000244140625,
+          "h": 80.4000015258789
+        }
+      ]
+    },
+    {
+      "name": "home-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": []
+    },
+    {
+      "name": "buildings-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 766.4000244140625,
+          "h": 135.60000610351562
+        }
+      ]
+    },
+    {
+      "name": "manufacturing-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 766.4000244140625,
+          "h": 135.60000610351562
+        }
+      ]
+    },
+    {
+      "name": "skills-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 157.1999969482422,
+          "w": 766.4000244140625,
+          "h": 136.40000915527344
+        }
+      ]
+    },
+    {
+      "name": "fortune-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 766.4000244140625,
+          "h": 135.60000610351562
+        }
+      ]
+    },
+    {
+      "name": "life-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 766.4000244140625,
+          "h": 103.5999984741211
+        }
+      ]
+    },
+    {
+      "name": "life-fc-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 766.4000244140625,
+          "h": 103.5999984741211
+        }
+      ]
+    },
+    {
+      "name": "life-long-error-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          true
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 766.4000244140625,
+          "h": 50
+        }
+      ]
+    },
+    {
+      "name": "resource-drawer-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 158,
+          "w": 766.4000244140625,
+          "h": 135.60000610351562
+        },
+        {
+          "x": 92.80000305175781,
+          "y": 78.80000305175781,
+          "w": 614.4000244140625,
+          "h": 252.40000915527344
+        }
+      ]
+    },
+    {
+      "name": "message-overlay-error-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          false
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 157.1999969482422,
+          "w": 766.4000244140625,
+          "h": 82.80000305175781
+        },
+        {
+          "x": 92.80000305175781,
+          "y": 152.8000030517578,
+          "w": 614.4000244140625,
+          "h": 104.4000015258789
+        }
+      ]
+    },
+    {
+      "name": "life-early-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 766.4000244140625,
+          "h": 103.5999984741211
+        }
+      ]
+    },
+    {
+      "name": "life-living-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 766.4000244140625,
+          "h": 103.5999984741211
+        }
+      ]
+    },
+    {
+      "name": "life-fb-long-800x360",
+      "viewport": [
+        800,
+        360
+      ],
+      "dpr": 1.0000000149011612,
+      "documentSize": [
+        800,
+        360
+      ],
+      "fonts": [
+        [
+          "DaoSans",
+          true
+        ],
+        [
+          "DaoSerif",
+          false
+        ],
+        [
+          "DaoWen",
+          true
+        ]
+      ],
+      "brokenImages": [],
+      "smallButtons": [],
+      "fixedOutside": [],
+      "horizontalOverflow": [],
+      "scrollAreas": [
+        {
+          "x": 16.80000114440918,
+          "y": 137.1999969482422,
+          "w": 766.4000244140625,
+          "h": 103.5999984741211
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Cost route supplies resources without changing home preference",
+      "passed": true
+    },
+    {
+      "name": "Resource drawer returns to buildings",
+      "passed": true
+    },
+    {
+      "name": "Global save error visible on skills",
+      "passed": true
+    },
+    {
+      "name": "Reading returns to skills and keeps save error",
+      "passed": true
+    },
+    {
+      "name": "Resize preserves route and home intent",
+      "passed": true
+    },
+    {
+      "name": "Home restores resource-off and message-off intent",
+      "passed": true
+    },
+    {
+      "name": "Mock retry only clears design banner",
+      "passed": true
+    },
+    {
+      "name": "Portrait rotation cover shown",
+      "passed": true
+    },
+    {
+      "name": "Landscape restores route",
+      "passed": true
+    }
+  ],
+  "browser": "Edg/155.0.4283.62",
+  "failures": []
+}

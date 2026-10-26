@@ -1,0 +1,13 @@
+{
+  "task": "UIX-R11-DECISIONS",
+  "date": "2026-10-18",
+  "state": "IN_PROGRESS_ART_ACCEPTANCE_PENDING",
+  "dedicated_checks": 63,
+  "fixed_runners": 74,
+  "dedicated_result": "exit0",
+  "full_result": "exit0",
+  "native_images": 21,
+  "web_images": 14,
+  "player_data_touched": false,
+  "commit_push": false
+}

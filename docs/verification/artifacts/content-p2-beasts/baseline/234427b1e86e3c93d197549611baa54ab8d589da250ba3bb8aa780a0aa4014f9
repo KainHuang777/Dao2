@@ -1,0 +1,17 @@
+{
+  "utf8_files": [
+    "README.md",
+    "ROADMAP.md",
+    "docs/ai-handoff.md",
+    "docs/development-status.md",
+    "docs/21-res1-e-skills-expansion-plan.md",
+    "docs/25-system-content-expansion-plan.md",
+    "docs/35-sks-p2-design.md",
+    "docs/verification/sks-p2-flow.md",
+    "docs/verification/sks-p2-k-art.md",
+    "docs/verification/sks-p2-acceptance.md",
+    "updata.txt"
+  ],
+  "local_links": 17,
+  "failures": []
+}

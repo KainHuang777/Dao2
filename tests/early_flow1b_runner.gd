@@ -34,7 +34,7 @@ func run() -> void:
 		while int(s.state.buildings.get(milestone.building, 0)) < int(milestone.level):
 			if not helper.build(s, milestone.building):
 				check(false, "earned build " + milestone.building)
-				quit(1)
+				RunnerResult.finish(self, 1)
 				return
 	check(s.get_view().early_guidance.optional_alchemy, "Q2 unlocked after herb3")
 	check(s.get_view().early_guidance.text.contains("無須煉丹"), "Q2 explicitly optional")
@@ -95,7 +95,7 @@ func run() -> void:
 	print("EARLY-FLOW1-B: %d checks; simulated natural-rate wait %ds (not wall-clock/browser evidence)." % [checks, waits])
 	for failure in failures:
 		push_error(failure)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func meta() -> Dictionary:
 	return {"save_id": "early-flow1b", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": "0"}

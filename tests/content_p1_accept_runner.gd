@@ -12,7 +12,12 @@ func save_case(s: GameSession, label: String) -> void:
 	var encoded := SaveCodec.encode(s.state,content.content_version,SAVE_META)
 	check(encoded.ok,"encode "+label)
 	if encoded.ok:
-		FileAccess.open("res://src/verification/content_p1_accept_"+label+".json",FileAccess.WRITE).store_string(encoded.json)
+		var write_file_encoded := FileAccess.open("res://src/verification/content_p1_accept_"+label+".json",FileAccess.WRITE)
+		if write_file_encoded == null:
+			push_error("write failed: " + str("res://src/verification/content_p1_accept_"+label+".json"))
+			RunnerResult.finish(self, 1)
+		else:
+			write_file_encoded.store_string(encoded.json)
 	var memory := Memory.new()
 	SaveManager.configure(content,memory)
 	check(SaveManager.save(s.state,SAVE_META).ok,"save "+label)
@@ -24,7 +29,12 @@ func save_case(s: GameSession, label: String) -> void:
 	if canonical.ok and SkillSystem.reconcile(content,canonical.state): canonical.state.revision+=1
 	check(loaded != null and canonical.ok and loaded.to_snapshot_dict() == canonical.state.to_snapshot_dict(),"readback identical encoded state "+label)
 	if loaded != null and canonical.ok and loaded.to_snapshot_dict() != canonical.state.to_snapshot_dict():
-		FileAccess.open(ACCEPT_DIR+"readback-diff-"+label+".json",FileAccess.WRITE).store_string(JSON.stringify({"expected":canonical.state.to_snapshot_dict(),"actual":loaded.to_snapshot_dict()},"\t"))
+		var write_file_readback := FileAccess.open(ACCEPT_DIR+"readback-diff-"+label+".json",FileAccess.WRITE)
+		if write_file_readback == null:
+			push_error("write failed: " + str(ACCEPT_DIR+"readback-diff-"+label+".json"))
+			RunnerResult.finish(self, 1)
+		else:
+			write_file_readback.store_string(JSON.stringify({"expected":canonical.state.to_snapshot_dict(),"actual":loaded.to_snapshot_dict()},"\t"))
 	var before_retry := s.state.to_snapshot_dict()
 	memory.refuse=true
 	check(not SaveManager.save(s.state,SAVE_META).ok,"write refusal "+label)
@@ -158,7 +168,12 @@ func _run() -> void:
 			for id in ["retain","alchemical_past_wisdom","artisan_past_wisdom","beast_bond_past_wisdom","resource_inheritance","lifespan_extension","innate_dao_body"]:
 				compare(s,id)
 	var result := {"checks":checks,"failures":failures,"content_version":content.content_version,"milestones":milestones,"comparisons":comparisons,"evidence":"Current-source legal commands, accelerated simulation, same earned second-life Era3 state at choice. No inventory/era/cooldown/fortune injection. Rates include held-heart opportunity cost. No browser natural-wait claim."}
-	FileAccess.open(ACCEPT_DIR+"integration.json",FileAccess.WRITE).store_string(JSON.stringify(result,"\t"))
+	var write_file_integration := FileAccess.open(ACCEPT_DIR+"integration.json",FileAccess.WRITE)
+	if write_file_integration == null:
+		push_error("write failed: " + str(ACCEPT_DIR+"integration.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_integration.store_string(JSON.stringify(result,"\t"))
 	print("CONTENT-P1-ACCEPT ",checks," checks failures=",JSON.stringify(failures))
 	SaveManager.reset_for_tests()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

@@ -1,0 +1,23 @@
+{
+  "task": "UI-ART-EDGE-COMPARE",
+  "date": "2026-10-23",
+  "selected": "B",
+  "user_statement": "選擇 B 並且帶入共用規則",
+  "status": "accepted_shared_design_rule",
+  "implementation_status": "pending_Godot_shared_presentation",
+  "rule": "docs/19-ui-ux-guidelines.md",
+  "outline": {
+    "color": "#5c5345",
+    "opacity": 0.58,
+    "display_px": 1.15,
+    "solid_alpha_threshold": 0.75
+  },
+  "shadow": {
+    "color": "#514b3d",
+    "opacity": 0.24,
+    "offset_y_display_px": 1.8,
+    "softness_display_px": 1.5
+  },
+  "previous_comparison_html_sha256": "3259ea9229d75a4909f2aa653890276fa74ed1e000b7b5b53a3f53e236c72658",
+  "selection_html_sha256": "2a6da3731b5510159d3b5678ff24656fe16b6aad38b8b00a790c8953a3ba921f"
+}

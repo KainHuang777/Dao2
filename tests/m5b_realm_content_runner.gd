@@ -22,10 +22,10 @@ func _init() -> void:
 
 	if success:
 		print("[M5B_RUNNER] ALL M5-B TESTS PASSED (exit 0)")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		printerr("[M5B_RUNNER] SOME M5-B TESTS FAILED (exit 1)")
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _assert(condition: bool, msg: String) -> bool:
 	if not condition:

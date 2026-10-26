@@ -1,0 +1,18 @@
+{
+	"checks": 7,
+	"end_age": 12753.0,
+	"evidence": "dated earned Era4 snapshot, continuous formal commands and simulated time; not browser natural-time progression",
+	"failures": [
+		"seed dated earned snapshot",
+		"commit migrated candidate",
+		"continuous earned Era4 to Era6",
+		"all eight IDs effective; calm once per era"
+	],
+	"level": "L2",
+	"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era4.json",
+	"source_sha256": "3f2e0a61853c01b465075df67c0e4088b84073572f2b531dfa3df11f751112b8",
+	"start_age": 12753.0,
+	"tribulation_trace": [],
+	"uses": [],
+	"waits": {}
+}

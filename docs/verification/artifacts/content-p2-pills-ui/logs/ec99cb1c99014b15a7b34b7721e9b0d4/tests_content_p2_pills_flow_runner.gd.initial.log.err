@@ -1,0 +1,6 @@
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Dictionary".
+   at: GDScript::reload (res://tests/content_p2_pills_flow_runner.gd:44)
+SCRIPT ERROR: Parse Error: Invalid argument for "save()" function: argument 2 should be "Dictionary" but is "int".
+   at: GDScript::reload (res://tests/content_p2_pills_flow_runner.gd:44)
+ERROR: Failed to load script "res://tests/content_p2_pills_flow_runner.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

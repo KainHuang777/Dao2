@@ -1,0 +1,102 @@
+[MODE] matrix=full runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_6541c278b6474f8eae2497538be8a4b0
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[FAIL:initial] tests/content_p2_pills_ui_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+UI FAILURE height silver_ward_pill (776.0, 210.0) scroll (776.0, 162.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI FAILURE height silver_ward_pill (732.0, 210.0) scroll (732.0, 132.0)
+UI FAILURE reachable silver_ward_pill
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+PILL2 UI 288 checks failures=["height silver_ward_pill (776.0, 210.0) scroll (776.0, 162.0)","height silver_ward_pill (732.0, 210.0) scroll (732.0, 132.0)","reachable silver_ward_pill"]
+RUNNER_RESULT status=FAIL exit=1
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _ready (res://src/abode/living_abode.gd:423)
+       [8] run (res://tests/content_p2_pills_ui_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:117)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _ready (res://src/abode/living_abode.gd:423)
+       [8] run (res://tests/content_p2_pills_ui_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1353)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:117)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1353)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+
+--- slowest 8 runners (s) ---
+     9.6  tests/content_p2_pills_ui_runner.gd

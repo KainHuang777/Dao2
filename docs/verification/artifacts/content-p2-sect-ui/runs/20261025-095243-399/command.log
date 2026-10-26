@@ -1,0 +1,26 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{d727156d-d325-4640-82b6-8075c6a57a1a}\AC\Temp\dao2_runners_7c6622037ae04e5e85e20435081394bd
+[START:initial] tests/content_p2_sect_flow_runner.gd
+[FAIL:initial] tests/content_p2_sect_flow_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW FAILURE seed isolated earned source
+FLOW FAILURE commit migration
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid access to property or key 'islands' on a base object of type 'Dictionary'.
+   at: run (res://tests/content_p2_sect_flow_runner.gd:43)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_sect_flow_runner.gd:43)
+
+--- slowest 8 runners (s) ---
+    45.2  tests/content_p2_sect_flow_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:283
+Line |
+ 283 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_sect_flow_runner.gd. Logs:
+     | C:\Users\asus\AppData\Local\Packages\sandbox.{d727156d-d325-4640-82b6-8075c6a57a1a}\AC\Temp\dao2_runners_7c6622037ae04e5e85e20435081394bd
+
+

@@ -1,0 +1,81 @@
+{
+  "task": "CONTENT-P1-SECT",
+  "date": "2026-10-23",
+  "final_commands": [
+    {
+      "command": "Godot 4.7.2 --version",
+      "exit_code": 0
+    },
+    {
+      "command": "Godot --headless --editor --import --quit",
+      "exit_code": 0
+    },
+    {
+      "command": "Godot content_p1_sect_runner.gd",
+      "exit_code": 0,
+      "checks": 6778
+    },
+    {
+      "command": "Godot content_p1_sect_progression_runner.gd",
+      "exit_code": 0,
+      "checks": 16
+    },
+    {
+      "command": "Godot native content_p1_sect_ui_runner.gd",
+      "exit_code": 0,
+      "checks": 69
+    },
+    {
+      "command": "run_all_runners.ps1 with documented successful prefixes and continuations",
+      "unique_runners": 107,
+      "coverage": "complete; see audit.json",
+      "final_tail_exit_code": 0
+    },
+    {
+      "command": "six directly affected final runners",
+      "exit_code": 0
+    },
+    {
+      "command": "subset_game_fonts.py --check",
+      "exit_code": 0
+    },
+    {
+      "command": "Godot --export-release ContentP1SectAcceptance / Web into isolated candidate folders",
+      "exit_code": 0
+    },
+    {
+      "command": "prepare_web_compression.mjs for both candidates, four BGM each",
+      "exit_code": 0
+    },
+    {
+      "command": "restore_content_p1_sect_fixtures.py",
+      "exit_code": 0,
+      "restored": 15
+    },
+    {
+      "command": "content_p1_sect_audit.py",
+      "exit_code": 0,
+      "checks": 53
+    },
+    {
+      "command": "git diff --check on task source/doc files",
+      "exit_code": 0
+    }
+  ],
+  "notes": [
+    "Initial failures and intermediate compiler/test/tool errors are retained in logs and verification narrative; final records above are verified completions.",
+    "Existing native exit RID/ObjectDB diagnostics and deliberate malformed JSON diagnostics remain.",
+    "Local HTTP service and stale failed test process stopped with Ctrl+C (intentional exit1); browser tab closed and viewport reset.",
+    "Human art/card acceptance remains pending; overall IN_PROGRESS."
+  ],
+  "art_acceptance_turn": {
+    "date": "2026-10-23",
+    "user_quote": "美術接受",
+    "command": "python tools/content_p1_sect_audit.py",
+    "exit_code": 0,
+    "checks": 55,
+    "failures": [],
+    "game_browser_export_rerun": false,
+    "status": "DONE"
+  }
+}

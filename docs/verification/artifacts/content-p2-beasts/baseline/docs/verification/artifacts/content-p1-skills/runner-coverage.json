@@ -1,0 +1,22 @@
+{
+  "expected": 99,
+  "unique_passed": 99,
+  "missing": [],
+  "segments": [
+    {
+      "log": "content-p1-skills-all-runners-final.log",
+      "unique_passed": 82,
+      "script_errors": 0
+    },
+    {
+      "log": "content-p1-skills-all-runners-resume.log",
+      "unique_passed": 15,
+      "script_errors": 0
+    }
+  ],
+  "supplementary": {
+    "progression": 75,
+    "native_ui": 84
+  },
+  "core_final": 370
+}

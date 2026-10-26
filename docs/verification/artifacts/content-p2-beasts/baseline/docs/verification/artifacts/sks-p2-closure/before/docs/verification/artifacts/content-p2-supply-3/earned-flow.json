@@ -1,0 +1,10 @@
+{
+	"age": 0.0,
+	"checks": 13,
+	"failures": [],
+	"level": "L2",
+	"source_path": "res://docs/verification/artifacts/content-p2-supply-3/earned-era6-level10.json",
+	"source_sha256": "d99418e4701602e413d26329fb2a0410df28c246a8f13883b1d4c1508cb7afa3",
+	"trace": [],
+	"waits_seconds": {}
+}

@@ -1,6 +1,6 @@
 extends SceneTree
 var failed := false
-const TEST_DIR := "user://nav1_runner"
+var TEST_DIR := "user://nav1_runner" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("nav1_runner")
 func _init() -> void:
 	_run.call_deferred()
 func check(value: bool, message: String) -> void:
@@ -165,4 +165,4 @@ func _run() -> void:
 	await process_frame
 	slots.reset()
 	print("NAV1 navigation, neutrality, resource integration and UI command checks completed")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

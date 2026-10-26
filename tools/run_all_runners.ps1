@@ -1,7 +1,8 @@
-﻿<#
+<#
 分級驗收（見 AGENTS.md「分級驗收」）：
   L1/L2 日常：  -Only 'content_p1_skills*','uix_r8*'   只跑受影響 runner，預設單一尺寸 1280x720
   L3 收尾：     -Full -Parallel 3                     全部 runner、全尺寸矩陣、並行；並行失敗會串行重跑確認
+  全部單尺寸：  -Full -Matrix single -Parallel 3       全部 runner 只跑 1280x720（開發期全量驗證，非 L3 矩陣）
   預覽：        -Only 關鍵字 -List / -Full -List（不啟動引擎）
   無參數拒絕執行；-StartAt 必須搭配 -Only；-Full 不可搭配篩選。
 #>
@@ -11,13 +12,29 @@ param(
     [string[]]$Only = @(),
     [switch]$Full,
     [switch]$List,
+    [ValidateSet('auto', 'single', 'full')][string]$Matrix = 'auto',
     [ValidateRange(1, 8)][int]$Parallel = 1,
     [ValidateRange(1, 86400)][int]$TimeoutSeconds = 45
 )
 $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
-$matrix = if ($Full) { 'full' } else { 'single' }
+$matrix = if ($Matrix -ne 'auto') { $Matrix } elseif ($Full) { 'full' } else { 'single' }
 $runners = @(
+    'tests/content_p2_beasts_ui_runner.gd',
+    'tests/content_p2_beasts_flow_runner.gd',
+    'tests/content_p2_beasts_runner.gd',
+    'tests/content_p2_beasts_save_runner.gd',
+    'tests/content_p2_sect_flow_runner.gd',
+    'tests/content_p2_sect_ui_runner.gd',
+    'tests/content_p2_sect_runner.gd',
+    'tests/content_p2_sect_save_runner.gd',
+    'tests/content_p2_pills_flow_runner.gd',
+    'tests/content_p2_pills_ui_runner.gd',
+    'tests/content_p2_pills_runner.gd',
+    'tests/content_p2_pills_save_runner.gd',
+    'tests/content_p2_talents_flow_runner.gd',
+    'tests/content_p2_talents_ui_runner.gd',
+    'tests/content_p2_talents_runner.gd',
 	'tests/content_p2_supply_progression_runner.gd',
 	'tests/content_p2_supply_ui_runner.gd',
 	'tests/content_p2_supply_data_runner.gd',
@@ -177,6 +194,7 @@ function Stop-RunnerTree([int]$procId) {
 }
 
 $timings = @{}
+$utf8 = New-Object System.Text.UTF8Encoding($false)
 function Invoke-Batch([string[]]$RunnerList, [int]$Slots, [string]$Attempt) {
     $queue = [System.Collections.Queue]::new($RunnerList)
     $running = @()
@@ -198,7 +216,17 @@ function Invoke-Batch([string[]]$RunnerList, [int]$Slots, [string]$Attempt) {
                 $psi.CreateNoWindow = $true
                 $psi.RedirectStandardOutput = $true
                 $psi.RedirectStandardError = $true
-                $p = [System.Diagnostics.Process]::Start($psi)
+                $psi.StandardOutputEncoding = $utf8
+                $psi.StandardErrorEncoding = $utf8
+                try {
+                    $p = [System.Diagnostics.Process]::Start($psi)
+                } catch {
+                    [IO.File]::WriteAllText($log, "launch error: $($_.Exception.Message)", $utf8)
+                    $timings[$r] = 0
+                    $failed += $r
+                    Write-Host "[FAIL:$Attempt] $r launch_error=True" -ForegroundColor Red
+                    continue
+                }
                 $running += [pscustomobject]@{
                     Runner = $r; Proc = $p; Clock = [Diagnostics.Stopwatch]::StartNew()
                     Out = $p.StandardOutput.ReadToEndAsync(); Err = $p.StandardError.ReadToEndAsync()
@@ -209,21 +237,32 @@ function Invoke-Batch([string[]]$RunnerList, [int]$Slots, [string]$Attempt) {
             foreach ($j in @($running)) {
                 $timedOut = -not $j.Proc.HasExited -and $j.Clock.Elapsed.TotalSeconds -gt $TimeoutSeconds
                 if (-not $j.Proc.HasExited -and -not $timedOut) { continue }
-                if ($timedOut) { Stop-RunnerTree $j.Proc.Id }
-                $j.Proc.WaitForExit()
+                if ($timedOut) {
+                    Stop-RunnerTree $j.Proc.Id
+                    if (-not $j.Proc.WaitForExit(5000)) {
+                        $j.Proc.Kill()
+                        $null = $j.Proc.WaitForExit(2000)
+                    }
+                } else {
+                    $j.Proc.WaitForExit()
+                }
                 $stdout = $j.Out.GetAwaiter().GetResult()
                 $stderr = $j.Err.GetAwaiter().GetResult()
-                [IO.File]::WriteAllText($j.Log, $stdout)
-                [IO.File]::WriteAllText($j.ErrorLog, $stderr)
+                [IO.File]::WriteAllText($j.Log, $stdout, $utf8)
+                [IO.File]::WriteAllText($j.ErrorLog, $stderr, $utf8)
                 $timings[$j.Runner] = $j.Clock.Elapsed.TotalSeconds
-                $code = $j.Proc.ExitCode
-                $scriptError = ($stdout + $stderr) -match '(?m)^\s*SCRIPT ERROR:'
-                if ($timedOut -or $code -ne 0 -or $scriptError) {
+                $code = if ($j.Proc.HasExited) { $j.Proc.ExitCode } else { -1 }
+                $combined = $stdout + "`n" + $stderr
+                $scriptError = $combined -match '(?m)^\s*SCRIPT ERROR:'
+                $failureMarker = $combined -match '(?m)^\s*(?:FAIL(?:ED)?\s*[:：]|\[FAIL\])'
+                $results = [regex]::Matches($stdout, '(?m)^\s*RUNNER_RESULT\s+(.+?)\s*$')
+                $resultPass = $results.Count -eq 1 -and $results[0].Groups[1].Value -match '^status=PASS\s+exit=0$'
+                if ($timedOut -or $code -ne 0 -or $scriptError -or $failureMarker -or -not $resultPass) {
                     $failed += $j.Runner
-                    Write-Host "[FAIL:$Attempt] $($j.Runner) exit=$code timeout=$timedOut script_error=$scriptError" -ForegroundColor Red
-                    Write-Host ($stdout + $stderr)
+                    Write-Host "[FAIL:$Attempt] $($j.Runner) exit=$code timeout=$timedOut script_error=$scriptError failure_marker=$failureMarker result_lines=$($results.Count) result=$resultPass" -ForegroundColor Red
+                    Write-Host $combined
                 } else {
-                    Write-Host "[PASS:$Attempt] $($j.Runner) ($([math]::Round($j.Clock.Elapsed.TotalSeconds, 1))s)"
+                    Write-Host "[PASS:$Attempt] $($j.Runner) ($([math]::Round($j.Clock.Elapsed.TotalSeconds, 1))s) result=pass"
                 }
                 $j.Proc.Dispose()
                 $running = @($running | Where-Object { $_ -ne $j })

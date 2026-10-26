@@ -1,0 +1,144 @@
+[MODE] matrix=full runners=133 parallel=3
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-closure\logs\dao2_runners_fa76c7859a4746ab930bdf592c3064d8
+[START:initial] tests/content_p2_beasts_ui_runner.gd
+[START:initial] tests/content_p2_beasts_flow_runner.gd
+[START:initial] tests/content_p2_beasts_runner.gd
+[PASS:initial] tests/content_p2_beasts_runner.gd (13.4s) result=pass
+[START:initial] tests/content_p2_beasts_save_runner.gd
+[FAIL:initial] tests/content_p2_beasts_ui_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+UI FAILURE feed reachable
+UI FAILURE feed reachable
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI FAILURE feed reachable
+UI FAILURE feed reachable
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+BEAST2 UI 169 failures=["feed reachable","feed reachable","feed reachable","feed reachable"]
+RUNNER_RESULT status=FAIL exit=1
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] run (res://tests/content_p2_beasts_ui_runner.gd:17)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] run (res://tests/content_p2_beasts_ui_runner.gd:17)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+
+[START:initial] tests/content_p2_sect_flow_runner.gd
+[PASS:initial] tests/content_p2_beasts_save_runner.gd (7.8s) result=pass
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_ui_runner.gd (16.4s) result=pass
+[START:initial] tests/content_p2_sect_runner.gd
+[PASS:initial] tests/content_p2_sect_runner.gd (17s) result=pass
+[START:initial] tests/content_p2_sect_save_runner.gd
+[PASS:initial] tests/content_p2_sect_save_runner.gd (6.9s) result=pass
+[START:initial] tests/content_p2_pills_flow_runner.gd
+[FAIL:initial] tests/content_p2_pills_flow_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW FAILURE seed dated earned snapshot
+FLOW FAILURE commit migrated candidate
+PILL2 EARNED ERA 4 age=12753.0
+CRAFT foundation_pill { "ok": false, "duplicate": false, "error": "BEAST_SAVE_REQUIRED", "new_revision": 2447, "events": [], "changed_ids": [] }
+FLOW FAILURE continuous earned Era4 to Era6
+FLOW FAILURE all eight IDs effective; calm once per era
+PILL2 FLOW 7 checks failures=["seed dated earned snapshot","commit migrated candidate","continuous earned Era4 to Era6","all eight IDs effective; calm once per era"]
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_flow_runner.gd (56.4s) result=pass
+[START:initial] tests/content_p2_pills_runner.gd
+[PASS:initial] tests/content_p2_pills_runner.gd (16s) result=pass
+[START:initial] tests/content_p2_pills_save_runner.gd
+[PASS:initial] tests/content_p2_pills_save_runner.gd (7.8s) result=pass
+[START:initial] tests/content_p2_talents_flow_runner.gd
+[PASS:initial] tests/content_p2_beasts_flow_runner.gd (460.5s) result=pass
+[START:initial] tests/content_p2_talents_ui_runner.gd
+[PASS:initial] tests/content_p2_talents_flow_runner.gd (415.9s) result=pass
+[START:initial] tests/content_p2_talents_runner.gd
+[PASS:initial] tests/content_p2_talents_runner.gd (4.5s) result=pass
+[START:initial] tests/content_p2_supply_progression_runner.gd

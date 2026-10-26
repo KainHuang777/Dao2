@@ -8,4 +8,4 @@ func _init() -> void:
 			print("AMOUNT ", input, " => ", value.to_string(), " ", JSON.stringify(value.to_components()))
 		else:
 			print("AMOUNT_ERROR ", input, " => ", parsed.error)
-	quit()
+	RunnerResult.finish(self, 0)

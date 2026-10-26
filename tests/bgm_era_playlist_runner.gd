@@ -84,4 +84,4 @@ func _init() -> void:
 	
 	abode.free()
 	print("=== BGM ERA PLAYLIST TEST PASS ===")
-	quit(1 if _failed else 0)
+	RunnerResult.finish(self, 1 if _failed else 0)

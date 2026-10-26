@@ -56,4 +56,4 @@ func _run() -> void:
 	art.queue_free()
 	await process_frame
 	print("REINCARNATION-MOTION failures=", failures)
-	quit(0 if failures == 0 else 1)
+	RunnerResult.finish(self, 0 if failures == 0 else 1)

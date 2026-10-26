@@ -1,0 +1,586 @@
+{
+  "sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "consume_recovery_verified": true,
+  "notes": "Sizes are CSS canvas dimensions. IAB backing pixels use device scale1.25; this is desktop browser evidence. First page later stalled with WebGL genObject RangeError after hours idle; preserved console, then same stored state reloaded and bounded flow completed.",
+  "observations": [
+    {
+      "label": "1280-start",
+      "state": {
+        "revision": 3016,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 0
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "174804"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1405.1"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "17.32"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      },
+      "canvas": {
+        "backing": [
+          1600,
+          900
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "label": "844",
+      "canvas": {
+        "backing": [
+          1055,
+          487
+        ],
+        "css": [
+          844,
+          389
+        ]
+      }
+    },
+    {
+      "label": "800",
+      "canvas": {
+        "backing": [
+          1000,
+          450
+        ],
+        "css": [
+          800,
+          360
+        ]
+      }
+    },
+    {
+      "label": "before-refine",
+      "state": {
+        "revision": 26560,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 0
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "312933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1923.67999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "after-refine",
+      "state": {
+        "revision": 26573,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 1
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "2995"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1923.47999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "stalled-after-long-idle",
+      "state": {
+        "revision": 26573,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 1
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "2995"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1923.47999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "before-consume",
+      "state": {
+        "revision": 26638,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 1
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1935.47999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "refused",
+      "state": {
+        "revision": 26638,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 1
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1935.47999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "denied-retry",
+      "state": {
+        "revision": 26638,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 1
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 1
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 7
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1935.47999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "recovered",
+      "state": {
+        "revision": 26643,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 0
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 2
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 8
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1936.27999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "reloaded",
+      "state": {
+        "revision": 26692,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 0
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 2
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 8
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1941.07999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    },
+    {
+      "label": "home",
+      "state": {
+        "revision": 26724,
+        "era": 5,
+        "level": 1,
+        "pill_version": 2,
+        "pills": {
+          "ancient_herb_dew_pill": 0,
+          "calm_tribulation_pill": 0,
+          "foundation_pill": 0,
+          "nascent_breath_pill": 0,
+          "silver_ward_pill": 0,
+          "spirit_vessel_pill": 0,
+          "stone_vault_pill": 0
+        },
+        "effects": {
+          "p2_capacity_counts": {
+            "spirit_vessel_pill": 1,
+            "stone_vault_pill": 2
+          },
+          "stacks": {
+            "calm_tribulation_pill": 1,
+            "silver_ward_pill": 1
+          },
+          "total_consumed": 8
+        },
+        "resources": {
+          "lingli": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "310933"
+          },
+          "mithril": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "3000"
+          },
+          "spirit_grass_1000y": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "1943.47999999993"
+          },
+          "stone_mid": {
+            "ever_obtained": true,
+            "unlocked": true,
+            "value": "29"
+          }
+        }
+      }
+    }
+  ],
+  "measured844": {
+    "backing": [
+      1055,
+      487
+    ],
+    "client": [
+      844,
+      389
+    ],
+    "rect": {
+      "bottom": 389,
+      "height": 389,
+      "left": 0,
+      "right": 844,
+      "top": 0,
+      "width": 844,
+      "x": 0,
+      "y": 0
+    }
+  }
+}

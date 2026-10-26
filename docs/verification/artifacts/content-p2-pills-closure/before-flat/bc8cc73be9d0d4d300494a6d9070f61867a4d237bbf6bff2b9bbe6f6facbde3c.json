@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-22",
+  "task": "LEDGER-0",
+  "retained_lives": 9,
+  "narrative_bytes_limit": 360448,
+  "unit": {
+    "checks": 302,
+    "failures": [],
+    "retained_lives": 9,
+    "schema": 5
+  },
+  "full_suite": {
+    "runners": 86,
+    "exit": 0,
+    "script_errors": 0,
+    "complete": true
+  },
+  "web_checks": {
+    "cancelPreservesLife": true,
+    "oneRebirth": true,
+    "oneReward": true,
+    "oneArchive": true,
+    "partialImportedLife": true,
+    "endAndPeak": true,
+    "archiveStableReload": true,
+    "rewardStableReload": true,
+    "finalBuildReload": true
+  },
+  "compression_and_bgm": [
+    {
+      "build": "build/web-ledger-0",
+      "files": 3,
+      "bgm": 4,
+      "verified": true
+    },
+    {
+      "build": "build/ledger-0-acceptance",
+      "files": 3,
+      "bgm": 4,
+      "verified": true
+    }
+  ],
+  "utf8_files": 37,
+  "local_links": 16,
+  "missing_links": [],
+  "tracked_diff_check_exit": 2,
+  "diff_diagnostics": "export_presets.cfg:560: new blank line at EOF.\nwarning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ROADMAP.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/ai-handoff.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/development-status.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'export_presets.cfg', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'project.godot', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/application/game_session.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/domain/game_state.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/persistence/save_codec.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/persistence/save_manager.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/command_processor.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/island_economy.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/offline_closed_form.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/offline_economy_jump.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/reincarnation_rules.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/sect_system.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/simulation/time_advancer.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/res1b_economy_runner.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/web_persistence_fault_runner.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/run_all_runners.ps1', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'updata.txt', LF will be replaced by CRLF the next time Git touches it\n",
+  "new_file_whitespace_checks": [
+    "src/domain/life_ledger.gd",
+    "tests/life_ledger_runner.gd",
+    "src/verification/ledger_acceptance.gd",
+    "src/verification/ledger_acceptance.tscn",
+    "docs/verification/ledger-0.md",
+    "docs/verification/ledger-0-preflight.md",
+    "docs/decisions/ADR-013-bounded-life-facts.md"
+  ],
+  "screenshots": [
+    "web-final-reload-800.jpg",
+    "web-recovered-1280.jpg",
+    "web-reload-800.jpg",
+    "web-reload-844.jpg"
+  ],
+  "frozen_pck_sha256": "7e7e619dcaa28fb05e1c397adcc24ce9071d9b53b4e8fa6379c186e0af9f9400",
+  "passed": false
+}

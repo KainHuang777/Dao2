@@ -28,11 +28,11 @@ func _init() -> void:
     SaveManager.reset_for_tests()
     if failures.is_empty():
         print("PASS: M1-D offline settlement, cap 24h, cursor commit, no double grant.")
-        quit(0)
+        RunnerResult.finish(self, 0)
     else:
         for failure in failures:
             push_error(failure)
-        quit(1)
+        RunnerResult.finish(self, 1)
 
 func _load_content() -> void:
     var loaded := ContentLoader.load_directory(CONTENT_DIR)

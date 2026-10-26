@@ -17,7 +17,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	start.call_deferred()
 func start() -> void:
-	load("res://src/abode/living_abode.gd").save_dir_override = "" if OS.has_feature("web") else "user://content-p1-sect-acceptance"
+	load("res://src/abode/living_abode.gd").save_dir_override = "" if OS.has_feature("web") else ("user://content-p1-sect-acceptance" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("content-p1-sect"))
 	abode = load("res://scenes/living_abode.tscn").instantiate()
 	add_child(abode)
 	while abode.session == null or abode.feature_navigation == null: await get_tree().process_frame

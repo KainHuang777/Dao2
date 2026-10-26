@@ -1,0 +1,16 @@
+{
+  "src/simulation/talent_system.gd": "3d63e8523f37f69e51573c10d2f42b855252a1f46170b9c2163d63f4b2307b63",
+  "src/simulation/alchemy_system.gd": "99c129c49b750f85d7c898f123f7da6f7cba45f750b10d15bf120a68946b3186",
+  "src/simulation/beast_system.gd": "d9c705eec1da792e247fdb9dcec609ca03e53bf8f0d2d26a1ac6a329c2735040",
+  "src/simulation/island_economy.gd": "5e5b5a48b63a20fee34217ff26342b71ad7b3ed7f3d67c9b860fd1839b3625cf",
+  "src/persistence/save_codec.gd": "7cbb15300614314b9e5ab802dd49219ef9a7ed2110711b96c18c012ec4ba822e",
+  "src/persistence/save_manager.gd": "28096cac3fc9ff15bc1a517bbec997f2dada86e6ee27cc685952bf58d44faf39",
+  "src/application/game_session.gd": "1dceec64a217f5512b4f3994a5484eeecf9bc21f20fe4538d1ab2e571fc87e4a",
+  "src/application/offline_coordinator.gd": "17e1e173cbe8709d7ac2abc4ff42162ca99baef9a276870ddece8ba20eccd8f9",
+  "src/abode/living_abode.gd": "dca7cdf5cc226ea08a9786bf0da89adcccadfc060f137a503ad39cbb6353760f",
+  "tests/content_p2_talents_runner.gd": "9b821a88c93ec0348a0c0f51336cb9ce2015d48d020d44e58c181e5798ddc3b7",
+  "tests/content_p1_talents_runner.gd": "607da735403dc917db7dd2a24b1ca4adfbc55b407060ca56bc13fb0a1a3d0d7b",
+  "tests/sks_p2_core_runner.gd": "2a68efa511cc8298e741bec5b5ee51d92d5798c7665634a210cc9312249adc3f",
+  "tests/content_p2_supply_economy_runner.gd": "405f878b13efb01698603404efa55adc6da39ec76d155c65d01a4cd409c1bf39",
+  "tools/run_all_runners.ps1": "d27970740e563153373f5387719ce3d2205177291b8ea30a1d85ccbb27156c0a"
+}

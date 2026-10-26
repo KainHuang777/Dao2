@@ -103,4 +103,4 @@ func _run() -> void:
 	slots.reset()
 	retry_slots.reset()
 	print("ISLAND1_UI ", "FAIL" if failed else "PASS")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

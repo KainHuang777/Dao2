@@ -32,7 +32,7 @@ func _run() -> void:
 	var meta := {"save_id": "sks-p1-test", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": "0"}
 	var attached := IslandProgression.attach(c)
 	if not attached.ok:
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	check(attached.ok, "attach skill content")
 	check(c.skill_defs.size() == 24 and c.skill_defs.has("golden_core_formation"), "twenty-four skill definitions after attach")
@@ -185,8 +185,8 @@ func _run() -> void:
 	panel.free()
 	if failures.is_empty():
 		print("PASS: SKS-P1 %d checks" % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures: push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 

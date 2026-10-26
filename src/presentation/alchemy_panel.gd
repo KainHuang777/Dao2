@@ -4,7 +4,7 @@ signal refine_requested(pill_id: String, count: int)
 signal consume_requested(pill_id: String, count: int)
 signal close_requested()
 const Tile = preload("res://src/presentation/recipe_material_tile.gd")
-const RESOURCE_NAMES := {"lingli": "靈氣", "money": "金錢", "wood": "靈木", "black_copper": "玄銅", "spirit_grass_low": "下品靈草", "spirit_grass_100y": "百年靈草", "liquid": "丹液", "stone_low": "下品靈石"}
+const RESOURCE_NAMES := {"lingli": "靈力", "money": "金錢", "wood": "靈木", "black_copper": "玄銅", "spirit_grass_low": "下品靈草", "spirit_grass_100y": "百年靈草", "spirit_grass_1000y": "千年靈草", "liquid": "丹液", "stone_low": "下品靈石", "stone_mid": "中品靈石", "stone_high": "上品靈石", "refined_iron": "精鐵", "mithril": "秘銀", "cold_iron": "寒鐵", "void_essence": "太虛精華"}
 var _background: Panel
 var _content: VBoxContainer
 var _close_button: Button
@@ -129,7 +129,11 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	title_row.add_child(count)
 	var recipe := HBoxContainer.new()
 	recipe.add_theme_constant_override("separation", 6)
-	column.add_child(recipe)
+	var body := HBoxContainer.new()
+	body.add_theme_constant_override("separation", 12)
+	column.add_child(body)
+	body.add_child(recipe)
+	recipe.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var materials := HFlowContainer.new()
 	materials.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	materials.add_theme_constant_override("h_separation", 6)
@@ -165,9 +169,9 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	status.add_theme_font_size_override("font_size", 16)
 	status.add_theme_color_override("font_color", UiMaterial.INK)
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	status.visible = id in AlchemySystem.P1_IDS
+	status.visible = id in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS
 	column.add_child(status)
-	_widgets[id] = {"status": status,"title": title, "count": count, "materials": materials, "tiles": {}, "column": column, "actions": actions, "output": output, "refine": refine, "consume": consume}
+	_widgets[id] = {"status": status,"title": title, "count": count, "materials": materials, "tiles": {}, "column": column, "body": body, "recipe": recipe, "actions": actions, "output": output, "refine": refine, "consume": consume}
 	return row
 
 func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
@@ -178,6 +182,15 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 		for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]: paper.set_content_margin(side, 4)
 	_pill_rows[String(p.id)].add_theme_stylebox_override("panel", paper)
 	w.column.add_theme_constant_override("separation", 2 if _short else 6)
+	var compact_p2 := _short and String(p.id) in AlchemySystem.P2_IDS
+	var status_parent: Node = w.body if compact_p2 else w.column
+	if w.status.get_parent() != status_parent:
+		w.status.reparent(status_parent)
+	var four_materials: bool = compact_p2 and p.get("cost", {}).size() > 3
+	w.status.custom_minimum_size.x = (210 if four_materials else 260) if compact_p2 else 0
+	w.status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	w.recipe.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN if compact_p2 else Control.SIZE_EXPAND_FILL
+	w.recipe.custom_minimum_size.x = (490 if four_materials else 440) if compact_p2 else 0
 	w.title.text = String(p.name)
 	_pill_rows[String(p.id)].tooltip_text = String(p.name) + "\n" + description
 	w.title.tooltip_text = description
@@ -203,6 +216,13 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 	w.refine.text = "製造" if linked else "煉製"
 	w.refine.disabled = not linked and not bool(p.can_refine)
 	w.refine.tooltip_text = "前往祖島製造產線；在製造頁選擇批數與啟動工作。" if linked else "煉製一顆；材料由祖島庫存扣除。" if p.can_refine else "材料不足或尚未開放；需靈植場3階或築基期。"
+	if String(p.id) in AlchemySystem.P2_IDS:
+		var full_status := _p2_status(p)
+		w.status.text = _p2_compact_status(p) if _short else full_status
+		w.status.visible = true
+		w.status.tooltip_text = full_status + "\n" + description
+		w.consume.tooltip_text = w.status.tooltip_text + "\n" + _p2_reason(String(p.get("consume_reason", "")), p)
+		w.refine.tooltip_text = "煉製一顆；由祖島可用庫存付款。\n" + _p2_reason(String(p.get("refine_reason", "")), p)
 	var inputs: Dictionary = view.get("manufacturing", {}).get("recipes", {}).get(String(p.id), {}).get("inputs", {}) if linked else {}
 	var costs: Dictionary = inputs if linked else p.get("cost", {})
 	for resource in w.tiles:
@@ -218,8 +238,12 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 			available = float(inputs[resource].available)
 		w.tiles[resource].refresh(resource, String(RESOURCE_NAMES.get(resource, resource)), required, available, "祖島")
 		w.tiles[resource].quantity.text = "%s/%s" % [_number(available), _number(required)]
+		if String(p.id) in AlchemySystem.P2_IDS:
+			# Required cost remains on the card; exact available stock stays in the tile TIP.
+			w.tiles[resource].quantity.text = _number(required)
+			w.tiles[resource].icon.visible = w.tiles[resource].icon.resource_texture() != null
 	# Early pills share the existing pill-family illustration; names and TIP identify effects.
-	w.output.refresh(String(p.id) if String(p.id) in AlchemySystem.P1_IDS else "foundation_pill", String(p.name), 1, float(p.count), "丹藥", true)
+	w.output.refresh(String(p.id) if String(p.id) in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS else "foundation_pill", String(p.name), 1, float(p.count), "丹藥", true)
 	w.output.quantity.text = "×%d" % int(p.count)
 	w.output.caption.text = "丹藥"
 	for tile in w.tiles.values() + [w.output]:
@@ -231,3 +255,61 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 
 func _number(value: float) -> String:
 	return ("%.1f" % value).trim_suffix(".0")
+
+func _p2_status(p: Dictionary) -> String:
+	var id := String(p.id)
+	var preview: Dictionary = p.get("p2_preview", {})
+	var text := ""
+	if id in AlchemySystem.P2_TRAINING:
+		text = "單顆實得 %s秒 · 捨棄 %s秒\n凝嬰／虛明共享 %d/99顆（每顆×0.85）" % [_number(float(preview.get("training_gain", 0))), _number(float(preview.get("discarded_seconds", 0))), int(preview.get("shared_count", 0))]
+	elif id in AlchemySystem.P2_TIMED:
+		text = "%s採集 ×1.5／600秒\n餘 %s秒 · 單顆淨延 %s秒；替換剩餘時間" % ["古藥島千年靈草" if id == "ancient_herb_dew_pill" else "太虛島太虛精華", _number(float(preview.get("remaining_seconds", 0))), _number(maxf(0, float(preview.get("net_extension_seconds", 0))))]
+	elif id in AlchemySystem.P2_CAPACITY:
+		text = "祖島%s容量 +%s／顆\n當世餘 %d/5顆；不增加現貨" % ["靈力" if id == "spirit_vessel_pill" else "中品靈石", "10000" if id == "spirit_vessel_pill" else "1000", int(preview.get("remaining_uses", 0))]
+	else:
+		text = "本次渡劫淨增 %s百分點 → %s%%\n%s；實際擲骰後清除" % [_number(float(preview.get("probability_gain", 0))*100), _number(float(preview.get("probability", 0))*100), "限元嬰／化神" if id == "calm_tribulation_pill" else "限化神"]
+		if not String(preview.get("reason", "")).is_empty() or bool(p.locked_by_era):
+			text = "護劫準備 · %s\n每次最多一顆；實際擲骰後清除" % ("限元嬰／化神" if id == "calm_tribulation_pill" else "限化神")
+	var reason := String(p.get("consume_reason", ""))
+	if not reason.is_empty(): text += "\n" + _p2_reason(reason, p)
+	return text
+
+func _p2_compact_status(p: Dictionary) -> String:
+	var id := String(p.id)
+	var preview: Dictionary = p.get("p2_preview", {})
+	var text := ""
+	if id in AlchemySystem.P2_TRAINING:
+		text = "實得 %s秒 · 捨棄 %s秒\n共享 %d/99顆 · 每顆×0.85" % [_number(float(preview.get("training_gain", 0))), _number(float(preview.get("discarded_seconds", 0))), int(preview.get("shared_count", 0))]
+	elif id in AlchemySystem.P2_TIMED:
+		text = "%s×1.5／600秒\n餘 %s秒 · 淨延 %s秒（替換）" % ["古藥島千年靈草" if id == "ancient_herb_dew_pill" else "太虛島太虛精華", _number(float(preview.get("remaining_seconds", 0))), _number(maxf(0, float(preview.get("net_extension_seconds", 0))))]
+	elif id in AlchemySystem.P2_CAPACITY:
+		text = "%s容量 +%s／顆\n當世餘 %d/5顆；不增加現貨" % ["祖島靈力" if id == "spirit_vessel_pill" else "祖島中石", "10000" if id == "spirit_vessel_pill" else "1000", int(preview.get("remaining_uses", 0))]
+	else:
+		text = "護劫淨增 %s百分點 → %s%%\n%s；擲骰後清除" % [_number(float(preview.get("probability_gain", 0))*100), _number(float(preview.get("probability", 0))*100), "限元嬰／化神" if id == "calm_tribulation_pill" else "限化神"]
+		if not String(preview.get("reason", "")).is_empty() or bool(p.locked_by_era):
+			text = "護劫準備 · %s\n每次一顆；擲骰後清除" % ("限元嬰／化神" if id == "calm_tribulation_pill" else "限化神")
+	var reason := String(p.get("consume_reason", ""))
+	if not reason.is_empty():
+		text += "\n" + ("本次已服；渡劫後可再用" if reason == "PILL_STACK_LIMIT" and id in AlchemySystem.P2_WARDS else _p2_reason(reason, p))
+	return text
+
+func _p2_reason(reason: String, p: Dictionary) -> String:
+	match reason:
+		"": return "可操作"
+		"PILL_LOCKED": return "未開：需%s期" % {4:"元嬰",5:"化神",6:"煉虛"}.get(int(p.min_era), str(p.min_era))
+		"PILL_BUILDING_REQUIRED": return "未開：需%s一階" % ("元嬰總庫" if String(p.id) == "spirit_vessel_pill" else "化神總庫")
+		"ISLAND_NOT_OPEN": return "未開：需開拓%s" % ("古藥島" if String(p.id) == "ancient_herb_dew_pill" else "太虛島")
+		"INSUFFICIENT_RESOURCE": return "祖島可用材料不足"
+		"INSUFFICIENT_PILL": return "尚未持有此丹"
+		"TRAINING_ALREADY_COMPLETE": return "當級修行已滿或已達最高層"
+		"PILL_STACK_LIMIT": return "共享服用已滿99顆" if String(p.id) in AlchemySystem.P2_TRAINING else "本次已服；待實際渡劫後再用"
+		"PILL_NO_EXTENSION": return "無淨延；等待剩餘時間下降後再用"
+		"PILL_CAPACITY_LIMIT": return "當世已服滿5顆"
+		"PILL_CONSUME_ERA": return "當世境界不可服用此護劫丹"
+		"PILL_NO_EFFECT": return "機率無淨增；不可服用"
+		"LIFESPAN_EXHAUSTED": return "壽元已盡，無法煉製或服用"
+		"SUPPLY_REQUIRED": return "需先啟用供給規則"
+		"PILL_VERSION": return "需先完成丹藥存檔遷移"
+		"PILL_INVENTORY_LIMIT": return "持有丹藥已達上限"
+		"ALCHEMY_LOCKED": return "煉丹尚未開放"
+	return reason

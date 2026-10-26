@@ -1,0 +1,330 @@
+{
+  "level": "L1_STATIC_ONLY",
+  "checks": 219,
+  "failures": [],
+  "runtime_file_count": 1313,
+  "runtime_changed": [],
+  "runtime_added": [],
+  "calculations": {
+    "training_300": {
+      "1": 300.00000000000006,
+      "3": 771.7500000000001,
+      "5": 1112.5893750000002,
+      "10": 1606.251191318555,
+      "99": 1999.9997941723852
+    },
+    "training_900": {
+      "1": 900.0000000000002,
+      "3": 2315.2500000000005,
+      "5": 3337.768125000001,
+      "10": 4818.753573955664,
+      "99": 5999.999382517156
+    },
+    "training_1800": {
+      "1": 1800.0000000000005,
+      "3": 4630.500000000001,
+      "5": 6675.536250000002,
+      "10": 9637.507147911329,
+      "99": 11999.998765034312
+    },
+    "probabilities": [
+      {
+        "era": 4,
+        "old_count": 0,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.7000000000000001
+      },
+      {
+        "era": 4,
+        "old_count": 0,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.7500000000000001
+      },
+      {
+        "era": 4,
+        "old_count": 0,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.7300000000000001
+      },
+      {
+        "era": 4,
+        "old_count": 0,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.7800000000000001
+      },
+      {
+        "era": 4,
+        "old_count": 1,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.7500000000000001
+      },
+      {
+        "era": 4,
+        "old_count": 1,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.8000000000000002
+      },
+      {
+        "era": 4,
+        "old_count": 1,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.7800000000000001
+      },
+      {
+        "era": 4,
+        "old_count": 1,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.8300000000000002
+      },
+      {
+        "era": 4,
+        "old_count": 5,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.8854315625000001
+      },
+      {
+        "era": 4,
+        "old_count": 5,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.9354315625000001
+      },
+      {
+        "era": 4,
+        "old_count": 5,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.9154315625000001
+      },
+      {
+        "era": 4,
+        "old_count": 5,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 10,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 10,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 10,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 10,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 99,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 99,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 99,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.95
+      },
+      {
+        "era": 4,
+        "old_count": 99,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.95
+      },
+      {
+        "era": 5,
+        "old_count": 0,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.6000000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 0,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.6500000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 0,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.6300000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 0,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.6800000000000002
+      },
+      {
+        "era": 5,
+        "old_count": 1,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.6000000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 1,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.6500000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 1,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.6300000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 1,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.6800000000000002
+      },
+      {
+        "era": 5,
+        "old_count": 5,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.6000000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 5,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.6500000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 5,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.6300000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 5,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.6800000000000002
+      },
+      {
+        "era": 5,
+        "old_count": 10,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.6000000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 10,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.6500000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 10,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.6300000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 10,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.6800000000000002
+      },
+      {
+        "era": 5,
+        "old_count": 99,
+        "calm": 0,
+        "ward": 0,
+        "p": 0.6000000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 99,
+        "calm": 0,
+        "ward": 1,
+        "p": 0.6500000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 99,
+        "calm": 1,
+        "ward": 0,
+        "p": 0.6300000000000001
+      },
+      {
+        "era": 5,
+        "old_count": 99,
+        "calm": 1,
+        "ward": 1,
+        "p": 0.6800000000000002
+      }
+    ],
+    "supply": {
+      "ancient": {
+        "base_rate": 0.04,
+        "extra_no_focus": 12.0,
+        "extra_focus": 24.0,
+        "no_focus_source_seconds": 300,
+        "full_store_extra": 0
+      },
+      "void": {
+        "base_rate": 0.05,
+        "extra_no_focus": 15.0,
+        "extra_focus": 30.0,
+        "no_focus_source_seconds": 300,
+        "full_store_extra": 0
+      }
+    }
+  },
+  "evidence_boundary": "Static proposal arithmetic, not Godot/Amount/natural-play/Web evidence."
+}

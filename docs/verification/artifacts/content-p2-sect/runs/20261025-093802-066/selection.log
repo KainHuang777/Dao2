@@ -1,0 +1,2 @@
+[MODE] matrix=single runners=1 parallel=1
+tests/m1d_offline_runner.gd

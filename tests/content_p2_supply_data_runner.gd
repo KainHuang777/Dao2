@@ -23,7 +23,7 @@ func _init() -> void:
 	if file != null: file.store_string(JSON.stringify(report, "\t"))
 	for failure in failures: push_error(failure)
 	print("%s: CONTENT-P2-SUPPLY data %d checks" % ["PASS" if failures.is_empty() else "FAIL", checks])
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func _snapshot(content: GameContent) -> String:
 	return JSON.stringify([content.resources, content.buildings, content.eras, content.processing_catalog, content.skill_defs, content.content_version])

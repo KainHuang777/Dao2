@@ -1,0 +1,167 @@
+extends SceneTree
+const META := {"save_id":"pill2-isolated","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":"0"}
+const DIR := "res://docs/verification/artifacts/content-p2-pills/"
+var checks := 0
+var failures: Array[String] = []
+var content: GameContent
+class Memory extends StorageAdapter:
+	var data := {}
+	var fail := ""
+	var corrupt := ""
+	var read_fail := ""
+	func exists(key: String) -> bool: return data.has(key)
+	func read(key: String) -> Dictionary:
+		if key == read_fail: return {"ok":false,"error":"injected_read"}
+		return {"ok":data.has(key),"data":data.get(key,""),"error":"missing"}
+	func write(key: String,value: String) -> Dictionary:
+		if key == fail or fail == "*": return {"ok":false,"error":"injected_write"}
+		data[key] = "bad-readback" if key == corrupt else value
+		return {"ok":true}
+	func erase(key: String) -> Dictionary:
+		data.erase(key)
+		return {"ok":true}
+func _init() -> void: run.call_deferred()
+func check(ok: bool,label: String) -> void:
+	checks += 1
+	if not ok:
+		failures.append(label)
+		print("FAIL: ",label)
+func fresh() -> GameState:
+	return GameSession.create_new_game(content,20261025).state
+func encode(state: GameState) -> String:
+	var result := SaveCodec.encode(state,content.content_version,META)
+	check(result.ok,"encode fixture "+str(result.get("error")))
+	return result.get("json", "")
+func changed(raw: String,field: String,value: Variant) -> String:
+	var env: Dictionary = JSON.parse_string(raw)
+	env.state[field] = value
+	env.erase("checksum")
+	env.checksum = SaveCodec.compute_checksum(env)
+	return JSON.stringify(env)
+func run() -> void:
+	content = ContentLoader.load_directory("res://content").content
+	check(IslandProgression.attach_supply(content).ok,"attach")
+	for version in [0,1]:
+		for imported in [false,true]:
+			for fault in ["archive_write","archive_read","archive_corrupt","slot_write","slot_corrupt","index"]:
+				var old := fresh()
+				old.pill_version = version
+				old.talent_version = 2 # Concurrent migrations must retain their own source.
+				var raw := " \n"+encode(old)+"\n"
+				var mem := Memory.new()
+				mem.data[SaveSlots.SLOT_MAIN] = raw
+				SaveManager.configure(content,mem)
+				var candidate: GameState
+				if imported:
+					var result := SaveManager.import_share_string(Marshalls.utf8_to_base64(raw))
+					check(result.ok,"import accepted")
+					candidate = result.state
+				else: candidate = SaveManager.current_state()
+				if candidate == null:
+					check(false,"candidate load "+SaveManager.load_error())
+					continue
+				check(candidate.pill_version == 2 and SaveManager.migration_pending(candidate),"pill2 pending")
+				var session := GameSession.new()
+				session.content = content
+				session.state = candidate
+				var before := candidate.to_snapshot_dict()
+				var cmd := {"command_id":"blocked","type":"gather","payload":{"resource_id":"wood"},"expected_revision":candidate.revision}
+				check(not session.submit(cmd).ok and not session.advance_time(60).ok,"pending command/time blocked")
+				check(not OfflineCoordinator.settle_state(candidate,content,61000,1000).ok and before == candidate.to_snapshot_dict(),"pending offline no mutation")
+				var key := "save_before_pills_"+raw.sha256_text()
+				if fault == "archive_write": mem.fail = key
+				elif fault == "archive_read": mem.read_fail = key
+				elif fault == "archive_corrupt": mem.corrupt = key
+				elif fault == "slot_write": mem.fail = SaveSlots.SLOT_MAIN if imported else SaveSlots.SLOT_BACKUP
+				elif fault == "slot_corrupt": mem.corrupt = SaveSlots.SLOT_MAIN if imported else SaveSlots.SLOT_BACKUP
+				else: mem.fail = SaveSlots.INDEX_KEY
+				var saved := SaveManager.save(candidate,META)
+				check(not saved.ok and SaveManager.migration_pending(candidate) and before == candidate.to_snapshot_dict(),"failure retains candidate "+fault)
+				check(not SaveManager.save(candidate,META).ok and before == candidate.to_snapshot_dict(),"repeat failure no reapply")
+				mem.fail = ""
+				mem.corrupt = ""
+				mem.read_fail = ""
+				check(SaveManager.save(candidate,META).ok and not SaveManager.migration_pending(candidate) and before == candidate.to_snapshot_dict(),"retry same candidate")
+				check(mem.data.get(key) == raw and mem.data.get("save_before_talents_"+raw.sha256_text()) == raw,"both exact archives")
+				SaveManager.configure(content,mem)
+				var loaded := SaveManager.current_state()
+				check(loaded != null and loaded.pill_version == 2 and loaded.pills.is_empty() and loaded.pill_effects.is_empty(),"reload no gift")
+				SaveManager.reset_for_tests()
+	_test_validation()
+	_test_receipts()
+	DirAccess.make_dir_recursive_absolute(DIR)
+	var file := FileAccess.open(DIR+"save.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	print("CONTENT-P2-PILLS-SAVE ",checks," checks failures=",JSON.stringify(failures))
+	print("RUNNER_RESULT status=%s exit=%d" % ["PASS" if failures.is_empty() else "FAIL",0 if failures.is_empty() else 1])
+	quit(0 if failures.is_empty() else 1)
+func _test_validation() -> void:
+	var good := fresh()
+	good.pills = {"nascent_breath_pill":1}
+	good.pill_effects = {"stacks":{"p2_training":98,"calm_tribulation_pill":1},"p2_capacity_counts":{"spirit_vessel_pill":5,"stone_vault_pill":2}}
+	BuffSystem.apply_buff(good,"p2_ancient_dew",600)
+	var raw := encode(good)
+	check(SaveCodec.decode(raw).ok,"new effects roundtrip")
+	var env: Dictionary = JSON.parse_string(raw)
+	check(env.schema_version == 5 and env.rules_version == SaveCodec.SECT_RULES_VERSION,"schema/rules")
+	for version in [0,1,3,true,1.5]: check(not SaveCodec.decode(changed(raw,"pill_version",version)).ok,"version fails "+str(version))
+	for id in AlchemySystem.P2_IDS:
+		for value in [-1,1000000,true,1.5,"1",INF,NAN]:
+			check(not AlchemySystem.validate(2,{id:value},{},{}).is_empty(),"bad inventory "+id)
+		for version in [0,1]: check(not AlchemySystem.validate(version,{id:0},{},{}).is_empty(),"old version rejects zero new ID")
+	for field in ["p2_capacity_counts","stacks"]:
+		for value in [true,1,[],"1"]:
+			check(not SaveCodec.decode(changed(raw,"pill_effects",{field:value})).ok,"container type "+field)
+	for value in [-1,6,true,1.5,"1",INF,NAN]: check(not AlchemySystem.validate(2,{},{},{"p2_capacity_counts":{"spirit_vessel_pill":value}}).is_empty(),"bad capacity")
+	for value in [-1,100,true,1.5,"1",INF,NAN]: check(not AlchemySystem.validate(2,{},{},{"stacks":{"p2_training":value}}).is_empty(),"bad training")
+	for value in [-1,2,true,1.5,"1",INF,NAN]: check(not AlchemySystem.validate(2,{},{},{"stacks":{"calm_tribulation_pill":value}}).is_empty(),"bad ward")
+	check(not AlchemySystem.validate(2,{},{},{"p2_capacity_counts":{"unknown":0}}).is_empty(),"capacity unknown")
+	check(not AlchemySystem.validate(2,{},{},{"stacks":{"unknown":0}}).is_empty(),"stack unknown")
+	for id in BuffSystem.P2_IDS:
+		for field in ["effects","id","is_permanent","transmigratable","name","description","color","icon_text","duration_seconds","remaining_seconds"]:
+			var state := fresh()
+			BuffSystem.apply_buff(state,id,600)
+			state.buffs[id][field] = {"local_multiplier":999} if field == "effects" else -1
+			check(not SaveCodec.encode(state,content.content_version,META).ok,"buff forged "+field)
+	# Both unreadable slots prohibit overwriting original data.
+	for payload in ["broken", changed(raw,"pill_version",3)]:
+		var mem := Memory.new()
+		mem.data = {SaveSlots.SLOT_MAIN:payload,SaveSlots.SLOT_BACKUP:payload}
+		SaveManager.configure(content,mem)
+		check(SaveManager.current_state() == null and not SaveManager.save(good,META).ok,"untrusted no overwrite")
+		check(mem.data[SaveSlots.SLOT_MAIN] == payload and mem.data[SaveSlots.SLOT_BACKUP] == payload,"invalid bytes intact")
+		SaveManager.reset_for_tests()
+func _test_receipts() -> void:
+	for id in AlchemySystem.P2_IDS:
+		var mem := Memory.new()
+		SaveManager.configure(content,mem)
+		var session := GameSession.create_new_game(content,20261025)
+		session.state.era_id = 5 if id in AlchemySystem.P2_WARDS else 6
+		session.state.highest_era = 6
+		session.state.buildings.core_storehouse_4 = 1
+		session.state.buildings.core_storehouse_5 = 1
+		check(CommandProcessor.apply(content,session.state,{"type":"activate_islands","payload":{}}).ok,"receipt activate")
+		for island in session.state.economy.islands: session.state.economy.islands[island].opened = true
+		for resource in session.state.resources:
+			session.state.resources[resource].value = AmountCompat.from_number(1000000)
+			session.state.resources[resource].unlocked = true
+		session.state.resources.foundation_pill.value = AmountCompat.zero()
+		SkillSystem.sync_unlock(session.state)
+		for kind in ["refine_pill","consume_pill"]:
+			var cmd := {"command_id":kind+id,"type":kind,"payload":{"pill_id":id},"expected_revision":session.state.revision}
+			check(session.submit(cmd).ok,"per-ID command "+kind+id)
+			var before := session.state.to_snapshot_dict()
+			check(session.submit(cmd).get("duplicate",false) and before == session.state.to_snapshot_dict(),"same command no double effect")
+			mem.fail = "*"
+			check(not SaveManager.save(session.state,META).ok,"paid candidate denial")
+			check(not SaveManager.save(session.state,META).ok and before == session.state.to_snapshot_dict(),"retry denial unchanged")
+			mem.fail = ""
+			var saved := SaveManager.save(session.state,META)
+			check(saved.ok and before == session.state.to_snapshot_dict(),"save same paid candidate "+str(saved.get("error")))
+			SaveManager.configure(content,mem)
+			session.state = SaveManager.current_state()
+			check(session.state != null and session.submit(cmd).get("duplicate",false),"reload deduplicates")
+			if session.state != null:
+				var after := session.state.to_snapshot_dict()
+				check(JSON.parse_string(JSON.stringify(before)) == JSON.parse_string(JSON.stringify(after)),"reload keeps numeric values/costs/counters/rng")
+		SaveManager.reset_for_tests()

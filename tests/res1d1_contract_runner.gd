@@ -313,8 +313,8 @@ func total(state: GameState, id: String) -> float:
 func finish() -> void:
 	if failures.is_empty():
 		print("PASS: RES1-D1 %d checks; isolated earned Era3, Danxia, T2/T3 consumption, atomic refusal, transport, conservation, 600s partitions." % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)

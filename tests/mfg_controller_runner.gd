@@ -57,8 +57,8 @@ func _init() -> void:
 		check(painted, "icon texture painted kind %d" % kind)
 	if failures.is_empty():
 		print("PASS: MFG-1 controller and MFG-0 icons.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for f in failures:
 			push_error(f)
-		quit(1)
+		RunnerResult.finish(self, 1)

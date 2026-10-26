@@ -187,11 +187,11 @@ func _run() -> void:
 	AbodeScript.save_dir_override = ""
 	if failures.is_empty():
 		print("PASS: island breakthrough real command, capacity, failed-save retry, zero-state replay, skip, focus recovery, low motion, four layouts and reload aura.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:

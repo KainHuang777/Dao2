@@ -1,0 +1,192 @@
+{
+	"checks": 368,
+	"comparisons": [
+		{
+			"age_at_choice": 3908.0,
+			"choice": "retain",
+			"cultivation_multiplier": 0.0,
+			"feed_elapsed_seconds": 5700.0,
+			"feed_grass": 1000.0,
+			"feeds_to_mature": 20,
+			"hearts": 20.0,
+			"max_lifespan_seconds": 44400.0,
+			"pill_training_seconds": 60.0,
+			"rates": {
+				"lingli": 3.73603222287528,
+				"money": 3.83466526147228,
+				"spirit_grass_low": 1.30812732407485,
+				"stone_low": 1.43674067254681,
+				"wood": 1.43674067254681
+			}
+		},
+		{
+			"age_at_choice": 3908.0,
+			"choice": "alchemical_past_wisdom",
+			"cultivation_multiplier": 0.0,
+			"feed_elapsed_seconds": 5700.0,
+			"feed_grass": 1000.0,
+			"feeds_to_mature": 20,
+			"hearts": 15.0,
+			"max_lifespan_seconds": 44400.0,
+			"pill_training_seconds": 66.0,
+			"rates": {
+				"lingli": 3.68080264048361,
+				"money": 3.77797759167484,
+				"spirit_grass_low": 1.28878934155387,
+				"stone_low": 1.41550140515933,
+				"wood": 1.41550140515933
+			}
+		},
+		{
+			"age_at_choice": 3908.0,
+			"choice": "artisan_past_wisdom",
+			"cultivation_multiplier": 0.0,
+			"feed_elapsed_seconds": 5700.0,
+			"feed_grass": 1000.0,
+			"feeds_to_mature": 20,
+			"hearts": 15.0,
+			"max_lifespan_seconds": 44400.0,
+			"pill_training_seconds": 60.0,
+			"rates": {
+				"lingli": 3.68080264048361,
+				"money": 4.08021579900883,
+				"spirit_grass_low": 1.39189248887818,
+				"stone_low": 1.52874151757208,
+				"wood": 1.52874151757208
+			}
+		},
+		{
+			"age_at_choice": 3908.0,
+			"choice": "beast_bond_past_wisdom",
+			"cultivation_multiplier": 0.0,
+			"feed_elapsed_seconds": 4800.0,
+			"feed_grass": 850.0,
+			"feeds_to_mature": 17,
+			"hearts": 15.0,
+			"max_lifespan_seconds": 44400.0,
+			"pill_training_seconds": 60.0,
+			"rates": {
+				"lingli": 3.68080264048361,
+				"money": 3.77797759167484,
+				"spirit_grass_low": 1.28878934155387,
+				"stone_low": 1.41550140515933,
+				"wood": 1.41550140515933
+			}
+		},
+		{
+			"age_at_choice": 3908.0,
+			"choice": "resource_inheritance",
+			"cultivation_multiplier": 0.0,
+			"feed_elapsed_seconds": 5700.0,
+			"feed_grass": 1000.0,
+			"feeds_to_mature": 20,
+			"hearts": 15.0,
+			"max_lifespan_seconds": 44400.0,
+			"pill_training_seconds": 60.0,
+			"rates": {
+				"lingli": 3.68080264048361,
+				"money": 3.77797759167484,
+				"spirit_grass_low": 1.28878934155387,
+				"stone_low": 1.41550140515933,
+				"wood": 1.41550140515933
+			}
+		},
+		{
+			"age_at_choice": 3908.0,
+			"choice": "lifespan_extension",
+			"cultivation_multiplier": 0.0,
+			"feed_elapsed_seconds": 5700.0,
+			"feed_grass": 1000.0,
+			"feeds_to_mature": 20,
+			"hearts": 10.0,
+			"max_lifespan_seconds": 48840.0,
+			"pill_training_seconds": 60.0,
+			"rates": {
+				"lingli": 3.60470261478163,
+				"money": 3.69986848887595,
+				"spirit_grass_low": 1.26214382110732,
+				"stone_low": 1.38623613238185,
+				"wood": 1.38623613238185
+			}
+		},
+		{
+			"age_at_choice": 3908.0,
+			"choice": "innate_dao_body",
+			"cultivation_multiplier": 0.1,
+			"feed_elapsed_seconds": 5700.0,
+			"feed_grass": 1000.0,
+			"feeds_to_mature": 20,
+			"hearts": 5.0,
+			"max_lifespan_seconds": 44400.0,
+			"pill_training_seconds": 60.0,
+			"rates": {
+				"lingli": 3.48159677906616,
+				"money": 3.57351260018415,
+				"spirit_grass_low": 1.21903977439529,
+				"stone_low": 1.33889415280327,
+				"wood": 1.33889415280327
+			}
+		}
+	],
+	"content_version": "3b24f41ca76c5ef3a56d307dfab890c5bf9de6baccfae882bf32920548c23060+res1-d-2+content-p1-story+content-p1-sect+content-p1-skills",
+	"evidence": "Current-source legal commands, accelerated simulation, same earned second-life Era3 state at choice. No inventory/era/cooldown/fortune injection. Rates include held-heart opportunity cost. No browser natural-wait claim.",
+	"failures": [],
+	"milestones": [
+		{
+			"age_seconds": 5728.0,
+			"era": 3,
+			"label": "blank-to-Era3 legal prefix; accelerated CLI",
+			"level": 1,
+			"revision": 1607
+		},
+		{
+			"age_seconds": 5728.0,
+			"era": 3,
+			"label": "five new skills",
+			"level": 1,
+			"revision": 1612
+		},
+		{
+			"age_seconds": 5728.0,
+			"era": 3,
+			"label": "four paid pills active",
+			"level": 1,
+			"revision": 1620
+		},
+		{
+			"age_seconds": 6629.0,
+			"era": 3,
+			"label": "sect contribution spent",
+			"level": 1,
+			"revision": 1641
+		},
+		{
+			"age_seconds": 10829.0,
+			"era": 3,
+			"label": "natural new fortune",
+			"level": 1,
+			"revision": 1649
+		},
+		{
+			"age_seconds": 44400.0,
+			"era": 3,
+			"label": "lifespan exhausted",
+			"level": 1,
+			"revision": 1659
+		},
+		{
+			"age_seconds": 0.0,
+			"era": 1,
+			"label": "second life begins",
+			"level": 1,
+			"revision": 1660
+		},
+		{
+			"age_seconds": 3908.0,
+			"era": 3,
+			"label": "second life rebuilt to Era3 without buying talents",
+			"level": 1,
+			"revision": 3205
+		}
+	]
+}

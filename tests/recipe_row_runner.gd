@@ -75,8 +75,8 @@ func _init() -> void:
 
 	if failures.is_empty():
 		print("PASS: MFG-2 RecipeRow component and layout checks.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for f in failures:
 			push_error(f)
-		quit(1)
+		RunnerResult.finish(self, 1)

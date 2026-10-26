@@ -1,0 +1,146 @@
+"""Apply the approved X core changes; intentionally no UI/art edits."""
+from pathlib import Path
+import json, shutil, hashlib
+ROOT=Path(__file__).resolve().parents[1]
+OUT=ROOT/'docs/verification/artifacts/content-p2-beasts'
+OUT.mkdir(parents=True,exist_ok=True)
+def read(p): return (ROOT/p).read_text(encoding='utf-8-sig')
+def write(p,s):
+    path=ROOT/p
+    if path.exists():
+        backup=OUT/'source-before'/p
+        backup.parent.mkdir(parents=True,exist_ok=True)
+        if not backup.exists(): shutil.copyfile(path,backup)
+    path.write_text(s,encoding='utf-8',newline='\n')
+def edit(p,a,b):
+    s=read(p)
+    assert a in s,(p,a[:80])
+    write(p,s.replace(a,b))
+
+# Preserve existing mutable evidence before any runner is started.
+baseline={}
+for folder in ['src/verification','docs/verification/artifacts']:
+    for p in (ROOT/folder).rglob('*.json'):
+        if OUT in p.parents or any(x in p.parts for x in ['source-before','baseline']): continue
+        rel=p.relative_to(ROOT)
+        baseline[str(rel)]=hashlib.sha256(p.read_bytes()).hexdigest()
+        target=OUT/'baseline'/hashlib.sha256(str(rel).encode()).hexdigest()
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(p,target)
+(OUT/'baseline-index.json').write_text(json.dumps(baseline,indent=2),encoding='utf-8')
+
+proposal=json.loads(read('docs/design-data/content-p2-beasts-proposal.json'))
+p='src/simulation/beast_system.gd'
+s=read(p).replace('const BASE_COOLDOWN', 'const VERSION := 1\nconst P2_IDS := ["frost_stag", "herb_crane"]\nconst MAX_SOULS := 2147483647\n\nconst BASE_COOLDOWN',1)
+configs={}
+talents={}
+for b in proposal['beasts']:
+    configs[b['id']]={'id':b['id'],'name':b['name'],'unlock_era':b['era'],'feed_resource':b['feed_home_cost'],'passive_type':'local_rate','passive_base_value':0.2,'island':b['requires_open_island'],'resources':b['active_effect']['resources'],'desc':b['name']+'提升指定地方採集產率。'}
+    for t in b['talents']:
+        talents[t['id']]={**t,'beast_id':b['id'],'desc':{1:'自己的非卵階段係數 +0.05',2:'自己的餵養經驗 +30%',3:'自己的餵費取六成，逐資源向下取整、最低1',4:'永久指定地方各資源容量 +30'}[t['tier']]}
+def entries(d): return '\n'.join('\t'+json.dumps(k)+': '+json.dumps(v,ensure_ascii=False)+',' for k,v in d.items())+'\n'
+s=s.replace('const BEAST_CONFIGS := {','const BEAST_CONFIGS := {\n'+entries(configs),1)
+s=s.replace('const BEAST_TALENTS := {','const BEAST_TALENTS := {\n'+entries(talents),1)
+start=s.index('\tensure_initialized(state)\n',s.index('static func acquire_beast'))
+end=s.index('\n\tvar beast_data',start)
+s=s[:start]+'''\tvar eligibility := acquire_requirements(state, beast_id)
+\tif not eligibility.ok: return eligibility
+\tensure_initialized(state)
+'''+s[end:]
+s=s.replace('static func unlock_talent(state: GameState, talent_id: String) -> Dictionary:\n\tensure_initialized(state)', '''static func unlock_talent(state: GameState, talent_id: String) -> Dictionary:
+\tif BEAST_TALENTS.has(talent_id) and BEAST_TALENTS[talent_id].beast_id in P2_IDS and state.beast_version < VERSION:
+\t\treturn {"ok": false, "error": "BEAST_SAVE_REQUIRED"}
+\tensure_initialized(state)''')
+s=s.replace('static func on_reincarnate(state: GameState) -> Dictionary:\n\tensure_initialized(state)', '''static func on_reincarnate(state: GameState) -> Dictionary:
+\tif not reincarnation_error(state).is_empty(): return {"ok": false, "error": reincarnation_error(state)}
+\tensure_initialized(state)''')
+s=s.replace('var costs := feed_costs(state, String(active.get("id", "")))','''var requirements := {}
+\tfor id in BEAST_CONFIGS: requirements[id] = acquire_requirements(state, id)
+\tvar costs := feed_costs(state, String(active.get("id", "")))''')
+s=s.replace('return {"active": active, "feed_costs":','return {"acquire_requirements": requirements, "active": active, "feed_costs":')
+s+='''
+## Pure projection shared by commands and Views; rejection cannot initialize state.
+static func acquire_requirements(state: GameState, beast_id: String) -> Dictionary:
+\tif not state.beasts.get("active", {}).is_empty(): return {"ok": false, "error": "ALREADY_HAS_ACTIVE_BEAST"}
+\tif not BEAST_CONFIGS.has(beast_id): return {"ok": false, "error": "UNKNOWN_BEAST"}
+\tvar config: Dictionary = BEAST_CONFIGS[beast_id]
+\tif state.era_id < int(config.unlock_era): return {"ok": false, "error": "INSUFFICIENT_ERA", "required_era": config.unlock_era}
+\tif beast_id in P2_IDS:
+\t\tif state.beast_version < VERSION: return {"ok": false, "error": "BEAST_SAVE_REQUIRED"}
+\t\tif not IslandEconomy.expanded(state): return {"ok": false, "error": "SUPPLY_REQUIRED"}
+\t\tif not state.economy.get("islands", {}).get(config.island, {}).get("opened", false): return {"ok": false, "error": "ISLAND_NOT_OPEN", "island": config.island}
+\treturn {"ok": true}
+
+static func local_rate_multiplier(state: GameState, island: String, resource: String) -> float:
+\tif state.beast_version < VERSION or not IslandEconomy.expanded(state): return 1.0
+\tif not state.economy.get("islands", {}).get(island, {}).get("opened", false): return 1.0
+\tvar active: Dictionary = state.beasts.get("active", {})
+\tvar id: String = active.get("id", "")
+\tif id not in P2_IDS: return 1.0
+\tvar config: Dictionary = BEAST_CONFIGS[id]
+\tif config.island != island or resource not in config.resources: return 1.0
+\tvar stage_mult := float(STAGE_CONFIGS.get(active.get("stage", "egg"), {}).get("multiplier", 0.0))
+\tif stage_mult <= 0: return 1.0
+\tfor talent_id in state.beast_talents:
+\t\tvar t: Dictionary = BEAST_TALENTS.get(talent_id, {})
+\t\tif int(state.beast_talents[talent_id]) > 0 and t.get("beast_id") == id and t.get("type") == "beast_passive_boost": stage_mult += float(t.value)
+\treturn 1.0 + float(config.passive_base_value) * stage_mult
+
+static func local_capacity_bonus(state: GameState, island: String) -> float:
+\tif state.beast_version < VERSION or not IslandEconomy.expanded(state): return 0.0
+\tif not state.economy.get("islands", {}).get(island, {}).get("opened", false): return 0.0
+\tvar bonus := 0.0
+\tfor id in state.beast_talents:
+\t\tvar t: Dictionary = BEAST_TALENTS.get(id, {})
+\t\tif int(state.beast_talents[id]) > 0 and t.get("type") == "local_capacity_flat" and t.get("island") == island: bonus += float(t.value)
+\treturn bonus
+
+static func reincarnation_error(state: GameState) -> String:
+\tvar active: Dictionary = state.beasts.get("active", {})
+\tif active.get("stage") == "mature" and int(state.beast_souls.get(active.get("id", ""), 0)) >= MAX_SOULS: return "BEAST_SOUL_OVERFLOW"
+\treturn ""
+'''
+write(p,s)
+p='src/domain/game_state.gd'
+edit(p,'var sect_version:', 'var beast_version: int = BeastSystem.VERSION\nvar sect_version:')
+edit(p,'copy.sect_version = sect_version','copy.beast_version = beast_version\n\tcopy.sect_version = sect_version')
+edit(p,'"sect_version": sect_version,','"beast_version": beast_version,\n\t\t"sect_version": sect_version,')
+p='src/persistence/save_codec.gd'
+edit(p,'const SECT_RULES_VERSION', 'const BEAST_RULES_VERSION := "core-flow-23-content-p2-beasts"\nconst SECT_RULES_VERSION')
+edit(p,'\tvar story_error :=','\tvar beast_error := BeastSaveContract.validate(state.beast_version, state.beasts, state.beast_souls, state.beast_talents)\n\tif not beast_error.is_empty(): return {"ok": false, "json": "", "error": beast_error}\n\tvar story_error :=')
+edit(p,'"rules_version": SECT_RULES_VERSION','"rules_version": BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION')
+edit(p,'\tvar scenery_data: Variant =', '''\tvar beast_version: Variant = snapshot_dict.get("beast_version", 0)
+\tvar beast_error := BeastSaveContract.validate(beast_version, state.beasts, state.beast_souls, state.beast_talents)
+\tif not beast_error.is_empty(): return {"ok": false, "state": null, "error": beast_error}
+\tstate.beast_version = int(beast_version)
+\tfor entries in [state.beast_souls, state.beast_talents]:
+\t\tfor id in entries: entries[id] = int(entries[id])
+\tif not state.beasts.get("active", {}).is_empty(): state.beasts.active.exp = int(state.beasts.active.exp)
+\tvar scenery_data: Variant =''')
+p='src/persistence/save_manager.gd'
+s=read(p)
+s=s.replace('static var _sect_original:', 'static var _beasts_original: String = ""\nstatic var _beasts_candidate: GameState = null\nstatic var _sect_original:',1)
+s=s.replace('return (not _sect_original', 'return (not _beasts_original.is_empty() and state == _beasts_candidate) or (not _sect_original',1)
+s=s.replace('return "SUPPLY_SAVE_REQUIRED"', 'return "BEAST_SAVE_REQUIRED" if not _beasts_original.is_empty() and state == _beasts_candidate else "SUPPLY_SAVE_REQUIRED"',1)
+s=s.replace('\t_sect_original = ""\n\t_sect_candidate = null', '\t_beasts_original = ""\n\t_beasts_candidate = null\n\t_sect_original = ""\n\t_sect_candidate = null')
+s=s.replace('\t\t_sect_original = ""\n\t\t_sect_candidate = null','\t\t_beasts_original = ""\n\t\t_beasts_candidate = null\n\t\t_sect_original = ""\n\t\t_sect_candidate = null')
+s=s.replace('\tif _sect_candidate != null and state != _sect_candidate:', '\tif _beasts_candidate != null and state != _beasts_candidate:\n\t\treturn {"ok": false, "error": "BEAST_CANDIDATE_REQUIRED"}\n\tif _sect_candidate != null and state != _sect_candidate:')
+start=s.index('\tif not _sect_original.is_empty():\n',s.index('static func save('))
+end=s.index('\tif not _pills_original.is_empty():',start)
+s=s[:start]+s[start:end].replace('_sect_original','_beasts_original').replace('save_before_sect_','save_before_beasts_').replace('SECT_ARCHIVE','BEAST_ARCHIVE')+s[start:]
+s=s.replace('if _sect_candidate != null or', 'if _beasts_candidate != null or _sect_candidate != null or')
+s=s.replace('\tif decode_result.state.sect_version <', '\tif decode_result.state.beast_version < BeastSystem.VERSION:\n\t\t_beasts_original = json_text\n\t\t_beasts_candidate = decode_result.state\n\t\tdecode_result.state.beast_version = BeastSystem.VERSION\n\tif decode_result.state.sect_version <')
+s=s.replace('\tif loaded_state.sect_version <', '\tif loaded_state.beast_version < BeastSystem.VERSION:\n\t\t_beasts_original = String(best["json"])\n\t\t_beasts_candidate = loaded_state\n\t\tloaded_state.beast_version = BeastSystem.VERSION\n\t\tloaded_state.revision += 1\n\tif loaded_state.sect_version <')
+s=s.replace('if String(decode_result.get("error", "")).begins_with("SECT_")', 'if String(decode_result.get("error", "")).begins_with("BEAST_") or String(decode_result.get("error", "")).begins_with("SECT_")')
+write(p,s)
+edit('src/simulation/island_economy.gd','* AlchemySystem.local_multiplier(state, island, id)','* AlchemySystem.local_multiplier(state, island, id) * BeastSystem.local_rate_multiplier(state, island, id)')
+edit('src/simulation/island_progression.gd','cap += SksP2Rules.local_capacity_bonus(island, state.skills)','cap += SksP2Rules.local_capacity_bonus(island, state.skills) + BeastSystem.local_capacity_bonus(state, island)')
+edit('src/simulation/island_progression.gd','\treturn {"ok": true}\n\nstatic func prepare_supply','\tif not "+content-p2-beasts" in content.content_version:\n\t\tcontent.content_version += "+content-p2-beasts"\n\treturn {"ok": true}\n\nstatic func prepare_supply')
+edit('src/simulation/reincarnation_rules.gd','\tvar b_sum := building_level_sum(state.buildings)','\tvar beast_error := BeastSystem.reincarnation_error(state)\n\tif not beast_error.is_empty(): return {"ok": false, "error": beast_error, "events": [], "changed_ids": []}\n\tvar b_sum := building_level_sum(state.buildings)')
+# Apply the existing P2 lifespan calculation to formal beast commands.
+for func in ['_apply_acquire_beast','_apply_feed_beast','_apply_unlock_beast_talent']:
+    p='src/simulation/command_processor.gd'; s=read(p)
+    pos=s.index('\n',s.index('static func '+func))+1
+    s=s[:pos]+'\tif not SectSystem.p2_life_error(state).is_empty(): return _failure("LIFESPAN_EXHAUSTED", {})\n'+s[pos:]
+    write(p,s)
+print('Applied X core changes; baseline files',len(baseline))

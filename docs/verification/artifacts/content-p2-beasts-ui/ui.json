@@ -1,0 +1,10 @@
+{
+	"boundary": "Synthetic UI fixtures; direct signals/functions do not prove browser mouse",
+	"checks": 169,
+	"failures": [
+		"feed reachable",
+		"feed reachable",
+		"feed reachable",
+		"feed reachable"
+	]
+}

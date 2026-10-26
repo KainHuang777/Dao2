@@ -1,0 +1,17 @@
+{
+  "baseline_count": 10045,
+  "restored": [
+    {
+      "path": "src/verification/content_p1_pills_fixture.json",
+      "restored_sha256": "13ff2519294d24dbfc61584aba9d0607c8a02feadc26c4b313cd7a5eef249e6e",
+      "generated": "docs\\verification\\artifacts\\content-p2-pills\\generated\\1aa549386825d06c9ee38dad005d99f15a7aedd85eac104cf6719c913a13de5b"
+    }
+  ],
+  "failures": [],
+  "earlier_direct_run_reconciled": {
+    "path": "docs/verification/artifacts/content-p2-talents/runner.json",
+    "backup": "docs\\verification\\artifacts\\content-p2-talents-closure\\before-flat\\17f807412f555df5c98707908122a2009ebe2a6c694dd0a98d636a2ae2107d5a.json",
+    "sha256": "b61dd0d07a8e8dc92b7eb93a8ec2bc15c114a5e4f774fac74e02e8910e5e9446",
+    "reason": "Initial direct targeted talent run preceded bulk backup; recovered verified prior bytes."
+  }
+}

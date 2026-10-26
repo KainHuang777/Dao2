@@ -43,7 +43,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(DIR)
 	var c: GameContent = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach(c).ok,"attach")
-	check(SectSystem.TECHNIQUES.size() == 6 and SectSystem.MARKET_ITEMS.size() == 6,"6 techniques 6 goods")
+	check(SectSystem.TECHNIQUES.size() == 8 and SectSystem.MARKET_ITEMS.size() == 8,"8 techniques 8 goods; P1 rules retained")
 	var contribution_costs := [[60,90,135,203,304],[90,135,203,304,456]]
 	var material_costs := [[5,8,12,17,26],[100,150,225,338,507]]
 	for index in 2:
@@ -197,7 +197,7 @@ func run() -> void:
 	var encoded := SaveCodec.encode(s.state,c.content_version,META)
 	if not encoded.ok:
 		print("ENCODE FAILED: ", encoded, " checks=", checks, " failures=", failures)
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	var env: Dictionary = JSON.parse_string(encoded.json)
 	for malformed in ["negative_contribution","unknown_technique","counter","oversize","duplicate","bad_time","v0_new_id"]:
@@ -220,7 +220,7 @@ func run() -> void:
 		SaveManager.configure(c,invalid_store)
 		check(SaveManager.current_state() == null and SaveManager.load_error().begins_with("SECT_") and invalid_store.data[SaveSlots.SLOT_MAIN] == invalid_raw,"malformed original retained with reason "+malformed)
 		SaveManager.reset_for_tests()
-	for bad in [true,-1,2,1.5,"1"]:
+	for bad in [true,-1,3,1.5,"1"]:
 		var candidate := env.duplicate(true); candidate.state.sect_version = bad
 		check(not decode(candidate).ok,"version reject "+str(bad))
 	for field in ["techniques","market_purchases"]:
@@ -239,7 +239,7 @@ func run() -> void:
 	var mem := Memory.new(); mem.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c,mem)
 	var migrated := SaveManager.current_state()
-	check(migrated != null and migrated.sect_version == 1,"v0 migrate")
+	check(migrated != null and migrated.sect_version == SectSystem.VERSION,"v0 migrate")
 	var archive := "save_before_sect_"+original.sha256_text()
 	mem.fail = archive
 	check(not SaveManager.save(migrated,META).ok and mem.data[SaveSlots.SLOT_MAIN] == original,"archive denial retains original")
@@ -262,13 +262,28 @@ func run() -> void:
 	s = funded(c); s.state.resources.wood.value = AmountCompat.zero()
 	s.state.sect.available_tasks = [frozen("home_supply_register")]
 	s.state.beasts.active = {"id":"jade_fox","stage":"egg","experience":0,"last_feed_age":-300}
-	FileAccess.open("res://src/verification/content_p1_sect_fixture.json",FileAccess.WRITE).store_string(SaveCodec.encode(s.state,c.content_version,META).json)
+	var write_file_fixture := FileAccess.open("res://src/verification/content_p1_sect_fixture.json",FileAccess.WRITE)
+	if write_file_fixture == null:
+		push_error("write failed: " + str("res://src/verification/content_p1_sect_fixture.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_fixture.store_string(SaveCodec.encode(s.state,c.content_version,META).json)
 	var profiles := {}
 	for id in SectSystem.P1_TASKS: profiles[id] = frozen(id,"q-"+id)
-	FileAccess.open("res://src/verification/content_p1_sect_tasks.json",FileAccess.WRITE).store_string(JSON.stringify(profiles))
-	FileAccess.open(DIR+"rules.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	var write_file_tasks := FileAccess.open("res://src/verification/content_p1_sect_tasks.json",FileAccess.WRITE)
+	if write_file_tasks == null:
+		push_error("write failed: " + str("res://src/verification/content_p1_sect_tasks.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_tasks.store_string(JSON.stringify(profiles))
+	var write_file_rules := FileAccess.open(DIR+"rules.json",FileAccess.WRITE)
+	if write_file_rules == null:
+		push_error("write failed: " + str(DIR+"rules.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_rules.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P1-SECT ",checks," checks failures=",JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 func rehash(env: Dictionary) -> String:
 	env.erase("checksum"); env.checksum = SaveCodec.compute_checksum(env)
 	return JSON.stringify(env)

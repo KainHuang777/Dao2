@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M3B_BEAST_RUNNER] Starting M3-B Spirit Beast System Tests...
+--- 1. Testing Beast Configurations & Acquisition ---
+  Beast configs & acquisition: PASS
+--- 2. Testing Beast Feeding, Cooldowns & Stage Progression ---
+  Feeding, cooldowns & stages: PASS
+--- 3. Testing Beast Talents Tree, Costs & Effects ---
+  Talents tree & effects: PASS
+--- 4. Testing Reincarnation Settlement with Beast Souls ---
+  Reincarnation beast soul settlement: PASS
+--- 5. Testing GameSession Beast Commands & Time Advancement ---
+  GameSession commands & simulation integration: PASS
+--- 6. Testing SaveCodec Roundtrip with Beast State ---
+  SaveCodec roundtrip & backward compatibility: PASS
+[M3B_BEAST_RUNNER] ALL M3-B SPIRIT BEAST TESTS PASSED (exit 0)
+RUNNER_RESULT status=PASS exit=0

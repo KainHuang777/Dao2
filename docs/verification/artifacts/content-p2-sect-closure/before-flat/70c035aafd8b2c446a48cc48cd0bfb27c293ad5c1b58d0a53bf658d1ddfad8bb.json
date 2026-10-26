@@ -1,0 +1,105 @@
+[
+  {
+    "file": "src/simulation/talent_system.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/simulation/alchemy_system.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/simulation/beast_system.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/simulation/island_economy.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/persistence/save_codec.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/persistence/save_manager.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/application/game_session.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/application/offline_coordinator.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "src/abode/living_abode.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "tests/content_p2_talents_runner.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "tests/content_p1_talents_runner.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "tests/sks_p2_core_runner.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "tests/content_p2_supply_economy_runner.gd",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "tools/run_all_runners.ps1",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "file": "docs/verification/content-p2-talents-core.md",
+    "utf8": true,
+    "replacement_character": false
+  },
+  {
+    "link": "../36-content-p2-talent-design.md",
+    "exists": true
+  },
+  {
+    "link": "artifacts/content-p2-talents/final-boundary-output.txt",
+    "exists": true
+  },
+  {
+    "link": "artifacts/content-p2-talents/runner.json",
+    "exists": true
+  },
+  {
+    "link": "artifacts/content-p2-talents/final-core-output.txt",
+    "exists": true
+  },
+  {
+    "link": "artifacts/content-p2-talents/final-regression-output.txt",
+    "exists": true
+  },
+  {
+    "link": "artifacts/content-p2-talents/final-effects-output.txt",
+    "exists": true
+  },
+  {
+    "link": "artifacts/content-p2-talents/l2-retry-output.txt",
+    "exists": true
+  }
+]

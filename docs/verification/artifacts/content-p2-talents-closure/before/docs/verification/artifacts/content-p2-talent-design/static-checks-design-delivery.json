@@ -1,0 +1,59 @@
+{
+  "checks": [
+    {
+      "name": "README.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "ROADMAP.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "docs/25-system-content-expansion-plan.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "docs/ai-handoff.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "docs/development-status.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "updata.txt UTF8",
+      "ok": true
+    },
+    {
+      "name": "docs/36-content-p2-talent-design.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "docs/verification/content-p2-talent-design.md UTF8",
+      "ok": true
+    },
+    {
+      "name": "docs/design-data/content-p2-talents-proposal.json UTF8",
+      "ok": true
+    },
+    {
+      "name": "tools/content_p2_talent_design_audit.py UTF8",
+      "ok": true
+    },
+    {
+      "name": "audit Python AST",
+      "ok": true
+    },
+    {
+      "name": "git diff --check",
+      "ok": true
+    },
+    {
+      "name": "eleven specific source hashes",
+      "ok": true
+    }
+  ],
+  "failures": [],
+  "diff_check_exit": 0,
+  "diff_check_output": ""
+}

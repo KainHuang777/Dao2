@@ -1,0 +1,4 @@
+[MODE] matrix=single runners=3 parallel=1
+tests/content_p2_beasts_save_runner.gd
+tests/content_p2_supply_economy_runner.gd
+tests/m3b_spirit_beast_runner.gd

@@ -1,0 +1,460 @@
+{
+  "origin": "http://127.0.0.1:4398",
+  "checks": {
+    "cancelPreservesLife": true,
+    "oneRebirth": true,
+    "oneReward": true,
+    "oneArchive": true,
+    "partialImportedLife": true,
+    "endAndPeak": true,
+    "archiveStableReload": true,
+    "rewardStableReload": true,
+    "finalBuildReload": true
+  },
+  "observations": [
+    {
+      "step": "preview",
+      "data": {
+        "count": 1,
+        "dao_heart": "0",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [],
+          "current": {
+            "beast_instance": "",
+            "coverage": "partial",
+            "economy_origin": 100,
+            "end_state": {},
+            "events": [
+              {
+                "at": 100,
+                "era_id": 2,
+                "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                "instance": "",
+                "kind": "building_built",
+                "level": 4,
+                "seq": 1,
+                "subject": "hut"
+              }
+            ],
+            "frozen_text": "",
+            "life_id": 2,
+            "next_sequence": 2,
+            "omitted_count": 0,
+            "peak": {
+              "at": 100,
+              "era_id": 2,
+              "level": 4
+            },
+            "started_at": 100,
+            "text_version": "",
+            "until": 100
+          },
+          "version": 1
+        },
+        "revision": 4,
+        "save_failed": false,
+        "schema": 5
+      }
+    },
+    {
+      "step": "cancel",
+      "data": {
+        "count": 1,
+        "dao_heart": "0",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [],
+          "current": {
+            "beast_instance": "",
+            "coverage": "partial",
+            "economy_origin": 100,
+            "end_state": {},
+            "events": [
+              {
+                "at": 100,
+                "era_id": 2,
+                "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                "instance": "",
+                "kind": "building_built",
+                "level": 4,
+                "seq": 1,
+                "subject": "hut"
+              }
+            ],
+            "frozen_text": "",
+            "life_id": 2,
+            "next_sequence": 2,
+            "omitted_count": 0,
+            "peak": {
+              "at": 100,
+              "era_id": 2,
+              "level": 4
+            },
+            "started_at": 100,
+            "text_version": "",
+            "until": 100
+          },
+          "version": 1
+        },
+        "revision": 4,
+        "save_failed": false,
+        "schema": 5
+      }
+    },
+    {
+      "step": "save-denied-observer-paused",
+      "data": {
+        "count": 1,
+        "dao_heart": "0",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [],
+          "current": {
+            "beast_instance": "",
+            "coverage": "partial",
+            "economy_origin": 100,
+            "end_state": {},
+            "events": [
+              {
+                "at": 100,
+                "era_id": 2,
+                "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                "instance": "",
+                "kind": "building_built",
+                "level": 4,
+                "seq": 1,
+                "subject": "hut"
+              }
+            ],
+            "frozen_text": "",
+            "life_id": 2,
+            "next_sequence": 2,
+            "omitted_count": 0,
+            "peak": {
+              "at": 100,
+              "era_id": 2,
+              "level": 4
+            },
+            "started_at": 100,
+            "text_version": "",
+            "until": 100
+          },
+          "version": 1
+        },
+        "revision": 4,
+        "save_failed": false,
+        "schema": 5
+      }
+    },
+    {
+      "step": "recovered",
+      "data": {
+        "count": 2,
+        "dao_heart": "15",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [
+            {
+              "beast_instance": "",
+              "coverage": "partial",
+              "economy_origin": 100,
+              "end_state": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4,
+                "reason": "rebirth_lotus",
+                "settlement_id": "5adb5feb0376066569d8fe3241497894186f6d11394ba575b6212397d2def390"
+              },
+              "events": [
+                {
+                  "at": 100,
+                  "era_id": 2,
+                  "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                  "instance": "",
+                  "kind": "building_built",
+                  "level": 4,
+                  "seq": 1,
+                  "subject": "hut"
+                }
+              ],
+              "frozen_text": "",
+              "life_id": 2,
+              "next_sequence": 2,
+              "omitted_count": 0,
+              "peak": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4
+              },
+              "started_at": 100,
+              "text_version": "",
+              "until": 100
+            }
+          ],
+          "current": {
+            "beast_instance": "",
+            "coverage": "complete",
+            "economy_origin": 0,
+            "end_state": {},
+            "events": [],
+            "frozen_text": "",
+            "life_id": 3,
+            "next_sequence": 1,
+            "omitted_count": 0,
+            "peak": {
+              "at": 0,
+              "era_id": 1,
+              "level": 1
+            },
+            "started_at": 0,
+            "text_version": "",
+            "until": 35
+          },
+          "version": 1
+        },
+        "revision": 6,
+        "save_failed": false,
+        "schema": 5
+      }
+    },
+    {
+      "step": "reload",
+      "data": {
+        "count": 2,
+        "dao_heart": "15",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [
+            {
+              "beast_instance": "",
+              "coverage": "partial",
+              "economy_origin": 100,
+              "end_state": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4,
+                "reason": "rebirth_lotus",
+                "settlement_id": "5adb5feb0376066569d8fe3241497894186f6d11394ba575b6212397d2def390"
+              },
+              "events": [
+                {
+                  "at": 100,
+                  "era_id": 2,
+                  "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                  "instance": "",
+                  "kind": "building_built",
+                  "level": 4,
+                  "seq": 1,
+                  "subject": "hut"
+                }
+              ],
+              "frozen_text": "",
+              "life_id": 2,
+              "next_sequence": 2,
+              "omitted_count": 0,
+              "peak": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4
+              },
+              "started_at": 100,
+              "text_version": "",
+              "until": 100
+            }
+          ],
+          "current": {
+            "beast_instance": "",
+            "coverage": "complete",
+            "economy_origin": 0,
+            "end_state": {},
+            "events": [],
+            "frozen_text": "",
+            "life_id": 3,
+            "next_sequence": 1,
+            "omitted_count": 0,
+            "peak": {
+              "at": 0,
+              "era_id": 1,
+              "level": 1
+            },
+            "started_at": 0,
+            "text_version": "",
+            "until": 50
+          },
+          "version": 1
+        },
+        "revision": 8,
+        "save_failed": false,
+        "schema": 5
+      }
+    },
+    {
+      "step": "resize-800",
+      "data": {
+        "count": 2,
+        "dao_heart": "15",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [
+            {
+              "beast_instance": "",
+              "coverage": "partial",
+              "economy_origin": 100,
+              "end_state": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4,
+                "reason": "rebirth_lotus",
+                "settlement_id": "5adb5feb0376066569d8fe3241497894186f6d11394ba575b6212397d2def390"
+              },
+              "events": [
+                {
+                  "at": 100,
+                  "era_id": 2,
+                  "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                  "instance": "",
+                  "kind": "building_built",
+                  "level": 4,
+                  "seq": 1,
+                  "subject": "hut"
+                }
+              ],
+              "frozen_text": "",
+              "life_id": 2,
+              "next_sequence": 2,
+              "omitted_count": 0,
+              "peak": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4
+              },
+              "started_at": 100,
+              "text_version": "",
+              "until": 100
+            }
+          ],
+          "current": {
+            "beast_instance": "",
+            "coverage": "complete",
+            "economy_origin": 0,
+            "end_state": {},
+            "events": [],
+            "frozen_text": "",
+            "life_id": 3,
+            "next_sequence": 1,
+            "omitted_count": 0,
+            "peak": {
+              "at": 0,
+              "era_id": 1,
+              "level": 1
+            },
+            "started_at": 0,
+            "text_version": "",
+            "until": 50
+          },
+          "version": 1
+        },
+        "revision": 8,
+        "save_failed": false,
+        "schema": 5
+      }
+    },
+    {
+      "step": "typed-final-build-reload",
+      "data": {
+        "count": 2,
+        "dao_heart": "15",
+        "fixture": true,
+        "life_ledger": {
+          "archive": [
+            {
+              "beast_instance": "",
+              "coverage": "partial",
+              "economy_origin": 100,
+              "end_state": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4,
+                "reason": "rebirth_lotus",
+                "settlement_id": "5adb5feb0376066569d8fe3241497894186f6d11394ba575b6212397d2def390"
+              },
+              "events": [
+                {
+                  "at": 100,
+                  "era_id": 2,
+                  "id": "7db008a420494c16fc3d6e46bd0cae87d1df04ddd1dab06a0f78c749453c613b",
+                  "instance": "",
+                  "kind": "building_built",
+                  "level": 4,
+                  "seq": 1,
+                  "subject": "hut"
+                }
+              ],
+              "frozen_text": "",
+              "life_id": 2,
+              "next_sequence": 2,
+              "omitted_count": 0,
+              "peak": {
+                "at": 100,
+                "era_id": 2,
+                "level": 4
+              },
+              "started_at": 100,
+              "text_version": "",
+              "until": 100
+            }
+          ],
+          "current": {
+            "beast_instance": "",
+            "coverage": "complete",
+            "economy_origin": 0,
+            "end_state": {},
+            "events": [],
+            "frozen_text": "",
+            "life_id": 3,
+            "next_sequence": 1,
+            "omitted_count": 0,
+            "peak": {
+              "at": 0,
+              "era_id": 1,
+              "level": 1
+            },
+            "started_at": 0,
+            "text_version": "",
+            "until": 418
+          },
+          "version": 1
+        },
+        "revision": 10,
+        "save_failed": false,
+        "schema": 5
+      }
+    }
+  ],
+  "finalLogs": [
+    {
+      "level": "error",
+      "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+      "timestamp": "2026-10-22T08:42:24.504Z",
+      "url": "http://127.0.0.1:4398/index.js"
+    },
+    {
+      "level": "error",
+      "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "timestamp": "2026-10-22T08:42:24.504Z",
+      "url": "http://127.0.0.1:4398/index.js"
+    },
+    {
+      "level": "error",
+      "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+      "timestamp": "2026-10-22T08:51:59.205Z"
+    }
+  ],
+  "notes": [
+    "Synthetic partial fixture, not earned natural progress.",
+    "Save protection pauses observer; denied DOM is pre-command stale data.",
+    "Actual mouse cancel, denied rebirth, denied save-only retry, restored retry; final typed-build reload preserves archive and reward.",
+    "1280x720 interaction;844x390 and800x360 resize after reload."
+  ]
+}

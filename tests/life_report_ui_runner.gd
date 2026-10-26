@@ -86,4 +86,4 @@ func run() -> void:
 	print(JSON.stringify({"suite":"REPORT-1A UI", "checks":checks, "failures":failures}))
 	abode.queue_free()
 	await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

@@ -1,0 +1,60 @@
+[MODE] matrix=single runners=3 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{c5074a78-c77d-49d2-a703-f141b5f84b63}\AC\Temp\dao2_runners_fa69b106bc0147198ff0387859a36c04
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[FAIL:initial] tests/content_p2_sect_ui_runner.gd exit=1 timeout=False script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "content" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/content_p2_sect_ui_runner.gd:13)
+ERROR: Failed to load script "res://tests/content_p2_sect_ui_runner.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+
+[START:initial] tests/content_p1_sect_ui_runner.gd
+[FAIL:initial] tests/content_p1_sect_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_CAMERA_HOME
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'position' with value of type 'Vector2' on a base object of type 'Nil'.
+   at: _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+   GDScript backtrace (most recent call first):
+       [0] _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+       [1] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [2] run (res://tests/content_p1_sect_ui_runner.gd:21)
+       [3] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function '_switch_tab' in base 'Nil'.
+   at: run (res://tests/content_p1_sect_ui_runner.gd:23)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:23)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+
+[START:initial] tests/uix_r9_sect_ui_runner.gd
+[FAIL:initial] tests/uix_r9_sect_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/uix_r9_sect_ui_runner.gd:33)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/uix_r9_sect_ui_runner.gd:33)
+
+--- slowest 8 runners (s) ---
+    45.1  tests/content_p1_sect_ui_runner.gd
+    45.1  tests/uix_r9_sect_ui_runner.gd
+     0.5  tests/content_p2_sect_ui_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:283
+Line |
+ 283 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_sect_ui_runner.gd, tests/content_p1_sect_ui_runner.gd,
+     | tests/uix_r9_sect_ui_runner.gd. Logs:
+     | C:\Users\asus\AppData\Local\Packages\sandbox.{c5074a78-c77d-49d2-a703-f141b5f84b63}\AC\Temp\dao2_runners_fa69b106bc0147198ff0387859a36c04
+
+

@@ -95,7 +95,7 @@ static func _apply_gather(content: GameContent, state: GameState, payload: Dicti
 	var entry: Dictionary = state.resources[resource_id]
 	if not bool(entry.unlocked):
 		return _failure("RESOURCE_LOCKED", {"resource_id": resource_id})
-	var caps := Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
+	var caps := Production.pill_caps(state, Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills))
 	var amount := AmountCompat.from_number(1.0)
 	var new_value: AmountCompat = entry.value.add(amount).clamp_amount(AmountCompat.zero(), caps[resource_id])
 	entry.value = ResourceLedger.change(state, "home", resource_id, entry.value, new_value, "gather", amount)
@@ -214,7 +214,7 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 	if state.era_id == 2 and content.buildings.has("foundation_reservoir") and state.economy.get("version") != IslandProgression.VERSION:
 		return _failure("DANXIA_ACTIVATION_REQUIRED", {})
 	var req_caps: Dictionary = upgrade_req.get("capacity", {})
-	var cur_caps: Dictionary = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills)
+	var cur_caps: Dictionary = Production.pill_caps(state, Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills))
 	for r_id in req_caps:
 		var needed: float = float(req_caps[r_id])
 		var current_cap: AmountCompat = cur_caps.get(r_id, AmountCompat.zero())
@@ -229,9 +229,7 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 	var probability := -1.0
 	if tribulation:
 		var roll_value: float = TribulationRules.roll(state.tribulation_seed, state.tribulation_roll_index)
-		var tribulation_pill: String = TribulationRules.pill_for_era(from_era)
-		var pill_count: int = AlchemySystem.stack_count(state, tribulation_pill)
-		probability = TribulationRules.success_probability(from_era, pill_count)
+		probability = TribulationRules.state_probability(state)
 		var success: bool = TribulationRules.is_success(roll_value, probability)
 		state.tribulation_roll_index += 1
 		AlchemySystem.reset_stacks(state)
@@ -287,7 +285,7 @@ static func _apply_refine_pill(_content: GameContent, state: GameState, payload:
 		return _failure("EMPTY_PILL_ID", {})
 	if not state.economy.is_empty() and state.era_id >= 2 and pill_id == "foundation_pill":
 		return IslandEconomy.command(_content, state, "craft", {"recipe_id": pill_id, "count": payload.get("count", 1)})
-	if pill_id in AlchemySystem.P1_IDS and not IslandEconomy._integer(payload.get("count", 1), 1, 99):
+	if pill_id in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS and not IslandEconomy._integer(payload.get("count", 1), 1, 99):
 		return _failure("INVALID_COUNT", {})
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.refine(state, pill_id, count)
@@ -300,7 +298,7 @@ static func _apply_consume_pill(content: GameContent, state: GameState, payload:
 	if pill_id.is_empty():
 		return _failure("EMPTY_PILL_ID", {})
 	var training_ceiling := -1.0
-	if pill_id == "cultivation_pill" or pill_id == "high_cultivation_pill":
+	if pill_id == "cultivation_pill" or pill_id == "high_cultivation_pill" or pill_id in AlchemySystem.P2_TRAINING:
 		var era_def: Variant = content.era(state.era_id)
 		if era_def == null:
 			return _failure("UNKNOWN_ERA", {"era_id": state.era_id})
@@ -316,7 +314,7 @@ static func _apply_consume_pill(content: GameContent, state: GameState, payload:
 		if not slot.ok:
 			return _failure(slot.error, {})
 		canonical_before = slot.value.to_float()
-	if pill_id in AlchemySystem.P1_IDS and not IslandEconomy._integer(payload.get("count", 1), 1, 99):
+	if pill_id in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS and not IslandEconomy._integer(payload.get("count", 1), 1, 99):
 		return _failure("INVALID_COUNT", {})
 	var count: int = int(payload.get("count", 1))
 	var result := AlchemySystem.consume(state, pill_id, count, training_ceiling)
@@ -510,6 +508,7 @@ static func _apply_acquire_beast(_content: GameContent, state: GameState, payloa
 	}
 
 static func _apply_feed_beast(_content: GameContent, state: GameState, _payload: Dictionary) -> Dictionary:
+	if state.beasts.get("active", {}).get("id", "") in BeastSystem.P2_IDS and not SectSystem.p2_life_error(state).is_empty(): return _failure("LIFESPAN_EXHAUSTED", {})
 	var res := BeastSystem.feed_beast(state)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "FEED_BEAST_FAILED")), res)
@@ -521,6 +520,7 @@ static func _apply_feed_beast(_content: GameContent, state: GameState, _payload:
 
 static func _apply_unlock_beast_talent(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
 	var talent_id: String = String(payload.get("talent_id", ""))
+	if BeastSystem.BEAST_TALENTS.get(talent_id, {}).get("beast_id", "") in BeastSystem.P2_IDS and not SectSystem.p2_life_error(state).is_empty(): return _failure("LIFESPAN_EXHAUSTED", {})
 	var res := BeastSystem.unlock_talent(state, talent_id)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "UNLOCK_BEAST_TALENT_FAILED")), res)

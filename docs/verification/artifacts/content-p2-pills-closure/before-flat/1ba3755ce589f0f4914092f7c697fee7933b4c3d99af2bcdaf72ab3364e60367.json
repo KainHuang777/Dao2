@@ -1,0 +1,18 @@
+{
+  "clean": "324a1b43-be75-447b-bf88-036f00b8690d",
+  "buddha": "a6937729-beb9-441f-a503-2977572b05a7",
+  "waterfalls": "cccd1c32-bb58-4898-9f46-dabb0e67821e",
+  "far_island": "96a0a9a9-65f9-4767-8d15-6695f89404c0",
+  "mist_near": "976ff3c8-1a93-48c6-b763-a3488c4be0d0",
+  "mist_far": "09e60fb0-66cb-40de-9f29-aba5e603c19f",
+  "star_arc": "49a05de6-36a4-4a31-ba91-3a9f87705342",
+  "hero_hover": "ceff3bd0-b12e-416e-9328-4c290af6db5d",
+  "hero_hit": "6f441af2-1eb4-41ee-8cba-c8518efcd636",
+  "hero_unbalanced": "1b6b9acd-3fe6-4b88-ba22-838dc3d5d8f3",
+  "hero_recover": "9ef7a72a-45b0-4072-93b9-8eb3aca2f535",
+  "shield_intact": "4e0f2dd1-c098-44c7-b047-938f86529edf",
+  "shield_cracked": "303736fe-bff6-4fd2-9612-b534a7dbd235",
+  "shield_shattered": "f6bc07e5-4224-43da-8713-46e51bc43e86",
+  "shield_shattered_v2": "4f2e4666-de51-4ff4-8136-273da51411ab",
+  "asura": "309e68a7-45b7-4782-95c7-8434930fa9e6"
+}

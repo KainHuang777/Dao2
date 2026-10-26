@@ -1,0 +1,40 @@
+{
+  "desktop": [
+    {
+      "level": "log",
+      "message": "ABODE_SCENERY_CLAIM 靈木萌枝 靈木 +5",
+      "timestamp": "2026-10-02T19:07:48.024Z",
+      "url": "http://localhost:4184/build/web/index.js"
+    },
+    {
+      "level": "log",
+      "message": "ABODE_SCENERY_CLAIM 靈草花簇 靈草 +3",
+      "timestamp": "2026-10-02T19:08:56.867Z",
+      "url": "http://localhost:4184/build/web/index.js"
+    }
+  ],
+  "short": [
+    {
+      "level": "log",
+      "message": "ABODE_SCENERY_CLAIM 靈石露頭 下品靈石 +2",
+      "timestamp": "2026-10-02T19:12:47.129Z",
+      "url": "http://localhost:4185/build/web/index.js"
+    }
+  ],
+  "desktopErrors": [],
+  "shortErrors": [],
+  "finalLandmarkRoute": [
+    {
+      "level": "log",
+      "message": "ABODE_SELECT: hut",
+      "timestamp": "2026-10-02T19:14:43.850Z",
+      "url": "http://localhost:4185/build/web/index.js"
+    },
+    {
+      "level": "log",
+      "message": "ABODE_SELECT: hut",
+      "timestamp": "2026-10-02T19:21:24.446Z",
+      "url": "http://localhost:4185/build/web/index.js"
+    }
+  ]
+}

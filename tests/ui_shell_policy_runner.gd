@@ -114,4 +114,4 @@ func _init() -> void:
 	check(Policy.resolve(home_state, Vector2(800,360), {"home_message_obstructs": true}).messages == "hidden", "automatic message yields to starter landmark without changing preference")
 	check(Policy.resolve(home_state, Vector2(800,360)).messages == "home" and home_state.home_preferences.messages_open, "clear obstruction restores preferred message")
 	print("UI-SHELL-0: checks=", checks, " failures=", JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

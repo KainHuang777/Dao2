@@ -77,11 +77,11 @@ func _init() -> void:
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
 		print("PASS: Web persistence fault core %d checks." % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for f in failures:
 			push_error(f)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _meta(cursor: int) -> Dictionary:
 	return {"save_id":"fault_core", "saved_at_utc_ms":str(cursor), "settled_until_utc_ms":str(cursor), "sim_tick":"0"}

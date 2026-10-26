@@ -1,0 +1,30 @@
+{
+  "restored": [
+    "src\\verification\\content_p1_accept_reborn.json",
+    "src\\verification\\content_p1_pills_fixture.json",
+    "src\\verification\\content_p1_sect_earned_fixture.json",
+    "src\\verification\\content_p1_sect_fixture.json",
+    "src\\verification\\content_p1_story_earned_fixture.json",
+    "src\\verification\\content_p1_talents_fixture.json",
+    "docs\\verification\\artifacts\\early-flow1c-unopened.json",
+    "docs\\verification\\artifacts\\early-flow1d-foundation.json",
+    "docs\\verification\\artifacts\\early-flow1d-golden.json",
+    "docs\\verification\\artifacts\\early-flow1d-ready.json",
+    "docs\\verification\\artifacts\\res1-c-earned-era2.json",
+    "docs\\verification\\artifacts\\res1-c2-offline-fixture.json",
+    "docs\\verification\\artifacts\\res1-d2-active-fixture.json",
+    "docs\\verification\\artifacts\\res1-d2-earned-era3.json",
+    "docs\\verification\\artifacts\\skills-b1-fixture.json",
+    "docs\\verification\\artifacts\\content-p1-skills\\native-ui.json",
+    "docs\\verification\\artifacts\\content-p1-story\\native-ui.json",
+    "docs\\verification\\artifacts\\content-p2-supply-3\\earned-era6-level10.json",
+    "docs\\verification\\artifacts\\content-p2-supply-3\\earned-flow.json",
+    "docs\\verification\\artifacts\\content-p2-supply-3\\earned-reborn.json",
+    "docs\\verification\\artifacts\\content-p2-supply-3\\ui-contract.json",
+    "docs\\verification\\artifacts\\early-v1-c\\runner-measurement.json",
+    "docs\\verification\\artifacts\\mfg-3\\fixture.json",
+    "docs\\verification\\artifacts\\content-p2-supply-3\\res1_ui1a_runner\\save_main.json",
+    "docs\\verification\\artifacts\\content-p2-supply-3\\res1_ui1b_runner\\save_main.json"
+  ],
+  "checked": 994
+}

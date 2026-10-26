@@ -1,0 +1,13 @@
+{
+  "level": "L1 static design only",
+  "checks": 631,
+  "failures": [],
+  "protected_files": 1363,
+  "source_changed": [],
+  "runtime_beasts": 4,
+  "runtime_talents": 16,
+  "proposed_beasts": 2,
+  "proposed_talents": 8,
+  "gameplay_tested": false,
+  "browser_tested": false
+}

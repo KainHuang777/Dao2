@@ -64,11 +64,11 @@ func _init() -> void:
 			_fail("double offline reward")
 			return
 	print("PASS: RES1-B cross-process " + mode)
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _command(s: GameSession, kind: String, p: Dictionary, id: String) -> Dictionary:
 	return s.submit({"command_id": id, "type": kind, "payload": p, "expected_revision": s.state.revision})
 
 func _fail(message: String) -> void:
 	push_error(message)
-	quit(1)
+	RunnerResult.finish(self, 1)

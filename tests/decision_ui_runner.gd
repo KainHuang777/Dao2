@@ -99,5 +99,5 @@ func run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("DECISION-UI ", checks, " checks failures=", JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 

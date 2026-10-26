@@ -9,13 +9,13 @@ func _init() -> void:
 	test_persistence_roundtrip()
 	test_game_session_view()
 	print("PASS: M3-B chrono system shichen progression, five-element weather cycle, multipliers, time advancer integration, persistence, and session view.\n")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _assert(condition: bool, message: String) -> void:
 	if not condition:
 		push_error("ASSERTION FAILED: " + message)
 		print("FAIL: " + message)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _setup_state_and_content() -> Dictionary:
 	var content := ContentLoader.load_directory("res://content")["content"] as GameContent

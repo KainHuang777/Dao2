@@ -1,0 +1,223 @@
+[
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:00:44.238Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:00:44.239Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:02:31.412Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:02:31.413Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:03:00.452Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:03:00.452Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:03:17.416Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:03:17.416Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:03:35.097Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:03:35.097Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:04:02.771Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:04:02.772Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:04:11.050Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:04:11.050Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:04:30.601Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:04:30.602Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:04:56.301Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:04:56.301Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:05:16.965Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:05:16.965Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:05:32.878Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:05:32.878Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:05:59.031Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:05:59.031Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:06:52.210Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:06:52.210Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:07:09.593Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:07:09.593Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:07:18.536Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:07:18.536Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:07:38.094Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:07:38.094Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:07:57.744Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:07:57.745Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "timestamp": "2026-10-24T19:08:11.618Z"
+  },
+  {
+    "level": "error",
+    "message": "WARNING: BGM download failed; toggle music to retry: 01_The_Unresolved_Ascent.mp3",
+    "timestamp": "2026-10-24T19:08:16.835Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  },
+  {
+    "level": "error",
+    "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+    "timestamp": "2026-10-24T19:08:16.835Z",
+    "url": "http://127.0.0.1:4472/index.js"
+  }
+]

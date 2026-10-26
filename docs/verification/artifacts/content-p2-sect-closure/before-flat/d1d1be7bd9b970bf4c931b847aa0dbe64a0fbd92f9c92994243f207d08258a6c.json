@@ -1,0 +1,627 @@
+{
+  "date": "2026-10-25",
+  "level": "L2",
+  "status": "PASS_BOUNDED_DESKTOP_WEB",
+  "checks": [
+    {
+      "check": "observations exist",
+      "passed": true
+    },
+    {
+      "check": "all observed Godot viewports 1280x720",
+      "passed": true
+    },
+    {
+      "check": "era4 exact contribution stages",
+      "passed": true
+    },
+    {
+      "check": "era4 no duplicate rank or purchase",
+      "passed": true
+    },
+    {
+      "check": "era4 purchase applied once before save denial",
+      "passed": true
+    },
+    {
+      "check": "era4 recovered unchanged payment",
+      "passed": true
+    },
+    {
+      "check": "era4 both ranks and purchase survive reload then home",
+      "passed": true
+    },
+    {
+      "check": "era6 exact contribution stages",
+      "passed": true
+    },
+    {
+      "check": "era6 no duplicate rank or purchase",
+      "passed": true
+    },
+    {
+      "check": "era6 purchase applied once before save denial",
+      "passed": true
+    },
+    {
+      "check": "era6 recovered unchanged payment",
+      "passed": true
+    },
+    {
+      "check": "era6 both ranks and purchase survive reload then home",
+      "passed": true
+    },
+    {
+      "check": "technique save fault applied once",
+      "passed": true
+    },
+    {
+      "check": "technique recovery no double debit",
+      "passed": true
+    },
+    {
+      "check": "captured bounded final warn/error query empty",
+      "passed": true
+    },
+    {
+      "check": "browser screenshots retained",
+      "passed": true
+    },
+    {
+      "check": "compile check not misreported as runtime test",
+      "passed": true
+    },
+    {
+      "check": "only harness and PCK changed since prior tested source baseline",
+      "passed": true
+    }
+  ],
+  "observations": 38,
+  "game_viewport": [
+    1280,
+    720
+  ],
+  "outer_review_viewport": [
+    1680,
+    800
+  ],
+  "input": "CUA actual mouse clicks/scroll plus native HTML case/fault/reload controls; no direct game-function calls",
+  "storage": "dedicated dao2_sect2_acceptance_era4 / era6; injected Storage.setItem denial; no IndexedDB claim",
+  "source_change": "paused review calls panel.update_view to settle pressed-button rebuild guard; production rules/UI/art unchanged",
+  "changed_since_previous_delivery": [
+    "src/verification/sect2_acceptance.gd",
+    "build/sect2-acceptance/index.pck"
+  ],
+  "package_sha256": "b374d80b976f6c24fda73f991508bc5ec62072df18316a59e411ba30fb3fd2cd",
+  "harness_sha256": "15a5114d1d7e579f0b4d3eaa9c1070e0409959740a9f7b5fe8c0b82e17bcf91a",
+  "screenshots": [
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-cards-current.png",
+      "sha256": "4b7fa047a94dc2df3b1d1eee5950c05d0590828e6d3fa0248a39dac9f5968f1a"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-cards.png",
+      "sha256": "8d62275c699d7bc4f1eed7d8b9ca7ff25c0a90882771ece8521017508e5e0109"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-home.png",
+      "sha256": "656c92a14bc6b07539e0e179e8e3d5a8b8b81c58c62d0ec44798dd4db2ca57e4"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-market-gates.png",
+      "sha256": "180c63f03f97968e604836278371d1787105643ef0db7e98345b0cf3e7c9c99f"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-market-refused.png",
+      "sha256": "6e88df28038af4d3575e72e39a161d6078cbdb05e8da88ce9acfd665c4dc4294"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-reloaded.png",
+      "sha256": "1f2183e9363856a4790aa737fee4e4366266afd359d723d09d2c4ff0be01f1d1"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-technique-recovered.png",
+      "sha256": "c595535af72b121e0c28ae8b2852f1d38971ae352cecc40d7018aba71a5c67cf"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era4-technique-refused.png",
+      "sha256": "42772b8c7494a142e6d7f36740f15a92ed3bc198e646720f2e6970334991f077"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era6-before.png",
+      "sha256": "1514a9aa4d0034b401a917e25e3701821ce46a59affa18d34b649127d823f9cc"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era6-home.png",
+      "sha256": "9b4ed2a47e9d4b03d8c4f416ac668202dfd9903663e017c88abf5473d2cf69e8"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era6-market-full.png",
+      "sha256": "ef7507a04f412be658a8e1a15565ce33c10498124b7a6e2fb53516671e44b1b5"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era6-market-refused.png",
+      "sha256": "4da12a3bd8572618d987a49a255a3bc7a8b657b49499e26472dc8f1768e8d5ff"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era6-phoenix-plateau.png",
+      "sha256": "04e89d8e4152176462aefe8c6ab23b908a23587849d11e4a5e20336d115f6310"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-era6-reloaded.png",
+      "sha256": "cdfda3349e841e6441d8dd77927e2153ffd582819e625ed1a54fe557e9948b77"
+    },
+    {
+      "path": "docs/verification/artifacts/content-p2-sect-ui/web-final-cards.png",
+      "sha256": "8c40fbf646ebb68fe8a4cbcde846f9bf8961ac5ece654d801c5faa0168124fba"
+    }
+  ],
+  "trace": [
+    {
+      "case": "era4",
+      "contribution": "644",
+      "revision": 2468,
+      "techniques": {},
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "644",
+      "revision": 2468,
+      "techniques": {},
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "644",
+      "revision": 2468,
+      "techniques": {},
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "524",
+      "revision": 2469,
+      "techniques": {
+        "p2_pill_qi_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "524",
+      "revision": 2471,
+      "techniques": {
+        "p2_pill_qi_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "524",
+      "revision": 2471,
+      "techniques": {
+        "p2_pill_qi_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "524",
+      "revision": 2471,
+      "techniques": {
+        "p2_pill_qi_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "374",
+      "revision": 2472,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "374",
+      "revision": 2472,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "374",
+      "revision": 2472,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "374",
+      "revision": 2473,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "374",
+      "revision": 2473,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "374",
+      "revision": 2473,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "284",
+      "revision": 2474,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "refined_iron_reserve": 1
+      },
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "284",
+      "revision": 2474,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "refined_iron_reserve": 1
+      },
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "284",
+      "revision": 2474,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "refined_iron_reserve": 1
+      },
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "284",
+      "revision": 2475,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "refined_iron_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "284",
+      "revision": 2477,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "refined_iron_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era4",
+      "contribution": "284",
+      "revision": 2477,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "refined_iron_reserve": 1
+      },
+      "save_failed": false,
+      "visible": false
+    },
+    {
+      "case": "era6",
+      "contribution": "615",
+      "revision": 3604,
+      "techniques": {},
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "615",
+      "revision": 3604,
+      "techniques": {},
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "615",
+      "revision": 3604,
+      "techniques": {},
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "465",
+      "revision": 3605,
+      "techniques": {
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "465",
+      "revision": 3605,
+      "techniques": {
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "465",
+      "revision": 3605,
+      "techniques": {
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "345",
+      "revision": 3606,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "345",
+      "revision": 3606,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "345",
+      "revision": 3606,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "345",
+      "revision": 3606,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {},
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3607,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3607,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3607,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": true,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3608,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3609,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3609,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": false,
+      "visible": false
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3609,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3609,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    },
+    {
+      "case": "era6",
+      "contribution": "225",
+      "revision": 3609,
+      "techniques": {
+        "p2_pill_qi_conservation": 1,
+        "sacred_beast_feed_conservation": 1
+      },
+      "purchases": {
+        "ancient_herb_reserve": 1
+      },
+      "save_failed": false,
+      "visible": true
+    }
+  ],
+  "limitations": [
+    "first Era4 pill rank was bought before paused-harness refresh correction; it was reloaded and shown correctly on final PCK",
+    "UI redraw transiently reflowed immediately after a rank change then settled; no FPS or long-duration stability measurement",
+    "art/cards/pacing human acceptance PENDING; no L3 or full matrix"
+  ]
+}

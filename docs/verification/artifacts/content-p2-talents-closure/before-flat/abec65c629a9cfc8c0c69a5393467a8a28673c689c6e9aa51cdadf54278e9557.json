@@ -1,0 +1,365 @@
+{
+  "raw_attempt_observations": [
+    {
+      "label": "1280 consume herb",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "66",
+        "spirit_grass_low": "390",
+        "stone_low": "400",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "1280 refine wealth",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "66",
+        "spirit_grass_low": "390",
+        "stone_low": "400",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "1280 consume wealth",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "wealth_gathering_pill": 1,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "380",
+        "stone_low": "390",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "1280 refine qi",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "wealth_gathering_pill": 1,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "380",
+        "stone_low": "390",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "1280 consume qi",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 1,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "370",
+        "stone_low": "380",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "1280 final four active",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 0,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "370",
+        "stone_low": "380",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "844 refine qi denied",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": true
+    },
+    {
+      "label": "844 retry still denied",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": true
+    },
+    {
+      "label": "844 recovered save",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "75.6476803507357",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "800 consume qi net7",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 0,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "75.6476803507357",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "reload all paid commands persisted",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 0,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "94.3538290724796",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    }
+  ],
+  "note": "Early multi-action readouts can lag the 250ms observer and are retained as attempts. Confirmed four-active, denied/retry, recovered, net7 and reload observations are authoritative. Recovery/reload run normal elapsed settlement: lingli and remaining buff seconds legitimately change; material costs and pill counts show no duplicate commands.",
+  "confirmed": [
+    {
+      "label": "1280 final four active",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 0,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "370",
+        "stone_low": "380",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "844 refine qi denied",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": true
+    },
+    {
+      "label": "844 retry still denied",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "32",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": true
+    },
+    {
+      "label": "844 recovered save",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 1,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "75.6476803507357",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "800 consume qi net7",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 0,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "75.6476803507357",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    },
+    {
+      "label": "reload all paid commands persisted",
+      "pills": {
+        "herb_nurture_pill": 0,
+        "qi_absorption_pill": 0,
+        "wealth_gathering_pill": 0,
+        "wood_nurture_pill": 0
+      },
+      "resources": {
+        "lingli": "94.3538290724796",
+        "spirit_grass_low": "360",
+        "stone_low": "370",
+        "wood": "390"
+      },
+      "buffs": [
+        "p1_herb_nurture",
+        "p1_qi_absorption",
+        "p1_wealth_gathering",
+        "p1_wood_nurture"
+      ],
+      "save_failed": false
+    }
+  ]
+}

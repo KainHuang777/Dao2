@@ -1,0 +1,19 @@
+{
+  "task": "UI-SHELL-0",
+  "date": "2026-10-22",
+  "status": "DONE: policy/state/audit only",
+  "policy_checks": 261,
+  "policy_failures": [],
+  "policy_exit": 0,
+  "full_runners": 83,
+  "full_exit": 0,
+  "strict_utf8_files": 16,
+  "report_local_links": 5,
+  "source_hashes": 9,
+  "import_exit": 0,
+  "clean_import": false,
+  "import_diagnostics": "Existing JPEG named final-reload.png; sandbox user profiler directory; nested project warning",
+  "runtime_visibility_wired": false,
+  "browser_verified": false,
+  "web_exported": false
+}

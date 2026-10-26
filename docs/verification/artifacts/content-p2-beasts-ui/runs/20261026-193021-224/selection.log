@@ -1,0 +1,4 @@
+[MODE] matrix=single runners=3 parallel=1
+tests/content_p2_beasts_ui_runner.gd
+tests/uix_r11_decisions_ui_runner.gd
+tests/uix_r8_skills_ui_runner.gd

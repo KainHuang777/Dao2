@@ -1,0 +1,61 @@
+{
+  "browser": "IAB",
+  "origin": "http://127.0.0.1:48942",
+  "dimensions": [
+    {
+      "inner": [
+        1280,
+        720
+      ],
+      "canvas": [
+        1279,
+        719
+      ]
+    },
+    {
+      "inner": [
+        844,
+        390
+      ],
+      "canvas": [
+        843,
+        389
+      ]
+    },
+    {
+      "inner": [
+        800,
+        360
+      ],
+      "canvas": [
+        799,
+        359
+      ]
+    }
+  ],
+  "current": {
+    "canvas": {
+      "bottom": 719,
+      "height": 719,
+      "left": 0,
+      "right": 1279,
+      "top": 0,
+      "width": 1279,
+      "x": 0,
+      "y": 0
+    },
+    "dpr": 1.0000000149011612,
+    "inner": [
+      1280,
+      720
+    ]
+  },
+  "logs": [],
+  "observed": [
+    "mouse outcome/pause/seek/reduced/solo/skip",
+    "resize retained paused14.1s",
+    "reload restarted success muted",
+    "sound enabled then success and failure natural endings"
+  ],
+  "limits": "No speaker listening or FPS claim; fixed captures separate"
+}

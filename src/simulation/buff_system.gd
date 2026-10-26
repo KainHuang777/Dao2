@@ -4,7 +4,12 @@ const MAX_TIMED_DURATION := 3600.0
 
 const P1_IDS := ["p1_wood_nurture", "p1_herb_nurture", "p1_wealth_gathering", "p1_qi_absorption"]
 
+const P2_IDS := ["p2_ancient_dew", "p2_void_gathering"]
+
 const DEFINITIONS := {
+	"p2_ancient_dew": {"id": "p2_ancient_dew", "name": "古藥凝露丹效", "icon_text": "露", "color": "#cba55a", "description": "古藥島千年靈草採集 ×1.5；不加速加工或航運。", "default_duration": 600.0, "is_permanent": false, "transmigratable": false, "effects": {"island": "ancient", "resource": "spirit_grass_1000y", "local_multiplier": 1.5}},
+	"p2_void_gathering": {"id": "p2_void_gathering", "name": "太虛聚華丹效", "icon_text": "華", "color": "#9878bb", "description": "太虛島虛華採集 ×1.5；不加速加工或航運。", "default_duration": 600.0, "is_permanent": false, "transmigratable": false, "effects": {"island": "void", "resource": "void_essence", "local_multiplier": 1.5}},
+
 	"p1_wood_nurture": {
 		"id": "p1_wood_nurture",
 		"name": "養木丹效",
@@ -198,7 +203,7 @@ static func get_definition(buff_id: String) -> Variant:
 static func apply_buff(state: GameState, buff_id: String, duration: float = -1.0, custom_effects: Dictionary = {}, transmigratable: bool = false) -> Dictionary:
 	if state == null:
 		return {"ok": false, "error": "NULL_STATE"}
-	if buff_id in P1_IDS and (not custom_effects.is_empty() or transmigratable):
+	if buff_id in P1_IDS + P2_IDS and (not custom_effects.is_empty() or transmigratable):
 		return {"ok": false, "error": "PILL_BUFF_OVERRIDE"}
 	var def: Variant = get_definition(buff_id)
 	var name: String = buff_id
@@ -242,7 +247,7 @@ static func apply_buff(state: GameState, buff_id: String, duration: float = -1.0
 		"color": color,
 		"description": description,
 		"is_permanent": is_permanent,
-		"duration_seconds": maxf(duration, remaining) if buff_id in P1_IDS else duration,
+		"duration_seconds": maxf(duration, remaining) if buff_id in P1_IDS + P2_IDS else duration,
 		"remaining_seconds": remaining,
 		"transmigratable": trans,
 		"effects": effects,
@@ -296,7 +301,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 
 	for buff_id in state.buffs:
 		var entry: Dictionary = state.buffs[buff_id]
-		if buff_id in P1_IDS and float(entry.get("remaining_seconds", 0.0)) <= 0.0: continue
+		if buff_id in P1_IDS + P2_IDS and float(entry.get("remaining_seconds", 0.0)) <= 0.0: continue
 		var effects: Dictionary = entry.get("effects", {})
 		if effects.has("production_multiplier"):
 			res.global_production_multiplier += float(effects["production_multiplier"])

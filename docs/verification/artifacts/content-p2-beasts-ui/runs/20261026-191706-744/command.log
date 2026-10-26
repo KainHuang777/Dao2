@@ -1,0 +1,65 @@
+[MODE] matrix=single runners=4 parallel=1
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-ui\runs\20261026-191706-744\temp\dao2_runners_90618f307b2044bdbd9491d7ba00cf9f
+[START:initial] tests/content_p2_beasts_ui_runner.gd
+[FAIL:initial] tests/content_p2_beasts_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=File not found load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "current" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://src/presentation/beast_care_view.gd:115)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/system_actions_panel.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/feature_navigation.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/presentation/abode_hud_controller.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://src/abode/living_abode.gd:0)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+ERROR: Failed to load script "res://src/abode/living_abode.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_beasts_ui_runner.gd:13)
+
+[START:initial] tests/content_p2_beasts_runner.gd
+[PASS:initial] tests/content_p2_beasts_runner.gd (7.9s) result=pass
+[START:initial] tests/content_p2_beasts_save_runner.gd
+[PASS:initial] tests/content_p2_beasts_save_runner.gd (5.6s) result=pass
+[START:initial] tests/feature_navigation_runner.gd
+[FAIL:initial] tests/feature_navigation_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/feature_navigation_runner.gd:19)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/feature_navigation_runner.gd:19)
+
+--- slowest 8 runners (s) ---
+    45.2  tests/content_p2_beasts_ui_runner.gd
+    45.1  tests/feature_navigation_runner.gd
+     7.9  tests/content_p2_beasts_runner.gd
+     5.6  tests/content_p2_beasts_save_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:287
+Line |
+ 287 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_beasts_ui_runner.gd, tests/feature_navigation_runner.gd. Logs:
+     | E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-ui\runs\20261026-191706-744\temp\dao2_runners_90618f307b2044bdbd9491d7ba00cf9f
+
+

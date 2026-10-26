@@ -89,7 +89,170 @@ const TASK_TEMPLATES := {
 	],
 }
 
-const VERSION := 1
+const VERSION := 2
+const P2_TECHNIQUES := ["p2_pill_qi_conservation", "sacred_beast_feed_conservation"]
+const P2_MARKET := ["refined_iron_reserve", "ancient_herb_reserve"]
+const P2_PILL_IDS := [
+	"nascent_breath_pill",
+	"void_meditation_pill",
+	"ancient_herb_dew_pill",
+	"void_gathering_pill",
+	"spirit_vessel_pill",
+	"stone_vault_pill",
+	"calm_tribulation_pill",
+	"silver_ward_pill"
+]
+const P2_TASKS := {
+	"deep_stock_register": {
+		"template_id": "deep_stock_register",
+		"name": "核錄寒銀礦簿",
+		"desc": "核對寒銀採集帳冊，將宗門分配的少量精鐵交回祖島。",
+		"rarity": "common",
+		"min_era": 4,
+		"requires_open_islands": [
+			"deep"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"refined_iron": 2
+		}
+	},
+	"ancient_dew_register": {
+		"template_id": "ancient_dew_register",
+		"name": "登記古藥凝露",
+		"desc": "整理古藥採集紀錄，領回宗門備下的一份千年草。",
+		"rarity": "common",
+		"min_era": 5,
+		"requires_open_islands": [
+			"ancient"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"spirit_grass_1000y": 1
+		}
+	},
+	"silver_convoy_accounts": {
+		"template_id": "silver_convoy_accounts",
+		"name": "核對寒銀回運",
+		"desc": "核對寒銀航線收支，領回可供修行的秘銀與下品靈石。",
+		"rarity": "uncommon",
+		"min_era": 4,
+		"requires_open_islands": [
+			"deep"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"mithril": 3,
+			"stone_low": 10
+		}
+	},
+	"ancient_herb_sorting": {
+		"template_id": "ancient_herb_sorting",
+		"name": "分揀古藥餘材",
+		"desc": "協助宗門藥房分揀古藥，領回千年草與百年草。",
+		"rarity": "uncommon",
+		"min_era": 5,
+		"requires_open_islands": [
+			"ancient"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"spirit_grass_1000y": 2,
+			"spirit_grass_100y": 5
+		}
+	},
+	"cold_iron_assay": {
+		"template_id": "cold_iron_assay",
+		"name": "校驗寒鐵純度",
+		"desc": "替宗門記錄寒鐵與秘銀品質，領回可用礦材。",
+		"rarity": "rare",
+		"min_era": 4,
+		"requires_open_islands": [
+			"deep"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"cold_iron": 6,
+			"mithril": 3
+		}
+	},
+	"ancient_pill_herb_catalog": {
+		"template_id": "ancient_pill_herb_catalog",
+		"name": "編錄千年丹材",
+		"desc": "依藥齡編錄古藥丹材，領回兩類草藥供自行煉製。",
+		"rarity": "rare",
+		"min_era": 5,
+		"requires_open_islands": [
+			"ancient"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"spirit_grass_1000y": 4,
+			"spirit_grass_100y": 10
+		}
+	},
+	"void_supply_chart": {
+		"template_id": "void_supply_chart",
+		"name": "繪核太虛供給圖",
+		"desc": "協助宗門整理太虛物料圖，領回虛空精華與上品靈石。",
+		"rarity": "epic",
+		"min_era": 6,
+		"requires_open_islands": [
+			"void"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"void_essence": 8,
+			"stone_high": 1
+		}
+	},
+	"tribulation_material_check": {
+		"template_id": "tribulation_material_check",
+		"name": "查驗護劫備材",
+		"desc": "核查宗門護劫丹材，領回礦草自行使用，不代服丹或保證渡劫。",
+		"rarity": "epic",
+		"min_era": 5,
+		"requires_open_islands": [
+			"deep"
+		],
+		"requires_active_beast": "",
+		"rewards": {
+			"cold_iron": 8,
+			"mithril": 5,
+			"spirit_grass_100y": 10
+		}
+	},
+	"turtle_nursery_reserve": {
+		"template_id": "turtle_nursery_reserve",
+		"name": "整備玄龜育苑",
+		"desc": "協助宗門整備玄龜育苑，領回一份未折扣餵料；不自動餵養。",
+		"rarity": "legendary",
+		"min_era": 4,
+		"requires_open_islands": [
+			"deep"
+		],
+		"requires_active_beast": "iron_turtle",
+		"rewards": {
+			"refined_iron": 30,
+			"stone_low": 100
+		}
+	},
+	"phoenix_nursery_reserve": {
+		"template_id": "phoenix_nursery_reserve",
+		"name": "整備火鳳育苑",
+		"desc": "協助宗門整備火鳳育苑，領回千年草與上品靈石；不發放靈獸。",
+		"rarity": "legendary",
+		"min_era": 6,
+		"requires_open_islands": [
+			"ancient"
+		],
+		"requires_active_beast": "fire_phoenix",
+		"rewards": {
+			"spirit_grass_1000y": 10,
+			"stone_high": 2
+		}
+	}
+}
 const P1_TECHNIQUES := [
 	"alchemy_herb_conservation",
 	"fox_feed_conservation"
@@ -223,6 +386,24 @@ const TECHNIQUES := {
 	"desc": "已入宗且金丹：僅靈狐餵料每階減2%，最後取整，上限10%。"
 },
 
+	"p2_pill_qi_conservation": {
+		"name": "玄煉節息訣",
+		"min_era": 4,
+		"max_level": 5,
+		"base_stone_low": 10,
+		"base_contrib": 120,
+		"cost_scale": 1.5,
+		"desc": "已入宗且元嬰：八種後期丹藥的直接靈力費每階減2%，上限10%；不折其他丹材。"
+	},
+	"sacred_beast_feed_conservation": {
+		"name": "龜鳳育靈法",
+		"min_era": 4,
+		"max_level": 5,
+		"base_wood": 200,
+		"base_contrib": 150,
+		"cost_scale": 1.5,
+		"desc": "已入宗且元嬰：玄龜／火鳳餵費每階減2%，上限10%，與獸魂合算後取整；火鳳須煉虛，第二至五階餵草費不再下降。"
+	},
 }
 
 const MARKET_ITEMS := {
@@ -276,21 +457,52 @@ const MARKET_ITEMS := {
 	"grant_count": 1,
 	"desc": "育草丹1顆；祖島產草+100%／300秒，需另行服用，終身限購10次。"
 },
+	"refined_iron_reserve": {
+		"name": "玄龜精鐵匣",
+		"min_era": 4,
+		"requires_open_island": "deep",
+		"cost": 90,
+		"grant_resource": "refined_iron",
+		"grant_amount": 5,
+		"limit": 10,
+		"desc": "需已開來源島及足額空倉，終身限購10次；入祖島庫存，不自動使用。"
+	},
+	"ancient_herb_reserve": {
+		"name": "千年藥材匣",
+		"min_era": 5,
+		"requires_open_island": "ancient",
+		"cost": 120,
+		"grant_resource": "spirit_grass_1000y",
+		"grant_amount": 2,
+		"limit": 10,
+		"desc": "需已開來源島及足額空倉，終身限購10次；入祖島庫存，不自動使用。"
+	},
 }
 
 static func is_unlocked(state: GameState) -> bool:
 	return state.era_id >= UNLOCK_ERA or state.reincarnation_count >= 1
 
 static func active_level(state: GameState, id: String) -> int:
-	if state == null or not P1_TECHNIQUES.has(id): return 0
+	if state == null or id not in P1_TECHNIQUES + P2_TECHNIQUES: return 0
+	if id in P2_TECHNIQUES and not p2_ready(state): return 0
 	if not bool(state.sect.get("unlocked", false)) or state.era_id < int(TECHNIQUES[id].min_era): return 0
 	return clampi(int(state.sect.get("techniques", {}).get(id, 0)), 0, 5)
+
+static func p2_ready(state: GameState) -> bool:
+	return state != null and state.sect_version >= 2 and IslandEconomy.expanded(state)
+
+static func p2_life_error(state: GameState) -> String:
+	var content := SupplyContent.runtime_content()
+	var maximum := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus), float(state.pill_effects.get("lifespan_bonus_years", 0)) + float(BuffSystem.compute_multipliers(state).lifespan_bonus_years))
+	return "LIFESPAN_EXHAUSTED" if Lifespan.is_exhausted(state.total_elapsed_seconds, maximum) else ""
 
 static func eligible_templates(state: GameState, rarity: String) -> Array:
 	var result: Array = TASK_TEMPLATES[rarity].duplicate(true)
 	if state == null or not bool(state.sect.get("unlocked", false)): return result
-	for id in P1_TASKS:
-		var t: Dictionary = P1_TASKS[id]
+	var registered := P1_TASKS.duplicate(true)
+	if p2_ready(state): registered.merge(P2_TASKS)
+	for id in registered:
+		var t: Dictionary = registered[id]
 		if t.rarity != rarity or state.era_id < int(t.min_era): continue
 		var eligible := true
 		for island in t.requires_open_islands:
@@ -301,6 +513,27 @@ static func eligible_templates(state: GameState, rarity: String) -> Array:
 	return result
 
 static func market_destination_error(state: GameState, id: String, content: GameContent = null) -> String:
+	if id in P2_MARKET:
+		if not p2_ready(state): return "MARKET_SUPPLY_REQUIRED"
+		if not bool(state.sect.get("unlocked", false)): return "SECT_LOCKED"
+		var life_error := p2_life_error(state)
+		if not life_error.is_empty(): return life_error
+		var def: Dictionary = MARKET_ITEMS[id]
+		if state.era_id < int(def.min_era): return "MARKET_ERA_LOCKED"
+		if not bool(state.economy.get("islands", {}).get(def.requires_open_island, {}).get("opened", false)): return "MARKET_ISLAND_LOCKED"
+		if content == null: return "MARKET_CONTENT_REQUIRED"
+		var catalog: Dictionary = content.processing_catalog
+		var resource: String = def.grant_resource
+		if not catalog.get("resources", {}).has(resource) or not state.resources.has(resource): return "MARKET_RESOURCE_MISSING"
+		var cap_value: Variant = catalog.resources[resource].get("cap")
+		if not SectSaveContract.number(cap_value) and not (cap_value is String and cap_value.is_valid_float()): return "MARKET_CAPACITY_INVALID"
+		if not is_finite(float(cap_value)) or float(cap_value) < 0: return "MARKET_CAPACITY_INVALID"
+		var cap := IslandEconomy.home_cap(state, resource, catalog)
+		if not is_finite(cap) or cap < 0: return "MARKET_CAPACITY_INVALID"
+		var held: AmountCompat = state.resources[resource].value
+		var incoming := IslandEconomy.reserved(state, "home", resource, catalog)
+		var needed := held.add(AmountCompat.from_number(incoming)).add(AmountCompat.from_number(def.grant_amount))
+		return "MARKET_DESTINATION_FULL" if needed.compare_to(AmountCompat.from_number(cap)) > 0 else ""
 	if id not in ["greenwood_bundle", "herb_nurture_supply"]: return ""
 	if state.era_id < 2: return "MARKET_ERA_LOCKED"
 	if id == "herb_nurture_supply":
@@ -490,6 +723,8 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 	if active == null or not (active is Dictionary):
 		return {"ok": false, "error": "NO_ACTIVE_EXPEDITION"}
 	
+	var payload_error := SectSaveContract.validate_task(active, state.sect_version)
+	if not payload_error.is_empty(): return {"ok": false, "error": payload_error}
 	var duration: int = int(active.get("duration", 0))
 	var elapsed: int = int(active.get("elapsed", 0))
 	if elapsed < duration:
@@ -543,13 +778,18 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 		}],
 	}
 
-static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
+static func technique_requirements(state: GameState, tech_id: String) -> Dictionary:
 	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
 	if not TECHNIQUES.has(tech_id):
 		return {"ok": false, "error": "UNKNOWN_TECHNIQUE"}
 	
+	if tech_id in P2_TECHNIQUES and not p2_ready(state):
+		return {"ok": false, "error": "TECHNIQUE_SUPPLY_REQUIRED"}
+	if tech_id in P2_TECHNIQUES:
+		var life_error := p2_life_error(state)
+		if not life_error.is_empty(): return {"ok": false, "error": life_error}
 	var def: Dictionary = TECHNIQUES[tech_id]
 	if state.era_id < int(def.get("min_era", 1)):
 		return {"ok": false, "error": "TECHNIQUE_ERA_LOCKED"}
@@ -582,6 +822,18 @@ static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
 		if cur_stone.compare_to(AmountCompat.from_number(float(req_stone))) < 0:
 			return {"ok": false, "error": "INSUFFICIENT_STONE", "required": req_stone}
 	
+	return {"ok":true,"next_level":next_lvl,"scale":scale,"contribution":req_contrib}
+
+static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
+	var requirements := technique_requirements(state, tech_id)
+	if not requirements.ok: return requirements
+	var sect: Dictionary = state.sect
+	var def: Dictionary = TECHNIQUES[tech_id]
+	var techs: Dictionary = sect.get("techniques", {})
+	var next_lvl: int = requirements.next_level
+	var scale: float = requirements.scale
+	var cur_contrib: AmountCompat = AmountCompat.try_parse(String(sect.contribution)).value
+	var req_contrib_amount := AmountCompat.from_number(requirements.contribution)
 	# Deduct costs
 	sect["contribution"] = cur_contrib.subtract(req_contrib_amount).serialize()
 	if def.has("base_wood"):

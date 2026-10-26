@@ -1,0 +1,7 @@
+[MODE] matrix=full runners=121 parallel=3
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{a1e12137-3483-4209-a5a6-d15a872e95fc}\AC\Temp\dao2_runners_55f38968f7524e8bb808020ea0c4e90e
+[START:initial] tests/content_p2_talents_flow_runner.gd
+[START:initial] tests/content_p2_talents_ui_runner.gd
+[START:initial] tests/content_p2_talents_runner.gd
+[PASS:initial] tests/content_p2_talents_runner.gd (13s) result=pass
+[START:initial] tests/content_p2_supply_progression_runner.gd

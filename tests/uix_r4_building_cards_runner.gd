@@ -72,4 +72,4 @@ func _run() -> void:
 	catalog.queue_free()
 	await process_frame
 	print("UIX-R4 building cards: PASS" if not failed else "UIX-R4 building cards: FAIL")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

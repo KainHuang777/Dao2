@@ -34,7 +34,7 @@ func _init() -> void:
 	for failure in failures:
 		push_error(failure)
 	print("%s: SKS-P2 %d checks" % ["PASS" if failures.is_empty() else "FAIL", checks])
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func expect(value: bool, label: String) -> void:
 	checks += 1
@@ -171,6 +171,8 @@ func _test_local_and_caps() -> void:
 	var sd: Dictionary = IslandEconomy.supply_data()
 	expect(float(sd.islands.deep.local_cap) == 300.0 and float(sd.islands.ancient.local_cap) == 300.0 and float(sd.islands.void.local_cap) == 300.0 and String(sd.dispatch.deep) == "mineral_focus" and String(sd.dispatch.ancient) == "ancient_focus" and String(sd.dispatch.void) == "void_focus", "supply islands local cap and dispatch buildings")
 	expect(float(sd.islands.deep.rates.refined_iron) == 0.1 and float(sd.islands.deep.rates.mithril) == 0.05 and float(sd.islands.deep.rates.cold_iron) == 0.05 and float(sd.islands.ancient.rates.spirit_grass_1000y) == 0.04 and float(sd.islands.void.rates.void_essence) == 0.05, "supply base gathering rates")
+	for island in ["deep", "ancient", "void"]:
+		econ_session.state.economy.islands[island].opened = true
 	econ_session.state.buildings["mineral_focus"] = 1
 	econ_session.state.skills = {"deep_vein_resonance": 3}
 	expect(is_equal_approx(IslandEconomy.rate(econ_session.state, "deep", "refined_iron"), 0.2662), "deep focus times resonance")
@@ -260,11 +262,11 @@ func _test_save_flow() -> void:
 	var decoded: Dictionary = SaveCodec.decode(String(encoded.get("json", "")))
 	var envelope: Dictionary = decoded.get("envelope", {})
 	expect(bool(decoded.get("ok", false)) and decoded.state.skills == econ_session.state.skills and int(decoded.state.skill_version) == 4, "p2 roundtrip preserves version four levels")
-	expect(String(envelope.get("rules_version", "")) == SaveCodec.SKS_RULES_VERSION and SaveCodec.SKS_RULES_VERSION == "core-flow-19-content-sks-p2", "expanded v4 carries sks rules version")
+	expect(econ_session.state.sect_version == 2 and econ_session.state.pill_version == 2 and String(envelope.get("rules_version", "")) == SaveCodec.BEAST_RULES_VERSION and SaveCodec.SECT_RULES_VERSION == "core-flow-22-content-p2-sect" and SaveCodec.PILL_RULES_VERSION == "core-flow-21-content-p2-pills" and SaveCodec.SKS_RULES_VERSION == "core-flow-19-content-sks-p2", "expanded skill v4 uses current beast v1 rules identity")
 	var plain_encoded: Dictionary = SaveCodec.encode(plain_session.state, plain_content.content_version, META)
 	var plain_decoded: Dictionary = SaveCodec.decode(String(plain_encoded.get("json", "")))
 	var plain_envelope: Dictionary = plain_decoded.get("envelope", {})
-	expect(bool(plain_encoded.get("ok", false)) and bool(plain_decoded.get("ok", false)) and String(plain_envelope.get("rules_version", "")) == SaveCodec.SKS_RULES_VERSION, "observed non-expanded v4 also carries sks rules version")
+	expect(bool(plain_encoded.get("ok", false)) and bool(plain_decoded.get("ok", false)) and plain_session.state.sect_version == 2 and plain_session.state.pill_version == 2 and String(plain_envelope.get("rules_version", "")) == SaveCodec.BEAST_RULES_VERSION, "observed non-expanded skill v4 uses current beast v1 rules identity")
 	expect(not SkillSystem.validate(3, {"nascent_soul_incubation": 1}).is_empty() and SkillSystem.validate(4, {"nascent_soul_incubation": 1}).is_empty(), "p2 ids rejected at three accepted at four")
 	var rejects := not SkillSystem.validate(4, {"heavenly_craft": -1}).is_empty() and not SkillSystem.validate(4, {"heavenly_craft": 1.5}).is_empty() and not SkillSystem.validate(4, {"heavenly_craft": 4}).is_empty() and not SkillSystem.validate(4, {"nascent_soul_incubation": 6}).is_empty()
 	expect(rejects, "negative fractional over max levels rejected")

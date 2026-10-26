@@ -18,7 +18,7 @@ func run() -> void:
 	await frames(); await frames()
 	var abode = scene.abode
 	if abode == null or abode.achievement_panel == null:
-		check(false,"formal UI initialized"); quit(1); return
+		check(false,"formal UI initialized"); RunnerResult.finish(self, 1); return
 	var s: GameSession = abode.session
 	var panel: AchievementPanel = abode.achievement_panel
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
@@ -56,7 +56,12 @@ func run() -> void:
 			await shot("native-"+str(vp.x)+"-"+def.id)
 		abode.feature_navigation.home(); await frames()
 		check(not abode.fortune_modal.visible and not panel.visible,"return")
-	FileAccess.open(DIR+"native-ui.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	var write_file_native_ui := FileAccess.open(DIR+"native-ui.json",FileAccess.WRITE)
+	if write_file_native_ui == null:
+		push_error("write failed: " + str(DIR+"native-ui.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_native_ui.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P1-STORY UI ",checks," checks failures=",JSON.stringify(failures))
 	scene.queue_free(); await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

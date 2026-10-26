@@ -1,0 +1,474 @@
+{
+  "task": "REPORT-2",
+  "date": "2026-10-22",
+  "ok": true,
+  "fixed_runners": 94,
+  "script_errors": 0,
+  "delivery_exits": {
+    "font": 0,
+    "normal_compress": 0,
+    "fixture": 0,
+    "normal": 0,
+    "import": 0,
+    "native": 0,
+    "fixture_compress": 0
+  },
+  "suite_mode": {
+    "passed_prefix": 42,
+    "passed_middle": 2,
+    "passed_time_section": 35,
+    "passed_skills_tail": 15,
+    "final_clean_rerun": "tests/m3b_sect_ui_runner.gd",
+    "superseded_script_errors": 4,
+    "superseded_failures": [
+      "unprepared reference omitted history observation; retained in all-verified.log",
+      "legacy aggregate/segmented snapshots have intentionally different observation resolution; retained in all-verified-tail.log"
+    ]
+  },
+  "final_export_exits": {
+    "normal": 0,
+    "normal_compress": 0,
+    "fixture_compress": 0,
+    "fixture": 0
+  },
+  "menu_export_exits": {
+    "fixture_compress": 0,
+    "normal_compress": 0,
+    "normal": 0,
+    "fixture": 0
+  },
+  "builds": [
+    {
+      "path": "build/web-report-2",
+      "pck_sha256": "58cde35f2437b6b99ffe2324013f860dd4c02d3052ec1fa635ea13fea8aafdb2",
+      "audio_companions": 4
+    },
+    {
+      "path": "build/report-2-acceptance",
+      "pck_sha256": "81e07beb1fb9f5d6244b4931b52b12271c3f57d6782ffbff756e267e9b955967",
+      "audio_companions": 4
+    }
+  ],
+  "frozen_web_sha256": "7e7e619dcaa28fb05e1c397adcc24ce9071d9b53b4e8fa6379c186e0af9f9400",
+  "sources": [
+    {
+      "path": "src/domain/life_history.gd",
+      "sha256": "90e12c571c7f3d7a8a8da0421f5e4615de8f2fdceb4a6c7fc4eccb1771f1db19",
+      "bytes": 7561
+    },
+    {
+      "path": "src/domain/life_history.gd.uid",
+      "sha256": "a9a9e7003089e4b3ac75bb9391aba343425be4d6b54b61c42eaf1d4d77cb0477"
+    },
+    {
+      "path": "src/domain/life_ledger.gd",
+      "sha256": "6b908ca4b5054c91063a72d96432ca93090d2ab60d2f7ddb47cc1d8dd243e7c1",
+      "bytes": 15423
+    },
+    {
+      "path": "src/domain/life_ledger.gd.uid",
+      "sha256": "78e4a4f004123dde8fa076ebdf8c30e0d8fd0e7ecad7e1656a975e472251ff89"
+    },
+    {
+      "path": "src/application/game_session.gd",
+      "sha256": "e4739ab373934cb8ec98869947f09745b73961c0cb0d6646d07890986514d936",
+      "bytes": 25366
+    },
+    {
+      "path": "src/application/game_session.gd.uid",
+      "sha256": "f56626128d13c9e5f82c8dbd0e25a6612bd8a74f1f133c22a85c75c7c226e4f6"
+    },
+    {
+      "path": "src/simulation/command_processor.gd",
+      "sha256": "63f49ab4dd3f0844cf90c058ead8d48b2d726c8652d1ebf43514c6b1e32f08ff",
+      "bytes": 26347
+    },
+    {
+      "path": "src/simulation/command_processor.gd.uid",
+      "sha256": "c1706cbbb10fa0dbf0f1cf86319724ef2c82d980399225c6dd8ae04b37b5fdd7"
+    },
+    {
+      "path": "src/simulation/time_advancer.gd",
+      "sha256": "e924d842ea5c0ac5e8bd0f97b0440681e79b7173bacd19fb974f81d7f7cef4d6",
+      "bytes": 19011
+    },
+    {
+      "path": "src/simulation/time_advancer.gd.uid",
+      "sha256": "4a4464e42529cd808c1823ae4e1f29b5502d0ce6ef6368c6f3978d614d82d668"
+    },
+    {
+      "path": "src/simulation/offline_closed_form.gd",
+      "sha256": "676a057713cc0ad803067f396934b9815bcaab778af3600b2fa692f7cad31ba1",
+      "bytes": 17417
+    },
+    {
+      "path": "src/simulation/offline_closed_form.gd.uid",
+      "sha256": "3c04ed6a23f6cd08b2e1d91dce768a0997b34c5f27fb42319b6243a6fb7bccc6"
+    },
+    {
+      "path": "src/simulation/reincarnation_rules.gd",
+      "sha256": "8e0876d7a8d36b931b8a0a0ce88a9c62e4ef8efc34e3d44ea0a125df9f426fb7",
+      "bytes": 8087
+    },
+    {
+      "path": "src/simulation/reincarnation_rules.gd.uid",
+      "sha256": "ec8d5c37bd72b24ad335e2a9b2dcc5b6e72381a04eb2301fc24489f8e914283b"
+    },
+    {
+      "path": "src/abode/living_abode.gd",
+      "sha256": "9f92570523a13c78a72c6fc018a9a9e8fbb9f4bf76b3922a890dd5d2e39c1e8e",
+      "bytes": 77825
+    },
+    {
+      "path": "src/abode/living_abode.gd.uid",
+      "sha256": "c83d116e01be11d78d4301a9d0b7ab186f6feb9d45dfedf7ea75f6299a12703f"
+    },
+    {
+      "path": "src/presentation/life_history_plot.gd",
+      "sha256": "5f6777b9b468ae2f7329956d03c09756aade3ef41db28398315e3e71c778deb3",
+      "bytes": 1687
+    },
+    {
+      "path": "src/presentation/life_history_plot.gd.uid",
+      "sha256": "8e83d3e23b12b035483b71ac15ce4d582ced489783b9fc6ee094a872cd472aa0"
+    },
+    {
+      "path": "src/presentation/life_history_view.gd",
+      "sha256": "d1a36a4edb67f813e92d7b346146e926a64801283cb3263e60b4fc3db4f1da1f",
+      "bytes": 9628
+    },
+    {
+      "path": "src/presentation/life_history_view.gd.uid",
+      "sha256": "647ef7556f14108ad5fb3fe1e26bf19825436756df0f68f8b5cdf682a478f75a"
+    },
+    {
+      "path": "src/presentation/reincarnation_panel.gd",
+      "sha256": "5c33e197446eb4f8e654f58c7306a42c47af958c0bc27d4c5f948bf177d84113",
+      "bytes": 25367
+    },
+    {
+      "path": "src/presentation/reincarnation_panel.gd.uid",
+      "sha256": "84abdb1411a1813834b898ece64baf2da67748b1505bb072f6f0ea3763b8528f"
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd",
+      "sha256": "1905bbe4f510750401f2801f36212962a972735f75a3fa0e832f7aa99ebcb202",
+      "bytes": 31808
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd.uid",
+      "sha256": "d87a1d9f5998371699d850afcf44d060ab626167444737228888f0ad30e89bae"
+    },
+    {
+      "path": "src/verification/life_history_fixture.gd",
+      "sha256": "e1a5b5ee0a8b210c784a7750fec96c74655e81e007ebba98ad681a49ff0e65b4",
+      "bytes": 2056
+    },
+    {
+      "path": "src/verification/life_history_fixture.gd.uid",
+      "sha256": "a3a94c046176ac7645a1119540cf08c25ec2cc1ffdb81d5965830c32aeebca60"
+    },
+    {
+      "path": "src/verification/life_history_acceptance.gd",
+      "sha256": "e29908f9c11c13d3d8b6d2432ab6b1f841e11eeea76d4a3154bf6d668eac6ea5",
+      "bytes": 2204
+    },
+    {
+      "path": "src/verification/life_history_acceptance.gd.uid",
+      "sha256": "c40e29f732b47baf7b306728e4a04b78051e2749078445e5a800b3464219e297"
+    },
+    {
+      "path": "src/verification/life_history_acceptance.tscn",
+      "sha256": "e20732e3e8f575d54ce40d759681dd68f2fe9a671ac2211867ddda0650982379",
+      "bytes": 204
+    },
+    {
+      "path": "src/verification/res1d2_contract.gd",
+      "sha256": "344d92d5611ba055c979e57c6b099424cfcfd0634c12c14a7b49165092caeaaa",
+      "bytes": 20168
+    },
+    {
+      "path": "src/verification/res1d2_contract.gd.uid",
+      "sha256": "32e4cac9b82ff564f776801974d13d170c12fbd7e25c9aa298bd19fb554f132f"
+    },
+    {
+      "path": "tests/life_history_runner.gd",
+      "sha256": "cdc9d42e467194535373c0462c6bd1cf5c964fc1b0a6a9c2ca04121778a53fe7",
+      "bytes": 8530
+    },
+    {
+      "path": "tests/life_history_runner.gd.uid",
+      "sha256": "637500da1a7371f9f242a4314b0b0d652075ec4e4b1d2ac1ad4a01084e29f5c2"
+    },
+    {
+      "path": "tests/life_history_ui_runner.gd",
+      "sha256": "d06282adb9140bc33b587a03421c67916e208bded33b4bfd651730ace80dca1c",
+      "bytes": 5952
+    },
+    {
+      "path": "tests/life_history_ui_runner.gd.uid",
+      "sha256": "0e7443a78bb47528e59262cfbf069ee0a883c6cfcfcbe57be595602e9a724920"
+    },
+    {
+      "path": "tests/resource_account_assertions.gd",
+      "sha256": "2dbabb48c532c5fc9b9e1a8b5bb3f88b3d9de5241ed814f63d1acc561f3c7df5",
+      "bytes": 2033
+    },
+    {
+      "path": "tests/resource_account_assertions.gd.uid",
+      "sha256": "912c402242913529d7d4872b7476f6779f5a1eb1884453571691dc1e4c15516e"
+    },
+    {
+      "path": "tests/resource_accounts_ui_runner.gd",
+      "sha256": "a5dcbd10eaa8cf833f8b44dc3db3c2f098db84b78ebf5444ebb66b56d6e117cb",
+      "bytes": 4471
+    },
+    {
+      "path": "tests/resource_accounts_ui_runner.gd.uid",
+      "sha256": "217f08e8c2a54522656dce8b2ca48f0bc270ba64adc7b6beca60cf5379e297c0"
+    },
+    {
+      "path": "tests/decision_ui_runner.gd",
+      "sha256": "88b9d44744b8883adf9cbdc55a619904f3b560faf7faaad552e80d0d43df3339",
+      "bytes": 4780
+    },
+    {
+      "path": "tests/decision_ui_runner.gd.uid",
+      "sha256": "5b6316f09963549cd1d9cd52df5c59f2118174e0dc02a6f853242066dbd9e7a8"
+    },
+    {
+      "path": "tests/res1c2_perf_runner.gd",
+      "sha256": "4d5c7759045150e8095e2be25c6e07d74d3e09f82f4e2d837d8c70d302b1fd10",
+      "bytes": 7631
+    },
+    {
+      "path": "tests/res1c2_perf_runner.gd.uid",
+      "sha256": "bb3af2a221ad1d0c042fa361b7d9296ba6a11faa76c6f0435756d5da089d5cd4"
+    },
+    {
+      "path": "tests/m1b_time_runner.gd",
+      "sha256": "3627c709737968013f24b31048534d8e42ef11615960389fd80a9e341b681995",
+      "bytes": 17202
+    },
+    {
+      "path": "tests/m1b_time_runner.gd.uid",
+      "sha256": "dcde5392de98b0cd06dd4b8a80f9c6dc3784556960d957a184544cc731e4ded8"
+    },
+    {
+      "path": "tests/m3b_sect_ui_runner.gd",
+      "sha256": "0cae73d1bdb15260e70ec4581b30e1dbbf50f7f3d491a3867a15098eaaa1f934",
+      "bytes": 8626
+    },
+    {
+      "path": "tests/m3b_sect_ui_runner.gd.uid",
+      "sha256": "379ba50bb03d6451e604c2630819056b77e84d5b740e91b3e1050f9839fe3b1a"
+    },
+    {
+      "path": "tests/skills_b1_runner.gd",
+      "sha256": "7e45a7ea32169c9b6d5348c6e43c072f9664a881eeed7b9d17f11c1377dbd7f2",
+      "bytes": 9912
+    },
+    {
+      "path": "tests/skills_b1_runner.gd.uid",
+      "sha256": "6b8ee40131d920641841a514990a7189035c48e38c5fd98d91ab82efe3da5a3f"
+    },
+    {
+      "path": "tools/run_all_runners.ps1",
+      "sha256": "b385f7aa73e964bbb9a98c115c5c59745ce20f30ce777646f69ecc0086dcc6f0",
+      "bytes": 4605
+    },
+    {
+      "path": "tools/life_history_audit.py",
+      "sha256": "38264203889c1762d3690b2fa8be77d85cb77cb855088ec31f0777a130790c21",
+      "bytes": 9456
+    },
+    {
+      "path": "project.godot",
+      "sha256": "30630fb110441466d9b4cee9d504700406f5345261511dc110b35e244e1764ec",
+      "bytes": 2074
+    },
+    {
+      "path": "export_presets.cfg",
+      "sha256": "51be7bec3669e7a0aa22251a8fb3ae843a862bc0255cfa95e03e39ca9a9c2610",
+      "bytes": 35471
+    },
+    {
+      "path": "assets/fonts/runtime/manifest.json",
+      "sha256": "1ba7287cb120d2b561193f2388bf6d4c17e690dd7d8a0e4de5a59a6ddcd7d273",
+      "bytes": 11792
+    },
+    {
+      "path": "docs/decisions/ADR-016-bounded-life-history.md",
+      "sha256": "433fcb686973e90a67acf583dd0efba7c879dc68df707ab9da8f2bd5d6699ea6",
+      "bytes": 4552
+    },
+    {
+      "path": "docs/verification/report-2.md",
+      "sha256": "1c0825c6e1bef3a22f2e72b5d52c3128a838f6fd281b547b13081d03c9d2d789",
+      "bytes": 11432
+    },
+    {
+      "path": "docs/19-ui-ux-guidelines.md",
+      "sha256": "b3369b4ff90f1efdb87ec35676d150aa836479f7558891fd84c1c87fe1a6c06f",
+      "bytes": 26860
+    },
+    {
+      "path": "docs/07-responsive-ui-web-spec.md",
+      "sha256": "acb6991c87777d9929f60aae625f7cc780a916b083b28d251a73e2854aa18fe6",
+      "bytes": 36876
+    },
+    {
+      "path": "docs/verification/m2-d.md",
+      "sha256": "6cdff55134422c0a8a24efdd9c886655b75a6ffe351487ef507f036233db7bd7",
+      "bytes": 24779
+    },
+    {
+      "path": "docs/27-life-report-and-decision-ux-integration-plan.md",
+      "sha256": "93458eecd7982e62c79ad5eb268e22aed4ed8f8a99d844e18e92b924d4b87704",
+      "bytes": 22161
+    },
+    {
+      "path": "README.md",
+      "sha256": "9d6057237b15bbc690264d2e06e1e1185db2bdc2cb53c8fe1d48fcc7543da6a9",
+      "bytes": 76392
+    },
+    {
+      "path": "ROADMAP.md",
+      "sha256": "11d4f49798fa88a253222cf3de13ecd96c11808a71b750a794f94810933dc4e3",
+      "bytes": 123780
+    },
+    {
+      "path": "docs/ai-handoff.md",
+      "sha256": "eb915f47c5e924c34c3008a7385570aaf93f0d61c0fb864e0e90e272f5e5850e",
+      "bytes": 93705
+    },
+    {
+      "path": "docs/development-status.md",
+      "sha256": "55a0839d4bbc995612eb637d8e7585c84cca4eaa8db02c1ade0d0bc1cefc1fcb",
+      "bytes": 221043
+    },
+    {
+      "path": "updata.txt",
+      "sha256": "56582e47605153ebbdf7e8ee1994968b3339f8017b7ece6a7a1f0a7ebad67a06",
+      "bytes": 580263
+    }
+  ],
+  "links": [
+    {
+      "from": "docs/decisions/ADR-016-bounded-life-history.md",
+      "target": "../27-life-report-and-decision-ux-integration-plan.md"
+    },
+    {
+      "from": "docs/decisions/ADR-016-bounded-life-history.md",
+      "target": "../verification/report-2.md"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "../27-life-report-and-decision-ux-integration-plan.md"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "../decisions/ADR-016-bounded-life-history.md"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "artifacts/report-2/browser-observations.json"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "artifacts/report-2/final-manifest.json"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "artifacts/report-2/plot-1280x720.png"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "artifacts/report-2/plot-800x360.png"
+    },
+    {
+      "from": "docs/verification/report-2.md",
+      "target": "artifacts/report-2/protection-844x390.png"
+    }
+  ],
+  "native_screenshots": [
+    "plot-1280x720.png",
+    "plot-800x360.png",
+    "plot-844x390.png",
+    "protection-1280x720.png",
+    "protection-800x360.png",
+    "protection-844x390.png",
+    "select-1280x720.png",
+    "select-800x360.png",
+    "select-844x390.png",
+    "table-1280x720.png",
+    "table-800x360.png",
+    "table-844x390.png"
+  ],
+  "browser": {
+    "date": "2026-10-22",
+    "browser": "IAB",
+    "origin": "http://127.0.0.1:4405",
+    "input": "real desktop mouse",
+    "gameCssSizes": [
+      [
+        1280,
+        720
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        800,
+        360
+      ]
+    ],
+    "syntheticFixture": true,
+    "readingUnchanged": true,
+    "cancelUnchanged": true,
+    "failedRetryUnchanged": true,
+    "recoveredArchiveUnchanged": true,
+    "reloadArchiveUnchanged": true,
+    "finalPackageArchiveUnchanged": true,
+    "count": 3,
+    "archiveCount": 3,
+    "heart": "20",
+    "saveFailed": false,
+    "longLifeAgeYears": 80000,
+    "lastObservedIntervalYears": [
+      78000,
+      80000
+    ],
+    "woodStock": [
+      331,
+      337
+    ],
+    "woodCapacity": [
+      150,
+      150
+    ],
+    "missingOldLifeNoCurveNoZeroAxis": true,
+    "finalMissingResourceSelectorHidden": true,
+    "console": [
+      {
+        "level": "error",
+        "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+        "timestamp": "2026-10-22T15:16:47.160Z",
+        "attribution": "unassigned; retained, no clean-console claim"
+      }
+    ],
+    "evidence": "CUA tool screenshots and read-only DOM #state equality in this conversation. On-disk PNGs are native captures, not browser screenshots.",
+    "initialFailures": [
+      "server not started: refused",
+      "sandbox server: timeout",
+      "failed data-URL tab binding blocked",
+      "first escalated server request not executed because automatic review hit account usage limit; user requested continuation, same command subsequently approved"
+    ],
+    "notes": "Recovery/background load may advance the new life; all equality claims compare the entire retained archive, not changing current-life age.",
+    "menuPackageArchiveUnchanged": true,
+    "finalMenuPackageMouseSelectionAt800": true,
+    "successfulTabsClosed": true,
+    "viewportOverrideReset": true
+  }
+}

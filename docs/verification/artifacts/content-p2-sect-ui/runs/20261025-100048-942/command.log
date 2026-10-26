@@ -1,0 +1,7 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{2de11c16-d649-4b06-bdc4-fab61f3b9193}\AC\Temp\dao2_runners_1c3a87710df94fc99ad0a66663ba8820
+[START:initial] tests/uix_r9_sect_ui_runner.gd
+[PASS:initial] tests/uix_r9_sect_ui_runner.gd (10.6s) result=pass
+--- slowest 8 runners (s) ---
+    10.5  tests/uix_r9_sect_ui_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{2de11c16-d649-4b06-bdc4-fab61f3b9193}\AC\Temp\dao2_runners_1c3a87710df94fc99ad0a66663ba8820

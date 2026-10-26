@@ -1,0 +1,21 @@
+{
+  "task": "UI-SHELL-2",
+  "status": "DONE_DESKTOP_WEB_BOUNDED",
+  "utf8_files": 41,
+  "report_links": 14,
+  "source_build_hashes": 20,
+  "runners": 85,
+  "script_errors": 0,
+  "native_checks": 1709,
+  "native_route_screenshots": 39,
+  "font_check": true,
+  "bgm_companions_per_build": 4,
+  "frozen_web_unchanged": true,
+  "restored_fixtures": 10,
+  "build": "build/web-ui-shell-2",
+  "acceptance_build": "build/ui-shell-2-acceptance",
+  "notes": [
+    "The whole suite matrix ran at 1592 checks; final home-goal visibility fix and 117 added assertions revalidated in final native 1709 and Web browser.",
+    "No economic rules, save schema, player progress, commit or push."
+  ]
+}

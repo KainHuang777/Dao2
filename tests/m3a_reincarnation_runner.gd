@@ -11,10 +11,10 @@ func _init() -> void:
 
 	if success:
 		print("PASS: M3-A lifecycle, reward golden parity, v2 talent-only inheritance, reset/preserve and persistence.")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		printerr("FAIL: M3-A reincarnation verification failed.")
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _expect(condition: bool, message: String) -> bool:
 	if not condition:

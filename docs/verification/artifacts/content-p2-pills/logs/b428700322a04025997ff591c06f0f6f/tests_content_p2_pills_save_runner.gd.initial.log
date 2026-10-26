@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillnascent_breath_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillvoid_meditation_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillancient_herb_dew_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillvoid_gathering_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillspirit_vessel_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillstone_vault_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillcalm_tribulation_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: save same paid candidate ECONOMY_RESOURCE:foundation_pill
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillsilver_ward_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+CONTENT-P2-PILLS-SAVE 484 checks failures=["save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillnascent_breath_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillvoid_meditation_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillancient_herb_dew_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillvoid_gathering_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillspirit_vessel_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillstone_vault_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillcalm_tribulation_pill","same command no double effect","reload deduplicates","save same paid candidate ECONOMY_RESOURCE:foundation_pill","reload deduplicates","reload keeps counters/costs/rng","per-ID command consume_pillsilver_ward_pill","same command no double effect","reload deduplicates"]
+RUNNER_RESULT status=FAIL exit=1

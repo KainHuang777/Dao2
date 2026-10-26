@@ -107,9 +107,9 @@ static func cap(state: GameState, content: GameContent, id: String) -> AmountCom
 	if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
 	if bonus > 0: value = value.multiply(AmountCompat.from_number(1 + bonus))
 	if not state.economy.is_empty() and content.processing_catalog.get("resources", {}).has(id):
-		value = AmountCompat.from_number(minf(value.to_float(), float(content.processing_catalog.resources[id].cap)))
+		value = AmountCompat.from_number(IslandEconomy.home_cap(state, id, content.processing_catalog)) if IslandEconomy.expanded(state) and AlchemySystem.capacity_bonus(state, id) > 0 else AmountCompat.from_number(minf(value.to_float(), float(content.processing_catalog.resources[id].cap)))
 		value = value.subtract(AmountCompat.from_number(IslandEconomy.reserved(state, "home", id, content.processing_catalog)))
-	return value
+	return value if not state.economy.is_empty() and content.processing_catalog.get("resources", {}).has(id) and IslandEconomy.expanded(state) and AlchemySystem.capacity_bonus(state, id) > 0 else Production.add_pill_capacity(state, id, value)
 
 static func transaction_error(state: GameState, content: GameContent, costs: Dictionary, rewards: Dictionary, limits: Dictionary = {}) -> String:
 	var ids := costs.duplicate()

@@ -292,10 +292,10 @@ func _run() -> void:
 	slots.reset()
 	abode_script.save_dir_override = ""
 	if _failed:
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	print("PASS: M2-D island/management tabs, three resource modes, compact building rows, detail return, and responsive bounds.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _check_scene(abode: Node, vp: Vector2, label: String) -> void:
 	if vp.x < vp.y:

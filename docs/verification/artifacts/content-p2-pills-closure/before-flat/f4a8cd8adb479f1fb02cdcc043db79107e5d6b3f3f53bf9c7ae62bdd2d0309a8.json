@@ -1,0 +1,7 @@
+{
+  "path": "E:\\WORK\\Dao2\\src\\verification\\content_p1_talents_fixture.json",
+  "baseline": "initial git status clean; HEAD bytes restored after preserving runner-generated fixture",
+  "baseline_sha256": "140c285031bb38a942513bbf122cd884cd7ac94e95555088a7671d719c192429",
+  "generated_sha256": "db98d7b512dbe412aa56ffd09c1b99bb269221c5205da465884adc83245cc23f",
+  "restored_exactly": true
+}

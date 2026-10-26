@@ -1,0 +1,1253 @@
+{
+  "note": "Profile adds overhead. Inclusive nested spans cannot be summed. rAF overlap is temporal evidence only; uninstrumented engine/render/GPU/scheduler costs remain.",
+  "samples": [
+    {
+      "sequence": 1,
+      "utc": "2026-10-04T05:15:50.427Z",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.53055524075544,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 49.900000000001455,
+      "process": {
+        "count": 893,
+        "totalMs": 1041.2,
+        "meanMs": 1.1659574468085108,
+        "p95Ms": 12.0,
+        "maxMs": 19.7
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 877,
+          "totalMs": 74.6,
+          "meanMs": 0.08506271379703534,
+          "p95Ms": 0.2,
+          "maxMs": 0.5
+        },
+        "advance_tick": {
+          "count": 16,
+          "totalMs": 19.0,
+          "meanMs": 1.1875,
+          "p95Ms": 1.7,
+          "maxMs": 1.7
+        },
+        "hud_buff": {
+          "count": 59,
+          "totalMs": 1.5,
+          "meanMs": 0.02542372881355932,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "hud_catalog": {
+          "count": 59,
+          "totalMs": 232.9,
+          "meanMs": 3.947457627118644,
+          "p95Ms": 6.0,
+          "maxMs": 6.6
+        },
+        "hud_guidance_layout": {
+          "count": 59,
+          "totalMs": 8.8,
+          "meanMs": 0.14915254237288136,
+          "p95Ms": 0.3,
+          "maxMs": 0.3
+        },
+        "hud_navigation": {
+          "count": 59,
+          "totalMs": 297.3,
+          "meanMs": 5.038983050847458,
+          "p95Ms": 6.1,
+          "maxMs": 8.8
+        },
+        "hud_resources": {
+          "count": 59,
+          "totalMs": 32.1,
+          "meanMs": 0.5440677966101695,
+          "p95Ms": 0.9,
+          "maxMs": 1.3
+        },
+        "hud_status": {
+          "count": 59,
+          "totalMs": 27.9,
+          "meanMs": 0.47288135593220343,
+          "p95Ms": 0.7,
+          "maxMs": 0.7
+        },
+        "hud_total": {
+          "count": 59,
+          "totalMs": 756.0,
+          "meanMs": 12.813559322033898,
+          "p95Ms": 16.4,
+          "maxMs": 19.4
+        },
+        "island_refresh": {
+          "count": 59,
+          "totalMs": 3.8,
+          "meanMs": 0.06440677966101696,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.2,
+          "meanMs": 4.2,
+          "p95Ms": 4.2,
+          "maxMs": 4.2
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 14.6,
+          "meanMs": 14.6,
+          "p95Ms": 14.6,
+          "maxMs": 14.6
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 18.8,
+          "meanMs": 18.8,
+          "p95Ms": 18.8,
+          "maxMs": 18.8
+        },
+        "view_build": {
+          "count": 75,
+          "totalMs": 191.4,
+          "meanMs": 2.552,
+          "p95Ms": 3.6,
+          "maxMs": 4.0
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 43012.70000000298,
+          "totalUs": 19700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 6500,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 7000,
+            "hud_resources": 900,
+            "hud_status": 700,
+            "hud_total": 19400,
+            "island_refresh": 100,
+            "view_build": 4000
+          }
+        },
+        {
+          "endMs": 46801.80000000447,
+          "totalUs": 19700,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 6600,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 8800,
+            "hud_resources": 500,
+            "hud_status": 400,
+            "hud_total": 19400,
+            "island_refresh": 0,
+            "view_build": 2700
+          }
+        },
+        {
+          "endMs": 47935.30000000447,
+          "totalUs": 19000,
+          "spans": {
+            "advance_idle": 0,
+            "save_commit": 4200,
+            "save_encode": 14600,
+            "save_total": 18800
+          }
+        },
+        {
+          "endMs": 50066,
+          "totalUs": 16700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 5400,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 5300,
+            "hud_resources": 1300,
+            "hud_status": 500,
+            "hud_total": 16400,
+            "island_refresh": 100,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 46289.20000000298,
+          "totalUs": 15600,
+          "spans": {
+            "advance_idle": 0,
+            "hud_buff": 100,
+            "hud_catalog": 5000,
+            "hud_guidance_layout": 300,
+            "hud_navigation": 6100,
+            "hud_resources": 500,
+            "hud_status": 600,
+            "hud_total": 15400,
+            "island_refresh": 100,
+            "view_build": 2800
+          }
+        },
+        {
+          "endMs": 47064.10000000149,
+          "totalUs": 15200,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 4700,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 6100,
+            "hud_resources": 500,
+            "hud_status": 400,
+            "hud_total": 15000,
+            "island_refresh": 0,
+            "view_build": 3100
+          }
+        },
+        {
+          "endMs": 47315.80000000447,
+          "totalUs": 15000,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 5000,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 5400,
+            "hud_resources": 600,
+            "hud_status": 500,
+            "hud_total": 14800,
+            "island_refresh": 100,
+            "view_build": 3000
+          }
+        },
+        {
+          "endMs": 42729.80000000447,
+          "totalUs": 14700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 6000,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 5100,
+            "hud_resources": 400,
+            "hud_status": 400,
+            "hud_total": 14500,
+            "island_refresh": 0,
+            "view_build": 2400
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 42948.2,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 0.3,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 43031.5,
+          "gapMs": 49.900000000001455,
+          "overlappingProcessMs": 19.7,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 6.5,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 7.0,
+            "hud_resources": 0.9,
+            "hud_status": 0.7,
+            "hud_total": 19.4,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 4.0
+          }
+        },
+        {
+          "endMs": 43098.2,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 46298.3,
+          "gapMs": 33.200000000004366,
+          "overlappingProcessMs": 15.6,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 5.0,
+            "hud_guidance_layout": 0.3,
+            "hud_navigation": 6.1,
+            "hud_resources": 0.5,
+            "hud_status": 0.6,
+            "hud_total": 15.4,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.8
+          }
+        },
+        {
+          "endMs": 46815,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 19.7,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 6.6,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 8.8,
+            "hud_resources": 0.5,
+            "hud_status": 0.4,
+            "hud_total": 19.4,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.7
+          }
+        },
+        {
+          "endMs": 51281.9,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 0.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "utc": "2026-10-04T05:16:53.962Z",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.26458641309411,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.5,
+      "process": {
+        "count": 890,
+        "totalMs": 1011.3,
+        "meanMs": 1.1362921348314607,
+        "p95Ms": 11.9,
+        "maxMs": 21.1
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 874,
+          "totalMs": 76.2,
+          "meanMs": 0.08718535469107552,
+          "p95Ms": 0.2,
+          "maxMs": 0.6
+        },
+        "advance_tick": {
+          "count": 16,
+          "totalMs": 20.9,
+          "meanMs": 1.30625,
+          "p95Ms": 1.8,
+          "maxMs": 1.8
+        },
+        "hud_buff": {
+          "count": 57,
+          "totalMs": 1.6,
+          "meanMs": 0.02807017543859649,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "hud_catalog": {
+          "count": 57,
+          "totalMs": 220.0,
+          "meanMs": 3.8596491228070176,
+          "p95Ms": 5.8,
+          "maxMs": 6.6
+        },
+        "hud_guidance_layout": {
+          "count": 57,
+          "totalMs": 7.7,
+          "meanMs": 0.13508771929824562,
+          "p95Ms": 0.2,
+          "maxMs": 0.3
+        },
+        "hud_navigation": {
+          "count": 57,
+          "totalMs": 292.7,
+          "meanMs": 5.135087719298245,
+          "p95Ms": 6.8,
+          "maxMs": 9.5
+        },
+        "hud_resources": {
+          "count": 57,
+          "totalMs": 32.1,
+          "meanMs": 0.5631578947368421,
+          "p95Ms": 0.9,
+          "maxMs": 1.1
+        },
+        "hud_status": {
+          "count": 57,
+          "totalMs": 27.1,
+          "meanMs": 0.47543859649122805,
+          "p95Ms": 0.7,
+          "maxMs": 0.8
+        },
+        "hud_total": {
+          "count": 57,
+          "totalMs": 729.3,
+          "meanMs": 12.794736842105264,
+          "p95Ms": 16.2,
+          "maxMs": 20.7
+        },
+        "island_refresh": {
+          "count": 57,
+          "totalMs": 4.1,
+          "meanMs": 0.07192982456140351,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.2,
+          "meanMs": 4.2,
+          "p95Ms": 4.2,
+          "maxMs": 4.2
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 13.8,
+          "meanMs": 13.8,
+          "p95Ms": 13.8,
+          "maxMs": 13.8
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 18.1,
+          "meanMs": 18.1,
+          "p95Ms": 18.1,
+          "maxMs": 18.1
+        },
+        "view_build": {
+          "count": 72,
+          "totalMs": 185.1,
+          "meanMs": 2.5708333333333333,
+          "p95Ms": 3.4,
+          "maxMs": 5.4
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 117641.60000000149,
+          "totalUs": 21100,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 6600,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 9500,
+            "hud_resources": 800,
+            "hud_status": 600,
+            "hud_total": 20700,
+            "island_refresh": 0,
+            "view_build": 3000
+          }
+        },
+        {
+          "endMs": 117905.30000000447,
+          "totalUs": 19500,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 6200,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 7900,
+            "hud_resources": 800,
+            "hud_status": 700,
+            "hud_total": 19200,
+            "island_refresh": 0,
+            "view_build": 3400
+          }
+        },
+        {
+          "endMs": 108061.20000000298,
+          "totalUs": 18400,
+          "spans": {
+            "advance_idle": 100,
+            "save_commit": 4200,
+            "save_encode": 13800,
+            "save_total": 18100
+          }
+        },
+        {
+          "endMs": 107239.90000000596,
+          "totalUs": 17600,
+          "spans": {
+            "advance_tick": 1500,
+            "hud_buff": 100,
+            "hud_catalog": 4300,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 4900,
+            "hud_resources": 600,
+            "hud_status": 400,
+            "hud_total": 12500,
+            "island_refresh": 100,
+            "view_build": 5400
+          }
+        },
+        {
+          "endMs": 119769.30000000447,
+          "totalUs": 16500,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 4000,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 5500,
+            "hud_resources": 1100,
+            "hud_status": 800,
+            "hud_total": 16100,
+            "island_refresh": 100,
+            "view_build": 4300
+          }
+        },
+        {
+          "endMs": 116569.40000000596,
+          "totalUs": 16400,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 5300,
+            "hud_guidance_layout": 0,
+            "hud_navigation": 4900,
+            "hud_resources": 700,
+            "hud_status": 700,
+            "hud_total": 16200,
+            "island_refresh": 100,
+            "view_build": 4200
+          }
+        },
+        {
+          "endMs": 113368.90000000596,
+          "totalUs": 14800,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 4300,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 6800,
+            "hud_resources": 500,
+            "hud_status": 500,
+            "hud_total": 14600,
+            "island_refresh": 100,
+            "view_build": 2200
+          }
+        },
+        {
+          "endMs": 108299.90000000596,
+          "totalUs": 14400,
+          "spans": {
+            "advance_idle": 0,
+            "hud_buff": 0,
+            "hud_catalog": 4200,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 5400,
+            "hud_resources": 600,
+            "hud_status": 500,
+            "hud_total": 14200,
+            "island_refresh": 100,
+            "view_build": 3200
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 107251.5,
+          "gapMs": 33.10000000000582,
+          "overlappingProcessMs": 17.6,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 1.5,
+            "hud_buff": 0.1,
+            "hud_catalog": 4.3,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 4.9,
+            "hud_resources": 0.6,
+            "hud_status": 0.4,
+            "hud_total": 12.5,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 5.4
+          }
+        },
+        {
+          "endMs": 108068.4,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 18.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 4.2,
+            "save_encode": 13.8,
+            "save_total": 18.1,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 111251.8,
+          "gapMs": 33.5,
+          "overlappingProcessMs": 12.0,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 3.3,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 5.5,
+            "hud_resources": 0.5,
+            "hud_status": 0.4,
+            "hud_total": 11.9,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.2
+          }
+        },
+        {
+          "endMs": 112851.8,
+          "gapMs": 33.40000000000873,
+          "overlappingProcessMs": 12.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 3.8,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 5.2,
+            "hud_resources": 0.4,
+            "hud_status": 0.5,
+            "hud_total": 12.2,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.1
+          }
+        },
+        {
+          "endMs": 113385.2,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 14.8,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 4.3,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 6.8,
+            "hud_resources": 0.5,
+            "hud_status": 0.5,
+            "hud_total": 14.6,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.2
+          }
+        },
+        {
+          "endMs": 115001.9,
+          "gapMs": 33.29999999998836,
+          "overlappingProcessMs": 12.5,
+          "sections": {
+            "advance_idle": 0.3,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 3.5,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 5.0,
+            "hud_resources": 0.5,
+            "hud_status": 0.5,
+            "hud_total": 12.0,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.2
+          }
+        },
+        {
+          "endMs": 117652.1,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 21.1,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 6.6,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 9.5,
+            "hud_resources": 0.8,
+            "hud_status": 0.6,
+            "hud_total": 20.7,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.0
+          }
+        },
+        {
+          "endMs": 117918.7,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 19.5,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 6.2,
+            "hud_guidance_layout": 0.2,
+            "hud_navigation": 7.9,
+            "hud_resources": 0.8,
+            "hud_status": 0.7,
+            "hud_total": 19.2,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.4
+          }
+        },
+        {
+          "endMs": 118268.7,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 119785.5,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 16.5,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 4.0,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 5.5,
+            "hud_resources": 1.1,
+            "hud_status": 0.8,
+            "hud_total": 16.1,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 4.3
+          }
+        },
+        {
+          "endMs": 121118.8,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 13.8,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 5.0,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 4.7,
+            "hud_resources": 0.9,
+            "hud_status": 0.4,
+            "hud_total": 13.5,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.2
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "utc": "2026-10-04T05:17:43.998Z",
+      "environment": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.530555240755504,
+      "rafP95Ms": 16.800000000017462,
+      "rafMaxMs": 33.40000000002328,
+      "process": {
+        "count": 893,
+        "totalMs": 1011.6,
+        "meanMs": 1.1328107502799554,
+        "p95Ms": 12.0,
+        "maxMs": 23.1
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 877,
+          "totalMs": 78.8,
+          "meanMs": 0.08985176738882554,
+          "p95Ms": 0.2,
+          "maxMs": 0.4
+        },
+        "advance_tick": {
+          "count": 16,
+          "totalMs": 20.7,
+          "meanMs": 1.29375,
+          "p95Ms": 2.4,
+          "maxMs": 2.4
+        },
+        "hud_buff": {
+          "count": 57,
+          "totalMs": 1.6,
+          "meanMs": 0.02807017543859649,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "hud_catalog": {
+          "count": 57,
+          "totalMs": 210.2,
+          "meanMs": 3.687719298245614,
+          "p95Ms": 4.6,
+          "maxMs": 5.3
+        },
+        "hud_guidance_layout": {
+          "count": 57,
+          "totalMs": 7.4,
+          "meanMs": 0.12982456140350876,
+          "p95Ms": 0.2,
+          "maxMs": 0.3
+        },
+        "hud_navigation": {
+          "count": 57,
+          "totalMs": 288.2,
+          "meanMs": 5.056140350877193,
+          "p95Ms": 6.5,
+          "maxMs": 7.9
+        },
+        "hud_resources": {
+          "count": 57,
+          "totalMs": 31.3,
+          "meanMs": 0.5491228070175439,
+          "p95Ms": 0.7,
+          "maxMs": 1.3
+        },
+        "hud_status": {
+          "count": 57,
+          "totalMs": 26.5,
+          "meanMs": 0.4649122807017544,
+          "p95Ms": 0.6,
+          "maxMs": 0.7
+        },
+        "hud_total": {
+          "count": 57,
+          "totalMs": 724.1,
+          "meanMs": 12.703508771929824,
+          "p95Ms": 15.5,
+          "maxMs": 17.2
+        },
+        "island_refresh": {
+          "count": 57,
+          "totalMs": 3.0,
+          "meanMs": 0.05263157894736842,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.1,
+          "meanMs": 4.1,
+          "p95Ms": 4.1,
+          "maxMs": 4.1
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 18.5,
+          "meanMs": 18.5,
+          "p95Ms": 18.5,
+          "maxMs": 18.5
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 22.7,
+          "meanMs": 22.7,
+          "p95Ms": 22.7,
+          "maxMs": 22.7
+        },
+        "view_build": {
+          "count": 72,
+          "totalMs": 196.9,
+          "meanMs": 2.734722222222222,
+          "p95Ms": 4.0,
+          "maxMs": 4.8
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 168094.70000000298,
+          "totalUs": 23100,
+          "spans": {
+            "advance_idle": 200,
+            "save_commit": 4100,
+            "save_encode": 18500,
+            "save_total": 22700
+          }
+        },
+        {
+          "endMs": 161760.40000000596,
+          "totalUs": 17600,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 3800,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 7900,
+            "hud_resources": 500,
+            "hud_status": 600,
+            "hud_total": 17200,
+            "island_refresh": 0,
+            "view_build": 4300
+          }
+        },
+        {
+          "endMs": 156458.90000000596,
+          "totalUs": 16200,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 4600,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 6500,
+            "hud_resources": 700,
+            "hud_status": 600,
+            "hud_total": 15900,
+            "island_refresh": 0,
+            "view_build": 3400
+          }
+        },
+        {
+          "endMs": 170806.40000000596,
+          "totalUs": 15900,
+          "spans": {
+            "advance_idle": 400,
+            "hud_buff": 200,
+            "hud_catalog": 4400,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 6000,
+            "hud_resources": 600,
+            "hud_status": 600,
+            "hud_total": 15200,
+            "island_refresh": 100,
+            "view_build": 3300
+          }
+        },
+        {
+          "endMs": 166556.6000000015,
+          "totalUs": 15700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 4400,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 6800,
+            "hud_resources": 700,
+            "hud_status": 500,
+            "hud_total": 15500,
+            "island_refresh": 100,
+            "view_build": 2800
+          }
+        },
+        {
+          "endMs": 166822,
+          "totalUs": 15700,
+          "spans": {
+            "advance_tick": 1600,
+            "hud_buff": 0,
+            "hud_catalog": 3300,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 4900,
+            "hud_resources": 500,
+            "hud_status": 400,
+            "hud_total": 11500,
+            "island_refresh": 0,
+            "view_build": 4800
+          }
+        },
+        {
+          "endMs": 159886.90000000596,
+          "totalUs": 15600,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 5300,
+            "hud_guidance_layout": 300,
+            "hud_navigation": 5900,
+            "hud_resources": 400,
+            "hud_status": 400,
+            "hud_total": 15400,
+            "island_refresh": 0,
+            "view_build": 3100
+          }
+        },
+        {
+          "endMs": 167886.90000000596,
+          "totalUs": 14700,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 4700,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 4900,
+            "hud_resources": 600,
+            "hud_status": 400,
+            "hud_total": 14400,
+            "island_refresh": 100,
+            "view_build": 3500
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 156470.7,
+          "gapMs": 33.30000000001746,
+          "overlappingProcessMs": 16.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 4.6,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 6.5,
+            "hud_resources": 0.7,
+            "hud_status": 0.6,
+            "hud_total": 15.9,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.4
+          }
+        },
+        {
+          "endMs": 156587.4,
+          "gapMs": 33.29999999998836,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 161771,
+          "gapMs": 33.20000000001164,
+          "overlappingProcessMs": 17.6,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 3.8,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 7.9,
+            "hud_resources": 0.5,
+            "hud_status": 0.6,
+            "hud_total": 17.2,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 4.3
+          }
+        },
+        {
+          "endMs": 166071.3,
+          "gapMs": 33.19999999998254,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 166854.8,
+          "gapMs": 33.39999999999418,
+          "overlappingProcessMs": 16.0,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 1.6,
+            "hud_buff": 0.0,
+            "hud_catalog": 3.3,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 4.9,
+            "hud_resources": 0.5,
+            "hud_status": 0.4,
+            "hud_total": 11.5,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 4.8
+          }
+        },
+        {
+          "endMs": 167371.3,
+          "gapMs": 33.29999999998836,
+          "overlappingProcessMs": 14.6,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 4.6,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 5.2,
+            "hud_resources": 0.6,
+            "hud_status": 0.6,
+            "hud_total": 14.4,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.2
+          }
+        },
+        {
+          "endMs": 168104.7,
+          "gapMs": 33.40000000002328,
+          "overlappingProcessMs": 23.1,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 4.1,
+            "save_encode": 18.5,
+            "save_total": 22.7,
+            "view_build": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

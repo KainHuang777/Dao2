@@ -1,0 +1,307 @@
+{
+  "ok": true,
+  "icons": [
+    {
+      "file": "black_copper.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        12,
+        152,
+        147
+      ],
+      "bytes": 43326
+    },
+    {
+      "file": "bronze_essence.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        22,
+        152,
+        138
+      ],
+      "bytes": 31588
+    },
+    {
+      "file": "formation_core.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        9,
+        152,
+        151
+      ],
+      "bytes": 50835
+    },
+    {
+      "file": "foundation_pill.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        8,
+        152,
+        152
+      ],
+      "bytes": 44524
+    },
+    {
+      "file": "golden_core_pill.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        8,
+        151,
+        152
+      ],
+      "bytes": 44323
+    },
+    {
+      "file": "lingli.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        26,
+        8,
+        133,
+        152
+      ],
+      "bytes": 28877
+    },
+    {
+      "file": "liquid.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        17,
+        8,
+        143,
+        152
+      ],
+      "bytes": 35583
+    },
+    {
+      "file": "money.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        21,
+        152,
+        138
+      ],
+      "bytes": 38175
+    },
+    {
+      "file": "spirit_grass_100y.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        14,
+        8,
+        146,
+        152
+      ],
+      "bytes": 37670
+    },
+    {
+      "file": "spirit_grass_low.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        9,
+        152,
+        150
+      ],
+      "bytes": 38274
+    },
+    {
+      "file": "spirit_timber.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        12,
+        152,
+        148
+      ],
+      "bytes": 36346
+    },
+    {
+      "file": "stone_high.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        14,
+        8,
+        145,
+        152
+      ],
+      "bytes": 39074
+    },
+    {
+      "file": "stone_low.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        11,
+        8,
+        148,
+        152
+      ],
+      "bytes": 39801
+    },
+    {
+      "file": "stone_mid.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        12,
+        8,
+        147,
+        152
+      ],
+      "bytes": 41197
+    },
+    {
+      "file": "talisman.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        18,
+        8,
+        141,
+        152
+      ],
+      "bytes": 29352
+    },
+    {
+      "file": "wood.png",
+      "size": [
+        160,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bbox": [
+        8,
+        16,
+        152,
+        143
+      ],
+      "bytes": 36216
+    }
+  ],
+  "bytes": 615161,
+  "processor_qc": {
+    "frame_count": 16,
+    "valid_frame_count": 16,
+    "empty_count": 0,
+    "edge_touch_count": 0,
+    "paste_clamped_count": 0,
+    "body_scale_mean": 0.544705366174616,
+    "output_subject_height_mean": 138.125,
+    "body_scale_cv": 0.06540012845892398,
+    "anchor_x_std": 0.013324006230549136,
+    "anchor_y_std": 0.031139282500942042,
+    "anchor_y_mean": 0.47223360655737706
+  }
+}

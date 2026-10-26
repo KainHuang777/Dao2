@@ -32,6 +32,7 @@ static func validate(version: Variant, sect: Dictionary) -> String:
 		for id in entries:
 			if not definitions.has(id): return "SECT_UNKNOWN_ID:" + str(id)
 			if int(version) == 0 and definitions[id].has("min_era"): return "SECT_V0_NEW_ID"
+			if int(version) < 2 and id in SectSystem.P2_TECHNIQUES + SectSystem.P2_MARKET: return "SECT_V1_NEW_ID"
 			var limit := int(definitions[id].get("max_level", 0) if field == "techniques" else definitions[id].limit)
 			if not integer(entries[id], limit): return "SECT_BOUND:" + str(id)
 	var tasks: Variant = sect.get("available_tasks", [])
@@ -55,14 +56,23 @@ static func validate_task(task: Variant, version: int) -> String:
 	if float(task.get("elapsed", 0)) > float(task.get("duration", 0)): return "SECT_TASK_TIME"
 	var rewards: Variant = task.get("rewards", {})
 	if not (rewards is Dictionary) or rewards.size() > 8: return "SECT_TASK_REWARDS"
+	if not task.has("template_id"):
+		return _legacy_rewards(rewards) # Never infer a registered profile from text.
+	var registered := SectSystem.P1_TASKS.duplicate(true)
+	if version >= 2: registered.merge(SectSystem.P2_TASKS)
+	if version == 0 or not (task.template_id is String) or not registered.has(task.template_id): return "SECT_TEMPLATE_ID"
+	var t: Dictionary = registered[task.template_id]
+	return _registered_task(task, rewards, t)
+
+static func _legacy_rewards(rewards: Dictionary) -> String:
 	for id in rewards:
 		if id == "special_buff":
 			if rewards[id] != "epiphany": return "SECT_TASK_BUFF"
 		elif id not in ["contribution", "money", "wood", "stone_low", "spirit_grass_low", "black_copper", "herb", "bronze"] or not integer(rewards[id], 1000000):
 			return "SECT_TASK_REWARD:" + str(id)
-	if not task.has("template_id"): return "" # Bounded legacy snapshot, never infer a template.
-	if version == 0 or not SectSystem.P1_TASKS.has(task.template_id): return "SECT_TEMPLATE_ID"
-	var t: Dictionary = SectSystem.P1_TASKS[task.template_id]
+	return ""
+
+static func _registered_task(task: Dictionary, rewards: Dictionary, t: Dictionary) -> String:
 	var era: Variant = task.get("generation_era")
 	if not integer(era, 12) or int(era) < int(t.min_era): return "SECT_GENERATION_ERA"
 	var cfg: Dictionary = SectSystem.RARITY_CONFIGS[t.rarity]

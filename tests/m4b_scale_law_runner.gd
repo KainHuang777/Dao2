@@ -1,5 +1,7 @@
 extends SceneTree
 
+var _failed := false
+
 const ContentLoaderScript = preload("res://src/content/content_loader.gd")
 const GameStateScript = preload("res://src/domain/game_state.gd")
 const WorldAddressScript = preload("res://src/domain/world_address.gd")
@@ -17,23 +19,29 @@ func _init() -> void:
 	test_scale_law_contract_calculations()
 	test_game_state_and_save_codec_persistence()
 	test_realm_system_and_session_integration()
-	print("--- M4-B Scale & Laws Runner: ALL PASS ---")
-	quit(0)
+	if _failed:
+		print("--- M4-B Scale & Laws Runner: FAILED ---")
+	else:
+		print("--- M4-B Scale & Laws Runner: ALL PASS ---")
+	RunnerResult.finish(self, 1 if _failed else 0)
 
 func assert_true(cond: bool, msg: String) -> void:
 	if not cond:
+		_failed = true
 		push_error("Assertion failed: " + msg)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func assert_equal(a: Variant, b: Variant, msg: String) -> void:
 	if a != b:
+		_failed = true
 		push_error("Assertion failed: %s (expected %s, got %s)" % [msg, str(b), str(a)])
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func assert_approx(a: float, b: float, msg: String, tolerance: float = 0.001) -> void:
 	if absf(a - b) > tolerance:
+		_failed = true
 		push_error("Assertion failed: %s (expected %f, got %f, diff %f)" % [msg, b, a, absf(a - b)])
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func test_world_address_contract() -> void:
 	print("Testing WorldAddress structure and parser...")

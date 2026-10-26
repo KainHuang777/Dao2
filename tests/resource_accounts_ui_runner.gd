@@ -85,6 +85,6 @@ func run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("REPORT-1B UI ", checks, " checks failures=", failures)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 

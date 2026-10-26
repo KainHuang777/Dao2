@@ -1,0 +1,6 @@
+{
+  "earlier_partial_backup_used": [
+    "docs/verification/artifacts/content-p2-supply-3/last-earned-level.json"
+  ],
+  "reason": "First backup was interrupted by Windows path length after copying these files; earliest byte snapshots take precedence."
+}

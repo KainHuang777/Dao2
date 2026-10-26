@@ -1,0 +1,104 @@
+[
+  {
+    "record": 1,
+    "revision": 1260,
+    "talents": {
+      "innate_dao_body": 1,
+      "resource_inheritance": 1
+    },
+    "dao_heart": "30",
+    "reincarnation_count": 1,
+    "lingli": "670",
+    "hut": 2
+  },
+  {
+    "record": 2,
+    "revision": 1262,
+    "talents": {
+      "innate_dao_body": 1,
+      "lifespan_extension": 1,
+      "resource_inheritance": 1
+    },
+    "dao_heart": "20",
+    "reincarnation_count": 1,
+    "lingli": "670",
+    "hut": 2
+  },
+  {
+    "record": 3,
+    "revision": 1263,
+    "talents": {
+      "innate_dao_body": 1,
+      "lifespan_extension": 1,
+      "resource_inheritance": 1
+    },
+    "dao_heart": "35",
+    "reincarnation_count": 2,
+    "lingli": "10",
+    "hut": 0
+  },
+  {
+    "record": 4,
+    "revision": 1263,
+    "talents": {
+      "innate_dao_body": 1,
+      "lifespan_extension": 1,
+      "resource_inheritance": 1
+    },
+    "dao_heart": "35",
+    "reincarnation_count": 2,
+    "lingli": "10",
+    "hut": 0
+  },
+  {
+    "record": 5,
+    "revision": 1296,
+    "talents": {
+      "innate_dao_body": 1,
+      "lifespan_extension": 1,
+      "resource_inheritance": 1
+    },
+    "dao_heart": "35",
+    "reincarnation_count": 2,
+    "lingli": "10",
+    "hut": 0
+  },
+  {
+    "record": 6,
+    "revision": 1259,
+    "talents": {},
+    "dao_heart": "15",
+    "reincarnation_count": 2,
+    "lingli": "0",
+    "hut": 0
+  },
+  {
+    "record": 7,
+    "revision": 1366,
+    "talents": {},
+    "dao_heart": "15",
+    "reincarnation_count": 2,
+    "lingli": "14.9119049339033",
+    "hut": 2
+  },
+  {
+    "record": 8,
+    "revision": 1399,
+    "talents": {},
+    "dao_heart": "15",
+    "reincarnation_count": 2,
+    "lingli": "92.2087603840593",
+    "hut": 2
+  },
+  {
+    "record": 9,
+    "revision": 1259,
+    "talents": {
+      "resource_inheritance": 1
+    },
+    "dao_heart": "45",
+    "reincarnation_count": 1,
+    "lingli": "670",
+    "hut": 2
+  }
+]

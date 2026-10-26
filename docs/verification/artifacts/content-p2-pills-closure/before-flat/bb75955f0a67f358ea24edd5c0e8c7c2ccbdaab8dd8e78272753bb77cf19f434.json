@@ -1,0 +1,11 @@
+{
+	"age": 4783.0,
+	"checks": 5,
+	"failures": [
+		"supply/build era3",
+		"no-skill Era6 level10"
+	],
+	"level": "L2",
+	"trace": [],
+	"waits_seconds": {}
+}

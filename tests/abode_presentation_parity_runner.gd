@@ -94,4 +94,4 @@ func _run() -> void:
 	script.save_dir_override = ""
 	if not failed:
 		print("PASS: REF-A public facade, stacking, four layouts, signal identity, replacement session, save ordering and teardown.")
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

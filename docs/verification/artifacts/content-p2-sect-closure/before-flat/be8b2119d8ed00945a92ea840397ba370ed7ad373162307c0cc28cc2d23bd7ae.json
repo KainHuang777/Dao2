@@ -1,0 +1,52 @@
+{
+  "source": "v2 original AI-generated",
+  "tool": "OpenAI built-in image_gen",
+  "purpose": "four new P1 pill UI illustrations",
+  "layers": [
+    "transparent foreground PNG",
+    "Godot quantity and status text",
+    "UiIllustration shared B outline/shadow at presentation"
+  ],
+  "processing": "byte-identical copies; no resizing or retouching",
+  "rights": "Original AI-generated candidates; no third-party image used; commercial suitability subject to project review.",
+  "art_acceptance": "accepted",
+  "assets": [
+    {
+      "id": "wood_nurture_pill",
+      "path": "C:\\Users\\asus\\.codex\\generated_images\\01a16724-e63d-70f2-8996-a35b0d0d0f52\\exec-f1722e9e-f868-47c5-897b-94ac1db1d660.png",
+      "prompt": "Use case: stylized-concept. Asset type: original Chinese xianxia game UI inventory illustration, single transparent PNG. Subject: one warm brown spherical medicinal pill with natural fine wood-grain marbling and a small carved green sprout motif. Hand-painted gouache miniature, tactile softly worn medicinal surface, gentle upper-left lighting, rounded organic volume, rich restrained natural shading, subtle brush texture. Centered single object occupying 65 percent of a square canvas, generous fully transparent padding. Clear readable silhouette at 44 pixels. No scenery, no ground, no bottle, no plate, no detached particles, no cast shadow, no external outline or sticker border. No text, symbols that look like letters, labels, UI or watermark. Genuinely transparent background. Match a tasteful warm-paper xianxia inventory art family.",
+      "runtime": "assets\\ui\\pills-painted\\wood_nurture_pill.png",
+      "original": "docs\\verification\\artifacts\\content-p1-pills\\originals\\wood_nurture_pill.png",
+      "sha256": "75a337c32ff889c061993285e6105d2e1128644d11b540d2f7a7f88e76a199fd"
+    },
+    {
+      "id": "herb_nurture_pill",
+      "path": "C:\\Users\\asus\\.codex\\generated_images\\01a16724-e63d-70f2-8996-a35b0d0d0f52\\exec-ec27dafa-abc4-43bf-beb8-837bc75f69b6.png",
+      "prompt": "Use case: stylized-concept. Asset type: original Chinese xianxia game UI inventory illustration, single transparent PNG. Subject: one sage green spherical medicinal pill with organic dark-green leaf-vein marbling. Hand-painted gouache miniature, tactile softly worn medicinal surface, gentle upper-left lighting, rounded organic volume, rich restrained natural shading, subtle brush texture. Centered single object occupying 65 percent of a square canvas, generous fully transparent padding. Clear readable silhouette at 44 pixels. No scenery, no ground, no bottle, no plate, no detached particles, no cast shadow, no external outline or sticker border. No text, symbols that look like letters, labels, UI or watermark. Genuinely transparent background. Match a tasteful warm-paper xianxia inventory art family.",
+      "runtime": "assets\\ui\\pills-painted\\herb_nurture_pill.png",
+      "original": "docs\\verification\\artifacts\\content-p1-pills\\originals\\herb_nurture_pill.png",
+      "sha256": "0431f21b28a91780231f88e0fe149d5952e3259546e1410b986c5492d7b91413"
+    },
+    {
+      "id": "wealth_gathering_pill",
+      "path": "C:\\Users\\asus\\.codex\\generated_images\\01a16724-e63d-70f2-8996-a35b0d0d0f52\\exec-b567bfac-40f0-4aa4-8af4-8987a22a1cfd.png",
+      "prompt": "Use case: stylized-concept. Asset type: original Chinese xianxia game UI inventory illustration, single transparent PNG. Subject: one amber-gold spherical medicinal pill with restrained flowing gold marbling, no coin or characters. Hand-painted gouache miniature, tactile softly worn medicinal surface, gentle upper-left lighting, rounded organic volume, rich restrained natural shading, subtle brush texture. Centered single object occupying 65 percent of a square canvas, generous fully transparent padding. Clear readable silhouette at 44 pixels. No scenery, no ground, no bottle, no plate, no detached particles, no cast shadow, no external outline or sticker border. No text, symbols that look like letters, labels, UI or watermark. Genuinely transparent background. Match a tasteful warm-paper xianxia inventory art family.",
+      "runtime": "assets\\ui\\pills-painted\\wealth_gathering_pill.png",
+      "original": "docs\\verification\\artifacts\\content-p1-pills\\originals\\wealth_gathering_pill.png",
+      "sha256": "e6a81efd059cb070d739a005ff34ab027b497cf060315cfa2107d07f7b92d374"
+    },
+    {
+      "id": "qi_absorption_pill",
+      "path": "C:\\Users\\asus\\.codex\\generated_images\\01a16724-e63d-70f2-8996-a35b0d0d0f52\\exec-1de47512-62dc-4f06-9d3c-f9757316470c.png",
+      "prompt": "Use case: stylized-concept. Asset type: original Chinese xianxia game UI inventory illustration, single transparent PNG. Subject: one pale turquoise spherical medicinal pill with inward-curling mist marbling. Hand-painted gouache miniature, tactile softly worn medicinal surface, gentle upper-left lighting, rounded organic volume, rich restrained natural shading, subtle brush texture. Centered single object occupying 65 percent of a square canvas, generous fully transparent padding. Clear readable silhouette at 44 pixels. No scenery, no ground, no bottle, no plate, no detached particles, no cast shadow, no external outline or sticker border. No text, symbols that look like letters, labels, UI or watermark. Genuinely transparent background. Match a tasteful warm-paper xianxia inventory art family.",
+      "runtime": "assets\\ui\\pills-painted\\qi_absorption_pill.png",
+      "original": "docs\\verification\\artifacts\\content-p1-pills\\originals\\qi_absorption_pill.png",
+      "sha256": "9756ac5ffe9b07db8131da4759a51d952bc8d17254e7a066c597e24b9ef45c9d"
+    }
+  ],
+  "art_acceptance_date": "2026-10-23",
+  "art_acceptance_evidence": {
+    "user_quote": "美術接受",
+    "scope": "養木丹、育草丹、聚財丹、納靈丹四張新圖及本批正式丹卡呈現"
+  }
+}

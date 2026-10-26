@@ -1,0 +1,8 @@
+ERROR: expanded skill v4 uses current pill v2 rules identity
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/sks_p2_core_runner.gd:35)
+ERROR: observed non-expanded skill v4 uses current pill v2 rules identity
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/sks_p2_core_runner.gd:35)

@@ -144,4 +144,4 @@ func _run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("UIX-R7 %d checks failed=%s" % [checks,failed])
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

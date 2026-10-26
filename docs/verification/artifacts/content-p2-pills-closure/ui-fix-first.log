@@ -1,0 +1,141 @@
+[MODE] matrix=full runners=3 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_f8990412cf084a87ba7a237187aed197
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[FAIL:initial] tests/content_p2_pills_ui_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+UI FAILURE height nascent_breath_pill (776.0, 297.0) scroll (776.0, 162.0)
+UI FAILURE reachable nascent_breath_pill
+UI FAILURE height void_meditation_pill (776.0, 302.0) scroll (776.0, 162.0)
+UI FAILURE reachable void_meditation_pill
+UI FAILURE height ancient_herb_dew_pill (776.0, 297.0) scroll (776.0, 162.0)
+UI FAILURE reachable ancient_herb_dew_pill
+UI FAILURE height void_gathering_pill (776.0, 297.0) scroll (776.0, 162.0)
+UI FAILURE reachable void_gathering_pill
+UI FAILURE height spirit_vessel_pill (776.0, 297.0) scroll (776.0, 162.0)
+UI FAILURE reachable spirit_vessel_pill
+UI FAILURE height stone_vault_pill (776.0, 302.0) scroll (776.0, 162.0)
+UI FAILURE reachable stone_vault_pill
+UI FAILURE height calm_tribulation_pill (776.0, 297.0) scroll (776.0, 162.0)
+UI FAILURE reachable calm_tribulation_pill
+UI FAILURE height silver_ward_pill (776.0, 389.0) scroll (776.0, 162.0)
+UI FAILURE reachable silver_ward_pill
+UI FAILURE reachable silver_ward_pill
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(844.0, 390.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+UI FAILURE height nascent_breath_pill (732.0, 297.0) scroll (732.0, 132.0)
+UI FAILURE reachable nascent_breath_pill
+UI FAILURE height void_meditation_pill (732.0, 302.0) scroll (732.0, 132.0)
+UI FAILURE reachable void_meditation_pill
+UI FAILURE reachable void_meditation_pill
+UI FAILURE height ancient_herb_dew_pill (732.0, 297.0) scroll (732.0, 132.0)
+UI FAILURE reachable ancient_herb_dew_pill
+UI FAILURE height void_gathering_pill (732.0, 297.0) scroll (732.0, 132.0)
+UI FAILURE reachable void_gathering_pill
+UI FAILURE height spirit_vessel_pill (732.0, 297.0) scroll (732.0, 132.0)
+UI FAILURE reachable spirit_vessel_pill
+UI FAILURE height stone_vault_pill (732.0, 302.0) scroll (732.0, 132.0)
+UI FAILURE reachable stone_vault_pill
+UI FAILURE reachable stone_vault_pill
+UI FAILURE height calm_tribulation_pill (732.0, 297.0) scroll (732.0, 132.0)
+UI FAILURE reachable calm_tribulation_pill
+UI FAILURE height silver_ward_pill (732.0, 389.0) scroll (732.0, 132.0)
+UI FAILURE reachable silver_ward_pill
+UI FAILURE reachable silver_ward_pill
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+ABODE_LAYOUT mode=compact size=(800.0, 360.0)
+PILL2 UI 288 checks failures=["height nascent_breath_pill (776.0, 297.0) scroll (776.0, 162.0)","reachable nascent_breath_pill","height void_meditation_pill (776.0, 302.0) scroll (776.0, 162.0)","reachable void_meditation_pill","height ancient_herb_dew_pill (776.0, 297.0) scroll (776.0, 162.0)","reachable ancient_herb_dew_pill","height void_gathering_pill (776.0, 297.0) scroll (776.0, 162.0)","reachable void_gathering_pill","height spirit_vessel_pill (776.0, 297.0) scroll (776.0, 162.0)","reachable spirit_vessel_pill","height stone_vault_pill (776.0, 302.0) scroll (776.0, 162.0)","reachable stone_vault_pill","height calm_tribulation_pill (776.0, 297.0) scroll (776.0, 162.0)","reachable calm_tribulation_pill","height silver_ward_pill (776.0, 389.0) scroll (776.0, 162.0)","reachable silver_ward_pill","reachable silver_ward_pill","height nascent_breath_pill (732.0, 297.0) scroll (732.0, 132.0)","reachable nascent_breath_pill","height void_meditation_pill (732.0, 302.0) scroll (732.0, 132.0)","reachable void_meditation_pill","reachable void_meditation_pill","height ancient_herb_dew_pill (732.0, 297.0) scroll (732.0, 132.0)","reachable ancient_herb_dew_pill","height void_gathering_pill (732.0, 297.0) scroll (732.0, 132.0)","reachable void_gathering_pill","height spirit_vessel_pill (732.0, 297.0) scroll (732.0, 132.0)","reachable spirit_vessel_pill","height stone_vault_pill (732.0, 302.0) scroll (732.0, 132.0)","reachable stone_vault_pill","reachable stone_vault_pill","height calm_tribulation_pill (732.0, 297.0) scroll (732.0, 132.0)","reachable calm_tribulation_pill","height silver_ward_pill (732.0, 389.0) scroll (732.0, 132.0)","reachable silver_ward_pill","reachable silver_ward_pill"]
+RUNNER_RESULT status=FAIL exit=1
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _ready (res://src/abode/living_abode.gd:423)
+       [8] run (res://tests/content_p2_pills_ui_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:117)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _ready (res://src/abode/living_abode.gd:423)
+       [8] run (res://tests/content_p2_pills_ui_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1353)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:117)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1353)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+
+[START:initial] tests/content_p1_pills_ui_runner.gd
+[PASS:initial] tests/content_p1_pills_ui_runner.gd (9.2s) result=pass
+[START:initial] tests/m3b_alchemy_ui_runner.gd
+[PASS:initial] tests/m3b_alchemy_ui_runner.gd (6.9s) result=pass
+--- slowest 8 runners (s) ---
+     9.5  tests/content_p2_pills_ui_runner.gd
+     9.2  tests/content_p1_pills_ui_runner.gd
+     6.9  tests/m3b_alchemy_ui_runner.gd

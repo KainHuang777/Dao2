@@ -1,5 +1,5 @@
 {
-	"checks": 66,
+	"checks": 78,
 	"evidence": "legal CLI commands and accelerated simulation through real cooldowns; no browser natural wait, no cooldown/seed/encounter injection",
 	"failures": [],
 	"natural_pool_choices": [

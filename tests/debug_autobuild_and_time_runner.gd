@@ -87,8 +87,8 @@ func _run() -> void:
 	print("==================================================")
 	print("ALL DEBUG AUTO-BUILD AND BACKGROUND TIME TESTS PASSED (exit 0)")
 	print("==================================================")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _fail(msg: String) -> void:
 	printerr("[TEST FAILED] ", msg)
-	quit(1)
+	RunnerResult.finish(self, 1)

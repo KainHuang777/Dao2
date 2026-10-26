@@ -154,9 +154,9 @@ func _run() -> void:
 	abode2.queue_free()
 
 	print("PASS: M2-C first-minute hook, 6-8s skippable zoom-out, 9 realms preview, aspire bookmarking, zero side-effects, and persistence.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _fail(message: String) -> void:
 	push_error("FAIL: %s" % message)
 	print("FAIL: %s" % message)
-	quit(1)
+	RunnerResult.finish(self, 1)

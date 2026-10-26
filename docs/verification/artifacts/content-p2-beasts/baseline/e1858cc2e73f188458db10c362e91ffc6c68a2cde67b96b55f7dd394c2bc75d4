@@ -1,0 +1,54 @@
+{
+  "count": 8,
+  "changed_count": 2,
+  "files": [
+    {
+      "path": "src/verification/content_p1_pills_fixture.json",
+      "restored_sha256": "4aefe1bd432e0bb5a6c82af9f83ef23849248ee1444da68e6f9cd5848d10e474",
+      "generated_sha256": "4aefe1bd432e0bb5a6c82af9f83ef23849248ee1444da68e6f9cd5848d10e474",
+      "changed": false
+    },
+    {
+      "path": "src/verification/content_p1_sect_earned_fixture.json",
+      "restored_sha256": "43f7d1cbc9b49b99c3990a1b50ea8faa4bde10ca72cf6bd4b9f977905abfc6f3",
+      "generated_sha256": "9684139bc82c0fb3f3c93cdd0da66566364a621fa264feccac27fbb822c59b80",
+      "changed": true
+    },
+    {
+      "path": "src/verification/content_p1_sect_earned_start.json",
+      "restored_sha256": "4507f66d661245eece2cec935213de7a298d554b1b63cbf859799ad96c06dd65",
+      "generated_sha256": "4507f66d661245eece2cec935213de7a298d554b1b63cbf859799ad96c06dd65",
+      "changed": false
+    },
+    {
+      "path": "src/verification/content_p1_sect_fixture.json",
+      "restored_sha256": "358e86ee22c7555fa38d0467df35b161470b06a61dcf74a1fc7259f8c9e68af3",
+      "generated_sha256": "0fe6fc35e7ea95a57b37031a2ba091c76272222b7d7ba98bd2ca5d3cc75f2770",
+      "changed": true
+    },
+    {
+      "path": "src/verification/content_p1_sect_tasks.json",
+      "restored_sha256": "7645bed9f0b8c064771de2e50485ea424cd3fed3c4010a3008bf982df998c08a",
+      "generated_sha256": "7645bed9f0b8c064771de2e50485ea424cd3fed3c4010a3008bf982df998c08a",
+      "changed": false
+    },
+    {
+      "path": "src/verification/content_p1_skills_fixture.json",
+      "restored_sha256": "ab9347515855334312f75827b8261c781d51b3be81a4f7170c84194a51138d79",
+      "generated_sha256": "ab9347515855334312f75827b8261c781d51b3be81a4f7170c84194a51138d79",
+      "changed": false
+    },
+    {
+      "path": "src/verification/content_p1_talents_fixture.json",
+      "restored_sha256": "140c285031bb38a942513bbf122cd884cd7ac94e95555088a7671d719c192429",
+      "generated_sha256": "140c285031bb38a942513bbf122cd884cd7ac94e95555088a7671d719c192429",
+      "changed": false
+    },
+    {
+      "path": "src/verification/ui_shell_2_fixture.json",
+      "restored_sha256": "a70266a9e7c1a4e23b84cd474b25b99d3307c8dcd6fe296ca207bff23f5d8b53",
+      "generated_sha256": "a70266a9e7c1a4e23b84cd474b25b99d3307c8dcd6fe296ca207bff23f5d8b53",
+      "changed": false
+    }
+  ]
+}

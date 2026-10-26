@@ -2,7 +2,7 @@ extends SceneTree
 var checks := 0
 var failed := false
 class ToggleAdapter extends StorageAdapter:
-	var backend := FileStorageAdapter.new("user://uix-r11-fault")
+	var backend := FileStorageAdapter.new(("user://uix-r11-fault" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r11-fault")))
 	var fail_writes := false
 	func read(key: String) -> Dictionary: return backend.read(key)
 	func write(key: String, value: String) -> Dictionary:
@@ -19,7 +19,7 @@ func frames() -> void:
 	for n in 12: await process_frame
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://uix-r11-runner"
+	script.save_dir_override = ("user://uix-r11-runner" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r11-runner"))
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
@@ -117,8 +117,8 @@ func _run() -> void:
 	nav.open("skills")
 	check(panel.skill_view.visible and not page.visible, "skills mode retained")
 	nav.open("beasts")
-	check(panel._scroll.visible and not page.visible, "beasts mode retained")
+	check(panel.beast_view.visible and not panel._scroll.visible and not page.visible, "beasts mode retained")
 	print("R11 %d checks failed=%s" % [checks, failed])
 	abode.queue_free()
 	await process_frame
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

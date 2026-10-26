@@ -1,0 +1,794 @@
+{
+  "date": "2026-10-23",
+  "browser": "IAB",
+  "input": "desktop mouse",
+  "origins": [
+    4401,
+    4402,
+    4403
+  ],
+  "evidence": "CLI-earned save fixture; not a natural-time browser playthrough. Reload/recovery may settle elapsed time.",
+  "observations": [
+    {
+      "size": [
+        1280,
+        720
+      ],
+      "after": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "2840",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "420",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1603",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "2840",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "210",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "399",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "622",
+            "visible": true
+          }
+        },
+        "revision": 1612,
+        "save_failed": false,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      },
+      "reload": {
+        "points": "2868.8",
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      }
+    },
+    {
+      "size": [
+        844,
+        390
+      ],
+      "denied": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "2996",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "663.179933382669",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1852.6",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "2996",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "303.661222977282",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "501.869870551098",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "722.639824406288",
+            "visible": true
+          }
+        },
+        "revision": 1663,
+        "save_failed": true,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      },
+      "deniedRetry": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "2996",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "663.179933382669",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1852.6",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "2996",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "303.661222977282",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "501.869870551098",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "722.639824406288",
+            "visible": true
+          }
+        },
+        "revision": 1663,
+        "save_failed": true,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      },
+      "recovered": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "3022.4",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "704.333460570506",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1860",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "3022.4",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "319.511583788822",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "519.278617875131",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "742.659883828925",
+            "visible": true
+          }
+        },
+        "revision": 1664,
+        "save_failed": false,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      },
+      "reload": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "3051.2",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "749.228217502691",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1860",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "3051.2",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "336.80288649232",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "538.269978592258",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "764.499948653621",
+            "visible": true
+          }
+        },
+        "revision": 1665,
+        "save_failed": false,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      }
+    },
+    {
+      "size": [
+        800,
+        360
+      ],
+      "after": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "2840",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "420",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1603",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "2840",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "210",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "399",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "622",
+            "visible": true
+          }
+        },
+        "revision": 1612,
+        "save_failed": false,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      },
+      "refined": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "2840",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "372.5",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1603",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "2840",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "200",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "399",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "622",
+            "visible": true
+          }
+        },
+        "revision": 1613,
+        "save_failed": false,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      },
+      "reload": {
+        "cost": {
+          "lingli": "47.5",
+          "spirit_grass_low": "10"
+        },
+        "fixture": "earned CLI; paused; not browser natural progression",
+        "points": "2866.4",
+        "resources": {
+          "black_copper": {
+            "cap": "300",
+            "ever_obtained": false,
+            "rate": "0.5994747701113",
+            "type": "basic",
+            "unlocked": true,
+            "value": "300",
+            "visible": true
+          },
+          "foundation_pill": {
+            "cap": "200",
+            "ever_obtained": false,
+            "rate": "0",
+            "type": "crafted",
+            "unlocked": true,
+            "value": "0",
+            "visible": true
+          },
+          "lingli": {
+            "cap": "2420",
+            "ever_obtained": true,
+            "rate": "3.11769145362398",
+            "type": "basic",
+            "unlocked": true,
+            "value": "413.653527187837",
+            "visible": true
+          },
+          "money": {
+            "cap": "1860",
+            "ever_obtained": true,
+            "rate": "3.2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "1645.24",
+            "visible": true
+          },
+          "skill_point": {
+            "cap": "6200",
+            "ever_obtained": false,
+            "rate": "2",
+            "type": "basic",
+            "unlocked": true,
+            "value": "2866.4",
+            "visible": true
+          },
+          "spirit_grass_low": {
+            "cap": "410",
+            "ever_obtained": true,
+            "rate": "1.20078490996514",
+            "type": "basic",
+            "unlocked": true,
+            "value": "215.85036081154",
+            "visible": true
+          },
+          "stone_low": {
+            "cap": "650",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "416.408747324032",
+            "visible": true
+          },
+          "wood": {
+            "cap": "950",
+            "ever_obtained": true,
+            "rate": "1.31884449424487",
+            "type": "basic",
+            "unlocked": true,
+            "value": "639.408747324033",
+            "visible": true
+          }
+        },
+        "revision": 1614,
+        "save_failed": false,
+        "skill_version": 3,
+        "skills": {
+          "alchemical_breath_control": 1,
+          "greenwood_nourishment": 1,
+          "herbal_spirit_nurture": 1,
+          "ore_breath_refinement": 1,
+          "warehouse_preparation": 1
+        }
+      }
+    }
+  ],
+  "console": [
+    [
+      {
+        "level": "error",
+        "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+        "timestamp": "2026-10-22T23:24:55.309Z"
+      }
+    ],
+    [],
+    [
+      {
+        "level": "error",
+        "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+        "timestamp": "2026-10-22T23:28:02.190Z"
+      }
+    ]
+  ]
+}

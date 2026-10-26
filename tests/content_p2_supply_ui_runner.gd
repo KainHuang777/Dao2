@@ -137,10 +137,15 @@ func run() -> void:
 		check(transport.save_button.disabled and transport.detail_status.text.contains("先啟用"),"unactivated future route read-only "+id)
 	var report := {"level":"L1","checks":checks,"failures":failures}
 	DirAccess.make_dir_recursive_absolute("res://docs/verification/artifacts/content-p2-supply-3")
-	FileAccess.open("res://docs/verification/artifacts/content-p2-supply-3/ui-contract.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
+	var write_file_ui := FileAccess.open("res://docs/verification/artifacts/content-p2-supply-3/ui-contract.json",FileAccess.WRITE)
+	if write_file_ui == null:
+		push_error("write failed: " + str("res://docs/verification/artifacts/content-p2-supply-3/ui-contract.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_ui.store_string(JSON.stringify(report,"\t"))
 	print("SUPPLY-3 UI ",JSON.stringify(report))
 	for node in [panel,manufacturing,transport]: node.queue_free()
 	await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 

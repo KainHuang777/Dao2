@@ -1,0 +1,938 @@
+{
+  "note": "Profile adds overhead. Inclusive nested spans cannot be summed. rAF overlap is temporal evidence only; uninstrumented engine/render/GPU/scheduler costs remain.",
+  "samples": [
+    {
+      "sequence": 1,
+      "utc": "2026-10-04T10:38:21.092Z",
+      "environment": {
+        "viewport": [
+          1280,
+          721
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.79690361245214,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.29999999999927,
+      "process": {
+        "count": 898,
+        "totalMs": 625.6,
+        "meanMs": 0.6966592427616927,
+        "p95Ms": 5.6,
+        "maxMs": 21.6
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 883,
+          "totalMs": 80.7,
+          "meanMs": 0.09139297848244621,
+          "p95Ms": 0.2,
+          "maxMs": 0.4
+        },
+        "advance_tick": {
+          "count": 15,
+          "totalMs": 20.9,
+          "meanMs": 1.3933333333333333,
+          "p95Ms": 2.3,
+          "maxMs": 2.3
+        },
+        "hud_buff": {
+          "count": 56,
+          "totalMs": 2.4,
+          "meanMs": 0.04285714285714286,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "hud_catalog": {
+          "count": 56,
+          "totalMs": 87.7,
+          "meanMs": 1.5660714285714286,
+          "p95Ms": 2.3,
+          "maxMs": 2.4
+        },
+        "hud_guidance_layout": {
+          "count": 56,
+          "totalMs": 6.6,
+          "meanMs": 0.11785714285714285,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "hud_navigation": {
+          "count": 56,
+          "totalMs": 12.3,
+          "meanMs": 0.21964285714285714,
+          "p95Ms": 0.3,
+          "maxMs": 0.4
+        },
+        "hud_resources": {
+          "count": 56,
+          "totalMs": 34.2,
+          "meanMs": 0.6107142857142857,
+          "p95Ms": 0.8,
+          "maxMs": 1.2
+        },
+        "hud_status": {
+          "count": 56,
+          "totalMs": 26.6,
+          "meanMs": 0.475,
+          "p95Ms": 0.6,
+          "maxMs": 0.7
+        },
+        "hud_total": {
+          "count": 56,
+          "totalMs": 325.7,
+          "meanMs": 5.816071428571428,
+          "p95Ms": 7.9,
+          "maxMs": 8.1
+        },
+        "island_refresh": {
+          "count": 56,
+          "totalMs": 3.9,
+          "meanMs": 0.06964285714285715,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.8,
+          "meanMs": 4.8,
+          "p95Ms": 4.8,
+          "maxMs": 4.8
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 16.5,
+          "meanMs": 16.5,
+          "p95Ms": 16.5,
+          "maxMs": 16.5
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 21.3,
+          "meanMs": 21.3,
+          "p95Ms": 21.3,
+          "maxMs": 21.3
+        },
+        "view_build": {
+          "count": 70,
+          "totalMs": 189.3,
+          "meanMs": 2.704285714285714,
+          "p95Ms": 3.6,
+          "maxMs": 4.6
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 18133.09999999404,
+          "totalUs": 21600,
+          "spans": {
+            "advance_idle": 200,
+            "save_commit": 4800,
+            "save_encode": 16500,
+            "save_total": 21300
+          }
+        },
+        {
+          "endMs": 19554.69999998808,
+          "totalUs": 8800,
+          "spans": {
+            "advance_tick": 1300,
+            "hud_buff": 100,
+            "hud_catalog": 1400,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 100,
+            "hud_resources": 500,
+            "hud_status": 300,
+            "hud_total": 4800,
+            "island_refresh": 100,
+            "view_build": 4600
+          }
+        },
+        {
+          "endMs": 25688.09999999404,
+          "totalUs": 8400,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 2400,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 400,
+            "hud_resources": 800,
+            "hud_status": 700,
+            "hud_total": 8100,
+            "island_refresh": 0,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 18236.39999999106,
+          "totalUs": 8300,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 2300,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 300,
+            "hud_resources": 800,
+            "hud_status": 600,
+            "hud_total": 8000,
+            "island_refresh": 0,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 23021.09999999404,
+          "totalUs": 8200,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 2400,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 300,
+            "hud_resources": 800,
+            "hud_status": 600,
+            "hud_total": 7900,
+            "island_refresh": 200,
+            "view_build": 3300
+          }
+        },
+        {
+          "endMs": 31003,
+          "totalUs": 7700,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 100,
+            "hud_catalog": 2200,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 1200,
+            "hud_status": 600,
+            "hud_total": 7300,
+            "island_refresh": 100,
+            "view_build": 2800
+          }
+        },
+        {
+          "endMs": 31269.19999998808,
+          "totalUs": 7300,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 100,
+            "hud_catalog": 1900,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 200,
+            "hud_resources": 500,
+            "hud_status": 600,
+            "hud_total": 7000,
+            "island_refresh": 100,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 28087.19999998808,
+          "totalUs": 7200,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 1800,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 900,
+            "hud_status": 500,
+            "hud_total": 6900,
+            "island_refresh": 100,
+            "view_build": 3100
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 18144.1,
+          "gapMs": 33.29999999999927,
+          "overlappingProcessMs": 21.6,
+          "sections": {
+            "advance_idle": 0.2,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 4.8,
+            "save_encode": 16.5,
+            "save_total": 21.3,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 28361.3,
+          "gapMs": 33.29999999999927,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 29894.7,
+          "gapMs": 33.29999999999927,
+          "overlappingProcessMs": 0.3,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "utc": "2026-10-04T10:39:40.447Z",
+      "environment": {
+        "viewport": [
+          1280,
+          721
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.730545907857646,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.5,
+      "process": {
+        "count": 896,
+        "totalMs": 602.2,
+        "meanMs": 0.6720982142857144,
+        "p95Ms": 5.2,
+        "maxMs": 19.5
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 880,
+          "totalMs": 80.6,
+          "meanMs": 0.0915909090909091,
+          "p95Ms": 0.2,
+          "maxMs": 0.4
+        },
+        "advance_tick": {
+          "count": 16,
+          "totalMs": 19.2,
+          "meanMs": 1.2,
+          "p95Ms": 1.6,
+          "maxMs": 1.6
+        },
+        "hud_buff": {
+          "count": 56,
+          "totalMs": 2.3,
+          "meanMs": 0.04107142857142857,
+          "p95Ms": 0.1,
+          "maxMs": 0.1
+        },
+        "hud_catalog": {
+          "count": 56,
+          "totalMs": 81.5,
+          "meanMs": 1.4553571428571428,
+          "p95Ms": 1.9,
+          "maxMs": 2.5
+        },
+        "hud_guidance_layout": {
+          "count": 56,
+          "totalMs": 6.5,
+          "meanMs": 0.11607142857142858,
+          "p95Ms": 0.2,
+          "maxMs": 0.2
+        },
+        "hud_navigation": {
+          "count": 56,
+          "totalMs": 12.7,
+          "meanMs": 0.22678571428571428,
+          "p95Ms": 0.3,
+          "maxMs": 0.7
+        },
+        "hud_resources": {
+          "count": 56,
+          "totalMs": 30.3,
+          "meanMs": 0.5410714285714285,
+          "p95Ms": 0.8,
+          "maxMs": 1.0
+        },
+        "hud_status": {
+          "count": 56,
+          "totalMs": 25.9,
+          "meanMs": 0.4625,
+          "p95Ms": 0.6,
+          "maxMs": 0.7
+        },
+        "hud_total": {
+          "count": 56,
+          "totalMs": 312.6,
+          "meanMs": 5.582142857142857,
+          "p95Ms": 7.5,
+          "maxMs": 7.9
+        },
+        "island_refresh": {
+          "count": 56,
+          "totalMs": 2.9,
+          "meanMs": 0.05178571428571428,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.6,
+          "meanMs": 4.6,
+          "p95Ms": 4.6,
+          "maxMs": 4.6
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 14.6,
+          "meanMs": 14.6,
+          "p95Ms": 14.6,
+          "maxMs": 14.6
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 19.2,
+          "meanMs": 19.2,
+          "p95Ms": 19.2,
+          "maxMs": 19.2
+        },
+        "view_build": {
+          "count": 72,
+          "totalMs": 189.7,
+          "meanMs": 2.634722222222222,
+          "p95Ms": 3.7,
+          "maxMs": 4.0
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 108271.39999999106,
+          "totalUs": 19500,
+          "spans": {
+            "advance_idle": 0,
+            "save_commit": 4600,
+            "save_encode": 14600,
+            "save_total": 19200
+          }
+        },
+        {
+          "endMs": 102648.59999999404,
+          "totalUs": 8200,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 2000,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 400,
+            "hud_resources": 800,
+            "hud_status": 600,
+            "hud_total": 7900,
+            "island_refresh": 100,
+            "view_build": 3800
+          }
+        },
+        {
+          "endMs": 100502.5,
+          "totalUs": 8000,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 2500,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 700,
+            "hud_resources": 1000,
+            "hud_status": 600,
+            "hud_total": 7900,
+            "island_refresh": 100,
+            "view_build": 2800
+          }
+        },
+        {
+          "endMs": 103691.39999999106,
+          "totalUs": 7800,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 1900,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 300,
+            "hud_resources": 800,
+            "hud_status": 600,
+            "hud_total": 7500,
+            "island_refresh": 0,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 100774.5,
+          "totalUs": 7400,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 1800,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 200,
+            "hud_resources": 700,
+            "hud_status": 400,
+            "hud_total": 7100,
+            "island_refresh": 100,
+            "view_build": 3700
+          }
+        },
+        {
+          "endMs": 104223.39999999106,
+          "totalUs": 7100,
+          "spans": {
+            "advance_idle": 0,
+            "hud_buff": 100,
+            "hud_catalog": 1300,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 600,
+            "hud_status": 700,
+            "hud_total": 6800,
+            "island_refresh": 100,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 107972.89999999106,
+          "totalUs": 7000,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 1300,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 300,
+            "hud_resources": 500,
+            "hud_status": 500,
+            "hud_total": 6700,
+            "island_refresh": 0,
+            "view_build": 4000
+          }
+        },
+        {
+          "endMs": 108239.89999999106,
+          "totalUs": 7000,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 1600,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 200,
+            "hud_resources": 500,
+            "hud_status": 500,
+            "hud_total": 6700,
+            "island_refresh": 100,
+            "view_build": 3700
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 100515.1,
+          "gapMs": 33.5,
+          "overlappingProcessMs": 8.0,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 2.5,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 0.7,
+            "hud_resources": 1.0,
+            "hud_status": 0.6,
+            "hud_total": 7.9,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.8
+          }
+        },
+        {
+          "endMs": 102615.3,
+          "gapMs": 33.40000000000873,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 102948.5,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 0.2,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        },
+        {
+          "endMs": 106598.7,
+          "gapMs": 33.19999999999709,
+          "overlappingProcessMs": 0.4,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 0.0,
+            "hud_guidance_layout": 0.0,
+            "hud_navigation": 0.0,
+            "hud_resources": 0.0,
+            "hud_status": 0.0,
+            "hud_total": 0.0,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "utc": "2026-10-04T10:40:13.905Z",
+      "environment": {
+        "viewport": [
+          1280,
+          721
+        ],
+        "dpr": 1.0000000149011612,
+        "visible": "visible"
+      },
+      "fps": 59.86387301925905,
+      "rafP95Ms": 16.800000000017462,
+      "rafMaxMs": 33.30000000000291,
+      "process": {
+        "count": 898,
+        "totalMs": 619.4,
+        "meanMs": 0.6897550111358575,
+        "p95Ms": 5.2,
+        "maxMs": 18.4
+      },
+      "sections": {
+        "advance_idle": {
+          "count": 883,
+          "totalMs": 83.0,
+          "meanMs": 0.09399773499433749,
+          "p95Ms": 0.2,
+          "maxMs": 0.5
+        },
+        "advance_tick": {
+          "count": 15,
+          "totalMs": 23.7,
+          "meanMs": 1.58,
+          "p95Ms": 2.0,
+          "maxMs": 2.0
+        },
+        "hud_buff": {
+          "count": 57,
+          "totalMs": 2.0,
+          "meanMs": 0.03508771929824562,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "hud_catalog": {
+          "count": 57,
+          "totalMs": 81.0,
+          "meanMs": 1.4210526315789473,
+          "p95Ms": 2.1,
+          "maxMs": 2.2
+        },
+        "hud_guidance_layout": {
+          "count": 57,
+          "totalMs": 6.8,
+          "meanMs": 0.11929824561403508,
+          "p95Ms": 0.2,
+          "maxMs": 0.4
+        },
+        "hud_navigation": {
+          "count": 57,
+          "totalMs": 12.1,
+          "meanMs": 0.212280701754386,
+          "p95Ms": 0.4,
+          "maxMs": 0.4
+        },
+        "hud_resources": {
+          "count": 57,
+          "totalMs": 32.8,
+          "meanMs": 0.5754385964912281,
+          "p95Ms": 0.9,
+          "maxMs": 1.5
+        },
+        "hud_status": {
+          "count": 57,
+          "totalMs": 27.4,
+          "meanMs": 0.4807017543859649,
+          "p95Ms": 0.7,
+          "maxMs": 0.8
+        },
+        "hud_total": {
+          "count": 57,
+          "totalMs": 318.8,
+          "meanMs": 5.592982456140351,
+          "p95Ms": 7.0,
+          "maxMs": 8.3
+        },
+        "island_refresh": {
+          "count": 57,
+          "totalMs": 2.9,
+          "meanMs": 0.05087719298245614,
+          "p95Ms": 0.1,
+          "maxMs": 0.2
+        },
+        "save_commit": {
+          "count": 1,
+          "totalMs": 4.7,
+          "meanMs": 4.7,
+          "p95Ms": 4.7,
+          "maxMs": 4.7
+        },
+        "save_encode": {
+          "count": 1,
+          "totalMs": 13.5,
+          "meanMs": 13.5,
+          "p95Ms": 13.5,
+          "maxMs": 13.5
+        },
+        "save_total": {
+          "count": 1,
+          "totalMs": 18.2,
+          "meanMs": 18.2,
+          "p95Ms": 18.2,
+          "maxMs": 18.2
+        },
+        "view_build": {
+          "count": 72,
+          "totalMs": 190.2,
+          "meanMs": 2.6416666666666666,
+          "p95Ms": 3.5,
+          "maxMs": 4.1
+        }
+      },
+      "slowestProcessFrames": [
+        {
+          "endMs": 138269.29999999702,
+          "totalUs": 18400,
+          "spans": {
+            "advance_idle": 100,
+            "save_commit": 4700,
+            "save_encode": 13500,
+            "save_total": 18200
+          }
+        },
+        {
+          "endMs": 129787.5,
+          "totalUs": 8600,
+          "spans": {
+            "advance_idle": 0,
+            "hud_buff": 100,
+            "hud_catalog": 2200,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 300,
+            "hud_resources": 1500,
+            "hud_status": 600,
+            "hud_total": 8300,
+            "island_refresh": 0,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 134322,
+          "totalUs": 7300,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 2100,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 400,
+            "hud_resources": 1000,
+            "hud_status": 800,
+            "hud_total": 7100,
+            "island_refresh": 100,
+            "view_build": 2600
+          }
+        },
+        {
+          "endMs": 135107.89999999106,
+          "totalUs": 7200,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 1300,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 300,
+            "hud_resources": 500,
+            "hud_status": 600,
+            "hud_total": 7000,
+            "island_refresh": 100,
+            "view_build": 4100
+          }
+        },
+        {
+          "endMs": 135641.39999999106,
+          "totalUs": 7200,
+          "spans": {
+            "advance_idle": 200,
+            "hud_buff": 0,
+            "hud_catalog": 1400,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 200,
+            "hud_resources": 700,
+            "hud_status": 700,
+            "hud_total": 6800,
+            "island_refresh": 0,
+            "view_build": 3600
+          }
+        },
+        {
+          "endMs": 133241.19999998808,
+          "totalUs": 7100,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 2100,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 400,
+            "hud_resources": 900,
+            "hud_status": 500,
+            "hud_total": 6900,
+            "island_refresh": 0,
+            "view_build": 2900
+          }
+        },
+        {
+          "endMs": 132441,
+          "totalUs": 6900,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 100,
+            "hud_catalog": 1500,
+            "hud_guidance_layout": 100,
+            "hud_navigation": 300,
+            "hud_resources": 700,
+            "hud_status": 500,
+            "hud_total": 6600,
+            "island_refresh": 100,
+            "view_build": 3400
+          }
+        },
+        {
+          "endMs": 137507.69999998808,
+          "totalUs": 6700,
+          "spans": {
+            "advance_idle": 100,
+            "hud_buff": 0,
+            "hud_catalog": 1500,
+            "hud_guidance_layout": 200,
+            "hud_navigation": 100,
+            "hud_resources": 500,
+            "hud_status": 500,
+            "hud_total": 6400,
+            "island_refresh": 100,
+            "view_build": 3500
+          }
+        }
+      ],
+      "longRafGaps": [
+        {
+          "endMs": 129800,
+          "gapMs": 33.30000000000291,
+          "overlappingProcessMs": 8.6,
+          "sections": {
+            "advance_idle": 0.0,
+            "advance_tick": 0.0,
+            "hud_buff": 0.1,
+            "hud_catalog": 2.2,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 0.3,
+            "hud_resources": 1.5,
+            "hud_status": 0.6,
+            "hud_total": 8.3,
+            "island_refresh": 0.0,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 3.6
+          }
+        },
+        {
+          "endMs": 134333.5,
+          "gapMs": 33.29999999998836,
+          "overlappingProcessMs": 7.3,
+          "sections": {
+            "advance_idle": 0.1,
+            "advance_tick": 0.0,
+            "hud_buff": 0.0,
+            "hud_catalog": 2.1,
+            "hud_guidance_layout": 0.1,
+            "hud_navigation": 0.4,
+            "hud_resources": 1.0,
+            "hud_status": 0.8,
+            "hud_total": 7.1,
+            "island_refresh": 0.1,
+            "save_commit": 0.0,
+            "save_encode": 0.0,
+            "save_total": 0.0,
+            "view_build": 2.6
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "scope": "arithmetic only; excludes upstream contention, travel and player choices",
+  "metrics": [
+    {
+      "era": 4,
+      "raw_lv1_to10_seconds": 14097.20920603676,
+      "golden_core_formation_5_only_seconds": 8324.261064072647,
+      "lifespan_total_years_no_bonus": 1090.0,
+      "lifespan_seconds_no_bonus": 65400.0
+    },
+    {
+      "era": 5,
+      "raw_lv1_to10_seconds": 31757.131629406264,
+      "golden_core_formation_5_only_seconds": 18752.268655848107,
+      "lifespan_total_years_no_bonus": 1690.0,
+      "lifespan_seconds_no_bonus": 101400.0
+    },
+    {
+      "era": 6,
+      "raw_lv1_to10_seconds": 91114.23161373046,
+      "golden_core_formation_5_only_seconds": 53802.042625591705,
+      "lifespan_total_years_no_bonus": 2640.0,
+      "lifespan_seconds_no_bonus": 158400.0
+    },
+    {
+      "case": "turtle feed raw supply",
+      "seconds": 300.0
+    },
+    {
+      "case": "phoenix feed raw supply",
+      "seconds": 250.0
+    },
+    {
+      "case": "bulk stone_mid 5000 processing only",
+      "seconds": 500
+    }
+  ]
+}

@@ -198,9 +198,9 @@ func _run() -> void:
 	abode2.queue_free()
 
 	print("PASS: M2-D full slice release, end-to-end progression, 50x view switching memory stability (%.2f KB), and save integrity." % mem_growth_kb)
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _fail(message: String) -> void:
 	push_error("FAIL: %s" % message)
 	print("FAIL: %s" % message)
-	quit(1)
+	RunnerResult.finish(self, 1)

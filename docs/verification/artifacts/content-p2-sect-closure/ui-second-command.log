@@ -1,0 +1,48 @@
+[MODE] matrix=full runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_1d08219133984bcd9b91077bc4a984af
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[FAIL:initial] tests/content_p2_sect_ui_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL card fits [(844, 390), 2, 6, (760.0, 98.0), (760.0, 90.0)]
+FAIL card fits [(844, 390), 2, 7, (760.0, 98.0), (760.0, 90.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 1, 6, (716.0, 80.0), (716.0, 60.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 1, 7, (716.0, 80.0), (716.0, 60.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 2, 6, (716.0, 98.0), (716.0, 60.0)]
+FAIL action reachable
+FAIL card fits [(800, 360), 2, 7, (716.0, 98.0), (716.0, 60.0)]
+SECT2 UI 190 failures=["card fits [(844, 390), 2, 6, (760.0, 98.0), (760.0, 90.0)]","card fits [(844, 390), 2, 7, (760.0, 98.0), (760.0, 90.0)]","action reachable","card fits [(800, 360), 1, 6, (716.0, 80.0), (716.0, 60.0)]","action reachable","card fits [(800, 360), 1, 7, (716.0, 80.0), (716.0, 60.0)]","action reachable","card fits [(800, 360), 2, 6, (716.0, 98.0), (716.0, 60.0)]","action reachable","card fits [(800, 360), 2, 7, (716.0, 98.0), (716.0, 60.0)]"]
+RUNNER_RESULT status=FAIL exit=1
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:128)
+       [1] run (res://tests/content_p2_sect_ui_runner.gd:35)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:128)
+       [1] update_view (res://src/presentation/sect_panel.gd:298)
+       [2] run (res://tests/content_p2_sect_ui_runner.gd:36)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:128)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:258)
+       [2] run (res://tests/content_p2_sect_ui_runner.gd:38)
+
+--- slowest 8 runners (s) ---
+    14.0  tests/content_p2_sect_ui_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:283
+Line |
+ 283 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_sect_ui_runner.gd. Logs:
+     | C:\Users\asus\AppData\Local\Temp\dao2_runners_1d08219133984bcd9b91077bc4a984af

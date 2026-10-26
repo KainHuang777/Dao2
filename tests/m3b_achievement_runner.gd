@@ -17,12 +17,12 @@ func _init() -> void:
 
 	if failures.is_empty():
 		print("\n[SUCCESS] 全部 6 項 M3-B 成就系統測試案例 PASS！")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		print("\n[FAILED] 存在測試失敗：")
 		for f in failures:
 			print(" - ", f)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func test_definitions(failures: Array[String]) -> void:
 	print("\n[CASE 1] 驗證成就定義完整度與維度...")

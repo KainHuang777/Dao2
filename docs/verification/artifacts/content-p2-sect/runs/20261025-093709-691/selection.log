@@ -1,0 +1,6 @@
+[MODE] matrix=single runners=5 parallel=1
+tests/content_p2_sect_save_runner.gd
+tests/content_p2_supply_economy_runner.gd
+tests/m1c_persistence_runner.gd
+tests/m1e_import_runner.gd
+tests/m4a_session_integration_runner.gd

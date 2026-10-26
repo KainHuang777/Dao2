@@ -1,0 +1,262 @@
+{
+  "checks": 64,
+  "failures": [],
+  "details": [
+    {
+      "ok": true,
+      "label": "eight generated images"
+    },
+    {
+      "ok": true,
+      "label": "art pending human acceptance"
+    },
+    {
+      "ok": true,
+      "label": "nascent_breath_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "nascent_breath_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "nascent_breath_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "void_meditation_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "void_meditation_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "void_meditation_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "ancient_herb_dew_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "ancient_herb_dew_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "ancient_herb_dew_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "void_gathering_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "void_gathering_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "void_gathering_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "spirit_vessel_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "spirit_vessel_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "spirit_vessel_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "stone_vault_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "stone_vault_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "stone_vault_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "calm_tribulation_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "calm_tribulation_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "calm_tribulation_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "silver_ward_pill immutable original/runtime"
+    },
+    {
+      "ok": true,
+      "label": "silver_ward_pill alpha preserved"
+    },
+    {
+      "ok": true,
+      "label": "silver_ward_pill shared icon registration"
+    },
+    {
+      "ok": true,
+      "label": "flow checks"
+    },
+    {
+      "ok": true,
+      "label": "ui checks"
+    },
+    {
+      "ok": true,
+      "label": "all eight IDs earned effective use"
+    },
+    {
+      "ok": true,
+      "label": "continuous formal Era4→5→6"
+    },
+    {
+      "ok": true,
+      "label": "actual inherited source hash"
+    },
+    {
+      "ok": true,
+      "label": "positive simulated time, no age injection"
+    },
+    {
+      "ok": true,
+      "label": "browser fixture byte identical earned era4"
+    },
+    {
+      "ok": true,
+      "label": "browser fixture byte identical earned era5"
+    },
+    {
+      "ok": true,
+      "label": "browser fixture byte identical earned era6"
+    },
+    {
+      "ok": true,
+      "label": "real Web earned Era5 observation"
+    },
+    {
+      "ok": true,
+      "label": "Web nascent exact debit spirit_grass_100y"
+    },
+    {
+      "ok": true,
+      "label": "Web nascent exact debit mithril"
+    },
+    {
+      "ok": true,
+      "label": "Web nascent exact debit lingli"
+    },
+    {
+      "ok": true,
+      "label": "Web consume shared stack"
+    },
+    {
+      "ok": true,
+      "label": "Web stone-vault exact debit spirit_grass_1000y"
+    },
+    {
+      "ok": true,
+      "label": "Web stone-vault exact debit mithril"
+    },
+    {
+      "ok": true,
+      "label": "Web stone-vault exact debit lingli"
+    },
+    {
+      "ok": true,
+      "label": "refused/retry preserves single consume"
+    },
+    {
+      "ok": true,
+      "label": "save failure observed; repeat denied retry separately recorded by screenshot/tool"
+    },
+    {
+      "ok": true,
+      "label": "recovered/reloaded keeps capacity count2"
+    },
+    {
+      "ok": true,
+      "label": "Web timed replacement to600"
+    },
+    {
+      "ok": true,
+      "label": "Web no-extension disabled"
+    },
+    {
+      "ok": true,
+      "label": "actual 1280×720 canvas"
+    },
+    {
+      "ok": true,
+      "label": "eight art textures loaded in Web"
+    },
+    {
+      "ok": true,
+      "label": "screenshot art-gallery.png"
+    },
+    {
+      "ok": true,
+      "label": "screenshot web-home.png"
+    },
+    {
+      "ok": true,
+      "label": "screenshot web-save-refused.png"
+    },
+    {
+      "ok": true,
+      "label": "screenshot web-save-recovered.png"
+    },
+    {
+      "ok": true,
+      "label": "screenshot web-era6-timed.png"
+    },
+    {
+      "ok": true,
+      "label": "screenshot web-timed-no-extension.png"
+    },
+    {
+      "ok": true,
+      "label": "UTF-8 alchemy_panel.gd"
+    },
+    {
+      "ok": true,
+      "label": "UTF-8 resource_icon.gd"
+    },
+    {
+      "ok": true,
+      "label": "UTF-8 pill2_acceptance.gd"
+    },
+    {
+      "ok": true,
+      "label": "UTF-8 content_p2_pills_flow_runner.gd"
+    },
+    {
+      "ok": true,
+      "label": "UTF-8 content_p2_pills_ui_runner.gd"
+    },
+    {
+      "ok": true,
+      "label": "restored docs/verification/artifacts/content-p2-pills/core.json"
+    },
+    {
+      "ok": true,
+      "label": "restored docs/verification/artifacts/content-p2-pills/save.json"
+    },
+    {
+      "ok": true,
+      "label": "restored docs/verification/artifacts/content-p1-pills/native-ui.json"
+    }
+  ]
+}

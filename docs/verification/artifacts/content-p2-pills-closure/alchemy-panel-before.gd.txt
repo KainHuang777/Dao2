@@ -1,0 +1,282 @@
+class_name AlchemyPanel
+extends Control
+signal refine_requested(pill_id: String, count: int)
+signal consume_requested(pill_id: String, count: int)
+signal close_requested()
+const Tile = preload("res://src/presentation/recipe_material_tile.gd")
+const RESOURCE_NAMES := {"lingli": "靈力", "money": "金錢", "wood": "靈木", "black_copper": "玄銅", "spirit_grass_low": "下品靈草", "spirit_grass_100y": "百年靈草", "spirit_grass_1000y": "千年靈草", "liquid": "丹液", "stone_low": "下品靈石", "stone_mid": "中品靈石", "stone_high": "上品靈石", "refined_iron": "精鐵", "mithril": "秘銀", "cold_iron": "寒鐵", "void_essence": "太虛精華"}
+var _background: Panel
+var _content: VBoxContainer
+var _close_button: Button
+var _title_row: HBoxContainer
+var _summary_label: Label
+var _feedback: Label
+var _scroll: ScrollContainer
+var _pills_list: GridContainer
+var _pill_rows: Dictionary = {}
+var _widgets: Dictionary = {}
+var _feedback_pill := ""
+var _feedback_success := false
+var _last_view := {}
+var _short := false
+var _margin: MarginContainer
+
+func _ready() -> void:
+	_build_ui()
+
+func set_layout_bounds(bounds: Rect2) -> void:
+	_short = bounds.size.y < 350.0
+	position = bounds.position
+	size = bounds.size
+	if _pills_list != null:
+		_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell())
+		UiMaterial.apply_scroll_content_margins(_margin, size.y < 350)
+		_pills_list.columns = 2 if size.x >= 850.0 else 1
+		_summary_label.visible = size.y >= 350.0
+		_title_row.visible = size.y >= 350.0
+		_feedback.visible = not _feedback.text.is_empty() and not (_short and _feedback_success)
+		if not _last_view.is_empty(): update_view(_last_view)
+
+func _build_ui() -> void:
+	_background = Panel.new()
+	_background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_background.add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
+	add_theme_color_override("font_color", UiMaterial.INK)
+	_background.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(_background)
+	var margin := MarginContainer.new()
+	_margin = margin
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	UiMaterial.apply_scroll_content_margins(margin)
+	add_child(margin)
+	_content = VBoxContainer.new()
+	_content.add_theme_constant_override("separation", 8)
+	margin.add_child(_content)
+	var title_row := HBoxContainer.new()
+	_title_row = title_row
+	_content.add_child(title_row)
+	var title := Label.new()
+	title.text = "洞府煉丹房"
+	title.add_theme_color_override("font_color", UiMaterial.INK)
+	title.add_theme_font_override("font", UiTypography.emphasis_font())
+	title.add_theme_font_size_override("font_size", 22)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title_row.add_child(title)
+	_close_button = CloseSeal.new()
+	_close_button.tooltip_text = "返回洞府"
+	_close_button.pressed.connect(func(): close_requested.emit())
+	title_row.add_child(_close_button)
+	_summary_label = Label.new()
+	_summary_label.add_theme_color_override("font_color", UiMaterial.INK)
+	_summary_label.add_theme_font_size_override("font_size", 16)
+	_summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_content.add_child(_summary_label)
+	_feedback = Label.new()
+	_feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_feedback.add_theme_font_size_override("font_size", 16)
+	_feedback.visible = false
+	_content.add_child(_feedback)
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_content.add_child(_scroll)
+	_pills_list = GridContainer.new()
+	_pills_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_pills_list.add_theme_constant_override("h_separation", 10)
+	_pills_list.add_theme_constant_override("v_separation", 10)
+	_scroll.add_child(_pills_list)
+
+func show_feedback(text: String, success: bool, pill_id: String = "") -> void:
+	_feedback_pill = pill_id
+	_feedback_success = success
+	_feedback.text = text
+	_feedback.tooltip_text = text
+	_feedback.add_theme_color_override("font_color", UiMaterial.INK if success else Color("a23e32"))
+	_feedback.visible = not (_short and success)
+
+func update_view(view: Dictionary) -> void:
+	_last_view = view
+	var data: Dictionary = view.get("alchemy", {})
+	var effects: Dictionary = data.get("effects", {})
+	_summary_label.text = "壽元 +%s祀 · 產率 +%.0f%% · 服丹 %d顆" % [str(effects.get("lifespan_bonus_years", 0)), float(effects.get("production_multiplier", 0)) * 100.0, int(effects.get("total_consumed", 0))]
+	_summary_label.tooltip_text = "當世丹道加成；延壽與產率加成於輪迴後清除。即時效果請參考左側修行與 BUFF。"
+	for p in data.get("pills", []):
+		var id := String(p.id)
+		if not _pill_rows.has(id):
+			_pill_rows[id] = _create_pill_row(p)
+			_pills_list.add_child(_pill_rows[id])
+		_update_pill_row(p, view)
+
+func _create_pill_row(p: Dictionary) -> PanelContainer:
+	var id := String(p.id)
+	var row := PanelContainer.new()
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 6)
+	row.add_child(column)
+	var title_row := HBoxContainer.new()
+	column.add_child(title_row)
+	var title := Label.new()
+	title.text = String(p.name)
+	title.add_theme_color_override("font_color", UiMaterial.INK)
+	title.add_theme_font_override("font", UiTypography.emphasis_font())
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title_row.add_child(title)
+	var count := Label.new()
+	count.name = "CountLabel"
+	count.add_theme_color_override("font_color", UiMaterial.INK)
+	title_row.add_child(count)
+	var recipe := HBoxContainer.new()
+	recipe.add_theme_constant_override("separation", 6)
+	column.add_child(recipe)
+	var materials := HFlowContainer.new()
+	materials.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	materials.add_theme_constant_override("h_separation", 6)
+	materials.add_theme_constant_override("v_separation", 6)
+	recipe.add_child(materials)
+	var arrow := Label.new()
+	arrow.text = "→"
+	arrow.add_theme_color_override("font_color", UiMaterial.INK)
+	recipe.add_child(arrow)
+	var output := Tile.new()
+	output.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	recipe.add_child(output)
+	var actions := VBoxContainer.new()
+	actions.alignment = BoxContainer.ALIGNMENT_CENTER
+	actions.add_theme_constant_override("separation", 6)
+	recipe.add_child(actions)
+	var refine := Button.new()
+	refine.name = "RefineButton"
+	refine.text = "煉製"
+	refine.custom_minimum_size = Vector2(64, 44)
+	UiMaterial.apply_button(refine)
+	refine.pressed.connect(func(): refine_requested.emit(id, 1))
+	actions.add_child(refine)
+	var consume := Button.new()
+	consume.name = "ConsumeButton"
+	consume.text = "服用"
+	consume.custom_minimum_size = Vector2(64, 44)
+	UiMaterial.apply_button(consume)
+	consume.pressed.connect(func(): consume_requested.emit(id, 1))
+	actions.add_child(consume)
+	var status := Label.new()
+	status.name = "PillStatus"
+	status.add_theme_font_size_override("font_size", 16)
+	status.add_theme_color_override("font_color", UiMaterial.INK)
+	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	status.visible = id in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS
+	column.add_child(status)
+	_widgets[id] = {"status": status,"title": title, "count": count, "materials": materials, "tiles": {}, "column": column, "actions": actions, "output": output, "refine": refine, "consume": consume}
+	return row
+
+func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
+	var w: Dictionary = _widgets[String(p.id)]
+	var description := String(p.description)
+	var paper: StyleBoxTexture = UiMaterial.hud_paper()
+	if _short:
+		for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]: paper.set_content_margin(side, 4)
+	_pill_rows[String(p.id)].add_theme_stylebox_override("panel", paper)
+	w.column.add_theme_constant_override("separation", 2 if _short else 6)
+	w.title.text = String(p.name)
+	_pill_rows[String(p.id)].tooltip_text = String(p.name) + "\n" + description
+	w.title.tooltip_text = description
+	w.count.text = "持有 %d" % int(p.count)
+	w.consume.disabled = not bool(p.can_consume)
+	w.consume.tooltip_text = description if p.can_consume else "尚未持有此丹藥。\n" + description
+	if String(p.id) in AlchemySystem.P1_IDS:
+		var reason := String(p.get("consume_reason", ""))
+		var target := {"wood_nurture_pill":"靈木", "herb_nurture_pill":"下品靈草", "wealth_gathering_pill":"金錢", "qi_absorption_pill":"靈力"}
+		w.status.text = "祖島%s +100%% · 餘 %.0f秒 · 單顆淨延 %.0f秒" % [target[String(p.id)], float(p.get("remaining_seconds", 0)), float(p.get("net_extension_seconds", 0))]
+		if reason == "PILL_NO_EXTENSION": w.status.text += "；等到期再用"
+		if bool(p.locked_by_era): w.status.text = "未開：需%s期；祖島%s +100%%／300秒" % ["築基" if int(p.min_era) == 2 else "金丹",target[String(p.id)]]
+		w.consume.tooltip_text = w.status.text + "\n" + description
+		w.status.visible = not _short
+		if _short:
+			w.title.text += " · 祖島%s+100%%" % target[String(p.id)]
+			w.count.text = "餘%.0f秒" % float(p.get("remaining_seconds", 0))
+			if _feedback_pill == String(p.id) and _feedback_success:
+				w.title.text += " · " + ("已服" if "已服用" in _feedback.text else "已煉")
+				w.title.tooltip_text = _feedback.text + "\n" + description
+			if bool(p.locked_by_era): w.title.text += " · 未開"
+	var linked := bool(p.get("manufacturing_link", false))
+	w.refine.text = "製造" if linked else "煉製"
+	w.refine.disabled = not linked and not bool(p.can_refine)
+	w.refine.tooltip_text = "前往祖島製造產線；在製造頁選擇批數與啟動工作。" if linked else "煉製一顆；材料由祖島庫存扣除。" if p.can_refine else "材料不足或尚未開放；需靈植場3階或築基期。"
+	if String(p.id) in AlchemySystem.P2_IDS:
+		w.status.text = _p2_status(p)
+		w.status.visible = true
+		w.status.tooltip_text = w.status.text + "\n" + description
+		w.consume.tooltip_text = w.status.tooltip_text + "\n" + _p2_reason(String(p.get("consume_reason", "")), p)
+		w.refine.tooltip_text = "煉製一顆；由祖島可用庫存付款。\n" + _p2_reason(String(p.get("refine_reason", "")), p)
+	var inputs: Dictionary = view.get("manufacturing", {}).get("recipes", {}).get(String(p.id), {}).get("inputs", {}) if linked else {}
+	var costs: Dictionary = inputs if linked else p.get("cost", {})
+	for resource in w.tiles:
+		w.tiles[resource].visible = costs.has(resource)
+	for resource in costs:
+		if not w.tiles.has(resource):
+			w.tiles[resource] = Tile.new()
+			w.materials.add_child(w.tiles[resource])
+		var stock: Dictionary = view.get("resources", {}).get(resource, {})
+		var available := float(stock.get("value", 0))
+		var required := float(costs[resource]) if not linked else float(inputs[resource].required)
+		if linked:
+			available = float(inputs[resource].available)
+		w.tiles[resource].refresh(resource, String(RESOURCE_NAMES.get(resource, resource)), required, available, "祖島")
+		w.tiles[resource].quantity.text = "%s/%s" % [_number(available), _number(required)]
+		if String(p.id) in AlchemySystem.P2_IDS:
+			# Required cost remains on the card; exact available stock stays in the tile TIP.
+			w.tiles[resource].quantity.text = _number(required)
+			w.tiles[resource].icon.visible = w.tiles[resource].icon.resource_texture() != null
+	# Early pills share the existing pill-family illustration; names and TIP identify effects.
+	w.output.refresh(String(p.id) if String(p.id) in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS else "foundation_pill", String(p.name), 1, float(p.count), "丹藥", true)
+	w.output.quantity.text = "×%d" % int(p.count)
+	w.output.caption.text = "丹藥"
+	for tile in w.tiles.values() + [w.output]:
+		tile.icon.custom_minimum_size = Vector2(28,28) if _short else Vector2(44,44)
+	if _short and String(p.id) in AlchemySystem.P1_IDS:
+		w.output.caption.add_theme_font_size_override("font_size", 16)
+		w.output.caption.text = "淨延%.0f秒" % float(p.get("net_extension_seconds", 0))
+	w.output.tooltip_text = "%s\n持有 %d顆\n%s" % [String(p.name), int(p.count), description]
+
+func _number(value: float) -> String:
+	return ("%.1f" % value).trim_suffix(".0")
+
+func _p2_status(p: Dictionary) -> String:
+	var id := String(p.id)
+	var preview: Dictionary = p.get("p2_preview", {})
+	var text := ""
+	if id in AlchemySystem.P2_TRAINING:
+		text = "單顆實得 %s秒 · 捨棄 %s秒\n凝嬰／虛明共享 %d/99顆（每顆×0.85）" % [_number(float(preview.get("training_gain", 0))), _number(float(preview.get("discarded_seconds", 0))), int(preview.get("shared_count", 0))]
+	elif id in AlchemySystem.P2_TIMED:
+		text = "%s採集 ×1.5／600秒\n餘 %s秒 · 單顆淨延 %s秒；替換剩餘時間" % ["古藥島千年靈草" if id == "ancient_herb_dew_pill" else "太虛島太虛精華", _number(float(preview.get("remaining_seconds", 0))), _number(maxf(0, float(preview.get("net_extension_seconds", 0))))]
+	elif id in AlchemySystem.P2_CAPACITY:
+		text = "祖島%s容量 +%s／顆\n當世餘 %d/5顆；不增加現貨" % ["靈力" if id == "spirit_vessel_pill" else "中品靈石", "10000" if id == "spirit_vessel_pill" else "1000", int(preview.get("remaining_uses", 0))]
+	else:
+		text = "本次渡劫淨增 %s百分點 → %s%%\n%s；實際擲骰後清除" % [_number(float(preview.get("probability_gain", 0))*100), _number(float(preview.get("probability", 0))*100), "限元嬰／化神" if id == "calm_tribulation_pill" else "限化神"]
+		if not String(preview.get("reason", "")).is_empty() or bool(p.locked_by_era):
+			text = "護劫準備 · %s\n每次最多一顆；實際擲骰後清除" % ("限元嬰／化神" if id == "calm_tribulation_pill" else "限化神")
+	var reason := String(p.get("consume_reason", ""))
+	if not reason.is_empty(): text += "\n" + _p2_reason(reason, p)
+	return text
+
+func _p2_reason(reason: String, p: Dictionary) -> String:
+	match reason:
+		"": return "可操作"
+		"PILL_LOCKED": return "未開：需%s期" % {4:"元嬰",5:"化神",6:"煉虛"}.get(int(p.min_era), str(p.min_era))
+		"PILL_BUILDING_REQUIRED": return "未開：需%s一階" % ("元嬰總庫" if String(p.id) == "spirit_vessel_pill" else "化神總庫")
+		"ISLAND_NOT_OPEN": return "未開：需開拓%s" % ("古藥島" if String(p.id) == "ancient_herb_dew_pill" else "太虛島")
+		"INSUFFICIENT_RESOURCE": return "祖島可用材料不足"
+		"INSUFFICIENT_PILL": return "尚未持有此丹"
+		"TRAINING_ALREADY_COMPLETE": return "當級修行已滿或已達最高層"
+		"PILL_STACK_LIMIT": return "共享服用已滿99顆" if String(p.id) in AlchemySystem.P2_TRAINING else "本次已服；待實際渡劫後再用"
+		"PILL_NO_EXTENSION": return "無淨延；等待剩餘時間下降後再用"
+		"PILL_CAPACITY_LIMIT": return "當世已服滿5顆"
+		"PILL_CONSUME_ERA": return "當世境界不可服用此護劫丹"
+		"PILL_NO_EFFECT": return "機率無淨增；不可服用"
+		"LIFESPAN_EXHAUSTED": return "壽元已盡，無法煉製或服用"
+		"SUPPLY_REQUIRED": return "需先啟用供給規則"
+		"PILL_VERSION": return "需先完成丹藥存檔遷移"
+		"PILL_INVENTORY_LIMIT": return "持有丹藥已達上限"
+		"ALCHEMY_LOCKED": return "煉丹尚未開放"
+	return reason

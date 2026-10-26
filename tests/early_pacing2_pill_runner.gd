@@ -14,7 +14,7 @@ func _init() -> void:
 	var loaded := ContentLoader.load_directory(CONTENT_DIR)
 	if not bool(loaded.ok):
 		print("FAIL: content load: %s" % str(loaded.errors))
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	var content: GameContent = loaded.content
 	_test_legacy_ceiling(content)
@@ -27,11 +27,11 @@ func _init() -> void:
 	print("PASS: %d  FAIL: %d" % [passed, failed])
 	if failures.is_empty():
 		print("PILL CEILING RUNNER DONE")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			print("FAIL: %s" % failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _test_legacy_ceiling(content: GameContent) -> void:
 	var state := _fresh_state(content)

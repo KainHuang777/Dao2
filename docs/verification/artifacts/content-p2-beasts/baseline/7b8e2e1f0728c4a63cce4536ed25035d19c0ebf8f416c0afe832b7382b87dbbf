@@ -1,0 +1,10 @@
+{
+  "level": "L1 static asset audit",
+  "assets": 12,
+  "rgba_png_checks": 12,
+  "padding_checks": 12,
+  "id_matches": 12,
+  "baseline_files": 757,
+  "baseline_changed": [],
+  "failures": []
+}

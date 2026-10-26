@@ -22,11 +22,11 @@ func _init() -> void:
     _test_view_fields()
     if failures.is_empty():
         print("PASS: M1-B clock, ticks, cultivation, lifespan, boundaries, determinism.")
-        quit(0)
+        RunnerResult.finish(self, 0)
     else:
         for failure in failures:
             push_error(failure)
-        quit(1)
+        RunnerResult.finish(self, 1)
 
 func _expect(condition: bool, label: String) -> void:
     if not condition:

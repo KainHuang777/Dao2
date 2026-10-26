@@ -18,11 +18,11 @@ func _init() -> void:
 	print("%d checks, %d failures" % [checks, failures.size()])
 	if failures.is_empty():
 		print("PACING RUNNER DONE")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			print("FAIL: %s" % failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _test_formulas() -> void:
 	_expect_approx(Metrics.gain_ratio(5.0, 7.0), 0.4, "gain_ratio 5 to 7")

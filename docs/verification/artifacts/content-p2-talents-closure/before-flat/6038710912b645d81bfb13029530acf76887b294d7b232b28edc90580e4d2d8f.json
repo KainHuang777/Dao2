@@ -1,0 +1,15 @@
+{
+  "restored_initially_clean": [
+    "docs/verification/artifacts/early-flow1c-unopened.json",
+    "docs/verification/artifacts/early-flow1d-foundation.json",
+    "docs/verification/artifacts/early-flow1d-golden.json",
+    "docs/verification/artifacts/early-flow1d-ready.json",
+    "docs/verification/artifacts/mfg-3/fixture.json",
+    "docs/verification/artifacts/res1-c-earned-era2.json",
+    "docs/verification/artifacts/res1-c2-offline-fixture.json",
+    "docs/verification/artifacts/res1-d2-active-fixture.json",
+    "docs/verification/artifacts/res1-d2-earned-era3.json",
+    "docs/verification/artifacts/skills-b1-fixture.json"
+  ],
+  "preserved_preexisting_dirty": []
+}

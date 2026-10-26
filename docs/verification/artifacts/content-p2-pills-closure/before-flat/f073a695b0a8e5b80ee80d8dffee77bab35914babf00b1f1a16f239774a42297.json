@@ -1,0 +1,110 @@
+{
+  "task": "CONTENT-P1-STORY",
+  "scope": "L1 static preservation review; no engine/browser/export rerun",
+  "web_changes": [
+    {
+      "path": "build/web/compression.json",
+      "baseline_sha256": "50992612610c763acd7a024a3646e6a3ab9454affbbc98b564c27c194f8a601e",
+      "current_sha256": "495fa74adf21b67e042f4d6705a11b8b6fe69404fadf7a989755cf00b58c7af8",
+      "mtime_utc": "2026-10-23T12:15:07.013942+00:00"
+    },
+    {
+      "path": "build/web/index.html",
+      "baseline_sha256": "464ed24d0cc69cf7ae5810c7d0680b55a9c392d9872093322a0ac1ab0f42d363",
+      "current_sha256": "f591262b4b21933ddcb6b1b06450c184962e9135077788319b538f543213d078",
+      "mtime_utc": "2026-10-23T12:14:50.807828+00:00"
+    },
+    {
+      "path": "build/web/index.pck",
+      "baseline_sha256": "74aa640f734044c59bbe1a1d67f473cf9b705ca74d50169d2aeb04bc62106e4f",
+      "current_sha256": "fb55bf3dd7e112e6ef9c3d46b9796c2efe50db9fc36cd73bc068fc5b370f4344",
+      "mtime_utc": "2026-10-23T12:14:50.329466+00:00"
+    },
+    {
+      "path": "build/web/index.pck.br",
+      "baseline_sha256": "bf2a4da241911b979b79c57b5a70ee233b4b457d777e28008130bdb03310aaff",
+      "current_sha256": "e96ba94674747679c2c803391424ab230a2e8fbc87724834f9c7b9b489a7c9a6",
+      "mtime_utc": "2026-10-23T12:15:06.852675+00:00"
+    }
+  ],
+  "frozen_integrity": [
+    {
+      "file": "index.js",
+      "raw_hash_ok": true,
+      "compressed_hash_ok": true,
+      "roundtrip_ok": true
+    },
+    {
+      "file": "index.wasm",
+      "raw_hash_ok": true,
+      "compressed_hash_ok": true,
+      "roundtrip_ok": true
+    },
+    {
+      "file": "index.pck",
+      "raw_hash_ok": true,
+      "compressed_hash_ok": true,
+      "roundtrip_ok": true
+    },
+    {
+      "file": "audio/bgm/01_The_Unresolved_Ascent.mp3",
+      "raw_hash_ok": true
+    },
+    {
+      "file": "audio/bgm/02_The_Weight_of_Heaven.mp3",
+      "raw_hash_ok": true
+    },
+    {
+      "file": "audio/bgm/03_Rungs_of_the_Infinite.mp3",
+      "raw_hash_ok": true
+    },
+    {
+      "file": "audio/bgm/04_Where_Starlight_Settles.mp3",
+      "raw_hash_ok": true
+    }
+  ],
+  "identical_candidate_pcks": [],
+  "fixture": {
+    "path": "src/verification/content_p1_skills_fixture.json",
+    "backup_sha256": "ab9347515855334312f75827b8261c781d51b3be81a4f7170c84194a51138d79",
+    "backup_matches_original_record": true,
+    "current_sha256": "e39a8519aa78edeb3549b6dd3d0214b8034239b5882462e9ada06c8efc15a985",
+    "equals_commit_700d11e": true,
+    "changed_json_paths": [
+      "/checksum",
+      "/content_version",
+      "/rules_version",
+      "/state/achievements/story",
+      "/state/achievements/unlocked/p1_homebound_cargo",
+      "/state/achievements/unlocked/p1_timber_workshop",
+      "/state/fortune/pending_encounter/desc",
+      "/state/fortune/pending_encounter/id",
+      "/state/fortune/pending_encounter/instance_id",
+      "/state/fortune/pending_encounter/options",
+      "/state/fortune/pending_encounter/realm_bias",
+      "/state/fortune/pending_encounter/title",
+      "/state/fortune/pending_encounter/weather_bias",
+      "/state/fortune/pending_encounter/weight",
+      "/state/fortune/rng_state",
+      "/state/fortune/rng_version",
+      "/state/pill_version",
+      "/state/sect_version",
+      "/state/story_version"
+    ],
+    "old_rules_version": "core-flow-14-content-p1-talents",
+    "new_rules_version": "core-flow-17-content-p1-story",
+    "old_content_version": "c1b7f1520764d30194af498e0b0c9a12683f53c182716283dd3742ecfde67384+res1-d-2+content-p1-skills",
+    "new_content_version": "3b24f41ca76c5ef3a56d307dfab890c5bf9de6baccfae882bf32920548c23060+res1-d-2+content-p1-story+content-p1-sect+content-p1-skills"
+  },
+  "checks": {
+    "four_web_differences_reproduced": true,
+    "all_frozen_compression_checks_pass": true,
+    "original_fixture_backup_verified": true,
+    "current_fixture_is_committed": true,
+    "historical_two_failures_retained": true
+  },
+  "failures": [],
+  "preservation_verdict": "HISTORICAL_BASELINE_VIOLATION_REPRODUCED_NOT_REBASED",
+  "attribution": "Current bytes and committed fixture are verified. Filesystem timestamps and equal hashes do not identify the actor or command. No complete attribution is available.",
+  "policy": "Preserve current files and original baselines. Historical delivery audit stays failed; no reset, restore, export or inferred user waiver."
+}

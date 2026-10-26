@@ -1,3 +1,38 @@
+2026-10-26 **CONTENT-P2-BEAST／BEAST-2 技術交付完成（L1／有界L2，桌面1280×720）；整批IN_PROGRESS，兩圖／卡片／節奏待人工接受。** 內建ImageGen兩透明獸圖及來源／prompt／hash、靈獸圖文卡與八天賦已接正式View；七支唯一相關runner最終分段通過（核心1656／保存998／合法流326／新UI57），原生57項及當次Web兩獸／八天賦滑鼠、拒寫再次重試／恢復／重載／返回已驗。鹿鶴各20次正式餵養與5700秒模擬成熟；鹿正式壽盡輪迴1魂→T1→二世保留，正向終值另列合成資格證據，未宣稱二世自然重爬。31項交付稽核通過，28190份既有JSON核對無差異；初次編譯／初始化／沙箱／舊斷言失敗與保存恢復正常補時保留。未L3／全尺寸／FPS、未玩家進度／commit／push。見[本段驗收](verification/content-p2-beasts-ui.md)。依Context Guard停止；下一New Chat先接受或具體修改兩圖卡片節奏，再同批唯一L3，不重問X、不開其他P2／P3。下方為日期化歷史。
+
+2026-10-26 **CONTENT-P2-BEAST／BEAST-1 DONE（L1＋L2，單尺寸）；整批IN_PROGRESS。** 使用者明確「採 X，接 BEAST-1」，X原案全核定。兩獸／八獸魂天賦、指定地方產率／固定容量、資格與單一餵費、beast_version1／schema5／rules23及原文歸檔候選保存閘已接；U／W白名單、舊獸定義／倍率與R46保持。新核心1656／保存998項，14支唯一相關runner最終分段通過；原編譯／斷言失敗及離線45秒逾時保留（240秒單支重跑95.9秒通過）。交付稽核27844項通過，26389份既有JSON核對、1份變動先封存後逐字復原。兩圖未生成／未接受；未Web／匯出／L3、未玩家進度／commit／push。見[本段驗收](verification/content-p2-beasts-core.md)。依Context Guard停止；下一New Chat直接接同批BEAST-2兩卡兩圖與合法代表流程，不重問X、不開其他P2／P3。下方為日期化歷史。
+
+2026-10-26 **CONTENT-P2-BEAST 設計階段DONE；方案X待核定，實作TODO／整批IN_PROGRESS。** 使用者指定「P2 靈獸」；交付霜角鹿（Era4寒銀三礦）／銜芝鶴（Era5古藥千草）與八獸魂天賦，成熟地方採集+20%、T4各島固定容量+30、魂價1／2／3／5及11次同獸成熟輪迴。沿單世一獸，未擴U／W龜鳳白名單；schema5／beast_version1與原文歸檔候選閘為提案。L1靜態631項通過，1363份受保護檔案hash保持；正式仍4獸／16天賦，兩圖僅prompt未生成／未接受。未跑遊戲Runner／Web／匯出／L3、未改玩家進度、未commit/push。見[方案X](39-content-p2-beast-design.md)與[L1驗收](verification/content-p2-beasts-design.md)。本設計階段停止；下一New Chat核定或修訂X後接同批BEAST-1，不開其他P2／P3。下方為日期化歷史。
+
+2026-10-26 **CONTENT-P2-SECT DONE（兩圖／卡片／目前節奏已接受；L3／桌面Web有界）**：129／129唯一runner最終分段通過，原Full exit1與五支補驗exit1保留；供給94項另以單支補驗通過，原始日誌直接存入專案並封存。最終18px正常候選三橫式、兩法研習、拒寫／再次重試／恢復／重載已驗；交付稽核1350項通過，76份測試差異先封存後復原。兩PNG與規則不變，既有長時WebGL限制保留，未宣稱FPS通過；未玩家進度／commit／push。見[整批驗收](verification/content-p2-sect-closure.md)。本階段停止；下一大型任務請New Chat指定，不自動開其他P2／P3。下方為日期化歷史。
+
+2026-10-25 **CONTENT-P2-SECT 收尾 IN_PROGRESS**：使用者已接受現版兩圖、卡片與目前節奏。L3主輪127/129最終通過、原Full exit1保留；供給／SKS與三UI隔離補驗執行中。短式卡片改橫向分區，最終18px標題三支宗門UI全尺寸exit0、正常Web重匯exit0；最終18px包桌面Web待補。IAB截圖失效，Windows Computer Use安全檢查無法可靠辨識網址而停止UI操作，未繞過或冒稱通過。測試產物尚待補驗結束後封存復原；未交付audit／finalize／整批DONE，未玩家進度／commit／push。見[收尾進度](verification/content-p2-sect-closure.md)。下一New Chat續同批剩餘補驗，不重問接受、不重跑Full、不開其他P2／P3。下方為歷史。
+
+2026-10-25 **CONTENT-P2-SECT／SECT-2 技術交付DONE（L1／有界L2，桌面1280×720）；整批IN_PROGRESS，兩圖／卡片與節奏待人工接受。** 本次接續SECT-2，localhost可達；只補暫停驗收場景放開按鈕後refresh並重匯當次包。Web真實鼠標兩法／兩商品、拒寫再重試／恢復／重載不重扣、返回／重開及火鳳9→9平台已驗；18項觀測稽核通過、38份狀態／15截圖，原EACCES與初版stale卡片保留。沿同日七支runner及原生證據，19份來源／包僅harness與PCK變更，未重跑遊戲／L3／全尺寸，未玩家進度／commit／push。見[補驗與界線](verification/content-p2-sect-ui.md)。本子階段停止，下一New Chat先接受／修訂兩圖卡片節奏，再同批唯一L3，不開其他P2／P3。下方為歷史。
+
+2026-10-25 **SECT-2 IN_PROGRESS：兩卡／兩圖與合法CLI代表流程已交，桌面Web因localhost EACCES待驗；圖／卡片／節奏待人工接受。** 七支相關runner最終分段通過、原生UI64項與本機Web匯出exit0，未L3／玩家進度／commit／push。實際精鐵／千草無專圖，按共用具名字印呈現。見[交付／待驗](verification/content-p2-sect-ui.md)。下方為歷史。
+
+2026-10-25 **CONTENT-P2-SECT／SECT-1 DONE（L1＋有界L2，單尺寸）；整批IN_PROGRESS。** 使用者指定「SECT-1」，沿W實作2功法／10凍結委託／2限購補給、單一Amount煉丹成本與整數餵費、原子預留容量及sect_version2／schema5／rules core-flow-22宗門候選保存閘。新核心4189／保存957 checks，13支唯一相依runner最終分段通過；原失敗保留。修正傳說P1靈狐也互斥的算表：池最多4、單新模板0.5%，不改資格。20229份既有JSON封存核對還原；未改玩家進度、未Web／匯出／L3、未commit/push。兩圖未生成／未接受；下一New Chat接同批SECT-2兩卡兩圖與合法代表流程，不開其他P2／P3。見[本段驗收](verification/content-p2-sect-core.md)。下方為日期化歷史。
+
+2026-10-25 **CONTENT-P2-SECT 設計階段DONE；方案W待核定，實作TODO／整批IN_PROGRESS。** 使用者指定「P2 宗門」；正式6功法／20模板／6商品保持，交付2功法／10模板／2商品候選：八丹直接靈力節料、龜鳳餵費、Era4–6供給委託與有限鐵／千草補給；火鳳Era6及取整平台、傳說持獸互斥、sect_version2／原文備份與候選保存閘明列。L1靜態1256項通過、1345份來源／資產／測試／設定及正常Web PCK hash保持。兩圖只有prompt、未生成／未接受，未改正式規則／玩家進度，未跑Godot Runner／Web／匯出／L3、未commit/push。見[方案W](38-content-p2-sect-design.md)與[靜態驗收](verification/content-p2-sect-design.md)。依docs25先核定逐項表，依Context Guard本設計階段停止；下一New Chat核定或修訂W後接同任務SECT-1，不開其他P2／P3。下方為日期化歷史。
+
+2026-10-25 **CONTENT-P2-PILL DONE（八圖／卡片／目前節奏人工接受；L3／桌面Web有界）**：125／125唯一runner最終分段通過（123初跑＋八丹UI串行重試＋技能核心81項補驗）；原Full命令exit1保留，非單次全綠。修正短橫式八丹卡過高，三煉丹UI全尺寸補驗通過（八丹288項）。正常Web候選／Brotli／四BGM與桌面三橫式、藏石拒寫再重試／恢復／重載已驗；844×390容器的canvas實測844×389。410項交付稽核通過，62份測試差異先封存後復原，八圖不變。長時停留WebGL RangeError導致畫面停更已留存，重載後有界流程通過，長時穩定性未通過、不宣稱已修。未改玩家進度、未commit/push。見[整批驗收](verification/content-p2-pills-closure.md)。本階段停止，下一大型工作請New Chat指定，不自動開其他P2／P3。下方為日期化歷史。
+
+2026-10-25 **CONTENT-P2-PILL／PILL-1 DONE（L1＋有界L2，單尺寸）；整批 IN_PROGRESS。** 沿已核定V接八丹核心、Amount唯一付款、共享衰減／地方600秒倍率／當世固定容量／護劫純機率，以及pill_version2／schema5／rules core-flow-21與原文歸檔候選保存閘。新核心560／保存484 checks通過；13支唯一相關runner最終分段通過，原失敗與離線45秒逾時保留（240秒單支重跑92.3秒完成）。產物JSON先封存再逐字復原，詳[本段驗收](verification/content-p2-pills-core.md)。八圖仍未生成／未接受，未Web／匯出／L3、未改玩家進度、未commit/push。依Context Guard停止；下一New Chat接PILL-2八卡／八圖及已賺得起點代表合法流程，不重問V、不開其他P2／P3。下方為日期化歷史。
+
+2026-10-25 **CONTENT-P2-PILL 方案 V 全部原案核定；實作 TODO／整批 IN_PROGRESS。** 使用者回覆「採 V」，V1／V2／V3／V4／V-save／V-art全部採原案，不重問八丹數值。八張圖仍未生成，製圖計畫核定不等於實際美術接受。本輪僅核定metadata、靜態稽核與交接；未改正式規則／玩家進度，未跑Godot Runner／Web／匯出／L3，未commit/push。見[已核定方案](37-content-p2-pill-design.md)、[驗收](verification/content-p2-pill-design.md)。依Context Guard本核定階段停止；下一New Chat直接接同任務PILL-1核心／保存，不開其他P2／P3。下方待核定文字保留為歷史。
+
+2026-10-25 **CONTENT-P2-PILL 設計交付；方案 V 待核定，實作 TODO／整批 IN_PROGRESS。** 八丹：修行900／1800秒共享0.85衰減、古藥／太虛指定採集×1.5／600秒、兩當世擴容各5顆、兩護劫+3／+5百分點；schema5／pill_version2與保存候選閘提案。維持R46時間，不開Era7；正式12丹未變，8候選未附掛、八圖僅prompt未生成。L1靜態219 checks最終通過，1313來源／資產／測試及設定hash保持；首輪報告自連結失敗保留。未跑Godot Runner／Web／匯出／L3，未改玩家進度、未commit/push。見[逐項方案](37-content-p2-pill-design.md)、[驗收](verification/content-p2-pill-design.md)。依Context Guard本設計階段停止；下一New Chat先核定或修訂V，再接同任務PILL-1，不開其他P2／P3。下方為日期化歷史。
+
+2026-10-25 **CONTENT-P2-TALENT DONE（三圖與目前節奏人工接受；L3／桌面Web有界）**：使用者回覆「接受三圖與目前節奏」。L3完整尺寸121／121唯一runner最終通過（118初跑＋3串行重試）；原失敗與中斷紀錄保留。正常候選build/web-content-p2-talents、Brotli／四BGM及三橫式滑鼠、拓脈25→15拒寫／再重試／恢復／重載已驗。4173份JSON基準備份核對，變動先封存後逐字復原；三圖metadata明確接受。未改規則／PNG／玩家進度，未commit/push。見[整批驗收](verification/content-p2-talents-closure.md)。本階段停止；下一大型任務請New Chat指定，不自動開其他P2／P3。
+
+2026-10-24 **CONTENT-P2-TALENT／TALENT-2 技術交付（L1／L2，桌面1280×720）；整批IN_PROGRESS，三圖／整合節奏待人工接受。** 三張內建ImageGen透明原圖與runtime、prompt／來源hash已接入；卡片讀正式資格，當前→下階／門檻／滿階可讀。五支唯一相關runner最終分段通過（核心826／新UI51／P1 UI57／合法流49），元嬰既有合法快照→正式壽盡輪迴25道心與三首購、跨世保留已驗。當次隔離Web三首購25→15、15階精確付930餘70、兩類拒寫再次重試／恢復／重載及返回通過；初次逾時、UI前置、匯出與觀測器失敗及兩筆未歸因MutationObserver診斷保留。未L3／全尺寸／FPS、未改玩家進度、未commit/push。見[三卡三圖與驗收](verification/content-p2-talents-ui.md)。依Context Guard本階段停止；下一New Chat先接受／具體修訂三圖與本批節奏，再同批唯一L3收尾，不重問U、不開其他P2／P3。
+2026-10-24 **CONTENT-P2-TALENT／TALENT-1 DONE（L1／有界L2，單尺寸）；整批IN_PROGRESS。** 依已核定U接三項五階規則、兩丹單一Amount成本、三島採集、玄龜／火鳳經驗；talent_version3／schema5與rules core-flow-20，load／import原文歸檔及候選保存前命令／離線閘已接。新專項826 checks、九支唯一相關runner最終分段通過；原型別／fixture／SCRIPT ERROR／磁碟路徑與舊斷言失敗保留。未Web／L3／三圖／自然代表路徑，未改玩家進度、未commit/push。見[本段驗收](verification/content-p2-talents-core.md)。依Context Guard停止；下一New Chat接TALENT-2三卡／三圖與合法代表路徑、桌面Web，不重問U、不開其他P2／P3。
+
+2026-10-24 **CONTENT-P2-TALENT 方案U全部原案核定；實作TODO／整體IN_PROGRESS。** 使用者回覆「採 U」，接受U1丹材／U2拓脈／U3玄靈的五階數值、10／20／40／80／160道心及跨世門檻、U-save與U-art製圖計畫；不重問數值。實際三圖尚未生成／未美術接受。本輪僅核定metadata、靜態稽核與英文交接，未改正式規則／玩家進度，未跑Godot Runner／Web／匯出／L3，未commit/push。見[已核定方案](36-content-p2-talent-design.md)、[驗收](verification/content-p2-talent-design.md)。依Context Guard本階段停止；下一New Chat直接接同任務TALENT-1核心／保存，不開其他P2／P3。下方待核定文字保留為歷史。
+
+2026-10-24 **CONTENT-P2-TALENT 設計交付；方案U待核定，實作TODO／整體IN_PROGRESS。** 三候選：丹材宿慧（兩丹直接草費每階−4%）、拓脈宿慧（三P2島採集每階+10%）、玄靈宿慧（玄龜／火鳳每餵每階+10經驗）；五階10／20／40／80／160道心，首次輪迴且最高Era4。含道心持有損失／養成與供給算表、talent_version3／schema5保存提案及三圖prompt；無正式附掛／生成圖。L1靜態結果見[設計驗收](verification/content-p2-talent-design.md)與[方案U](36-content-p2-talent-design.md)。未跑Runner／Web／匯出／L3、未改玩家進度、未commit/push。本設計階段停止；下一New Chat核定或修訂U1／U2／U3／U-save／U-art後接同任務TALENT-1，不開其他P2／P3。下方為日期化歷史。
+
 2026-10-24 **SKS-P2 DONE（L3，桌面／Web有界）**：使用者指示「整批收尾」，承接現版節奏／卡片與十二圖接受。118／118唯一runner最終通過（116初跑＋機緣UI70項／供給94項串行重試）；原兩失敗與SCRIPT ERROR保留。正式Web候選build/web-sks-p2、Brotli及四BGM、三桌面橫式滑鼠研習／拒寫／重試／恢復／重載通過。2033份原JSON核對復原，28份變動與既有來源fixture先另存；未改規則／玩家進度，未commit/push。見[整批驗收](verification/sks-p2-closure.md)。本階段停止；下一大型任務請New Chat指定，不自動開其他P2／P3。下方為日期化歷史。
 
 2026-10-24 **SKS-P2／P2-S2 DONE（L2，桌面1280×720有界）；整體 SKS-P2 IN_PROGRESS。** 使用者明確要求合併worktree且美術接受；5d59十二PNG與原圖／prompt／來源manifest已整合，12圖hash一致並標ACCEPTED。移除P2缺圖豁免，補御／艙字型及共用點數格式。三支精選L1通過（核心81／R8最終114／P1 UI29），兩UI補驗通過；當次隔離Web包12 ID真實滑鼠、12項精確扣點、拒寫再次重試／恢復／重載、Era4未來境界鎖與收益0及滿階已驗，24圖穩定載入。沿用同日392項合法流程；原沙箱／連線／字型失敗及重載過渡觀測保留。未L3／全尺寸／FPS、未改玩家進度、未commit/push。見[本段驗收](verification/sks-p2-acceptance.md)。本階段停止；下一New Chat接SKS-P2整合節奏／卡片回饋與唯一整批L3收尾，不重問十二圖美術或重做K／R46。下方為日期化歷史。
@@ -155,6 +190,7 @@ P1不要求新增靈獸：先把靈狐、餵養與獸魂選擇接入新成就／
 | CONTENT-P1-STORY | 被引用的P1內容已完成 | 成就30、機緣38；舊已領不重領，新事件RNG不被UI刷新重抽，獎勵有來源與去重 |
 | CONTENT-P1-ACCEPT | 上述P1批次 | **DONE（2026-10-24；使用者接受P1整合節奏，P1整段收結）**。同版候選整合：新檔可達路徑與隔離第二世專長對比；人工節奏／圖像接受；不重新追認既有D測試為新候選證據 |
 | RES1-E-46 → CONTENT-P2 | P1收結、Era4–6來源稽核／規則表核定 | 先供給／容量／修行／保存，再SKS-P2及天賦丹藥等；按系統小批交付，整段計數與自然流程驗收後標P2完成 |
+| CONTENT-P2-SECT | P1與P2供給／技能／天賦／丹藥已收結；使用者指定SECT-1 | **SECT-1／SECT-2技術DONE；整批IN_PROGRESS，待人工接受（2026-10-25）**：正式8功法／30模板／8商品，sect_version2與宗門候選保存閘；新核心4189／保存957項及13支唯一相依runner分段通過。SECT-2兩圖／卡片與合法流程、Web真鼠標／保存故障恢復已驗，圖／節奏待接受，未L3。[本段驗收](verification/content-p2-sect-core.md)。 |
 | RES1-E-79 → CONTENT-P3 | P2、Era7–9供給契約 | 同上；技能沿用SKS-P3，realm內容另依實際開界條件 |
 | RES1-E-1012 → CONTENT-P4 | P3、Era10–12及Amount支援核對 | 同上；技能沿用SKS-P4，完成不等於全九界與全量舊檔相容 |
 

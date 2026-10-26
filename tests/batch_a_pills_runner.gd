@@ -26,7 +26,7 @@ func _init() -> void:
 
 func _finish() -> void:
 	print("%d checks, %d failures" % [checks, failures.size()])
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func _expect(condition: bool, label: String) -> void:
 	checks += 1

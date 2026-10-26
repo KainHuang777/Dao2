@@ -1,0 +1,118 @@
+[MODE] matrix=single runners=5 parallel=1
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts\runs\20261026-185550-026\temp\dao2_runners_723b197589c74f75ba064e25b9a9d8c0
+[START:initial] tests/content_p2_beasts_save_runner.gd
+[FAIL:initial] tests/content_p2_beasts_save_runner.gd exit=1 timeout=False script_error=False failure_marker=True result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+FAIL: preserve original beast progress
+CONTENT-P2-BEASTS-SAVE 970 checks failures=["preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress","preserve original beast progress"]
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: `NaN` ("Not a Number") found in argument passed to JSON.stringify(). `NaN` cannot be represented in JSON, so the value has been replaced with `null`. This warning will not be printed for any later NaN occurrences.
+   at: _stringify (core/io/json.cpp:86)
+   GDScript backtrace (most recent call first):
+       [0] validate (res://src/persistence/beast_save_contract.gd:7)
+       [1] _validation (res://tests/content_p2_beasts_save_runner.gd:111)
+       [2] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:464)
+       [1] current_state (res://src/persistence/save_manager.gd:136)
+       [2] _validation (res://tests/content_p2_beasts_save_runner.gd:127)
+       [3] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:464)
+       [1] current_state (res://src/persistence/save_manager.gd:136)
+       [2] _validation (res://tests/content_p2_beasts_save_runner.gd:127)
+       [3] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:89)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:485)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:484)
+       [4] current_state (res://src/persistence/save_manager.gd:136)
+       [5] _validation (res://tests/content_p2_beasts_save_runner.gd:127)
+       [6] run (res://tests/content_p2_beasts_save_runner.gd:41)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:89)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:485)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:484)
+       [4] current_state (res://src/persistence/save_manager.gd:136)
+       [5] _validation (res://tests/content_p2_beasts_save_runner.gd:127)
+       [6] run (res://tests/content_p2_beasts_save_runner.gd:41)
+
+[START:initial] tests/content_p2_sect_runner.gd
+[PASS:initial] tests/content_p2_sect_runner.gd (12.4s) result=pass
+[START:initial] tests/content_p2_talents_runner.gd
+[PASS:initial] tests/content_p2_talents_runner.gd (4s) result=pass
+[START:initial] tests/m3a_reincarnation_runner.gd
+[PASS:initial] tests/m3a_reincarnation_runner.gd (2.2s) result=pass
+[START:initial] tests/m3b_spirit_beast_runner.gd
+[FAIL:initial] tests/m3b_spirit_beast_runner.gd exit=1 timeout=False script_error=False failure_marker=True result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[M3B_BEAST_RUNNER] Starting M3-B Spirit Beast System Tests...
+--- 1. Testing Beast Configurations & Acquisition ---
+  Beast configs & acquisition: FAIL
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+  FAIL: Must have 4 defined beasts
+[M3B_BEAST_RUNNER] SOME M3-B SPIRIT BEAST TESTS FAILED (exit 1)
+
+--- slowest 8 runners (s) ---
+    12.4  tests/content_p2_sect_runner.gd
+     5.8  tests/content_p2_beasts_save_runner.gd
+     4.0  tests/content_p2_talents_runner.gd
+     2.3  tests/m3b_spirit_beast_runner.gd
+     2.2  tests/m3a_reincarnation_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:285
+Line |
+ 285 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_beasts_save_runner.gd, tests/m3b_spirit_beast_runner.gd. Logs:
+     | E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts\runs\20261026-185550-026\temp\dao2_runners_723b197589c74f75ba064e25b9a9d8c0
+
+

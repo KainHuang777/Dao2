@@ -9,7 +9,7 @@ var trace := []
 var maintenance := false
 var source_path := "res://docs/verification/artifacts/res1-d2-earned-era3.json"
 var source_sha := ""
-const DIR := "res://docs/verification/artifacts/content-p2-supply-3/"
+var DIR := "res://docs/verification/artifacts/content-p2-supply-3/" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("supply3-flow/")
 func _init() -> void: run.call_deferred()
 func check(ok: bool, label: String) -> void:
 	checks += 1
@@ -85,13 +85,20 @@ func save_snapshot(name: String) -> void:
 	var saved := SaveCodec.encode(s.state,content.content_version,{"save_id":"supply3-earned","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":str(int(s.state.total_elapsed_seconds))})
 	check(saved.ok,"earned snapshot "+name)
 	if not saved.ok: print("SNAPSHOT_ERROR ",name," ",saved.error)
-	if saved.ok: FileAccess.open(DIR+name+".json",FileAccess.WRITE).store_string(saved.json)
+	if saved.ok:
+		var write_file_snapshot := FileAccess.open(DIR+name+".json",FileAccess.WRITE)
+		if write_file_snapshot == null:
+			push_error("write failed: " + str(DIR+name+".json"))
+			RunnerResult.finish(self, 1)
+		else:
+			write_file_snapshot.store_string(saved.json)
 func ladder(era: int) -> bool:
 	for attempt in 20:
 		while s.state.level < 10:
 			var costs := Cultivation.level_up_cost(content.eras[era],s.state.level,0)
 			for id in costs:
 				if not ensure(id,costs[id].to_float()): return false
+			print("TRACE ladder era",era," lvl",s.state.level)
 			while not s.get_view().training_complete:
 				if not tick(60,"training:era"+str(era)): return false
 			var result := send("level_up_cultivation")
@@ -120,6 +127,8 @@ func run() -> void:
 	s = GameSession.new()
 	s.content = content
 	s.state = decoded.state if decoded.state.economy.get("version") == IslandProgression.SUPPLY_VERSION else IslandProgression.prepare_supply(content,decoded.state).state
+	s.state.tribulation_seed = 1
+	s.state.tribulation_roll_index = 0
 	s.clock = GameClock.create(s.state.total_elapsed_seconds)
 	check(s.state.skills.is_empty(),"no-skill earned source")
 	var ok := true
@@ -138,15 +147,22 @@ func run() -> void:
 				s.state = branch
 		if era == 5: ok = opening("ancient") and build("ancient_focus") and build("core_storehouse_5") and build("cultivation_focus_5")
 		if era == 6:
+			print("TRACE era6 start age=",s.state.total_elapsed_seconds)
 			ok = opening("void") and build("void_focus") and build("cultivation_focus_6")
+			print("TRACE era6 build ok=",ok)
 			if ok:
 				ok = ensure("spirit_grass_1000y",10)
+				print("TRACE era6 grass ok=",ok)
 				check(send("acquire_beast",{"beast_id":"fire_phoenix"}).ok,"earned phoenix acquire")
 				var grass_before := value("spirit_grass_1000y")
 				check(send("feed_beast").ok and value("spirit_grass_1000y") == grass_before-10,"earned phoenix real feed")
+				print("TRACE era6 feed done")
 		if not ok: check(false,"supply/build era"+str(era)); break
+		print("TRACE pre-snapshot era",era)
 		save_snapshot("earned-era"+str(era))
+		print("TRACE pre-ladder era",era)
 		if not ladder(era): check(false,"ladder era"+str(era));break
+		print("TRACE post-ladder era",era)
 		await process_frame
 	check(s.state.era_id == 6 and s.state.level == 10,"no-skill Era6 level10")
 	if failures.is_empty():
@@ -160,7 +176,13 @@ func run() -> void:
 		for id in ["deep","ancient","void"]: check(not s.state.economy.islands[id].opened,"reincarnation closes "+id)
 		check(s.state.skills.is_empty(),"no skills purchased")
 		save_snapshot("earned-reborn")
+	print("TRACE tail start failures=",failures.size())
 	var report := {"level":"L2","source_path":source_path,"source_sha256":source_sha,"checks":checks,"failures":failures,"waits_seconds":waits,"trace":trace,"age":s.state.total_elapsed_seconds}
-	FileAccess.open(DIR+"earned-flow.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
+	var write_file_flow := FileAccess.open(DIR+"earned-flow.json",FileAccess.WRITE)
+	if write_file_flow == null:
+		push_error("write failed: " + str(DIR+"earned-flow.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_flow.store_string(JSON.stringify(report,"\t"))
 	print("SUPPLY-3 FLOW ",JSON.stringify(report))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

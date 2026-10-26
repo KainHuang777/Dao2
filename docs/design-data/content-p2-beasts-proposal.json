@@ -1,0 +1,241 @@
+{
+  "task": "CONTENT-P2-BEAST",
+  "proposal": "X",
+  "date": "2026-10-26",
+  "status": "ACCEPTED_L3_IN_PROGRESS",
+  "approval": {
+    "date": "2026-10-26",
+    "user_instruction": "採 X，接 BEAST-1",
+    "decisions": [
+      "X1",
+      "X2",
+      "X3",
+      "X-save",
+      "X-art"
+    ],
+    "art_acceptance": true
+  },
+  "runtime_attached": true,
+  "origin": "v2 original design; not legacy parity",
+  "baseline": {
+    "beasts": 4,
+    "soul_talents": 16
+  },
+  "target": {
+    "beasts": 6,
+    "soul_talents": 24
+  },
+  "shared": {
+    "active_limit": 1,
+    "switch_policy": "No release or switch; active cleared by formal reincarnation only",
+    "acquire_cost": {},
+    "stage_thresholds": [
+      0,
+      100,
+      500,
+      1000
+    ],
+    "stage_multipliers": [
+      0,
+      0.5,
+      0.75,
+      1
+    ],
+    "base_xp": 50,
+    "cooldown_seconds": 300,
+    "souls_per_mature_reincarnation": 1,
+    "soul_tier_costs": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "soul_cumulative_lives": [
+      1,
+      3,
+      6,
+      11
+    ],
+    "p2_memory_applies_to_new_beasts": false,
+    "p2_sect_discount_applies_to_new_beasts": false,
+    "auto_feed": false
+  },
+  "beasts": [
+    {
+      "decision": "X1",
+      "id": "frost_stag",
+      "name": "霜角鹿",
+      "era": 4,
+      "realm_gate": null,
+      "requires_supply": true,
+      "requires_open_island": "deep",
+      "feed_home_cost": {
+        "refined_iron": 10,
+        "spirit_grass_low": 20
+      },
+      "active_effect": {
+        "island": "deep",
+        "resources": [
+          "refined_iron",
+          "mithril",
+          "cold_iron"
+        ],
+        "rate_bonus": 0.2
+      },
+      "talents": [
+        {
+          "id": "stag_t1_boost",
+          "name": "霜角引脈",
+          "tier": 1,
+          "cost": 1,
+          "type": "beast_passive_boost",
+          "value": 0.05
+        },
+        {
+          "id": "stag_t2_growth",
+          "name": "寒息養靈",
+          "tier": 2,
+          "cost": 2,
+          "type": "beast_growth_boost",
+          "value": 0.3
+        },
+        {
+          "id": "stag_t3_discount",
+          "name": "嚼礦化露",
+          "tier": 3,
+          "cost": 3,
+          "type": "beast_feed_discount",
+          "value": 0.4
+        },
+        {
+          "id": "stag_t4_capacity",
+          "name": "霜窖藏珍",
+          "tier": 4,
+          "cost": 5,
+          "type": "local_capacity_flat",
+          "island": "deep",
+          "value": 30
+        }
+      ],
+      "art": {
+        "status": "GENERATED_ATTACHED",
+        "accepted": false,
+        "layers": "single isolated RGBA creature; no world placement",
+        "prompt": "Original xianxia spirit creature, frost-antler stag, full body three-quarter view facing left, sturdy ivory deer with pale blue crystalline antlers and subtle dark mineral veins, gentle alert expression, restrained hand-painted gouache and Chinese fantasy ink texture, muted teal ivory and slate palette with tiny warm gold accents, compact readable silhouette, all hooves and antlers fully visible with generous transparent padding, soft painted internal shading, isolated transparent background, no scenery, no text, no UI, no insignia, no existing franchise reference.",
+        "manifest": "assets/ui/beasts-painted/beast2-manifest.json"
+      }
+    },
+    {
+      "decision": "X2",
+      "id": "herb_crane",
+      "name": "銜芝鶴",
+      "era": 5,
+      "realm_gate": null,
+      "requires_supply": true,
+      "requires_open_island": "ancient",
+      "feed_home_cost": {
+        "spirit_grass_100y": 5,
+        "spirit_grass_1000y": 2
+      },
+      "active_effect": {
+        "island": "ancient",
+        "resources": [
+          "spirit_grass_1000y"
+        ],
+        "rate_bonus": 0.2
+      },
+      "talents": [
+        {
+          "id": "crane_t1_boost",
+          "name": "芝香引露",
+          "tier": 1,
+          "cost": 1,
+          "type": "beast_passive_boost",
+          "value": 0.05
+        },
+        {
+          "id": "crane_t2_growth",
+          "name": "清唳養神",
+          "tier": 2,
+          "cost": 2,
+          "type": "beast_growth_boost",
+          "value": 0.3
+        },
+        {
+          "id": "crane_t3_discount",
+          "name": "啄露辟穀",
+          "tier": 3,
+          "cost": 3,
+          "type": "beast_feed_discount",
+          "value": 0.4
+        },
+        {
+          "id": "crane_t4_capacity",
+          "name": "芝圃留芳",
+          "tier": 4,
+          "cost": 5,
+          "type": "local_capacity_flat",
+          "island": "ancient",
+          "value": 30
+        }
+      ],
+      "art": {
+        "status": "GENERATED_ATTACHED",
+        "accepted": false,
+        "layers": "single isolated RGBA creature; no world placement",
+        "prompt": "Original xianxia spirit creature, herb-bearing crane, full body three-quarter view facing left, elegant ivory crane with muted jade green wing tips, small russet crown and one delicate lingzhi sprig held in its beak, folded wings and both long legs fully visible, calm wise expression, restrained hand-painted gouache and Chinese fantasy ink texture, muted ivory jade and warm ochre palette, tiny warm gold accents, readable compact silhouette with generous transparent padding, soft painted internal shading, isolated transparent background, no scenery, no text, no UI, no insignia, no existing franchise reference.",
+        "manifest": "assets/ui/beasts-painted/beast2-manifest.json"
+      }
+    }
+  ],
+  "save_plan": {
+    "decision": "X-save",
+    "schema": 5,
+    "beast_version": 1,
+    "legacy_version": 0,
+    "rules": "core-flow-23-content-p2-beasts",
+    "content_tag": "+content-p2-beasts",
+    "economy_version": "res1-e-46-1",
+    "archive_prefix": "save_before_beasts_",
+    "pending_error": "BEAST_SAVE_REQUIRED",
+    "max_integer": 2147483647,
+    "max_cooldown": 300,
+    "max_payload_utf8_bytes": 65536,
+    "unknown_policy": "reject with raw source retained; never silently erase"
+  },
+  "art_plan": {
+    "decision": "X-art",
+    "new_images": 2,
+    "talent_images": "reuse owning creature thumbnail plus tier label; no eight additional generated images",
+    "generator": "built-in image_gen after approval",
+    "provenance_required": [
+      "full prompt",
+      "original",
+      "runtime",
+      "source and output SHA256",
+      "purpose",
+      "layer description",
+      "license/source note",
+      "separate human art acceptance"
+    ]
+  },
+  "phases": [
+    "BEAST-1 core/save/scoped local channels",
+    "BEAST-2 Godot cards/two images/earned flows/L2 desktop Web",
+    "whole batch acceptance and one L3 closure"
+  ],
+  "implementation": {
+    "BEAST-1": "DONE",
+    "BEAST-2": "TECHNICAL_DELIVERY_COMPLETE_PENDING_ART_CARDS_PACING_ACCEPTANCE",
+    "batch": "IN_PROGRESS",
+    "verification": "docs/verification/content-p2-beasts-core.md",
+    "ui_verification": "docs/verification/content-p2-beasts-ui.md"
+  },
+  "acceptance_record": {
+    "date": "2026-10-26",
+    "quote": "接受，再接整批 L3 收尾",
+    "art": "ACCEPTED",
+    "cards": "ACCEPTED",
+    "pacing": "ACCEPTED"
+  }
+}

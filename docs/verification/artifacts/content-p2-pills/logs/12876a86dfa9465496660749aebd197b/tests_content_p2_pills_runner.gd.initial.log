@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: reserve paid bulk output
+FAIL: reservation held
+FAIL: paid bulk completes within enlarged cap
+CONTENT-P2-PILLS 510 checks failures=["reserve paid bulk output","reservation held","paid bulk completes within enlarged cap"]
+RUNNER_RESULT status=FAIL exit=1

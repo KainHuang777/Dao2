@@ -1,0 +1,9 @@
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:85)
+       [1] <anonymous lambda> (res://src/verification/res1d2_contract.gd:319)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _test_persistence (res://src/verification/res1d2_contract.gd:319)
+       [4] run (res://src/verification/res1d2_contract.gd:176)
+       [5] _run (res://tests/res1d2_integration_runner.gd:7)

@@ -191,7 +191,7 @@ func run() -> void:
 	print("EARLY-FLOW1-C: %d checks (earned normal commands; simulated time, not browser timing)." % checks)
 	for failure in failures:
 		push_error(failure)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func check_ui(s: GameSession) -> void:
 	var facade = preload("res://src/abode/living_abode.gd")

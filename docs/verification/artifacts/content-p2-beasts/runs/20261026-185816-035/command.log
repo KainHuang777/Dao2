@@ -1,0 +1,7 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts\runs\20261026-185816-035\temp\dao2_runners_a08eddad2a9643bcba72090c13bd9810
+[START:initial] tests/offline_closed_form_parity_runner.gd
+[PASS:initial] tests/offline_closed_form_parity_runner.gd (95.9s) result=pass
+--- slowest 8 runners (s) ---
+    95.9  tests/offline_closed_form_parity_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=single). Logs: E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts\runs\20261026-185816-035\temp\dao2_runners_a08eddad2a9643bcba72090c13bd9810

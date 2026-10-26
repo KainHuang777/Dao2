@@ -3,7 +3,7 @@ const P2_SKILL_IDS := ["nascent_soul_incubation", "nascent_soul_mastery", "heave
 var checks := 0
 var failed := false
 class ToggleAdapter extends StorageAdapter:
-	var backend := FileStorageAdapter.new("user://uix-r8-fault")
+	var backend := FileStorageAdapter.new(("user://uix-r8-fault" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r8-fault")))
 	var fail_writes := false
 	func read(key: String) -> Dictionary: return backend.read(key)
 	func write(key: String, value: String) -> Dictionary:
@@ -20,7 +20,7 @@ func frames() -> void:
 	for n in 12: await process_frame
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://uix-r8-runner"
+	script.save_dir_override = ("user://uix-r8-runner" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r8-runner"))
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
@@ -124,4 +124,4 @@ func _run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("UIX-R8 %d checks failed=%s" % [checks,failed])
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

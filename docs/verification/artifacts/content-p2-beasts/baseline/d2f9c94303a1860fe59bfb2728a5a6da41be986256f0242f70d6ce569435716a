@@ -1,0 +1,103 @@
+[
+  {
+    "utc": "2026-10-10T07:30:40.266Z",
+    "event": "Paid Foundation Lv3->4 after displayed 173/173s; reservoir2, bank1, stone-storage1 constructed; F7 capacity2300/2000; lifespan175/200.",
+    "seconds_from_fixture_utc": 403.821
+  },
+  {
+    "utc": "2026-10-10T07:31:16.001Z",
+    "event": "Real launcher reload + Play only retained FoundationLv4, 2-stage reservoir/buildings, resources and natural training; offline17s normal.",
+    "seconds_from_fixture_utc": 439.556
+  },
+  {
+    "utc": "2026-10-10T07:34:19.518Z",
+    "event": "FoundationLv4 ready207/207s; lifespan171/200; resources1510 Qi,800 money. Paid next cultivation level by mouse.",
+    "seconds_from_fixture_utc": 623.073
+  },
+  {
+    "utc": "2026-10-10T07:37:08.616Z",
+    "event": "Web source-only current-age label fix package reloaded on same origin; offline12s, current age31.4yr; FoundationLv5/training retained. New PCK74031FCC7DF17D3517C08B58FCB085DD33B5EA952D8F6DB665FF3EED75921937.",
+    "seconds_from_fixture_utc": 792.171
+  },
+  {
+    "utc": "2026-10-10T07:38:35.343Z",
+    "event": "FoundationLv5 ready249/249s, lifespan167/200,2148Qi/800money; paid FoundationLv6 by mouse.",
+    "seconds_from_fixture_utc": 878.898
+  },
+  {
+    "utc": "2026-10-10T07:43:48.596Z",
+    "event": "FoundationLv6 ready299/299s; lifespan162/200; Qi2300/money800; paid Lv7 by mouse.",
+    "seconds_from_fixture_utc": 1192.151
+  },
+  {
+    "utc": "2026-10-10T07:49:41.526Z",
+    "event": "FoundationLv7 ready358/358s; lifespan156/200; Qi2300/money800; paid Lv8 by mouse.",
+    "seconds_from_fixture_utc": 1545.081
+  },
+  {
+    "utc": "2026-10-10T07:56:27.830Z",
+    "event": "FoundationLv8 ready430/430s; lifespan149/200; chronologically boosted capacities2645Qi/920money; paid Lv9 by mouse.",
+    "seconds_from_fixture_utc": 1951.385
+  },
+  {
+    "utc": "2026-10-10T08:05:16.968Z",
+    "event": "FoundationLv9 ready516/516s; lifespan140/200; no skills/sect/pills; paid Lv10 by mouse.",
+    "seconds_from_fixture_utc": 2480.523
+  },
+  {
+    "utc": "2026-10-10T08:12:06.316Z",
+    "event": "After fixing missing Era2 primary action and reloading same save, Foundation10 shows actual Golden Core breakthrough button; lifespan133/200. Repair time is diagnostic overhead, not baseline waiting.",
+    "seconds_from_fixture_utc": 2889.871
+  },
+  {
+    "utc": "2026-10-10T08:13:17.978Z",
+    "event": "Actual GoldenCoreLv1 after primary button; G1 opens Danxia supply; lifespan672/740; paid breakthrough saved. No optional branches/pills.",
+    "seconds_from_fixture_utc": 2961.533
+  },
+  {
+    "utc": "2026-10-10T08:14:40.499Z",
+    "event": "G1 Danxia opened via20wood/10stone; goal navigated exact liquid detail; paid local5grass+global50Qi and started one10s batch.",
+    "seconds_from_fixture_utc": 3044.054
+  },
+  {
+    "utc": "2026-10-10T08:15:29.663Z",
+    "event": "Completed liquid1 locally; G1 navigated exact liquid_home route with Danxia1/home0; enabled normal1st-tier route (reserve0,target100).",
+    "seconds_from_fixture_utc": 3093.218
+  },
+  {
+    "utc": "2026-10-10T08:16:09.628Z",
+    "event": "Liquid arrived normally; home goal advanced to G2 mid stone; GoldenCore1 training240/240 but paid level correctly unavailable without intermediates; lifespan669/740.",
+    "seconds_from_fixture_utc": 3133.183
+  },
+  {
+    "utc": "2026-10-10T08:18:42.233Z",
+    "event": "G2: confirmed specified50 batches mid stone,10s each; home335lowstone/2395Qi available; started normal serial job, no manual grants.",
+    "seconds_from_fixture_utc": 3285.788
+  },
+  {
+    "utc": "2026-10-10T08:27:59.984Z",
+    "event": "After real processing reload (107s natural offline), all50 mid-stone batches completed; current goal automatically opened exact formation_core detail with home timber2/bronze2; started20s single core batch.",
+    "seconds_from_fixture_utc": 3843.539
+  },
+  {
+    "utc": "2026-10-10T08:30:07.592Z",
+    "event": "G3 eligible after core1 completion and50midstones/liquid arrival; GoldenCore1 240/240s, lifespan656/740,Qi2645,money920; paid normal first level by mouse.",
+    "seconds_from_fixture_utc": 3971.147
+  },
+  {
+    "utc": "2026-10-10T08:32:00.120Z",
+    "event": "G4: after actual paid GoldenCoreLv2, freely acquired jade_fox; visible egg exp0/cooldown0/feedcost50grass; clicked first feed once.",
+    "seconds_from_fixture_utc": 4083.675
+  },
+  {
+    "utc": "2026-10-10T08:32:55.434Z",
+    "event": "First actual feed completed: jade_fox remains egg,exp50,cooldown286s observed; feed button disabled. G4 objective achieved; no second feed.",
+    "seconds_from_fixture_utc": 4138.989
+  },
+  {
+    "utc": "2026-10-10T08:39:06.418Z",
+    "event": "final_reload_beast_exp50_800",
+    "note": "same origin; first feed exp50 retained; no second feed",
+    "seconds_from_fixture_utc": 4509.973
+  }
+]

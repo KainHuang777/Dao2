@@ -21,10 +21,10 @@ func _run() -> void:
 	await _test_unknown_and_panel(content)
 	if _failed:
 		printerr("[DEBUG_ACTIONS_RUNNER] FAILED (exit 1)")
-		quit(1)
+		RunnerResult.finish(self, 1)
 	else:
 		print("[DEBUG_ACTIONS_RUNNER] ALL DEBUG ACTION TESTS PASSED (exit 0)")
-		quit(0)
+		RunnerResult.finish(self, 0)
 
 func _expect(cond: bool, msg: String) -> void:
 	if not cond:

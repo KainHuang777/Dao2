@@ -1,0 +1,15 @@
+127.0.0.1 - - [26/Oct/2026 21:56:33] "GET /launcher HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:34] code 404, message File not found
+127.0.0.1 - - [26/Oct/2026 21:56:34] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [26/Oct/2026 21:56:38] "GET /fixture HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:38] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:38] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:38] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:38] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:38] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:43] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:43] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:56:48] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:57:51] "GET /audio/bgm/02_The_Weight_of_Heaven.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:58:50] "GET /audio/bgm/03_Rungs_of_the_Infinite.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 21:59:53] "GET /audio/bgm/04_Where_Starlight_Settles.mp3 HTTP/1.1" 200 -

@@ -1,0 +1,66 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[RUNNING] tests/batch_a_pills_runner.gd
+PASS: content loads from res://content
+PASS: requires_tribulation(2) is false
+PASS: requires_tribulation(3) is true
+PASS: base_rate(3)=0.80
+PASS: base_rate(4)=0.70
+PASS: base_rate(5)=0.60
+PASS: base_rate(9)=0.30
+PASS: base_rate(10)=0.30
+PASS: golden pill bonus 1 ~0.03
+PASS: tribulation pill bonus 1 ~0.05
+PASS: golden pill bonus 0 is 0
+PASS: golden pill bonus 99 in (0.199,0.2]
+PASS: golden pill bonus is diminishing
+PASS: success_probability(3,0)~0.80
+PASS: success_probability(3,1)~0.83
+PASS: success_probability(3,99)=0.95
+PASS: success_probability(9,0)~0.30
+PASS: is_success(0.2,0.3) is true
+PASS: is_success(0.3,0.3) is false
+PASS: roll(7,3) is stable
+PASS: roll(7,3) in [0,1)
+PASS: roll(7,0) differs from roll(7,1)
+PASS: roll determinism over seed 0..19 and idx 0..49
+PASS: high_cultivation fresh count1 consume ok
+PASS: high_cultivation fresh count1 grants 300
+PASS: high_cultivation stack is 1 after one pill
+PASS: high_cultivation second count1 consume ok
+PASS: high_cultivation second count1 grants 255
+PASS: high_cultivation fresh count2 consume ok
+PASS: high_cultivation fresh count2 grants 555
+PASS: high_cultivation count 100 is rejected
+PASS: high_cultivation count 100 error is INVALID_COUNT
+PASS: high_cultivation stack overflow is rejected
+PASS: high_cultivation stack overflow error is PILL_STACK_LIMIT
+PASS: lifespan_pill count2 consume ok
+PASS: lifespan_pill count2 grants 20 years
+PASS: lifespan refine at era1 is rejected
+PASS: lifespan refine at era1 reason is PILL_LOCKED
+PASS: lifespan refine at era1 reports required_era 4
+PASS: lifespan refine at era4 is allowed
+PASS: lifespan refine at era4 ok
+PASS: lifespan pill count is 1 after refine
+PASS: refine count 100 is rejected
+PASS: refine count 100 reason is INVALID_COUNT
+PASS: spirit_tide_pill count1 consume ok
+PASS: spirit_tide remaining 300 after one pill
+PASS: spirit_tide_pill count20 consume ok
+PASS: spirit_tide merged remaining capped at 3600
+PASS: quick_output_pill count1 consume ok
+PASS: quick_output remaining 600 after one pill
+PASS: breakthrough fixture found a success roll index
+PASS: breakthrough fixture found a failure roll index
+PASS: tribulation success returns ok
+PASS: tribulation success advances to era 4
+PASS: tribulation success increments roll index
+PASS: tribulation success event kind is era_breakthrough
+PASS: tribulation failure returns ok true
+PASS: tribulation failure drops to era 2
+PASS: tribulation failure level equals era 2 max level
+PASS: tribulation failure increments roll index
+PASS: tribulation failure event kind is tribulation_failed
+61 checks, 0 failures
+RUNNER_RESULT status=PASS exit=0

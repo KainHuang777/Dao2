@@ -1,0 +1,19 @@
+{
+  "restored": [
+    "docs\\verification\\artifacts\\early-flow1c-unopened.json",
+    "docs\\verification\\artifacts\\early-flow1d-foundation.json",
+    "docs\\verification\\artifacts\\early-flow1d-golden.json",
+    "docs\\verification\\artifacts\\early-flow1d-ready.json",
+    "docs\\verification\\artifacts\\res1-c-earned-era2.json",
+    "docs\\verification\\artifacts\\res1-c2-offline-fixture.json",
+    "docs\\verification\\artifacts\\res1-d2-active-fixture.json",
+    "docs\\verification\\artifacts\\res1-d2-earned-era3.json",
+    "docs\\verification\\artifacts\\skills-b1-fixture.json",
+    "docs\\verification\\artifacts\\content-p1-skills\\runner.json",
+    "docs\\verification\\artifacts\\early-v1-c\\runner-measurement.json",
+    "docs\\verification\\artifacts\\mfg-3\\fixture.json",
+    "src\\verification\\content_p1_skills_fixture.json",
+    "src\\verification\\content_p1_talents_fixture.json"
+  ],
+  "count": 14
+}

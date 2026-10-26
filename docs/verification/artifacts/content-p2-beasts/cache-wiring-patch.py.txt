@@ -1,0 +1,19 @@
+from pathlib import Path
+root=Path(__file__).resolve().parents[1]
+def edit(p,a,b):
+    path=root/p; s=path.read_text(encoding='utf-8-sig'); assert a in s,(p,a[:60]); path.write_text(s.replace(a,b),encoding='utf-8',newline='\n')
+edit('src/simulation/time_advancer.gd','\tif prepared.is_empty():\n\t\tprepared = prepare_advance(state, content)', '\tif not prepared.is_empty() and prepared.get("beast_signature", []) != BeastSystem.effect_signature(state): prepared.clear()\n\tif prepared.is_empty():\n\t\tprepared = prepare_advance(state, content)')
+edit('src/simulation/time_advancer.gd','return {"talents": TalentSystem.compute_multipliers(state),','return {"beast_signature": BeastSystem.effect_signature(state), "talents": TalentSystem.compute_multipliers(state),')
+edit('src/simulation/island_economy.gd','\t# Only reusable inside one command-free advance.', '\tvar signature := BeastSystem.effect_signature(state)\n\tif prepared.get("beast_signature", []) != signature:\n\t\tprepared.clear()\n\t\tprepared.beast_signature = signature\n\t# Only reusable inside one command-free advance.')
+edit('src/simulation/beast_system.gd','static func feed_beast(state: GameState) -> Dictionary:\n\tensure_initialized(state)\n\tvar beast := get_active_beast(state)', 'static func feed_beast(state: GameState) -> Dictionary:\n\tvar beast: Dictionary = state.beasts.get("active", {})')
+edit('src/simulation/beast_system.gd','\tensure_initialized(state)\n\tif not BEAST_TALENTS.has(talent_id):','\tif not BEAST_TALENTS.has(talent_id):')
+edit('src/simulation/beast_system.gd','\tif not state.beasts.get("active", {}).is_empty(): return', '\tif not SectSystem.p2_life_error(state).is_empty(): return {"ok": false, "error": "LIFESPAN_EXHAUSTED"}\n\tif not state.beasts.get("active", {}).is_empty(): return')
+p=root/'src/simulation/beast_system.gd'
+p.write_text(p.read_text(encoding='utf-8')+'''
+static func effect_signature(state: GameState) -> Array:
+\tvar active: Dictionary = state.beasts.get("active", {})
+\treturn [state.beast_version, active.get("id", ""), active.get("stage", ""), state.beast_talents.duplicate(true)]
+''',encoding='utf-8')
+# Register only this phase's two runners.
+edit('tools/run_all_runners.ps1',"$runners = @(", "$runners = @(\n    'tests/content_p2_beasts_runner.gd',\n    'tests/content_p2_beasts_save_runner.gd',")
+print('BEAST-1 cache and runner wiring applied')

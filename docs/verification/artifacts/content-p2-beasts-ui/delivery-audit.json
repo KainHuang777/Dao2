@@ -1,0 +1,150 @@
+{
+  "level": "L1/L2 single-size",
+  "checks": 31,
+  "failures": [],
+  "observations": 30,
+  "results": [
+    {
+      "ok": true,
+      "label": "frost_stag original exact"
+    },
+    {
+      "ok": true,
+      "label": "frost_stag runtime exact"
+    },
+    {
+      "ok": true,
+      "label": "frost_stag transparent"
+    },
+    {
+      "ok": true,
+      "label": "frost_stag prompt retained"
+    },
+    {
+      "ok": true,
+      "label": "herb_crane original exact"
+    },
+    {
+      "ok": true,
+      "label": "herb_crane runtime exact"
+    },
+    {
+      "ok": true,
+      "label": "herb_crane transparent"
+    },
+    {
+      "ok": true,
+      "label": "herb_crane prompt retained"
+    },
+    {
+      "ok": true,
+      "label": "art not presumed accepted"
+    },
+    {
+      "ok": true,
+      "label": "flow passed"
+    },
+    {
+      "ok": true,
+      "label": "ui passed"
+    },
+    {
+      "ok": true,
+      "label": "28190 existing JSON verified"
+    },
+    {
+      "ok": true,
+      "label": "era4 exact charge under denial"
+    },
+    {
+      "ok": true,
+      "label": "era4 recovered/reloaded single XP award"
+    },
+    {
+      "ok": true,
+      "label": "era4 no duplicate XP"
+    },
+    {
+      "ok": true,
+      "label": "era5 exact charge under denial"
+    },
+    {
+      "ok": true,
+      "label": "era5 recovered/reloaded single XP award"
+    },
+    {
+      "ok": true,
+      "label": "era5 no duplicate XP"
+    },
+    {
+      "ok": true,
+      "label": "souls4 synthetic budget starts11"
+    },
+    {
+      "ok": true,
+      "label": "souls4 T1 exact charge"
+    },
+    {
+      "ok": true,
+      "label": "souls4 T2/T3 cumulative exact charge"
+    },
+    {
+      "ok": true,
+      "label": "souls4 four talents persist reload"
+    },
+    {
+      "ok": true,
+      "label": "souls4 soul budget bounded"
+    },
+    {
+      "ok": true,
+      "label": "souls5 synthetic budget starts11"
+    },
+    {
+      "ok": true,
+      "label": "souls5 T1 exact charge"
+    },
+    {
+      "ok": true,
+      "label": "souls5 T2/T3 cumulative exact charge"
+    },
+    {
+      "ok": true,
+      "label": "souls5 four talents persist reload"
+    },
+    {
+      "ok": true,
+      "label": "souls5 soul budget bounded"
+    },
+    {
+      "ok": true,
+      "label": "Web return home"
+    },
+    {
+      "ok": true,
+      "label": "Web reopen keeps talents"
+    },
+    {
+      "ok": true,
+      "label": "single desktop viewport"
+    }
+  ],
+  "source_and_package_sha256": {
+    "src/presentation/beast_care_view.gd": "4c51be039bd138614756e34d3b8e0ec6a4ed15097e807adaa5113e2a9dd670ce",
+    "src/presentation/system_actions_panel.gd": "f93ab0cb8fe9d13ad0a56d7bfbc8c10304146edeafe4e2153730b367f41eae9b",
+    "src/simulation/beast_system.gd": "50f48662f5bf6c2529a4ffb63bcb4cb20c982ea81b64c389ea165025c4387f35",
+    "src/abode/living_abode.gd": "ca0a84b1deca707d0120db7f015fae6c68cd38b894cfe889b5f4400fc9dfa3a4",
+    "src/verification/beast2_acceptance.gd": "f0003064ae85c4eae63b80a054a889becf3887df2dc28ed07844e50e13c6631d",
+    "src/verification/beast2_acceptance.tscn": "0a484c14d1c63b2ae55e3485e3f44a7b092f0a72fd8edd6868cc1c1029940332",
+    "src/verification/beast2-review-era4.json": "58956931de618241d888aad99a28b9e88201a08c573577180999ad8660bfe487",
+    "src/verification/beast2-review-era5.json": "926f7acaae9e143776bd1182b4d67628b0c7ce56192b07093785aab5e54244cc",
+    "project.godot": "3bf79ff30234ae81720aa9a3d97d267d1c6eba5fff65847523cd10246bf69a82",
+    "export_presets.cfg": "b6722bfc7a2d501841aa8bb796830dcff235a75ce5a9aa179cfbb70fae99dd98",
+    "assets/fonts/runtime/Dao2Sans-VF.ttf": "43cc90439e1d727cc8c87450e97e2441b7e22b9ce1925cc8851942b49f696b42",
+    "assets/fonts/runtime/Dao2Serif-VF.ttf": "5af2fb46517c53c28a1438211aa4fb11efbabbc94ea36d553d24e729441594cf",
+    "assets/ui/beasts-painted/frost_stag.png": "3f1b1b47bcc6f8031748367c235995ef34807c715c998ae906627eda47af5863",
+    "assets/ui/beasts-painted/herb_crane.png": "997e6e8f963f75291efa2014860bfcd1d6e8a6d3f640cc168103032ba3218a7c",
+    "build/beast2-acceptance/index.pck": "381435c43e2bf2b868e8315f0a5d45755a8f08d2b2f30b6ea4e6de46352a7a77"
+  },
+  "boundary": "Read-only evidence audit. Repeated unchanged retry documented by screenshots/tool transcript; paused regular clock still permits normal offline recovery production. No FPS/L3/natural 11-life soul claim."
+}

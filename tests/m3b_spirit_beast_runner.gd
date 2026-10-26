@@ -24,10 +24,10 @@ func _init() -> void:
 
 	if success:
 		print("[M3B_BEAST_RUNNER] ALL M3-B SPIRIT BEAST TESTS PASSED (exit 0)")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		printerr("[M3B_BEAST_RUNNER] SOME M3-B SPIRIT BEAST TESTS FAILED (exit 1)")
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _assert(condition: bool, msg: String) -> bool:
 	if not condition:
@@ -65,7 +65,7 @@ func _create_test_state() -> GameState:
 func _test_beast_configs_and_acquire() -> bool:
 	print("--- 1. Testing Beast Configurations & Acquisition ---")
 	var ok := true
-	ok = ok and _assert(BeastSystem.BEAST_CONFIGS.size() == 4, "Must have 4 defined beasts")
+	ok = ok and _assert(BeastSystem.BEAST_CONFIGS.size() == 6, "Must have 6 defined beasts")
 	ok = ok and _assert(BeastSystem.BEAST_CONFIGS.has("jade_fox"), "Must include jade_fox")
 	ok = ok and _assert(BeastSystem.BEAST_CONFIGS.has("iron_turtle"), "Must include iron_turtle")
 	ok = ok and _assert(BeastSystem.BEAST_CONFIGS.has("fire_phoenix"), "Must include fire_phoenix")

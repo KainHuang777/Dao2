@@ -1,0 +1,14 @@
+{
+  "task": "UI-SHELL-1",
+  "date": "2026-10-22",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "integration_checks": 90,
+  "policy_checks": 263,
+  "hud_checks": 58,
+  "full_runners": 84,
+  "full_exit_code": 0,
+  "full_script_errors": 0,
+  "native_images": 18,
+  "touch_or_physical_device_tested": false,
+  "new_fps_claim": false
+}

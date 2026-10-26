@@ -1,0 +1,9 @@
+{
+	"capture_fps": 24,
+	"duration": 8,
+	"engine": "4.7.2-stable (official)",
+	"failures": [],
+	"frames": 192,
+	"note": "fixed-time Godot rendered capture; not runtime FPS evidence",
+	"task": "UIX-R7-F5-B"
+}

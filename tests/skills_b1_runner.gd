@@ -33,7 +33,7 @@ func _run() -> void:
 	var original := JSON.stringify(raw)
 	var attached := IslandProgression.attach(c)
 	if not attached.ok:
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	check(attached.ok, "attach skill content")
 	var version := c.content_version
@@ -156,10 +156,14 @@ func _run() -> void:
 	var fixture_meta := meta.duplicate()
 	fixture_meta.saved_at_utc_ms = str(int(Time.get_unix_time_from_system()*1000))
 	fixture_meta.settled_until_utc_ms = fixture_meta.saved_at_utc_ms
-	f.store_string(SaveCodec.encode(fixture.state, c.content_version, fixture_meta).json)
+	if f == null:
+		push_error("write failed: res://docs/verification/artifacts/skills-b1-fixture.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(SaveCodec.encode(fixture.state, c.content_version, fixture_meta).json)
 	if failures.is_empty():
 		print("PASS: SKILL-B1 %d checks" % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures: push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)

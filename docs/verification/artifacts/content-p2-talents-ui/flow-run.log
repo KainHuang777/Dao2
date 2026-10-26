@@ -1,0 +1,7 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_7eb8ad5cc8ec415d80e9cc97121cc6ed
+[START:initial] tests/content_p2_talents_flow_runner.gd
+[PASS:initial] tests/content_p2_talents_flow_runner.gd (327.7s) result=pass
+--- slowest 8 runners (s) ---
+   327.7  tests/content_p2_talents_flow_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Temp\dao2_runners_7eb8ad5cc8ec415d80e9cc97121cc6ed

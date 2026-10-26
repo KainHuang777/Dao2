@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-25",
+  "level": "L1_STATIC_DESIGN_ONLY",
+  "checks": 1256,
+  "failures": [],
+  "protected_files": 1345,
+  "changed_protected": [],
+  "runtime": [
+    6,
+    20,
+    6
+  ],
+  "candidate_additions": [
+    2,
+    10,
+    2
+  ],
+  "attached_new": 0,
+  "new_gameplay_verified": 0
+}

@@ -1,0 +1,2916 @@
+{
+  "utc": "2026-10-15T16:45:37.472Z",
+  "tag": "11-wooden-house",
+  "before": {
+    "slot": "save_backup",
+    "indexed": true,
+    "schemaVersion": 4,
+    "revision": 89,
+    "state": {
+      "abode_scenery": {
+        "active": [
+          {
+            "amount": 6,
+            "id": "0:1",
+            "kind": "wood",
+            "slot": 1
+          },
+          {
+            "amount": 7,
+            "id": "0:2",
+            "kind": "wood",
+            "slot": 0
+          }
+        ],
+        "remaining": 82,
+        "rng_state": 1028683429,
+        "serial": 2,
+        "version": 1
+      },
+      "achievements": {
+        "claimed": {},
+        "stats": {},
+        "unlocked": {
+          "build_first_hut": 267
+        }
+      },
+      "aspiration_realm": "",
+      "beast_souls": {},
+      "beast_talents": {},
+      "beasts": {
+        "active": {},
+        "cooldown_remaining": 0
+      },
+      "buffs": {},
+      "buildings": {
+        "forest_farm": 0,
+        "foundation_reservoir": 0,
+        "herb_farm": 0,
+        "hut": 2,
+        "library": 0,
+        "scripture_hall": 0,
+        "stone_mine": 0,
+        "storage_herb": 0,
+        "storage_lingli": 0,
+        "storage_money": 0,
+        "storage_stone": 0,
+        "storage_wood": 0,
+        "wooden_house": 0
+      },
+      "chrono": {
+        "cycle_day": 1,
+        "shichen_index": 7,
+        "shichen_progress": 0.65,
+        "unlocked": true,
+        "weather_id": "wood"
+      },
+      "command_receipts": {
+        "gather_140091700_1984028412": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 5,
+          "ok": true
+        },
+        "gather_145273700_3381534840": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 6,
+          "ok": true
+        },
+        "gather_150449800_4157153950": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 7,
+          "ok": true
+        },
+        "gather_155624800_1298132846": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 8,
+          "ok": true
+        },
+        "gather_160793400_2944456316": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 9,
+          "ok": true
+        },
+        "gather_165971700_1057409094": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 10,
+          "ok": true
+        },
+        "gather_171153500_4097821583": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 11,
+          "ok": true
+        },
+        "gather_176327200_478975628": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 12,
+          "ok": true
+        },
+        "gather_181267000_3503046449": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 15,
+          "ok": true
+        },
+        "gather_186527500_885852299": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 16,
+          "ok": true
+        },
+        "gather_191708700_3627563598": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 17,
+          "ok": true
+        },
+        "gather_196890200_1315121301": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 18,
+          "ok": true
+        },
+        "gather_223528000_3735854789": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 19,
+          "ok": true
+        },
+        "gather_228697900_1403331944": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 20,
+          "ok": true
+        },
+        "gather_233867000_1097448898": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 21,
+          "ok": true
+        },
+        "gather_239045400_1875691587": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 22,
+          "ok": true
+        },
+        "gather_244214500_1031736478": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 23,
+          "ok": true
+        },
+        "gather_249391300_704397590": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 24,
+          "ok": true
+        },
+        "gather_254572800_1935274260": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 25,
+          "ok": true
+        },
+        "gather_259745900_3014222007": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 26,
+          "ok": true
+        },
+        "gather_264922100_2286349422": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 27,
+          "ok": true
+        },
+        "gather_270098100_2831768411": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 28,
+          "ok": true
+        },
+        "gather_273814400_1850312638": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 29,
+          "ok": true
+        },
+        "gather_354685900_3326914086": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 35,
+          "ok": true
+        },
+        "gather_359865500_2945107402": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 36,
+          "ok": true
+        },
+        "gather_365037300_3448096331": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 37,
+          "ok": true
+        },
+        "gather_370204300_1181388431": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 38,
+          "ok": true
+        },
+        "gather_375388200_3521444246": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 39,
+          "ok": true
+        },
+        "gather_380567900_3854900512": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 40,
+          "ok": true
+        },
+        "gather_385761800_326109014": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 41,
+          "ok": true
+        },
+        "gather_390929900_1410425872": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 42,
+          "ok": true
+        },
+        "gather_396104600_1781709998": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 43,
+          "ok": true
+        },
+        "gather_401277500_2558022031": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 44,
+          "ok": true
+        },
+        "gather_406447300_3532526286": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 45,
+          "ok": true
+        },
+        "gather_411621500_3023201604": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 46,
+          "ok": true
+        },
+        "gather_416807400_1068584154": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 47,
+          "ok": true
+        },
+        "gather_421973200_474792409": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 48,
+          "ok": true
+        },
+        "gather_427148900_2805466062": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 49,
+          "ok": true
+        },
+        "gather_432329900_4003157916": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 50,
+          "ok": true
+        },
+        "gather_437509100_1038299904": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 51,
+          "ok": true
+        },
+        "gather_442689300_795119210": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 52,
+          "ok": true
+        },
+        "gather_447876100_1023017526": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 53,
+          "ok": true
+        },
+        "gather_453061400_1387626198": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 54,
+          "ok": true
+        },
+        "gather_459691700_3552578494": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 57,
+          "ok": true
+        },
+        "gather_464862000_2252425700": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 58,
+          "ok": true
+        },
+        "gather_470033100_123140650": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 59,
+          "ok": true
+        },
+        "gather_475202900_86817357": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 60,
+          "ok": true
+        },
+        "gather_480379100_1651529305": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 61,
+          "ok": true
+        },
+        "upg_319360700_421320632": {
+          "changed_ids": [
+            "hut",
+            "money",
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "building_id": "hut",
+              "kind": "building_upgraded",
+              "new_level": 1
+            },
+            {
+              "kind": "resource_unlocked",
+              "resource_id": "money"
+            },
+            {
+              "kind": "resource_unlocked",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 32,
+          "ok": true
+        },
+        "upg_503052700_4204345531": {
+          "changed_ids": [
+            "hut",
+            "wooden_house",
+            "storage_lingli",
+            "storage_money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "building_id": "hut",
+              "kind": "building_upgraded",
+              "new_level": 2
+            }
+          ],
+          "new_revision": 81,
+          "ok": true
+        }
+      },
+      "current_realm": "realm_human",
+      "dao_heart": "0",
+      "dao_proof": 0,
+      "discovered_worlds": {},
+      "economy": {},
+      "era_id": 1,
+      "fortune": {
+        "cooldown_remaining": 3141,
+        "encounter_history_count": 0,
+        "pending_encounter": {},
+        "total_fortunes_claimed": 0
+      },
+      "highest_era": 1,
+      "level": 1,
+      "onboarding_version": 1,
+      "pill_effects": {},
+      "pills": {},
+      "realm_decisions": {
+        "cooldowns": {},
+        "total_decisions_executed": 0,
+        "usage_counts": {}
+      },
+      "realms_data": {
+        "realm_spirit": {
+          "azure_nectar": 0,
+          "outposts": {
+            "celestial_hub": 0,
+            "pure_pool": 0,
+            "void_beacon": 0
+          },
+          "spirit_crystal": 0,
+          "unlocked": false
+        }
+      },
+      "reincarnation_count": 0,
+      "resources": {
+        "black_copper": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "foundation_pill": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "lingli": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "168.315233140242"
+        },
+        "money": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "0"
+        },
+        "skill_point": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "stone_low": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "wood": {
+          "ever_obtained": false,
+          "unlocked": true,
+          "value": "0"
+        }
+      },
+      "revision": 89,
+      "sect": {},
+      "skill_version": 1,
+      "skills": {},
+      "talents": {},
+      "tick_remainder_seconds": 0.509160000000017,
+      "total_elapsed_seconds": 459,
+      "training_seconds": 60,
+      "tribulation_roll_index": 0,
+      "tribulation_seed": 1226236785,
+      "tutorial_flags": {},
+      "world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
+    }
+  },
+  "after": {
+    "slot": "save_main",
+    "indexed": true,
+    "schemaVersion": 4,
+    "revision": 182,
+    "state": {
+      "abode_scenery": {
+        "active": [
+          {
+            "amount": 6,
+            "id": "0:1",
+            "kind": "wood",
+            "slot": 1
+          },
+          {
+            "amount": 7,
+            "id": "0:2",
+            "kind": "wood",
+            "slot": 0
+          }
+        ],
+        "remaining": 82,
+        "rng_state": 1028683429,
+        "serial": 2,
+        "version": 1
+      },
+      "achievements": {
+        "claimed": {},
+        "stats": {},
+        "unlocked": {
+          "build_first_hut": 267,
+          "era_qi": 483
+        }
+      },
+      "aspiration_realm": "",
+      "beast_souls": {},
+      "beast_talents": {},
+      "beasts": {
+        "active": {},
+        "cooldown_remaining": 0
+      },
+      "buffs": {},
+      "buildings": {
+        "forest_farm": 0,
+        "foundation_reservoir": 0,
+        "herb_farm": 0,
+        "hut": 2,
+        "library": 0,
+        "scripture_hall": 0,
+        "stone_mine": 0,
+        "storage_herb": 0,
+        "storage_lingli": 0,
+        "storage_money": 0,
+        "storage_stone": 0,
+        "storage_wood": 0,
+        "wooden_house": 1
+      },
+      "chrono": {
+        "cycle_day": 1,
+        "shichen_index": 8,
+        "shichen_progress": 0.05,
+        "unlocked": true,
+        "weather_id": "wood"
+      },
+      "command_receipts": {
+        "gather_140091700_1984028412": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 5,
+          "ok": true
+        },
+        "gather_145273700_3381534840": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 6,
+          "ok": true
+        },
+        "gather_150449800_4157153950": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 7,
+          "ok": true
+        },
+        "gather_155624800_1298132846": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 8,
+          "ok": true
+        },
+        "gather_160793400_2944456316": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 9,
+          "ok": true
+        },
+        "gather_165971700_1057409094": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 10,
+          "ok": true
+        },
+        "gather_171153500_4097821583": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 11,
+          "ok": true
+        },
+        "gather_176327200_478975628": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 12,
+          "ok": true
+        },
+        "gather_181267000_3503046449": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 15,
+          "ok": true
+        },
+        "gather_186527500_885852299": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 16,
+          "ok": true
+        },
+        "gather_191708700_3627563598": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 17,
+          "ok": true
+        },
+        "gather_196890200_1315121301": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 18,
+          "ok": true
+        },
+        "gather_223528000_3735854789": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 19,
+          "ok": true
+        },
+        "gather_228697900_1403331944": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 20,
+          "ok": true
+        },
+        "gather_233867000_1097448898": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 21,
+          "ok": true
+        },
+        "gather_239045400_1875691587": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 22,
+          "ok": true
+        },
+        "gather_244214500_1031736478": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 23,
+          "ok": true
+        },
+        "gather_249391300_704397590": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 24,
+          "ok": true
+        },
+        "gather_254572800_1935274260": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 25,
+          "ok": true
+        },
+        "gather_259745900_3014222007": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 26,
+          "ok": true
+        },
+        "gather_264922100_2286349422": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 27,
+          "ok": true
+        },
+        "gather_270098100_2831768411": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 28,
+          "ok": true
+        },
+        "gather_273814400_1850312638": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 29,
+          "ok": true
+        },
+        "gather_354685900_3326914086": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 35,
+          "ok": true
+        },
+        "gather_359865500_2945107402": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 36,
+          "ok": true
+        },
+        "gather_365037300_3448096331": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 37,
+          "ok": true
+        },
+        "gather_370204300_1181388431": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 38,
+          "ok": true
+        },
+        "gather_375388200_3521444246": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 39,
+          "ok": true
+        },
+        "gather_380567900_3854900512": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 40,
+          "ok": true
+        },
+        "gather_385761800_326109014": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 41,
+          "ok": true
+        },
+        "gather_390929900_1410425872": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 42,
+          "ok": true
+        },
+        "gather_396104600_1781709998": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 43,
+          "ok": true
+        },
+        "gather_401277500_2558022031": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 44,
+          "ok": true
+        },
+        "gather_406447300_3532526286": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 45,
+          "ok": true
+        },
+        "gather_411621500_3023201604": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 46,
+          "ok": true
+        },
+        "gather_416807400_1068584154": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 47,
+          "ok": true
+        },
+        "gather_421973200_474792409": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 48,
+          "ok": true
+        },
+        "gather_427148900_2805466062": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 49,
+          "ok": true
+        },
+        "gather_432329900_4003157916": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 50,
+          "ok": true
+        },
+        "gather_437509100_1038299904": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 51,
+          "ok": true
+        },
+        "gather_442689300_795119210": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 52,
+          "ok": true
+        },
+        "gather_447876100_1023017526": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 53,
+          "ok": true
+        },
+        "gather_453061400_1387626198": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 54,
+          "ok": true
+        },
+        "gather_459691700_3552578494": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 57,
+          "ok": true
+        },
+        "gather_464862000_2252425700": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 58,
+          "ok": true
+        },
+        "gather_470033100_123140650": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 59,
+          "ok": true
+        },
+        "gather_475202900_86817357": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 60,
+          "ok": true
+        },
+        "gather_480379100_1651529305": {
+          "changed_ids": [
+            "lingli"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "lingli"
+            }
+          ],
+          "new_revision": 61,
+          "ok": true
+        },
+        "gather_521387700_4151056794": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 100,
+          "ok": true
+        },
+        "gather_521588600_1369613593": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 102,
+          "ok": true
+        },
+        "gather_521779000_814503433": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 103,
+          "ok": true
+        },
+        "gather_521948600_2656458234": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 104,
+          "ok": true
+        },
+        "gather_522134000_457391944": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 105,
+          "ok": true
+        },
+        "gather_522320000_4750665": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 106,
+          "ok": true
+        },
+        "gather_522515500_529028797": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 108,
+          "ok": true
+        },
+        "gather_522712100_3870814021": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 109,
+          "ok": true
+        },
+        "gather_522917900_2044956798": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 110,
+          "ok": true
+        },
+        "gather_523097900_1547052491": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 111,
+          "ok": true
+        },
+        "gather_523286000_3229872885": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 112,
+          "ok": true
+        },
+        "gather_523471800_3267557670": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 113,
+          "ok": true
+        },
+        "gather_523671500_763553294": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 115,
+          "ok": true
+        },
+        "gather_523861400_2421644042": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 116,
+          "ok": true
+        },
+        "gather_524033100_1177532290": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 117,
+          "ok": true
+        },
+        "gather_524215100_1015250575": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 118,
+          "ok": true
+        },
+        "gather_524399300_2647619022": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 119,
+          "ok": true
+        },
+        "gather_524585300_2804093257": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 121,
+          "ok": true
+        },
+        "gather_524771600_3632874529": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 122,
+          "ok": true
+        },
+        "gather_524978200_107957867": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 123,
+          "ok": true
+        },
+        "gather_525147300_3493593842": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 124,
+          "ok": true
+        },
+        "gather_525336000_3870782456": {
+          "changed_ids": [
+            "money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "money"
+            }
+          ],
+          "new_revision": 125,
+          "ok": true
+        },
+        "gather_525521800_2371550542": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 127,
+          "ok": true
+        },
+        "gather_525697300_1614766625": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 128,
+          "ok": true
+        },
+        "gather_525880000_3507159632": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 129,
+          "ok": true
+        },
+        "gather_526066700_2234078005": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 130,
+          "ok": true
+        },
+        "gather_526253800_2027586115": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 131,
+          "ok": true
+        },
+        "gather_526446200_1565863016": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 133,
+          "ok": true
+        },
+        "gather_526617600_2436567951": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 134,
+          "ok": true
+        },
+        "gather_526799200_1455396327": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 135,
+          "ok": true
+        },
+        "gather_526985300_4115371410": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 136,
+          "ok": true
+        },
+        "gather_527187700_2402845852": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 137,
+          "ok": true
+        },
+        "gather_527394800_1069942887": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 139,
+          "ok": true
+        },
+        "gather_527586600_1288666476": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 140,
+          "ok": true
+        },
+        "gather_527763800_1170821442": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 141,
+          "ok": true
+        },
+        "gather_527949100_629253801": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 142,
+          "ok": true
+        },
+        "gather_528133500_2233055650": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 143,
+          "ok": true
+        },
+        "gather_528319400_1605028458": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 145,
+          "ok": true
+        },
+        "gather_528510400_787856634": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 146,
+          "ok": true
+        },
+        "gather_528679100_4044532397": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 147,
+          "ok": true
+        },
+        "gather_528850900_3011465411": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 148,
+          "ok": true
+        },
+        "gather_529038600_2205311354": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 149,
+          "ok": true
+        },
+        "gather_529213200_4157586691": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 150,
+          "ok": true
+        },
+        "gather_529397300_1231134290": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 152,
+          "ok": true
+        },
+        "gather_529568200_1211405889": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 153,
+          "ok": true
+        },
+        "gather_529753700_2635498196": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 154,
+          "ok": true
+        },
+        "gather_529955000_655519945": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 155,
+          "ok": true
+        },
+        "gather_530168200_1824479588": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 156,
+          "ok": true
+        },
+        "gather_530345900_1027649177": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 158,
+          "ok": true
+        },
+        "gather_530532900_4127890755": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 159,
+          "ok": true
+        },
+        "gather_530717800_391087184": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 160,
+          "ok": true
+        },
+        "gather_530905600_1188967454": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 161,
+          "ok": true
+        },
+        "gather_531104600_2393672952": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 162,
+          "ok": true
+        },
+        "gather_531301200_665047379": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 164,
+          "ok": true
+        },
+        "gather_531478500_1235861366": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 165,
+          "ok": true
+        },
+        "gather_531646900_3783898510": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 166,
+          "ok": true
+        },
+        "gather_531819800_995182668": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 167,
+          "ok": true
+        },
+        "gather_532030500_944835300": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 168,
+          "ok": true
+        },
+        "gather_532212900_13508762": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 170,
+          "ok": true
+        },
+        "gather_532383200_737727635": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 171,
+          "ok": true
+        },
+        "gather_532567700_3695463303": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 172,
+          "ok": true
+        },
+        "gather_532770000_3223721748": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 173,
+          "ok": true
+        },
+        "gather_532972800_1853208242": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 174,
+          "ok": true
+        },
+        "gather_533169300_1196929592": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 176,
+          "ok": true
+        },
+        "gather_533345100_1375071142": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 177,
+          "ok": true
+        },
+        "gather_533516000_1151937869": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 178,
+          "ok": true
+        },
+        "gather_533702700_3439087438": {
+          "changed_ids": [
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "amount": "1",
+              "kind": "resource_gathered",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 179,
+          "ok": true
+        },
+        "lvl_534114900_1930061517": {
+          "changed_ids": [
+            "cultivation_level"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "era_id": 1,
+              "kind": "cultivation_leveled_up",
+              "new_level": 2
+            }
+          ],
+          "new_revision": 182,
+          "ok": true
+        },
+        "upg_319360700_421320632": {
+          "changed_ids": [
+            "hut",
+            "money",
+            "wood"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "building_id": "hut",
+              "kind": "building_upgraded",
+              "new_level": 1
+            },
+            {
+              "kind": "resource_unlocked",
+              "resource_id": "money"
+            },
+            {
+              "kind": "resource_unlocked",
+              "resource_id": "wood"
+            }
+          ],
+          "new_revision": 32,
+          "ok": true
+        },
+        "upg_503052700_4204345531": {
+          "changed_ids": [
+            "hut",
+            "wooden_house",
+            "storage_lingli",
+            "storage_money"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "building_id": "hut",
+              "kind": "building_upgraded",
+              "new_level": 2
+            }
+          ],
+          "new_revision": 81,
+          "ok": true
+        },
+        "upg_533896600_1609440053": {
+          "changed_ids": [
+            "wooden_house"
+          ],
+          "duplicate": false,
+          "events": [
+            {
+              "building_id": "wooden_house",
+              "kind": "building_upgraded",
+              "new_level": 1
+            }
+          ],
+          "new_revision": 180,
+          "ok": true
+        }
+      },
+      "current_realm": "realm_human",
+      "dao_heart": "0",
+      "dao_proof": 0,
+      "discovered_worlds": {},
+      "economy": {},
+      "era_id": 1,
+      "fortune": {
+        "cooldown_remaining": 3117,
+        "encounter_history_count": 0,
+        "pending_encounter": {},
+        "total_fortunes_claimed": 0
+      },
+      "highest_era": 1,
+      "level": 2,
+      "onboarding_version": 1,
+      "pill_effects": {},
+      "pills": {},
+      "realm_decisions": {
+        "cooldowns": {},
+        "total_decisions_executed": 0,
+        "usage_counts": {}
+      },
+      "realms_data": {
+        "realm_spirit": {
+          "azure_nectar": 0,
+          "outposts": {
+            "celestial_hub": 0,
+            "pure_pool": 0,
+            "void_beacon": 0
+          },
+          "spirit_crystal": 0,
+          "unlocked": false
+        }
+      },
+      "reincarnation_count": 0,
+      "resources": {
+        "black_copper": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "foundation_pill": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "lingli": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "125.72753058373"
+        },
+        "money": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "3.03923048454133"
+        },
+        "skill_point": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "stone_low": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        },
+        "wood": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "45"
+        }
+      },
+      "revision": 182,
+      "sect": {},
+      "skill_version": 1,
+      "skills": {},
+      "talents": {},
+      "tick_remainder_seconds": 0.0451640000000198,
+      "total_elapsed_seconds": 483,
+      "training_seconds": 0,
+      "tribulation_roll_index": 0,
+      "tribulation_seed": 1226236785,
+      "tutorial_flags": {},
+      "world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
+    }
+  },
+  "cmd": {
+    "tag": "11-wooden-house",
+    "points": [
+      {
+        "x": 315,
+        "y": 338,
+        "count": 22
+      },
+      {
+        "x": 303,
+        "y": 384,
+        "count": 45
+      },
+      {
+        "x": 909,
+        "y": 446
+      },
+      {
+        "x": 300,
+        "y": 68
+      }
+    ]
+  },
+  "geo": {
+    "rect": {
+      "left": 0,
+      "top": 0,
+      "width": 1279,
+      "height": 719,
+      "dpr": 1.0000000149011612,
+      "vw": 1280,
+      "vh": 720,
+      "scrollX": 0,
+      "scrollY": 0
+    },
+    "scale": 0.9986111111111111,
+    "now": 1792082737473
+  }
+}

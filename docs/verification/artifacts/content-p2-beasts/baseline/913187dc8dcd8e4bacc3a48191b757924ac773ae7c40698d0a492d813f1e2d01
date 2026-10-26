@@ -1,0 +1,9 @@
+{
+	"capture_fps": 12,
+	"checks": 666,
+	"duration_each": 20,
+	"engine": "4.7.2-stable (official)",
+	"failures": [],
+	"frames": 480,
+	"note": "fixed-time native render; not runtime FPS evidence"
+}

@@ -21,10 +21,10 @@ func _run() -> void:
 	
 	if _failed:
 		printerr("[RUNTIME_INSPECTOR_RUNNER] FAILED (exit 1)")
-		quit(1)
+		RunnerResult.finish(self, 1)
 	else:
 		print("[RUNTIME_INSPECTOR_RUNNER] ALL RUNTIME INSPECTOR TESTS PASSED (exit 0)")
-		quit(0)
+		RunnerResult.finish(self, 0)
 
 func _expect(cond: bool, msg: String) -> void:
 	if not cond:

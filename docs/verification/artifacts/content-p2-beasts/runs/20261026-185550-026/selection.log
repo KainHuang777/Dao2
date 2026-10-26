@@ -1,0 +1,6 @@
+[MODE] matrix=single runners=5 parallel=1
+tests/content_p2_beasts_save_runner.gd
+tests/content_p2_sect_runner.gd
+tests/content_p2_talents_runner.gd
+tests/m3a_reincarnation_runner.gd
+tests/m3b_spirit_beast_runner.gd

@@ -1,0 +1,19 @@
+{
+  "rules": "core-flow-11-skills-b1",
+  "revision": 654,
+  "skill_version": 1,
+  "skills": {
+    "basic_meditation": 1,
+    "building_mastery_1": 1
+  },
+  "skill_point": {
+    "ever_obtained": false,
+    "unlocked": true,
+    "value": "6200"
+  },
+  "buildings": {
+    "library": 1,
+    "scripture_hall": 1
+  },
+  "archives": []
+}

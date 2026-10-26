@@ -21,6 +21,7 @@ var dao_proof: int = 0
 var talents: Dictionary = {}
 var talent_version: int = TalentSystem.VERSION
 var story_version: int = StoryProgress.VERSION
+var beast_version: int = BeastSystem.VERSION
 var sect_version: int = SectSystem.VERSION
 var pill_version: int = AlchemySystem.VERSION
 var pills: Dictionary = {}
@@ -65,6 +66,7 @@ func duplicate_state() -> GameState:
 	copy.talents = talents.duplicate(true)
 	copy.talent_version = talent_version
 	copy.story_version = story_version
+	copy.beast_version = beast_version
 	copy.sect_version = sect_version
 	copy.pill_version = pill_version
 	copy.pills = pills.duplicate(true)
@@ -132,6 +134,7 @@ func to_snapshot_dict() -> Dictionary:
 		"talents": talents.duplicate(true),
 		"talent_version": talent_version,
 		"story_version": story_version,
+		"beast_version": beast_version,
 		"sect_version": sect_version,
 		"pill_version": pill_version,
 		"pills": pills.duplicate(true),

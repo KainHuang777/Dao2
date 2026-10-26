@@ -1,0 +1,80 @@
+[MODE] matrix=full runners=5 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_25e24dc5468b4e0091a2ff380e886d8c
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_ui_runner.gd (29.8s) result=pass
+[START:initial] tests/content_p2_supply_progression_runner.gd
+[FAIL:initial] tests/content_p2_supply_progression_runner.gd exit=-1 timeout=True script_error=False failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW ERA 3 age=4783.0
+TRACE pre-snapshot era3
+TRACE pre-ladder era3
+TRACE ladder era3 lvl2
+TRACE ladder era3 lvl3
+TRACE ladder era3 lvl4
+TRACE ladder era3 lvl5
+TRACE ladder era3 lvl6
+TRACE ladder era3 lvl7
+TRACE ladder era3 lvl8
+TRACE ladder era3 lvl9
+TRACE post-ladder era3
+FLOW ERA 4 age=12183.0
+TRACE pre-snapshot era4
+TRACE pre-ladder era4
+TRACE ladder era4 lvl1
+TRACE ladder era4 lvl2
+TRACE ladder era4 lvl3
+TRACE ladder era4 lvl4
+TRACE ladder era4 lvl5
+TRACE ladder era4 lvl6
+TRACE ladder era4 lvl7
+TRACE ladder era4 lvl8
+TRACE ladder era4 lvl9
+TRACE post-ladder era4
+FLOW ERA 5 age=26963.0
+TRACE pre-snapshot era5
+TRACE pre-ladder era5
+TRACE ladder era5 lvl1
+TRACE ladder era5 lvl2
+TRACE ladder era5 lvl3
+TRACE ladder era5 lvl4
+TRACE ladder era5 lvl5
+TRACE ladder era5 lvl6
+TRACE ladder era5 lvl7
+TRACE ladder era5 lvl8
+TRACE ladder era5 lvl9
+TRACE post-ladder era5
+FLOW ERA 6 age=58903.0
+TRACE era6 start age=58903.0
+TRACE era6 build ok=true
+TRACE era6 grass ok=true
+TRACE era6 feed done
+TRACE pre-snapshot era6
+TRACE pre-ladder era6
+TRACE ladder era6 lvl1
+TRACE ladder era6 lvl2
+TRACE ladder era6 lvl3
+TRACE ladder era6 lvl4
+TRACE ladder era6 lvl5
+TRACE ladder era6 lvl6
+TRACE ladder era6 lvl7
+
+
+[START:initial] tests/content_p1_sect_ui_runner.gd
+[PASS:initial] tests/content_p1_sect_ui_runner.gd (10.1s) result=pass
+[START:initial] tests/uix_r9_sect_ui_runner.gd
+[PASS:initial] tests/uix_r9_sect_ui_runner.gd (11.8s) result=pass
+[START:initial] tests/sks_p2_core_runner.gd
+[PASS:initial] tests/sks_p2_core_runner.gd (2.1s) result=pass
+--- slowest 8 runners (s) ---
+ 1,805.8  tests/content_p2_supply_progression_runner.gd
+    29.8  tests/content_p2_sect_ui_runner.gd
+    11.8  tests/uix_r9_sect_ui_runner.gd
+    10.1  tests/content_p1_sect_ui_runner.gd
+     2.1  tests/sks_p2_core_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:283
+Line |
+ 283 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_supply_progression_runner.gd. Logs:
+     | C:\Users\asus\AppData\Local\Temp\dao2_runners_25e24dc5468b4e0091a2ff380e886d8c

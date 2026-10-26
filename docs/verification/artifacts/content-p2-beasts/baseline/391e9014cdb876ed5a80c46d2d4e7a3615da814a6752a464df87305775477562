@@ -1,0 +1,67 @@
+{
+  "task": "UI-SHELL-1",
+  "files": [
+    {
+      "path": "src/presentation/ui_shell_controller.gd",
+      "sha256": "b151fe38e0452c221ee5f11e99568c0ca25a12313fe26d8ee53e4ffc76b1279e"
+    },
+    {
+      "path": "src/presentation/ui_shell_policy.gd",
+      "sha256": "c890a808c6bd9467b8949320e31f2c59e58a7286727d5dfee6eb640fb705cc53"
+    },
+    {
+      "path": "src/presentation/ui_shell_state.gd",
+      "sha256": "fb744cfeea0302ca4e3793898ef42ee4779c997f45d6862060bf3efd622b8088"
+    },
+    {
+      "path": "src/presentation/feature_navigation.gd",
+      "sha256": "b1ffb129245eab9d78c94de4b9295ab86eb9755c78c2680d2408c2ddc9b17af0"
+    },
+    {
+      "path": "src/presentation/abode_hud_controller.gd",
+      "sha256": "fc86a8fe0de27af95f729926c5839743b059008f345998e9a4826a650ca41360"
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd",
+      "sha256": "bf443a705b00fb33be62ab40f4f3a1e12fed2b5377aa49f866bc5fa63114d236"
+    },
+    {
+      "path": "src/presentation/save_controls.gd",
+      "sha256": "28dbd5d7fbb47b1a6fdd1a4cd94b98fcbeffc60fed7986e4dce4f5fd98e50dd0"
+    },
+    {
+      "path": "src/abode/living_abode.gd",
+      "sha256": "0aaad1ee31de577e3066ceb55c216c90f16996864aee5893e2ec1f20fa8dee92"
+    },
+    {
+      "path": "src/verification/ui_shell_acceptance.gd",
+      "sha256": "cfd2efa924e0ce1ab5a2e9084c7a4be0afa54ea21b70fb9f04d32809a6128029"
+    },
+    {
+      "path": "tests/ui_shell_integration_runner.gd",
+      "sha256": "4d3778c0d80c661881a3ede63e3ace518edf7a3e6a170600e76cc85c42be76c3"
+    },
+    {
+      "path": "project.godot",
+      "sha256": "4d666300d07300eba81e3aa846eee19e3efd5045685841c3f06ae3808420c32c"
+    },
+    {
+      "path": "export_presets.cfg",
+      "sha256": "5b874268cc48fd0f26174f6993254b7770d84282d766e088f1b533030d4a1b44"
+    }
+  ],
+  "builds": [
+    {
+      "path": "build/ui-shell-acceptance/index.pck",
+      "sha256": "ada8a547eff3b4ebe39bf5f7aabcad030ce4cb3285a024226267d6b2ba634db2"
+    },
+    {
+      "path": "build/web-ui-shell-1/index.pck",
+      "sha256": "7e24028eb695fd4e3161d0a0b0fe3fe4fc17b6fc4b3a1f3c0f843b4e995f716c"
+    },
+    {
+      "path": "build/web/index.pck",
+      "sha256": "7e7e619dcaa28fb05e1c397adcc24ce9071d9b53b4e8fa6379c186e0af9f9400"
+    }
+  ]
+}

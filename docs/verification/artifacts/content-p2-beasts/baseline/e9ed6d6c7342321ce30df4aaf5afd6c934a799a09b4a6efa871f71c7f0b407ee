@@ -1,0 +1,61 @@
+{
+	"checks": 97,
+	"comparisons": [],
+	"content_version": "3b24f41ca76c5ef3a56d307dfab890c5bf9de6baccfae882bf32920548c23060+res1-d-2+content-p1-story+content-p1-sect+content-p1-skills",
+	"evidence": "Current-source legal commands, accelerated simulation, same earned second-life Era3 state at choice. No inventory/era/cooldown/fortune injection. Rates include held-heart opportunity cost. No browser natural-wait claim.",
+	"failures": [
+		"readback identical encoded state reborn",
+		"second life islands ALREADY_MIGRATED"
+	],
+	"milestones": [
+		{
+			"age_seconds": 5728.0,
+			"era": 3,
+			"label": "blank-to-Era3 legal prefix; accelerated CLI",
+			"level": 1,
+			"revision": 1607
+		},
+		{
+			"age_seconds": 5728.0,
+			"era": 3,
+			"label": "five new skills",
+			"level": 1,
+			"revision": 1612
+		},
+		{
+			"age_seconds": 5728.0,
+			"era": 3,
+			"label": "four paid pills active",
+			"level": 1,
+			"revision": 1620
+		},
+		{
+			"age_seconds": 6629.0,
+			"era": 3,
+			"label": "sect contribution spent",
+			"level": 1,
+			"revision": 1641
+		},
+		{
+			"age_seconds": 10829.0,
+			"era": 3,
+			"label": "natural new fortune",
+			"level": 1,
+			"revision": 1649
+		},
+		{
+			"age_seconds": 44400.0,
+			"era": 3,
+			"label": "lifespan exhausted",
+			"level": 1,
+			"revision": 1659
+		},
+		{
+			"age_seconds": 0.0,
+			"era": 1,
+			"label": "second life begins",
+			"level": 1,
+			"revision": 1660
+		}
+	]
+}

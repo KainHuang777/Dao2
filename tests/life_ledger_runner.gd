@@ -119,10 +119,14 @@ func run() -> void:
 	var result := {"checks": checks, "failures": failures, "schema": SaveCodec.SCHEMA_VERSION, "retained_lives": LifeLedger.RETAINED_LIVES}
 	DirAccess.make_dir_recursive_absolute("res://docs/verification/artifacts/ledger-0")
 	var file := FileAccess.open("res://docs/verification/artifacts/ledger-0/results.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify(result, "\t"))
-	file.close()
+	if file == null:
+		push_error("write failed: res://docs/verification/artifacts/ledger-0/results.json")
+		RunnerResult.finish(self, 1)
+	else:
+		file.store_string(JSON.stringify(result, "\t"))
+		file.close()
 	print(JSON.stringify(result))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func time_parity() -> void:
 	var seed := GameSession.create_new_game(content, 9).state

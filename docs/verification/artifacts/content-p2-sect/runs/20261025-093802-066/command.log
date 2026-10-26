@@ -1,0 +1,7 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{57ea68f2-d79f-40b1-9237-5f472b656bc8}\AC\Temp\dao2_runners_54e858e1afba41e8bb8d9b5259b8c246
+[START:initial] tests/m1d_offline_runner.gd
+[PASS:initial] tests/m1d_offline_runner.gd (4s) result=pass
+--- slowest 8 runners (s) ---
+     4.0  tests/m1d_offline_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{57ea68f2-d79f-40b1-9237-5f472b656bc8}\AC\Temp\dao2_runners_54e858e1afba41e8bb8d9b5259b8c246

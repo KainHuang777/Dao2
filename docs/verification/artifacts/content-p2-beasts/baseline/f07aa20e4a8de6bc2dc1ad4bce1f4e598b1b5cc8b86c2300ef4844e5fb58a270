@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-22",
+  "origin": "http://127.0.0.1:4403",
+  "synthetic": true,
+  "cssSizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "cancelLeftArchiveEmpty": true,
+  "gross": {
+    "opening": "100",
+    "income": "30",
+    "expense": "20",
+    "closing": "110"
+  },
+  "deniedCount": 2,
+  "deniedHeart": "20",
+  "failedRetryStayedSingleArchive": true,
+  "finalCount": 2,
+  "finalHeart": "20",
+  "finalSaveFailed": false,
+  "finalArchives": 1,
+  "bookEqualAfterRecoveryAndReload": true,
+  "bookEqualInFinalPackage": true,
+  "shortPopupLastItemReached": true,
+  "consoleWarningsErrors": [],
+  "measurementCorrection": "An initial comparison returned false because the read-only browser serializer replaced a repeated nested object with [Circular]. Re-read the book only; full equality was true. This was observer output, not changed game data.",
+  "screenshots": "Browser screenshots are in the CUA tool history; the nine on-disk PNGs are explicitly native captures.",
+  "deliveryPackageBookEqual": true,
+  "deliveryPackageReadback": {
+    "count": 2,
+    "heart": "20",
+    "save_failed": false,
+    "archives": 1
+  }
+}

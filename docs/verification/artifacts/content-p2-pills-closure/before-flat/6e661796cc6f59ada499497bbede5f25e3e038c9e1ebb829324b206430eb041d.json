@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-22",
+  "browser": "IAB",
+  "origin": "http://127.0.0.1:4405",
+  "input": "real desktop mouse",
+  "gameCssSizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "syntheticFixture": true,
+  "readingUnchanged": true,
+  "cancelUnchanged": true,
+  "failedRetryUnchanged": true,
+  "recoveredArchiveUnchanged": true,
+  "reloadArchiveUnchanged": true,
+  "finalPackageArchiveUnchanged": true,
+  "count": 3,
+  "archiveCount": 3,
+  "heart": "20",
+  "saveFailed": false,
+  "longLifeAgeYears": 80000,
+  "lastObservedIntervalYears": [
+    78000,
+    80000
+  ],
+  "woodStock": [
+    331,
+    337
+  ],
+  "woodCapacity": [
+    150,
+    150
+  ],
+  "missingOldLifeNoCurveNoZeroAxis": true,
+  "finalMissingResourceSelectorHidden": true,
+  "console": [
+    {
+      "level": "error",
+      "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+      "timestamp": "2026-10-22T15:16:47.160Z",
+      "attribution": "unassigned; retained, no clean-console claim"
+    }
+  ],
+  "evidence": "CUA tool screenshots and read-only DOM #state equality in this conversation. On-disk PNGs are native captures, not browser screenshots.",
+  "initialFailures": [
+    "server not started: refused",
+    "sandbox server: timeout",
+    "failed data-URL tab binding blocked",
+    "first escalated server request not executed because automatic review hit account usage limit; user requested continuation, same command subsequently approved"
+  ],
+  "notes": "Recovery/background load may advance the new life; all equality claims compare the entire retained archive, not changing current-life age.",
+  "menuPackageArchiveUnchanged": true,
+  "finalMenuPackageMouseSelectionAt800": true,
+  "successfulTabsClosed": true,
+  "viewportOverrideReset": true
+}

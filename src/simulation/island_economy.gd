@@ -45,9 +45,10 @@ static func route_level_cap(state: GameState, id: String) -> int:
 	return 3 if expanded(state) and supply_data().routes.has(id) else 2
 
 static func rate(state: GameState, island: String, id: String) -> float:
+	if expanded(state) and not bool(state.economy.get("islands", {}).get(island, {}).get("opened", false)): return 0.0
 	if expanded(state) and supply_data().islands.has(island):
 		var focus: String = supply_data().dispatch[island]
-		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills)
+		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills) * TalentSystem.local_rate_multiplier(state, island, id) * AlchemySystem.local_multiplier(state, island, id) * BeastSystem.local_rate_multiplier(state, island, id)
 	return float(ISLANDS[island].rates.get(id, 0)) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1)
 
 static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float:
@@ -67,7 +68,7 @@ static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float
 		var bonus := float(beast.all_capacity_mult) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus)
 		if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
 		cap *= 1.0 + bonus
-	return floor(cap)
+	return floor(cap) + AlchemySystem.capacity_bonus(state, id)
 const GLOBAL := ["money", "lingli", "lingqi"]
 const ISLANDS := {
 	"home": {"era": 1, "rates": {}, "facility": {}},
@@ -344,7 +345,11 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 		result.recipes[id] = {"island": island, "duration": IslandProgression.duration(state, island, id) if active and durations(state).has(id) else duration, "reason": reason, "inputs": inputs, "output": float(recipe.output), "product_id": ProcessingCatalog.product_id(catalog, id), "capacity": home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog) if island == "home" else result.islands[island].capacity}
 	return result
 
-static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dictionary) -> Array:
+static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dictionary, local_rates: Dictionary = {}) -> Array:
+	var signature := BeastSystem.effect_signature(state)
+	if prepared.get("beast_signature", []) != signature:
+		prepared.clear()
+		prepared.beast_signature = signature
 	# Only reusable inside one command-free advance. A stationary economy has
 	# no timers; its only external input is home stock (production/realm sinks).
 	if prepared.has("idle_home") and _same_home(state, prepared.idle_home):
@@ -352,7 +357,7 @@ static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dicti
 		for island in island_defs(state):
 			if island == "home" or not state.economy.islands[island].opened: continue
 			for id in island_defs(state)[island].rates:
-				var rate := rate(state, island, id)
+				var rate: float = local_rates.get(island + ":" + id, rate(state, island, id))
 				var held := AmountCompat.from_number(value(state, island, id))
 				ResourceLedger.change(state, island, id, held, held, "production", AmountCompat.from_number(rate))
 		prepared.idle_ticks = int(prepared.get("idle_ticks", 0)) + 1
@@ -369,7 +374,7 @@ static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dicti
 		before = state.economy.duplicate(true)
 		before.erase("tick")
 		home = _home_values(state)
-	var events := tick(state, catalog)
+	var events := tick(state, catalog, local_rates)
 	if candidate and events.is_empty() and _same_home(state, home):
 		# Compare all saved island fields, including status/pending switches and
 		# string normalization. No timer or speculative capacity assumption.
@@ -396,7 +401,7 @@ static func _same_home(state: GameState, values: Array) -> bool:
 			return false
 	return true
 
-static func tick(state: GameState, catalog: Dictionary) -> Array:
+static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary = {}) -> Array:
 	var events: Array = []
 	state.economy.tick = int(state.economy.tick) + 1
 	# Stable order: production (legacy + local), arrivals, completions, jobs, departures.
@@ -404,7 +409,7 @@ static func tick(state: GameState, catalog: Dictionary) -> Array:
 		if island == "home" or not state.economy.islands[island].opened:
 			continue
 		for id in island_defs(state)[island].rates:
-			var rate := rate(state, island, id)
+			var rate: float = local_rates.get(island + ":" + id, rate(state, island, id))
 			var delta := minf(rate, free_space(state, island, id, catalog))
 			_put(state, island, id, value(state, island, id) + delta, "production", rate)
 	var routes: Array = state.economy.trips.keys()
@@ -641,3 +646,13 @@ static func route_upgrade_cost(state: GameState, steps: int = 1, progression_pro
 	var costs := {"spirit_timber": 10, "bronze_essence": 10} if IslandProgression.active(state) or progression_profile else {"wood": 20}
 	for id in costs: costs[id] *= steps
 	return costs
+
+## Capture before BuffSystem.tick; local production represents that elapsed second.
+static func pill_tick_rates(state: GameState) -> Dictionary:
+	var result := {}
+	if not expanded(state): return result
+	if not state.buffs.has("p2_ancient_dew") and not state.buffs.has("p2_void_gathering"): return result
+	for id in BuffSystem.P2_IDS:
+		var effect: Dictionary = BuffSystem.DEFINITIONS[id].effects
+		result[effect.island + ":" + effect.resource] = rate(state, effect.island, effect.resource)
+	return result

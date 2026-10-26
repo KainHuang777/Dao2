@@ -1,0 +1,10 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{042279ec-5337-42ec-ae8c-6da9f9f9ebf2}\AC\Temp\dao2_runners_7f117c27f27b48f88a5a43286f60a56c
+[START:initial] tests/content_p2_talents_runner.gd
+[PASS:initial] tests/content_p2_talents_runner.gd (4.8s) result=pass
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[PASS:initial] tests/content_p2_supply_economy_runner.gd (13s) result=pass
+--- slowest 8 runners (s) ---
+    13.0  tests/content_p2_supply_economy_runner.gd
+     4.8  tests/content_p2_talents_runner.gd
+SELECTED 2 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{042279ec-5337-42ec-ae8c-6da9f9f9ebf2}\AC\Temp\dao2_runners_7f117c27f27b48f88a5a43286f60a56c

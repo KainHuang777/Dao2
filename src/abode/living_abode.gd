@@ -336,6 +336,10 @@ var _frame_view_state: GameState
 var _frame_view_revision: int = -1
 
 static func _web_storage_namespace() -> String:
+	if OS.has_feature("beast2_acceptance"): return "dao2_beast2_acceptance_v2_" + String(JavaScriptBridge.eval("parent.caseId", true))
+	if OS.has_feature("sect2_acceptance"): return "dao2_sect2_acceptance_" + String(JavaScriptBridge.eval("parent.caseId", true))
+	if OS.has_feature("pill2_acceptance"): return "dao2_pill2_acceptance_" + String(JavaScriptBridge.eval("parent.caseId", true))
+	if OS.has_feature("talent2_acceptance"): return "dao2_talent2_acceptance_" + String(JavaScriptBridge.eval("parent.caseId", true))
 	if OS.has_feature("sks_p2_acceptance"): return "dao2_sks_p2_acceptance_era" + str(int(JavaScriptBridge.eval("parent.caseEra", true)))
 	if OS.has_feature("content_p1_acceptance"): return "dao2_content_p1_acceptance"
 	if OS.has_feature("content_p1_story_acceptance"): return "dao2_content_p1_story_acceptance"
@@ -453,7 +457,7 @@ func _init_core() -> void:
 	SaveManager.configure(content, adapter)
 
 	var migration_state: GameState = SaveManager.load_state()
-	while migration_state != null and SaveManager.supply_pending(migration_state):
+	while migration_state != null and SaveManager.migration_pending(migration_state):
 		var saved := SaveManager.commit_supply_startup()
 		if saved.ok: break
 		await _wait_supply_retry(String(saved.get("error", "SAVE_FAILED")))
@@ -2005,7 +2009,7 @@ func _wait_supply_retry(detail: String) -> void:
 	var column := VBoxContainer.new()
 	center.add_child(column)
 	var text := Label.new()
-	text.text = "供給資料保存失敗，原檔與離線時間已保留。\n恢復儲存後重試：" + detail
+	text.text = "遷移資料保存失敗，原檔與離線時間已保留。\n恢復儲存後重試：" + detail
 	column.add_child(text)
 	var retry := Button.new()
 	retry.text = "重試保存"

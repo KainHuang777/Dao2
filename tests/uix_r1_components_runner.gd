@@ -33,7 +33,7 @@ func run() -> void:
 	print("UIX-R1: %d checks passed with %d failures." % [checks, failures.size()])
 	for f in failures:
 		push_error(f)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
 func test_real_view_routes() -> void:
 	var content = ContentLoader.load_directory("res://content").content

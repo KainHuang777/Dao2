@@ -76,9 +76,13 @@ func run() -> void:
 		viewport.queue_free()
 	print("UI-ART-EDGE ",checks," checks failures=",JSON.stringify(failures))
 	var result := FileAccess.open(OUT + ("native.json" if DisplayServer.get_name() != "headless" else "runner.json"), FileAccess.WRITE)
-	result.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	if result == null:
+		push_error("write failed: " + OUT)
+		RunnerResult.finish(self, 1)
+	else:
+		result.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	sample.queue_free()
 	scene.queue_free()
 	await frames()
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 

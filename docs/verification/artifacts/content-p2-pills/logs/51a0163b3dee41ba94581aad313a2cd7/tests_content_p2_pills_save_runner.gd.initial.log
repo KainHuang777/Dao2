@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+FAIL: per-ID command consume_pillcalm_tribulation_pill
+FAIL: same command no double effect
+FAIL: reload deduplicates
+FAIL: reload keeps counters/costs/rng
+FAIL: reload keeps counters/costs/rng
+CONTENT-P2-PILLS-SAVE 484 checks failures=["reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","reload keeps counters/costs/rng","per-ID command consume_pillcalm_tribulation_pill","same command no double effect","reload deduplicates","reload keeps counters/costs/rng","reload keeps counters/costs/rng"]
+RUNNER_RESULT status=FAIL exit=1

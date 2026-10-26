@@ -1,0 +1,289 @@
+{
+  "observations": [
+    {
+      "check": "reopen-same-pending",
+      "ok": true
+    },
+    {
+      "check": "paid-once-denied-readable",
+      "ok": true
+    },
+    {
+      "check": "denied-retry-no-repeat",
+      "ok": true
+    },
+    {
+      "check": "recovered-same-receipt",
+      "ok": true
+    },
+    {
+      "check": "report-reread-actual-receipt",
+      "ok": true
+    },
+    {
+      "check": "three-landscape-book-scroll",
+      "ok": true
+    },
+    {
+      "check": "reload-exact-receipt-no-regrant",
+      "ok": true
+    },
+    {
+      "check": "final-export-keeps-exact-receipt",
+      "ok": true
+    }
+  ],
+  "initial": {
+    "book": {},
+    "count": 0,
+    "fixture": true,
+    "grass": "50",
+    "pending": "1a9366bf79b8e66a23a4d531500e8eb1781efbbcaa3c419f9534c2d70abc795c",
+    "save_failed": false
+  },
+  "denied": {
+    "book": {
+      "omitted": 0,
+      "receipts": [
+        {
+          "at": 0,
+          "buff": {},
+          "encounter_id": "enc_wandering_taoist",
+          "instance_id": "1a9366bf79b8e66a23a4d531500e8eb1781efbbcaa3c419f9534c2d70abc795c",
+          "life_id": 2,
+          "log": "贈老道 20 靈草，老道撫鬚稱善，回贈一枚「延壽丹」。",
+          "option": "贈予山中靈草結個善緣",
+          "option_index": 0,
+          "pills": {
+            "lifespan_pill": {
+              "after": 1,
+              "before": 0,
+              "gained": 1
+            }
+          },
+          "resources": {
+            "spirit_grass_low": {
+              "after": "30",
+              "before": "50",
+              "gained": "0",
+              "nominal": "0",
+              "overflow": "0",
+              "paid": "20"
+            }
+          },
+          "source": "f353d2f0a8e4002fe5c7e758bcb4fadc545b3fbae10ca78316ba268c42ae4557",
+          "title": "游方丹師登門",
+          "training": {
+            "after": 0,
+            "before": 0,
+            "gained": 0
+          },
+          "version": 1
+        }
+      ],
+      "started_at": 0,
+      "version": 1
+    },
+    "count": 1,
+    "fixture": true,
+    "grass": "30",
+    "pending": "",
+    "save_failed": true
+  },
+  "retried": {
+    "book": {
+      "omitted": 0,
+      "receipts": [
+        {
+          "at": 0,
+          "buff": {},
+          "encounter_id": "enc_wandering_taoist",
+          "instance_id": "1a9366bf79b8e66a23a4d531500e8eb1781efbbcaa3c419f9534c2d70abc795c",
+          "life_id": 2,
+          "log": "贈老道 20 靈草，老道撫鬚稱善，回贈一枚「延壽丹」。",
+          "option": "贈予山中靈草結個善緣",
+          "option_index": 0,
+          "pills": {
+            "lifespan_pill": {
+              "after": 1,
+              "before": 0,
+              "gained": 1
+            }
+          },
+          "resources": {
+            "spirit_grass_low": {
+              "after": "30",
+              "before": "50",
+              "gained": "0",
+              "nominal": "0",
+              "overflow": "0",
+              "paid": "20"
+            }
+          },
+          "source": "f353d2f0a8e4002fe5c7e758bcb4fadc545b3fbae10ca78316ba268c42ae4557",
+          "title": "游方丹師登門",
+          "training": {
+            "after": 0,
+            "before": 0,
+            "gained": 0
+          },
+          "version": 1
+        }
+      ],
+      "started_at": 0,
+      "version": 1
+    },
+    "count": 1,
+    "fixture": true,
+    "grass": "30",
+    "pending": "",
+    "save_failed": true
+  },
+  "recovered": {
+    "book": {
+      "omitted": 0,
+      "receipts": [
+        {
+          "at": 0,
+          "buff": {},
+          "encounter_id": "enc_wandering_taoist",
+          "instance_id": "1a9366bf79b8e66a23a4d531500e8eb1781efbbcaa3c419f9534c2d70abc795c",
+          "life_id": 2,
+          "log": "贈老道 20 靈草，老道撫鬚稱善，回贈一枚「延壽丹」。",
+          "option": "贈予山中靈草結個善緣",
+          "option_index": 0,
+          "pills": {
+            "lifespan_pill": {
+              "after": 1,
+              "before": 0,
+              "gained": 1
+            }
+          },
+          "resources": {
+            "spirit_grass_low": {
+              "after": "30",
+              "before": "50",
+              "gained": "0",
+              "nominal": "0",
+              "overflow": "0",
+              "paid": "20"
+            }
+          },
+          "source": "f353d2f0a8e4002fe5c7e758bcb4fadc545b3fbae10ca78316ba268c42ae4557",
+          "title": "游方丹師登門",
+          "training": {
+            "after": 0,
+            "before": 0,
+            "gained": 0
+          },
+          "version": 1
+        }
+      ],
+      "started_at": 0,
+      "version": 1
+    },
+    "count": 1,
+    "fixture": true,
+    "grass": "30",
+    "pending": "",
+    "save_failed": false
+  },
+  "loaded": {
+    "book": {
+      "omitted": 0,
+      "receipts": [
+        {
+          "at": 0,
+          "buff": {},
+          "encounter_id": "enc_wandering_taoist",
+          "instance_id": "1a9366bf79b8e66a23a4d531500e8eb1781efbbcaa3c419f9534c2d70abc795c",
+          "life_id": 2,
+          "log": "贈老道 20 靈草，老道撫鬚稱善，回贈一枚「延壽丹」。",
+          "option": "贈予山中靈草結個善緣",
+          "option_index": 0,
+          "pills": {
+            "lifespan_pill": {
+              "after": 1,
+              "before": 0,
+              "gained": 1
+            }
+          },
+          "resources": {
+            "spirit_grass_low": {
+              "after": "30",
+              "before": "50",
+              "gained": "0",
+              "nominal": "0",
+              "overflow": "0",
+              "paid": "20"
+            }
+          },
+          "source": "f353d2f0a8e4002fe5c7e758bcb4fadc545b3fbae10ca78316ba268c42ae4557",
+          "title": "游方丹師登門",
+          "training": {
+            "after": 0,
+            "before": 0,
+            "gained": 0
+          },
+          "version": 1
+        }
+      ],
+      "started_at": 0,
+      "version": 1
+    },
+    "count": 1,
+    "fixture": true,
+    "grass": "30",
+    "pending": "",
+    "save_failed": false
+  },
+  "finalLoaded": {
+    "book": {
+      "omitted": 0,
+      "receipts": [
+        {
+          "at": 0,
+          "buff": {},
+          "encounter_id": "enc_wandering_taoist",
+          "instance_id": "1a9366bf79b8e66a23a4d531500e8eb1781efbbcaa3c419f9534c2d70abc795c",
+          "life_id": 2,
+          "log": "贈老道 20 靈草，老道撫鬚稱善，回贈一枚「延壽丹」。",
+          "option": "贈予山中靈草結個善緣",
+          "option_index": 0,
+          "pills": {
+            "lifespan_pill": {
+              "after": 1,
+              "before": 0,
+              "gained": 1
+            }
+          },
+          "resources": {
+            "spirit_grass_low": {
+              "after": "30",
+              "before": "50",
+              "gained": "0",
+              "nominal": "0",
+              "overflow": "0",
+              "paid": "20"
+            }
+          },
+          "source": "f353d2f0a8e4002fe5c7e758bcb4fadc545b3fbae10ca78316ba268c42ae4557",
+          "title": "游方丹師登門",
+          "training": {
+            "after": 0,
+            "before": 0,
+            "gained": 0
+          },
+          "version": 1
+        }
+      ],
+      "started_at": 0,
+      "version": 1
+    },
+    "count": 1,
+    "fixture": true,
+    "grass": "30",
+    "pending": "",
+    "save_failed": false
+  }
+}

@@ -1,0 +1,510 @@
+{
+  "date": "2026-10-22",
+  "task": "LEDGER-1/REPORT-1B",
+  "ok": true,
+  "fixed_runners": 92,
+  "script_errors": 0,
+  "export_exits": {
+    "fonts": 0,
+    "isolated_export": 0,
+    "normal_export": 0,
+    "import": 0,
+    "isolated_compression": 0,
+    "normal_compression": 0
+  },
+  "frozen_web_sha256": "7e7e619dcaa28fb05e1c397adcc24ce9071d9b53b4e8fa6379c186e0af9f9400",
+  "builds": [
+    {
+      "path": "build/web-ledger-1",
+      "pck_sha256": "f9b35081e5a5439424d951780ee51d6e095811036e43e320dbe027e598c5a1fd",
+      "audio_companions": 4
+    },
+    {
+      "path": "build/ledger-1-acceptance",
+      "pck_sha256": "c75aa6db70b95a088caa996a0d1f3fc0a398c0cc2e0bcf05a1ad77918fffba5a",
+      "audio_companions": 4
+    }
+  ],
+  "native_screenshots": [
+    "accounts-1280x720.png",
+    "accounts-800x360.png",
+    "accounts-844x390.png",
+    "protection-1280x720.png",
+    "protection-800x360.png",
+    "protection-844x390.png",
+    "table-1280x720.png",
+    "table-800x360.png",
+    "table-844x390.png"
+  ],
+  "parity_source_sha256": "15c2a8a92a5ef3b6fadbc702420af3455d30141ac06c2b72354d0d2552988129",
+  "local_links": [
+    {
+      "from": "docs/decisions/ADR-015-resource-life-accounts.md",
+      "target": "../27-life-report-and-decision-ux-integration-plan.md"
+    },
+    {
+      "from": "docs/decisions/ADR-015-resource-life-accounts.md",
+      "target": "../verification/ledger-1.md"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "../27-life-report-and-decision-ux-integration-plan.md"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "../decisions/ADR-015-resource-life-accounts.md"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "artifacts/ledger-1/logs"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "artifacts/ledger-1/browser-observations.json"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "artifacts/ledger-1/accounts-1280x720.png"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "artifacts/ledger-1/accounts-800x360.png"
+    },
+    {
+      "from": "docs/verification/ledger-1.md",
+      "target": "artifacts/ledger-1/protection-800x360.png"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/domain/resource_ledger.gd",
+      "bytes": 9082,
+      "sha256": "d52267a35611affbbba13d47d4a0c9db0c47d92f3d44c28a077cbf0f29719368"
+    },
+    {
+      "path": "src/domain/resource_ledger.gd.uid",
+      "bytes": 20,
+      "sha256": "45566b9eb0c8d685a9e353f5923bb282bd9f2c4b116e9cc22cabeb2007fd0b2a"
+    },
+    {
+      "path": "src/domain/life_ledger.gd",
+      "bytes": 14476,
+      "sha256": "fa925949e7377c64a022eaeef0c540fd1e85d5db0bbded98b2726a16a8f378a1"
+    },
+    {
+      "path": "src/domain/life_ledger.gd.uid",
+      "bytes": 20,
+      "sha256": "78e4a4f004123dde8fa076ebdf8c30e0d8fd0e7ecad7e1656a975e472251ff89"
+    },
+    {
+      "path": "src/application/game_session.gd",
+      "bytes": 25322,
+      "sha256": "0abfcd8474f0b85459a61833483519e26291509dac2d622619235645cea3abde"
+    },
+    {
+      "path": "src/application/game_session.gd.uid",
+      "bytes": 20,
+      "sha256": "f56626128d13c9e5f82c8dbd0e25a6612bd8a74f1f133c22a85c75c7c226e4f6"
+    },
+    {
+      "path": "src/abode/living_abode.gd",
+      "bytes": 77501,
+      "sha256": "5e7665814785e4f918ee5d46c36a689c2f928ef3c79e885c5ecbb31eec677319"
+    },
+    {
+      "path": "src/abode/living_abode.gd.uid",
+      "bytes": 19,
+      "sha256": "c83d116e01be11d78d4301a9d0b7ab186f6feb9d45dfedf7ea75f6299a12703f"
+    },
+    {
+      "path": "src/presentation/resource_accounts_view.gd",
+      "bytes": 6807,
+      "sha256": "2f34f743c2066bb491613807df02c35f5451f25c41d2fa59b284e860f9d00712"
+    },
+    {
+      "path": "src/presentation/resource_accounts_view.gd.uid",
+      "bytes": 19,
+      "sha256": "133bcd4f6cee224d74b01d3d8ef18baea51234bdb22f3e1526e5a082f5c91e31"
+    },
+    {
+      "path": "src/presentation/reincarnation_panel.gd",
+      "bytes": 24660,
+      "sha256": "841763f3c417ee7b7a73c38f4d081c4bb467f65a59289eb77ad02265439ccea0"
+    },
+    {
+      "path": "src/presentation/reincarnation_panel.gd.uid",
+      "bytes": 20,
+      "sha256": "84abdb1411a1813834b898ece64baf2da67748b1505bb072f6f0ea3763b8528f"
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd",
+      "bytes": 31678,
+      "sha256": "8f0ed0e963105371687fc0dce8b9f975ad5d9434aab066e6cda4da9b2f1989b3"
+    },
+    {
+      "path": "src/presentation/abode_modal_manager.gd.uid",
+      "bytes": 20,
+      "sha256": "d87a1d9f5998371699d850afcf44d060ab626167444737228888f0ad30e89bae"
+    },
+    {
+      "path": "src/verification/res1d2_contract.gd",
+      "bytes": 19954,
+      "sha256": "50e2177075aa86f66515081169ecb0fde8d23214616932b6c660059d0c24cb56"
+    },
+    {
+      "path": "src/verification/res1d2_contract.gd.uid",
+      "bytes": 19,
+      "sha256": "32e4cac9b82ff564f776801974d13d170c12fbd7e25c9aa298bd19fb554f132f"
+    },
+    {
+      "path": "src/verification/resource_accounts_fixture.gd",
+      "bytes": 701,
+      "sha256": "42c156437c05f49e96205767c90ce1509424d21c4f1a850c36049c5d33069d7d"
+    },
+    {
+      "path": "src/verification/resource_accounts_fixture.gd.uid",
+      "bytes": 19,
+      "sha256": "8f4b77d4f1d2c6269a3914e157110c24e80e7f42207cd46cd548e5293b20ebd2"
+    },
+    {
+      "path": "src/verification/resource_accounts_acceptance.gd",
+      "bytes": 2210,
+      "sha256": "a5ad9eb785bb52cd1e9f2c9fdfbe32962a933f9a9392e588a4fbf043c2368d24"
+    },
+    {
+      "path": "src/verification/resource_accounts_acceptance.gd.uid",
+      "bytes": 19,
+      "sha256": "0c8b1f1239b6282870b63631cd103acec2bdf67666dfb83652baecceb870ba4c"
+    },
+    {
+      "path": "src/verification/resource_accounts_acceptance.tscn",
+      "bytes": 214,
+      "sha256": "00ddf5b9b4980061539c28c8a1627e2123ca77d0366f7a8bf1c5ce8f95542a13"
+    },
+    {
+      "path": "tests/resource_accounts_runner.gd",
+      "bytes": 14009,
+      "sha256": "4f44284ea259390c48aed4ad3551f48a22e3e9cf44f53a9921a21ce803cb6a9d"
+    },
+    {
+      "path": "tests/resource_accounts_runner.gd.uid",
+      "bytes": 19,
+      "sha256": "36e0f544f83b6c1294376cb0cdaad797e2ad8dc3ec907c7c38140c6b6a30f994"
+    },
+    {
+      "path": "tests/resource_accounts_ui_runner.gd",
+      "bytes": 4335,
+      "sha256": "d5d9b77fc6830ec08ebba42dd629cc592331598cdac3120d58eaee907da71dba"
+    },
+    {
+      "path": "tests/resource_accounts_ui_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "217f08e8c2a54522656dce8b2ca48f0bc270ba64adc7b6beca60cf5379e297c0"
+    },
+    {
+      "path": "tests/resource_account_assertions.gd",
+      "bytes": 1190,
+      "sha256": "29d05555250b43233253b4c3b966ae6e81ec3cc208cf8e5a9b73d8224aa847f0"
+    },
+    {
+      "path": "tests/resource_account_assertions.gd.uid",
+      "bytes": 19,
+      "sha256": "912c402242913529d7d4872b7476f6779f5a1eb1884453571691dc1e4c15516e"
+    },
+    {
+      "path": "tests/res1b_economy_runner.gd",
+      "bytes": 19130,
+      "sha256": "db9a16c10faa54c6b4866dbfd04a3fbb852a2aa22da78fddc870dff87871d271"
+    },
+    {
+      "path": "tests/res1b_economy_runner.gd.uid",
+      "bytes": 19,
+      "sha256": "03caa0e51203622ff51f8bf26ddadc6d86db82fa094d0d580fcc24f767c7738c"
+    },
+    {
+      "path": "tests/res1c_progression_runner.gd",
+      "bytes": 14019,
+      "sha256": "ce43c888d4a7d7c4169f4c14400c8954efe0f25ba2944c7e50cded441b36c041"
+    },
+    {
+      "path": "tests/res1c_progression_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "f094957710590d654282493bb90d2d2d3e0dceaf8f0ae46a42b185260b6ee6b3"
+    },
+    {
+      "path": "tests/res1c2_offline_runner.gd",
+      "bytes": 4928,
+      "sha256": "9d06c41d79845d10d598b3cdc532f61b2c1f7530838a8fe2ef058a7b837d30d4"
+    },
+    {
+      "path": "tests/res1c2_offline_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "56ac2269b35c618c758fb86a3866409b6b30d4ddcab2981e9210d76fa5e4d00b"
+    },
+    {
+      "path": "tests/offline_closed_form_parity_runner.gd",
+      "bytes": 5626,
+      "sha256": "593943a90746a24052ea1426b0805c4565a24a72d01a6aa2b37f32fc01880ca9"
+    },
+    {
+      "path": "tests/offline_closed_form_parity_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "8bc1c7b4b1a05238f1a14aa681db344fb973b12b1a60db61d86e677bda68440c"
+    },
+    {
+      "path": "tests/res1c2_perf_runner.gd",
+      "bytes": 7511,
+      "sha256": "04ff7b388023ab3969bd2129482c94c0c4c2a22e59da0e4cc076391199092a0b"
+    },
+    {
+      "path": "tests/res1c2_perf_runner.gd.uid",
+      "bytes": 19,
+      "sha256": "bb3af2a221ad1d0c042fa361b7d9296ba6a11faa76c6f0435756d5da089d5cd4"
+    },
+    {
+      "path": "tests/skills_b1_runner.gd",
+      "bytes": 8885,
+      "sha256": "ab796cd54d3b9f96987557fd61124bd5bd1ebe11d5a39b2baa35b6ca4633f88a"
+    },
+    {
+      "path": "tests/skills_b1_runner.gd.uid",
+      "bytes": 20,
+      "sha256": "6b8ee40131d920641841a514990a7189035c48e38c5fd98d91ab82efe3da5a3f"
+    },
+    {
+      "path": "tools/run_all_runners.ps1",
+      "bytes": 4534,
+      "sha256": "49f4b07cdd59ad216c351735ceefa6a16e294b267288a54f92ba6c5b32e17c69"
+    },
+    {
+      "path": "tools/resource_accounts_audit.py",
+      "bytes": 5605,
+      "sha256": "f9d6028dc6d7b587d135124b9b4d54d6dc7dfd5c29da7afe75f9c6be272a918d"
+    },
+    {
+      "path": "project.godot",
+      "bytes": 1980,
+      "sha256": "d30959be965294c65447c6d8a41cfac9497b8b59e058a4ebc9da6488a6dd77de"
+    },
+    {
+      "path": "export_presets.cfg",
+      "bytes": 33608,
+      "sha256": "7482ecad6f9d2af56afb4c139f790259192f511193ec64d8ebbf8a8611d211f3"
+    },
+    {
+      "path": "docs/decisions/ADR-015-resource-life-accounts.md",
+      "bytes": 5425,
+      "sha256": "66429447c516f8fbdb0923886d32f1362c6bcd26c9de48e09e269e542df8ed11"
+    },
+    {
+      "path": "docs/verification/ledger-1.md",
+      "bytes": 9614,
+      "sha256": "2b9b35df7fd3c4d7f84638e5ea5a0d4c39060df324551b9dc52634a654ecf8ce"
+    },
+    {
+      "path": "docs/19-ui-ux-guidelines.md",
+      "bytes": 26270,
+      "sha256": "f4a51e758ad82966fa2677fbccf8bc65d440293cc57c38987788c6d60d6315f6"
+    },
+    {
+      "path": "docs/27-life-report-and-decision-ux-integration-plan.md",
+      "bytes": 21775,
+      "sha256": "fa347e8fdd32b4047717b770a1bd7c57cc927ba898a363b3131f0676beb16363"
+    },
+    {
+      "path": "README.md",
+      "bytes": 75522,
+      "sha256": "70de588bd4c3f136d25652d9ae23be07e4e2bbdd8ea179f204a1c21ee2f05634"
+    },
+    {
+      "path": "ROADMAP.md",
+      "bytes": 122910,
+      "sha256": "16907eef1f48562d978d6ccfb6b7b335b4d5c69aee92cca8feb214c443663a12"
+    },
+    {
+      "path": "docs/ai-handoff.md",
+      "bytes": 92845,
+      "sha256": "2da8e52430f155f4b50ae38c8757e3d251e731c778b6e2b4e2c53f985a352607"
+    },
+    {
+      "path": "docs/development-status.md",
+      "bytes": 218621,
+      "sha256": "49291b91c26cc11f551fe73bd17a25d69f2536a8a0b3d1cb43655a66893ede1c"
+    },
+    {
+      "path": "updata.txt",
+      "bytes": 575172,
+      "sha256": "f5be49bb8d5e1f1a2fc7825caef3c712bf95c8ad3721d6269c3c088b14c4bd6c"
+    },
+    {
+      "path": "src/simulation/command_processor.gd",
+      "bytes": 26302,
+      "sha256": "8e5bc4a2d1c4b16dbd3795b43cc4ae3bf320c9ec26dbe11e5b1ec714f9eee4af"
+    },
+    {
+      "path": "src/simulation/command_processor.gd.uid",
+      "bytes": 20,
+      "sha256": "c1706cbbb10fa0dbf0f1cf86319724ef2c82d980399225c6dd8ae04b37b5fdd7"
+    },
+    {
+      "path": "src/simulation/time_advancer.gd",
+      "bytes": 18820,
+      "sha256": "7a1b408fb1bfaaeb94964948fc5781180575e3cddd0727ba5b6cd18b06321381"
+    },
+    {
+      "path": "src/simulation/time_advancer.gd.uid",
+      "bytes": 20,
+      "sha256": "4a4464e42529cd808c1823ae4e1f29b5502d0ce6ef6368c6f3978d614d82d668"
+    },
+    {
+      "path": "src/simulation/offline_closed_form.gd",
+      "bytes": 17378,
+      "sha256": "0dc9f7567e9ccab6be34f4b86af249e3e1fc9ce0ec21fa222cdc1625d378b6d9"
+    },
+    {
+      "path": "src/simulation/offline_closed_form.gd.uid",
+      "bytes": 20,
+      "sha256": "3c04ed6a23f6cd08b2e1d91dce768a0997b34c5f27fb42319b6243a6fb7bccc6"
+    },
+    {
+      "path": "src/simulation/offline_economy_jump.gd",
+      "bytes": 15516,
+      "sha256": "b577d8fb3f3c20e3815d8d7b3ea59d9139b7ee21ba1131810349a37a15713160"
+    },
+    {
+      "path": "src/simulation/offline_economy_jump.gd.uid",
+      "bytes": 20,
+      "sha256": "756c2bc7050bfff910d31e39b37c355407e205d7e7fbf5e6745566568b44f9ee"
+    },
+    {
+      "path": "src/simulation/island_economy.gd",
+      "bytes": 27666,
+      "sha256": "d749931d0594247f441f75ffc8be946b80fd446545b6bb4789373195c19a2898"
+    },
+    {
+      "path": "src/simulation/island_economy.gd.uid",
+      "bytes": 20,
+      "sha256": "3d52d611f30caf297cdd815426eee3af1d552c034cbfd6e9a25074abcc3f78cd"
+    },
+    {
+      "path": "src/simulation/island_progression.gd",
+      "bytes": 6977,
+      "sha256": "b963b98f5115dbe1a400aadea337d4e934ce696d6ed0e02cf7d558cece1a643b"
+    },
+    {
+      "path": "src/simulation/island_progression.gd.uid",
+      "bytes": 19,
+      "sha256": "a0a1bd9df6eff7a43a4af88c28c7e46bc1598214904eeac1bbc4baf03ff9f598"
+    },
+    {
+      "path": "src/simulation/processing_system.gd",
+      "bytes": 3752,
+      "sha256": "921551b2c68af56ff9b8c980f389c220f6e34da2bb8620e3a899996f73f59566"
+    },
+    {
+      "path": "src/simulation/processing_system.gd.uid",
+      "bytes": 20,
+      "sha256": "71fee11e25988ee0d66ef06319facac6386cbb294b2f85138d8918bc03a41254"
+    },
+    {
+      "path": "src/simulation/processing_inventory.gd",
+      "bytes": 1590,
+      "sha256": "42fc11d29799dd65298388c893d1ea7748fa0fc9b709b7497cf893f76f8e1f1a"
+    },
+    {
+      "path": "src/simulation/processing_inventory.gd.uid",
+      "bytes": 19,
+      "sha256": "04f99c11a2f3dd6ceb4ae20cec2ed674675f7187156fa1085e0f9ca66c54d9ae"
+    },
+    {
+      "path": "src/simulation/alchemy_system.gd",
+      "bytes": 13241,
+      "sha256": "51bffa1d32efa06662aa05dade1bfcd5b4a909e1a8f0a158f6b28ee9d3cd572b"
+    },
+    {
+      "path": "src/simulation/alchemy_system.gd.uid",
+      "bytes": 19,
+      "sha256": "abe501eee61a62d0c471e45d6a9af2d8cc5941d387c91c5721adc82a1906b214"
+    },
+    {
+      "path": "src/simulation/fortune_system.gd",
+      "bytes": 12278,
+      "sha256": "5be715ae9fbe84266c94c778d995094e9c713add35bedbd0d719640bf5145d24"
+    },
+    {
+      "path": "src/simulation/fortune_system.gd.uid",
+      "bytes": 20,
+      "sha256": "5b7f87d06f4bf2d5b7bdeca15bb2beee731c9c90b9b68c138951ef7f3e32f08f"
+    },
+    {
+      "path": "src/simulation/realm_decision_system.gd",
+      "bytes": 9196,
+      "sha256": "376d38b4d25cec801fcbb54e0e09e649ff990ed75772ba09facebddccddb4287"
+    },
+    {
+      "path": "src/simulation/realm_decision_system.gd.uid",
+      "bytes": 20,
+      "sha256": "340808cfa5584688992bb6e2c3f5b4dcaa7f1164e7316b46111260786b5bd297"
+    },
+    {
+      "path": "src/simulation/realm_system.gd",
+      "bytes": 11286,
+      "sha256": "8680b17c9bde83d86f0bf7ab601270655e6fa2050f8c808ba8136f39214f6c68"
+    },
+    {
+      "path": "src/simulation/realm_system.gd.uid",
+      "bytes": 20,
+      "sha256": "afc9a81ab86808648df10847a9d79bfa432e813a5446e430a6194c614f6016cd"
+    },
+    {
+      "path": "src/simulation/sect_system.gd",
+      "bytes": 20021,
+      "sha256": "07bfbaf677f1aa2a3f0ef5463bc9cf0d26a473db829eb5b852a3a26725168074"
+    },
+    {
+      "path": "src/simulation/sect_system.gd.uid",
+      "bytes": 20,
+      "sha256": "3c591d853feb0d7532e79554da7ccc736080a239948abe2cae30f0c43ba76f00"
+    },
+    {
+      "path": "src/simulation/skill_system.gd",
+      "bytes": 9861,
+      "sha256": "2fbb2d661b97b74d322b0b113c268f7245ceaa32cc49de52203396f0aa58b943"
+    },
+    {
+      "path": "src/simulation/skill_system.gd.uid",
+      "bytes": 20,
+      "sha256": "ff6e2d94248dcbfb01f6f61ba06ed05f4f009a3e338b8ed474ce2a085ac753a9"
+    },
+    {
+      "path": "src/simulation/beast_system.gd",
+      "bytes": 17347,
+      "sha256": "86483d2870430a7a73e2956d5a663641db0b0885cc89f7968bdf85c0461ff35a"
+    },
+    {
+      "path": "src/simulation/beast_system.gd.uid",
+      "bytes": 20,
+      "sha256": "462f1259f4fc24f30cc0a754246ef54b7d042d1ed3a2d3893e01b72351dd1654"
+    },
+    {
+      "path": "src/simulation/achievement_system.gd",
+      "bytes": 12173,
+      "sha256": "4f61622915183f0bc316c2fd430a19563fd1d398d7a562f4ffecae3b2b714942"
+    },
+    {
+      "path": "src/simulation/achievement_system.gd.uid",
+      "bytes": 20,
+      "sha256": "d34de68faa737efa54be30a46a7eed90224b652d2ba9dfdb16b554e4b4d17570"
+    },
+    {
+      "path": "src/simulation/abode_scenery.gd",
+      "bytes": 6310,
+      "sha256": "1570740f14921249a0f87e782e0e75a0a90e810a5ff9489534b39c523af2e82a"
+    },
+    {
+      "path": "src/simulation/abode_scenery.gd.uid",
+      "bytes": 20,
+      "sha256": "8dfcf6c21204d380bfbce045a9fd41816a006626f564bd561d3a953f898d43d1"
+    }
+  ]
+}

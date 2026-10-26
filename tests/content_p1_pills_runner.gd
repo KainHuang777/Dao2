@@ -31,7 +31,7 @@ func _init() -> void: run.call_deferred()
 func run() -> void:
 	var c: GameContent = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach(c).ok,"content attached")
-	check(AlchemySystem.PILLS.size() == 12,"12 pills")
+	check(AlchemySystem.PILLS.size() == 20 and AlchemySystem.P1_IDS.size() == 4,"20 definitions retain four P1 pills")
 	var targets := ["wood","spirit_grass_low","money","lingli"]
 	for i in range(4):
 		var id: String = AlchemySystem.P1_IDS[i]
@@ -176,7 +176,7 @@ func run() -> void:
 		all.state.pills[id] = 1
 		check(send(all,"consume_pill",{"pill_id":id}).ok,"coexist "+id)
 	check(all.state.buffs.size() == 4,"four coexist")
-	check(not AlchemySystem.validate(2,{},{}).is_empty(),"future version rejected")
+	check(not AlchemySystem.validate(AlchemySystem.VERSION+1,{},{}).is_empty(),"future version rejected")
 	var dead := all.state.duplicate_state()
 	dead.total_elapsed_seconds = 999999
 	var dead_before := dead.to_snapshot_dict()
@@ -191,7 +191,7 @@ func run() -> void:
 	mem.data[SaveSlots.SLOT_MAIN] = original
 	SaveManager.configure(c,mem)
 	var migrated := SaveManager.current_state()
-	check(migrated.pill_version == 1,"legacy migrates")
+	check(migrated.pill_version == AlchemySystem.VERSION,"legacy migrates")
 	var archive := "save_before_pills_"+original.sha256_text()
 	mem.fail = archive
 	check(not SaveManager.save(migrated,META).ok and mem.data[SaveSlots.SLOT_MAIN] == original,"archive failure intact")
@@ -209,7 +209,7 @@ func run() -> void:
 	var reloaded := SaveManager.current_state()
 	check(reloaded.pills.wood_nurture_pill == 1 and is_equal_approx(reloaded.resources.lingli.value.to_float(),99960),"no double pay on reload")
 	var shared := SaveManager.import_share_string(Marshalls.utf8_to_base64(original))
-	check(shared.ok and shared.state.pill_version == 1,"old share migrates version")
+	check(shared.ok and shared.state.pill_version == AlchemySystem.VERSION,"old share migrates version")
 	mem.data[SaveSlots.SLOT_BACKUP] = mem.data[SaveSlots.SLOT_MAIN]
 	mem.data[SaveSlots.SLOT_MAIN] = "broken"
 	SaveManager.configure(c,mem)
@@ -223,9 +223,17 @@ func run() -> void:
 	fixture.state.skills.alchemical_breath_control = 3
 	for resource in fixture.state.resources: fixture.state.resources[resource].value = AmountCompat.from_number(400)
 	var f := FileAccess.open("res://src/verification/content_p1_pills_fixture.json",FileAccess.WRITE)
-	f.store_string(SaveCodec.encode(fixture.state,c.content_version,META).json)
+	if f == null:
+		push_error("write failed: res://src/verification/content_p1_pills_fixture.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(SaveCodec.encode(fixture.state,c.content_version,META).json)
 	f = FileAccess.open(DIR+"runner.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
+	if f == null:
+		push_error("write failed: " + DIR + "runner.json")
+		RunnerResult.finish(self, 1)
+	else:
+		f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P1-PILL ",checks," checks failures=",JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 

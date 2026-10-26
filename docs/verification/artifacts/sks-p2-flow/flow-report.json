@@ -1,6 +1,6 @@
 {
 	"checks": 392,
-	"elapsed_ms": 137687,
+	"elapsed_ms": 140279,
 	"eras": {
 		"era3": {
 			"age": 4823.0,
@@ -614,15 +614,15 @@
 		"skill_id": "frontier_storekeeping",
 		"waited_seconds": 583.0
 	},
-	"runtime_seconds": 137.687,
+	"runtime_seconds": 140.279,
 	"sources": {
 		"era3": {
 			"path": "res://docs/verification/artifacts/content-p2-supply-3/earned-era3.json",
-			"sha256": "3c3ef46509b791efefbc11e45f3fba6e8f57364bdd784e8eef2c6c4a7a64a8f6"
+			"sha256": "7b25846a646308b66b42eb096497700c85ad07827a900f64142851c8fc9fc114"
 		},
 		"era4": {
 			"path": "res://docs/verification/artifacts/content-p2-supply-3/earned-era4.json",
-			"sha256": "5c7b38f649d5aaee6c1c1ac1d2b9ada5d79a1a0aed824816fe246440d11c2895"
+			"sha256": "26bad7cd6ccc77b6cebaa138012b75dd51999d77c5e37a5073f4b8358cf557e1"
 		},
 		"era5": {
 			"path": "res://docs/verification/artifacts/content-p2-supply-3/earned-era5.json",

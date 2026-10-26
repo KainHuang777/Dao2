@@ -1,0 +1,2 @@
+[MODE] matrix=single runners=1 parallel=1
+tests/offline_closed_form_parity_runner.gd

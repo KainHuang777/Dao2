@@ -124,7 +124,7 @@ func _run() -> void:
 
 func _run_frozen_table(content: GameContent) -> void:
 	var defs: Dictionary = TalentSystem.TALENTS
-	check(defs.size() == 6, "six talents defined after CONTENT-P1-TALENT; original three verified below")
+	check(defs.size() == 9, "nine talents defined after CONTENT-P2-TALENT; original three verified below")
 	check(TalentSystem.get_definition("unknown_talent") == null, "unknown talent has no definition")
 	check(String(TalentSystem.can_learn(GameState.new(), "unknown_talent")["reason"]) == "UNKNOWN_TALENT", "unknown talent refusal reason")
 	for talent_id in TALENT_IDS:
@@ -472,9 +472,9 @@ func _print_benefit_table() -> void:
 func _finish() -> void:
 	if failures.is_empty():
 		print("PASS: EARLY-V1-B %d checks" % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
 		print("FAIL: EARLY-V1-B %d checks with %d failures" % [checks, failures.size()])
-		quit(1)
+		RunnerResult.finish(self, 1)

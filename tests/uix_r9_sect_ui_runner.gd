@@ -2,7 +2,7 @@ extends SceneTree
 var checks := 0
 var failed := false
 class ToggleAdapter extends StorageAdapter:
-	var backend := FileStorageAdapter.new("user://uix-r9-fault")
+	var backend := FileStorageAdapter.new("user://uix-r9-fault" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r9-fault"))
 	var fail_writes := false
 	func read(key: String) -> Dictionary: return backend.read(key)
 	func write(key: String, value: String) -> Dictionary:
@@ -24,13 +24,15 @@ func buttons(node: Node, text: String = "") -> Array[Button]:
 	return result
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://uix-r9-runner"
+	script.save_dir_override = "user://uix-r9-runner" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r9-runner")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
-	await process_frame
+	while abode.session == null or abode.feature_navigation == null: await process_frame
 	abode.set_process(false)
 	abode.offline_summary.hide()
+	abode.v2_rules_notice.hide()
+	abode.feature_navigation.shell.apply(abode.hud.size)
 	var nav = abode.feature_navigation
 	nav.open("sect")
 	var panel: SectPanel = abode.sect_panel
@@ -111,6 +113,9 @@ func _run() -> void:
 			check(panel._scroll.get_global_rect().encloses(last.get_global_rect()),"last action reachable vp=%s tab=%s scroll=%s button=%s" % [vp,tab,panel._scroll.get_global_rect(),last.get_global_rect()])
 			check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1,"scroll rod safety")
 			panel._scroll.scroll_vertical = 0
+		if abode.offline_summary.visible: abode.offline_summary._on_close_pressed()
+		abode.v2_rules_notice.hide()
+		nav.shell.apply(abode.hud.size)
 		nav.home()
 		check(not panel.visible,"return home")
 		nav.open("sect")
@@ -138,4 +143,4 @@ func _run() -> void:
 	abode.queue_free()
 	await process_frame
 	print("UIX-R9 %d checks failed=%s" % [checks,failed])
-	quit(1 if failed else 0)
+	RunnerResult.finish(self, 1 if failed else 0)

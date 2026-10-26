@@ -149,8 +149,8 @@ func _run() -> void:
 	test_slots.reset()
 	LivingAbodeScript.save_dir_override = ""
 	print("PASS: M2-A abode blank opening, manual start, auto production, chained unlocks, save/reload, and determinism.")
-	quit(0)
+	RunnerResult.finish(self, 0)
 
 func _fail(message: String) -> void:
 	push_error("M2-A FAIL: " + message)
-	quit(1)
+	RunnerResult.finish(self, 1)

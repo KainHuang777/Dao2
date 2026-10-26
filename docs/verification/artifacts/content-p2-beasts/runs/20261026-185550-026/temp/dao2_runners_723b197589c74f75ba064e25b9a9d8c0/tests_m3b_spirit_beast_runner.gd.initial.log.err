@@ -1,0 +1,4 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+  FAIL: Must have 4 defined beasts
+[M3B_BEAST_RUNNER] SOME M3-B SPIRIT BEAST TESTS FAILED (exit 1)

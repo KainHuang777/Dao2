@@ -31,6 +31,11 @@ func _init() -> void:
 	_expect(_send(s,"claim_sect_expedition").ok,"official supply claim")
 	_expect(StoryProgress.facts(s.state,true).new_supply_claimed and s.state.achievements.unlocked.has("p1_supply_commission"),"claim commits supply fact")
 	_expect(not _send(s,"claim_sect_expedition").ok,"claim cannot repeat")
-	FileAccess.open("res://docs/verification/artifacts/content-p1-story/events.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"evidence":"actual recipe/arrival tick hooks and formal expedition commands; funded recipe fixtures, not natural player progression"},"\t"))
+	var write_file_events := FileAccess.open("res://docs/verification/artifacts/content-p1-story/events.json",FileAccess.WRITE)
+	if write_file_events == null:
+		push_error("write failed: " + str("res://docs/verification/artifacts/content-p1-story/events.json"))
+		RunnerResult.finish(self, 1)
+	else:
+		write_file_events.store_string(JSON.stringify({"checks":checks,"failures":failures,"evidence":"actual recipe/arrival tick hooks and formal expedition commands; funded recipe fixtures, not natural player progression"},"\t"))
 	print("CONTENT-P1-STORY EVENTS ",checks," checks failures=",JSON.stringify(failures))
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

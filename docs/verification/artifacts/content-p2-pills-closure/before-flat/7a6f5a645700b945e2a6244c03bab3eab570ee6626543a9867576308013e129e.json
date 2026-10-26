@@ -1,0 +1,172 @@
+{
+  "task": "CONTENT-P1-STORY",
+  "evidence_kind": "STATIC_PROPOSAL_AND_ARITHMETIC_ONLY",
+  "checks": 451,
+  "failures": [
+    "Review profile eligible counts"
+  ],
+  "protected_files": 1195,
+  "changed_protected_files": [],
+  "baseline_counts": {
+    "achievements": 18,
+    "encounters": 26
+  },
+  "proposed_counts": {
+    "achievements": 12,
+    "encounters": 12,
+    "options": 36
+  },
+  "achievement_rewards": {
+    "wood": 200,
+    "lingli": 340,
+    "stone_low": 180,
+    "spirit_grass_low": 90,
+    "sect_contribution": 65
+  },
+  "pool_assumptions": "realm_human; neutral weather/shichen; empty aspiration; fixed qualifications",
+  "pool_profiles": [
+    {
+      "scenario": "first_life_era1",
+      "era": 1,
+      "new_conditions": [],
+      "old_count": 6,
+      "old_effective_weight": 1135.0,
+      "new_count": 1,
+      "new_ids": [
+        "enc_p1_dry_spring"
+      ],
+      "new_weight": 60,
+      "new_share": 0.0502092050209205,
+      "single_new_share": 0.0502092050209205,
+      "conditional_expected_draws_per_new_id": 19.916666666666668
+    },
+    {
+      "scenario": "first_life_era2_industry_sect_pills",
+      "era": 2,
+      "new_conditions": [
+        "joined_sect",
+        "new_supply_claimed",
+        "positive_home_arrival",
+        "refined_any_p1",
+        "timber_completed",
+        "two_p1_consumed",
+        "wood_open"
+      ],
+      "old_count": 11,
+      "old_effective_weight": 1530.0,
+      "new_count": 6,
+      "new_ids": [
+        "enc_p1_dry_spring",
+        "enc_p1_seed_merchant",
+        "enc_p1_workshop_offcuts",
+        "enc_p1_returning_boat",
+        "enc_p1_sect_lamp",
+        "enc_p1_alchemist_measures"
+      ],
+      "new_weight": 360,
+      "new_share": 0.19047619047619047,
+      "single_new_share": 0.031746031746031744,
+      "conditional_expected_draws_per_new_id": 31.5
+    },
+    {
+      "scenario": "first_life_era3_mature_fox",
+      "era": 3,
+      "new_conditions": [
+        "active_fox",
+        "joined_sect",
+        "mature_active_fox",
+        "new_supply_claimed",
+        "positive_home_arrival",
+        "refined_any_p1",
+        "timber_completed",
+        "two_p1_consumed",
+        "wood_open"
+      ],
+      "old_count": 16,
+      "old_effective_weight": 1900.0,
+      "new_count": 10,
+      "new_ids": [
+        "enc_p1_dry_spring",
+        "enc_p1_seed_merchant",
+        "enc_p1_workshop_offcuts",
+        "enc_p1_returning_boat",
+        "enc_p1_sect_lamp",
+        "enc_p1_supply_margin",
+        "enc_p1_alchemist_measures",
+        "enc_p1_fourfold_note",
+        "enc_p1_fox_path",
+        "enc_p1_fox_nightwatch"
+      ],
+      "new_weight": 600,
+      "new_share": 0.24,
+      "single_new_share": 0.024,
+      "conditional_expected_draws_per_new_id": 41.666666666666664
+    },
+    {
+      "scenario": "second_life_era1",
+      "era": 1,
+      "new_conditions": [
+        "any_new_talent",
+        "second_life"
+      ],
+      "old_count": 6,
+      "old_effective_weight": 1135.0,
+      "new_count": 2,
+      "new_ids": [
+        "enc_p1_dry_spring",
+        "enc_p1_old_lamp"
+      ],
+      "new_weight": 120,
+      "new_share": 0.09561752988047809,
+      "single_new_share": 0.04780876494023904,
+      "conditional_expected_draws_per_new_id": 20.916666666666668
+    },
+    {
+      "scenario": "second_life_era3_all_conditions",
+      "era": 3,
+      "new_conditions": [
+        "active_fox",
+        "any_new_talent",
+        "joined_sect",
+        "mature_active_fox",
+        "new_supply_claimed",
+        "positive_home_arrival",
+        "refined_any_p1",
+        "second_life",
+        "timber_completed",
+        "two_p1_consumed",
+        "wood_open"
+      ],
+      "old_count": 16,
+      "old_effective_weight": 1900.0,
+      "new_count": 12,
+      "new_ids": [
+        "enc_p1_dry_spring",
+        "enc_p1_seed_merchant",
+        "enc_p1_workshop_offcuts",
+        "enc_p1_returning_boat",
+        "enc_p1_sect_lamp",
+        "enc_p1_supply_margin",
+        "enc_p1_alchemist_measures",
+        "enc_p1_fourfold_note",
+        "enc_p1_fox_path",
+        "enc_p1_fox_nightwatch",
+        "enc_p1_old_lamp",
+        "enc_p1_wisdom_exchange"
+      ],
+      "new_weight": 720,
+      "new_share": 0.2748091603053435,
+      "single_new_share": 0.022900763358778626,
+      "conditional_expected_draws_per_new_id": 43.666666666666664
+    }
+  ],
+  "proposal_sha256": "f3c2db2dbe25434c3f8f9b128251295a5f49b196acfea171970ac2da52372a04",
+  "not_executed": [
+    "Godot rule/native runners",
+    "browser",
+    "natural flow",
+    "save migration",
+    "image generation",
+    "export"
+  ]
+}

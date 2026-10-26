@@ -1,0 +1,1002 @@
+{
+  "date": "2026-10-22",
+  "kind": "HTML candidate only; no Godot or persistence acceptance",
+  "screens": [
+    {
+      "name": "cloud-1280x720",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        1280,
+        720
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "early-1280x720",
+      "brokenImages": [
+        "http://127.0.0.1:4396/assets/ui/reincarnation-painted/reincarnation_wheel.png"
+      ],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        1280,
+        720
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "living-1280x720",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        1280,
+        720
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "partial-1280x720",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        1280,
+        720
+      ],
+      "smallButtons": [],
+      "title": "此世行跡",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "fb-1280x720",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        1280,
+        720
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "long-error-1280x720",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        1280,
+        720
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "cloud-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "early-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "living-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "partial-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "此世行跡",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "fb-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "long-error-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "cloud-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "early-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "living-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "partial-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "此世行跡",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "fb-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "long-error-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "long-error-scrolled-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "fortune-pending-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "fortune-insufficient-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "fortune-receipt-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "confirmation-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "sources-844x390",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        844,
+        390
+      ],
+      "smallButtons": [],
+      "title": "雲外初行",
+      "viewport": [
+        844,
+        390
+      ]
+    },
+    {
+      "name": "after-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "劫後續途",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "core-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "丹成有記",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "routes-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "雲路相連",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "companion-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "同行一程",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "sect-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "山門留跡",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "garden-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "草木成居",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "hut-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "一屋初築",
+      "viewport": [
+        800,
+        360
+      ]
+    },
+    {
+      "name": "quiet-800x360",
+      "brokenImages": [],
+      "fonts": [
+        [
+          "Sans",
+          true
+        ],
+        [
+          "Serif",
+          true
+        ],
+        [
+          "Wen",
+          true
+        ]
+      ],
+      "horizontal": [],
+      "outside": [],
+      "page": [
+        800,
+        360
+      ],
+      "smallButtons": [],
+      "title": "靜修有痕",
+      "viewport": [
+        800,
+        360
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "name": "mouse wheel scroll stays inside reading area",
+      "passed": true
+    },
+    {
+      "name": "defer and reopen same design encounter",
+      "passed": true
+    },
+    {
+      "name": "reopen refreshes affordability",
+      "passed": true
+    },
+    {
+      "name": "settlement save error blocks reincarnation",
+      "passed": true
+    },
+    {
+      "name": "design retry keeps receipt and no second choice",
+      "passed": true
+    },
+    {
+      "name": "resize retains open receipt",
+      "passed": true
+    },
+    {
+      "name": "inline confirmation cancels",
+      "passed": true
+    }
+  ],
+  "failures": [
+    "early-1280x720"
+  ],
+  "console": []
+}

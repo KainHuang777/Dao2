@@ -65,7 +65,7 @@ static func observed_caps(state: GameState, content: GameContent) -> Dictionary:
 		if not state.economy.is_empty() and content.processing_catalog.get("resources", {}).has(id):
 			var processing_cap := AmountCompat.from_number(float(content.processing_catalog.resources[id].cap))
 			if cap.compare_to(processing_cap) > 0: cap = processing_cap
-		caps[id] = cap
+		caps[id] = Production.add_pill_capacity(state, id, cap)
 	return caps
 
 static func trim(life: Dictionary, budget: int) -> void:

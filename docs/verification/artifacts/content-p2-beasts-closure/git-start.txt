@@ -1,0 +1,393 @@
+ M README.md
+ M ROADMAP.md
+ M assets/fonts/runtime/Dao2Sans-VF.ttf
+ M assets/fonts/runtime/Dao2Serif-VF.ttf
+ M assets/fonts/runtime/manifest.json
+ M docs/25-system-content-expansion-plan.md
+ M docs/ai-handoff.md
+ M docs/development-status.md
+ M docs/verification/artifacts/content-p1-accept/integration.json
+ M docs/verification/artifacts/content-p1-pills/native-ui.json
+ M docs/verification/artifacts/content-p1-sect/native-ui.json
+ M docs/verification/artifacts/content-p1-skills/native-ui.json
+ M docs/verification/artifacts/content-p1-skills/progression.json
+ M docs/verification/artifacts/content-p1-story/progression.json
+ M docs/verification/artifacts/content-p1-talents/native-ui.json
+ M docs/verification/artifacts/content-p2-supply-3/earned-era3.json
+ M docs/verification/artifacts/content-p2-supply-3/earned-era4.json
+ M docs/verification/artifacts/content-p2-supply-3/earned-era5.json
+ M docs/verification/artifacts/content-p2-supply-3/earned-era6.json
+ M docs/verification/artifacts/content-p2-supply-3/earned-flow.json
+ M docs/verification/artifacts/content-p2-supply-3/last-earned-level.json
+ M docs/verification/artifacts/content-p2-supply-3/res1_ui1a_runner/save_main.json
+ M docs/verification/artifacts/content-p2-supply-3/res1_ui1b_runner/save_main.json
+ M docs/verification/artifacts/early-flow1c-unopened.json
+ M docs/verification/artifacts/early-flow1d-foundation.json
+ M docs/verification/artifacts/early-flow1d-golden.json
+ M docs/verification/artifacts/early-flow1d-ready.json
+ M docs/verification/artifacts/early-v1-c/runner-measurement.json
+ M docs/verification/artifacts/mfg-3/fixture.json
+ M docs/verification/artifacts/res1-c-earned-era2.json
+ M docs/verification/artifacts/res1-c2-offline-fixture.json
+ M docs/verification/artifacts/res1-d2-active-fixture.json
+ M docs/verification/artifacts/res1-d2-earned-era3.json
+ M docs/verification/artifacts/skills-b1-fixture.json
+ M docs/verification/artifacts/sks-p2-flow/flow-report.json
+ M docs/verification/artifacts/ui-art-edge/runner.json
+ M export_presets.cfg
+ M project.godot
+ M src/abode/living_abode.gd
+ M src/application/game_session.gd
+ M src/application/offline_coordinator.gd
+ M src/domain/game_state.gd
+ M src/domain/life_history.gd
+ M src/persistence/save_codec.gd
+ M src/persistence/save_manager.gd
+ M src/persistence/sect_save_contract.gd
+ M src/presentation/alchemy_panel.gd
+ M src/presentation/reincarnation_panel.gd
+ M src/presentation/resource_icon.gd
+ M src/presentation/sect_panel.gd
+ M src/presentation/system_actions_panel.gd
+ M src/simulation/alchemy_system.gd
+ M src/simulation/beast_system.gd
+ M src/simulation/buff_system.gd
+ M src/simulation/command_processor.gd
+ M src/simulation/island_economy.gd
+ M src/simulation/island_progression.gd
+ M src/simulation/offline_closed_form.gd
+ M src/simulation/production.gd
+ M src/simulation/reincarnation_rules.gd
+ M src/simulation/sect_system.gd
+ M src/simulation/story_progress.gd
+ M src/simulation/talent_system.gd
+ M src/simulation/time_advancer.gd
+ M src/simulation/tribulation_rules.gd
+ M src/verification/content_p1_accept_alchemical_past_wisdom.json
+ M src/verification/content_p1_accept_artisan_past_wisdom.json
+ M src/verification/content_p1_accept_beast_bond_past_wisdom.json
+ M src/verification/content_p1_accept_innate_dao_body.json
+ M src/verification/content_p1_accept_integrated.json
+ M src/verification/content_p1_accept_lifespan_extension.json
+ M src/verification/content_p1_accept_reborn.json
+ M src/verification/content_p1_accept_resource_inheritance.json
+ M src/verification/content_p1_accept_retain.json
+ M src/verification/content_p1_accept_second_base.json
+ M src/verification/content_p1_pills_fixture.json
+ M src/verification/content_p1_sect_acceptance.gd
+ M src/verification/content_p1_sect_earned_fixture.json
+ M src/verification/content_p1_sect_fixture.json
+ M src/verification/content_p1_skills_fixture.json
+ M src/verification/content_p1_story_earned_fixture.json
+ M src/verification/content_p1_story_fixture.json
+ M src/verification/content_p1_talents_fixture.json
+ M src/verification/life_echo_fixture.gd
+ M tests/abode_presentation_parity_runner.gd
+ M tests/abode_scenery_runner.gd
+ M tests/abode_scenery_ui_runner.gd
+ M tests/abode_state_runner.gd
+ M tests/batch_a_pills_runner.gd
+ M tests/bgm_era_playlist_runner.gd
+ M tests/buff_system_runner.gd
+ M tests/content_p1_accept_runner.gd
+ M tests/content_p1_pills_runner.gd
+ M tests/content_p1_pills_ui_runner.gd
+ M tests/content_p1_sect_progression_runner.gd
+ M tests/content_p1_sect_runner.gd
+ M tests/content_p1_sect_ui_runner.gd
+ M tests/content_p1_skills_progression_runner.gd
+ M tests/content_p1_skills_runner.gd
+ M tests/content_p1_skills_ui_runner.gd
+ M tests/content_p1_story_events_runner.gd
+ M tests/content_p1_story_progression_runner.gd
+ M tests/content_p1_story_runner.gd
+ M tests/content_p1_story_ui_runner.gd
+ M tests/content_p1_talents_runner.gd
+ M tests/content_p1_talents_ui_runner.gd
+ M tests/content_p2_supply_data_runner.gd
+ M tests/content_p2_supply_economy_runner.gd
+ M tests/content_p2_supply_progression_runner.gd
+ M tests/content_p2_supply_ui_runner.gd
+ M tests/core_positive_flow_runner.gd
+ M tests/debug_actions_runner.gd
+ M tests/debug_autobuild_and_time_runner.gd
+ M tests/debug_features_runner.gd
+ M tests/decision_receipt_runner.gd
+ M tests/decision_ui_runner.gd
+ M tests/early_flow1b_runner.gd
+ M tests/early_flow1c_runner.gd
+ M tests/early_flow1d_runner.gd
+ M tests/early_pacing2_pill_runner.gd
+ M tests/early_pacing2_runner.gd
+ M tests/early_pacing_runner.gd
+ M tests/early_v1b_talents_runner.gd
+ M tests/early_v1c_skills_runner.gd
+ M tests/feature_navigation_runner.gd
+ M tests/gather_guidance_highlight_runner.gd
+ M tests/hud_readiness_life_runner.gd
+ M tests/island_breakthrough_runner.gd
+ M tests/life_echo_runner.gd
+ M tests/life_echo_ui_runner.gd
+ M tests/life_history_runner.gd
+ M tests/life_history_ui_runner.gd
+ M tests/life_ledger_runner.gd
+ M tests/life_report_runner.gd
+ M tests/life_report_ui_runner.gd
+ M tests/living_abode_runner.gd
+ M tests/m0c_amount_probe_runner.gd
+ M tests/m0c_compat_runner.gd
+ M tests/m0c_compat_v2_runner.gd
+ M tests/m0c_compat_v3_runner.gd
+ M tests/m1a_core_runner.gd
+ M tests/m1b_time_runner.gd
+ M tests/m1c_persistence_runner.gd
+ M tests/m1d_offline_runner.gd
+ M tests/m1e_import_runner.gd
+ M tests/m2a_abode_runner.gd
+ M tests/m2b_breakthrough_runner.gd
+ M tests/m2c_nine_realms_runner.gd
+ M tests/m2d_responsive_ui_runner.gd
+ M tests/m2d_slice_release_runner.gd
+ M tests/m3a_reincarnation_runner.gd
+ M tests/m3a_reincarnation_ui_runner.gd
+ M tests/m3b_achievement_runner.gd
+ M tests/m3b_alchemy_runner.gd
+ M tests/m3b_alchemy_ui_runner.gd
+ M tests/m3b_chrono_runner.gd
+ M tests/m3b_fortune_runner.gd
+ M tests/m3b_fortune_ui_runner.gd
+ M tests/m3b_sect_runner.gd
+ M tests/m3b_sect_ui_runner.gd
+ M tests/m3b_spirit_beast_runner.gd
+ M tests/m4a_realm_runner.gd
+ M tests/m4a_session_integration_runner.gd
+ M tests/m4b_scale_law_runner.gd
+ M tests/m5a_world_gen_runner.gd
+ M tests/m5b_realm_content_runner.gd
+ M tests/mfg3_inline_runner.gd
+ M tests/mfg_controller_runner.gd
+ M tests/offline_closed_form_parity_runner.gd
+ M tests/recipe_row_runner.gd
+ M tests/reincarnation_motion_runner.gd
+ M tests/res1_ui1a_runner.gd
+ M tests/res1_ui1b_runner.gd
+ M tests/res1a_processing_runner.gd
+ M tests/res1b_cross_process_runner.gd
+ M tests/res1b_economy_runner.gd
+ M tests/res1c2_offline_runner.gd
+ M tests/res1c2_perf_runner.gd
+ M tests/res1c2_world_runner.gd
+ M tests/res1c_progression_runner.gd
+ M tests/res1d1_contract_runner.gd
+ M tests/res1d2_integration_runner.gd
+ M tests/res1d2_world_runner.gd
+ M tests/resource_accounts_runner.gd
+ M tests/resource_accounts_ui_runner.gd
+ M tests/resource_feedback_runner.gd
+ M tests/runtime_inspector_runner.gd
+ M tests/simulation_sandbox_runner.gd
+ M tests/skills_b1_runner.gd
+ M tests/sks_p1_runner.gd
+ M tests/sks_p2_core_runner.gd
+ M tests/sks_p2_flow_runner.gd
+ M tests/text_transition_runner.gd
+ M tests/trib0_outcome_runner.gd
+ M tests/tribc_integration_runner.gd
+ M tests/ui_art_edge_runner.gd
+ M tests/ui_material_states_runner.gd
+ M tests/ui_shell_integration_runner.gd
+ M tests/ui_shell_matrix_runner.gd
+ M tests/ui_shell_policy_runner.gd
+ M tests/uix_r10_fortune_ui_runner.gd
+ M tests/uix_r11_decisions_ui_runner.gd
+ M tests/uix_r1_components_runner.gd
+ M tests/uix_r2_hud_runner.gd
+ M tests/uix_r4_building_cards_runner.gd
+ M tests/uix_r6_achievement_ui_runner.gd
+ M tests/uix_r7_reincarnation_ui_runner.gd
+ M tests/uix_r8_skills_ui_runner.gd
+ M tests/uix_r9_sect_ui_runner.gd
+ M tests/web_persistence_fault_runner.gd
+ M tools/run_all_runners.ps1
+ M tools/test_runner.gd
+ M tools/test_runner_orchestration.ps1
+ M updata.txt
+?? assets/ui/beasts-painted/
+?? assets/ui/pills-painted/ancient_herb_dew_pill.png
+?? assets/ui/pills-painted/ancient_herb_dew_pill.png.import
+?? assets/ui/pills-painted/calm_tribulation_pill.png
+?? assets/ui/pills-painted/calm_tribulation_pill.png.import
+?? assets/ui/pills-painted/nascent_breath_pill.png
+?? assets/ui/pills-painted/nascent_breath_pill.png.import
+?? assets/ui/pills-painted/pill2-manifest.json
+?? assets/ui/pills-painted/silver_ward_pill.png
+?? assets/ui/pills-painted/silver_ward_pill.png.import
+?? assets/ui/pills-painted/spirit_vessel_pill.png
+?? assets/ui/pills-painted/spirit_vessel_pill.png.import
+?? assets/ui/pills-painted/stone_vault_pill.png
+?? assets/ui/pills-painted/stone_vault_pill.png.import
+?? assets/ui/pills-painted/void_gathering_pill.png
+?? assets/ui/pills-painted/void_gathering_pill.png.import
+?? assets/ui/pills-painted/void_meditation_pill.png
+?? assets/ui/pills-painted/void_meditation_pill.png.import
+?? assets/ui/reincarnation-painted/elixir_conservation_memory.png
+?? assets/ui/reincarnation-painted/elixir_conservation_memory.png.import
+?? assets/ui/reincarnation-painted/frontier_prospector_memory.png
+?? assets/ui/reincarnation-painted/frontier_prospector_memory.png.import
+?? assets/ui/reincarnation-painted/sacred_beast_nurture_memory.png
+?? assets/ui/reincarnation-painted/sacred_beast_nurture_memory.png.import
+?? assets/ui/reincarnation-painted/talent2-manifest.json
+?? assets/ui/sects-painted/p2_pill_qi_conservation.png
+?? assets/ui/sects-painted/p2_pill_qi_conservation.png.import
+?? assets/ui/sects-painted/sacred_beast_feed_conservation.png
+?? assets/ui/sects-painted/sacred_beast_feed_conservation.png.import
+?? assets/ui/sects-painted/sect2-manifest.json
+?? docs/36-content-p2-talent-design.md
+?? docs/37-content-p2-pill-design.md
+?? docs/38-content-p2-sect-design.md
+?? docs/39-content-p2-beast-design.md
+?? docs/design-data/content-p2-beasts-proposal.json
+?? docs/design-data/content-p2-pills-proposal.json
+?? docs/design-data/content-p2-sect-proposal.json
+?? docs/design-data/content-p2-talents-proposal.json
+?? docs/verification/artifacts/content-p2-beasts-closure/
+?? docs/verification/artifacts/content-p2-beasts-design/
+?? docs/verification/artifacts/content-p2-beasts-ui/
+?? docs/verification/artifacts/content-p2-beasts/
+?? docs/verification/artifacts/content-p2-pill-design/
+?? docs/verification/artifacts/content-p2-pills-closure/
+?? docs/verification/artifacts/content-p2-pills-ui/
+?? docs/verification/artifacts/content-p2-pills/
+?? docs/verification/artifacts/content-p2-sect-closure/
+?? docs/verification/artifacts/content-p2-sect-design/
+?? docs/verification/artifacts/content-p2-sect-ui/
+?? docs/verification/artifacts/content-p2-sect/
+?? docs/verification/artifacts/content-p2-talent-design/
+?? docs/verification/artifacts/content-p2-talents-closure/
+?? docs/verification/artifacts/content-p2-talents-ui/
+?? docs/verification/artifacts/content-p2-talents/
+?? docs/verification/artifacts/sks-p2-closure/web-1280-era6.png.import
+?? docs/verification/artifacts/sks-p2-closure/web-1280-reload-cards.png.import
+?? docs/verification/artifacts/sks-p2-closure/web-800-era6.png.import
+?? docs/verification/artifacts/sks-p2-closure/web-800-reload-persisted.png.import
+?? docs/verification/artifacts/sks-p2-closure/web-800-save-refused.png.import
+?? docs/verification/artifacts/sks-p2-closure/web-800-study-recovered.png.import
+?? docs/verification/artifacts/sks-p2-closure/web-844-era6.png.import
+?? docs/verification/content-p2-beasts-core.md
+?? docs/verification/content-p2-beasts-design.md
+?? docs/verification/content-p2-beasts-ui.md
+?? docs/verification/content-p2-pill-design.md
+?? docs/verification/content-p2-pills-closure.md
+?? docs/verification/content-p2-pills-core.md
+?? docs/verification/content-p2-pills-ui.md
+?? docs/verification/content-p2-sect-closure.md
+?? docs/verification/content-p2-sect-core.md
+?? docs/verification/content-p2-sect-design.md
+?? docs/verification/content-p2-sect-ui.md
+?? docs/verification/content-p2-talent-design.md
+?? docs/verification/content-p2-talents-closure.md
+?? docs/verification/content-p2-talents-core.md
+?? docs/verification/content-p2-talents-ui.md
+?? src/persistence/beast_save_contract.gd
+?? src/persistence/beast_save_contract.gd.uid
+?? src/presentation/beast_care_view.gd
+?? src/presentation/beast_care_view.gd.uid
+?? src/verification/beast2-reborn-t1.json
+?? src/verification/beast2-review-era4.json
+?? src/verification/beast2-review-era5.json
+?? src/verification/beast2_acceptance.gd
+?? src/verification/beast2_acceptance.gd.uid
+?? src/verification/beast2_acceptance.tscn
+?? src/verification/pill2-era4.json
+?? src/verification/pill2-era5.json
+?? src/verification/pill2-era6.json
+?? src/verification/pill2_acceptance.gd
+?? src/verification/pill2_acceptance.gd.uid
+?? src/verification/pill2_acceptance.tscn
+?? src/verification/sect2-era4.json
+?? src/verification/sect2-era6.json
+?? src/verification/sect2_acceptance.gd
+?? src/verification/sect2_acceptance.gd.uid
+?? src/verification/sect2_acceptance.tscn
+?? src/verification/talent2-earned.json
+?? src/verification/talent2-old-earned.json
+?? src/verification/talent2-synthetic-budget.json
+?? src/verification/talent2-synthetic-max.json
+?? src/verification/talent2_acceptance.gd
+?? src/verification/talent2_acceptance.gd.uid
+?? src/verification/talent2_acceptance.tscn
+?? tests/content_p2_beasts_flow_runner.gd
+?? tests/content_p2_beasts_flow_runner.gd.uid
+?? tests/content_p2_beasts_runner.gd
+?? tests/content_p2_beasts_runner.gd.uid
+?? tests/content_p2_beasts_save_runner.gd
+?? tests/content_p2_beasts_save_runner.gd.uid
+?? tests/content_p2_beasts_ui_runner.gd
+?? tests/content_p2_beasts_ui_runner.gd.uid
+?? tests/content_p2_pills_flow_runner.gd
+?? tests/content_p2_pills_flow_runner.gd.uid
+?? tests/content_p2_pills_runner.gd
+?? tests/content_p2_pills_runner.gd.uid
+?? tests/content_p2_pills_save_runner.gd
+?? tests/content_p2_pills_save_runner.gd.uid
+?? tests/content_p2_pills_ui_runner.gd
+?? tests/content_p2_pills_ui_runner.gd.uid
+?? tests/content_p2_sect_flow_runner.gd
+?? tests/content_p2_sect_flow_runner.gd.uid
+?? tests/content_p2_sect_runner.gd
+?? tests/content_p2_sect_runner.gd.uid
+?? tests/content_p2_sect_save_runner.gd
+?? tests/content_p2_sect_save_runner.gd.uid
+?? tests/content_p2_sect_ui_runner.gd
+?? tests/content_p2_sect_ui_runner.gd.uid
+?? tests/content_p2_talents_flow_runner.gd
+?? tests/content_p2_talents_flow_runner.gd.uid
+?? tests/content_p2_talents_runner.gd
+?? tests/content_p2_talents_runner.gd.uid
+?? tests/content_p2_talents_ui_runner.gd
+?? tests/content_p2_talents_ui_runner.gd.uid
+?? tests/runner_result.gd
+?? tests/runner_result.gd.uid
+?? tools/audit_beast2_delivery.py
+?? tools/audit_sect1_delivery.py
+?? tools/audit_talent2_acceptance.py
+?? tools/beast1_delivery.py
+?? tools/beast2_acceptance_server.py
+?? tools/beast2_closure.py
+?? tools/beast2_evidence.py
+?? tools/content_p2_beast_design_audit.py
+?? tools/content_p2_pill_design_audit.py
+?? tools/content_p2_pills_audit.py
+?? tools/content_p2_sect_design_audit.py
+?? tools/content_p2_talent_design_audit.py
+?? tools/pill2_acceptance_server.py
+?? tools/pill2_closure.py
+?? tools/pill2_closure_fixture.gd
+?? tools/pill2_closure_fixture.gd.uid
+?? tools/pill2_closure_server.py
+?? tools/pill2_delivery_audit.py
+?? tools/prepare_beast2_art.py
+?? tools/prepare_pill2_art.py
+?? tools/prepare_pill2_review.py
+?? tools/prepare_talent2_art.py
+?? tools/run_beast1_checks.ps1
+?? tools/run_beast2_checks.ps1
+?? tools/run_beast2_closure.ps1
+?? tools/run_pill2_closure.ps1
+?? tools/run_sect1_checks.ps1
+?? tools/run_sect2_checks.ps1
+?? tools/run_sect2_closure.ps1
+?? tools/sect2_acceptance_server.py
+?? tools/sect2_closure.py
+?? tools/sect2_closure_fixture.gd
+?? tools/sect2_closure_fixture.gd.uid
+?? tools/sect2_closure_server.py
+?? tools/sect2_evidence.py
+?? tools/sect2_final_browser_audit.py
+?? tools/sect2_finalize.py
+?? tools/sect2_ui_evidence.py
+?? tools/talent2_acceptance_server.py
+?? tools/talent2_closure.py
+?? tools/talent2_closure_fixture.gd
+?? tools/talent2_closure_fixture.gd.uid
+?? tools/talent2_closure_server.py

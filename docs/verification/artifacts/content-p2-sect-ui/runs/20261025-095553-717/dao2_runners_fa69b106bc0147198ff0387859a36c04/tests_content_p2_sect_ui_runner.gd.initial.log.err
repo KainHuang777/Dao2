@@ -1,0 +1,6 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "content" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/content_p2_sect_ui_runner.gd:13)
+ERROR: Failed to load script "res://tests/content_p2_sect_ui_runner.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

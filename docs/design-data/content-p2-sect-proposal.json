@@ -1,0 +1,455 @@
+{
+  "task": "CONTENT-P2-SECT",
+  "version": "proposal-W-1",
+  "date": "2026-10-25",
+  "status": "DONE_BOUNDED_DESKTOP_L3",
+  "approval": {
+    "date": "2026-10-25",
+    "user_request": "SECT-1",
+    "scope": [
+      "W1",
+      "W2",
+      "W3",
+      "W-save"
+    ],
+    "basis": "Direct request for the named implementation stage; no separate 採 W quote asserted. Art generation/acceptance remains SECT-2."
+  },
+  "origin": "v2_original",
+  "runtime_baseline": {
+    "techniques": 6,
+    "task_templates": 20,
+    "market_items": 6
+  },
+  "target": {
+    "techniques": 8,
+    "task_templates": 30,
+    "market_items": 8
+  },
+  "common": {
+    "joined_required": true,
+    "supply_required": "res1-e-46-1",
+    "realm_gate": null,
+    "current_era_not_highest": true,
+    "no_new_beasts_resources_islands_recipes": true,
+    "inherit": [
+      "technique_levels",
+      "contribution",
+      "lifetime_market_counts"
+    ],
+    "reset_on_reincarnation": [
+      "membership",
+      "available_tasks",
+      "active_expedition",
+      "refresh_timer"
+    ],
+    "offline": "advance active expedition only; never auto dispatch, claim, buy or learn"
+  },
+  "techniques": [
+    {
+      "id": "p2_pill_qi_conservation",
+      "name": "玄煉節息訣",
+      "group": "W1",
+      "min_era": 4,
+      "max_level": 5,
+      "percent_per_level": 2,
+      "cost_scale": "1.5",
+      "base_costs": {
+        "contribution": 120,
+        "stone_low": 10
+      },
+      "rank_costs": {
+        "contribution": [
+          120,
+          180,
+          270,
+          405,
+          608
+        ],
+        "stone_low": [
+          10,
+          15,
+          23,
+          34,
+          51
+        ]
+      },
+      "pill_ids": [
+        "nascent_breath_pill",
+        "void_meditation_pill",
+        "ancient_herb_dew_pill",
+        "void_gathering_pill",
+        "spirit_vessel_pill",
+        "stone_vault_pill",
+        "calm_tribulation_pill",
+        "silver_ward_pill"
+      ],
+      "effect": "Only direct lingli refinement cost of these eight IDs times (100-2L)/100; Amount, then batch count; no other discounts added to these IDs.",
+      "excludes": "old 12 pills; all non-lingli ingredients; production recipes; nested materials; consume effects; tribulation probability"
+    },
+    {
+      "id": "sacred_beast_feed_conservation",
+      "name": "龜鳳育靈法",
+      "group": "W1",
+      "min_era": 4,
+      "max_level": 5,
+      "percent_per_level": 2,
+      "cost_scale": "1.5",
+      "base_costs": {
+        "contribution": 150,
+        "wood": 200
+      },
+      "rank_costs": {
+        "contribution": [
+          150,
+          225,
+          338,
+          507,
+          760
+        ],
+        "wood": [
+          200,
+          300,
+          450,
+          675,
+          1013
+        ]
+      },
+      "beast_ids": [
+        "iron_turtle",
+        "fire_phoenix"
+      ],
+      "beast_effect_min_eras": {
+        "iron_turtle": 4,
+        "fire_phoenix": 6
+      },
+      "effect": "Per feed component max(1,floor(base*soul_percent*(100-2L)/10000)), exactly once at end. Existing acquisition gates still required; no beast required to learn.",
+      "excludes": "jade_fox; cloud_serpent; acquisition; cooldown; XP; passive effects; automatic feeding"
+    }
+  ],
+  "task_templates": [
+    {
+      "template_id": "deep_stock_register",
+      "name": "核錄寒銀礦簿",
+      "desc": "核對寒銀採集帳冊，將宗門分配的少量精鐵交回祖島。",
+      "rarity": "common",
+      "min_era": 4,
+      "requires_open_islands": [
+        "deep"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "refined_iron": 2
+      }
+    },
+    {
+      "template_id": "ancient_dew_register",
+      "name": "登記古藥凝露",
+      "desc": "整理古藥採集紀錄，領回宗門備下的一份千年草。",
+      "rarity": "common",
+      "min_era": 5,
+      "requires_open_islands": [
+        "ancient"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "spirit_grass_1000y": 1
+      }
+    },
+    {
+      "template_id": "silver_convoy_accounts",
+      "name": "核對寒銀回運",
+      "desc": "核對寒銀航線收支，領回可供修行的秘銀與下品靈石。",
+      "rarity": "uncommon",
+      "min_era": 4,
+      "requires_open_islands": [
+        "deep"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "mithril": 3,
+        "stone_low": 10
+      }
+    },
+    {
+      "template_id": "ancient_herb_sorting",
+      "name": "分揀古藥餘材",
+      "desc": "協助宗門藥房分揀古藥，領回千年草與百年草。",
+      "rarity": "uncommon",
+      "min_era": 5,
+      "requires_open_islands": [
+        "ancient"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "spirit_grass_1000y": 2,
+        "spirit_grass_100y": 5
+      }
+    },
+    {
+      "template_id": "cold_iron_assay",
+      "name": "校驗寒鐵純度",
+      "desc": "替宗門記錄寒鐵與秘銀品質，領回可用礦材。",
+      "rarity": "rare",
+      "min_era": 4,
+      "requires_open_islands": [
+        "deep"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "cold_iron": 6,
+        "mithril": 3
+      }
+    },
+    {
+      "template_id": "ancient_pill_herb_catalog",
+      "name": "編錄千年丹材",
+      "desc": "依藥齡編錄古藥丹材，領回兩類草藥供自行煉製。",
+      "rarity": "rare",
+      "min_era": 5,
+      "requires_open_islands": [
+        "ancient"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "spirit_grass_1000y": 4,
+        "spirit_grass_100y": 10
+      }
+    },
+    {
+      "template_id": "void_supply_chart",
+      "name": "繪核太虛供給圖",
+      "desc": "協助宗門整理太虛物料圖，領回虛空精華與上品靈石。",
+      "rarity": "epic",
+      "min_era": 6,
+      "requires_open_islands": [
+        "void"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "void_essence": 8,
+        "stone_high": 1
+      }
+    },
+    {
+      "template_id": "tribulation_material_check",
+      "name": "查驗護劫備材",
+      "desc": "核查宗門護劫丹材，領回礦草自行使用，不代服丹或保證渡劫。",
+      "rarity": "epic",
+      "min_era": 5,
+      "requires_open_islands": [
+        "deep"
+      ],
+      "requires_active_beast": "",
+      "rewards": {
+        "cold_iron": 8,
+        "mithril": 5,
+        "spirit_grass_100y": 10
+      }
+    },
+    {
+      "template_id": "turtle_nursery_reserve",
+      "name": "整備玄龜育苑",
+      "desc": "協助宗門整備玄龜育苑，領回一份未折扣餵料；不自動餵養。",
+      "rarity": "legendary",
+      "min_era": 4,
+      "requires_open_islands": [
+        "deep"
+      ],
+      "requires_active_beast": "iron_turtle",
+      "rewards": {
+        "refined_iron": 30,
+        "stone_low": 100
+      }
+    },
+    {
+      "template_id": "phoenix_nursery_reserve",
+      "name": "整備火鳳育苑",
+      "desc": "協助宗門整備火鳳育苑，領回千年草與上品靈石；不發放靈獸。",
+      "rarity": "legendary",
+      "min_era": 6,
+      "requires_open_islands": [
+        "ancient"
+      ],
+      "requires_active_beast": "fire_phoenix",
+      "rewards": {
+        "spirit_grass_1000y": 10,
+        "stone_high": 2
+      }
+    }
+  ],
+  "task_policy": {
+    "group": "W2",
+    "rarity_weights": [
+      40,
+      30,
+      18,
+      10,
+      2
+    ],
+    "durations": [
+      60,
+      120,
+      300,
+      600,
+      900
+    ],
+    "contribution_ranges": [
+      [
+        15,
+        30
+      ],
+      [
+        30,
+        60
+      ],
+      [
+        60,
+        120
+      ],
+      [
+        120,
+        250
+      ],
+      [
+        300,
+        600
+      ]
+    ],
+    "money": "int(50*rarity.reward_mult*generation_era)",
+    "generation": "pick rarity then uniformly eligible templates; append after P1; never reroll rarity; snapshot ID, text, duration, generation era, complete rewards",
+    "reward_policy": "replace old non-money rewards and special_buff; home ResourceLedger once, same existing no-clamp claim policy; no remote mirror; legacy tasks do not gain new reward keys",
+    "claim": "frozen payload and instance only; do not recheck generation eligibility; same command receipt deduplication",
+    "rng": "current global randi source acknowledged; no new determinism or historical seed parity promise",
+    "legendary_probability_correction": {
+      "date": "2026-10-25",
+      "eligible_legacy": 3,
+      "eligible_P1_or_P2": 1,
+      "max_pool": 4,
+      "per_new_template_slot_percent": 0.5,
+      "basis": "P1 jade fox also requires the exclusive active beast; no rule/gate change; no beast leaves only the three legacy templates."
+    }
+  },
+  "market_items": [
+    {
+      "id": "refined_iron_reserve",
+      "name": "玄龜精鐵匣",
+      "group": "W3",
+      "min_era": 4,
+      "requires_open_island": "deep",
+      "cost": 90,
+      "grant_resource": "refined_iron",
+      "grant_amount": 5,
+      "limit": 10
+    },
+    {
+      "id": "ancient_herb_reserve",
+      "name": "千年藥材匣",
+      "group": "W3",
+      "min_era": 5,
+      "requires_open_island": "ancient",
+      "cost": 120,
+      "grant_resource": "spirit_grass_1000y",
+      "grant_amount": 2,
+      "limit": 10
+    }
+  ],
+  "market_policy": "home available stock; current stock plus reservations plus grant <= authoritative effective cap; all-or-nothing or no contribution/count debit; lifetime counts; no auto feed/refine; existing six items unchanged",
+  "save_plan": {
+    "group": "W-save",
+    "schema": 5,
+    "sect_version": 2,
+    "support_from": [
+      0,
+      1
+    ],
+    "rules_identity_proposed": "core-flow-22-content-p2-sect",
+    "content_tag": "+content-p2-sect",
+    "economy_version_unchanged": "res1-e-46-1",
+    "max_sect_utf8_bytes": 32768,
+    "new_technique_level_cap": 5,
+    "new_market_count_cap": 10,
+    "max_available_tasks": 3,
+    "max_active_tasks": 1,
+    "new_ids_min_version": 2,
+    "legacy_reward_allowlist_unchanged": true,
+    "migration": "load and import exact original raw archive/readback before candidate commit; add sect candidate to migration_pending; gate commands and time; retry only same candidate; preserve concurrent migration originals"
+  },
+  "art_plan": {
+    "group": "W-art",
+    "status": "GENERATED_INTEGRATED_ACCEPTED",
+    "new_images": 2,
+    "reuse": "No dedicated refined_iron/spirit_grass_1000y texture exists in actual registry; named resource seals follow shared fallback rule. Existing task subject/rarity art reused.",
+    "generator": "built-in ImageGen after rule approval; save raw, runtime, prompt, source hashes, use and license/provenance note; separate human art acceptance",
+    "prompts": [
+      {
+        "id": "p2_pill_qi_conservation",
+        "prompt": "Single isolated xianxia technique illustration, a pale jade furnace with a tightly circulating silver cyan breath ribbon around its lid and a small sealed scroll beside it. Chinese hand-painted mineral pigments and ink edges, readable dark contour on pale paper, very restrained contact shadow, transparent background, no floor or paper rectangle, no text, no glyphs, no UI, no logos. Centered silhouette, generous margin, match Dao2 accepted sect technique cards, no existing art copied."
+      },
+      {
+        "id": "sacred_beast_feed_conservation",
+        "prompt": "Single isolated xianxia husbandry technique illustration, a small dark jade tortoise shell and a red gold phoenix feather framing a modest feeding bowl with ore and herbs. Chinese hand-painted mineral pigments and ink edges, readable dark contour on pale paper, restrained contact shadow, transparent background, no floor or paper rectangle, no text, no glyphs, no UI, no logos. Centered silhouette, generous margin, match Dao2 accepted sect technique cards, no existing art copied."
+      }
+    ]
+  },
+  "delivery": {
+    "design": "DONE",
+    "implementation": "DONE",
+    "overall": "DONE",
+    "attached_new": 14,
+    "new_gameplay_verified": 5,
+    "synthetic_core_checks": 4189,
+    "synthetic_save_checks": 957,
+    "earned_action_ids": [
+      "p2_pill_qi_conservation",
+      "sacred_beast_feed_conservation",
+      "refined_iron_reserve",
+      "ancient_herb_reserve"
+    ],
+    "natural_template_ids": [
+      "deep_stock_register"
+    ],
+    "ui_checks": 64,
+    "earned_flow_checks": 44,
+    "browser": "PASS_BOUNDED_DESKTOP_1280X720",
+    "art": "ACCEPTED",
+    "browser_observation_checks": 18,
+    "verification": "docs/verification/content-p2-sect-closure.md"
+  },
+  "acceptance_record": {
+    "date": "2026-10-25",
+    "quote": "接受現版兩圖、卡片與目前節奏",
+    "art": "ACCEPTED",
+    "cards": "ACCEPTED",
+    "pacing": "ACCEPTED"
+  },
+  "closure_progress": {
+    "date": "2026-10-25",
+    "status": "IN_PROGRESS",
+    "original_full_exit": 1,
+    "main_final_pass": 127,
+    "registry": 129,
+    "pending": [
+      "isolated final five-runner supplement",
+      "final18px normal candidate desktop browser visual check",
+      "archive latest logs and restore mutable baseline",
+      "delivery audit and closure metadata"
+    ],
+    "ui_title_final": "3 runners full matrix exit0",
+    "browser_block": "IAB screenshot API unavailable; Windows Computer Use stopped by URL policy confidence check"
+  },
+  "closure": {
+    "date": "2026-10-26",
+    "unique_runners": 129,
+    "original_full_exit": 1,
+    "final_supplement_exit": 1,
+    "supply_complete_exit": 0,
+    "supply_recovered_exit": 0,
+    "art": "ACCEPTED",
+    "cards": "ACCEPTED",
+    "pacing": "ACCEPTED",
+    "scope": "L3 bounded desktop Web",
+    "final_browser": "browser-final-18px.json",
+    "raw_log_history": "Original sandbox completion logs lost; fresh single-run raw logs archived without replacing historical summaries",
+    "long_idle_webgl": "Prior unresolved observation retained; no stability/FPS pass"
+  }
+}

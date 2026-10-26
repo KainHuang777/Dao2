@@ -1,0 +1,296 @@
+{
+  "tier": "L1 static design checks",
+  "checks": [
+    {
+      "name": "proposal is unapproved",
+      "ok": true
+    },
+    {
+      "name": "new resource ids unique",
+      "ok": true
+    },
+    {
+      "name": "source/sink:refined_iron",
+      "ok": true
+    },
+    {
+      "name": "capacity:refined_iron",
+      "ok": true
+    },
+    {
+      "name": "source/sink:mithril",
+      "ok": true
+    },
+    {
+      "name": "capacity:mithril",
+      "ok": true
+    },
+    {
+      "name": "source/sink:cold_iron",
+      "ok": true
+    },
+    {
+      "name": "capacity:cold_iron",
+      "ok": true
+    },
+    {
+      "name": "source/sink:spirit_grass_1000y",
+      "ok": true
+    },
+    {
+      "name": "capacity:spirit_grass_1000y",
+      "ok": true
+    },
+    {
+      "name": "source/sink:stone_high",
+      "ok": true
+    },
+    {
+      "name": "capacity:stone_high",
+      "ok": true
+    },
+    {
+      "name": "source/sink:trans_pill",
+      "ok": true
+    },
+    {
+      "name": "capacity:trans_pill",
+      "ok": true
+    },
+    {
+      "name": "source/sink:void_essence",
+      "ok": true
+    },
+    {
+      "name": "capacity:void_essence",
+      "ok": true
+    },
+    {
+      "name": "recipe references:stone_mid_bulk",
+      "ok": true
+    },
+    {
+      "name": "recipe positive:stone_mid_bulk",
+      "ok": true
+    },
+    {
+      "name": "recipe references:stone_high",
+      "ok": true
+    },
+    {
+      "name": "recipe positive:stone_high",
+      "ok": true
+    },
+    {
+      "name": "recipe references:trans_pill",
+      "ok": true
+    },
+    {
+      "name": "recipe positive:trans_pill",
+      "ok": true
+    },
+    {
+      "name": "legacy recipe ratio:stone_mid_bulk",
+      "ok": true
+    },
+    {
+      "name": "legacy recipe ratio:stone_high",
+      "ok": true
+    },
+    {
+      "name": "legacy recipe ratio:trans_pill",
+      "ok": true
+    },
+    {
+      "name": "new routes count",
+      "ok": true
+    },
+    {
+      "name": "exact bounded scope",
+      "ok": true
+    },
+    {
+      "name": "new resource ids not existing",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:core_storehouse_3",
+      "ok": true
+    },
+    {
+      "name": "facility material:core_storehouse_3",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:core_storehouse_4",
+      "ok": true
+    },
+    {
+      "name": "facility material:core_storehouse_4",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:core_storehouse_5",
+      "ok": true
+    },
+    {
+      "name": "facility material:core_storehouse_5",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:cultivation_focus_4",
+      "ok": true
+    },
+    {
+      "name": "facility material:cultivation_focus_4",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:cultivation_focus_5",
+      "ok": true
+    },
+    {
+      "name": "facility material:cultivation_focus_5",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:cultivation_focus_6",
+      "ok": true
+    },
+    {
+      "name": "facility material:cultivation_focus_6",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:mineral_focus",
+      "ok": true
+    },
+    {
+      "name": "facility material:mineral_focus",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:ancient_focus",
+      "ok": true
+    },
+    {
+      "name": "facility material:ancient_focus",
+      "ok": true
+    },
+    {
+      "name": "facility dependency:void_focus",
+      "ok": true
+    },
+    {
+      "name": "facility material:void_focus",
+      "ok": true
+    },
+    {
+      "name": "prior-era exit capacity:3",
+      "ok": true
+    },
+    {
+      "name": "prior-era exit capacity:4",
+      "ok": true
+    },
+    {
+      "name": "prior-era exit capacity:5",
+      "ok": true
+    },
+    {
+      "name": "skill 21250 affordability capacity",
+      "ok": true
+    },
+    {
+      "name": "Era6 remains bounded",
+      "ok": true
+    },
+    {
+      "name": "opening acyclic:4",
+      "ok": true
+    },
+    {
+      "name": "opening acyclic:5",
+      "ok": true
+    },
+    {
+      "name": "opening acyclic:6",
+      "ok": true
+    },
+    {
+      "name": "era baseline numbers:4",
+      "ok": true
+    },
+    {
+      "name": "era costs known:4",
+      "ok": true
+    },
+    {
+      "name": "lv9 known:4",
+      "ok": true
+    },
+    {
+      "name": "era baseline numbers:5",
+      "ok": true
+    },
+    {
+      "name": "era costs known:5",
+      "ok": true
+    },
+    {
+      "name": "lv9 known:5",
+      "ok": true
+    },
+    {
+      "name": "era baseline numbers:6",
+      "ok": true
+    },
+    {
+      "name": "era costs known:6",
+      "ok": true
+    },
+    {
+      "name": "lv9 known:6",
+      "ok": true
+    },
+    {
+      "name": "runtime assets tests and frozen Web unchanged",
+      "ok": true
+    },
+    {
+      "name": "UTF8:docs/34-res1-e-46-design.md",
+      "ok": true
+    },
+    {
+      "name": "UTF8:docs/design-data/res1-e-46-proposal.json",
+      "ok": true
+    },
+    {
+      "name": "UTF8:tools/res1_e46_audit.py",
+      "ok": true
+    },
+    {
+      "name": "design link:25-system-content-expansion-plan.md",
+      "ok": true
+    },
+    {
+      "name": "design link:design-data/res1-e-46-proposal.json",
+      "ok": true
+    },
+    {
+      "name": "design link:verification/artifacts/res1-e-46/source-inventory.json",
+      "ok": true
+    },
+    {
+      "name": "design link:verification/artifacts/res1-e-46/synthetic-metrics.json",
+      "ok": true
+    },
+    {
+      "name": "design link:verification/res1-e-46.md",
+      "ok": true
+    }
+  ],
+  "failures": [],
+  "preserved_files": 1261,
+  "drift": []
+}

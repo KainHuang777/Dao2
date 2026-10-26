@@ -1,0 +1,85 @@
+[MODE] matrix=full runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Temp\dao2_runners_90520a377c3c48349475f42c674f9bcc
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[FAIL:initial] tests/content_p2_pills_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "four_materials" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://src/presentation/alchemy_panel.gd:189)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://tests/content_p2_pills_ui_runner.gd:0)
+ERROR: Failed to load script "res://tests/content_p2_pills_ui_runner.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: create_panels (res://src/presentation/abode_modal_manager.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] create_panels (res://src/presentation/abode_modal_manager.gd:69)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:571)
+       [2] _build_hud (res://src/abode/living_abode.gd:714)
+       [3] _ready (res://src/abode/living_abode.gd:417)
+       [4] run (res://tests/content_p2_pills_ui_runner.gd:16)
+SCRIPT ERROR: Invalid access to property or key 'close_requested' on a base object of type 'Nil'.
+   at: build (res://src/presentation/feature_navigation.gd:105)
+   GDScript backtrace (most recent call first):
+       [0] build (res://src/presentation/feature_navigation.gd:105)
+       [1] _build_hud (res://src/presentation/abode_hud_controller.gd:573)
+       [2] _build_hud (res://src/abode/living_abode.gd:714)
+       [3] _ready (res://src/abode/living_abode.gd:417)
+       [4] run (res://tests/content_p2_pills_ui_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _ready (res://src/abode/living_abode.gd:423)
+       [8] run (res://tests/content_p2_pills_ui_runner.gd:16)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:837)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:742)
+       [6] _layout (res://src/abode/living_abode.gd:718)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1353)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _hide_pages (res://src/presentation/feature_navigation.gd:195)
+   GDScript backtrace (most recent call first):
+       [0] _hide_pages (res://src/presentation/feature_navigation.gd:195)
+       [1] open (res://src/presentation/feature_navigation.gd:153)
+       [2] run (res://tests/content_p2_pills_ui_runner.gd:36)
+       [3] frames (res://tests/content_p2_pills_ui_runner.gd:10)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: open (res://src/presentation/feature_navigation.gd:162)
+   GDScript backtrace (most recent call first):
+       [0] open (res://src/presentation/feature_navigation.gd:162)
+       [1] run (res://tests/content_p2_pills_ui_runner.gd:36)
+       [2] frames (res://tests/content_p2_pills_ui_runner.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function 'update_view' in base 'Nil'.
+   at: run (res://tests/content_p2_pills_ui_runner.gd:37)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_pills_ui_runner.gd:37)
+       [1] frames (res://tests/content_p2_pills_ui_runner.gd:10)
+
+--- slowest 8 runners (s) ---
+   184.9  tests/content_p2_pills_ui_runner.gd

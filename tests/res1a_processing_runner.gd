@@ -9,7 +9,7 @@ func _init() -> void:
 	_expect(loaded.ok, "catalog loads")
 	if not loaded.ok:
 		print(loaded.errors)
-		quit(1)
+		RunnerResult.finish(self, 1)
 		return
 	catalog = loaded.catalog
 	_test_sources()
@@ -20,11 +20,11 @@ func _init() -> void:
 	_test_session()
 	if failures.is_empty():
 		print("PASS: RES1-A %d checks; sources, closure, atomic Craft, canonical inventory, Amount, Session replay." % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _session() -> GameSession:
 	var content: GameContent = ContentLoader.load_directory("res://content").content

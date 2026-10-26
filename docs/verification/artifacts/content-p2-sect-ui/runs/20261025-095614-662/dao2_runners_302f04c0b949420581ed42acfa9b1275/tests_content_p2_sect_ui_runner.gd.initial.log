@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL P2 art loaded [2, 6]
+FAIL P2 art loaded [2, 7]
+FAIL actual turtle fees
+FAIL phoenix actual 10 to9
+SECT2 UI 64 failures=["P2 art loaded [2, 6]","P2 art loaded [2, 7]","actual turtle fees","phoenix actual 10 to9"]
+RUNNER_RESULT status=FAIL exit=1

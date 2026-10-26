@@ -1,0 +1,19 @@
+[MODE] matrix=single runners=5 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{c24b4663-f0db-42c0-a91d-db514c5a0dce}\AC\Temp\dao2_runners_7400c87f0182457eae3c32ec3afc2e9e
+[START:initial] tests/content_p2_talents_runner.gd
+[PASS:initial] tests/content_p2_talents_runner.gd (4.8s) result=pass
+[START:initial] tests/m1c_persistence_runner.gd
+[PASS:initial] tests/m1c_persistence_runner.gd (2.9s) result=pass
+[START:initial] tests/web_persistence_fault_runner.gd
+[PASS:initial] tests/web_persistence_fault_runner.gd (3.1s) result=pass
+[START:initial] tests/m3a_reincarnation_runner.gd
+[PASS:initial] tests/m3a_reincarnation_runner.gd (2.3s) result=pass
+[START:initial] tests/sks_p2_core_runner.gd
+[PASS:initial] tests/sks_p2_core_runner.gd (3.2s) result=pass
+--- slowest 8 runners (s) ---
+     4.8  tests/content_p2_talents_runner.gd
+     3.2  tests/sks_p2_core_runner.gd
+     3.1  tests/web_persistence_fault_runner.gd
+     2.9  tests/m1c_persistence_runner.gd
+     2.3  tests/m3a_reincarnation_runner.gd
+SELECTED 5 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{c24b4663-f0db-42c0-a91d-db514c5a0dce}\AC\Temp\dao2_runners_7400c87f0182457eae3c32ec3afc2e9e

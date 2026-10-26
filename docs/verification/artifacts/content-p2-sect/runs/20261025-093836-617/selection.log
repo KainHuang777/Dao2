@@ -1,0 +1,2 @@
+[MODE] matrix=single runners=1 parallel=1
+tests/content_p2_sect_runner.gd

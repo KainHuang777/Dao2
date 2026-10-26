@@ -1,0 +1,26 @@
+{
+  "kind": "design audit only",
+  "copy_sentences": 17,
+  "synthetic_combinations": 8192,
+  "winners": {
+    "cloud": 512,
+    "after": 1920,
+    "core": 2688,
+    "routes": 384,
+    "companion": 672,
+    "sect": 504,
+    "garden": 378,
+    "hut": 378,
+    "quiet": 378,
+    "fallback": 378
+  },
+  "note": "Combinations include impossible progressions; counts are not player probabilities.",
+  "synthetic_archive_bytes": 24076,
+  "proposed_limits": {
+    "archive_count": 10,
+    "archive_bytes": 32768,
+    "current_life_bytes": 65536,
+    "total_bytes": 393216
+  },
+  "failures": []
+}

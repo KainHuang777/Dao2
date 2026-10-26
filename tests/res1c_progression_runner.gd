@@ -81,8 +81,12 @@ func _run() -> void:
 	_expect(s.state.level == 10, "earned level10")
 	_expect(_send(s, "breakthrough_era").ok and s.state.era_id == 2, "blank reaches Era2")
 	var fixture_file := FileAccess.open("res://docs/verification/artifacts/res1-c-earned-era2.json", FileAccess.WRITE)
-	fixture_file.store_string(SaveCodec.encode(s.state, content.content_version, {"save_id": "local", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": str(int(s.state.total_elapsed_seconds))}).json)
-	fixture_file.close()
+	if fixture_file == null:
+		push_error("write failed: res://docs/verification/artifacts/res1-c-earned-era2.json")
+		RunnerResult.finish(self, 1)
+	else:
+		fixture_file.store_string(SaveCodec.encode(s.state, content.content_version, {"save_id": "local", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": str(int(s.state.total_elapsed_seconds))}).json)
+		fixture_file.close()
 	var before := _snapshot(s)
 	var preview := IslandProgression.preview(s.state, content)
 	_expect(preview.ok and before == _snapshot(s), "read-only migration preview")
@@ -198,11 +202,11 @@ func _run() -> void:
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
 		print("PASS: RES1-C1 %d checks; blank Era2, T2 sinks, bottleneck, migration retry, saves, time and UI." % checks)
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for failure in failures:
 			push_error(failure)
-		quit(1)
+		RunnerResult.finish(self, 1)
 
 func _test_ui(s: GameSession) -> void:
 	var panel := preload("res://src/presentation/island_management_panel.gd").new()

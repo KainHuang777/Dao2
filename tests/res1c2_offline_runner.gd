@@ -51,8 +51,12 @@ func _run() -> void:
 	fixture_meta.saved_at_utc_ms = str(fixture_now)
 	fixture_meta.settled_until_utc_ms = str(fixture_now)
 	var fixture := FileAccess.open("res://docs/verification/artifacts/res1-c2-offline-fixture.json", FileAccess.WRITE)
-	fixture.store_string(SaveCodec.encode(s.state, content.content_version, fixture_meta).json)
-	fixture.close()
+	if fixture == null:
+		push_error("write failed: res://docs/verification/artifacts/res1-c2-offline-fixture.json")
+		RunnerResult.finish(self, 1)
+	else:
+		fixture.store_string(SaveCodec.encode(s.state, content.content_version, fixture_meta).json)
+		fixture.close()
 	expect(SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-c2-offline-fixture.json")).ok, "actual serialized fixture checksum roundtrip")
 	for duration in [600000, 172800000, -1000, 850]:
 		var direct := s.state.duplicate_state()
@@ -87,8 +91,8 @@ func _run() -> void:
 	SaveManager.reset_for_tests()
 	if failures.is_empty():
 		print("PASS: RES1-C2 chunked settlement ", checks, " checks")
-		quit(0)
+		RunnerResult.finish(self, 0)
 	else:
 		for label in failures:
 			push_error(label)
-		quit(1)
+		RunnerResult.finish(self, 1)

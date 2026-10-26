@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-25",
+  "tool": "built-in image_gen.imagegen",
+  "transparent_background": true,
+  "purpose": "SECT-2 two technique cards",
+  "layers": "one RGBA illustration per ID; UI text separate; UiIllustration B",
+  "processing": "byte-identical copies; generated alpha 0..254 preserved",
+  "acceptance": "PENDING_USER_ART_ACCEPTANCE",
+  "rights": "AI-generated original candidates under applicable OpenAI terms; no third-party source material; no exclusive-rights claim",
+  "assets": [
+    {
+      "id": "p2_pill_qi_conservation",
+      "prompt": "Single isolated xianxia technique illustration, a pale jade furnace with a tightly circulating silver cyan breath ribbon around its lid and a small sealed scroll beside it. Chinese hand-painted mineral pigments and ink edges, readable dark contour on pale paper, very restrained contact shadow, transparent background, no floor or paper rectangle, no text, no glyphs, no UI, no logos. Centered silhouette, generous margin, match Dao2 accepted sect technique cards, no existing art copied.",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a170bf-9855-7791-b119-6ceaf05ff274\\exec-3e77df6e-89a0-45ff-bfa1-c316e545ace7.png",
+      "original": "docs/verification/artifacts/content-p2-sect-ui/p2_pill_qi_conservation-original.png",
+      "runtime": "assets/ui/sects-painted/p2_pill_qi_conservation.png",
+      "sha256": "40d30cff5c49ebe261075801ae50bb4cd9854ff893bd94026b95da73465ef191",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "sacred_beast_feed_conservation",
+      "prompt": "Single isolated xianxia husbandry technique illustration, a small dark jade tortoise shell and a red gold phoenix feather framing a modest feeding bowl with ore and herbs. Chinese hand-painted mineral pigments and ink edges, readable dark contour on pale paper, restrained contact shadow, transparent background, no floor or paper rectangle, no text, no glyphs, no UI, no logos. Centered silhouette, generous margin, match Dao2 accepted sect technique cards, no existing art copied.",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a170bf-9855-7791-b119-6ceaf05ff274\\exec-53486dd8-c7d9-46e8-860d-30402a9c3c36.png",
+      "original": "docs/verification/artifacts/content-p2-sect-ui/sacred_beast_feed_conservation-original.png",
+      "runtime": "assets/ui/sects-painted/sacred_beast_feed_conservation.png",
+      "sha256": "0819c72e90ba3b1e8dccff8a6c7d3bc774798bce8c3d19b247a8ee1df17338b9",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    }
+  ]
+}

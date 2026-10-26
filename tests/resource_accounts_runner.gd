@@ -82,7 +82,7 @@ func run() -> void:
 	persistence(mix)
 	limits(mix)
 	print("LEDGER-1 ", checks, " checks failures=", failures)
-	quit(0 if failures.is_empty() else 1)
+	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 func transport() -> void:
 	var state := GameSession.create_new_game(content, 7).state
 	state.economy = IslandEconomy.initial()
