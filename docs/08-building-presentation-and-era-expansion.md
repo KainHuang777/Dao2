@@ -80,3 +80,7 @@
 4. CLI 驗證清單與命令、存檔、Era 延續；AGY 真實瀏覽器驗證地形沒有漂浮註記、字級與點擊可用。Headless 命中區幾何不能取代視覺驗收。
 
 Godot 官方提供以 `Control`／容器／捲動容器製作 UI，以及以 `TileMapLayer` 建造大型圖塊地圖的能力；目前單島採手工分層場景即可，只有真的製作大面積城區時才需要評估圖塊地形。[Godot UI](https://docs.godotengine.org/en/stable/tutorials/ui/index.html) · [Godot TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html)
+
+2026-10-27 WORLD-46-B：三座Era4–6原料島的島體／採集地標已分層接入；地標只在當島已開拓時顯示並導向管理，沒有虛構工坊。runtime來源／提示詞／hash沿world46 manifest，最終人工美術仍PENDING，詳開發狀態。
+
+2026-10-27 WORLD-46：使用者「美術接受與唯一 L3」已接受三島六張分層美術與接入呈現；世界採既有分層／選單／共用殼規範。整批驗收結果以 [開發狀態](development-status.md) 最新 WORLD-46-L3 為準。

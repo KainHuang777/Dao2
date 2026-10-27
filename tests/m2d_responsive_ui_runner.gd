@@ -1,7 +1,7 @@
 extends SceneTree
 
 const SCENE_PATH := "res://scenes/living_abode.tscn"
-const TEST_SAVE_DIR := "user://m2d_responsive_ui_test_saves"
+var TEST_SAVE_DIR := "user://m2d_responsive_ui_test_saves" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("m2d_responsive_ui_test_saves")
 var _failed: bool = false
 
 func _init() -> void:

@@ -1,16 +1,16 @@
 {
   "task": "WORLD-46-A",
   "date": "2026-10-27",
-  "acceptance": "PENDING",
-  "runtime_integrated": false,
+  "acceptance": "ACCEPTED",
+  "runtime_integrated": true,
   "source": "OpenAI built-in image_gen, six generations plus one Ancient Herb landmark edit",
   "license_note": "AI-generated project candidates; no third-party artwork copied and no third-party commercial license asserted. Existing Dao2 art used only as visual reference.",
   "pipeline": {
     "map_mode": "scene_mode",
     "visual_model": "layered_raster",
     "runtime_object_model": "separate_props + interactive_scene_objects",
-    "collision_model": "trigger_zones (planned); no walkable actor collision",
-    "engine_target": "Godot project-native (planned)"
+    "collision_model": "Alpha landmark picking and island management trigger area; no actor collision",
+    "engine_target": "Godot Node2D with separate body and landmark Sprite2D"
   },
   "assets": [
     {
@@ -30,7 +30,9 @@
         1088
       ],
       "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
-      "prompt": "docs/art-assets/world46/deep_body.prompt.txt"
+      "prompt": "docs/art-assets/world46/deep_body.prompt.txt",
+      "runtime": "assets/abode/world46/deep_body.png",
+      "runtime_sha256": "987b144affa99300a04077538ff0b7954ee0f5f349a86ec88cd73664d10c8d53"
     },
     {
       "id": "deep_landmark",
@@ -49,7 +51,9 @@
         1088
       ],
       "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
-      "prompt": "docs/art-assets/world46/deep_landmark.prompt.txt"
+      "prompt": "docs/art-assets/world46/deep_landmark.prompt.txt",
+      "runtime": "assets/abode/world46/deep_landmark.png",
+      "runtime_sha256": "db4895a821d87894a35ce83a93df0d80e816b93f71478ac39f08554ac9f8c5ba"
     },
     {
       "id": "ancient_body",
@@ -68,7 +72,9 @@
         1088
       ],
       "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
-      "prompt": "docs/art-assets/world46/ancient_body.prompt.txt"
+      "prompt": "docs/art-assets/world46/ancient_body.prompt.txt",
+      "runtime": "assets/abode/world46/ancient_body.png",
+      "runtime_sha256": "bda71c6c2793150d9a121ebd26ab4afc1a6ee37c56225c68d88e343ae7a51ab3"
     },
     {
       "id": "ancient_landmark",
@@ -87,7 +93,9 @@
         1318
       ],
       "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
-      "prompt": "docs/art-assets/world46/ancient_landmark-v2.prompt.txt"
+      "prompt": "docs/art-assets/world46/ancient_landmark-v2.prompt.txt",
+      "runtime": "assets/abode/world46/ancient_landmark.png",
+      "runtime_sha256": "373566a4d73394321d6daad3a1fb43e5fe7f5169f066275e2cb9564713dd8a13"
     },
     {
       "id": "void_body",
@@ -106,7 +114,9 @@
         1088
       ],
       "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
-      "prompt": "docs/art-assets/world46/void_body.prompt.txt"
+      "prompt": "docs/art-assets/world46/void_body.prompt.txt",
+      "runtime": "assets/abode/world46/void_body.png",
+      "runtime_sha256": "a84c66bcb8ae724b41cd7a26ae8874d12a41afae432e75bbcd50d0f2fe646140"
     },
     {
       "id": "void_landmark",
@@ -125,7 +135,9 @@
         1230
       ],
       "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
-      "prompt": "docs/art-assets/world46/void_landmark.prompt.txt"
+      "prompt": "docs/art-assets/world46/void_landmark.prompt.txt",
+      "runtime": "assets/abode/world46/void_landmark.png",
+      "runtime_sha256": "580f4bfb593474d00d0f24c708fbc3463edfd40c8d61087275b9f45d4d2be9e0"
     }
   ],
   "preview_only": true,
@@ -140,10 +152,11 @@
     "landmark_bottom": 410
   },
   "known_limits": [
-    "Art acceptance pending; composited previews are not runtime worlds.",
     "Generated originals include soft semi-transparent edge haze; preserved for review on both light and dark backgrounds.",
     "Transparent padding guarantees file-edge clearance only; it cannot recover missing original pixels.",
-    "Ancient landmark initial thick-base version is retained as rejected candidate; v2 is selected.",
-    "World entry, hit masks, cargo endpoints and era gating require subsequent implementation and L1/L2 validation."
-  ]
+    "Ancient landmark initial thick-base version is retained as rejected candidate; v2 is selected."
+  ],
+  "integration_authorization": "WORLD-46-B integration and final art accepted on 2026-10-27.",
+  "accepted_date": "2026-10-27",
+  "acceptance_authorization": "User: 美術接受與唯一 L3"
 }

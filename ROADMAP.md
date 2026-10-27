@@ -1,8 +1,8 @@
-2026-10-27 **WORLD-46-A 候選交付／美術PENDING**：寒銀／古藥／太虛六張分層資產與預覽；正式世界待接入，整批IN_PROGRESS。[狀態](docs/development-status.md)。
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](docs/development-status.md#content-p2-accept)。
 
-2026-10-27 **STORY-2 DONE（L3／桌面Web有界）**：文稿／節奏接受，139／139最終分段通過、Web匯出壓縮與三橫式完成。[結案](docs/development-status.md)。
+2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。[結案](docs/development-status.md)。
 
-2026-10-27 **STORY-2 美術 ACCEPTED**：20圖與UI-R1呈現已接受；文稿／節奏及整批L3未收結。[接受紀錄](docs/development-status.md)。
+2026-10-27 **WORLD-46-B DONE（L1／L2接入階段）**：三島分層世界、七島選單、管理往返與十二線貨運已接；美術接受／整批L3待收。見[狀態](docs/development-status.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 
@@ -335,12 +335,13 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 | CONTENT-P1-TALENT | CONTENT-P1-DESIGN T；S已DONE | **DONE（2026-10-23；三圖美術已接受，桌面／Web有界）**：六天賦、三新增通道、版本2、備份／拒寫重試與三橫式已驗。[驗收與審閱](docs/verification/content-p1-talents.md)。 |
 | UI-ART-EDGE-COMPARE | 使用者插入；CONTENT-P1-TALENT已接受三圖 | **DONE（2026-10-23；B已選定／共用規範已更新）**：三圖同淡紙底A／B／C、192／112／64尺寸；[比較與證據](docs/verification/ui-art-edge-compare.md)。正式共用呈現接線見下列UI-ART-EDGE。 |
 | UI-ART-EDGE | UI-ART-EDGE-COMPARE B已核定；使用者指定正式接線 | **DONE（2026-10-23；桌面有界）**：共用screen-pixel輪廓柔影、正式消費端及金框／小圖例外；161專項／166原生、102唯一Runner分段與三橫式Web／保存重載通過。[驗收](docs/verification/ui-art-edge.md)。 |
-| CONTENT-P1-ACCEPT | SKILL／TALENT／PILL／SECT／STORY均DONE | **DONE（2026-10-24；人工整合節奏已接受，P1整段收結）**：既有整合／桌面Web證據有界沿用，歷史失敗保留。[接受與驗收](docs/verification/content-p1-accept.md)。下一RES1-E-46來源稽核／規則表待使用者指定，CONTENT-P2未開始。 |
+| CONTENT-P1-ACCEPT | SKILL／TALENT／PILL／SECT／STORY均DONE | **DONE（2026-10-24；人工整合節奏已接受，P1整段收結）**：既有整合／桌面Web證據有界沿用，歷史失敗保留。[接受與驗收](docs/verification/content-p1-accept.md)。後續RES1-E-46與P2已依下列日期化任務收結。 |
 | RES1-E-46 | P1已收結；RES1-D | **設計已核定；供給實作由 CONTENT-P2-SUPPLY 收結**（2026-10-24）；7資源／3島／9設施／容量保存與Era4–6舊修行時間保持。[規則表](docs/34-res1-e-46-design.md)。其他P2／新美術仍另批。 |
 | CONTENT-P2-SUPPLY | R46-A／B／C／S已核定；TRIB已收結 | **DONE（2026-10-24）**：人工節奏／UI接受，L3 116／116最終通過（保留兩支原失敗，串行修復重試成功），完整無技能供給94項、候選包及三桌面橫式保存／重載已驗。[整批驗收](docs/verification/content-p2-supply-closure.md)。 |
-| WORLD-46 | CONTENT-P2-SUPPLY已DONE；使用者指定三島世界 | **IN_PROGRESS（2026-10-27）**：A六張分層美術候選已交，美術PENDING；B正式Godot世界／入口／貨運與L1/L2待接。[狀態](docs/development-status.md)。 |
+| WORLD-46 | CONTENT-P2-SUPPLY已DONE；使用者指定三島世界 | **DONE（2026-10-27）**：美術ACCEPTED；唯一L3共140/140最終分段通過、Web同步及桌面三橫式完成。[結案](docs/development-status.md)。 |
 | CONTENT-P2-SECT | P1與P2供給／技能／天賦／丹藥已收結 | **DONE（2026-10-26，L3／桌面Web有界）**：兩圖／卡片／節奏已接受；8功法／30模板／8商品與保存閘，129支最終分段通過，原失敗保留。最終18px三橫式與保存故障／重載已驗，供給原始日誌補驗封存。[整批驗收](docs/verification/content-p2-sect-closure.md)。 |
 | CONTENT-P2-STORY | P1及P2各相依已收結；Y全核定 | **DONE（2026-10-27，L3／桌面Web有界）**。圖／卡片／文稿／節奏ACCEPTED，139／139最終分段通過、正常Web匯出壓縮與三橫式完成。[狀態](docs/development-status.md)。 |
+| CONTENT-P2-ACCEPT | P2供給／技能／天賦／丹藥／宗門／靈獸／敘事及WORLD-46均收結 | **DONE（2026-10-27，桌面／Web有界）**：整段數量與相依核對；realm法令條件延期，Era8雲蛟仍鎖定。[整合結案](docs/development-status.md#content-p2-accept)。 |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
 | RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1與EARLY-V1-C已DONE（圖像已接受、桌面Web已驗）；SKS-P2 DONE（L3／桌面Web有界，見[收尾](docs/verification/sks-p2-closure.md)），P3～P4 TODO**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
 

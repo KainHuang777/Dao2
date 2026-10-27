@@ -64,7 +64,18 @@ def check_manifest(path, fails):
     p = ROOT / path
     obj = read_json(p)
     ok = obj.get('acceptance') == 'ACCEPTED'
-    bad = [a['id'] for a in obj.get('assets', []) if not (sha(ROOT / a['runtime']) == sha(ROOT / a['original']) == a['sha256'])]
+    bad = []
+    for a in obj.get('assets', []):
+        # Layered art may preserve an original and an explicitly padded runtime.
+        if 'runtime_sha256' in a and 'original_sha256' in a:
+            valid = (sha(ROOT / a['runtime']) == a['runtime_sha256']
+                     and sha(ROOT / a['original']) == a['original_sha256'])
+            if 'candidate' in a:
+                valid = valid and sha(ROOT / a['candidate']) == a['candidate_sha256'] == a['runtime_sha256']
+        else:
+            valid = sha(ROOT / a['runtime']) == sha(ROOT / a['original']) == a['sha256']
+        if not valid:
+            bad.append(a['id'])
     print(f'[manifest] {p.name}: acceptance={obj.get("acceptance")}, assets ok={len(obj.get("assets", [])) - len(bad)}/{len(obj.get("assets", []))}')
     if not ok:
         fails.append(f'{path}: not ACCEPTED')

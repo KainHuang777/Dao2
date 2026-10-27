@@ -1,0 +1,138 @@
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:36)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:37)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] <anonymous lambda> (res://tests/m3b_sect_ui_runner.gd:46)
+       [3] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:50)
+       [4] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:55)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:58)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:61)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:63)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:65)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] <anonymous lambda> (res://tests/m3b_sect_ui_runner.gd:74)
+       [3] test_sect_panel_lifecycle (res://tests/m3b_sect_ui_runner.gd:78)
+       [4] _init (res://tests/m3b_sect_ui_runner.gd:8)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:117)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:120)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:125)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] test_responsive_layouts (res://tests/m3b_sect_ui_runner.gd:130)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:171)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:172)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:182)
+       [3] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] test_era_eligibility_button_states (res://tests/m3b_sect_ui_runner.gd:183)
+       [2] _init (res://tests/m3b_sect_ui_runner.gd:11)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _reflow_header (res://src/presentation/sect_panel.gd:458)

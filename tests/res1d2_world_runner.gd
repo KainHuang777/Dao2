@@ -12,7 +12,8 @@ func snapshot(state: GameState) -> String:
 	return JSON.stringify(SaveCodec._normalize_numbers(state.to_snapshot_dict()), "", true)
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://res1d2_world_runner"
+	script.save_dir_override = OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("res1d2_world_runner")
+	if script.save_dir_override == "res1d2_world_runner": script.save_dir_override = "user://res1d2_world_runner"
 	script.island_preview_override = false
 	var adapter := FileStorageAdapter.new(script.save_dir_override)
 	SaveSlots.new(adapter).reset()
@@ -131,7 +132,7 @@ func _run() -> void:
 		world.refresh()
 		if size.y < 500:
 			check(not world.title.visible and not world.buttons.home.visible and not world.manage_button.visible, "compact home rail leaves core landmarks visible")
-			check(world.buttons.wood.visible and world.buttons.ore.visible and world.buttons.herb.visible, "compact home retains destination island controls")
+			check(world.destination_picker.visible or (world.buttons.wood.visible and world.buttons.ore.visible and world.buttons.herb.visible), "compact home retains destination island controls")
 		world.enter("herb")
 		check(world.title.visible and world.buttons.home.visible and world.manage_button.visible, "remote rail retains return and management controls")
 	root.size = Vector2i(1280, 720)

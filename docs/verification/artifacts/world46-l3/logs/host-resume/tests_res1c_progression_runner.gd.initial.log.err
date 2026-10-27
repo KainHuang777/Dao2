@@ -1,0 +1,6 @@
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'corrupt'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] activate_islands (res://src/persistence/save_manager.gd:71)
+       [2] _run (res://tests/res1c_progression_runner.gd:123)

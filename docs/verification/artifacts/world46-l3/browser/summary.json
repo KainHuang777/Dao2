@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-27",
+  "origin": "http://127.0.0.1:4399",
+  "normal_origin": "http://127.0.0.1:4400",
+  "input": "actual desktop IAB mouse",
+  "scenario": "synthetic Era6, all islands opened, paused rule clock",
+  "checks": [
+    {
+      "file": "state-ancient-1280.json",
+      "current": "ancient",
+      "group": "management",
+      "island": "ancient",
+      "route": "outposts",
+      "viewport": "(1280.0, 720.0)"
+    },
+    {
+      "file": "state-ancient-800.json",
+      "current": "ancient",
+      "group": "management",
+      "island": "ancient",
+      "route": "outposts",
+      "viewport": "(800.0, 360.0)"
+    },
+    {
+      "file": "state-ancient-844.json",
+      "current": "ancient",
+      "group": "management",
+      "island": "ancient",
+      "route": "outposts",
+      "viewport": "(779.0, 360.0)"
+    },
+    {
+      "file": "state-deep-1280.json",
+      "current": "deep",
+      "group": "management",
+      "island": "deep",
+      "route": "outposts",
+      "viewport": "(1280.0, 720.0)"
+    },
+    {
+      "file": "state-deep-800.json",
+      "current": "deep",
+      "group": "management",
+      "island": "deep",
+      "route": "outposts",
+      "viewport": "(800.0, 360.0)"
+    },
+    {
+      "file": "state-deep-844.json",
+      "current": "deep",
+      "group": "management",
+      "island": "deep",
+      "route": "outposts",
+      "viewport": "(779.0, 360.0)"
+    },
+    {
+      "file": "state-home-800.json",
+      "current": "home",
+      "group": "home",
+      "island": "void",
+      "route": "",
+      "viewport": "(800.0, 360.0)"
+    },
+    {
+      "file": "state-void-1280.json",
+      "current": "void",
+      "group": "management",
+      "island": "void",
+      "route": "outposts",
+      "viewport": "(1280.0, 720.0)"
+    },
+    {
+      "file": "state-void-800.json",
+      "current": "void",
+      "group": "management",
+      "island": "void",
+      "route": "outposts",
+      "viewport": "(800.0, 360.0)"
+    },
+    {
+      "file": "state-void-844.json",
+      "current": "void",
+      "group": "management",
+      "island": "void",
+      "route": "outposts",
+      "viewport": "(779.0, 360.0)"
+    }
+  ],
+  "sizes": [
+    {
+      "iframe": [
+        1280,
+        720
+      ],
+      "canvas_css": [
+        1280,
+        720
+      ],
+      "backing": [
+        1600,
+        900
+      ],
+      "logical": [
+        1280,
+        720
+      ]
+    },
+    {
+      "iframe": [
+        844,
+        390
+      ],
+      "canvas_css": [
+        844,
+        389
+      ],
+      "backing": [
+        1055,
+        487
+      ],
+      "logical": [
+        779,
+        360
+      ]
+    },
+    {
+      "iframe": [
+        800,
+        360
+      ],
+      "canvas_css": [
+        800,
+        360
+      ],
+      "backing": [
+        1000,
+        450
+      ],
+      "logical": [
+        800,
+        360
+      ]
+    }
+  ],
+  "normal_web": "Fresh isolated Era1 entry and dismiss summary; screenshot saved; warn/error capture empty. Not a full earned progression/save-fault test.",
+  "limits": "No new FPS, natural-time progression or storage-failure proof. Reuse unchanged rule/storage evidence from dated STORY-2 L3.",
+  "cleanup": "normal/review tabs closed; no viewport override used; task servers stopped."
+}

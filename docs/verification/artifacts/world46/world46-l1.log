@@ -1,0 +1,145 @@
+[MODE] matrix=single runners=5 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{63299015-683c-4d3d-9be1-894ef4c6bd58}\AC\Temp\dao2_runners_bf7bdd82d4b24fc8b6553d51e33cc082
+[STORAGE] E:\WORK\Dao2\.test-output\dao2_runners_bf7bdd82d4b24fc8b6553d51e33cc082
+[START:initial] tests/world46_runner.gd
+[FAIL:initial] tests/world46_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+WORLD46 checks=50 failures=["world and management leave complete rule snapshot unchanged"]
+RUNNER_RESULT status=FAIL exit=1
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:840)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:745)
+       [6] _layout (res://src/abode/living_abode.gd:721)
+       [7] _ready (res://src/abode/living_abode.gd:426)
+       [8] run (res://tests/world46_runner.gd:15)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:840)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:745)
+       [6] _layout (res://src/abode/living_abode.gd:721)
+       [7] _ready (res://src/abode/living_abode.gd:426)
+       [8] run (res://tests/world46_runner.gd:15)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:840)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:745)
+       [6] _layout (res://src/abode/living_abode.gd:721)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1356)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:840)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:745)
+       [6] _layout (res://src/abode/living_abode.gd:721)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1356)
+ERROR: world and management leave complete rule snapshot unchanged
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/world46_runner.gd:92)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+
+[START:initial] tests/content_p2_supply_ui_runner.gd
+[PASS:initial] tests/content_p2_supply_ui_runner.gd (5.1s) result=pass
+[START:initial] tests/res1d2_world_runner.gd
+[FAIL:initial] tests/res1d2_world_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/res1d2_world_runner.gd:30)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1d2_world_runner.gd:30)
+
+[START:initial] tests/m2d_responsive_ui_runner.gd
+[FAIL:initial] tests/m2d_responsive_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/m2d_responsive_ui_runner.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2d_responsive_ui_runner.gd:18)
+
+[START:initial] tests/feature_navigation_runner.gd
+[PASS:initial] tests/feature_navigation_runner.gd (11.7s) result=pass
+--- slowest 8 runners (s) ---
+   120.1  tests/res1d2_world_runner.gd
+   120.1  tests/m2d_responsive_ui_runner.gd
+    11.7  tests/feature_navigation_runner.gd
+     8.7  tests/world46_runner.gd
+     5.1  tests/content_p2_supply_ui_runner.gd

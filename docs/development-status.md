@@ -1,12 +1,127 @@
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見下方CONTENT-P2-ACCEPT。
+
+2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。見下方WORLD-46-L3。
+
 2026-10-27 **STORY-2 DONE（L3／桌面Web有界）**：文稿／節奏接受，139／139唯一runner最終分段通過、Web匯出壓縮與三橫式完成；原失敗保留。見下方STORY-2-L3。
-
-2026-10-27 **STORY-2 美術 ACCEPTED**：20圖與UI-R1呈現已接受；文稿／節奏及整批L3未收結。見下方 STORY-2-ART-ACCEPT。
-
-2026-10-27 **STORY-2-UI-R1 DONE（L1＋有界 L2）**：機緣圖印動作、徽章領取／領訖印及固定倒數色／細條已接；最終1283 checks與桌面Web通過。整批仍待接受；見下方同名紀錄。
 
 > 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
 
 # 開發狀態與交接紀錄
+
+<a id="content-p2-accept"></a>
+## 2026-10-27 CONTENT-P2-ACCEPT：P2 整合收尾 DONE（桌面／Web有界）
+
+使用者指定「P2 整合收尾」。本任務依各批已記錄的美術／卡片／節奏接受及同日最新 WORLD-46-L3，完成 Era4–6 的整段計數、相依、供給與跨系統流程證據核對。**P2 現行 Era4–6 內容範圍整合 DONE**；法令新增四項沿原計畫的 realm 可玩條件延期，不列入已交付。不以本次收尾擴張九界、Era7–12或全量舊檔相容承諾。
+
+### 整合數量與相依
+
+| 系統 | 正式定義總數／交付 | 完成依據與界線 |
+| --- | --- | --- |
+| 供給／世界 | 7島、12航線、11加工配方；Era4–6三島分層世界 | [供給收尾](verification/content-p2-supply-closure.md)、本檔WORLD-46-L3；Era7仍未開。 |
+| 一般技能 | 24（P2新增12） | [SKS-P2](verification/sks-p2-closure.md)，12項合法研習／付款、保存與輪迴清除。 |
+| 輪迴天賦 | 9（新增3） | [TALENT](verification/content-p2-talents-closure.md)，合法輪迴首購與跨世；滿階對照為明示合成預算。 |
+| 丹藥 | 20（新增8） | [PILL](verification/content-p2-pills-closure.md)，實料煉製／服用／到期／保存；模擬秒可達。 |
+| 宗門 | 8功法／30委託模板／8商品 | [SECT](verification/content-p2-sect-closure.md)，五品階各6模板，候選保存閘與三橫式操作。 |
+| 靈獸 | 6獸／24獸魂天賦 | [BEAST](verification/content-p2-beasts-closure.md)，新增鹿／鶴；既有雲蛟Era8仍鎖定，6為定義數，非全6獸當前可達。 |
+| 敘事 | 48成就／56機緣 | 本檔STORY-2-L3；18+12+18成就與56事件靜態計數一致，不宣稱全部自然命中／領取。 |
+| 界域法令 | 14，未追加原目標4項 | docs25原已規定依對應realm實際可玩才交付；條件延期，非當前Era4–6整合阻擋，不稱18項完成。 |
+
+供給→技能／天賦／丹藥→宗門／靈獸→敘事之相依均有各批DONE；WORLD-46補齊三島世界／管理往返。最新140支L3同時包含這些核心、保存、UI及flow runner，沒有只靠分批總數推論整合。已賺得Era3快照經正式命令／模擬秒至Era6十層、壽盡輪迴之94項供給流程，以及技能、丹藥、天賦、宗門、靈獸與敘事各代表流程沿用既有證據；**不是本輪空白新檔、自然等待的瀏覽器完整一生**。各批桌面保存故障／重試／重載與三橫式操作按原日期及候選範圍引用，不冒稱全在最新包再走一次。
+
+### 本次修改與驗證
+
+只改README、ROADMAP、docs25、ai-handoff、本檔、英文updata與通用trim產生的archive；修正docs25宗門仍IN_PROGRESS、Roadmap P1列仍稱P2未開始的過時指標。未改正式遊戲來源、資產、規則／RNG、存檔或玩家進度；既有WORLD-46未提交成果完整保留。
+
+- 靜態JSON／GDScript常數核對上述唯一ID與數量；宗門字典按括號深度取直接鍵，避免縮排不同把欄位誤算內容ID。技能24、天賦9、丹藥20、宗門8／30／8、靈獸6／24、成就48、機緣56、法令14。
+- 本機 `tools/godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe --version` exit0：`4.7.2.stable.official.ed1daf0bf`，未更新環境。
+- **沿用L3（2026-10-27）**：[WORLD-46摘要](verification/artifacts/world46-l3/summary.json)140個唯一runner全部status=PASS／exit0；17+123最終分段通過、full矩陣。保留沙箱中斷exit1、首段guard未完成與批次log缺失的原記錄，不改寫為一次全綠。一般Web當日已同步／壓縮，三島三橫式9次地標操作通過。
+- **本輪僅文件靜態驗證，未新增L1／L2／L3**。依AGENTS的「依變更決定驗收」，不為整合索引再跑Full、匯出或瀏覽器。
+- 收尾命令：`python tools/trim_status_docs.py`、`python tools/delivery_check.py --web build/web --manifest assets/abode/world46/manifest.json`、`git diff --check`。實際均exit0：trim完成五份prelude歸檔；delivery_check RESULT PASS，Web 7/7、ACCEPTED manifest 6/6；git diff --check通過（僅既有delivery_check.py的LF→CRLF提示）。證據路徑仍僅原有WORLD46兩目錄，無本輪新增或改寫。靜態模板檢查初次誤查title欄位失敗，改按實際name及legacy／P1／P2三表重驗15+5+10=30；無正式來源修改。
+
+### 保留限制與下一步
+
+既有長時WebGL `RangeError: Invalid array length` 未因有界驗收而修復；本次不宣稱FPS／長時穩定性通過。實機依使用者政策延期，非當前阻擋。法令擴充須待對應realm工作；Era8雲蛟與Era7–9供給仍屬後續P3範圍。
+
+依Context Guard停在**P2大型任務整合結束**。可手動commit；代理未commit／push。下一New Chat由使用者指定 `RES1-E-79` 來源稽核／規則設計或其他工作，尚未啟動P3實作，也不重開已接受P2美術與節奏。
+
+
+## 2026-10-27 WORLD-46-L3：美術 ACCEPTED，整批 DONE（L3／桌面 Web 有界）
+
+使用者明確「美術接受與唯一 L3」。寒銀／古藥／太虛六張分層美術與WORLD-46-B接入呈現已ACCEPTED；六張原圖／候選／runtime像素保持。CONTENT-P2-SUPPLY相依已滿足，三島分層世界、七島入口、管理雙向、十二線真實貨運與Era／版本／輪迴回退沿B實作。**WORLD-46整批DONE**，只收本批；下方A／B的PENDING與IN_PROGRESS為接受前歷史。
+
+### 修改與交付
+
+- `docs/art-assets/world46/manifest.json`／`assets/abode/world46/manifest.json`、資產README記錄使用者原話、接受日期與已接入狀態；保留完整來源、提示詞、原圖／padding候選／runtime雜湊與授權界線。沒有重畫或改正式規則、RNG、保存schema、玩家進度。
+- docs07／08／19同步接受註記，既有共用字型／OptionButton／44px／殼保持；README／ROADMAP／ai-handoff僅狀態連結，詳細結案只在本節。`updata.txt`英文checkpoint保留五筆，舊筆歸檔；prelude由通用trim工具保留三筆。
+- `tools/world46_review.html`加三種受限iframe尺寸參數；只屬隔離驗收工具。`tools/delivery_check.py`支援分層資產已宣告的original／candidate／runtime各自hash，runtime仍必須等於候選；既有等位元組manifest契約保留。當輪沒有新增遊戲來源修改，開始前B既有dirty成果保持，未commit／push。
+
+### 唯一 L3：140／140 最終分段通過，全尺寸矩陣
+
+Godot `--version` exit0：`4.7.2.stable.official.ed1daf0bf`。先 `tools/run_all_runners.ps1 -Full -List`確認140支，再唯一一次 `-Full -Parallel 3 -TimeoutSeconds 3600`（matrix=full）。3600秒依同日既有供給1424秒／八丹549秒證據，TEMP／TMP與輸出隔離在`.test-output`。
+
+沙箱首段17支有效PASS；八丹UI舊`user://pill2-ui-runner`初始化停滯，停止批次exit1，首段guard未完成，不能稱首輪全綠或首段證據guard已通過。未完成的八丹／天賦流程不計成功。保留17支完成stdout／stderr；停滯程序未flush的輸出不可補造。改用 `-Only`精選剩餘123支，先List後 `-Matrix full -Parallel 3 -TimeoutSeconds 3600` 主機續跑；不是第二次Full。**123／123、exit0、guard PASS，沒有串行重試；合計140／140唯一runner最終分段通過。** 主機八丹UI11.8秒通過，正式UI未為驗收而修改。
+
+| 關鍵證據 | 本次實際結果 |
+| --- | --- |
+| WORLD46 | 92 checks／12.3秒／exit0，全尺寸三島、地標／管理往返、全快照不變、新貨運端點／零貨隱藏、Era／版本／輪迴回退。 |
+| 完整供給 | 94 checks／1298.5秒／exit0，正常命令與模擬秒，Era3→6及壽盡輪迴；不是自然等待的真人通關。 |
+| 長流程 | 八丹542.2秒、天賦338.8秒、技能159.3秒，全部exit0。 |
+| 共用依賴 | 全尺寸殼／響應式／運輸／製造、保存故障、離線parity及其餘registry項目全部PASS；屬CLI證據。 |
+| 檢查器驗證 | 兩份WORLD46各6/6；既有STORY2等位元組manifest20/20；隔離副本故意改錯runtime hash確實被拒絕（預期失敗），原資產未改。 |
+
+[140支清單與分段摘要](verification/artifacts/world46-l3/summary.json)、[原始runner stdout／stderr](verification/artifacts/world46-l3/logs/)、[初段範圍與限制](verification/artifacts/world46-l3/initial-summary.json)、[續跑精確selector／命令](verification/artifacts/world46-l3/resume.ps1)、[最終工具輸出摘錄](verification/artifacts/world46-l3/resume-completion.txt)、[精選JSON報告](verification/artifacts/world46-l3/reports/)。`Write-Host`資訊串流未經Tee-Object，`full.log`／`resume.log`實際沒有建立；不冒稱有完整批次raw命令log，140支各自完整日誌已封存。封存發生在主機guard結束後，沒有備份／還原全部既有JSON或新增專項closure／audit腳本。
+
+### 同版 Web 與桌面三橫式
+
+正常 `Web`／`World46Review` 的 `--headless --path . --export-release`均exit0，各 `node tools/prepare_web_compression.mjs build/對應目錄` exit0；一般`build/web`已同步。兩包核心壓縮與四首BGM companions各7/7 hash相符。匯出曾自動生成七份舊STORY2截圖`.jpg.import`，只移除本次新增sidecars，原圖未改；不稱整段無暫時檔案變動。
+
+隔離IAB4399實際滑鼠：1280×720／844×390／800×360各點三島地標（9/9），進正確outposts管理、前往返回世界、七島選單與返回祖島可用。場景synthetic Era6／全島已開／規則時鐘暫停，只證呈現命中。一般Web隔離4400空白Era1正常入口／關閉摘要已驗，當次console warn/error抓取空陣列，不等同全遊戲零警告。
+
+| iframe CSS | canvas CSS | backing | Godot邏輯 |
+| --- | --- | --- | --- |
+| 1280×720 | 1280×720 | 1600×900 | 1280×720 |
+| 844×390 | 844×389 | 1055×487 | 779×360 |
+| 800×360 | 800×360 | 1000×450 | 800×360 |
+
+[桌面摘要／路由狀態／截圖](verification/artifacts/world46-l3/browser/)、[1280寒銀](verification/artifacts/world46-l3/browser/deep-1280.png)、[844古藥](verification/artifacts/world46-l3/browser/ancient-844.png)、[800七島選單](verification/artifacts/world46-l3/browser/menu-800.png)。沙箱4398服務無法由桌面連線，改主機4399後成功，最初連線逾時不算通過；read-only DOM跨iframe量測第一次介面不支援，改frameLocator後成功。不新增FPS、自然時間首段或瀏覽器保存故障證據；未變的規則／保存範圍沿同日STORY2 L3歷史證據，不擴張聲稱。原生Font RID等既有退出診斷保留。
+
+驗收分頁已關閉，未設viewport override；本輪4398／4399／4400服務已停止，Ctrl+C exit1為主動終止。最終 `python tools/delivery_check.py --web build/web --web build/world46-review --manifest assets/abode/world46/manifest.json --manifest docs/art-assets/world46/manifest.json` exit0／RESULT PASS：兩Web各7/7、兩manifest各6/6；git證據變動只有既有WORLD46與本輪L3兩個目錄。`git diff --check` exit0（只保留既有LF→CRLF提示）。
+
+### 結案停點
+
+依Context Guard停在**WORLD-46大型任務結束**；可手動commit，代理未commit／push。請開New Chat由使用者指定下一個大型任務，不重做已接受美術、不為純文件再跑L3，也不自動開始其他P2／P3。
+
+
+## 2026-10-27 WORLD-46-B：三島世界接入階段 DONE（L1／L2），整批 IN_PROGRESS
+
+使用者當輪指定 `WORLD-46-B`，沿A候選接入；這是正式來源接入授權，沒有把未明說的最終美術接受改成ACCEPTED。CONTENT-P2-SUPPLY相依已滿足。交付範圍／驗收為三島分層世界、境界／版本限制、七島導覽、管理雙向、真實貨運及輪迴回退，受影響L1與一次桌面Web L2完成。**B接入階段DONE；WORLD-46整批仍IN_PROGRESS，美術接受PENDING，整批L3尚未執行。**
+
+### 修改與交付
+
+- `src/presentation/island_world.gd`：新增deep／ancient／void獨立世界座標與島體／地標Sprite2D，沿A預覽比例及共同接地線；只有供給版本及Era4／5／6達標才顯示／延後載圖，開拓前隱藏地標。供給版世界列使用共用OptionButton容納七島，控制44px、選單加高；管理／返回祖島沿原殼與相機。隱藏世界不可命中，境界／版本失效回祖島。原四島的舊版本入口保持原行為。
+- 貨運改讀 `IslandEconomy.route_defs(state)`，涵蓋全部十二線；新五線從各自正確原料島到祖島，只有實際正貨量才顯示。無裝飾返航、無動畫收益，不改數值／規則／保存schema。原料地標透明像素命中後進當島管理；原三工坊仍進原配方，不再無條件索引不存在的RECIPES。
+- `island_management_panel.gd`：新島前往入口依版本／境界／開拓可用；原料島不顯祖島建築或製造工坊捷徑。`assets/abode/world46/`六張PNG與runtime manifest；像素與候選完全相同，來源／提示詞／原圖／候選／runtime雜湊保留。docs/art-assets manifest同步實際接入狀態，acceptance維持PENDING。
+- `tests/world46_runner.gd`／registry新增呈現契約；更新供給UI的舊「世界未開」斷言及丹霞的選單預期。丹霞、responsive舊runner保存目錄改讀DAO_TEST_STORAGE_ROOT，修正沙箱啟動失敗；未改正式保存。新`.uid`保留。
+- `tests/world46_review.gd/.tscn`、project feature／World46Review preset、`living_abode.gd`唯一隔離namespace、`tools/world46_review.html`提供可重現的暫停時鐘synthetic Era6滑鼠場景。正常遊戲不啟用該feature，正常Web的tests排除保持。測試包包含測試來源，不作交付候選包；一般build/web未同步，留整批收尾。
+
+### 實際命令與驗收結果
+
+Godot `--version` exit0：`4.7.2.stable.official.ed1daf0bf`；editor `--headless --path . --editor --import`完成。開始前git工作區乾淨，未commit／push，未操作玩家保存。
+
+**L1**先 `tools/run_all_runners.ps1 -Only 'world46_runner.gd,res1d2_world_runner.gd,content_p2_supply_ui_runner.gd,feature_navigation_runner.gd,m2d_responsive_ui_runner.gd' -List`確認五支；實際分段最終五支全部exit0／單尺寸。初次List誤選不在registry的res1c2_world_runner被拒絕，改選後才執行。首輪WORLD46在未初始化唯讀View前比較synthetic快照失敗；先refresh取得基準後通過。丹霞／responsive舊user://無法寫入導致nil、SCRIPT ERROR及120秒逾時，另一診斷responsive逾時90秒；不計成功。兩runner改隔離目錄後分別9.5秒、9.5秒通過，navigation12.7秒通過。新WORLD46最後單支9.7秒exit0，50項契約通過；包括三島地標／雙向入口、全snapshot不變、五條新線正端點／零貨隱藏、Era限制、舊版本不可命中、輪迴回退。供給UI首輪5.1秒exit0沿用，正式供給核心沒有修改。最終runner guard均通過；原失敗命令紀錄保留，不宣稱首輪全綠。
+
+**L2有界呈現**：原生非headless WORLD46同50項exit0；`--headless --path . --export-release World46Review`最後exit0，`node tools/prepare_web_compression.mjs build/world46-review`exit0。首次匯出缺少目標資料夾exit1，建立目錄後成功；popup加高後已重新匯出。沒有Full、沒有全尺寸矩陣、沒有FPS／自然時間通關聲稱。
+
+桌面IAB實際滑鼠：三島選單切換、寒銀／古藥／太虛地標點進當島管理、前往返回世界、太虛返回祖島通過。最終選單每項約50px，無七鈕堆疊。iframe1280×720，實測canvas CSS1279×719／backing1280×720／Godot logical1280×720，差異如實記錄；不是實體裝置證據。場景為synthetic Era6／三島已開／暫停規則時鐘，只證呈現與命中，不證新檔可達、自然時間進度或新保存故障矩陣。BGM companions製作前出現下載失敗警告，後續已複製原曲檔，但未宣稱音訊重驗通過；原生保留既有anchor／RID／ObjectDB退出診斷。最終美術仍待使用者接受。
+
+[本輪命令、原失敗及三島實際Web圖片](verification/artifacts/world46/)、[寒銀](verification/artifacts/world46/deep.png)、[古藥](verification/artifacts/world46/ancient.png)、[太虛](verification/artifacts/world46/void.png)。證據在runner guard結束後才封存；editor額外生成的七份無關舊截圖`.jpg.import`已刪除，未改既有圖片／報告。收尾使用通用delivery_check（含隔離Web hash）與git diff --check，不新增closure／audit腳本。
+
+最終 `python tools/delivery_check.py --web build/world46-review` exit0／RESULT PASS（7／7 Web與音樂檔hash相符）；`git diff --check` exit0。六張runtime／candidate／original各自宣告hash全部相符。瀏覽器視口已reset、驗收分頁已關閉，本輪4396／4397服務已停止。
+
+### 階段停點與下一任務
+
+下一New Chat先收三島接入畫面回饋／最終美術接受；整批確認後才安排WORLD-46唯一L3及一般Web候選包同步。未做本輪新世界的短式Web驗收，不引用舊世界尺寸證據；留整批收尾。依Context Guard停在B階段，可手動commit（階段結束，非整個WORLD-46大型任務完成）。
+
 
 ## 2026-10-27 WORLD-46-A：寒銀／古藥／太虛世界美術候選交付，整批 IN_PROGRESS
 

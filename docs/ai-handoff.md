@@ -1,8 +1,8 @@
-2026-10-27 **WORLD-46-A 候選交付／美術PENDING**：寒銀／古藥／太虛六張分層資產與預覽；正式世界待接入，整批IN_PROGRESS。[狀態](development-status.md)。
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](development-status.md#content-p2-accept)。
 
-2026-10-27 **STORY-2 DONE（L3／桌面Web有界）**：文稿／節奏接受，139／139最終分段通過、Web匯出壓縮與三橫式完成。[結案](development-status.md)。
+2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。[結案](development-status.md)。
 
-2026-10-27 **STORY-2 美術 ACCEPTED**：20圖與UI-R1呈現已接受；文稿／節奏及整批L3未收結。[接受紀錄](development-status.md)。
+2026-10-27 **WORLD-46-B DONE（L1／L2接入階段）**：三島分層世界、七島選單、管理往返與十二線貨運已接；美術接受／整批L3待收。見[狀態](development-status.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。
 

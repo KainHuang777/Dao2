@@ -86,7 +86,7 @@ func run() -> void:
 			panel.select_island(island)
 			await frames()
 			check(panel.facility_buttons.is_empty(),"no fake remote workshops "+island)
-			check(panel.world_button.disabled,"no borrowed world art "+island)
+			check(not panel.world_button.disabled,"opened island has layered world route "+island)
 			check(panel.summary.text.contains("300"),"local capacity visible "+island)
 			session.state.economy.islands[island].opened = false
 			panel.refresh(session.get_view(),content.processing_catalog)

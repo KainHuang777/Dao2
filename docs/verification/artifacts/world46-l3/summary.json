@@ -1,0 +1,888 @@
+{
+  "task": "WORLD-46",
+  "date": "2026-10-27",
+  "acceptance": "ACCEPTED",
+  "status": "DONE",
+  "level": "L3",
+  "matrix": "full",
+  "unique_runners": 140,
+  "valid_passes": 140,
+  "sandbox": {
+    "passes": 17,
+    "interrupted_exit": 1,
+    "guard_completed": false
+  },
+  "host_resume": {
+    "passes": 123,
+    "exit": 0,
+    "guard": "PASS",
+    "serial_retries": 0
+  },
+  "command_log_limit": "Write-Host information stream bypassed Tee-Object; full.log/resume.log were not created. Original completed per-runner stdout/stderr for all140 preserved; command selectors in list.log/resume.ps1 and final output excerpt separately. Interrupted in-flight sandbox outputs were not flushed.",
+  "key_checks": {
+    "world46": 92,
+    "supply_progression": 94
+  },
+  "seconds": {
+    "world46": 12.3,
+    "supply_progression": 1298.5,
+    "pills_flow": 542.2,
+    "talents_flow": 338.8,
+    "skills_flow": 159.3
+  },
+  "runners": [
+    {
+      "runner": "tests/content_p2_beasts_flow_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_beasts_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_beasts_save_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_beasts_ui_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_pills_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_pills_save_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_sect_flow_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_sect_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_sect_save_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_sect_ui_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_story_events_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_story_flow_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_story_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_story_save_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_story_sect_flow_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_story_ui_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/world46_runner.gd",
+      "phase": "sandbox",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/abode_scenery_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/abode_scenery_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/abode_state_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/batch_a_pills_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/bgm_era_playlist_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/buff_system_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_accept_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_pills_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_pills_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_sect_progression_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_sect_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_sect_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_skills_progression_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_skills_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_skills_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_story_events_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_story_progression_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_story_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_story_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_talents_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p1_talents_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_pills_flow_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_pills_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_supply_data_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_supply_economy_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_supply_progression_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_supply_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_talents_flow_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_talents_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/content_p2_talents_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/core_positive_flow_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/debug_actions_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/debug_autobuild_and_time_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/debug_features_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/decision_receipt_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/decision_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_flow1b_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_flow1c_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_flow1d_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_pacing2_pill_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_pacing2_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_pacing_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_v1b_talents_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/early_v1c_skills_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/feature_navigation_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/gather_guidance_highlight_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/hud_readiness_life_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/island_breakthrough_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_echo_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_echo_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_history_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_history_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_ledger_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_report_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/life_report_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/living_abode_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m0c_compat_v3_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m1a_core_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m1b_time_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m1c_persistence_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m1d_offline_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m1e_import_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m2a_abode_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m2b_breakthrough_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m2c_nine_realms_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m2d_responsive_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m2d_slice_release_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3a_reincarnation_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3a_reincarnation_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_achievement_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_alchemy_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_alchemy_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_chrono_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_fortune_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_fortune_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_sect_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_sect_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m3b_spirit_beast_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m4a_realm_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m4a_session_integration_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m4b_scale_law_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m5a_world_gen_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/m5b_realm_content_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/mfg3_inline_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/mfg_controller_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/offline_closed_form_parity_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/recipe_row_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/reincarnation_motion_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1a_processing_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1b_economy_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1c2_offline_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1c2_perf_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1c_progression_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1d2_integration_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1d2_world_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1_ui1a_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/res1_ui1b_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/resource_accounts_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/resource_accounts_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/resource_feedback_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/runtime_inspector_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/simulation_sandbox_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/skills_b1_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/sks_p1_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/sks_p2_core_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/sks_p2_flow_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/text_transition_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/trib0_outcome_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/tribc_integration_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r10_fortune_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r11_decisions_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r1_components_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r2_hud_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r4_building_cards_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r8_skills_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/uix_r9_sect_ui_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/ui_art_edge_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/ui_material_states_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/ui_shell_integration_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/ui_shell_matrix_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/ui_shell_policy_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tests/web_persistence_fault_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "runner": "tools/test_runner.gd",
+      "phase": "host-resume",
+      "exit": 0,
+      "status": "PASS"
+    }
+  ],
+  "delivery_check": {
+    "exit": 0,
+    "result": "PASS",
+    "web_files": [
+      7,
+      7
+    ],
+    "manifest_assets": [
+      6,
+      6
+    ],
+    "git_diff_check_exit": 0
+  }
+}

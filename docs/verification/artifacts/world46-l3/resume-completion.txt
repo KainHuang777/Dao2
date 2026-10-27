@@ -1,0 +1,4 @@
+Captured final tool output (excerpt; not a full command log):
+[PASS:initial] tests/content_p2_supply_progression_runner.gd (1298.5s) result=pass
+SELECTED 123 RUNNERS PASSED (matrix=full).
+Process exit_code=0. Guard comparison precedes this completion line in tools/run_all_runners.ps1.

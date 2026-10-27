@@ -1,0 +1,17 @@
+{
+  "iframe": {
+    "height": 390,
+    "width": 844
+  },
+  "canvas": {
+    "backing": [
+      1055,
+      487
+    ],
+    "css": [
+      844,
+      389
+    ]
+  },
+  "state": "{\"buttons\":[{\"disabled\":false,\"rect\":[719,16,44,44],\"text\":\"\"},{\"disabled\":true,\"rect\":[16,288,88,56],\"text\":\"洞府\"},{\"disabled\":false,\"rect\":[112,288,88,56],\"text\":\"經營\"},{\"disabled\":false,\"rect\":[208,288,88,56],\"text\":\"修行\"},{\"disabled\":false,\"rect\":[304,288,88,56],\"text\":\"遊歷\"},{\"disabled\":false,\"rect\":[547,296,148,44],\"text\":\"資源\"},{\"disabled\":false,\"rect\":[699,296,64,44],\"text\":\"訊息\"},{\"disabled\":false,\"rect\":[336,222,118,44],\"text\":\"返回祖島\"},{\"disabled\":false,\"rect\":[458,222,130,44],\"text\":\"寒銀島\"},{\"disabled\":false,\"rect\":[592,222,118,44],\"text\":\"管理此島\"}],\"current\":\"deep\",\"group\":\"home\",\"island\":\"home\",\"route\":\"\",\"viewport\":\"(779.0, 360.0)\"}"
+}

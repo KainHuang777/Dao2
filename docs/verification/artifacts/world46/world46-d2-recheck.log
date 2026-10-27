@@ -1,0 +1,8 @@
+[MODE] matrix=single runners=1 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{f8245a7c-8472-4e09-b14d-9cc2f93b21c8}\AC\Temp\dao2_runners_954da8bc2e634e8d953e10f7031f199a
+[STORAGE] E:\WORK\Dao2\.test-output\dao2_runners_954da8bc2e634e8d953e10f7031f199a
+[START:initial] tests/res1d2_world_runner.gd
+[PASS:initial] tests/res1d2_world_runner.gd (9.5s) result=pass
+--- slowest 8 runners (s) ---
+     9.5  tests/res1d2_world_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=single). Logs: C:\Users\asus\AppData\Local\Packages\sandbox.{f8245a7c-8472-4e09-b14d-9cc2f93b21c8}\AC\Temp\dao2_runners_954da8bc2e634e8d953e10f7031f199a

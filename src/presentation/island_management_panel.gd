@@ -173,7 +173,7 @@ func _rebuild() -> void:
 				tiles[resource] = _tile(row)
 			facility_buttons[id] = _add_button(column, "", func(): action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": id}))
 			facility_cards[id] = {"card": card, "effect": effect, "costs": row, "tiles": tiles}
-	else:
+	elif island == "home":
 		_add_button(body, "洞府建築", func(): page_requested.emit("buildings", "home"))
 	page_links.append(_add_button(body, "製造・本島產線", func(): page_requested.emit("manufacturing", island)))
 	page_links.append(_add_button(body, "運輸・本島航線", func(): page_requested.emit("transport", island)))
@@ -305,10 +305,11 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		facility_buttons[id].tooltip_text = "祖島支付：" + "＋".join(prices)
 		facility_buttons[id].visible = opened
 		facility_buttons[id].disabled = level >= 3
-	world_button.text = "世界場景未開放・此島以管理清單操作" if island in ["deep", "ancient", "void"] else "前往%s" % IslandProgression.NAMES[island]
-	world_button.disabled = island not in ["home", "wood", "ore", "herb"] or (island != "home" and not opened)
+	var world_available: bool = island in ["home", "wood", "ore", "herb"] or (e.get("version") == IslandProgression.SUPPLY_VERSION and int(view.get("era_id", 1)) >= int(definition.get("era", 99)))
+	world_button.text = "前往%s" % IslandProgression.NAMES[island]
+	world_button.disabled = not world_available or (island != "home" and not opened)
 	short_world_button.disabled = world_button.disabled
-	short_world_button.tooltip_text = "此島目前以管理清單操作，世界美術尚未開放" if island not in ["home", "wood", "ore", "herb"] else world_button.text
+	short_world_button.tooltip_text = world_button.text
 
 func _tile(parent: Node) -> Control:
 	var tile := IslandTile.new()

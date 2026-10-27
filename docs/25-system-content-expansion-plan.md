@@ -1,8 +1,8 @@
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](development-status.md#content-p2-accept)。
+
 2026-10-27 **CONTENT-P2-STORY DONE（L3／桌面Web有界）**。見[狀態](development-status.md)。
 
 2026-10-27 **CONTENT-P2-STORY／STORY-1 DONE（L1＋L2，單尺寸）；整批 IN_PROGRESS。** 使用者明確「採Y，接STORY-1」，Y1／Y2／Y-save／Y-art全核定。18成就／18機緣54分支、六mask終身／當世事實、story2／schema5／rules24與原文歸檔同候選保存閘已接；舊待決／RNG／P1旗標保持。新核心1305／保存557／事件547 checks；15支唯一相關runner最終分段通過，原測試失敗與M1-C沙箱寫入失敗保留、專案隔離路徑補驗通過。未製圖／Web／匯出／L3、未玩家進度／commit／push。見[本段驗收](verification/content-p2-story-core.md)。依Context Guard停止；下一New Chat直接接同批STORY-2二十圖、正式View與合法代表流程，不重問Y、不開其他P2／P3。下方為日期化歷史。
-
-2026-10-27 **CONTENT-P2-STORY 設計階段DONE；方案Y待核定，實作TODO／整批IN_PROGRESS。** 使用者指定「P2 成就／機緣」；18成就／18機緣／54分支、六類各3、story2有限mask／原文歸檔候選保存閘與18徽章＋2題圖prompt已交。L1靜態793項通過，1405份既有來源／資產／測試／設定及凍結Web hash保持；原計數／來源島／跨題換物循環失敗保留，候選已修。第二世Era6單獸新池最多16題，指定題期望11.18模擬小時，非自然命中證據。未正式附掛／製圖／遊戲Runner／Web／匯出／L3／玩家進度／commit／push。本設計階段停止；下一New Chat核定或修訂Y1／Y2／Y-save／Y-art後接同批STORY-1，不開其他P2／P3。見[方案Y](40-content-p2-story-design.md)與[L1驗收](verification/content-p2-story-design.md)。下方為日期化歷史。
 
 > 較舊的日期化結案段落已原文搬至 [25-system-content-expansion-plan-prelude-archive-2026-10.md](archive/25-system-content-expansion-plan-prelude-archive-2026-10.md)。
 
@@ -107,8 +107,9 @@ P1不要求新增靈獸：先把靈狐、餵養與獸魂選擇接入新成就／
 | CONTENT-P1-STORY | 被引用的P1內容已完成 | 成就30、機緣38；舊已領不重領，新事件RNG不被UI刷新重抽，獎勵有來源與去重 |
 | CONTENT-P1-ACCEPT | 上述P1批次 | **DONE（2026-10-24；使用者接受P1整合節奏，P1整段收結）**。同版候選整合：新檔可達路徑與隔離第二世專長對比；人工節奏／圖像接受；不重新追認既有D測試為新候選證據 |
 | RES1-E-46 → CONTENT-P2 | P1收結、Era4–6來源稽核／規則表核定 | 先供給／容量／修行／保存，再SKS-P2及天賦丹藥等；按系統小批交付，整段計數與自然流程驗收後標P2完成 |
-| CONTENT-P2-SECT | P1與P2供給／技能／天賦／丹藥已收結；使用者指定SECT-1 | **SECT-1／SECT-2技術DONE；整批IN_PROGRESS，待人工接受（2026-10-25）**：正式8功法／30模板／8商品，sect_version2與宗門候選保存閘；新核心4189／保存957項及13支唯一相依runner分段通過。SECT-2兩圖／卡片與合法流程、Web真鼠標／保存故障恢復已驗，圖／節奏待接受，未L3。[本段驗收](verification/content-p2-sect-core.md)。 |
+| CONTENT-P2-SECT | P1與P2供給／技能／天賦／丹藥已收結 | **DONE（2026-10-26，L3／桌面Web有界）**：8功法／30模板／8商品，圖／卡片／節奏接受。[驗收](verification/content-p2-sect-closure.md)。 |
 | CONTENT-P2-STORY | 被引用的P2供給／技能／天賦／丹藥／宗門／靈獸均已收結 | **DONE（2026-10-27，L3／桌面Web有界）**：圖／卡片／文稿／節奏接受，139／139最終分段通過；見[結案](development-status.md)。48成就／56機緣。[逐項設計](40-content-p2-story-design.md)、[L1驗收](verification/content-p2-story-design.md)。核定後STORY-1→STORY-2→接受後唯一L3。 |
+| CONTENT-P2-ACCEPT | 各P2批次與WORLD-46均DONE | **DONE（2026-10-27，桌面Web有界）**：整段計數／相依與既有流程證據核對；法令新增4項依原realm條件延期，不列已交付。[結案](development-status.md#content-p2-accept)。 |
 | RES1-E-79 → CONTENT-P3 | P2、Era7–9供給契約 | 同上；技能沿用SKS-P3，realm內容另依實際開界條件 |
 | RES1-E-1012 → CONTENT-P4 | P3、Era10–12及Amount支援核對 | 同上；技能沿用SKS-P4，完成不等於全九界與全量舊檔相容 |
 

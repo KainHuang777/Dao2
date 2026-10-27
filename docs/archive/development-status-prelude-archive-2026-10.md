@@ -1,3 +1,11 @@
+2026-10-27 **STORY-2 美術 ACCEPTED**：20圖與UI-R1呈現已接受；文稿／節奏及整批L3未收結。見下方 STORY-2-ART-ACCEPT。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **STORY-2-UI-R1 DONE（L1＋有界 L2）**：機緣圖印動作、徽章領取／領訖印及固定倒數色／細條已接；最終1283 checks與桌面Web通過。整批仍待接受；見下方同名紀錄。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
 2026-10-27 **STORY-2-FONT-R1 DONE**：runtime缺字已修，L1＋桌面Web通過；詳細紀錄見下方同名段落。
 
 > 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。

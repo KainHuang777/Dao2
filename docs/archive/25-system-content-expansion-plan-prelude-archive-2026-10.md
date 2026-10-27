@@ -1,3 +1,7 @@
+2026-10-27 **CONTENT-P2-STORY 設計階段DONE；方案Y待核定，實作TODO／整批IN_PROGRESS。** 使用者指定「P2 成就／機緣」；18成就／18機緣／54分支、六類各3、story2有限mask／原文歸檔候選保存閘與18徽章＋2題圖prompt已交。L1靜態793項通過，1405份既有來源／資產／測試／設定及凍結Web hash保持；原計數／來源島／跨題換物循環失敗保留，候選已修。第二世Era6單獸新池最多16題，指定題期望11.18模擬小時，非自然命中證據。未正式附掛／製圖／遊戲Runner／Web／匯出／L3／玩家進度／commit／push。本設計階段停止；下一New Chat核定或修訂Y1／Y2／Y-save／Y-art後接同批STORY-1，不開其他P2／P3。見[方案Y](40-content-p2-story-design.md)與[L1驗收](verification/content-p2-story-design.md)。下方為日期化歷史。
+
+> 較舊的日期化結案段落已原文搬至 [25-system-content-expansion-plan-prelude-archive-2026-10.md](archive/25-system-content-expansion-plan-prelude-archive-2026-10.md)。
+
 2026-10-27 **CONTENT-P2-BEAST DONE（兩圖／卡片／目前節奏已接受；L3／桌面Web有界）**：133／133唯一runner最終分段通過；首輪沙箱寫入失敗中斷、74支主機精選續跑與供給並行及串行600秒逾時／單支1800秒補驗均保留，非單次全綠。修正短式UI測試的動作捲入、八丹測試隔離路徑、舊宗門fixture現行獸欄位及寫檔前encode檢查；正式規則／兩PNG保持。正常Web候選、Brotli／四BGM、三橫式兩獸結契首餵／返回／重載、鹿拒寫再試恢復已驗。交付稽核955項通過，7843份既有JSON核對、73份差異先封存後復原；接受metadata與宗門fixture修復為明列例外。既有長時WebGL限制保持，未宣稱FPS通過；未玩家進度／commit／push。見[整批驗收](verification/content-p2-beasts-closure.md)。本階段停止；下一大型任務由New Chat指定，不自動開其他P2／P3。下方為日期化歷史。
 
 > 較舊的日期化結案段落已原文搬至 [25-system-content-expansion-plan-prelude-archive-2026-10.md](archive/25-system-content-expansion-plan-prelude-archive-2026-10.md)。

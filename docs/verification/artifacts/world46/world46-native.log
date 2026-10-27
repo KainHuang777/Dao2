@@ -1,0 +1,123 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+ERROR: Can't create shader cache folder, no shader caching will happen: user://
+   at: RasterizerGLES3 (drivers/gles3/rasterizer_gles3.cpp:345)
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GTX 1660 Ti
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:841)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:746)
+       [6] _layout (res://src/abode/living_abode.gd:722)
+       [7] _ready (res://src/abode/living_abode.gd:427)
+       [8] run (res://tests/world46_runner.gd:15)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:841)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:746)
+       [6] _layout (res://src/abode/living_abode.gd:722)
+       [7] _ready (res://src/abode/living_abode.gd:427)
+       [8] run (res://tests/world46_runner.gd:15)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:841)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:746)
+       [6] _layout (res://src/abode/living_abode.gd:722)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1357)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:841)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:746)
+       [6] _layout (res://src/abode/living_abode.gd:722)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1357)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+WORLD46_CHANGED revision before=1.0 after=1
+WORLD46_CHANGED command_receipts before={"world46-init":{"changed_ids":["economy","resources"],"duplicate":false,"events":[{"kind":"islands_activated"}],"new_revision":1.0,"ok":true}} after={"world46-init":{"changed_ids":["economy","resources"],"duplicate":false,"events":[{"kind":"islands_activated"}],"new_revision":1,"ok":true}}
+WORLD46_CHANGED life_ledger before={"archive":[],"current":{"accounts":{"coverage":"complete","estimated_bytes":2926.0,"omitted":0.0,"rows":{"home:black_copper":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:bronze_essence":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:cold_iron":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:formation_core":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:foundation_pill":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:golden_core_pill":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:lingli":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:liquid":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:mithril":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:money":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:refined_iron":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:skill_point":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_grass_1000y":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_grass_100y":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_grass_low":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_timber":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:stone_high":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:stone_low":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:stone_mid":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:talisman":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:trans_pill":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:void_essence":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:wood":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"realm_spirit:azure_nectar":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"realm_spirit:spirit_crystal":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"}},"started_at":0.0,"version":1.0},"beast_instance":"","coverage":"complete","economy_origin":0.0,"end_state":{},"events":[],"frozen_text":"","history":{"omitted":0.0,"samples":[{"at":0.0,"rows":{"home:lingli":["0","100"]}}],"started_at":0.0,"version":1.0},"life_id":1.0,"next_sequence":1.0,"omitted_count":0.0,"peak":{"at":0.0,"era_id":6.0,"level":1.0},"started_at":0.0,"text_version":"","until":0.0},"version":1.0} after={"archive":[],"current":{"accounts":{"coverage":"complete","estimated_bytes":2926,"omitted":0,"rows":{"home:black_copper":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:bronze_essence":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:cold_iron":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:formation_core":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:foundation_pill":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:golden_core_pill":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:lingli":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:liquid":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:mithril":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:money":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:refined_iron":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:skill_point":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_grass_1000y":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_grass_100y":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_grass_low":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:spirit_timber":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:stone_high":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:stone_low":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:stone_mid":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:talisman":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:trans_pill":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:void_essence":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"home:wood":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"realm_spirit:azure_nectar":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"},"realm_spirit:spirit_crystal":{"adjustment":"0","closing":"0","expense":{},"income":{},"opening":"0","overflow":"0"}},"started_at":0.0,"version":1},"beast_instance":"","coverage":"complete","economy_origin":0.0,"end_state":{},"events":[],"frozen_text":"","history":{"omitted":0,"samples":[{"at":0.0,"rows":{"home:lingli":["0","100"]}}],"started_at":0.0,"version":1},"life_id":1,"next_sequence":1,"omitted_count":0,"peak":{"at":0.0,"era_id":6,"level":1},"started_at":0.0,"text_version":"","until":0.0},"version":1}
+WORLD46_CHANGED era_id before=6.0 after=6
+WORLD46_CHANGED level before=1.0 after=1
+WORLD46_CHANGED onboarding_version before=1.0 after=1
+WORLD46_CHANGED buildings before={"ancient_focus":0.0,"core_storehouse_3":0.0,"core_storehouse_4":0.0,"core_storehouse_5":0.0,"cultivation_focus_4":0.0,"cultivation_focus_5":0.0,"cultivation_focus_6":0.0,"forest_farm":0.0,"foundation_reservoir":0.0,"herb_farm":0.0,"hut":0.0,"library":0.0,"mineral_focus":0.0,"scripture_hall":0.0,"stone_mine":0.0,"storage_herb":0.0,"storage_lingli":0.0,"storage_money":0.0,"storage_stone":0.0,"storage_wood":0.0,"void_focus":0.0,"wooden_house":0.0} after={"ancient_focus":0,"core_storehouse_3":0,"core_storehouse_4":0,"core_storehouse_5":0,"cultivation_focus_4":0,"cultivation_focus_5":0,"cultivation_focus_6":0,"forest_farm":0,"foundation_reservoir":0,"herb_farm":0,"hut":0,"library":0,"mineral_focus":0,"scripture_hall":0,"stone_mine":0,"storage_herb":0,"storage_lingli":0,"storage_money":0,"storage_stone":0,"storage_wood":0,"void_focus":0,"wooden_house":0}
+WORLD46_CHANGED reincarnation_count before=0.0 after=0
+WORLD46_CHANGED highest_era before=1.0 after=1
+WORLD46_CHANGED dao_proof before=0.0 after=0
+WORLD46_CHANGED talent_version before=3.0 after=3
+WORLD46_CHANGED story_version before=2.0 after=2
+WORLD46_CHANGED beast_version before=1.0 after=1
+WORLD46_CHANGED sect_version before=2.0 after=2
+WORLD46_CHANGED pill_version before=2.0 after=2
+WORLD46_CHANGED realms_data before={"realm_spirit":{"azure_nectar":0.0,"outposts":{"celestial_hub":0.0,"pure_pool":0.0,"void_beacon":0.0},"spirit_crystal":0.0,"unlocked":true}} after={"realm_spirit":{"azure_nectar":0.0,"outposts":{"celestial_hub":0,"pure_pool":0,"void_beacon":0},"spirit_crystal":0.0,"unlocked":true}}
+WORLD46_CHANGED chrono before={"cycle_day":1.0,"shichen_index":0.0,"shichen_progress":0.0,"unlocked":false,"weather_id":"water"} after={"cycle_day":1,"shichen_index":0,"shichen_progress":0.0,"unlocked":false,"weather_id":"water"}
+WORLD46_CHANGED realm_decisions before={"cooldowns":{},"total_decisions_executed":0.0,"usage_counts":{}} after={"cooldowns":{},"total_decisions_executed":0,"usage_counts":{}}
+WORLD46_CHANGED achievements before={"claimed":{},"stats":{},"story":{"current":{"consumed_mask":0.0,"new_supply_claimed":false,"positive_home_arrival":false,"refined_mask":0.0,"timber_completed":false},"current_life_id":1.0,"lifetime":{"bronze_arrived":false,"consumed_mask":0.0,"fox_matured":false,"new_supply_claimed":false,"positive_home_arrival":false,"refined_mask":0.0,"timber_arrived":false,"timber_completed":false},"p2":{"current":{"arrival_mask":0.0,"consumed_mask":0.0,"market_mask":0.0,"mature_mask":0.0,"refined_mask":0.0,"task_mask":0.0},"lifetime":{"arrival_mask":0.0,"consumed_mask":0.0,"market_mask":0.0,"mature_mask":0.0,"refined_mask":0.0,"task_mask":0.0},"started_age_seconds":0.0,"started_life_id":1.0},"started_age_seconds":0.0,"started_life_id":1.0,"version":2.0},"unlocked":{"era_foundation":0.0,"era_golden_core":0.0,"era_nascent_soul":0.0,"era_qi":0.0}} after={"claimed":{},"stats":{},"story":{"current":{"consumed_mask":0,"new_supply_claimed":false,"positive_home_arrival":false,"refined_mask":0,"timber_completed":false},"current_life_id":1,"lifetime":{"bronze_arrived":false,"consumed_mask":0,"fox_matured":false,"new_supply_claimed":false,"positive_home_arrival":false,"refined_mask":0,"timber_arrived":false,"timber_completed":false},"p2":{"current":{"arrival_mask":0,"consumed_mask":0,"market_mask":0,"mature_mask":0,"refined_mask":0,"task_mask":0},"lifetime":{"arrival_mask":0,"consumed_mask":0,"market_mask":0,"mature_mask":0,"refined_mask":0,"task_mask":0},"started_age_seconds":0.0,"started_life_id":1},"started_age_seconds":0.0,"started_life_id":1,"version":2},"unlocked":{"era_foundation":0.0,"era_golden_core":0.0,"era_nascent_soul":0.0,"era_qi":0.0}}
+WORLD46_CHANGED economy before={"early_supply":{"bronze_done":false,"bronze_home":0.0,"ore_delivered":0.0,"timber_done":false,"timber_home":0.0,"version":1.0},"islands":{"ancient":{"inventory":{},"opened":true},"deep":{"inventory":{},"opened":true},"herb":{"facilities":{"extractor":1.0,"storage":1.0,"workshop":1.0},"inventory":{},"opened":false},"home":{"facilities":{"extractor":1.0,"storage":1.0,"workshop":1.0},"inventory":{},"opened":true},"ore":{"facilities":{"extractor":1.0,"storage":1.0,"workshop":1.0},"inventory":{},"opened":false},"void":{"inventory":{},"opened":true},"wood":{"facilities":{"extractor":1.0,"storage":1.0,"workshop":1.0},"inventory":{},"opened":false}},"jobs":{},"routes":{},"tick":0.0,"trips":{},"version":"res1-e-46-1"} after={"early_supply":{"bronze_done":false,"bronze_home":0.0,"ore_delivered":0.0,"timber_done":false,"timber_home":0.0,"version":1},"islands":{"ancient":{"inventory":{},"opened":true},"deep":{"inventory":{},"opened":true},"herb":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":false},"home":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":true},"ore":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":false},"void":{"inventory":{},"opened":true},"wood":{"facilities":{"extractor":1,"storage":1,"workshop":1},"inventory":{},"opened":false}},"jobs":{},"routes":{},"tick":0,"trips":{},"version":"res1-e-46-1"}
+WORLD46_CHANGED skill_version before=4.0 after=4
+WORLD46_CHANGED tribulation_seed before=1820630964.0 after=1820630964
+WORLD46_CHANGED tribulation_roll_index before=0.0 after=0
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_HOME
+WORLD46 checks=50 failures=[]
+RUNNER_RESULT status=PASS exit=0
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

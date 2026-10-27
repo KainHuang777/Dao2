@@ -1,0 +1,16 @@
+[git] 32 changed entries; head=2048515
+          8  tests
+          5  docs
+          4  docs/archive
+          3  tools
+          2  docs/art-assets
+          2  src/presentation
+          1  README.md
+          1  ROADMAP.md
+          1  export_presets.cfg
+          1  project.godot
+          1  src/abode
+          1  updata.txt
+[evidence] changed entries under ['docs/verification/artifacts', 'src/verification']: 1 (compare with expected for this task)
+[manifest] invalid-manifest.json: acceptance=ACCEPTED, assets ok=5/6
+RESULT FAIL .test-output\world46-l3\invalid-manifest.json: PNG hash mismatch ['deep_body']

@@ -1,7 +1,7 @@
 extends Node2D
 ## Layered island presentation: artwork reads economy, never produces resources.
-const LOCATIONS := {"wood": Vector2(1450, -100), "ore": Vector2(-1450, -100), "herb": Vector2(0, -1550)}
-const ROLES := {"home": "修行與祖業", "wood": "林業・靈材加工", "ore": "採礦・銅精加工", "herb": "靈草採集・丹液提煉"}
+const LOCATIONS := {"wood": Vector2(1450, -100), "ore": Vector2(-1450, -100), "herb": Vector2(0, -1550), "deep": Vector2(2300, -1750), "ancient": Vector2(-2300, -1750), "void": Vector2(0, -3300)}
+const ROLES := {"home": "修行與祖業", "wood": "林業・靈材加工", "ore": "採礦・銅精加工", "herb": "靈草採集・丹液提煉", "deep": "精鐵・秘銀・寒鐵採集", "ancient": "千年靈草採集", "void": "虛空精華採集"}
 const CARGO_SWORD: Texture2D = preload("res://assets/abode/sword.png")
 var cargo_swords := {}
 var abode: Node
@@ -15,6 +15,8 @@ var title: Label
 var world_controls: HFlowContainer
 var world_panel: PanelContainer
 var buttons := {}
+var destination_picker: OptionButton
+var destination_ids: Array[String] = []
 var manage_button: Button
 var banner_until := 0
 var framed_size := Vector2.ZERO
@@ -22,7 +24,7 @@ var framed_size := Vector2.ZERO
 func build(scene: Node) -> void:
 	abode = scene
 	# A bounded visual per real route; no decorative or empty-return flights.
-	for id in IslandEconomy.ROUTES:
+	for id in _all_routes():
 		var sword := Sprite2D.new()
 		sword.texture = CARGO_SWORD
 		sword.scale = Vector2.ONE * 76.0 / CARGO_SWORD.get_width()
@@ -91,6 +93,13 @@ func build(scene: Node) -> void:
 		button.pressed.connect(func(): enter(id))
 		row.add_child(button)
 		buttons[id] = button
+	destination_picker = OptionButton.new()
+	destination_picker.custom_minimum_size = Vector2(130, 44)
+	destination_picker.add_theme_font_size_override("font_size", 18)
+	UiMaterial.apply_button(destination_picker)
+	destination_picker.get_popup().add_theme_constant_override("v_separation", 24)
+	destination_picker.item_selected.connect(func(index: int): enter(destination_ids[index]))
+	row.add_child(destination_picker)
 	var manage := Button.new()
 	manage_button = manage
 	manage.text = "管理此島"
@@ -103,16 +112,20 @@ func build(scene: Node) -> void:
 
 func refresh() -> void:
 	var available: bool = abode.session.state.era_id >= 2
+	if current != "home" and not _world_visible(current):
+		current = "home"
+		abode._return_home()
 	_refresh_cargo(available)
 	if available and current != "home" and framed_size != abode.hud.size:
 		_focus_remote()
 	rail.visible = available and abode.feature_navigation.group == "home" and not abode.offline_summary.visible and not abode.save_controls.visible and not abode.debug_panel.visible and not abode._hud_controller.messages_are_explicit()
 	for id in roots:
-		if available:
+		var visible_world := _world_visible(id)
+		if visible_world:
 			_ensure_art(id)
-		roots[id].visible = available
+		roots[id].visible = visible_world
 		var opened: bool = abode.session.state.economy.get("islands", {}).get(id, {}).get("opened", false)
-		landmarks[id].visible = opened
+		landmarks[id].visible = opened and visible_world
 		roots[id].modulate = Color.WHITE if opened else Color(0.68, 0.73, 0.72)
 	if not available and current != "home":
 		current = "home"
@@ -121,6 +134,11 @@ func refresh() -> void:
 		# On compact home views use one destination row, leaving the three core landmarks visible.
 		var compact_home: bool = current == "home" and abode.hud.size.y < 500
 		title.visible = not compact_home
+		var expanded: bool = IslandEconomy.expanded(abode.session.state)
+		destination_picker.visible = expanded
+		for id in ["wood", "ore", "herb"]:
+			buttons[id].visible = not expanded
+		_refresh_destinations()
 		buttons.home.visible = not compact_home
 		manage_button.visible = not compact_home
 		var status := "祖業保留" if current == "home" else ("產業已開拓" if landmarks[current].visible else "待開拓・可查看條件")
@@ -128,7 +146,7 @@ func refresh() -> void:
 			status = "金丹解鎖・可查看條件" if abode.session.state.era_id < 3 else ("待開拓・可查看條件" if abode.session.state.economy.get("version") in [IslandProgression.VERSION, IslandProgression.SUPPLY_VERSION] else "需接續丹霞產業・保留原檔")
 		var detail: String = ROLES[current] if Time.get_ticks_msec() < banner_until else status
 		title.text = ("%s・%s" if abode.hud.size.y < 500 else "人界・%s\n%s") % [IslandProgression.NAMES[current], detail]
-		# Wrap the four-island controls inside the safe width; never grow the HUD.
+		# Keep the destination controls inside the safe width.
 		var safe_left := int(abode.header.size.x + 24)
 		var panel_padding := world_panel.get_theme_stylebox("panel").get_minimum_size().x
 		world_controls.custom_minimum_size.x = maxf(90.0, minf(510.0, abode.hud.size.x - safe_left - 16.0 - panel_padding))
@@ -142,13 +160,17 @@ func refresh() -> void:
 func _ensure_art(id: String) -> void:
 	# Unavailable Era1 islands allocate no textures; cache once when Era2 is reached.
 	if bodies[id].texture == null:
-		var folder := "res1d2" if id == "herb" else "res1c3"
+		var folder := "world46" if id in ["deep", "ancient", "void"] else ("res1d2" if id == "herb" else "res1c3")
 		bodies[id].texture = load("res://assets/abode/%s/%s_body.png" % [folder, id])
 		bodies[id].scale = Vector2.ONE * (780.0 / bodies[id].texture.get_width())
 	if landmarks[id].texture == null:
-		var folder := "res1d2" if id == "herb" else "res1c3"
+		var folder := "world46" if id in ["deep", "ancient", "void"] else ("res1d2" if id == "herb" else "res1c3")
 		landmarks[id].texture = load("res://assets/abode/%s/%s_landmark.png" % [folder, id])
 		landmarks[id].scale = Vector2.ONE * (440.0 / landmarks[id].texture.get_width())
+		if id in ["deep", "ancient", "void"]:
+			# Preserve A's accepted-for-integration preview proportions and shared ground line.
+			landmarks[id].scale = Vector2.ONE * ((780.0 * 310.0 / 570.0) / landmarks[id].texture.get_width())
+			landmarks[id].position.y = -8.0 - landmarks[id].texture.get_height() * landmarks[id].scale.y * 0.5
 		var mask := BitMap.new()
 		mask.create_from_image_alpha(landmarks[id].texture.get_image(), 0.15)
 		landmark_masks[id] = mask
@@ -160,7 +182,12 @@ func _cargo_leg(id: String) -> Dictionary:
 	var trip: Dictionary = abode.session.state.economy.get("trips", {}).get(id, {})
 	if trip.is_empty() or float(trip.get("cargo", 0)) <= 0:
 		return {}
-	var route: Array = IslandEconomy.ROUTES[id]
+	var routes := IslandEconomy.route_defs(abode.session.state)
+	if not routes.has(id):
+		return {}
+	var route: Array = routes[id]
+	if not _world_visible(route[0]) or not _world_visible(route[1]):
+		return {}
 	var start: Vector2 = LOCATIONS.get(route[0], Vector2.ZERO) + Vector2(-280, 40)
 	var finish: Vector2 = LOCATIONS.get(route[1], Vector2.ZERO) + Vector2(-280, 40)
 	# The core contract is a ten-second loaded leg. Never advance rule time here.
@@ -182,7 +209,7 @@ func _refresh_cargo(available: bool) -> void:
 func _draw() -> void:
 	if abode == null or abode.session.state.era_id < 2:
 		return
-	for id in IslandEconomy.ROUTES:
+	for id in _all_routes():
 		var leg := _cargo_leg(id)
 		if leg.is_empty():
 			continue
@@ -194,7 +221,7 @@ func _draw() -> void:
 				draw_line(leg.position - direction * segment * 6.0, leg.position - direction * (segment + 1) * 6.0, Color(tint, 0.6 * (1.0 - float(segment) / 6.0)), 2.5, true)
 
 func enter(id: String) -> void:
-	if not id in ["home", "wood", "ore", "herb"] or abode.session.state.era_id < 2:
+	if not _world_visible(id):
 		return
 	current = id
 	banner_until = Time.get_ticks_msec() + 2200
@@ -221,11 +248,16 @@ func pick(point: Vector2) -> bool:
 	if abode.session.state.era_id < 2:
 		return false
 	for id in LOCATIONS:
+		if not roots[id].visible:
+			continue
 		var art: Sprite2D = landmarks[id]
 		var local := art.to_local(point) - art.get_rect().position
 		if art.visible and landmark_masks.has(id) and Rect2(Vector2.ZERO, Vector2(landmark_masks[id].get_size())).has_point(local) and landmark_masks[id].get_bitv(Vector2i(local)):
 			current = id
-			abode.feature_navigation.open_manufacturing(id, IslandProgression.RECIPES[id])
+			if IslandProgression.RECIPES.has(id):
+				abode.feature_navigation.open_manufacturing(id, IslandProgression.RECIPES[id])
+			else:
+				manage_current()
 			return true
 		# Same visible island surface at every zoom; no invisible remote entrance.
 		if roots[id].visible and Rect2(LOCATIONS[id] - Vector2(390, 210), Vector2(780, 370)).has_point(point):
@@ -234,3 +266,27 @@ func pick(point: Vector2) -> bool:
 			manage_current()
 			return true
 	return false
+
+func _all_routes() -> Dictionary:
+	var routes := IslandEconomy.ROUTES.duplicate()
+	routes.merge(IslandEconomy.supply_data().routes)
+	return routes
+
+func _world_visible(id: String) -> bool:
+	if abode.session.state.era_id < 2:
+		return false
+	if id in ["home", "wood", "ore", "herb"]:
+		return true
+	return IslandEconomy.expanded(abode.session.state) and IslandEconomy.supply_data().islands.has(id) and abode.session.state.era_id >= int(IslandEconomy.supply_data().islands[id].era)
+
+func _refresh_destinations() -> void:
+	var visible_ids: Array[String] = []
+	for id in IslandProgression.NAMES:
+		if _world_visible(id): visible_ids.append(id)
+	if visible_ids != destination_ids:
+		destination_ids = visible_ids
+		destination_picker.clear()
+		for id in destination_ids:
+			destination_picker.add_item(IslandProgression.NAMES[id])
+	if destination_ids.has(current):
+		destination_picker.select(destination_ids.find(current))
