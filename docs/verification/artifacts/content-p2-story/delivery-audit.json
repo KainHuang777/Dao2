@@ -1,0 +1,39 @@
+{
+  "level": "L1 static delivery audit",
+  "checks": 1522,
+  "failures": [],
+  "protected_files": 1405,
+  "explicit_changed_files": [
+    "content/encounters/encounters.json",
+    "src/application/game_session.gd",
+    "src/content/content_loader.gd",
+    "src/domain/decision_receipt.gd",
+    "src/persistence/save_codec.gd",
+    "src/persistence/save_manager.gd",
+    "src/persistence/story_save_contract.gd",
+    "src/simulation/achievement_system.gd",
+    "src/simulation/beast_system.gd",
+    "src/simulation/fortune_system.gd",
+    "src/simulation/island_progression.gd",
+    "src/simulation/sect_system.gd",
+    "src/simulation/story_progress.gd",
+    "tests/content_p1_story_runner.gd",
+    "tests/content_p2_beasts_save_runner.gd",
+    "tests/content_p2_pills_save_runner.gd",
+    "tests/content_p2_sect_save_runner.gd",
+    "tests/content_p2_supply_economy_runner.gd",
+    "tests/sks_p2_core_runner.gd"
+  ],
+  "existing_json": {
+    "checked": 28312,
+    "changed_sealed_then_restored": [
+      "src\\verification\\content_p1_story_fixture.json"
+    ],
+    "all_original_hashes_match": true
+  },
+  "new_runner_counts": {
+    "core": 1305,
+    "save": 557,
+    "events": 547
+  }
+}

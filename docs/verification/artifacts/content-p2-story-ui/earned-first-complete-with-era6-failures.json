@@ -1,0 +1,388 @@
+{
+	"boundary": "Independent dated earned Era4-6 snapshots; formal commands and normally timed saved RNG with simulated seconds, not wall-clock or browser natural progression. No claim that all18 encounters occur or all18 achievements are naturally earned.",
+	"branches": [
+		{
+			"end_age": 29373.0,
+			"era": 4,
+			"facts": {
+				"arrival_mask": 7,
+				"consumed_mask": 80,
+				"market_mask": 0,
+				"mature_mask": 1,
+				"refined_mask": 80,
+				"task_mask": 0
+			},
+			"sha256": "3f2e0a61853c01b465075df67c0e4088b84073572f2b531dfa3df11f751112b8",
+			"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era4.json",
+			"start_age": 12753.0
+		},
+		{
+			"end_age": 33003.0,
+			"era": 5,
+			"facts": {
+				"arrival_mask": 15,
+				"consumed_mask": 240,
+				"market_mask": 0,
+				"mature_mask": 2,
+				"refined_mask": 240,
+				"task_mask": 0
+			},
+			"sha256": "0578ba6994dfb2678e9e53ebfb9ef736852c8b9ddf152bd47622069f6c7bc099",
+			"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era5.json",
+			"start_age": 27163.0
+		},
+		{
+			"end_age": 59643.0,
+			"era": 6,
+			"facts": {
+				"arrival_mask": 30,
+				"consumed_mask": 48,
+				"market_mask": 0,
+				"mature_mask": 0,
+				"refined_mask": 240,
+				"task_mask": 0
+			},
+			"sha256": "7b4866da432ec2c086a6768caedc91b870a1e880ad303ef5aefc259d959a81e9",
+			"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era6.json",
+			"start_age": 59503.0
+		}
+	],
+	"checks": 336,
+	"claims": [
+		{
+			"era": 4,
+			"id": "p2_deep_arrivals",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_deep_arrivals",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"stone_low": 120
+							}
+						}
+					}
+				],
+				"new_revision": 2454,
+				"ok": true
+			}
+		},
+		{
+			"era": 4,
+			"id": "p2_mature_stag",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_mature_stag",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"spirit_grass_low": 100
+							}
+						}
+					}
+				],
+				"new_revision": 2503,
+				"ok": true
+			}
+		},
+		{
+			"era": 5,
+			"id": "p2_deep_arrivals",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_deep_arrivals",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"stone_low": 120
+							}
+						}
+					}
+				],
+				"new_revision": 2997,
+				"ok": true
+			}
+		},
+		{
+			"era": 5,
+			"id": "p2_ancient_arrival",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_ancient_arrival",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"spirit_grass_low": 100
+							}
+						}
+					}
+				],
+				"new_revision": 3002,
+				"ok": true
+			}
+		},
+		{
+			"era": 5,
+			"id": "p2_vessels_and_wards",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_vessels_and_wards",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"stone_low": 180
+							}
+						}
+					}
+				],
+				"new_revision": 3014,
+				"ok": true
+			}
+		},
+		{
+			"era": 5,
+			"id": "p2_mature_crane",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_mature_crane",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"spirit_grass_low": 100
+							}
+						}
+					}
+				],
+				"new_revision": 3059,
+				"ok": true
+			}
+		},
+		{
+			"era": 6,
+			"id": "p2_ancient_arrival",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_ancient_arrival",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"spirit_grass_low": 100
+							}
+						}
+					}
+				],
+				"new_revision": 3592,
+				"ok": true
+			}
+		}
+	],
+	"failures": [
+		"earned condition p2_deep_arrivals",
+		"earned claim p2_deep_arrivalsACHIEVEMENT_NOT_UNLOCKED",
+		"earned claim p2_void_arrivalSTORY_DESTINATION_FULL:stone_low",
+		"earned consume calm_tribulation_pill",
+		"earned consume silver_ward_pill",
+		"earned condition p2_vessels_and_wards",
+		"earned claim p2_vessels_and_wardsACHIEVEMENT_NOT_UNLOCKED"
+	],
+	"level": "L2",
+	"natural_encounters": [
+		{
+			"age": 29373.0,
+			"era": 4,
+			"pending": {
+				"art": "sect",
+				"content_batch": "content-p2-story",
+				"definition_digest": "8d872bbc8642143bfe8e88b38c8750fe1201dd52a1cf59563c38cf6da282acad",
+				"definition_version": 1.0,
+				"desc": "一名丹師守著將熄的爐火，願用片刻調息所得換取燃料。爐中沒有可供領取的丹藥，只有一份明確的修煉助益。",
+				"generation_era": 4,
+				"generation_realm": "realm_human",
+				"id": "enc_p2_pill_fire",
+				"instance_id": "423c529346756a0920ea3522e9533f547cce44c4cab612857bdb1db6b2acb43a",
+				"min_era": 4.0,
+				"options": [
+					{
+						"costs": {
+							"lingli": 600.0
+						},
+						"rewards": {
+							"log_text": "你添入六百靈力，在爐旁調息六十秒所對應的修煉進度。",
+							"training_seconds": 60.0
+						},
+						"text": "添靈力借火調息"
+					},
+					{
+						"costs": {
+							"spirit_grass_100y": 2.0
+						},
+						"rewards": {
+							"log_text": "你付出兩株百年草，參得九十秒所對應的修煉進度。",
+							"training_seconds": 90.0
+						},
+						"text": "添百年草細察丹息"
+					},
+					{
+						"costs": {},
+						"rewards": {
+							"log_text": "你謝過對方，未取分毫，將「丹房借火」留在身後。"
+						},
+						"text": "拱手辭行"
+					}
+				],
+				"qualifications": {
+					"active_crane": false,
+					"active_phoenix": false,
+					"active_stag": true,
+					"ancient_arrived": false,
+					"ancient_open": false,
+					"any_p2_talent": false,
+					"deep_arrived": true,
+					"deep_open": true,
+					"joined_sect": false,
+					"p2_consumed": true,
+					"p2_refined": true,
+					"p2_task_claimed": false,
+					"second_life": false,
+					"void_arrived": false,
+					"void_open": false
+				},
+				"realm_bias": "",
+				"requires": [
+					"deep_open",
+					"p2_refined"
+				],
+				"shichen_bias": "",
+				"title": "丹房借火",
+				"weather_bias": "",
+				"weight": 60.0
+			},
+			"result": {
+				"changed_ids": [
+					"fortune",
+					"resources",
+					"pills",
+					"buffs",
+					"cultivation_level"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"kind": "fortune_resolved",
+						"log": "你謝過對方，未取分毫，將「丹房借火」留在身後。",
+						"receipt": {
+							"at": 29373.0,
+							"buff": {},
+							"encounter_id": "enc_p2_pill_fire",
+							"instance_id": "423c529346756a0920ea3522e9533f547cce44c4cab612857bdb1db6b2acb43a",
+							"life_id": 1,
+							"log": "你謝過對方，未取分毫，將「丹房借火」留在身後。",
+							"option": "拱手辭行",
+							"option_index": 2,
+							"pills": {},
+							"resources": {},
+							"source": "4b331a7dd607229454002f1318238ca2154252c87c137fc7b8b08654ea0ac2e3",
+							"title": "丹房借火",
+							"training": {
+								"after": 17701.9999999999,
+								"before": 17701.9999999999,
+								"gained": 0.0,
+								"nominal": 0.0,
+								"overflow": 0.0
+							},
+							"version": 1
+						},
+						"rewards": {
+							"log_text": "你謝過對方，未取分毫，將「丹房借火」留在身後。"
+						}
+					}
+				],
+				"new_revision": 2531,
+				"ok": true
+			}
+		}
+	],
+	"waits": {
+		"craft:stone_high": 40.0,
+		"natural feed cooldown": 11400.0,
+		"normal encounter countdown": 10800.0,
+		"real home arrivals": 360.0
+	}
+}

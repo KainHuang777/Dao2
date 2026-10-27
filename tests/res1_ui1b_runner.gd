@@ -44,7 +44,7 @@ func reject(kind: String, payload: Dictionary, reason: String) -> void:
 
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "res://docs/verification/artifacts/content-p2-supply-3/res1_ui1b_runner"
+	script.save_dir_override = RunnerResult.output_path("res://docs/verification/artifacts/content-p2-supply-3/res1_ui1b_runner")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	abode = script.new()
 	root.add_child(abode)
@@ -262,11 +262,18 @@ func _run() -> void:
 		nav.open("transport")
 		nav.layout(vp)
 		await process_frame
+		panel.show_result("")
+		for frame in 6: await process_frame
+		var clean_body_height: float = panel.body.get_parent().size.y
+		var clean_first_card: Rect2 = panel.route_widgets.wood_ore.root.get_global_rect()
 		panel.show_success("航線設定已保存；停航時在途貨物仍會到貨。")
-		await process_frame
+		for frame in 6: await process_frame
 		if panel.size.y < 400:
 			check(not panel.message.visible and panel.heading_label.text.contains("已保存"), "compact receipt uses fixed heading " + str(vp))
-			check(panel.route_widgets.wood_ore.root.get_global_rect().end.y <= panel.body.get_parent().get_global_rect().end.y + 1, "compact receipt preserves full first card " + str(vp))
+			# The common short workspace scrolls long cards. A success receipt must
+			# preserve its viewport and card geometry, rather than require a whole
+			# card to fit even when it already exceeded the clean viewport.
+			check(is_equal_approx(panel.body.get_parent().size.y, clean_body_height) and panel.route_widgets.wood_ore.root.get_global_rect().is_equal_approx(clean_first_card), "compact receipt preserves reading area and first card " + str(vp))
 		panel.show_result("操作未保存：隔離驗證")
 		check(panel.message.visible and panel.retry_button.visible, "storage failure remains explicit " + str(vp))
 		panel.show_result("")

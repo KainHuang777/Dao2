@@ -915,6 +915,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode.reincarnation_panel._hero.reduced_motion = _abode.reduced
 		_abode.reincarnation_panel.call("refresh", view)
 	if _abode.fortune_modal != null and _abode.fortune_modal.visible:
+		_abode.fortune_modal.reduced_motion = _abode.reduced
 		_abode.fortune_modal.call("refresh", view)
 	var f_info: Dictionary = view.get("fortune", {})
 	var has_pending_fortune: bool = bool(f_info.get("has_pending", false))
@@ -924,6 +925,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	if _abode.alchemy_panel != null and _abode.alchemy_panel.visible:
 		_abode.alchemy_panel.call("update_view", view)
 	if _abode.achievement_panel != null and _abode.achievement_panel.visible:
+		_abode.achievement_panel.reduced_motion = _abode.reduced
 		_abode.achievement_panel.call("refresh_achievements", view.get("achievements", {}))
 	if _abode.buff_hud_bar != null:
 		var profile_buff := RuntimeProfile.begin()

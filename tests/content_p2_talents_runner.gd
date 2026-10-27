@@ -83,7 +83,7 @@ func run() -> void:
 	_test_save()
 	_test_reincarnation()
 	DirAccess.make_dir_recursive_absolute("res://docs/verification/artifacts/content-p2-talents")
-	var file := FileAccess.open("res://docs/verification/artifacts/content-p2-talents/runner.json",FileAccess.WRITE)
+	var file := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/content-p2-talents/runner.json"),FileAccess.WRITE)
 	file.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	print("CONTENT-P2-TALENTS ",checks," checks failures=",JSON.stringify(failures))
 	print("RUNNER_RESULT status=%s exit=%d" % ["PASS" if failures.is_empty() else "FAIL", 0 if failures.is_empty() else 1])

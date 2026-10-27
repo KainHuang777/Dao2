@@ -18,7 +18,7 @@ const FROZEN_SKILL_DEFS := {
 	"golden_core_formation": {"era": 3, "cost": 7650.0, "max_level": 5, "effect": "time_multiplier", "amount": 0.9},
 }
 const SAVE_META := {"save_id": "early-v1c", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": "0"}
-const OUT_JSON := "res://docs/verification/artifacts/early-v1-c/runner-measurement.json"
+var OUT_JSON := RunnerResult.output_path("res://docs/verification/artifacts/early-v1-c/runner-measurement.json")
 var content: GameContent
 var helper = preload("res://src/verification/res1d2_contract.gd").new()
 var failures: Array[String] = []
@@ -543,7 +543,7 @@ func print_table() -> void:
 func write_artifact() -> void:
 	if OS.has_feature("web"):
 		return
-	var dir := DirAccess.open("res://docs/verification/artifacts")
+	var dir := DirAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/"))
 	if dir != null and not dir.dir_exists("early-v1-c"):
 		dir.make_dir("early-v1-c")
 	var file := FileAccess.open(OUT_JSON, FileAccess.WRITE)

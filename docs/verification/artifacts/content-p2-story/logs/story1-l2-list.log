@@ -1,0 +1,12 @@
+[MODE] matrix=single runners=11 parallel=1
+tests/content_p2_beasts_runner.gd
+tests/content_p2_beasts_save_runner.gd
+tests/content_p2_sect_runner.gd
+tests/content_p2_sect_save_runner.gd
+tests/content_p2_pills_runner.gd
+tests/content_p2_pills_save_runner.gd
+tests/content_p2_supply_economy_runner.gd
+tests/content_p1_story_runner.gd
+tests/content_p1_story_events_runner.gd
+tests/decision_receipt_runner.gd
+tests/m1c_persistence_runner.gd

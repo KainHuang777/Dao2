@@ -1,7 +1,0 @@
-{
-  "checked": 20241,
-  "archived_then_restored": [
-    "docs/verification/artifacts/content-p1-sect/rules.json",
-    "src/verification/content_p1_sect_fixture.json"
-  ]
-}

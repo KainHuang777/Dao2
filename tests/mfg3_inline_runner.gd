@@ -33,7 +33,7 @@ func snap() -> String:
 func capture(name_text: String) -> void:
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://docs/verification/artifacts/mfg-3/native-%s.png" % name_text)
+		root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/mfg-3/native-%s.png" % name_text))
 
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
@@ -68,7 +68,7 @@ func _run() -> void:
 	var encoded := SaveCodec.encode(state, abode.content.content_version, {"save_id": "mfg3-diagnostic", "saved_at_utc_ms": "0", "settled_until_utc_ms": "0", "sim_tick": str(int(state.total_elapsed_seconds))})
 	check(encoded.ok, "diagnostic browser fixture encodes")
 	if encoded.ok:
-		var fixture_file := FileAccess.open("res://docs/verification/artifacts/mfg-3/fixture.json", FileAccess.WRITE)
+		var fixture_file := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/mfg-3/fixture.json"), FileAccess.WRITE)
 		if fixture_file == null:
 			push_error("write failed: res://docs/verification/artifacts/mfg-3/fixture.json")
 			RunnerResult.finish(self, 1)

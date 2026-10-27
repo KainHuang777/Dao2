@@ -19,6 +19,7 @@ static var _skills_original: String = ""
 static var _talents_original: String = ""
 static var _talents_candidate: GameState = null
 static var _story_original: String = ""
+static var _story_candidate: GameState = null
 static var _beasts_original: String = ""
 static var _beasts_candidate: GameState = null
 static var _sect_original: String = ""
@@ -32,10 +33,10 @@ static var _load_error: String = ""
 static var _forced_reset := false
 
 static func migration_pending(state: GameState) -> bool:
-	return (not _beasts_original.is_empty() and state == _beasts_candidate) or (not _sect_original.is_empty() and state == _sect_candidate) or (not _pills_original.is_empty() and state == _pills_candidate) or supply_pending(state) or (not _talents_original.is_empty() and state == _talents_candidate)
+	return (not _story_original.is_empty() and state == _story_candidate) or (not _beasts_original.is_empty() and state == _beasts_candidate) or (not _sect_original.is_empty() and state == _sect_candidate) or (not _pills_original.is_empty() and state == _pills_candidate) or supply_pending(state) or (not _talents_original.is_empty() and state == _talents_candidate)
 
 static func migration_error(state: GameState) -> String:
-	return "BEAST_SAVE_REQUIRED" if not _beasts_original.is_empty() and state == _beasts_candidate else "SUPPLY_SAVE_REQUIRED" if supply_pending(state) else "PILL_SAVE_REQUIRED" if not _pills_original.is_empty() and state == _pills_candidate else "SECT_SAVE_REQUIRED" if not _sect_original.is_empty() and state == _sect_candidate else "TALENT_SAVE_REQUIRED"
+	return "STORY_SAVE_REQUIRED" if not _story_original.is_empty() and state == _story_candidate else "BEAST_SAVE_REQUIRED" if not _beasts_original.is_empty() and state == _beasts_candidate else "SUPPLY_SAVE_REQUIRED" if supply_pending(state) else "PILL_SAVE_REQUIRED" if not _pills_original.is_empty() and state == _pills_candidate else "SECT_SAVE_REQUIRED" if not _sect_original.is_empty() and state == _sect_candidate else "TALENT_SAVE_REQUIRED"
 
 static func supply_pending(state: GameState) -> bool:
 	return not _supply_original.is_empty() and state == _supply_candidate
@@ -99,6 +100,7 @@ static func configure(content: GameContent, adapter: StorageAdapter = null) -> v
 	_talents_original = ""
 	_talents_candidate = null
 	_story_original = ""
+	_story_candidate = null
 	_beasts_original = ""
 	_beasts_candidate = null
 	_sect_original = ""
@@ -149,6 +151,8 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		return {"ok": false, "error": "LOAD_NOT_TRUSTED"}
 	if state == null:
 		return {"ok": false, "error": "STATE_MISSING"}
+	if _story_candidate != null and state != _story_candidate:
+		return {"ok": false, "error": "STORY_CANDIDATE_REQUIRED"}
 	if _beasts_candidate != null and state != _beasts_candidate:
 		return {"ok": false, "error": "BEAST_CANDIDATE_REQUIRED"}
 	if _sect_candidate != null and state != _sect_candidate:
@@ -196,6 +200,16 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	if not _story_original.is_empty():
 		var archive_key := "save_before_story_" + _story_original.sha256_text()
 		var original := adapter().read(archive_key)
+		if original.ok and original.data != _story_original:
+			var damaged_key := archive_key + "_damaged_" + String(original.data).sha256_text()
+			if not adapter().write(damaged_key, original.data).ok:
+				return {"ok": false, "error": "STORY_ARCHIVE_RESCUE_WRITE_FAILED"}
+			var damaged := adapter().read(damaged_key)
+			if not damaged.ok or damaged.data != original.data:
+				return {"ok": false, "error": "STORY_ARCHIVE_RESCUE_READBACK"}
+			if not adapter().write(archive_key, _story_original).ok:
+				return {"ok": false, "error": "STORY_ARCHIVE_WRITE_FAILED"}
+			original = adapter().read(archive_key)
 		if not original.ok:
 			if original.get("error") != "missing":
 				return {"ok": false, "error": "STORY_ARCHIVE_READ_FAILED"}
@@ -302,6 +316,7 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 		_talents_original = ""
 		_talents_candidate = null
 		_story_original = ""
+		_story_candidate = null
 		_beasts_original = ""
 		_beasts_candidate = null
 		_sect_original = ""
@@ -315,7 +330,7 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	return commit_result
 
 static func import_legacy_text(input_text: String) -> Dictionary:
-	if _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
+	if _story_candidate != null or _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
 		return {"ok": false, "state": null, "report": {}, "error": "MIGRATION_PENDING"}
 	var content_obj: GameContent = content()
 	if content_obj == null:
@@ -395,7 +410,7 @@ static func export_share_string(state: Variant = null, meta: Dictionary = {}) ->
 static func import_share_string(share: String) -> Dictionary:
 	# An outstanding migration owns its exact original and candidate. A second
 	# import must not replace references used by the eventual atomic save.
-	if _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
+	if _story_candidate != null or _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
 		return {"ok": false, "state": null, "error": "MIGRATION_PENDING"}
 	if share.is_empty():
 		return {"ok": false, "state": null, "error": "EMPTY"}
@@ -414,6 +429,7 @@ static func import_share_string(share: String) -> Dictionary:
 	if decode_result.state.story_version < StoryProgress.VERSION:
 		_story_original = json_text
 		StoryProgress.migrate(decode_result.state)
+		_story_candidate = decode_result.state
 	SkillSystem.reconcile(content(), decode_result["state"])
 	if TalentSystem.reconcile(decode_result["state"]):
 		_talents_original = json_text
@@ -443,6 +459,7 @@ static func reset_for_tests() -> void:
 	_talents_original = ""
 	_talents_candidate = null
 	_story_original = ""
+	_story_candidate = null
 	_beasts_original = ""
 	_beasts_candidate = null
 	_sect_original = ""
@@ -536,6 +553,7 @@ static func _load_from_slots() -> GameState:
 	if loaded_state.story_version < StoryProgress.VERSION:
 		_story_original = String(best["json"])
 		StoryProgress.migrate(loaded_state)
+		_story_candidate = loaded_state
 		loaded_state.revision += 1
 	return loaded_state
 

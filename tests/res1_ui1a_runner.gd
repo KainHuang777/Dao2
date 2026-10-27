@@ -44,7 +44,7 @@ func reject(kind: String, payload: Dictionary, reason: String) -> void:
 
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "res://docs/verification/artifacts/content-p2-supply-3/res1_ui1a_runner"
+	script.save_dir_override = RunnerResult.output_path("res://docs/verification/artifacts/content-p2-supply-3/res1_ui1a_runner")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	abode = script.new()
 	root.add_child(abode)

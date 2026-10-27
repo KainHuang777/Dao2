@@ -1,5 +1,5 @@
 extends SceneTree
-const DIR := "res://docs/verification/artifacts/content-p2-talents-ui/"
+var TALENT_OUT := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-talents-ui/")
 const META := {"save_id":"talent2-earned", "saved_at_utc_ms":"1000", "settled_until_utc_ms":"1000", "sim_tick":"0"}
 var checks := 0
 var failures := []
@@ -15,10 +15,10 @@ func save_fixture(state: GameState, content: GameContent, name: String) -> void:
 	var encoded := SaveCodec.encode(state,content.content_version,META)
 	check(encoded.ok,"encode "+name+str(encoded.get("error","")))
 	if encoded.ok:
-		var file := FileAccess.open("res://src/verification/talent2-"+name+".json",FileAccess.WRITE)
+		var file := FileAccess.open(RunnerResult.output_path("res://src/verification/talent2-"+name+".json"),FileAccess.WRITE)
 		file.store_string(encoded.json)
 func run() -> void:
-	DirAccess.make_dir_recursive_absolute(DIR)
+	DirAccess.make_dir_recursive_absolute(TALENT_OUT)
 	var content: GameContent = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach_supply(content).ok,"supply attached")
 	var source := "res://docs/verification/artifacts/content-p2-supply-3/earned-era4.json"
@@ -78,7 +78,7 @@ func run() -> void:
 	s.state.talent_version = 2
 	save_fixture(s.state,content,"old-earned")
 	var report := {"checks":checks,"failures":failures,"source":source,"source_sha256":raw.sha256_text(),"source_age":age_before,"max_age":max_age,"legal_rebirth_hearts":25,"choices":choices,"boundary":"inherited audited Era4 command-earned snapshot -> legal simulated time -> formal rebirth; not a new blank-save or browser natural long run; max/budget fixtures synthetic"}
-	var file := FileAccess.open(DIR+"flow.json",FileAccess.WRITE)
+	var file := FileAccess.open(TALENT_OUT+"flow.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(report,"\t"))
 	print("TALENT-2 FLOW ",checks," checks failures=",JSON.stringify(failures))
 	RunnerResult.finish(self,0 if failures.is_empty() else 1)

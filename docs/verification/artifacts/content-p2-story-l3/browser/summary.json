@@ -1,0 +1,48 @@
+{
+  "level": "L3 desktop browser portion",
+  "date": "2026-10-27",
+  "build": "Story2Acceptance (same gameplay source as Web)",
+  "origin": "http://127.0.0.1:48489",
+  "iframe_css_sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      800,
+      360
+    ]
+  ],
+  "sampled_844_canvas": {
+    "css": [
+      843,
+      389
+    ],
+    "backing": [
+      844,
+      390
+    ],
+    "godot_logical": [
+      779,
+      360
+    ]
+  },
+  "actions": [
+    "1280 event: actual mouse free departure; total resolved10 to11, saved receipt",
+    "844 album: mouse era_qi badge; actual reload retained claimed flag and ink stamp",
+    "800 album: mouse scroll reached P2 three memories card; canonical close returned home",
+    "800/844 event: actual reload retained departure, fixed countdown visible",
+    "1280 album: claimed flag retained, two-column presentation verified"
+  ],
+  "limits": [
+    "Review clock paused while page is active; offline reconciliation can advance across reload. Not natural wall-clock pacing or collection of all18 events.",
+    "Save fault matrix reused from dated STORY-2/UI-R1 evidence; not rerun.",
+    "Normal Web and isolated acceptance exports both succeeded; interactive assertions are on isolated acceptance build."
+  ],
+  "temporary_services_stopped": true,
+  "viewport_reset": true
+}

@@ -1,0 +1,17 @@
+[git] 22081 changed entries; head=01a7f5b
+      21875  docs/verification
+         73  tests
+         42  assets/ui
+         29  src/verification
+         12  tools
+          8  src/simulation
+          8  docs/archive
+          7  docs
+          6  src/presentation
+          3  assets/fonts
+          3  src/persistence
+          2  docs/design-data
+[evidence] changed entries under ['docs/verification/artifacts', 'src/verification']: 21901 (compare with expected for this task)
+[web] web: 7/7 files match compression.json
+[manifest] content-p2-story-manifest.json: acceptance=ACCEPTED, assets ok=20/20
+RESULT PASS

@@ -1,0 +1,1 @@
+Initial Full interrupted by Ctrl-C (tool exit1) after15 valid passes and a retained sect SCRIPT ERROR; unfinished runners are not passes. Continue via resume-selection.txt. Sandbox TEMP disappeared after cancellation; original full.log and report files remain, raw stdout for successful initial runners unavailable. No second Full.

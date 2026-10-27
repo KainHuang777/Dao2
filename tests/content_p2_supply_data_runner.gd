@@ -17,7 +17,7 @@ func _init() -> void:
 	_expect(_snapshot(base) == before, "candidate preparation never mutates release content")
 	_expect(base.era(4) == null, "no premature Era4 release before economy migration")
 	var report := {"level": "L1", "stage": "SUPPLY-1 data contract", "checks": checks, "failures": failures}
-	var dir := "res://docs/verification/artifacts/content-p2-supply"
+	var dir := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-supply")
 	DirAccess.make_dir_recursive_absolute(dir)
 	var file := FileAccess.open(dir + "/data-contract.json", FileAccess.WRITE)
 	if file != null: file.store_string(JSON.stringify(report, "\t"))

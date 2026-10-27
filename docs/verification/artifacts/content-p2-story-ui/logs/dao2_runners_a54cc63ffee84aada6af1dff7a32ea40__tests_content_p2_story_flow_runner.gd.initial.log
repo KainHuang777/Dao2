@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORY2 earned branch era4
+STORY2 earned branch era5
+STORY2 earned branch era6
+FLOW FAILURE earned condition p2_deep_arrivals
+FLOW FAILURE earned claim p2_deep_arrivalsACHIEVEMENT_NOT_UNLOCKED
+FLOW FAILURE earned claim p2_void_arrivalSTORY_DESTINATION_FULL:stone_low
+FLOW FAILURE earned consume calm_tribulation_pill
+FLOW FAILURE earned consume silver_ward_pill
+FLOW FAILURE earned condition p2_vessels_and_wards
+FLOW FAILURE earned claim p2_vessels_and_wardsACHIEVEMENT_NOT_UNLOCKED
+STORY2 FLOW 336 failures=["earned condition p2_deep_arrivals","earned claim p2_deep_arrivalsACHIEVEMENT_NOT_UNLOCKED","earned claim p2_void_arrivalSTORY_DESTINATION_FULL:stone_low","earned consume calm_tribulation_pill","earned consume silver_ward_pill","earned condition p2_vessels_and_wards","earned claim p2_vessels_and_wardsACHIEVEMENT_NOT_UNLOCKED"]
+RUNNER_RESULT status=FAIL exit=1

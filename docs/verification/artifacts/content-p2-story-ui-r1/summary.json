@@ -1,0 +1,27 @@
+{
+  "task": "STORY-2-UI-R1",
+  "level": "L1 + bounded L2",
+  "viewport": [
+    1280,
+    720
+  ],
+  "story_ui_checks": 1283,
+  "selected_runners": [
+    "content_p2_story_ui_runner.gd",
+    "decision_ui_runner.gd",
+    "ui_shell_matrix_runner.gd",
+    "uix_r10_fortune_ui_runner.gd",
+    "m3b_fortune_ui_runner.gd"
+  ],
+  "result": "All five passed in segmented runs; final stamp fix reran only story UI. Not a single all-green invocation.",
+  "browser": "Actual IAB mouse: P2 departure resolved/saved; badge claim once, disabled repeat unchanged; real reload retained claimed flag; timer fixed footer visible; returned home. Review harness pauses clock.",
+  "failures_retained": "Unregistered selector, pre-font missing 3 glyphs, user:// runner startup failures/timeouts, pre-P2 art assertions; all corrected within selected scope. Initial server connectivity and ink-stamp wrapping fixed.",
+  "not_run": [
+    "L3",
+    "full viewport matrix",
+    "FPS",
+    "full save-fault replay",
+    "natural progression replay"
+  ],
+  "scope": "Presentation only. New cooldown_total is a read-only View field; no numeric/RNG/save schema changes. Existing painted art reused."
+}

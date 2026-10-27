@@ -1,0 +1,15 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] decode_input (res://src/persistence/legacy_importer.gd:20)
+       [1] import_text (res://src/persistence/legacy_importer.gd:209)
+       [2] _test_corrupt (res://tests/m1e_import_runner.gd:383)
+       [3] _init (res://tests/m1e_import_runner.gd:25)
+ERROR: Parse JSON failed. Error at line 0: Expected 'true', 'false', or 'null', got 'broken'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] import_text (res://src/persistence/legacy_importer.gd:213)
+       [1] _test_corrupt (res://tests/m1e_import_runner.gd:386)
+       [2] _init (res://tests/m1e_import_runner.gd:25)

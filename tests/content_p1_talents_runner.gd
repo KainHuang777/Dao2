@@ -1,6 +1,6 @@
 extends SceneTree
 const META := {"save_id":"p1-talent-test", "saved_at_utc_ms":"0", "settled_until_utc_ms":"0", "sim_tick":"0"}
-const DIR := "res://docs/verification/artifacts/content-p1-talents/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-talents/")
 var checks := 0
 var failures := []
 var serial := 0
@@ -160,7 +160,7 @@ func run() -> void:
 	earned.state.era_id = 3
 	earned.state.total_elapsed_seconds = 999999
 	check(send(earned,"reincarnate",{"mode":"normal"}).ok and earned.state.dao_heart.to_float() == 20,"formal reward 20 hearts")
-	var f := FileAccess.open("res://src/verification/content_p1_talents_fixture.json",FileAccess.WRITE)
+	var f := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_talents_fixture.json"),FileAccess.WRITE)
 	if f == null:
 		push_error("write failed: res://src/verification/content_p1_talents_fixture.json")
 		RunnerResult.finish(self, 1)

@@ -1,5 +1,5 @@
 extends SceneTree
-const DIR := "res://docs/verification/artifacts/content-p1-story/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-story/")
 var checks := 0
 var failures := []
 func _init() -> void: run.call_deferred()
@@ -25,11 +25,11 @@ func run() -> void:
 	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp; root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp)); abode.feature_navigation.open("achievements"); await frames()
-		check(panel._achievement_items.size()==30,"30 cards "+str(vp))
+		check(panel._achievement_items.size()==48,"48 formal cards retain P1 "+str(vp))
 		for id in AchievementSystem.P1_DEFINITIONS:
 			var card: Control = panel._achievement_items[id]
 			panel._scroll.ensure_control_visible(card); await frames()
-			var action: Button = card.get_node("HBox/Action")
+			var action: Button = card.get_node("HBox/Badge/Action")
 			var art: TextureRect = card.get_node("HBox/Badge")
 			check(art.texture != null,id+" art "+str(vp))
 			check(card.size.x <= panel._scroll.size.x+1,id+" width")

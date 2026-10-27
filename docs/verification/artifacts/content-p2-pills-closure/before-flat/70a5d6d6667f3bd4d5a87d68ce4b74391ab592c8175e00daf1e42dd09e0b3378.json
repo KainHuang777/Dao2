@@ -1,5 +1,0 @@
-{
-	"checks": 75,
-	"evidence": "CLI simulated time and official commands; not real-time browser progression",
-	"failures": []
-}

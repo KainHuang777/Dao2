@@ -1,0 +1,28 @@
+{
+  "source": "Built-in image_gen",
+  "date": "2026-10-27",
+  "transparency": true,
+  "acceptance": "PENDING",
+  "license": "Original AI-generated assets; no third-party commercial license asserted",
+  "prompts": [
+    {
+      "batch": 1,
+      "prompt": "Create a production game asset sheet of SIX separate achievement medallions in a precise 3 columns x 2 rows equal-cell grid, landscape 1536x1024. Each circular medallion entirely within its own cell with at least 28px transparent clearance, no touching. Chinese xianxia painterly ink and gouache, elegant intricate antique GOLD rim with jade inlays, ivory watercolor interior, detailed narrative subjects, crisp readable at 128px, consistent frame. True transparent background outside all medallions. No words, labels, numerals or watermark. Reading order subjects: 1 silver mineral veins encircling one young glowing Dao sprout; 2 ancient medicinal roots entwined with spiritual ocean ripples; 3 three floating-island jade seals encircling one violet void dewdrop; 4 three small wooden cargo boats each bearing different silver ores; 5 bundles of medicinal herbs and a cargo boat approaching a quay; 6 an open wooden coffer holding violet ethereal essence. Full six complete circles, luxurious hand-painted game achievement icons."
+    },
+    {
+      "batch": 2,
+      "prompt": "Production xianxia game asset sheet SIX independent round gold-rim achievement badges, 3 columns x 2 rows equal square cells, landscape1536x1024. Transparent ALPHA background outside circles, absolutely no colored backdrop or sheet. Generous 28px blank transparent margin per cell. Intricate antique gold and jade rim, ivory interior with detailed Chinese watercolor gouache paintings. Subjects in reading order: 1 two alchemy furnaces one with infant-shaped Dao light and one with clear violet orb; 2 green medicinal dew flask paired with violet floating island; 3 stone coffer and spirit bottle behind two blank protective talismans; 4 three blank account books and a red sect seal; 5 two scrolls with alchemy cauldron turtle-shell and phoenix-feather motifs; 6 small brass balance scale weighing an iron ingot and medicinal herbs. No writing, labels, numbers, logos. Six COMPLETE uncut medallions, consistent ornate frame, clean silhouette."
+    },
+    {
+      "batch": 3,
+      "prompt": "Production Chinese xianxia game asset sheet of SIX independent circular antique GOLD and jade achievement medallions, 3 columns x 2 rows, landscape1536x1024, each complete circle centered in equal square cell with 28px transparent clearance. Genuine transparent alpha outside medals, no colored sheet backdrop. Ivory watercolor interior, painterly ink and gouache, elegant narrative detail and clear silhouettes. Reading order subjects: 1 silver-white frost-antlered stag in profile; 2 elegant white crane spreading wings over a red lingzhi mushroom held in its beak; 3 black mystical turtle shell and crimson phoenix feather on opposing halves of a yin-yang composition; 4 an old bronze oil life-lamp beside a newborn glowing Dao sprout with tiny infant silhouette; 5 two sets of footprints passing through a violet cloud gate; 6 three luminous jade memory beads green gold and violet circling an ethereal spiral. Consistent ornate round gold frame. No words, symbols resembling writing, numerals or watermark."
+    },
+    {
+      "batch": 4,
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject with generous transparent safety margin. A small returning wooden cargo boat with pale cloth sail, silver ore samples in baskets and a violet essence lantern, floating frontier landscape suggested only inside the isolated vignette with a few small misty rocks. Single vignette, no medallion or frame, transparent RGBA background, no horizon or full scene background. No text, letters, numerals, UI, watermark or logo. Wide clear 4:3 composition suitable displayed at 256px on pale paper."
+    },
+    {
+      "batch": 5
+    }
+  ]
+}

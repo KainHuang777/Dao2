@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: official consume calm_tribulation_pillPILL_CONSUME_ERA
+FAIL: consume isolated bit
+FAIL: full discarded cargo is not arrival deep_iron_home
+FAIL: full discarded cargo is not arrival deep_mithril_home
+FAIL: full discarded cargo is not arrival deep_cold_home
+FAIL: full discarded cargo is not arrival ancient_grass_home
+FAIL: full discarded cargo is not arrival void_essence_home
+CONTENT-P2-STORY-EVENTS 541 checks failures=["official consume calm_tribulation_pillPILL_CONSUME_ERA","consume isolated bit","full discarded cargo is not arrival deep_iron_home","full discarded cargo is not arrival deep_mithril_home","full discarded cargo is not arrival deep_cold_home","full discarded cargo is not arrival ancient_grass_home","full discarded cargo is not arrival void_essence_home"]
+RUNNER_RESULT status=FAIL exit=1

@@ -766,6 +766,7 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 		granted["buff"] = "epiphany"
 	
 	if active.get("template_id", "") in ["home_supply_register", "wood_ore_convoy"]: StoryProgress.mark(state, "new_supply_claimed")
+	StoryProgressP2.mark_id(state, "task_mask", StoryProgressP2.TASKS, str(active.get("template_id", "")))
 	sect["active_expedition"] = null
 	
 	return {
@@ -907,6 +908,7 @@ static func buy_market_item(state: GameState, item_id: String, content: GameCont
 		var cnt: int = int(def["grant_count"])
 		state.pills[pill_id] = int(state.pills.get(pill_id, 0)) + cnt
 	
+	StoryProgressP2.mark_id(state, "market_mask", StoryProgressP2.MARKET, item_id)
 	return {
 		"ok": true,
 		"item_id": item_id,

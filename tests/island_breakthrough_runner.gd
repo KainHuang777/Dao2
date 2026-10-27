@@ -204,7 +204,7 @@ func _check_bounds(control: Control, vp: Vector2, label: String) -> void:
 
 func _capture(label: String) -> void:
 	await RenderingServer.frame_post_draw
-	var directory := "res://docs/verification/artifacts/island-breakthrough"
+	var directory := RunnerResult.output_path("res://docs/verification/artifacts/island-breakthrough")
 	DirAccess.make_dir_recursive_absolute(directory)
 	var picture := root.get_texture().get_image()
 	_expect(picture != null and not picture.is_empty(), "desktop capture must contain rendered pixels")

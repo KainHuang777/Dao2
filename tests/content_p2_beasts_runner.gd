@@ -1,6 +1,6 @@
 extends SceneTree
 ## Synthetic contracts only. Earned creature lives belong to BEAST-2.
-const DIR := "res://docs/verification/artifacts/content-p2-beasts/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-beasts/")
 var checks := 0
 var failures: Array[String] = []
 var content: GameContent

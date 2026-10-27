@@ -31,7 +31,7 @@ func _init() -> void:
 	_expect(_send(s,"claim_sect_expedition").ok,"official supply claim")
 	_expect(StoryProgress.facts(s.state,true).new_supply_claimed and s.state.achievements.unlocked.has("p1_supply_commission"),"claim commits supply fact")
 	_expect(not _send(s,"claim_sect_expedition").ok,"claim cannot repeat")
-	var write_file_events := FileAccess.open("res://docs/verification/artifacts/content-p1-story/events.json",FileAccess.WRITE)
+	var write_file_events := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/content-p1-story/events.json"),FileAccess.WRITE)
 	if write_file_events == null:
 		push_error("write failed: " + str("res://docs/verification/artifacts/content-p1-story/events.json"))
 		RunnerResult.finish(self, 1)

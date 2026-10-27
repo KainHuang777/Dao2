@@ -1,0 +1,149 @@
+{
+  "task": "WORLD-46-A",
+  "date": "2026-10-27",
+  "acceptance": "PENDING",
+  "runtime_integrated": false,
+  "source": "OpenAI built-in image_gen, six generations plus one Ancient Herb landmark edit",
+  "license_note": "AI-generated project candidates; no third-party artwork copied and no third-party commercial license asserted. Existing Dao2 art used only as visual reference.",
+  "pipeline": {
+    "map_mode": "scene_mode",
+    "visual_model": "layered_raster",
+    "runtime_object_model": "separate_props + interactive_scene_objects",
+    "collision_model": "trigger_zones (planned); no walkable actor collision",
+    "engine_target": "Godot project-native (planned)"
+  },
+  "assets": [
+    {
+      "id": "deep_body",
+      "original": "docs/art-assets/world46/originals/deep_body.png",
+      "candidate": "docs/art-assets/world46/candidates/deep_body.png",
+      "original_sha256": "eb3b5e19bed04fb3f74206fdc49c0869c2ad232079c2491a8309ebbb15cf04b7",
+      "candidate_sha256": "987b144affa99300a04077538ff0b7954ee0f5f349a86ec88cd73664d10c8d53",
+      "size": [
+        1664,
+        1152
+      ],
+      "alpha_bounds": [
+        64,
+        64,
+        1586,
+        1088
+      ],
+      "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
+      "prompt": "docs/art-assets/world46/deep_body.prompt.txt"
+    },
+    {
+      "id": "deep_landmark",
+      "original": "docs/art-assets/world46/originals/deep_landmark.png",
+      "candidate": "docs/art-assets/world46/candidates/deep_landmark.png",
+      "original_sha256": "76aeb404424959ad48dece568d83dbf257314b636d73179e6fa350af48d20173",
+      "candidate_sha256": "db4895a821d87894a35ce83a93df0d80e816b93f71478ac39f08554ac9f8c5ba",
+      "size": [
+        1664,
+        1152
+      ],
+      "alpha_bounds": [
+        64,
+        77,
+        1568,
+        1088
+      ],
+      "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
+      "prompt": "docs/art-assets/world46/deep_landmark.prompt.txt"
+    },
+    {
+      "id": "ancient_body",
+      "original": "docs/art-assets/world46/originals/ancient_body.png",
+      "candidate": "docs/art-assets/world46/candidates/ancient_body.png",
+      "original_sha256": "b811f56363926464e2b62943e486e18df6493785f2a4f9f4fc401dfd33549192",
+      "candidate_sha256": "bda71c6c2793150d9a121ebd26ab4afc1a6ee37c56225c68d88e343ae7a51ab3",
+      "size": [
+        1664,
+        1152
+      ],
+      "alpha_bounds": [
+        64,
+        64,
+        1582,
+        1088
+      ],
+      "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
+      "prompt": "docs/art-assets/world46/ancient_body.prompt.txt"
+    },
+    {
+      "id": "ancient_landmark",
+      "original": "docs/art-assets/world46/originals/ancient_landmark-v2.png",
+      "candidate": "docs/art-assets/world46/candidates/ancient_landmark.png",
+      "original_sha256": "49a26ee79359987f20b659f1f7704be88dbc14d74eda4c8348f76739ebc57e8e",
+      "candidate_sha256": "373566a4d73394321d6daad3a1fb43e5fe7f5169f066275e2cb9564713dd8a13",
+      "size": [
+        1382,
+        1382
+      ],
+      "alpha_bounds": [
+        64,
+        73,
+        1318,
+        1318
+      ],
+      "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
+      "prompt": "docs/art-assets/world46/ancient_landmark-v2.prompt.txt"
+    },
+    {
+      "id": "void_body",
+      "original": "docs/art-assets/world46/originals/void_body.png",
+      "candidate": "docs/art-assets/world46/candidates/void_body.png",
+      "original_sha256": "0faf293becc3caed0fc237d1674a24bde8a31c7e69c2e882a8a2d645bc3e94e9",
+      "candidate_sha256": "a84c66bcb8ae724b41cd7a26ae8874d12a41afae432e75bbcd50d0f2fe646140",
+      "size": [
+        1664,
+        1152
+      ],
+      "alpha_bounds": [
+        83,
+        93,
+        1580,
+        1088
+      ],
+      "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
+      "prompt": "docs/art-assets/world46/void_body.prompt.txt"
+    },
+    {
+      "id": "void_landmark",
+      "original": "docs/art-assets/world46/originals/void_landmark.png",
+      "candidate": "docs/art-assets/world46/candidates/void_landmark.png",
+      "original_sha256": "94ed1a40d34b2a703a53db7b46105211335738e8c31ef41dbfdf260b99805e06",
+      "candidate_sha256": "580f4bfb593474d00d0f24c708fbc3463edfd40c8d61087275b9f45d4d2be9e0",
+      "size": [
+        1477,
+        1294
+      ],
+      "alpha_bounds": [
+        64,
+        64,
+        1403,
+        1230
+      ],
+      "processing": "64px transparent padding only; no repaint, keying, trimming or resampling",
+      "prompt": "docs/art-assets/world46/void_landmark.prompt.txt"
+    }
+  ],
+  "preview_only": true,
+  "preview_layout": {
+    "canvas": [
+      600,
+      610
+    ],
+    "body_width": 570,
+    "body_top": 218,
+    "landmark_width": 310,
+    "landmark_bottom": 410
+  },
+  "known_limits": [
+    "Art acceptance pending; composited previews are not runtime worlds.",
+    "Generated originals include soft semi-transparent edge haze; preserved for review on both light and dark backgrounds.",
+    "Transparent padding guarantees file-edge clearance only; it cannot recover missing original pixels.",
+    "Ancient landmark initial thick-base version is retained as rejected candidate; v2 is selected.",
+    "World entry, hit masks, cargo endpoints and era gating require subsequent implementation and L1/L2 validation."
+  ]
+}

@@ -1,6 +1,6 @@
 extends "res://tests/content_p2_supply_progression_runner.gd"
 ## Two independent earned empty-slot branches. Only time simulation, no grant commands.
-const OUT := "res://docs/verification/artifacts/content-p2-beasts-ui/"
+var OUT := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-beasts-ui/")
 const META := {"save_id":"beast2-earned","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":"0"}
 var branches := []
 func save_snapshot(name: String) -> void:
@@ -10,7 +10,7 @@ func save_snapshot(name: String) -> void:
 		var f := FileAccess.open(OUT+name+".json",FileAccess.WRITE)
 		f.store_string(encoded.json)
 		if name.begins_with("review-") or name == "reborn-t1":
-			var runtime := FileAccess.open("res://src/verification/beast2-"+name+".json",FileAccess.WRITE)
+			var runtime := FileAccess.open(RunnerResult.output_path("res://src/verification/beast2-"+name+".json"),FileAccess.WRITE)
 			runtime.store_string(encoded.json)
 
 func load_earned(era: int) -> bool:

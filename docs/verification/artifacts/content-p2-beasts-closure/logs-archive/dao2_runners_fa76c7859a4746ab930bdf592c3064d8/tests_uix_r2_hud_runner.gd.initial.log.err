@@ -1,0 +1,6 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/uix_r2_hud_runner.gd:21)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/uix_r2_hud_runner.gd:21)

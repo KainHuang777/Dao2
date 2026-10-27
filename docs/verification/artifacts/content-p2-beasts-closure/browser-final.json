@@ -1,0 +1,31 @@
+{
+  "status": "PASS_BOUNDED_DESKTOP_WEB",
+  "date": "2026-10-26",
+  "pck_sha256": "13b87accc145ee096c4eb7c209adaff073c6719ff0d411d4220ad5c8364aba60",
+  "observations_sha256": "b2d79da756735cd502a62941c4bf02bdfaf82cddfb923ea32db292e8116d8346",
+  "screenshots": {
+    "web-1280-crane-fed.jpg": "1f972ae1b7214558eb1ddd8cd842615ed19d8183531a4bbb758357ee040b99d2",
+    "web-1280-crane-locked.jpg": "f490cc0c5a24d96f26e6685210382a0667bfc702f54f1755f3b358ba52864613",
+    "web-1280-crane.jpg": "a19841900c605acf753ac50906e2ba4093275f700ae4581f19e12335ff81df05",
+    "web-1280-recovered.jpg": "7967f02a8d6c9432777828334e37e08245e2677bea0a5f043bb2dfc7ff8a7024",
+    "web-1280-refused.jpg": "3c026a3e3f466a3d8903fd6b9a4140706afd04bdae534c07a9b0bf04c9d12b7b",
+    "web-1280-stag.jpg": "79da12a3f7e88fbc2f67ac901fcc2764147aaf6ec5d33d5edcd37a4949bd8442",
+    "web-800-crane-reloaded.jpg": "ec51cd2e7ac1e0f17480159aa604b1fff075fe230f336b35a20f2918fe1db206",
+    "web-800-crane-t4.jpg": "8bfa65bbd9242df67f57c16e4bca5c5ee444f27ee5660fba8e9dee6c5e7712e0",
+    "web-800-crane.jpg": "9353a6d0e3662d56a093cf2fc076448220a928fcd2a565776987b3123be88fa4",
+    "web-800-home.jpg": "0f06be4f68d116d82ba8553e051d386695fd3d597bd326346cdca1a5237d8a83",
+    "web-800-stag-reloaded.jpg": "9f7600a28f87b3444c63fb506485ee82634c5a8e766fb027dc65c1818daea9b8",
+    "web-800-stag-talent.jpg": "bfac7bfdaefd4c0c82f4887a03424feb1c95477ae3c4fac7201293bbf456ffc1",
+    "web-800-stag.jpg": "f5e48bc055255a3c59e1b30569db6e23a0f2a3553e953a5e5a26de7125690c75",
+    "web-844-crane.jpg": "67c30f5b40772d4710c4ec6425ec1da4d7941523fdc7abe923768571d2493140",
+    "web-844-stag.jpg": "85b646a8c11ca047c154d0da3b2b43b1d4027e7b7bc0bc0121717dfb9e3c6545"
+  },
+  "boundaries": [
+    "normal candidate, real mouse, two independent dated earned branches",
+    "one feed each; stag denial/repeated retry/recovery/reload, both remain XP50",
+    "durable shell observation lags and continues ordinary production/cooldown; exact instantaneous debit not inferred from these samples",
+    "eight synthetic-soul purchases reuse unchanged dated BEAST-2 L2 evidence",
+    "CSS backing minus one pixel recorded; no physical device or FPS claim",
+    "prior long-session WebGL limit remains unresolved"
+  ]
+}

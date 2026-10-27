@@ -1,0 +1,562 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] E:\WORK\Dao2\.tmp\dao2_runners_403efe3bc6764584b8fdf8966fe4035d
+[START:initial] tests/content_p2_story_runner.gd
+[FAIL:initial] tests/content_p2_story_runner.gd exit=1 timeout=False script_error=False failure_marker=True result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: enc_p2_dew_exchange partial capacity spirit_grass_100y
+FAIL: enc_p2_bulk_stone partial capacity stone_mid
+FAIL: enc_p2_high_stone partial capacity stone_mid
+FAIL: enc_p2_sect_herbs partial capacity spirit_grass_100y
+FAIL: enc_p2_herb_residue partial capacity spirit_grass_100y
+FAIL: enc_p2_phoenix_ember success 0STORY_DESTINATION_FULL:lingli
+FAIL: enc_p2_memory_garden partial capacity spirit_grass_100y
+FAIL: enc_p2_returning_echo success 1STORY_DESTINATION_FULL:lingli
+FAIL: claim p2_ancient_arrival
+FAIL: exact reward
+FAIL: claim p2_training_alchemist
+FAIL: exact reward
+FAIL: claim p2_mature_stag
+FAIL: exact reward
+FAIL: claim p2_mature_crane
+FAIL: exact reward
+FAIL: claim p2_second_nascent
+FAIL: exact reward
+FAIL: life reset only current
+CONTENT-P2-STORY 1100 checks failures=["enc_p2_dew_exchange partial capacity spirit_grass_100y","enc_p2_bulk_stone partial capacity stone_mid","enc_p2_high_stone partial capacity stone_mid","enc_p2_sect_herbs partial capacity spirit_grass_100y","enc_p2_herb_residue partial capacity spirit_grass_100y","enc_p2_phoenix_ember success 0STORY_DESTINATION_FULL:lingli","enc_p2_memory_garden partial capacity spirit_grass_100y","enc_p2_returning_echo success 1STORY_DESTINATION_FULL:lingli","claim p2_ancient_arrival","exact reward","claim p2_training_alchemist","exact reward","claim p2_mature_stag","exact reward","claim p2_mature_crane","exact reward","claim p2_second_nascent","exact reward","life reset only current"]
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/content_p2_story_save_runner.gd
+[FAIL:initial] tests/content_p2_story_save_runner.gd exit=1 timeout=False script_error=True failure_marker=True result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+CONTENT-P2-STORY-SAVE 117 checks failures=["encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1"]
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _load_from_slots (res://src/persistence/save_manager.gd:481)
+       [1] current_state (res://src/persistence/save_manager.gd:138)
+       [2] run (res://tests/content_p2_story_save_runner.gd:54)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] <anonymous lambda> (res://src/persistence/save_manager.gd:502)
+       [2] read_best (res://src/persistence/save_slots.gd:62)
+       [3] _load_from_slots (res://src/persistence/save_manager.gd:501)
+       [4] current_state (res://src/persistence/save_manager.gd:138)
+       [5] run (res://tests/content_p2_story_save_runner.gd:54)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: old_state (res://tests/content_p2_story_save_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] old_state (res://tests/content_p2_story_save_runner.gd:26)
+       [1] run (res://tests/content_p2_story_save_runner.gd:46)
+ERROR: Parse JSON failed. Error at line 2: Expected value, got 'EOF'
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:90)
+       [1] import_share_string (res://src/persistence/save_manager.gd:420)
+       [2] run (res://tests/content_p2_story_save_runner.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'claimed' on a base object of type 'Dictionary'.
+   at: _validation (res://tests/content_p2_story_save_runner.gd:112)
+   GDScript backtrace (most recent call first):
+       [0] _validation (res://tests/content_p2_story_save_runner.gd:112)
+       [1] run (res://tests/content_p2_story_save_runner.gd:89)
+
+--- slowest 8 runners (s) ---
+    10.3  tests/content_p2_story_runner.gd
+     2.8  tests/content_p2_story_save_runner.gd
+Runner verification failed: tests/content_p2_story_runner.gd, tests/content_p2_story_save_runner.gd. Logs: E:\WORK\Dao2
+\.tmp\dao2_runners_403efe3bc6764584b8fdf8966fe4035d
+At E:\WORK\Dao2\tools\run_all_runners.ps1:289 char:28
++ ... nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Runner verifica...8fdf8966fe4035d:String) [], RuntimeException
+    + FullyQualifiedErrorId : Runner verification failed: tests/content_p2_story_runner.gd, tests/content_p2_story_sav 
+   e_runner.gd. Logs: E:\WORK\Dao2\.tmp\dao2_runners_403efe3bc6764584b8fdf8966fe4035d
+ 

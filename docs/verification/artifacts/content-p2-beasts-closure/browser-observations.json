@@ -1,0 +1,602 @@
+[
+  {
+    "label": "stag-acquired",
+    "summary": {
+      "revision": 8196,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 0,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 0
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1232.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "241.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        1280,
+        720
+      ],
+      "css": [
+        1279,
+        719
+      ]
+    }
+  },
+  {
+    "label": "stag-save-refused-durable",
+    "summary": {
+      "revision": 8212,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 0,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 0
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1236.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "241.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        1280,
+        720
+      ],
+      "css": [
+        1279,
+        719
+      ]
+    }
+  },
+  {
+    "label": "stag-recovered",
+    "summary": {
+      "revision": 8216,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 290
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1228.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "221.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        1280,
+        720
+      ],
+      "css": [
+        1279,
+        719
+      ]
+    }
+  },
+  {
+    "label": "stag-844",
+    "summary": {
+      "revision": 8246,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 260
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1234.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "221.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        844,
+        390
+      ],
+      "css": [
+        843,
+        389
+      ]
+    }
+  },
+  {
+    "label": "stag-800",
+    "summary": {
+      "revision": 8262,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 244
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1238.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "221.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        800,
+        360
+      ],
+      "css": [
+        799,
+        359
+      ]
+    }
+  },
+  {
+    "label": "stag-reloaded",
+    "summary": {
+      "revision": 8294,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 203
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1246.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "221.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        800,
+        360
+      ],
+      "css": [
+        799,
+        359
+      ]
+    }
+  },
+  {
+    "label": "stag-background-during-crane-before",
+    "summary": {
+      "revision": 8422,
+      "era": 4,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "frost_stag",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 75
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "1272.2"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "221.5"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": false,
+          "unlocked": false,
+          "value": "0"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        800,
+        360
+      ],
+      "css": [
+        799,
+        359
+      ]
+    }
+  },
+  {
+    "label": "crane-acquired",
+    "summary": {
+      "revision": 3042,
+      "era": 5,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 0,
+          "id": "herb_crane",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 0
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "3000"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "210"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "504.080000000005"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        1280,
+        720
+      ],
+      "css": [
+        1279,
+        719
+      ]
+    }
+  },
+  {
+    "label": "crane-fed",
+    "summary": {
+      "revision": 3057,
+      "era": 5,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "herb_crane",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 298
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "3000"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "210"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "95"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "503.680000000005"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        1280,
+        720
+      ],
+      "css": [
+        1279,
+        719
+      ]
+    }
+  },
+  {
+    "label": "crane-844",
+    "summary": {
+      "revision": 3073,
+      "era": 5,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "herb_crane",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 282
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "3000"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "210"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "504.480000000005"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        844,
+        390
+      ],
+      "css": [
+        843,
+        389
+      ]
+    }
+  },
+  {
+    "label": "crane-800",
+    "summary": {
+      "revision": 3089,
+      "era": 5,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "herb_crane",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 266
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "3000"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "210"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "506.080000000005"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        800,
+        360
+      ],
+      "css": [
+        799,
+        359
+      ]
+    }
+  },
+  {
+    "label": "crane-reloaded",
+    "summary": {
+      "revision": 3205,
+      "era": 5,
+      "level": 1,
+      "beasts": {
+        "active": {
+          "exp": 50,
+          "id": "herb_crane",
+          "stage": "egg"
+        },
+        "cooldown_remaining": 141
+      },
+      "souls": {},
+      "talents": {},
+      "stocks": {
+        "refined_iron": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "3000"
+        },
+        "spirit_grass_low": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "210"
+        },
+        "spirit_grass_100y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "100"
+        },
+        "spirit_grass_1000y": {
+          "ever_obtained": true,
+          "unlocked": true,
+          "value": "515.680000000005"
+        }
+      }
+    },
+    "canvas": {
+      "backing": [
+        800,
+        360
+      ],
+      "css": [
+        799,
+        359
+      ]
+    }
+  }
+]

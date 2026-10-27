@@ -1,7 +1,0 @@
-{
-  "initial_failure": "104 fixed runners covered",
-  "printed_headers": 107,
-  "unique": 104,
-  "missing": [],
-  "resolution": "Three legacy scripts repeat their own RUNNING header. Preserve ordered unique coverage and retain raw logs."
-}

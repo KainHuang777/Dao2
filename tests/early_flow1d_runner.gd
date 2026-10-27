@@ -55,7 +55,7 @@ func fixture(s: GameSession, id: String) -> void:
 	m.settled_until_utc_ms = utc
 	var encoded := SaveCodec.encode(s.state, content.content_version, m)
 	check(encoded.ok, "earned browser fixture " + id)
-	var file := FileAccess.open("res://docs/verification/artifacts/early-flow1d-" + id + ".json", FileAccess.WRITE)
+	var file := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/early-flow1d-" + id + ".json"), FileAccess.WRITE)
 	check(file != null, "fixture file " + id)
 	if file != null:
 		file.store_string(encoded.json)
@@ -247,7 +247,7 @@ func ui(s: GameSession) -> void:
 	scene.feature_navigation.open("beasts")
 	check(scene.feature_navigation.page == "beasts", "canonical beast route")
 	for id in ["foundation", "golden", "ready"]:
-		var saved := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/early-flow1d-" + id + ".json"))
+		var saved := SaveCodec.decode(FileAccess.get_file_as_string(RunnerResult.output_path("res://docs/verification/artifacts/early-flow1d-" + id + ".json")))
 		if not saved.ok:
 			check(false, "fixture decode " + id)
 			continue

@@ -38,8 +38,8 @@ static func receipt_text(r: Dictionary) -> String:
 	for id in r.resources:
 		var row: Dictionary = r.resources[id]
 		lines.append("%s：已付 %s · 實得 %s · 未入庫 %s\n當次餘量 %s → %s（標稱 %s）" % [Icon.get_resource_name(id), amount(row.paid), amount(row.gained), amount(row.overflow), amount(row.before), amount(row.after), amount(row.nominal)])
-	if float(r.training.gained) > 0:
-		lines.append("修煉：實增 %s 秒 · 當次 %s → %s 秒" % [str(r.training.gained), str(r.training.before), str(r.training.after)])
+	if float(r.training.get("nominal", r.training.gained)) > 0:
+		lines.append("修煉：標稱 %s 秒 · 實增 %s 秒 · 捨棄 %s 秒\n當次 %s → %s 秒" % [str(r.training.get("nominal", r.training.gained)), str(r.training.gained), str(r.training.get("overflow", 0)), str(r.training.before), str(r.training.after)])
 	for id in r.pills:
 		var def: Dictionary = AlchemySystem.PILLS.get(id, {})
 		var row: Dictionary = r.pills[id]

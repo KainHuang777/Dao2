@@ -1,6 +1,6 @@
 extends SceneTree
 ## Separate process durability evidence; explicit project-local test directory.
-const DIR := "res://docs/verification/artifacts/res1-b-cross-process"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/res1-b-cross-process")
 const META := {"save_id": "res1b_disk", "saved_at_utc_ms": "1000", "settled_until_utc_ms": "1000", "sim_tick": "0"}
 
 func _init() -> void:

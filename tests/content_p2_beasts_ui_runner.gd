@@ -1,5 +1,5 @@
 extends SceneTree
-const OUT := "res://docs/verification/artifacts/content-p2-beasts-ui/"
+var OUT := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-beasts-ui/")
 var checks := 0
 var failures := []
 func _init() -> void: run.call_deferred()
@@ -11,7 +11,7 @@ func frames() -> void:
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(OUT)
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "res://docs/verification/artifacts/content-p2-beasts-ui/ui-storage"
+	script.save_dir_override = RunnerResult.output_path("res://docs/verification/artifacts/content-p2-beasts-ui/ui-storage")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)

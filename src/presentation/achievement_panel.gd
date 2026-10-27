@@ -23,6 +23,7 @@ var _category := ""
 var _retry_button: Button
 var _feedback_row: HBoxContainer
 var _margin: MarginContainer
+var reduced_motion := false
 
 func _ready() -> void:
 	_build_ui()
@@ -91,11 +92,11 @@ func _build_ui() -> void:
 	_feedback_row.add_theme_constant_override("separation", 8)
 	_content.add_child(_feedback_row)
 	_feedback_row.add_child(_status_label)
-	_retry_button = Button.new()
+	_retry_button = GraphicAction.new()
+	UiIcon.decorate_button(_retry_button, UiIcon.Kind.REFRESH, GraphicAction.JADE, 24)
 	_retry_button.text = "重試保存"
 	_retry_button.custom_minimum_size.y = 44
 	_retry_button.visible = false
-	UiMaterial.apply_button(_retry_button)
 	_retry_button.pressed.connect(func(): save_retry_requested.emit())
 	_feedback_row.add_child(_retry_button)
 	_filters_scroll = ScrollContainer.new()
@@ -210,20 +211,20 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	info.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	box.add_child(info)
-	for role in ["Title", "Reward", "Reason"]:
+	for role in ["Title", "Reward", "Reason", "State"]:
 		var label := _label(role, 18 if role == "Title" else 16)
 		if role == "Title": label.add_theme_font_override("font", UiTypography.emphasis_font())
 		info.add_child(label)
 		if role == "Reason": label.hide()
-	var action := Button.new()
+		if role == "State":
+			label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	var action := GraphicAction.new()
 	action.name = "Action"
-	action.custom_minimum_size = Vector2(100, 44)
-	action.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	action.add_theme_font_override("font", UiTypography.body_font())
-	action.add_theme_font_size_override("font_size", 16)
-	UiMaterial.apply_button(action)
+	action.artwork_hit = true
 	action.pressed.connect(_on_card_action.bind(String(ach.id)))
-	box.add_child(action)
+	badge.add_child(action)
+	action.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	return card
 
 func _update_card(card: PanelContainer, ach: Dictionary) -> void:
@@ -233,13 +234,32 @@ func _update_card(card: PanelContainer, ach: Dictionary) -> void:
 	var error := String(ach.get("reason", ""))
 	card.get_node("HBox/Info/Reason").text = error
 	card.get_node("HBox/Info/Reason").visible = not error.is_empty()
-	var action: Button = card.get_node("HBox/Action")
-	action.tooltip_text = error
+	var action: GraphicAction = card.get_node("HBox/Badge/Action")
 	var claimed := bool(ach.get("claimed", false))
 	var ready := bool(ach.get("can_claim", false))
-	action.text = "已領取" if claimed else ("領取獎勵" if ready else ("暫不可領" if not error.is_empty() else "未達成"))
+	var status := "已領取" if claimed else ("點徽章領取" if ready else ("暫不可領" if not error.is_empty() else "未達成"))
+	action.tooltip_text = String(ach.name) + " · " + status + ("\n" + error if not error.is_empty() else "")
 	action.disabled = not ready or claimed
-	card.get_node("HBox/Badge").modulate = Color.WHITE if ready or claimed else Color(0.58, 0.63, 0.60)
+	action.present(ready and not claimed, reduced_motion)
+	var stamp: Label = card.get_node("HBox/Info/State")
+	stamp.text = "領訖 · 已領取" if claimed else status
+	stamp.add_theme_color_override("font_color", GraphicAction.JADE if ready or claimed else UiMaterial.DISABLED_INK)
+	if bool(stamp.get_meta("claimed", false)) != claimed:
+		stamp.set_meta("claimed", claimed)
+		if claimed:
+			var seal := UiMaterial.rounded(Color(0.20, 0.42, 0.35, 0.06), 2)
+			seal.border_color = GraphicAction.JADE
+			seal.set_border_width_all(1)
+			seal.content_margin_left = 6
+			seal.content_margin_right = 6
+			seal.content_margin_top = 2
+			seal.content_margin_bottom = 2
+			stamp.add_theme_stylebox_override("normal", seal)
+		else:
+			stamp.remove_theme_stylebox_override("normal")
+	card.get_node("HBox/Badge").self_modulate = Color.WHITE if ready or claimed else Color(0.58, 0.63, 0.60)
 
 func _on_card_action(ach_id: String) -> void:
+	# Latch the hit area until the authoritative command result refreshes the card.
+	_achievement_items[ach_id].get_node("HBox/Badge/Action").disabled = true
 	claim_requested.emit(ach_id)

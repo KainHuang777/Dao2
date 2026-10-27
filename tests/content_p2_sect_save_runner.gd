@@ -1,6 +1,6 @@
 extends SceneTree
 const META := {"save_id":"sect2-isolated","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":"0"}
-const DIR := "res://docs/verification/artifacts/content-p2-sect/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-sect/")
 var checks := 0
 var failures: Array[String] = []
 var content: GameContent
@@ -119,7 +119,7 @@ func _test_validation() -> void:
 	good.sect.market_purchases={"refined_iron_reserve":10,"ancient_herb_reserve":2}
 	var raw := encode(good)
 	check(SaveCodec.decode(raw).ok,"v2 roundtrip")
-	check(JSON.parse_string(raw).rules_version==SaveCodec.BEAST_RULES_VERSION and JSON.parse_string(raw).schema_version==5,"sect rules schema5")
+	check(JSON.parse_string(raw).rules_version==SaveCodec.STORY2_RULES_VERSION and JSON.parse_string(raw).schema_version==5,"sect rules schema5")
 	for version in [0,1,3,true,1.5]: check(not SaveCodec.decode(changed(raw,"sect_version",version)).ok,"version rejects "+str(version))
 	for field in ["techniques","market_purchases"]:
 		for id in (SectSystem.P2_TECHNIQUES if field=="techniques" else SectSystem.P2_MARKET):

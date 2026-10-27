@@ -1,5 +1,5 @@
 extends SceneTree
-const DIR := "res://docs/verification/artifacts/content-p1-story/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-story/")
 const META := {"save_id":"story-isolated", "saved_at_utc_ms":"1000", "settled_until_utc_ms":"1000", "sim_tick":"0"}
 class Memory extends StorageAdapter:
 	var data := {}
@@ -64,8 +64,8 @@ func valid_old(raw: String) -> String:
 func run() -> void:
 	content = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach(content).ok, "content attach")
-	check(AchievementSystem.DEFINITIONS.size() == 30, "30 achievements")
-	check(FortuneSystem.get_encounters().size() == 38, "38 encounters")
+	check(AchievementSystem.DEFINITIONS.size() == 48, "48 achievements including Y")
+	check(FortuneSystem.get_encounters().size() == 56, "56 encounters including Y")
 	var new_defs: Array = []
 	for def in FortuneSystem.get_encounters():
 		if def.get("content_batch") == "content-p1-story": new_defs.append(def)
@@ -287,7 +287,7 @@ func run() -> void:
 			var memory := Memory.new(); memory.data[SaveSlots.SLOT_MAIN] = old
 			SaveManager.configure(content,memory)
 			var loaded := SaveManager.current_state()
-			check(loaded != null and loaded.story_version == 1,"migrate "+fault)
+			check(loaded != null and loaded.story_version == StoryProgress.VERSION,"migrate "+fault)
 			if loaded == null: continue
 			check(StoryProgress.facts(loaded,true).refined_mask == 0 and not StoryProgress.facts(loaded,true).timber_completed,"no historical action fabrication")
 			var key := "save_before_story_"+old.sha256_text()
@@ -301,7 +301,7 @@ func run() -> void:
 				memory.fail = ""; memory.corrupt_read = ""
 				check(SaveManager.save(loaded,META).ok,"retry migration "+fault)
 			check(memory.data.get(key) == old,"original bytes archived")
-		for value in [-1,2,"1",true]:
+		for value in [-1,3,"1",true]:
 			var env: Dictionary = JSON.parse_string(encoded.json)
 			env.state.story_version = value; env.erase("checksum"); env.checksum = SaveCodec.compute_checksum(env)
 			check(not SaveCodec.decode(JSON.stringify(env)).ok,"invalid story version "+str(value))
@@ -353,7 +353,7 @@ func run() -> void:
 	for id in s.state.resources: s.state.resources[id].value = AmountCompat.zero()
 	var ui_encoded := SaveCodec.encode(s.state,content.content_version,META)
 	if ui_encoded.ok:
-		var write_file_story_fixture := FileAccess.open("res://src/verification/content_p1_story_fixture.json",FileAccess.WRITE)
+		var write_file_story_fixture := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_story_fixture.json"),FileAccess.WRITE)
 		if write_file_story_fixture == null:
 			push_error("write failed: " + str("res://src/verification/content_p1_story_fixture.json"))
 			RunnerResult.finish(self, 1)

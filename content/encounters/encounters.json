@@ -1345,5 +1345,900 @@
     "weather_bias": "",
     "shichen_bias": "",
     "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_silver_scale",
+    "title": "寒銀換秤",
+    "desc": "寒銀島歸舟靠岸，一名礦師攤開兩副小秤。他願用精鐵換取靈石，也願收下你手中的精鐵，價碼寫在無字刻痕旁。",
+    "min_era": 4,
+    "requires": [
+      "deep_open"
+    ],
+    "art": "frontier",
+    "options": [
+      {
+        "text": "以靈石換三塊精鐵",
+        "costs": {
+          "stone_low": 80
+        },
+        "rewards": {
+          "resources": {
+            "refined_iron": 3
+          },
+          "log_text": "你付出八十下品靈石，換得精鐵三塊。"
+        }
+      },
+      {
+        "text": "售出兩塊精鐵",
+        "costs": {
+          "refined_iron": 2
+        },
+        "rewards": {
+          "resources": {
+            "stone_low": 40
+          },
+          "log_text": "你交出兩塊精鐵，收下四十下品靈石。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「寒銀換秤」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_cold_assay",
+    "title": "寒鐵試紋",
+    "desc": "老匠用銀針劃過寒鐵，說這一爐只差一種礦材。你可補上寒鐵換秘銀，也可拿秘銀換回較多的寒鐵。",
+    "min_era": 4,
+    "requires": [
+      "deep_open"
+    ],
+    "art": "frontier",
+    "options": [
+      {
+        "text": "交寒鐵換秘銀",
+        "costs": {
+          "cold_iron": 4
+        },
+        "rewards": {
+          "resources": {
+            "mithril": 2
+          },
+          "log_text": "四塊寒鐵換得兩塊秘銀，銀針上的紋路漸漸平息。"
+        }
+      },
+      {
+        "text": "交秘銀換寒鐵",
+        "costs": {
+          "mithril": 3
+        },
+        "rewards": {
+          "resources": {
+            "cold_iron": 4
+          },
+          "log_text": "你交出三塊秘銀，收下四塊寒鐵。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「寒鐵試紋」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_dew_exchange",
+    "title": "古藥餘露",
+    "desc": "藥客正在分裝凝在葉背的餘露。千年草稀少，百年草卻正缺一批；他邀你按眼前用途交換。",
+    "min_era": 5,
+    "requires": [
+      "ancient_open"
+    ],
+    "art": "herbarium",
+    "options": [
+      {
+        "text": "以百年草換千年草",
+        "costs": {
+          "spirit_grass_100y": 12
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_1000y": 1
+          },
+          "log_text": "十二株百年草換回一株千年草。"
+        }
+      },
+      {
+        "text": "以千年草換百年草",
+        "costs": {
+          "spirit_grass_1000y": 1
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_100y": 8
+          },
+          "log_text": "你留出一株千年草，換得八株百年草。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「古藥餘露」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_bulk_stone",
+    "title": "碎石封舟",
+    "desc": "貨舟騰出一格空艙，船家正把碎石分裝成堆。若你願提供足量石料與靈力，他便直接交出已煉好的中品靈石。",
+    "min_era": 4,
+    "requires": [
+      "deep_open",
+      "deep_arrived"
+    ],
+    "art": "industry",
+    "options": [
+      {
+        "text": "託船家代煉一小堆",
+        "costs": {
+          "stone_low": 60,
+          "lingli": 150
+        },
+        "rewards": {
+          "resources": {
+            "stone_mid": 10
+          },
+          "log_text": "船家收妥六十下品靈石與一百五十靈力，交回十枚中品靈石。"
+        }
+      },
+      {
+        "text": "拆售十枚中品靈石",
+        "costs": {
+          "stone_mid": 10
+        },
+        "rewards": {
+          "resources": {
+            "stone_low": 40
+          },
+          "log_text": "你將十枚中品靈石交付，收回四十下品靈石。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「碎石封舟」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_high_stone",
+    "title": "上石分盞",
+    "desc": "上品靈石的冷光照著船艙。船家願讓出一枚整石，也能把你的整石換成幾枚可立即使用的中石。",
+    "min_era": 5,
+    "requires": [
+      "ancient_open",
+      "ancient_arrived"
+    ],
+    "art": "industry",
+    "options": [
+      {
+        "text": "換取一枚整石",
+        "costs": {
+          "stone_mid": 4,
+          "lingli": 70
+        },
+        "rewards": {
+          "resources": {
+            "stone_high": 1
+          },
+          "log_text": "你以四枚中品靈石與七十靈力換得一枚上品靈石。"
+        }
+      },
+      {
+        "text": "拆換一枚整石",
+        "costs": {
+          "stone_high": 1
+        },
+        "rewards": {
+          "resources": {
+            "stone_mid": 2
+          },
+          "log_text": "一枚上品靈石換回兩枚中品靈石。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「上石分盞」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_void_cargo",
+    "title": "虛華壓艙",
+    "desc": "太虛歸舟的舷側泛起紫光。押艙人不願多留這團輕若無物的精華，願換取穩定的上品靈石。",
+    "min_era": 6,
+    "requires": [
+      "void_open",
+      "void_arrived"
+    ],
+    "art": "frontier",
+    "options": [
+      {
+        "text": "用上石換虛華",
+        "costs": {
+          "stone_high": 2
+        },
+        "rewards": {
+          "resources": {
+            "void_essence": 2
+          },
+          "log_text": "兩枚上品靈石換來兩縷虛空精華。"
+        }
+      },
+      {
+        "text": "交虛華換上石",
+        "costs": {
+          "void_essence": 3
+        },
+        "rewards": {
+          "resources": {
+            "stone_high": 1
+          },
+          "log_text": "你封存三縷虛空精華，換得一枚上品靈石。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「虛華壓艙」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_sect_iron",
+    "title": "宗門餘鐵",
+    "desc": "執事合上新一輪供給簿，桌上還留有少量鐵料。他只接受物資交換，這筆往來不算委託，也不添貢獻。",
+    "min_era": 4,
+    "requires": [
+      "deep_open",
+      "joined_sect",
+      "p2_task_claimed"
+    ],
+    "art": "sect",
+    "options": [
+      {
+        "text": "補靈石領餘鐵",
+        "costs": {
+          "stone_low": 100
+        },
+        "rewards": {
+          "resources": {
+            "refined_iron": 4
+          },
+          "log_text": "你付出一百下品靈石，領回四塊餘鐵。"
+        }
+      },
+      {
+        "text": "歸還鐵料換草",
+        "costs": {
+          "refined_iron": 3
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_low": 40
+          },
+          "log_text": "你歸還三塊鐵料，換回四十株低階靈草。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「宗門餘鐵」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_sect_herbs",
+    "title": "藥房兩籃",
+    "desc": "藥房管事把百年草與千年草分成兩籃，問你這次更缺哪一籃。這不是新的派遣，須由你自行決定取捨。",
+    "min_era": 5,
+    "requires": [
+      "ancient_open",
+      "joined_sect",
+      "p2_task_claimed"
+    ],
+    "art": "sect",
+    "options": [
+      {
+        "text": "用下石換一株千草",
+        "costs": {
+          "stone_low": 160
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_1000y": 1
+          },
+          "log_text": "你付出一百六十下品靈石，取走一株千年靈草。"
+        }
+      },
+      {
+        "text": "交千草補百草",
+        "costs": {
+          "spirit_grass_1000y": 2
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_100y": 18
+          },
+          "log_text": "兩株千年靈草換回十八株百年靈草。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「藥房兩籃」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_sect_chart",
+    "title": "太虛圖角",
+    "desc": "供給圖的一角被風吹起，露出押圖人的備用材料。他願用一點虛華交換祖島靈力，或反向收購。",
+    "min_era": 6,
+    "requires": [
+      "void_open",
+      "joined_sect",
+      "p2_task_claimed"
+    ],
+    "art": "sect",
+    "options": [
+      {
+        "text": "以靈力換虛華",
+        "costs": {
+          "lingli": 1500
+        },
+        "rewards": {
+          "resources": {
+            "void_essence": 1
+          },
+          "log_text": "一千五百靈力換得一縷虛空精華。"
+        }
+      },
+      {
+        "text": "以虛華換靈力",
+        "costs": {
+          "void_essence": 2
+        },
+        "rewards": {
+          "resources": {
+            "lingli": 1000
+          },
+          "log_text": "你交出兩縷虛空精華，收回一千靈力。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「太虛圖角」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_pill_fire",
+    "title": "丹房借火",
+    "desc": "一名丹師守著將熄的爐火，願用片刻調息所得換取燃料。爐中沒有可供領取的丹藥，只有一份明確的修煉助益。",
+    "min_era": 4,
+    "requires": [
+      "deep_open",
+      "p2_refined"
+    ],
+    "art": "sect",
+    "options": [
+      {
+        "text": "添靈力借火調息",
+        "costs": {
+          "lingli": 600
+        },
+        "rewards": {
+          "training_seconds": 60,
+          "log_text": "你添入六百靈力，在爐旁調息六十秒所對應的修煉進度。"
+        }
+      },
+      {
+        "text": "添百年草細察丹息",
+        "costs": {
+          "spirit_grass_100y": 2
+        },
+        "rewards": {
+          "training_seconds": 90,
+          "log_text": "你付出兩株百年草，參得九十秒所對應的修煉進度。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「丹房借火」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_herb_residue",
+    "title": "藥渣留香",
+    "desc": "古藥丹的餘香尚未散盡，丹師請你挑一包材料回去補爐。你得先拿出自己的草藥，不能把這當成親煉。",
+    "min_era": 5,
+    "requires": [
+      "ancient_open",
+      "p2_consumed"
+    ],
+    "art": "herbarium",
+    "options": [
+      {
+        "text": "以千草換靈力",
+        "costs": {
+          "spirit_grass_1000y": 1
+        },
+        "rewards": {
+          "resources": {
+            "lingli": 600
+          },
+          "log_text": "你交出一株千年草，獲得六百靈力。"
+        }
+      },
+      {
+        "text": "用靈力補兩株百草",
+        "costs": {
+          "lingli": 800
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_100y": 2
+          },
+          "log_text": "你付出八百靈力，補得兩株百年草。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「藥渣留香」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_ward_scraps",
+    "title": "雷前餘箋",
+    "desc": "遠空雷聲漸近，修士將用過的護符收起，只留下幾張可供參詳的餘箋。他明言這份心得不能替你抵擋天劫。",
+    "min_era": 6,
+    "requires": [
+      "void_open",
+      "deep_open",
+      "p2_consumed"
+    ],
+    "art": "ruins",
+    "options": [
+      {
+        "text": "以寒鐵換調息心得",
+        "costs": {
+          "cold_iron": 2
+        },
+        "rewards": {
+          "training_seconds": 120,
+          "log_text": "你交出兩塊寒鐵，獲得一百二十秒所對應的修煉進度，未增加護劫機率。"
+        }
+      },
+      {
+        "text": "以靈力換留存銀屑",
+        "costs": {
+          "lingli": 900
+        },
+        "rewards": {
+          "resources": {
+            "mithril": 1
+          },
+          "log_text": "九百靈力換得一塊秘銀，沒有附帶護劫效果。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「雷前餘箋」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_stag_shed",
+    "title": "霜角落屑",
+    "desc": "霜角鹿在石旁磨去一點角屑，礦師稱可用它指認礦紋。鹿仍留在你身邊，不會因交換再次成長。",
+    "min_era": 4,
+    "requires": [
+      "deep_open",
+      "active_stag"
+    ],
+    "art": "beast",
+    "options": [
+      {
+        "text": "用草請礦師辨鐵",
+        "costs": {
+          "spirit_grass_low": 30
+        },
+        "rewards": {
+          "resources": {
+            "refined_iron": 2
+          },
+          "log_text": "三十株低階靈草換回兩塊精鐵；霜角鹿未獲餵養經驗。"
+        }
+      },
+      {
+        "text": "用精鐵換草",
+        "costs": {
+          "refined_iron": 2
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_low": 20
+          },
+          "log_text": "你留下兩塊精鐵，收回二十株低階靈草。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「霜角落屑」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_crane_herb",
+    "title": "鶴喙遺芝",
+    "desc": "銜芝鶴停在藥籃旁，一名藥師循著它的目光認出草藥年份。你可付費請他分揀，鶴卻不會代你吞服。",
+    "min_era": 5,
+    "requires": [
+      "ancient_open",
+      "active_crane"
+    ],
+    "art": "beast",
+    "options": [
+      {
+        "text": "以靈力請藥師分揀",
+        "costs": {
+          "lingli": 1000
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_1000y": 1
+          },
+          "log_text": "你付出一千靈力，分得一株千年草；鶴的經驗不變。"
+        }
+      },
+      {
+        "text": "拿百草換一株千草",
+        "costs": {
+          "spirit_grass_100y": 10
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_1000y": 1
+          },
+          "log_text": "十株百年草換得一株千年草，仍須自行餵養。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「鶴喙遺芝」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_phoenix_ember",
+    "title": "鳳羽留溫",
+    "desc": "火鳳落羽的餘溫尚在，過路修士想借這點暖意煉息。他只談物資，沒有收取獸魂的法門。",
+    "min_era": 6,
+    "requires": [
+      "ancient_open",
+      "active_phoenix"
+    ],
+    "art": "beast",
+    "options": [
+      {
+        "text": "付千草換取煉息所得",
+        "costs": {
+          "spirit_grass_1000y": 2
+        },
+        "rewards": {
+          "resources": {
+            "lingli": 1600
+          },
+          "log_text": "兩株千年草換回一千六百靈力，火鳳仍需另行餵養。"
+        }
+      },
+      {
+        "text": "付靈力補一株千草",
+        "costs": {
+          "lingli": 1200
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_1000y": 1
+          },
+          "log_text": "你付出一千二百靈力，補得一株千年草。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「鳳羽留溫」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_old_mark",
+    "title": "前世礦記",
+    "desc": "舊石壁上的刻痕似曾相識。同行者請你以材料驗證礦記，也願用自己的一點積蓄換下你不急用的材料。",
+    "min_era": 4,
+    "requires": [
+      "deep_open",
+      "second_life"
+    ],
+    "art": "ruins",
+    "options": [
+      {
+        "text": "耗秘銀參詳舊記",
+        "costs": {
+          "mithril": 1
+        },
+        "rewards": {
+          "training_seconds": 90,
+          "log_text": "你用一塊秘銀驗明刻痕，得到九十秒所對應的修煉進度。"
+        }
+      },
+      {
+        "text": "以木材補靈石",
+        "costs": {
+          "wood": 80
+        },
+        "rewards": {
+          "resources": {
+            "stone_low": 60
+          },
+          "log_text": "八十靈木換回六十下品靈石，舊記沒有留下新天賦。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「前世礦記」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_memory_garden",
+    "title": "宿慧藥圃",
+    "desc": "你在荒圃邊認出一段前世手法，園主人願拿靈力交換這次整理藥草的材料。記憶只幫你選擇，不憑空生出藥材。",
+    "min_era": 5,
+    "requires": [
+      "ancient_open",
+      "second_life",
+      "any_p2_talent"
+    ],
+    "art": "herbarium",
+    "options": [
+      {
+        "text": "付百草換靈力",
+        "costs": {
+          "spirit_grass_100y": 3
+        },
+        "rewards": {
+          "resources": {
+            "lingli": 300
+          },
+          "log_text": "三株百年草換得三百靈力。"
+        }
+      },
+      {
+        "text": "付靈力補百草",
+        "costs": {
+          "lingli": 1000
+        },
+        "rewards": {
+          "resources": {
+            "spirit_grass_100y": 2
+          },
+          "log_text": "一千靈力換回兩株百年草，未增加宿慧階數。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「宿慧藥圃」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
+  },
+  {
+    "id": "enc_p2_returning_echo",
+    "title": "重訪虛渡",
+    "desc": "太虛渡口的老人說，你這次的腳步比上一世沉穩。他願用自己收藏的一點物資交換你此刻的選擇，卻不能替你走完下一世。",
+    "min_era": 6,
+    "requires": [
+      "void_open",
+      "second_life",
+      "any_p2_talent"
+    ],
+    "art": "ruins",
+    "options": [
+      {
+        "text": "耗虛華參悟歸途",
+        "costs": {
+          "void_essence": 2
+        },
+        "rewards": {
+          "training_seconds": 180,
+          "log_text": "你放開兩縷虛空精華，換得一百八十秒所對應的修煉進度。"
+        }
+      },
+      {
+        "text": "以中石補祖島靈力",
+        "costs": {
+          "stone_mid": 20
+        },
+        "rewards": {
+          "resources": {
+            "lingli": 1200
+          },
+          "log_text": "二十枚中品靈石換回一千二百靈力，沒有額外道心或道證。"
+        }
+      },
+      {
+        "text": "拱手辭行",
+        "costs": {},
+        "rewards": {
+          "log_text": "你謝過對方，未取分毫，將「重訪虛渡」留在身後。"
+        }
+      }
+    ],
+    "weight": 60,
+    "content_batch": "content-p2-story",
+    "definition_version": 1,
+    "weather_bias": "",
+    "shichen_bias": "",
+    "realm_bias": ""
   }
 ]

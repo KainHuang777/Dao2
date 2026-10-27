@@ -1,8 +1,0 @@
-{
-  "checked": 20229,
-  "archived_then_restored": [
-    "docs/verification/artifacts/content-p1-sect/rules.json",
-    "docs/verification/artifacts/content-p2-talents/runner.json",
-    "src/verification/content_p1_sect_fixture.json"
-  ]
-}

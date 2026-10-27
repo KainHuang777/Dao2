@@ -50,14 +50,14 @@ func _run() -> void:
 	var fixture_now := int(Time.get_unix_time_from_system() * 1000.0) - 172800000
 	fixture_meta.saved_at_utc_ms = str(fixture_now)
 	fixture_meta.settled_until_utc_ms = str(fixture_now)
-	var fixture := FileAccess.open("res://docs/verification/artifacts/res1-c2-offline-fixture.json", FileAccess.WRITE)
+	var fixture := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/res1-c2-offline-fixture.json"), FileAccess.WRITE)
 	if fixture == null:
 		push_error("write failed: res://docs/verification/artifacts/res1-c2-offline-fixture.json")
 		RunnerResult.finish(self, 1)
 	else:
 		fixture.store_string(SaveCodec.encode(s.state, content.content_version, fixture_meta).json)
 		fixture.close()
-	expect(SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-c2-offline-fixture.json")).ok, "actual serialized fixture checksum roundtrip")
+	expect(SaveCodec.decode(FileAccess.get_file_as_string(RunnerResult.output_path("res://docs/verification/artifacts/res1-c2-offline-fixture.json"))).ok, "actual serialized fixture checksum roundtrip")
 	for duration in [600000, 172800000, -1000, 850]:
 		var direct := s.state.duplicate_state()
 		var chunked := s.state.duplicate_state()

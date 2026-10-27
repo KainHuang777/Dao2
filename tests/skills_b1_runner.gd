@@ -152,7 +152,7 @@ func _run() -> void:
 	panel.storage_recovered()
 	check(not panel.save_failed and panel.status.text.contains("已恢復保存"), "save recovery status")
 	panel.free()
-	var f := FileAccess.open("res://docs/verification/artifacts/skills-b1-fixture.json", FileAccess.WRITE)
+	var f := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/skills-b1-fixture.json"), FileAccess.WRITE)
 	var fixture_meta := meta.duplicate()
 	fixture_meta.saved_at_utc_ms = str(int(Time.get_unix_time_from_system()*1000))
 	fixture_meta.settled_until_utc_ms = fixture_meta.saved_at_utc_ms

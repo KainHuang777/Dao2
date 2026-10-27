@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW FAILURE earned claim p2_training_alchemistSTORY_DESTINATION_FULL:spirit_grass_low
+STORY2 SECT FLOW 99 failures=["earned claim p2_training_alchemistSTORY_DESTINATION_FULL:spirit_grass_low"]
+RUNNER_RESULT status=FAIL exit=1

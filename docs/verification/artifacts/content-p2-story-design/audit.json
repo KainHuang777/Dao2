@@ -1,0 +1,1417 @@
+{
+  "level": "L1 static",
+  "checks": 793,
+  "failures": [],
+  "protected_files": 1405,
+  "changed": [],
+  "proposal_sha256": "b4b351b7fb5411caab9e89589f36fb31c875f8f3b3817e6bdbabd2e1bcfd82c8",
+  "achievement_totals": {
+    "lingli": 4000,
+    "sect_contribution": 180,
+    "stone_low": 700,
+    "spirit_grass_low": 420,
+    "wood": 160
+  },
+  "pool_scenarios": [
+    {
+      "era": 4,
+      "life": 1,
+      "active_beast": "none",
+      "baseline_count": 26,
+      "baseline_weight": 2535,
+      "new_count": 5,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_bulk_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_pill_fire"
+      ],
+      "new_share": 0.10582010582010581,
+      "specific_probability": 0.021164021164021163,
+      "mean_opportunities": 47.25,
+      "mean_hours": 11.8125
+    },
+    {
+      "era": 4,
+      "life": 1,
+      "active_beast": "jade_fox",
+      "baseline_count": 28,
+      "baseline_weight": 2655,
+      "new_count": 5,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_bulk_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_pill_fire"
+      ],
+      "new_share": 0.10152284263959391,
+      "specific_probability": 0.02030456852791878,
+      "mean_opportunities": 49.25000000000001,
+      "mean_hours": 12.312500000000002
+    },
+    {
+      "era": 4,
+      "life": 1,
+      "active_beast": "iron_turtle",
+      "baseline_count": 26,
+      "baseline_weight": 2535,
+      "new_count": 5,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_bulk_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_pill_fire"
+      ],
+      "new_share": 0.10582010582010581,
+      "specific_probability": 0.021164021164021163,
+      "mean_opportunities": 47.25,
+      "mean_hours": 11.8125
+    },
+    {
+      "era": 4,
+      "life": 1,
+      "active_beast": "frost_stag",
+      "baseline_count": 26,
+      "baseline_weight": 2535,
+      "new_count": 6,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_bulk_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_pill_fire",
+        "enc_p2_stag_shed"
+      ],
+      "new_share": 0.12435233160621761,
+      "specific_probability": 0.02072538860103627,
+      "mean_opportunities": 48.25,
+      "mean_hours": 12.0625
+    },
+    {
+      "era": 5,
+      "life": 1,
+      "active_beast": "none",
+      "baseline_count": 30,
+      "baseline_weight": 2815,
+      "new_count": 9,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue"
+      ],
+      "new_share": 0.16095380029806258,
+      "specific_probability": 0.01788375558867362,
+      "mean_opportunities": 55.916666666666664,
+      "mean_hours": 11.183333333333334
+    },
+    {
+      "era": 5,
+      "life": 1,
+      "active_beast": "jade_fox",
+      "baseline_count": 32,
+      "baseline_weight": 2935,
+      "new_count": 9,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue"
+      ],
+      "new_share": 0.1553956834532374,
+      "specific_probability": 0.017266187050359712,
+      "mean_opportunities": 57.91666666666667,
+      "mean_hours": 11.583333333333334
+    },
+    {
+      "era": 5,
+      "life": 1,
+      "active_beast": "iron_turtle",
+      "baseline_count": 30,
+      "baseline_weight": 2815,
+      "new_count": 9,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue"
+      ],
+      "new_share": 0.16095380029806258,
+      "specific_probability": 0.01788375558867362,
+      "mean_opportunities": 55.916666666666664,
+      "mean_hours": 11.183333333333334
+    },
+    {
+      "era": 5,
+      "life": 1,
+      "active_beast": "frost_stag",
+      "baseline_count": 30,
+      "baseline_weight": 2815,
+      "new_count": 10,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_stag_shed"
+      ],
+      "new_share": 0.17569546120058566,
+      "specific_probability": 0.017569546120058566,
+      "mean_opportunities": 56.916666666666664,
+      "mean_hours": 11.383333333333333
+    },
+    {
+      "era": 5,
+      "life": 1,
+      "active_beast": "herb_crane",
+      "baseline_count": 30,
+      "baseline_weight": 2815,
+      "new_count": 10,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_crane_herb"
+      ],
+      "new_share": 0.17569546120058566,
+      "specific_probability": 0.017569546120058566,
+      "mean_opportunities": 56.916666666666664,
+      "mean_hours": 11.383333333333333
+    },
+    {
+      "era": 6,
+      "life": 1,
+      "active_beast": "none",
+      "baseline_count": 32,
+      "baseline_weight": 2945,
+      "new_count": 12,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps"
+      ],
+      "new_share": 0.19645293315143247,
+      "specific_probability": 0.01637107776261937,
+      "mean_opportunities": 61.083333333333336,
+      "mean_hours": 10.180555555555555
+    },
+    {
+      "era": 6,
+      "life": 1,
+      "active_beast": "jade_fox",
+      "baseline_count": 34,
+      "baseline_weight": 3065,
+      "new_count": 12,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps"
+      ],
+      "new_share": 0.190224570673712,
+      "specific_probability": 0.015852047556142668,
+      "mean_opportunities": 63.083333333333336,
+      "mean_hours": 10.51388888888889
+    },
+    {
+      "era": 6,
+      "life": 1,
+      "active_beast": "iron_turtle",
+      "baseline_count": 32,
+      "baseline_weight": 2945,
+      "new_count": 12,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps"
+      ],
+      "new_share": 0.19645293315143247,
+      "specific_probability": 0.01637107776261937,
+      "mean_opportunities": 61.083333333333336,
+      "mean_hours": 10.180555555555555
+    },
+    {
+      "era": 6,
+      "life": 1,
+      "active_beast": "frost_stag",
+      "baseline_count": 32,
+      "baseline_weight": 2945,
+      "new_count": 13,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_stag_shed"
+      ],
+      "new_share": 0.20939597315436242,
+      "specific_probability": 0.016107382550335572,
+      "mean_opportunities": 62.08333333333333,
+      "mean_hours": 10.347222222222221
+    },
+    {
+      "era": 6,
+      "life": 1,
+      "active_beast": "herb_crane",
+      "baseline_count": 32,
+      "baseline_weight": 2945,
+      "new_count": 13,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_crane_herb"
+      ],
+      "new_share": 0.20939597315436242,
+      "specific_probability": 0.016107382550335572,
+      "mean_opportunities": 62.08333333333333,
+      "mean_hours": 10.347222222222221
+    },
+    {
+      "era": 6,
+      "life": 1,
+      "active_beast": "fire_phoenix",
+      "baseline_count": 32,
+      "baseline_weight": 2945,
+      "new_count": 13,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_phoenix_ember"
+      ],
+      "new_share": 0.20939597315436242,
+      "specific_probability": 0.016107382550335572,
+      "mean_opportunities": 62.08333333333333,
+      "mean_hours": 10.347222222222221
+    },
+    {
+      "era": 6,
+      "life": 2,
+      "active_beast": "none",
+      "baseline_count": 34,
+      "baseline_weight": 3065,
+      "new_count": 15,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_old_mark",
+        "enc_p2_memory_garden",
+        "enc_p2_returning_echo"
+      ],
+      "new_share": 0.22698612862547288,
+      "specific_probability": 0.015132408575031526,
+      "mean_opportunities": 66.08333333333333,
+      "mean_hours": 11.013888888888888
+    },
+    {
+      "era": 6,
+      "life": 2,
+      "active_beast": "jade_fox",
+      "baseline_count": 36,
+      "baseline_weight": 3185,
+      "new_count": 15,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_old_mark",
+        "enc_p2_memory_garden",
+        "enc_p2_returning_echo"
+      ],
+      "new_share": 0.22031823745410037,
+      "specific_probability": 0.014687882496940025,
+      "mean_opportunities": 68.08333333333333,
+      "mean_hours": 11.347222222222221
+    },
+    {
+      "era": 6,
+      "life": 2,
+      "active_beast": "iron_turtle",
+      "baseline_count": 34,
+      "baseline_weight": 3065,
+      "new_count": 15,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_old_mark",
+        "enc_p2_memory_garden",
+        "enc_p2_returning_echo"
+      ],
+      "new_share": 0.22698612862547288,
+      "specific_probability": 0.015132408575031526,
+      "mean_opportunities": 66.08333333333333,
+      "mean_hours": 11.013888888888888
+    },
+    {
+      "era": 6,
+      "life": 2,
+      "active_beast": "frost_stag",
+      "baseline_count": 34,
+      "baseline_weight": 3065,
+      "new_count": 16,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_stag_shed",
+        "enc_p2_old_mark",
+        "enc_p2_memory_garden",
+        "enc_p2_returning_echo"
+      ],
+      "new_share": 0.23850931677018633,
+      "specific_probability": 0.014906832298136646,
+      "mean_opportunities": 67.08333333333333,
+      "mean_hours": 11.180555555555555
+    },
+    {
+      "era": 6,
+      "life": 2,
+      "active_beast": "herb_crane",
+      "baseline_count": 34,
+      "baseline_weight": 3065,
+      "new_count": 16,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_crane_herb",
+        "enc_p2_old_mark",
+        "enc_p2_memory_garden",
+        "enc_p2_returning_echo"
+      ],
+      "new_share": 0.23850931677018633,
+      "specific_probability": 0.014906832298136646,
+      "mean_opportunities": 67.08333333333333,
+      "mean_hours": 11.180555555555555
+    },
+    {
+      "era": 6,
+      "life": 2,
+      "active_beast": "fire_phoenix",
+      "baseline_count": 34,
+      "baseline_weight": 3065,
+      "new_count": 16,
+      "new_ids": [
+        "enc_p2_silver_scale",
+        "enc_p2_cold_assay",
+        "enc_p2_dew_exchange",
+        "enc_p2_bulk_stone",
+        "enc_p2_high_stone",
+        "enc_p2_void_cargo",
+        "enc_p2_sect_iron",
+        "enc_p2_sect_herbs",
+        "enc_p2_sect_chart",
+        "enc_p2_pill_fire",
+        "enc_p2_herb_residue",
+        "enc_p2_ward_scraps",
+        "enc_p2_phoenix_ember",
+        "enc_p2_old_mark",
+        "enc_p2_memory_garden",
+        "enc_p2_returning_echo"
+      ],
+      "new_share": 0.23850931677018633,
+      "specific_probability": 0.014906832298136646,
+      "mean_opportunities": 67.08333333333333,
+      "mean_hours": 11.180555555555555
+    }
+  ],
+  "single_resource_cycles": [
+    {
+      "path": [
+        "enc_p2_cold_assay option 0",
+        "enc_p2_cold_assay option 1"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "1/150"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_returning_echo option 1"
+      ],
+      "multiplier": "2/75"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 0",
+        "enc_p2_sect_chart option 1"
+      ],
+      "multiplier": "1/3"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 1",
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "1/8"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 1",
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "1/6"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 1",
+        "enc_p2_crane_herb option 1",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "3/20"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 1",
+        "enc_p2_crane_herb option 1",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "1/5"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "1/4"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 0",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 0",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "9/10"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 0",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "3/5"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 0",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 1",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 1",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 1",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "1/2"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 1",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 1",
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "1/10"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 1",
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "2/15"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 1",
+        "enc_p2_crane_herb option 1",
+        "enc_p2_herb_residue option 0"
+      ],
+      "multiplier": "3/25"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 1",
+        "enc_p2_crane_herb option 1",
+        "enc_p2_phoenix_ember option 0"
+      ],
+      "multiplier": "4/25"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 1",
+        "enc_p2_memory_garden option 0"
+      ],
+      "multiplier": "1/5"
+    },
+    {
+      "path": [
+        "enc_p2_cold_assay option 1",
+        "enc_p2_cold_assay option 0"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_silver_scale option 1",
+        "enc_p2_silver_scale option 0"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_silver_scale option 1",
+        "enc_p2_sect_iron option 0"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_sect_iron option 1",
+        "enc_p2_stag_shed option 0"
+      ],
+      "multiplier": "8/9"
+    },
+    {
+      "path": [
+        "enc_p2_stag_shed option 1",
+        "enc_p2_stag_shed option 0"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_dew_exchange option 0"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_crane_herb option 1"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_crane_herb option 0"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_phoenix_ember option 1"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_dew_exchange option 0"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_crane_herb option 1"
+      ],
+      "multiplier": "9/10"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_crane_herb option 0"
+      ],
+      "multiplier": "9/10"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_phoenix_ember option 1"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0"
+      ],
+      "multiplier": "1/150"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_herb_residue option 1",
+        "enc_p2_dew_exchange option 0"
+      ],
+      "multiplier": "1/8"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_herb_residue option 1",
+        "enc_p2_crane_herb option 1"
+      ],
+      "multiplier": "3/20"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_crane_herb option 0"
+      ],
+      "multiplier": "3/5"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_phoenix_ember option 1"
+      ],
+      "multiplier": "1/2"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_memory_garden option 1",
+        "enc_p2_dew_exchange option 0"
+      ],
+      "multiplier": "1/10"
+    },
+    {
+      "path": [
+        "enc_p2_herb_residue option 0",
+        "enc_p2_memory_garden option 1",
+        "enc_p2_crane_herb option 1"
+      ],
+      "multiplier": "3/25"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_herb_residue option 1",
+        "enc_p2_dew_exchange option 0"
+      ],
+      "multiplier": "1/6"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_herb_residue option 1",
+        "enc_p2_crane_herb option 1"
+      ],
+      "multiplier": "1/5"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_crane_herb option 0"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_phoenix_ember option 1"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_memory_garden option 1",
+        "enc_p2_dew_exchange option 0"
+      ],
+      "multiplier": "2/15"
+    },
+    {
+      "path": [
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_memory_garden option 1",
+        "enc_p2_crane_herb option 1"
+      ],
+      "multiplier": "4/25"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_dew_exchange option 1"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_sect_herbs option 1"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_herb_residue option 1"
+      ],
+      "multiplier": "1/8"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_memory_garden option 1"
+      ],
+      "multiplier": "1/10"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_herb_residue option 1"
+      ],
+      "multiplier": "1/6"
+    },
+    {
+      "path": [
+        "enc_p2_dew_exchange option 0",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_memory_garden option 1"
+      ],
+      "multiplier": "2/15"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 1",
+        "enc_p2_dew_exchange option 1"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 1",
+        "enc_p2_sect_herbs option 1"
+      ],
+      "multiplier": "9/10"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 1",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_herb_residue option 1"
+      ],
+      "multiplier": "3/20"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 1",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_memory_garden option 1"
+      ],
+      "multiplier": "3/25"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 1",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_herb_residue option 1"
+      ],
+      "multiplier": "1/5"
+    },
+    {
+      "path": [
+        "enc_p2_crane_herb option 1",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_memory_garden option 1"
+      ],
+      "multiplier": "4/25"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_dew_exchange option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_sect_herbs option 1"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_herb_residue option 1"
+      ],
+      "multiplier": "1/4"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_crane_herb option 0",
+        "enc_p2_dew_exchange option 1"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_crane_herb option 0",
+        "enc_p2_sect_herbs option 1"
+      ],
+      "multiplier": "9/10"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_phoenix_ember option 1",
+        "enc_p2_dew_exchange option 1"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_phoenix_ember option 1",
+        "enc_p2_sect_herbs option 1"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_memory_garden option 0",
+        "enc_p2_memory_garden option 1"
+      ],
+      "multiplier": "1/5"
+    },
+    {
+      "path": [
+        "enc_p2_stag_shed option 0",
+        "enc_p2_sect_iron option 1"
+      ],
+      "multiplier": "8/9"
+    },
+    {
+      "path": [
+        "enc_p2_stag_shed option 0",
+        "enc_p2_stag_shed option 1"
+      ],
+      "multiplier": "2/3"
+    },
+    {
+      "path": [
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1"
+      ],
+      "multiplier": "1/150"
+    },
+    {
+      "path": [
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_high_stone option 1",
+        "enc_p2_returning_echo option 1",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1"
+      ],
+      "multiplier": "2/75"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 0",
+        "enc_p2_void_cargo option 1"
+      ],
+      "multiplier": "1/3"
+    },
+    {
+      "path": [
+        "enc_p2_silver_scale option 0",
+        "enc_p2_silver_scale option 1"
+      ],
+      "multiplier": "3/4"
+    },
+    {
+      "path": [
+        "enc_p2_sect_iron option 0",
+        "enc_p2_silver_scale option 1"
+      ],
+      "multiplier": "4/5"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1"
+      ],
+      "multiplier": "1/150"
+    },
+    {
+      "path": [
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1"
+      ],
+      "multiplier": "1/150"
+    },
+    {
+      "path": [
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_returning_echo option 1",
+        "enc_p2_sect_chart option 0",
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1"
+      ],
+      "multiplier": "2/75"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_dew_exchange option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_sect_herbs option 1",
+        "enc_p2_memory_garden option 0",
+        "enc_p2_sect_chart option 0"
+      ],
+      "multiplier": "1/100"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_herb_residue option 0",
+        "enc_p2_sect_chart option 0"
+      ],
+      "multiplier": "1/150"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_bulk_stone option 1",
+        "enc_p2_sect_herbs option 0",
+        "enc_p2_phoenix_ember option 0",
+        "enc_p2_sect_chart option 0"
+      ],
+      "multiplier": "2/225"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 1",
+        "enc_p2_high_stone option 1",
+        "enc_p2_returning_echo option 1",
+        "enc_p2_sect_chart option 0"
+      ],
+      "multiplier": "2/75"
+    },
+    {
+      "path": [
+        "enc_p2_void_cargo option 1",
+        "enc_p2_void_cargo option 0"
+      ],
+      "multiplier": "1/3"
+    },
+    {
+      "path": [
+        "enc_p2_sect_chart option 1",
+        "enc_p2_sect_chart option 0"
+      ],
+      "multiplier": "1/3"
+    }
+  ],
+  "boundaries": [
+    "No runtime simulation",
+    "No natural encounters observed",
+    "No browser or Web export",
+    "Single-resource cycle check is not a general multi-input economy proof"
+  ]
+}

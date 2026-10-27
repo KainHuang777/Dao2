@@ -1,0 +1,24 @@
+{
+  "album": {
+    "denied_revision": 2510,
+    "restored_revision": 2511,
+    "reloaded_revision": 2512,
+    "same_achievements_or_book": true,
+    "returned_home": true
+  },
+  "event": {
+    "denied_revision": 2533,
+    "restored_revision": 2534,
+    "reloaded_revision": 2536,
+    "same_achievements_or_book": true,
+    "returned_home": true
+  },
+  "level": "L2",
+  "iframe_css": [
+    1280,
+    720
+  ],
+  "dpr": 1.0000000149011612,
+  "source": "Actual browser mouse actions and reload; DOM state is explicit verification output. Normal countdown representative uses simulated seconds from earned starts.",
+  "pck_sha256": "8f54e5d15485b7f81732054526a89868e4f6216bfa7954dbc65154f653e0123d"
+}

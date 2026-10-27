@@ -1,6 +1,6 @@
 extends "res://tests/content_p2_supply_progression_runner.gd"
 ## Two independent dated earned branches. No injected contribution, task or inventory.
-const OUT := "res://docs/verification/artifacts/content-p2-sect-ui/"
+var OUT := (OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("sect2-earned-flow/")
 var branches := []
 func save_snapshot(name: String) -> void:
 	var encoded := SaveCodec.encode(s.state,content.content_version,{"save_id":"sect2-earned","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":str(int(s.state.total_elapsed_seconds))})

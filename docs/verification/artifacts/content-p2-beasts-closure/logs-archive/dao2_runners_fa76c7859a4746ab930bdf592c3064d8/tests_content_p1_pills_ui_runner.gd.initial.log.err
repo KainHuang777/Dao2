@@ -1,0 +1,14 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'position' with value of type 'Vector2' on a base object of type 'Nil'.
+   at: _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+   GDScript backtrace (most recent call first):
+       [0] _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+       [1] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [2] run (res://tests/content_p1_pills_ui_runner.gd:22)
+       [3] frames (res://tests/content_p1_pills_ui_runner.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function 'show_feedback' in base 'Nil'.
+   at: run (res://tests/content_p1_pills_ui_runner.gd:24)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_pills_ui_runner.gd:24)
+       [1] frames (res://tests/content_p1_pills_ui_runner.gd:10)

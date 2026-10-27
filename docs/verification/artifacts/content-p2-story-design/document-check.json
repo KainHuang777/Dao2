@@ -1,0 +1,20 @@
+{
+  "level": "L1 static documentation",
+  "utf8_files": 12,
+  "local_links": 12,
+  "failures": [],
+  "source_hashes": {
+    "README.md": "b364ce71e098af6a10bcde0801f636e4a498b68ed34a6fab8c2e6cda1ef975c5",
+    "ROADMAP.md": "705ed10f5304351530fcfeec2e17cf25b2da4a13ae3803d0f55f7d936a1c46c7",
+    "docs/25-system-content-expansion-plan.md": "262a4776c5083b156899f9dfe648c4558c766074cca25ca6ca3d8120b2b31627",
+    "docs/ai-handoff.md": "e5c1e15c9785d532b3a5148b85a9fa0a78f169657c03659fa053f9a610a1d3b3",
+    "docs/development-status.md": "ebcd9f11912a4831f726bfbfc7ed29208b913055947db7cbc611a5a0f608edb6",
+    "updata.txt": "3392d9d112c1ae5e084be61275acb023be5ba904e2d39ed9eb4628ff275f439a",
+    "docs/40-content-p2-story-design.md": "536f2e5d5bbab340b4208c9d8e24d260609a1bf4ac24c1af04159958e5ae1ccb",
+    "docs/verification/content-p2-story-design.md": "9978df7cf9f93455b06ae15b38f94b15ce47c97c55ab93956e99769fa5c56793",
+    "docs/design-data/content-p2-story-proposal.json": "b4b351b7fb5411caab9e89589f36fb31c875f8f3b3817e6bdbabd2e1bcfd82c8",
+    "tools/content_p2_story_design_audit.py": "9163efaf29fd659a5dce0a9aa9ef5a41665acfe75350888c7a5ecb61b7a29efd",
+    "docs/verification/artifacts/content-p2-story-design/author_proposal.py": "bc7697dcea1097bd8dc5dccfcc255421d6a4c5b707fa6ef777568d22b3864479",
+    "docs/verification/artifacts/content-p2-story-design/render_design.py": "f889f4b75685875a28cf4b3039ccf7dc898f06da0fc7b7ecffdaf49a4ccd5e57"
+  }
+}

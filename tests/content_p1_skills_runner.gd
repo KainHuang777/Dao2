@@ -157,6 +157,6 @@ func _run() -> void:
 	base.state.buildings.rebirth_lotus = 1
 	check(send(base,"reincarnate",{"mode":"normal"}).ok and base.state.skills.is_empty(),"reincarnation clears all new skills")
 	print("CONTENT-P1-SKILL ",checks," checks; failures=",JSON.stringify(failures))
-	var report := FileAccess.open("res://docs/verification/artifacts/content-p1-skills/runner.json",FileAccess.WRITE)
+	var report := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/content-p1-skills/runner.json"),FileAccess.WRITE)
 	if report != null: report.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"))
 	RunnerResult.finish(self, 0 if failures.is_empty() else 1)

@@ -1,0 +1,7 @@
+[MODE] matrix=full runners=1 parallel=1
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-closure\supplement-logs\dao2_runners_b4b749daece44d248fe660aac28cd179
+[START:initial] tests/content_p2_supply_progression_runner.gd
+[PASS:initial] tests/content_p2_supply_progression_runner.gd (1482.1s) result=pass
+--- slowest 8 runners (s) ---
+ 1,482.1  tests/content_p2_supply_progression_runner.gd
+SELECTED 1 RUNNERS PASSED (matrix=full). Logs: E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-closure\supplement-logs\dao2_runners_b4b749daece44d248fe660aac28cd179

@@ -1,0 +1,10 @@
+[MODE] matrix=single runners=2 parallel=1
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{0368f86d-43c8-4c17-9248-5b98f94e27db}\AC\Temp\dao2_runners_729609897f5f4694a9fadf4e967e1da4
+[START:initial] tests/content_p2_story_runner.gd
+parsing "(?m)^\s*(?:FAIL(?:ED)?\s*[:嚗|\[FAIL\])" - Unterminated [] set.
+At E:\WORK\Dao2\tools\run_all_runners.ps1:259 char:17
++ ...             $failureMarker = $combined -match '(?m)^\s*(?:FAIL(?:ED)? ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (:) [], ArgumentException
+    + FullyQualifiedErrorId : System.ArgumentException
+ 

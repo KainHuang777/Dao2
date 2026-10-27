@@ -1,6 +1,6 @@
 extends "res://tests/early_v1c_skills_runner.gd"
 ## Integration evidence uses only current content, earned inventory and formal commands.
-const ACCEPT_DIR := "res://docs/verification/artifacts/content-p1-accept/"
+var ACCEPT_DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-accept/")
 var milestones: Array = []
 var comparisons: Array = []
 
@@ -12,7 +12,7 @@ func save_case(s: GameSession, label: String) -> void:
 	var encoded := SaveCodec.encode(s.state,content.content_version,SAVE_META)
 	check(encoded.ok,"encode "+label)
 	if encoded.ok:
-		var write_file_encoded := FileAccess.open("res://src/verification/content_p1_accept_"+label+".json",FileAccess.WRITE)
+		var write_file_encoded := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_accept_"+label+".json"),FileAccess.WRITE)
 		if write_file_encoded == null:
 			push_error("write failed: " + str("res://src/verification/content_p1_accept_"+label+".json"))
 			RunnerResult.finish(self, 1)

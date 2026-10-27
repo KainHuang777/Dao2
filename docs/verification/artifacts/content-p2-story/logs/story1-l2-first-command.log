@@ -1,0 +1,127 @@
+[MODE] matrix=single runners=11 parallel=1
+[LOGS] E:\WORK\Dao2\.tmp\dao2_runners_a658f308282748738a86b21ccad45074
+[START:initial] tests/content_p2_beasts_runner.gd
+[PASS:initial] tests/content_p2_beasts_runner.gd (8.8s) result=pass
+[START:initial] tests/content_p2_beasts_save_runner.gd
+[PASS:initial] tests/content_p2_beasts_save_runner.gd (6.2s) result=pass
+[START:initial] tests/content_p2_sect_runner.gd
+[PASS:initial] tests/content_p2_sect_runner.gd (14.8s) result=pass
+[START:initial] tests/content_p2_sect_save_runner.gd
+[PASS:initial] tests/content_p2_sect_save_runner.gd (6.3s) result=pass
+[START:initial] tests/content_p2_pills_runner.gd
+[PASS:initial] tests/content_p2_pills_runner.gd (14.4s) result=pass
+[START:initial] tests/content_p2_pills_save_runner.gd
+[PASS:initial] tests/content_p2_pills_save_runner.gd (6.8s) result=pass
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[PASS:initial] tests/content_p2_supply_economy_runner.gd (11.8s) result=pass
+[START:initial] tests/content_p1_story_runner.gd
+[PASS:initial] tests/content_p1_story_runner.gd (5.8s) result=pass
+[START:initial] tests/content_p1_story_events_runner.gd
+[PASS:initial] tests/content_p1_story_events_runner.gd (4.2s) result=pass
+[START:initial] tests/decision_receipt_runner.gd
+[PASS:initial] tests/decision_receipt_runner.gd (5.9s) result=pass
+[START:initial] tests/m1c_persistence_runner.gd
+[FAIL:initial] tests/m1c_persistence_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Condition "CryptoCore::b64_decode(&w[0], buf.size(), &len, (unsigned char *)cstr.get_data(), strlen) != OK" is true. Returning: String()
+   at: base64_to_utf8 (core/core_bind.cpp:1392)
+   GDScript backtrace (most recent call first):
+       [0] import_share_string (res://src/persistence/save_manager.gd:417)
+       [1] _test_import_failure_preserves_progress (res://tests/m1c_persistence_runner.gd:193)
+       [2] _init (res://tests/m1c_persistence_runner.gd:24)
+ERROR: first commit succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: first commit active slot is save_main
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: first commit sequence is 1
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: second commit succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: second commit active slot is save_backup
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: second commit sequence is 2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: save_main is readable after rotation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: save_backup is readable after rotation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: read_best succeeds after rotation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: initial commit succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: active slot is set before corruption
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: the surviving slot is readable before corruption
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: corrupting the active slot on storage succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: read_best succeeds after active slot corruption
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: valid commit to main succeeded
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: raw string commit to the non-active slot is written
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: read_best succeeds after double overwrite attempt
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+ERROR: read_best succeeds
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/m1c_persistence_runner.gd:35)
+
+--- slowest 8 runners (s) ---
+    14.8  tests/content_p2_sect_runner.gd
+    14.4  tests/content_p2_pills_runner.gd
+    11.7  tests/content_p2_supply_economy_runner.gd
+     8.8  tests/content_p2_beasts_runner.gd
+     6.8  tests/content_p2_pills_save_runner.gd
+     6.3  tests/content_p2_sect_save_runner.gd
+     6.2  tests/content_p2_beasts_save_runner.gd
+     5.9  tests/decision_receipt_runner.gd
+Runner verification failed: tests/m1c_persistence_runner.gd. Logs: E:\WORK\Dao2\.tmp\dao2_runners_a658f308282748738a86b
+21ccad45074
+At E:\WORK\Dao2\tools\run_all_runners.ps1:290 char:28
++ ... nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Runner verifica...a86b21ccad45074:String) [], RuntimeException
+    + FullyQualifiedErrorId : Runner verification failed: tests/m1c_persistence_runner.gd. Logs: E:\WORK\Dao2\.tmp\dao 
+   2_runners_a658f308282748738a86b21ccad45074
+ 

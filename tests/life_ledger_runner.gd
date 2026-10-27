@@ -118,7 +118,7 @@ func run() -> void:
 	limits()
 	var result := {"checks": checks, "failures": failures, "schema": SaveCodec.SCHEMA_VERSION, "retained_lives": LifeLedger.RETAINED_LIVES}
 	DirAccess.make_dir_recursive_absolute("res://docs/verification/artifacts/ledger-0")
-	var file := FileAccess.open("res://docs/verification/artifacts/ledger-0/results.json", FileAccess.WRITE)
+	var file := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/ledger-0/results.json"), FileAccess.WRITE)
 	if file == null:
 		push_error("write failed: res://docs/verification/artifacts/ledger-0/results.json")
 		RunnerResult.finish(self, 1)

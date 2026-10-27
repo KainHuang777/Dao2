@@ -1,0 +1,6 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid access to property or key 'contribution' on a base object of type 'Dictionary'.
+   at: run (res://tests/content_p2_story_sect_flow_runner.gd:23)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_story_sect_flow_runner.gd:23)

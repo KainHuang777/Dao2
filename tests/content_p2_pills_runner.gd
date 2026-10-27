@@ -1,6 +1,6 @@
 extends SceneTree
 ## Synthetic isolated rule fixtures; earned representative flow belongs to PILL-2.
-const DIR := "res://docs/verification/artifacts/content-p2-pills/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-pills/")
 var content: GameContent
 var checks := 0
 var failures: Array[String] = []

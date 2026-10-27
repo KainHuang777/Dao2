@@ -1,0 +1,326 @@
+{
+	"branches": [
+		{
+			"completed_natural_samples": [
+				{
+					"desc": "核對寒銀採集帳冊，將宗門分配的少量精鐵交回祖島。",
+					"duration": 60,
+					"elapsed": 60,
+					"generation_era": 4,
+					"id": "task_4_1_1",
+					"name": "核錄寒銀礦簿",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 23,
+						"money": 200,
+						"refined_iron": 2
+					},
+					"template_id": "deep_stock_register"
+				},
+				{
+					"desc": "驅除靈田中滋生的小害蟲，確保靈穀生長。",
+					"duration": 60,
+					"elapsed": 60,
+					"id": "task_4_2_2",
+					"name": "巡視靈田",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 20,
+						"money": 200
+					}
+				},
+				{
+					"desc": "核對祖島木料收支，將可用餘料交還外門營造處。",
+					"duration": 60,
+					"elapsed": 60,
+					"generation_era": 4,
+					"id": "task_4_3_3",
+					"name": "核錄祖島木料",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 25,
+						"money": 200,
+						"wood": 80
+					},
+					"template_id": "home_supply_register"
+				},
+				{
+					"desc": "拂曉時分採集沾染朝露的靈草，供丹房研製。",
+					"duration": 60,
+					"elapsed": 60,
+					"id": "task_4_2_5",
+					"name": "採集晨露草",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 25,
+						"money": 200
+					}
+				},
+				{
+					"desc": "更換山門聚靈護陣受損的下品靈石陣角。",
+					"duration": 120,
+					"elapsed": 120,
+					"id": "task_4_1_4",
+					"name": "修補山門法陣",
+					"rarity": "uncommon",
+					"rarity_color": "#4caf50",
+					"rarity_name": "優秀",
+					"rewards": {
+						"contribution": 52,
+						"money": 300,
+						"spirit_grass_low": 22,
+						"stone_low": 3
+					}
+				},
+				{
+					"desc": "爭奪墜落在絕地的天外隕鐵，供長老煉製法寶。",
+					"duration": 600,
+					"elapsed": 600,
+					"id": "task_4_3_6",
+					"name": "奪取天外玄金",
+					"rarity": "epic",
+					"rarity_color": "#9c27b0",
+					"rarity_name": "史詩",
+					"rewards": {
+						"black_copper": 2,
+						"contribution": 198,
+						"money": 600,
+						"stone_low": 15
+					}
+				},
+				{
+					"desc": "拂曉時分採集沾染朝露的靈草，供丹房研製。",
+					"duration": 60,
+					"elapsed": 60,
+					"id": "task_4_2_8",
+					"name": "採集晨露草",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 28,
+						"money": 200
+					}
+				},
+				{
+					"desc": "替丹霞島清點採收入庫的靈草，領回分配予丹房的藥材。",
+					"duration": 300,
+					"elapsed": 300,
+					"generation_era": 4,
+					"id": "task_4_1_7",
+					"name": "盤點丹霞藥圃",
+					"rarity": "rare",
+					"rarity_color": "#2196f3",
+					"rarity_name": "稀有",
+					"rewards": {
+						"contribution": 63,
+						"money": 400,
+						"spirit_grass_low": 80
+					},
+					"template_id": "herb_island_inventory"
+				},
+				{
+					"desc": "爭奪墜落在絕地的天外隕鐵，供長老煉製法寶。",
+					"duration": 600,
+					"elapsed": 600,
+					"id": "task_4_3_9",
+					"name": "奪取天外玄金",
+					"rarity": "epic",
+					"rarity_color": "#9c27b0",
+					"rarity_name": "史詩",
+					"rewards": {
+						"black_copper": 2,
+						"contribution": 247,
+						"money": 600,
+						"stone_low": 15
+					}
+				}
+			],
+			"end_age": 14793.0,
+			"era": 4,
+			"feed_costs": {
+				"refined_iron": 29.0,
+				"stone_low": 98.0
+			},
+			"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era4.json",
+			"source_sha256": "3f2e0a61853c01b465075df67c0e4088b84073572f2b531dfa3df11f751112b8",
+			"start_age": 12753.0
+		},
+		{
+			"completed_natural_samples": [
+				{
+					"desc": "清理後山出沒的一階野獸，維護外門安寧。",
+					"duration": 60,
+					"elapsed": 60,
+					"id": "task_6_2_2",
+					"name": "清剿低階野獸",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 15,
+						"money": 300
+					}
+				},
+				{
+					"desc": "核對寒銀航線收支，領回可供修行的秘銀與下品靈石。",
+					"duration": 120,
+					"elapsed": 120,
+					"generation_era": 6,
+					"id": "task_6_3_3",
+					"name": "核對寒銀回運",
+					"rarity": "uncommon",
+					"rarity_color": "#4caf50",
+					"rarity_name": "優秀",
+					"rewards": {
+						"contribution": 47,
+						"mithril": 3,
+						"money": 450,
+						"stone_low": 10
+					},
+					"template_id": "silver_convoy_accounts"
+				},
+				{
+					"desc": "整理養木、育草、聚財與納靈四類丹材，回收可用草石。",
+					"duration": 600,
+					"elapsed": 600,
+					"generation_era": 6,
+					"id": "task_6_1_1",
+					"name": "籌備四脈丹材",
+					"rarity": "epic",
+					"rarity_color": "#9c27b0",
+					"rarity_name": "史詩",
+					"rewards": {
+						"contribution": 239,
+						"money": 900,
+						"spirit_grass_low": 120,
+						"stone_low": 20
+					},
+					"template_id": "specialist_pill_preparation"
+				},
+				{
+					"desc": "清理後山出沒的一階野獸，維護外門安寧。",
+					"duration": 60,
+					"elapsed": 60,
+					"id": "task_6_3_6",
+					"name": "清剿低階野獸",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 24,
+						"money": 300
+					}
+				},
+				{
+					"desc": "協助宗門藥房分揀古藥，領回千年草與百年草。",
+					"duration": 120,
+					"elapsed": 120,
+					"generation_era": 6,
+					"id": "task_6_1_4",
+					"name": "分揀古藥餘材",
+					"rarity": "uncommon",
+					"rarity_color": "#4caf50",
+					"rarity_name": "優秀",
+					"rewards": {
+						"contribution": 52,
+						"money": 450,
+						"spirit_grass_1000y": 2,
+						"spirit_grass_100y": 5
+					},
+					"template_id": "ancient_herb_sorting"
+				},
+				{
+					"desc": "替宗門記錄寒鐵與秘銀品質，領回可用礦材。",
+					"duration": 300,
+					"elapsed": 300,
+					"generation_era": 6,
+					"id": "task_6_2_5",
+					"name": "校驗寒鐵純度",
+					"rarity": "rare",
+					"rarity_color": "#2196f3",
+					"rarity_name": "稀有",
+					"rewards": {
+						"cold_iron": 6,
+						"contribution": 102,
+						"mithril": 3,
+						"money": 600
+					},
+					"template_id": "cold_iron_assay"
+				},
+				{
+					"desc": "拂曉時分採集沾染朝露的靈草，供丹房研製。",
+					"duration": 60,
+					"elapsed": 60,
+					"id": "task_6_3_9",
+					"name": "採集晨露草",
+					"rarity": "common",
+					"rarity_color": "#cccccc",
+					"rarity_name": "普通",
+					"rewards": {
+						"contribution": 21,
+						"money": 300
+					}
+				},
+				{
+					"desc": "護送宗門靈草車隊前往凡間市集交易。",
+					"duration": 120,
+					"elapsed": 120,
+					"id": "task_6_1_7",
+					"name": "護送百草商隊",
+					"rarity": "uncommon",
+					"rarity_color": "#4caf50",
+					"rarity_name": "優秀",
+					"rewards": {
+						"contribution": 47,
+						"money": 450,
+						"spirit_grass_low": 22,
+						"stone_low": 3
+					}
+				},
+				{
+					"desc": "依藥齡編錄古藥丹材，領回兩類草藥供自行煉製。",
+					"duration": 300,
+					"elapsed": 300,
+					"generation_era": 6,
+					"id": "task_6_2_8",
+					"name": "編錄千年丹材",
+					"rarity": "rare",
+					"rarity_color": "#2196f3",
+					"rarity_name": "稀有",
+					"rewards": {
+						"contribution": 107,
+						"money": 600,
+						"spirit_grass_1000y": 4,
+						"spirit_grass_100y": 10
+					},
+					"template_id": "ancient_pill_herb_catalog"
+				}
+			],
+			"end_age": 61243.0,
+			"era": 6,
+			"feed_costs": {
+				"spirit_grass_1000y": 9.0
+			},
+			"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era6.json",
+			"source_sha256": "7b4866da432ec2c086a6768caedc91b870a1e880ad303ef5aefc259d959a81e9",
+			"start_age": 59503.0
+		}
+	],
+	"checks": 44,
+	"evidence": "two independent earned sources; formal commands plus simulated waits, not wall-clock/browser progression; ten forced template fixtures tested separately in SECT-1",
+	"failures": [],
+	"level": "L2",
+	"waits": {
+		"expedition": 3660.0,
+		"refresh cooldown": 120.0
+	}
+}

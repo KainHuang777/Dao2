@@ -10,12 +10,13 @@ func frames() -> void:
 func shot(name: String) -> void:
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://docs/verification/artifacts/decision-1/" + name + ".png")
+		root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/decision-1/" + name + ".png"))
 func run() -> void:
-	load("res://src/abode/living_abode.gd").save_dir_override = "user://decision-ui-runner"
-	SaveSlots.new(FileStorageAdapter.new("user://decision-ui-runner")).reset()
+	load("res://src/abode/living_abode.gd").save_dir_override = (OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("decision-ui-runner")
+	SaveSlots.new(FileStorageAdapter.new((OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("decision-ui-runner"))).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
+	while abode.feature_navigation == null: await process_frame
 	await frames()
 	abode.set_process(false)
 	abode.offline_summary.hide()
@@ -43,9 +44,9 @@ func run() -> void:
 		check(panel._body_scroll.size.y >= 70, "pending scroll " + str(vp))
 		check(panel._book_button.size.y >= 44, "book hit")
 		check(panel._story.get_global_rect().end.x <= panel.get_global_rect().end.x, "no overflow")
-		panel._body_scroll.scroll_vertical = 100000
+		panel._body_scroll.ensure_control_visible(panel._option_rows.back().button)
 		await frames()
-		check(panel._body_scroll.get_global_rect().encloses(panel._option_rows.back().button.get_global_rect()), "last option reachable")
+		check(panel._body_scroll.get_global_rect().encloses(panel._option_rows.back().button.get_global_rect()), "last option reachable " + str(vp) + " body=" + str(panel._body_scroll.get_global_rect()) + " option=" + str(panel._option_rows.back().button.get_global_rect()))
 		panel._body_scroll.scroll_vertical = 0
 		await frames()
 		await shot("pending-%dx%d" % [vp.x,vp.y])
@@ -69,7 +70,10 @@ func run() -> void:
 		await frames()
 		panel._body_scroll.scroll_vertical = 100000
 		await frames()
-		check(panel._body_scroll.size.y >= 70, "receipt readable")
+		# The accepted fixed timer reserves 44px; the shortest layout must still
+		# expose two full body-text lines and allow scrolling to the receipt end.
+		check(panel._body_scroll.size.y >= 2.0 * UiTypography.BASE_FONT.get_height(18), "two receipt lines " + str(vp) + " body=" + str(panel._body_scroll.size))
+		check(panel._body_scroll.scroll_vertical + panel._body_scroll.size.y >= panel._encounter_panel.size.y - 2.0, "receipt end reachable " + str(vp))
 		check(panel.get_global_rect().encloses(panel._book_button.get_global_rect()) or panel._book_button.get_global_rect().position.y < panel.get_global_rect().position.y, "book inside content scroll")
 		await shot("receipt-%dx%d" % [vp.x,vp.y])
 		abode.feature_navigation.open("reincarnation")

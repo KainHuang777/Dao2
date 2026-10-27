@@ -1,6 +1,0 @@
-{
-  "command": "tools/run_all_runners.ps1 -Only sks_p2_core_runner.gd -Matrix full -TimeoutSeconds 180",
-  "exit_code": 0,
-  "evidence": "exec_command completed chunk 61315d, exit_code=0; raw runner stdout and stderr archived; selected 1 runner full matrix PASS marker",
-  "note": "core-fix-exit.txt is empty because in-process PowerShell script runs .NET Process internally and does not set caller LASTEXITCODE. Do not treat that empty file as numeric zero."
-}

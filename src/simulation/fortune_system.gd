@@ -109,7 +109,7 @@ static func trigger_fortune(state: GameState, rng: SeededRandom = null) -> Dicti
 		if current_era < min_era:
 			continue
 		
-		if str(enc.get("id", "")).begins_with("enc_p1_") and not StoryProgress.eligible(state, enc):
+		if enc.get("content_batch") in ["content-p1-story", "content-p2-story"] and not StoryProgress.eligible(state, enc):
 			continue
 		var w: float = float(enc.get("weight", 100))
 		# 天時天候偏向加成
@@ -160,13 +160,26 @@ static func trigger_fortune(state: GameState, rng: SeededRandom = null) -> Dicti
 	
 	if owns_rng: state.fortune.rng_state = rng.state
 	var chosen: Dictionary = candidates[chosen_index].duplicate(true)
-	if chosen.get("content_batch") == "content-p1-story": chosen = StorySaveContract.freeze(chosen, state)
+	if chosen.get("content_batch") in ["content-p1-story", "content-p2-story"]: chosen = StorySaveContract.freeze(chosen, state)
 	chosen["instance_id"] = ("%d|%d|%s" % [state.reincarnation_count + 1, int(state.fortune.get("encounter_history_count", 0)) + 1, str(chosen.get("id", ""))]).sha256_text()
 	state.fortune["pending_encounter"] = chosen
 	state.fortune["encounter_history_count"] = int(state.fortune.get("encounter_history_count", 0)) + 1
 	# 重置冷卻
 	state.fortune["cooldown_remaining"] = compute_cooldown_for_era(current_era)
 	return chosen
+
+static func story_option_error(state: GameState, content: GameContent, pending: Dictionary, option: Dictionary) -> String:
+	if pending.get("content_batch") not in ["content-p1-story", "content-p2-story"]: return ""
+	if content == null: return "STORY_CONTENT_REQUIRED"
+	if pending.get("content_batch") == "content-p2-story":
+		if state.story_version < 2: return "STORY_VERSION"
+		var life_error := SectSystem.p2_life_error(state)
+		if not life_error.is_empty(): return life_error
+		if float(option.get("rewards", {}).get("training_seconds", 0)) > 0:
+			var era: Variant = content.era(state.era_id)
+			var ceiling := Cultivation.next_level_required_seconds(era, state.level, 0.0, SkillSystem.effect(content, state.skills, "time_multiplier")) if era != null else state.training_seconds
+			if ceiling <= state.training_seconds: return "STORY_NO_TRAINING_GAIN"
+	return StoryProgress.transaction_error(state, content, option.get("costs", {}), option.get("rewards", {}))
 
 static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRandom = null, source: String = "", expected_instance: String = "", content: GameContent = null) -> Dictionary:
 	ensure_initialized(state)
@@ -188,10 +201,9 @@ static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRan
 	var option: Dictionary = options[option_index]
 	var costs: Dictionary = option.get("costs", {})
 	
-	var is_story: bool = pending.get("content_batch") == "content-p1-story"
+	var is_story: bool = pending.get("content_batch") in ["content-p1-story", "content-p2-story"]
 	if is_story:
-		if content == null: return {"ok": false, "error": "STORY_CONTENT_REQUIRED"}
-		var story_error := StoryProgress.transaction_error(state, content, costs, option.get("rewards", {}))
+		var story_error := story_option_error(state, content, pending, option)
 		if not story_error.is_empty(): return {"ok": false, "error": story_error}
 	# P1 pill cap applies to all encounter sources, including retained legacy invites.
 	for id in option.get("rewards", {}).get("pills", {}):
@@ -262,6 +274,9 @@ static func resolve_fortune(state: GameState, option_index: int, _rng: SeededRan
 			state.training_seconds += training_gain
 	
 	receipt.training = {"before": training_before, "gained": state.training_seconds - training_before, "after": state.training_seconds}
+	if pending.get("content_batch") == "content-p2-story":
+		receipt.training.nominal = training_gain
+		receipt.training.overflow = training_gain - float(receipt.training.gained)
 	# 3. 丹藥獎勵
 	var pill_rewards: Dictionary = rewards.get("pills", {})
 	for pill_id in pill_rewards:

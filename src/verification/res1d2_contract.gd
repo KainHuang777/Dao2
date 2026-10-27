@@ -170,7 +170,7 @@ func run() -> Dictionary:
 	var fixture_save := SaveCodec.encode(s.state, content.content_version, fixture_meta)
 	expect(fixture_save.ok, "earned D2 review fixture validates")
 	if fixture_save.ok and not OS.has_feature("web"):
-		var fixture_file := FileAccess.open("res://docs/verification/artifacts/res1-d2-earned-era3.json", FileAccess.WRITE)
+		var fixture_file := FileAccess.open((OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("res1-d2-earned-era3.json"), FileAccess.WRITE)
 		fixture_file.store_string(fixture_save.json)
 		fixture_file.close()
 	_test_persistence(s)
@@ -259,7 +259,7 @@ func _test_persistence(s: GameSession) -> void:
 	var encoded := SaveCodec.encode(s.state, content.content_version, meta)
 	active_fixture_json = encoded.get("json", "")
 	if not OS.has_feature("web") and encoded.ok:
-		var active_file := FileAccess.open("res://docs/verification/artifacts/res1-d2-active-fixture.json", FileAccess.WRITE)
+		var active_file := FileAccess.open((OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("res1-d2-active-fixture.json"), FileAccess.WRITE)
 		active_file.store_string(encoded.json)
 		active_file.close()
 	expect(encoded.ok, "D2 validates and encodes")

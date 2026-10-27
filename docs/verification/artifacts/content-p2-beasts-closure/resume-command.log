@@ -1,0 +1,360 @@
+[MODE] matrix=full runners=74 parallel=3
+[LOGS] E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-closure\host-logs\dao2_runners_867c455ad90f4590903c17e04ee9b242
+[START:initial] tests/content_p2_beasts_ui_runner.gd
+[START:initial] tests/content_p2_pills_flow_runner.gd
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[PASS:initial] tests/content_p2_beasts_ui_runner.gd (10.8s) result=pass
+[START:initial] tests/content_p2_talents_ui_runner.gd
+[PASS:initial] tests/content_p2_pills_ui_runner.gd (10.9s) result=pass
+[START:initial] tests/content_p2_supply_progression_runner.gd
+[PASS:initial] tests/content_p2_talents_ui_runner.gd (10.1s) result=pass
+[START:initial] tests/content_p1_story_ui_runner.gd
+[PASS:initial] tests/content_p1_story_ui_runner.gd (26.3s) result=pass
+[START:initial] tests/content_p1_sect_ui_runner.gd
+[FAIL:initial] tests/content_p1_sect_ui_runner.gd exit=-1 timeout=False script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+FAIL 8 cards [(1280, 720), 1]
+FAIL action reachable [(1280, 720), 1, 4]
+FAIL full card [(1280, 720), 1, 4]
+CARD (24.0, 16.0) SCROLL (378.0, 0.0) PANEL (620.0, 600.0)
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] start (res://src/verification/content_p1_sect_acceptance.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] start (res://src/verification/content_p1_sect_acceptance.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:89)
+       [1] start (res://src/verification/content_p1_sect_acceptance.gd:29)
+ERROR: sect fixture decode failed: JSON_PARSE
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] start (res://src/verification/content_p1_sect_acceptance.gd:30)
+ERROR: Index p_index = 5 is out of bounds ((int)data.children_cache.size() - data.internal_children_front_count_cache - data.internal_children_back_count_cache = 5).
+   at: get_child (scene/main/node.cpp:1861)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:28)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+ERROR: Required object "rp_node" is null.
+   at: is_ancestor_of (scene/main/node.cpp:2152)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:29)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+ERROR: Must be an ancestor of the control.
+   at: ensure_control_visible (scene/gui/scroll_container.cpp:366)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:29)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+SCRIPT ERROR: Cannot call method 'get_child' on a null value.
+   at: run (res://tests/content_p1_sect_ui_runner.gd:30)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:30)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+
+[START:initial] tests/content_p1_pills_ui_runner.gd
+[PASS:initial] tests/content_p1_pills_ui_runner.gd (11.5s) result=pass
+[START:initial] tests/content_p1_talents_ui_runner.gd
+[PASS:initial] tests/content_p1_talents_ui_runner.gd (10.6s) result=pass
+[START:initial] tests/content_p1_skills_ui_runner.gd
+[PASS:initial] tests/content_p1_skills_ui_runner.gd (10.6s) result=pass
+[START:initial] tests/life_echo_ui_runner.gd
+[PASS:initial] tests/life_echo_ui_runner.gd (10.7s) result=pass
+[START:initial] tests/life_history_ui_runner.gd
+[PASS:initial] tests/life_history_ui_runner.gd (9.4s) result=pass
+[START:initial] tests/resource_accounts_ui_runner.gd
+[PASS:initial] tests/resource_accounts_ui_runner.gd (9.3s) result=pass
+[START:initial] tests/decision_ui_runner.gd
+[PASS:initial] tests/content_p2_pills_flow_runner.gd (572.9s) result=pass
+[START:initial] tests/life_report_ui_runner.gd
+[PASS:initial] tests/decision_ui_runner.gd (10.8s) result=pass
+[START:initial] tests/ui_shell_matrix_runner.gd
+[PASS:initial] tests/life_report_ui_runner.gd (10.2s) result=pass
+[START:initial] tests/ui_shell_integration_runner.gd
+[PASS:initial] tests/ui_shell_integration_runner.gd (14.5s) result=pass
+[START:initial] tests/mfg3_inline_runner.gd
+[PASS:initial] tests/mfg3_inline_runner.gd (9.6s) result=pass
+[START:initial] tests/tribc_integration_runner.gd
+[FAIL:initial] tests/content_p2_supply_progression_runner.gd exit=-1 timeout=True script_error=False failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW ERA 3 age=4783.0
+TRACE pre-snapshot era3
+TRACE pre-ladder era3
+TRACE ladder era3 lvl2
+TRACE ladder era3 lvl3
+TRACE ladder era3 lvl4
+TRACE ladder era3 lvl5
+TRACE ladder era3 lvl6
+TRACE ladder era3 lvl7
+TRACE ladder era3 lvl8
+TRACE ladder era3 lvl9
+TRACE post-ladder era3
+FLOW ERA 4 age=12183.0
+TRACE pre-snapshot era4
+TRACE pre-ladder era4
+TRACE ladder era4 lvl1
+TRACE ladder era4 lvl2
+TRACE ladder era4 lvl3
+TRACE ladder era4 lvl4
+TRACE ladder era4 lvl5
+TRACE ladder era4 lvl6
+TRACE ladder era4 lvl7
+TRACE ladder era4 lvl8
+TRACE ladder era4 lvl9
+TRACE post-ladder era4
+FLOW ERA 5 age=26963.0
+TRACE pre-snapshot era5
+TRACE pre-ladder era5
+TRACE ladder era5 lvl1
+TRACE ladder era5 lvl2
+TRACE ladder era5 lvl3
+TRACE ladder era5 lvl4
+TRACE ladder era5 lvl5
+TRACE ladder era5 lvl6
+TRACE ladder era5 lvl7
+TRACE ladder era5 lvl8
+TRACE ladder era5 lvl9
+
+
+[START:initial] tests/trib0_outcome_runner.gd
+[PASS:initial] tests/tribc_integration_runner.gd (10s) result=pass
+[START:initial] tests/uix_r10_fortune_ui_runner.gd
+[PASS:initial] tests/trib0_outcome_runner.gd (9.5s) result=pass
+[START:initial] tests/hud_readiness_life_runner.gd
+[PASS:initial] tests/uix_r10_fortune_ui_runner.gd (8.2s) result=pass
+[START:initial] tests/uix_r2_hud_runner.gd
+[PASS:initial] tests/hud_readiness_life_runner.gd (7.4s) result=pass
+[START:initial] tests/gather_guidance_highlight_runner.gd
+[PASS:initial] tests/uix_r2_hud_runner.gd (8.7s) result=pass
+[START:initial] tools/test_runner.gd
+[PASS:initial] tests/gather_guidance_highlight_runner.gd (6s) result=pass
+[START:initial] tests/living_abode_runner.gd
+[PASS:initial] tools/test_runner.gd (0.6s) result=pass
+[START:initial] tests/res1d2_world_runner.gd
+[PASS:initial] tests/living_abode_runner.gd (6.5s) result=pass
+[START:initial] tests/resource_feedback_runner.gd
+[PASS:initial] tests/res1d2_world_runner.gd (8.7s) result=pass
+[START:initial] tests/m2a_abode_runner.gd
+[PASS:initial] tests/resource_feedback_runner.gd (7.1s) result=pass
+[START:initial] tests/m2b_breakthrough_runner.gd
+[PASS:initial] tests/m2a_abode_runner.gd (8.9s) result=pass
+[START:initial] tests/island_breakthrough_runner.gd
+[PASS:initial] tests/m2b_breakthrough_runner.gd (8.3s) result=pass
+[START:initial] tests/m2c_nine_realms_runner.gd
+[PASS:initial] tests/ui_shell_matrix_runner.gd (84.4s) result=pass
+[START:initial] tests/m2d_responsive_ui_runner.gd
+[PASS:initial] tests/island_breakthrough_runner.gd (8.3s) result=pass
+[START:initial] tests/text_transition_runner.gd
+[PASS:initial] tests/m2c_nine_realms_runner.gd (8s) result=pass
+[START:initial] tests/m2d_slice_release_runner.gd
+[PASS:initial] tests/m2d_responsive_ui_runner.gd (8.3s) result=pass
+[START:initial] tests/m3a_reincarnation_runner.gd
+[PASS:initial] tests/m3a_reincarnation_runner.gd (1.8s) result=pass
+[START:initial] tests/m3a_reincarnation_ui_runner.gd
+[PASS:initial] tests/text_transition_runner.gd (7.3s) result=pass
+[START:initial] tests/m3b_alchemy_runner.gd
+[PASS:initial] tests/m3b_alchemy_runner.gd (1.6s) result=pass
+[START:initial] tests/m3b_alchemy_ui_runner.gd
+[PASS:initial] tests/m2d_slice_release_runner.gd (7.6s) result=pass
+[START:initial] tests/m3b_sect_runner.gd
+[PASS:initial] tests/m3b_sect_runner.gd (1.2s) result=pass
+[START:initial] tests/m3b_sect_ui_runner.gd
+[PASS:initial] tests/m3a_reincarnation_ui_runner.gd (7.1s) result=pass
+[START:initial] tests/buff_system_runner.gd
+[PASS:initial] tests/m3b_sect_ui_runner.gd (2.8s) result=pass
+[START:initial] tests/debug_features_runner.gd
+[PASS:initial] tests/m3b_alchemy_ui_runner.gd (6.8s) result=pass
+[START:initial] tests/core_positive_flow_runner.gd
+[PASS:initial] tests/buff_system_runner.gd (1.7s) result=pass
+[START:initial] tests/early_flow1b_runner.gd
+[PASS:initial] tests/debug_features_runner.gd (5.3s) result=pass
+[START:initial] tests/early_flow1c_runner.gd
+[PASS:initial] tests/core_positive_flow_runner.gd (13.7s) result=pass
+[START:initial] tests/early_flow1d_runner.gd
+[PASS:initial] tests/early_flow1b_runner.gd (18.4s) result=pass
+[START:initial] tests/m4a_realm_runner.gd
+[PASS:initial] tests/m4a_realm_runner.gd (1.6s) result=pass
+[START:initial] tests/m4a_session_integration_runner.gd
+[PASS:initial] tests/m4a_session_integration_runner.gd (2.5s) result=pass
+[START:initial] tests/bgm_era_playlist_runner.gd
+[PASS:initial] tests/bgm_era_playlist_runner.gd (4.2s) result=pass
+[START:initial] tests/m3b_chrono_runner.gd
+[PASS:initial] tests/m3b_chrono_runner.gd (1.8s) result=pass
+[START:initial] tests/m4b_scale_law_runner.gd
+[PASS:initial] tests/m4b_scale_law_runner.gd (1.8s) result=pass
+[START:initial] tests/m5a_world_gen_runner.gd
+[PASS:initial] tests/m5a_world_gen_runner.gd (1.4s) result=pass
+[START:initial] tests/m3b_fortune_runner.gd
+[PASS:initial] tests/m3b_fortune_runner.gd (1.7s) result=pass
+[START:initial] tests/m3b_fortune_ui_runner.gd
+[PASS:initial] tests/early_flow1c_runner.gd (30.5s) result=pass
+[START:initial] tests/m5b_realm_content_runner.gd
+[PASS:initial] tests/m5b_realm_content_runner.gd (1.8s) result=pass
+[START:initial] tests/feature_navigation_runner.gd
+[PASS:initial] tests/m3b_fortune_ui_runner.gd (5.9s) result=pass
+[START:initial] tests/skills_b1_runner.gd
+[PASS:initial] tests/skills_b1_runner.gd (2.9s) result=pass
+[START:initial] tests/sks_p1_runner.gd
+[PASS:initial] tests/sks_p1_runner.gd (3.3s) result=pass
+[START:initial] tests/sks_p2_core_runner.gd
+[PASS:initial] tests/sks_p2_core_runner.gd (2.1s) result=pass
+[START:initial] tests/sks_p2_flow_runner.gd
+[PASS:initial] tests/feature_navigation_runner.gd (15.1s) result=pass
+[START:initial] tests/early_v1b_talents_runner.gd
+[PASS:initial] tests/early_v1b_talents_runner.gd (12.3s) result=pass
+[START:initial] tests/early_v1c_skills_runner.gd
+[PASS:initial] tests/early_v1c_skills_runner.gd (42.4s) result=pass
+[START:initial] tests/uix_r8_skills_ui_runner.gd
+[PASS:initial] tests/uix_r8_skills_ui_runner.gd (7.7s) result=pass
+[START:initial] tests/m3b_spirit_beast_runner.gd
+[PASS:initial] tests/early_flow1d_runner.gd (101.1s) result=pass
+[START:initial] tests/abode_scenery_runner.gd
+[PASS:initial] tests/m3b_spirit_beast_runner.gd (1.8s) result=pass
+[START:initial] tests/abode_scenery_ui_runner.gd
+[PASS:initial] tests/abode_scenery_runner.gd (1.9s) result=pass
+[START:initial] tests/m3b_achievement_runner.gd
+[PASS:initial] tests/m3b_achievement_runner.gd (1.3s) result=pass
+[START:initial] tests/debug_autobuild_and_time_runner.gd
+[PASS:initial] tests/abode_scenery_ui_runner.gd (6s) result=pass
+[START:initial] tests/debug_actions_runner.gd
+[PASS:initial] tests/debug_autobuild_and_time_runner.gd (5.4s) result=pass
+[START:initial] tests/runtime_inspector_runner.gd
+[PASS:initial] tests/debug_actions_runner.gd (1.8s) result=pass
+[START:initial] tests/simulation_sandbox_runner.gd
+[PASS:initial] tests/runtime_inspector_runner.gd (1.9s) result=pass
+[START:initial] tests/uix_r1_components_runner.gd
+[PASS:initial] tests/simulation_sandbox_runner.gd (1.6s) result=pass
+[START:initial] tests/batch_a_pills_runner.gd
+[PASS:initial] tests/batch_a_pills_runner.gd (1.8s) result=pass
+[PASS:initial] tests/uix_r1_components_runner.gd (2.8s) result=pass
+[PASS:initial] tests/sks_p2_flow_runner.gd (150.9s) result=pass
+[RETRY-SERIAL] 2 runner(s); same timeout applies
+[START:serial-retry] tests/content_p1_sect_ui_runner.gd
+[PASS:serial-retry] tests/content_p1_sect_ui_runner.gd (8.5s) result=pass
+[START:serial-retry] tests/content_p2_supply_progression_runner.gd
+[FAIL:serial-retry] tests/content_p2_supply_progression_runner.gd exit=-1 timeout=True script_error=False failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW ERA 3 age=4783.0
+TRACE pre-snapshot era3
+TRACE pre-ladder era3
+TRACE ladder era3 lvl2
+TRACE ladder era3 lvl3
+TRACE ladder era3 lvl4
+TRACE ladder era3 lvl5
+TRACE ladder era3 lvl6
+TRACE ladder era3 lvl7
+TRACE ladder era3 lvl8
+TRACE ladder era3 lvl9
+TRACE post-ladder era3
+FLOW ERA 4 age=12183.0
+TRACE pre-snapshot era4
+TRACE pre-ladder era4
+TRACE ladder era4 lvl1
+TRACE ladder era4 lvl2
+TRACE ladder era4 lvl3
+TRACE ladder era4 lvl4
+TRACE ladder era4 lvl5
+TRACE ladder era4 lvl6
+TRACE ladder era4 lvl7
+TRACE ladder era4 lvl8
+TRACE ladder era4 lvl9
+TRACE post-ladder era4
+FLOW ERA 5 age=26963.0
+TRACE pre-snapshot era5
+TRACE pre-ladder era5
+TRACE ladder era5 lvl1
+TRACE ladder era5 lvl2
+TRACE ladder era5 lvl3
+TRACE ladder era5 lvl4
+TRACE ladder era5 lvl5
+TRACE ladder era5 lvl6
+TRACE ladder era5 lvl7
+TRACE ladder era5 lvl8
+TRACE ladder era5 lvl9
+TRACE post-ladder era5
+FLOW ERA 6 age=58903.0
+TRACE era6 start age=58903.0
+TRACE era6 build ok=true
+TRACE era6 grass ok=true
+TRACE era6 feed done
+TRACE pre-snapshot era6
+TRACE pre-ladder era6
+TRACE ladder era6 lvl1
+
+
+--- slowest 8 runners (s) ---
+   600.7  tests/content_p2_supply_progression_runner.gd
+   572.9  tests/content_p2_pills_flow_runner.gd
+   150.9  tests/sks_p2_flow_runner.gd
+   101.1  tests/early_flow1d_runner.gd
+    84.4  tests/ui_shell_matrix_runner.gd
+    42.4  tests/early_v1c_skills_runner.gd
+    30.5  tests/early_flow1c_runner.gd
+    26.3  tests/content_p1_story_ui_runner.gd
+Exception: E:\WORK\Dao2\tools\run_all_runners.ps1:287
+Line |
+ 287 |  … nt -gt 0) { throw "Runner verification failed: $($failed -join ', '). …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Runner verification failed: tests/content_p2_supply_progression_runner.gd. Logs:
+     | E:\WORK\Dao2\docs\verification\artifacts\content-p2-beasts-closure\host-logs\dao2_runners_867c455ad90f4590903c17e04ee9b242
+
+

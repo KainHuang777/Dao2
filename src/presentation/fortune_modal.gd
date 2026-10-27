@@ -34,6 +34,13 @@ var _art: TextureRect
 var _options_container: VBoxContainer
 var _status_label: Label
 var _trigger_btn: Button
+var _timer_box: VBoxContainer
+var _sensing_row: HBoxContainer
+var _timer_label: Label
+var _timer_icon: UiIcon
+var _timer_bar: ProgressBar
+var _timer_tint := Color.TRANSPARENT
+var reduced_motion := false
 var _stats_label: Label
 var _feedback_row: HBoxContainer
 var _feedback: Label
@@ -124,20 +131,42 @@ func _build_ui() -> void:
 		_book_button.button_pressed = _book_open
 		refresh(_last_view_data))
 	_story_header.add_child(_book_button)
-	_trigger_btn = Button.new()
+	_trigger_btn = GraphicAction.new()
+	UiIcon.decorate_button(_trigger_btn, UiIcon.Kind.SPARKLE, GraphicAction.JADE, 32)
 	_trigger_btn.custom_minimum_size = Vector2(200,44)
 	_trigger_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	UiMaterial.apply_button(_trigger_btn)
 	_trigger_btn.pressed.connect(_request_trigger)
-	_story.add_child(_trigger_btn)
+	_sensing_row = HBoxContainer.new()
+	_sensing_row.add_theme_constant_override("separation", 16)
+	_content.add_child(_sensing_row)
+	_sensing_row.add_child(_trigger_btn)
+	_timer_box = VBoxContainer.new()
+	_timer_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_timer_box.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_timer_box.add_theme_constant_override("separation", 5)
+	_sensing_row.add_child(_timer_box)
+	var timer_row := HBoxContainer.new()
+	_timer_box.add_child(timer_row)
+	_timer_icon = UiIcon.new()
+	_timer_icon.kind = UiIcon.Kind.HOURGLASS
+	_timer_icon.icon_size = 24
+	_timer_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	timer_row.add_child(_timer_icon)
+	_timer_label = _label(timer_row, 18)
+	_timer_bar = ProgressBar.new()
+	_timer_bar.custom_minimum_size.y = 6
+	_timer_bar.show_percentage = false
+	_timer_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_timer_bar.add_theme_stylebox_override("background", UiMaterial.rounded(Color("d4d6ce"), 3))
+	_timer_box.add_child(_timer_bar)
 	_status_label = _label(_content)
 	_feedback_row = HBoxContainer.new()
 	_content.add_child(_feedback_row)
 	_feedback = _label(_feedback_row)
-	_retry = Button.new()
+	_retry = GraphicAction.new()
+	UiIcon.decorate_button(_retry, UiIcon.Kind.REFRESH, GraphicAction.JADE, 24)
 	_retry.text = "重試保存"
 	_retry.custom_minimum_size = Vector2(96,44)
-	UiMaterial.apply_button(_retry)
 	_retry.pressed.connect(func(): retry_save_requested.emit())
 	_feedback_row.add_child(_retry)
 	_feedback_row.hide()
@@ -196,13 +225,27 @@ func _build_options(options: Array) -> void:
 		var copy := VBoxContainer.new()
 		copy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(copy)
-		var title := _label(copy,18)
-		title.text = str(opt.get("text",""))
+		var button := GraphicAction.new()
+		button.text = str(opt.get("text", "選定此策"))
+		button.custom_minimum_size.y = 48
+		button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		UiIcon.decorate_button(button, UiIcon.Kind.RETURN_ARROW if idx == 2 else UiIcon.Kind.SCROLL, GraphicAction.JADE, 32)
+		# Use the actual gain's existing painted resource, rather than an unrelated icon.
+		for resource_id in opt.get("rewards", {}).get("resources", {}):
+			var canonical := FortuneSystem.resource_key(_last_view_data.get("resources", {}), str(resource_id))
+			if ResourceIconScript.TEXTURES.has(canonical):
+				button.icon = ResourceIconScript.TEXTURES[canonical]
+				button.expand_icon = true
+				button.add_theme_constant_override("icon_max_width", 32)
+				break
+		button.pressed.connect(_request_option.bind(idx))
+		copy.add_child(button)
 		var desc := _label(copy)
 		desc.text = str(opt.get("desc",""))
 		desc.visible = not desc.text.is_empty()
 		var effect := _label(copy)
-		effect.text = "固定效果：不支付、不取得額外收益" if _last_view_data.get("fortune", {}).get("pending_encounter", {}).get("content_batch") == "content-p1-story" and idx == 2 else DecisionBookView.preview_text(opt.get("rewards", {}))
+		var batch := str(_last_view_data.get("fortune", {}).get("pending_encounter", {}).get("content_batch", ""))
+		effect.text = "固定效果：不支付、不取得額外收益" if batch in ["content-p1-story", "content-p2-story"] and idx == 2 else DecisionBookView.preview_text(opt.get("rewards", {}))
 		var cost_box := VBoxContainer.new()
 		copy.add_child(cost_box)
 		var costs: Array[Dictionary] = []
@@ -218,13 +261,6 @@ func _build_options(options: Array) -> void:
 			costs.append({"id":str(id),"need":required,"label":cost_label})
 		var reason := _label(copy)
 		reason.hide()
-		var button := Button.new()
-		button.text = "選擇"
-		button.custom_minimum_size = Vector2(72,44)
-		button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		UiMaterial.apply_button(button)
-		button.pressed.connect(_request_option.bind(idx))
-		row.add_child(button)
 		_option_rows.append({"card":card,"button":button,"costs":costs,"reason":reason})
 
 func refresh(view_data: Dictionary) -> void:
@@ -252,6 +288,9 @@ func refresh(view_data: Dictionary) -> void:
 	_stats_label.text = "每小時 %d 次 · 已結算 %d 次" % [int(fortune.get("max_per_hour",1)),int(fortune.get("total_fortunes_claimed",0))]
 	_options_container.visible = has_pending
 	_trigger_btn.visible = not has_pending
+	_timer_box.visible = not has_pending
+	_sensing_row.visible = not has_pending
+	_status_label.visible = has_pending
 	var art_id := str(pending.get("art", _mapping.get(str(pending.get("id","")),"omen"))) if has_pending else "sensing"
 	_art.texture = load(ART_DIR + art_id + ".png")
 	if has_pending:
@@ -268,6 +307,7 @@ func refresh(view_data: Dictionary) -> void:
 		_encounter_bias_tag.text = "契合條件：" + " · ".join(tags)
 		_encounter_bias_tag.visible = not tags.is_empty()
 		_status_label.text = "待決 · 返回可暫收（無期限）"
+		_status_label.add_theme_color_override("font_color", UiMaterial.INK)
 		_status_label.tooltip_text = "世界繼續運行；待決只暫停下次機緣倒數。轉世會清除待決。"
 		var resources: Dictionary = view_data.get("resources",{})
 		for index in range(_option_rows.size()):
@@ -288,6 +328,7 @@ func refresh(view_data: Dictionary) -> void:
 			var errors: Array = fortune.get("option_errors", [])
 			var error := str(errors[index]) if index < errors.size() else ""
 			row.button.disabled = not can_afford or _submitted or not error.is_empty()
+			row.button.present(false, reduced_motion)
 			row.button.tooltip_text = StoryProgress.reason(error)
 			row.reason.text = StoryProgress.reason(error)
 			row.reason.visible = not error.is_empty()
@@ -297,8 +338,24 @@ func refresh(view_data: Dictionary) -> void:
 		_encounter_bias_tag.hide()
 		var cooldown := maxf(0,float(fortune.get("cooldown_remaining",0)))
 		_trigger_btn.disabled = cooldown > 0 or _submitted
-		_trigger_btn.text = "神識推演 · 就緒" if cooldown <= 0 else "感應蓄力 · %ds" % int(ceil(cooldown))
-		_status_label.text = "感應就緒" if cooldown <= 0 else "冷卻中 · %ds" % int(ceil(cooldown))
+		_trigger_btn.text = "神識推演"
+		_trigger_btn.present(cooldown <= 0, reduced_motion)
+		var tint := GraphicAction.COOL if cooldown > 0 else GraphicAction.JADE
+		var seconds := int(ceil(cooldown))
+		_timer_label.text = "感應蓄力  %02d:%02d" % [seconds / 60, seconds % 60] if seconds > 0 else "感應就緒"
+		if _timer_tint != tint:
+			_timer_tint = tint
+			_timer_label.add_theme_color_override("font_color", tint)
+			_timer_icon.tint = tint
+			_timer_icon.kind = UiIcon.Kind.HOURGLASS if cooldown > 0 else UiIcon.Kind.SPARKLE
+			_timer_bar.add_theme_stylebox_override("fill", UiMaterial.rounded(tint, 3))
+		var total := float(fortune.get("cooldown_total", 0))
+		_timer_bar.visible = total > 0 and cooldown <= total
+		_timer_bar.max_value = maxf(1, total)
+		_timer_bar.value = clampf(total - cooldown, 0, total)
+		_timer_bar.tooltip_text = "感應蓄力：剩餘 %d 秒／週期 %d 秒" % [seconds, int(total)]
+		_status_label.text = "世界時辰推進時，感應同步恢復。"
+		_status_label.tooltip_text = ""
 		if not _result_message.is_empty():
 			_encounter_desc.text = _result_message
 			_encounter_title.text = "機緣已結算"

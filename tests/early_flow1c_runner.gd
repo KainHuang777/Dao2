@@ -67,7 +67,7 @@ func run() -> void:
 	browser_meta.saved_at_utc_ms = utc
 	browser_meta.settled_until_utc_ms = utc
 	var browser_fixture := SaveCodec.encode(s.state, content.content_version, browser_meta)
-	var fixture := FileAccess.open("res://docs/verification/artifacts/early-flow1c-unopened.json", FileAccess.WRITE)
+	var fixture := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/early-flow1c-unopened.json"), FileAccess.WRITE)
 	check(fixture != null and browser_fixture.ok, "command-earned browser fixture")
 	if fixture != null:
 		fixture.store_string(browser_fixture.json)

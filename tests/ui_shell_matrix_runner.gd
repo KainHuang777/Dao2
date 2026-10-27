@@ -14,12 +14,13 @@ func frames() -> void:
 func capture(route: String, vp: Vector2i) -> void:
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://docs/verification/artifacts/ui-shell-2/%s-%dx%d.png" % [route, vp.x, vp.y])
+		root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/ui-shell-2/%s-%dx%d.png" % [route, vp.x, vp.y]))
 func _run() -> void:
-	load("res://src/abode/living_abode.gd").save_dir_override = "user://ui-shell-2-matrix"
-	SaveSlots.new(FileStorageAdapter.new("user://ui-shell-2-matrix")).reset()
+	load("res://src/abode/living_abode.gd").save_dir_override = (OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("ui-shell-2-matrix")
+	SaveSlots.new(FileStorageAdapter.new((OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("ui-shell-2-matrix"))).reset()
 	abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
+	while abode.feature_navigation == null: await process_frame
 	await frames()
 	abode.set_process(false)
 	abode.offline_summary.hide()

@@ -1,0 +1,1627 @@
+{
+  "task": "CONTENT-P2-STORY",
+  "date": "2026-10-27",
+  "scheme": "Y",
+  "approval": "APPROVED_Y_ALL",
+  "status": "DONE_L3_DESKTOP_WEB",
+  "runtime_attached": true,
+  "origin": "Original v2 design; not legacy parity",
+  "baseline": {
+    "achievements": 30,
+    "encounters": 38
+  },
+  "target": {
+    "achievements": 48,
+    "encounters": 56
+  },
+  "policy": {
+    "realm": "realm_human",
+    "schema_version": 5,
+    "story_version": 2,
+    "rules_proposal": "core-flow-24-content-p2-story",
+    "encounter_weight": 60,
+    "no_max_era": true,
+    "no_new_dao_heart_or_proof": true,
+    "resource_scope": "home available inventory; never local/cargo/reserved",
+    "capacity": "Whole transaction after payment; reject partial fit or unrepresentable Amount; free departure always available",
+    "pending": "Freeze full definition/digest/qualification/instance at generation; preserve legacy and P1 pending",
+    "rng": "Keep fortune rng_version=1 and saved stream; one roll only on generation; no reward RNG",
+    "save_gate": "Archive original bytes and read back before candidate commit; failed retry saves same candidate only",
+    "byte_limits": {
+      "story": 4096,
+      "achievements": 16384,
+      "pending": 12288
+    },
+    "art": {
+      "new_badges": 18,
+      "new_vignettes": [
+        "frontier",
+        "herbarium"
+      ],
+      "generated": true,
+      "accepted": true
+    }
+  },
+  "facts": {
+    "p2_pill_order": [
+      "nascent_breath_pill",
+      "void_meditation_pill",
+      "ancient_herb_dew_pill",
+      "void_gathering_pill",
+      "spirit_vessel_pill",
+      "stone_vault_pill",
+      "calm_tribulation_pill",
+      "silver_ward_pill"
+    ],
+    "arrival_order": [
+      "deep_iron_home",
+      "deep_mithril_home",
+      "deep_cold_home",
+      "ancient_grass_home",
+      "void_essence_home"
+    ],
+    "task_order": [
+      "deep_stock_register",
+      "ancient_dew_register",
+      "silver_convoy_accounts",
+      "ancient_herb_sorting",
+      "cold_iron_assay",
+      "ancient_pill_herb_catalog",
+      "void_supply_chart",
+      "tribulation_material_check",
+      "turtle_nursery_reserve",
+      "phoenix_nursery_reserve"
+    ],
+    "market_order": [
+      "refined_iron_reserve",
+      "ancient_herb_reserve"
+    ],
+    "mature_order": [
+      "frost_stag",
+      "herb_crane",
+      "iron_turtle",
+      "fire_phoenix"
+    ],
+    "masks": {
+      "refined_mask": 255,
+      "consumed_mask": 255,
+      "arrival_mask": 31,
+      "task_mask": 1023,
+      "market_mask": 3,
+      "mature_mask": 15
+    }
+  },
+  "achievements": [
+    {
+      "key": "A01",
+      "id": "p2_deep_student",
+      "name": "寒脈入微",
+      "category": "cultivation",
+      "era": 4,
+      "condition": "當世寒脈共鳴訣至少一階。",
+      "proof": "snapshot",
+      "refs": [
+        "deep_vein_resonance"
+      ],
+      "rewards": {
+        "resources": {
+          "lingli": 300
+        }
+      },
+      "art": "銀色礦脈環抱一枚初生道芽",
+      "lifetime_once": true
+    },
+    {
+      "key": "A02",
+      "id": "p2_herb_student",
+      "name": "古藥通神",
+      "category": "cultivation",
+      "era": 5,
+      "condition": "當世古藥養靈術、神海納息訣各至少一階。",
+      "proof": "snapshot",
+      "refs": [
+        "ancient_herb_attunement",
+        "spirit_sea_breath"
+      ],
+      "rewards": {
+        "resources": {
+          "lingli": 500
+        }
+      },
+      "art": "古藥根鬚與神海水紋交織",
+      "lifetime_once": true
+    },
+    {
+      "key": "A03",
+      "id": "p2_void_storekeeper",
+      "name": "三島藏真",
+      "category": "cultivation",
+      "era": 6,
+      "condition": "當世太虛採元術、三島藏真法各至少一階。",
+      "proof": "snapshot",
+      "refs": [
+        "void_essence_attunement",
+        "frontier_storekeeping"
+      ],
+      "rewards": {
+        "resources": {
+          "lingli": 800
+        }
+      },
+      "art": "三枚浮島玉印圍繞虛空露珠",
+      "lifetime_once": true
+    },
+    {
+      "key": "A04",
+      "id": "p2_deep_arrivals",
+      "name": "寒銀三舸",
+      "category": "abode",
+      "era": 4,
+      "condition": "更新後三條寒銀航線均曾向祖島實際入庫正數，可跨世。",
+      "proof": "arrival_mask=7",
+      "refs": [
+        "deep_iron_home",
+        "deep_mithril_home",
+        "deep_cold_home"
+      ],
+      "rewards": {
+        "resources": {
+          "stone_low": 120
+        }
+      },
+      "art": "三艘載有不同礦石的小舟",
+      "lifetime_once": true
+    },
+    {
+      "key": "A05",
+      "id": "p2_ancient_arrival",
+      "name": "千草歸倉",
+      "category": "abode",
+      "era": 5,
+      "condition": "更新後古藥千草航線曾向祖島實際入庫正數。",
+      "proof": "arrival_mask&8",
+      "refs": [
+        "ancient_grass_home"
+      ],
+      "rewards": {
+        "resources": {
+          "spirit_grass_low": 100
+        }
+      },
+      "art": "草束與靠岸貨舟",
+      "lifetime_once": true
+    },
+    {
+      "key": "A06",
+      "id": "p2_void_arrival",
+      "name": "虛華歸匣",
+      "category": "abode",
+      "era": 6,
+      "condition": "更新後太虛虛華航線曾向祖島實際入庫正數。",
+      "proof": "arrival_mask&16",
+      "refs": [
+        "void_essence_home"
+      ],
+      "rewards": {
+        "resources": {
+          "stone_low": 200
+        }
+      },
+      "art": "盛有紫色虛華的開口木匣",
+      "lifetime_once": true
+    },
+    {
+      "key": "A07",
+      "id": "p2_training_alchemist",
+      "name": "嬰虛雙爐",
+      "category": "alchemy",
+      "era": 6,
+      "condition": "更新後親煉凝嬰丹、虛明丹各一次，可跨世；交易取得不算。",
+      "proof": "refined_mask&3=3",
+      "refs": [
+        "nascent_breath_pill",
+        "void_meditation_pill"
+      ],
+      "rewards": {
+        "resources": {
+          "spirit_grass_low": 120
+        }
+      },
+      "art": "兩爐分映嬰形與空明丹光",
+      "lifetime_once": true
+    },
+    {
+      "key": "A08",
+      "id": "p2_local_elixirs",
+      "name": "藥引雙島",
+      "category": "alchemy",
+      "era": 6,
+      "condition": "更新後成功服用古藥凝露丹、太虛聚華丹各一次，可跨世。",
+      "proof": "consumed_mask&12=12",
+      "refs": [
+        "ancient_herb_dew_pill",
+        "void_gathering_pill"
+      ],
+      "rewards": {
+        "resources": {
+          "lingli": 600
+        }
+      },
+      "art": "青綠藥露與紫色浮島相映",
+      "lifetime_once": true
+    },
+    {
+      "key": "A09",
+      "id": "p2_vessels_and_wards",
+      "name": "藏器護劫",
+      "category": "alchemy",
+      "era": 5,
+      "condition": "更新後成功服用靈府拓容丹、藏石丹、定心護劫丹、銀罡護劫丹各一次，可跨世。",
+      "proof": "consumed_mask&240=240",
+      "refs": [
+        "spirit_vessel_pill",
+        "stone_vault_pill",
+        "calm_tribulation_pill",
+        "silver_ward_pill"
+      ],
+      "rewards": {
+        "resources": {
+          "stone_low": 180
+        }
+      },
+      "art": "石匣與靈瓶前展開兩道護符",
+      "lifetime_once": true
+    },
+    {
+      "key": "A10",
+      "id": "p2_frontier_commissions",
+      "name": "三島供簿",
+      "category": "sect",
+      "era": 6,
+      "condition": "更新後領取寒銀、古藥、太虛類新委託各至少一次，可跨世。",
+      "proof": "task_groups=deep+ancient+void",
+      "refs": [
+        "deep_stock_register",
+        "ancient_dew_register",
+        "void_supply_chart"
+      ],
+      "rewards": {
+        "sect_contribution": 60
+      },
+      "art": "三冊無字帳簿與宗門印",
+      "lifetime_once": true
+    },
+    {
+      "key": "A11",
+      "id": "p2_two_sect_methods",
+      "name": "丹獸同修",
+      "category": "sect",
+      "era": 6,
+      "condition": "兩項P2宗門功法各至少一階；沿正式持久功法狀態判定。",
+      "proof": "snapshot",
+      "refs": [
+        "p2_pill_qi_conservation",
+        "sacred_beast_feed_conservation"
+      ],
+      "rewards": {
+        "sect_contribution": 80
+      },
+      "art": "丹爐與玄甲羽翎環繞雙卷",
+      "lifetime_once": true
+    },
+    {
+      "key": "A12",
+      "id": "p2_two_reserves",
+      "name": "備糧有度",
+      "category": "sect",
+      "era": 5,
+      "condition": "更新後成功購買精鐵儲備、古藥儲備各一次，可跨世。",
+      "proof": "market_mask=3",
+      "refs": [
+        "refined_iron_reserve",
+        "ancient_herb_reserve"
+      ],
+      "rewards": {
+        "sect_contribution": 40
+      },
+      "art": "鐵錠與一束古藥置於小秤兩端",
+      "lifetime_once": true
+    },
+    {
+      "key": "A13",
+      "id": "p2_mature_stag",
+      "name": "霜角長伴",
+      "category": "beast_fate",
+      "era": 4,
+      "condition": "現有成熟霜角鹿，或更新後曾養成成熟霜角鹿。",
+      "proof": "mature_mask&1",
+      "refs": [
+        "frost_stag"
+      ],
+      "rewards": {
+        "resources": {
+          "spirit_grass_low": 100
+        }
+      },
+      "art": "霜角鹿側首與銀白角枝",
+      "lifetime_once": true
+    },
+    {
+      "key": "A14",
+      "id": "p2_mature_crane",
+      "name": "銜芝長伴",
+      "category": "beast_fate",
+      "era": 5,
+      "condition": "現有成熟銜芝鶴，或更新後曾養成成熟銜芝鶴。",
+      "proof": "mature_mask&2",
+      "refs": [
+        "herb_crane"
+      ],
+      "rewards": {
+        "resources": {
+          "spirit_grass_low": 100
+        }
+      },
+      "art": "銜芝鶴展翼護住靈芝",
+      "lifetime_once": true
+    },
+    {
+      "key": "A15",
+      "id": "p2_turtle_and_phoenix",
+      "name": "玄羽兩世",
+      "category": "beast_fate",
+      "era": 6,
+      "condition": "更新後分世養成成熟玄龜、火鳳；導入時只可補記當前成熟的一隻。",
+      "proof": "mature_mask&12=12",
+      "refs": [
+        "iron_turtle",
+        "fire_phoenix"
+      ],
+      "rewards": {
+        "resources": {
+          "lingli": 800
+        }
+      },
+      "art": "玄甲與火羽分置陰陽兩側",
+      "lifetime_once": true
+    },
+    {
+      "key": "A16",
+      "id": "p2_second_nascent",
+      "name": "再證元嬰",
+      "category": "reincarnation",
+      "era": 4,
+      "condition": "至少輪迴一次，且當世Era至少4；最高歷史境界不能代替當世。",
+      "proof": "snapshot",
+      "refs": [],
+      "rewards": {
+        "resources": {
+          "wood": 160
+        }
+      },
+      "art": "舊命燈旁再生一枚元嬰道芽",
+      "lifetime_once": true
+    },
+    {
+      "key": "A17",
+      "id": "p2_second_void",
+      "name": "重履太虛",
+      "category": "reincarnation",
+      "era": 6,
+      "condition": "至少輪迴一次，且當世Era至少6。",
+      "proof": "snapshot",
+      "refs": [],
+      "rewards": {
+        "resources": {
+          "lingli": 1000
+        }
+      },
+      "art": "新舊兩道足跡穿過紫色雲門",
+      "lifetime_once": true
+    },
+    {
+      "key": "A18",
+      "id": "p2_three_memories",
+      "name": "三慧續道",
+      "category": "reincarnation",
+      "era": 4,
+      "condition": "丹材、拓脈、玄靈宿慧各至少一階。",
+      "proof": "snapshot",
+      "refs": [
+        "elixir_conservation_memory",
+        "frontier_prospector_memory",
+        "sacred_beast_nurture_memory"
+      ],
+      "rewards": {
+        "resources": {
+          "stone_low": 200
+        }
+      },
+      "art": "三枚不同色澤的宿慧玉珠",
+      "lifetime_once": true
+    }
+  ],
+  "encounters": [
+    {
+      "key": "E01",
+      "id": "enc_p2_silver_scale",
+      "title": "寒銀換秤",
+      "desc": "寒銀島歸舟靠岸，一名礦師攤開兩副小秤。他願用精鐵換取靈石，也願收下你手中的精鐵，價碼寫在無字刻痕旁。",
+      "group": "resources",
+      "min_era": 4,
+      "requires": [
+        "deep_open"
+      ],
+      "art": "frontier",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "以靈石換三塊精鐵",
+          "costs": {
+            "stone_low": 80
+          },
+          "rewards": {
+            "resources": {
+              "refined_iron": 3
+            },
+            "log_text": "你付出八十下品靈石，換得精鐵三塊。"
+          }
+        },
+        {
+          "text": "售出兩塊精鐵",
+          "costs": {
+            "refined_iron": 2
+          },
+          "rewards": {
+            "resources": {
+              "stone_low": 40
+            },
+            "log_text": "你交出兩塊精鐵，收下四十下品靈石。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「寒銀換秤」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "買3鐵需80石、賣2鐵得40石，往返不能增殖；原始地方採3鐵30秒，不含回運。"
+    },
+    {
+      "key": "E02",
+      "id": "enc_p2_cold_assay",
+      "title": "寒鐵試紋",
+      "desc": "老匠用銀針劃過寒鐵，說這一爐只差一種礦材。你可補上寒鐵換秘銀，也可拿秘銀換回較多的寒鐵。",
+      "group": "resources",
+      "min_era": 4,
+      "requires": [
+        "deep_open"
+      ],
+      "art": "frontier",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "交寒鐵換秘銀",
+          "costs": {
+            "cold_iron": 4
+          },
+          "rewards": {
+            "resources": {
+              "mithril": 2
+            },
+            "log_text": "四塊寒鐵換得兩塊秘銀，銀針上的紋路漸漸平息。"
+          }
+        },
+        {
+          "text": "交秘銀換寒鐵",
+          "costs": {
+            "mithril": 3
+          },
+          "rewards": {
+            "resources": {
+              "cold_iron": 4
+            },
+            "log_text": "你交出三塊秘銀，收下四塊寒鐵。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「寒鐵試紋」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "等裸產率0.05/s；A讓出80秒寒鐵換40秒秘銀，B讓出60秒秘銀換80秒寒鐵；A+B淨少1秘銀。"
+    },
+    {
+      "key": "E03",
+      "id": "enc_p2_dew_exchange",
+      "title": "古藥餘露",
+      "desc": "藥客正在分裝凝在葉背的餘露。千年草稀少，百年草卻正缺一批；他邀你按眼前用途交換。",
+      "group": "resources",
+      "min_era": 5,
+      "requires": [
+        "ancient_open"
+      ],
+      "art": "herbarium",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "以百年草換千年草",
+          "costs": {
+            "spirit_grass_100y": 12
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_1000y": 1
+            },
+            "log_text": "十二株百年草換回一株千年草。"
+          }
+        },
+        {
+          "text": "以千年草換百年草",
+          "costs": {
+            "spirit_grass_1000y": 1
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_100y": 8
+            },
+            "log_text": "你留出一株千年草，換得八株百年草。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「古藥餘露」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "往返少4百草；1千草裸採25秒，交換省回運等候但消耗另一鏈材料。"
+    },
+    {
+      "key": "E04",
+      "id": "enc_p2_bulk_stone",
+      "title": "碎石封舟",
+      "desc": "貨舟騰出一格空艙，船家正把碎石分裝成堆。若你願提供足量石料與靈力，他便直接交出已煉好的中品靈石。",
+      "group": "industry",
+      "min_era": 4,
+      "requires": [
+        "deep_open",
+        "deep_arrived"
+      ],
+      "art": "industry",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "託船家代煉一小堆",
+          "costs": {
+            "stone_low": 60,
+            "lingli": 150
+          },
+          "rewards": {
+            "resources": {
+              "stone_mid": 10
+            },
+            "log_text": "船家收妥六十下品靈石與一百五十靈力，交回十枚中品靈石。"
+          }
+        },
+        {
+          "text": "拆售十枚中品靈石",
+          "costs": {
+            "stone_mid": 10
+          },
+          "rewards": {
+            "resources": {
+              "stone_low": 40
+            },
+            "log_text": "你將十枚中品靈石交付，收回四十下品靈石。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「碎石封舟」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "正式批量100中石需500下石+1000靈力/10秒，A單位更貴且不受天工折扣；B回收損失石與原煉製靈力。"
+    },
+    {
+      "key": "E05",
+      "id": "enc_p2_high_stone",
+      "title": "上石分盞",
+      "desc": "上品靈石的冷光照著船艙。船家願讓出一枚整石，也能把你的整石換成幾枚可立即使用的中石。",
+      "group": "industry",
+      "min_era": 5,
+      "requires": [
+        "ancient_open",
+        "ancient_arrived"
+      ],
+      "art": "industry",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "換取一枚整石",
+          "costs": {
+            "stone_mid": 4,
+            "lingli": 70
+          },
+          "rewards": {
+            "resources": {
+              "stone_high": 1
+            },
+            "log_text": "你以四枚中品靈石與七十靈力換得一枚上品靈石。"
+          }
+        },
+        {
+          "text": "拆換一枚整石",
+          "costs": {
+            "stone_high": 1
+          },
+          "rewards": {
+            "resources": {
+              "stone_mid": 2
+            },
+            "log_text": "一枚上品靈石換回兩枚中品靈石。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「上石分盞」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "正式1上石需3中石+50靈力/10秒，A較貴，B有耗損；不增加配方完工旗標。"
+    },
+    {
+      "key": "E06",
+      "id": "enc_p2_void_cargo",
+      "title": "虛華壓艙",
+      "desc": "太虛歸舟的舷側泛起紫光。押艙人不願多留這團輕若無物的精華，願換取穩定的上品靈石。",
+      "group": "industry",
+      "min_era": 6,
+      "requires": [
+        "void_open",
+        "void_arrived"
+      ],
+      "art": "frontier",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "用上石換虛華",
+          "costs": {
+            "stone_high": 2
+          },
+          "rewards": {
+            "resources": {
+              "void_essence": 2
+            },
+            "log_text": "兩枚上品靈石換來兩縷虛空精華。"
+          }
+        },
+        {
+          "text": "交虛華換上石",
+          "costs": {
+            "void_essence": 3
+          },
+          "rewards": {
+            "resources": {
+              "stone_high": 1
+            },
+            "log_text": "你封存三縷虛空精華，換得一枚上品靈石。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「虛華壓艙」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "虛華裸採2份40秒／3份60秒；A+B淨少1上石及1虛華，不把不同資源相加當回本。"
+    },
+    {
+      "key": "E07",
+      "id": "enc_p2_sect_iron",
+      "title": "宗門餘鐵",
+      "desc": "執事合上新一輪供給簿，桌上還留有少量鐵料。他只接受物資交換，這筆往來不算委託，也不添貢獻。",
+      "group": "sect",
+      "min_era": 4,
+      "requires": [
+        "deep_open",
+        "joined_sect",
+        "p2_task_claimed"
+      ],
+      "art": "sect",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "補靈石領餘鐵",
+          "costs": {
+            "stone_low": 100
+          },
+          "rewards": {
+            "resources": {
+              "refined_iron": 4
+            },
+            "log_text": "你付出一百下品靈石，領回四塊餘鐵。"
+          }
+        },
+        {
+          "text": "歸還鐵料換草",
+          "costs": {
+            "refined_iron": 3
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_low": 40
+            },
+            "log_text": "你歸還三塊鐵料，換回四十株低階靈草。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「宗門餘鐵」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "不扣貢獻、不改限購餘次；與有限坊市及免費等待委託相比，多一條隨機且有價交換。"
+    },
+    {
+      "key": "E08",
+      "id": "enc_p2_sect_herbs",
+      "title": "藥房兩籃",
+      "desc": "藥房管事把百年草與千年草分成兩籃，問你這次更缺哪一籃。這不是新的派遣，須由你自行決定取捨。",
+      "group": "sect",
+      "min_era": 5,
+      "requires": [
+        "ancient_open",
+        "joined_sect",
+        "p2_task_claimed"
+      ],
+      "art": "sect",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "用下石換一株千草",
+          "costs": {
+            "stone_low": 160
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_1000y": 1
+            },
+            "log_text": "你付出一百六十下品靈石，取走一株千年靈草。"
+          }
+        },
+        {
+          "text": "交千草補百草",
+          "costs": {
+            "spirit_grass_1000y": 2
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_100y": 18
+            },
+            "log_text": "兩株千年靈草換回十八株百年靈草。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「藥房兩籃」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "B每千草換9百草，高於E03的8但只在入宗且本世已領P2委託後可遇；不當普遍最優或新增限購。"
+    },
+    {
+      "key": "E09",
+      "id": "enc_p2_sect_chart",
+      "title": "太虛圖角",
+      "desc": "供給圖的一角被風吹起，露出押圖人的備用材料。他願用一點虛華交換祖島靈力，或反向收購。",
+      "group": "sect",
+      "min_era": 6,
+      "requires": [
+        "void_open",
+        "joined_sect",
+        "p2_task_claimed"
+      ],
+      "art": "sect",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "以靈力換虛華",
+          "costs": {
+            "lingli": 1500
+          },
+          "rewards": {
+            "resources": {
+              "void_essence": 1
+            },
+            "log_text": "一千五百靈力換得一縷虛空精華。"
+          }
+        },
+        {
+          "text": "以虛華換靈力",
+          "costs": {
+            "void_essence": 2
+          },
+          "rewards": {
+            "resources": {
+              "lingli": 1000
+            },
+            "log_text": "你交出兩縷虛空精華，收回一千靈力。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「太虛圖角」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "A換50秒裸採，B犧牲40秒裸採；靈力實際產率隨建築變，往返淨少500靈力及1虛華。"
+    },
+    {
+      "key": "E10",
+      "id": "enc_p2_pill_fire",
+      "title": "丹房借火",
+      "desc": "一名丹師守著將熄的爐火，願用片刻調息所得換取燃料。爐中沒有可供領取的丹藥，只有一份明確的修煉助益。",
+      "group": "alchemy",
+      "min_era": 4,
+      "requires": [
+        "deep_open",
+        "p2_refined"
+      ],
+      "art": "sect",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "添靈力借火調息",
+          "costs": {
+            "lingli": 600
+          },
+          "rewards": {
+            "training_seconds": 60,
+            "log_text": "你添入六百靈力，在爐旁調息六十秒所對應的修煉進度。"
+          }
+        },
+        {
+          "text": "添百年草細察丹息",
+          "costs": {
+            "spirit_grass_100y": 2
+          },
+          "rewards": {
+            "training_seconds": 90,
+            "log_text": "你付出兩株百年草，參得九十秒所對應的修煉進度。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「丹房借火」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "比較等待60/90秒零材料，或凝嬰丹900秒後共享衰減；事件固定助益不吃丹心、不佔丹藥衰減，不縮壽元與冷卻。"
+    },
+    {
+      "key": "E11",
+      "id": "enc_p2_herb_residue",
+      "title": "藥渣留香",
+      "desc": "古藥丹的餘香尚未散盡，丹師請你挑一包材料回去補爐。你得先拿出自己的草藥，不能把這當成親煉。",
+      "group": "alchemy",
+      "min_era": 5,
+      "requires": [
+        "ancient_open",
+        "p2_consumed"
+      ],
+      "art": "herbarium",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "以千草換靈力",
+          "costs": {
+            "spirit_grass_1000y": 1
+          },
+          "rewards": {
+            "resources": {
+              "lingli": 600
+            },
+            "log_text": "你交出一株千年草，獲得六百靈力。"
+          }
+        },
+        {
+          "text": "用靈力補兩株百草",
+          "costs": {
+            "lingli": 800
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_100y": 2
+            },
+            "log_text": "你付出八百靈力，補得兩株百年草。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「藥渣留香」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "材料交易不贈丹、不設親煉或服丹bit，不觸發容量丹或護劫次數；A耗千草，B耗800靈力。"
+    },
+    {
+      "key": "E12",
+      "id": "enc_p2_ward_scraps",
+      "title": "雷前餘箋",
+      "desc": "遠空雷聲漸近，修士將用過的護符收起，只留下幾張可供參詳的餘箋。他明言這份心得不能替你抵擋天劫。",
+      "group": "alchemy",
+      "min_era": 6,
+      "requires": [
+        "void_open",
+        "deep_open",
+        "p2_consumed"
+      ],
+      "art": "ruins",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "以寒鐵換調息心得",
+          "costs": {
+            "cold_iron": 2
+          },
+          "rewards": {
+            "training_seconds": 120,
+            "log_text": "你交出兩塊寒鐵，獲得一百二十秒所對應的修煉進度，未增加護劫機率。"
+          }
+        },
+        {
+          "text": "以靈力換留存銀屑",
+          "costs": {
+            "lingli": 900
+          },
+          "rewards": {
+            "resources": {
+              "mithril": 1
+            },
+            "log_text": "九百靈力換得一塊秘銀，沒有附帶護劫效果。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「雷前餘箋」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "A換120秒等待但耗40秒寒鐵裸採；B換20秒秘銀裸採；不給護劫百分點或保證突破。"
+    },
+    {
+      "key": "E13",
+      "id": "enc_p2_stag_shed",
+      "title": "霜角落屑",
+      "desc": "霜角鹿在石旁磨去一點角屑，礦師稱可用它指認礦紋。鹿仍留在你身邊，不會因交換再次成長。",
+      "group": "beast",
+      "min_era": 4,
+      "requires": [
+        "deep_open",
+        "active_stag"
+      ],
+      "art": "beast",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "用草請礦師辨鐵",
+          "costs": {
+            "spirit_grass_low": 30
+          },
+          "rewards": {
+            "resources": {
+              "refined_iron": 2
+            },
+            "log_text": "三十株低階靈草換回兩塊精鐵；霜角鹿未獲餵養經驗。"
+          }
+        },
+        {
+          "text": "用精鐵換草",
+          "costs": {
+            "refined_iron": 2
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_low": 20
+            },
+            "log_text": "你留下兩塊精鐵，收回二十株低階靈草。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「霜角落屑」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "A+B少10草；不扣餵養冷卻、不加XP、不給魂；鹿正式每餵10鐵+20草，不能以交易冒充實餵。"
+    },
+    {
+      "key": "E14",
+      "id": "enc_p2_crane_herb",
+      "title": "鶴喙遺芝",
+      "desc": "銜芝鶴停在藥籃旁，一名藥師循著它的目光認出草藥年份。你可付費請他分揀，鶴卻不會代你吞服。",
+      "group": "beast",
+      "min_era": 5,
+      "requires": [
+        "ancient_open",
+        "active_crane"
+      ],
+      "art": "beast",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "以靈力請藥師分揀",
+          "costs": {
+            "lingli": 1000
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_1000y": 1
+            },
+            "log_text": "你付出一千靈力，分得一株千年草；鶴的經驗不變。"
+          }
+        },
+        {
+          "text": "拿百草換一株千草",
+          "costs": {
+            "spirit_grass_100y": 10
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_1000y": 1
+            },
+            "log_text": "十株百年草換得一株千年草，仍須自行餵養。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「鶴喙遺芝」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "較E03便宜但限定當世鶴；與直接等待25秒裸採及運輸相比不保證划算；不受鶴餵費折扣。"
+    },
+    {
+      "key": "E15",
+      "id": "enc_p2_phoenix_ember",
+      "title": "鳳羽留溫",
+      "desc": "火鳳落羽的餘溫尚在，過路修士想借這點暖意煉息。他只談物資，沒有收取獸魂的法門。",
+      "group": "beast",
+      "min_era": 6,
+      "requires": [
+        "ancient_open",
+        "active_phoenix"
+      ],
+      "art": "beast",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "付千草換取煉息所得",
+          "costs": {
+            "spirit_grass_1000y": 2
+          },
+          "rewards": {
+            "resources": {
+              "lingli": 1600
+            },
+            "log_text": "兩株千年草換回一千六百靈力，火鳳仍需另行餵養。"
+          }
+        },
+        {
+          "text": "付靈力補一株千草",
+          "costs": {
+            "lingli": 1200
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_1000y": 1
+            },
+            "log_text": "你付出一千二百靈力，補得一株千年草。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「鳳羽留溫」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "兩次B再A淨少800靈力；玄靈宿慧及宗門餵費折扣均不作用本交易，無鳳則不能生成。"
+    },
+    {
+      "key": "E16",
+      "id": "enc_p2_old_mark",
+      "title": "前世礦記",
+      "desc": "舊石壁上的刻痕似曾相識。同行者請你以材料驗證礦記，也願用自己的一點積蓄換下你不急用的材料。",
+      "group": "reincarnation",
+      "min_era": 4,
+      "requires": [
+        "deep_open",
+        "second_life"
+      ],
+      "art": "ruins",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "耗秘銀參詳舊記",
+          "costs": {
+            "mithril": 1
+          },
+          "rewards": {
+            "training_seconds": 90,
+            "log_text": "你用一塊秘銀驗明刻痕，得到九十秒所對應的修煉進度。"
+          }
+        },
+        {
+          "text": "以木材補靈石",
+          "costs": {
+            "wood": 80
+          },
+          "rewards": {
+            "resources": {
+              "stone_low": 60
+            },
+            "log_text": "八十靈木換回六十下品靈石，舊記沒有留下新天賦。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「前世礦記」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "A消耗秘銀而非道心換90秒等待，B木石互換；不發跨世本金、不保留技能。"
+    },
+    {
+      "key": "E17",
+      "id": "enc_p2_memory_garden",
+      "title": "宿慧藥圃",
+      "desc": "你在荒圃邊認出一段前世手法，園主人願拿靈力交換這次整理藥草的材料。記憶只幫你選擇，不憑空生出藥材。",
+      "group": "reincarnation",
+      "min_era": 5,
+      "requires": [
+        "ancient_open",
+        "second_life",
+        "any_p2_talent"
+      ],
+      "art": "herbarium",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "付百草換靈力",
+          "costs": {
+            "spirit_grass_100y": 3
+          },
+          "rewards": {
+            "resources": {
+              "lingli": 300
+            },
+            "log_text": "三株百年草換得三百靈力。"
+          }
+        },
+        {
+          "text": "付靈力補百草",
+          "costs": {
+            "lingli": 1000
+          },
+          "rewards": {
+            "resources": {
+              "spirit_grass_100y": 2
+            },
+            "log_text": "一千靈力換回兩株百年草，未增加宿慧階數。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「宿慧藥圃」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "不把天賦倍率套在交易；A對B往返同尺度耗損，與自產/等待比較，無新增永久加成。"
+    },
+    {
+      "key": "E18",
+      "id": "enc_p2_returning_echo",
+      "title": "重訪虛渡",
+      "desc": "太虛渡口的老人說，你這次的腳步比上一世沉穩。他願用自己收藏的一點物資交換你此刻的選擇，卻不能替你走完下一世。",
+      "group": "reincarnation",
+      "min_era": 6,
+      "requires": [
+        "void_open",
+        "second_life",
+        "any_p2_talent"
+      ],
+      "art": "ruins",
+      "weight": 60,
+      "content_batch": "content-p2-story",
+      "definition_version": 1,
+      "weather_bias": "",
+      "shichen_bias": "",
+      "realm_bias": "",
+      "options": [
+        {
+          "text": "耗虛華參悟歸途",
+          "costs": {
+            "void_essence": 2
+          },
+          "rewards": {
+            "training_seconds": 180,
+            "log_text": "你放開兩縷虛空精華，換得一百八十秒所對應的修煉進度。"
+          }
+        },
+        {
+          "text": "以中石補祖島靈力",
+          "costs": {
+            "stone_mid": 20
+          },
+          "rewards": {
+            "resources": {
+              "lingli": 1200
+            },
+            "log_text": "二十枚中品靈石換回一千二百靈力，沒有額外道心或道證。"
+          }
+        },
+        {
+          "text": "拱手辭行",
+          "costs": {},
+          "rewards": {
+            "log_text": "你謝過對方，未取分毫，將「重訪虛渡」留在身後。"
+          }
+        }
+      ],
+      "tradeoff": "A耗40秒虛華裸採換180秒當級缺口；B耗20中石（正式批量基準100下石+200靈力，實際仍按完整批次），不增壽元。"
+    }
+  ],
+  "art_assets": [
+    {
+      "id": "p2_deep_student",
+      "kind": "badge",
+      "subject": "銀色礦脈環抱一枚初生道芽",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 銀色礦脈環抱一枚初生道芽",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_deep_student.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_herb_student",
+      "kind": "badge",
+      "subject": "古藥根鬚與神海水紋交織",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 古藥根鬚與神海水紋交織",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_herb_student.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_void_storekeeper",
+      "kind": "badge",
+      "subject": "三枚浮島玉印圍繞虛空露珠",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 三枚浮島玉印圍繞虛空露珠",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_void_storekeeper.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_deep_arrivals",
+      "kind": "badge",
+      "subject": "三艘載有不同礦石的小舟",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 三艘載有不同礦石的小舟",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_deep_arrivals.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_ancient_arrival",
+      "kind": "badge",
+      "subject": "草束與靠岸貨舟",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 草束與靠岸貨舟",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_ancient_arrival.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_void_arrival",
+      "kind": "badge",
+      "subject": "盛有紫色虛華的開口木匣",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 盛有紫色虛華的開口木匣",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_void_arrival.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_training_alchemist",
+      "kind": "badge",
+      "subject": "兩爐分映嬰形與空明丹光",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 兩爐分映嬰形與空明丹光",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_training_alchemist.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_local_elixirs",
+      "kind": "badge",
+      "subject": "青綠藥露與紫色浮島相映",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 青綠藥露與紫色浮島相映",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_local_elixirs.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_vessels_and_wards",
+      "kind": "badge",
+      "subject": "石匣與靈瓶前展開兩道護符",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 石匣與靈瓶前展開兩道護符",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_vessels_and_wards.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_frontier_commissions",
+      "kind": "badge",
+      "subject": "三冊無字帳簿與宗門印",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 三冊無字帳簿與宗門印",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_frontier_commissions.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_two_sect_methods",
+      "kind": "badge",
+      "subject": "丹爐與玄甲羽翎環繞雙卷",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 丹爐與玄甲羽翎環繞雙卷",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_two_sect_methods.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_two_reserves",
+      "kind": "badge",
+      "subject": "鐵錠與一束古藥置於小秤兩端",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 鐵錠與一束古藥置於小秤兩端",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_two_reserves.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_mature_stag",
+      "kind": "badge",
+      "subject": "霜角鹿側首與銀白角枝",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 霜角鹿側首與銀白角枝",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_mature_stag.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_mature_crane",
+      "kind": "badge",
+      "subject": "銜芝鶴展翼護住靈芝",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 銜芝鶴展翼護住靈芝",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_mature_crane.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_turtle_and_phoenix",
+      "kind": "badge",
+      "subject": "玄甲與火羽分置陰陽兩側",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 玄甲與火羽分置陰陽兩側",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_turtle_and_phoenix.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_second_nascent",
+      "kind": "badge",
+      "subject": "舊命燈旁再生一枚元嬰道芽",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 舊命燈旁再生一枚元嬰道芽",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_second_nascent.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_second_void",
+      "kind": "badge",
+      "subject": "新舊兩道足跡穿過紫色雲門",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 新舊兩道足跡穿過紫色雲門",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_second_void.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "p2_three_memories",
+      "kind": "badge",
+      "subject": "三枚不同色澤的宿慧玉珠",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. Unique detailed antique gold rim achievement medallion: 三枚不同色澤的宿慧玉珠",
+      "layers": "One flattened RGBA badge; frame included; external background transparent",
+      "runtime_path": "assets/ui/achievements-painted/p2_three_memories.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "frontier",
+      "kind": "vignette",
+      "subject": "A small returning cargo boat, silver ore samples and a violet essence lantern, floating frontier landscape suggested only inside the isolated vignette",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. A small returning cargo boat, silver ore samples and a violet essence lantern, floating frontier landscape suggested only inside the isolated vignette",
+      "layers": "One flattened RGBA vignette; no world background layer",
+      "runtime_path": "assets/ui/fortune-painted/frontier.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    },
+    {
+      "id": "herbarium",
+      "kind": "vignette",
+      "subject": "An old herbalists basket of ancient green herbs, dew drops and a small ceramic sorting tray",
+      "prompt": "Original Chinese xianxia game illustration, painterly ink and gouache, elegant restrained jade and warm gold palette, clean readable silhouette, centered complete isolated subject, generous transparent safety margin, RGBA transparent background, no text, letters, numerals, UI, watermark or logo. An old herbalists basket of ancient green herbs, dew drops and a small ceramic sorting tray",
+      "layers": "One flattened RGBA vignette; no world background layer",
+      "runtime_path": "assets/ui/fortune-painted/herbarium.png",
+      "source": "Built-in ImageGen 2026-10-27; assets/ui/content-p2-story-manifest.json",
+      "license": "Record generation provenance; no third-party commercial license asserted",
+      "acceptance": "ACCEPTED"
+    }
+  ],
+  "approval_date": "2026-10-27",
+  "approval_instruction": "採Y，接STORY-1",
+  "art_acceptance_date": "2026-10-27",
+  "art_acceptance_instruction": "美術接受",
+  "copy_acceptance": "ACCEPTED",
+  "pacing_acceptance": "ACCEPTED",
+  "copy_pacing_acceptance_date": "2026-10-27",
+  "copy_pacing_acceptance_instruction": "文稿／節奏接受與唯一 L3 收尾",
+  "completion_date": "2026-10-27",
+  "completion_record": "docs/development-status.md"
+}

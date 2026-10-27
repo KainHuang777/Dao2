@@ -1,6 +1,6 @@
 extends SceneTree
 ## Synthetic UI states; earned flow is separately recorded.
-const OUT := "res://docs/verification/artifacts/content-p2-sect-ui/"
+var OUT := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-sect-ui/")
 var checks := 0
 var failures := []
 func _init() -> void: run.call_deferred()

@@ -2,7 +2,7 @@ extends SceneTree
 var failed := false
 var checks := 0
 class ToggleAdapter extends StorageAdapter:
-	var backend := FileStorageAdapter.new("user://uix-r6-claims")
+	var backend := FileStorageAdapter.new(RunnerResult.output_path("res://uix-r6-claims"))
 	var fail_writes := false
 	func read(key: String) -> Dictionary: return backend.read(key)
 	func write(key: String, value: String) -> Dictionary:
@@ -17,11 +17,12 @@ func check(value: bool, message: String) -> void:
 		push_error(message)
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://uix-r6-ui-runner"
+	script.save_dir_override = RunnerResult.output_path("res://uix-r6-ui-runner")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
-	await process_frame
+	while abode.session == null or abode.feature_navigation == null: await process_frame
+	for frame in 6: await process_frame
 	abode.set_process(false)
 	abode.offline_summary.hide()
 	var panel: AchievementPanel = abode.achievement_panel
@@ -33,7 +34,7 @@ func _run() -> void:
 	AchievementSystem.check_achievements(abode.session.state)
 	abode._refresh_hud()
 	abode.feature_navigation.open("achievements")
-	check(panel._achievement_items.size() == 18, "18 achievement cards")
+	check(panel._achievement_items.size() == 48, "48 formal achievement cards retain legacy")
 	check(panel._filters._buttons.size() == 7, "all + six canonical categories")
 	for i in range(1, 7):
 		check(panel._filters._buttons[i].icon != null, "category representative icon")
@@ -42,16 +43,16 @@ func _run() -> void:
 		var card: Control = panel._achievement_items[id]
 		check(card.get_node("HBox/Badge").texture != null, "badge loaded: " + id)
 		check(card.get_node("HBox/Info/Reward").get_theme_font_size("font_size") >= 16, "readable reward")
-		check(card.get_node("HBox/Info").get_child_count() == 2, "only title and reward text")
+		check(card.get_node("HBox/Info/State").visible, "explicit badge interaction state")
 	var card: Control = panel._achievement_items.build_first_hut
-	var button: Button = card.get_node("HBox/Action")
-	check(not button.disabled and button.text == "領取獎勵", "claimable from real view")
-	check(panel._achievement_items.era_golden_core.get_node("HBox/Action").disabled, "locked command disabled")
+	var button: Button = card.get_node("HBox/Badge/Action")
+	check(not button.disabled and button.text.is_empty() and button.artwork_hit, "claimable artwork from real view")
+	check(panel._achievement_items.era_golden_core.get_node("HBox/Badge/Action").disabled, "locked command disabled")
 	var wood_before: float = abode.session.state.resources.wood.value.to_float()
 	adapter.fail_writes = true
 	button.pressed.emit()
 	check(abode.session.state.resources.wood.value.to_float() == wood_before + 100, "real signal grants once")
-	check(button.disabled and button.text == "已領取", "claim refreshes card")
+	check(button.disabled and "已領取" in card.get_node("HBox/Info/State").text, "claim refreshes stamp")
 	check(panel._retry_button.visible and panel._status_label.text.contains("保存失敗"), "failed write visible with retry")
 	check(abode.feature_navigation.tab_buttons.achievements.text.contains("1"), "tab pending count updates")
 	check(not abode.session.claim_achievement("build_first_hut").ok, "duplicate rejected")

@@ -478,6 +478,7 @@ static func feed_beast(state: GameState) -> Dictionary:
 			else:
 				break
 	beast["stage"] = new_stage
+	if new_stage == "mature": StoryProgressP2.observe_mature(state)
 	if beast_id == "jade_fox" and new_stage == "mature": StoryProgress.mark(state, "fox_matured")
 
 	# Set cooldown

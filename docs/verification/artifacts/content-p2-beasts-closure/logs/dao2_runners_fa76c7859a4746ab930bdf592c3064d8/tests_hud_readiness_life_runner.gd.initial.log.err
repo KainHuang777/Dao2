@@ -1,0 +1,6 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/hud_readiness_life_runner.gd:20)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/hud_readiness_life_runner.gd:20)

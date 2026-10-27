@@ -31,3 +31,6 @@ desktop.ini
 .idea/
 *.swp
 *.tmp
+
+# Isolated test output (run_all_runners.ps1)
+.test-output/

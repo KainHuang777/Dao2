@@ -80,7 +80,7 @@ func _run() -> void:
 			s.advance_time(30)
 	_expect(s.state.level == 10, "earned level10")
 	_expect(_send(s, "breakthrough_era").ok and s.state.era_id == 2, "blank reaches Era2")
-	var fixture_file := FileAccess.open("res://docs/verification/artifacts/res1-c-earned-era2.json", FileAccess.WRITE)
+	var fixture_file := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/res1-c-earned-era2.json"), FileAccess.WRITE)
 	if fixture_file == null:
 		push_error("write failed: res://docs/verification/artifacts/res1-c-earned-era2.json")
 		RunnerResult.finish(self, 1)

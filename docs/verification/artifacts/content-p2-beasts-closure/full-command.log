@@ -142,3 +142,672 @@ ERROR: Failed to open log file for writing: user://logs/godot.log
 [START:initial] tests/content_p2_talents_runner.gd
 [PASS:initial] tests/content_p2_talents_runner.gd (4.5s) result=pass
 [START:initial] tests/content_p2_supply_progression_runner.gd
+[FAIL:initial] tests/content_p2_pills_ui_runner.gd exit=-1 timeout=True script_error=False failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/content_p2_supply_ui_runner.gd
+[PASS:initial] tests/content_p2_supply_ui_runner.gd (7.8s) result=pass
+[START:initial] tests/content_p2_supply_data_runner.gd
+[PASS:initial] tests/content_p2_supply_data_runner.gd (1.6s) result=pass
+[START:initial] tests/content_p2_supply_economy_runner.gd
+[PASS:initial] tests/content_p2_supply_economy_runner.gd (13.4s) result=pass
+[START:initial] tests/content_p1_accept_runner.gd
+[PASS:initial] tests/content_p1_accept_runner.gd (160.4s) result=pass
+[START:initial] tests/content_p1_story_runner.gd
+[PASS:initial] tests/content_p1_story_runner.gd (5.9s) result=pass
+[START:initial] tests/content_p1_story_events_runner.gd
+[PASS:initial] tests/content_p1_story_events_runner.gd (4s) result=pass
+[START:initial] tests/content_p1_story_progression_runner.gd
+[PASS:initial] tests/content_p1_story_progression_runner.gd (31.5s) result=pass
+[START:initial] tests/content_p1_story_ui_runner.gd
+[FAIL:initial] tests/content_p1_story_ui_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL formal UI initialized
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+[START:initial] tests/content_p1_sect_progression_runner.gd
+[PASS:initial] tests/content_p1_sect_progression_runner.gd (3.1s) result=pass
+[START:initial] tests/content_p1_sect_runner.gd
+[PASS:initial] tests/content_p1_sect_runner.gd (4.1s) result=pass
+[START:initial] tests/content_p1_sect_ui_runner.gd
+[FAIL:initial] tests/content_p2_talents_ui_runner.gd exit=-1 timeout=True script_error=False failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/content_p1_pills_runner.gd
+[PASS:initial] tests/content_p1_pills_runner.gd (17.2s) result=pass
+[START:initial] tests/content_p1_pills_ui_runner.gd
+[FAIL:initial] tests/content_p2_supply_progression_runner.gd exit=-1 timeout=True script_error=False failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOW ERA 3 age=4783.0
+TRACE pre-snapshot era3
+TRACE pre-ladder era3
+TRACE ladder era3 lvl2
+TRACE ladder era3 lvl3
+TRACE ladder era3 lvl4
+TRACE ladder era3 lvl5
+TRACE ladder era3 lvl6
+TRACE ladder era3 lvl7
+TRACE ladder era3 lvl8
+TRACE ladder era3 lvl9
+TRACE post-ladder era3
+FLOW ERA 4 age=12183.0
+TRACE pre-snapshot era4
+TRACE pre-ladder era4
+TRACE ladder era4 lvl1
+TRACE ladder era4 lvl2
+TRACE ladder era4 lvl3
+TRACE ladder era4 lvl4
+TRACE ladder era4 lvl5
+TRACE ladder era4 lvl6
+TRACE ladder era4 lvl7
+TRACE ladder era4 lvl8
+TRACE ladder era4 lvl9
+TRACE post-ladder era4
+FLOW ERA 5 age=26963.0
+TRACE pre-snapshot era5
+TRACE pre-ladder era5
+TRACE ladder era5 lvl1
+TRACE ladder era5 lvl2
+TRACE ladder era5 lvl3
+TRACE ladder era5 lvl4
+TRACE ladder era5 lvl5
+TRACE ladder era5 lvl6
+TRACE ladder era5 lvl7
+TRACE ladder era5 lvl8
+TRACE ladder era5 lvl9
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+
+[START:initial] tests/ui_art_edge_runner.gd
+[PASS:initial] tests/ui_art_edge_runner.gd (1.6s) result=pass
+[START:initial] tests/content_p1_talents_runner.gd
+[PASS:initial] tests/content_p1_talents_runner.gd (3.2s) result=pass
+[START:initial] tests/content_p1_talents_ui_runner.gd
+[FAIL:initial] tests/content_p1_sect_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(1280.0, 1280.0)
+ABODE_LAYOUT mode=portrait size=(64.0, 64.0)
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+ABODE_CAMERA_HOME
+ABODE_LAYOUT mode=wide size=(1280.0, 720.0)
+FAIL 8 cards [(1280, 720), 1]
+FAIL action reachable [(1280, 720), 1, 4]
+FAIL full card [(1280, 720), 1, 4]
+CARD (24.0, 16.0) SCROLL (378.0, 0.0) PANEL (620.0, 600.0)
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] start (res://src/verification/content_p1_sect_acceptance.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] start (res://src/verification/content_p1_sect_acceptance.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://src/persistence/save_codec.gd:89)
+       [1] start (res://src/verification/content_p1_sect_acceptance.gd:29)
+ERROR: sect fixture decode failed: JSON_PARSE
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] start (res://src/verification/content_p1_sect_acceptance.gd:30)
+ERROR: Index p_index = 5 is out of bounds ((int)data.children_cache.size() - data.internal_children_front_count_cache - data.internal_children_back_count_cache = 5).
+   at: get_child (scene/main/node.cpp:1861)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:28)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+ERROR: Required object "rp_node" is null.
+   at: is_ancestor_of (scene/main/node.cpp:2152)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:29)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+ERROR: Must be an ancestor of the control.
+   at: ensure_control_visible (scene/gui/scroll_container.cpp:366)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:29)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+SCRIPT ERROR: Cannot call method 'get_child' on a null value.
+   at: run (res://tests/content_p1_sect_ui_runner.gd:30)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_sect_ui_runner.gd:30)
+       [1] frames (res://tests/content_p1_sect_ui_runner.gd:10)
+
+[START:initial] tests/content_p1_skills_runner.gd
+[PASS:initial] tests/content_p1_skills_runner.gd (5.6s) result=pass
+[START:initial] tests/content_p1_skills_progression_runner.gd
+[PASS:initial] tests/content_p1_skills_progression_runner.gd (21.6s) result=pass
+[START:initial] tests/content_p1_skills_ui_runner.gd
+[FAIL:initial] tests/content_p1_pills_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_CAMERA_HOME
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'position' with value of type 'Vector2' on a base object of type 'Nil'.
+   at: _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+   GDScript backtrace (most recent call first):
+       [0] _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+       [1] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [2] run (res://tests/content_p1_pills_ui_runner.gd:22)
+       [3] frames (res://tests/content_p1_pills_ui_runner.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function 'show_feedback' in base 'Nil'.
+   at: run (res://tests/content_p1_pills_ui_runner.gd:24)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_pills_ui_runner.gd:24)
+       [1] frames (res://tests/content_p1_pills_ui_runner.gd:10)
+
+[START:initial] tests/life_echo_runner.gd
+[PASS:initial] tests/life_echo_runner.gd (2.6s) result=pass
+[START:initial] tests/life_echo_ui_runner.gd
+[FAIL:initial] tests/content_p1_talents_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ABODE_CAMERA_HOME
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'position' with value of type 'Vector2' on a base object of type 'Nil'.
+   at: _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+   GDScript backtrace (most recent call first):
+       [0] _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+       [1] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [2] run (res://tests/content_p1_talents_ui_runner.gd:22)
+       [3] frames (res://tests/content_p1_talents_ui_runner.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function '_switch_tab' in base 'Nil'.
+   at: run (res://tests/content_p1_talents_ui_runner.gd:24)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_talents_ui_runner.gd:24)
+       [1] frames (res://tests/content_p1_talents_ui_runner.gd:10)
+
+[START:initial] tests/life_history_runner.gd
+[PASS:initial] tests/life_history_runner.gd (8.2s) result=pass
+[START:initial] tests/life_history_ui_runner.gd
+[FAIL:initial] tests/content_p1_skills_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid access to property or key 'action_panel' on a base object of type 'Nil'.
+   at: run (res://tests/content_p1_skills_ui_runner.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p1_skills_ui_runner.gd:26)
+       [1] frames (res://tests/content_p1_skills_ui_runner.gd:10)
+
+[START:initial] tests/resource_accounts_runner.gd
+[PASS:initial] tests/resource_accounts_runner.gd (9.7s) result=pass
+[START:initial] tests/resource_accounts_ui_runner.gd
+[FAIL:initial] tests/life_echo_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: run (res://tests/life_echo_ui_runner.gd:22)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/life_echo_ui_runner.gd:22)
+       [1] frames (res://tests/life_echo_ui_runner.gd:10)
+
+[START:initial] tests/decision_receipt_runner.gd
+[PASS:initial] tests/decision_receipt_runner.gd (5.1s) result=pass
+[START:initial] tests/decision_ui_runner.gd
+[FAIL:initial] tests/life_history_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: run (res://tests/life_history_ui_runner.gd:22)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/life_history_ui_runner.gd:22)
+       [1] frames (res://tests/life_history_ui_runner.gd:10)
+
+[START:initial] tests/life_report_runner.gd
+[PASS:initial] tests/life_report_runner.gd (11s) result=pass
+[START:initial] tests/life_report_ui_runner.gd
+[FAIL:initial] tests/resource_accounts_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: run (res://tests/resource_accounts_ui_runner.gd:22)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/resource_accounts_ui_runner.gd:22)
+       [1] frames (res://tests/resource_accounts_ui_runner.gd:10)
+
+[START:initial] tests/life_ledger_runner.gd
+[PASS:initial] tests/life_ledger_runner.gd (4.3s) result=pass
+[START:initial] tests/ui_shell_matrix_runner.gd
+[FAIL:initial] tests/decision_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: run (res://tests/decision_ui_runner.gd:21)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/decision_ui_runner.gd:21)
+       [1] frames (res://tests/decision_ui_runner.gd:9)
+
+[START:initial] tests/ui_shell_integration_runner.gd
+[FAIL:initial] tests/life_report_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: run (res://tests/life_report_ui_runner.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/life_report_ui_runner.gd:17)
+       [1] frames (res://tests/life_report_ui_runner.gd:9)
+
+[START:initial] tests/ui_shell_policy_runner.gd
+[PASS:initial] tests/ui_shell_policy_runner.gd (3.3s) result=pass
+[START:initial] tests/mfg3_inline_runner.gd
+[FAIL:initial] tests/ui_shell_matrix_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/ui_shell_matrix_runner.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/ui_shell_matrix_runner.gd:25)
+       [1] frames (res://tests/ui_shell_matrix_runner.gd:13)
+
+[START:initial] tests/mfg_controller_runner.gd
+[PASS:initial] tests/mfg_controller_runner.gd (0.4s) result=pass
+[START:initial] tests/recipe_row_runner.gd
+[PASS:initial] tests/recipe_row_runner.gd (2.3s) result=pass
+[START:initial] tests/tribc_integration_runner.gd
+[FAIL:initial] tests/ui_shell_integration_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/ui_shell_integration_runner.gd:28)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/ui_shell_integration_runner.gd:28)
+
+[START:initial] tests/trib0_outcome_runner.gd
+[FAIL:initial] tests/mfg3_inline_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/mfg3_inline_runner.gd:46)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/mfg3_inline_runner.gd:46)
+       [1] settle (res://tests/mfg3_inline_runner.gd:30)
+
+[START:initial] tests/reincarnation_motion_runner.gd
+[PASS:initial] tests/reincarnation_motion_runner.gd (2.2s) result=pass
+[START:initial] tests/uix_r11_decisions_ui_runner.gd
+[PASS:initial] tests/uix_r11_decisions_ui_runner.gd (11s) result=pass
+[START:initial] tests/uix_r10_fortune_ui_runner.gd
+[FAIL:initial] tests/tribc_integration_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/tribc_integration_runner.gd:37)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/tribc_integration_runner.gd:37)
+
+[START:initial] tests/hud_readiness_life_runner.gd
+[FAIL:initial] tests/trib0_outcome_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/trib0_outcome_runner.gd:37)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/trib0_outcome_runner.gd:37)
+
+[START:initial] tests/uix_r9_sect_ui_runner.gd
+[PASS:initial] tests/uix_r9_sect_ui_runner.gd (13.7s) result=pass
+[START:initial] tests/uix_r4_building_cards_runner.gd
+[PASS:initial] tests/uix_r4_building_cards_runner.gd (3.2s) result=pass
+[START:initial] tests/uix_r2_hud_runner.gd
+[FAIL:initial] tests/uix_r10_fortune_ui_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/uix_r10_fortune_ui_runner.gd:27)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/uix_r10_fortune_ui_runner.gd:27)
+
+[START:initial] tests/gather_guidance_highlight_runner.gd
+[FAIL:initial] tests/hud_readiness_life_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/hud_readiness_life_runner.gd:20)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/hud_readiness_life_runner.gd:20)
+
+[START:initial] tests/early_pacing_runner.gd
+[PASS:initial] tests/early_pacing_runner.gd (5.1s) result=pass
+[START:initial] tests/early_pacing2_runner.gd
+[PASS:initial] tests/early_pacing2_runner.gd (1.4s) result=pass
+[START:initial] tests/early_pacing2_pill_runner.gd
+[PASS:initial] tests/early_pacing2_pill_runner.gd (2.4s) result=pass
+[START:initial] tools/test_runner.gd
+[FAIL:initial] tools/test_runner.gd exit=1 timeout=False script_error=False failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+ERROR: Cannot create Web probe save fixture
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tools/test_runner.gd:9)
+
+[START:initial] tests/abode_state_runner.gd
+[PASS:initial] tests/abode_state_runner.gd (0.4s) result=pass
+[START:initial] tests/living_abode_runner.gd
+[FAIL:initial] tests/living_abode_runner.gd exit=1 timeout=False script_error=True failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+ABODE_CAMERA_HOME
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'position' with value of type 'Vector2' on a base object of type 'Nil'.
+   at: _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+   GDScript backtrace (most recent call first):
+       [0] _layout_for_size (res://src/presentation/abode_hud_controller.gd:587)
+       [1] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [2] _run (res://tests/living_abode_runner.gd:21)
+ERROR: The living abode must expose hut, garden, and altar buildings
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://tests/living_abode_runner.gd:117)
+       [1] _run (res://tests/living_abode_runner.gd:23)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+[START:initial] tests/m0c_compat_v3_runner.gd
+[PASS:initial] tests/m0c_compat_v3_runner.gd (0.4s) result=pass
+[START:initial] tests/m1a_core_runner.gd
+[PASS:initial] tests/m1a_core_runner.gd (2.4s) result=pass
+[START:initial] tests/res1a_processing_runner.gd
+[PASS:initial] tests/res1a_processing_runner.gd (2.5s) result=pass
+[START:initial] tests/res1b_economy_runner.gd
+[PASS:initial] tests/res1b_economy_runner.gd (18s) result=pass
+[START:initial] tests/res1c_progression_runner.gd
+[PASS:initial] tests/res1c_progression_runner.gd (15.5s) result=pass
+[START:initial] tests/res1d2_integration_runner.gd
+[PASS:initial] tests/res1d2_integration_runner.gd (98.7s) result=pass
+[START:initial] tests/res1d2_world_runner.gd
+[FAIL:initial] tests/uix_r2_hud_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/uix_r2_hud_runner.gd:21)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/uix_r2_hud_runner.gd:21)
+
+[START:initial] tests/res1_ui1a_runner.gd
+[PASS:initial] tests/res1_ui1a_runner.gd (49.2s) result=pass
+[START:initial] tests/res1_ui1b_runner.gd
+[FAIL:initial] tests/gather_guidance_highlight_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: _run (res://tests/gather_guidance_highlight_runner.gd:23)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/gather_guidance_highlight_runner.gd:23)
+
+[START:initial] tests/res1c2_offline_runner.gd
+[PASS:initial] tests/res1c2_offline_runner.gd (28.4s) result=pass
+[START:initial] tests/offline_closed_form_parity_runner.gd
+[PASS:initial] tests/res1_ui1b_runner.gd (104.8s) result=pass
+[START:initial] tests/res1c2_perf_runner.gd
+[PASS:initial] tests/offline_closed_form_parity_runner.gd (127.9s) result=pass
+[START:initial] tests/resource_feedback_runner.gd
+[PASS:initial] tests/res1c2_perf_runner.gd (111.3s) result=pass
+[START:initial] tests/m1b_time_runner.gd
+[PASS:initial] tests/m1b_time_runner.gd (2.5s) result=pass
+[START:initial] tests/m1c_persistence_runner.gd
+[PASS:initial] tests/m1c_persistence_runner.gd (2.2s) result=pass
+[START:initial] tests/web_persistence_fault_runner.gd
+[PASS:initial] tests/web_persistence_fault_runner.gd (2.1s) result=pass
+[START:initial] tests/m1d_offline_runner.gd
+[PASS:initial] tests/m1d_offline_runner.gd (2.7s) result=pass
+[START:initial] tests/m1e_import_runner.gd
+[PASS:initial] tests/m1e_import_runner.gd (2.2s) result=pass
+[START:initial] tests/m2a_abode_runner.gd
+[FAIL:initial] tests/res1d2_world_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/res1d2_world_runner.gd:30)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/res1d2_world_runner.gd:30)
+
+[START:initial] tests/m2b_breakthrough_runner.gd
+[FAIL:initial] tests/m2b_breakthrough_runner.gd exit=1 timeout=False script_error=True failure_marker=False result_lines=1 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+RUNNER_RESULT status=FAIL exit=1
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [2] _run (res://tests/m2b_breakthrough_runner.gd:31)
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [2] _run (res://tests/m2b_breakthrough_runner.gd:74)
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [2] _run (res://tests/m2b_breakthrough_runner.gd:90)
+ERROR: M2-B FAIL: BreakthroughSequence must be present in living abode HUD
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://tests/m2b_breakthrough_runner.gd:184)
+       [1] _run (res://tests/m2b_breakthrough_runner.gd:130)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+[START:initial] tests/island_breakthrough_runner.gd
+[FAIL:initial] tests/resource_feedback_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'visible' with value of type 'bool' on a base object of type 'Nil'.
+   at: _run (res://tests/resource_feedback_runner.gd:52)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/resource_feedback_runner.gd:52)
+
+[START:initial] tests/m2c_nine_realms_runner.gd
+[FAIL:initial] tests/m2a_abode_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [2] _run (res://tests/m2a_abode_runner.gd:32)
+SCRIPT ERROR: Invalid access to property or key 'rows' on a base object of type 'Nil'.
+   at: _run (res://tests/m2a_abode_runner.gd:40)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2a_abode_runner.gd:40)
+
+[START:initial] tests/m2d_responsive_ui_runner.gd
+[FAIL:initial] tests/island_breakthrough_runner.gd exit=-1 timeout=True script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/island_breakthrough_runner.gd:37)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/island_breakthrough_runner.gd:37)
+
+[START:initial] tests/ui_material_states_runner.gd
+[PASS:initial] tests/ui_material_states_runner.gd (3.3s) result=pass
+[START:initial] tests/text_transition_runner.gd
+[FAIL:initial] tests/m2c_nine_realms_runner.gd exit=-1 timeout=False script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: _run (res://tests/m2c_nine_realms_runner.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2c_nine_realms_runner.gd:25)
+
+[FAIL:initial] tests/m2d_responsive_ui_runner.gd exit=-1 timeout=False script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STORAGE_STARTUP_FAILED: SAVE_FAILED detail=Can't open file load=
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hide' in base 'Nil'.
+   at: _run (res://tests/m2d_responsive_ui_runner.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2d_responsive_ui_runner.gd:18)
+
+[START:initial] tests/m2d_slice_release_runner.gd
+[START:initial] tests/m3a_reincarnation_runner.gd

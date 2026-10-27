@@ -1,0 +1,87 @@
+[MODE] matrix=full runners=139 parallel=3
+[LOGS] C:\Users\asus\AppData\Local\Packages\sandbox.{308f15cd-8813-45cb-b151-3a7fffa9e202}\AC\Temp\dao2_runners_40ccc8100e094a79b8426a1e1f186d39
+[STORAGE] E:\WORK\Dao2\.test-output\dao2_runners_40ccc8100e094a79b8426a1e1f186d39
+[START:initial] tests/content_p2_story_sect_flow_runner.gd
+[START:initial] tests/content_p2_story_ui_runner.gd
+[START:initial] tests/content_p2_story_flow_runner.gd
+[PASS:initial] tests/content_p2_story_ui_runner.gd (32.2s) result=pass
+[START:initial] tests/content_p2_story_runner.gd
+[PASS:initial] tests/content_p2_story_sect_flow_runner.gd (33.4s) result=pass
+[START:initial] tests/content_p2_story_save_runner.gd
+[PASS:initial] tests/content_p2_story_save_runner.gd (5.6s) result=pass
+[START:initial] tests/content_p2_story_events_runner.gd
+[PASS:initial] tests/content_p2_story_runner.gd (15.3s) result=pass
+[START:initial] tests/content_p2_beasts_ui_runner.gd
+[PASS:initial] tests/content_p2_story_events_runner.gd (18.9s) result=pass
+[START:initial] tests/content_p2_beasts_flow_runner.gd
+[PASS:initial] tests/content_p2_beasts_ui_runner.gd (12.6s) result=pass
+[START:initial] tests/content_p2_beasts_runner.gd
+[PASS:initial] tests/content_p2_beasts_runner.gd (9.7s) result=pass
+[START:initial] tests/content_p2_beasts_save_runner.gd
+[PASS:initial] tests/content_p2_beasts_save_runner.gd (7.7s) result=pass
+[START:initial] tests/content_p2_sect_flow_runner.gd
+[PASS:initial] tests/content_p2_story_flow_runner.gd (227.5s) result=pass
+[START:initial] tests/content_p2_sect_ui_runner.gd
+[PASS:initial] tests/content_p2_sect_ui_runner.gd (14.6s) result=pass
+[START:initial] tests/content_p2_sect_runner.gd
+[PASS:initial] tests/content_p2_sect_runner.gd (17.4s) result=pass
+[START:initial] tests/content_p2_sect_save_runner.gd
+[PASS:initial] tests/content_p2_sect_save_runner.gd (7.8s) result=pass
+[START:initial] tests/content_p2_pills_flow_runner.gd
+[PASS:initial] tests/content_p2_beasts_flow_runner.gd (414.1s) result=pass
+[START:initial] tests/content_p2_pills_ui_runner.gd
+[FAIL:initial] tests/content_p2_sect_flow_runner.gd exit=-1 timeout=False script_error=True failure_marker=False result_lines=0 result=False
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SECT2 earned era4 contribution=17 elapsed=12813.0
+SECT2 earned era4 contribution=45 elapsed=12873.0
+SECT2 earned era4 contribution=76 elapsed=12993.0
+SECT2 earned era4 contribution=91 elapsed=13113.0
+SECT2 earned era4 contribution=200 elapsed=13413.0
+SECT2 earned era4 contribution=268 elapsed=13713.0
+SECT2 earned era4 contribution=302 elapsed=13833.0
+SECT2 earned era4 contribution=395 elapsed=14133.0
+SECT2 earned era4 contribution=587 elapsed=14733.0
+SECT2 earned era4 contribution=616 elapsed=14793.0
+SECT2 earned era6 contribution=19 elapsed=59563.0
+SECT2 earned era6 contribution=37 elapsed=59623.0
+SECT2 earned era6 contribution=128 elapsed=59923.0
+SECT2 earned era6 contribution=157 elapsed=59983.0
+SECT2 earned era6 contribution=174 elapsed=60043.0
+SECT2 earned era6 contribution=280 elapsed=60343.0
+SECT2 earned era6 contribution=304 elapsed=60403.0
+SECT2 earned era6 contribution=327 elapsed=60463.0
+SECT2 earned era6 contribution=359 elapsed=60583.0
+SECT2 earned era6 contribution=378 elapsed=60703.0
+SECT2 earned era6 contribution=431 elapsed=60823.0
+SECT2 earned era6 contribution=462 elapsed=60943.0
+SECT2 earned era6 contribution=483 elapsed=61003.0
+SECT2 earned era6 contribution=503 elapsed=61063.0
+SECT2 earned era6 contribution=544 elapsed=61183.0
+SECT2 earned era6 contribution=559 elapsed=61303.0
+SECT2 earned era6 contribution=596 elapsed=61423.0
+SECT2 earned era6 contribution=643 elapsed=61543.0
+FLOW FAILURE save earned result
+
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Cannot call method 'store_string' on a null value.
+   at: save_snapshot (res://tests/content_p2_sect_flow_runner.gd:10)
+   GDScript backtrace (most recent call first):
+       [0] save_snapshot (res://tests/content_p2_sect_flow_runner.gd:10)
+       [1] run (res://tests/content_p2_sect_flow_runner.gd:50)
+SCRIPT ERROR: Cannot call method 'store_string' on a null value.
+   at: save_snapshot (res://tests/content_p2_sect_flow_runner.gd:10)
+   GDScript backtrace (most recent call first):
+       [0] save_snapshot (res://tests/content_p2_sect_flow_runner.gd:10)
+       [1] run (res://tests/content_p2_sect_flow_runner.gd:79)
+SCRIPT ERROR: Invalid access to property or key 'techniques' on a base object of type 'Dictionary'.
+   at: run (res://tests/content_p2_sect_flow_runner.gd:83)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_sect_flow_runner.gd:83)
+
+[START:initial] tests/content_p2_pills_runner.gd
+[PASS:initial] tests/content_p2_pills_runner.gd (17.3s) result=pass
+[START:initial] tests/content_p2_pills_save_runner.gd
+[PASS:initial] tests/content_p2_pills_save_runner.gd (7.5s) result=pass
+[START:initial] tests/content_p2_talents_flow_runner.gd

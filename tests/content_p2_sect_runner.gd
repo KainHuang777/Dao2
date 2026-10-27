@@ -1,6 +1,6 @@
 extends SceneTree
 ## Synthetic isolated W fixtures. Earned / UI paths belong to SECT-2.
-const DIR := "res://docs/verification/artifacts/content-p2-sect/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-sect/")
 var content: GameContent
 var checks := 0
 var failures: Array[String] = []

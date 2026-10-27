@@ -570,7 +570,7 @@ static func _validate_encounters(encounters: Array, errors: Array) -> Array:
 		if typeof(options) != TYPE_ARRAY or options.is_empty():
 			errors.append("encounter %s: must have non-empty options array" % id_str)
 			continue
-		if id_str.begins_with("enc_p1_") or entry.has("content_batch"):
+		if id_str.begins_with("enc_p1_") or id_str.begins_with("enc_p2_") or entry.has("content_batch"):
 			var story_error := StorySaveContract.definition_error(entry)
 			if not story_error.is_empty():
 				errors.append(story_error + ":" + id_str)

@@ -1,8 +1,0 @@
-{
-	"checks": 241,
-	"failures": [
-		"route policy has no automatic free opening"
-	],
-	"level": "L1",
-	"stage": "SUPPLY-1 data contract"
-}

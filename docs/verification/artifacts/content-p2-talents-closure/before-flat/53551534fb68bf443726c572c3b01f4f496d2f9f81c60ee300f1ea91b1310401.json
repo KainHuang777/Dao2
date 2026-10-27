@@ -1,8 +1,0 @@
-{
-	"checks": 16,
-	"engine": "4.7.2-stable (official)",
-	"failures": [],
-	"generation_and_setup_ms": 3812,
-	"scope": "PCM export and native lifecycle; no human listening or FPS claim",
-	"task": "TRIB-B-F1"
-}

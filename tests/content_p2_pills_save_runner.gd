@@ -1,6 +1,6 @@
 extends SceneTree
 const META := {"save_id":"pill2-isolated","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":"0"}
-const DIR := "res://docs/verification/artifacts/content-p2-pills/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-pills/")
 var checks := 0
 var failures: Array[String] = []
 var content: GameContent
@@ -103,7 +103,7 @@ func _test_validation() -> void:
 	var raw := encode(good)
 	check(SaveCodec.decode(raw).ok,"new effects roundtrip")
 	var env: Dictionary = JSON.parse_string(raw)
-	check(env.schema_version == 5 and env.rules_version == SaveCodec.BEAST_RULES_VERSION,"schema/rules")
+	check(env.schema_version == 5 and env.rules_version == SaveCodec.STORY2_RULES_VERSION,"schema/rules")
 	for version in [0,1,3,true,1.5]: check(not SaveCodec.decode(changed(raw,"pill_version",version)).ok,"version fails "+str(version))
 	for id in AlchemySystem.P2_IDS:
 		for value in [-1,1000000,true,1.5,"1",INF,NAN]:

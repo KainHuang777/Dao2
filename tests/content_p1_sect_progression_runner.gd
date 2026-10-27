@@ -61,13 +61,13 @@ func run() -> void:
 	var reloaded := SaveManager.current_state()
 	check(reloaded.sect.techniques.get("alchemy_herb_conservation",0)==1 and reloaded.pills.get("herb_nurture_pill",0)==1,"earned path reload")
 	var encoded := SaveCodec.encode(state,c.content_version,META)
-	var write_file_fixture := FileAccess.open("res://src/verification/content_p1_sect_earned_fixture.json",FileAccess.WRITE)
+	var write_file_fixture := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_sect_earned_fixture.json"),FileAccess.WRITE)
 	if write_file_fixture == null:
 		push_error("write failed: " + str("res://src/verification/content_p1_sect_earned_fixture.json"))
 		RunnerResult.finish(self, 1)
 	else:
 		write_file_fixture.store_string(encoded.json)
-	var write_file_progression := FileAccess.open("res://docs/verification/artifacts/content-p1-sect/progression.json",FileAccess.WRITE)
+	var write_file_progression := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/content-p1-sect/progression.json"),FileAccess.WRITE)
 	if write_file_progression == null:
 		push_error("write failed: " + str("res://docs/verification/artifacts/content-p1-sect/progression.json"))
 		RunnerResult.finish(self, 1)

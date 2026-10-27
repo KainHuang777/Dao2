@@ -155,11 +155,225 @@ const P1_DEFINITIONS := {
 	}
 }
 
+const P2_DEFINITIONS := {
+	"p2_deep_student": {
+		"id": "p2_deep_student",
+		"name": "寒脈入微",
+		"category": "cultivation",
+		"desc": "當世寒脈共鳴訣至少一階。",
+		"rewards": {
+			"resource": {
+				"lingli": 300
+			}
+		},
+		"rewards_desc": "靈力 +300"
+	},
+	"p2_herb_student": {
+		"id": "p2_herb_student",
+		"name": "古藥通神",
+		"category": "cultivation",
+		"desc": "當世古藥養靈術、神海納息訣各至少一階。",
+		"rewards": {
+			"resource": {
+				"lingli": 500
+			}
+		},
+		"rewards_desc": "靈力 +500"
+	},
+	"p2_void_storekeeper": {
+		"id": "p2_void_storekeeper",
+		"name": "三島藏真",
+		"category": "cultivation",
+		"desc": "當世太虛採元術、三島藏真法各至少一階。",
+		"rewards": {
+			"resource": {
+				"lingli": 800
+			}
+		},
+		"rewards_desc": "靈力 +800"
+	},
+	"p2_deep_arrivals": {
+		"id": "p2_deep_arrivals",
+		"name": "寒銀三舸",
+		"category": "abode",
+		"desc": "更新後三條寒銀航線均曾向祖島實際入庫正數，可跨世。",
+		"rewards": {
+			"resource": {
+				"stone_low": 120
+			}
+		},
+		"rewards_desc": "下品靈石 +120"
+	},
+	"p2_ancient_arrival": {
+		"id": "p2_ancient_arrival",
+		"name": "千草歸倉",
+		"category": "abode",
+		"desc": "更新後古藥千草航線曾向祖島實際入庫正數。",
+		"rewards": {
+			"resource": {
+				"spirit_grass_low": 100
+			}
+		},
+		"rewards_desc": "低階靈草 +100"
+	},
+	"p2_void_arrival": {
+		"id": "p2_void_arrival",
+		"name": "虛華歸匣",
+		"category": "abode",
+		"desc": "更新後太虛虛華航線曾向祖島實際入庫正數。",
+		"rewards": {
+			"resource": {
+				"stone_low": 200
+			}
+		},
+		"rewards_desc": "下品靈石 +200"
+	},
+	"p2_training_alchemist": {
+		"id": "p2_training_alchemist",
+		"name": "嬰虛雙爐",
+		"category": "alchemy",
+		"desc": "更新後親煉凝嬰丹、虛明丹各一次，可跨世；交易取得不算。",
+		"rewards": {
+			"resource": {
+				"spirit_grass_low": 120
+			}
+		},
+		"rewards_desc": "低階靈草 +120"
+	},
+	"p2_local_elixirs": {
+		"id": "p2_local_elixirs",
+		"name": "藥引雙島",
+		"category": "alchemy",
+		"desc": "更新後成功服用古藥凝露丹、太虛聚華丹各一次，可跨世。",
+		"rewards": {
+			"resource": {
+				"lingli": 600
+			}
+		},
+		"rewards_desc": "靈力 +600"
+	},
+	"p2_vessels_and_wards": {
+		"id": "p2_vessels_and_wards",
+		"name": "藏器護劫",
+		"category": "alchemy",
+		"desc": "更新後成功服用靈府拓容丹、藏石丹、定心護劫丹、銀罡護劫丹各一次，可跨世。",
+		"rewards": {
+			"resource": {
+				"stone_low": 180
+			}
+		},
+		"rewards_desc": "下品靈石 +180"
+	},
+	"p2_frontier_commissions": {
+		"id": "p2_frontier_commissions",
+		"name": "三島供簿",
+		"category": "sect",
+		"desc": "更新後領取寒銀、古藥、太虛類新委託各至少一次，可跨世。",
+		"rewards": {
+			"sect_contribution": 60
+		},
+		"rewards_desc": "貢獻 +60"
+	},
+	"p2_two_sect_methods": {
+		"id": "p2_two_sect_methods",
+		"name": "丹獸同修",
+		"category": "sect",
+		"desc": "兩項P2宗門功法各至少一階；沿正式持久功法狀態判定。",
+		"rewards": {
+			"sect_contribution": 80
+		},
+		"rewards_desc": "貢獻 +80"
+	},
+	"p2_two_reserves": {
+		"id": "p2_two_reserves",
+		"name": "備糧有度",
+		"category": "sect",
+		"desc": "更新後成功購買精鐵儲備、古藥儲備各一次，可跨世。",
+		"rewards": {
+			"sect_contribution": 40
+		},
+		"rewards_desc": "貢獻 +40"
+	},
+	"p2_mature_stag": {
+		"id": "p2_mature_stag",
+		"name": "霜角長伴",
+		"category": "beast_fate",
+		"desc": "現有成熟霜角鹿，或更新後曾養成成熟霜角鹿。",
+		"rewards": {
+			"resource": {
+				"spirit_grass_low": 100
+			}
+		},
+		"rewards_desc": "低階靈草 +100"
+	},
+	"p2_mature_crane": {
+		"id": "p2_mature_crane",
+		"name": "銜芝長伴",
+		"category": "beast_fate",
+		"desc": "現有成熟銜芝鶴，或更新後曾養成成熟銜芝鶴。",
+		"rewards": {
+			"resource": {
+				"spirit_grass_low": 100
+			}
+		},
+		"rewards_desc": "低階靈草 +100"
+	},
+	"p2_turtle_and_phoenix": {
+		"id": "p2_turtle_and_phoenix",
+		"name": "玄羽兩世",
+		"category": "beast_fate",
+		"desc": "更新後分世養成成熟玄龜、火鳳；導入時只可補記當前成熟的一隻。",
+		"rewards": {
+			"resource": {
+				"lingli": 800
+			}
+		},
+		"rewards_desc": "靈力 +800"
+	},
+	"p2_second_nascent": {
+		"id": "p2_second_nascent",
+		"name": "再證元嬰",
+		"category": "reincarnation",
+		"desc": "至少輪迴一次，且當世Era至少4；最高歷史境界不能代替當世。",
+		"rewards": {
+			"resource": {
+				"wood": 160
+			}
+		},
+		"rewards_desc": "靈木 +160"
+	},
+	"p2_second_void": {
+		"id": "p2_second_void",
+		"name": "重履太虛",
+		"category": "reincarnation",
+		"desc": "至少輪迴一次，且當世Era至少6。",
+		"rewards": {
+			"resource": {
+				"lingli": 1000
+			}
+		},
+		"rewards_desc": "靈力 +1000"
+	},
+	"p2_three_memories": {
+		"id": "p2_three_memories",
+		"name": "三慧續道",
+		"category": "reincarnation",
+		"desc": "丹材、拓脈、玄靈宿慧各至少一階。",
+		"rewards": {
+			"resource": {
+				"stone_low": 200
+			}
+		},
+		"rewards_desc": "下品靈石 +200"
+	}
+}
+
 static var DEFINITIONS: Dictionary = _definitions()
 
 static func _definitions() -> Dictionary:
 	var definitions := LEGACY_DEFINITIONS.duplicate(true)
 	definitions.merge(P1_DEFINITIONS)
+	definitions.merge(P2_DEFINITIONS)
 	return definitions
 
 const LEGACY_DEFINITIONS := {
@@ -389,10 +603,10 @@ static func check_achievements(state: GameState, content: GameContent = null) ->
 				var dh_val := state.dao_heart.to_float() if state.dao_heart != null else 0.0
 				is_met = dh_val >= 100.0
 
-		if P1_DEFINITIONS.has(id):
+		if P1_DEFINITIONS.has(id) or P2_DEFINITIONS.has(id):
 			is_met = StoryProgress.achievement_met(state, id)
 		if is_met:
-			unlocked[id] = 0.0 if P1_DEFINITIONS.has(id) else state.total_elapsed_seconds
+			unlocked[id] = 0.0 if P1_DEFINITIONS.has(id) or P2_DEFINITIONS.has(id) else state.total_elapsed_seconds
 			newly_unlocked.append(id)
 
 	return newly_unlocked
@@ -410,7 +624,7 @@ static func claim_reward(state: GameState, content: GameContent, achievement_id:
 	if bool(claimed.get(achievement_id, false)):
 		return {"ok": false, "error": "ALREADY_CLAIMED", "message": "此成就獎勵已領取"}
 
-	if P1_DEFINITIONS.has(achievement_id):
+	if P1_DEFINITIONS.has(achievement_id) or P2_DEFINITIONS.has(achievement_id):
 		return StoryProgress.claim(state, content, achievement_id)
 	var rewards: Dictionary = def.get("rewards", {})
 	if rewards.has("dao_heart"):
@@ -479,7 +693,7 @@ static func get_achievement_view(state: GameState, content: GameContent = null) 
 		if is_unlocked and not is_claimed:
 			unclaimed_count += 1
 		var error := ""
-		if content != null and P1_DEFINITIONS.has(id) and is_unlocked and not is_claimed:
+		if content != null and (P1_DEFINITIONS.has(id) or P2_DEFINITIONS.has(id)) and is_unlocked and not is_claimed:
 			for resource in def.rewards.get("resource", {}):
 				if not limits.has(resource): limits[resource] = StoryProgress.cap(state,content,resource)
 			error = StoryProgress.claim_error(state,content,id,limits)

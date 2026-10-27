@@ -39,7 +39,7 @@ func run() -> void:
 			check(panel._body_scroll.get_global_rect().encloses(panel._report_view.closing.get_global_rect()), "closing visible before scrolling")
 			if DisplayServer.get_name() != "headless":
 				await RenderingServer.frame_post_draw
-				root.get_texture().get_image().save_png("res://docs/verification/artifacts/atm-life-a/%s-%dx%d.png" % [mode, vp.x, vp.y])
+				root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/atm-life-a/%s-%dx%d.png" % [mode, vp.x, vp.y]))
 		panel._report_view.records_button.pressed.emit()
 		check(panel._report_view.sources.visible, "sources expanded")
 		panel.set_layout_bounds(panel.get_global_rect())
@@ -79,7 +79,7 @@ func run() -> void:
 			check(report.records_button.custom_minimum_size.y >= 44, "protection read action")
 		if DisplayServer.get_name() != "headless":
 			await RenderingServer.frame_post_draw
-			root.get_texture().get_image().save_png("res://docs/verification/artifacts/atm-life-a/protection-%dx%d.png" % [vp.x, vp.y])
+			root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/atm-life-a/protection-%dx%d.png" % [vp.x, vp.y]))
 		abode._storage_block_layer.queue_free()
 		abode._storage_block_layer = null
 		await frames()

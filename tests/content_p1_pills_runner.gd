@@ -1,6 +1,6 @@
 extends SceneTree
 const META := {"save_id":"p1-pill-test","saved_at_utc_ms":"0","settled_until_utc_ms":"0","sim_tick":"0"}
-const DIR := "res://docs/verification/artifacts/content-p1-pills/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-pills/")
 var checks := 0
 var failures := []
 var serial := 0
@@ -222,7 +222,7 @@ func run() -> void:
 	var fixture := funded(c)
 	fixture.state.skills.alchemical_breath_control = 3
 	for resource in fixture.state.resources: fixture.state.resources[resource].value = AmountCompat.from_number(400)
-	var f := FileAccess.open("res://src/verification/content_p1_pills_fixture.json",FileAccess.WRITE)
+	var f := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_pills_fixture.json"),FileAccess.WRITE)
 	if f == null:
 		push_error("write failed: res://src/verification/content_p1_pills_fixture.json")
 		RunnerResult.finish(self, 1)

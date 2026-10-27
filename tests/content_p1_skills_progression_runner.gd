@@ -5,7 +5,7 @@ func _run() -> void:
 	helper.content = content
 	check(IslandProgression.attach(content).ok,"official attach")
 	if play_prefix():
-		var fixture := FileAccess.open("res://src/verification/content_p1_skills_fixture.json",FileAccess.WRITE)
+		var fixture := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_skills_fixture.json"),FileAccess.WRITE)
 		if fixture == null:
 			push_error("write failed: res://src/verification/content_p1_skills_fixture.json")
 			RunnerResult.finish(self, 1)
@@ -23,7 +23,7 @@ func _run() -> void:
 					check(absf(before-points(s)-cost)<1e-6,"earned exact cost "+id)
 			check(s.state.sect.is_empty(),"no sect added")
 	var result := {"checks":checks,"failures":failures,"evidence":"CLI simulated time and official commands; not real-time browser progression"}
-	var f := FileAccess.open("res://docs/verification/artifacts/content-p1-skills/progression.json",FileAccess.WRITE)
+	var f := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/content-p1-skills/progression.json"),FileAccess.WRITE)
 	if f == null:
 		push_error("write failed: res://docs/verification/artifacts/content-p1-skills/progression.json")
 		RunnerResult.finish(self, 1)

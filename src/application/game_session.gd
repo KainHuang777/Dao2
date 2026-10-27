@@ -295,6 +295,7 @@ func get_view() -> Dictionary:
 			"multipliers": ChronoSystem.compute_multipliers(state),
 		},
 		"fortune": {
+			"cooldown_total": FortuneSystem.compute_cooldown_for_era(state.era_id),
 			"cooldown_remaining": float(state.fortune.get("cooldown_remaining", 0.0)) if state.fortune is Dictionary else 0.0,
 			"instance_id": DecisionReceipt.pending_id(state),
 			"option_errors": fortune_option_errors(),
@@ -623,7 +624,7 @@ func claim_achievement(achievement_id: String) -> Dictionary:
 func fortune_option_errors() -> Array:
 	var errors: Array = []
 	var pending: Dictionary = state.fortune.get("pending_encounter", {})
-	if pending.get("content_batch") != "content-p1-story": return errors
+	if pending.get("content_batch") not in ["content-p1-story", "content-p2-story"]: return errors
 	for option in pending.get("options", []):
-		errors.append(StoryProgress.transaction_error(state, content, option.get("costs", {}), option.get("rewards", {})))
+		errors.append(FortuneSystem.story_option_error(state, content, pending, option))
 	return errors

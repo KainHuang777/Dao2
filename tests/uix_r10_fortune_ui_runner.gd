@@ -2,7 +2,7 @@ extends SceneTree
 var checks := 0
 var failed := false
 class ToggleAdapter extends StorageAdapter:
-	var backend := FileStorageAdapter.new("user://uix-r10-fault")
+	var backend := FileStorageAdapter.new((OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("uix-r10-fault"))
 	var fail_writes := false
 	func read(key: String) -> Dictionary: return backend.read(key)
 	func write(key: String,value: String) -> Dictionary: return {"ok":false,"error":"R10_WRITE_DENIED"} if fail_writes else backend.write(key,value)
@@ -18,10 +18,11 @@ func frames() -> void:
 	for n in 15: await process_frame
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://uix-r10-runner"
+	script.save_dir_override = (OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("uix-r10-runner")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
+	while abode.feature_navigation == null: await process_frame
 	await process_frame
 	abode.set_process(false)
 	abode.offline_summary.hide()
@@ -32,7 +33,8 @@ func _run() -> void:
 	SaveManager.configure(abode.content,adapter)
 	check(panel._mapping.size()==38,"all38 real event IDs mapped")
 	for enc in FortuneSystem.get_encounters():
-		check(panel._mapping.has(enc.id) and ResourceLoader.exists(panel.ART_DIR+str(panel._mapping.get(enc.id))+".png"),"art for"+str(enc.id))
+		var art_id := str(enc.get("art", panel._mapping.get(enc.id, "")))
+		check(not art_id.is_empty() and ResourceLoader.exists(panel.ART_DIR+art_id+".png"),"art for"+str(enc.id))
 	abode.session.state.fortune.cooldown_remaining = 600
 	abode._refresh_hud()
 	check(panel._trigger_btn.disabled,"cooldown disables trigger")

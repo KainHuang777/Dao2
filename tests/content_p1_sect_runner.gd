@@ -1,6 +1,6 @@
 extends SceneTree
 const META := {"save_id":"content-p1-sect-isolated","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":"0","rng_streams":{}}
-const DIR := "res://docs/verification/artifacts/content-p1-sect/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-sect/")
 class Memory extends StorageAdapter:
 	var data := {}
 	var fail := ""
@@ -261,16 +261,21 @@ func run() -> void:
 	# Paused, explicitly funded fixture for three-size UI and browser tests.
 	s = funded(c); s.state.resources.wood.value = AmountCompat.zero()
 	s.state.sect.available_tasks = [frozen("home_supply_register")]
-	s.state.beasts.active = {"id":"jade_fox","stage":"egg","experience":0,"last_feed_age":-300}
-	var write_file_fixture := FileAccess.open("res://src/verification/content_p1_sect_fixture.json",FileAccess.WRITE)
+	s.state.beasts = {"active":{"id":"jade_fox","stage":"egg","exp":0},"cooldown_remaining":0.0}
+	var fixture_encoded := SaveCodec.encode(s.state,c.content_version,META)
+	check(fixture_encoded.ok,"UI fixture satisfies current save contract")
+	if not fixture_encoded.ok:
+		RunnerResult.finish(self,1)
+		return
+	var write_file_fixture := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_sect_fixture.json"),FileAccess.WRITE)
 	if write_file_fixture == null:
 		push_error("write failed: " + str("res://src/verification/content_p1_sect_fixture.json"))
 		RunnerResult.finish(self, 1)
 	else:
-		write_file_fixture.store_string(SaveCodec.encode(s.state,c.content_version,META).json)
+		write_file_fixture.store_string(fixture_encoded.json)
 	var profiles := {}
 	for id in SectSystem.P1_TASKS: profiles[id] = frozen(id,"q-"+id)
-	var write_file_tasks := FileAccess.open("res://src/verification/content_p1_sect_tasks.json",FileAccess.WRITE)
+	var write_file_tasks := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_sect_tasks.json"),FileAccess.WRITE)
 	if write_file_tasks == null:
 		push_error("write failed: " + str("res://src/verification/content_p1_sect_tasks.json"))
 		RunnerResult.finish(self, 1)

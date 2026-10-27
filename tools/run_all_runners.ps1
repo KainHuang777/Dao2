@@ -1,4 +1,4 @@
-<#
+﻿<#
 分級驗收（見 AGENTS.md「分級驗收」）：
   L1/L2 日常：  -Only 'content_p1_skills*','uix_r8*'   只跑受影響 runner，預設單一尺寸 1280x720
   L3 收尾：     -Full -Parallel 3                     全部 runner、全尺寸矩陣、並行；並行失敗會串行重跑確認
@@ -20,6 +20,12 @@ $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
 $matrix = if ($Matrix -ne 'auto') { $Matrix } elseif ($Full) { 'full' } else { 'single' }
 $runners = @(
+    'tests/content_p2_story_sect_flow_runner.gd',
+    'tests/content_p2_story_ui_runner.gd',
+    'tests/content_p2_story_flow_runner.gd',
+    'tests/content_p2_story_runner.gd',
+    'tests/content_p2_story_save_runner.gd',
+    'tests/content_p2_story_events_runner.gd',
     'tests/content_p2_beasts_ui_runner.gd',
     'tests/content_p2_beasts_flow_runner.gd',
     'tests/content_p2_beasts_runner.gd',
@@ -183,6 +189,21 @@ $resolvedEngine = (Resolve-Path -LiteralPath $daoEngine).Path
 $logDir = Join-Path $env:TEMP ("dao2_runners_" + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $logDir | Out-Null
 Write-Host "[LOGS] $logDir"
+# Test output isolation: runners write under an ignored project folder, never into tracked evidence.
+# A caller-provided DAO_TEST_STORAGE_ROOT is respected.
+$storageRoot = if ($env:DAO_TEST_STORAGE_ROOT) { $env:DAO_TEST_STORAGE_ROOT } else { Join-Path $projectRoot ('.test-output\' + (Split-Path $logDir -Leaf)) }
+New-Item -ItemType Directory -Force -Path $storageRoot | Out-Null
+Write-Host "[STORAGE] $storageRoot"
+$guardPaths = @('docs/verification/artifacts', 'src/verification')
+function Get-GuardState {
+    $s = & git -C $projectRoot status --porcelain -- @guardPaths 2>$null
+    # Status already detects deletion/addition changes. Avoid expanding the moved
+    # legacy backup deletions or asking Git to find renames among those files.
+    $d = (& git -c core.safecrlf=false -C $projectRoot diff --no-renames --diff-filter=AM -- @guardPaths 2>$null | Out-String)
+    $h = [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash([Text.Encoding]::UTF8.GetBytes($d)))
+    @($s) + @("diff-sha256 $h")
+}
+$guardBefore = @(Get-GuardState)
 
 function Stop-RunnerTree([int]$procId) {
     # CIM may be unavailable in a restricted desktop session. The engine is
@@ -212,6 +233,7 @@ function Invoke-Batch([string[]]$RunnerList, [int]$Slots, [string]$Attempt) {
                 $psi.Arguments = "--headless --path `"$projectRoot`" --script res://$r"
                 $psi.WorkingDirectory = $projectRoot
                 $psi.EnvironmentVariables['DAO_VIEWPORT_MATRIX'] = $matrix
+                $psi.EnvironmentVariables['DAO_TEST_STORAGE_ROOT'] = $storageRoot
                 $psi.UseShellExecute = $false
                 $psi.CreateNoWindow = $true
                 $psi.RedirectStandardOutput = $true
@@ -281,6 +303,13 @@ $failed = @(Invoke-Batch $selected $Parallel 'initial')
 if ($Parallel -gt 1 -and $failed.Count -gt 0) {
     Write-Host "[RETRY-SERIAL] $($failed.Count) runner(s); same timeout applies" -ForegroundColor Yellow
     $failed = @(Invoke-Batch $failed 1 'serial-retry')
+}
+$guardAfter = @(Get-GuardState)
+$guardDiff = @(Compare-Object $guardBefore $guardAfter | ForEach-Object { $_.InputObject })
+if ($guardDiff.Count -gt 0) {
+    Write-Host "[GUARD] evidence directories changed during run ($($guardDiff.Count)):" -ForegroundColor Red
+    $guardDiff | Select-Object -First 20 | ForEach-Object { Write-Host "  $_" }
+    throw 'Runner wrote into tracked evidence directories; route its output through DAO_TEST_STORAGE_ROOT.'
 }
 Write-Host '--- slowest 8 runners (s) ---'
 $timings.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 8 | ForEach-Object { Write-Host ("{0,8:N1}  {1}" -f $_.Value, $_.Key) }

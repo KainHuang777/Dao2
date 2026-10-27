@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: enc_p2_silver_scale partial capacity stone_low
+FAIL: enc_p2_dew_exchange partial capacity spirit_grass_100y
+FAIL: enc_p2_bulk_stone partial capacity stone_mid
+FAIL: enc_p2_bulk_stone partial capacity stone_low
+FAIL: enc_p2_high_stone partial capacity stone_mid
+FAIL: enc_p2_sect_herbs partial capacity spirit_grass_100y
+FAIL: enc_p2_sect_chart partial capacity lingli
+FAIL: enc_p2_herb_residue partial capacity lingli
+FAIL: enc_p2_herb_residue partial capacity spirit_grass_100y
+FAIL: enc_p2_phoenix_ember partial capacity lingli
+FAIL: enc_p2_old_mark partial capacity stone_low
+FAIL: enc_p2_memory_garden partial capacity lingli
+FAIL: enc_p2_memory_garden partial capacity spirit_grass_100y
+FAIL: enc_p2_returning_echo partial capacity lingli
+CONTENT-P2-STORY 1132 checks failures=["enc_p2_silver_scale partial capacity stone_low","enc_p2_dew_exchange partial capacity spirit_grass_100y","enc_p2_bulk_stone partial capacity stone_mid","enc_p2_bulk_stone partial capacity stone_low","enc_p2_high_stone partial capacity stone_mid","enc_p2_sect_herbs partial capacity spirit_grass_100y","enc_p2_sect_chart partial capacity lingli","enc_p2_herb_residue partial capacity lingli","enc_p2_herb_residue partial capacity spirit_grass_100y","enc_p2_phoenix_ember partial capacity lingli","enc_p2_old_mark partial capacity stone_low","enc_p2_memory_garden partial capacity lingli","enc_p2_memory_garden partial capacity spirit_grass_100y","enc_p2_returning_echo partial capacity lingli"]
+RUNNER_RESULT status=FAIL exit=1

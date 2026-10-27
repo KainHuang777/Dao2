@@ -1,0 +1,7 @@
+{
+  "checked": 28312,
+  "changed_sealed_then_restored": [
+    "src\\verification\\content_p1_story_fixture.json"
+  ],
+  "all_original_hashes_match": true
+}

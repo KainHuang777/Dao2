@@ -1,0 +1,874 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:30)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:30)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _close_detail (res://src/abode/living_abode.gd:1316)
+       [7] _hide_pages (res://src/presentation/feature_navigation.gd:192)
+       [8] open (res://src/presentation/feature_navigation.gd:153)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _close_detail (res://src/abode/living_abode.gd:1316)
+       [7] _hide_pages (res://src/presentation/feature_navigation.gd:192)
+       [8] open (res://src/presentation/feature_navigation.gd:153)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] open (res://src/presentation/feature_navigation.gd:188)
+       [5] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] open (res://src/presentation/feature_navigation.gd:188)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] open (res://src/presentation/feature_navigation.gd:188)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:624)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] open (res://src/presentation/feature_navigation.gd:189)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] open (res://src/presentation/feature_navigation.gd:189)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] open (res://src/presentation/feature_navigation.gd:189)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:787)
+       [5] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [6] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [7] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [8] open (res://src/presentation/feature_navigation.gd:189)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:37)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _run (res://tests/uix_r9_sect_ui_runner.gd:43)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:43)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _run (res://tests/uix_r9_sect_ui_runner.gd:43)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] _on_sect_join_requested (res://src/presentation/abode_modal_manager.gd:353)
+       [6] _on_sect_join_requested (res://src/abode/living_abode.gd:1567)
+       [7] _on_join_pressed (res://src/presentation/sect_panel.gd:461)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:45)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _on_sect_join_requested (res://src/presentation/abode_modal_manager.gd:354)
+       [5] _on_sect_join_requested (res://src/abode/living_abode.gd:1567)
+       [6] _on_join_pressed (res://src/presentation/sect_panel.gd:461)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:45)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _on_sect_join_requested (res://src/presentation/abode_modal_manager.gd:354)
+       [8] _on_sect_join_requested (res://src/abode/living_abode.gd:1567)
+       [9] _on_join_pressed (res://src/presentation/sect_panel.gd:461)
+       [10] _run (res://tests/uix_r9_sect_ui_runner.gd:45)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _on_sect_join_requested (res://src/presentation/abode_modal_manager.gd:354)
+       [7] _on_sect_join_requested (res://src/abode/living_abode.gd:1567)
+       [8] _on_join_pressed (res://src/presentation/sect_panel.gd:461)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:45)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _on_sect_join_requested (res://src/presentation/abode_modal_manager.gd:360)
+       [3] _on_sect_join_requested (res://src/abode/living_abode.gd:1567)
+       [4] _on_join_pressed (res://src/presentation/sect_panel.gd:461)
+       [5] _run (res://tests/uix_r9_sect_ui_runner.gd:45)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _run (res://tests/uix_r9_sect_ui_runner.gd:49)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:49)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _run (res://tests/uix_r9_sect_ui_runner.gd:49)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] _run (res://tests/uix_r9_sect_ui_runner.gd:53)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] _on_sect_learn_technique_requested (res://src/presentation/abode_modal_manager.gd:404)
+       [6] _on_sect_learn_technique_requested (res://src/abode/living_abode.gd:1579)
+       [7] _on_learn_technique_pressed (res://src/presentation/sect_panel.gd:820)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:55)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _on_sect_learn_technique_requested (res://src/presentation/abode_modal_manager.gd:405)
+       [5] _on_sect_learn_technique_requested (res://src/abode/living_abode.gd:1579)
+       [6] _on_learn_technique_pressed (res://src/presentation/sect_panel.gd:820)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:55)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _on_sect_learn_technique_requested (res://src/presentation/abode_modal_manager.gd:405)
+       [8] _on_sect_learn_technique_requested (res://src/abode/living_abode.gd:1579)
+       [9] _on_learn_technique_pressed (res://src/presentation/sect_panel.gd:820)
+       [10] _run (res://tests/uix_r9_sect_ui_runner.gd:55)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _on_sect_learn_technique_requested (res://src/presentation/abode_modal_manager.gd:405)
+       [7] _on_sect_learn_technique_requested (res://src/abode/living_abode.gd:1579)
+       [8] _on_learn_technique_pressed (res://src/presentation/sect_panel.gd:820)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:55)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] <anonymous lambda> (res://src/presentation/abode_modal_manager.gd:86)
+       [6] <anonymous lambda> (res://src/presentation/sect_panel.gd:249)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:60)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] <anonymous lambda> (res://src/presentation/abode_modal_manager.gd:86)
+       [6] <anonymous lambda> (res://src/presentation/sect_panel.gd:249)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:63)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] _run (res://tests/uix_r9_sect_ui_runner.gd:68)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] _on_sect_buy_market_item_requested (res://src/presentation/abode_modal_manager.gd:416)
+       [6] _on_sect_buy_market_item_requested (res://src/abode/living_abode.gd:1582)
+       [7] _on_buy_market_item_pressed (res://src/presentation/sect_panel.gd:823)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:69)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _on_sect_buy_market_item_requested (res://src/presentation/abode_modal_manager.gd:417)
+       [5] _on_sect_buy_market_item_requested (res://src/abode/living_abode.gd:1582)
+       [6] _on_buy_market_item_pressed (res://src/presentation/sect_panel.gd:823)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:69)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _on_sect_buy_market_item_requested (res://src/presentation/abode_modal_manager.gd:417)
+       [8] _on_sect_buy_market_item_requested (res://src/abode/living_abode.gd:1582)
+       [9] _on_buy_market_item_pressed (res://src/presentation/sect_panel.gd:823)
+       [10] _run (res://tests/uix_r9_sect_ui_runner.gd:69)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _on_sect_buy_market_item_requested (res://src/presentation/abode_modal_manager.gd:417)
+       [7] _on_sect_buy_market_item_requested (res://src/abode/living_abode.gd:1582)
+       [8] _on_buy_market_item_pressed (res://src/presentation/sect_panel.gd:823)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:69)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] _run (res://tests/uix_r9_sect_ui_runner.gd:71)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] _on_sect_start_expedition_requested (res://src/presentation/abode_modal_manager.gd:380)
+       [6] _on_sect_start_expedition_requested (res://src/abode/living_abode.gd:1573)
+       [7] _on_start_expedition_pressed (res://src/presentation/sect_panel.gd:817)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:76)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _on_sect_start_expedition_requested (res://src/presentation/abode_modal_manager.gd:381)
+       [5] _on_sect_start_expedition_requested (res://src/abode/living_abode.gd:1573)
+       [6] _on_start_expedition_pressed (res://src/presentation/sect_panel.gd:817)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:76)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _on_sect_start_expedition_requested (res://src/presentation/abode_modal_manager.gd:381)
+       [8] _on_sect_start_expedition_requested (res://src/abode/living_abode.gd:1573)
+       [9] _on_start_expedition_pressed (res://src/presentation/sect_panel.gd:817)
+       [10] _run (res://tests/uix_r9_sect_ui_runner.gd:76)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _on_sect_start_expedition_requested (res://src/presentation/abode_modal_manager.gd:381)
+       [7] _on_sect_start_expedition_requested (res://src/abode/living_abode.gd:1573)
+       [8] _on_start_expedition_pressed (res://src/presentation/sect_panel.gd:817)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:76)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _run (res://tests/uix_r9_sect_ui_runner.gd:81)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:81)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _run (res://tests/uix_r9_sect_ui_runner.gd:81)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:897)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:84)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _run (res://tests/uix_r9_sect_ui_runner.gd:84)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:84)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _run (res://tests/uix_r9_sect_ui_runner.gd:84)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] set_save_result (res://src/presentation/ui_shell_controller.gd:213)
+       [4] _save_game (res://src/abode/living_abode.gd:1804)
+       [5] _on_sect_claim_expedition_requested (res://src/presentation/abode_modal_manager.gd:392)
+       [6] _on_sect_claim_expedition_requested (res://src/abode/living_abode.gd:1576)
+       [7] _on_claim_expedition_pressed (res://src/presentation/sect_panel.gd:811)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:87)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] update_view (res://src/presentation/sect_panel.gd:311)
+       [2] _refresh_hud (res://src/presentation/abode_hud_controller.gd:938)
+       [3] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [4] _on_sect_claim_expedition_requested (res://src/presentation/abode_modal_manager.gd:393)
+       [5] _on_sect_claim_expedition_requested (res://src/abode/living_abode.gd:1576)
+       [6] _on_claim_expedition_pressed (res://src/presentation/sect_panel.gd:811)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:87)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1093)
+       [6] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [7] _on_sect_claim_expedition_requested (res://src/presentation/abode_modal_manager.gd:393)
+       [8] _on_sect_claim_expedition_requested (res://src/abode/living_abode.gd:1576)
+       [9] _on_claim_expedition_pressed (res://src/presentation/sect_panel.gd:811)
+       [10] _run (res://tests/uix_r9_sect_ui_runner.gd:87)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _refresh_hud (res://src/presentation/abode_hud_controller.gd:1108)
+       [5] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [6] _on_sect_claim_expedition_requested (res://src/presentation/abode_modal_manager.gd:393)
+       [7] _on_sect_claim_expedition_requested (res://src/abode/living_abode.gd:1576)
+       [8] _on_claim_expedition_pressed (res://src/presentation/sect_panel.gd:811)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:87)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:588)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:90)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:612)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:90)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:624)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:90)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:90)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:90)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:787)
+       [5] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [6] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [7] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [8] _layout (res://src/abode/living_abode.gd:720)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:90)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:611)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:92)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:612)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:92)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:624)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:92)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:92)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:92)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:787)
+       [5] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [6] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [7] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [8] _layout (res://src/abode/living_abode.gd:720)
+       [9] _run (res://tests/uix_r9_sect_ui_runner.gd:92)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:624)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _run (res://tests/uix_r9_sect_ui_runner.gd:94)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _run (res://tests/uix_r9_sect_ui_runner.gd:94)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _run (res://tests/uix_r9_sect_ui_runner.gd:94)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:787)
+       [5] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [6] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [7] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [8] _run (res://tests/uix_r9_sect_ui_runner.gd:94)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] _switch_tab (res://src/presentation/sect_panel.gd:271)
+       [2] _run (res://tests/uix_r9_sect_ui_runner.gd:96)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] _reflow_header (res://src/presentation/abode_hud_controller.gd:720)
+       [4] _reflow_header (res://src/abode/living_abode.gd:767)
+       [5] _layout_for_size (res://src/presentation/abode_hud_controller.gd:624)
+       [6] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [7] _layout (res://src/abode/living_abode.gd:720)
+       [8] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [9] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_page (res://src/presentation/feature_navigation.gd:535)
+       [2] apply (res://src/presentation/ui_shell_controller.gd:335)
+       [3] layout (res://src/presentation/feature_navigation.gd:334)
+       [4] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:787)
+       [5] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [6] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [7] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [8] _layout (res://src/abode/living_abode.gd:720)
+       [9] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [10] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

@@ -1,0 +1,87 @@
+{
+	"boundary": "Independent dated earned Era4-6 snapshots; formal commands and normally timed saved RNG with simulated seconds, not wall-clock or browser natural progression. No claim that all18 encounters occur or all18 achievements are naturally earned.",
+	"branches": [
+		{
+			"end_age": 59623.0,
+			"era": 6,
+			"facts": {
+				"arrival_mask": 24,
+				"consumed_mask": 0,
+				"market_mask": 0,
+				"mature_mask": 0,
+				"refined_mask": 0,
+				"task_mask": 0
+			},
+			"sha256": "7b4866da432ec2c086a6768caedc91b870a1e880ad303ef5aefc259d959a81e9",
+			"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era6.json",
+			"start_age": 59503.0
+		}
+	],
+	"checks": 27,
+	"claims": [
+		{
+			"era": 6,
+			"id": "p2_ancient_arrival",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_ancient_arrival",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"spirit_grass_low": 100
+							}
+						}
+					}
+				],
+				"new_revision": 3592,
+				"ok": true
+			}
+		},
+		{
+			"era": 6,
+			"id": "p2_void_arrival",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_void_arrival",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"stone_low": 200
+							}
+						}
+					}
+				],
+				"new_revision": 3594,
+				"ok": true
+			}
+		}
+	],
+	"failures": [],
+	"level": "L2",
+	"natural_encounters": [],
+	"waits": {
+		"real home arrivals": 120.0
+	}
+}

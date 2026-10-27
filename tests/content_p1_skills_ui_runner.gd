@@ -1,7 +1,7 @@
 extends SceneTree
 var checks := 0
 var failures := []
-const DIR := "res://docs/verification/artifacts/content-p1-skills/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p1-skills/")
 func _init() -> void: run.call_deferred()
 func check(ok: bool,label: String) -> void:
 	checks += 1

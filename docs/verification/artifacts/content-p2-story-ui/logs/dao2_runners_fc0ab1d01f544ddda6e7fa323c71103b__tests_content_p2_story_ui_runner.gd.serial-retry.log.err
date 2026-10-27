@@ -1,0 +1,181 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] run (res://tests/content_p2_story_ui_runner.gd:14)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _ready (res://src/abode/living_abode.gd:425)
+       [8] run (res://tests/content_p2_story_ui_runner.gd:14)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] run (res://tests/content_p2_story_ui_runner.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] run (res://tests/content_p2_story_ui_runner.gd:22)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] run (res://tests/content_p2_story_ui_runner.gd:24)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] run (res://tests/content_p2_story_ui_runner.gd:24)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] run (res://tests/content_p2_story_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] run (res://tests/content_p2_story_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _close_detail (res://src/abode/living_abode.gd:1316)
+       [7] _hide_pages (res://src/presentation/feature_navigation.gd:192)
+       [8] open (res://src/presentation/feature_navigation.gd:153)
+       [9] run (res://tests/content_p2_story_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _close_detail (res://src/abode/living_abode.gd:1316)
+       [7] _hide_pages (res://src/presentation/feature_navigation.gd:192)
+       [8] open (res://src/presentation/feature_navigation.gd:153)
+       [9] run (res://tests/content_p2_story_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] open (res://src/presentation/feature_navigation.gd:189)
+       [7] run (res://tests/content_p2_story_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] open (res://src/presentation/feature_navigation.gd:189)
+       [7] run (res://tests/content_p2_story_ui_runner.gd:25)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/reincarnation_panel.gd:83)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:174)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] set_layout_bounds (res://src/presentation/sect_panel.gd:141)
+       [1] layout_panels (res://src/presentation/abode_modal_manager.gd:198)
+       [2] _layout_overlay_panels (res://src/presentation/abode_hud_controller.gd:785)
+       [3] _layout_overlay_panels (res://src/abode/living_abode.gd:839)
+       [4] _layout_for_size (res://src/presentation/abode_hud_controller.gd:625)
+       [5] _layout_for_size (res://src/abode/living_abode.gd:744)
+       [6] _layout (res://src/abode/living_abode.gd:720)
+       [7] _display_offline_summary (res://src/presentation/abode_modal_manager.gd:254)
+       [8] _display_offline_summary (res://src/abode/living_abode.gd:1355)
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Dictionary]')
+   at: run (res://tests/content_p2_story_ui_runner.gd:45)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/content_p2_story_ui_runner.gd:45)
+       [1] frames (res://tests/content_p2_story_ui_runner.gd:5)

@@ -1,0 +1,276 @@
+{
+	"checks": 89,
+	"claims": [
+		{
+			"era": 6,
+			"id": "p2_two_sect_methods",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_two_sect_methods",
+						"contribution": {
+							"after": "429",
+							"before": "349",
+							"gained": "80"
+						},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"sect_contribution": 80
+						}
+					}
+				],
+				"new_revision": 3610,
+				"ok": true
+			}
+		},
+		{
+			"era": 6,
+			"id": "p2_two_reserves",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_two_reserves",
+						"contribution": {
+							"after": "259",
+							"before": "219",
+							"gained": "40"
+						},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"sect_contribution": 40
+						}
+					}
+				],
+				"new_revision": 3616,
+				"ok": true
+			}
+		},
+		{
+			"era": 6,
+			"id": "p2_training_alchemist",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_training_alchemist",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"spirit_grass_low": 120
+							}
+						}
+					}
+				],
+				"new_revision": 3625,
+				"ok": true
+			}
+		},
+		{
+			"era": 6,
+			"id": "p2_local_elixirs",
+			"result": {
+				"changed_ids": [
+					"achievements",
+					"resources",
+					"dao_heart",
+					"dao_proof",
+					"sect"
+				],
+				"duplicate": false,
+				"events": [
+					{
+						"achievement_id": "p2_local_elixirs",
+						"contribution": {},
+						"kind": "achievement_claimed",
+						"receipt": {},
+						"rewards": {
+							"resource": {
+								"lingli": 600
+							}
+						}
+					}
+				],
+				"new_revision": 3632,
+				"ok": true
+			}
+		}
+	],
+	"facts": {
+		"arrival_mask": 24,
+		"consumed_mask": 12,
+		"market_mask": 3,
+		"mature_mask": 0,
+		"refined_mask": 15,
+		"task_mask": 92
+	},
+	"failures": [],
+	"level": "L2",
+	"source": "res://docs/verification/artifacts/content-p2-supply-3/earned-era6.json",
+	"source_sha256": "7b4866da432ec2c086a6768caedc91b870a1e880ad303ef5aefc259d959a81e9",
+	"tasks": [
+		{
+			"desc": "護送宗門靈草車隊前往凡間市集交易。",
+			"duration": 120,
+			"elapsed": 120,
+			"id": "task_6_2_2",
+			"name": "護送百草商隊",
+			"rarity": "uncommon",
+			"rarity_color": "#4caf50",
+			"rarity_name": "優秀",
+			"rewards": {
+				"contribution": 34,
+				"money": 450,
+				"spirit_grass_low": 22,
+				"stone_low": 3
+			}
+		},
+		{
+			"desc": "替宗門記錄寒鐵與秘銀品質，領回可用礦材。",
+			"duration": 300,
+			"elapsed": 300,
+			"generation_era": 6,
+			"id": "task_6_3_3",
+			"name": "校驗寒鐵純度",
+			"rarity": "rare",
+			"rarity_color": "#2196f3",
+			"rarity_name": "稀有",
+			"rewards": {
+				"cold_iron": 6,
+				"contribution": 102,
+				"mithril": 3,
+				"money": 600
+			},
+			"template_id": "cold_iron_assay"
+		},
+		{
+			"desc": "協助宗門整理太虛物料圖，領回虛空精華與上品靈石。",
+			"duration": 600,
+			"elapsed": 600,
+			"generation_era": 6,
+			"id": "task_6_1_1",
+			"name": "繪核太虛供給圖",
+			"rarity": "epic",
+			"rarity_color": "#9c27b0",
+			"rarity_name": "史詩",
+			"rewards": {
+				"contribution": 206,
+				"money": 900,
+				"stone_high": 1,
+				"void_essence": 8
+			},
+			"template_id": "void_supply_chart"
+		},
+		{
+			"desc": "清理後山出沒的一階野獸，維護外門安寧。",
+			"duration": 60,
+			"elapsed": 60,
+			"id": "task_6_2_5",
+			"name": "清剿低階野獸",
+			"rarity": "common",
+			"rarity_color": "#cccccc",
+			"rarity_name": "普通",
+			"rewards": {
+				"contribution": 21,
+				"money": 300
+			}
+		},
+		{
+			"desc": "驅除靈田中滋生的小害蟲，確保靈穀生長。",
+			"duration": 60,
+			"elapsed": 60,
+			"id": "task_6_3_6",
+			"name": "巡視靈田",
+			"rarity": "common",
+			"rarity_color": "#cccccc",
+			"rarity_name": "普通",
+			"rewards": {
+				"contribution": 28,
+				"money": 300
+			}
+		},
+		{
+			"desc": "爭奪墜落在絕地的天外隕鐵，供長老煉製法寶。",
+			"duration": 600,
+			"elapsed": 600,
+			"id": "task_6_1_4",
+			"name": "奪取天外玄金",
+			"rarity": "epic",
+			"rarity_color": "#9c27b0",
+			"rarity_name": "史詩",
+			"rewards": {
+				"black_copper": 2,
+				"contribution": 129,
+				"money": 900,
+				"stone_low": 15
+			}
+		},
+		{
+			"desc": "協助宗門藥房分揀古藥，領回千年草與百年草。",
+			"duration": 120,
+			"elapsed": 120,
+			"generation_era": 6,
+			"id": "task_6_2_8",
+			"name": "分揀古藥餘材",
+			"rarity": "uncommon",
+			"rarity_color": "#4caf50",
+			"rarity_name": "優秀",
+			"rewards": {
+				"contribution": 54,
+				"money": 450,
+				"spirit_grass_1000y": 2,
+				"spirit_grass_100y": 5
+			},
+			"template_id": "ancient_herb_sorting"
+		},
+		{
+			"desc": "核對寒銀航線收支，領回可供修行的秘銀與下品靈石。",
+			"duration": 120,
+			"elapsed": 120,
+			"generation_era": 6,
+			"id": "task_6_3_9",
+			"name": "核對寒銀回運",
+			"rarity": "uncommon",
+			"rarity_color": "#4caf50",
+			"rarity_name": "優秀",
+			"rewards": {
+				"contribution": 45,
+				"mithril": 3,
+				"money": 450,
+				"stone_low": 10
+			},
+			"template_id": "silver_convoy_accounts"
+		}
+	],
+	"waits": {
+		"actual expedition time": 1980.0,
+		"actual task refresh": 0.0,
+		"craft:stone_high": 10.0
+	}
+}

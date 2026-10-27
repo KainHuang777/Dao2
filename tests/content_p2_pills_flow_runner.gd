@@ -1,6 +1,6 @@
 extends "res://tests/content_p2_supply_progression_runner.gd"
 ## Reuse the earned supply driver's commands, recursive crafting and lifespan maintenance.
-const OUT := "res://docs/verification/artifacts/content-p2-pills-ui/"
+var OUT := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-pills-ui/")
 var uses := []
 func save_snapshot(name: String) -> void:
 	var encoded := SaveCodec.encode(s.state,content.content_version,{"save_id":"pill2-earned","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":str(int(s.state.total_elapsed_seconds))})

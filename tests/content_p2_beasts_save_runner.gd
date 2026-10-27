@@ -1,6 +1,6 @@
 extends SceneTree
 const META := {"save_id":"beast1-isolated","saved_at_utc_ms":"1000","settled_until_utc_ms":"1000","sim_tick":"0"}
-const DIR := "res://docs/verification/artifacts/content-p2-beasts/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-beasts/")
 var checks := 0
 var failures: Array[String] = []
 var content: GameContent
@@ -99,8 +99,9 @@ func run() -> void:
 	quit(0 if failures.is_empty() else 1)
 func _validation() -> void:
 	var good:=fresh(); var raw:=encode(good)
-	check(JSON.parse_string(raw).rules_version==SaveCodec.BEAST_RULES_VERSION and JSON.parse_string(raw).schema_version==5,"rules23 schema5")
+	check(JSON.parse_string(raw).rules_version==SaveCodec.STORY2_RULES_VERSION and JSON.parse_string(raw).schema_version==5,"rules24 schema5")
 	var branch:=fresh(); branch.beast_version=0
+	branch.story_version=1; branch.achievements.story.version=1; branch.achievements.story.erase("p2")
 	check(JSON.parse_string(encode(branch)).rules_version==SaveCodec.SECT_RULES_VERSION,"legacy beast preserves sect branch")
 	branch.sect_version=1
 	check(JSON.parse_string(encode(branch)).rules_version==SaveCodec.PILL_RULES_VERSION,"legacy beast preserves pill branch")

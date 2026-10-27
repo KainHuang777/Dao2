@@ -1,0 +1,1 @@
+Terminated own stalled P1 sect UI engine after >6 minutes for raw startup diagnostics; not counted as pass.

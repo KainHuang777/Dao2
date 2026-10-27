@@ -162,4 +162,4 @@ func _run() -> void:
 func _capture(label: String) -> void:
 	if not capture: return
 	await RenderingServer.frame_post_draw
-	expect(root.get_texture().get_image().save_png("res://docs/verification/artifacts/trib-c/native-" + label + ".png") == OK, "capture " + label)
+	expect(root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/trib-c/native-" + label + ".png")) == OK, "capture " + label)

@@ -1,5 +1,5 @@
 extends SceneTree
-const DIR := "res://docs/verification/artifacts/sks-p2-flow/"
+var DIR := RunnerResult.output_path("res://docs/verification/artifacts/sks-p2-flow/")
 const SOURCE_DIR := "res://docs/verification/artifacts/content-p2-supply-3/"
 const ALL_P2 := ["nascent_soul_incubation", "nascent_soul_mastery", "heavenly_craft", "deep_vein_resonance", "void_expansion", "spirit_transformation", "ancient_herb_attunement", "spirit_sea_breath", "void_mastery", "void_refinement", "void_essence_attunement", "frontier_storekeeping"]
 const P2_BY_ERA := {

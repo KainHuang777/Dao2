@@ -54,6 +54,9 @@
 - `-Parallel` 失敗者會自動串行重跑確認，串行仍失敗才算失敗。
 - 修改共用核心（存檔／規則引擎／共用 UI 元件）時，L1 須加上依賴該模組的 runner，仍不需全量；L3 才做全量。
 - 驗收紀錄須標明級別（L1／L2／L3）；未跑 L3 時不得稱「全量回歸通過」，只寫實際執行的範圍。
+- **測試輸出隔離與稽核精簡（2026-10-27）**：`run_all_runners.ps1` 預設把 runner 輸出導向被 Git 忽略的 `.test-output/`，結束時檢查 `docs/verification/artifacts`、`src/verification` 未被改動；因此新任務不再備份／還原全部既有 JSON，收尾稽核以 `git status`／`git diff` 與該 guard 為準，不做逐檔 hash 計數。`updata.txt` 只保留最近 5 筆，舊紀錄在 `docs/archive/`。
+- **通用交付檢查（2026-10-27）**：收尾一律用 `python tools\delivery_check.py [--web build\目錄] [--manifest 路徑]`（唯讀、分組摘要），不再為每個任務新寫 `*_closure.py`／`*_audit.py`／`*_finalize.py`。結案文字只寫在 `docs/development-status.md` 一處，README／ROADMAP 只放一行狀態與連結；舊日期段落以 `python tools\trim_status_docs.py` 歸檔到 `docs/archive/`（各檔僅保留最新 3 筆）。
+- **Commit 提醒**：使用者在大型任務結束才手動 commit。每個階段結束時，代理須在最終回報提醒「可手動 commit」，並說明這是階段還是大型任務結束；代理不自行 commit／push。舊備份（`before-flat`、`generated-flat`）已移至 `E:\WORK\BACKUP\DAO2\`，專案內不再保留。
 
 ## 驗證與交接
 

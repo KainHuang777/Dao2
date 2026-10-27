@@ -17,7 +17,7 @@ func frames() -> void:
 	for n in 8: await process_frame
 func capture(label: String, vp: Vector2i) -> void:
 	if DisplayServer.get_name() != "headless":
-		root.get_texture().get_image().save_png("res://docs/verification/artifacts/ui-shell-1/%s-%sx%s.png" % [label,vp.x,vp.y])
+		root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/ui-shell-1/%s-%sx%s.png" % [label,vp.x,vp.y]))
 func _run() -> void:
 	load("res://src/abode/living_abode.gd").save_dir_override = "user://ui-shell-1-runner"
 	SaveSlots.new(FileStorageAdapter.new("user://ui-shell-1-runner")).reset()
@@ -86,13 +86,13 @@ func _run() -> void:
 		check(not abode.debug_panel.visible and nav.page == "alchemy", "debug escape")
 		if not DisplayServer.get_name() == "headless":
 			await frames()
-			root.get_texture().get_image().save_png("res://docs/verification/artifacts/ui-shell-1/alchemy-%sx%s.png" % [vp.x,vp.y])
+			root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/ui-shell-1/alchemy-%sx%s.png" % [vp.x,vp.y]))
 		nav.home()
 		await frames()
 		check(abode.header.visible and not shell.compact_hud.visible, "home full HUD")
 		check(shell.state.snapshot().home_preferences == prefs and abode.resource_display_mode == 0 and not abode.hint_panel.visible, "home restores closed preferences")
 		if not DisplayServer.get_name() == "headless":
-			root.get_texture().get_image().save_png("res://docs/verification/artifacts/ui-shell-1/home-%sx%s.png" % [vp.x,vp.y])
+			root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/ui-shell-1/home-%sx%s.png" % [vp.x,vp.y]))
 	# Real command + denied save + retry + reload; shell must not resubmit refine.
 	nav.open("alchemy")
 	adapter.fail_writes = true

@@ -26,7 +26,7 @@ func _run() -> void:
 		check(loaded != null and loaded.achievements.claimed.get("p1_greenwood_student",false),"earned claim survives reload")
 		var encoded := SaveCodec.encode(s.state,content.content_version,SAVE_META)
 		if encoded.ok:
-			var write_file_fixture := FileAccess.open("res://src/verification/content_p1_story_earned_fixture.json",FileAccess.WRITE)
+			var write_file_fixture := FileAccess.open(RunnerResult.output_path("res://src/verification/content_p1_story_earned_fixture.json"),FileAccess.WRITE)
 			if write_file_fixture == null:
 				push_error("write failed: " + str("res://src/verification/content_p1_story_earned_fixture.json"))
 				RunnerResult.finish(self, 1)
@@ -58,7 +58,7 @@ func _run() -> void:
 			SaveManager.configure(content,memory)
 			var natural_loaded := SaveManager.current_state()
 			check(natural_loaded != null and natural_loaded.fortune.pending_encounter.is_empty() and int(natural_loaded.fortune.total_fortunes_claimed) == int(n.state.fortune.total_fortunes_claimed),"natural choice survives reload")
-		var write_file_progression := FileAccess.open("res://docs/verification/artifacts/content-p1-story/progression.json",FileAccess.WRITE)
+		var write_file_progression := FileAccess.open(RunnerResult.output_path("res://docs/verification/artifacts/content-p1-story/progression.json"),FileAccess.WRITE)
 		if write_file_progression == null:
 			push_error("write failed: " + str("res://docs/verification/artifacts/content-p1-story/progression.json"))
 			RunnerResult.finish(self, 1)

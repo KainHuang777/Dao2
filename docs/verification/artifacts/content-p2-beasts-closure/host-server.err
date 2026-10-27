@@ -13,3 +13,14 @@
 127.0.0.1 - - [26/Oct/2026 21:57:51] "GET /audio/bgm/02_The_Weight_of_Heaven.mp3 HTTP/1.1" 200 -
 127.0.0.1 - - [26/Oct/2026 21:58:50] "GET /audio/bgm/03_Rungs_of_the_Infinite.mp3 HTTP/1.1" 200 -
 127.0.0.1 - - [26/Oct/2026 21:59:53] "GET /audio/bgm/04_Where_Starlight_Settles.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:35] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:35] "GET /index.png HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:35] "GET /index.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:35] "GET /index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:35] "GET /index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:39] "GET /index.audio.position.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:39] "GET /index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:33:41] "GET /audio/bgm/01_The_Unresolved_Ascent.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:34:44] "GET /audio/bgm/02_The_Weight_of_Heaven.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:35:43] "GET /audio/bgm/03_Rungs_of_the_Infinite.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2026 23:36:46] "GET /audio/bgm/04_Where_Starlight_Settles.mp3 HTTP/1.1" 200 -

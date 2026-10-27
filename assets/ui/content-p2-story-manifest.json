@@ -1,0 +1,483 @@
+{
+  "task": "CONTENT-P2-STORY / STORY-2",
+  "date": "2026-10-27",
+  "acceptance": "ACCEPTED",
+  "source": "Built-in ImageGen; prompts in assets/ui/story2-source-prompts.json",
+  "license": "Original AI-generated artwork; no third-party commercial license asserted",
+  "processing": "Equal-cell lossless extraction only; original alpha and colors preserved. Source sheets retained.",
+  "assets": [
+    {
+      "id": "p2_deep_student",
+      "kind": "badge",
+      "subject": "銀色礦脈環抱一枚初生道芽",
+      "runtime": "assets/ui/achievements-painted/p2_deep_student.png",
+      "original": "docs/art-assets/story2/p2_deep_student.png",
+      "sheet": "docs/art-assets/story2/exec-385e1b0c-581d-4878-8aff-6383982e55ef.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sha256": "fc58808c170fdc54cf5e06dfc3eb726386adff0ba761799d1582f5ad9875b214",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_herb_student",
+      "kind": "badge",
+      "subject": "古藥根鬚與神海水紋交織",
+      "runtime": "assets/ui/achievements-painted/p2_herb_student.png",
+      "original": "docs/art-assets/story2/p2_herb_student.png",
+      "sheet": "docs/art-assets/story2/exec-385e1b0c-581d-4878-8aff-6383982e55ef.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "sha256": "e4ea7e8b71a503b15cc709f2a5bd2b90c5acab7f80a44bff39e2c14597fa5b96",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_void_storekeeper",
+      "kind": "badge",
+      "subject": "三枚浮島玉印圍繞虛空露珠",
+      "runtime": "assets/ui/achievements-painted/p2_void_storekeeper.png",
+      "original": "docs/art-assets/story2/p2_void_storekeeper.png",
+      "sheet": "docs/art-assets/story2/exec-385e1b0c-581d-4878-8aff-6383982e55ef.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "sha256": "a01984edce5d18bb433fc01b93ac8fdd4ba580001d011ddd3c54f3cfc00650cb",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_deep_arrivals",
+      "kind": "badge",
+      "subject": "三艘載有不同礦石的小舟",
+      "runtime": "assets/ui/achievements-painted/p2_deep_arrivals.png",
+      "original": "docs/art-assets/story2/p2_deep_arrivals.png",
+      "sheet": "docs/art-assets/story2/exec-385e1b0c-581d-4878-8aff-6383982e55ef.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "sha256": "2cce2a99f94755ec42c80de15b3632141b4641a013d756765fc7ee11923b186a",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_ancient_arrival",
+      "kind": "badge",
+      "subject": "草束與靠岸貨舟",
+      "runtime": "assets/ui/achievements-painted/p2_ancient_arrival.png",
+      "original": "docs/art-assets/story2/p2_ancient_arrival.png",
+      "sheet": "docs/art-assets/story2/exec-385e1b0c-581d-4878-8aff-6383982e55ef.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "sha256": "f998b95055ad91ba229a367ff754ec675003336d90a127ee39f88ab249f2bdce",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_void_arrival",
+      "kind": "badge",
+      "subject": "盛有紫色虛華的開口木匣",
+      "runtime": "assets/ui/achievements-painted/p2_void_arrival.png",
+      "original": "docs/art-assets/story2/p2_void_arrival.png",
+      "sheet": "docs/art-assets/story2/exec-385e1b0c-581d-4878-8aff-6383982e55ef.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "sha256": "e2fe9dfedaa3e7de929478264fa05b6422f7b60b96bd402200f1835dc60c65e5",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_training_alchemist",
+      "kind": "badge",
+      "subject": "兩爐分映嬰形與空明丹光",
+      "runtime": "assets/ui/achievements-painted/p2_training_alchemist.png",
+      "original": "docs/art-assets/story2/p2_training_alchemist.png",
+      "sheet": "docs/art-assets/story2/exec-69f44511-6020-415c-8520-adf99e678062.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sha256": "d5ac2da493b13bd1700acec1cb9019ccf8bd22a14fbbd3a0eff8c21e15cdac54",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_local_elixirs",
+      "kind": "badge",
+      "subject": "青綠藥露與紫色浮島相映",
+      "runtime": "assets/ui/achievements-painted/p2_local_elixirs.png",
+      "original": "docs/art-assets/story2/p2_local_elixirs.png",
+      "sheet": "docs/art-assets/story2/exec-69f44511-6020-415c-8520-adf99e678062.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "sha256": "87a39fdffff09dc84184621da37802ad89814dad1fe91db46a4b1759b281a36b",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_vessels_and_wards",
+      "kind": "badge",
+      "subject": "石匣與靈瓶前展開兩道護符",
+      "runtime": "assets/ui/achievements-painted/p2_vessels_and_wards.png",
+      "original": "docs/art-assets/story2/p2_vessels_and_wards.png",
+      "sheet": "docs/art-assets/story2/exec-69f44511-6020-415c-8520-adf99e678062.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "sha256": "048685bd41144c3a55e857b55d3f4caedee190163429765d2d2968f21b3a0917",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_frontier_commissions",
+      "kind": "badge",
+      "subject": "三冊無字帳簿與宗門印",
+      "runtime": "assets/ui/achievements-painted/p2_frontier_commissions.png",
+      "original": "docs/art-assets/story2/p2_frontier_commissions.png",
+      "sheet": "docs/art-assets/story2/exec-69f44511-6020-415c-8520-adf99e678062.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "sha256": "48410f012dc224c7da251023059e334f289cb3fa14a3f6b9faf14132185bf64c",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_two_sect_methods",
+      "kind": "badge",
+      "subject": "丹爐與玄甲羽翎環繞雙卷",
+      "runtime": "assets/ui/achievements-painted/p2_two_sect_methods.png",
+      "original": "docs/art-assets/story2/p2_two_sect_methods.png",
+      "sheet": "docs/art-assets/story2/exec-69f44511-6020-415c-8520-adf99e678062.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "sha256": "548001ae5042334ea6b2811f3113c77db37fcaaf7a1f7a7c714227ba644bd7c9",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_two_reserves",
+      "kind": "badge",
+      "subject": "鐵錠與一束古藥置於小秤兩端",
+      "runtime": "assets/ui/achievements-painted/p2_two_reserves.png",
+      "original": "docs/art-assets/story2/p2_two_reserves.png",
+      "sheet": "docs/art-assets/story2/exec-69f44511-6020-415c-8520-adf99e678062.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "sha256": "c7659c088d8be9993cfe3066f9abd7db25642b0678e748bcc6ac5f26fc157317",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_mature_stag",
+      "kind": "badge",
+      "subject": "霜角鹿側首與銀白角枝",
+      "runtime": "assets/ui/achievements-painted/p2_mature_stag.png",
+      "original": "docs/art-assets/story2/p2_mature_stag.png",
+      "sheet": "docs/art-assets/story2/exec-4cfdebe5-683b-4f56-a74f-3e8c8116d273.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sha256": "30ea3b8654468e148827f7516ce6b11d607310916860b3d4d50dfc0531c98126",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_mature_crane",
+      "kind": "badge",
+      "subject": "銜芝鶴展翼護住靈芝",
+      "runtime": "assets/ui/achievements-painted/p2_mature_crane.png",
+      "original": "docs/art-assets/story2/p2_mature_crane.png",
+      "sheet": "docs/art-assets/story2/exec-4cfdebe5-683b-4f56-a74f-3e8c8116d273.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "sha256": "6f6a51220bc663c0284e93b83fee6618695d1267ed796d2660e09920687724a9",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_turtle_and_phoenix",
+      "kind": "badge",
+      "subject": "玄甲與火羽分置陰陽兩側",
+      "runtime": "assets/ui/achievements-painted/p2_turtle_and_phoenix.png",
+      "original": "docs/art-assets/story2/p2_turtle_and_phoenix.png",
+      "sheet": "docs/art-assets/story2/exec-4cfdebe5-683b-4f56-a74f-3e8c8116d273.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "sha256": "fc25234005c82a5c2585d3b7cc9a9857d3f351531431387015f8cb71f9e0c5d2",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_second_nascent",
+      "kind": "badge",
+      "subject": "舊命燈旁再生一枚元嬰道芽",
+      "runtime": "assets/ui/achievements-painted/p2_second_nascent.png",
+      "original": "docs/art-assets/story2/p2_second_nascent.png",
+      "sheet": "docs/art-assets/story2/exec-4cfdebe5-683b-4f56-a74f-3e8c8116d273.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "sha256": "f2fb8e16f4682ec3c3eaa9d86b42919e4ba0273ac6eb8d57ec0a71cef284ca85",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_second_void",
+      "kind": "badge",
+      "subject": "新舊兩道足跡穿過紫色雲門",
+      "runtime": "assets/ui/achievements-painted/p2_second_void.png",
+      "original": "docs/art-assets/story2/p2_second_void.png",
+      "sheet": "docs/art-assets/story2/exec-4cfdebe5-683b-4f56-a74f-3e8c8116d273.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "sha256": "4ecd9f9775076379474a34475940efc964b9768be5062935b0274f3791a2a9c4",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "p2_three_memories",
+      "kind": "badge",
+      "subject": "三枚不同色澤的宿慧玉珠",
+      "runtime": "assets/ui/achievements-painted/p2_three_memories.png",
+      "original": "docs/art-assets/story2/p2_three_memories.png",
+      "sheet": "docs/art-assets/story2/exec-4cfdebe5-683b-4f56-a74f-3e8c8116d273.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "sha256": "d902a529c3f78f19b5e9e77044f6946221f38e19b37bc033f0652392378f6f92",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "layers": "One flattened RGBA badge; frame included; external background transparent"
+    },
+    {
+      "id": "frontier",
+      "kind": "vignette",
+      "subject": "A small returning cargo boat, silver ore samples and a violet essence lantern, floating frontier landscape suggested only inside the isolated vignette",
+      "runtime": "assets/ui/fortune-painted/frontier.png",
+      "original": "docs/art-assets/story2/frontier.png",
+      "sheet": "docs/art-assets/story2/exec-ea0e4095-e090-42d2-8313-3ba85e7a4ef7.png",
+      "crop": null,
+      "sha256": "42375ef5a0ac72be3771dcac3fd932799b4e80f70cd1298bf618890260ddbc31",
+      "size": [
+        1448,
+        1086
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "layers": "One flattened RGBA vignette; no world background layer"
+    },
+    {
+      "id": "herbarium",
+      "kind": "vignette",
+      "subject": "An old herbalists basket of ancient green herbs, dew drops and a small ceramic sorting tray",
+      "runtime": "assets/ui/fortune-painted/herbarium.png",
+      "original": "docs/art-assets/story2/herbarium.png",
+      "sheet": "docs/art-assets/story2/herbarium.png",
+      "crop": null,
+      "sha256": "50277fb7f414f4525754510637312e00f01beadd219567fc0fee186ae570b0a1",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "layers": "One flattened RGBA vignette; no world background layer"
+    }
+  ],
+  "acceptance_date": "2026-10-27",
+  "acceptance_instruction": "美術接受",
+  "acceptance_scope": "STORY-2 artwork and STORY-2-UI-R1 visual presentation only; not copy/pacing or whole-batch L3 completion"
+}

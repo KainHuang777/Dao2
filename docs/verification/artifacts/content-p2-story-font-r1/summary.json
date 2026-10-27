@@ -1,0 +1,108 @@
+{
+  "task": "STORY-2-FONT-R1",
+  "level": "L1 + bounded L2 desktop Web",
+  "missing_before": [
+    {
+      "character": "副",
+      "codepoint": "U+526F"
+    },
+    {
+      "character": "哪",
+      "codepoint": "U+54EA"
+    },
+    {
+      "character": "喙",
+      "codepoint": "U+5599"
+    },
+    {
+      "character": "園",
+      "codepoint": "U+5712"
+    },
+    {
+      "character": "團",
+      "codepoint": "U+5718"
+    },
+    {
+      "character": "履",
+      "codepoint": "U+5C65"
+    },
+    {
+      "character": "幫",
+      "codepoint": "U+5E6B"
+    },
+    {
+      "character": "幾",
+      "codepoint": "U+5E7E"
+    },
+    {
+      "character": "押",
+      "codepoint": "U+62BC"
+    },
+    {
+      "character": "拱",
+      "codepoint": "U+62F1"
+    },
+    {
+      "character": "暖",
+      "codepoint": "U+6696"
+    },
+    {
+      "character": "桌",
+      "codepoint": "U+684C"
+    },
+    {
+      "character": "毫",
+      "codepoint": "U+6BEB"
+    },
+    {
+      "character": "渣",
+      "codepoint": "U+6E23"
+    },
+    {
+      "character": "秤",
+      "codepoint": "U+79E4"
+    },
+    {
+      "character": "籃",
+      "codepoint": "U+7C43"
+    },
+    {
+      "character": "腳",
+      "codepoint": "U+8173"
+    },
+    {
+      "character": "舷",
+      "codepoint": "U+8237"
+    },
+    {
+      "character": "舸",
+      "codepoint": "U+8238"
+    },
+    {
+      "character": "買",
+      "codepoint": "U+8CB7"
+    },
+    {
+      "character": "輕",
+      "codepoint": "U+8F15"
+    },
+    {
+      "character": "辭",
+      "codepoint": "U+8FAD"
+    },
+    {
+      "character": "邀",
+      "codepoint": "U+9080"
+    },
+    {
+      "character": "附",
+      "codepoint": "U+9644"
+    }
+  ],
+  "missing_count": 24,
+  "runtime_primary_cmap": "拱手辭行 present in both Sans/Serif; existing subset --check passed including metrics and weight axes",
+  "ui_checks": 1180,
+  "failures": [],
+  "browser": "Actual mouse opened decision book; same 丹房借火 receipt now displays 拱手辭行, 1280x720 iframe",
+  "pck_sha256": "cd6e3e57500f1ad16a4b5240bdda450323c061ed04e1badfd89eeac7d9b03936"
+}

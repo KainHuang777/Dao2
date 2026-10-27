@@ -1,5 +1,5 @@
 extends SceneTree
-const OUT := "res://docs/verification/artifacts/content-p2-pills-ui/"
+var OUT := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-pills-ui/")
 var checks := 0
 var failures := []
 func _init() -> void: run.call_deferred()

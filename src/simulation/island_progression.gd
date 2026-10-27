@@ -45,6 +45,8 @@ static func attach(content: GameContent) -> Dictionary:
 	# Content identity includes the progression contract, not just legacy tables.
 	if not ("+" + VERSION) in content.content_version:
 		content.content_version += "+" + VERSION
+	if not "+content-p2-story" in content.content_version:
+		content.content_version += "+content-p2-story"
 	if not "+content-p1-story" in content.content_version:
 		content.content_version += "+content-p1-story"
 	if not "+content-p1-sect" in content.content_version:
@@ -58,6 +60,7 @@ static func attach_supply(content: GameContent) -> Dictionary:
 	# Formal supply entry; attach() remains available for legacy contracts.
 	if content.processing_catalog.get("version") == SUPPLY_VERSION:
 		if not "+content-p2-beasts" in content.content_version: content.content_version += "+content-p2-beasts"
+		if not "+content-p2-story" in content.content_version: content.content_version += "+content-p2-story"
 		return {"ok": true}
 	var attached := attach(content)
 	if not attached.ok: return attached
@@ -76,6 +79,8 @@ static func attach_supply(content: GameContent) -> Dictionary:
 		content.content_version += "+content-p2-sect"
 	if not "+content-p2-beasts" in content.content_version:
 		content.content_version += "+content-p2-beasts"
+	if not "+content-p2-story" in content.content_version:
+		content.content_version += "+content-p2-story"
 	return {"ok": true}
 
 static func prepare_supply(content: GameContent, state: GameState) -> Dictionary:

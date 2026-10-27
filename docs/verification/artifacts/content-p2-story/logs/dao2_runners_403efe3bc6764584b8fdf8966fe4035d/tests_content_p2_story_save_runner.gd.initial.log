@@ -1,0 +1,74 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v0
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+FAIL: encode fixture STATE_MISSING
+FAIL: import accepted
+FAIL: load v1
+CONTENT-P2-STORY-SAVE 117 checks failures=["encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","import accepted","load v0","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1","encode fixture STATE_MISSING","import accepted","load v1"]
+RUNNER_RESULT status=FAIL exit=1

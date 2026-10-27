@@ -161,8 +161,12 @@ func test_modal_responsive_layouts() -> void:
 
 func test_living_abode_integration() -> void:
 	print("Testing LivingAbode scene integration with FortuneModal...")
+	var save_dir := (OS.get_environment("DAO_TEST_STORAGE_ROOT") if not OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else "res://.test-output").path_join("m3b-fortune-ui")
+	load("res://src/abode/living_abode.gd").save_dir_override = save_dir
+	SaveSlots.new(FileStorageAdapter.new(save_dir)).reset()
 	var abode = LivingAbodeScene.instantiate()
 	root.add_child(abode)
+	while abode.feature_navigation == null: await process_frame
 	await process_frame
 	abode.offline_summary.hide() # Complete the report before testing feature input.
 

@@ -1,0 +1,2 @@
+[MODE] matrix=single runners=1 parallel=1
+tests/decision_ui_runner.gd

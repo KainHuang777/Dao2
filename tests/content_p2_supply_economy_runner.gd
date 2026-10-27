@@ -36,7 +36,7 @@ func _init() -> void:
 	_test_time()
 	_test_caps_and_rebirth()
 	_test_persistence()
-	var dir := "res://docs/verification/artifacts/content-p2-supply"
+	var dir := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-supply")
 	DirAccess.make_dir_recursive_absolute(dir)
 	var file := FileAccess.open(dir + "/economy-contract.json", FileAccess.WRITE)
 	if file != null: file.store_string(JSON.stringify({"level": "L1", "stage": "SUPPLY-2", "checks": checks, "failures": failures}, "\t"))
@@ -121,7 +121,7 @@ func _test_processing() -> void:
 	expect(IslandEconomy.validate(session.state).is_empty(), "running bulk validates")
 	var encoded := SaveCodec.encode(session.state, content.content_version, META)
 	expect(encoded.ok and SaveCodec.decode(encoded.get("json", "")).ok, "running batch snapshot round-trip")
-	expect(JSON.parse_string(encoded.json).rules_version == SaveCodec.BEAST_RULES_VERSION, "beast v1 identity takes precedence over sect pills talents and expanded economy")
+	expect(JSON.parse_string(encoded.json).rules_version == SaveCodec.STORY2_RULES_VERSION, "story v2 identity takes precedence; other subcontracts remain independently validated")
 	for i in range(10): IslandEconomy.tick(session.state, content.processing_catalog)
 	expect(IslandEconomy.value(session.state, "home", "stone_mid") == 100, "bulk completes into mid-stone")
 	expect(IslandEconomy.reserved(session.state, "home", "stone_mid", content.processing_catalog) == 0, "completion releases reservation")

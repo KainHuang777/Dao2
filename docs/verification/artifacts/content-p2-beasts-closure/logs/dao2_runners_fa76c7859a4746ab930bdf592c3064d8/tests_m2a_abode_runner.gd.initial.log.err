@@ -1,0 +1,12 @@
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+SCRIPT ERROR: Invalid assignment of property or key 'text' with value of type 'String' on a base object of type 'Nil'.
+   at: _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+   GDScript backtrace (most recent call first):
+       [0] _refresh_hud (res://src/presentation/abode_hud_controller.gd:822)
+       [1] _refresh_hud (res://src/abode/living_abode.gd:1047)
+       [2] _run (res://tests/m2a_abode_runner.gd:32)
+SCRIPT ERROR: Invalid access to property or key 'rows' on a base object of type 'Nil'.
+   at: _run (res://tests/m2a_abode_runner.gd:40)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/m2a_abode_runner.gd:40)

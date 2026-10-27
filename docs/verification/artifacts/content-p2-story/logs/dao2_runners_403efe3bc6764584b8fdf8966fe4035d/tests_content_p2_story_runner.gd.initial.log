@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: enc_p2_dew_exchange partial capacity spirit_grass_100y
+FAIL: enc_p2_bulk_stone partial capacity stone_mid
+FAIL: enc_p2_high_stone partial capacity stone_mid
+FAIL: enc_p2_sect_herbs partial capacity spirit_grass_100y
+FAIL: enc_p2_herb_residue partial capacity spirit_grass_100y
+FAIL: enc_p2_phoenix_ember success 0STORY_DESTINATION_FULL:lingli
+FAIL: enc_p2_memory_garden partial capacity spirit_grass_100y
+FAIL: enc_p2_returning_echo success 1STORY_DESTINATION_FULL:lingli
+FAIL: claim p2_ancient_arrival
+FAIL: exact reward
+FAIL: claim p2_training_alchemist
+FAIL: exact reward
+FAIL: claim p2_mature_stag
+FAIL: exact reward
+FAIL: claim p2_mature_crane
+FAIL: exact reward
+FAIL: claim p2_second_nascent
+FAIL: exact reward
+FAIL: life reset only current
+CONTENT-P2-STORY 1100 checks failures=["enc_p2_dew_exchange partial capacity spirit_grass_100y","enc_p2_bulk_stone partial capacity stone_mid","enc_p2_high_stone partial capacity stone_mid","enc_p2_sect_herbs partial capacity spirit_grass_100y","enc_p2_herb_residue partial capacity spirit_grass_100y","enc_p2_phoenix_ember success 0STORY_DESTINATION_FULL:lingli","enc_p2_memory_garden partial capacity spirit_grass_100y","enc_p2_returning_echo success 1STORY_DESTINATION_FULL:lingli","claim p2_ancient_arrival","exact reward","claim p2_training_alchemist","exact reward","claim p2_mature_stag","exact reward","claim p2_mature_crane","exact reward","claim p2_second_nascent","exact reward","life reset only current"]
+RUNNER_RESULT status=FAIL exit=1

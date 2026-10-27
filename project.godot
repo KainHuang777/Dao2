@@ -3,6 +3,8 @@
 config_version=5
 
 [application]
+
+run/main_scene.story2_acceptance="res://src/verification/story2_acceptance.tscn"
 run/main_scene.beast2_acceptance="res://src/verification/beast2_acceptance.tscn"
 
 run/main_scene.sect2_acceptance="res://src/verification/sect2_acceptance.tscn"

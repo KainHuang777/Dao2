@@ -57,7 +57,7 @@ static func validate(book: Variant, life: Dictionary) -> String:
 				var parsed := AmountCompat.try_parse(row[key])
 				if not parsed.ok or parsed.value.compare_to(AmountCompat.zero()) < 0: return "DECISION_AMOUNT"
 			if not _amount_equal(_amount(row.before).subtract(_amount(row.paid)).add(_amount(row.gained)), _amount(row.after)) or not _amount_equal(_amount(row.gained).add(_amount(row.overflow)), _amount(row.nominal)): return "DECISION_RECONCILIATION"
-		if not _numeric_delta(r.training): return "DECISION_TRAINING"
+		if not _training_delta(r.training, str(r.encounter_id).begins_with("enc_p2_")): return "DECISION_TRAINING"
 		if not r.pills is Dictionary or r.pills.size() > 16: return "DECISION_PILLS"
 		for id in r.pills:
 			if not id is String or id.length() > 96 or not _numeric_delta(r.pills[id], true): return "DECISION_PILLS"
@@ -79,6 +79,13 @@ static func _numeric_delta(row: Variant, integer: bool = false) -> bool:
 	for key in row:
 		if not LifeLedger._number(row[key]) or (integer and not LifeLedger._integer(row[key])): return false
 	return is_equal_approx(float(row.before) + float(row.gained), float(row.after))
+
+static func _training_delta(row: Variant, p2: bool) -> bool:
+	if not p2: return _numeric_delta(row)
+	if not row is Dictionary or not LifeLedger._keys(row, ["before", "gained", "after", "nominal", "overflow"]): return false
+	for key in row:
+		if not LifeLedger._number(row[key]): return false
+	return float(row.nominal) <= 180 and is_equal_approx(float(row.before) + float(row.gained), float(row.after)) and is_equal_approx(float(row.gained) + float(row.overflow), float(row.nominal))
 
 static func validate_pending(fortune: Dictionary) -> String:
 	var pending: Variant = fortune.get("pending_encounter", {})

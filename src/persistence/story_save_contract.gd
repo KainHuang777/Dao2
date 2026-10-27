@@ -9,9 +9,14 @@ static func validate(state: GameState) -> String:
 	for field in ["unlocked", "claimed", "stats"]:
 		if state.achievements.has(field) and not state.achievements[field] is Dictionary: return "STORY_ACHIEVEMENT_TYPE"
 	for id in state.achievements.get("claimed", {}):
-		if str(id).begins_with("p1_") and (not AchievementSystem.P1_DEFINITIONS.has(id) or not state.achievements.claimed[id] is bool): return "STORY_CLAIM_FLAG"
+		if (str(id).begins_with("p1_") or str(id).begins_with("p2_")) and (not AchievementSystem.DEFINITIONS.has(id) or not state.achievements.claimed[id] is bool): return "STORY_CLAIM_FLAG"
 	for id in state.achievements.get("unlocked", {}):
-		if str(id).begins_with("p1_") and (not AchievementSystem.P1_DEFINITIONS.has(id) or not SectSaveContract.number(state.achievements.unlocked[id])): return "STORY_UNLOCK_FLAG"
+		if (str(id).begins_with("p1_") or str(id).begins_with("p2_")) and (not AchievementSystem.DEFINITIONS.has(id) or not SectSaveContract.number(state.achievements.unlocked[id])): return "STORY_UNLOCK_FLAG"
+	if state.story_version < 2:
+		for field in ["claimed", "unlocked"]:
+			for id in state.achievements.get(field, {}):
+				if str(id).begins_with("p2_"): return "STORY_OLD_P2_ID"
+		if str(state.fortune.get("pending_encounter", {}).get("id", "")).begins_with("enc_p2_"): return "STORY_OLD_P2_PENDING"
 	var story: Variant = state.achievements.get("story", {})
 	if not story is Dictionary: return "STORY_TYPE"
 	if state.story_version == 0:
@@ -23,14 +28,15 @@ static func validate(state: GameState) -> String:
 		return ""
 	# Empty is valid only for a new unobserved state; it cannot authorize behavior.
 	if story.is_empty():
+		if str(state.fortune.get("pending_encounter", {}).get("id", "")).begins_with("enc_p2_"): return "STORY_MISSING_FACTS"
 		for field in ["unlocked", "claimed"]:
 			for id in state.achievements.get(field, {}):
-				if str(id).begins_with("p1_"): return "STORY_MISSING_FACTS"
-		return ""
+				if str(id).begins_with("p1_") or str(id).begins_with("p2_"): return "STORY_MISSING_FACTS"
+		return validate_pending(state.fortune.get("pending_encounter", {}))
 	if JSON.stringify(story).to_utf8_buffer().size() > 4096: return "STORY_SIZE"
-	if not LifeLedger._keys(story, ["version", "started_life_id", "started_age_seconds", "current_life_id", "lifetime", "current"]): return "STORY_KEYS"
-	if not SectSaveContract.integer(story.get("version"), 1) or story.version != 1 or not SectSaveContract.integer(story.get("started_life_id"), state.reincarnation_count + 1) or int(story.started_life_id) < 1: return "STORY_START_LIFE"
-	if not SectSaveContract.number(story.get("started_age_seconds")): return "STORY_START_AGE"
+	if not LifeLedger._keys(story, ["version", "started_life_id", "started_age_seconds", "current_life_id", "lifetime", "current"] + (["p2"] if state.story_version == 2 else [])): return "STORY_KEYS"
+	if not SectSaveContract.integer(story.get("version"), 2) or int(story.version) != state.story_version or not SectSaveContract.integer(story.get("started_life_id"), state.reincarnation_count + 1) or int(story.started_life_id) < 1: return "STORY_START_LIFE"
+	if not SectSaveContract.number(story.get("started_age_seconds")) or (int(story.started_life_id) == state.reincarnation_count + 1 and float(story.started_age_seconds) > state.total_elapsed_seconds): return "STORY_START_AGE"
 	if not SectSaveContract.integer(story.get("current_life_id")) or int(story.current_life_id) != state.reincarnation_count + 1: return "STORY_CURRENT_LIFE"
 	for field in ["lifetime", "current"]:
 		var facts: Variant = story.get(field)
@@ -46,33 +52,39 @@ static func validate(state: GameState) -> String:
 		if c[key] and not l[key]: return "STORY_FACT_SUBSET"
 	for key in StoryProgress.MASKS:
 		if int(c[key]) | int(l[key]) != int(l[key]): return "STORY_MASK_SUBSET"
+	if state.story_version == 2:
+		var error := StoryProgressP2.validate(state, story)
+		if not error.is_empty(): return error
 	return validate_pending(state.fortune.get("pending_encounter", {}))
 
 static func definition_error(def: Dictionary) -> String:
+	var p2: bool = def.get("content_batch") == "content-p2-story"
+	var requires: Array = StoryProgressP2.REQUIRES if p2 else StoryProgress.REQUIRES
+	var resources: Array = Production.BASIC_RESOURCE_KEYS + (["refined_iron", "mithril", "cold_iron", "spirit_grass_100y", "spirit_grass_1000y", "stone_mid", "stone_high", "void_essence"] if p2 else [])
 	if not LifeLedger._keys(def, ["id", "title", "desc", "min_era", "requires", "art", "options", "weight", "content_batch", "definition_version", "weather_bias", "shichen_bias", "realm_bias"]): return "STORY_DEFINITION_KEYS"
-	if def.get("content_batch") != "content-p1-story" or def.get("definition_version") != 1: return "STORY_DEFINITION_VERSION"
-	if not str(def.get("id", "")).begins_with("enc_p1_"): return "STORY_DEFINITION_ID"
-	if not SectSaveContract.integer(def.get("min_era"), 3) or int(def.min_era) < 1 or def.get("weight") != 60: return "STORY_DEFINITION_WEIGHT_ERA"
+	if def.get("content_batch") not in ["content-p1-story", "content-p2-story"] or not SectSaveContract.integer(def.get("definition_version"), 1) or def.get("definition_version") != 1: return "STORY_DEFINITION_VERSION"
+	if not str(def.get("id", "")).begins_with("enc_p2_" if p2 else "enc_p1_"): return "STORY_DEFINITION_ID"
+	if not SectSaveContract.integer(def.get("min_era"), 6 if p2 else 3) or int(def.min_era) < (4 if p2 else 1) or def.get("weight") != 60: return "STORY_DEFINITION_WEIGHT_ERA"
 	for key in ["weather_bias", "shichen_bias", "realm_bias"]:
 		if def.get(key) != "": return "STORY_DEFINITION_BIAS"
 	for key in ["title", "desc"]:
 		if not SectSaveContract.text(def.get(key), 2048) or String(def[key]).is_empty(): return "STORY_DEFINITION_TEXT"
-	if def.get("art") not in ["spring", "traveler", "industry", "sect", "beast", "ruins"]: return "STORY_DEFINITION_ART"
-	if not def.get("requires") is Array or def.requires.size() > StoryProgress.REQUIRES.size(): return "STORY_REQUIRES"
+	if def.get("art") not in (["frontier", "herbarium", "industry", "sect", "beast", "ruins"] if p2 else ["spring", "traveler", "industry", "sect", "beast", "ruins"]): return "STORY_DEFINITION_ART"
+	if not def.get("requires") is Array or def.requires.size() > requires.size(): return "STORY_REQUIRES"
 	var seen := {}
 	for key in def.requires:
-		if key not in StoryProgress.REQUIRES or seen.has(key): return "STORY_REQUIRES"
+		if key not in requires or seen.has(key): return "STORY_REQUIRES"
 		seen[key] = true
 	if not def.get("options") is Array or def.options.size() != 3: return "STORY_OPTIONS"
 	for option in def.options:
 		if not option is Dictionary or not LifeLedger._keys(option, ["text", "costs", "rewards"]): return "STORY_OPTION_KEYS"
 		if not SectSaveContract.text(option.get("text"), 256) or String(option.text).is_empty(): return "STORY_OPTION_TEXT"
-		if not amounts(option.get("costs"), Production.BASIC_RESOURCE_KEYS): return "STORY_COSTS"
+		if not amounts(option.get("costs"), resources): return "STORY_COSTS"
 		var reward: Variant = option.get("rewards")
 		if not reward is Dictionary: return "STORY_REWARDS"
 		for key in reward:
-			if key not in ["resources", "pills", "training_seconds", "log_text"]: return "STORY_REWARD_KEY"
-		if not amounts(reward.get("resources", {}), Production.BASIC_RESOURCE_KEYS) or not amounts(reward.get("pills", {}), AlchemySystem.P1_IDS): return "STORY_REWARD_AMOUNTS"
+			if key not in (["resources", "training_seconds", "log_text"] if p2 else ["resources", "pills", "training_seconds", "log_text"]): return "STORY_REWARD_KEY"
+		if not amounts(reward.get("resources", {}), resources) or not amounts(reward.get("pills", {}), AlchemySystem.P1_IDS): return "STORY_REWARD_AMOUNTS"
 		if not SectSaveContract.integer(reward.get("training_seconds", 0), 180): return "STORY_TRAINING"
 		if not SectSaveContract.text(reward.get("log_text"), 2048) or String(reward.log_text).is_empty(): return "STORY_LOG"
 	if not def.options[2].costs.is_empty() or def.options[2].rewards.size() != 1: return "STORY_FREE_OPTION"
@@ -90,14 +102,15 @@ static func digest(def: Dictionary) -> String:
 static func freeze(def: Dictionary, state: GameState) -> Dictionary:
 	var pending := def.duplicate(true)
 	pending.definition_digest = digest(def)
-	pending.qualifications = StoryProgress.qualifications(state)
+	pending.qualifications = StoryProgressP2.qualifications(state) if def.get("content_batch") == "content-p2-story" else StoryProgress.qualifications(state)
 	pending.generation_era = state.era_id
 	pending.generation_realm = state.current_realm
 	return pending
 
 static func validate_pending(pending: Dictionary) -> String:
 	if pending.is_empty(): return ""
-	var is_new := str(pending.get("id", "")).begins_with("enc_p1_")
+	var p2 := str(pending.get("id", "")).begins_with("enc_p2_")
+	var is_new := p2 or str(pending.get("id", "")).begins_with("enc_p1_")
 	if not is_new:
 		return "STORY_PENDING_BATCH" if pending.has("content_batch") else ""
 	if JSON.stringify(pending).to_utf8_buffer().size() > 12288: return "STORY_PENDING_SIZE"
@@ -111,7 +124,7 @@ static func validate_pending(pending: Dictionary) -> String:
 	if not LifeLedger._hash(pending.get("instance_id")): return "STORY_PENDING_INSTANCE"
 	if not SectSaveContract.integer(pending.get("generation_era"), 12) or int(pending.generation_era) < int(definition.min_era) or pending.get("generation_realm") != "realm_human": return "STORY_PENDING_ORIGIN"
 	var q: Variant = pending.get("qualifications")
-	if not q is Dictionary or not LifeLedger._keys(q, StoryProgress.REQUIRES): return "STORY_PENDING_QUALIFICATIONS"
+	if not q is Dictionary or not LifeLedger._keys(q, StoryProgressP2.REQUIRES if p2 else StoryProgress.REQUIRES): return "STORY_PENDING_QUALIFICATIONS"
 	for key in q:
 		if not q[key] is bool: return "STORY_PENDING_QUALIFICATIONS"
 	for key in definition.requires:
@@ -132,8 +145,13 @@ static func normalize(state: GameState) -> void:
 		story.started_age_seconds = float(story.started_age_seconds)
 		for field in ["lifetime", "current"]:
 			for key in StoryProgress.MASKS: story[field][key] = int(story[field][key])
+	if story.has("p2"):
+		story.p2.started_life_id = int(story.p2.started_life_id)
+		story.p2.started_age_seconds = float(story.p2.started_age_seconds)
+		for field in ["lifetime", "current"]:
+			for key in StoryProgressP2.MASKS: story.p2[field][key] = int(story.p2[field][key])
 	if state.fortune.has("rng_version"):
 		state.fortune.rng_version = int(state.fortune.rng_version)
 		state.fortune.rng_state = int(state.fortune.rng_state)
 	var pending: Dictionary = state.fortune.get("pending_encounter", {})
-	if pending.get("content_batch") == "content-p1-story": pending.generation_era = int(pending.generation_era)
+	if pending.get("content_batch") in ["content-p1-story", "content-p2-story"]: pending.generation_era = int(pending.generation_era)
