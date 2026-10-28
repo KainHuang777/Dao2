@@ -17,18 +17,29 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	if _background != null:
 		_background.size = size
 	if _scroll != null:
-		_scroll.position = Vector2(16, 60)
-		_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 76.0))
+		_scroll.position = Vector2(16, 80)
+		_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 96.0))
 
 func _build_ui() -> void:
 	_background = Panel.new()
 	_background.add_theme_stylebox_override("panel", UiTypography.dialog_surface())
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
+	var header := CloseSeal.paper_header(self)
+	var paper: Control = header.get_parent()
+	paper.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	paper.offset_left = 16
+	paper.offset_right = -16
+	paper.offset_top = 8
+	var title := Label.new()
+	title.text = "存檔管理"
+	title.add_theme_color_override("font_color", UiMaterial.INK)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header.add_child(title)
 	var close_seal := CloseSeal.new()
-	close_seal.position = Vector2(16, 8)
+	close_seal.name = "CloseButton"
 	close_seal.pressed.connect(func(): visible = false)
-	add_child(close_seal)
+	header.add_child(close_seal)
 	_scroll = ScrollContainer.new()
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(_scroll)
@@ -54,18 +65,12 @@ func _build_ui() -> void:
 	import_button.custom_minimum_size = Vector2(112, 44)
 	import_button.pressed.connect(_on_import_pressed)
 	buttons.add_child(import_button)
-	var close_button := Button.new()
-	close_button.name = "CloseButton"
-	close_button.text = "關閉"
-	close_button.custom_minimum_size = Vector2(88, 44)
-	close_button.pressed.connect(func(): visible = false)
-	buttons.add_child(close_button)
 	_share_text = TextEdit.new()
 	_share_text.name = "ShareText"
 	_share_text.custom_minimum_size = Vector2(0, 120)
 	_share_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_column.add_child(_share_text)
-	var legacy_button := Button.new()
+	var legacy_button := preload("res://src/presentation/components/inscription_action.gd").new()
 	legacy_button.name = "LegacyImportButton"
 	legacy_button.text = "舊檔匯入"
 	legacy_button.custom_minimum_size = Vector2(112, 44)

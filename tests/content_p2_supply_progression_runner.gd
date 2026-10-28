@@ -96,8 +96,19 @@ func ladder(era: int) -> bool:
 	for attempt in 20:
 		while s.state.level < 10:
 			var costs := Cultivation.level_up_cost(content.eras[era],s.state.level,0)
-			for id in costs:
-				if not ensure(id,costs[id].to_float()): return false
+			# Crafting a later cost (e.g. trans_pill) consumes an earlier one
+			# (stone_mid), so settle the whole bill before sending the command.
+			var billed := false
+			for bill_pass in 4:
+				for id in costs:
+					if not ensure(id,costs[id].to_float()): return false
+				billed = true
+				for id in costs:
+					if value(id) + 0.000001 < costs[id].to_float(): billed = false
+				if billed: break
+			if not billed:
+				print("BILL SHORTFALL era",era," lvl",s.state.level)
+				return false
 			print("TRACE ladder era",era," lvl",s.state.level)
 			while not s.get_view().training_complete:
 				if not tick(60,"training:era"+str(era)): return false

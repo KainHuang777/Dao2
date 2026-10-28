@@ -34,6 +34,7 @@ func _init() -> void:
 	_test_processing()
 	_test_islands()
 	_test_time()
+	_test_route_defaults_after_load()
 	_test_caps_and_rebirth()
 	_test_persistence()
 	var dir := RunnerResult.output_path("res://docs/verification/artifacts/content-p2-supply")
@@ -156,6 +157,8 @@ func _test_islands() -> void:
 		expect(not send(session, "craft", {"island_id": island, "recipe_id": "stone_high"}).ok, "new island cannot process")
 		expect(not send(session, "upgrade_island_facility", {"island_id": island, "facility_id": "workshop"}).ok, "new island cannot upgrade phantom facility")
 	for id in IslandEconomy.supply_data().routes:
+		expect(session.state.economy.routes.has(id) and bool(session.state.economy.routes[id].enabled) and session.state.economy.routes[id].target == "3000", "opening an island seeds its enabled home route " + id)
+	for id in IslandEconomy.supply_data().routes:
 		expect(send(session, "configure_route", {"route_id": id, "enabled": false}).ok, "free route configuration " + id)
 		stock(session.state, "spirit_timber", 20)
 		stock(session.state, "bronze_essence", 20)
@@ -164,6 +167,7 @@ func _test_islands() -> void:
 		expect(not send(session, "configure_route", {"route_id": id, "level": 4}).ok, "route level 4 rejected")
 		expect(IslandEconomy.departure_info(session.state, content.processing_catalog, id, session.state.economy.routes[id]).throughput == 30, "route capacity 30")
 	for i in range(600): IslandEconomy.tick(session.state, content.processing_catalog)
+	expect(not bool(session.state.economy.routes.deep_iron_home.enabled), "explicit route stop survives ticks")
 	expect(is_equal_approx(IslandEconomy.value(session.state, "deep", "refined_iron"), 60), "600 seconds raw iron 60")
 	expect(is_equal_approx(IslandEconomy.value(session.state, "ancient", "spirit_grass_1000y"), 24), "600 seconds raw grass 24")
 	stock(session.state, "refined_iron", 30)
@@ -198,6 +202,44 @@ func _test_time() -> void:
 	var corrupt := source.duplicate_state()
 	corrupt.economy.routes.deep_iron_home.level = 4
 	expect(not IslandEconomy.validate(corrupt).is_empty(), "invalid new route level rejected")
+
+func _test_route_defaults_after_load() -> void:
+	# Synthetic pre-BALANCE-C save: opened islands, absent routes, one player policy.
+	var session := supply_session()
+	IslandEconomy.tick(session.state, content.processing_catalog)
+	expect(session.state.economy.routes.is_empty(), "closed supply islands do not seed routes")
+	for id in ["deep", "ancient", "void"]:
+		session.state.economy.islands[id].opened = true
+	var policy := {"enabled": false, "reserve": "7", "target": "99", "level": 3}
+	session.state.economy.routes.deep_iron_home = policy.duplicate(true)
+	var encoded := SaveCodec.encode(session.state, content.content_version, META)
+	expect(encoded.ok, "pre-default opened-island save encodes")
+	if not encoded.ok: return
+	var decoded := SaveCodec.decode(encoded.json)
+	expect(decoded.ok, "pre-default opened-island save reloads")
+	if not decoded.ok: return
+	var reference: GameState = decoded.state
+	var before := normalized(reference)
+	IslandEconomy.transport_view(reference, content.processing_catalog)
+	expect(normalized(reference) == before, "reading missing route defaults never mutates loaded save")
+	var offline := reference.duplicate_state()
+	var partitioned := reference.duplicate_state()
+	for i in range(600): IslandEconomy.tick(reference, content.processing_catalog)
+	OfflineEconomyJump.advance(offline, content, 600, {})
+	for i in range(6): OfflineEconomyJump.advance(partitioned, content, 100, {})
+	expect(normalized(reference) == normalized(offline), "lazy route defaults match online and offline ticks after load")
+	expect(normalized(reference) == normalized(partitioned), "lazy route defaults match partitioned offline settlement")
+	expect(reference.economy.routes.deep_iron_home == policy, "lazy seeding preserves explicit stop reserve target and level")
+	for id in IslandEconomy.supply_data().routes:
+		if id == "deep_iron_home": continue
+		expect(reference.economy.routes.get(id, {}) == IslandEconomy.route_defaults(reference), "missing opened route receives approved defaults " + id)
+	expect(IslandEconomy.value(reference, "home", "refined_iron") == 0, "stopped loaded route sends no cargo")
+	expect(IslandEconomy.value(reference, "home", "spirit_grass_1000y") > 0, "seeded loaded route delivers real cargo")
+	var saved := SaveCodec.encode(reference, content.content_version, META)
+	expect(saved.ok, "lazily seeded routes save successfully")
+	if saved.ok:
+		var reloaded := SaveCodec.decode(saved.json)
+		expect(reloaded.ok and normalized(reloaded.state) == normalized(reference), "seeded routes and cargo survive second reload")
 
 func _test_persistence() -> void:
 	for version in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION]:

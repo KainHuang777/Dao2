@@ -55,6 +55,7 @@ func _init() -> void:
 	_detail_name.add_theme_font_override("font", UiTypography.emphasis_font())
 	_detail_name.add_theme_font_size_override("font_size", 16)
 	_detail_name.add_theme_color_override("font_color", UiMaterial.INK)
+	_detail_name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	column.add_child(_detail_name)
 	_detail_line = RichTextLabel.new()
 	_detail_line.bbcode_enabled = false
@@ -188,6 +189,8 @@ func _select(key: String) -> void:
 	_detail_name.text = name_text
 	_detail_line.custom_minimum_size.y = 24 if compact else 44
 	_detail_line.text = (name_text + "・" + _detail_summary(item)) if compact else _detail_text(item)
+	_detail_line.tooltip_text = _cells[key].tooltip_text
+	_detail_name.tooltip_text = _detail_line.tooltip_text
 	var provided: Dictionary = item.get("provided", {})
 	_meter.visible = bool(provided.get("available", false)) and bool(provided.get("capacity", false)) and _number(item.get("capacity")) > 0.0
 	if _meter.visible:

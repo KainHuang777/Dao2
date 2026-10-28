@@ -1,5 +1,7 @@
 class_name ResourceChip
 extends PanelContainer
+const Numbers = preload("res://src/utils/number_formatter.gd")
+const Icon = preload("res://src/presentation/resource_icon.gd")
 
 var icon_rect: TextureRect
 var value_label: Label
@@ -29,16 +31,9 @@ func _init() -> void:
 	hbox.add_child(value_label)
 
 func setup(res_id: String, amount: float, is_full: bool) -> void:
-	var tex_path := "res://assets/ui/resources-painted/%s.png" % res_id
-	if ResourceLoader.exists(tex_path):
-		icon_rect.texture = load(tex_path)
-	else:
-		icon_rect.texture = null
-	
-	if amount >= 10000:
-		value_label.text = "%.1fw" % (amount / 10000.0)
-	else:
-		value_label.text = str(int(floor(amount)))
+	icon_rect.texture = Icon.get_resource_texture(res_id)
+	value_label.text = Numbers.fit_amount(amount, value_label.get_theme_font("font"), 16, 80)
+	tooltip_text = "%s：%s" % [Icon.get_resource_name(res_id), Numbers.exact_amount(amount)]
 		
 	if is_full:
 		value_label.add_theme_color_override("font_color", Color("f3d48c"))

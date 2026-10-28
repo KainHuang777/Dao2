@@ -1,3 +1,45 @@
+2026-10-29 **EARLY-16-UI-DESIGN 集中工作台方向已選定**：三種經營整合／局部HUD布局，正式遊戲未修改。[狀態](docs/development-status.md#early-16-ui-design)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-29 **EARLY-16-INTEGRATION-L2 DONE（L2）**：BALANCE＋UI 整段整合；數值12支、介面／航線12支與1401.7秒自然賺得流程通過，修正長流程整帳及 legacy 航線預設外洩；L3 大型收尾待核定。[狀態](docs/development-status.md#early-16-integration-l2)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **EARLY-16-BALANCE-C DONE（L1，數值）**：聚靈庫4／5與修行陣4／5／6升級、Era4–6二級材料需求、離島航線預設啟用；稽核C11–C16全部OK，31.04小時總鐘不變，5支相關runner通過。BALANCE待整合L2。[狀態](docs/development-status.md#early-16-balance-c)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **EARLY-16-UI-C DONE（L2）**：萬／億及依字寬科學記號、完整TIP、跨頁數量與資源入口修正；204項專項、9支相關runner及新版Web桌面抽驗通過。[狀態](docs/development-status.md#early-16-ui-c)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **EARLY-16-UI-B DONE（L2）**：共用圖形叉號、七處文字關閉遷移與固定頁首；56項專項、5支相關runner及新版Web桌面抽驗通過，下一UI-C。[狀態](docs/development-status.md#early-16-ui-b)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **EARLY-16-UI-A DONE（L2）**：列尾動作靠右置中，7支相關runner及新版Web1280×720滑鼠抽驗通過；下一UI-B。[狀態](docs/development-status.md#early-16-ui-a)。
+
+2026-10-28 **Era1–6分工：OpenCode數值／Codex介面；P3／P4後排**：數值模型、建築上限與空島材料鏈交OpenCode；Codex下一EARLY-16-UI-A列尾對齊，續圖示關閉與資源顯示。[分工](docs/44-era1-6-balance-and-ui-workstreams.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **優先改為Era1–6數值與介面打磨；P3／P4暫時後排**：下一EARLY-16-POLISH-A現況／瓶頸盤點，Era7–12擴充待使用者指定恢復。[排程決策](docs/development-status.md#early-16-polish)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-4-R2 DONE（L2資源圖示補齊）**：20張共用資源／貨幣／獸魂圖示與正方形成本格已接入，來源移至TIP；相關7支及新版Web桌面抽驗通過。[狀態](docs/development-status.md#imm-4-r2)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-4-R1 DONE（L2有界修正）**：技能正文至少16px、焦點字色對比與延期記錄已修正；5支專項及新版Web桌面抽驗通過。[狀態](docs/development-status.md#imm-4-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-4 DONE（整批收尾，唯一L3：145／145 runner全矩陣PASS＋正式Web與候選包＋桌面三橫式滑鼠抽驗）**；IMM-1A～3C整批介面結案，短式成本列與選島列溢位已修，IMM-2記錄為無新增微動態工程。[狀態](docs/development-status.md#imm-4)／[排程](docs/43-full-ui-adjustment-plan.md)／[結案](docs/verification/imm-4-batch-closure.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
 2026-10-28 **IMM-3C DONE（全頁一致性核對，L1＋L2桌面Web 1280×720抽驗）**；十四頁與五類覆層已留狀態與證據，製造／運輸按鈕重複價格與製造逐項資源文字列已移除，下一IMM-4。[狀態](docs/development-status.md#imm-3c)／[排程](docs/43-full-ui-adjustment-plan.md)／[核對](docs/verification/imm-3c-page-consistency.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。

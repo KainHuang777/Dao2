@@ -77,7 +77,7 @@ func _run() -> void:
 		_expect(close.get_global_rect().end.y <= abode.alchemy_panel._scroll.get_global_rect().position.y, "close remains above scrolling recipes")
 		_expect(abode.feature_navigation.shell.resource_button.visible, "resource drawer entry remains available")
 	var tile = abode.alchemy_panel._widgets.cultivation_pill.tiles.spirit_grass_low
-	_expect(tile.quantity.text.contains("/10"), "material tile shows current stock and required amount")
+	_expect(tile.quantity.text == "10" and tile.tooltip_text.contains("需求 10"), "material tile shows requirement with full stock in TIP")
 	_expect(abode.alchemy_panel._widgets.cultivation_pill.output.tooltip_text.contains("60 秒"), "pill effect remains available as TIP")
 	_expect(abode.alchemy_panel._widgets.cultivation_pill.title.get_theme_color("font_color") == UiMaterial.INK, "paper pill titles use readable dark ink")
 

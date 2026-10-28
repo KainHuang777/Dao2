@@ -49,6 +49,36 @@
       "id": "C10",
       "severity": "WARN",
       "text": "Era 2 level-up and breakthrough use no island/processing output (island chain is optional for Era 2 pacing); all island facility upgrades could be done in 24% of the Era-2 clock (600s of 2496s), leaving no mid-Era sink"
+    },
+    {
+      "id": "C11",
+      "severity": "OK",
+      "text": "Era 4–6 requirement coverage: every requirement is earnable inside its era clock"
+    },
+    {
+      "id": "C12",
+      "severity": "OK",
+      "text": "Era 4–6 capacity: every cost and breakthrough stock fits inside the built caps"
+    },
+    {
+      "id": "C13",
+      "severity": "OK",
+      "text": "Island demand coupling: island output is within the configured band of Era 4–6 demand"
+    },
+    {
+      "id": "C14",
+      "severity": "OK",
+      "text": "Transport defaults: supply routes open with the island and target the home cap; a level-1 route moves up to 1/s, above each island's 0.04-0.10/s base rate"
+    },
+    {
+      "id": "C15",
+      "severity": "OK",
+      "text": "Tier-2 resources with no Era 4–6 gate, island cost, building cost or recipe use: none"
+    },
+    {
+      "id": "C16",
+      "severity": "OK",
+      "text": "Supply building acquisition above 25.0% of its era clock: none"
     }
   ],
   "summary": {
@@ -60,6 +90,28 @@
       "era2_gate_needs_island": false,
       "era2_training_seconds": 2495.8682112,
       "sink_exhaust_seconds": 600.0
+    },
+    "C11": {
+      "deadlocks": 0,
+      "gated": 0,
+      "trivial": 0
+    },
+    "C12": {
+      "cap_deadlocks": 0,
+      "cap_low": 0,
+      "stock_deadlocks": 0,
+      "stock_tight": 0
+    },
+    "C13": {
+      "orphans": 2,
+      "over": 0,
+      "under": 0
+    },
+    "C15": {
+      "orphans": []
+    },
+    "C16": {
+      "expensive": 0
     },
     "C2": {
       "rows": 92,
@@ -93,7 +145,10 @@
     "chain_training_seconds": {
       "1": 1007.15051676797,
       "2": 2495.8682112,
-      "3": 5440.8030540339
+      "3": 5440.8030540339,
+      "4": 12385.1147460938,
+      "5": 25611.998328,
+      "6": 73728.92544
     },
     "sim": {
       "active_nopills": {
@@ -179,6 +234,124 @@
         "t_lv10": 2400.0,
         "t_ready": 2400.0,
         "use_pills": true
+      }
+    },
+    "supply": {
+      "bottlenecks": {
+        "bronze_essence": {
+          "achievable": 0.1,
+          "bottleneck": "black_copper",
+          "process": 0.1
+        },
+        "formation_core": {
+          "achievable": 0.05,
+          "bottleneck": "spirit_timber",
+          "process": 0.05
+        },
+        "foundation_pill": {
+          "achievable": 0.0233826859021798,
+          "bottleneck": "lingli",
+          "process": 0.05
+        },
+        "golden_core_pill": {
+          "achievable": 0.00779422863405995,
+          "bottleneck": "foundation_pill",
+          "process": 0.0333333333333333
+        },
+        "liquid": {
+          "achievable": 0.0935307436087194,
+          "bottleneck": "lingli",
+          "process": 0.1
+        },
+        "spirit_timber": {
+          "achievable": 0.1,
+          "bottleneck": "wood",
+          "process": 0.1
+        },
+        "stone_high": {
+          "achievable": 0.1,
+          "bottleneck": "lingli",
+          "process": 0.1
+        },
+        "stone_mid": {
+          "achievable": 0.1,
+          "bottleneck": "lingli",
+          "process": 0.1
+        },
+        "stone_mid_bulk": {
+          "achievable": 0.467653718043597,
+          "bottleneck": "lingli",
+          "process": 10.0
+        },
+        "talisman": {
+          "achievable": 0.0935307436087194,
+          "bottleneck": "lingli",
+          "process": 0.1
+        },
+        "trans_pill": {
+          "achievable": 0.00584567147554496,
+          "bottleneck": "golden_core_pill",
+          "process": 0.0333333333333333
+        }
+      },
+      "clocks": {
+        "4": 12385.1147460938,
+        "5": 25611.998328,
+        "6": 73728.92544
+      },
+      "demand": {
+        "4": {
+          "capacity": {
+            "lingli": 40000.0,
+            "money": 10000.0,
+            "stone_low": 16000.0
+          },
+          "per_level": {
+            "cold_iron": 12.0,
+            "golden_core_pill": 3.0,
+            "lingli": 3200.0,
+            "stone_mid": 200.0
+          },
+          "totals": {
+            "cold_iron": 101.0,
+            "golden_core_pill": 27.0,
+            "lingli": 28800.0,
+            "stone_mid": 1800.0
+          }
+        },
+        "5": {
+          "capacity": {
+            "lingli": 170000.0,
+            "stone_low": 80000.0
+          },
+          "per_level": {
+            "lingli": 10000.0,
+            "mithril": 18.0,
+            "money": 5000.0,
+            "spirit_grass_1000y": 12.0
+          },
+          "totals": {
+            "lingli": 90000.0,
+            "mithril": 162.0,
+            "money": 45000.0,
+            "spirit_grass_1000y": 106.0
+          }
+        },
+        "6": {
+          "capacity": {},
+          "per_level": {
+            "lingli": 38000.0,
+            "money": 15000.0,
+            "stone_mid": 5000.0,
+            "trans_pill": 5.0
+          },
+          "totals": {
+            "lingli": 342000.0,
+            "money": 135000.0,
+            "stone_mid": 45000.0,
+            "trans_pill": 37.0
+          }
+        }
       }
     }
   }

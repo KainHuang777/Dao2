@@ -17,6 +17,17 @@ func check(ok: bool, label: String) -> void:
 		push_error(label)
 func frames() -> void:
 	for n in 12: await process_frame
+func reveal(scroll: ScrollContainer, target: Control) -> void:
+	scroll.scroll_vertical = 100000
+	await frames()
+	var view := scroll.get_global_rect()
+	var rect := target.get_global_rect()
+	if rect.position.y < view.position.y:
+		scroll.scroll_vertical -= int(ceil(view.position.y - rect.position.y)) + 1
+		await frames()
+	elif rect.end.y > view.end.y:
+		scroll.scroll_vertical += int(ceil(rect.end.y - view.end.y)) + 1
+		await frames()
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
 	script.save_dir_override = ("user://uix-r11-runner" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("uix-r11-runner"))
@@ -101,10 +112,9 @@ func _run() -> void:
 			check(row.card.size.x <= page.scroll.size.x + 1, "card fits width")
 			check(row.action.size.y >= 44, "44px action")
 		var y: float = page.heading.global_position.y
-		page.scroll.scroll_vertical = 10000
-		await frames()
-		check(is_equal_approx(y,page.heading.global_position.y), "heading fixed")
 		var last: Control = page.cards.spirit_nurture_celestial_herb.action
+		await reveal(page.scroll, last)
+		check(is_equal_approx(y,page.heading.global_position.y), "heading fixed")
 		check(page.scroll.get_global_rect().encloses(last.get_global_rect()), "last action reachable")
 		check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1, "rod safety")
 		for resource in page.cards.spirit_nurture_celestial_herb.costs.tiles:

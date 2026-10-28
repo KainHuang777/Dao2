@@ -44,6 +44,30 @@ static func durations(state: GameState) -> Dictionary:
 static func route_level_cap(state: GameState, id: String) -> int:
 	return 3 if expanded(state) and supply_data().routes.has(id) else 2
 
+static func route_defaults(state: GameState) -> Dictionary:
+	var policy: Dictionary = supply_data().get("route_policy", {}) if expanded(state) else {}
+	return {
+		"enabled": bool(policy.get("enabled", false)),
+		"reserve": "0",
+		"target": str(policy.get("target", "100")),
+		"level": 1,
+	}
+
+static func _seed_supply_routes(state: GameState) -> int:
+	if not expanded(state) or state.economy.is_empty():
+		return 0
+	var seeded := 0
+	for id in supply_data().routes:
+		if state.economy.routes.has(id):
+			continue
+		var def: Array = supply_data().routes[id]
+		if not state.economy.islands.has(def[0]) or not state.economy.islands.has(def[1]):
+			continue
+		if bool(state.economy.islands[def[0]].get("opened", false)) and bool(state.economy.islands[def[1]].get("opened", false)):
+			state.economy.routes[id] = route_defaults(state)
+			seeded += 1
+	return seeded
+
 static func rate(state: GameState, island: String, id: String) -> float:
 	if expanded(state) and not bool(state.economy.get("islands", {}).get(island, {}).get("opened", false)): return 0.0
 	if expanded(state) and supply_data().islands.has(island):
@@ -144,6 +168,7 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 		for id in costs:
 			_put(state, "home", id, value(state, "home", id) - float(costs[id]), "building")
 		state.economy.islands[island].opened = true
+		_seed_supply_routes(state)
 		return _success("island_opened")
 	if kind == "configure_route":
 		return _configure_route(state, p)
@@ -206,10 +231,12 @@ static func _configure_route(state: GameState, p: Dictionary) -> Dictionary:
 	var def: Array = route_defs(state)[id]
 	if not state.economy.islands[def[0]].opened or not state.economy.islands[def[1]].opened:
 		return _fail("ISLAND_NOT_OPEN")
-	var enabled: Variant = p.get("enabled", true)
-	var reserve: Variant = p.get("reserve", "0")
-	var target: Variant = p.get("target", "100")
-	var level: Variant = p.get("level", 1)
+	var supply_route: bool = expanded(state) and supply_data().routes.has(id)
+	var defaults: Dictionary = route_defaults(state) if supply_route else {"enabled": not expanded(state), "reserve": "0", "target": "100", "level": 1}
+	var enabled: Variant = p.get("enabled", defaults.enabled)
+	var reserve: Variant = p.get("reserve", defaults.reserve)
+	var target: Variant = p.get("target", defaults.target)
+	var level: Variant = p.get("level", defaults.level)
 	if not enabled is bool or not _amount(reserve) or not _amount(target) or not _integer(level, 1, route_level_cap(state, id)):
 		return _fail("INVALID_ROUTE_SETTINGS")
 	var old: Dictionary = state.economy.routes.get(id, {"level": 1})
@@ -452,6 +479,7 @@ static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary 
 			continue
 		var error := _start(state, catalog, island, job)
 		job.status = error if not error.is_empty() else "running"
+	_seed_supply_routes(state)
 	routes = state.economy.routes.keys()
 	routes.sort()
 	for id in routes:
@@ -486,7 +514,8 @@ static func transport_view(state: GameState, catalog: Dictionary) -> Dictionary:
 	if supply_profile: definitions.merge(supply_data().routes)
 	for id in definitions:
 		var def: Array = definitions[id]
-		var route: Dictionary = state.economy.get("routes", {}).get(id, {"enabled": false, "reserve": "0", "target": "100", "level": 1})
+		var fallback: Dictionary = route_defaults(state) if supply_profile and supply_data().routes.has(id) else {"enabled": false, "reserve": "0", "target": "100", "level": 1}
+		var route: Dictionary = state.economy.get("routes", {}).get(id, fallback)
 		var trip: Dictionary = state.economy.get("trips", {}).get(id, {})
 		var closed: Array[String] = []
 		for endpoint in [def[0], def[1]]:

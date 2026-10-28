@@ -169,11 +169,11 @@ func test_resource_chip() -> void:
 	
 	# Setup with large amount (>= 10000)
 	chip.setup("wood", 25600.0, true)
-	check(chip.value_label.text == "2.6w", "ResourceChip formats >= 10000 with w suffix (2.6w)")
+	check(chip.value_label.text == "2.5萬", "ResourceChip shares truncated 萬 unit")
 	check(chip.value_label.get_theme_color("font_color") == Color("f3d48c"), "ResourceChip is_full font color f3d48c")
 	
 	chip.setup("wood", 10000.0, false)
-	check(chip.value_label.text == "1.0w", "ResourceChip formats 10000 as 1.0w")
+	check(chip.value_label.text == "1萬", "ResourceChip shares 萬 boundary")
 	chip.setup("unknown_resource", 0, false)
 	check(chip.icon_rect.texture == null, "Unknown resource clears stale icon")
 	
@@ -226,8 +226,8 @@ func test_close_seal() -> void:
 	await process_frame
 	
 	check(seal.custom_minimum_size == Vector2(44, 44), "CloseSeal touch target 44x44")
-	check(seal.text == "×" and UiTypography.body_font().has_char(0x00d7), "CloseSeal uses cross supported by runtime font")
-	check(seal.focus_mode == Control.FOCUS_NONE, "CloseSeal focus_mode NONE")
+	check(seal.text.is_empty() and seal.accessibility_name == "關閉", "CloseSeal draws vector cross with accessible name")
+	check(seal.focus_mode == Control.FOCUS_ALL, "CloseSeal keyboard focus enabled")
 	
 	var normal_box: StyleBoxFlat = seal.get_theme_stylebox("normal")
 	check(normal_box != null and normal_box.bg_color == Color.TRANSPARENT, "CloseSeal inherits paper without black background")

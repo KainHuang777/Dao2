@@ -154,7 +154,7 @@ func _run() -> void:
 	check(lingli_cell._amount.text == "12.3萬" and lingli_cell.tooltip_text.contains("123456"), "visible amount abbreviates while tip keeps exact value")
 	var unknown = ItemCell.new()
 	unknown.apply({"key": "x:unknown", "id": "imm1a_unknown_item", "name": "無圖示靈材", "source": "測試", "display": "available", "provided": {"available": true}, "available": 3.0})
-	check(ResourceIcon.get_resource_texture("imm1a_unknown_item") == null and unknown._fallback.visible and unknown._fallback.text == "無圖示靈材", "unknown icon becomes text stamp")
+	check(ResourceIcon.get_resource_texture("imm1a_unknown_item") == null and unknown._fallback.visible and unknown._fallback.text == "未識" and unknown.tooltip_text.contains("無圖示靈材"), "unknown icon keeps bounded stamp and full name TIP")
 	unknown.free()
 	check(ShellResources.inventory({"route": "skills"}, view, nav).supported, "focused page has typed data independently of UI migration")
 	check(ShellResources.inventory({"route": "home"}, view, nav).supported == false, "home keeps existing ribbon")

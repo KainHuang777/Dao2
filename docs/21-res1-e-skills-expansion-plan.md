@@ -1,3 +1,7 @@
+2026-10-28 **Era1–6分工：OpenCode數值／Codex介面；P3／P4後排**：數值模型、建築上限與空島材料鏈交OpenCode；Codex下一EARLY-16-UI-A列尾對齊，續圖示關閉與資源顯示。[分工](44-era1-6-balance-and-ui-workstreams.md)。
+
+2026-10-28 **優先改為Era1–6數值與介面打磨；P3／P4暫時後排**：下一EARLY-16-POLISH-A現況／瓶頸盤點，Era7–12擴充待使用者指定恢復。[排程決策](development-status.md#early-16-polish)。
+
 2026-10-24 **SKS-P2 DONE（L3，桌面／Web有界）**：使用者指示「整批收尾」，承接現版節奏／卡片與十二圖接受。118／118唯一runner最終通過（116初跑＋機緣UI70項／供給94項串行重試）；原兩失敗與SCRIPT ERROR保留。正式Web候選build/web-sks-p2、Brotli及四BGM、三桌面橫式滑鼠研習／拒寫／重試／恢復／重載通過。2033份原JSON核對復原，28份變動與既有來源fixture先另存；未改規則／玩家進度，未commit/push。見[整批驗收](verification/sks-p2-closure.md)。本階段停止；下一大型任務請New Chat指定，不自動開其他P2／P3。下方為日期化歷史。
 
 2026-10-24 **SKS-P2／P2-S2 DONE（L2，桌面1280×720有界）；整體 SKS-P2 IN_PROGRESS。** 使用者明確要求合併worktree且美術接受；5d59十二PNG與原圖／prompt／來源manifest已整合，12圖hash一致並標ACCEPTED。移除P2缺圖豁免，補御／艙字型及共用點數格式。三支精選L1通過（核心81／R8最終114／P1 UI29），兩UI補驗通過；當次隔離Web包12 ID真實滑鼠、12項精確扣點、拒寫再次重試／恢復／重載、Era4未來境界鎖與收益0及滿階已驗，24圖穩定載入。沿用同日392項合法流程；原沙箱／連線／字型失敗及重載過渡觀測保留。未L3／全尺寸／FPS、未改玩家進度、未commit/push。見[本段驗收](verification/sks-p2-acceptance.md)。本階段停止；下一New Chat接SKS-P2整合節奏／卡片回饋與唯一整批L3收尾，不重問十二圖美術或重做K／R46。下方為日期化歷史。

@@ -1,8 +1,8 @@
-2026-10-28 **IMM-4-R2 DONE（L2資源圖示補齊）**：20張共用資源／貨幣／獸魂圖示與正方形成本格已接入，來源移至TIP；相關7支及新版Web桌面抽驗通過。[狀態](docs/development-status.md#imm-4-r2)。
+2026-10-29 **EARLY-16-UI-SHELL**：集中工作台與局部HUD正式接入，驗收與Web限制見[狀態](docs/development-status.md#early-16-ui-shell)。
 
-2026-10-28 **IMM-4-R1 DONE（L2有界修正）**：技能正文至少16px、焦點字色對比與延期記錄已修正；5支專項及新版Web桌面抽驗通過。[狀態](docs/development-status.md#imm-4-r1)。
+2026-10-29 **EARLY-16-INTEGRATION-L3 DONE（L3）**：148/148 runner 全尺寸矩陣、presentation parity、Web 匯出＋Brotli 與桌面三橫式實際點擊通過；P3／P4與觸控延期。[狀態](docs/development-status.md#early-16-integration-l3)。
 
-2026-10-28 **IMM-4 DONE（整批收尾，唯一L3：145／145 runner全矩陣PASS＋正式Web與候選包＋桌面三橫式滑鼠抽驗）**；IMM-1A～3C整批介面結案，短式成本列與選島列溢位已修，IMM-2記錄為無新增微動態工程。[狀態](docs/development-status.md#imm-4)／[排程](docs/43-full-ui-adjustment-plan.md)／[結案](docs/verification/imm-4-batch-closure.md)。
+2026-10-29 **EARLY-16-UI-ACTION-R1**：主介面確認仍為原型；輪迴／跨界／舊檔匯入無框題字已接入，L1與原生完成，Web待驗。[狀態](docs/development-status.md#early-16-ui-action-r1)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 
@@ -343,7 +343,7 @@ M1-E 不必阻塞新玩家切片，但未通過前不可對外宣稱舊檔可續
 | CONTENT-P2-STORY | P1及P2各相依已收結；Y全核定 | **DONE（2026-10-27，L3／桌面Web有界）**。圖／卡片／文稿／節奏ACCEPTED，139／139最終分段通過、正常Web匯出壓縮與三橫式完成。[狀態](docs/development-status.md)。 |
 | CONTENT-P2-ACCEPT | P2供給／技能／天賦／丹藥／宗門／靈獸／敘事及WORLD-46均收結 | **DONE（2026-10-27，桌面／Web有界）**：整段數量與相依核對；realm法令條件延期，Era8雲蛟仍鎖定。[整合結案](docs/development-status.md#content-p2-accept)。 |
 | RES1-E | RES1-D；逐段來源 fixture 與內容依賴 | Era 4–12 按段補資源／建築／技能／配方／消耗／輪迴；完整矩陣通過前不稱 DAO1 全量承接；九界擴展以手工產業差異驗收為前提 |
-| RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1與EARLY-V1-C已DONE（圖像已接受、桌面Web已驗）；SKS-P2 DONE（L3／桌面Web有界，見[收尾](docs/verification/sks-p2-closure.md)），P3～P4 TODO**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
+| RES1-E-SKILLS-PLAN | R9–R11有界交付、ADR-012 | **規劃 DONE；SKS-P1與EARLY-V1-C已DONE（圖像已接受、桌面Web已驗）；SKS-P2 DONE（L3／桌面Web有界，見[收尾](docs/verification/sks-p2-closure.md)），P3～P4 TODO（2026-10-28暫時後排，先EARLY-16-POLISH）**。Era1–3盤點及 Era4–12 相依見[技能規劃](docs/21-res1-e-skills-expansion-plan.md)；現行規則狀態見[SKS-P1](docs/verification/res1-e-skills-p1.md)，前期收尾見[EARLY-V1](docs/23-early-version-closure-plan.md)。 |
 
 整體 RES1 首段可玩以 A–D 為門檻；資料表與獨立 Runner 不取代真實玩法。M4-A-R1 的原整合 DONE 保留，M5 的既有生成／法則資料也保留；後續資源與內容補齊從 Era 2–3 開始，不能只把缺口記為 Era 9–12。
 

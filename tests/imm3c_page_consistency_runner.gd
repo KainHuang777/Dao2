@@ -441,6 +441,10 @@ func _tiles_are_seals(tiles: Dictionary) -> bool:
 		var cell_size := Vector2(36, 36) if bool(tile.compact) else Vector2(56, 56)
 		ok = ok and tile.get_child(0).get_child(0).custom_minimum_size == cell_size
 		ok = ok and not tile.quantity.text.is_empty()
+		var label: Label = tile.quantity
+		var glyph_width := label.get_theme_font("font").get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x
+		ok = ok and label.get_theme_font_size("font_size") >= 16
+		ok = ok and glyph_width + 2 * label.get_theme_constant("outline_size") <= cell_size.x - 4 + 0.1
 		ok = ok and is_equal_approx(tile.size.x, tile.size.y) and not tile.caption.visible
 	return ok and count > 0
 

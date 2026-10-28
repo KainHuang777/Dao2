@@ -71,7 +71,7 @@ func _card(item: Dictionary) -> void:
 	var action := Button.new()
 	action.text = "施行"
 	action.custom_minimum_size = Vector2(80, 44)
-	action.size_flags_vertical = Control.SIZE_SHRINK_END
+	action.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	UiMaterial.apply_button(action)
 	action.pressed.connect(func(): action_requested.emit("decision", str(item.id)))
 	row.add_child(action)

@@ -14,6 +14,7 @@ var show_source_caption := false
 var compact := false
 var _reserved: Control
 var _reserved_value := 0.0
+var _amount_value: Variant = 0.0
 
 func _init() -> void:
 	custom_minimum_size = Vector2(72, 72)
@@ -96,9 +97,9 @@ func refresh(resource: String, name_text: String, amount: float, available: floa
 	style.border_color = Color("ad6552") if shortage else Color("4e7c6c") if output else Color("89917d")
 	quantity.add_theme_color_override("font_color", color)
 	caption.add_theme_color_override("font_color", color)
-	var amount_str := NumberFormatter.format_amount(amount)
-	var avail_str := NumberFormatter.format_amount(available)
-	quantity.text = amount_str
+	set_quantity(amount)
+	var amount_str := NumberFormatter.exact_amount(amount)
+	var avail_str := NumberFormatter.exact_amount(available)
 	caption.text = "產出" if output else source
 	var texture := Icon.get_resource_texture(resource)
 	icon.visible = texture != null
@@ -106,6 +107,7 @@ func refresh(resource: String, name_text: String, amount: float, available: floa
 	# Sources belong to the tooltip, never an extra row stretching the item square.
 	caption.hide()
 	tooltip_text = "%s\n%s：可用 %s／%s %s" % [name_text, source, avail_str, "產出" if output else "需求", amount_str]
+	if shortage: tooltip_text += "\n缺料：可用量不足需求"
 	set_reserved(0.0)
 
 func set_compact(enabled: bool) -> void:
@@ -119,11 +121,20 @@ func set_compact(enabled: bool) -> void:
 	style.content_margin_right = 6 if enabled else 8
 	style.content_margin_top = 6 if enabled else 8
 	style.content_margin_bottom = 6 if enabled else 8
-	quantity.add_theme_font_size_override("font_size", 12 if enabled else 16)
+	quantity.add_theme_font_size_override("font_size", 16)
 	quantity.add_theme_constant_override("outline_size", 3 if enabled else 4)
+	_refresh_quantity()
 	_reserved.icon_size = 10 if enabled else 14
 	caption.hide()
 	icon.queue_redraw()
+
+func _refresh_quantity() -> void:
+	var width := cell.custom_minimum_size.x - 4 - (6 if compact else 8)
+	quantity.text = NumberFormatter.fit_amount(_amount_value, quantity.get_theme_font("font"), 16, width)
+
+func set_quantity(value: Variant) -> void:
+	_amount_value = value
+	_refresh_quantity()
 
 func set_reserved(value: float) -> void:
 	_reserved_value = value

@@ -27,10 +27,14 @@ func _build_ui() -> void:
 	_box.name = "OfflineSummaryBox"
 	_box.add_theme_constant_override("separation", 10)
 	add_child(_box)
+	var header := CloseSeal.paper_header(_box)
 	var title := Label.new()
 	title.name = "OfflineSummaryTitle"
 	title.text = "離線收益摘要"
-	_box.add_child(title)
+	title.add_theme_color_override("font_color", UiMaterial.INK)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	header.add_child(title)
 	_body_label = Label.new()
 	_body_label.name = "OfflineSummaryBody"
 	_body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -40,12 +44,10 @@ func _build_ui() -> void:
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_box.add_child(scroll)
 	scroll.add_child(_body_label)
-	var close_button := Button.new()
+	var close_button := CloseSeal.new()
 	close_button.name = "OfflineSummaryClose"
-	close_button.text = "關閉"
-	close_button.custom_minimum_size = Vector2(88, 44)
 	close_button.pressed.connect(_on_close_pressed)
-	_box.add_child(close_button)
+	header.add_child(close_button)
 	set_layout_bounds(Rect2(position, size))
 
 func show_report(report: Dictionary) -> void:

@@ -33,6 +33,7 @@ var context_paper: PanelContainer
 var context_text: Label
 var context_scroll: ScrollContainer
 var context_inventory
+var workbench
 
 func _init(scene: Node) -> void:
 	abode = scene
@@ -134,10 +135,14 @@ func build() -> void:
 	context_paper.add_child(context_inventory)
 	context_inventory.hide()
 	context_paper.hide()
+	workbench = preload("res://src/presentation/management_workbench.gd").new(abode)
 	for button in [abode.reincarnation_panel._talents_button, abode.reincarnation_panel._reincarnate_button, abode.sect_panel._tab_expeditions_btn, abode.sect_panel._tab_techniques_btn, abode.sect_panel._tab_market_btn]:
 		button.pressed.connect(func(): abode._layout_for_size(abode.hud.size))
 	for panel in [abode.feature_navigation.island_panel, abode.feature_navigation.manufacturing_panel, abode.feature_navigation.transport_panel]:
 		panel.context_changed.connect(func(): abode._layout_for_size(abode.hud.size))
+
+static func resource_entry_title(route: String) -> String:
+	return {"skills": "技能資源", "sect": "宗門資源", "beasts": "餵養獸魂", "reincarnation": "輪迴資源", "alchemy": "煉丹材料", "buildings": "建設材料", "outposts": "當地庫存", "manufacturing": "製造庫存", "transport": "航線庫存", "fortune": "機緣成本", "decisions": "法令資源"}.get(route, "資源")
 
 func _button(label: String, callback: Callable) -> Button:
 	var button := Button.new()
@@ -284,7 +289,7 @@ func apply(vp: Vector2) -> void:
 	progress.max_value = hc._training_bar.max_value
 	progress.value = hc._training_bar.value
 	compact_hud.position = Vector2(margin, 12)
-	compact_hud.size = Vector2(vp.x - margin * 2.0 - 56.0, 44)
+	compact_hud.size = Vector2(minf(680.0, vp.x - margin * 2.0 - 56.0), 44)
 	compact_hud.visible = not home and effective.hud == "compact"
 	abode.header.visible = home and effective.hud == "full"
 	abode.toolbar.visible = effective.navigation
@@ -294,15 +299,15 @@ func apply(vp: Vector2) -> void:
 	resource_button.visible = effective.resource_entry
 	collapse_button.visible = not home and effective.resource_entry and not short_skills
 	collapse_button.text = "展開" if snapshot.resources_collapsed else "暫收"
-	resource_button.text = "資源" if home or (wide and effective.resource_presentation == "rail") else context.summary
+	resource_button.text = resource_entry_title(snapshot.route) if not home else "資源"
 	resource_button.tooltip_text = context.details + "\n點開資源；費用與資格以操作旁即時資料為準。"
 	if short_skills:
 		var feedback: String = abode.feature_navigation.action_panel.status.text
 		if not feedback.is_empty():
-			resource_button.text = "點數 %s・%s" % [context.summary.trim_prefix("技能點 "), "未完成" if feedback.begins_with("操作未完成") else "已更新"]
+			resource_button.text += "・未完成" if feedback.begins_with("操作未完成") else "・已更新"
 			resource_button.tooltip_text += "\n" + feedback
 	resource_button.custom_minimum_size.x = 64 if home or wide else (176 if short_skills else 156)
-	resource_button.clip_text = true
+	resource_button.clip_text = false
 	resource_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var entry_width: float = maxf(216, entry.get_combined_minimum_size().x)
 	entry.position = Vector2(vp.x - margin - entry_width, vp.y - margin - 48)
@@ -317,6 +322,10 @@ func apply(vp: Vector2) -> void:
 	overlay_header.size = Vector2(52, 52)
 	var rail: bool = effective.resource_presentation == "rail"
 	var drawer: bool = effective.resource_presentation == "drawer"
+	var management: bool = abode.feature_navigation.group == "management"
+	# Restore parents before the ordinary HUD lays out non-management routes or overlays.
+	if not management or drawer:
+		workbench.apply(false, Rect2(), wide, false)
 	var scoped: bool = not home and snapshot.route not in ["buildings", "alchemy"]
 	abode.resource_ribbon.visible = (rail or drawer) and not scoped
 	context_paper.visible = (rail or drawer) and scoped
@@ -333,7 +342,7 @@ func apply(vp: Vector2) -> void:
 	abode.building_catalog.set_resource_display_mode(maxi(1, mode) if drawer else mode)
 	abode.resource_scroll.visible = mode > 0 or drawer
 	abode.resource_mode_buttons[0].get_parent().visible = home
-	if not home:
+	if not home and not management:
 		var left := 276.0 if rail else margin
 		var width := vp.x - left - margin
 		var tab_top := 68.0
@@ -352,6 +361,11 @@ func apply(vp: Vector2) -> void:
 		abode.resource_ribbon.size = Vector2(248, rail_bottom - 68)
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
+	if management and not drawer:
+		var work_width := minf(1160.0, vp.x - margin * 2)
+		var work_bounds := Rect2(Vector2((vp.x - work_width) * 0.5, 72), Vector2(work_width, maxf(80, bottom - 72 - (52 if save_failed else 0))))
+		workbench.apply(true, work_bounds, wide, rail)
+		abode.feature_navigation.bar.visible = effective.navigation
 	if drawer:
 		abode.resource_ribbon.position = Vector2(margin, 68)
 		abode.resource_ribbon.size = Vector2(minf(440, vp.x - margin * 2), vp.y - 84)

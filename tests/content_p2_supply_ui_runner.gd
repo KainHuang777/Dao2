@@ -118,7 +118,7 @@ func run() -> void:
 	var fallback_tile = preload("res://src/presentation/recipe_material_tile.gd").new()
 	root.add_child(fallback_tile)
 	fallback_tile.refresh("mithril", "秘銀", 5, 10, "祖島")
-	check(fallback_tile.caption.text.contains("秘銀") and fallback_tile.caption.text.contains("祖島"),"unillustrated material retains full visible name and source")
+	check(not fallback_tile.caption.visible and fallback_tile.tooltip_text.contains("秘銀") and fallback_tile.tooltip_text.contains("祖島"),"unillustrated material retains full name and source in tooltip")
 	fallback_tile.queue_free()
 	var legacy_story := GameState.new()
 	legacy_story.story_version = 0

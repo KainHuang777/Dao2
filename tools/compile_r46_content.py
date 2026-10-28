@@ -39,9 +39,9 @@ def compile_content():
         effects = {key + "_max": value for key, value in item.get("flat_caps", {}).items()}
         effects.update(item.get("flat_rates", {}))
         buildings.append({
-            "id": item["id"], "name": name, "era": item["era"], "max_level": 1,
-            "cost_factor": 1, "prereq": {"building": next(iter(required)), "level": next(iter(required.values()))} if required else None,
-            "base_cost": item["cost"], "effect_weight": None, "effects": effects,
+            "id": item["id"], "name": name, "era": item["era"], "max_level": int(item.get("max_level", 1)),
+            "cost_factor": float(item.get("cost_factor", 1)), "prereq": {"building": next(iter(required)), "level": next(iter(required.values()))} if required else None,
+            "base_cost": item["cost"], "effect_weight": item.get("effect_weight"), "effects": effects,
         })
     eras = []
     for item in proposal["eras"]:
@@ -65,7 +65,9 @@ def compile_content():
         "islands": {item["id"]: item for item in proposal["islands"]}, "routes": routes,
         "durations": {item["id"]: item["seconds"] for item in proposal["recipes"]},
         "dispatch": {"deep": "mineral_focus", "ancient": "ancient_focus", "void": "void_focus"},
-        "route_policy": {"seconds": 10, "cargo_per_level": 10, "max_level": 3, "enabled": False, "target": "100"},
+        "route_policy": {"seconds": proposal["routes"]["trip_seconds"], "cargo_per_level": proposal["routes"]["cargo_per_level"],
+                         "max_level": proposal["routes"]["max_level"], "enabled": proposal["routes"]["enabled"],
+                         "target": str(proposal["routes"]["target"])},
     }
 
 

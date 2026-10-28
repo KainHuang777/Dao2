@@ -250,14 +250,11 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 		if linked:
 			available = float(inputs[resource].available)
 		w.tiles[resource].refresh(resource, String(RESOURCE_NAMES.get(resource, resource)), required, available, "祖島")
-		w.tiles[resource].quantity.text = "%s/%s" % [_number(available), _number(required)]
 		if String(p.id) in AlchemySystem.P2_IDS:
 			# Required cost remains on the card; exact available stock stays in the tile TIP.
-			w.tiles[resource].quantity.text = _number(required)
 			w.tiles[resource].icon.visible = w.tiles[resource].icon.resource_texture() != null
 	# Early pills share the existing pill-family illustration; names and TIP identify effects.
-	w.output.refresh(String(p.id) if String(p.id) in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS else "foundation_pill", String(p.name), 1, float(p.count), "丹藥", true)
-	w.output.quantity.text = "×%d" % int(p.count)
+	w.output.refresh(String(p.id) if String(p.id) in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS else "foundation_pill", String(p.name), float(p.count), float(p.count), "丹藥", true)
 	w.output.caption.text = "丹藥"
 	for tile in w.tiles.values() + [w.output]:
 		tile.set_compact(micro)

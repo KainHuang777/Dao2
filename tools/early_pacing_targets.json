@@ -25,6 +25,10 @@
     "C6_overflow_high": 0.9,
     "C7_active_over_idle_min": 2.0,
     "C9_reducible_share_min": 0.3,
-    "C10_island_fill_max_seconds": 120.0
+    "C10_island_fill_max_seconds": 120.0,
+    "C11_gate_share_max": 1.0,
+    "C11_trivial_share": 0.05,
+    "C12_island_surplus_max": 20.0,
+    "C16_clock_share_max": 0.25
   }
 }

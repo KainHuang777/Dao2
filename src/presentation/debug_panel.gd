@@ -32,9 +32,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	if _background != null:
 		_background.size = size
-	if _scroll != null:
-		_scroll.position = Vector2(16, 16)
-		_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
+
 
 func _build_ui() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -43,10 +41,19 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
+	var layout := VBoxContainer.new()
+	layout.name = "FixedHeaderLayout"
+	add_child(layout)
+	layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	layout.offset_left = 16
+	layout.offset_top = 16
+	layout.offset_right = -16
+	layout.offset_bottom = -16
 	_scroll = ScrollContainer.new()
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_scroll.name = "DebugScroll"
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	add_child(_scroll)
+	layout.add_child(_scroll)
 
 	_column = VBoxContainer.new()
 	_column.name = "DebugColumn"
@@ -55,22 +62,19 @@ func _build_ui() -> void:
 	_scroll.add_child(_column)
 
 	# 標題列
-	var header_row := HBoxContainer.new()
-	header_row.add_theme_constant_override("separation", 8)
-	_column.add_child(header_row)
+	var header_row := CloseSeal.paper_header(layout)
+	layout.move_child(header_row.get_parent(), 0)
 
 	var title := Label.new()
 	title.text = "調試工具 (DEBUG)"
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.add_theme_font_override("font", UiTypography.emphasis_font())
 	title.add_theme_font_size_override("font_size", 20)
-	title.add_theme_color_override("font_color", Color("fff0c8"))
+	title.add_theme_color_override("font_color", UiMaterial.INK)
 	header_row.add_child(title)
 
-	_close_button = Button.new()
-	_close_button.text = "關閉"
-	_close_button.custom_minimum_size = Vector2(72, 36)
-	_close_button.add_theme_font_size_override("font_size", 16)
+	_close_button = CloseSeal.new()
 	_close_button.pressed.connect(func():
 		visible = false
 		close_requested.emit()

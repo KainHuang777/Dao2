@@ -70,7 +70,7 @@ func _rebuild() -> void:
 		var visual := _create_visual(content)
 		var text := VBoxContainer.new()
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		text.custom_minimum_size.x = 156
+		text.custom_minimum_size.x = 0
 		content.add_child(text)
 		var title_row := HBoxContainer.new()
 		text.add_child(title_row)
@@ -85,8 +85,9 @@ func _rebuild() -> void:
 		var policy := _label("")
 		policy.visible = false
 		text.add_child(policy)
-		var actions := HBoxContainer.new()
-		text.add_child(actions)
+		var actions := BoxContainer.new()
+		actions.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		content.add_child(actions)
 		var toggle := _add_button(actions, "啟航", func(): _toggle(id))
 		toggle.custom_minimum_size.x = 64
 		var settings := _add_button(actions, "設定", func(): select_route(id))
@@ -159,13 +160,6 @@ func _progress(parent: Node) -> ProgressBar:
 	parent.add_child(progress)
 	return progress
 
-func _quantity(value: float) -> String:
-	if value >= 1000000:
-		return "%.1e" % value
-	if value >= 10000:
-		return "%.1f萬" % (value / 10000.0)
-	return str(int(value)) if value == floorf(value) else "%.1f" % value
-
 func _refresh_visual(visual: Dictionary, id: String) -> void:
 	var def: Array = _routes()[id]
 	var info := _info(id)
@@ -182,8 +176,8 @@ func _refresh_visual(visual: Dictionary, id: String) -> void:
 	visual.destination.caption.text = destination_name
 	visual.source.set_reserved(0.0)
 	visual.destination.set_reserved(0.0 if stock.is_empty() else float(stock.get("reserved", 0)))
-	visual.source.quantity.text = "—" if stock.is_empty() else _quantity(source)
-	visual.destination.quantity.text = "—" if stock.is_empty() else _quantity(destination)
+	visual.source.set_quantity(null if stock.is_empty() else source)
+	visual.destination.set_quantity(null if stock.is_empty() else destination)
 	var missing: bool = info.get("reason") == "NO_SURPLUS"
 	if missing:
 		visual.source.shortage = true
@@ -191,8 +185,8 @@ func _refresh_visual(visual: Dictionary, id: String) -> void:
 		visual.source.style.border_color = Color("ad6552")
 		visual.source.quantity.add_theme_color_override("font_color", MaterialTile.SHORTAGE)
 		visual.source.caption.add_theme_color_override("font_color", MaterialTile.SHORTAGE)
-	visual.source.tooltip_text = "%s・%s\n可用 %s・保留 %s\n保留後餘貨 %s" % [source_name, name_text, NumberFormatter.format_amount(source), NumberFormatter.format_amount(settings.reserve), NumberFormatter.format_amount(stock.get("surplus", 0))] if not stock.is_empty() else source_name + "・" + name_text + "\n端點未開拓或空島未啟用"
-	visual.destination.tooltip_text = "%s・%s\n可用 %s・目標 %s\n容量預留 %s・剩餘空間 %s" % [destination_name, name_text, NumberFormatter.format_amount(destination), NumberFormatter.format_amount(settings.target), NumberFormatter.format_amount(stock.get("reserved", 0)), NumberFormatter.format_amount(stock.get("space", 0))] if not stock.is_empty() else destination_name + "・" + name_text + "\n端點未開拓或空島未啟用"
+	visual.source.tooltip_text = "%s・%s\n可用 %s・保留 %s\n保留後餘貨 %s" % [source_name, name_text, NumberFormatter.exact_amount(source), NumberFormatter.exact_amount(settings.reserve), NumberFormatter.exact_amount(stock.get("surplus", 0))] if not stock.is_empty() else source_name + "・" + name_text + "\n端點未開拓或空島未啟用"
+	visual.destination.tooltip_text = "%s・%s\n可用 %s・目標 %s\n容量預留 %s・剩餘空間 %s" % [destination_name, name_text, NumberFormatter.exact_amount(destination), NumberFormatter.exact_amount(settings.target), NumberFormatter.exact_amount(stock.get("reserved", 0)), NumberFormatter.exact_amount(stock.get("space", 0))] if not stock.is_empty() else destination_name + "・" + name_text + "\n端點未開拓或空島未啟用"
 
 func _refresh_progress(progress: ProgressBar, info: Dictionary) -> void:
 	var trip: Dictionary = info.get("trip", {})
@@ -442,8 +436,9 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		for widget in route_widgets.values():
 			var content: BoxContainer = widget.visual.root.get_parent()
 			content.vertical = bounds.size.x < 430
-			var action_host: Node = widget.title_row if short_layout and not content.vertical else widget.text
-			if widget.actions.get_parent() != action_host: widget.actions.reparent(action_host)
+			widget.actions.vertical = not short_layout and not content.vertical
+			widget.actions.size_flags_horizontal = Control.SIZE_SHRINK_END if content.vertical else Control.SIZE_FILL
+			widget.actions.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			var paper := UiMaterial.hud_paper()
 			if short_layout:
 				paper.content_margin_top = 2

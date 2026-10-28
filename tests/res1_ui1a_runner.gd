@@ -123,7 +123,7 @@ func _run() -> void:
 			check(not panel.production_summary.visible and panel.cards.bronze_essence.materials.get_global_rect().end.y <= panel.body.get_parent().get_global_rect().end.y, "short first card exposes materials without initial scroll " + str(vp))
 		check(not abode.header.visible and nav.shell.context_paper.visible == (vp.x == 1280), "manufacturing keeps scoped wide stock rail; short cards show sources")
 		if vp.x == 1280:
-			check(nav.shell.context_paper.get_global_rect().end.x < panel.position.x, "stock rail does not overlap manufacturing")
+			check(nav.shell.context_paper.get_global_rect().end.x < panel.global_position.x, "stock rail does not overlap manufacturing")
 		check(panel.get_global_rect().end.x <= vp.x and panel.get_global_rect().end.y <= abode.toolbar.position.y, "workspace fits " + str(vp))
 		panel.select_recipe("spirit_timber")
 		await process_frame

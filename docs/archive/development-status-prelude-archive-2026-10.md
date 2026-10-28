@@ -1,3 +1,44 @@
+- 預設築基後三分頁示意，可由設計控制查看練氣隱藏製造／運輸；庫存及所有數值為示例。三案沿相同紙面／青玉樣式、單一關閉入口，保留既有圖像。製造／運輸只示範同容器切頁，非完整領域重設。
+- **L1靜態**：Node v20.20.0 `vm.Script` 語法檢查PASS、三variant／378KB以下；visualize `render.py` 包裝成功。首次重包因目的檔已存在exit2，後以 `--force` 重包成功。`python tools/delivery_check.py` RESULT PASS，受保護證據目錄變更0。無遊戲runner、Godot啟動、Web匯出或L3；本次不需引擎環境操作。
+- **未驗證**：CUA開啟本機file協定遭瀏覽器URL政策拒絕，未改走其他管道繞過；因此沒有目視／滑鼠／尺寸驗證通過聲稱。可先在對話原型比較，由使用者選案後再正式實作及領域驗收。
+- **下一步**：選定布局後，新對話接共用殼／HUD實作範圍；候選樣式不能直接覆蓋已核定規範。此為設計交付階段，可手動commit；大型Era1–6任務未結案，代理未commit／push。
+
+2026-10-28 **EARLY-16-BALANCE-C DONE（L1，數值子階段）**：聚靈庫4／5與修行陣4／5／6升級、Era4–6二級材料需求、供給航線預設啟用；稽核C11–C16全部OK，B輪31.04小時總鐘不變，5支相關runner通過。[證據](development-status.md#early-16-balance-c)。BALANCE整體待整合L2。
+
+2026-10-28 **EARLY-16-UI-C DONE（L2）**：萬／億及依字寬科學記號、完整TIP、跨頁數量與資源入口修正；204項專項、9支相關runner及新版Web桌面抽驗通過。[狀態](development-status.md#early-16-ui-c)。
+
+2026-10-28 **EARLY-16-BALANCE-B DONE（L1，數值成長曲線）**：E4–6時間倍率1.25／1.30／1.40、每階靈力3200／10000／38000、E4–5升境容量下調；三段合計38.05→31.04小時（−18.4%），靈力占鐘降至49.7%／50.1%／49.6%，突破餘裕1.53–1.59x，C12轉OK。[證據](development-status.md#early-16-balance-b)。下一C經濟曲線。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **EARLY-16-UI-B DONE（L2）**：共用圖形叉號、七處文字關閉遷移與固定頁首；56項專項、5支相關runner及新版Web桌面抽驗通過，下一UI-C。[狀態](development-status.md#early-16-ui-b)。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **EARLY-16-BALANCE-A DONE（工具基線，未改數值）**：稽核擴至Era1–6與補給空島；16項發現僅C1 FAIL，E4–6靈力占鐘68%／61%／42%，二級空島過剩71–282x，補給建築僅占鐘0.1–2.9%。[證據](development-status.md#early-16-balance-a)。下一B成長曲線。
+
+2026-10-28 **EARLY-16-UI-A DONE（L2）**：列尾動作靠右置中，7支相關runner及新版Web1280×720滑鼠抽驗通過；下一UI-B。[狀態](development-status.md#early-16-ui-a)。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **Era1–6分工：OpenCode數值／Codex介面；P3／P4後排**：數值模型、建築上限與空島材料鏈交OpenCode；Codex下一EARLY-16-UI-A列尾對齊，續圖示關閉與資源顯示。[分工](44-era1-6-balance-and-ui-workstreams.md)。
+
+2026-10-28 **優先改為Era1–6數值與介面打磨；P3／P4暫時後排**：下一EARLY-16-POLISH-A現況／瓶頸盤點，Era7–12擴充待使用者指定恢復。[排程決策](development-status.md#early-16-polish)。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-4-R2 DONE（L2資源圖示補齊）**：20張共用資源／貨幣／獸魂圖示與正方形成本格已接入，來源移至TIP；相關7支及新版Web桌面抽驗通過。[狀態](development-status.md#imm-4-r2)。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-4-R1 DONE（L2有界修正）**：技能正文至少16px、焦點字色對比與延期記錄已修正；5支專項及新版Web桌面抽驗通過。[狀態](development-status.md#imm-4-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-4 DONE（整批收尾，唯一L3）**：IMM-1A～3C的洞府、十三功能頁與五類覆層整批結案；唯一全量L3為145／145 runner全尺寸矩陣PASS，正式Web與候選包同源輸出並通過壓縮校驗，桌面Edge/CDP三橫式（1280×720／844×390／800×360）真實滑鼠抽驗可讀可操作；IMM-2記錄為無新增微動態工程。見下方IMM-4。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
 2026-10-28 **IMM-3C DONE（全頁一致性核對，L1＋L2桌面Web 1280×720抽驗）**：洞府＋十三功能頁及五類覆層已逐頁留下「已調整／沿用且已核對／不適用」與證據；製造逐項資源文字列及製造／運輸按鈕重複價格已移除，6支受影響runner通過，整批介面待IMM-4收尾。見下方IMM-3C。
 
 > 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。

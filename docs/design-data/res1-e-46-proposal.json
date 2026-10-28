@@ -3,26 +3,70 @@
   "version": "proposal-1",
   "approval": "APPROVED",
   "scope": "Era4-6 supply/capacity/cultivation/save design only; all new logistics and prices are v2 proposals",
+  "v2_balance": {
+    "task": "EARLY-16-BALANCE-B",
+    "date": "2026-10-28",
+    "kind": "explicit v2 balance change (not legacy parity)",
+    "approval_evidence": {
+      "actor": "human user",
+      "quote": "下一步 B（成長曲線）：以上面數字定 E4–6 靈力、突破需求與時間倍率的調整幅度。"
+    },
+    "targets": "Era4-5 lingli level-up share <=55% of the era training clock; Era4-5 breakthrough stock headroom >=1.5x built cap; shorten Era4-6 total clock while keeping Era6 stone_mid share <=60%",
+    "before_after": {
+      "time_multiplier": {"4": [1.28, 1.25], "5": [1.35, 1.30], "6": [1.45, 1.40]},
+      "lingli_per_level": {"4": [5000, 3200], "5": [15000, 10000], "6": [40000, 38000]},
+      "exit_capacity_lingli": {"4": [50000, 40000], "5": [200000, 170000]},
+      "exit_capacity_stone_low": {"4": [20000, 16000], "5": [100000, 80000]}
+    },
+    "clock_seconds_before_after": {"4": [14097, 12385], "5": [31757, 25612], "6": [91114, 73729]},
+    "deferred": "Era6 stone_mid supply/cost remains the next bottleneck (58.7% of the shortened clock) and belongs to the ERA-16 economy/island pass"
+  },
+  "v2_balance_c": {
+    "task": "EARLY-16-BALANCE-C",
+    "date": "2026-10-28",
+    "kind": "explicit v2 economy-curve change (not legacy parity)",
+    "approval_evidence": {
+      "actor": "human user",
+      "quote": "C 經濟曲線（建築升級曲線／離島供需）"
+    },
+    "targets": "Give supply buildings a real paid upgrade curve; couple tier-2 island output to Era4-6 level demand so C11 is >=5% and C13 is <20x; enable supply routes by default so local caps do not discard output",
+    "before_after": {
+      "core_storehouse_4_max_level": [1, 3],
+      "core_storehouse_5_max_level": [1, 3],
+      "storehouse_cost_factor": [1, 1.8],
+      "cultivation_focus_4_5_6_max_level": [1, 2],
+      "cultivation_focus_cost_factor": [1, 6.0],
+      "era4_cold_iron_per_level": [0, 12],
+      "era5_mithril_per_level": [5, 18],
+      "era5_spirit_grass_1000y_per_level": [0, 12],
+      "era6_trans_pill_per_level": [0, 4],
+      "route_policy_enabled": [false, true],
+      "route_policy_target": ["100", "3000"]
+    },
+    "clock": "Era4-6 training clock unchanged; added material waits are shorter than the existing per-level training time",
+    "deferred": "Era6 stone_mid remains the dominant clock sink (approved BALANCE-B boundary)"
+  },
   "eras": [
     {
       "id": 4,
       "name": "元嬰期",
       "base_time": 480,
-      "time_multiplier": 1.28,
+      "time_multiplier": 1.25,
       "lifespan": 350,
       "resource_multiplier": 3,
       "cost": {
-        "lingli": 5000,
+        "lingli": 3200,
         "golden_core_pill": 3,
-        "stone_mid": 200
+        "stone_mid": 200,
+        "cold_iron": 12
       },
       "lv9": {
         "id": "cold_iron",
         "amount": 5
       },
       "exit_capacity": {
-        "lingli": 50000,
-        "stone_low": 20000,
+        "lingli": 40000,
+        "stone_low": 16000,
         "money": 10000
       },
       "required_skills": []
@@ -31,21 +75,22 @@
       "id": 5,
       "name": "化神期",
       "base_time": 800,
-      "time_multiplier": 1.35,
+      "time_multiplier": 1.30,
       "lifespan": 600,
       "resource_multiplier": 4.5,
       "cost": {
-        "lingli": 15000,
+        "lingli": 10000,
         "money": 5000,
-        "mithril": 5
+        "mithril": 18,
+        "spirit_grass_1000y": 12
       },
       "lv9": {
         "id": "spirit_grass_1000y",
         "amount": 10
       },
       "exit_capacity": {
-        "lingli": 200000,
-        "stone_low": 100000
+        "lingli": 170000,
+        "stone_low": 80000
       },
       "required_skills": []
     },
@@ -53,13 +98,14 @@
       "id": 6,
       "name": "煉虛期",
       "base_time": 1500,
-      "time_multiplier": 1.45,
+      "time_multiplier": 1.40,
       "lifespan": 950,
       "resource_multiplier": 6,
       "cost": {
-        "lingli": 40000,
+        "lingli": 38000,
         "money": 15000,
-        "stone_mid": 5000
+        "stone_mid": 5000,
+        "trans_pill": 4
       },
       "lv9": {
         "id": "trans_pill",
@@ -87,9 +133,9 @@
       "home_cap": 3000,
       "source": "deep extractor 0.05/s",
       "sinks": [
-        "Era5 levels",
-        "trans_pill",
-        "core_storehouse_5"
+        "Era5 levels 18/level",
+        "trans_pill 2/batch",
+        "core_storehouse_5 upgrades"
       ]
     },
     {
@@ -98,8 +144,8 @@
       "home_cap": 3000,
       "source": "deep extractor 0.05/s",
       "sinks": [
-        "Era4 lv9",
-        "core_storehouse_4",
+        "Era4 levels 12/level and lv9 5",
+        "core_storehouse_4 upgrades",
         "void opening"
       ]
     },
@@ -109,7 +155,7 @@
       "home_cap": 3000,
       "source": "ancient extractor 0.04/s",
       "sinks": [
-        "Era5 lv9",
+        "Era5 levels 12/level and lv9 10",
         "fire_phoenix feed",
         "trans_pill"
       ]
@@ -121,7 +167,7 @@
       "source": "home recipe stone_high",
       "sinks": [
         "void opening",
-        "core_storehouse_5",
+        "core_storehouse_5 upgrades",
         "void_focus"
       ]
     },
@@ -131,7 +177,7 @@
       "home_cap": 1000,
       "source": "home recipe trans_pill",
       "sinks": [
-        "Era6 lv9; crafting material only, no Alchemy consume action"
+        "Era6 levels 4/level and lv9 5; crafting material only, no Alchemy consume action"
       ]
     },
     {
@@ -266,7 +312,8 @@
     {
       "id": "core_storehouse_4",
       "era": 4,
-      "max_level": 1,
+      "max_level": 3,
+      "cost_factor": 1.8,
       "requires": {
         "core_storehouse_3": 1
       },
@@ -285,7 +332,8 @@
     {
       "id": "core_storehouse_5",
       "era": 5,
-      "max_level": 1,
+      "max_level": 3,
+      "cost_factor": 1.8,
       "requires": {
         "core_storehouse_4": 1
       },
@@ -304,7 +352,9 @@
     {
       "id": "cultivation_focus_4",
       "era": 4,
-      "max_level": 1,
+      "max_level": 2,
+      "cost_factor": 6.0,
+      "effect_weight": 0.0,
       "requires": {
         "core_storehouse_3": 1
       },
@@ -321,7 +371,9 @@
     {
       "id": "cultivation_focus_5",
       "era": 5,
-      "max_level": 1,
+      "max_level": 2,
+      "cost_factor": 6.0,
+      "effect_weight": 0.0,
       "requires": {
         "cultivation_focus_4": 1
       },
@@ -338,7 +390,9 @@
     {
       "id": "cultivation_focus_6",
       "era": 6,
-      "max_level": 1,
+      "max_level": 2,
+      "cost_factor": 6.0,
+      "effect_weight": 0.0,
       "requires": {
         "cultivation_focus_5": 1
       },
@@ -400,6 +454,8 @@
     "trip_seconds": 10,
     "cargo_per_level": 10,
     "max_level": 3,
+    "enabled": true,
+    "target": "3000",
     "cost_to_enable": {},
     "existing_routes_unchanged": true
   },
@@ -432,6 +488,11 @@
     {
       "id": "R46-S",
       "topic": "schema5 with versioned economy migration and explicit replay/failure policy",
+      "approval": "APPROVED"
+    },
+    {
+      "id": "EARLY-16-BALANCE-C",
+      "topic": "supply building upgrade levels, tier-2 level demand, default-enabled routes with target 3000",
       "approval": "APPROVED"
     }
   ],

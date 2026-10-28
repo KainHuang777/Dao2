@@ -47,6 +47,14 @@ var payment_tiles := {}
 var island_picker: OptionButton
 var short_world_button: Button
 var _island_basics := false
+var embedded := false
+var close_button: Button
+
+func set_embedded(value: bool) -> void:
+	if embedded == value: return
+	embedded = value
+	if is_instance_valid(close_button): close_button.visible = not value
+	if value: add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 
 func _ready() -> void:
 	theme = UiTypography.create_theme()
@@ -69,7 +77,10 @@ func _ready() -> void:
 	heading.add_child(island_picker)
 	short_world_button = _add_button(heading, "前往", func(): world_requested.emit(island))
 	short_world_button.visible = false
-	_add_button(heading, "關閉", func(): close_requested.emit())
+	var close := CloseSeal.new()
+	close_button = close
+	close.pressed.connect(func(): close_requested.emit())
+	heading.add_child(close)
 	message = _label("")
 	message.visible = false
 	column.add_child(message)
@@ -171,8 +182,12 @@ func _rebuild() -> void:
 			var card := PanelContainer.new()
 			card.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
 			body.add_child(card)
+			var content := HBoxContainer.new()
+			content.add_theme_constant_override("separation", 12)
+			card.add_child(content)
 			var column := VBoxContainer.new()
-			card.add_child(column)
+			column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			content.add_child(column)
 			var effect := _label("")
 			column.add_child(effect)
 			var row := HFlowContainer.new()
@@ -182,7 +197,8 @@ func _rebuild() -> void:
 				tiles[resource] = _tile(row)
 			var note := _label("")
 			column.add_child(note)
-			facility_buttons[id] = _add_button(column, "", func(): action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": id}))
+			facility_buttons[id] = _add_button(content, "", func(): action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": id}))
+			facility_buttons[id].size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			facility_cards[id] = {"card": card, "effect": effect, "costs": row, "tiles": tiles, "note": note}
 	elif island == "home":
 		_add_button(body, "洞府建築", func(): page_requested.emit("buildings", "home"))
@@ -374,7 +390,6 @@ func _tile(parent: Node) -> Control:
 
 func _stock_tile(tile: Control, resource: String, available: float, title: String) -> void:
 	tile.refresh(resource, _resource_name(resource), available, available, IslandProgression.NAMES[island], true)
-	tile.quantity.text = NumberFormatter.format_amount(available)
 	tile.caption.text = title
 
 func _amount(value: float) -> String:
@@ -424,7 +439,7 @@ func storage_recovered() -> void:
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
-	add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if bounds.size.y < 400 else UiMaterial.scroll_shell())
+	add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if bounds.size.y < 400 else UiMaterial.scroll_shell()))
 	if get_child_count() > 0:
 		get_child(0).add_theme_constant_override("separation", 4 if bounds.size.y < 400 else 8)
 	if _island_basics:

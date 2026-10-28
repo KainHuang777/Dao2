@@ -79,7 +79,7 @@ func _run() -> void:
 		abode.offline_summary.show_report({"away_ms": 172800000, "effective_ms": 86400000, "cap_applied": true, "stopped": "lifespan_exhausted"})
 		abode._layout_for_size(size)
 		await process_frame
-		var close: Button = abode.offline_summary.get_node("OfflineSummaryBox/OfflineSummaryClose")
+		var close: Button = abode.offline_summary.get_node("OfflineSummaryBox/CloseHeader/Header/OfflineSummaryClose")
 		check(close.get_global_rect().end.y < abode.toolbar.get_global_rect().position.y, "fixed summary close above navigation " + str(size))
 		abode.offline_summary.visible = false
 	root.size = Vector2i(1280, 720)

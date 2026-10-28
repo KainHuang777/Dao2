@@ -53,7 +53,7 @@ func _run() -> void:
 					check(not abode.hint_panel.visible, "no home messages " + route)
 					check(not abode._hud_controller._goal_scroll.visible, "home goal hidden in workspace " + route)
 					check(shell.state.snapshot().home_preferences == prefs, "preferences " + route)
-					check(shell.compact_hud.get_global_rect().end.y <= nav.bar.position.y, "HUD clears tabs " + route)
+					check(shell.compact_hud.get_global_rect().end.y <= nav.bar.global_position.y, "HUD clears tabs " + route)
 					check(nav.bar.get_global_rect().end.y <= 136, "tabs clear content " + route)
 					check(abode.level_up_button.get_parent() == shell.actions, "single action host " + route)
 					check(abode.camera.input_locked, "workspace locks world " + route)

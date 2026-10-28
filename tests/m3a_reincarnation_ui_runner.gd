@@ -139,6 +139,16 @@ func _run() -> void:
 	_expect(abode.reincarnation_seq.z_index > 0, "sequence must draw above layout-refreshed HUD and dock")
 	_expect(abode.reincarnation_seq.get_index() == abode.hud.get_child_count() - 1, "sequence must intercept input ahead of the dock")
 	_expect(abode.reincarnation_seq._skip_button.size_flags_vertical == Control.SIZE_SHRINK_BEGIN, "skip stays at top with its 44px hit target")
+	await process_frame
+	await process_frame
+	var finish: Button = abode.reincarnation_seq._finish_button
+	_expect(finish.get_theme_stylebox("normal") is StyleBoxEmpty and finish.get_theme_stylebox("hover") is StyleBoxEmpty, "ceremony action has no inherited plaque")
+	_expect(finish.size.x < 400 and finish.size.y >= 44, "result action fits its wording and retains a full hit area")
+	_expect(abode.reincarnation_seq._result_card.size.x <= 560, "result content does not stretch across the viewport")
+	_expect(absf(abode.reincarnation_seq._center_box.get_global_rect().get_center().y - 360.0) <= 1.0, "hidden mandala releases its height and result recenters vertically")
+	_expect(abode.reincarnation_seq.get_global_rect().encloses(finish.get_global_rect()), "finish action remains inside the ceremony")
+	finish.grab_focus()
+	_expect(finish.has_focus() and finish.get_theme_color("font_focus_color") == finish.get_theme_color("font_color"), "keyboard action retains readable ceremony ink")
 
 	# 驗證完成按鈕關閉
 	abode.reincarnation_seq._finish_button.pressed.emit()

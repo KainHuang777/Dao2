@@ -71,8 +71,10 @@ func _init() -> void:
 	_amount.add_theme_constant_override("outline_size", 5)
 	add_child(_amount)
 	_amount.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_amount.offset_left = 5
 	_amount.offset_right = -5
 	_amount.offset_bottom = -3
+	resized.connect(_refresh_amount)
 	_reserved = UiIcon.new()
 	_reserved.kind = UiIcon.Kind.HOURGLASS
 	_reserved.icon_size = 16
@@ -94,13 +96,17 @@ func apply(data: Dictionary) -> void:
 		_art.resource_id = id
 		_art.queue_redraw()
 	_fallback.visible = texture == null
-	_fallback.text = String(data.get("name", id))
-	_amount.text = Numbers.format_amount(_shown_value(data))
-	_amount.visible = _shown_value(data) != null
+	_fallback.text = "未識"
+	_refresh_amount()
 	var provided: Dictionary = data.get("provided", {})
 	_reserved.visible = bool(provided.get("reserved", false)) and _number(data.get("reserved")) > 0.0
 	tooltip_text = _tip(data)
 	set_selected(_selected)
+
+func _refresh_amount() -> void:
+	if _amount == null: return
+	_amount.text = Numbers.fit_amount(_shown_value(item), _amount.get_theme_font("font"), 20, maxf(size.x, custom_minimum_size.x) - 20)
+	_amount.visible = true
 
 func set_selected(value: bool) -> void:
 	if _selected == value:

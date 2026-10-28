@@ -1,12 +1,173 @@
-2026-10-28 **IMM-4-R2 DONE（L2資源圖示補齊）**：20張共用資源／貨幣／獸魂圖示與正方形成本格已接入，來源移至TIP；相關7支及新版Web桌面抽驗通過。[狀態](development-status.md#imm-4-r2)。
+2026-10-29 **EARLY-16-UI-SHELL**：集中工作台正式接入，領域CLI／原生通過，L2桌面Web待驗。[狀態](#early-16-ui-shell)。
 
-2026-10-28 **IMM-4-R1 DONE（L2有界修正）**：技能正文至少16px、焦點字色對比與延期記錄已修正；5支專項及新版Web桌面抽驗通過。[狀態](development-status.md#imm-4-r1)。
+2026-10-29 **EARLY-16-INTEGRATION-L3 DONE（L3）**：148/148 runner 全尺寸矩陣、presentation parity、Web 匯出／Brotli 與桌面三橫式實際點擊通過。
 
-2026-10-28 **IMM-4 DONE（整批收尾，唯一L3）**：IMM-1A～3C的洞府、十三功能頁與五類覆層整批結案；唯一全量L3為145／145 runner全尺寸矩陣PASS，正式Web與候選包同源輸出並通過壓縮校驗，桌面Edge/CDP三橫式（1280×720／844×390／800×360）真實滑鼠抽驗可讀可操作；IMM-2記錄為無新增微動態工程。見下方IMM-4。
-
-> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+2026-10-29 **EARLY-16-UI-ACTION-R1**：無框入口實作／L1與原生完成，Web待驗；集中工作台主介面尚未正式接入。
 
 # 開發狀態與交接紀錄
+
+<a id="early-16-ui-shell"></a>
+## 2026-10-29 EARLY-16-UI-SHELL：集中工作台正式接入，CLI／原生完成，L2 Web待驗
+
+- **範圍／狀態**：依使用者「主介面實作」與既有集中工作台方向，接入正式Godot經營四頁，不再只是HTML原型。實作與領域CLI已完成；**L2桌面Web抽驗未完成，整段維持IN_PROGRESS**。沒有執行新的L3；上方EARLY-16-INTEGRATION-L3是先前來源的里程碑證據，不能拿來宣稱新工作台Web已通過。
+- **修改檔案**：新增 `src/presentation/management_workbench.gd`／`.uid`，以PanelContainer＋VBox／HBox容器擁有共用分頁、庫存與頁面內容；`ui_shell_controller.gd` 接經營容器／覆層還原與功能頁局部HUD（上限680px）；`building_catalog.gd`、`island_management_panel.gd` 增加嵌入模式，隱藏重複標題／關閉，保留目標、篩選、原成本與命令。製造／運輸沿繼承接入，不重建草稿或Session。寬式左庫存含祖島／當地語意，短式原資源入口可讀；單一CloseSeal返回洞府。舊靈界據點仍沿原modal。新增 `tests/early16_ui_shell_runner.gd`／`.uid`、登錄 `tools/run_all_runners.ps1`；兩個既有runner改以global_position比較跨父節點矩形。共用規範docs07／19同步，既有工作區其他修改保留；無規則、數值、schema或新美術變更。
+- **修正／失敗記錄**：首次List使用不存在的ui_shell2_integration名稱，selector檢查拒絕後改用實際ui_shell_matrix名稱。首次5支組合中shell／navigation通過、matrix舊本地座標斷言失敗，製造／運輸60秒逾時，整組exit1。改global座標後matrix串行PASS。其後6支L2組合有5支PASS、運輸7項「返回保留草稿提示」斷言失敗，串行180秒逾時，整組仍exit1。定位為同幀切頁時容器尚未排序、舊短版尺寸使提示暫藏；workbench現在依容器內距／分頁最小高度／庫存欄寬即時供給配置，下一幀由容器細化，不等待下一幀才恢復提示。未更動航線草稿或規則以壓測試。
+- **L1／L2命令與結果（單尺寸1280×720）**：引擎 `--version` = `4.7.2.stable.official.ed1daf0bf`。所有run_all呼叫皆先同selector `-List`。L2六支涵蓋共用殼／全route／經營建築／空島／製造／運輸／navigation，因領域共用依賴故超過5支，未擴全量。`-Only 'early16_ui_shell_runner.gd,ui_shell_integration_runner.gd,ui_shell_matrix_runner.gd,res1_ui1a_runner.gd,res1_ui1b_runner.gd,feature_navigation_runner.gd' -Parallel 3 -TimeoutSeconds 180` 的五支PASS與運輸FAIL日誌 `dao2_runners_9a44485407cc40049bb9e9a9ee3504c3`。修正後精選 `early16_ui_shell_runner.gd,ui_shell_matrix_runner.gd,res1_ui1a_runner.gd`、`-Parallel 3 -TimeoutSeconds 180` → **3/3 PASS**（17.9／51.5／67.8秒），日誌 `dao2_runners_29a5e2d8c86144e88aee80f1676365ba`；運輸單支 `-TimeoutSeconds 300` → **1/1 PASS、131.1秒**，日誌 `dao2_runners_0a0dee472d034b5caaf8c7e776e0b0c2`。延長運輸僅因其包含七航線多次命令與50次切頁，非泛用放寬。其餘shell_integration與feature_navigation沿同輪已過14.6／17.7秒證據，未受當幀管理頁密度修正影響。六支各有通過證據，不把失敗的整組命令寫成6/6 exit0。新工作台單尺寸55項、最終原生三橫式161項通過。
+- **隔離／原生**：本輪命令環境 `APPDATA=E:\WORK\Dao2\.test-output\shell-appdata`；測試保存／輸出沿RunnerResult與DAO_TEST_STORAGE_ROOT，不覆寫玩家資料或受保護證據。最終原生 `Godot --path . --script tests/early16_ui_shell_runner.gd`，環境 `DAO_VIEWPORT_MATRIX=full`、`DAO_TEST_STORAGE_ROOT=E:\WORK\Dao2\.test-output\shell-native-final` → exit0／161 checks／failures=[]。這是受影響工作台的原生尺寸檢查，非L3全尺寸runner矩陣。12張PNG在 `.test-output/shell-native-final/docs/verification/artifacts/early16-ui-shell/`；已目視1280建築與800運輸（前版亦檢查800製造），固定分頁／單一叉號／內捲可辨；非瀏覽器滑鼠證據。退出仍有既有Font RID／CanvasItem／ObjectDB診斷，不稱零錯誤。
+- **Web與工具限制**：最終 `Godot --headless --path . --export-release Web build/web-ui-shell/index.html`、`node tools/prepare_web_compression.mjs build/web-ui-shell` → exit0，僅本機測試包，不交付候選包、不因此觸發L3，也未覆寫一般build/web。`python tools/web_static_server.py --port 4451 --directory build/web-ui-shell` 啟動成功；IAB導航 `http://127.0.0.1:4451/index.html` 回報ERR_CONNECTION_TIMED_OUT；讀取故障指引後嘗試本機Edge，Computer Use app approval逾時，未取得瀏覽器畫面或滑鼠證據，沒有繞過。**Web待驗**，先前L3與其他包的截圖不替代本次來源。
+- **交付／下一步**：`python tools/delivery_check.py --web build/web-ui-shell` → RESULT PASS、7/7 manifest、受保護證據目錄變更0；`git diff --check`通過（有既有CRLF提示）。依Context Guard在此checkpoint，下一New Chat用本次包補1280×720桌面滑鼠：切四頁、製造展開／收起、運輸草稿／返回、庫存覆層／關閉、回洞府／資源偏好；同時收集中工作台視覺回饋。桌面CLI範圍完成，L2 Web未DONE；觸控／實機仍延期且非阻擋。**本實作階段可手動commit，未自行commit／push**；不在本輪展開下一大型工作。
+
+<a id="early-16-integration-l3"></a>
+## 2026-10-29 EARLY-16-INTEGRATION-L3：大型里程碑 L3 收尾 DONE（全尺寸矩陣／Web／桌面三橫式）
+
+- **範圍與級別**：依使用者要求執行大型里程碑 L3 收尾，非日常 L1／L2。涵蓋 148 支 runner 全尺寸矩陣、presentation parity、正式 Web 匯出與 Brotli 壓縮、桌面瀏覽器 1280×720／844×390／800×360 實際滑鼠抽驗。觸控／實機依 2026-10-17 指令延期，非本輪阻擋，也未宣稱通過。
+- **首次矩陣與修正**：`run_all_runners.ps1 -Full -Parallel 3 -TimeoutSeconds 1800` 首輪 145/148，日誌 `dao2_runners_882e12b7e93a496eac496acc0aa68e00`；三支失敗皆為舊測試假設，非規則回歸：
+  - `tests/early16_ui_a_runner.gd`、`tests/uix_r11_decisions_ui_runner.gd` 仍在最大捲動後要求置中動作完整包圍；改以 `reveal()` 把目標捲入可視區再斷言，保留「動作垂直置中」新規則。
+  - `tests/content_p2_talents_runner.gd` 清除 routes 後被 BALANCE-C 自動建立航線及每 10 秒出貨干擾；改 `stop_routes()` 明確停用所有已開端點供給航線。
+  - 本輪只改這三支測試，未改正式規則、數值、schema 或 UI。
+- **修正後補驗**：`-Only 'early16_ui_a_runner,uix_r11_decisions_ui_runner,content_p2_talents_runner' -Matrix full -Parallel 3 -TimeoutSeconds 300` → 3/3 PASS，日誌 `dao2_runners_0f23d52d364e44cfba7645bd5f67402d`。
+- **L3 全量**：`-Full -Parallel 3 -TimeoutSeconds 1800` → **148/148 PASS（matrix=full）**，日誌 `dao2_runners_da257e8605064f9ea050f9374fdb116b`，隔離輸出 `.test-output\dao2_runners_da257e8605064f9ea050f9374fdb116b`，evidence guard 通過。最慢：supply_progression 1520.0 秒、pills_flow 545.4、beasts_flow 443.1、talents_flow 407.9、story_flow 238.6、sks_p2_flow 204.3。`m3b_fortune_runner` 首輪出現 `Session resolve_fortune command should succeed` 與 `Total claimed should be 1` 兩個斷言失敗，串行重試 1.8 秒 PASS，最終群組 PASS；此為間歇性測試，未當作穩定單次證據。
+- **presentation parity**：`DAO_VIEWPORT_MATRIX=full` 執行 `tests/abode_presentation_parity_runner.gd` → `RUNNER_RESULT status=PASS exit=0`（REF-A public facade、stacking、four layouts、signal identity、replacement session、save ordering、teardown）。
+- **Web**：`--headless --path . --import` exit0；`--export-release Web .\build\web\index.html` exit0；`node tools/prepare_web_compression.mjs build/web` exit0，manifest 7/7 檔符合，index.pck 126,331,104 bytes、br 總計 133,711,637 bytes。`python tools\delivery_check.py --web build\web` 執行時 RESULT PASS、受保護證據變更 0。
+- **桌面瀏覽器三橫式**：Edge 156.0.4314.50 headless CDP（WebGL 2.0／SwiftShader），本機 `python tools\web_static_server.py --port 4175 --directory build\web`。三個尺寸的 canvas CSS／buffer 均等於視口（1280×720、844×390、800×360），documentScroll 等於視口、無頁面捲軸；日誌有 `ABODE_READY`、`BGM_WEB_READY`。以 CDP 實際滑鼠事件關閉離線摘要，再點「經營」開啟「洞府建築」面板，三尺寸皆成功。截圖為暫存輸出，未新增受保護 artifacts；未測 FPS，也未測觸控／實機。
+- **未完成／下一步**：P3／P4 仍延後；集中工作台新主介面仍為原型，尚未正式接入；觸控／實機依指令延期。**L3 收尾已完成**，此大型階段可手動 commit；本輪未 commit／push。
+
+<a id="early-16-ui-action-r1"></a>
+## 2026-10-29 EARLY-16-UI-ACTION-R1：主介面現況核對／無框題字入口，實作與L1完成，Web待驗
+
+- **主介面核對**：集中工作台＋局部HUD只有 `docs/visual-prototype/early16-shell/` 原型及使用者方向選定，正式Godot殼尚未接入；EARLY-16-INTEGRATION-L2是既有UI／規則整合，不能算新主介面完成。本輪依使用者截圖先處理超寬操作，不擅自展開整個主介面重構。
+- **修改與檢查範圍**：新增 `src/presentation/components/inscription_action.gd`（及引擎.uid），原生文字自然寬、無框、常態短底線、hover／pressed／鍵盤焦點／disabled。`reincarnation_sequence.gd` 用CenterContainer收束內容寬560，去除全幅卷軸，淺字結算及26px金色入口（短版20px）；mandala隱藏後釋放舊高度、結果重新垂直置中，跳過統一完成文案，完成回呼加播放／結果狀態保護。`realm_teleport_modal.gd` 跨界主操作、`save_controls.gd` 舊檔匯入採同元件；其餘本輪啟動時既有修改保留。檢查突破演出已有HFlow自然寬操作、離線摘要已有CloseSeal，未硬換其布局。選島圖像清單與分頁不屬此超寬單動詞問題。其他動態列表未宣稱全面遷移。
+- **驗收（L1，1280×720）**：Godot `--version` = `4.7.2.stable.official.ed1daf0bf`。先 `tools/run_all_runners.ps1 -Only 'm3a_reincarnation_ui_runner.gd,early16_ui_b_runner.gd,ui_shell_integration_runner.gd,imm3a_cost_detail_runner.gd' -List` 選4支；執行首輪early16_ui_b／imm3a PASS，UI shell／m3a因沙箱user://不可寫而初始化失敗、SCRIPT ERROR／90秒逾時（串行重試同失敗），整組exit1，日誌 `dao2_runners_08d1a6e79f1140118707bc5913019a4a`。設定該命令環境 `APPDATA=E:\WORK\Dao2\.test-output\action-r1-appdata`，精確List後重跑兩支→2/2 PASS、exit0，日誌 `dao2_runners_f13d0dd618864a5e92d8bd759111ba0f`。沒有改系統APPDATA或玩家進度。新增m3a斷言涵蓋樣式、寬度、命中、範圍、焦點及結果垂直置中；最後置中修正後單支補驗結果見下。
+- **原生／Web**：新增只讀 `tools/inscription_action_preview.gd`（及.uid），`Godot --path . --script tools/inscription_action_preview.gd` 生成 `.test-output/action-r1/reincarnation-1280.png`，預設不載入／保存玩家資料；`-- --hold` 可留畫面人工點擊。樣張背景用現有輪迴圖、只呈現正式元件，不是完整世界場景或新圖像資產。1280×720原生Compatibility渲染確認無長框與裁切、入口278×61，非瀏覽器滑鼠證據。正式Web測試匯出到 `build/web-action-r1`（非候選包、一般build/web不變）；首輪export exit0但user://診斷存在，修正測試環境後另補匯出。IAB本機4443連線逾時；後續4444導航受瀏覽器URL政策阻擋，沒有繞過。**Web實際畫面／滑鼠待驗，L2尚未完整通過**，不宣稱L3／全量。
+- **最後補驗／交付檢查**：置中修正後m3a單支PASS、11.3秒、exit0，日誌 `dao2_runners_f95b5872241f47699d9345cad7805de7`；原生截圖exit0，最終隔離APPDATA Web export／compression exit0。`python tools/delivery_check.py --web build/web-action-r1` RESULT PASS、7/7檔案符合manifest、受保護證據變更0；`git diff --check` 通過（updata尾空行已修正）。`trim_status_docs.py` 曾按非空行切斷最新多行段落，已將該完整段落還原移至文件主標題下，保留既有歷史；未改工具。兩個本輪測試server已停止；首次沙箱CIM清理失敗後，改用正常授權命令按精確port清理成功。
+- **手動桌面驗收步驟**：以 `tools/web_static_server.py --directory build/web-action-r1 --port <可用port>` 開隔離origin，正常進入輪迴完成結果，核對置中、hover／Tab焦點及點擊「重聚仙靈 · 入世修行」關閉；跨界與存檔工具核對主操作自然寬、原命令與禁用行為。未取得該證據前不標整個階段DONE。
+- **下一步**：收無框入口視覺回饋並完成桌面Web抽驗；新主介面仍需集中工作台製造／運輸細化與正式Godot殼接入。階段checkpoint可手動commit，大型任務未結束；未commit／push。依Context Guard下一大型工作使用New Chat。
+
+<a id="early-16-ui-design"></a>
+## 2026-10-29 EARLY-16-UI-DESIGN：集中工作台方向已選定，待細化／接入
+
+- 使用者要求先出2～3個設計原型，解決外層分頁／營造簿分離及滿版長條HUD。交付 `docs/visual-prototype/early16-shell/designs.html`、`preview.html`、`README.md`：集中工作台、側開工坊、整頁經營簿。使用者回覆「我個人偏向集中工作台」，記為後續布局方向；其他兩案保留比較。
+- **本輪決策**：採集中工作台為細化基線：經營分頁、祖島可用資源、目標／分類與建築卡合為單一工作面板；單一頁首關閉；修行HUD縮為左上局部區塊。保留既有紙面／青玉、字型、44px與前期開放門檻。此為布局方向選擇，製造／運輸完整內容及短橫式仍待細化，正式Godot接入尚未開始。
+- **本輪驗證**：純決策文件更新，L1靜態；未觸發遊戲runner／Web匯出。`python tools/delivery_check.py` PASS、受保護證據變更0。前輪原型語法／瀏覽器限制沿原範圍，不新增目視驗證聲稱。
+- **下一步**：New Chat沿集中工作台細化製造／運輸及短橫式，再接共用殼。設計方向記錄階段可手動commit，大型任務未結案；未commit／push。
+
+<a id="early-16-integration-l2"></a>
+## 2026-10-29 EARLY-16-INTEGRATION-L2：BALANCE＋UI 整段整合 DONE（L2）；大型 L3 收尾未跑
+
+- **範圍與狀態**：承接使用者「L2 整合與介面線收尾」。BALANCE-A／B／C 與 UI-A／B／C 的整段 L2 整合已完成：數值／經濟／供給／節奏 12 支、介面／航線契約 12 支（修正後重跑）全數 PASS，Era3→6 自然賺得長流程 1401.7 秒 PASS。本輪級別 **L2**、1280×720 單尺寸；未跑 L3、全尺寸矩陣、Web 匯出（無新 UI）或瀏覽器抽驗（本機無瀏覽器自動化工具，待人工桌面抽驗）。
+- **修正一（長流程整帳）**：`tests/content_p2_supply_progression_runner.gd` 的 `ladder()` 由逐項備料改為整張升級帳循環結清（最多4輪，每輪備齊後重讀實際持有值，不足則重備）。原本先備中石5000再製化神丹4，製丹配方再耗中石20，導致送命令時只剩4980而報 `INSUFFICIENT_RESOURCE stone_mid required5000 available4980`；此為測試備料順序，不是規則死鎖。首版誤用 GDScript 保留字 `pass` 造成 Parse Error，改 `bill_pass` 後通過。
+- **修正二（正式規則：航線預設外洩）**：`src/simulation/island_economy.gd` `_configure_route` 原本對所有已擴充狀態航線套用供給 `route_policy` 預設，BALANCE-C 的 target 3000 因而外洩到 legacy 航線（如 `timber_home`），與 `transport_view()` 只對供給航線用 policy 的判斷不一致，`res1_ui1b_runner` 的 `TARGET_REACHED` 契約因此失敗。改為僅供給航線取 policy 預設，legacy 回復 BALANCE-C 前行為（擴充狀態 enabled=false、reserve0、target100、level1；非擴充 enabled=true），供給航線仍 enabled=true、target3000、Lv1上限3。
+- **L2 命令與結果**：皆先 `-Only ... -List` 再執行，`matrix=single`。數值組 12 支（supply data/economy/ui、res1a/b/c/d2、m2b、island_breakthrough、early_pacing 1/2/2-pill）`-Parallel 3 -TimeoutSeconds 300` → 12/12 PASS、exit0，日誌 `dao2_runners_f743d6a1a37b45d3bf2231f9615abd2f`。長流程以 `-TimeoutSeconds 1800` 重跑 → 1/1 PASS、1401.7 秒，日誌 `dao2_runners_890b61623693461fa2cd73db911f872a`。UI／航線組 10 支加 res1b、res1d2 共 12 支 `-Parallel 3 -TimeoutSeconds 300` → 12/12 PASS、exit0，日誌 `dao2_runners_8ad036aa46f34b408e87d354101072d4`；修正二落地後另以 res1_ui1b＋supply data/economy/ui 4 支定向重跑 → 4/4 PASS，日誌 `dao2_runners_58dec64d5a184bef8f5fb8885b956fe2`；再因航線預設影響其他設定路徑，補跑 res1c_progression、res1c2_offline、content_p2_story_flow、early_flow1c、early_flow1d → 5/5 PASS，日誌 `dao2_runners_3e41d06cd4b44af1a2d3a41c92895f03`（story_flow 238.8 秒）。超過5支因屬跨規則／內容／供給UI／共用殼的整合領域，並非全量。
+- **限制**：長流程約23分鐘，只適合整合／里程碑重跑，`-TimeoutSeconds` 需 ≥1800，不可當日常 L1。Era1 C1 稽核 FAIL 為既有問題，不在本輪範圍。既有瀏覽器證據僅涵蓋 UI-C 當時範圍，不含 BALANCE-C 供給內容，故不宣稱整合後 Web 已抽驗。
+- **收尾／下一步**：docs44 兩線標整合 DONE，README／ROADMAP／ai-handoff 更新一行狀態。L3（`-Full -Parallel 3`、全尺寸矩陣、Web 匯出與三橫式）留待大型任務／里程碑結案或使用者明確要求時執行；P3／P4 仍後排。本輪不自行 commit／push；**整合子階段完成，可手動 commit，大型 Era1–6 打磨尚未結案。**
+- **2026-10-28 第一輪紀錄（歷史）**：使用者確認另一代理負責長流程後，本線先完成介面／航線契約子階段，長流程當時保留未驗；以下為該輪內容。
+- **本輪修改**：`tests/content_p2_supply_economy_runner.gd` 新增16項舊檔航線契約：已開島但缺航線的存檔 encode/decode、View唯讀、600秒逐秒／整段離線／六段離線一致、懶補預設、保留停用／reserve7／target99／Lv3、停航不出貨、自動航線實際到貨、再次保存／載入。`docs/19-ui-ux-guidelines.md` 修正一處尚稱K系統為候選的過時文字，與既有萬／億核定一致。未修改正式規則、數值、UI來源或保存schema；長流程腳本的同期變更不是本輪所寫，保留未覆寫。
+- **L2命令與結果**：本機引擎 `--version` 為 `4.7.2.stable.official.ed1daf0bf`；`python tools/compile_r46_content.py --check` PASS。先 `tools/run_all_runners.ps1 -Only 'content_p2_supply_progression_runner.gd,content_p2_supply_data_runner.gd,content_p2_supply_economy_runner.gd,content_p2_supply_ui_runner.gd,early16_ui_a_runner.gd,early16_ui_b_runner.gd,early16_ui_c_runner.gd,imm3c_page_consistency_runner.gd' -List` 確認8支，再以相同selector加 `-Parallel 3 -TimeoutSeconds 1800` 執行。長逾時僅針對已有1121～1305秒紀錄的完整流程；其餘受選測試均快速結束。7支短測試PASS，長流程FAIL，整組exit1，**不計8/8通過**。日誌ID `dao2_runners_9e813e2717d1432b992f6fe5a6ff4a6f`，輸出 `.test-output/dao2_runners_9e813e2717d1432b992f6fe5a6ff4a6f/`。超過5支因本次為數值／經濟／供給UI／共用UI與跨頁字形整合領域，並非全量。
+- **新增契約補驗**：精確 `-Only 'content_p2_supply_economy_runner.gd' -List` 後同selector執行，`-TimeoutSeconds 45` → 1/1 PASS、15.7秒、305 checks／failures=[]、exit0。日誌ID `dao2_runners_d52c41aa0b4548ec9bfc4123ecb4dee5`；JSON位於 `.test-output/dao2_runners_d52c41aa0b4548ec9bfc4123ecb4dee5/docs/verification/artifacts/content-p2-supply/economy-contract.json`。兩次執行的證據guard未報變更。
+- **長流程失敗**：從既有合法賺得Era3來源（SHA256 `902a68acf6263c0e269dac59bdbeb48a1c3f4f75e80dcddb384757e2bcfa37a1`）經正式命令到Era6第二層，模擬年齡55163秒時升級命令報 `INSUFFICIENT_RESOURCE: stone_mid required5000 available4980`。驅動先備中石、後製化神丹，後者再消耗20中石，整張升級帳未重新核對；不是足以證明規則死鎖的結果。71 checks、3 failures，Era6 Lv10與壽盡／輪迴尾段未通過。失敗報告與最後合法Era6 Lv2存檔保留於上述輸出的 `supply3-flow/earned-flow.json`／`last-earned-level.json`，不是空白新檔自然時間或瀏覽器證據。
+- **並行變更**：本輪啟動時長流程腳本無工作區差異，執行期間出現外部修改。自動串行重試讀到中間版本並報第102行 `Expected loop variable name after "for"`／SCRIPT ERROR，不能計成功；之後實檔已改為 `bill_pass` 並加入整張成本重備邏輯，但本輪未取得該版本的通過證據。使用者確認另一代理正在處理，本輪保留其長流程工作，不覆寫、不再重跑。不要以目前 `DAO_SUPPLY3_RESUME` 直接載入Lv2聲稱能續跑升級：既有resume分支跳過整段ladder，原用途為Lv10尾段補驗。
+- **限制／下一步**：長流程由使用者確認的另一作業續驗Era6與輪迴，本輪不推定其已通過；Codex下一新對話承接具體介面回饋，或在長流程完成後核對整合／大型收尾範圍。既有Era1 C1稽核FAIL保留，BALANCE整體、UI大型收尾與P3/P4狀態不提升。未執行L3、全尺寸、Web匯出或新瀏覽器抽驗；2026-10-28 UI-C桌面證據只引用其原範圍，不代表含BALANCE-C的Web整合已通過。本輪只改測試與規範文字，無新遊戲UI，故不重做桌面瀏覽器驗收。交付檢查與diff-check見收尾結果。未commit／push；本輪介面／航線契約子階段可手動commit，完整整合尚未結案。
+- **收尾結果**：`python tools/delivery_check.py` → RESULT PASS，兩個受保護證據目錄變更0；`git diff --check` 首次指出updata末尾多空行，移除後exit0。`python tools/trim_status_docs.py` 已將入口舊前言歸檔、各保留最新3筆；updata保留5筆，移出項存 `docs/archive/updata-early16-integration-l2-2026-10-28.txt`。依Context Guard本子階段停在此處，下一輪使用New Chat。
+
+<a id="early-16-balance-c"></a>
+## 2026-10-28 EARLY-16-BALANCE-C：經濟升級曲線與離島供需 DONE（L1，數值子階段）
+
+- **範圍**：依 BALANCE-A／B 與 docs44 第二節，補經濟建築每級成本／收益／上限、Era4–6二級材料需求與離島航線協調；不改UI、不改修行時間、不開Era7。使用者指定「C 經濟曲線（建築升級曲線／離島供需）」。
+- **修改檔案**：`docs/design-data/res1-e-46-proposal.json`（新增 `v2_balance_c`、設施升級欄位、Era材料、航線預設與決策）、`tools/compile_r46_content.py`（讀取設施 `max_level`／`cost_factor`／`effect_weight` 與航線 `enabled`／`target`）、重生成 `content/supply/era4_6.json`、`src/simulation/island_economy.gd`（供給航線預設與懶補種）、`tests/content_p2_supply_data_runner.gd`、`tests/content_p2_supply_economy_runner.gd`、`tests/content_p2_supply_ui_runner.gd`（UI-C後TIP斷言）、`tools/early_pacing_audit.gd`、重生成 `docs/verification/early-pacing-baseline.md`／`.json`、docs34／37／rule-differences／44、本狀態與updata。未改 `src/presentation/`、schema或rules_version。
+- **建築升級**：`core_storehouse_4/5` max1→3、成本倍率1→1.8；L1→2約1.89×、L2→3約3.56×基礎費，容量按等級線性2×／3×。`cultivation_focus_4/5/6` max1→2、成本倍率1→6.0、effect_weight0；L1效果不變，L2為2^1.5≈2.828×。調度建築維持max1，避免放大離島過剩。所有等級仍當世清除。
+- **材料需求**：Era4每階加寒鐵12；Era5秘銀5→18、每階加千草12；Era6每階加化神丹4。九級同ID覆寫後該境總量為寒鐵101、千草106、化神丹37；E4／E5／E6需求占比8.2%／6.3%／5.2%／6.4%，C11由WARN轉OK。
+- **運輸**：供給航線改為開島自動建立、`enabled=true`、target3000、reserve0、Lv1；`_seed_supply_routes` 只補缺失航線，不覆寫玩家既有停用／target／reserve／level，舊檔在兩端島已開時於tick懶補種。legacy航線行為不變。
+- **命令與結果**：`python tools\compile_r46_content.py --check` → `PASS: R46 runtime data matches approved proposal-1`。`Godot --headless --path . --script tools\early_pacing_audit.gd` → `PACING AUDIT: 16 findings, 1 FAIL`；C11、C12、C13、C14、C15、C16全部OK。訓練鐘維持12385.11／25612.00／73728.93秒（31.04小時），突破餘裕與B輪相同；Era6中石仍占59.0%，為刻意保留的後段瓶頸。
+- **驗證（L1，1280×720單一尺寸）**：先 `-Only 'content_p2_supply_data_runner,content_p2_supply_economy_runner,res1b_economy_runner,res1a_processing_runner,content_p2_supply_ui_runner' -List`，再同selector執行 → 5/5 PASS、exit0，日誌 `dao2_runners_2b6902d01eb6484ab036234d4eb719d5`（ui 5.4s／data 1.3s／economy 12.8s／processing 1.7s／legacy economy 17.4s）。首輪supply_ui失敗源自UI-C已把材料來源移入TIP、舊斷言仍讀隱藏caption；改為驗證完整TIP後單支及整組重跑通過。未跑全量、未跑L3、未匯出Web（純數值／規則，無新UI）。
+- **失敗與限制**：`content_p2_supply_progression_runner` 以600秒執行時在Era6二層超時（601.7秒，非SCRIPT ERROR；日誌顯示E3–5與Era6建設合法推進），未計通過；該完整流程runner不適合作L1，留待L2／整合以更長逾時重跑。C1仍為Era1參考鏈既有FAIL（26/92），C2／C4／C6／C8警告同理源於稽核只建指定倉儲0級；本輪不以全面改Era1成本／容量壓警告，避免擾動既有新手節奏。
+- **收尾／下一步**：docs34補升級表與島鏈、docs37記化神丹需求、rule-differences新增 `V2-EARLY-16-BALANCE-C`（明記v2非legacy parity）、docs44標C完成。`python tools\delivery_check.py` 與 `git diff --check` 見下。**BALANCE-C子階段完成，可手動commit；完整EARLY-16-BALANCE仍IN_PROGRESS。** 下一為BALANCE整段L2整合與Codex介面線收尾，待使用者指定；P3／P4仍後排。未commit／push。
+
+<a id="early-16-ui-c"></a>
+## 2026-10-28 EARLY-16-UI-C：資源數字與入口超框 DONE（L2，介面子階段）
+
+- **使用者決策／交付**：使用者明確選「保留萬／億，空間不足用科學記號」，K／M／B／T不採用。`NumberFormatter.fit_amount` 依實際字型／可用寬度選短格式，計入描邊安全空間；一般短格式修正科學記號進位、單位臨界epsilon進位及極小非零變零，所有數量向零截斷。最窄材料格連指數也放不下時用保留負號的微／巨字印，未知／非有限／未提供用？；完整支援表示始終留TIP。`exact_amount` 原生浮點改保留JSON可序列化精度，整數原字串不經float、layer Amount仍只承諾既有契約精度。
+- **修改來源**：`src/utils/number_formatter.gd`；`inventory_item_cell.gd` 使用20px依字寬數量、未知圖用有完整TIP的未識字印；`recipe_material_tile.gd` 共用數量setter、短版12→16px且不拉長正方形、完整可用／需求TIP與文字缺料；`inventory_panel.gd` 完整名稱可換行、詳情附完整TIP；`ui_shell_controller.gd` 資源入口改用途標題且取消clip_text，短技能頁保留已更新／未完成及完整回饋TIP；`alchemy_panel.gd`、`island_management_panel.gd`、`island_transport_panel.gd` 移除對共用數量Label的覆寫，煉丹顯示需求／持有各自數量，運輸未開端點？及完整來源／保留／目標TIP；`components/resource_chip.gd` HUD撤下會進位的w格式，沿共用圖示／短格式，`abode_hud_controller.gd` HUD可用／容量TIP不再四捨五入至2位。成本、庫存、足額、缺料、滿倉、命令payload及保存schema均未由本UI任務改動。
+- **測試補強／實際範圍**：新增 `tests/early16_ui_c_runner.gd`／引擎產生.uid，登錄 `tools/run_all_runners.ps1`；204 checks含萬／億／科學臨界、極小值／負值／大值／layer、未知與非有限、完整TIP與來源／容量／需求並列、實際字形加描邊邊界、正方形／16px與真實短缺。更新imm1a、m3b_alchemy、res1_ui1b與uix_r1的格式預期；imm3c逐頁材料格補實際字形／描邊寬度，uix_r8補資源入口實際字寬與不裁切。多尺寸沿DAO_VIEWPORT_MATRIX，本輪只1280×720；compact為同視窗內48px元件案例，不是全尺寸矩陣。
+- **L1→L2命令／結果**：每輪先 `powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only '<精確runner檔名清單>' -List`，再以相同selector執行。首組 `early16_ui_c_runner.gd,imm1a_inventory_runner.gd,imm3a_cost_detail_runner.gd,uix_r8_skills_ui_runner.gd,ui_shell_integration_runner.gd` 為4／5，未知圖印舊測試預期失敗、exit1；更新完整TIP預期後 C／imm1a補跑2／2 PASS，日誌 `dao2_runners_bb081beb44cc4aa4a0508b54b94b5314`。跨頁追加 `early16_ui_c_runner.gd,uix_r1_components_runner.gd,m3b_alchemy_ui_runner.gd,imm3c_page_consistency_runner.gd,res1_ui1b_runner.gd -Parallel 3 -TimeoutSeconds 120`：5／5 PASS、exit0，日誌 `dao2_runners_1140fc14789a48c1b2a6c42e81c93fc7`（204／0，運輸89.9秒，120秒僅因既有長測試）。最終字形斷言／HUD補驗 `imm3c_page_consistency_runner.gd,uix_r8_skills_ui_runner.gd,ui_shell_integration_runner.gd -Parallel 3`：3／3 PASS、exit0，日誌 `dao2_runners_ae56b617c1f841bbbb732890b9439ea3`。合併 **9支不同受影響runner均有PASS、matrix=single、evidence guard無變更**；共用格式涵蓋庫存／成本／技能／HUD／煉丹／空島／運輸／頁殼，故按L2超過5支，不是全量。另直接 `Godot --headless --path . --script tests/number_formatter_test.gd` 既有formatter契約PASS／exit0。
+- **失敗與限制**：初次List誤含未登錄的number_formatter_test被拒，之後改為精確登錄清單、formatter獨立執行；庫存舊圖印預期失敗已如上修正，不計通過。formatter獨立命令在沙箱顯示user://日誌不可寫但契約PASS；正式runner／import／export用正常本機權限及隔離保存。既有anchor／RID退出診斷保留，不稱日誌零警告。數值線同期新增 `content/supply/era4_6.json` 及工具／報告／文件變更（BALANCE-B）；完整保留，UI驗收不冒稱數值線通過。
+- **新版Web與真實桌面**：引擎版本 `4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import`、最終 `--export-release Web build/web-early16-ui-c/index.html` exit0；`node tools/prepare_web_compression.mjs build/web-early16-ui-c` exit0。PCK 126322232 bytes，sha256 `f25069a377a99905c4f588f8985a167398253c95bfa25bd51c6de3181e6bee52`。跨頁覆寫補正前曾產生中間包，已用最終來源重匯出／重壓縮，瀏覽器只在最終包進行。沿既有island_preview_server Handler暫指本包與 `src/verification/content_p1_skills_fixture.json`，測試服務127.0.0.1:4432、正常dao2_saves namespace且origin與玩家隔離。IAB外窗1280×800、iframe實測 **1280×720 CSS px／DPR1.25**：實際關閉摘要、開修行→煉丹（需求格）、切技能（90／1800成本）、點技能資源入口與物品選中詳情（6200／容量未提供／當世來源）、關閉抽屜並研習基礎冥想0→1（6200→6110，成本／入口／成功回饋刷新）通過。截圖 `.test-output/early16-ui-c/browser/skills.png`、`inventory.png`、`skills-updated.png`；browser warn/error查詢空。這是桌面輸入及顯示證據，非自然通關、保存故障／IndexedDB、FPS或全頁瀏覽器驗收。
+- **收尾／下一步**：docs19同步使用者核定的共用單位與呈現規則、docs44記錄接線與狀態，README／ROADMAP／ai-handoff只放狀態連結，英文checkpoint置updata頂部並保留5筆。`python tools/delivery_check.py --web build/web-early16-ui-c`：7／7壓縮檔match、evidence目錄變更0、RESULT PASS；`git diff --check` exit0。測試服務Ctrl+C停止（主動終止exit1），IAB測試分頁關閉、視口覆寫清除。普通build/web未同步；本包是L2本機測試包，未製作發布候選包／未跑L3。UI-A／B／C子階段各已完成，Era1–6打磨大型任務及數值線仍進行中，整合後的大型收尾再依規範做一次L3。本輪不自行展開該收尾或P3／P4。**UI-C階段完成，可手動commit；未commit／push。下一New Chat核對數值線整合後的介面／整體收尾範圍，或承接使用者回饋。**
+
+
+<a id="early-16-balance-b"></a>
+## 2026-10-28 EARLY-16-BALANCE-B：Era4–6 成長曲線 DONE（L1，數值子階段）
+
+- **範圍**：依 BALANCE-A 基線改 Era4–6 修行時間倍率、每階靈力需求與升下境容量；不動 `base_time`、壽元、資源倍率、其餘費用與 Era6 容量（本段不開7）。目標：E4–5 靈力占該境鐘 ≤55%、突破存量餘裕 ≥1.5x、縮短三段總鐘，同時 Era6 中石占比 ≤60%。
+- **修改檔案**：`docs/design-data/res1-e-46-proposal.json`（新增 `v2_balance` 記錄改動前後與核定來源；三境數值）、重生成 `content/supply/era4_6.json`、`docs/34-res1-e-46-design.md`、`docs/37-content-p2-pill-design.md`、`docs/rule-differences.md`（新增 V2-EARLY-16-BALANCE-B 條目，明確記為 v2 而非 legacy parity）、重生成 `docs/verification/early-pacing-baseline.md`／`.json`、`docs/44` 狀態、本狀態與 updata checkpoint。未改 `src/`、schema、rules_version 或 UI。
+- **數值改動**：時間倍率 1.28／1.35／1.45→1.25／1.30／1.40；每階靈力 5000／15000／40000→3200／10000／38000；升下境容量 E4 靈力 50000→40000、下石 20000→16000（錢 10000 不變），E5 靈力 200000→170000、下石 100000→80000。
+- **命令與結果**：`python tools/compile_r46_content.py` → `Wrote content/supply/era4_6.json`；`python tools/compile_r46_content.py --check` → `PASS: R46 runtime data matches approved proposal-1`。`.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe --headless --path . --script tools\early_pacing_audit.gd` → `PACING AUDIT: 16 findings, 1 FAIL`（仍僅既有 C1 Era1）。
+- **改後證據**：E4／5／6 訓練鐘 206.4／426.9／1228.8 分（12385.11／25612.00／73728.93 秒；3.44／7.11／20.48 小時），三段合計 2282.9→1862.1 分（38.05→31.04 小時，−18.4%）。靈力占該境鐘 68.3%／60.6%／42.2% → 49.7%／50.1%／49.6%。突破存量餘裕 E4 靈力1.53x、下石1.59x、錢3.12x；E5 靈力1.54x、下石1.57x → **C12 由WARN轉OK**。技能5（×0.9⁵）時間 7313.29／15123.63／43536.19 秒。C11 仍WARN（寒鐵E4 0.4%、秘銀E5 1.8%、千草E5 0.5%、化神丹E6 0.9%，屬二級資源需求覆蓋，留待C）；C16 OK。Era6 中石占縮短後鐘 47.7%→59.0%，仍在60%門檻內，但已成主要瓶頸。
+- **驗證（L1，1280×720單一尺寸）**：先 `powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_all_runners.ps1 -Only 'content_p2_supply_data_runner,content_p2_supply_economy_runner,sks_p2_core_runner' -List` 確認3支，再同selector執行 → 3/3 PASS、exit0，日誌 `dao2_runners_9ffc4e4c26814ce6be5ac7c7180b7ff0`（data 1.4s／economy 13.1s／sks core 1.9s）。`content_p2_supply_data_runner` 直接比對 proposal 與 runtime 內容一致，是本次同步的關鍵回歸。未跑全量、未跑L3、未匯出Web（純數值無UI變更）。
+- **限制**：稽核為靜態模型，無玩家存檔；離線、第一世／輪迴與代表選修路徑的實際牆鐘未在本輪重測（歷史完整流程 runner 約1121秒，非L1）。C1 Era1 26/92列為既有FAIL，不屬本階段。舊 14097.21／31757.13／91114.23 秒與 docs34 舊表保留為歷史基線。
+- **下一步**：`EARLY-16-BALANCE-C` 經濟建築升級曲線與空島供給／消耗／運輸；已知瓶頸為 Era6 中石（1.04/s、59.0%鐘）與二級空島過剩71–282x、航運預設關閉。P3／P4仍後排。
+- **收尾**：`python tools/delivery_check.py` 唯讀檢查；未commit／push。**BALANCE-B子階段完成，可手動commit；完整EARLY-16-BALANCE仍IN_PROGRESS。** 依Context Guard於此checkpoint，下一New Chat接BALANCE-C。
+
+<a id="early-16-ui-b"></a>
+## 2026-10-28 EARLY-16-UI-B：圖示關閉 DONE（L2，介面子階段）
+
+- **交付／來源**：`src/presentation/components/close_seal.gd` 改用兩條抗鋸齒向量線繪製叉號，移除文字×依賴；常態透明、hover淡墨、pressed更深、disabled灰墨，鍵盤焦點沿既有共用金色框。44×44命中、`關閉` TIP與accessibility_name、Tab／Enter啟用；不使用逐幀動畫或新增圖形資產。既有CloseSeal使用者同步沿用圖形。
+- **遷移盤點**：`building_catalog.gd`、`island_management_panel.gd`、`offline_summary.gd`、`v2_rules_notice.gd`、`debug_panel.gd`、`realm_teleport_modal.gd` 七處文字關閉改共用元件；`save_controls.gd` 保留一個固定頁首CloseSeal並移除內容動作列文字關閉。Debug／跨界原捲動標題改錨點VBox固定頁首，離線／規則通知關閉移到固定標題列。舊深色dialog集中使用CloseSeal.paper_header沿UiMaterial.hud_paper，標題深墨，修正瀏覽器發現的叉號低對比。共用殼既有全域覆層關閉仍保留；「關閉」資源顯示模式／Debug開關狀態不是關閉動作。確認／領取／繼續／返回修煉與原返回路由不改，未修改規則、數值、庫存、保存schema或命令。
+- **測試檔案**：新增 `tests/early16_ui_b_runner.gd` 與引擎.uid、登錄 `tools/run_all_runners.ps1`；更新 `tests/uix_r1_components_runner.gd` 的圖形／鍵盤契約與歷史 `tests/res1c2_world_runner.gd` 離線關閉節點路徑（此歷史runner未登錄／未執行，不列通過）。新專項56 checks：滑鼠／Enter各一次回呼、disabled不觸發、七頁一個本地共用關閉、命中及頁內幾何、長內容確實捲動且關閉矩形固定、原close_requested／closed或hide。多尺寸沿DAO_VIEWPORT_MATRIX，本輪僅1280×720；受限面板580×340。
+- **L1→L2命令／結果**：每次先 `powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only 'early16_ui_b_runner.gd,uix_r1_components_runner.gd,feature_navigation_runner.gd,ui_shell_integration_runner.gd,early16_ui_a_runner.gd' -List`（後續精選相同檔名子集）再執行。5支PASS／exit0，日誌 `dao2_runners_8fe27f40a7ef4bf4aaa2af0d89c405d7`；紙面頁首小修後4支補驗（B／A／shell integration／components）PASS，`dao2_runners_1fae33135d534486b1a319794b37ad9f`；新專項加入實際捲動斷言後最終56 checks／exit0，`dao2_runners_24a371f44c9f4c4ab5b6cb8bdf7ed483`。共用元件與跨頁殼按L2；非全量、未跑L3，evidence guard通過。
+- **失敗／修正**：最初selector包含未登錄的res1c2_world，List拒絕後改精選5支；新runner初次缺RunnerResult.finish雖49 checks零失敗仍被正確判FAIL，已補正式結果標記。沙箱user://寫入失敗令shell整合SCRIPT ERROR／45秒timeout，改正常本機權限隔離測試後PASS。捲動補強曾將filler加為Label子節點而不撐大正文，2條斷言失敗，改直接加長Label文字後56 checks PASS。這些失敗不計成功。既有引擎anchor／RID退出診斷不宣稱消失。
+- **新版Web與實際桌面**：版本 `4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import`、`--export-release Web build/web-early16-ui-b/index.html`、`node tools/prepare_web_compression.mjs build/web-early16-ui-b` 均exit0。PCK SHA256 `920f3da2a259cd1f190a715019de9e0c7723875c539968166a8b64d32d97452a`。本機測試包，普通build/web未同步，無發布候選包。既有island_preview_server Handler於127.0.0.1:4431服務本包，獨立origin正常空白檔，無fixture注入；沙箱服務無法由桌面存取後停用並以正常權限單一服務重開。IAB頂層1280×720 CSS px、DPR1.25：實際關閉離線摘要、營造簿回洞府、存檔頁本地叉號返回、Debug長內容捲至宗門／靈獸／診斷後頁首固定且可關閉；未點Debug贈料／改規則。warn/error查詢空。截圖 `.test-output/early16-ui-b/browser/`：offline、buildings、save、debug-scrolled.png。未推定自然通關、保存故障、FPS或全部七頁瀏覽器證據；其餘頁面為CLI整合／幾何證據。
+- **收尾／下一步**：`python tools/delivery_check.py --web build/web-early16-ui-b`：7/7壓縮檔match、RESULT PASS，證據目錄變更0。本輪測試服務以Ctrl+C停止（主動終止exit1）、瀏覽器測試分頁關閉與尺寸覆寫清除。`git diff --check` exit0。共用規範／docs44更新接線，README／ROADMAP／ai-handoff僅一行狀態連結；英文checkpoint置updata頂部、最多5筆。現有UI-A及OpenCode數值線成果保留（本輪觀察到數值線A完成交接），未納入UI通過範圍。未commit／push。**UI-B階段完成，可手動commit；完整EARLY-16-UI仍IN_PROGRESS。下一New Chat接UI-C資源數字與超框，K/M/B/T仍候選待確認；P3／P4後排。**
+
+<a id="early-16-ui-a"></a>
+## 2026-10-28 EARLY-16-UI-A：列尾動作對齊 DONE（L2，介面子階段）
+
+- **交付與檔案**：`building_catalog.gd` 將升級鈕移到圖像／資訊列的最右側，按整列垂直置中，詳情鈕也置中；列間距8→4，保留104×108建築縮圖與原字級，避免數字刷新撐寬。`island_management_panel.gd` 的採集／倉儲設施改為可展開文字／材料欄＋右側置中升階鈕。`island_transport_panel.gd` 的啟停／設定移出文字底列，整組在卡右側置中；一般版上下排列、短式並排，窄於430px的受限容器改上下內容並靠右放動作。`realm_decision_view.gd` 的施行鈕由貼底改置中；`realm_teleport_modal.gd` 的據點升級鈕按標題列置中。`recipe_row.gd` 的模式區展開，開始／停止及設定保持右側且置中。未修改規則、數值、成本、View／命令payload或存檔schema。
+- **盤點邊界**：技能卡、靈獸主列／天賦列、宗門任務／研習／坊市、輪迴天賦的原展開文字欄與置中動作沿用；煉丹原材料列右側動作群已有容器置中。成就徽章、機緣選項整格、九界標記嚮往、獨立確認／取消與固定頁首動作依各自語意保留。文字關閉／CloseSeal圖形與資源超框仍屬UI-B／C，不藉UI-A改格式或數值。
+- **測試補強**：新增 `tests/early16_ui_a_runner.gd`（連同Godot產生的.uid）並登錄 `tools/run_all_runners.ps1`。以實際Control矩形驗建築／設施的卡片安全右內距、動作中心Y與44px，航線一般及410px受限容器、長法令標題／缺料→就緒→已施行顯示、內捲末項可達及刷新不改快照；技能／靈獸既有列與製造可見列作比較。多尺寸沿DAO_VIEWPORT_MATRIX；本輪matrix=single，非全尺寸驗收。
+- **L1→L2命令與結果**：先 `powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only 'early16_ui_a_runner.gd,uix_r4_building_cards_runner.gd,uix_r11_decisions_ui_runner.gd,imm3a_cost_detail_runner.gd,recipe_row_runner.gd' -List` 確認5支，再同selector執行。原成本詳情10.6s／法令命令9.1s／配方2.6s通過；新專項與建築測試修正後先List再選兩支重跑，10.9s／3.7s均PASS、exit0，最終日誌 `dao2_runners_ae01e6ba438d49a6b4d1617e42af0999`。領域追加先List再執行 `-Only 'res1_ui1b_runner.gd,imm3c_page_consistency_runner.gd' -TimeoutSeconds 120`，2／2 PASS（航線82.1s／跨頁18.8s），exit0，日誌 `dao2_runners_47c5b63a5a6c4ba384d71758525be286`。120秒只因航線既有合理長測試約82秒。合併**7支受影響runner均有PASS，1280×720，guard通過**；本次UI領域跨建築／設施／運輸／製造／法令，按L2記錄，未跑L3。
+- **失敗與修正**：新runner初次snapshot型別推斷錯誤，後續誤用transport.refresh少一參數導致SCRIPT ERROR／45秒timeout，另把隱藏配方未布局位置計入幾何斷言；均已修正，不計該輪成功。建築測試確實抓到10000.25庫存把窄卡撐寬6px，縮小容器間距後原刷新／尺寸回歸通過。一次Python診斷因系統預設cp950讀UTF-8失敗，改明確UTF-8後成功；未變更遊戲文字。沙箱下user://日誌不可寫，正式Web匯出與一次診斷改正常本機權限；既有anchor／RID退出診斷保留，不稱零警告。
+- **新版Web**：引擎 `4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import` exit0；初次匯出因目標資料夾不存在exit1，建立專案內資料夾後 `--headless --path . --export-release Web build/web-early16-ui-a/index.html` exit0。`node tools/prepare_web_compression.mjs build/web-early16-ui-a` exit0。PCK 126318056 bytes，sha256 `9ee0fb0d88227d540ac719d5e49ba3bf8187f2fef497dd4775ca22074ec80e4f`。只更新本機測試包，沒有製作發布候選包。
+- **真實桌面抽驗**：沿既有island_preview_server Handler服務新origin `127.0.0.1:4429`，BUILD指向本次包，既有 `content_p1_skills_fixture.json` 作隔離測試快照，使用正常dao2_saves namespace但與玩家origin分離。最初重複服務導致連線逾時，關閉兩個本輪服務後單一服務正常。IAB頂層 **1280×720 CSS px／DPR約1**：實際點營造聚靈壇2→3、青木倉儲1→2、法令編纂道藏施行並進冷卻，成功／禁用後動作仍對齊；運輸在途／已達目標／未開島禁用及製造模式／停止／設定亦目視通過。截圖 `.test-output/early16-ui-a/browser/` 的buildings、building-upgraded、facility、facility-upgraded、transport、manufacturing、decisions.png。browser warn/error查詢空；不推定全頁自然通關、保存故障或FPS證據。
+- **收尾／下一步**：通用 `python tools/delivery_check.py --web build/web-early16-ui-a`：7／7壓縮檔match、RESULT PASS；`git diff --check` 最終exit0（updata末尾多餘空白行已修正）。evidence guard路徑變更0；收尾另見數值線 `tools/early_pacing_audit.gd`／`tools/early_pacing_targets.json` 及 `docs/verification/early-pacing-baseline.json`／`.md` 在本輪期間有外部變更，完整保留，未納入本UI交付或驗收。測試服務已Ctrl+C停止（主動終止exit1）；README／ROADMAP／ai-handoff只加入口，docs19沿既有規範補接線指向，docs44標記A完成／B下一。英文checkpoint置updata頂部，最多5筆。工作區原有規劃文件變更保留，未commit／push。本次 **UI-A子階段完成，可手動commit**；完整EARLY-16-UI仍IN_PROGRESS。下一New Chat接 `EARLY-16-UI-B` 圖示關閉，OpenCode數值線獨立；P3／P4仍後排。
+
+<a id="early-16-balance-a"></a>
+## 2026-10-28 EARLY-16-BALANCE-A：Era1–6 基線稽核擴充 DONE（工具線，未改遊戲數值）
+
+- **範圍**：只讀基線稽核，不改 `src/`、`content/`、存檔或UI。把 `tools/early_pacing_audit.gd` 從 Era1–3／Era2 空島擴到 Era1–6：接上 `IslandProgression.attach_supply`、逐境界列突破需求與容量、二級資源供需、空島產率／運輸、配方瓶頸、補給建築取得成本。
+- **修改檔案**：`tools/early_pacing_audit.gd`、`tools/early_pacing_targets.json`（新增 C11～C16 門檻）、重生成 `docs/verification/early-pacing-baseline.md`／`.json`。
+- **命令與結果**：`.\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe --headless --path . --script tools\early_pacing_audit.gd` → `PACING AUDIT: 16 findings, 1 FAIL`（僅C1 FAIL，其餘WARN／OK）。
+- **主要證據**：Era1–6 訓練鐘 16.8／41.6／90.7／235.0／529.3／1518.6 分（E4–6 合計約38小時）。E4–6 靈力占各自鐘 68.3%／60.6%／42.2%；突破庫存／容量餘裕僅 1.23–1.31x（E4靈力、E4石、E5靈力、E5石）。二級空島產出遠超消耗：秘銀71x、寒鐵282x、千年靈草254x；對應需求占比僅0.4%–1.4%。補給建築取得成本僅占境界鐘0.1%–2.9%，等於免費解鎖。航運預設 `route_policy.enabled=false`、一級1/s，空島300容量在1500–3750秒滿倉。Era1 C1 仍為26/92列容量低於下一級成本。
+- **限制**：靜態模型，無玩家存檔／輪迴狀態；離線與第一世／輪迴對照留待B。C14「航運預設關閉」是現行設計狀態，不是已判定缺陷。
+- **下一步**：`EARLY-16-BALANCE-B` 成長曲線（用此基線決定Era4–6靈力與突破需求、時間倍率的改動幅度）。
+
+<a id="early-16-workstreams"></a>
+## 2026-10-28 EARLY-16 分工：OpenCode 數值／Codex 介面（規劃交付 DONE，實作各自 TODO）
+
+使用者指定將數值與介面拆開：數值由使用者交給OpenCode跑模型及修改，介面留給Codex。原 `EARLY-16-POLISH-A` 混合盤點不再作Codex下一任務；改分 `EARLY-16-BALANCE` 與 `EARLY-16-UI`。完整分工、可複製OpenCode指令、批次與DoD見[docs44](44-era1-6-balance-and-ui-workstreams.md)。Era7–12的P3／P4繼續暫時後排。
+
+- **OpenCode數值線／基線DONE、調整TODO**：Era1–6成長節奏與數值、經濟建築升級成本／收益／最大等級、空島原料到二級資源與合成物的供給／消耗／運輸鏈。A已把稽核擴至Era4–6與補給空島，證據見[EARLY-16-BALANCE-A](#early-16-balance-a)；後續依證據分批改正式數值。模型需比較現版與調整版、第一世／輪迴後與代表選修路徑；Codex不代跑或擅改此線。
+- **Codex介面線／TODO**：`EARLY-16-UI-A`列尾動作靠右且垂直置中；`UI-B`共用圖形關閉與可見文字入口遷移；`UI-C`資源數字／入口超框及短格式。下一Codex先UI-A，與數值模型可獨立進行。
+- **實際來源核對**：技能卡已有展開文字區與垂直置中動作，不將所有頁假定為錯誤；多個面板及存檔頁仍建立文字關閉入口，需按正式可見路由確認。CloseSeal本體目前為文字×。資源格與材料格直接使用NumberFormatter，現行為萬／億／超大數科學記號，尚無按可用寬度選短格式。
+- **共用規範**：同步docs19記錄使用者指定的列尾對齊、圖示關閉與資源顯示要求。K／M／B／T候選方案在docs44定義，尚未當作使用者核定切換；完整值留TIP／詳情、不改Amount契約、庫存或成本判斷。先處理不依賴單位選擇的UI-A／B。
+- **變更範圍**：新增docs44；更新docs19、README／ROADMAP／ai-handoff入口、技能與內容排程入口、本狀態及英文checkpoint。只讀檢查來源，未修改遊戲程式、數值、素材、存檔或Web包；本次交付是具體分工與可執行批次，未宣稱UI問題已修復。
+- **驗收**：純規劃／文件靜態檢查及 `python tools/delivery_check.py`；不觸發runner／Web匯出／L3。後續實作按影響做L1／L2，觸控／實機延期政策保持。
+
+分工規劃階段完成，可手動commit；不是數值或介面大型任務結案。未commit／push。依Context Guard於此checkpoint，下一New Chat可直接「Codex接EARLY-16-UI-A」，OpenCode另接EARLY-16-BALANCE。
+
+<a id="early-16-polish"></a>
+## 2026-10-28 EARLY-16-POLISH：Era1–6 數值與介面打磨優先（排程已更新，實作 TODO）
+
+> 同日後續使用者已指定分工，原混合盤點順序由[OpenCode數值／Codex介面](#early-16-workstreams)覆蓋；下文保留前次排程歷史。
+
+使用者明確將 `RES1-E-79 → CONTENT-P3／SKS-P3` 與 `RES1-E-1012 → CONTENT-P4／SKS-P4` 暫時後排；目前優先打磨 Era1–6 的數值及相關介面。此決策覆蓋舊交接中的「下一P3」或長期相依被當作立即開工順序的解讀。兩批擴充保留規劃與ID，待使用者後續指定恢復優先；不設定自動恢復日期。
+
+- **目前任務 EARLY-16-POLISH／TODO**：依現有 Era1–6 已接線規則、資源／加工／航運、技能／丹藥／宗門與輪迴，改善成長節奏、成本與收益，以及操作資訊與回饋。保留既有已接受美術及共用UI規範。
+- **首個子階段 EARLY-16-POLISH-A／TODO**：建立現行數值與可達路徑基線，列出各境界突破／容量／產率／加工及航運等待、技能與丹藥的投入回報、第一世與輪迴後差異；核對對應介面的成本、缺料原因、進度、禁用理由與操作步數。交付具體瓶頸、優先級、改前／改後建議與驗收案例，避免無依據先全面改數字。
+- **後續按問題分批修正**：優先解決卡關、無效選擇、等待失衡與資訊不清；再做數值與介面聯動驗證。數值差異記為明確v2調整，不以展示值取代正式公式，不新增Era7–12內容。
+- **驗收**：盤點／排程只做靜態檢查；實作子階段採受影響1～5支L1，功能完成採L2及UI新版包桌面1280×720抽驗。僅大型任務最終收尾才做一次L3，不因這次改排程跑全量或匯出。觸控／實機與慢網冷啟動延期政策保持。
+- **本次變更與結果**：同步ROADMAP、內容／技能排程與交接入口、英文checkpoint；未修改遊戲數值、來源、素材、存檔或Web包。IMM-4-R1／R2依最新記錄已完成，不沿用更早審查的TODO重開。
+
+排程調整階段完成；下一New Chat可從EARLY-16-POLISH-A開始，暫不展開P3／P4。未commit／push，可手動commit（本次是排程階段結束，不是Era1–6打磨大型任務完成）。
 
 <a id="imm-4-r2"></a>
 ## 2026-10-28 IMM-4-R2：資源圖示補齊與正方形成本格 DONE（L2，有界回饋修正）

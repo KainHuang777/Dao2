@@ -54,19 +54,26 @@ func _test_content(base: GameContent, candidate: GameContent, data: Dictionary) 
 		for level in range(1, 10):
 			var costs := Cultivation.level_up_cost(definition, level, 0)
 			for id in e.cost:
-				_expect(costs[id].to_float() == e.cost[id], "approved level cost %s/%d/%s" % [e.id, level, id])
-			_expect(costs.has(e.lv9.id) == (level == 9), "lv9-only item %s/%d" % [e.id, level])
+				var expected := float(e.lv9.amount) if level == 9 and id == e.lv9.id else float(e.cost[id])
+				_expect(costs[id].to_float() == expected, "approved level cost %s/%d/%s" % [e.id, level, id])
+			if level == 9:
+				_expect(costs.has(e.lv9.id), "lv9 item %s/%d" % [e.id, level])
 	var buildings := {}
 	for facility in proposal.facilities:
 		buildings[facility.id] = 1
 		var definition: Dictionary = candidate.buildings[facility.id]
-		_expect(definition.base_cost == facility.cost and definition.max_level == 1 and definition.cost_factor == 1, "approved engineering cost " + facility.id)
+		_expect(definition.base_cost == facility.cost and definition.max_level == int(facility.get("max_level", 1)) and is_equal_approx(float(definition.cost_factor), float(facility.get("cost_factor", 1))), "approved engineering cost " + facility.id)
+		if facility.has("effect_weight"):
+			_expect(is_equal_approx(float(definition.effect_weight), float(facility.effect_weight)), "approved effect weight " + facility.id)
 		if not facility.requires.is_empty():
 			_expect(definition.prereq.building == facility.requires.keys()[0] and definition.prereq.level == facility.requires.values()[0], "approved preceding facility " + facility.id)
 	var rates := Production.compute_rates(candidate, buildings)
 	var empty_rates := Production.compute_rates(candidate, {})
 	for pair in [["lingli", 600.0], ["money", 170.0], ["stone_low", 20.0]]:
 		_expect(is_equal_approx(rates[pair[0]].to_float() - empty_rates[pair[0]].to_float(), pair[1]), "flat additive base production " + pair[0])
+	var focus_one := Production.compute_rates(candidate, {"cultivation_focus_4": 1})
+	var focus_two := Production.compute_rates(candidate, {"cultivation_focus_4": 2})
+	_expect(is_equal_approx(focus_two.lingli.to_float() - empty_rates.lingli.to_float(), (focus_one.lingli.to_float() - empty_rates.lingli.to_float()) * pow(2.0, 1.5)), "focus level two follows the weighted rate curve")
 	var artisan_rates := Production.compute_rates(candidate, buildings, 1, {}, {"artisan_past_wisdom": 5})
 	for id in rates:
 		_expect(is_equal_approx(artisan_rates[id].to_float(), rates[id].to_float()), "new producers excluded from artisan whitelist " + id)
@@ -81,12 +88,16 @@ func _test_content(base: GameContent, candidate: GameContent, data: Dictionary) 
 		var available := Production.compute_caps(candidate, built, era, 1)
 		for id in candidate.era(era).upgrade_requirements.capacity:
 			_expect(available[id].to_float() >= candidate.era(era).upgrade_requirements.capacity[id], "preceding-era capacity bootstrap %d/%s" % [era, id])
+	var upgraded := {"core_storehouse_3": 1, "core_storehouse_4": 3, "core_storehouse_5": 3}
+	var upgraded_caps := Production.compute_caps(candidate, upgraded, 6, 1)
+	var level_one_caps := Production.compute_caps(candidate, {"core_storehouse_3": 1, "core_storehouse_4": 1, "core_storehouse_5": 1}, 6, 1)
+	_expect(upgraded_caps.lingli.to_float() - level_one_caps.lingli.to_float() == 500000, "storehouse levels add flat capacity per level")
 	_expect(data.islands.size() == 3 and data.routes.size() == 5, "three islands / five routes")
 	for island in proposal.islands:
 		_expect(data.islands[island.id].rates == island.rates and data.islands[island.id].cost == island.cost and data.islands[island.id].local_cap == 300, "approved local economy " + island.id)
 	for id in data.routes:
 		_expect(data.routes[id][1] == "home" and catalog.resources.has(data.routes[id][2]), "single return route " + id)
-	_expect(data.route_policy.seconds == 10 and data.route_policy.cargo_per_level == 10 and data.route_policy.max_level == 3 and data.route_policy.enabled == false and data.route_policy.target == "100", "route policy has no automatic free opening")
+	_expect(data.route_policy.seconds == 10 and data.route_policy.cargo_per_level == 10 and data.route_policy.max_level == 3 and data.route_policy.enabled == true and data.route_policy.target == "3000", "opened supply routes default to moving output to the home cap")
 	_expect(Supply.prepare(base).content.content_version == candidate.content_version, "deterministic complete content identity")
 	_expect(not Supply.prepare(candidate).ok, "reject duplicate attach instead of silently changing definitions")
 

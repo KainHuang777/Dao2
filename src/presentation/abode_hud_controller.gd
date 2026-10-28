@@ -987,8 +987,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 					_resource_chip_box.add_child(chip)
 				chip.visible = true
 				chip.setup(r_id, val, val >= cap)
-				var val_str := ("%.2f" % val).rstrip("0").trim_suffix(".")
-				var cap_str := ("%.2f" % cap).rstrip("0").trim_suffix(".")
+				var val_str := NumberFormatter.exact_amount(r_data.value)
+				var cap_str := NumberFormatter.exact_amount(r_data.cap)
 				chip.tooltip_text = "%s %s / %s · 點選經營查看產率、容量與採集" % [_abode.RESOURCE_NAMES.get(r_id, r_id), val_str, cap_str]
 			elif _chips.has(r_id):
 				_chips[r_id].visible = false

@@ -65,6 +65,8 @@ func _build_ui() -> void:
 	# UI 浮層容器
 	_ui_layer = MarginContainer.new()
 	_ui_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# A hidden mandala reduces the minimum height; release the old tall allocation.
+	_ui_layer.minimum_size_changed.connect(func(): _ui_layer.size = size)
 	for edge in ["left", "right", "top", "bottom"]:
 		_ui_layer.add_theme_constant_override("margin_" + edge, 24)
 	add_child(_ui_layer)
@@ -83,12 +85,15 @@ func _build_ui() -> void:
 	_skip_button.pressed.connect(skip)
 	top_row.add_child(_skip_button)
 
-	# 中央文字與結算卡片
+	# Container-owned, content-width ceremony; never stretch a result across the viewport.
+	var center := CenterContainer.new()
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_ui_layer.add_child(center)
 	_center_box = VBoxContainer.new()
 	_center_box.alignment = BoxContainer.ALIGNMENT_CENTER
 	_center_box.add_theme_constant_override("separation", 14)
 	_center_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_ui_layer.add_child(_center_box)
+	center.add_child(_center_box)
 	_mandala = preload("res://src/presentation/reincarnation_mandala.gd").new()
 	_mandala.texture = preload("res://assets/ui/reincarnation-painted/reincarnation_wheel.png")
 	_mandala.ceremonial = true
@@ -105,6 +110,7 @@ func _build_ui() -> void:
 	_title_label = Label.new()
 	_title_label.name = "ReincarnationTitle"
 	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_title_label.text = "【大道輪迴 · 返璞歸真】"
 	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	_title_label.add_theme_color_override("font_color", Color("fff4d0"))
@@ -122,7 +128,7 @@ func _build_ui() -> void:
 	# 結算卡片
 	_result_card = PanelContainer.new()
 	_result_card.name = "ReincarnationResultCard"
-	_result_card.add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
+	_result_card.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	_result_card.visible = false
 	_center_box.add_child(_result_card)
 
@@ -138,12 +144,15 @@ func _build_ui() -> void:
 	_result_summary = Label.new()
 	_result_summary.name = "ReincarnationSummary"
 	_result_summary.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_result_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_result_summary.text = "第 2 世 · 練氣期一層（新生命開展）\n道心收穫：+15"
 	_result_summary.add_theme_font_size_override("font_size", 16)
-	_result_summary.add_theme_color_override("font_color", UiMaterial.INK)
+	_result_summary.add_theme_color_override("font_color", Color("d0e4d6"))
 	card_col.add_child(_result_summary)
 
-	_finish_button = Button.new()
+	_finish_button = preload("res://src/presentation/components/inscription_action.gd").new()
+	_finish_button.on_dark = true
+	_finish_button.add_theme_font_size_override("font_size", 26)
 	_finish_button.name = "ReincarnationFinishButton"
 	_finish_button.text = "重聚仙靈 · 入世修行"
 	_finish_button.custom_minimum_size = Vector2(160, 44)
@@ -154,11 +163,13 @@ func _on_viewport_resized() -> void:
 	if size.x <= 0 or size.y <= 0:
 		return
 	var portrait := size.x < 640.0 or size.x / size.y < 1.25
+	_center_box.custom_minimum_size.x = minf(560.0, maxf(0.0, size.x - 48.0))
 	if _mandala != null:
 		_mandala.custom_minimum_size = Vector2.ONE * clampf(minf(size.x * 0.6, size.y - 190.0), 96.0, 460.0)
 	_center_box.add_theme_constant_override("separation", 4 if size.y < 500 else 14)
 	_title_label.add_theme_font_size_override("font_size", 22 if portrait else 28)
 	_couplet_label.add_theme_font_size_override("font_size", 16 if portrait else 20)
+	_finish_button.add_theme_font_size_override("font_size", 20 if portrait else 26)
 	if _fx_layer != null:
 		_fx_layer.queue_redraw()
 
@@ -273,6 +284,8 @@ func _on_fx_draw() -> void:
 		_fx_layer.draw_arc(center, radius * (0.8 + phase * 0.6), 0.0, TAU, 96, Color(0.5,0.8,0.68,sin(phase * PI) * 0.12), 1.5, true)
 func _show_result_card() -> void:
 	_mandala.hide()
+	_stage_badge.text = "【重塑仙身 · 再問長生】"
+	_couplet_label.text = "重聚仙靈，再問長生！"
 	_result_card.visible = true
 	_skip_button.visible = false
 	_bg_overlay.color = Color(0.04, 0.06, 0.09, 0.85)
@@ -287,6 +300,8 @@ func skip() -> void:
 	_show_result_card()
 
 func _on_finish_pressed() -> void:
+	if not _is_playing or not _result_card.visible:
+		return
 	_is_playing = false
 	visible = false
 	_bg_overlay.color = Color(0.96, 0.94, 0.86, 0.0)

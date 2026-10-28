@@ -148,16 +148,20 @@ func _init() -> void:
 	controls = HBoxContainer.new()
 	controls.add_theme_constant_override("separation", 4)
 	modes = SegmentChips.new()
+	modes.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	modes.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	modes.add_theme_constant_override("separation", 2)
 	modes.set_segments(["單批", "批數", "持續"])
 	modes.segment_selected.connect(func(index: int): mode_requested.emit(recipe_id, index))
 	controls.add_child(modes)
+	action.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	action.custom_minimum_size.x = 88
 	action.add_theme_font_size_override("font_size", 16)
 	UiMaterial.apply_button(action)
 	controls.add_child(action)
 	settings = Button.new()
 	settings.text = "設定"
+	settings.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	settings.custom_minimum_size = Vector2(44, 44)
 	settings.add_theme_font_size_override("font_size", 16)
 	settings.tooltip_text = "展開或收起此配方的批數、原料保留量與切方設定"

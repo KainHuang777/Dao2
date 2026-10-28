@@ -34,6 +34,12 @@ func fresh() -> GameSession:
 	return s
 func stock(s: GameState, id: String, amount: float) -> void:
 	s.resources[id] = {"value":AmountCompat.from_number(amount), "unlocked":true, "ever_obtained":true}
+func stop_routes(s: GameSession) -> void:
+	s.state.economy.routes = {}
+	for id in IslandEconomy.supply_data().routes:
+		var def: Array = IslandEconomy.supply_data().routes[id]
+		if s.state.economy.islands.has(def[0]) and s.state.economy.islands.has(def[1]) and s.state.economy.islands[def[0]].opened and s.state.economy.islands[def[1]].opened:
+			s.state.economy.routes[id] = {"enabled":false, "reserve":"0", "target":"100", "level":1}
 func previous_float(value: float) -> float:
 	var bytes := PackedByteArray()
 	bytes.resize(8)
@@ -147,7 +153,7 @@ func _test_rates() -> void:
 	for rank in [0,1,5]:
 		s.state.talents["frontier_prospector_memory"] = rank
 		s.state.economy.islands.deep.opened = true
-		s.state.economy.routes = {}
+		stop_routes(s)
 		s.state.economy.islands.deep.inventory = {}
 		var slow := s.state.duplicate_state()
 		var fast := s.state.duplicate_state()

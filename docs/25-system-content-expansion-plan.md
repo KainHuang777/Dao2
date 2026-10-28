@@ -1,8 +1,8 @@
+2026-10-28 **Era1–6分工：OpenCode數值／Codex介面；P3／P4後排**：數值模型、建築上限與空島材料鏈交OpenCode；Codex下一EARLY-16-UI-A列尾對齊，續圖示關閉與資源顯示。[分工](44-era1-6-balance-and-ui-workstreams.md)。
+
+2026-10-28 **優先改為Era1–6數值與介面打磨；P3／P4暫時後排**：下一EARLY-16-POLISH-A現況／瓶頸盤點，Era7–12擴充待使用者指定恢復。[排程決策](development-status.md#early-16-polish)。
+
 2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](development-status.md#content-p2-accept)。
-
-2026-10-27 **CONTENT-P2-STORY DONE（L3／桌面Web有界）**。見[狀態](development-status.md)。
-
-2026-10-27 **CONTENT-P2-STORY／STORY-1 DONE（L1＋L2，單尺寸）；整批 IN_PROGRESS。** 使用者明確「採Y，接STORY-1」，Y1／Y2／Y-save／Y-art全核定。18成就／18機緣54分支、六mask終身／當世事實、story2／schema5／rules24與原文歸檔同候選保存閘已接；舊待決／RNG／P1旗標保持。新核心1305／保存557／事件547 checks；15支唯一相關runner最終分段通過，原測試失敗與M1-C沙箱寫入失敗保留、專案隔離路徑補驗通過。未製圖／Web／匯出／L3、未玩家進度／commit／push。見[本段驗收](verification/content-p2-story-core.md)。依Context Guard停止；下一New Chat直接接同批STORY-2二十圖、正式View與合法代表流程，不重問Y、不開其他P2／P3。下方為日期化歷史。
 
 > 較舊的日期化結案段落已原文搬至 [25-system-content-expansion-plan-prelude-archive-2026-10.md](archive/25-system-content-expansion-plan-prelude-archive-2026-10.md)。
 
@@ -110,8 +110,8 @@ P1不要求新增靈獸：先把靈狐、餵養與獸魂選擇接入新成就／
 | CONTENT-P2-SECT | P1與P2供給／技能／天賦／丹藥已收結 | **DONE（2026-10-26，L3／桌面Web有界）**：8功法／30模板／8商品，圖／卡片／節奏接受。[驗收](verification/content-p2-sect-closure.md)。 |
 | CONTENT-P2-STORY | 被引用的P2供給／技能／天賦／丹藥／宗門／靈獸均已收結 | **DONE（2026-10-27，L3／桌面Web有界）**：圖／卡片／文稿／節奏接受，139／139最終分段通過；見[結案](development-status.md)。48成就／56機緣。[逐項設計](40-content-p2-story-design.md)、[L1驗收](verification/content-p2-story-design.md)。核定後STORY-1→STORY-2→接受後唯一L3。 |
 | CONTENT-P2-ACCEPT | 各P2批次與WORLD-46均DONE | **DONE（2026-10-27，桌面Web有界）**：整段計數／相依與既有流程證據核對；法令新增4項依原realm條件延期，不列已交付。[結案](development-status.md#content-p2-accept)。 |
-| RES1-E-79 → CONTENT-P3 | P2、Era7–9供給契約 | 同上；技能沿用SKS-P3，realm內容另依實際開界條件 |
-| RES1-E-1012 → CONTENT-P4 | P3、Era10–12及Amount支援核對 | 同上；技能沿用SKS-P4，完成不等於全九界與全量舊檔相容 |
+| RES1-E-79 → CONTENT-P3 | P2、Era7–9供給契約 | **暫時後排（2026-10-28使用者指令）**：先做EARLY-16-POLISH，待使用者指定恢復；技能沿用SKS-P3，realm內容另依實際開界條件 |
+| RES1-E-1012 → CONTENT-P4 | P3、Era10–12及Amount支援核對 | **暫時後排（2026-10-28使用者指令）**：先打磨Era1–6，待使用者指定恢復；技能沿用SKS-P4，完成不等於全九界與全量舊檔相容 |
 
 TRIB收尾另行處理，不是開始P1逐項設計的阻擋；若要正式開Era4並測渡劫結果，須先收結對應TRIB正式接線驗收。每輪只做一個有界批次，結束更新開發狀態與英文checkpoint，再換新對話；本次不因有完整計畫就一口氣實作所有系統。
 

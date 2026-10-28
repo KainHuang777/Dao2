@@ -170,7 +170,7 @@ func _run() -> void:
 	abode._refresh_hud()
 	nav.open_transport("ore_wood")
 	check(panel.route_widgets.ore_wood.toggle.disabled and panel.save_button.disabled, "unopened destination blocks commands")
-	check(panel.detail_visual.destination.quantity.text == "—", "closed endpoints do not imply measured zero stock")
+	check(panel.detail_visual.destination.quantity.text == "？", "closed endpoints do not imply measured zero stock")
 	var before := snapshot()
 	panel.supply_button.pressed.emit()
 	check(nav.page == "outposts" and nav.island_panel.island == "wood" and snapshot() == before, "closed destination opening shortcut")

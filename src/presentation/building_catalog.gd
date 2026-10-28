@@ -75,6 +75,22 @@ var _resource_rendered: Dictionary = {}
 var _resource_visual_states: Dictionary = {}
 var _row_material_states: Dictionary = {}
 var _row_rendered: Dictionary = {}
+var embedded := false
+var _title_row: HBoxContainer
+
+func set_embedded(value: bool) -> void:
+	if embedded == value: return
+	embedded = value
+	if is_instance_valid(_title_row): _title_row.visible = not value
+	add_theme_stylebox_override("panel", StyleBoxEmpty.new() if value else _catalog_surface())
+
+func _catalog_surface() -> StyleBox:
+	var surface := UiMaterial.compact_scroll_shell()
+	surface.content_margin_left = 12
+	surface.content_margin_right = 12
+	surface.content_margin_top = 6
+	surface.content_margin_bottom = 6
+	return surface
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -88,6 +104,7 @@ func _ready() -> void:
 	box.add_theme_constant_override("separation", 4)
 	add_child(box)
 	var title_row := HBoxContainer.new()
+	_title_row = title_row
 	title_row.add_theme_constant_override("separation", 6)
 	box.add_child(title_row)
 	var heading := Label.new()
@@ -101,11 +118,7 @@ func _ready() -> void:
 	cultivation_actions.add_theme_constant_override("separation", 4)
 	title_row.add_child(cultivation_actions)
 
-	close_button = Button.new()
-	close_button.text = "關閉"
-	close_button.custom_minimum_size = Vector2(64, 44)
-	close_button.add_theme_font_override("font", UiTypography.emphasis_font())
-	close_button.add_theme_font_size_override("font_size", 18)
+	close_button = CloseSeal.new()
 	close_button.pressed.connect(func(): close_requested.emit())
 	title_row.add_child(close_button)
 	status_label = Label.new()
@@ -315,7 +328,7 @@ func configure(groups: Array) -> void:
 			card_content.add_theme_constant_override("separation", 2)
 			card.add_child(card_content)
 			var row_box := HBoxContainer.new()
-			row_box.add_theme_constant_override("separation", 8)
+			row_box.add_theme_constant_override("separation", 4)
 			card_content.add_child(row_box)
 			var button := CardButton.new()
 			button.custom_minimum_size = Vector2(104, 108)
@@ -377,7 +390,7 @@ func configure(groups: Array) -> void:
 			upgrade.add_theme_stylebox_override("disabled", _disabled_action_style())
 			upgrade.add_theme_color_override("font_disabled_color", Color("53534d"))
 			upgrade.pressed.connect(func(): building_upgrade_requested.emit(id))
-			materials_row.add_child(upgrade)
+			row_box.add_child(upgrade)
 			button.add_theme_font_override("font", UiTypography.emphasis_font())
 			rows[id] = button
 			upgrade_buttons[id] = upgrade
@@ -396,6 +409,7 @@ func configure(groups: Array) -> void:
 			info_box.add_child(info_label)
 			var detail_button := Button.new()
 			detail_button.text = "詳情"
+			detail_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			detail_button.custom_minimum_size = Vector2(64, 48)
 			detail_button.pressed.connect(func(): building_selected.emit(id))
 			info_box.add_child(detail_button)

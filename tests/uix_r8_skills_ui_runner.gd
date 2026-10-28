@@ -102,10 +102,13 @@ func _run() -> void:
 		check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1, "bottom rod safety")
 		panel.show_result("操作完成，進度已更新。")
 		await frames()
+		var entry_button: Button = nav.shell.resource_button
+		var entry_width := entry_button.get_theme_font("font").get_string_size(entry_button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, entry_button.get_theme_font_size("font_size")).x
+		check(not entry_button.clip_text and entry_width + entry_button.get_theme_stylebox("normal").get_minimum_size().x <= entry_button.size.x + 1, "resource title glyphs fit without clipping")
 		print("SKILL_FEEDBACK viewport=%s scroll=%s card=%s heading=%s panel=%s" % [vp,page.scroll.size,page.cards.golden_core_formation.card.size,page.heading.size,panel.size])
 		check(page.scroll.size.y >= page.cards.golden_core_formation.card.size.y, "success feedback leaves a complete skill card")
 		if vp.y < 500:
-			check(not panel.status.visible and nav.shell.resource_button.tooltip_text.contains("操作完成") and nav.shell.resource_button.text.contains("已更新"), "compact feedback merged in fixed shell resource summary")
+			check(not panel.status.visible and nav.shell.resource_button.tooltip_text.contains("操作完成") and nav.shell.resource_button.text == "技能資源・已更新", "compact feedback retained in fixed resource entry without variable numeric title")
 		page.scroll.scroll_vertical = 0
 		nav.home()
 		check(not panel.visible, "home returns")

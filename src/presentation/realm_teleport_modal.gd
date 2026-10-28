@@ -31,9 +31,18 @@ func _build_ui() -> void:
 	_background.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_background)
 
+	var layout := VBoxContainer.new()
+	layout.name = "FixedHeaderLayout"
+	add_child(layout)
+	layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	layout.offset_left = 16
+	layout.offset_top = 16
+	layout.offset_right = -16
+	layout.offset_bottom = -16
 	_scroll = ScrollContainer.new()
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	add_child(_scroll)
+	layout.add_child(_scroll)
 
 	_container = VBoxContainer.new()
 	_container.add_theme_constant_override("separation", 10)
@@ -41,22 +50,19 @@ func _build_ui() -> void:
 	_scroll.add_child(_container)
 
 	# 標題與關閉列
-	var header_row := HBoxContainer.new()
-	header_row.add_theme_constant_override("separation", 8)
-	_container.add_child(header_row)
+	var header_row := CloseSeal.paper_header(layout)
+	layout.move_child(header_row.get_parent(), 0)
 
 	_title_label = Label.new()
 	_title_label.text = "跨界神遊 · 靈界天靈洞天"
+	_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
 	_title_label.add_theme_font_size_override("font_size", 20)
-	_title_label.add_theme_color_override("font_color", Color("ffd700"))
+	_title_label.add_theme_color_override("font_color", UiMaterial.INK)
 	header_row.add_child(_title_label)
 
-	var close_btn := Button.new()
-	close_btn.text = "關閉"
-	close_btn.custom_minimum_size = Vector2(80, 44)
-	close_btn.add_theme_font_size_override("font_size", 16)
+	var close_btn := CloseSeal.new()
 	close_btn.pressed.connect(func():
 		visible = false
 		close_requested.emit()
@@ -72,7 +78,8 @@ func _build_ui() -> void:
 	_container.add_child(_status_summary)
 
 	# 傳送/切換按鈕
-	_teleport_button = Button.new()
+	_teleport_button = preload("res://src/presentation/components/inscription_action.gd").new()
+	_teleport_button.on_dark = true
 	_teleport_button.custom_minimum_size = Vector2(0, 48)
 	_teleport_button.add_theme_font_override("font", UiTypography.emphasis_font())
 	_teleport_button.add_theme_font_size_override("font_size", 18)
@@ -110,9 +117,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	if _background != null:
 		_background.size = size
-	if _scroll != null:
-		_scroll.position = Vector2(16, 16)
-		_scroll.size = Vector2(maxf(0.0, size.x - 32.0), maxf(0.0, size.y - 32.0))
+
 
 func refresh(view: Dictionary) -> void:
 	if _container == null:
@@ -211,6 +216,7 @@ func _create_outpost_card(op: Dictionary, stock: Dictionary) -> PanelContainer:
 		upg_btn.text = "尚未解鎖" if op.get("upgrade_reason", "") == "REALM_LOCKED" else "材料不足"
 		upg_btn.disabled = true
 	upg_btn.custom_minimum_size = Vector2(96, 44)
+	upg_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	upg_btn.add_theme_font_size_override("font_size", 16)
 	var op_id: String = String(op.get("id", ""))
 	upg_btn.pressed.connect(func(): upgrade_outpost_requested.emit(op_id))
