@@ -197,6 +197,7 @@ var scenery_props: Dictionary = {}
 var scenery_parent: Node2D
 var _pending_scenery_save := false
 var _home_frame_size := Vector2.ZERO
+var _home_safe_frame := Rect2()
 var spirit_tree: Node2D
 var vfx_environment: WorldEnvironment
 var selected_id: String = ""
@@ -263,6 +264,7 @@ var last_guidance_key: String = ""
 var crumb: Label
 var detail_title: Label
 var detail_body: Label
+var detail_costs: Control
 var gather_button: Button
 var upgrade_button: Button
 var pause_button: Button
@@ -744,16 +746,20 @@ func _adapt_viewport_scale() -> void:
 
 func _layout_for_size(vp: Vector2) -> void:
 	_hud_controller._layout_for_size(vp)
-	if camera == null or vp == _home_frame_size or vp.x <= vp.y:
+	# Automatic home tips yield to world navigation; explicit reading keeps its overlay.
+	if island_world != null and (island_world.rail.visible or island_world.selector.visible) and not _hud_controller.messages_are_explicit() and feature_navigation.shell.state.snapshot().overlay.is_empty():
+		hint_panel.hide()
+	if camera == null or vp.x <= vp.y:
 		return
+	var safe: Rect2 = island_world.world_safe_rect(vp) if island_world != null else Rect2(Vector2(header.size.x+28,16),Vector2(maxf(160,vp.x-header.size.x-44),maxf(140,toolbar.position.y-28)))
+	if vp == _home_frame_size and safe == _home_safe_frame: return
+	_home_safe_frame = safe
 	var was_home: bool = camera.target_position.distance_to(camera.home_position) < 1.0 and absf(camera.target_zoom - camera.home_zoom) < 0.01
 	_home_frame_size = vp
 	camera.home_position = Vector2(0, -40)
 	camera.home_zoom = 0.70
-	if vp.y < 540.0:
+	if vp.y < 540.0 or (island_world != null and island_world.selector.visible):
 		# Fit the residence, central actor, right altar and finds beside the actual left HUD.
-		var left: float = maxf(header.get_global_rect().end.x, resource_ribbon.get_global_rect().end.x) + 12.0
-		var safe := Rect2(Vector2(left, 16), Vector2(maxf(160.0, vp.x - left - 16.0), maxf(140.0, toolbar.position.y - 28.0)))
 		var bounds := Rect2(Vector2(-330, -350), Vector2(775, 400))
 		camera.home_zoom = clampf(minf(safe.size.x / bounds.size.x, safe.size.y / bounds.size.y), 0.34, 0.70)
 		camera.home_position = bounds.get_center() - (safe.get_center() - vp * 0.5) / camera.home_zoom

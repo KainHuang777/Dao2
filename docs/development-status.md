@@ -1,12 +1,269 @@
-2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見下方CONTENT-P2-ACCEPT。
+2026-10-28 **IMM-4-R2 DONE（L2資源圖示補齊）**：20張共用資源／貨幣／獸魂圖示與正方形成本格已接入，來源移至TIP；相關7支及新版Web桌面抽驗通過。[狀態](development-status.md#imm-4-r2)。
 
-2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。見下方WORLD-46-L3。
+2026-10-28 **IMM-4-R1 DONE（L2有界修正）**：技能正文至少16px、焦點字色對比與延期記錄已修正；5支專項及新版Web桌面抽驗通過。[狀態](development-status.md#imm-4-r1)。
 
-2026-10-27 **STORY-2 DONE（L3／桌面Web有界）**：文稿／節奏接受，139／139唯一runner最終分段通過、Web匯出壓縮與三橫式完成；原失敗保留。見下方STORY-2-L3。
+2026-10-28 **IMM-4 DONE（整批收尾，唯一L3）**：IMM-1A～3C的洞府、十三功能頁與五類覆層整批結案；唯一全量L3為145／145 runner全尺寸矩陣PASS，正式Web與候選包同源輸出並通過壓縮校驗，桌面Edge/CDP三橫式（1280×720／844×390／800×360）真實滑鼠抽驗可讀可操作；IMM-2記錄為無新增微動態工程。見下方IMM-4。
 
 > 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
 
 # 開發狀態與交接紀錄
+
+<a id="imm-4-r2"></a>
+## 2026-10-28 IMM-4-R2：資源圖示補齊與正方形成本格 DONE（L2，有界回饋修正）
+
+- **使用者要求與結果**：技能點不能留空圖；同類資源一併檢查，數量疊在圖像右下、外框正方形。「當世」不必逐格重複，頁首仍保留當世選修／輪迴重置說明，來源及完整名稱／可用／需求留TIP與資源詳情。
+- **覆蓋與美術**：補齊14個缺少共用圖示對應的資源／貨幣（技能點、道心、道證、貢獻、精鐵、秘銀、寒鐵、千年靈草、化神丹、虛空精華、星金、虛空結晶、極品靈晶、天青靈液），另補6種獨立獸魂。所有ResourceIcon.NAMES、共用貨幣清單、現有兩份供給資源catalog及BeastSystem獸魂ID均有實際圖示。圖像不改資源解鎖，雲蛟等條件維持。
+- **來源／用途／切層**：使用generate2dsprite技能及內建image_gen，參考本專案原創陣芯材質生成原創20物品圖，160×160透明PNG位於 `assets/ui/resources-painted/imm4-r2/`；`prompt-used.txt`與`manifest.json`保留提示詞、用途、來源區域、sha256及授權說明。原始圖與QC在 `docs/artwork/imm4-r2/`，未取外部圖像。PNG只承載插圖，Godot Label獨立疊數量、TIP承載完整來源，沿UiIllustration共用B效果。原均分4×5切圖因圖像越格而被strict QC拒絕；改完整連通物件分離，視覺QC再排除bbox內鄰格碎片後，20／20單物件strict QC PASS，透明／160px／檔案hash皆通過。聯絡表 `docs/artwork/imm4-r2/contact-sheet.jpg` 為核對用，非互動畫面。
+- **來源修改**：`resource_icon.gd`補20個紋理與貨幣／獸魂名稱，尊重呼叫端已指定的小圖minimum size；`recipe_material_tile.gd`外框寬高72／短式48，保留56／36圖像區與右下Label，來源caption隱藏，未知項用「未識」字印與完整TIP；`inventory_item_cell.gd`取消為底行預留的圖像空間。`skill_study_view.gd`移除強制顯示來源caption。`sect_panel.gd`的 `_wrap_card_labels` 不再遞迴覆寫CostStrip，避免將共享物品格重新拉寬。docs19同步使用者核定通則；未改規則、成本、存檔schema或玩家進度。
+- **L2選取與實際結果**：執行前 `tools/run_all_runners.ps1 -Only 'imm1a_inventory_runner.gd,imm3a_cost_detail_runner.gd,imm3c_page_consistency_runner.gd,uix_r8_skills_ui_runner.gd,res1_ui1a_runner.gd,res1_ui1b_runner.gd' -List` 確認6支。共用圖示／材料格影響庫存、成本、技能、製造及運輸，故按L2超過5支，非擴成全量。正式同selector加 `-TimeoutSeconds 120`（運輸過往約86秒）；第一輪5／6 PASS：imm1a 8.9s、imm3a 8.6s、res1_ui1a 40.6s、res1_ui1b 84.3s、uix_r8 10.2s；imm3c 17.5s失敗，明確抓到宗門研習／市場的外框被拉寬，該輪exit1，不算整輪通過。修正宗門後先List再執行 `-Only 'imm3c_page_consistency_runner.gd,uix_r9_sect_ui_runner.gd'`，2／2 PASS（18.2／9.8s）、exit0。**合併受影響範圍7支均有PASS；全為1280×720、matrix=single，guard通過**。日誌分別 `C:/Users/asus/AppData/Local/Temp/dao2_runners_c552f195721943eb9c25958238955a9a` 與 `.../dao2_runners_4a340cbc90a243f5bac0e31cc34ee1d4`。既有退出RID／anchor診斷保留，未宣稱零警告。
+- **測試補強**：imm1a增加全部已知資源／貨幣／獸魂coverage、正常與compact完整外框正方形、右下錨點與未知字印／完整TIP；imm3a改驗極品靈晶有真實圖；imm3c驗實際外框寬高相等、來源不佔底行且TIP仍完整；uix_r8驗所有技能成本格有圖／正方形／不重複來源。原命令、缺料與禁用回歸保留。
+- **Web／桌面抽驗**：引擎版本 `4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import`與最終 `--export-release Web build/web-imm4-r2/index.html` exit0；`node tools/prepare_web_compression.mjs build/web-imm4-r2` exit0。只更新本機測試包，PCK 126,317,416 bytes、sha256 `ff69053222ad6b655f20571bda2b49c9a4581de5d41a787f5a9e1f0d4fb01b77`。重用既有island_preview_server Handler，BUILD暫指新包、FIXTURE為既有content_p1_skills_fixture.json、prefix為dao2_saves；新origin `127.0.0.1:4428`與玩家隔離。IAB外窗1280×800、遊戲iframe1280×720，真實滑鼠開技能、卷冊成本圖＋右下90／1800＋無「當世」底行、研習成功到基礎冥想1/5，以及相關資源抽屜的88px技能點圖格均已核對。截圖 `.test-output/imm4-r2/browser/skills-1280.jpg`、`skills-learned.jpg`、`skill-inventory.jpg`。這是桌面輸入與顯示證據，不是自然通關、IndexedDB、效能或全頁瀏覽器驗收。
+- **收尾與下一步**：`python tools/delivery_check.py --web build/web-imm4-r2`：7／7壓縮檔校驗、RESULT PASS；新圖20／20hash通過，既有guard路徑原7個.import未改。英文updata保留最近5筆，trim_status_docs按工具歸檔。未跑L3、不製作新發布候選包；build/web與web-imm4維持原IMM-4歷史包。本次回饋修正階段完成，**可手動commit**，未commit／push。下一步收使用者圖示／密度回饋；不在本輪開P3，後續大型工作請New Chat。觸控／實機延期，非當前阻擋。
+
+<a id="imm-4-r1"></a>
+## 2026-10-28 IMM-4-R1：字級與桌面焦點補正 DONE（有界修正，L2）
+
+- **範圍與修改**：`src/presentation/skill_study_view.gd` 的作用說明／目前及下階效果在寬式與短式均至少16px，沿既有換行、容器與內捲承載長文。`src/presentation/ui_material.gd` 為共用主題及 `_set_button_ink` 補齊 `font_focus_color`，修正實際Web Tab焦點使紙底按鈕文字變淺難讀；青玉選中仍沿原淺字角色。未改玩法、命令或存檔格式。
+- **回歸補強**：`tests/uix_r8_skills_ui_runner.gd` 增加所有24張技能卡正文最低字級、完整效果、文字高度、卡內邊界／動作不交疊，以及620×220受限內容區長說明換行、內捲可達44px動作。焦點檢查涵蓋共用按鈕與純主題Button繼承的非透明框線及字色。`tests/ui_material_states_runner.gd` 加入選中／取消選中與紙面分頁焦點對比檢查。受限內容區是1280×720視窗內的元件案例，非額外全尺寸矩陣。
+- **L1／L2命令與結果**：引擎 `--version` 為 `4.7.2.stable.official.ed1daf0bf`。先執行 `powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only 'uix_r8_skills_ui_runner.gd,content_p1_skills_ui_runner.gd,imm3c_page_consistency_runner.gd,ui_material_states_runner.gd,ui_shell_integration_runner.gd' -List` 確認5支，再同selector執行；**5／5 PASS，matrix=single，exit0**。依上述runner順序耗時10.0／10.2／19.1／2.5／11.6秒，evidence guard通過，日誌 `C:/Users/asus/AppData/Local/Temp/dao2_runners_0151ff8b76b64861aa7312a66cc00229`，輸出在 `.test-output/dao2_runners_0151ff8b76b64861aa7312a66cc00229/`。此為有界L2，沒有重跑L3或宣稱全量回歸。
+- **失敗與修正過程**：初次沙箱執行無法建立Godot `user://`／隔離保存，第一支timeout且出現SCRIPT ERROR；主動終止該輪，改以正常本機權限執行，不計成功。新增compact測試起初因Label初次autowrap使容器暫態長高，連續三次調查未通過；在獨立Control宿主且初始布局穩定後重設受限尺寸，該專項通過，最終五支亦全部通過。既有anchor／Font RID／ObjectDB退出診斷保留，不聲稱日誌零警告。
+- **新版Web與桌面抽驗**：`Godot --headless --path . --export-release Web build/web-imm4-r1/index.html` 最終exit0；`node tools/prepare_web_compression.mjs build/web-imm4-r1` exit0。本機測試包PCK 125,639,796 bytes，sha256 `67ef8d45cd66fc3610cf4c5beb21021d550f1c3ee078169a1e85182d782fb4a4`。重用 `island_preview_server` 的Handler，暫時指定BUILD為該包、FIXTURE為既有 `src/verification/content_p1_skills_fixture.json`、測試頁prefix為 `dao2_saves:`；僅服務新origin `127.0.0.1:4427`，未修改server來源或玩家origin。沿用舊launcher的題名／築基字樣並非本次快照版本證據，實際為既有命令賺得的金丹技能快照，非瀏覽器自然通關。
+- **實際操作證據**：IAB桌面滑鼠在iframe **1280×720 CSS px**（外窗1280×800）打開修行→技能、實際研習到基礎冥想2/5、目前1.210／下階1.331，Tab移至聚氣術按鈕可見金色焦點框及墨色文字。另針對原compact缺口抽驗 **800×360 CSS px**：三島藏真法的完整作用／收益0／目前與下階效果經內捲可讀，44px動作與固定關閉可達並返回洞府。短式長卡需內捲，不宣稱全卡必須同屏。證據 `.test-output/imm4-r1/web-focus-fixed.jpg`、`web-scope-1280.jpg`、`web-scope-800.jpg`、`web-effects-800.jpg`；這是可讀性／桌面輸入證據，不推定IndexedDB落盤、FPS或全頁鍵盤可及性審計。
+- **文件校正與交付檢查**：docs19明示正文與焦點對比，docs43及原IMM-4報告移除「鍵盤依10/17延期」及未有使用者核定的「已接受殘留」推論；原145支L3與當時包證據保留歷史。README／ROADMAP／ai-handoff只放狀態入口，英文checkpoint寫入updata並保留最近5筆。`python tools/delivery_check.py --web build/web-imm4-r1` 7／7 match、RESULT PASS；guard目錄原有7張未追蹤.import與開始時一致。本輪僅更新本機測試包，既有build/web與build/web-imm4仍是原IMM-4版本，未當作修正版證據或發布候選包。
+- **下一步與邊界**：本次R1 DoD已滿足；未新增微動態工程，不啟動P3大型任務。觸控／實機延期，非當前阻擋。待使用者另行指定下一任務，長期依賴仍為RES1-E-79→CONTENT-P3／SKS-P3。未commit／push；本有界修正階段完成，**可手動commit**，後續大型工作請New Chat。
+
+<a id="imm-review-20261028"></a>
+## 2026-10-28 IMM 系列完成度複核：核查完成，IMM-4-R1 待修
+
+使用者要求核查 OpenCode 的 IMM 成果與預排工作。本次為審查階段，不修改遊戲來源、不重新匯出、不重跑 L3；下方原 IMM-4 DONE 保留為當時結案記錄，不能解讀為本次已確認所有規範均符合。
+
+- **已核實交付**：共用庫存／物品格、七島選擇器、成本列與各頁接線有實際來源及測試。原 L3 日誌 `C:/Users/asus/AppData/Local/Temp/dao2_runners_e101659f673444538a928a0a443f6582` 有 145 份 stdout，逐份皆含 `RUNNER_RESULT status=PASS exit=0`，stdout／stderr 無 `SCRIPT ERROR:`。此為沿用 2026-10-28 原始證據，並非本輪重新執行全矩陣。原桌面 Web 證據目錄 `.test-output/imm4-web/` 及 74 張截圖存在；本輪未重新做瀏覽器互動，不將證據存在等同重新人工驗收。
+- **本輪 L1**：先以 `tools/run_all_runners.ps1 -Only 'imm1a_inventory_runner.gd,imm1c_island_selector_runner.gd,imm3a_cost_detail_runner.gd,imm3b_cultivation_resources_runner.gd,imm3c_page_consistency_runner.gd' -List` 確認 5 支，再同 selector 正式執行。1280×720、matrix=single，5／5 PASS（9.9／10.0／9.4／10.0／17.6 秒），exit 0；輸出隔離與 evidence guard 通過。日誌 `C:/Users/asus/AppData/Local/Packages/sandbox.{861068f2-6e09-41b2-8cbf-e571df271569}/AC/Temp/dao2_runners_38d9f25d2397403bb2df7376f9cfa833`。本機引擎 `--version` 為 `4.7.2.stable.official.ed1daf0bf`。
+- **Web 校驗**：`python tools/delivery_check.py --web build/web` 與 `--web build/web-imm4` 均 7／7、RESULT PASS／exit 0；PCK 各 125,639,700 bytes，匯出時間晚於目前最新 GDScript 修改。此為包完整性證據，不聲稱重新證明每頁互動、存檔落盤或效能。
+- **[P2] 未符合 DoD：技能正文縮字**。`src/presentation/skill_study_view.gd:158`／`:160` 在 compact 模式（內容高 <340）把 scope／effect 設為 14px，effect 是目前／下階實際效果正文；scope 在寬式亦為 15px。與 `docs/07-responsive-ui-web-spec.md:156` 的卡片正文最低16、不靠縮字塞高度，以及 docs41／docs43沿用規範的要求衝突。本次檢查的既有技能與 IMM runner 沒有對這些 Label 設最低字級斷言；PASS 不能排除此缺口。
+- **文件校正**：原結案把「鍵盤／觸控焦點」一併歸為 2026-10-17 延期並稱殘留已接受，但使用者指令僅延期觸控／實機。純主題 Button 可繼承引擎 focus style（R1已核對；原引 `ui_material.gd:231` 實為文字輸入框設定），沒有金色環本身不代表無焦點；應核查可辨性，不能捏造鍵盤驗收延期或使用者接受。IMM-2「無新增動態工程」可保留，不等同全面豁免焦點要求。
+- **下一任務 IMM-4-R1／TODO**：恢復技能說明／效果至少16px，以容器、留白與內捲容納；補最小字級與完整文字／操作不裁切檢查；按 L1／L2 補受影響 runner 與含修正包桌面抽驗，不因本次審查重跑全量 L3。更正鍵盤延期敘述並核對焦點要求。修復前不宣稱 IMM 無剩餘工作。
+- **既有預排工作**：IMM 原批次沒有尚未啟動的必需大批次；IMM-2 是無新增工程決定。較長期仍有 `RES1-E-79 → CONTENT-P3`／`SKS-P3`（Era7–9），其後 `RES1-E-1012 → CONTENT-P4`／`SKS-P4`（Era10–12），以及 M4／M5 完整可玩與逐界內容驗收。這些是規劃與依賴順序，尚非已授權自動啟動或已排定執行日期。realm 法令條件與 Era8 雲蛟維持原條件限制。觸控／實機與慢網冷啟動維持延期，非本輪阻擋或下一必做。
+
+本次只更新狀態、入口與英文 checkpoint；保留現有未提交成果及原結案歷史，未 commit／push。審查階段完成，可手動 commit；下一 New Chat 先處理 IMM-4-R1，不直接展開 P3 大型任務。
+
+<a id="imm-4"></a>
+## 2026-10-28 IMM-4：整批收尾 DONE（大型任務完成，L3）
+
+使用者指定IMM-4。依docs43對IMM-1A／1B／1C／3A／3B／3C做整批收尾：逐頁總表、整批美術／操作確認、唯一L3（全runner＋全尺寸矩陣）、正式Web同步與候選包、桌面瀏覽器三橫式真實滑鼠抽驗，並記錄IMM-2決定。未改規則、存檔schema、命令payload、獎勵或既有禁用／送單語意。
+
+實作與修改檔案：
+- 短式溢位修正（L3首輪133／145抓出，全在844×390與800×360）：`cost_strip.gd`新增`set_compact()`／`is_compact()`，`recipe_material_tile.gd`新增`cell`／`compact`／`set_compact()`（36×36格、28px圖示、隱藏caption）並讓無圖資源的`refresh()` fallback不再強制顯示caption；`ui_shell_controller.gd`工具覆層高度改為止於工具列上緣，修正選島／存檔／除錯工具底板超出；`alchemy_panel.gd`煉丹列micro（<400）套compact格與橫向動作列；`reincarnation_panel.gd`天賦列<400套compact、<380改文字「道心：N」；`sect_panel.gd`功法P1卡compact套成本列、隱描述與縮圖；`skill_study_view.gd`compact套成本列、保留功法來源與完整倍率；`island_world.gd`／`island_selector.gd`選島幾何無條件配置、compact收合標題／頁尾、當前島置頂、窄式世界列可縮且按鈕≥44高於工具列。
+- 測試端只修隔離與設計期望，不放寬版面斷言：`imm3c_page_consistency_runner.gd`依ShellPolicy的compact「summary」呈現調整短式期望並使`_tiles_are_seals`接受compact 36px格；`res1_ui1a_runner.gd`在矩陣迴圈後還原1280×720版面（原後續1280檢查沿用800×360版面）。`world46`、`res1d2_world`、`content_p1/p2`、`uix_r8`的卡高／可達性條件不變。
+- 新增`docs/verification/imm-4-batch-closure.md`：逐頁總表、IMM-2決定、短式修正、L3、Web雜湊、三橫式證據與殘留。同步更新docs43、README、ROADMAP與本段。
+
+驗證與修復紀錄：
+- L3（唯一、全量）：`tools\run_all_runners.ps1 -Full -Parallel 3 -TimeoutSeconds 1800`，matrix=full，145 runner，`SELECTED 145 RUNNERS PASSED (matrix=full)`，每支`RUNNER_RESULT status=PASS exit=0`，無`SCRIPT ERROR:`；時間11:51:43→12:20:37，日誌`C:/Users/asus/AppData/Local/Temp/dao2_runners_e101659f673444538a928a0a443f6582`。首輪為133／145，12支失敗全數修正或確認為已核實的長測試（兩支era流程原600秒逾時，1800秒後PASS 1304.7／531.3秒）。
+- Web：`--headless --import` exit 0；Web preset輸出`build/web`（正式）與`build/web-imm4`（候選）皆exit 0；`node tools\prepare_web_compression.mjs`兩者exit 0且報告一致（PCK 125,639,700 bytes sha256 `f9ea0e55…3e48`、wasm 39,514,754、js 279,815，br合計133,044,317；BGM四首逐位元複製）。`python tools\delivery_check.py --web build\web`與`--web build\web-imm4`均`[web] 7/7 files match compression.json`、`RESULT PASS`。
+- 桌面Web三橫式（L3要求的桌面滑鼠／尺寸）：`127.0.0.1:4420/launcher`載入`build/web-imm4`與Era3隔離fixture，Edge/CDP deviceScaleFactor 1實測iframe 1280×720／844×390／800×360（canvas 1279×720／843×389／799×360，1px取整照實記錄）；真實滑鼠在三尺寸皆可開經營殼與資源抽屜、Escape關閉、resize保留狀態，離線摘要完整落在畫面內；console無ERROR。證據gitignored`.test-output/imm4-web/`：`p12-01..03-1280`、`p15-01..06`（844／800 world/shell/drawer）、`p14-01`／`p14-04`離線摘要。此只證明桌面滑鼠與尺寸呈現，不聲稱IndexedDB落盤、FPS、觸控或實機通過。
+- IMM-2：記為「無新增微動態工程」。`ui_material.gd:213-239`主題五態＋`apply_*`皮層、`graphic_action.gd`等六個共用元件已覆蓋十五頁；接受殘留為覆層開關無tween（docs43:29）、製造`recipe_row.gd:68-100`徽章／標題為選取捷徑無獨立hover、純主題按鈕無金色focus環（鍵盤／觸控焦點依2026-10-17延期）。
+
+未通過／待辦：本輪無未解失敗。觸控／實機、慢網冷啟動與FPS另依既有指令延期或未量測（本輪僅靜態版面變更，記錄針對性理由）。短式「系統訊息·新手引導」僅露尾端約兩行（可捲動）列為已知呈現限制。介面批次全數結案，下一個任務待使用者指定。本次是大型任務結束，可手動commit；代理未commit／push。
+
+<a id="imm-3c"></a>
+## 2026-10-28 IMM-3C：全頁一致性核對 DONE（階段完成，L1＋L2桌面Web 1280×720抽驗）
+
+使用者指定IMM-3C。依docs43與docs42剩餘清單，逐頁核對洞府＋十三功能頁及訊息／資源抽屜／設定存檔／保存保護／離線報告五類覆層，補完3A留下的文字串列；未改規則、存檔schema、命令payload、獎勵或既有禁用語意。
+
+實作與修改檔案：
+- `manufacturing_panel.gd`：`detail_stock`移除逐項「名稱：當地／祖島可用x／需求y」多行文字，材料需求只由`detail_costs`圖像成本列與格內TIP承載；保留在途到貨及產物可用／容量／加工待完成／容量預留等狀態事實。加工坊按鈕改只顯示階級與秒數／批（及已達上限），移除「祖島支付：…」，升級成本只由`workshop_costs`成本列呈現。
+- `island_transport_panel.gd`：升階按鈕移除「祖島支付」價格文字，保留運力N→M／10秒與「升階保留啟停與已保存設定」；成本只由`upgrade_costs`成本列呈現。來源餘貨／保留／目的容量預留／剩餘空間／目標／運力／在途仍為帶標籤事實列。
+- 新增`tests/imm3c_page_consistency_runner.gd`並登錄`tools/run_all_runners.ps1`：覆蓋十四頁的canonical路由、共用返回／分頁44px、資源入口與抽屜分類（home／inventory／focused／none）、各頁成本列圖印、製造與運輸去重、宗門歷練fallback、機緣無成本／有成本、輪迴預設頁／天賦頁，以及訊息／資源／工具／保存失敗與離線報告覆層。
+- 更新`tests/content_p2_supply_ui_runner.gd`：運輸升階改驗證`upgrade_costs`格數等於`_info(id).upgrade_cost`且按鈕不含「祖島支付」。
+- 新增`docs/verification/imm-3c-page-consistency.md`逐頁表與例外；更新docs43、docs19、README、ROADMAP及本段。docs19新增「成本由共用成本列呈現、動作按鈕不重複價格清單；圖示已承載的資源不再逐項文字列」的共同規則。
+
+驗證與修復紀錄：
+- L1（matrix=single 1280×720）：新runner首輪抓出洞府資源帶因`home_preferences`預設mode 0而隱藏，以及`sect_panel.gd:727`讀取缺失的`techniques`鍵；修正fixture後`imm3c` PASS 18.7秒（日誌`C:/Users/asus/AppData/Local/Temp/dao2_runners_5cda3579eeae4e738246d8224c3dd567`）。同組`content_p2_supply_ui` 4.7、`imm3a` 8.6、`imm3b` 7.5秒PASS（`.../dao2_runners_c33f9c60b70d4907b1016718492b6994`）；`res1_ui1a`／`res1_ui1b`為既有長測試，預設45秒逾時後以`-TimeoutSeconds 150`單獨重跑，分別PASS 49.3／91.5秒（`.../dao2_runners_252e21ac1d26412b8924327b3d2771b3`、`.../dao2_runners_967c2ad9bf5945d39d0369f3110afa99`）。合計6支受影響runner，無`SCRIPT ERROR`。
+- L2桌面Web：以目前來源匯出`build/web-imm3c`（PCK 125,634,100 bytes；`index.wasm` 39,514,754），本機`127.0.0.1:4418/launcher`載入Era3隔離fixture，Edge/CDP 1280×720真實滑鼠抽驗管理殼、製造材料成本列、運輸升階與資源抽屜。證據在gitignored`.test-output/imm3c-web/`：`ev-08-transport-detail-down.png`顯示升階按鈕無支付文字、成本列有圖示；`ev-09-resources-drawer.png`顯示島別分組圖示與選中詳情；`ev-17-manufacturing-title-select.png`顯示材料需求圖示列而無逐項可用／需求文字。Web只證明桌面滑鼠／尺寸呈現，不聲稱IndexedDB落盤、FPS、觸控或實機通過；製造加工坊成本列在Web未展開，以原生runner為準。
+
+未通過／待辦：本階段受影響檢查無未解失敗。完整介面尚有IMM-4整批收尾（唯一L3、全矩陣、Web三橫式與候選包）；本輪未執行L3、全尺寸矩陣或正式候選包，IMM-2仍為有需才做。下一個New Chat做IMM-4。本次是階段結束，可手動commit；代理未commit／push。
+
+<a id="imm-3b"></a>
+## 2026-10-28 IMM-3B：修行與遊歷資源 DONE（階段完成，L1＋L2桌面Web 1280×720抽驗）
+
+使用者指定接續IMM-3B。依docs43與docs42接口，把修行、靈獸、輪迴、宗門、機緣與天道決策的常態資源／成本由文字改為共用圖像成本列，並接通共用資源抽屜；未改規則、存檔schema、命令payload、獎勵或既有禁用／送單語意，機緣主頁維持原版，敘事／歷世表／確認區保持閱讀形式。
+
+實作與修改檔案：
+- `skill_study_view.gd`：每階研習成本改`CostStrip`單格技能點（來源當世），沿用技能點`available/cap`標題、效果、前置與禁用原因。
+- `beast_care_view.gd`：祖島餵料改圖示格（來源祖島）並保留缺料／冷卻註記；同種獸魂改獨立事實列「輪迴成熟後取得，不用於餵養」，天賦「領悟·N魂」不變。
+- `realm_decision_view.gd`：法令成本改共用成本列，`lifespan_seconds`維持獨立「壽元消耗N秒」標籤、不混入物品格；境界、冷卻、次數與`is_ready`規則不變。
+- `fortune_modal.gd`：選項成本改共用成本列與缺料註記，主頁版面、選項卡、獎勵與禁用判斷不動。
+- `reincarnation_panel.gd`：天賦成本改道心圖示列（來源傳承）並顯示精確缺口；道心／道證仍分開顯示，歷世表與敘事未改。
+- `sect_panel.gd`：參悟與兌換新增貢獻＋靈木／下品靈石成本列（來源宗門），P2短式沿用文字成本；資格、上限、學藝／兌換按鈕與目的地錯誤語意不變。
+- `ui_shell_resources.gd`／`ui_shell_controller.gd`：focused路由（技能／靈獸／機緣／決策／輪迴天賦）於資源抽屜顯示結構化圖示群組；修正靈獸只讀當前靈獸`feed_costs`導致未收養時抽屜空白的問題，改由各獸`care.costs`補齊需求且不虛構容量／預留。宗門歷練維持卡片內顯示並移除TODO註記，建築／煉丹沿用既有圖示列。
+- 新增`tests/imm3b_cultivation_resources_runner.gd`並登錄`tools/run_all_runners.ps1`；更新`content_p2_beasts_ui_runner.gd`、`uix_r11_decisions_ui_runner.gd`以讀取成本列tiles。docs43標IMM-3B完成。
+
+驗證與修復紀錄：
+- L1（matrix=single 1280×720）：新runner首輪抓出`sect_panel.gd`的`cost_lbl`作用域及`reincarnation_panel.gd:593`型別推斷錯誤，修正後PASS 9.7秒；`imm3b,imm3a,ui_shell_policy,ui_shell_integration,uix_r9_sect_ui` 5／5 PASS（日誌`C:/Users/asus/AppData/Local/Temp/dao2_runners_1940fac191044faca82acecddb405bb2`）；`content_p2_beasts_ui,m3a_reincarnation_ui,uix_r10_fortune_ui,uix_r11_decisions_ui,content_p1_skills_ui`修正舊Label假設後全數PASS（日誌`.../dao2_runners_9f42c73a6af9479089fa014d1037bb81`）；最終來源變更後`imm3b,ui_shell_policy,ui_shell_integration,content_p2_beasts_ui` 4／4 PASS（日誌`.../dao2_runners_86addb40f891451eb6e012e84a6b0379`）。合計10支受影響runner，無`SCRIPT ERROR`。
+- L2桌面Web：以目前來源匯出`build/web-imm3b`（PCK 125,634,532 bytes，`node tools/prepare_web_compression.mjs` exit 0），本機`127.0.0.1:4416/launcher`載入Era3隔離fixture，Edge/CDP 1280×720真實滑鼠抽驗修行→靈獸及資源抽屜。證據`.test-output/imm3b-web/06-beasts.png`、`07-beasts-scrolled.png`、`09-beasts-updated.png`、`10-drawer-updated.png`：靈狐卡靈草50圖示（來源祖島）與獸魂獨立列；火鳳千年靈草10缺料朱紅及「祖島餵料不足：千年靈草 需10・缺10」；抽屜餵養材料七項圖示、獸魂尚無庫存、靈草可用210／容量210／來源祖島。此fixture技能頁未開放，技能／宗門／輪迴／決策／機緣由原生runner覆蓋；只證明桌面滑鼠與尺寸呈現，不聲稱IndexedDB落盤、FPS、觸控或實機通過。
+
+未通過／待辦：本階段受影響檢查無未解失敗。完整介面尚有IMM-3C及最終IMM-4；本輪未執行L3、全尺寸矩陣或正式候選包。下一個New Chat做IMM-3C全頁一致性核對。本次是階段結束，可手動commit；代理未commit／push。
+
+<a id="imm-3a"></a>
+## 2026-10-27 IMM-3A：經營成本與詳情 DONE（階段完成，L1＋L2桌面Web抽驗）
+
+使用者指定接續IMM-3A。本輪依docs43與已接受R2／R3原則，把製造就地庫存、加工坊成本、運輸詳情、建築／煉丹材料格、空島開拓／升級及舊靈界據點成本統一為圖像成本列；未改規則、存檔schema、命令payload或既有禁用／送單語意。運力、保留量、目標與容量維持帶標籤設定或事實列，不當作物品數量。
+
+實作與修改檔案：
+- 新增`src/presentation/cost_strip.gd`：共用成本列（標題、HFlow物品格、資格／缺料／滿倉註記），重用`recipe_material_tile.gd`、`resource_icon.gd`與`number_formatter.gd`；提供`show_costs()`、`clear_costs()`、`visible_tiles()`、`shortage_text()`、`covers()`，逐項顯示來源與實際需求，缺料以朱紅註記。
+- `manufacturing_panel.gd`：配方詳情新增材料成本列（來源依就地／祖島），加工坊按鈕下方新增`升級加工坊 N→N+1 階`成本列與祖島缺料／未開拓註記；原有`detail_stock`、批數、設定、啟停與工坊按鈕文字／禁用不變。
+- `island_transport_panel.gd`：詳情改為帶標籤事實列（來源餘貨、已保存保留、目的容量預留、剩餘空間、已保存目標、運力、在途倒數），新增`升級運力 N→M／10秒`成本列與缺料／未就緒註記；設定欄、草稿、保存、升階文字及禁用不變。
+- `island_management_panel.gd`：開拓按鈕前新增成本列與境界／啟用／缺料／材料充足註記；設施卡新增成本列與未開拓／已達上限／缺料註記；沿用`_home_available()`並新增`_home_stock()`讀祖島庫存；原有付款組、tile鍵與按鈕語意不變。
+- `src/abode/living_abode.gd`／`src/presentation/abode_hud_controller.gd`：洞府建築詳情在描述與動作間新增成本列，顯示建造／升級材料、來源與前置不足／先開拓／缺料原因；按鈕文字（建造、升級、前置不足、已達上限）及命令不改。
+- `building_catalog.gd`：材料列缺圖時保留24×24位置並以名稱＋`持有／需求`文字取代空白圖，已有圖與既有`25/100`、tooltip格式不變。
+- `realm_teleport_modal.gd`：靈界據點卡片以共用成本列取代純文字`晉升消耗`，顯示實際持有／需求、未解鎖／材料不足；重建簽章納入成本庫存，未變更視圖仍保留卡片實例。
+- 新增`tests/imm3a_cost_detail_runner.gd`並登錄`tools/run_all_runners.ps1`；runner涵蓋上述成本格、來源caption、缺料註記、運力／保留標籤、開拓境界需求、缺圖fallback及靈界據點成本更新。
+
+驗證與修復紀錄：
+- 引擎核對：本機Godot `4.7.2.stable.official.ed1daf0bf`，Compatibility；L1執行前先`-List`確認選取。新runner首輪因`manufacturing_panel.gd:417`缺換行及子類重複宣告`CostStrip`而preload失敗，修正後`--check-only`通過；靈界重建的舊卡片改先`remove_child()`再`queue_free()`，避免同幀讀到殘留成本列。
+- L1（matrix=single 1280×720）：`imm3a_cost_detail_runner.gd` PASS（9.2秒）；`res1_ui1a_runner.gd`、`res1_ui1b_runner.gd`、`content_p2_supply_ui_runner.gd`、`mfg3_inline_runner.gd` 4／4 PASS（46.3／86.4／4.9／8.0秒，日誌`C:/Users/asus/AppData/Local/Temp/dao2_runners_79a2eae60c374c948e52a018667fb456`）；`m3b_alchemy_ui_runner.gd`、`content_p2_pills_ui_runner.gd`、`m4a_realm_runner.gd`、`m2d_responsive_ui_runner.gd`、`uix_r4_building_cards_runner.gd` 5／5 PASS（日誌`.../dao2_runners_a2f2c8a5c02f4991a751c183cbcdd324`）。合計10／10，無`SCRIPT ERROR`。
+- L2桌面Web：以目前來源匯出`build/web-imm3a`（PCK 125,630,036 bytes，exit 0），本機`127.0.0.1:4414/launcher`載入Era3隔離fixture，Edge/CDP 1280×720真實滑鼠抽驗製造與運輸。證據`.test-output/imm3a-web/probe-mfg-open.png`、`probe-mfg-bottom.png`、`probe-transport-open.png`、`probe-transport-bottom.png`、`07-transport-detail.png`：材料需求玄銅20／中品靈石5標`當地`、加工坊靈材5／銅精5標`祖島`、運輸來源餘貨150／保留0、目的預留0／剩餘50／目標100、運力10／10秒、升運力靈材10／銅精10；無面板越界或文字重疊。只證明桌面滑鼠與尺寸呈現，不聲稱IndexedDB落盤、FPS、觸控或實機通過。
+- 成本註記與禁用分離：缺料／資格只在成本列說明，未新增UI自行禁用（除原有規則已禁用者）；命令失敗仍由正式流程回報。
+
+未通過／待辦：本階段受影響檢查無未解失敗。完整介面尚有IMM-3B／3C及最終IMM-4；本輪未執行L3、全尺寸矩陣或正式候選包。下一個New Chat做IMM-3B修行與遊歷資源。本次是階段結束，可手動commit；代理未commit／push。
+
+<a id="imm-1c"></a>
+## 2026-10-27 IMM-1C：洞府縮圖選島 DONE（階段完成，L1＋L2桌面Web抽驗）
+
+使用者確認OpenCode已暫時完成階段，可由本對話繼續編輯。核對工作區後保留IMM-1A／1B成果，依docs43接續IMM-1C；本輪未再發現外部同檔覆寫。完整介面批次尚未結案，下一IMM-3A；不自行commit／push。
+
+實作與修改檔案：
+- 新增`src/presentation/island_selector.gd`及Godot產生的`.uid`：既有島體圖、島名／開拓狀態、當前選中印、92px寬式／80px短式整列按鈕、內捲清單、共用字型／CloseSeal。穩定ID保留列節點、選中狀態及捲動；未新增美術資產。
+- `src/presentation/island_world.gd`：取代舊OptionButton及文字世界列。寬式在右側顯示可收起清單，短橫式從選島入口開共用shell tool遮罩；保留歸家、管理此島、世界地標及管理頁反向入口。照原Era／供給版本顯示現有七島；Era2丹霞仍為可查看條件的原預覽，寒銀／古藥／太虛維持Era4／5／6。點選不開拓、不扣料、不改Session。
+- `src/abode/living_abode.gd`：依實際左HUD、右清單與下方操作區計算鏡頭安全區；尺寸或清單狀態變更時更新配適，自動提示讓位，主動訊息閱讀維持共用覆層。未開放選島時不新增延後排版。
+- 新增`tests/imm1c_island_selector_runner.gd`及`.uid`，登錄`tools/run_all_runners.ps1`；更新`world46_runner.gd`、`res1d2_world_runner.gd`及`early_flow1d_runner.gd`以檢查新入口。docs19同步正式通則，docs43標本階段完成；README／ROADMAP僅狀態連結，英文交接在updata.txt。
+
+驗證與修復紀錄：
+- 引擎核對：本機Godot `4.7.2.stable.official.ed1daf0bf`，Compatibility。L1執行前均先`tools/run_all_runners.ps1 -Only ... -List`；未跑全量或L3。
+- 最終L1共5支受影響runner通過，按依賴分兩組：`-Only 'world46_runner.gd','res1d2_world_runner.gd','early_flow1d_runner.gd' -TimeoutSeconds 180`為3／3 PASS（7.8／8.8／99.7秒，正常Windows user://環境），日誌`C:/Users/asus/AppData/Local/Temp/dao2_runners_b72a8eacf0ff478cb2d2a762037976f6`；`-Only 'imm1c_island_selector_runner.gd','m2d_responsive_ui_runner.gd' -TimeoutSeconds 120`為2／2 PASS（10.5／11.4秒），日誌`sandbox.{903b95c7-e867-41fb-996e-2cb0d2d2a5e7}/AC/Temp/dao2_runners_d134568016aa475e991e9083d97c4717`。matrix=single；既有響應式runner內的固定轉換案例保留，未擴為全尺寸矩陣。
+- 新runner涵蓋七島圖像、整列命中、列節點保留、捲到末島、當前標記、管理／返回、收起／重開、真實島體投影落在安全區、完整規則snapshot不變、Era2預覽／Era1隱藏。另以`.test-output/imm1c/short_runner.gd`單獨設定844×390補驗32→33項（最後33項PASS），共用tool、世界輸入鎖、返回、抽屜界內及自動訊息避讓均通過；此為有界短式功能補驗。
+- 原生1280×720／844×390視覺：`.test-output/imm1c/capture.gd`在隔離合成Era6資料輸出洞府、展開清單與遠島各圖，位於`.test-output/imm1c/`，exit0、無SCRIPT ERROR。沿用earned Era3複本再提升顯示條件，不能當自然晉階證據。
+- L2桌面Web：`Godot --headless --path . --export-release Web build/web-imm1c/index.html`及`node tools/prepare_web_compression.mjs build/web-imm1c`更新本機測試包（非候選交付、不升L3），本次最終來源重新載入驗證。IAB透過隔離`127.0.0.1:4412/launcher`、iframe實測1280×720，以滑鼠點青木／太虛、捲至後期島、管理太虛／原頁返回、關清單／重開，確認選中與鏡頭避讓。證據`.test-output/imm1c/web-1280.png`、`web-review.json`；只證明桌面滑鼠操作，不聲稱IndexedDB落盤或FPS驗收。
+- 中途失敗已處理：一開始把未登錄的`res1c2_world_runner.gd`用作selector，`-List`拒絕，改選正式登錄範圍；舊EARLY-FLOW在沙箱user://失敗，正常使用者環境重跑通過。共用響應式初次4項失敗，以HEAD世界／洞府副本對照確認為本次延後排版干擾，已限定作用範圍並於初始隱藏launcher，最終通過。一次`had_world_ui`型別推斷錯誤令runner逾時，補明確bool後parse與功能重驗通過。截圖輔助腳本的SaveCodec引數／content_version取用及UTF-8讀取亦修正後才採用輸出。
+- 初次並行匯出自動生成7個舊證據JPG的未追蹤`.import`旁檔，runner guard拒絕；已核對僅刪除本輪生成旁檔，既有證據內容未改。最終runner guard及通用交付稽核確認證據區乾淨。保留既有anchor／沙箱shader cache／退出RID與ObjectDB警告，無SCRIPT ERROR成功誤判。
+
+通用收尾：`python tools/trim_status_docs.py`已歸檔超過3筆的頁首歷史，updata保留最近5筆；`python tools/delivery_check.py --web build/web-imm1c` RESULT PASS（證據區0變更，Web 7／7與compression.json一致）。`git diff --check`首輪發現updata尾端空白行，修正後通過。
+
+未通過／待辦：本階段受影響檢查無未解失敗。完整介面尚有IMM-3A／3B／3C及最終IMM-4；本輪未執行L3或正式候選包交付。下一個New Chat做IMM-3A經營成本與詳情，機緣主頁保持原版。本次是階段結束，可手動commit；代理未commit／push。
+
+
+<a id="imm-1b"></a>
+## 2026-10-27 IMM-1B：空島／製造／運輸共用物品格 DONE（L1＋桌面Web 1280×720抽驗）
+
+使用者指定以fusion skill執行IMM-1B。本輪沿docs43及已接受R2／R3原則，把共用庫存正式接入空島／製造／運輸；工作區原有IMM-1A變更保留，沒有改寫存檔schema、規則命令或頁面流程。介面文字維持繁體中文。
+
+實作：
+- `recipe_material_tile.gd`：改為正方形物品格（56×56格、中央48px ICON、右下數量疊印），保留 `quantity`／`caption`／`icon`／`style`／`shortage`／`refresh(...)` 公開介面。缺料朱紅、產出青玉、正常灰青沿用；未插圖資源保留名稱＋來源caption，已插圖可依 `show_source_caption` 隱藏來源列。新增 `set_reserved()`／`reserved_visible()` 顯示左上沙漏；`refresh()` 會先清除舊預留，避免跨列殘留。
+- `island_management_panel.gd`：空島頁新增 `payment_cards`／`payment_tiles` 祖島工程材料組，與「本島可用庫存」地方庫存分開；付款組只在非祖島且啟用時顯示，地方庫存、採集速率、設施成本與升級命令保持。地方／採集格接上非零預留標記。
+- `manufacturing_panel.gd`：材料與產物格隱藏格內來源caption；輸入需求、缺料顏色、產物庫存與非零預留保留；加工模式、批次、保留、設定、草稿、開始／停止／返回命令未改。
+- `island_transport_panel.gd`：航線兩端沿用正方物品格並保留島名caption；終點非零預留顯示沙漏，缺貨與端點未開沿用朱紅／`—`，在途仍只由狀態、倒數與進度呈現，不混入兩端可用數量。航線設定、草稿、保存、重試、升級與返回命令未改。
+
+驗證：
+- 最終L1（matrix=single 1280×720，`-TimeoutSeconds 120`）：`res1_ui1a_runner.gd`、`res1_ui1b_runner.gd`、`content_p2_supply_ui_runner.gd`、`mfg3_inline_runner.gd`、`imm1a_inventory_runner.gd` **5／5 PASS**，耗時39.6／75.4／4.9／7.9／8.0秒；日誌 `C:\Users\asus\AppData\Local\Temp\dao2_runners_7bf31d3de0934843a538ec79ab41b05a`。另因共用物品格亦供煉丹使用，補跑 `m3b_alchemy_ui_runner.gd`、`content_p2_pills_ui_runner.gd` 2／2 PASS（6.0／7.4秒，日誌 `C:\Users\asus\AppData\Local\Temp\dao2_runners_454cb4ed41584e009ce94562861dc922`）。檢查無`SCRIPT ERROR`；僅既有退出時RID／ObjectDB警告。斷言涵蓋付款組4格、地方預留、製造產物預留、格子56×56與右下數量、運輸終點預留、缺料／端點未開／在途分離、保存失敗重試與返回不退化。
+- 獨立fusion-auditor對IMM-1B DoD逐項PASS；本輪修正其指出的ICON尺寸覆寫失效、格子幾何與空島預留覆蓋缺口。付款組零值仍作資訊性庫存顯示，不另造噪音規則；既有死碼／舊字級覆寫不影響行為，未擴大修改。
+- 桌面Web抽驗（L2局部）：以本次來源重新匯出到`build\web`，本機服務埠4410載入三島試玩fixture，Edge/CDP設1280×720並實際點擊空島／製造／運輸；觀察到正方ICON＋右下數量、製造格內無來源文字列、空島地方庫存正常且祖島頁付款組按預期隱藏、運輸兩端島名與150／100數量、在途0獨立顯示。截圖留存gitignored `.test-output\imm1b-web\`。這是單尺寸桌面滑鼠抽驗，不是L3、全尺寸矩陣、觸控或IndexedDB落盤證據。
+
+未完成：未跑L3／全尺寸矩陣／Web壓縮或交付候選包；未驗手機／平板／高DPR／實機；IMM-1C洞府選島、IMM-3A成本詳情、IMM-3B修行資源與IMM-3C全頁一致性仍待續。工作區保留IMM-1A／1B未commit變更；本階段結束可手動commit，代理未commit／push。下一步：IMM-1C。
+
+<a id="imm-1a"></a>
+## 2026-10-27 IMM-1A：共用庫存／物品元件 DONE（L1＋原生雙尺寸視覺；Web滑鼠抽驗併1B）
+
+使用者在排程完成後明確「繼續」，授權開始IMM-1A。開工時工作區已有同批接線與專項測試，本輪先保留並核對，再於同一來源完成修正；現有變更包含 `inventory_item_cell.gd`、`inventory_panel.gd`、`ui_shell_resources.gd`、`ui_shell_controller.gd`、NumberFormatter精確提示及新runner／入口，來源並非全部由本對話新建。
+
+最終統一來源補查／修訂：九種情境的結構化資料（宗門技術／市場可回傳群組，其餘路由明記TODO）、零庫存必需材料保留、宗門祖島材料來源、未知值null與eta不補假0、精確整數／小數提示、靜態選中樣式、鍵盤焦點／捲動恢復、`scope`避免暫時狀態錯選、就地數值刷新、短式抽屜單行摘要與寬式完整摘要、左欄底部避開左下操作列。`docs19`已補短抽屜單行摘要通則。
+
+歷程保留：早期沙箱 `ui_shell_integration`／`mfg3_inline` 的舊 `user://` 隔離寫入失敗、`res1_ui1a` 45秒逾時，以及專項「topology refresh preserves selection and scroll」失敗與寬式詳情超出左欄的舊圖，均已於最終來源修正；舊日誌／截圖不刪除，不當最終通過證據。`res1_ui1a_runner.gd` 的50次切頁量測改為先暖機再計節點，避免首次建立庫存格造成假失敗。
+
+最終驗證（L1，matrix=single 1280×720，`-TimeoutSeconds 120`）：`imm1a_inventory_runner.gd`、`ui_shell_policy_runner.gd`、`ui_shell_matrix_runner.gd`、`ui_shell_integration_runner.gd`、`mfg3_inline_runner.gd`、`mfg_controller_runner.gd`、`res1_ui1a_runner.gd` **7／7 PASS**；耗時矩陣26.2秒、integration8.1秒、policy2.4秒、imm1a7.6秒、mfg3 7.5秒、mfg_controller0.3秒、res1_ui1a39.1秒。日誌 `C:\Users\asus\AppData\Local\Temp\dao2_runners_30bc1d06c42a4c4a8454e85be4f92476`。原生合成狀態截圖1280×720寬式與844×390短抽屜通過可讀性檢查（檔名i），暫存capture／rects工具已刪除，僅留gitignored `.test-output/imm1a-capture/`。
+
+未完成：未做含本次來源的桌面Web滑鼠抽驗，依排程併入IMM-1B同功能完成時一次；未跑全尺寸矩陣、Web匯出壓縮或L3；觸控／實機沿延期政策。IMM-1B未開工。未commit／push。通用delivery_check與git diff --check於收尾執行。下一步：IMM-1B核心經營接入（空島／製造／運輸），沿用本契約與元件。
+
+<a id="imm-plan"></a>
+## 2026-10-27 IMM-PLAN：設計原則ACCEPTED，完整介面排程交付DONE
+
+使用者明確「接受，先用這個版本的相關設計原則來去延伸完整介面，請安排後續介面調整」。已將R3圖像庫存、R2正方形物品格／右下數量及洞府縮圖大按鈕方向作為正式共同基線；機緣主頁保留原版。**IMM-0-STATIC ACCEPTED／設計交付DONE；本輪IMM-PLAN排程交付DONE。** 未示範的動態／音效／Shader沒有因此接受；完整遊戲介面遷移與驗收仍TODO，不把原稿IMM-0的動態候選當作靜態接入阻擋。
+
+交付[docs43完整排程](43-full-ui-adjustment-plan.md)，沿原IMM編號分批：1A共用結構化庫存／物品元件 → 1B製造／空島／運輸 → 1C洞府選島 → 3A經營成本／詳情 → 3B修行／遊歷資源 → 3C全頁一致性 → 必要才做2微動態 → 4唯一L3收尾。排程明列洞府＋十三功能頁與共用覆層的負責批次、DoD及沿用／不適用界線，沒有將全部頁面粗暴改成倉庫格。
+
+**下一個實作為IMM-1A，前置已滿足**：正式View產結構化項目，禁止解析details文案；集中正方物品格／庫存呈現，先接製造左欄與短式抽屜，保留來源、精確值、容量預留／在途與選中／捲動／焦點。九種情境資料契約與逐頁接線分開記錄。每批L1／L2，整批最後一次L3；不在本規劃輪跑遊戲回歸或製作候選包。
+
+修改：新增docs43；docs19記錄接受，docs41更新實作順序，docs42檢查轉遷移清單；R2／R3 captures metadata改DESIGN_PRINCIPLES_ACCEPTED並明示範圍，viewer僅改接受標示、README補排程。README／ROADMAP一行狀態、ai-handoff最新入口、本節與英文updata同步；既有dirty成果保留。PNG／capture列表／來源hash、正式程式／資產／設定、build與玩家存檔未改，未新增圖或改動態。
+
+驗證層級：**純規劃／接受metadata靜態檢查**。核對初始五支runner檔與run_all入口存在，只安排後續-List及L1命令，本輪未啟動runner／引擎／原生渲染／Web匯出／瀏覽器／FPS。沿用同日R3原生20PNG／10對及靜態檢視器19組的原範圍證據，未擴張為正式遊戲通過。通用trim／delivery_check／git diff與新文件連結檢查全部exit0／PASS；既有證據目錄變更0、文件連結有效，英文updata維持最近5筆。
+
+下一步：以New Chat直接開始IMM-1A，不再要求重新確認已接受原則；後續各批依docs43推進。本輪為**規劃階段結束**，可手動commit；代理未commit／push，未在本對話展開下一大型實作。
+
+<a id="imm-0-r3"></a>
+## 2026-10-27 IMM-0 R3：庫存圖像化樣張與同類介面檢查完成
+
+使用者指出製造左側資源區純文字拼湊，要求調整並檢查同類。本輪完成**R3樣張／來源檢查階段**，具體視覺仍IN_REVIEW；正式遊戲共用資源元件未修改。[最新檢視器](visual-prototype/imm0/index.html)／[製造比較](visual-prototype/imm0/r3/manufacturing-compare.png)／[十三頁來源檢查與處理清單](42-graphic-inventory-review.md)。
+
+左欄改88px正方形物品ICON＋右下可用量、按島分組，選中物品才在底部顯示一份圖像／名稱／可用容量與真實容量條；完整來源／容量預留保留TIP，非零預留圖示，實際正載貨另組。短式抽屜依容器寬度排更多欄，原CloseSeal／遮罩流程保持；不合併地方與祖島庫存。中央配方沿R2、洞府沿R2、機緣主頁依決策保留原版。
+
+來源檢查涵蓋全部13個canonical功能路由與相關詳情，確認 `UiShellResources.describe()` 把View轉長字串，再由共用殼 `context_text` 單Label呈現；9個路由可使用該元件。空島／製造／運輸／宗門功法及坊市與本次截圖最接近；其他依資源抽屜／成本條件顯示。另記製造設定、運輸詳情、宗門成本與舊靈界據點升級文字串列。區分建築／煉丹既有圖示、未掛入樹的resource_summary、TIP，以及合理的敘事／收據／帳目表，沒有把搜尋到join就當成缺陷。三個代表頁有本輪原生截圖；其餘是來源證據，不宣稱已操作或已修正。
+
+修改：新增 `tools/imm0_inventory_study.gd` 共用隔離樣張元件、`tools/imm0_r3_samples.gd` 取樣腳本及 `docs/42-graphic-inventory-review.md`；`docs/visual-prototype/imm0/r3/` 新增20PNG／10對、比較板、metadata／日誌／瀏覽器紀錄，檢視器加空島／運輸／庫存抽屜與R2歷史入口。同步docs19新通則、docs41、README／ROADMAP一行狀態、本節及英文updata；正式src／scenes／assets／content／設定、build與玩家進度未改。既有dirty設計成果保留。
+
+驗證層級為**設計樣張原生渲染＋桌面靜態檢視器＋來源盤點**，未跑遊戲L1／L2／L3、全runner、Web匯出或FPS。Godot --version exit0（4.7.2）；`--headless --path . --script res://tools/imm0_r3_samples.gd --check-only` exit0。最終 `--path . --script res://tools/imm0_r3_samples.gd --audio-driver Dummy --rendering-method gl_compatibility --log-file E:/WORK/Dao2/.test-output/imm0-r3-engine.log` exit0；20圖尺寸、10對狀態hash、渲染前後不改狀態及庫存格實際正方／≥44px檢查通過。使用同一Era3合成展示資料，不是自然遊玩、正常命令或保存故障證據。保留既有cache／anchor／退出RID診斷。
+
+初輪研究元件Variant推型警告當錯誤而未編譯；修正後跨代表頁又發現R2幾何檢查持有前一場景已釋放格參照，第二輪雖exit0但有SCRIPT ERROR，明確不算通過。已每次清除參照，最終[日誌](visual-prototype/imm0/r3/native-capture.log)無SCRIPT ERROR；兩次失敗留 `.test-output/imm0-r3-first.log`／`imm0-r3-second.log`。通用PNG／狀態靜態核對曾因第二輪SCRIPT ERROR拒絕交付，修正後才封裝。
+
+IAB樣張頁19組頁／狀態／尺寸全部圖片載入，7組機緣仍僅顯示原版；這是靜態檢視器，不是Web遊戲滑鼠／保存驗收。[記錄](visual-prototype/imm0/r3/browser-check.json)與[取樣追溯](visual-prototype/imm0/r3/captures.json)。通用收尾採 `python tools/trim_status_docs.py`、`python tools/delivery_check.py` 與 `git diff --check`，全部exit0；delivery_check RESULT PASS、既有證據目錄變更0，diff無空白錯誤。
+
+下一步：收圖像庫存樣張回饋，接受後New Chat集中遷移正式共用情境資源元件，再分批處理docs42的成本詳情；不把樣張當九個路由已完成。此次為**樣張／介面檢查階段結束**，可手動commit；未commit／push，不自動開IMM-1大型實作。
+
+<a id="imm-0-r2"></a>
+## 2026-10-27 IMM-0 R2：三頁決策已記錄，兩頁修訂樣張交付
+
+使用者否決洞府R1改動幅度、製造長方形材料格，並指定機緣先保留原版。本輪完成**R2樣張修訂階段**，方向同步docs19／docs41；洞府／製造具體新樣張仍IN_REVIEW，機緣保留原版已決定，不再要求重選。正式遊戲接線未啟動。
+
+交付[同一檢視器R2](visual-prototype/imm0/index.html)、[洞府大圖清單](visual-prototype/imm0/r2/home-compare.png)與[製造正方ICON](visual-prototype/imm0/r2/manufacturing-compare.png)。洞府以原島體縮圖＋島名放在92px／短式80px大列按鈕中，短式清單內捲及共用CloseSeal；HUD保留正式版。製造材料及產出格改68px／短式56px正方形，物品填圖、數字右下疊印與描邊，原來源／持有需求tooltip保持，不另加名稱／來源文字列；缺料與禁止開始沿原View。機緣檢視器僅顯示原版，隱藏候選比較，原正式來源未修改。
+
+新增 `tools/imm0_r2_samples.gd`，基底 `tools/imm0_samples.gd` 僅將輸出與取樣列表開為可覆寫；新增 `docs/visual-prototype/imm0/r2/` 的12張PNG／6對、兩張比較板、captures.json、日誌與瀏覽器紀錄。檢視器／README改R2並保留r1-index歷史入口；docs19、docs41、README／ROADMAP、本節及英文updata同步。正式src／scenes／assets／content／設定、build及玩家進度均未修改，原dirty設計成果保留。
+
+驗證為**設計樣張原生渲染與桌面靜態檢視器**，不觸發遊戲L1／L2／L3、Web匯出或FPS：Godot --version exit0／4.7.2；`Godot --path . --script res://tools/imm0_r2_samples.gd --audio-driver Dummy --rendering-method gl_compatibility --log-file .test-output/imm0-r2-engine.log` 最終exit0。12張尺寸、6對相同狀態hash及渲染不改狀態核對通過；材料格實際寬高差≤1px、四島列逐一內捲可達且高度≥80px。初輪發現寬式清單高度不足及已釋放caption仍被View刷新，已改明確清單容器最小高度及保留隱藏caption參照；初輪exit1／SCRIPT ERROR保留 `.test-output/imm0-r2-capture.log`。最終[日誌](visual-prototype/imm0/r2/native-capture.log)無SCRIPT ERROR，既有cache／anchor／退出RID診斷保留，非乾淨引擎退出聲稱。
+
+IAB桌面檢視器13組頁／尺寸／狀態全數圖片載入；7組機緣均只顯示原版且候選隱藏。只證明靜態檢視器，非正式遊戲滑鼠命中／故障保存。圖片、原生狀態及來源hash記[metadata](visual-prototype/imm0/r2/captures.json)；機緣沿用R1同日原版PNG，沒有重跑機緣。`python tools/trim_status_docs.py`／`python tools/delivery_check.py`／`git diff --check` 作通用收尾，全部exit0，delivery_check RESULT PASS、既有證據目錄變更0，diff無空白錯誤。
+
+下一步：收洞府清單及製造物品格的具體樣張回饋，接受後New Chat接正式共用呈現；機緣維持原版。這是**樣張修訂階段結束**，可手動commit，未commit／push，不自動展開IMM-1。
+
+<a id="imm-0"></a>
+## 2026-10-27 IMM-0：三頁樣張交付完成，視覺定稿 IN_REVIEW
+
+使用者指定「三頁對照樣張」。交付[可切換對照頁](visual-prototype/imm0/index.html)及[洞府](visual-prototype/imm0/home-compare.png)／[製造](visual-prototype/imm0/manufacturing-compare.png)／[機緣](visual-prototype/imm0/fortune-compare.png)三張並排板。**本輪樣張交付階段完成；IMM-0完整DoD仍待使用者確認材質、密度與動態方向，不標正式換皮DONE。**
+
+候選在隔離Godot場景試排：洞府淡紙深墨／目的地同列；製造寬式單列、放大產物、材料來源／需求、模式／設定及真實7秒倒數保留，缺料補文字數量；機緣寬式左情境右選項、短式保留首個動作及原內捲區，合併重複頁題與保存回饋。共用GameTab、CloseSeal、字型與插圖B沿既有元件，沒有核定新的通則或加入動態／音效。短式就緒敘述改TIP，不縮字。
+
+交付26張PNG／13組同資料對照：洞府正常、製造加工中／缺料、機緣待決／感應就緒／保存異常，兩種尺寸1280×720、844×390；另含短式待決選項末段。每對讀相同展示狀態，狀態hash相同；26次渲染前後狀態不變，PNG尺寸與hash核對通過。資料由既有Era3 fixture複製後補庫存／指定工作與待決事件，明示為合成展示；7秒為凍結的View值，保存異常為呈現注入，不是自然遊玩、合法事件命中、新保存故障或收益證據。世界特效相位未作像素級同步，不宣稱兩圖為相同動畫幀。
+
+修改：新增 `tools/imm0_samples.gd` 隔離取樣工具、`docs/visual-prototype/imm0/` 靜態圖／瀏覽器／captures.json／原生日誌與使用說明；docs41加樣張導引、README／ROADMAP一行狀態、本節及英文updata。正式src／scenes／assets／content／project設定、build與玩家存檔未修改；既有dirty設計文件與歸檔保留。
+
+驗證層級：**設計樣張原生渲染＋桌面瀏覽器檢視，未執行遊戲L1／L2／L3回歸**。未修改正式接線，不啟動全runner、Web匯出、候選包或FPS量測。
+
+- `Godot --version`：exit0，4.7.2.stable.official.ed1daf0bf。
+- `Godot --path . --script res://tools/imm0_samples.gd --audio-driver Dummy --rendering-method gl_compatibility --log-file .test-output/imm0-engine.log`：最終exit0／26張；短式三個機緣選項逐一捲到按鈕，44px與位於內捲可視區檢查通過。只證明原生幾何可達，不等於實際滑鼠命中。早期工具型別／資料路徑／重複變數錯誤已修正，失敗留 `.test-output/imm0-first.log`／`imm0-final.log`；非首次即全綠。最終[原生日誌](visual-prototype/imm0/native-capture.log)無SCRIPT ERROR；保留既有anchor提示、user shader cache不可寫及退出Font／CanvasItem／ObjectDB RID診斷，不稱乾淨引擎退出。
+- Python靜態核對：26張尺寸／寫入與13組狀態hash一致；三張板僅原圖並排。追溯記於 [captures.json](visual-prototype/imm0/captures.json)。
+- IAB真實桌面樣張頁：13組頁／狀態／尺寸選擇對應圖片全部載入；現況／候選放大與並排切換通過。這是靜態檢視器，不是Web遊戲驗收。初用系統Python4401服務連線逾時，已停；改Codex bundled Python4402成功。保留 [4402檢視器](http://127.0.0.1:4402/index.html)供審閱，僅暴露樣張目錄；非公開發布。
+- 通用收尾：`python tools/trim_status_docs.py`、`python tools/delivery_check.py`、`git diff --check`，全部exit0；delivery_check RESULT PASS、既有證據目錄變更0，diff無空白錯誤。[樣張瀏覽器記錄](visual-prototype/imm0/browser-check.json)已保存；不新增專屬closure／audit腳本。
+
+下一步：使用者審閱三頁，確認或指出需修訂部分；接受後再以New Chat接IMM-1共用呈現試點。動態僅沿docs41建議、未做試播，不因靜態樣張推定已接受。此次為**樣張交付階段結束**，可手動commit；代理未commit／push，不自動展開下一大型實作。
+
+<a id="ui-immersion-design"></a>
+## 2026-10-27 UI-IMMERSION-DESIGN：設計交付 DONE，視覺升級待核定
+
+使用者要求閱讀Claude建議並提出最終版本；本輪僅完成建議書，未授權或啟動正式換皮。交付[最終建議稿](41-game-ui-immersion-and-aesthetic-final.md)，保留原提案並加導引。核對UiMaterial、GraphicAction及共用殼／字型／插圖規範，建議清雅仙家手卷、三頁試點與分級動態；修正全面禁Flat、全互動彈跳、全頁消融及重建Theme的建議。沒有最新全頁視覺操作觀察，不將程式存在等同美術品質驗收。
+
+修改：新增最終稿，原提案加連結，README／ROADMAP一行狀態，本節、英文updata及通用trim歸檔。未改遊戲來源、資產、build或玩家存檔；docs19既有核定規則保持，新建議尚未當作通則。
+
+驗證：Godot --version exit0（4.7.2.stable.official.ed1daf0bf）；本輪僅文件靜態檢查，未執行L1／L2／L3、Web匯出、FPS或瀏覽器驗收。收尾使用 python tools/trim_status_docs.py、python tools/delivery_check.py、git diff --check；trim與delivery_check均exit0／PASS，證據目錄變更0；diff初檢發現updata尾端空行，已移除並補驗。
+
+下一步：使用者審閱方案後，新對話啟動IMM-0三頁對照樣張；沒有自動開始P3或正式畫面修改。本次為設計階段結束，可手動commit；代理未commit／push。
+
 
 <a id="content-p2-accept"></a>
 ## 2026-10-27 CONTENT-P2-ACCEPT：P2 整合收尾 DONE（桌面／Web有界）

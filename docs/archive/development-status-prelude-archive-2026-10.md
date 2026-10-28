@@ -1,3 +1,39 @@
+2026-10-28 **IMM-3C DONE（全頁一致性核對，L1＋L2桌面Web 1280×720抽驗）**：洞府＋十三功能頁及五類覆層已逐頁留下「已調整／沿用且已核對／不適用」與證據；製造逐項資源文字列及製造／運輸按鈕重複價格已移除，6支受影響runner通過，整批介面待IMM-4收尾。見下方IMM-3C。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-3B DONE（修行與遊歷資源，L1＋L2桌面Web 1280×720抽驗）**：技能點、餵養材料／獸魂、道心、宗門貢獻與法令／機緣成本已接共用圖像成本列，focused資源抽屜接通；10支受影響runner通過，整批介面未結案。見下方IMM-3B。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-3A DONE（經營成本與詳情，L1＋L2桌面Web抽驗）**：製造材料／加工坊、運輸詳情／運力、空島開拓／設施、洞府建築、煉丹材料與靈界據點成本已共用圖像成本列；10／10受影響runner通過，整批介面未結案。見下方IMM-3A。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-1C DONE（洞府縮圖選島，L1＋L2桌面Web抽驗）**：七島大列清單、短式共用工具抽屜及鏡頭避讓；5支受影響runner通過，整批介面未結案。見下方IMM-1C。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-1B DONE（核心經營共用物品格，L1＋桌面Web 1280×720抽驗）**：空島／製造／運輸已接結構化庫存與正方物品格，付款／地方／產物／兩端在途分組保持；7／7（核心5＋煉丹相依2）相關runner通過。見下方IMM-1B。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-1A DONE（L1＋原生雙尺寸視覺）**：共用庫存契約、88px物品格、製造左欄與短抽屜接入；7／7 runner通過，Web滑鼠抽驗併入IMM-1B。見下方IMM-1A。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見下方CONTENT-P2-ACCEPT。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。見下方WORLD-46-L3。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
+2026-10-27 **STORY-2 DONE（L3／桌面Web有界）**：文稿／節奏接受，139／139唯一runner最終分段通過、Web匯出壓縮與三橫式完成；原失敗保留。見下方STORY-2-L3。
+
+> 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。
+
 2026-10-27 **STORY-2 美術 ACCEPTED**：20圖與UI-R1呈現已接受；文稿／節奏及整批L3未收結。見下方 STORY-2-ART-ACCEPT。
 
 > 較舊的日期化結案段落已原文搬至 [development-status-prelude-archive-2026-10.md](archive/development-status-prelude-archive-2026-10.md)。

@@ -32,6 +32,7 @@ var _talent_rows: Dictionary = {}
 
 var _active_tab: String = "reincarnate" # "reincarnate" | "talents"
 const ART_DIR := "res://assets/ui/reincarnation-painted/"
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 var _root_box: VBoxContainer
 var _hero: TextureRect
 var _footer: HBoxContainer
@@ -118,14 +119,14 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		if not _last_view.is_empty(): refresh(_last_view)
 
 func _fit_talents() -> void:
-	var edge := 112 if size.y >= 350 else clampi(int(_body_scroll.size.y) - 16, 44, 80)
+	var edge := 112 if size.y >= 400 else clampi(int(_body_scroll.size.y) - 16, 44, 80)
 	for row in _talent_rows.values():
 		row.find_child("TalentArt", true, false).custom_minimum_size = Vector2.ONE * edge
 		var style: StyleBox = row.get_theme_stylebox("panel")
-		style.content_margin_top = 2 if size.y < 350 else 8
-		style.content_margin_bottom = 2 if size.y < 350 else 8
+		style.content_margin_top = 2 if size.y < 400 else 8
+		style.content_margin_bottom = 2 if size.y < 400 else 8
 		var description_box: VBoxContainer = row.find_child("TalentDesc", true, false).get_parent()
-		description_box.add_theme_constant_override("separation", 2 if size.y < 350 else 4)
+		description_box.add_theme_constant_override("separation", 2 if size.y < 400 else 4)
 
 func _update_talent_description(row: PanelContainer) -> void:
 	if not row.has_meta("talent_id"): return
@@ -148,18 +149,18 @@ func _update_talent_description(row: PanelContainer) -> void:
 				effect = "每餵經驗 +%d → +%d" % [level * 10, next_level * 10]
 				scope = "玄龜／火鳳；火鳳煉虛解鎖，餵費／冷卻不變"
 		if level >= 5: effect = effect.get_slice(" → ", 0) + " · 已圓滿"
-		label.text = "%s\n%s" % [effect, scope]
+		label.text = effect if size.y < 400 else "%s\n%s" % [effect, scope]
 		label.tooltip_text = "%s\n%s\n需首次輪迴且最高元嬰；當世境界不限。購入即生效、跨世保留。\n花道心會降低祖島持有加成，不追補過去收益。" % [definition.description, scope]
 		return
 	var percent := int(round(level * (8 if id == "artisan_past_wisdom" else (20 if id == "beast_bond_past_wisdom" else 10))))
-	var effects := {"resource_inheritance":"轉世開局資源 +%d%% 庫容\n下次轉世生效", "lifespan_extension":"壽元上限 +%d%%", "innate_dao_body":"修行積累速度 +%d%%", "alchemical_past_wisdom":"兩種聚靈丹修煉 +%d%%\n衰減後計算，受當層上限限制", "artisan_past_wisdom":"祖島四設施產率貢獻 +%d%%\n不含庫容／茅屋／產點／遠島", "beast_bond_past_wisdom":"靈狐餵養經驗 +%d%%\n與獸魂成長相加；冷卻不變"}
-	label.text = ("%s\n目前加成：%d%%" % [definition.description, percent]) if size.y >= 350 else effects[id] % percent
+	var effects := {"resource_inheritance":"轉世開局資源 +%d%% 庫容","lifespan_extension":"壽元上限 +%d%%","innate_dao_body":"修行積累速度 +%d%%","alchemical_past_wisdom":"兩種聚靈丹修煉 +%d%%","artisan_past_wisdom":"祖島產率貢獻 +%d%%","beast_bond_past_wisdom":"靈狐餵養經驗 +%d%%"}
+	label.text = ("%s\n目前加成：%d%%" % [definition.description, percent]) if size.y >= 400 else effects[id] % percent
 	if id in TalentSystem.P1_IDS:
 		var per_rank := 8 if id == "artisan_past_wisdom" else (20 if id == "beast_bond_past_wisdom" else 10)
 		var next_percent := mini(level + 1, 5) * per_rank
 		var next_text := "已圓滿" if level >= 5 else "下階 +%d%%" % next_percent
-		label.text = label.text.replace("目前加成：%d%%" % percent, "目前 +%d%% · %s" % [percent, next_text]) if size.y >= 350 else label.text.replace("+%d%%" % percent, "+%d%% → %s" % [percent, next_text])
-	label.tooltip_text = definition.description
+		label.text = label.text.replace("目前加成：%d%%" % percent, "目前 +%d%% · %s" % [percent, next_text]) if size.y >= 400 else label.text.replace("+%d%%" % percent, "+%d%% → %s" % [percent, next_text])
+	label.tooltip_text = definition.description + ("\n" + (effects[id] % percent) if size.y < 400 else "")
 
 func _label(text_value: String, font_size: int = 16) -> Label:
 	var label := Label.new()
@@ -509,7 +510,7 @@ func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	hbox.add_theme_constant_override("separation", 12)
 	container.add_child(hbox)
 
-	var image := _art(talent_id, 80 if size.y < 350 else 112)
+	var image := _art(talent_id, 80 if size.y < 400 else 112)
 	image.name = "TalentArt"
 	image.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	hbox.add_child(image)
@@ -546,6 +547,10 @@ func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	cost_label.add_theme_font_size_override("font_size", 16)
 	action_box.add_child(cost_label)
 
+	var strip := CostStrip.new()
+	strip.name = "CostStrip"
+	action_box.add_child(strip)
+
 	var learn_btn := Button.new()
 	learn_btn.name = "LearnButton"
 	learn_btn.text = "參悟"
@@ -561,7 +566,9 @@ func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 func _update_talent_row(row: PanelContainer, _talent_id: String, def: Dictionary, cur_lvl: int, max_lvl: int, current_dh_str: String) -> void:
 	var name_label: Label = row.find_child("TalentName", true, false)
 	var cost_label: Label = row.find_child("CostLabel", true, false)
+	var strip = row.find_child("CostStrip", true, false)
 	var learn_btn: Button = row.find_child("LearnButton", true, false)
+	strip.set_compact(size.y < 400.0)
 
 	name_label.text = "%s   [%d / %d 階]" % [String(def.get("name", "")), cur_lvl, max_lvl]
 	row.set_meta("level", cur_lvl)
@@ -569,26 +576,38 @@ func _update_talent_row(row: PanelContainer, _talent_id: String, def: Dictionary
 
 	if cur_lvl >= max_lvl:
 		cost_label.text = "已圓滿"
+		cost_label.visible = true
 		cost_label.add_theme_color_override("font_color", Color("29604c"))
+		strip.clear_costs()
+		strip.visible = false
 		learn_btn.disabled = true
 		learn_btn.text = "圓滿"
 	else:
 		var cost_amount: AmountCompat = TalentSystem.get_cost(_talent_id, cur_lvl)
-		var cost_str := cost_amount.serialize()
-		cost_label.text = "需道心: %s" % _format_amount_str(cost_str)
+		cost_label.visible = false
 
 		var parse_dh := AmountCompat.try_parse(current_dh_str)
 		var has_enough := false
 		if parse_dh.get("ok", false):
 			var cur_dh: AmountCompat = parse_dh["value"]
 			has_enough = (cur_dh.compare_to(cost_amount) >= 0)
+		var available: float = float(parse_dh["value"].to_float()) if bool(parse_dh.get("ok", false)) else 0.0
+		var note := ""
+		if not has_enough:
+			var gap: AmountCompat = cost_amount.subtract(parse_dh["value"]) if bool(parse_dh.get("ok", false)) else cost_amount
+			note = "道心不足・缺 %s" % gap.to_display_string()
+		var micro := size.y < 380.0
+		strip.visible = not micro
+		if micro:
+			cost_label.text = "道心: " + cost_amount.to_display_string()
+			cost_label.visible = true
+			cost_label.add_theme_color_override("font_color", Color("9b3e30") if not has_enough else UiMaterial.INK)
+		strip.show_costs({"dao_heart": cost_amount.to_float()}, {"dao_heart": "道心"}, {"dao_heart": available}, {"dao_heart": "傳承"}, "道心", note, UiMaterial.INK)
 
 		if has_enough:
-			cost_label.add_theme_color_override("font_color", UiMaterial.INK)
 			learn_btn.disabled = false
 			learn_btn.text = "參悟"
 		else:
-			cost_label.add_theme_color_override("font_color", Color("9b3e30"))
 			learn_btn.disabled = true
 			learn_btn.text = "道心不足"
 	# Read the same rule decision used by the command, including migration gates.

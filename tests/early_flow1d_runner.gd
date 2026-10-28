@@ -270,7 +270,7 @@ func ui(s: GameSession) -> void:
 				check(scene._hud_controller._skills_action.visible and scene._hud_controller._sect_action.visible, "both optional actions " + str(size))
 				scene._hud_controller._toggle_guidance()
 				scene._refresh_hud() # normal frame refresh; this test disables _process
-				check(scene.island_world.rail.visible, "closing explanation restores rail " + str(size))
+				check(scene.island_world.rail.visible or scene.island_world.selector.visible, "closing explanation restores island navigation " + str(size))
 	s.state = foundation_ready.duplicate_state()
 	scene.feature_navigation.home()
 	for size in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):

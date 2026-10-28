@@ -3,6 +3,7 @@ extends VBoxContainer
 signal action_requested(kind: String, id: String)
 const ART_DIR := "res://assets/ui/skills-painted/"
 const NumberFormatter = preload("res://src/utils/number_formatter.gd")
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 var buttons: Dictionary = {}
 var cards: Dictionary = {}
 var heading: Label
@@ -51,6 +52,7 @@ func _ready() -> void:
 	grid.add_theme_constant_override("v_separation", 10)
 	scroll.add_child(grid)
 	resized.connect(_layout)
+	scroll.resized.connect(_layout)
 
 func _label(value: String, font_size: int = 16) -> Label:
 	var label := Label.new()
@@ -73,7 +75,8 @@ func _art(id: String, edge: int) -> TextureRect:
 func _card(item: Dictionary) -> void:
 	var card := PanelContainer.new()
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	card.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
+	var box: StyleBoxTexture = UiMaterial.hud_paper()
+	card.add_theme_stylebox_override("panel", box)
 	grid.add_child(card)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
@@ -86,11 +89,11 @@ func _card(item: Dictionary) -> void:
 	row.add_child(info)
 	var title := _label("", 18)
 	info.add_child(title)
-	var scope := _label("", 15)
+	var scope := _label("")
 	info.add_child(scope)
 	var effect := _label("")
 	info.add_child(effect)
-	var cost := _label("")
+	var cost := CostStrip.new()
 	info.add_child(cost)
 	var action := Button.new()
 	action.custom_minimum_size = Vector2(112, 44)
@@ -99,10 +102,11 @@ func _card(item: Dictionary) -> void:
 	row.add_child(action)
 	action.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	buttons["skill:" + item.id] = action
-	cards[item.id] = {"card":card, "art":art, "title":title, "scope":scope, "effect":effect, "cost":cost, "action":action}
+	cards[item.id] = {"card":card, "box":box, "row":row, "info":info, "art":art, "title":title, "scope":scope, "effect":effect, "effect_full":"", "cost":cost, "action":action}
 
 func refresh(view: Dictionary) -> void:
 	var data: Dictionary = view.get("skills", {})
+	var skill_points := _amount(view.get("resources", {}).get("skill_point", {}).get("value", "0"))
 	var points := "%s / %s" % [NumberFormatter.format_amount(data.get("available", "0")), NumberFormatter.format_amount(view.get("resources", {}).get("skill_point", {}).get("cap", "200"))]
 	_heading_full = "研習卷冊 · 技能點 " + points
 	_heading_short = "技能點 " + points + (" · 藏經閣產點" if data.get("opened", false) else " · 研習未開")
@@ -119,8 +123,9 @@ func refresh(view: Dictionary) -> void:
 		row.effect.text = item.get("current_effect", item.description)
 		if item.level < item.max_level:
 			row.effect.text += "\n下階：" + item.get("next_effect", item.description)
+		row.effect_full = row.effect.text
 		row.effect.tooltip_text = item.description if scope_text.is_empty() else item.description + "\n作用：" + scope_text + ("\n" + scope_note if not scope_note.is_empty() else "")
-		row.cost.text = "每階 %s 技能點" % item.cost
+		row.cost.show_costs({"skill_point": float(item.cost)}, {"skill_point": "技能點"}, {"skill_point": skill_points}, {"skill_point": "當世"}, "每階研習", "", UiMaterial.INK)
 		row.action.text = {"SKILL_STUDY_LOCKED":"研習未開", "SKILL_ERA_LOCKED":"境界未達", "SKILL_PREREQ_LOCKED":"前置未足", "SKILL_MAX_LEVEL":"已滿級", "INSUFFICIENT_SKILL_POINT":"點數不足"}.get(item.reason, "研習")
 		row.action.disabled = not item.can_learn
 		row.action.tooltip_text = "築基並建藏經閣後開放" if item.reason == "SKILL_STUDY_LOCKED" else "境界晉升至結丹期後可研習" if item.reason == "SKILL_ERA_LOCKED" else "前置技能未達門檻" if item.reason == "SKILL_PREREQ_LOCKED" else item.description
@@ -139,4 +144,23 @@ func _layout() -> void:
 		heading.tooltip_text = _heading_full + "\n藏經閣產點 · 經書殿擴容\n" + feedback_message
 	heading.add_theme_font_size_override("font_size", 18 if compact else 20)
 	for row in cards.values():
-		row.art.custom_minimum_size = Vector2.ONE * (80 if compact else 112)
+		var box: StyleBoxTexture = row.box
+		row.cost.set_compact(compact)
+		row.art.custom_minimum_size = Vector2.ONE * (56 if compact else 112)
+		row.row.add_theme_constant_override("separation", 6 if compact else 12)
+		box.content_margin_left = 6 if compact else 16
+		box.content_margin_right = 6 if compact else 16
+		box.content_margin_top = 2 if compact else 10
+		box.content_margin_bottom = 2 if compact else 10
+		row.title.add_theme_font_size_override("font_size", 16 if compact else 18)
+		# Body text stays readable; containers and the scroll absorb extra height.
+		row.scope.add_theme_font_size_override("font_size", 16)
+		row.scope.visible = not row.scope.text.is_empty()
+		row.effect.add_theme_font_size_override("font_size", 16)
+		var full_effect := String(row.effect_full)
+		row.effect.text = full_effect
+		row.info.add_theme_constant_override("separation", 0 if compact else 2)
+
+func _amount(raw: Variant) -> float:
+	var parsed := AmountCompat.try_parse(str(raw))
+	return parsed.value.to_float() if bool(parsed.get("ok", false)) else 0.0

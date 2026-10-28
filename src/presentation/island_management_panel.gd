@@ -8,6 +8,7 @@ signal page_requested(route: String, island_id: String)
 signal retry_requested()
 signal context_changed()
 const IslandTile = preload("res://src/presentation/recipe_material_tile.gd")
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 
 var island := "home"
@@ -36,10 +37,13 @@ var world_button: Button
 var resource_cards: HFlowContainer
 var local_cards: HFlowContainer
 var cost_cards: HFlowContainer
+var opening_note: Label
 var facility_cards := {}
 var stock_cards := {}
 var local_tiles := {}
 var opening_tiles := {}
+var payment_cards: HFlowContainer
+var payment_tiles := {}
 var island_picker: OptionButton
 var short_world_button: Button
 var _island_basics := false
@@ -135,6 +139,7 @@ func _rebuild() -> void:
 	stock_cards.clear()
 	local_tiles.clear()
 	opening_tiles.clear()
+	payment_tiles.clear()
 	page_links.clear()
 	short_world_button.visible = size.y < 400
 	summary = _label("")
@@ -144,9 +149,13 @@ func _rebuild() -> void:
 	body.add_child(cost_cards)
 	for resource in (_islands().get(island, {}).get("cost", {"wood": 20, "stone_low": 10})):
 		opening_tiles[resource] = _tile(cost_cards)
+	opening_note = _label("")
+	body.add_child(opening_note)
 	opening = _add_button(body, "開拓此島", func(): action_requested.emit("open_island", {"island_id": island}))
 	payment_stock = _label("")
 	body.add_child(payment_stock)
+	payment_cards = HFlowContainer.new()
+	body.add_child(payment_cards)
 	inventory = _label("")
 	body.add_child(inventory)
 	resource_cards = HFlowContainer.new()
@@ -171,8 +180,10 @@ func _rebuild() -> void:
 			var tiles := {}
 			for resource in IslandProgression.upgrade_cost(id, 1):
 				tiles[resource] = _tile(row)
+			var note := _label("")
+			column.add_child(note)
 			facility_buttons[id] = _add_button(column, "", func(): action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": id}))
-			facility_cards[id] = {"card": card, "effect": effect, "costs": row, "tiles": tiles}
+			facility_cards[id] = {"card": card, "effect": effect, "costs": row, "tiles": tiles, "note": note}
 	elif island == "home":
 		_add_button(body, "洞府建築", func(): page_requested.emit("buildings", "home"))
 	page_links.append(_add_button(body, "製造・本島產線", func(): page_requested.emit("manufacturing", island)))
@@ -224,12 +235,39 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		for resource in costs: opening_tiles[resource] = _tile(cost_cards)
 	for resource in opening_tiles:
 		opening_tiles[resource].refresh(resource, _resource_name(resource), costs[resource], _home_available(resource), "祖島")
+		opening_tiles[resource].set_reserved(0)
+	opening_note.visible = opening.visible
+	if opening.visible:
+		var names := {}
+		for resource in costs:
+			names[resource] = _resource_name(resource)
+		var requirement := int(definition.get("era", 1))
+		var note_text := ""
+		if int(view.get("era_id", 1)) < requirement:
+			note_text = "境界需求 %d 期（目前 %d 期）" % [requirement, int(view.get("era_id", 1))]
+		elif not can_initialize:
+			note_text = "需先啟用空島（保留原檔）"
+		else:
+			note_text = CostStrip.shortage_text(costs, _home_stock(costs), names, "祖島材料不足")
+			if note_text.is_empty():
+				note_text = "材料充足"
+		opening_note.text = note_text
+		opening_note.add_theme_color_override("font_color", Color("a23e32") if note_text.contains("缺") or note_text.begins_with("境界") or note_text.begins_with("需") else UiMaterial.INK)
 	var payment: Array[String] = []
 	for resource in ["wood", "stone_low", "spirit_timber", "bronze_essence"]:
-		payment.append("%s %.1f" % [_resource_name(resource), _home_available(resource)])
+		var available: float = _home_available(resource)
+		payment.append("%s %.1f" % [_resource_name(resource), available])
+		if not payment_tiles.has(resource):
+			payment_tiles[resource] = _tile(payment_cards)
+		var ptile = payment_tiles[resource]
+		ptile.show_source_caption = false
+		ptile.refresh(resource, _resource_name(resource), available, available, "祖島")
+		ptile.set_reserved(0)
+		ptile.tooltip_text = "祖島工程庫存：%s %s" % [_resource_name(resource), _amount(available)]
 	payment_stock.text = "工程材料由祖島支付"
 	payment_stock.tooltip_text = "祖島工程庫存：" + "・".join(payment)
 	payment_stock.visible = enabled and island != "home" and size.y >= 400
+	payment_cards.visible = payment_stock.visible
 	var role: String = {"home": "修行與合成・各配方共用一條產線", "wood": "林業・靈木採集", "ore": "採礦・靈石與玄銅", "herb": "藥業・靈草與百年草"}.get(island, "採集專島・地方容量300・無加工坊")
 	summary.text = "%s・%s" % [role, "已開拓" if opened else ("金丹解鎖" if island == "herb" and int(view.get("era_id", 1)) < 3 else "先開拓第一座空島" if not enabled and island == "wood" else "待開拓")]
 	if island in IslandEconomy.supply_data().islands:
@@ -255,6 +293,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 			stock_cards[id] = {"tile": tile, "rate": rate, "meter": meter}
 		var widgets: Dictionary = stock_cards[id]
 		_stock_tile(widgets.tile, id, float(slot.get("available", 0)), _resource_name(id))
+		widgets.tile.set_reserved(float(slot.get("reserved", 0)))
 		widgets.rate.text = "＋%s／秒" % NumberFormatter.format_rate(float(info.rates[id]))
 		widgets.meter.max_value = float(info.capacity)
 		widgets.meter.value = float(slot.get("available", 0)) + float(slot.get("reserved", 0))
@@ -273,6 +312,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 			if not local_tiles.has(resource):
 				local_tiles[resource] = _tile(local_cards)
 			_stock_tile(local_tiles[resource], resource, float(slot.available), _resource_name(resource))
+			local_tiles[resource].set_reserved(float(slot.get("reserved", 0)))
 			local_tiles[resource].tooltip_text = stock_lines[-1]
 	for resource in local_tiles:
 		var slot: Dictionary = e.get("inventory", {}).get(island, {}).get(resource, {})
@@ -301,10 +341,24 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		widgets.costs.visible = level < 3
 		for resource in widgets.tiles:
 			widgets.tiles[resource].refresh(resource, _resource_name(resource), float(cost[resource]), _home_available(resource), "祖島")
+			widgets.tiles[resource].set_reserved(0)
 		facility_buttons[id].text = "已達上限" if level >= 3 else "升至 %d 階" % (level + 1)
 		facility_buttons[id].tooltip_text = "祖島支付：" + "＋".join(prices)
 		facility_buttons[id].visible = opened
 		facility_buttons[id].disabled = level >= 3
+		var note_text := ""
+		if not opened:
+			note_text = "此島尚未開拓"
+		elif level >= 3:
+			note_text = "已達上限"
+		else:
+			var cost_names := {}
+			for resource in cost:
+				cost_names[resource] = _resource_name(resource)
+			note_text = CostStrip.shortage_text(cost, _home_stock(cost), cost_names, "祖島材料不足")
+		widgets.note.text = note_text
+		widgets.note.visible = opened and not note_text.is_empty()
+		widgets.note.add_theme_color_override("font_color", Color("a23e32") if note_text.contains("缺") else UiMaterial.INK)
 	var world_available: bool = island in ["home", "wood", "ore", "herb"] or (e.get("version") == IslandProgression.SUPPLY_VERSION and int(view.get("era_id", 1)) >= int(definition.get("era", 99)))
 	world_button.text = "前往%s" % IslandProgression.NAMES[island]
 	world_button.disabled = not world_available or (island != "home" and not opened)
@@ -314,6 +368,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 func _tile(parent: Node) -> Control:
 	var tile := IslandTile.new()
 	tile.caption.add_theme_font_size_override("font_size", 16)
+	tile.show_source_caption = false
 	parent.add_child(tile)
 	return tile
 
@@ -330,6 +385,17 @@ func _home_available(resource: String) -> float:
 		return float(_view.get("resources", {}).get(resource, {}).get("value", 0))
 	var slot: Dictionary = _view.get("economy", {}).get("inventory", {}).get("home", {}).get(resource, {})
 	return float(slot.get("available", 0))
+
+func _home_stock(resources: Dictionary) -> Dictionary:
+	var economy: Dictionary = _view.get("economy", {})
+	var enabled: bool = economy.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, IslandProgression.SUPPLY_VERSION]
+	var out := {}
+	for resource in resources:
+		if enabled:
+			out[resource] = float(economy.get("inventory", {}).get("home", {}).get(resource, {}).get("available", 0))
+		else:
+			out[resource] = float(_view.get("resources", {}).get(resource, {}).get("value", 0))
+	return out
 
 func show_success(text: String) -> void:
 	# A save fault persists until storage_recovered; a later success cannot hide it.

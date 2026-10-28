@@ -23,6 +23,7 @@ var reserve: LineEdit
 var target: LineEdit
 var save_button: Button
 var upgrade_button: Button
+var upgrade_costs
 var supply_button: Button
 var back_button: Button
 var list_scroll := 0
@@ -128,6 +129,8 @@ func _rebuild() -> void:
 	detail_box.add_child(draft_status)
 	save_button = _add_button(detail_box, "保存設定・保留啟停狀態", _save_settings)
 	upgrade_button = _add_button(detail_box, "", _upgrade)
+	upgrade_costs = CostStrip.new()
+	detail_box.add_child(upgrade_costs)
 	supply_button = _add_button(detail_box, "", _open_supply)
 	var endpoints := HFlowContainer.new()
 	detail_box.add_child(endpoints)
@@ -177,6 +180,8 @@ func _refresh_visual(visual: Dictionary, id: String) -> void:
 	visual.source.refresh(resource, name_text, source, source, source_name)
 	visual.destination.refresh(resource, name_text, destination, destination, destination_name, true)
 	visual.destination.caption.text = destination_name
+	visual.source.set_reserved(0.0)
+	visual.destination.set_reserved(0.0 if stock.is_empty() else float(stock.get("reserved", 0)))
 	visual.source.quantity.text = "—" if stock.is_empty() else _quantity(source)
 	visual.destination.quantity.text = "—" if stock.is_empty() else _quantity(destination)
 	var missing: bool = info.get("reason") == "NO_SURPLUS"
@@ -371,18 +376,22 @@ func _refresh_detail() -> void:
 	var stock: Dictionary = info.get("stock", {})
 	detail_stock.text = ""
 	if not stock.is_empty():
-		detail_stock.text = "餘貨 %s・目的容量預留 %s／空間 %s\n運力%d／10秒・已保存保留%s／目標%s" % [NumberFormatter.format_amount(stock.surplus), NumberFormatter.format_amount(stock.reserved), NumberFormatter.format_amount(stock.space), 10 * int(settings.level), NumberFormatter.format_amount(settings.reserve), NumberFormatter.format_amount(settings.target)]
+		var lines: Array[String] = [
+			"來源餘貨 %s・已保存保留 %s" % [NumberFormatter.format_amount(stock.surplus), NumberFormatter.format_amount(settings.reserve)],
+			"目的容量預留 %s・剩餘空間 %s・已保存目標 %s" % [NumberFormatter.format_amount(stock.reserved), NumberFormatter.format_amount(stock.space), NumberFormatter.format_amount(settings.target)],
+			"運力 %d／10秒" % (10 * int(settings.level))]
+		var trip: Dictionary = info.get("trip", {})
+		if not trip.is_empty():
+			lines.append("在途 %s・%d秒後到達" % [NumberFormatter.format_amount(trip.get("cargo", 0)), int(trip.get("remaining", 0))])
+		detail_stock.text = "\n".join(lines)
 	var draft := _draft(selected_route)
 	draft_status.text = "未保存草稿；返回或切頁會保留，本次遊戲關閉後不保留。" if bool(draft.dirty) else "已保存設定；啟停與升階沿用此設定。" if _view.get("economy", {}).get("routes", {}).has(selected_route) else "尚未配置；預設保留0、目標100。保存設定後仍維持停航。"
 	save_button.disabled = not bool(info.get("ready", false))
 	var level := int(settings.level)
-	var prices: Array[String] = []
-	for resource in info.get("upgrade_cost", {}):
-		prices.append(_resource_name(resource) + NumberFormatter.format_amount(info.upgrade_cost[resource]))
-	var cost := "祖島支付：" + "＋".join(prices)
 	var cap := int(info.get("level_cap", 2))
-	upgrade_button.text = (("運力%d／10秒・已達上限" % (level * 10)) if level >= cap else ("運力%d→%d／10秒・" % [level * 10, (level + 1) * 10]) + cost) + "\n升階保留啟停與已保存設定"
+	upgrade_button.text = (("運力%d／10秒・已達上限" % (level * 10)) if level >= cap else ("運力%d→%d／10秒" % [level * 10, (level + 1) * 10])) + "\n升階保留啟停與已保存設定"
 	upgrade_button.disabled = not bool(info.get("ready", false)) or level >= cap
+	_refresh_upgrade_costs(info, level, cap)
 	var reason: String = info.get("reason", "")
 	var def: Array = _routes()[selected_route]
 	supply_button.visible = reason in ["ECONOMY_NOT_MIGRATED", "ISLAND_NOT_OPEN", "DESTINATION_FULL", "NO_SURPLUS"]
@@ -390,6 +399,26 @@ func _refresh_detail() -> void:
 	if reason == "ISLAND_NOT_OPEN":
 		endpoint = info.closed[0]
 	supply_button.text = "先啟用空島" if reason == "ECONOMY_NOT_MIGRATED" else "開拓・" + IslandProgression.NAMES[endpoint] if reason == "ISLAND_NOT_OPEN" else "目的倉儲・" + IslandProgression.NAMES[endpoint] if reason == "DESTINATION_FULL" else "來源供給・" + IslandProgression.NAMES[endpoint]
+
+func _refresh_upgrade_costs(info: Dictionary, level: int, cap: int) -> void:
+	if upgrade_costs == null:
+		return
+	var costs: Dictionary = info.get("upgrade_cost", {})
+	if costs.is_empty() or level >= cap:
+		upgrade_costs.clear_costs()
+		upgrade_costs.visible = false
+		return
+	var home := _home_stock(costs)
+	var names := {}
+	var sources := {}
+	for resource in costs:
+		names[resource] = _resource_name(resource)
+		sources[resource] = "祖島"
+	var note := "" if bool(info.get("ready", false)) else "此航線尚未就緒"
+	if note.is_empty():
+		note = CostStrip.shortage_text(costs, home, names, "祖島材料不足")
+	upgrade_costs.visible = true
+	upgrade_costs.show_costs(costs, names, home, sources, "升級運力 %d→%d／10秒" % [level * 10, (level + 1) * 10], note)
 
 func _open_supply() -> void:
 	var info := _info(selected_route)

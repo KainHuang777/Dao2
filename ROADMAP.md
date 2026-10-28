@@ -1,8 +1,8 @@
-2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](docs/development-status.md#content-p2-accept)。
+2026-10-28 **IMM-4-R2 DONE（L2資源圖示補齊）**：20張共用資源／貨幣／獸魂圖示與正方形成本格已接入，來源移至TIP；相關7支及新版Web桌面抽驗通過。[狀態](docs/development-status.md#imm-4-r2)。
 
-2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。[結案](docs/development-status.md)。
+2026-10-28 **IMM-4-R1 DONE（L2有界修正）**：技能正文至少16px、焦點字色對比與延期記錄已修正；5支專項及新版Web桌面抽驗通過。[狀態](docs/development-status.md#imm-4-r1)。
 
-2026-10-27 **WORLD-46-B DONE（L1／L2接入階段）**：三島分層世界、七島選單、管理往返與十二線貨運已接；美術接受／整批L3待收。見[狀態](docs/development-status.md)。
+2026-10-28 **IMM-4 DONE（整批收尾，唯一L3：145／145 runner全矩陣PASS＋正式Web與候選包＋桌面三橫式滑鼠抽驗）**；IMM-1A～3C整批介面結案，短式成本列與選島列溢位已修，IMM-2記錄為無新增微動態工程。[狀態](docs/development-status.md#imm-4)／[排程](docs/43-full-ui-adjustment-plan.md)／[結案](docs/verification/imm-4-batch-closure.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 

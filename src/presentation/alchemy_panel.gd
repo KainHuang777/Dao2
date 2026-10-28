@@ -164,6 +164,12 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	UiMaterial.apply_button(consume)
 	consume.pressed.connect(func(): consume_requested.emit(id, 1))
 	actions.add_child(consume)
+	var actions_col := HBoxContainer.new()
+	actions_col.name = "ActionsCol"
+	actions_col.alignment = BoxContainer.ALIGNMENT_CENTER
+	actions_col.add_theme_constant_override("separation", 6)
+	actions_col.visible = false
+	recipe.add_child(actions_col)
 	var status := Label.new()
 	status.name = "PillStatus"
 	status.add_theme_font_size_override("font_size", 16)
@@ -171,18 +177,25 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.visible = id in AlchemySystem.P1_IDS + AlchemySystem.P2_IDS
 	column.add_child(status)
-	_widgets[id] = {"status": status,"title": title, "count": count, "materials": materials, "tiles": {}, "column": column, "body": body, "recipe": recipe, "actions": actions, "output": output, "refine": refine, "consume": consume}
+	_widgets[id] = {"status": status,"title": title, "count": count, "materials": materials, "tiles": {}, "column": column, "body": body, "recipe": recipe, "actions": actions, "actions_col": actions_col, "output": output, "refine": refine, "consume": consume}
 	return row
 
 func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 	var w: Dictionary = _widgets[String(p.id)]
 	var description := String(p.description)
+	var micro := size.y < 400.0
+	var side_actions: Control = w.actions_col if micro else w.actions
+	if w.refine.get_parent() != side_actions:
+		w.refine.reparent(side_actions)
+		w.consume.reparent(side_actions)
+	w.actions.visible = not micro
+	w.actions_col.visible = micro
 	var paper: StyleBoxTexture = UiMaterial.hud_paper()
-	if _short:
+	if micro:
 		for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]: paper.set_content_margin(side, 4)
 	_pill_rows[String(p.id)].add_theme_stylebox_override("panel", paper)
-	w.column.add_theme_constant_override("separation", 2 if _short else 6)
-	var compact_p2 := _short and String(p.id) in AlchemySystem.P2_IDS
+	w.column.add_theme_constant_override("separation", 2 if micro else 6)
+	var compact_p2 := micro and String(p.id) in AlchemySystem.P2_IDS
 	var status_parent: Node = w.body if compact_p2 else w.column
 	if w.status.get_parent() != status_parent:
 		w.status.reparent(status_parent)
@@ -204,8 +217,8 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 		if reason == "PILL_NO_EXTENSION": w.status.text += "；等到期再用"
 		if bool(p.locked_by_era): w.status.text = "未開：需%s期；祖島%s +100%%／300秒" % ["築基" if int(p.min_era) == 2 else "金丹",target[String(p.id)]]
 		w.consume.tooltip_text = w.status.text + "\n" + description
-		w.status.visible = not _short
-		if _short:
+		w.status.visible = not micro
+		if micro:
 			w.title.text += " · 祖島%s+100%%" % target[String(p.id)]
 			w.count.text = "餘%.0f秒" % float(p.get("remaining_seconds", 0))
 			if _feedback_pill == String(p.id) and _feedback_success:
@@ -218,7 +231,7 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 	w.refine.tooltip_text = "前往祖島製造產線；在製造頁選擇批數與啟動工作。" if linked else "煉製一顆；材料由祖島庫存扣除。" if p.can_refine else "材料不足或尚未開放；需靈植場3階或築基期。"
 	if String(p.id) in AlchemySystem.P2_IDS:
 		var full_status := _p2_status(p)
-		w.status.text = _p2_compact_status(p) if _short else full_status
+		w.status.text = _p2_compact_status(p) if micro else full_status
 		w.status.visible = true
 		w.status.tooltip_text = full_status + "\n" + description
 		w.consume.tooltip_text = w.status.tooltip_text + "\n" + _p2_reason(String(p.get("consume_reason", "")), p)
@@ -247,10 +260,7 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 	w.output.quantity.text = "×%d" % int(p.count)
 	w.output.caption.text = "丹藥"
 	for tile in w.tiles.values() + [w.output]:
-		tile.icon.custom_minimum_size = Vector2(28,28) if _short else Vector2(44,44)
-	if _short and String(p.id) in AlchemySystem.P1_IDS:
-		w.output.caption.add_theme_font_size_override("font_size", 16)
-		w.output.caption.text = "淨延%.0f秒" % float(p.get("net_extension_seconds", 0))
+		tile.set_compact(micro)
 	w.output.tooltip_text = "%s\n持有 %d顆\n%s" % [String(p.name), int(p.count), description]
 
 func _number(value: float) -> String:

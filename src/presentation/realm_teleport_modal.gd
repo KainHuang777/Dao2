@@ -5,6 +5,9 @@ signal switch_realm_requested(target_realm: String)
 signal upgrade_outpost_requested(outpost_id: String)
 signal close_requested()
 
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
+const ResourceIcon = preload("res://src/presentation/resource_icon.gd")
+
 var _background: Panel
 var _scroll: ScrollContainer
 var _container: VBoxContainer
@@ -138,10 +141,14 @@ func refresh(view: Dictionary) -> void:
 
 	# 渲染三大據點
 	var outposts: Array = realm_data.get("outposts", [])
-	var signature := JSON.stringify(outposts)
+	var stock := {}
+	for op in outposts:
+		for resource in op.get("costs", {}):
+			stock[resource] = float(view.get("resources", {}).get(resource, {}).get("value", 0))
+	var signature := JSON.stringify({"outposts": outposts, "stock": stock})
 	if signature != _outpost_signature and not _has_pressed_button(_outpost_cards_box):
 		_outpost_signature = signature
-		_rebuild_outposts(outposts)
+		_rebuild_outposts(outposts, stock)
 
 var _outpost_signature := ""
 
@@ -156,15 +163,16 @@ func _has_pressed_button(node: Node) -> bool:
 func _on_teleport_pressed(target: String) -> void:
 	switch_realm_requested.emit(target)
 
-func _rebuild_outposts(outposts: Array) -> void:
+func _rebuild_outposts(outposts: Array, stock: Dictionary) -> void:
 	for child in _outpost_cards_box.get_children():
+		_outpost_cards_box.remove_child(child)
 		child.queue_free()
 
 	for op in outposts:
-		var card := _create_outpost_card(op)
+		var card := _create_outpost_card(op, stock)
 		_outpost_cards_box.add_child(card)
 
-func _create_outpost_card(op: Dictionary) -> PanelContainer:
+func _create_outpost_card(op: Dictionary, stock: Dictionary) -> PanelContainer:
 	var panel := PanelContainer.new()
 	var style := UiMaterial.card()
 	style.content_margin_left = 10
@@ -219,22 +227,14 @@ func _create_outpost_card(op: Dictionary) -> PanelContainer:
 	# 升級花費
 	var costs: Dictionary = op.get("costs", {})
 	if not costs.is_empty() and cur_lvl < max_lvl:
-		var cost_strs := []
-		for res_k in costs:
-			var c_val: float = float(costs[res_k])
-			var res_name: String = res_k
-			if res_k == "spirit_crystal": res_name = "極品靈晶"
-			elif res_k == "azure_nectar": res_name = "天青靈液"
-			elif res_k == "stone_low": res_name = "下品靈石"
-			elif res_k == "black_copper": res_name = "玄銅"
-			elif res_k == "lingli": res_name = "靈氣"
-			elif res_k == "money": res_name = "金錢"
-			cost_strs.append("%s: %.1f" % [res_name, c_val])
-		var cost_label := Label.new()
-		cost_label.text = "晉升消耗：" + "，".join(cost_strs)
-		cost_label.add_theme_font_size_override("font_size", 16)
-		cost_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		cost_label.add_theme_color_override("font_color", Color("e4c88a"))
-		vbox.add_child(cost_label)
+		var names := {}
+		for resource in costs:
+			names[resource] = ResourceIcon.get_resource_name(resource)
+		var note := ""
+		if not can_upg:
+			note = "境界未解鎖" if op.get("upgrade_reason", "") == "REALM_LOCKED" else CostStrip.shortage_text(costs, stock, names, "材料不足")
+		var strip := CostStrip.new()
+		strip.show_costs(costs, names, stock, {}, "晉升消耗", note, Color("e4c88a"))
+		vbox.add_child(strip)
 
 	return panel

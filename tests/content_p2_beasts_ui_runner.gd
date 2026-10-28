@@ -60,7 +60,12 @@ func run() -> void:
 			check("21" not in card.detail.text and "11" in card.detail.text,"T1 true young final percent")
 			check("65XP" in card.detail.text,"T2 next XP")
 			check("30" in card.detail.text,"T4 real local flat capacity")
-			check("6" in card.cost.text if id == "frost_stag" else "百年靈草 3" in card.cost.text and "千年靈草 1" in card.cost.text,"T3 actual final costs")
+			var cost_ok := false
+			if id == "frost_stag":
+				cost_ok = card.cost.tiles.has("refined_iron") and card.cost.tiles.refined_iron.quantity.text == "6" and card.cost.tiles.spirit_grass_low.quantity.text == "12"
+			else:
+				cost_ok = card.cost.tiles.has("spirit_grass_100y") and card.cost.tiles.spirit_grass_100y.quantity.text == "3" and card.cost.tiles.spirit_grass_1000y.quantity.text == "1"
+			check(cost_ok,"T3 actual final costs")
 			# Cards exceed short-landscape height. Verify the actual control can
 			# scroll into view rather than asking the viewport to enclose a card.
 			page.scroll.ensure_control_visible(card.feed); await frames()

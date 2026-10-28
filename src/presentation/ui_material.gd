@@ -214,7 +214,7 @@ static func populate_theme(theme: Theme) -> void:
 	for type in ["Button", "MenuButton", "OptionButton"]:
 		for state in ["normal", "hover", "pressed", "disabled", "hover_pressed"]:
 			theme.set_stylebox(state, type, surface("plaque", "pressed" if state == "hover_pressed" else state))
-		for color in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color"]:
+		for color in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
 			theme.set_color(color, type, INK)
 		theme.set_color("font_disabled_color", type, DISABLED_INK)
 	for type in ["Panel", "PanelContainer", "PopupMenu", "PopupPanel", "TooltipPanel"]:
@@ -257,6 +257,6 @@ static func apply_button(button: Button, role: String = "plaque", selected_when_
 	button.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 
 static func _set_button_ink(button: Button, ink: Color, disabled_ink: Color) -> void:
-	for color in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color"]:
+	for color in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(color, ink)
 	button.add_theme_color_override("font_disabled_color", disabled_ink)

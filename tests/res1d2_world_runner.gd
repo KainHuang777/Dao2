@@ -116,6 +116,7 @@ func _run() -> void:
 		await process_frame
 		abode._layout_for_size(size)
 		world.enter("herb")
+		world.show_selector()
 		await process_frame
 		await process_frame
 		world.refresh()
@@ -131,10 +132,10 @@ func _run() -> void:
 		world.enter("home")
 		world.refresh()
 		if size.y < 500:
-			check(not world.title.visible and not world.buttons.home.visible and not world.manage_button.visible, "compact home rail leaves core landmarks visible")
-			check(world.destination_picker.visible or (world.buttons.wood.visible and world.buttons.ore.visible and world.buttons.herb.visible), "compact home retains destination island controls")
+			check(not world.selector.visible and world.selector_button.visible, "compact home keeps selector collapsed beside landmarks")
+			check(world.selector_button.visible, "compact home retains graphical destination entry")
 		world.enter("herb")
-		check(world.title.visible and world.buttons.home.visible and world.manage_button.visible, "remote rail retains return and management controls")
+		check(world.return_button.visible and world.manage_button.visible, "remote launcher retains return and management controls")
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	abode._layout_for_size(Vector2(1280, 720))

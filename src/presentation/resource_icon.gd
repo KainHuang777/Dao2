@@ -2,6 +2,26 @@ extends Control
 ## Shared, cached hand-painted item textures. See the artwork manifest for source/QC.
 const NumberFormatter = preload("res://src/utils/number_formatter.gd")
 const TEXTURES := {
+	"skill_point": preload("res://assets/ui/resources-painted/imm4-r2/skill_point.png"),
+	"dao_heart": preload("res://assets/ui/resources-painted/imm4-r2/dao_heart.png"),
+	"dao_proof": preload("res://assets/ui/resources-painted/imm4-r2/dao_proof.png"),
+	"contribution": preload("res://assets/ui/resources-painted/imm4-r2/contribution.png"),
+	"refined_iron": preload("res://assets/ui/resources-painted/imm4-r2/refined_iron.png"),
+	"mithril": preload("res://assets/ui/resources-painted/imm4-r2/mithril.png"),
+	"cold_iron": preload("res://assets/ui/resources-painted/imm4-r2/cold_iron.png"),
+	"spirit_grass_1000y": preload("res://assets/ui/resources-painted/imm4-r2/spirit_grass_1000y.png"),
+	"trans_pill": preload("res://assets/ui/resources-painted/imm4-r2/trans_pill.png"),
+	"void_essence": preload("res://assets/ui/resources-painted/imm4-r2/void_essence.png"),
+	"star_metal": preload("res://assets/ui/resources-painted/imm4-r2/star_metal.png"),
+	"void_crystal": preload("res://assets/ui/resources-painted/imm4-r2/void_crystal.png"),
+	"spirit_crystal": preload("res://assets/ui/resources-painted/imm4-r2/spirit_crystal.png"),
+	"azure_nectar": preload("res://assets/ui/resources-painted/imm4-r2/azure_nectar.png"),
+	"jade_fox": preload("res://assets/ui/resources-painted/imm4-r2/jade_fox.png"),
+	"iron_turtle": preload("res://assets/ui/resources-painted/imm4-r2/iron_turtle.png"),
+	"fire_phoenix": preload("res://assets/ui/resources-painted/imm4-r2/fire_phoenix.png"),
+	"cloud_serpent": preload("res://assets/ui/resources-painted/imm4-r2/cloud_serpent.png"),
+	"frost_stag": preload("res://assets/ui/resources-painted/imm4-r2/frost_stag.png"),
+	"herb_crane": preload("res://assets/ui/resources-painted/imm4-r2/herb_crane.png"),
 	"nascent_breath_pill": preload("res://assets/ui/pills-painted/nascent_breath_pill.png"),
 	"void_meditation_pill": preload("res://assets/ui/pills-painted/void_meditation_pill.png"),
 	"ancient_herb_dew_pill": preload("res://assets/ui/pills-painted/ancient_herb_dew_pill.png"),
@@ -34,6 +54,15 @@ const TEXTURES := {
 }
 
 const NAMES := {
+	"dao_heart": "道心",
+	"dao_proof": "道證",
+	"contribution": "貢獻",
+	"jade_fox": "靈狐獸魂",
+	"iron_turtle": "玄龜獸魂",
+	"fire_phoenix": "火鳳獸魂",
+	"cloud_serpent": "雲蛟獸魂",
+	"frost_stag": "霜角鹿獸魂",
+	"herb_crane": "銜芝鶴獸魂",
 	"mithril": "秘銀",
 	"cold_iron": "寒鐵",
 	"trans_pill": "化神丹",
@@ -71,7 +100,8 @@ var resource_id := "":
 		if is_instance_valid(_art): _art.texture = resource_texture()
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(44, 44)
+	if custom_minimum_size == Vector2.ZERO:
+		custom_minimum_size = Vector2(44, 44)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 

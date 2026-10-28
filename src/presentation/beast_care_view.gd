@@ -2,6 +2,8 @@ extends VBoxContainer
 ## Persistent controls: cooldown and inventory refresh never replace a pressed button.
 signal action_requested(kind: String, id: String)
 const ART := "res://assets/ui/beasts-painted/"
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
+const Icon = preload("res://src/presentation/resource_icon.gd")
 var buttons: Dictionary = {}
 var cards: Dictionary = {}
 var scroll: ScrollContainer
@@ -76,8 +78,10 @@ func make_card(id: String) -> void:
 	info.add_child(title)
 	var detail := label("")
 	info.add_child(detail)
-	var cost := label("")
+	var cost := CostStrip.new()
 	info.add_child(cost)
+	var soul := label("", 15)
+	info.add_child(soul)
 	var acquire := action(row,"acquire",id)
 	var feed := action(row,"feed",id)
 	# The public feed alias is kept for existing navigation/command consumers.
@@ -93,7 +97,7 @@ func make_card(id: String) -> void:
 		tr.add_child(desc)
 		var learn := action(tr,"talent",tid)
 		talents[tid] = {"desc":desc,"button":learn}
-	cards[id] = {"card":card,"art":image,"title":title,"detail":detail,"cost":cost,"acquire":acquire,"feed":feed,"talents":talents}
+	cards[id] = {"card":card,"art":image,"title":title,"detail":detail,"cost":cost,"soul":soul,"acquire":acquire,"feed":feed,"talents":talents}
 
 func layout() -> void:
 	if grid == null: return
@@ -136,8 +140,20 @@ func refresh(view: Dictionary) -> void:
 			else: effect += "\n需當世第%d境及%s已開拓；成熟基礎 +20%%" % [config.unlock_era,"寒銀島" if id == "frost_stag" else "古藥島"]
 		c.detail.text = effect
 		var costs: Dictionary = data.get("care",{}).get(id,{}).get("costs",config.feed_resource)
-		c.cost.text = "祖島餵料："+cost_text(costs)
-		if current: c.cost.text += " · 冷卻 %d秒" % int(ceil(float(data.get("cooldown_remaining",0))))
+		var names := {}
+		var available := {}
+		var sources := {}
+		for resource in costs:
+			names[resource] = Icon.get_resource_name(String(resource))
+			available[resource] = _amount(view.get("resources",{}).get(resource,{}).get("value","0"))
+			sources[resource] = "祖島"
+		var note := CostStrip.shortage_text(costs, available, names, "祖島餵料不足")
+		if current and float(data.get("cooldown_remaining",0)) > 0:
+			note = (note + " · " if not note.is_empty() else "") + "冷卻 %d秒" % int(ceil(float(data.get("cooldown_remaining",0))))
+		c.cost.show_costs(costs, names, available, sources, "祖島餵料", note, UiMaterial.INK)
+		var souls := int(data.get("souls",{}).get(id,0))
+		c.soul.text = "同種獸魂 %d · 輪迴成熟後取得，不用於餵養" % souls
+		c.soul.add_theme_color_override("font_color", Color("355f58"))
 		for talent in data.get("talents_view",[]):
 			if talent.beast_id != id: continue
 			var t: Dictionary = c.talents[talent.id]
@@ -162,3 +178,7 @@ func cost_text(costs: Dictionary) -> String:
 	for id in costs:
 		parts.append("%s %d" % [{"spirit_grass_low":"靈草","refined_iron":"精鐵","stone_low":"下品靈石","spirit_grass_100y":"百年靈草","spirit_grass_1000y":"千年靈草","void_essence":"虛空精華","star_metal":"星金"}.get(id,id),int(costs[id])])
 	return "、".join(parts)
+
+func _amount(raw: Variant) -> float:
+	var parsed := AmountCompat.try_parse(str(raw))
+	return parsed.value.to_float() if bool(parsed.get("ok", false)) else 0.0

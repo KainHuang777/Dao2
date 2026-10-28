@@ -161,6 +161,9 @@ func _run() -> void:
 	check(not abode.session.get_view().transport.timber_home.loaded_backlog, "partial load does not imply capacity bottleneck")
 	send("configure_route", {"route_id": "timber_home", "enabled": true, "target": "3"})
 	check(abode.session.get_view().transport.timber_home.stock.need == 0 and abode.session.get_view().transport.timber_home.stock.reserved == 3, "target accounts for actual incoming reservation once")
+	abode._refresh_hud()
+	nav.open_transport("timber_home")
+	check(panel.detail_visual.destination.reserved_visible(), "destination reserved stock shows a capacity marker")
 	# Unopened endpoints remain inspectable; no command is issued by shortcuts.
 	reset()
 	abode.session.state.economy.islands.wood.opened = false

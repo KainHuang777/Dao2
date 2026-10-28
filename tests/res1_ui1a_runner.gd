@@ -135,6 +135,7 @@ func _run() -> void:
 		nav.back()
 		check(nav.group == "home" and abode.header.visible, "Escape list restores home")
 	check(snapshot() == before, "layouts and navigation leave full state unchanged")
+	abode._layout_for_size(Vector2(1280, 720))
 	check(panel.cards.size() == 11 and panel.production_summary.text.contains("4閒置"), "eleven recipes; one compact summary of four actual lines")
 	check(panel.cards.bronze_essence.tiles.black_copper.tooltip_text.contains("玄銅") and panel.filter_picker.selected == 0, "initial graphical material refresh and island picker complete")
 	nav.open("transport")
@@ -250,7 +251,13 @@ func _run() -> void:
 	check(nav.island_panel.island_buttons.wood.button_pressed and nav.island_panel.message.text.contains("已升階") and nav.island_panel.payment_stock.text.contains("祖島"), "island selection, paid stock and success feedback")
 	check(nav.island_panel.stock_button == null, "local stock no longer needs an expand button")
 	check(nav.island_panel.local_stock.visible and nav.island_panel.local_stock.tooltip_text.contains("靈材") and nav.island_panel.local_tiles.has("spirit_timber"), "island inventory can reveal local crafted stock")
+	abode.session.state.economy.jobs.wood = {"recipe_id": "spirit_timber", "recipe_version": 1, "remaining": 1, "batches": 0, "repeat": false, "status": "running", "reserves": {}}
+	abode._refresh_hud()
+	check(nav.island_panel.local_tiles.spirit_timber.reserved_visible(), "island local inventory shows its capacity reservation")
+	abode.session.state.economy.jobs.erase("wood")
+	abode._refresh_hud()
 	var basics = nav.island_panel
+	check(basics.payment_cards.visible and basics.payment_tiles.size() == 4 and not basics.payment_tiles.wood.caption.visible, "ancestral payment stock uses shared icon cells without duplicate captions")
 	check(basics.stock_cards.wood.tile.icon.resource_id == "wood" and basics.stock_cards.wood.rate.text.contains("／秒"), "extraction cards show resource and real rate")
 	check(basics.facility_cards.extractor.tiles.bronze_essence.icon.resource_id == "bronze_essence", "upgrade cards show actual cost resource")
 	IslandEconomy._put(abode.session.state, "home", "bronze_essence", 0)
@@ -287,6 +294,10 @@ func _run() -> void:
 	abode.session.state.economy.trips.timber_home = {"remaining": 5, "cargo": "3"}
 	nav.open_manufacturing("wood", "spirit_timber")
 	check(panel.detail_stock.text.contains("加工待完成 1.0・容量預留 1.0"), "detail separates job output reservation from spendable inventory")
+	check(panel.cards.spirit_timber.output_tile.reserved_visible(), "manufacturing output shows its capacity reservation")
+	check(not panel.cards.spirit_timber.tiles.stone_low.caption.visible and not panel.cards.spirit_timber.output_tile.caption.visible, "manufacturing cells omit redundant source and product captions")
+	var output_cell: Control = panel.cards.spirit_timber.output_tile.get_child(0).get_child(0)
+	check(output_cell.custom_minimum_size == Vector2(56, 56) and panel.cards.spirit_timber.output_tile.quantity.anchor_right == 1.0 and panel.cards.spirit_timber.output_tile.quantity.offset_bottom == -2.0, "shared item cell keeps square geometry with bottom-right quantity")
 	panel.select_recipe("formation_core")
 	check(panel.detail_stock.text.contains("在途到貨 3.0・5秒"), "recipe input shows actual arriving cargo once")
 	reset()
@@ -339,6 +350,9 @@ func _run() -> void:
 	check(restored != null and restored.economy.jobs.get("wood", {}).get("recipe_id") == "spirit_timber", "isolated save reload preserves one job")
 	reset()
 	before = snapshot()
+	nav.open("manufacturing")
+	nav.open("outposts")
+	await process_frame
 	var nodes := int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
 	for index in 50:
 		nav.open("manufacturing")

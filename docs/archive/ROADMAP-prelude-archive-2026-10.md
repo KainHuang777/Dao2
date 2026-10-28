@@ -1,3 +1,39 @@
+2026-10-28 **IMM-3C DONE（全頁一致性核對，L1＋L2桌面Web 1280×720抽驗）**；十四頁與五類覆層已留狀態與證據，製造／運輸按鈕重複價格與製造逐項資源文字列已移除，下一IMM-4。[狀態](docs/development-status.md#imm-3c)／[排程](docs/43-full-ui-adjustment-plan.md)／[核對](docs/verification/imm-3c-page-consistency.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-28 **IMM-3B DONE（修行與遊歷資源，L1＋L2桌面Web 1280×720抽驗）**；技能點、餵養／獸魂、道心、宗門貢獻、法令與機緣成本已接共用圖像成本列，下一IMM-3C。[狀態](docs/development-status.md#imm-3b)／[排程](docs/43-full-ui-adjustment-plan.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-3A DONE（經營成本與詳情，L1＋L2桌面Web抽驗）**；製造／運輸／空島／洞府建築／煉丹／靈界據點已接共用圖像成本列，下一IMM-3B。[狀態](docs/development-status.md#imm-3a)／[排程](docs/43-full-ui-adjustment-plan.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-1B DONE（核心經營共用物品格，L1＋桌面Web 1280×720抽驗）**；空島／製造／運輸已接結構化庫存與正方物品格，下一IMM-1C。[狀態](docs/development-status.md#imm-1b)／[排程](docs/43-full-ui-adjustment-plan.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-1A DONE（共用庫存／物品元件，L1＋原生雙尺寸視覺）**；製造左欄與短式抽屜已接結構化物品格，Web滑鼠抽驗併入IMM-1B。[狀態](docs/development-status.md#imm-1a)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **UI-IMMERSION-DESIGN：最終建議稿已交，待核定／未實作**。[方案](docs/41-game-ui-immersion-and-aesthetic-final.md)／[狀態](docs/development-status.md#ui-immersion-design)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](docs/development-status.md#content-p2-accept)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。[結案](docs/development-status.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-27 **WORLD-46-B DONE（L1／L2接入階段）**：三島分層世界、七島選單、管理往返與十二線貨運已接；美術接受／整批L3待收。見[狀態](docs/development-status.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
 2026-10-27 **WORLD-46-A 候選交付／美術PENDING**：寒銀／古藥／太虛六張分層資產與預覽；正式世界待接入，整批IN_PROGRESS。[狀態](docs/development-status.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。

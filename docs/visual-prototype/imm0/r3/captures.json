@@ -1,0 +1,279 @@
+{
+  "captures": [
+    {
+      "file": "images/manufacturing-normal-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "33263c7bca988e1fd8fc145d185db8ff750267391f2788ed38468005c6af1848"
+    },
+    {
+      "file": "images/manufacturing-normal-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "85c74b1511712d22fe2bac7962d2b115b23242f5be55c138c5a3b390d394faa8"
+    },
+    {
+      "file": "images/manufacturing-shortage-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "current",
+      "png_sha256": "e21d585bf7ba0b13aaea26d5a77bf70c65a42395e079c11ac7d8f8250fec4163"
+    },
+    {
+      "file": "images/manufacturing-shortage-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "candidate",
+      "png_sha256": "ca29024f57dce32233f46ae7fec116bb62804891e1c4fb6ef9becc20be17acb9"
+    },
+    {
+      "file": "images/manufacturing-inventory-drawer-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-inventory-drawer",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "0f41c5ac97560d40b71f151335feb759409932cc5c5253c518229d4f03591758"
+    },
+    {
+      "file": "images/manufacturing-inventory-drawer-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-inventory-drawer",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "1073b7d79985995bb2264e2c15800f193f4f92ad41e26ef61a2ece4ddb44652e"
+    },
+    {
+      "file": "images/transport-inventory-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "transport-inventory",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "55fd3d6b8eef20641da44d38c21da132f9e7eae60c7a62246b8493c581821957"
+    },
+    {
+      "file": "images/transport-inventory-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "transport-inventory",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "f03f4008c112dbb54b5c952eb3172e9cf4c0b62716eaf8654978aaf87807f81b"
+    },
+    {
+      "file": "images/outposts-inventory-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "outposts-inventory",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "9d1512a6eb71df43407f750c357c113dc9ccede98f6fc99ec57a2a6ad0119ace"
+    },
+    {
+      "file": "images/outposts-inventory-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "outposts-inventory",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "8475d41c27ea38bdd6be43e690118484d77ab05bf9ca4a007bbded3eec684203"
+    },
+    {
+      "file": "images/manufacturing-normal-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "7cb181e6edd55d76f154aa79cf5d5a84ea02d90d8491a27866787a6107e6c16a"
+    },
+    {
+      "file": "images/manufacturing-normal-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "3793dc6f18999848b8f1e9c118f0dbda41a7c18a9040f0c918b0a6f154f279dc"
+    },
+    {
+      "file": "images/manufacturing-shortage-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "current",
+      "png_sha256": "0c539ed201bf081c0ae621b17de0223c363b78877d1595fff3b659c73f4d48a8"
+    },
+    {
+      "file": "images/manufacturing-shortage-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "candidate",
+      "png_sha256": "7c5277470851bb10650ca9f8a020fd5110299b45f49a75ca72726224ed5e24bc"
+    },
+    {
+      "file": "images/manufacturing-inventory-drawer-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-inventory-drawer",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "f21482872581d299f0d13be3699572bc10049040cd254122da9b3e000d91106d"
+    },
+    {
+      "file": "images/manufacturing-inventory-drawer-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-inventory-drawer",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "30b9d0fcd5501487df667f042161b840e10145110fe43e70c451e0021d93ed85"
+    },
+    {
+      "file": "images/transport-inventory-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "transport-inventory",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "0882ca673989fd5a2f1385b202b36b368f4ada88c2ea8b0eb882533c7f37ecaa"
+    },
+    {
+      "file": "images/transport-inventory-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "transport-inventory",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "f1c66196cdd97340010bbd8f2d4535bbac1fa9dae56dcabefb187d7d386ac035"
+    },
+    {
+      "file": "images/outposts-inventory-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "outposts-inventory",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "88fc0a35a204198810815f8ac0264dc416132ead7054827ae43f6b1925c68d8b"
+    },
+    {
+      "file": "images/outposts-inventory-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "outposts-inventory",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "13773089b29f76b0af97e939ea635ed251724a7403d5c57d898ea2f9206949f6"
+    }
+  ],
+  "scope": "Shared graphical inventory study for manufacturing/outposts/transport; no production changes",
+  "revision": "R3",
+  "same_state_pairs": 10,
+  "acceptance": "DESIGN_PRINCIPLES_ACCEPTED",
+  "sources": {
+    "tools\\imm0_samples.gd": "3b217a7bbcd0799b013595c435b89895b11edd30c7b657999853354c5609fd0f",
+    "tools\\imm0_r2_samples.gd": "9c99bcbfba8aad92c6da5096c7eca587a29f6b02877de27398b9397fe0782ceb",
+    "tools\\imm0_r3_samples.gd": "36a7442d6a5d73069b3d508ffccaeecbe47bb8f789e25e6fbba4cd4cfc2e3648",
+    "tools\\imm0_inventory_study.gd": "f504ee939313ccd5dc016b03bb368644ce4bdfefab80f1aec431c9561fefeb2b",
+    "src\\presentation\\ui_shell_resources.gd": "766c5239971d2ccb861899148dd898691b40cf62ad75138a33c4188375e76881",
+    "src\\presentation\\ui_shell_controller.gd": "f42d2a15e2c05e364d6a1a033a6ae770d76f16dc46d96d13d24cb089232acec8"
+  },
+  "acceptance_date": "2026-10-27",
+  "acceptance_scope": "R3 graphical inventory and related R2 square item slots/island thumbnail list; fortune main page remains original. Production integration pending; new motion/audio/shaders not approved by this acceptance.",
+  "followup_plan": "docs/43-full-ui-adjustment-plan.md"
+}

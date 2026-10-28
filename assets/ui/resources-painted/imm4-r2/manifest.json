@@ -1,0 +1,241 @@
+{
+  "version": "imm4-r2-1",
+  "source": "OpenAI built-in image_gen",
+  "skill": "generate2dsprite compact resource prop pack",
+  "prompt": "prompt-used.txt",
+  "reference": "assets/ui/resources-painted/formation_core.png (project original, style only)",
+  "raw_source": "docs/artwork/imm4-r2/raw-sheet.png",
+  "raw_sha256": "35a27232de9348a22c8d227528a6bdf2b0d816e410acf3c696631257f40ffcfe",
+  "processing": "Uniform 4x5 split rejected by strict source-edge QC. Detected 20 isolated full object components; cropped bounding regions with 20px magenta safety padding, then processed individually with generate2dsprite.py: 1x1, 160px, fit0.9, center, threshold30, edge120, clean_depth1, strict-qc. No creative art drawn by script. Final visual QC excluded neighboring fragments inside overlapping bounding rectangles using selected-component masks; each isolated item processed with component-mode largest and strict-qc.",
+  "qc": "docs/artwork/imm4-r2/*-qc.json and regions.json; 20/20 strict individual PASS",
+  "purpose": "Shared resource/currency/soul icons for square inventory/cost cells; no gameplay unlock change",
+  "layers": [
+    "transparent painted PNG",
+    "separate bottom-right Godot quantity Label",
+    "source/name/exact values in tooltip",
+    "shared UiIllustration edge treatment"
+  ],
+  "rights": "Original AI-generated project artwork using original project art as style reference; no external artwork copied. Prompt, raw and QC retained; commercial suitability remains subject to project review.",
+  "icons": [
+    {
+      "id": "skill_point",
+      "file": "skill_point.png",
+      "source_region": [
+        41,
+        50,
+        285,
+        247
+      ],
+      "sha256": "927131d7e09946ace2569cb7f0a5ab755ae9edae4c3a0b783327e749ea6b653e"
+    },
+    {
+      "id": "dao_heart",
+      "file": "dao_heart.png",
+      "source_region": [
+        376,
+        63,
+        587,
+        242
+      ],
+      "sha256": "b32ea3dfa099621c5871aaea1a04a2eaa32fcdf3d200a4fc70863ed898d569c0"
+    },
+    {
+      "id": "dao_proof",
+      "file": "dao_proof.png",
+      "source_region": [
+        695,
+        24,
+        860,
+        260
+      ],
+      "sha256": "0e303d91c044f59de1edd993e6d060dad4fec82050a72f0f11742d79027a49fc"
+    },
+    {
+      "id": "contribution",
+      "file": "contribution.png",
+      "source_region": [
+        968,
+        27,
+        1224,
+        246
+      ],
+      "sha256": "1689284bf0aa03b7fca30cfcb44434792468c1341e8a2c5f4cb43d2ab3cb60e2"
+    },
+    {
+      "id": "refined_iron",
+      "file": "refined_iron.png",
+      "source_region": [
+        32,
+        302,
+        296,
+        478
+      ],
+      "sha256": "b52f250898bc619fcc8b9781b8838d6468f30cece55a384c72858e71ad5394ec"
+    },
+    {
+      "id": "mithril",
+      "file": "mithril.png",
+      "source_region": [
+        365,
+        285,
+        587,
+        491
+      ],
+      "sha256": "0fb16e8f5ce0351c2f8899d30a9b215c8b1ca7fab44ddb1e8b22dab8523ddfa5"
+    },
+    {
+      "id": "cold_iron",
+      "file": "cold_iron.png",
+      "source_region": [
+        681,
+        291,
+        905,
+        490
+      ],
+      "sha256": "0b5a107089a98e38755302cb512f27da849f72977309f6067f69c91244115448"
+    },
+    {
+      "id": "spirit_grass_1000y",
+      "file": "spirit_grass_1000y.png",
+      "source_region": [
+        955,
+        268,
+        1220,
+        532
+      ],
+      "sha256": "9d95ad68bba77b7272ca87e72cb48512bf54509efdc75c18d80bb6d9a563c81b"
+    },
+    {
+      "id": "trans_pill",
+      "file": "trans_pill.png",
+      "source_region": [
+        73,
+        540,
+        250,
+        713
+      ],
+      "sha256": "b1bd6d8dd45f653a14b5a119940ccb45bf434f25f6c2c05a9c765b28ac7c9472"
+    },
+    {
+      "id": "void_essence",
+      "file": "void_essence.png",
+      "source_region": [
+        388,
+        506,
+        560,
+        728
+      ],
+      "sha256": "1ffcb93bcc9ec14519eb1647e977525b4625e4e2d440964f7b29a1f8135a3b9c"
+    },
+    {
+      "id": "star_metal",
+      "file": "star_metal.png",
+      "source_region": [
+        666,
+        531,
+        904,
+        728
+      ],
+      "sha256": "d3e9cd3e076c7cfcb5931fa0817c29887a6d38b44bb982cbac571e52a0e3ddf4"
+    },
+    {
+      "id": "void_crystal",
+      "file": "void_crystal.png",
+      "source_region": [
+        992,
+        511,
+        1204,
+        733
+      ],
+      "sha256": "ba6886588cf144bf4418fcdf2f27f750909e7ff163ccf0313a80a606f3c2c700"
+    },
+    {
+      "id": "spirit_crystal",
+      "file": "spirit_crystal.png",
+      "source_region": [
+        52,
+        743,
+        269,
+        971
+      ],
+      "sha256": "b7d09feb4c9cb137a35fa46610b1cd522a5cec425361fbe9722f902ca2bc6da4"
+    },
+    {
+      "id": "azure_nectar",
+      "file": "azure_nectar.png",
+      "source_region": [
+        373,
+        743,
+        584,
+        967
+      ],
+      "sha256": "3e42da97084395c35a8062ba97b12a2059dcc5a8f84b028224597ae36e494b86"
+    },
+    {
+      "id": "jade_fox",
+      "file": "jade_fox.png",
+      "source_region": [
+        682,
+        753,
+        888,
+        967
+      ],
+      "sha256": "0cc911f512af0e8927d6b15c87994a523ad6930485d411ac45c1526e0653dc81"
+    },
+    {
+      "id": "iron_turtle",
+      "file": "iron_turtle.png",
+      "source_region": [
+        987,
+        753,
+        1197,
+        970
+      ],
+      "sha256": "99c830731701e9ad87207d88f362dfef7b22098296d80ea5fecad9048def03cb"
+    },
+    {
+      "id": "fire_phoenix",
+      "file": "fire_phoenix.png",
+      "source_region": [
+        54,
+        982,
+        279,
+        1231
+      ],
+      "sha256": "e646a7ffd1b96016fb95ffba0809fce38a9249cf2b2f05e5aa00702125a74709"
+    },
+    {
+      "id": "cloud_serpent",
+      "file": "cloud_serpent.png",
+      "source_region": [
+        370,
+        991,
+        589,
+        1229
+      ],
+      "sha256": "97e6b6bae67d3ffef13feec8646aef802792dcbba0f27b69e8dbf26d435ccc77"
+    },
+    {
+      "id": "frost_stag",
+      "file": "frost_stag.png",
+      "source_region": [
+        679,
+        976,
+        887,
+        1235
+      ],
+      "sha256": "0ac542ff3230da9c509411e4ea8f29221f62a20023134e605bc35c01fad8615b"
+    },
+    {
+      "id": "herb_crane",
+      "file": "herb_crane.png",
+      "source_region": [
+        953,
+        983,
+        1200,
+        1231
+      ],
+      "sha256": "6825936616204321e93836685576e3762d49e37a49f4d2fa0125341529a39ee2"
+    }
+  ]
+}

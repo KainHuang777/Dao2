@@ -86,6 +86,13 @@ func _run() -> void:
 			check(row.art.texture != null, "painted skill art: " + row_id)
 			check(row.card.size.x <= page.scroll.size.x + 1, "card fits width")
 			check(row.action.size.y >= 44, "44px action")
+			var point_tile = row.cost.tiles.skill_point
+			check(point_tile.icon.visible and not point_tile.caption.visible and is_equal_approx(point_tile.size.x, point_tile.size.y), "IMM-4-R2 skill point art in square cell without repeated source")
+			check(point_tile.tooltip_text.contains("技能點") and point_tile.tooltip_text.contains("當世"), "IMM-4-R2 exact source remains in tooltip")
+			check(row.scope.get_theme_font_size("font_size") >= 16 and row.effect.get_theme_font_size("font_size") >= 16, "IMM-4-R1 readable scope/effect: " + row_id)
+			check(row.scope.size.y >= row.scope.get_minimum_size().y and row.effect.size.y >= row.effect.get_minimum_size().y, "IMM-4-R1 full body height: " + row_id)
+			check(row.effect.text == row.effect_full, "IMM-4-R1 current/next effects preserved: " + row_id)
+			check(row.card.get_global_rect().encloses(row.info.get_global_rect()) and not row.info.get_global_rect().intersects(row.action.get_global_rect()), "IMM-4-R1 text contained and clear of action: " + row_id)
 		var y: float = page.heading.global_position.y
 		page.scroll.scroll_vertical = 10000
 		await frames()
@@ -113,6 +120,46 @@ func _run() -> void:
 	page.refresh(view)
 	await frames()
 	check(page.heading.size.x <= page.size.x, "long amount wraps in header")
+	# Exercise the compact content branch without expanding the viewport matrix.
+	# A standalone formal view avoids the shell overriding the constrained height.
+	var compact_page = load("res://src/presentation/skill_study_view.gd").new()
+	compact_page.theme = UiTypography.create_theme()
+	var compact_host := Control.new()
+	root.add_child(compact_host)
+	compact_host.add_child(compact_page)
+	compact_page.size = Vector2(620, 220)
+	var compact_view: Dictionary = view.duplicate(true)
+	compact_view.skills.items[0].scope = "祖島與已開拓地方空島的指定資源"
+	compact_view.skills.items[0].scope_note = "只作用於列出的產地，未開拓時收益為零；不改其他產地或全域庫存。"
+	compact_page.refresh(compact_view)
+	await frames()
+	# Reapply after initial autowrap minimum sizes have settled.
+	compact_page.size = Vector2(620, 220)
+	await frames()
+	print("IMM4R1_COMPACT size=", compact_page.size, " minimum=", compact_page.get_minimum_size(), " scroll=", compact_page.scroll.size)
+	check(compact_page.compact, "IMM-4-R1 constrained content uses compact branch")
+	for row in compact_page.cards.values():
+		check(row.scope.get_theme_font_size("font_size") >= 16 and row.effect.get_theme_font_size("font_size") >= 16, "compact body minimum 16px")
+		check(row.effect.text == row.effect_full and row.scope.size.y >= row.scope.get_minimum_size().y and row.effect.size.y >= row.effect.get_minimum_size().y, "compact full text preserved")
+		check(row.card.size.x <= compact_page.scroll.size.x + 1 and row.card.get_global_rect().encloses(row.info.get_global_rect()), "compact text wraps within card")
+		compact_page.scroll.ensure_control_visible(row.action)
+		await frames()
+		check(compact_page.scroll.get_global_rect().encloses(row.action.get_global_rect()) and row.action.size.y >= 44, "compact action reachable by inner scroll")
+	var focus_target: Button = compact_page.buttons["study:"]
+	focus_target.grab_focus()
+	check(root.gui_get_focus_owner() == focus_target and focus_target.get_theme_stylebox("focus").get_border_width(SIDE_TOP) >= 1, "shared skill button has visible focus border")
+	check(focus_target.get_theme_color("font_focus_color") == focus_target.get_theme_color("font_color"), "shared skill focus retains readable ink")
+	# A bare Button inherits the engine theme focus style; no custom gold ring required.
+	var plain := Button.new()
+	plain.text = "focus probe"
+	compact_page.add_child(plain)
+	plain.grab_focus()
+	var focus_style = plain.get_theme_stylebox("focus")
+	print("IMM4R1_THEME_FOCUS ", focus_style, " normal=", plain.get_theme_stylebox("normal"))
+	check(plain.has_focus() and focus_style is StyleBoxFlat and focus_style.border_color.a > 0 and focus_style.get_border_width(SIDE_TOP) >= 1, "bare theme button inherits a nontransparent focus border")
+	check(plain.get_theme_color("font_focus_color") == UiMaterial.INK, "bare theme focus retains paper ink")
+	compact_host.queue_free()
+	await frames()
 	page.buttons["study:"].pressed.emit()
 	check(nav.page == "buildings", "existing study route")
 	nav.open("beasts")

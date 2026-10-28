@@ -1,3 +1,25 @@
+2026-10-27 **IMM-1C DONE；NEXT IMM-3A**：洞府七島縮圖清單與短式共用抽屜已接入，詳見[本階段狀態](development-status.md#imm-1c)／[排程](43-full-ui-adjustment-plan.md)。保留已完成IMM-1A／1B；先做經營成本與詳情，不重做樣張、不提前跑L3。
+
+> 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。
+
+2026-10-27 **IMM-1B DONE；NEXT IMM-1C**：空島／製造／運輸已接共用正方物品格與付款／地方／產物／在途分組，L1＋桌面Web 1280×720抽驗通過。[批次排程](43-full-ui-adjustment-plan.md)／[狀態](development-status.md#imm-1b)。
+
+2026-10-27 **IMM-1A DONE；NEXT IMM-1B（已由1B完成）**：共用庫存／物品元件、製造左欄與短抽屜已接入。[狀態](development-status.md#imm-1a)。
+
+> 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。
+
+2026-10-27 **CONTENT-P2-ACCEPT DONE（整合收尾／桌面Web有界）**：數量與各批相依核對完成，沿用同日WORLD-46的140／140分段L3；法令條件延期。見[結案](development-status.md#content-p2-accept)。
+
+> 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。
+
+2026-10-27 **WORLD-46 DONE（美術ACCEPTED／唯一L3）**：140／140最終分段通過、一般Web同步壓縮與桌面三橫式完成。[結案](development-status.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。
+
+2026-10-27 **WORLD-46-B DONE（L1／L2接入階段）**：三島分層世界、七島選單、管理往返與十二線貨運已接；美術接受／整批L3待收。見[狀態](development-status.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。
+
 2026-10-27 **WORLD-46-A 候選交付／美術PENDING**：寒銀／古藥／太虛六張分層資產與預覽；正式世界待接入，整批IN_PROGRESS。[狀態](development-status.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ai-handoff-prelude-archive-2026-10.md](archive/ai-handoff-prelude-archive-2026-10.md)。

@@ -621,6 +621,7 @@ func _update_cost_cells(id: String, costs: Dictionary, resources: Dictionary, ma
 			box.add_theme_constant_override("separation", 2)
 			var icon := UiIllustration.new()
 			icon.texture = ResourceArt.TEXTURES.get(resource_id)
+			icon.visible = icon.texture != null
 			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -631,7 +632,7 @@ func _update_cost_cells(id: String, costs: Dictionary, resources: Dictionary, ma
 			label.add_theme_font_size_override("font_size", 16)
 			box.add_child(label)
 			cost_rows[id].add_child(box)
-			cost_cells[id][resource_id] = {"box": box, "label": label}
+			cost_cells[id][resource_id] = {"box": box, "label": label, "icon": icon}
 		var cell: Dictionary = cost_cells[id][resource_id]
 		var signature := [str(resources.get(resource_id, {}).get("value", "0")), str(costs[resource_id]), resource_names.get(resource_id, resource_id)]
 		if cell.get("rendered") == signature:
@@ -643,7 +644,7 @@ func _update_cost_cells(id: String, costs: Dictionary, resources: Dictionary, ma
 			continue
 		var available: AmountCompat = have.value
 		var required: AmountCompat = need.value
-		cell.label.text = "%s/%s" % [_cost_display(available), _cost_display(required)]
+		cell.label.text = ("%s %s/%s" % [resource_names.get(resource_id, resource_id), _cost_display(available), _cost_display(required)]) if not cell.icon.visible else "%s/%s" % [_cost_display(available), _cost_display(required)]
 		cell.label.add_theme_color_override("font_color", Color("35705b") if available.compare_to(required) >= 0 else Color("a34434"))
 		cell.box.tooltip_text = "%s｜庫存 %s／需求 %s" % [resource_names.get(resource_id, resource_id), _cost_display(available), _cost_display(required)]
 

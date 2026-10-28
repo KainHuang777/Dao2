@@ -1,5 +1,7 @@
 # 修仙問道 v2：遊戲介面沉浸感與視覺品質升級建議書（Game UI Immersion & Aesthetic Proposal）
 
+> 2026-10-27：已整理[最終建議稿](41-game-ui-immersion-and-aesthetic-final.md)。本頁保留原提案；全面禁用Flat、全互動彈跳與全頁Shader等要求已在新稿校正，尚未核定為正式通則。
+
 本文件記錄「擺脫網頁拼湊感、提升 Godot 遊戲引擎原生沉浸質感」之架構建議與落地方案，留存供未來 UI/UX 與視覺里程碑排程執行。
 
 ---

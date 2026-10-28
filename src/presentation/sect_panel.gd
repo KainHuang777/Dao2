@@ -7,6 +7,7 @@ const DISPATCH_ICON = preload("res://assets/ui/icons/sect-dispatch.svg")
 const RARITY_ICON = preload("res://assets/ui/icons/sect-rarity.svg")
 const RARITY_COLORS := {"common":Color("ffffff"), "uncommon":Color("65b765"), "rare":Color("539ee8"), "epic":Color("b476d6"), "legendary":Color("edc052")}
 const UiIconScript = preload("res://src/presentation/ui_icon.gd")
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 
 signal join_sect_requested(sect_name: String)
 signal refresh_tasks_requested()
@@ -50,6 +51,7 @@ var _cached_is_eligible_to_join: bool = false
 var _header_reflow_pending := false
 var _compact := false
 var _art_nodes: Array[TextureRect] = []
+var _p1_tech_layouts: Array[Dictionary] = []
 var _p2_card_layouts: Array[Dictionary] = []
 var _p2_market_layouts: Array[Dictionary] = []
 var _dynamic: Array[Callable] = []
@@ -114,6 +116,21 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		if node.has_meta("p1_market_cost"):
 			var item: Dictionary = SectSystem.MARKET_ITEMS[node.get_meta("p1_market_cost")]
 			node.text = "%d貢獻 → %s · 需築基" % [int(item.cost), "靈木100" if item.has("grant_resource") else "育草丹1"]
+			node.visible = _compact
+	for node in _tab_content_container.find_children("*", "VBoxContainer", true, false):
+		if node.has_meta("p1_market_strip"): node.visible = not _compact
+	for layout in _p1_tech_layouts:
+		var box: StyleBoxTexture = layout.box
+		var strip = layout.strip
+		if strip != null: strip.set_compact(_compact)
+		layout.desc.visible = not _compact
+		box.content_margin_left = 6 if _compact else 12
+		box.content_margin_right = 6 if _compact else 12
+		box.content_margin_top = 4 if _compact else 8
+		box.content_margin_bottom = 4 if _compact else 8
+		layout.info.add_theme_constant_override("separation", 0 if _compact else 4)
+		layout.art.custom_minimum_size = Vector2.ONE * (56 if _compact else 112)
+		layout.title.add_theme_font_size_override("font_size", 14 if _compact else 18)
 	for layout in _p2_card_layouts:
 		var short_card := size.y < 220
 		layout.effect.visible = not short_card
@@ -323,6 +340,7 @@ func _has_pressed_button(node: Node) -> bool:
 func _render_current_tab() -> void:
 	_dynamic.clear()
 	_art_nodes.clear()
+	_p1_tech_layouts.clear()
 	_p2_card_layouts.clear()
 	_p2_market_layouts.clear()
 	_grids.clear()
@@ -684,27 +702,45 @@ func _render_techniques_tab() -> void:
 
 		var is_max := cur_lvl >= max_lvl
 		var cost_text := "已達圓滿"
+		var req_contrib := 0.0
+		var req_wood := 0.0
+		var req_stone := 0.0
 		if not is_max:
 			var scale := pow(float(def.get("cost_scale", 1.5)), float(cur_lvl))
-			var req_contrib := int(ceil(float(def.get("base_contrib", 50)) * scale))
+			req_contrib = ceil(float(def.get("base_contrib", 50)) * scale)
 			cost_text = "參悟所需：貢獻 %d" % req_contrib
 			if def.has("base_wood"):
-				cost_text += " | 靈木 %d" % int(ceil(float(def.base_wood) * scale))
+				req_wood = ceil(float(def.base_wood) * scale)
+				cost_text += " | 靈木 %d" % req_wood
 			if def.has("base_stone_low"):
-				cost_text += " | 下品靈石 %d" % int(ceil(float(def.base_stone_low) * scale))
+				req_stone = ceil(float(def.base_stone_low) * scale)
+				cost_text += " | 下品靈石 %d" % req_stone
 
-		var cost_lbl := Label.new()
-		cost_lbl.text = cost_text
-		if tech_id == "alchemy_herb_conservation":
-			cost_lbl.tooltip_text = "僅聚靈／養木／聚財／納靈四丹下品草；現行每顆%s草，下一階%s草；批量不取整。退宗或當世境界不足時停用。" % [str(10.0 * (100 - 2 * SectSystem.active_level(_cached_state, tech_id)) / 100), str(10.0 * (100 - 2 * mini(cur_lvl + 1, 5)) / 100)]
-		elif tech_id == "fox_feed_conservation":
-			var preview := _cached_state.duplicate_state()
-			preview.sect.techniques[tech_id] = mini(cur_lvl + 1, 5)
-			cost_lbl.tooltip_text = "靈狐現行每餵%s草；下一階實際%s草。最後取整，部分階不減少。退宗或當世境界不足時停用。" % [str(BeastSystem.feed_costs(_cached_state, "jade_fox").spirit_grass_low), str(BeastSystem.feed_costs(preview, "jade_fox").spirit_grass_low)]
-
-		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
-		cost_lbl.add_theme_font_size_override("font_size", 16)
-		info_vb.add_child(cost_lbl)
+		var strip = null
+		var cost_lbl: Label = null
+		if tech_id in SectSystem.P2_TECHNIQUES:
+			cost_lbl = Label.new()
+			cost_lbl.text = cost_text
+			cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
+			cost_lbl.add_theme_font_size_override("font_size", 16)
+			info_vb.add_child(cost_lbl)
+		else:
+			strip = CostStrip.new()
+			info_vb.add_child(strip)
+			if is_max:
+				strip.visible = false
+			else:
+				var strip_costs := {"contribution": req_contrib}
+				if req_wood > 0.0: strip_costs["wood"] = req_wood
+				if req_stone > 0.0: strip_costs["stone_low"] = req_stone
+				_refresh_cost_strip(strip, strip_costs, "參悟所需", "參悟資源不足", {"contribution": "宗門"})
+			if tech_id == "alchemy_herb_conservation":
+				strip.tooltip_text = "僅聚靈／養木／聚財／納靈四丹下品草；現行每顆%s草，下一階%s草；批量不取整。退宗或當世境界不足時停用。" % [str(10.0 * (100 - 2 * SectSystem.active_level(_cached_state, tech_id)) / 100), str(10.0 * (100 - 2 * mini(cur_lvl + 1, 5)) / 100)]
+			elif tech_id == "fox_feed_conservation":
+				var preview := _cached_state.duplicate_state()
+				preview.sect.techniques[tech_id] = mini(cur_lvl + 1, 5)
+				strip.tooltip_text = "靈狐現行每餵%s草；下一階實際%s草。最後取整，部分階不減少。退宗或當世境界不足時停用。" % [str(BeastSystem.feed_costs(_cached_state, "jade_fox").spirit_grass_low), str(BeastSystem.feed_costs(preview, "jade_fox").spirit_grass_low)]
+			_p1_tech_layouts.append({"box":box,"info":info_vb,"art":row.get_child(0),"title":title_lbl,"desc":desc_lbl,"strip":strip})
 		if tech_id in SectSystem.P2_TECHNIQUES:
 			var short_effect := Label.new()
 			short_effect.add_theme_font_size_override("font_size", 16)
@@ -723,6 +759,11 @@ func _render_techniques_tab() -> void:
 		learn_btn.pressed.connect(_on_learn_technique_pressed.bind(tech_id))
 		row.add_child(learn_btn)
 		_dynamic.append(func():
+			if strip != null and not is_max:
+				var live := {"contribution": req_contrib}
+				if req_wood > 0.0: live["wood"] = req_wood
+				if req_stone > 0.0: live["stone_low"] = req_stone
+				_refresh_cost_strip(strip, live, "參悟所需", "參悟資源不足", {"contribution": "宗門"})
 			var scale_now := pow(float(def.get("cost_scale",1.5)),float(cur_lvl))
 			var enough := _has_contribution(ceil(float(def.get("base_contrib",50)) * scale_now))
 			for key in ["wood", "stone_low"]:
@@ -785,10 +826,18 @@ func _render_market_tab() -> void:
 		var cost_lbl := Label.new()
 		cost_lbl.text = "兌換價格：宗門貢獻 %d 點" % int(def.cost)
 		if def.has("min_era") and item_id not in SectSystem.P2_MARKET: cost_lbl.set_meta("p1_market_cost", item_id)
+		var market_strip = null
 		if item_id in SectSystem.P2_MARKET:
 			card.set_meta("content_id", item_id)
 			cost_lbl.text = "%d貢獻 → %s%d · 需當世%s／%s · 餘%d次" % [int(def.cost), "精鐵" if item_id == "refined_iron_reserve" else "千年草", int(def.grant_amount), "元嬰" if int(def.min_era) == 4 else "化神", "寒銀已開" if def.requires_open_island == "deep" else "古藥已開", maxi(0, limit-bought_count)]
 			_p2_market_layouts.append({"title":name_lbl,"cost":cost_lbl,"info":info_vb,"art":row.get_child(0),"box":box,"full_cost":cost_lbl.text,"short_cost":cost_lbl.text.get_slice(" · 餘",0).replace("需當世", "當世").replace("千年草", "千草")})
+		else:
+			market_strip = CostStrip.new()
+			market_strip.set_meta("p1_market_strip", true)
+			market_strip.visible = not _compact
+			cost_lbl.visible = _compact
+			info_vb.add_child(market_strip)
+			_refresh_cost_strip(market_strip, {"contribution": float(def.cost)}, "兌換價格", "貢獻不足", {"contribution": "宗門"})
 		cost_lbl.add_theme_color_override("font_color", UiMaterial.INK)
 		cost_lbl.add_theme_font_size_override("font_size", 16)
 		info_vb.add_child(cost_lbl)
@@ -800,6 +849,8 @@ func _render_market_tab() -> void:
 		buy_btn.pressed.connect(_on_buy_market_item_pressed.bind(item_id))
 		row.add_child(buy_btn)
 		_dynamic.append(func():
+			if market_strip != null:
+				_refresh_cost_strip(market_strip, {"contribution": float(def.cost)}, "兌換價格", "貢獻不足", {"contribution": "宗門"})
 			var enough := _has_contribution(float(def.cost))
 			var destination := SectSystem.market_destination_error(_cached_state, item_id, SaveManager.content())
 			buy_btn.disabled = is_sold_out or not enough or not destination.is_empty()
@@ -918,6 +969,9 @@ static func _task_art(task_name: String) -> String:
 	return "warding"
 
 func _wrap_card_labels(node: Node) -> void:
+	# Shared item cells own their square geometry and overlaid quantity labels.
+	if node is CostStrip:
+		return
 	if node is Button: node.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	if node is PanelContainer: node.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if node is Label:
@@ -932,6 +986,28 @@ func _wrap_card_labels(node: Node) -> void:
 func _has_contribution(cost: float) -> bool:
 	var parsed := AmountCompat.try_parse(String(_cached_sect_data.get("contribution","0")))
 	return bool(parsed.get("ok",false)) and parsed.value.compare_to(AmountCompat.from_number(cost)) >= 0
+
+func _refresh_cost_strip(strip, costs: Dictionary, title: String, prefix: String, sources: Dictionary = {}) -> void:
+	var names := {}
+	var available := {}
+	var src := {}
+	for id in costs:
+		var key := String(id)
+		names[key] = "貢獻" if key == "contribution" else ResourceIconScript.get_resource_name(key)
+		src[key] = String(sources.get(key, "祖島"))
+		if key == "contribution":
+			available[key] = _amount(_cached_sect_data.get("contribution", "0"))
+		else:
+			available[key] = _amount(_cached_resources.get(key, {}).get("value", 0))
+	strip.show_costs(costs, names, available, src, title, CostStrip.shortage_text(costs, available, names, prefix), UiMaterial.INK)
+	if strip.compact:
+		for id in strip.tiles:
+			strip.tiles[id].caption.visible = false
+
+func _amount(raw: Variant) -> float:
+	if raw is AmountCompat: return raw.to_float()
+	var parsed := AmountCompat.try_parse(str(raw))
+	return parsed.value.to_float() if bool(parsed.get("ok", false)) else 0.0
 
 func set_command_result(result: Dictionary, saved: Dictionary = {}) -> void:
 	_feedback_row.show()

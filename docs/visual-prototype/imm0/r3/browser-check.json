@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-27",
+  "tool": "cua_repl/IAB",
+  "url": "http://127.0.0.1:4402/index.html",
+  "scope": "Static screenshot viewer only",
+  "checks": [
+    {
+      "state": "home-normal",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "home-normal",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "manufacturing-normal",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "manufacturing-normal",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "manufacturing-shortage",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "manufacturing-shortage",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "manufacturing-inventory-drawer",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "manufacturing-inventory-drawer",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "transport-inventory",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "transport-inventory",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "outposts-inventory",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "outposts-inventory",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": false
+    },
+    {
+      "state": "fortune-pending",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": true
+    },
+    {
+      "state": "fortune-pending",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": true
+    },
+    {
+      "state": "fortune-ready",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": true
+    },
+    {
+      "state": "fortune-ready",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": true
+    },
+    {
+      "state": "fortune-save-error",
+      "size": "1280x720",
+      "images_loaded": true,
+      "fortune_original_only": true
+    },
+    {
+      "state": "fortune-save-error",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": true
+    },
+    {
+      "state": "fortune-pending-tail",
+      "size": "844x390",
+      "images_loaded": true,
+      "fortune_original_only": true
+    }
+  ]
+}

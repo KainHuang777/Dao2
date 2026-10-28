@@ -1,0 +1,171 @@
+{
+  "captures": [
+    {
+      "file": "images/home-normal-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "current",
+      "png_sha256": "0c0858a767a6b5f99a4a85a54b8d7f47e25d6c8cb0e2489512d9d9123d2168d5"
+    },
+    {
+      "file": "images/home-normal-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "candidate",
+      "png_sha256": "b916d6c8ab88a7e17e76b1c79a4c5f2223e63824ba9d3c97825d9b34a62f7dee"
+    },
+    {
+      "file": "images/manufacturing-normal-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "33263c7bca988e1fd8fc145d185db8ff750267391f2788ed38468005c6af1848"
+    },
+    {
+      "file": "images/manufacturing-normal-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "d2a2d5978e497c16efe46f66955b96ff8d53d1d1fe0a3eba0f8e996bb6fdd364"
+    },
+    {
+      "file": "images/manufacturing-shortage-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "current",
+      "png_sha256": "e21d585bf7ba0b13aaea26d5a77bf70c65a42395e079c11ac7d8f8250fec4163"
+    },
+    {
+      "file": "images/manufacturing-shortage-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "candidate",
+      "png_sha256": "bd739b06c490529deb1b8790ed9cb079fcec5d15383362ea0ad83d6f60b093b6"
+    },
+    {
+      "file": "images/home-normal-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "current",
+      "png_sha256": "16102d2a6ca15a28d2899bbea283f17a4d3f5805ce5037c4c2d5857a82e62917"
+    },
+    {
+      "file": "images/home-normal-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "candidate",
+      "png_sha256": "0b8eab2e5caf77e63782e8bf0c1b8dbde39bacd746df381950841796606a237a"
+    },
+    {
+      "file": "images/manufacturing-normal-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "ea0c4cc0cc35bb63d1e7a5851f9ef98d428be8b359258a58b96910116ab8acef"
+    },
+    {
+      "file": "images/manufacturing-normal-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "c00d2209f69c98f62ab3b7f74d26900ee05396e649e9218500c6046dd69be599"
+    },
+    {
+      "file": "images/manufacturing-shortage-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "current",
+      "png_sha256": "85090bdd82573b0f6f62b5f0ae1e73272a010fa36b7bb69b507499e970361f0f"
+    },
+    {
+      "file": "images/manufacturing-shortage-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "candidate",
+      "png_sha256": "d66f606bd6742f517ddd001b0e0f971ff3d1066f8803c165cfda797be24c4873"
+    }
+  ],
+  "scope": "User-directed native presentation revision; no production changes",
+  "revision": "R2",
+  "same_state_pairs": 6,
+  "acceptance": "DESIGN_PRINCIPLES_ACCEPTED",
+  "sources": {
+    "tools\\imm0_samples.gd": "3b217a7bbcd0799b013595c435b89895b11edd30c7b657999853354c5609fd0f",
+    "tools\\imm0_r2_samples.gd": "9c99bcbfba8aad92c6da5096c7eca587a29f6b02877de27398b9397fe0782ceb"
+  },
+  "acceptance_date": "2026-10-27",
+  "acceptance_scope": "R3 graphical inventory and related R2 square item slots/island thumbnail list; fortune main page remains original. Production integration pending; new motion/audio/shaders not approved by this acceptance.",
+  "followup_plan": "docs/43-full-ui-adjustment-plan.md"
+}

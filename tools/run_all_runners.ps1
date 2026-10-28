@@ -21,6 +21,7 @@ $daoEngine = $EnginePath
 $matrix = if ($Matrix -ne 'auto') { $Matrix } elseif ($Full) { 'full' } else { 'single' }
 $runners = @(
     'tests/world46_runner.gd',
+    'tests/imm1c_island_selector_runner.gd',
     'tests/content_p2_story_sect_flow_runner.gd',
     'tests/content_p2_story_ui_runner.gd',
     'tests/content_p2_story_flow_runner.gd',
@@ -76,6 +77,10 @@ $runners = @(
 	'tests/ui_shell_matrix_runner.gd',
 	'tests/ui_shell_integration_runner.gd',
 	'tests/ui_shell_policy_runner.gd',
+	'tests/imm1a_inventory_runner.gd',
+	'tests/imm3a_cost_detail_runner.gd',
+	'tests/imm3b_cultivation_resources_runner.gd',
+	'tests/imm3c_page_consistency_runner.gd',
 	'tests/mfg3_inline_runner.gd',
 	'tests/mfg_controller_runner.gd',
 	'tests/recipe_row_runner.gd',

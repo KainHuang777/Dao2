@@ -103,7 +103,8 @@ func run() -> void:
 		for id in IslandEconomy.supply_data().routes:
 			transport.select_route(id)
 			check(transport.upgrade_button.text.contains("10→20"),"route level1 "+id)
-			check(transport.upgrade_button.text.contains("10＋"),"actual one-step payment "+id)
+			var paid: Dictionary = transport._info(id)
+			check(transport.upgrade_costs.visible and transport.upgrade_costs.visible_tiles() == paid.upgrade_cost.size() and not transport.upgrade_button.text.contains("祖島支付"),"actual one-step payment "+id)
 			session.state.economy.routes[id] = {"enabled":false,"level":2,"reserve":"7","target":"99"}
 			transport.refresh(session.get_view(),content.processing_catalog)
 			check(transport.upgrade_button.text.contains("20→30"),"route level2 "+id)

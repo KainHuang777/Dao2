@@ -1,0 +1,356 @@
+{
+  "captures": [
+    {
+      "file": "images/home-normal-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "current",
+      "png_sha256": "7e22c029b06abc10b3885b2a87232e5c8362a648fa91d1050e55c8d93f594f25"
+    },
+    {
+      "file": "images/home-normal-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "candidate",
+      "png_sha256": "f64299c3cd3db4dda25ff3b177475204b94f53d8b3ddddafe9cf54ae4c76470b"
+    },
+    {
+      "file": "images/manufacturing-normal-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "33263c7bca988e1fd8fc145d185db8ff750267391f2788ed38468005c6af1848"
+    },
+    {
+      "file": "images/manufacturing-normal-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "bbf12917e59b241d4c45b8152c6fb4eec172dd4ae7099db2f18ffc30640b1418"
+    },
+    {
+      "file": "images/manufacturing-shortage-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "current",
+      "png_sha256": "e21d585bf7ba0b13aaea26d5a77bf70c65a42395e079c11ac7d8f8250fec4163"
+    },
+    {
+      "file": "images/manufacturing-shortage-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "candidate",
+      "png_sha256": "a1bbf02b880249a1e85f24e6ca1f4d41af1765e2e7c895a47cd950be6a1a8da0"
+    },
+    {
+      "file": "images/fortune-pending-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-pending",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0dc1ac195964d62a2ea3eb81c7cf402d9ab19104bc31977414dfe4f37943430a",
+      "variant": "current",
+      "png_sha256": "2de9d72de3323d12bf9805d84c061294419a2959c480bc8aed15c2afded977a2"
+    },
+    {
+      "file": "images/fortune-pending-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-pending",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "0dc1ac195964d62a2ea3eb81c7cf402d9ab19104bc31977414dfe4f37943430a",
+      "variant": "candidate",
+      "png_sha256": "8586dfa5044c712efa603610fe2c6dc2ba796af6faf4ec19ca2376c21a4172db"
+    },
+    {
+      "file": "images/fortune-ready-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-ready",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "current",
+      "png_sha256": "9ee0c7ddd1a698b7d12d9c73dbce2aaa4ffc6bde902d916f1e4a65dce099a587"
+    },
+    {
+      "file": "images/fortune-ready-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-ready",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "candidate",
+      "png_sha256": "0f3c47d05ccb009c7dfb72fab9099f815a9d1ecf282e1acd3d8fe42dd6eec6ce"
+    },
+    {
+      "file": "images/fortune-save-error-current-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-save-error",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "current",
+      "png_sha256": "65eacff4aea4357ccf5a57929bda626f04c13dd2818abde9e7157fc03b447bcf"
+    },
+    {
+      "file": "images/fortune-save-error-candidate-1280x720.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-save-error",
+      "save_png": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "candidate",
+      "png_sha256": "3e1be95a6e29c37313e2c48861dd5b5eedbd1f31360a63b203bb9be2923c9f01"
+    },
+    {
+      "file": "images/home-normal-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "current",
+      "png_sha256": "fbca9fd7b55706808146bcd9741c4c1432659b1870946eb914ea989ee6d1ebcb"
+    },
+    {
+      "file": "images/home-normal-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "home-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "622b738fed6717af27e58e2585d2d698d88b94bb55d26bd2aa0d6ca93c13da08",
+      "variant": "candidate",
+      "png_sha256": "4f6300b39c00f35bd9189fe3e6e3a28a9efa57be1309a6cfc32100b5f97daa9d"
+    },
+    {
+      "file": "images/manufacturing-normal-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "current",
+      "png_sha256": "7cb181e6edd55d76f154aa79cf5d5a84ea02d90d8491a27866787a6107e6c16a"
+    },
+    {
+      "file": "images/manufacturing-normal-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-normal",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "6926d563bff1a2a01cdb57618cc00d31ffee0404d6b7dcada9d1ed565960a9e9",
+      "variant": "candidate",
+      "png_sha256": "680495f09433bf7e88b71fccb509e4dbce206eaab765daf5b99126f55aa69a04"
+    },
+    {
+      "file": "images/manufacturing-shortage-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "current",
+      "png_sha256": "d484b7e6da1dbd7bc7bdc451e28af5e05c42db1a044a4b9b1e079481b91ca5d1"
+    },
+    {
+      "file": "images/manufacturing-shortage-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "manufacturing-shortage",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0785df6bc68c9b0ca57b79fbeff2a4923d27f440eaef414abfbbcab401758559",
+      "variant": "candidate",
+      "png_sha256": "8ce3031169006ab0db26b502417edbb5850238c118b4e3ed340c59d66cb24e40"
+    },
+    {
+      "file": "images/fortune-pending-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-pending",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0dc1ac195964d62a2ea3eb81c7cf402d9ab19104bc31977414dfe4f37943430a",
+      "variant": "current",
+      "png_sha256": "6e5c430f96392bdf6c7389b9f4aefce17cbc7a895ccdb730f8d8a5877f8c156d"
+    },
+    {
+      "file": "images/fortune-pending-tail-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-pending-tail",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0dc1ac195964d62a2ea3eb81c7cf402d9ab19104bc31977414dfe4f37943430a",
+      "variant": "current",
+      "png_sha256": "366fb6c6a6aaa1ac64f88e939b2e2e8bcfdef6f8a4c546c7f7d76ead9f78be46"
+    },
+    {
+      "file": "images/fortune-pending-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-pending",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0dc1ac195964d62a2ea3eb81c7cf402d9ab19104bc31977414dfe4f37943430a",
+      "variant": "candidate",
+      "png_sha256": "479adef5ed19280c02ea7ac018d23473af4bf4f48ad8cad07bd8f14f29c8fbe4"
+    },
+    {
+      "file": "images/fortune-pending-tail-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-pending-tail",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "0dc1ac195964d62a2ea3eb81c7cf402d9ab19104bc31977414dfe4f37943430a",
+      "variant": "candidate",
+      "png_sha256": "63c2c979684c3837c87aeb75277bd053d4cfb767824d1d22eb2598111fe9f472"
+    },
+    {
+      "file": "images/fortune-ready-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-ready",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "current",
+      "png_sha256": "79b61e570dc395f6fb1ff14b1b911e151898f34709384768ed328df73fe88f31"
+    },
+    {
+      "file": "images/fortune-ready-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-ready",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "candidate",
+      "png_sha256": "fc75c20541fc38b88399ac7f614f78aa36d581d7c3a3158c0d1be6bb9ea3d741"
+    },
+    {
+      "file": "images/fortune-save-error-current-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-save-error",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "current",
+      "png_sha256": "212c3e28bf9b370b182346c6458243b457db9c4e84646836e70494039042e47a"
+    },
+    {
+      "file": "images/fortune-save-error-candidate-844x390.png",
+      "render_did_not_mutate_state": true,
+      "sample": "fortune-save-error",
+      "save_png": 0,
+      "size": [
+        844,
+        390
+      ],
+      "snapshot_sha256": "9deaa74865a774528abc4e5176a367f9385ca53b4c5b2ac47dbf06da8469bd69",
+      "variant": "candidate",
+      "png_sha256": "80b23c7c90ff211d325863a6d82b13eb201cc8580521615751521611a65475b1"
+    }
+  ],
+  "scope": "IMM-0 native static samples; synthetic cloned fixture; no mouse/save-fault/performance acceptance",
+  "same_state_pairs": 13,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Compatibility / OpenGL 3.3 NVIDIA GTX 1660 Ti",
+  "acceptance": "PENDING_USER_REVIEW",
+  "sources": {
+    "tools\\imm0_samples.gd": "4d7d48f63a4a58dfecf22bd347db4da3446e3ab00e588bbcde5245476f9a9625",
+    "src\\presentation\\fortune_modal.gd": "5ee698694a52ce6ca5521a7a4e26cfbaecfe70a5aa62b31c27faeb5e49da179a",
+    "src\\presentation\\manufacturing_panel.gd": "4beca032a54748010eab175e43aad0f25686e3b7777183db3e2c24a048738e4b",
+    "src\\presentation\\recipe_row.gd": "899ea9248a80aebab4903f22c12647c9caf0eced79dace1060a372c278d38f08",
+    "src\\presentation\\ui_material.gd": "1baa08ae7e65785e493e3d43f653646ba10dd454abec6f3491dcfbf35ecb63fc",
+    "src\\presentation\\ui_typography.gd": "d4705716d1f018225ef24a7e11a3de1a13597cd19651d4164d431d22fd371898",
+    "docs\\verification\\artifacts\\res1-d2-earned-era3.json": "902a68acf6263c0e269dac59bdbeb48a1c3f4f75e80dcddb384757e2bcfa37a1"
+  }
+}

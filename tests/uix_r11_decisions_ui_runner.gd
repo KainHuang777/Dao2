@@ -107,8 +107,10 @@ func _run() -> void:
 		var last: Control = page.cards.spirit_nurture_celestial_herb.action
 		check(page.scroll.get_global_rect().encloses(last.get_global_rect()), "last action reachable")
 		check(last.get_global_rect().end.y <= panel.get_global_rect().end.y - (20 if vp.y >= 500 else 14) + 1, "rod safety")
-		for cost in page.cards.spirit_nurture_celestial_herb.costs:
-			check(cost.label.get_global_rect().end.x <= panel.get_global_rect().end.x, "large cost fits")
+		for resource in page.cards.spirit_nurture_celestial_herb.costs.tiles:
+			var tile = page.cards.spirit_nurture_celestial_herb.costs.tiles[resource]
+			if tile.visible:
+				check(tile.get_global_rect().end.x <= panel.get_global_rect().end.x, "large cost fits")
 		page.scroll.scroll_vertical = 0
 		nav.home()
 		check(not panel.visible, "home returns")

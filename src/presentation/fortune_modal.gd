@@ -8,6 +8,7 @@ signal retry_save_requested()
 
 const ART_DIR := "res://assets/ui/fortune-painted/"
 const ResourceIconScript = preload("res://src/presentation/resource_icon.gd")
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 var book_provider: Callable
 var identity_provider: Callable
 var displayed_instance := ""
@@ -246,22 +247,16 @@ func _build_options(options: Array) -> void:
 		var effect := _label(copy)
 		var batch := str(_last_view_data.get("fortune", {}).get("pending_encounter", {}).get("content_batch", ""))
 		effect.text = "固定效果：不支付、不取得額外收益" if batch in ["content-p1-story", "content-p2-story"] and idx == 2 else DecisionBookView.preview_text(opt.get("rewards", {}))
-		var cost_box := VBoxContainer.new()
+		var cost_box := CostStrip.new()
 		copy.add_child(cost_box)
 		var costs: Array[Dictionary] = []
 		for id in opt.get("costs",{}):
 			var required := float(opt.costs[id])
 			if required <= 0: continue
-			var cost_row := HBoxContainer.new()
-			cost_box.add_child(cost_row)
-			var icon := ResourceIconScript.new()
-			icon.resource_id = FortuneSystem.resource_key(_last_view_data.get("resources",{}),str(id))
-			cost_row.add_child(icon)
-			var cost_label := _label(cost_row)
-			costs.append({"id":str(id),"need":required,"label":cost_label})
+			costs.append({"id":str(id),"need":required})
 		var reason := _label(copy)
 		reason.hide()
-		_option_rows.append({"card":card,"button":button,"costs":costs,"reason":reason})
+		_option_rows.append({"card":card,"button":button,"costs":costs,"strip":cost_box,"reason":reason})
 
 func refresh(view_data: Dictionary) -> void:
 	_last_view_data = view_data
@@ -313,18 +308,27 @@ func refresh(view_data: Dictionary) -> void:
 		for index in range(_option_rows.size()):
 			var row: Dictionary = _option_rows[index]
 			var can_afford := true
+			var cost_values := {}
+			var names := {}
+			var available_values := {}
+			var sources := {}
 			for cost in row.costs:
-				var resource: Dictionary = resources.get(FortuneSystem.resource_key(resources,cost.id),{})
+				var resource_id: String = FortuneSystem.resource_key(resources,cost.id)
+				var resource: Dictionary = resources.get(resource_id,{})
 				var parsed := AmountCompat.try_parse(str(resource.get("value","0")))
 				var enough: bool = bool(parsed.get("ok",false)) and parsed.value.compare_to(AmountCompat.from_number(cost.need)) >= 0
 				can_afford = can_afford and enough
-				var resource_id := FortuneSystem.resource_key(resources,cost.id)
-				var resource_name := ResourceIconScript.get_resource_name(resource_id)
-				var available: String = parsed.value.to_display_string() if bool(parsed.get("ok",false)) else "0"
-				cost.label.text = "%s／%s" % [available,AmountCompat.from_number(cost.need).to_display_string()]
-				if not ResourceIconScript.TEXTURES.has(resource_id): cost.label.text = resource_name + " " + cost.label.text
-				cost.label.tooltip_text = "%s：持有 %s／需要 %s" % [resource_name,str(resource.get("value","0")),str(cost.need)]
-				cost.label.add_theme_color_override("font_color",UiMaterial.INK if enough else Color("a83932"))
+				cost_values[resource_id] = cost.need
+				names[resource_id] = ResourceIconScript.get_resource_name(resource_id)
+				available_values[resource_id] = parsed.value.to_float() if bool(parsed.get("ok",false)) else 0.0
+				sources[resource_id] = "祖島"
+			var strip = row.get("strip")
+			if cost_values.is_empty():
+				strip.clear_costs()
+				strip.visible = false
+			else:
+				strip.visible = true
+				strip.show_costs(cost_values, names, available_values, sources, "選項成本", CostStrip.shortage_text(cost_values, available_values, names, "資源不足"), UiMaterial.INK)
 			var errors: Array = fortune.get("option_errors", [])
 			var error := str(errors[index]) if index < errors.size() else ""
 			row.button.disabled = not can_afford or _submitted or not error.is_empty()

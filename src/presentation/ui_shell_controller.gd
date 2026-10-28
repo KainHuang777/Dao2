@@ -2,6 +2,8 @@ extends RefCounted
 ## Single shared display owner for home and every canonical feature route.
 const Policy = preload("res://src/presentation/ui_shell_policy.gd")
 const State = preload("res://src/presentation/ui_shell_state.gd")
+const ShellResources = preload("res://src/presentation/ui_shell_resources.gd")
+const InventoryPanel = preload("res://src/presentation/inventory_panel.gd")
 var state = State.new()
 var abode: Node
 var compact_hud: PanelContainer
@@ -29,6 +31,8 @@ var _status_home: Node
 var _overlay_z: Dictionary = {}
 var context_paper: PanelContainer
 var context_text: Label
+var context_scroll: ScrollContainer
+var context_inventory
 
 func _init(scene: Node) -> void:
 	abode = scene
@@ -117,15 +121,18 @@ func build() -> void:
 	context_paper.name = "ShellContextResources"
 	context_paper.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
 	abode.hud.add_child(context_paper)
-	var scroll := ScrollContainer.new()
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	context_paper.add_child(scroll)
+	context_scroll = ScrollContainer.new()
+	context_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	context_paper.add_child(context_scroll)
 	context_text = Label.new()
 	context_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	context_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	context_text.add_theme_font_size_override("font_size", 16)
 	context_text.add_theme_color_override("font_color", UiMaterial.INK)
-	scroll.add_child(context_text)
+	context_scroll.add_child(context_text)
+	context_inventory = InventoryPanel.new()
+	context_paper.add_child(context_inventory)
+	context_inventory.hide()
 	context_paper.hide()
 	for button in [abode.reincarnation_panel._talents_button, abode.reincarnation_panel._reincarnate_button, abode.sect_panel._tab_expeditions_btn, abode.sect_panel._tab_techniques_btn, abode.sect_panel._tab_market_btn]:
 		button.pressed.connect(func(): abode._layout_for_size(abode.hud.size))
@@ -241,7 +248,7 @@ func apply(vp: Vector2) -> void:
 	var starter: Node = abode.buildings.get("hut")
 	var obstructs: bool = vp.y < 500 and not abode._hud_controller._messages_explicit and starter != null and starter.visible and starter.level == 0
 	var view: Dictionary = abode._presentation_view()
-	var context: Dictionary = preload("res://src/presentation/ui_shell_resources.gd").describe(snapshot, view, abode.feature_navigation)
+	var context: Dictionary = ShellResources.describe(snapshot, view, abode.feature_navigation)
 	effective = Policy.resolve(snapshot, vp, {"save_failed": save_failed, "lifespan_exhausted": abode.lifespan_banner.visible, "home_message_obstructs": obstructs, "has_costs": context.has_costs})
 	var home: bool = snapshot.route == "home"
 	var wide: bool = effective.layout == "wide"
@@ -313,7 +320,14 @@ func apply(vp: Vector2) -> void:
 	var scoped: bool = not home and snapshot.route not in ["buildings", "alchemy"]
 	abode.resource_ribbon.visible = (rail or drawer) and not scoped
 	context_paper.visible = (rail or drawer) and scoped
-	context_text.text = context.details
+	var inventory_data := {}
+	if scoped and effective.resource_context in ["inventory", "focused"] and (rail or drawer):
+		inventory_data = ShellResources.inventory(snapshot, view, abode.feature_navigation)
+	var inventory_mode: bool = bool(inventory_data.get("supported", false))
+	context_scroll.visible = not inventory_mode
+	context_inventory.visible = inventory_mode
+	if not inventory_mode:
+		context_text.text = context.details
 	# Work resources never overwrite home display preferences.
 	var mode: int = int(snapshot.home_preferences.resource_mode) if home else 1
 	abode.building_catalog.set_resource_display_mode(maxi(1, mode) if drawer else mode)
@@ -333,8 +347,9 @@ func apply(vp: Vector2) -> void:
 		abode.feature_navigation.bar.size = Vector2(width - 56, tab_height)
 		var bounds := Rect2(left, content_top, width, maxf(80, bottom - content_top - (52 if save_failed else 0)))
 		abode.feature_navigation.layout_page(bounds)
+		var rail_bottom: float = minf(bottom, vp.y - 148.0)
 		abode.resource_ribbon.position = Vector2(margin, 68)
-		abode.resource_ribbon.size = Vector2(248, bottom - 68)
+		abode.resource_ribbon.size = Vector2(248, rail_bottom - 68)
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
 	if drawer:
@@ -343,6 +358,9 @@ func apply(vp: Vector2) -> void:
 		abode.resource_scroll.visible = true
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
+	if inventory_mode:
+		context_inventory.compact_hint = abode.resource_ribbon.size.y < 420.0
+		context_inventory.refresh(inventory_data)
 	var reading: bool = effective.messages == "reading"
 	abode.hint_panel.visible = reading or effective.messages == "home"
 	if abode.hint_panel.visible:
@@ -369,7 +387,9 @@ func apply(vp: Vector2) -> void:
 			abode.hud.move_child(abode.hint_panel, -1)
 		if overlay == "tool" and is_instance_valid(_tool):
 			_tool.z_index = 75
-			_tool.set_layout_bounds(Rect2(margin, 68, minf(600, vp.x - 32), vp.y - 84))
+			var tool_top := 68.0
+			var tool_height := maxf(120.0, bottom - tool_top)
+			_tool.set_layout_bounds(Rect2(margin, tool_top, minf(600, vp.x - 32), tool_height))
 			abode.hud.move_child(_tool, -1)
 		abode.hud.move_child(overlay_header, -1)
 		if alert.visible: abode.hud.move_child(alert, -1)

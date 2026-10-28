@@ -3,6 +3,7 @@ extends VBoxContainer
 signal action_requested(kind: String, id: String)
 const ART_DIR := "res://assets/ui/decisions-painted/"
 const ResourceIcon = preload("res://src/presentation/resource_icon.gd")
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 var buttons: Dictionary = {}
 var cards: Dictionary = {}
 var heading: Label
@@ -59,21 +60,12 @@ func _card(item: Dictionary) -> void:
 	info.add_child(title)
 	var effect := _label("")
 	info.add_child(effect)
-	var costs := VBoxContainer.new()
+	var costs := CostStrip.new()
+	costs.heading.add_theme_font_size_override("font_size", 15)
 	info.add_child(costs)
-	var cost_rows: Array = []
-	for id in item.get("costs", {}):
-		var line := HBoxContainer.new()
-		costs.add_child(line)
-		var icon := ResourceIcon.new()
-		icon.resource_id = str(id)
-		line.add_child(icon)
-		icon.custom_minimum_size = Vector2(24, 24)
-		icon.custom_minimum_size = Vector2(24, 24)
-		var value := _label("")
-		value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		line.add_child(value)
-		cost_rows.append({"id":str(id), "need":float(item.costs[id]), "icon":icon, "label":value})
+	var lifespan := _label("", 15)
+	lifespan.add_theme_color_override("font_color", Color("355f58"))
+	info.add_child(lifespan)
 	var state := _label("")
 	info.add_child(state)
 	var action := Button.new()
@@ -84,7 +76,7 @@ func _card(item: Dictionary) -> void:
 	action.pressed.connect(func(): action_requested.emit("decision", str(item.id)))
 	row.add_child(action)
 	buttons["decision:" + str(item.id)] = action
-	cards[item.id] = {"card":card, "art":art, "title":title, "effect":effect, "costs":cost_rows, "state":state, "action":action}
+	cards[item.id] = {"card":card, "art":art, "title":title, "effect":effect, "costs":costs, "lifespan":lifespan, "state":state, "action":action}
 
 func refresh(view: Dictionary) -> void:
 	var realm: String = str(view.get("realm", {}).get("current_realm", "realm_human"))
@@ -114,23 +106,31 @@ func refresh(view: Dictionary) -> void:
 		if BuffSystem.DEFINITIONS.has(buff_id):
 			var buff: Dictionary = BuffSystem.DEFINITIONS[buff_id]
 			row.effect.tooltip_text += "\n%s · 持續 %ds" % [buff.description, int(buff.default_duration)]
-		for cost in row.costs:
-			var key := RealmDecisionSystem.resource_key(view.get("resources", {}), cost.id)
-			cost.icon.resource_id = key
-			var available: String = str(view.get("resources", {}).get(key, {}).get("value", "0"))
-			var need := AmountCompat.from_number(cost.need)
-			var name: String = str({"wood":"靈木", "money":"金錢", "lingli":"靈力", "spirit_grass_low":"靈草"}.get(key, key))
-			var parsed := AmountCompat.try_parse(available)
-			var owned: AmountCompat = parsed.value if parsed.get("ok", false) else AmountCompat.zero()
-			cost.label.text = "%s / %s" % [owned.to_display_string(), need.to_display_string()]
-			if not ResourceIcon.TEXTURES.has(key): cost.label.text = name + " " + cost.label.text
-			cost.label.tooltip_text = "%s：持有 %s / 需求 %s" % [name, available, need.serialize()]
-			var enough := owned.compare_to(need) >= 0
-			cost.label.add_theme_color_override("font_color", UiMaterial.INK if enough else Color("963e32"))
-			if cost.id == "lifespan_seconds":
-				cost.icon.hide()
-				cost.label.text = "壽元消耗 %s 秒" % need.to_display_string()
-				cost.label.tooltip_text = "增加已用壽元，沿現有規則結算。"
+		var resources: Dictionary = view.get("resources", {})
+		var costs := {}
+		var names := {}
+		var available := {}
+		var sources := {}
+		var lifespan_need := 0.0
+		for id in item.get("costs", {}):
+			if str(id) == "lifespan_seconds":
+				lifespan_need = float(item.costs[id])
+				continue
+			var key := RealmDecisionSystem.resource_key(resources, str(id))
+			costs[key] = float(item.costs[id])
+			names[key] = ResourceIcon.get_resource_name(key)
+			available[key] = _amount(resources.get(key, {}).get("value", "0"))
+			sources[key] = "祖島"
+		if costs.is_empty():
+			row.costs.clear_costs()
+			row.costs.visible = false
+		else:
+			row.costs.visible = true
+			row.costs.show_costs(costs, names, available, sources, "法令所需", CostStrip.shortage_text(costs, available, names, "資糧不足"), UiMaterial.INK)
+		row.lifespan.visible = lifespan_need > 0.0
+		if lifespan_need > 0.0:
+			row.lifespan.text = "壽元消耗 %s 秒" % AmountCompat.from_number(lifespan_need).to_display_string()
+			row.lifespan.tooltip_text = "增加已用壽元，沿現有規則結算。"
 		var cd := float(item.get("cooldown_remaining", 0))
 		row.state.text = "需第 %d 境" % int(item.get("min_era", 1)) if not item.get("era_met", false) else "冷卻 %ds" % int(ceil(cd)) if cd > 0 else "資糧不足" if not item.get("costs_met", false) else "就緒"
 		if int(item.get("usage_count", 0)) > 0:
@@ -159,3 +159,7 @@ func _layout() -> void:
 	grid.columns = 2 if size.x >= 1000 else 1
 	for row in cards.values():
 		row.art.custom_minimum_size = Vector2.ONE * (80 if compact else 112)
+
+func _amount(raw: Variant) -> float:
+	var parsed := AmountCompat.try_parse(str(raw))
+	return parsed.value.to_float() if bool(parsed.get("ok", false)) else 0.0

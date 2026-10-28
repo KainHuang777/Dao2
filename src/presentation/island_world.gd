@@ -11,11 +11,18 @@ var bodies := {}
 var landmarks := {}
 var landmark_masks := {}
 var rail: MarginContainer
+var _rail_align: VBoxContainer
+var _rail_center: CenterContainer
+var _rail_launcher: PanelContainer
 var title: Label
-var world_controls: HFlowContainer
+var world_controls: HBoxContainer
 var world_panel: PanelContainer
 var buttons := {}
-var destination_picker: OptionButton
+var selector
+var selector_button: Button
+var return_button: Button
+var _wide_list_open := true
+var _framing_signature: Array = []
 var destination_ids: Array[String] = []
 var manage_button: Button
 var banner_until := 0
@@ -48,67 +55,63 @@ func build(scene: Node) -> void:
 		landmark.position = Vector2(0, -170)
 		root.add_child(landmark)
 		landmarks[id] = landmark
-	# Container rail occupies the safe world region; no UI positions in world art.
+	# Compact launcher and expanded selector share existing world/menu ownership.
 	rail = MarginContainer.new()
+	rail.hide()
 	rail.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	abode.hud.add_child(rail)
 	rail.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var align := VBoxContainer.new()
 	align.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_rail_align = align
 	rail.add_child(align)
 	var spacer := Control.new()
-	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	align.add_child(spacer)
 	var center := CenterContainer.new()
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_rail_center = center
 	align.add_child(center)
-	var panel := PanelContainer.new()
-	world_panel = panel
-	panel.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
-	center.add_child(panel)
-	var column := VBoxContainer.new()
-	panel.add_child(column)
-	title = Label.new()
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	title.add_theme_color_override("font_color", UiMaterial.INK)
-	column.add_child(title)
-	var row := HFlowContainer.new()
-	world_controls = row
-	column.add_child(row)
-	var island_icons := {
-		"home": UiIcon.Kind.RETURN_ARROW,
-		"wood": UiIcon.Kind.WOOD,
-		"ore": UiIcon.Kind.ORE,
-		"herb": UiIcon.Kind.HERB
-	}
-	for id in ["home", "wood", "ore", "herb"]:
-		var button := Button.new()
-		button.text = "返回祖島" if id == "home" else IslandProgression.NAMES[id]
-		button.custom_minimum_size = Vector2(90, 44)
-		UiMaterial.apply_button(button)
-		if island_icons.has(id):
-			UiIcon.decorate_button(button, island_icons[id], UiMaterial.INK, 16)
-		button.pressed.connect(func(): enter(id))
-		row.add_child(button)
-		buttons[id] = button
-	destination_picker = OptionButton.new()
-	destination_picker.custom_minimum_size = Vector2(130, 44)
-	destination_picker.add_theme_font_size_override("font_size", 18)
-	UiMaterial.apply_button(destination_picker)
-	destination_picker.get_popup().add_theme_constant_override("v_separation", 24)
-	destination_picker.item_selected.connect(func(index: int): enter(destination_ids[index]))
-	row.add_child(destination_picker)
-	var manage := Button.new()
-	manage_button = manage
-	manage.text = "管理此島"
-	manage.custom_minimum_size.y = 44
-	UiMaterial.apply_button(manage)
-	UiIcon.decorate_button(manage, UiIcon.Kind.MANAGEMENT, UiMaterial.INK, 16)
-	manage.pressed.connect(func(): manage_current())
-	row.add_child(manage)
+	var launcher := PanelContainer.new()
+	launcher.add_theme_stylebox_override("panel",UiMaterial.hud_paper())
+	_rail_launcher = launcher
+	center.add_child(launcher)
+	world_controls = HBoxContainer.new()
+	launcher.add_child(world_controls)
+	selector_button = GraphicAction.new()
+	selector_button.custom_minimum_size = Vector2(140,44)
+	UiIcon.decorate_button(selector_button,UiIcon.Kind.ISLAND_HOME,GraphicAction.JADE,24)
+	selector_button.pressed.connect(show_selector)
+	world_controls.add_child(selector_button)
+	return_button = GraphicAction.new()
+	return_button.text = "歸家"
+	return_button.custom_minimum_size = Vector2(76,44)
+	UiIcon.decorate_button(return_button,UiIcon.Kind.RETURN_ARROW,GraphicAction.JADE,24)
+	return_button.pressed.connect(func(): enter("home"))
+	world_controls.add_child(return_button)
+	manage_button = GraphicAction.new()
+	manage_button.text = "管理此島"
+	manage_button.custom_minimum_size = Vector2(100,44)
+	UiIcon.decorate_button(manage_button,UiIcon.Kind.MANAGEMENT,GraphicAction.JADE,24)
+	manage_button.pressed.connect(manage_current)
+	world_controls.add_child(manage_button)
+	selector = preload("res://src/presentation/island_selector.gd").new()
+	selector.name = "IslandSelector"
+	abode.hud.add_child(selector)
+	selector.hide()
+	selector.selected.connect(_select_destination)
+	selector.close_requested.connect(close_selector)
+	world_panel = selector
+	title = selector.title
+	buttons = selector.buttons
+	abode.hud.resized.connect(_on_hud_resized)
 	refresh()
+
+func _on_hud_resized() -> void:
+	if abode == null or abode.session == null or abode.feature_navigation == null or abode.feature_navigation.shell == null:
+		return
+	_apply_world_layout.call_deferred(abode.hud.size)
 
 func refresh() -> void:
 	var available: bool = abode.session.state.era_id >= 2
@@ -118,7 +121,6 @@ func refresh() -> void:
 	_refresh_cargo(available)
 	if available and current != "home" and framed_size != abode.hud.size:
 		_focus_remote()
-	rail.visible = available and abode.feature_navigation.group == "home" and not abode.offline_summary.visible and not abode.save_controls.visible and not abode.debug_panel.visible and not abode._hud_controller.messages_are_explicit()
 	for id in roots:
 		var visible_world := _world_visible(id)
 		if visible_world:
@@ -130,32 +132,141 @@ func refresh() -> void:
 	if not available and current != "home":
 		current = "home"
 		abode.camera.focus_home()
-	if available:
-		# On compact home views use one destination row, leaving the three core landmarks visible.
-		var compact_home: bool = current == "home" and abode.hud.size.y < 500
-		title.visible = not compact_home
-		var expanded: bool = IslandEconomy.expanded(abode.session.state)
-		destination_picker.visible = expanded
-		for id in ["wood", "ore", "herb"]:
-			buttons[id].visible = not expanded
-		_refresh_destinations()
-		buttons.home.visible = not compact_home
-		manage_button.visible = not compact_home
-		var status := "祖業保留" if current == "home" else ("產業已開拓" if landmarks[current].visible else "待開拓・可查看條件")
-		if current == "herb" and not landmarks.herb.visible:
-			status = "金丹解鎖・可查看條件" if abode.session.state.era_id < 3 else ("待開拓・可查看條件" if abode.session.state.economy.get("version") in [IslandProgression.VERSION, IslandProgression.SUPPLY_VERSION] else "需接續丹霞產業・保留原檔")
-		var detail: String = ROLES[current] if Time.get_ticks_msec() < banner_until else status
-		title.text = ("%s・%s" if abode.hud.size.y < 500 else "人界・%s\n%s") % [IslandProgression.NAMES[current], detail]
-		# Keep the destination controls inside the safe width.
-		var safe_left := int(abode.header.size.x + 24)
-		var panel_padding := world_panel.get_theme_stylebox("panel").get_minimum_size().x
-		world_controls.custom_minimum_size.x = maxf(90.0, minf(510.0, abode.hud.size.x - safe_left - 16.0 - panel_padding))
-		rail.add_theme_constant_override("margin_left", safe_left)
-		rail.add_theme_constant_override("margin_right", 16)
-		rail.add_theme_constant_override("margin_bottom", int(abode.hud.size.y - abode.toolbar.position.y + 12.0))
-		if rail.visible:
-			abode.hint_panel.visible = false
+	_refresh_destinations()
+	var had_world_ui: bool = rail.visible or selector.visible
+	var vp: Vector2 = abode.hud.size
+	var wide := _wide(vp)
+	var shell = abode.feature_navigation.shell
+	var overlay: String = shell.state.snapshot().overlay
+	var own_tool: bool = shell._tool == selector and overlay == "tool"
+	var home_view: bool = available and abode.feature_navigation.group == "home" and not abode.offline_summary.visible and not abode.v2_rules_notice.visible and not abode.save_controls.visible and not abode.debug_panel.visible and not abode._hud_controller.messages_are_explicit()
+	rail.visible = home_view and overlay.is_empty() and (not wide or not _wide_list_open)
+	selector.visible = own_tool or (home_view and overlay.is_empty() and wide and _wide_list_open)
+	var status := _island_status(current)
+	title.text = "%s · %s" % [IslandProgression.NAMES[current],status]
+	selector_button.text = "選島 · " + IslandProgression.NAMES[current]
+	var host: Node = selector.footer if wide and selector.visible and not own_tool else world_controls
+	if manage_button.get_parent() != host: manage_button.reparent(host)
+	return_button.visible = current != "home"
+	_layout_for_size(vp)
+	if rail.visible or selector.visible: abode.hint_panel.visible = false
+	var frame_signature := [vp,wide and selector.visible and not own_tool,rail.visible,current]
+	if frame_signature != _framing_signature:
+		_framing_signature = frame_signature
+		if available or had_world_ui:
+			abode._home_frame_size = Vector2.ZERO
+			abode._layout_for_size.call_deferred(vp)
+			if current != "home": _focus_remote()
 	queue_redraw()
+
+func _wide(vp: Vector2) -> bool:
+	return vp.x>=960 and vp.y>=500 and vp.x>=vp.y*1.45
+
+func _layout_for_size(vp: Vector2) -> void:
+	if abode == null or vp.x <= 0.0 or vp.y <= 0.0:
+		return
+	_apply_world_layout(vp)
+
+func _apply_world_layout(vp: Vector2) -> void:
+	var wide := _wide(vp)
+	var shell = abode.feature_navigation.shell
+	var own_tool: bool = shell._tool == selector and shell.state.snapshot().overlay == "tool"
+	var toolbar_y: float = abode.toolbar.position.y
+	if wide:
+		selector.set_compact(false)
+		selector.position = Vector2(vp.x-320,84)
+		selector.size = Vector2(304,maxf(120,toolbar_y-96))
+	else:
+		var slot := Rect2(Vector2(16,68),Vector2(minf(600,vp.x-32),maxf(120,(toolbar_y-8)-68)))
+		if own_tool and selector.visible:
+			selector.set_layout_bounds(slot)
+		else:
+			selector.set_compact(true)
+			var drawer_width: float = minf(304.0,slot.size.x)
+			var host: Control = selector.get_parent() as Control
+			var host_width: float = host.size.x if host != null else vp.x
+			selector.position = Vector2(maxf(0.0,host_width-slot.position.x-drawer_width),slot.position.y)
+			selector.size = Vector2(drawer_width,slot.size.y)
+	var safe_left := int(abode.header.size.x+24) if wide else 16
+	var safe_bottom := int(vp.y-toolbar_y+12)
+	rail.add_theme_constant_override("margin_left",safe_left)
+	rail.add_theme_constant_override("margin_right",16)
+	rail.add_theme_constant_override("margin_bottom",safe_bottom)
+	selector_button.custom_minimum_size = Vector2(140,44) if wide else Vector2(108,44)
+	return_button.custom_minimum_size = Vector2(76,44) if wide else Vector2(64,44)
+	manage_button.custom_minimum_size = Vector2(100,44) if wide else Vector2(86,44)
+	world_controls.add_theme_constant_override("separation",6 if wide else 4)
+	_rail_align.add_theme_constant_override("separation",0)
+	rail.position = Vector2.ZERO
+	rail.size = vp
+	var inner := Rect2(Vector2(safe_left,0),Vector2(maxf(44.0,vp.x-float(safe_left)-16.0),maxf(44.0,vp.y-float(safe_bottom))))
+	_rail_align.position = inner.position
+	_rail_align.size = inner.size
+	var paper: StyleBox = _rail_launcher.get_theme_stylebox("panel")
+	var pad_left: float = paper.get_margin(SIDE_LEFT)
+	var pad_right: float = paper.get_margin(SIDE_RIGHT)
+	var pad_top: float = paper.get_margin(SIDE_TOP)
+	var pad_bottom: float = paper.get_margin(SIDE_BOTTOM)
+	var row_min: Vector2 = world_controls.get_combined_minimum_size()
+	var launcher := Vector2(clampf(row_min.x+pad_left+pad_right,44.0,inner.size.x),maxf(44.0,row_min.y+pad_top+pad_bottom))
+	_rail_center.position = Vector2(0,maxf(0.0,inner.size.y-launcher.y))
+	_rail_center.size = Vector2(inner.size.x,launcher.y)
+	_rail_launcher.position = Vector2(maxf(0.0,(inner.size.x-launcher.x)*0.5),0)
+	_rail_launcher.size = launcher
+	world_controls.position = Vector2(pad_left,pad_top)
+	world_controls.size = Vector2(maxf(0.0,launcher.x-pad_left-pad_right),maxf(44.0,launcher.y-pad_top-pad_bottom))
+	var cursor := 0.0
+	var gap := 6.0 if wide else 4.0
+	for control in world_controls.get_children():
+		var row_button: Button = control as Button
+		if row_button == null or not row_button.visible:
+			continue
+		var button_width: float = maxf(44.0,row_button.get_combined_minimum_size().x)
+		row_button.position = Vector2(cursor,0)
+		row_button.size = Vector2(button_width,world_controls.size.y)
+		cursor += button_width+gap
+	rail.queue_sort()
+	_rail_align.queue_sort()
+	_rail_center.queue_sort()
+	_rail_launcher.queue_sort()
+	world_controls.queue_sort()
+	selector.queue_sort()
+
+func show_selector() -> void:
+	if abode.feature_navigation.group != "home" or abode.session.state.era_id<2: return
+	if not abode.feature_navigation.shell.state.snapshot().overlay.is_empty(): return
+	if _wide(abode.hud.size):
+		_wide_list_open = true
+		refresh()
+	else:
+		abode.feature_navigation.shell.open_tool(selector)
+		refresh()
+	selector.reveal_current(current)
+
+func close_selector() -> void:
+	var shell = abode.feature_navigation.shell
+	if shell._tool == selector:
+		shell.close_overlay()
+	else:
+		_wide_list_open = false
+	refresh()
+
+func _select_destination(id: String) -> void:
+	if abode.feature_navigation.shell._tool == selector: abode.feature_navigation.shell.close_overlay()
+	enter(id)
+
+func _island_status(id: String) -> String:
+	if id == "home": return "修行與祖業"
+	if id == "herb" and abode.session.state.era_id<3: return "金丹解鎖 · 可查看條件"
+	var opened: bool = abode.session.state.economy.get("islands",{}).get(id,{}).get("opened",false)
+	return "已開拓" if opened else "待開拓 · 可查看條件"
+
+func world_safe_rect(vp: Vector2) -> Rect2:
+	var left: float = maxf(abode.header.get_global_rect().end.x,abode.resource_ribbon.get_global_rect().end.x if abode.resource_ribbon.visible else 0)+12
+	var right := vp.x-16
+	if selector.visible and _wide(vp) and abode.feature_navigation.shell._tool != selector: right = minf(right,selector.position.x-12)
+	var bottom: float = abode.toolbar.position.y-12-(60 if rail.visible else 0)
+	return Rect2(Vector2(left,16),Vector2(maxf(160,right-left),maxf(140,bottom-16)))
 
 func _ensure_art(id: String) -> void:
 	# Unavailable Era1 islands allocate no textures; cache once when Era2 is reached.
@@ -223,6 +334,7 @@ func _draw() -> void:
 func enter(id: String) -> void:
 	if not _world_visible(id):
 		return
+	if abode.feature_navigation.shell._tool == selector: abode.feature_navigation.shell.close_overlay()
 	current = id
 	banner_until = Time.get_ticks_msec() + 2200
 	abode.feature_navigation.home()
@@ -235,12 +347,12 @@ func enter(id: String) -> void:
 func _focus_remote() -> void:
 	framed_size = abode.hud.size
 	abode.camera.zoom_anchor_active = false
-	var compact := framed_size.y < 500
-	abode.camera.target_zoom = 0.30 if compact else 0.65
-	var displacement: float = abode.header.size.x * 0.5 / abode.camera.target_zoom
-	abode.camera.target_position = LOCATIONS[current] + Vector2(-displacement, 260 if compact else -75)
+	var safe := world_safe_rect(framed_size)
+	abode.camera.target_zoom = clampf(minf(safe.size.x/840.0,safe.size.y/720.0),0.20,0.65)
+	abode.camera.target_position = LOCATIONS[current]+Vector2(0,-80)-(safe.get_center()-framed_size*0.5)/abode.camera.target_zoom
 
 func manage_current() -> void:
+	if abode.feature_navigation.shell._tool == selector: abode.feature_navigation.shell.close_overlay()
 	abode.feature_navigation.open("outposts")
 	abode.feature_navigation.island_panel.select_island(current)
 
@@ -281,12 +393,11 @@ func _world_visible(id: String) -> bool:
 
 func _refresh_destinations() -> void:
 	var visible_ids: Array[String] = []
+	var entries: Array = []
 	for id in IslandProgression.NAMES:
-		if _world_visible(id): visible_ids.append(id)
-	if visible_ids != destination_ids:
-		destination_ids = visible_ids
-		destination_picker.clear()
-		for id in destination_ids:
-			destination_picker.add_item(IslandProgression.NAMES[id])
-	if destination_ids.has(current):
-		destination_picker.select(destination_ids.find(current))
+		if not _world_visible(id): continue
+		visible_ids.append(id)
+		if id != "home": _ensure_art(id)
+		entries.append({"id":id,"name":IslandProgression.NAMES[id],"status":_island_status(id),"texture":abode.TERRAIN if id == "home" else bodies[id].texture})
+	destination_ids = visible_ids
+	selector.refresh(entries,current,"%s · %s" % [IslandProgression.NAMES[current],_island_status(current)])

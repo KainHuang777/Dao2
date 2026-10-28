@@ -4,6 +4,7 @@ extends RefCounted
 ## Node references are non-owning; no second session or persistent state is created.
 const ResourceIconScript = preload("res://src/presentation/resource_icon.gd")
 const CultivationLevelUpButtonScript = preload("res://src/presentation/cultivation_level_up_button.gd")
+const CostStrip = preload("res://src/presentation/cost_strip.gd")
 
 var _abode: Node
 var _dao_seal: Node
@@ -483,6 +484,8 @@ func _build_hud() -> void:
 	detail_content.add_theme_constant_override("separation", 12)
 	_abode.detail_scroll.add_child(detail_content)
 	detail_content.add_child(_abode.detail_body)
+	_abode.detail_costs = CostStrip.new()
+	detail_content.add_child(_abode.detail_costs)
 
 	_abode.detail_actions = HFlowContainer.new()
 	_abode.detail_actions.add_theme_constant_override("h_separation", 10)
@@ -1236,8 +1239,35 @@ func _refresh_detail() -> void:
 	if not bool(b_data.get("island_open", true)):
 		_abode.upgrade_button.text = "先開拓" + IslandProgression.NAMES.get(b_data.get("required_island", ""), "空島")
 		_abode.upgrade_button.disabled = true
+	_refresh_detail_costs(view, b_data, cur_lvl, lvl_cap)
 	_abode.pause_button.visible = (b_id == "herb_farm")
 	_abode.pause_button.text = "恢復藥圃" if not _abode.state.garden_running else "暫停藥圃"
+
+func _refresh_detail_costs(view: Dictionary, b_data: Dictionary, cur_lvl: int, lvl_cap: int) -> void:
+	if _abode.detail_costs == null:
+		return
+	if cur_lvl >= lvl_cap:
+		_abode.detail_costs.clear_costs()
+		_abode.detail_costs.visible = false
+		return
+	var costs := {}
+	var available := {}
+	var names := {}
+	var resources: Dictionary = view.get("resources", {})
+	for r_id in b_data.get("costs", {}):
+		costs[r_id] = _abode._parse_amount(b_data.costs[r_id]).to_float()
+		available[r_id] = float(resources.get(r_id, {}).get("value", 0))
+		names[r_id] = _abode.RESOURCE_NAMES.get(r_id, r_id)
+	var note := ""
+	if not bool(b_data.get("island_open", true)):
+		note = "先開拓" + IslandProgression.NAMES.get(b_data.get("required_island", ""), "空島")
+	elif cur_lvl == 0 and b_data.get("prereq") != null and int(view.get("buildings", {}).get(String(b_data.prereq.building), {}).get("level", 0)) < int(b_data.prereq.level):
+		note = "需先將%s升至 %d 階" % [_abode.BUILDING_NAMES.get(String(b_data.prereq.building), String(b_data.prereq.building)), int(b_data.prereq.level)]
+	else:
+		note = CostStrip.shortage_text(costs, available, names, "祖島材料不足")
+	_abode.detail_costs.visible = not costs.is_empty()
+	if _abode.detail_costs.visible:
+		_abode.detail_costs.show_costs(costs, names, available, {}, "建造材料" if cur_lvl == 0 else "升級材料", note, Color("e8f0e4"))
 
 func _show_help() -> void:
 	_abode.hint_heading.text = "操作說明"

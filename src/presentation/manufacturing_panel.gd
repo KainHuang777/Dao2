@@ -15,6 +15,8 @@ var grid: GridContainer
 var list_box: VBoxContainer
 var detail_box: VBoxContainer
 var detail_title: Label
+var detail_costs
+var workshop_costs
 var detail_stock: Label
 var detail_status: Label
 var detail_materials: Dictionary = {}
@@ -99,6 +101,8 @@ func select_recipe(id: String) -> void:
 	detail_title = _label("")
 	detail_box.add_child(detail_title)
 	detail_title.visible = false
+	detail_costs = CostStrip.new()
+	detail_box.add_child(detail_costs)
 	detail_materials = cards[id]
 	detail_stock = _label("")
 	detail_box.add_child(detail_stock)
@@ -146,6 +150,8 @@ func select_recipe(id: String) -> void:
 			page_requested.emit("buildings", island)
 		else:
 			action_requested.emit("upgrade_island_facility", {"island_id": island, "facility_id": "workshop"}))
+	workshop_costs = CostStrip.new()
+	detail_box.add_child(workshop_costs)
 	supply_button = _add_button(detail_box, "", _open_supply)
 	list_box.visible = true
 	detail_box.visible = true
@@ -375,6 +381,7 @@ func _refresh_materials(widgets: Dictionary, id: String, info: Dictionary) -> vo
 	if widgets.tiles.is_empty():
 		for resource in info.inputs:
 			var tile := MaterialTile.new()
+			tile.show_source_caption = false
 			widgets.materials.add_child(tile)
 			widgets.tiles[resource] = tile
 		var arrow := UiIcon.new()
@@ -384,13 +391,16 @@ func _refresh_materials(widgets: Dictionary, id: String, info: Dictionary) -> vo
 		arrow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		widgets.materials.add_child(arrow)
 		var output := MaterialTile.new()
+		output.show_source_caption = false
 		widgets.materials.add_child(output)
 		widgets["output_tile"] = output
 	for resource in info.inputs:
 		var input: Dictionary = info.inputs[resource]
 		widgets.tiles[resource].refresh(resource, _resource_name(resource), float(input.required), float(input.available), IslandProgression.NAMES[input.source])
+		widgets.tiles[resource].set_reserved(0.0)
 	var stock: Dictionary = _view.get("economy", {}).get("inventory", {}).get(info.island, {}).get(info.get("product_id", id), {})
 	widgets.output_tile.refresh(String(info.get("product_id", id)), _resource_name(String(info.get("product_id", id))), float(info.output), float(stock.get("available", 0)), IslandProgression.NAMES[info.island], true)
+	widgets.output_tile.set_reserved(float(stock.get("reserved", 0)))
 
 func _update_progress(bar: ProgressBar, job: Dictionary, duration: float) -> void:
 	bar.visible = not job.is_empty() and int(job.get("remaining", 0)) > 0
@@ -408,8 +418,6 @@ func _refresh_detail() -> void:
 	detail_title.text = "%s・%s・%d秒／批" % [_recipe_name(selected_recipe), IslandProgression.NAMES[island], int(info.duration)]
 	var stock: Array[String] = []
 	for resource in info.inputs:
-		var input: Dictionary = info.inputs[resource]
-		stock.append("%s：%s可用 %.1f／需求 %.1f" % [_resource_name(resource), "祖島" if input.source == "home" else "當地", float(input.available), float(input.required)])
 		for route in _routes():
 			if _routes()[route][1] == island and _routes()[route][2] == resource:
 				var trip: Dictionary = _view.get("economy", {}).get("trips", {}).get(route, {})
@@ -423,6 +431,7 @@ func _refresh_detail() -> void:
 	var processing := float(_catalog.recipes[selected_recipe].output) if job.get("recipe_id") == selected_recipe and int(job.get("remaining", 0)) > 0 else 0.0
 	stock.append("產物可用 %.1f／容量 %.0f\n在途 %.1f・加工待完成 %.1f・容量預留 %.1f" % [float(slot.get("available", 0)), float(info.capacity), incoming, processing, float(slot.get("reserved", 0))])
 	detail_stock.text = "\n".join(stock)
+	_refresh_detail_costs(info)
 	detail_status.text = "尚未開始" if job.is_empty() else _job_text(job)
 	var duration: float = _view.manufacturing.recipes.get(job.get("recipe_id", ""), {}).get("duration", info.duration)
 	_update_progress(detail_progress, job, duration)
@@ -438,13 +447,48 @@ func _refresh_detail() -> void:
 	if stop_button.disabled:
 		stop_button.text = "完成本批後閒置"
 	var level := int(_view.get("economy", {}).get("islands", {}).get(island, {}).get("facilities", {}).get("workshop", 1))
-	var prices: Array[String] = []
-	for resource in IslandProgression.upgrade_cost("workshop", level):
-		prices.append("%s%d" % [_resource_name(resource), IslandProgression.upgrade_cost("workshop", level)[resource]])
-	workshop_button.text = "祖島設施・洞府建築" if island == "home" else "加工坊%d階・%d→%d秒／批\n%s" % [level, int(info.duration), int(ceil(10.0 / mini(3, level + 1))), "已達上限" if level >= 3 else "祖島支付：" + "＋".join(prices)]
+	var workshop_text := "加工坊%d階・%d→%d秒／批" % [level, int(info.duration), int(ceil(10.0 / mini(3, level + 1)))]
+	workshop_button.text = "祖島設施・洞府建築" if island == "home" else workshop_text + ("\n已達上限" if level >= 3 else "")
 	workshop_button.disabled = island != "home" and (level >= 3 or not bool(_view.manufacturing.islands[island].opened))
+	_refresh_workshop_costs(level)
 	supply_button.text = "處理缺料／滿倉"
 	supply_button.visible = not String(info.reason).is_empty()
+
+func _refresh_detail_costs(info: Dictionary) -> void:
+	if detail_costs == null:
+		return
+	var costs := {}
+	var available := {}
+	var sources := {}
+	var names := {}
+	for resource in info.inputs:
+		var input: Dictionary = info.inputs[resource]
+		costs[resource] = float(input.required)
+		available[resource] = float(input.available)
+		sources[resource] = "祖島" if String(input.source) == "home" else "當地"
+		names[resource] = _resource_name(resource)
+	detail_costs.show_costs(costs, names, available, sources, "材料需求", CostStrip.shortage_text(costs, available, names, "缺料"))
+
+func _refresh_workshop_costs(level: int) -> void:
+	if workshop_costs == null:
+		return
+	var opened := bool(_view.get("manufacturing", {}).get("islands", {}).get(island, {}).get("opened", false))
+	if island == "home" or level >= 3:
+		workshop_costs.clear_costs()
+		workshop_costs.visible = false
+		return
+	var upgrade: Dictionary = IslandProgression.upgrade_cost("workshop", level)
+	var home := _home_stock(upgrade)
+	var names := {}
+	var sources := {}
+	for resource in upgrade:
+		names[resource] = _resource_name(resource)
+		sources[resource] = "祖島"
+	var note := "" if opened else "此島尚未開拓"
+	if note.is_empty():
+		note = CostStrip.shortage_text(upgrade, home, names, "祖島材料不足")
+	workshop_costs.visible = true
+	workshop_costs.show_costs(upgrade, names, home, sources, "升級加工坊 %d→%d 階" % [level, level + 1], note)
 
 func _open_supply() -> void:
 	var info: Dictionary = _view.manufacturing.recipes[selected_recipe]

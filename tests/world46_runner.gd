@@ -40,8 +40,8 @@ func run() -> void:
 			world.refresh()
 			check(world.current == id and world.landmarks[id].visible,"remote entry "+id)
 			check(world.destination_ids.size() == 7,"seven destinations")
-			check(world.destination_picker.size.y >= 44,"picker hit height")
-			check(world.destination_picker.get_global_rect().end.x <= size.x and world.manage_button.get_global_rect().end.y <= abode.toolbar.get_global_rect().position.y,"safe rail "+str(size))
+			check(world.buttons[id].custom_minimum_size.y >= 80,"thumbnail row hit height")
+			check(world.selector.get_global_rect().end.x <= size.x and world.manage_button.get_global_rect().end.y <= abode.toolbar.get_global_rect().position.y,"safe rail "+str(size))
 			var art: Sprite2D = world.landmarks[id]
 			var mask: BitMap = world.landmark_masks[id]
 			var hit := false

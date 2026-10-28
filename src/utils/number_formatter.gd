@@ -43,6 +43,32 @@ static func format_amount(raw: Variant) -> String:
 		return _format_float(float(raw))
 	return str(raw)
 
+## Unabbreviated value for tips and audits; visible cells keep format_amount.
+static func exact_amount(raw: Variant) -> String:
+	if raw == null:
+		return "未提供"
+	if raw is AmountCompat:
+		if raw.sign == 0:
+			return "0"
+		if raw.layer > 0:
+			return raw.to_display_string()
+		return _exact_float(float(raw.sign) * raw.mag)
+	if typeof(raw) == TYPE_STRING:
+		var s := (raw as String).strip_edges()
+		return s if not s.is_empty() else "未提供"
+	if typeof(raw) == TYPE_INT:
+		return str(raw)
+	if typeof(raw) == TYPE_FLOAT:
+		return _exact_float(float(raw))
+	return str(raw)
+
+static func _exact_float(val: float) -> String:
+	if is_nan(val) or is_inf(val):
+		return "未提供"
+	if absf(val) < 1.0e15 and val == roundf(val):
+		return str(int(roundf(val)))
+	return str(val)
+
 static func format_rate(raw: Variant) -> String:
 	if raw == null:
 		return "0"

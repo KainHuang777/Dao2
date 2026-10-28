@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-27",
+  "url": "http://127.0.0.1:4402/index.html",
+  "tool": "cua_repl / IAB",
+  "scope": "Static screenshot viewer UI, not game input or Web export",
+  "checks": [
+    {
+      "state": "home-normal",
+      "size": "1280x720",
+      "both_images_loaded": true
+    },
+    {
+      "state": "home-normal",
+      "size": "844x390",
+      "both_images_loaded": true
+    },
+    {
+      "state": "manufacturing-normal",
+      "size": "1280x720",
+      "both_images_loaded": true
+    },
+    {
+      "state": "manufacturing-normal",
+      "size": "844x390",
+      "both_images_loaded": true
+    },
+    {
+      "state": "manufacturing-shortage",
+      "size": "1280x720",
+      "both_images_loaded": true
+    },
+    {
+      "state": "manufacturing-shortage",
+      "size": "844x390",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-pending",
+      "size": "1280x720",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-pending",
+      "size": "844x390",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-ready",
+      "size": "1280x720",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-ready",
+      "size": "844x390",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-save-error",
+      "size": "1280x720",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-save-error",
+      "size": "844x390",
+      "both_images_loaded": true
+    },
+    {
+      "state": "fortune-pending-tail",
+      "size": "844x390",
+      "both_images_loaded": true
+    }
+  ],
+  "candidate_only": true,
+  "current_only": true,
+  "final_view": "manufacturing-normal /1280x720 /compare"
+}
