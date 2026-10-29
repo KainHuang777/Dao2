@@ -29,6 +29,9 @@ var action_panel: Control
 var island_panel: Control
 var manufacturing_panel: Control
 var transport_panel: Control
+var island_flow: Control
+var full_island_management := false
+var flow_return: Button
 var _legacy_outposts := false
 var _shared_resource_count := 0
 var _changing := false
@@ -65,6 +68,16 @@ func build() -> void:
 	back.tooltip_text = "返回洞府"
 	back.pressed.connect(home)
 	row.add_child(back)
+	flow_return = Button.new()
+	flow_return.text = "逐步操作"
+	flow_return.custom_minimum_size.y = 44
+	UiMaterial.apply_button(flow_return)
+	row.add_child(flow_return)
+	flow_return.hide()
+	flow_return.pressed.connect(func():
+		full_island_management = false
+		_tab_signature = ""
+		open(page))
 	abode.hud.add_child(bar)
 	bar.visible = false
 	action_panel = preload("res://src/presentation/system_actions_panel.gd").new()
@@ -95,6 +108,16 @@ func build() -> void:
 		panel.close_requested.connect(home)
 		panel.page_requested.connect(_open_island_page)
 		panel.retry_requested.connect(_retry_island_save)
+	island_flow = preload("res://src/presentation/island_flow_panel.gd").new()
+	abode.hud.add_child(island_flow)
+	island_flow.hide()
+	island_flow.action_requested.connect(_on_island_action)
+	island_flow.retry_requested.connect(_retry_island_save)
+	island_flow.navigate_requested.connect(_flow_navigate)
+	island_flow.full_requested.connect(func():
+		full_island_management = true
+		_tab_signature = ""
+		open(page))
 	abode.toolbar.z_index = 45
 	# Control hit testing follows tree order, not z_index: navigation stays above
 	# the resource ribbon when a short landscape HUD reaches the bottom row.
@@ -184,6 +207,7 @@ func open(route: String) -> void:
 		"beasts", "decisions", "skills":
 			action_panel.mode = page
 			action_panel.visible = true
+	_sync_flow()
 	_changing = false
 	abode._refresh_hud()
 	abode._layout_for_size(abode.hud.size)
@@ -194,6 +218,7 @@ func _hide_pages() -> void:
 	for key in PANEL_KEYS:
 		abode.get(key).visible = false
 	action_panel.visible = false
+	if is_instance_valid(island_flow): island_flow.hide()
 	island_panel.visible = false
 	manufacturing_panel.visible = false
 	transport_panel.visible = false
@@ -253,6 +278,7 @@ func _refresh_tabs(view: Dictionary) -> void:
 	if group == "home":
 		return
 	var signature := group + ":" + page + ":" + str(view.get("achievements", {}).get("unclaimed_count", 0)) + ":" + str(view.get("fortune", {}).get("has_pending", false)) + ":" + str(view.get("reincarnation_preview", {}).get("eligible", false))
+	signature += ":" + str(view.get("manufacturing", {}).get("islands", {}))
 	for route in tab_buttons:
 		var availability := FeatureUnlocks.check(route, view)
 		signature += ":%s:%s:%s" % [route, availability.state, availability.reason]
@@ -279,10 +305,12 @@ func _refresh_tabs(view: Dictionary) -> void:
 					label = "輪迴可用"
 		# Explicit contextual links may still open existing read-only previews.
 		# Hiding a tab is discovery policy, never a replacement for core gates.
-		button.visible = availability.state != FeatureUnlocks.State.HIDDEN or route == page
+		button.visible = (availability.state != FeatureUnlocks.State.HIDDEN and (full_island_management or preload("res://src/presentation/island_flow_model.gd").discovered(view, route))) or route == page
 		button.modulate = Color(0.72, 0.72, 0.72) if availability.state == FeatureUnlocks.State.PREVIEW else Color.WHITE
 		button.tooltip_text = ""
 		button.set_meta("availability", availability.state)
+		if not full_island_management and int(view.get("era_id",1))==2:
+			label = {"outposts":"1 開拓","manufacturing":"2 製造","transport":"3 運輸"}.get(route,label)
 		button.text = label + ("·未開" if availability.state == FeatureUnlocks.State.PREVIEW else "")
 	# Stable partition: keep the canonical order inside each availability group.
 	# Reuse buttons so unlock refreshes preserve input connections and page state.
@@ -380,6 +408,9 @@ func refresh(view: Dictionary) -> void:
 			panel.expire_success()
 			panel.refresh(view, abode.content.processing_catalog)
 
+	_sync_flow()
+	if island_flow.visible: island_flow.refresh(view, abode.content.processing_catalog)
+
 func _refresh_main_notifications(view: Dictionary) -> void:
 	var flags := FeatureUnlocks.notification_flags(view, abode.session.state.sect)
 	var cultivation: Array[String] = []
@@ -432,7 +463,7 @@ func _on_action(kind: String, id: String) -> void:
 	abode._refresh_hud()
 
 func _on_island_action(kind: String, payload: Dictionary) -> void:
-	var target_panel: Control = manufacturing_panel if page == "manufacturing" else transport_panel if page == "transport" else island_panel
+	var target_panel: Control = island_flow if island_flow.visible else manufacturing_panel if page == "manufacturing" else transport_panel if page == "transport" else island_panel
 	var result: Dictionary
 	var save_failed := false
 	var first_open: bool = kind == "open_island" and not IslandProgression.active(abode.session.state)
@@ -476,6 +507,8 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 	abode._refresh_hud()
 
 func open_manufacturing(island_id: String, recipe_id: String = "") -> void:
+	if not recipe_id.is_empty(): island_flow.recipe = recipe_id
+	elif island_id in IslandProgression.RECIPES: island_flow.recipe = IslandProgression.RECIPES[island_id]
 	open("manufacturing")
 	if page != "manufacturing" or not shell.state.snapshot().overlay.is_empty(): return
 	manufacturing_panel.reset_context(island_id)
@@ -486,6 +519,7 @@ func _open_island_page(route: String, island_id: String) -> void:
 	if route == "manufacturing":
 		open_manufacturing(island_id)
 	else:
+		if route == "outposts" and island_id in ["wood","ore"]: island_flow.island = island_id
 		open(route)
 		if page != route or not shell.state.snapshot().overlay.is_empty(): return
 		if route == "outposts":
@@ -496,6 +530,7 @@ func _open_island_page(route: String, island_id: String) -> void:
 func open_transport(route_id: String) -> void:
 	if not transport_panel._routes().has(route_id):
 		return
+	island_flow.route = route_id
 	open("transport")
 	if page != "transport" or not shell.state.snapshot().overlay.is_empty(): return
 	transport_panel.select_island(transport_panel._routes()[route_id][0])
@@ -516,6 +551,9 @@ func back() -> void:
 		home()
 
 func layout_page(bounds: Rect2) -> void:
+	if is_instance_valid(island_flow) and island_flow.visible:
+		island_flow.set_layout_bounds(bounds)
+		return
 	if page == "buildings":
 		abode.building_catalog.set_short_mode(bounds.size.y < 400)
 		abode.building_catalog.set_layout_bounds(bounds)
@@ -535,10 +573,33 @@ func layout_page(bounds: Rect2) -> void:
 		panel.set_layout_bounds(bounds)
 
 func storage_recovered() -> void:
-	for panel in [island_panel, manufacturing_panel, transport_panel]:
+	for panel in [island_panel, manufacturing_panel, transport_panel, island_flow]:
 		panel.storage_recovered()
 
 func _retry_island_save() -> void:
 	var result: Dictionary = abode._save_game()
 	if result.ok:
 		storage_recovered()
+
+func _sync_flow() -> void:
+	if not is_instance_valid(island_flow): return
+	var enabled: bool = not full_island_management and abode.session.state.era_id == 2 and page in ["outposts","manufacturing","transport"] and not _legacy_outposts
+	flow_return.visible = full_island_management and abode.session.state.era_id == 2 and page in ["outposts","manufacturing","transport"]
+	island_flow.visible = enabled
+	island_flow.reduced_motion = abode.reduced
+	if enabled:
+		island_flow.page = page
+		island_panel.hide()
+		manufacturing_panel.hide()
+		transport_panel.hide()
+
+func _flow_navigate(route: String, id: String) -> void:
+	if route == "outposts" and id in ["wood","ore"]:
+		if page == "manufacturing": island_flow.resume_recipe = island_flow.recipe
+		island_flow.island = id
+		island_flow.facility.select(0)
+	elif route == "manufacturing" and not id.is_empty():
+		island_flow.recipe = id
+		island_flow.resume_recipe = ""
+	elif route == "transport" and not id.is_empty(): island_flow.route = id
+	open(route)

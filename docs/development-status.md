@@ -6,6 +6,28 @@
 
 # 開發狀態與交接紀錄
 
+<a id="era2-flow-ui1"></a>
+## 2026-10-29 ERA2-FLOW-UI1：築基空島逐步操作已接入（L2；體感待回饋）
+
+- **需求／狀態**：依使用者本輪指令，Era1維持現版，先改善Era2開拓→製造→缺料來源開拓／升級→運輸→滿足資源。**本階段正式實作、領域CLI與桌面Web有界驗收完成**；不是全遊戲介面／Era3–6重做或人類體感接受，不開下一大型階段。日常操作不需垂直捲動，完整管理的長清單與進階設定仍可內捲。
+- **實作**：新增 `src/presentation/island_flow_model.gd`／`island_flow_panel.gd`及UID。模型只讀正式View，無新教學進度存檔；首島開拓後顯示製造，兩島開拓後顯示運輸，缺料捷徑仍可直接查看既有航線。新面板一次一島／配方／航線，材料ICON→產物、來源ICON→目的庫存；不足材料朱紅與短狀態，單一可操作建議亮示，低特效靜態／隱藏停止動畫。選擇器可重複直接使用，缺料開島後返回原配方；單批／持續、啟停航線與三種設施升級沿既有命令。完整批數／保留量／目標／運力及所有舊功能仍在可來回的完整管理，不清草稿、不覆寫已保存航線設定。
+- **接線／檔案**：`feature_navigation.gd` 統一命令與保存回饋、情境跳轉同步、階段分頁及模式返回；`management_workbench.gd` 擁有新面板並於逐步模式收起重複左庫存。窄式材料與狀態／操作並排；保存故障保留短狀態、完整TIP與只保存重試。`tests/era2_island_flow_runner.gd`＋UID／runner登錄；`tests/feature_navigation_runner.gd` 更新本次明確核定的分階段顯示斷言。共用規範docs07／19、docs16同步。沒有改數值、配方、正式規則、schema或玩家進度；重用既有圖像，沒有新增美術資產。
+- **L2領域證據**：先List精選5支，`-Only 'era2_island_flow_runner.gd,early16_ui_shell_runner.gd,res1_ui1a_runner.gd,res1_ui1b_runner.gd,feature_navigation_runner.gd' -Parallel 3 -TimeoutSeconds 240`，日誌 `.test-output/dao2_runners_82b649b81e48425fa6240787e89f026d`：前4支PASS（18.1／18.1／58.3／102.3秒），navigation因舊「築基即三頁全開」斷言FAIL；調整後最終受影響2支重跑PASS（16.6／19.4秒、單尺寸、exit0，`.test-output/dao2_runners_8bb50b22a56c4a68a9ccb9739e35f4ce`）。這是跨定向執行的5支領域證據，不寫成一次5/5乾淨全跑。最後測試本身增加有效browser fixture檢查，其後無遊戲來源變更。
+- **新流程契約**：同一舊命令賺得Era2 fixture，開拓扣料→製造缺料→精確來源島→補料航線→實際到貨→craft→產物回祖島；保存encode/decode、重開選擇、完整管理／返回、唯讀刷新、啟停不改target/reserve/level及保存錯誤提示皆驗。測試使用加速模擬秒，不是自然遊戲通關。最終原生專項 `DAO_VIEWPORT_MATRIX=full`（僅此runner，非L3）1280×720／844×390／800×360 **67checks PASS**，`.test-output/era2-native.log`，PNG在 `.test-output/era2-native/era2-flow/`。比較實際workbench.pages範圍，並非僅測被min-size撐大的面板；各日常主動作可見、無垂直scroll元件。
+- **Web與實際桌面**：本機Godot4.7.2（前輪／本輪import已核對），`--headless --path . --export-release Web build/web-era2-flow/index.html`、`node tools/prepare_web_compression.mjs build/web-era2-flow` exit0；一般build/web未覆寫。最終PCK與7份壓縮對照以compression.json／通用delivery_check為準。重用island_preview_server Handler的本機工作腳本 `.test-output/era2_browser_server.py`，127.0.0.1:4464，正常dao2_saves namespace但獨立origin，無玩家檔。IAB外1280×800／遊戲iframe1280×720：中間來源滑鼠開青木→缺料→開玄礦通過；最後來源重載兩島保存後，以ASCII階段數字顯示，實際滑鼠製造缺石→ore_wood啟航→青木收到40下石→製造靈材1→timber_home啟航→祖島靈材1→完整管理／逐步操作返回通過，console warn/error查詢空。沒有FPS或新完整保存故障矩陣聲稱。測試服務保留供隔離試玩，不是發布候選包，不觸發L3。
+- **失敗／修正**：第一輪新runner在啟動摘要尚未收尾時點擊後續導覽，另缺料模型先回本地採集、沒優先顯示跨島瓶頸；加啟動等待並修正模型後通過。原生曾發現短式兩層分頁擠出動作、原幾何斷言漏查工作區，合併分頁／短式左右排並加實際父範圍後通過。中間Web圈號不在字型子集中，改ASCII1/2/3；玄礦兩原料概覽撤下誤導轉換箭頭。首個4463 browser測試fixture sim_tick字串含小數，SaveCodec拒讀FIELD_TYPE:sim_tick；修正測試meta為整數、先decode驗證，再以新4464origin測試，不改存檔規則或繞過保護。4463服務已停止，失敗不算PASS。既有關閉RID／ObjectDB與anchor警告仍存在，不稱全日誌零警告。
+- **交付／下一步**：`python tools/delivery_check.py --web build/web-era2-flow` PASS（7/7壓縮符合、受保護證據變更0），`git diff --check`通過；無全量／新L3。下一New Chat收取玩家對此Era2逐步流程、圖像密度與二次操作的體感回饋；不重調Era1、不重跑不受影響領域。本**階段完成，可手動commit**；未commit／push。原有本機連線診斷與Era1核查文件變更保留。
+
+<a id="early-16-balance-install-check"></a>
+## 2026-10-29 EARLY-16-BALANCE 接入核查：已入正式遊戲；Era1 節奏問題仍保留（L1）
+
+- **範圍／結論**：依使用者反映 Era1 升幾層後等待進階無聊，核對 OpenCode BALANCE-A/B/C 是否入遊戲。正式 `living_abode.gd:440–448` 經 ContentLoader → IslandProgression.attach_supply → SupplyContent 載入 `content/supply/era4_6.json`，不是只留在提案。B/C主要改Era4–6；A為稽核。此輪未改數值、規則、UI、匯出或玩家資料。
+- **包內證據**：以 Python struct 唯讀解析 Godot PCK V4目錄，`build/web/index.pck` 與 `build/web-ui-shell/index.pck` 內 `content/eras/era1.json`、`content/supply/era4_6.json` 均逐位元組等於目前來源（4/4 SOURCE_MATCH）。SHA256依序為 `7f427b127c109125a6ab773573d21187fc903700e51b921c2c82decbfad926d1`／`16aff31416624bc20c0994d9264481a80f2e4586b1b94b82b7c9d4c9e3bf17ce`。不據此推定使用者目前瀏覽器載入哪個URL或快取版本。
+- **已實作內容**：Era4–6修行倍率1.25／1.30／1.40、每階靈力3200／10000／38000；三境無加成訓練鐘38.05→31.04小時。聚靈庫4/5上限3、修行陣4/5/6上限2、二級材料需求及供給航線自動啟用／target3000均在正式資料。既有玩家航線設定保留，不因新預設強制改寫。
+- **Era1未解決**：正式資料仍base_time60、倍率1.15、10層，每階靈力50；現有分段耗材從目前3／5／7層起累加木40／下石40／低草30，突破要求靈力容量500。無加成純訓練合計1006.99秒（16.8分），不等於實際通關時間。既有基線的主動無丹模擬新手建設187秒、可突破1286秒（21.4分），用丹873秒（14.6分）；假設每秒操作／每秒2次採集，並非真人牆鐘。新手鏈後78級建築空間中69級（88%）不提升晉階門檻所需產率或容量，故支線升級與主線等待耦合不足。C1仍26/92參考列容量不足FAIL；其為固定參考建設狀態，不能稱整線死鎖。C9 OK只代表主動比放置快，不證明等待有趣。
+- **本輪驗收**：Godot `--version` =4.7.2.stable.official.ed1daf0bf；`python tools/compile_r46_content.py --check` PASS。先 `tools/run_all_runners.ps1 -Only 'early_pacing_runner.gd,content_p2_supply_data_runner.gd' -List` 選2支，再同selector `-TimeoutSeconds 180`，隔離APPDATA `.test-output/balance-check-appdata` → **2/2 PASS，matrix=single，exit0**（2.4／6.5秒），日誌 `dao2_runners_9f77b3627ddf47c3a87e5a09bedbf1e1`。不重生稽核報告、不重跑L3／Web匯出／瀏覽器。通用delivery_check及diff-check見本輪工具輸出。
+- **下一步**：Era1單獨做新手鏈後的操作／解鎖／等待節奏調整，先以目前值為基線界定可縮短的空窗，不能把既有BALANCE完成視為已解決本次回饋。此為核查階段完成，可手動commit；沒有新的大型平衡實作結案，未commit／push。下一較大型調整使用New Chat。
+
 <a id="early-16-ui-shell"></a>
 ## 2026-10-29 EARLY-16-UI-SHELL：集中工作台正式接入，CLI／原生完成，L2 Web待驗
 
@@ -16,6 +38,14 @@
 - **隔離／原生**：本輪命令環境 `APPDATA=E:\WORK\Dao2\.test-output\shell-appdata`；測試保存／輸出沿RunnerResult與DAO_TEST_STORAGE_ROOT，不覆寫玩家資料或受保護證據。最終原生 `Godot --path . --script tests/early16_ui_shell_runner.gd`，環境 `DAO_VIEWPORT_MATRIX=full`、`DAO_TEST_STORAGE_ROOT=E:\WORK\Dao2\.test-output\shell-native-final` → exit0／161 checks／failures=[]。這是受影響工作台的原生尺寸檢查，非L3全尺寸runner矩陣。12張PNG在 `.test-output/shell-native-final/docs/verification/artifacts/early16-ui-shell/`；已目視1280建築與800運輸（前版亦檢查800製造），固定分頁／單一叉號／內捲可辨；非瀏覽器滑鼠證據。退出仍有既有Font RID／CanvasItem／ObjectDB診斷，不稱零錯誤。
 - **Web與工具限制**：最終 `Godot --headless --path . --export-release Web build/web-ui-shell/index.html`、`node tools/prepare_web_compression.mjs build/web-ui-shell` → exit0，僅本機測試包，不交付候選包、不因此觸發L3，也未覆寫一般build/web。`python tools/web_static_server.py --port 4451 --directory build/web-ui-shell` 啟動成功；IAB導航 `http://127.0.0.1:4451/index.html` 回報ERR_CONNECTION_TIMED_OUT；讀取故障指引後嘗試本機Edge，Computer Use app approval逾時，未取得瀏覽器畫面或滑鼠證據，沒有繞過。**Web待驗**，先前L3與其他包的截圖不替代本次來源。
 - **交付／下一步**：`python tools/delivery_check.py --web build/web-ui-shell` → RESULT PASS、7/7 manifest、受保護證據目錄變更0；`git diff --check`通過（有既有CRLF提示）。依Context Guard在此checkpoint，下一New Chat用本次包補1280×720桌面滑鼠：切四頁、製造展開／收起、運輸草稿／返回、庫存覆層／關閉、回洞府／資源偏好；同時收集中工作台視覺回饋。桌面CLI範圍完成，L2 Web未DONE；觸控／實機仍延期且非阻擋。**本實作階段可手動commit，未自行commit／push**；不在本輪展開下一大型工作。
+
+### 2026-10-29 追加：Codex localhost 權限定位／連線恢復
+
+- 使用者要求定位 Codex 環境／授權差異。只做網路診斷，未改遊戲來源、系統安全設定、Codex 設定或瀏覽器安裝。
+- 隔離 Python 同程序 HTTP 自測：預設沙盒可 bind，但 localhost urlopen 報 WinError 10013；相同命令 require_escalated → DAO2_LOOPBACK_OK、exit0。正式測試包同網址對照：沙盒內 WinError 10013／exit1，沙盒外 HTTP 200、5465 bytes／exit0。可確認目前沙盒網路權限阻擋 localhost 客戶端；不是單靠 Edge 版本推測。
+- 已授權以沙盒外啟動 `python -u tools/web_static_server.py --port 4460 --directory build/web-ui-shell --no-gzip`（exec session 78305），只監聽127.0.0.1。內建瀏覽器導航 http://127.0.0.1:4460/index.html 成功，實際截圖可見洞府與離線摘要；分頁已 markHandoff。此服務保留供下一步抽驗。未操作玩家正式 origin。
+- 本機 config 讀到 windows.sandbox=elevated；Windows 25H2 build26200.9711。上一輪 app update 回報26.1023.51421/build22530/up_to_date；版本差異存在，尚無證據證明更新回歸。Chrome connector unavailable 與 Edge URL辨識拒絕是獨立工具限制；未繞過。
+- 後續測試服務／localhost CLI 請求需按需 require_escalated；不需全域關閉沙盒。先前逾時與服務停止不可全當作版本故障。本輪僅完成連線診斷，未補四頁滑鼠驗收、未跑runner／Web匯出／L3；L2 Web仍IN_PROGRESS。收尾執行 delivery_check，結果見同輪工具輸出。下一步沿4460頁面續桌面1280×720抽驗與視覺回饋；此診斷checkpoint可手動commit，無commit/push。
 
 <a id="early-16-integration-l3"></a>
 ## 2026-10-29 EARLY-16-INTEGRATION-L3：大型里程碑 L3 收尾 DONE（全尺寸矩陣／Web／桌面三橫式）

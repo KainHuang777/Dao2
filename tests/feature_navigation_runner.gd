@@ -55,7 +55,7 @@ func _run() -> void:
 	check(nav.back_button.get_theme_stylebox("normal").bg_color == Color.TRANSPARENT, "close button has no black background")
 	nav.refresh({"era_id": 2})
 	for route in ["outposts", "manufacturing", "transport"]:
-		check(nav.tab_buttons[route].visible, "Era2 reveals island entry " + route)
+		check(nav.tab_buttons[route].visible == (route == "outposts"), "Era2 starts with opening discovery " + route)
 	nav.home()
 	for viewport in ([Vector2(1280, 720), Vector2(844, 390), Vector2(800, 360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2(1280, 720)]):
 		var wide: Dictionary = nav.presentation_policy("manufacturing", viewport)

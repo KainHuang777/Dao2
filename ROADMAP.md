@@ -1,8 +1,8 @@
+2026-10-29 **ERA2-FLOW-UI1**：築基空島分階段開拓／製造／運輸與單頁引導已接入，L2完成，體感待回饋。[狀態](docs/development-status.md#era2-flow-ui1)。
+
 2026-10-29 **EARLY-16-UI-SHELL**：集中工作台與局部HUD正式接入，驗收與Web限制見[狀態](docs/development-status.md#early-16-ui-shell)。
 
 2026-10-29 **EARLY-16-INTEGRATION-L3 DONE（L3）**：148/148 runner 全尺寸矩陣、presentation parity、Web 匯出＋Brotli 與桌面三橫式實際點擊通過；P3／P4與觸控延期。[狀態](docs/development-status.md#early-16-integration-l3)。
-
-2026-10-29 **EARLY-16-UI-ACTION-R1**：主介面確認仍為原型；輪迴／跨界／舊檔匯入無框題字已接入，L1與原生完成，Web待驗。[狀態](docs/development-status.md#early-16-ui-action-r1)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 

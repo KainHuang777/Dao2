@@ -1,3 +1,7 @@
+2026-10-29 **EARLY-16-UI-ACTION-R1**：主介面確認仍為原型；輪迴／跨界／舊檔匯入無框題字已接入，L1與原生完成，Web待驗。[狀態](docs/development-status.md#early-16-ui-action-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
 2026-10-29 **EARLY-16-UI-DESIGN 集中工作台方向已選定**：三種經營整合／局部HUD布局，正式遊戲未修改。[狀態](docs/development-status.md#early-16-ui-design)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
