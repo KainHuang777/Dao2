@@ -1,5 +1,14 @@
 # 開發狀態與交接紀錄
 
+<a id="git-branch-cleanup"></a>
+## 2026-10-30 GIT-BRANCH-CLEANUP：保留 main、清理已合併 master（DONE，靜態／Git 驗證）
+
+- **範圍／驗收**：使用者插入之 Git 維護任務；確認遠端分支、主線領先及完整包含關係，只刪除已合併分支。未修改遊戲來源、未新增提交或推送 main。
+- **證據**：成功 fetch 後，遠端預設 HEAD 指向 main；main／origin/main 同為 `e32de525a9084f65e739c9fbe99d7aaf7784df02`，ahead／behind=0／0。origin/master=`0cee548f6fdae496199bc1952e2c8dae70ef53ba`，`git merge-base --is-ancestor origin/master origin/main` exit0，`git rev-list --left-right --count origin/main...origin/master`=3／0，master 無獨有提交。
+- **執行結果**：`git push --force-with-lease=refs/heads/master:0cee548f6fdae496199bc1952e2c8dae70ef53ba origin :refs/heads/master` 成功刪除 master；精確 lease 防止誤刪查核期間新增進度。隨後 `git fetch origin --prune`、`git ls-remote --symref origin HEAD 'refs/heads/*'`、`git branch -avv` 確認遠端僅 main，本機僅 main（origin/HEAD 是符號參照）。兩個 detached HEAD worktree 未改動，沒有替其他機器切換或刪除本機分支。
+- **環境／驗證**：首次沙箱 fetch 因 .git/FETCH_HEAD 權限失敗、ls-remote 因網路失敗；經授權執行環境重試皆成功，不把首次失敗算通過。僅 Git 與文件變更，依分級規則不跑遊戲 runner／Godot／Web 匯出；通用 `python tools/delivery_check.py` 與 `git diff --check` 結果見本次最終工具輸出。
+- **交接**：其他機器先在乾淨工作區切換 main，再執行 `git fetch --prune origin`、`git pull --ff-only origin main`；此操作只清遠端追蹤參照，不會自動刪除其他機器的本機 master，有未提交／獨有進度者須先保留。Git 清理階段 DONE；ERA2-HUB-ECONOMY 大型任務仍 IN_PROGRESS，下一 New Chat 依原交接處理剩餘失敗。可手動 commit 本次維護紀錄，未自行 commit。
+
 <a id="era2-hub-economy"></a>
 ## 2026-10-30 ERA2-HUB-ECONOMY：祖島集中加工與玄礦先行（IN_PROGRESS）
 
