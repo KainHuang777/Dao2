@@ -44,7 +44,9 @@ func _run() -> void:
 			for child in [nav.island_panel, nav.manufacturing_panel, nav.transport_panel]:
 				check(not child.close_button.is_visible_in_tree(), "no page duplicate close")
 			check(nav.back_button.is_visible_in_tree() and nav.back_button.size.y >= 44, "single header close remains")
-			check(shell.compact_hud.size.x < vp.x - 56, "HUD stays local")
+			check(shell.compact_hud.size.x < vp.x * 0.65, "HUD stays local")
+			check(shell.compact_hud.get_global_rect().encloses(abode.header_box.get_global_rect()) if shell.integrated_identity else shell.life_metrics.global_position.y > shell.metrics.global_position.y, "identity content stays grouped")
+			check(work.panel.get_global_rect().encloses(shell.compact_hud.get_global_rect()) if shell.integrated_identity else shell.compact_hud.get_global_rect().end.y <= work.panel.global_position.y, "HUD shares workbench paper or clears it")
 			if DisplayServer.get_name() != "headless":
 				await RenderingServer.frame_post_draw
 				root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/early16-ui-shell/%s-%dx%d.png" % [route, vp.x, vp.y]))

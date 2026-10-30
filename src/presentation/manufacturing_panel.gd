@@ -39,7 +39,7 @@ func _ready() -> void:
 	super._ready()
 	filter_picker = OptionButton.new()
 	filter_picker.custom_minimum_size = Vector2(112, 44)
-	filter_picker.add_item("全部空島")
+	filter_picker.add_item("全部產線")
 	for id in IslandProgression.NAMES:
 		filter_picker.add_item(IslandProgression.NAMES[id])
 	filter_picker.item_selected.connect(func(index: int): island_filter = "" if index == 0 else String(IslandProgression.NAMES.keys()[index - 1]); _refresh_cards(); context_changed.emit())
@@ -301,14 +301,14 @@ func _refresh_cards() -> void:
 			continue
 		var refining: bool = id in ["spirit_timber", "bronze_essence", "liquid", "stone_mid", "stone_mid_bulk", "stone_high"]
 		card.root.visible = (island_filter.is_empty() or info.island == island_filter) and (refining if category == "精煉" else not refining)
-		card.title.text = "%s・%s" % [_recipe_name(id), IslandProgression.NAMES[info.island]]
+		card.title.text = "%s・%s" % [_recipe_name(id), _production_label(info.island)]
 		_refresh_materials(card, id, info)
 		card.time.text = "%d秒／批" % int(info.duration)
 		var job: Dictionary = _view.get("economy", {}).get("jobs", {}).get(info.island, {})
 		var current: bool = job.get("recipe_id") == id
 		var pending: bool = job.get("pending", {}).get("recipe_id") == id
 		_update_progress(card.progress, job if current else {}, float(info.duration))
-		var stock: Dictionary = _view.get("economy", {}).get("inventory", {}).get(info.island, {}).get(info.get("product_id", id), {})
+		var stock: Dictionary = _view.get("economy", {}).get("inventory", {}).get(info.get("output_island",info.island), {}).get(info.get("product_id", id), {})
 		card.time.text += "・庫存%.1f" % float(stock.get("available", 0))
 		card.status.text = _job_text(job) if current else "本批後切換至此配方" if pending else "產線使用中：" + _recipe_name(job.recipe_id) if not job.is_empty() else "" if String(info.reason).is_empty() or info.reason == "INSUFFICIENT_RESOURCE" else reason_text(info.reason)
 		card.status.visible = not card.status.text.is_empty()
@@ -330,7 +330,7 @@ func _refresh_cards() -> void:
 				chip.disabled = current
 				chip.tooltip_text = "加工中的模式由當前產線決定；停止後可重新選擇" if current else "選擇模式；批數可於就地設定調整"
 			card.row.settings.text = "收起" if selected_recipe == id else "設定"
-			card.row.set_island(info.island)
+			card.row.set_island("home" if _central() else info.island)
 			card.row.recipe_badge.tooltip_text += "\n" + card.time.text
 			var row_obj: RecipeRow = card.row
 			if current:
@@ -398,8 +398,8 @@ func _refresh_materials(widgets: Dictionary, id: String, info: Dictionary) -> vo
 		var input: Dictionary = info.inputs[resource]
 		widgets.tiles[resource].refresh(resource, _resource_name(resource), float(input.required), float(input.available), IslandProgression.NAMES[input.source])
 		widgets.tiles[resource].set_reserved(0.0)
-	var stock: Dictionary = _view.get("economy", {}).get("inventory", {}).get(info.island, {}).get(info.get("product_id", id), {})
-	widgets.output_tile.refresh(String(info.get("product_id", id)), _resource_name(String(info.get("product_id", id))), float(info.output), float(stock.get("available", 0)), IslandProgression.NAMES[info.island], true)
+	var stock: Dictionary = _view.get("economy", {}).get("inventory", {}).get(info.get("output_island",info.island), {}).get(info.get("product_id", id), {})
+	widgets.output_tile.refresh(String(info.get("product_id", id)), _resource_name(String(info.get("product_id", id))), float(info.output), float(stock.get("available", 0)), IslandProgression.NAMES[info.get("output_island",info.island)], true)
 	widgets.output_tile.set_reserved(float(stock.get("reserved", 0)))
 
 func _update_progress(bar: ProgressBar, job: Dictionary, duration: float) -> void:
@@ -415,18 +415,18 @@ func _refresh_detail() -> void:
 	var info: Dictionary = _view.manufacturing.recipes[selected_recipe]
 	_refresh_materials(detail_materials, selected_recipe, info)
 	var job: Dictionary = _view.get("economy", {}).get("jobs", {}).get(island, {})
-	detail_title.text = "%s・%s・%d秒／批" % [_recipe_name(selected_recipe), IslandProgression.NAMES[island], int(info.duration)]
+	detail_title.text = "%s・%s・%d秒／批" % [_recipe_name(selected_recipe), _production_label(island), int(info.duration)]
 	var stock: Array[String] = []
 	for resource in info.inputs:
 		for route in _routes():
-			if _routes()[route][1] == island and _routes()[route][2] == resource:
+			if _routes()[route][1] == String(info.inputs[resource].source) and _routes()[route][2] == resource:
 				var trip: Dictionary = _view.get("economy", {}).get("trips", {}).get(route, {})
 				if not trip.is_empty():
 					stock.append("在途到貨 %.1f・%d秒" % [float(trip.cargo), int(trip.remaining)])
-	var slot: Dictionary = _view.get("economy", {}).get("inventory", {}).get(island, {}).get(info.get("product_id", selected_recipe), {})
+	var slot: Dictionary = _view.get("economy", {}).get("inventory", {}).get(info.get("output_island",island), {}).get(info.get("product_id", selected_recipe), {})
 	var incoming := 0.0
 	for route in _view.get("economy", {}).get("trips", {}):
-		if _routes()[route][1] == island and _routes()[route][2] == info.get("product_id", selected_recipe):
+		if _routes()[route][1] == info.get("output_island",island) and _routes()[route][2] == info.get("product_id", selected_recipe):
 			incoming += float(_view.economy.trips[route].cargo)
 	var processing := float(_catalog.recipes[selected_recipe].output) if job.get("recipe_id") == selected_recipe and int(job.get("remaining", 0)) > 0 else 0.0
 	stock.append("產物可用 %.1f／容量 %.0f\n在途 %.1f・加工待完成 %.1f・容量預留 %.1f" % [float(slot.get("available", 0)), float(info.capacity), incoming, processing, float(slot.get("reserved", 0))])
@@ -490,38 +490,23 @@ func _refresh_workshop_costs(level: int) -> void:
 	workshop_costs.visible = true
 	workshop_costs.show_costs(upgrade, names, home, sources, "升級加工坊 %d→%d 階" % [level, level + 1], note)
 
+func _central() -> bool:
+	return preload("res://src/presentation/island_flow_model.gd").hub(_view)
+
+func _production_label(lane: String) -> String:
+	return "祖島・" + ("合成線" if lane == "home" else {"wood":"靈材線","ore":"銅精線","herb":"丹液線"}.get(lane,lane)) if _central() else String(IslandProgression.NAMES[lane])
+
 func _open_supply() -> void:
 	var info: Dictionary = _view.manufacturing.recipes[selected_recipe]
-	if info.reason in ["ECONOMY_NOT_MIGRATED", "ISLAND_NOT_OPEN", "RECIPE_ISLAND_REQUIREMENT", "ERA_REQUIREMENT"]:
-		page_requested.emit("outposts", island)
-		return
-	if info.reason in ["FACILITY_REQUIREMENT", "RESOURCE_LOCKED"]:
-		page_requested.emit("buildings", "home")
-		return
 	if info.reason == "OUTPUT_FULL":
-		for route in _routes():
-			var def: Array = _routes()[route]
-			if def[0] == island and def[2] == selected_recipe:
-				transport_requested.emit(route)
-				return
-		page_requested.emit("buildings" if island == "home" else "outposts", island)
+		page_requested.emit("buildings" if _central() or island == "home" else "outposts","home" if _central() else island)
 		return
-	for resource in info.inputs:
-		var input: Dictionary = info.inputs[resource]
-		if float(input.available) < float(input.required):
-			if resource in IslandEconomy.GLOBAL:
-				page_requested.emit("buildings", "home")
-			elif _islands()[island].rates.has(resource):
-				page_requested.emit("outposts", island)
-			else:
-				for route in _routes():
-					var def: Array = _routes()[route]
-					if def[1] == island and def[2] == resource:
-						transport_requested.emit(route)
-						return
-				# Some recipes have no fixed incoming route for this material.
-				page_requested.emit("buildings" if island == "home" else "outposts", island)
-			return
+	var fix := preload("res://src/presentation/island_flow_model.gd").shortage(_view,info,_routes())
+	if fix.is_empty():
+		page_requested.emit("buildings","home")
+	elif fix.page == "transport": transport_requested.emit(fix.id)
+	elif fix.page == "manufacturing": select_recipe(fix.id)
+	else: page_requested.emit(fix.page,fix.id)
 
 func set_layout_bounds(bounds: Rect2) -> void:
 	super.set_layout_bounds(bounds)

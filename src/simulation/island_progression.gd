@@ -134,6 +134,8 @@ static func preview(state: GameState, content: GameContent) -> Dictionary:
 static func command(content: GameContent, state: GameState, kind: String, p: Dictionary) -> Dictionary:
 	if content.processing_catalog.is_empty():
 		return _fail("PROCESSING_NOT_ENABLED")
+	if kind == "activate_hub":
+		return IslandEconomy.activate_hub(state)
 	if kind == "activate_islands":
 		if content.processing_catalog.get("version") == SUPPLY_VERSION and state.economy.is_empty():
 			if state.era_id < 2: return _fail("ERA_REQUIREMENT")
@@ -145,6 +147,9 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 				state.economy.islands[id].facilities = {"extractor": 1, "workshop": 1, "storage": 1}
 			for id in IslandEconomy.supply_data().islands:
 				state.economy.islands[id] = {"opened": false, "inventory": {}}
+			if bool(p.get("hub", false)):
+				var hub_result := IslandEconomy.activate_hub(state)
+				if not hub_result.ok: return hub_result
 			return _ok("islands_activated")
 		var checked := preview(state, content)
 		if not checked.ok:
@@ -159,6 +164,9 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 		state.economy.early_supply = Onboarding.initial_supply()
 		for id in state.economy.islands:
 			state.economy.islands[id].facilities = {"extractor": 1, "workshop": 1, "storage": 1}
+		if bool(p.get("hub", false)):
+			var hub_result := IslandEconomy.activate_hub(state)
+			if not hub_result.ok: return hub_result
 		return _ok("islands_activated")
 	if not active(state):
 		return _fail("ECONOMY_NOT_MIGRATED")

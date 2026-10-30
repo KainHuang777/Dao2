@@ -138,7 +138,7 @@ func _run() -> void:
 	var before := snapshot()
 	wood_cell.pressed.emit()
 	check(inventory.selected_key() == "wood:stone_low" and wood_cell._selected, "cell click selects detail only")
-	check(inventory._detail_line.text.contains("需求") and inventory._detail_line.text.contains("容量"), "selected detail carries exact demand and capacity")
+	check((inventory._detail_line.tooltip_text if inventory.compact_hint else inventory._detail_line.text).contains("需求") and inventory._detail_line.text.contains("容量"), "selected detail carries exact demand in compact TIP and visible capacity")
 	check(snapshot() == before, "selection never mutates inventory")
 	var cells_before: int = Performance.get_monitor(Performance.OBJECT_NODE_COUNT)
 	IslandEconomy._put(abode.session.state, "wood", "stone_low", 7.0)

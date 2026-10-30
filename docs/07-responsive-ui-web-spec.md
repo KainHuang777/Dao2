@@ -1,3 +1,17 @@
+2026-10-29 **UI-ISLAND-LIST-R3**：Era2改固定共用工作分頁與可點島圖，寬式個人卡下接當前配方相關庫存，按島別分組、不合計地方／祖島／在途；短式沿資源抽屜。規範見[docs19](19-ui-ux-guidelines.md)，證據見[狀態](development-status.md#ui-island-list-r3)。
+
+2026-10-29 **UI-ISLAND-LIST-R2**：Era2日常操作共用島嶼清單，在選中島下方展開製造／運輸／設施；材料與操作集中、單一內容內捲，頁首／關閉與保存重試固定。完整管理僅修動作自然寬度，布局保留。共用規則見[UI規範](19-ui-ux-guidelines.md)，證據見[狀態](development-status.md#ui-island-list-r2)。
+
+2026-10-29 **UI-ISLAND-LIST-R1**：Era2開拓採島圖／用途／成本／操作同列清單，短式內容內捲與固定保存回饋沿[共用規範](19-ui-ux-guidelines.md)，驗收見[狀態](development-status.md#ui-island-list-r1)。
+
+2026-10-29 UI-HUD-INTEGRATE-R2：寬式經營／輪迴將原完整個人狀態卡併工作台左欄、庫存下接，移除頂部橫幅預留；短式局部卡保留同源道印。R1兩行規定由[共用UI規範R2](19-ui-ux-guidelines.md)修訂。
+
+2026-10-29 UI-HUD-COMPACT-R1：功能頁HUD依內容收為兩行局部面板，既有動作／狀態緊鄰、不留固定680px橫幅；保持分頁避讓與原44px命中，見[共用UI規範](19-ui-ux-guidelines.md)。
+
+2026-10-29 UI-CARD-DENSITY-R1：物件卡以實際容器可用寬度切單／雙欄並限制閱讀寬度；成本與操作靠近說明，不以橫向撐滿分隔。具體上限與圖文群組規則見[共用UI規範](19-ui-ux-guidelines.md)。
+
+2026-10-29 UI-DOCUMENT-R1：輪迴／天賦／歷世接入集中工作台，導覽與內容同紙、單一關閉；卷首內容頂端對齊，固定footer與單區內捲保持。L2與實際桌面Web範圍見[狀態](development-status.md#ui-document-r1)。
+
 2026-10-29 ERA2-FLOW-UI1：築基空島日常頁沿集中工作台容器，以單項選擇代替多卡長清單；短式採材料圖與狀態／操作並排，主動作須留在工作台實際分配範圍，不能只檢查被最小尺寸撐大的子面板。完整管理保留原內捲規則。詳[狀態](development-status.md#era2-flow-ui1)。
 
 2026-10-23 UI-ART-EDGE：正式共用插圖元件已接線；B參數、金框／密集小圖例外依docs19，原生及Web證據見[本輪驗收](verification/ui-art-edge.md)。以下「仍待實作」為較早規範採納紀錄。

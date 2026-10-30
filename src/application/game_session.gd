@@ -3,6 +3,7 @@ extends RefCounted
 
 const KNOWN_COMMAND_TYPES := [
 	"activate_islands",
+	"activate_hub",
 	"upgrade_island_facility",
 	"craft",
 	"migrate_processing",

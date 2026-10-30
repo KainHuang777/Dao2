@@ -93,9 +93,9 @@ func _run() -> void:
 	var adapter := MemoryAdapter.new()
 	SaveManager.configure(content, adapter)
 	adapter.fail_key = SaveManager.ISLAND_ARCHIVE_KEY
-	_expect(not SaveManager.activate_islands(s, META).ok and before == _snapshot(s), "archive write failure leaves live source untouched")
+	_expect(not SaveManager.activate_islands(s, META, "", false).ok and before == _snapshot(s), "archive write failure leaves live source untouched")
 	adapter.fail_key = ""
-	_expect(SaveManager.activate_islands(s, META).ok, "activation retry commits")
+	_expect(SaveManager.activate_islands(s, META, "", false).ok, "activation retry commits")
 	var archived: String = adapter.data[SaveManager.ISLAND_ARCHIVE_KEY]
 	_expect(SaveCodec.decode(archived).ok and SaveCodec.decode(archived).state.economy.is_empty(), "recoverable pre-islands archive")
 	_expect(s.state.buildings == SaveCodec.decode(archived).state.buildings, "ancestral buildings preserved")
@@ -105,14 +105,14 @@ func _run() -> void:
 	poor_source.state.resources.wood.value = AmountCompat.zero()
 	var poor_before := _snapshot(poor_source)
 	SaveManager.configure(content, MemoryAdapter.new())
-	_expect(not SaveManager.activate_islands(poor_source, META, "wood").ok and _snapshot(poor_source) == poor_before, "insufficient first-open payment leaves initialization and materials untouched")
+	_expect(not SaveManager.activate_islands(poor_source, META, "wood", false).ok and _snapshot(poor_source) == poor_before, "insufficient first-open payment leaves initialization and materials untouched")
 	var failed_commit := MemoryAdapter.new()
 	SaveManager.configure(content, failed_commit)
 	failed_commit.fail_write_number = 5 # source payload/index, archive, then candidate payload/index
 	var source_before := _snapshot(retry_source)
-	_expect(not SaveManager.activate_islands(retry_source, META, "wood").ok and _snapshot(retry_source) == source_before, "first paid opening candidate index failure retains source and materials")
+	_expect(not SaveManager.activate_islands(retry_source, META, "wood", false).ok and _snapshot(retry_source) == source_before, "first paid opening candidate index failure retains source and materials")
 	failed_commit.fail_write_number = -1
-	_expect(SaveManager.activate_islands(retry_source, META, "wood").ok and retry_source.state.economy.islands.wood.opened, "candidate failure retry activates and opens once")
+	_expect(SaveManager.activate_islands(retry_source, META, "wood", false).ok and retry_source.state.economy.islands.wood.opened, "candidate failure retry activates and opens once")
 	_expect(is_equal_approx(IslandEconomy.value(retry_source.state, "home", "wood"), float(SaveCodec.decode(archived).state.resources.wood.value.to_float()) - 20), "first opening retry charges one wood payment")
 	var corrupt_archive := MemoryAdapter.new()
 	SaveManager.configure(content, corrupt_archive)
@@ -120,7 +120,7 @@ func _run() -> void:
 	var conflict := _clone(s)
 	conflict.state = SaveCodec.decode(archived).state
 	var conflict_before := _snapshot(conflict)
-	_expect(not SaveManager.activate_islands(conflict, META).ok and _snapshot(conflict) == conflict_before, "invalid pre-islands archive refuses overwrite")
+	_expect(not SaveManager.activate_islands(conflict, META, "", false).ok and _snapshot(conflict) == conflict_before, "invalid pre-islands archive refuses overwrite")
 	_expect(corrupt_archive.data[SaveManager.ISLAND_ARCHIVE_KEY] == "corrupt", "conflicting archive bytes preserved")
 	SaveManager.configure(content, adapter)
 	_expect(IslandEconomy.validate(s.state).is_empty(), "C state validates")

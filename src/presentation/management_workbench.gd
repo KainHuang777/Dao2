@@ -59,6 +59,7 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 			if control.get_parent() != _parents[control]: control.reparent(_parents[control], false)
 			if _styles.has(control): control.add_theme_stylebox_override("panel", _styles[control])
 		abode.building_catalog.set_embedded(false)
+		abode.reincarnation_panel.set_embedded(false)
 		for child in [abode.feature_navigation.island_panel, abode.feature_navigation.manufacturing_panel, abode.feature_navigation.transport_panel]: child.set_embedded(false)
 		return
 	panel.position = bounds.position
@@ -69,7 +70,10 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	nav.bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	nav.bar.custom_minimum_size.y = 44
 	nav.bar.add_theme_stylebox_override("panel", _flat)
-	stock.visible = wide and show_stock and not nav.island_flow.visible
+	stock.visible = wide
+	stock.custom_minimum_size.x = 320 if wide else 236
+	stock_title.visible = wide and show_stock and not nav.island_flow.visible
+	stock_content.visible = wide and show_stock
 	stock_title.text = "祖島可用庫存" if nav.page == "buildings" else "當地與付款庫存"
 	for resource_panel in [abode.resource_ribbon, nav.shell.context_paper]:
 		_move(resource_panel, stock_content)
@@ -77,6 +81,8 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	for child in [abode.building_catalog, nav.island_panel, nav.manufacturing_panel, nav.transport_panel]:
 		_move(child, pages)
 		child.set_embedded(true)
+	_move(abode.reincarnation_panel, pages)
+	abode.reincarnation_panel.set_embedded(true)
 	_move(nav.island_flow, pages)
 	# Commands can open/close details within one frame. Supply the container's
 	# allocation immediately so feedback does not read yesterday's short layout.

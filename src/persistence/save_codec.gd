@@ -4,6 +4,7 @@ extends RefCounted
 const SCHEMA_VERSION := 5
 const GAME_VERSION := "0.1.0"
 const RULES_VERSION := "core-flow-17-content-p1-story"
+const HUB_RULES_VERSION := "core-flow-25-ancestral-hub"
 const SUPPLY_RULES_VERSION := "core-flow-18-content-p2-supply"
 const STORY2_RULES_VERSION := "core-flow-24-content-p2-story"
 const BEAST_RULES_VERSION := "core-flow-23-content-p2-beasts"
@@ -55,7 +56,7 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 		"schema_version": SCHEMA_VERSION,
 		"game_version": GAME_VERSION,
 		"content_version": content_version,
-		"rules_version": STORY2_RULES_VERSION if state.story_version >= 2 else BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
+		"rules_version": HUB_RULES_VERSION if IslandEconomy.hub(state) else STORY2_RULES_VERSION if state.story_version >= 2 else BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
 		"amount_format_version": AMOUNT_FORMAT_VERSION,
 		"generator_version": GENERATOR_VERSION,
 		"save_id": meta["save_id"],

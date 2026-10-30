@@ -27,7 +27,7 @@ var _reincarnate_desc_label: Label
 
 # 天賦分頁
 var _talents_box: VBoxContainer
-var _talents_list: VBoxContainer
+var _talents_list: GridContainer
 var _talent_rows: Dictionary = {}
 
 var _active_tab: String = "reincarnate" # "reincarnate" | "talents"
@@ -68,7 +68,13 @@ var report_identity_provider: Callable
 var _report_view: LifeReportView
 var _report_revision: int = -1
 var _report_identity: int = -1
+var _embedded := false
 signal retry_save_requested()
+
+func set_embedded(value: bool) -> void:
+	if _embedded == value: return
+	_embedded = value
+	if _background != null: set_layout_bounds(Rect2(position, size))
 
 func _ready() -> void:
 	_build_ui()
@@ -84,8 +90,13 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		_background.size = size
 	if _body_scroll != null:
 		var compact := bounds.size.y < 350
-		_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if compact else UiMaterial.scroll_shell())
-		UiMaterial.apply_scroll_content_margins(_margin, compact)
+		_background.visible = not _embedded
+		if _embedded:
+			for side in ["left", "right", "top", "bottom"]:
+				_margin.add_theme_constant_override("margin_" + side, 4)
+		else:
+			_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if compact else UiMaterial.scroll_shell())
+			UiMaterial.apply_scroll_content_margins(_margin, compact)
 		_hero.visible = not compact
 		_life_title.visible = not compact
 		_report_view.set_compact(compact)
@@ -97,7 +108,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 			_details_button.reparent(details_parent)
 		_life_info.add_theme_constant_override("separation", 0 if compact else 4)
 		_cycle_label.visible = not compact
-		_life_title.add_theme_font_size_override("font_size", 22 if compact else 28)
+		_life_title.add_theme_font_size_override("font_size", 20 if compact else 22)
 		_eligibility_label.visible = not compact
 		_reward_cards.hide()
 		_compact_rewards.visible = _active_tab == "reincarnate"
@@ -111,7 +122,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		_talents_button.text = "天賦" if compact else "道心天賦"
 		_fit_save_feedback()
 		_apply_footer_visibility()
-		_title_row.visible = not compact
+		_title_row.visible = not compact and not _embedded
 		_root_box.add_theme_constant_override("separation", 4 if compact else 10)
 		for row in _talent_rows.values():
 			_update_talent_description(row)
@@ -119,6 +130,10 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		if not _last_view.is_empty(): refresh(_last_view)
 
 func _fit_talents() -> void:
+	if _talents_list == null: return
+	var available := maxf(0, _body_scroll.size.x - 14)
+	_talents_list.columns = 2 if available >= 1000 else 1
+	_talents_list.custom_minimum_size.x = minf(available, 1120 if _talents_list.columns == 2 else 760)
 	var edge := 112 if size.y >= 400 else clampi(int(_body_scroll.size.y) - 16, 44, 80)
 	for row in _talent_rows.values():
 		row.find_child("TalentArt", true, false).custom_minimum_size = Vector2.ONE * edge
@@ -244,12 +259,12 @@ func _build_ui() -> void:
 	var life := VBoxContainer.new()
 	_life_info = life
 	life.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	life.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	life.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	overview.add_child(life)
 	_cycle_label = _label("", 18)
 	life.add_child(_cycle_label)
 	_life_title = _label("再續仙途", 28)
-	_life_title.add_theme_font_override("font", UiTypography.emphasis_font())
+	_life_title.add_theme_font_override("font", UiTypography.epilogue_title_font())
 	life.add_child(_life_title)
 	_report_view = LifeReportView.new()
 	life.add_child(_report_view)
@@ -291,11 +306,10 @@ func _build_ui() -> void:
 	_preview_label = _label("")
 	_preview_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	life.add_child(_preview_label)
-	_details_button = Button.new()
+	_details_button = InscriptionAction.new()
 	_details_button.text = "傳承與重置詳情"
 	_details_button.custom_minimum_size.y = 44
 	_details_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	UiMaterial.apply_button(_details_button)
 	_details_button.pressed.connect(func(): _reincarnate_desc_label.visible = not _reincarnate_desc_label.visible)
 	life.add_child(_details_button)
 	_reincarnate_desc_label = _label("保留 · 最高境界、道心、道證、天賦與已記錄功業；靈界據點、靈晶與靈液獨立跨世保留，不受資源傳承天賦影響。\n重置 · 境界／修行、年歲、人界建築、技能、丹藥與當世產業；資源依傳承天賦重新起算。宗門需重新加入；靈獸重置，成熟靈獸化為獸魂。")
@@ -303,9 +317,10 @@ func _build_ui() -> void:
 	_reincarnate_desc_label.hide()
 	_talents_box = VBoxContainer.new()
 	_content.add_child(_talents_box)
-	_talents_list = VBoxContainer.new()
-	_talents_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_talents_list.add_theme_constant_override("separation", 10)
+	_talents_list = GridContainer.new()
+	_talents_list.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_talents_list.add_theme_constant_override("h_separation", 12)
+	_talents_list.add_theme_constant_override("v_separation", 10)
 	_talents_box.add_child(_talents_list)
 	_feedback_row = HBoxContainer.new()
 	_feedback_row.visible = false
@@ -339,10 +354,9 @@ func _build_ui() -> void:
 	_cancel_button.pressed.connect(_cancel_confirmation)
 	_cancel_button.visible = false
 	_footer.add_child(_cancel_button)
-	_reincarnate_action_button = Button.new()
+	_reincarnate_action_button = InscriptionAction.new()
 	_reincarnate_action_button.text = "入定轉世"
 	_reincarnate_action_button.custom_minimum_size = Vector2(128,44)
-	UiMaterial.apply_button(_reincarnate_action_button)
 	_reincarnate_action_button.pressed.connect(_on_reincarnate_action_pressed)
 	_footer.add_child(_reincarnate_action_button)
 	_history_view = LifeHistoryView.new()
@@ -434,10 +448,7 @@ func refresh(view: Dictionary) -> void:
 	_life_title.add_theme_color_override("font_color", Color("9b3e30") if _exhausted else UiMaterial.INK)
 	_hero.texture = load(ART_DIR + ("life_lamp_spent.png" if _exhausted else "reincarnation_wheel.png"))
 	var life_style := StyleBoxFlat.new()
-	life_style.bg_color = Color("e5d7ca") if _exhausted else Color("e9e4cf")
-	life_style.border_color = Color("9b685b") if _exhausted else Color("8a987d")
-	life_style.set_border_width_all(1)
-	life_style.set_corner_radius_all(12)
+	life_style.bg_color = Color(0, 0, 0, 0)
 	for side in ["left", "right", "top", "bottom"]:
 		life_style.set("content_margin_" + side, 4.0 if size.y < 350 else 8.0)
 	_life_card.add_theme_stylebox_override("panel", life_style)
@@ -498,6 +509,7 @@ func _refresh_talents(current_talents: Dictionary, current_dh_str: String) -> vo
 
 func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	var container := PanelContainer.new()
+	container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	container.set_meta("talent_id", talent_id)
 	var style := UiMaterial.surface("paper").duplicate()
 	style.content_margin_left = 12
@@ -535,10 +547,11 @@ func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vbox.add_child(desc_label)
 
-	var action_box := VBoxContainer.new()
+	var action_box := HBoxContainer.new()
 	action_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	action_box.custom_minimum_size = Vector2(100, 0)
-	hbox.add_child(action_box)
+	action_box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	action_box.add_theme_constant_override("separation", 12)
+	vbox.add_child(action_box)
 
 	var cost_label := Label.new()
 	cost_label.name = "CostLabel"
@@ -555,11 +568,14 @@ func _create_talent_row(talent_id: String, def: Dictionary) -> PanelContainer:
 	learn_btn.name = "LearnButton"
 	learn_btn.text = "參悟"
 	learn_btn.custom_minimum_size = Vector2(90, 44)
+	learn_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	learn_btn.add_theme_font_override("font", UiTypography.body_font())
 	learn_btn.add_theme_font_size_override("font_size", 16)
 	UiMaterial.apply_button(learn_btn)
 	learn_btn.pressed.connect(func(): learn_talent_requested.emit(talent_id))
 	action_box.add_child(learn_btn)
+	# Shortage text uses the reading column, not the width of one square cost tile.
+	strip.note.reparent(vbox)
 
 	return container
 

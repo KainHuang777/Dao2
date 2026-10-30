@@ -24,24 +24,29 @@ func _label(font: Font, pixels: int) -> Label:
 
 func _ready() -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	add_theme_constant_override("separation", 12)
 	seal = _label(UiTypography.epilogue_seal_font(), 18)
+	seal.add_theme_color_override("font_color", Color("9b3e30"))
 	_heading = BoxContainer.new()
 	_heading.vertical = true
+	_heading.add_theme_constant_override("separation", 8)
 	add_child(_heading)
-	title = _label(UiTypography.epilogue_title_font(), 28)
+	title = _label(UiTypography.epilogue_title_font(), 32)
 	title.reparent(_heading)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	closing = _label(UiTypography.biography_font(), 22)
 	closing.reparent(_heading)
 	closing.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	biography = _label(UiTypography.biography_font(), 18)
+	biography.add_theme_constant_override("line_spacing", 8)
 	echoes = _label(UiTypography.biography_font(), 18)
+	echoes.add_theme_constant_override("line_spacing", 8)
 	coverage = _label(UiTypography.body_font(), 16)
-	records_button = Button.new()
+	coverage.add_theme_color_override("font_color", Color("756750"))
+	records_button = InscriptionAction.new()
 	records_button.text = "查記錄"
 	records_button.custom_minimum_size.y = 44
 	records_button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	UiMaterial.apply_button(records_button)
 	add_child(records_button)
 	records_button.pressed.connect(func(): sources.visible = not sources.visible)
 	sources = _label(UiTypography.body_font(), 16)
@@ -50,9 +55,10 @@ func _ready() -> void:
 
 func set_compact(compact: bool) -> void:
 	if title == null: return
+	add_theme_constant_override("separation", 6 if compact else 12)
 	seal.visible = not compact
 	_heading.vertical = not compact
-	title.add_theme_font_size_override("font_size", 24 if compact else 28)
+	title.add_theme_font_size_override("font_size", 24 if compact else 32)
 	closing.add_theme_font_size_override("font_size", 18 if compact else 22)
 
 func show_report(data: Dictionary, reason: String) -> void:

@@ -18,6 +18,7 @@ var message: Label
 var inventory: Label
 var job_status: Label
 var activation: Button
+var hub_activation: Button
 var heading_label: Label
 var heading_row: HBoxContainer
 var opening: Button
@@ -121,8 +122,9 @@ func _add_button(parent: Node, text: String, action: Callable) -> Button:
 	button.text = text
 	button.custom_minimum_size.y = 44
 	if parent is VBoxContainer:
-		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		button.autowrap_mode = TextServer.AUTOWRAP_OFF
 		button.custom_minimum_size.x = 100
+		button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	button.add_theme_font_size_override("font_size", 18)
 	UiMaterial.apply_button(button)
 	button.pressed.connect(action)
@@ -156,6 +158,8 @@ func _rebuild() -> void:
 	summary = _label("")
 	body.add_child(summary)
 	activation = _add_button(body, "保留原檔並啟用空島", func(): action_requested.emit("activate_islands", {}))
+	hub_activation = _add_button(body, "改用祖島集中製造（保留原檔）", func(): action_requested.emit("activate_hub", {}))
+	hub_activation.hide()
 	cost_cards = HFlowContainer.new()
 	body.add_child(cost_cards)
 	for resource in (_islands().get(island, {}).get("cost", {"wood": 20, "stone_low": 10})):
@@ -213,6 +217,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		return
 	var e: Dictionary = view.get("economy", {})
 	var enabled: bool = e.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, IslandProgression.SUPPLY_VERSION]
+	hub_activation.visible = enabled and not preload("res://src/presentation/island_flow_model.gd").hub(view)
 	var info: Dictionary = view.get("manufacturing", {}).get("islands", {}).get(island, {})
 	var opened := bool(info.get("opened", false))
 	for id in island_buttons:
@@ -464,7 +469,7 @@ func _islands() -> Dictionary:
 	return defs
 
 func _routes() -> Dictionary:
-	var defs := IslandEconomy.ROUTES.duplicate(true)
+	var defs := preload("res://src/presentation/island_flow_model.gd").routes(_view)
 	if _catalog.get("version") == IslandProgression.SUPPLY_VERSION:
 		defs.merge(IslandEconomy.supply_data().routes)
 	return defs

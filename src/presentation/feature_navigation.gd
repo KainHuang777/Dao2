@@ -69,7 +69,7 @@ func build() -> void:
 	back.pressed.connect(home)
 	row.add_child(back)
 	flow_return = Button.new()
-	flow_return.text = "逐步操作"
+	flow_return.text = "空島清單"
 	flow_return.custom_minimum_size.y = 44
 	UiMaterial.apply_button(flow_return)
 	row.add_child(flow_return)
@@ -114,6 +114,7 @@ func build() -> void:
 	island_flow.action_requested.connect(_on_island_action)
 	island_flow.retry_requested.connect(_retry_island_save)
 	island_flow.navigate_requested.connect(_flow_navigate)
+	island_flow.context_changed.connect(func(): abode._layout_for_size(abode.hud.size))
 	island_flow.full_requested.connect(func():
 		full_island_management = true
 		_tab_signature = ""
@@ -253,6 +254,7 @@ func _make_tabs() -> void:
 			if tab_buttons[route].get_meta("selected", false) != (route == page):
 				tab_buttons[route]._update_style()
 				tab_buttons[route].set_meta("selected", route == page)
+		_tab_signature = ""
 		return
 	_tab_group = group
 	for child in tabs.get_children():
@@ -309,8 +311,11 @@ func _refresh_tabs(view: Dictionary) -> void:
 		button.modulate = Color(0.72, 0.72, 0.72) if availability.state == FeatureUnlocks.State.PREVIEW else Color.WHITE
 		button.tooltip_text = ""
 		button.set_meta("availability", availability.state)
-		if not full_island_management and int(view.get("era_id",1))==2:
-			label = {"outposts":"1 開拓","manufacturing":"2 製造","transport":"3 運輸"}.get(route,label)
+		if not full_island_management and int(view.get("era_id",1))==2 and route in ["outposts","manufacturing","transport"]:
+			button.visible = route == "outposts"
+			button.button_pressed = route == "outposts" and page in ["outposts","manufacturing","transport"]
+			button._update_style()
+			label = "空島"
 		button.text = label + ("·未開" if availability.state == FeatureUnlocks.State.PREVIEW else "")
 	# Stable partition: keep the canonical order inside each availability group.
 	# Reuse buttons so unlock refreshes preserve input connections and page state.
@@ -467,7 +472,11 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 	var result: Dictionary
 	var save_failed := false
 	var first_open: bool = kind == "open_island" and not IslandProgression.active(abode.session.state)
-	if kind == "activate_islands" or first_open:
+	if kind == "activate_hub":
+		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
+		result = SaveManager.activate_hub(abode.session,{"save_id":"local","saved_at_utc_ms":now,"settled_until_utc_ms":now,"sim_tick":str(int(abode.session.state.total_elapsed_seconds))})
+		if result.ok: abode.state = abode.AbodeStateCompat.new(abode.session)
+	elif kind == "activate_islands" or first_open:
 		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
 		result = SaveManager.activate_islands(abode.session, {"save_id": "local", "saved_at_utc_ms": now, "settled_until_utc_ms": now, "sim_tick": str(int(abode.session.state.total_elapsed_seconds))}, String(payload.get("island_id", "")) if first_open else "")
 		if result.ok:
@@ -481,6 +490,10 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 				save_failed = true
 	var errors := {"INSUFFICIENT_RESOURCE": "加工原料或工程材料不足；請查看當地庫存、祖島靈氣與航線。", "ERA_REQUIREMENT": "築基開放青木／玄礦，金丹開放丹霞；配方另有境界條件。", "RECIPE_ISLAND_REQUIREMENT": "丹液在丹霞加工，靈材在青木、銅精在玄礦，其餘配方在祖島。", "ISLAND_NOT_OPEN": "請先開拓航線兩端島嶼。", "JOB_BUSY": "已有工作，請等本批完成後停止。", "OUTPUT_FULL": "產物滿倉；請啟動回祖島航線。"}
 	errors.merge({"FACILITY_REQUIREMENT": "洞府設施未達配方門檻，請至洞府建築升級。", "ECONOMY_NOT_MIGRATED": "請至空島保留原檔並啟用。", "RESOURCE_LOCKED": "資源尚未解鎖。", "NO_JOB": "此島目前沒有加工工作。", "LEVEL_CAP": "設施已達上限。", "INVALID_COUNT": "批數不符合規則。", "INVALID_RESERVE": "原料保留量不符合規則。"})
+	if preload("res://src/presentation/island_flow_model.gd").hub(abode.session.get_view()):
+		errors["INSUFFICIENT_RESOURCE"] = "祖島材料不足；請運回原料或前往祖島生產。"
+		errors["RECIPE_ISLAND_REQUIREMENT"] = "請先開拓對應產業島以取得此製造產線。"
+		errors["OUTPUT_FULL"] = "祖島產物滿倉；請使用材料或擴充容量。"
 	var error: String = String(result.get("error", "原因不明"))
 	var feedback := ""
 	if not result.ok:
@@ -494,6 +507,7 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 		var success := "操作完成，進度已更新。"
 		match kind:
 			"activate_islands": success = "空島已啟用，原檔已保留。"
+			"activate_hub": success = "祖島集中製造已啟用，原檔已保留；舊批次與在途會繼續完成。"
 			"open_island": success = island_name + "已開拓，採集已開始。"
 			"upgrade_island_facility": success = island_name + IslandProgression.FACILITIES.get(payload.get("facility_id", ""), "設施") + "已升階，祖島材料已支付。"
 			"craft": success = "製作已開始，原料已扣除；完成後產物入庫。"
@@ -521,6 +535,7 @@ func _open_island_page(route: String, island_id: String) -> void:
 	else:
 		if route == "outposts" and island_id in ["wood","ore"]: island_flow.island = island_id
 		open(route)
+		if route == "buildings": _focus_flow_building.call_deferred(island_id)
 		if page != route or not shell.state.snapshot().overlay.is_empty(): return
 		if route == "outposts":
 			island_panel.select_island(island_id)
@@ -597,9 +612,22 @@ func _flow_navigate(route: String, id: String) -> void:
 	if route == "outposts" and id in ["wood","ore"]:
 		if page == "manufacturing": island_flow.resume_recipe = island_flow.recipe
 		island_flow.island = id
+		island_flow.managing_island = preload("res://src/presentation/island_flow_model.gd").opened(abode.session.get_view(),id)
 		island_flow.facility.select(0)
 	elif route == "manufacturing" and not id.is_empty():
 		island_flow.recipe = id
 		island_flow.resume_recipe = ""
-	elif route == "transport" and not id.is_empty(): island_flow.route = id
+	elif route == "transport" and not id.is_empty():
+		if page == "manufacturing": island_flow.resume_recipe = island_flow.recipe
+		island_flow.route = id
 	open(route)
+	if route == "buildings": _focus_flow_building.call_deferred(id)
+
+func _focus_flow_building(id: String) -> void:
+	if page != "buildings" or id.is_empty() or id == "home": return
+	var target = abode.building_catalog
+	if not target.row_info.has(id): return
+	target._set_filter("all")
+	if target.expanded_row_id != id: target._select(id)
+	await abode.get_tree().process_frame
+	if page == "buildings" and target.row_info.has(id): target.scroll.ensure_control_visible(target.rows[id])

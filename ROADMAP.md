@@ -1,8 +1,8 @@
-2026-10-29 **ERA2-FLOW-UI1**：築基空島分階段開拓／製造／運輸與單頁引導已接入，L2完成，體感待回饋。[狀態](docs/development-status.md#era2-flow-ui1)。
+2026-10-30 **ERA2-HUB-ECONOMY IN_PROGRESS**：祖島集中加工與玄礦先行已接入，收尾驗證見[狀態](docs/development-status.md#era2-hub-economy)。
 
-2026-10-29 **EARLY-16-UI-SHELL**：集中工作台與局部HUD正式接入，驗收與Web限制見[狀態](docs/development-status.md#early-16-ui-shell)。
+2026-10-29 **UI-ISLAND-LIST-R3**：空島共用工作分頁、點島圖切對象與左側配方原料／產物庫存，L2見[狀態](docs/development-status.md#ui-island-list-r3)。
 
-2026-10-29 **EARLY-16-INTEGRATION-L3 DONE（L3）**：148/148 runner 全尺寸矩陣、presentation parity、Web 匯出＋Brotli 與桌面三橫式實際點擊通過；P3／P4與觸控延期。[狀態](docs/development-status.md#early-16-integration-l3)。
+2026-10-29 **UI-ISLAND-LIST-R2**：Era2同清單展開製造／運輸／設施、完整管理按鈕收窄，L2見[狀態](docs/development-status.md#ui-island-list-r2)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 

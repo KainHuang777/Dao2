@@ -47,7 +47,7 @@ func _ready() -> void:
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(scroll)
 	grid = GridContainer.new()
-	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 10)
 	scroll.add_child(grid)
@@ -93,13 +93,17 @@ func _card(item: Dictionary) -> void:
 	info.add_child(scope)
 	var effect := _label("")
 	info.add_child(effect)
+	var actions := HBoxContainer.new()
+	actions.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	actions.add_theme_constant_override("separation", 12)
+	info.add_child(actions)
 	var cost := CostStrip.new()
-	info.add_child(cost)
+	actions.add_child(cost)
 	var action := Button.new()
 	action.custom_minimum_size = Vector2(112, 44)
 	UiMaterial.apply_button(action)
 	action.pressed.connect(func(): action_requested.emit("skill", item.id))
-	row.add_child(action)
+	actions.add_child(action)
 	action.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	buttons["skill:" + item.id] = action
 	cards[item.id] = {"card":card, "box":box, "row":row, "info":info, "art":art, "title":title, "scope":scope, "effect":effect, "effect_full":"", "cost":cost, "action":action}
@@ -135,7 +139,9 @@ func _layout() -> void:
 	if grid == null: return
 	compact = size.y < 340
 	add_theme_constant_override("separation", 2 if compact else 6)
-	grid.columns = 2 if size.x >= 1000 else 1
+	var available := maxf(0, scroll.size.x - 14)
+	grid.columns = 2 if available >= 1000 else 1
+	grid.custom_minimum_size.x = minf(available, 1120 if grid.columns == 2 else 760)
 	hero.visible = not compact
 	source.visible = not compact
 	heading.text = _heading_short if compact else _heading_full

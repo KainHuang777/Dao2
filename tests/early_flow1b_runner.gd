@@ -157,7 +157,7 @@ func check_handoff_ui(earned: GameSession) -> void:
 	abode.session = earned
 	abode.state = abode.AbodeStateCompat.new(earned)
 	abode._refresh_hud()
-	check(abode.objective_button.text == earned.get_view().early_guidance.title and abode.objective_button.text.contains("開拓青木島"), "foundation handoff survives hidden message rail with current first-island objective")
+	check(abode.objective_button.text == earned.get_view().early_guidance.title and abode.objective_button.text.contains("開拓玄礦島"), "foundation handoff survives hidden message rail with current first-island objective")
 	abode.objective_button.pressed.emit()
 	check(abode.feature_navigation.page == "outposts", "foundation header goal directly opens island page")
 	abode.queue_free()

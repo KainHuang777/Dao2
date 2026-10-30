@@ -34,6 +34,9 @@ var context_text: Label
 var context_scroll: ScrollContainer
 var context_inventory
 var workbench
+var integrated_identity := false
+var compact_seal: DaoSeal
+var _compact_style: StyleBox
 
 func _init(scene: Node) -> void:
 	abode = scene
@@ -42,29 +45,37 @@ func build() -> void:
 	compact_hud = PanelContainer.new()
 	compact_hud.name = "ShellCompactHud"
 	var style := UiMaterial.hud_paper()
-	style.content_margin_top = 4
-	style.content_margin_bottom = 4
+	style.content_margin_top = 1
+	style.content_margin_bottom = 1
+	_compact_style = style
 	compact_hud.add_theme_stylebox_override("panel", style)
 	abode.hud.add_child(compact_hud)
 	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 12)
 	compact_hud.add_child(row)
+	compact_seal = DaoSeal.new()
+	compact_seal.custom_minimum_size = Vector2(44, 44)
+	compact_seal.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(compact_seal)
 	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 0)
 	column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(column)
 	metrics = Label.new()
-	metrics.add_theme_font_size_override("font_size", 16)
+	metrics.add_theme_font_override("font", UiTypography.emphasis_font())
+	metrics.add_theme_font_size_override("font_size", 18)
 	metrics.add_theme_color_override("font_color", UiMaterial.INK)
-	var metric_row := HBoxContainer.new()
-	column.add_child(metric_row)
-	metric_row.add_child(metrics)
+	column.add_child(metrics)
 	life_metrics = Label.new()
 	life_metrics.add_theme_font_size_override("font_size", 16)
-	metric_row.add_child(life_metrics)
+	column.add_child(life_metrics)
 	progress = ProgressBar.new()
 	progress.show_percentage = false
-	progress.custom_minimum_size.y = 5
+	progress.custom_minimum_size.y = 3
 	column.add_child(progress)
 	actions = HBoxContainer.new()
+	actions.alignment = BoxContainer.ALIGNMENT_CENTER
+	actions.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(actions)
 	_action_home = abode.level_up_button.get_parent()
 	_status_home = abode._hud_controller._status_row.get_parent()
@@ -257,6 +268,13 @@ func apply(vp: Vector2) -> void:
 	effective = Policy.resolve(snapshot, vp, {"save_failed": save_failed, "lifespan_exhausted": abode.lifespan_banner.visible, "home_message_obstructs": obstructs, "has_costs": context.has_costs})
 	var home: bool = snapshot.route == "home"
 	var wide: bool = effective.layout == "wide"
+	integrated_identity = wide and (abode.feature_navigation.group == "management" or snapshot.route == "reincarnation") and effective.resource_presentation != "drawer"
+	# Reuse the original identity nodes and callbacks inside the shared paper.
+	var identity_host: Node = compact_hud if integrated_identity else abode.header
+	if abode.header_box.get_parent() != identity_host: abode.header_box.reparent(identity_host, false)
+	compact_hud.get_child(0).visible = not integrated_identity
+	compact_hud.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if integrated_identity else _compact_style)
+	if not integrated_identity and compact_hud.get_parent() != abode.hud: compact_hud.reparent(abode.hud, false)
 	var skill_view = abode.feature_navigation.action_panel.skill_view
 	var study: Button = skill_view.buttons["study:"]
 	var skill_top: Control = skill_view.heading.get_parent().get_parent()
@@ -274,22 +292,26 @@ func apply(vp: Vector2) -> void:
 	for panel in _overlay_z: panel.z_index = _overlay_z[panel]
 	context_paper.z_index = 0
 	# Exactly one active action host; the original buttons and callbacks survive.
-	var host: Node = _action_home if home else actions
+	var host: Node = _action_home if home or integrated_identity else actions
 	for button in [abode.level_up_button, abode.breakthrough_button]:
 		if button.get_parent() != host: button.reparent(host, false)
-	var status_host: Node = _status_home if home else compact_hud.get_child(0)
+	var status_host: Node = _status_home if home or integrated_identity else compact_hud.get_child(0)
 	if hc._status_row.get_parent() != status_host: hc._status_row.reparent(status_host, false)
 	if not home: hc._status_row.visible = abode.buff_hud_bar.visible or abode.lifespan_banner.visible
 	if home: hc._reflow_header()
-	metrics.text = "%s %s　" % [abode.realm_label.text, hc._rank_compact_text]
+	metrics.text = "%s  %s" % [abode.realm_label.text, hc._rank_compact_text]
 	life_metrics.text = "壽元已盡" if abode.lifespan_banner.visible else hc._lifespan_text.text
 	life_metrics.add_theme_color_override("font_color", hc._lifespan_text.get_theme_color("font_color"))
 	life_metrics.tooltip_text = hc._lifespan_text.tooltip_text
 	metrics.tooltip_text = abode.realm_progress_label.text + "\n" + hc._lifespan_text.tooltip_text
 	progress.max_value = hc._training_bar.max_value
 	progress.value = hc._training_bar.value
-	compact_hud.position = Vector2(margin, 12)
-	compact_hud.size = Vector2(minf(680.0, vp.x - margin * 2.0 - 56.0), 44)
+	compact_seal.text = hc._dao_seal.text
+	compact_seal.progress_ratio = hc._dao_seal.progress_ratio
+	# A local character card follows content width, including live actions/status.
+	# Reset to its current minimum so disappearing actions cannot leave a blank strip.
+	compact_hud.position = Vector2(margin, 6)
+	compact_hud.size = compact_hud.get_combined_minimum_size()
 	compact_hud.visible = not home and effective.hud == "compact"
 	abode.header.visible = home and effective.hud == "full"
 	abode.toolbar.visible = effective.navigation
@@ -323,8 +345,9 @@ func apply(vp: Vector2) -> void:
 	var rail: bool = effective.resource_presentation == "rail"
 	var drawer: bool = effective.resource_presentation == "drawer"
 	var management: bool = abode.feature_navigation.group == "management"
+	var integrated: bool = management or snapshot.route == "reincarnation"
 	# Restore parents before the ordinary HUD lays out non-management routes or overlays.
-	if not management or drawer:
+	if not integrated or drawer:
 		workbench.apply(false, Rect2(), wide, false)
 	var scoped: bool = not home and snapshot.route not in ["buildings", "alchemy"]
 	abode.resource_ribbon.visible = (rail or drawer) and not scoped
@@ -342,7 +365,7 @@ func apply(vp: Vector2) -> void:
 	abode.building_catalog.set_resource_display_mode(maxi(1, mode) if drawer else mode)
 	abode.resource_scroll.visible = mode > 0 or drawer
 	abode.resource_mode_buttons[0].get_parent().visible = home
-	if not home and not management:
+	if not home and not integrated:
 		var left := 276.0 if rail else margin
 		var width := vp.x - left - margin
 		var tab_top := 68.0
@@ -361,10 +384,16 @@ func apply(vp: Vector2) -> void:
 		abode.resource_ribbon.size = Vector2(248, rail_bottom - 68)
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
-	if management and not drawer:
+	if integrated and not drawer:
 		var work_width := minf(1160.0, vp.x - margin * 2)
-		var work_bounds := Rect2(Vector2((vp.x - work_width) * 0.5, 72), Vector2(work_width, maxf(80, bottom - 72 - (52 if save_failed else 0))))
+		var work_top := 16.0 if wide else 72.0
+		var work_bounds := Rect2(Vector2((vp.x - work_width) * 0.5, work_top), Vector2(work_width, maxf(80, bottom - work_top - (52 if save_failed else 0))))
 		workbench.apply(true, work_bounds, wide, rail)
+		if integrated_identity:
+			if compact_hud.get_parent() != workbench.stock: compact_hud.reparent(workbench.stock, false)
+			workbench.stock.move_child(compact_hud, 0)
+			compact_hud.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			compact_hud.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		abode.feature_navigation.bar.visible = effective.navigation
 	if drawer:
 		abode.resource_ribbon.position = Vector2(margin, 68)
@@ -373,6 +402,7 @@ func apply(vp: Vector2) -> void:
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
 	if inventory_mode:
+		context_inventory.columns_hint = 3 if abode.feature_navigation.island_flow.visible else 0
 		context_inventory.compact_hint = abode.resource_ribbon.size.y < 420.0
 		context_inventory.refresh(inventory_data)
 	var reading: bool = effective.messages == "reading"

@@ -28,6 +28,10 @@ func run() -> void:
 			abode._layout_for_size(Vector2(vp))
 			abode._refresh_hud()
 			await frames()
+			var work = abode.feature_navigation.shell.workbench
+			check(work.panel.visible and panel.get_parent() == work.pages, "report shares navigation paper")
+			check(not panel._title_row.is_visible_in_tree() and not panel._background.is_visible_in_tree(), "no nested paper or duplicate close")
+			check(work.panel.get_global_rect().encloses(panel._footer.get_global_rect()), "footer inside allocated workbench")
 			check(panel._report_view.title.text == "雲外初行", mode + str(vp) + " title")
 			check(panel._body_scroll.size.y >= 80, mode + str(vp) + " readable viewport")
 			check(panel._reincarnate_action_button.size.y >= 44, "action hit")

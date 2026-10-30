@@ -4,6 +4,13 @@ extends RefCounted
 ## All quantities use the RES1-A layer-zero <= 1e12 Amount contract.
 
 const VERSION := "res1-b-1"
+const HUB_VERSION := 1
+const HUB_ROUTES := {
+	"wood_home": ["wood", "home", "wood"],
+	"raw_stone_home": ["ore", "home", "stone_low"],
+	"copper_home": ["ore", "home", "black_copper"],
+}
+const HUB_RETIRED_ROUTES := ["wood_ore", "ore_wood"]
 const Supply = preload("res://src/content/supply_content.gd")
 static var _supply: Dictionary = {}
 static var _islands: Dictionary = {}
@@ -18,6 +25,29 @@ static func supply_data() -> Dictionary:
 static func expanded(state: GameState) -> bool:
 	return state.economy.get("version") == Supply.VERSION
 
+static func hub(state: GameState) -> bool:
+	return state.economy.get("hub_version", 0) == HUB_VERSION
+
+static func processing_scope(state: GameState, lane: String) -> String:
+	return "home" if hub(state) else lane
+
+static func output_scope(state: GameState, lane: String) -> String:
+	return lane if state.economy.get("hub_legacy_jobs", {}).has(lane) else processing_scope(state, lane)
+
+static func activate_hub(state: GameState) -> Dictionary:
+	if not IslandProgression.active(state): return _fail("ECONOMY_NOT_MIGRATED")
+	if hub(state): return _fail("ALREADY_MIGRATED")
+	var error := validate(state)
+	if not error.is_empty(): return _fail(error)
+	# Keep local stock and already-paid work/cargo in their original scopes.
+	# New home-bound routes drain old stocks without a grant or capacity overflow.
+	state.economy.hub_version = HUB_VERSION
+	state.economy.hub_legacy_jobs = {}
+	for lane in state.economy.jobs:
+		if lane != "home" and int(state.economy.jobs[lane].remaining) > 0:
+			state.economy.hub_legacy_jobs[lane] = true
+	return _success("hub_activated")
+
 static func island_defs(state: GameState) -> Dictionary:
 	if not expanded(state): return ISLANDS
 	if _islands.is_empty():
@@ -28,11 +58,14 @@ static func island_defs(state: GameState) -> Dictionary:
 	return _islands
 
 static func route_defs(state: GameState) -> Dictionary:
-	if not expanded(state): return ROUTES
-	if _routes.is_empty():
+	if expanded(state) and _routes.is_empty():
 		_routes = ROUTES.duplicate(true)
 		_routes.merge(supply_data().routes)
-	return _routes
+	var result: Dictionary = _routes if expanded(state) else ROUTES
+	if hub(state):
+		result = result.duplicate(true)
+		result.merge(HUB_ROUTES)
+	return result
 
 static func durations(state: GameState) -> Dictionary:
 	if not expanded(state): return DURATIONS
@@ -228,6 +261,8 @@ static func _configure_route(state: GameState, p: Dictionary) -> Dictionary:
 	var id: Variant = p.get("route_id")
 	if not id is String or not route_defs(state).has(id):
 		return _fail("UNKNOWN_ROUTE")
+	if hub(state) and id in HUB_RETIRED_ROUTES:
+		return _fail("LEGACY_ROUTE_RETIRED")
 	var def: Array = route_defs(state)[id]
 	if not state.economy.islands[def[0]].opened or not state.economy.islands[def[1]].opened:
 		return _fail("ISLAND_NOT_OPEN")
@@ -277,9 +312,15 @@ static func reserved(state: GameState, island: String, id: String, catalog: Dict
 		var trip: Dictionary = state.economy.trips[route]
 		if route_defs(state)[route][1] == island and route_defs(state)[route][2] == id:
 			total += float(trip.cargo)
-	var job: Dictionary = state.economy.get("jobs", {}).get(island, {})
-	if not job.is_empty() and int(job.remaining) > 0 and ProcessingCatalog.product_id(catalog, job.recipe_id) == id:
-		total += float(catalog.recipes[job.recipe_id].output)
+	if not hub(state):
+		var job: Dictionary = state.economy.get("jobs", {}).get(island, {})
+		if not job.is_empty() and int(job.remaining) > 0 and ProcessingCatalog.product_id(catalog, job.recipe_id) == id:
+			total += float(catalog.recipes[job.recipe_id].output)
+		return total
+	for lane in state.economy.get("jobs", {}):
+		var job: Dictionary = state.economy.jobs[lane]
+		if output_scope(state, lane) == island and int(job.remaining) > 0 and ProcessingCatalog.product_id(catalog, job.recipe_id) == id:
+			total += float(catalog.recipes[job.recipe_id].output)
 	return total
 
 static func free_space(state: GameState, island: String, id: String, catalog: Dictionary) -> float:
@@ -297,8 +338,9 @@ static func _start(state: GameState, catalog: Dictionary, island: String, job: D
 	if not error.is_empty():
 		return error
 	var inputs := effective_inputs(state, catalog, island, String(job.recipe_id))
+	var scope := processing_scope(state, island)
 	for id in inputs:
-		_put(state, island, id, value(state, island, id) - float(inputs[id]))
+		_put(state, scope, id, value(state, scope, id) - float(inputs[id]))
 	job.remaining = IslandProgression.duration(state, island, job.recipe_id)
 	job.batches = maxi(0, int(job.batches) - 1)
 	job.status = "running"
@@ -316,22 +358,23 @@ static func _check_start(state: GameState, catalog: Dictionary, island: String, 
 		if int(facilities.get(facility, 0)) < int(recipe.facility[facility]):
 			return "FACILITY_REQUIREMENT"
 	var inputs := effective_inputs(state, catalog, island, job.recipe_id)
+	var scope := processing_scope(state, island)
 	for id in recipe.inputs:
-		if island == "home" or id in GLOBAL:
+		if scope == "home" or id in GLOBAL:
 			var slot := ProcessingInventory.read(state, id)
 			if not slot.ok:
 				return slot.error
 			if not slot.unlocked:
 				return "RESOURCE_LOCKED"
-		if value(state, island, id) - float(job.reserves.get(id, "0")) < float(inputs[id]):
+		if value(state, scope, id) - float(job.reserves.get(id, "0")) < float(inputs[id]):
 			return "INSUFFICIENT_RESOURCE"
-	if island == "home":
+	if scope == "home":
 		var output_slot := ProcessingInventory.read(state, ProcessingCatalog.product_id(catalog, job.recipe_id))
 		if not output_slot.ok:
 			return output_slot.error
 		if not output_slot.unlocked:
 			return "RESOURCE_LOCKED"
-	if free_space(state, island, ProcessingCatalog.product_id(catalog, job.recipe_id), catalog) < float(recipe.output):
+	if free_space(state, scope, ProcessingCatalog.product_id(catalog, job.recipe_id), catalog) < float(recipe.output):
 		return "OUTPUT_FULL"
 	return ""
 
@@ -365,11 +408,14 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 			else:
 				reason = _check_start(state, catalog, island, {"recipe_id": id, "reserves": {}})
 		var inputs := {}
+		var scope := processing_scope(state, island)
 		var effective := effective_inputs(state, catalog, island, id)
 		for resource in recipe.inputs:
-			inputs[resource] = {"available": value(state, island, resource) if island == "home" or resource in GLOBAL or active else 0.0, "required": float(effective[resource]), "source": "home" if resource in GLOBAL else island}
+			inputs[resource] = {"available": value(state, scope, resource) if scope == "home" or resource in GLOBAL or active else 0.0, "required": float(effective[resource]), "source": "home" if resource in GLOBAL else scope}
 		var duration: int = durations(state).get(id, supply_data().durations.get(id, 1))
 		result.recipes[id] = {"island": island, "duration": IslandProgression.duration(state, island, id) if active and durations(state).has(id) else duration, "reason": reason, "inputs": inputs, "output": float(recipe.output), "product_id": ProcessingCatalog.product_id(catalog, id), "capacity": home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog) if island == "home" else result.islands[island].capacity}
+		result.recipes[id].output_island = output_scope(state, island)
+		if hub(state): result.recipes[id].capacity = home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog)
 	return result
 
 static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dictionary, local_rates: Dictionary = {}) -> Array:
@@ -463,7 +509,9 @@ static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary 
 		if int(job.remaining) == 0:
 			var id: String = job.recipe_id
 			var product := ProcessingCatalog.product_id(catalog, id)
-			_put(state, island, product, value(state, island, product) + float(catalog.recipes[id].output))
+			var destination := output_scope(state, island)
+			_put(state, destination, product, value(state, destination, product) + float(catalog.recipes[id].output))
+			state.economy.get("hub_legacy_jobs", {}).erase(island)
 			StoryProgress.completed(state, island, id)
 			Onboarding.supply_completed(state, island, id)
 			events.append({"kind": "processing_completed", "island_id": island, "recipe_id": id})
@@ -484,6 +532,7 @@ static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary 
 	routes.sort()
 	for id in routes:
 		var route: Dictionary = state.economy.routes[id]
+		if hub(state) and id in HUB_RETIRED_ROUTES: continue
 		if not route.enabled or state.economy.trips.has(id):
 			continue
 		var def: Array = route_defs(state)[id]
@@ -531,6 +580,8 @@ static func transport_view(state: GameState, catalog: Dictionary) -> Dictionary:
 			info = departure_info(state, catalog, id, route)
 			if not trip.is_empty():
 				reason = "IN_TRANSIT"
+			elif hub(state) and id in HUB_RETIRED_ROUTES:
+				reason = "LEGACY_ROUTE_RETIRED"
 			elif not bool(route.enabled):
 				reason = "STOPPED"
 			elif info.space <= 0:
@@ -544,6 +595,9 @@ static func transport_view(state: GameState, catalog: Dictionary) -> Dictionary:
 		# An actual full load plus remaining supply/demand supports a capacity hint.
 		var loaded_backlog := not info.is_empty() and bool(route.enabled) and not trip.is_empty() and float(trip.cargo) >= float(info.throughput) and float(info.surplus) > 0 and float(info.need) > 0 and float(info.space) > 0
 		result[id] = {"level_cap": 3 if supply_profile and supply_data().routes.has(id) else route_level_cap(state, id), "upgrade_cost": route_upgrade_cost(state, 1, supply_profile), "settings": route.duplicate(true), "trip": trip.duplicate(true), "closed": closed, "ready": reason not in ["ECONOMY_NOT_MIGRATED", "ISLAND_NOT_OPEN"], "reason": reason, "stock": info, "loaded_backlog": loaded_backlog}
+		result[id].definition = def.duplicate()
+		result[id].legacy = hub(state) and id in ["wood_ore", "ore_wood", "timber_home", "bronze_home", "liquid_home"]
+		if hub(state) and id in HUB_RETIRED_ROUTES: result[id].ready = false
 	return result
 
 static func view(state: GameState, catalog: Dictionary) -> Dictionary:
@@ -566,6 +620,8 @@ static func validate(state: GameState) -> String:
 	var e := state.economy
 	if e.is_empty():
 		return ""
+	if e.has("hub_version") and (not _integer(e.hub_version, HUB_VERSION, HUB_VERSION) or not IslandProgression.active(state)):
+		return "ECONOMY_HUB_VERSION"
 	if e.has("early_supply") and not Onboarding.validate_supply(e.early_supply):
 		return "ECONOMY_EARLY_SUPPLY"
 	if not e.get("version") in [VERSION, IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, Supply.VERSION] or not _integer(e.get("tick"), 0, 2000000000):
@@ -573,6 +629,11 @@ static func validate(state: GameState) -> String:
 	for key in ["islands", "jobs", "routes", "trips"]:
 		if not e.get(key) is Dictionary:
 			return "ECONOMY_FIELD:" + key
+	if e.has("hub_legacy_jobs"):
+		if not hub(state) or not e.hub_legacy_jobs is Dictionary: return "ECONOMY_HUB_LEGACY_JOBS"
+		for lane in e.hub_legacy_jobs:
+			if lane == "home" or e.hub_legacy_jobs[lane] != true or not e.jobs.get(lane) is Dictionary or not _integer(e.jobs[lane].get("remaining"), 1, 2147483647):
+				return "ECONOMY_HUB_LEGACY_JOBS"
 	if e.islands.size() != island_defs(state).size() or e.jobs.size() > island_defs(state).size() or e.routes.size() > route_defs(state).size() or e.trips.size() > route_defs(state).size():
 		return "ECONOMY_LIMIT"
 	var loaded := Supply.load_file() if expanded(state) else ProcessingCatalog.load_file()
@@ -625,6 +686,7 @@ static func validate(state: GameState) -> String:
 				return "ECONOMY_PENDING_JOB"
 			var trial := state.duplicate_state()
 			trial.economy.jobs[island] = pending
+			trial.economy.get("hub_legacy_jobs", {}).erase(island)
 			# Remove other pending jobs to keep the structural check bounded/nonrecursive.
 			for other in trial.economy.jobs:
 				trial.economy.jobs[other].erase("pending")

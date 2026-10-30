@@ -20,12 +20,13 @@ func _ready() -> void:
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(scroll)
 	grid = GridContainer.new()
-	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	scroll.add_child(grid)
 	for id in BeastSystem.BEAST_CONFIGS: make_card(id)
 	resized.connect(layout)
+	scroll.resized.connect(layout)
 	layout()
 
 func label(value: String, font_size: int = 16) -> Label:
@@ -78,12 +79,17 @@ func make_card(id: String) -> void:
 	info.add_child(title)
 	var detail := label("")
 	info.add_child(detail)
+	var actions := HBoxContainer.new()
+	actions.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	actions.add_theme_constant_override("separation", 12)
+	info.add_child(actions)
 	var cost := CostStrip.new()
-	info.add_child(cost)
+	cost.custom_minimum_size.x = 160
+	actions.add_child(cost)
 	var soul := label("", 15)
 	info.add_child(soul)
-	var acquire := action(row,"acquire",id)
-	var feed := action(row,"feed",id)
+	var acquire := action(actions,"acquire",id)
+	var feed := action(actions,"feed",id)
 	# The public feed alias is kept for existing navigation/command consumers.
 	var talents := {}
 	for tid in BeastSystem.BEAST_TALENTS:
@@ -104,6 +110,7 @@ func layout() -> void:
 	compact = size.y < 350
 	# A full beast includes four talent rows; keep each card readable in one column.
 	grid.columns = 1
+	grid.custom_minimum_size.x = minf(maxf(0, scroll.size.x - 14), 860)
 	for id in cards:
 		var c: Dictionary = cards[id]
 		if c.art is TextureRect: c.art.custom_minimum_size = Vector2.ONE * (80 if compact else 112)

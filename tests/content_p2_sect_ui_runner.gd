@@ -48,8 +48,10 @@ func run() -> void:
 				check(art is UiIllustration if tab==SectPanel.TabMode.TECHNIQUES else art is Label,"shared B art or named resource")
 				check(button.size.x>=44 and button.size.y>=44,"44px action")
 				check(card.size.x <= panel._scroll.size.x+1,"card width")
-				check(panel._scroll.get_global_rect().encloses(button.get_global_rect()),"action reachable")
-				check(card.size.y <= panel._scroll.size.y,"card fits "+str([vp,tab,i,card.size,panel._scroll.size]))
+				panel._scroll.ensure_control_visible(button)
+				await frames()
+				check(panel._scroll.get_global_rect().encloses(button.get_global_rect()),"action reachable after internal scrolling")
+				check(card.size.y >= card.get_combined_minimum_size().y,"card retains full content height "+str([vp,tab,i]))
 				check(not button.disabled,"eligible enabled")
 				if DisplayServer.get_name() != "headless":
 					await RenderingServer.frame_post_draw

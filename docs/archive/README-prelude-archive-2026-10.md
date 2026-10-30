@@ -1,3 +1,35 @@
+2026-10-29 **UI-ISLAND-LIST-R1**：Era2開拓改島圖清單、列內開拓／管理與製造續接，L2驗收見[狀態](docs/development-status.md#ui-island-list-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **UI-HUD-INTEGRATE-R2**：完整道印個人卡併工作台左欄，庫存下接、短式同源道印。[狀態](docs/development-status.md#ui-hud-integrate-r2)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **UI-HUD-COMPACT-R1**：功能頁個人狀態改兩行內容寬小面板，L2與桌面Web抽驗通過。[狀態](docs/development-status.md#ui-hud-compact-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **UI-CARD-DENSITY-R1**：天賦／技能操作群組與有界卡片、靈獸／宗門同類版型修正；驗收見[狀態](docs/development-status.md#ui-card-density-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **UI-DOCUMENT-R1**：輪迴導覽／內容同紙整合、卷宗字階與頂端排版完成，L2及桌面Web抽驗通過。[狀態](docs/development-status.md#ui-document-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **ERA2-FLOW-UI1**：築基空島分階段開拓／製造／運輸與單頁引導已接入，L2完成，體感待回饋。[狀態](docs/development-status.md#era2-flow-ui1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **EARLY-16-UI-SHELL**：集中工作台與局部HUD正式接入，驗收與Web限制見[狀態](docs/development-status.md#early-16-ui-shell)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-29 **EARLY-16-INTEGRATION-L3 DONE（L3）**：148/148 runner 全尺寸矩陣、presentation parity、Web 匯出＋Brotli 與桌面三橫式實際點擊通過；P3／P4與觸控延期。[狀態](docs/development-status.md#early-16-integration-l3)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
 2026-10-29 **EARLY-16-UI-ACTION-R1**：主介面確認仍為原型；輪迴／跨界／舊檔匯入無框題字已接入，L1與原生完成，Web待驗。[狀態](docs/development-status.md#early-16-ui-action-r1)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。

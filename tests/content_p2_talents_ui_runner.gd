@@ -57,7 +57,7 @@ func run() -> void:
 				page._body_scroll.ensure_control_visible(row)
 				await frames()
 				check(page._body_scroll.get_global_rect().encloses(button.get_global_rect()),"reachable "+id)
-				check(row.size.x <= page._body_scroll.size.x+1 and row.size.y <= page._body_scroll.size.y,"card fits "+id)
+				check(row.size.x <= page._body_scroll.size.x+1 and row.size.y >= row.get_combined_minimum_size().y,"card width and full content height "+id)
 				check(desc.size.y >= desc.get_minimum_size().y,"description not clipped "+id)
 				if DisplayServer.get_name() != "headless":
 					await RenderingServer.frame_post_draw

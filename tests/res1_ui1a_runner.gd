@@ -117,7 +117,9 @@ func _run() -> void:
 		abode._layout_for_size(Vector2(vp))
 		await process_frame
 		await process_frame
-		check(panel.grid.columns == (2 if vp.x == 1280 else 1), "responsive recipe columns " + str(vp))
+		# The integrated character/stock sidebar also consumes width on desktop.
+		# Check the allocated recipe area instead of assuming viewport == work area.
+		check(panel.grid.columns in [1,2] and panel.grid.size.x <= panel.size.x and (panel.grid.columns == 1 or panel.grid.size.x >= 800), "responsive recipe columns fit allocated workspace " + str(vp))
 		if vp.x != 1280:
 			print("UI1A viewport=%s material=%s scroll=%s" % [vp,panel.cards.bronze_essence.materials.get_global_rect(),panel.body.get_parent().get_global_rect()])
 			check(not panel.production_summary.visible and panel.cards.bronze_essence.materials.get_global_rect().end.y <= panel.body.get_parent().get_global_rect().end.y, "short first card exposes materials without initial scroll " + str(vp))

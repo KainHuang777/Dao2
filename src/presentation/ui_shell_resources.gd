@@ -78,6 +78,8 @@ static func describe(snapshot: Dictionary, view: Dictionary, nav: RefCounted) ->
 			summary = "道心 %s" % view.get("dao_heart", "0")
 			lines.append(summary)
 			lines.append("道證 %s" % view.get("dao_proof", "0"))
+	if nav.island_flow.visible and route in ["outposts","manufacturing","transport"]:
+		summary = "製造庫存" if route == "manufacturing" else "航線庫存" if route == "transport" else "工程材料"
 	return {"summary": summary, "details": "\n".join(lines), "has_costs": has_costs}
 
 ## Structured inventory for the shared icon panel. Values come straight from the
@@ -105,6 +107,8 @@ static func inventory(snapshot: Dictionary, view: Dictionary, nav: RefCounted) -
 	if route == "outposts" and (nav._legacy_outposts or nav.abode.content.processing_catalog.is_empty()):
 		result.notes.append("舊靈界據點沿用文字成本列")
 		return result
+	if nav.island_flow.visible:
+		return _island_work_inventory(view,nav)
 	var islands: Array = []
 	match route:
 		"outposts":
@@ -122,6 +126,7 @@ static func inventory(snapshot: Dictionary, view: Dictionary, nav: RefCounted) -
 			else:
 				var ends: Array = nav.transport_panel._routes().get(nav.transport_panel.selected_route, [])
 				islands = [ends[0], ends[1]] if ends.size() >= 2 else [nav.transport_panel.island]
+	if route == "manufacturing" and preload("res://src/presentation/island_flow_model.gd").hub(view): islands = ["home"]
 	var economy: Dictionary = view.get("economy", {})
 	var resources: Dictionary = view.get("resources", {})
 	var manufacturing: Dictionary = view.get("manufacturing", {})
@@ -195,6 +200,65 @@ static func _ordered_ids(stock: Dictionary) -> Array:
 		if not id in ordered:
 			ordered.append(id)
 	return ordered
+
+static func _island_work_inventory(view: Dictionary, nav: RefCounted) -> Dictionary:
+	var panel = nav.island_flow
+	var groups: Array = []
+	var refs := {}
+	var demands := {}
+	var scope: String = panel.page + ":" + panel.island
+	var title := "工程材料"
+	if panel.page == "manufacturing":
+		var recipe: Dictionary = view.get("manufacturing",{}).get("recipes",{}).get(panel.recipe,{})
+		scope += ":" + panel.recipe
+		title = "原料與產物持有量"
+		for id in recipe.get("inputs",{}):
+			var input: Dictionary = recipe.inputs[id]
+			var source: String = input.get("source",recipe.island)
+			if not refs.has(source): refs[source] = []
+			refs[source].append(id)
+			demands[source + ":" + id] = input.get("required")
+		if not recipe.is_empty():
+			var owner: String = recipe.get("output_island",recipe.island)
+			var product: String = recipe.get("product_id",panel.recipe)
+			if not refs.has(owner): refs[owner] = []
+			if not product in refs[owner]: refs[owner].append(product)
+			if owner != "home":
+				if not refs.has("home"): refs.home = []
+				if not product in refs.home: refs.home.append(product)
+	elif panel.page == "transport" and panel._routes().has(panel.route):
+		title = "航線兩端持有量"
+		scope += ":" + panel.route
+		var ends: Array = panel._routes()[panel.route]
+		refs[ends[0]] = [ends[2]]
+		refs[ends[1]] = [ends[2]]
+	else:
+		var cost: Dictionary = IslandEconomy.ISLANDS.get(panel.island,{}).get("cost",{"wood":20,"stone_low":10})
+		if panel.managing_island:
+			var facility: String = ["extractor","storage","workshop"][maxi(0,panel.facility.selected-1)]
+			var level := int(view.get("economy",{}).get("islands",{}).get(panel.island,{}).get("facilities",{}).get(facility,1))
+			cost = IslandProgression.upgrade_cost(facility,level)
+		refs.home = cost.keys()
+		for id in cost: demands["home:"+id] = cost[id]
+	for owner in refs:
+		var group := {"id":"work:"+owner,"title":String(IslandProgression.NAMES.get(owner,owner)) + ("・集中製造庫存" if preload("res://src/presentation/island_flow_model.gd").hub(view) and owner == "home" else "・可用庫存"),"items":[]}
+		for id in refs[owner]:
+			var key: String = owner + ":" + id
+			var slot: Dictionary = view.get("economy",{}).get("inventory",{}).get(owner,{}).get(id,{})
+			var item := _resource_item(view,id,key) if owner == "home" else _counter(key,id,Icon.get_resource_name(id),slot.get("available"),String(IslandProgression.NAMES.get(owner,owner)))
+			item.island = owner
+			item.kind = "currency" if id in CURRENCY_IDS else "item"
+			if owner != "home":
+				item.capacity = _capacity(view,owner,id)
+				item.provided.capacity = item.capacity != null
+				item.reserved = slot.get("reserved")
+				item.provided.reserved = item.reserved != null
+			if demands.has(key):
+				item.demand = demands[key]
+				item.provided.demand = true
+			group.items.append(item)
+		groups.append(group)
+	return {"supported":true,"context":panel.page,"scope":scope,"title":title,"groups":groups,"notes":[]}
 
 static func _capacity(view: Dictionary, island: String, id: String) -> Variant:
 	if island == "home":

@@ -1,3 +1,9 @@
+2026-10-29 **EARLY-16-UI-SHELL**：集中工作台正式接入，領域CLI／原生通過，L2桌面Web待驗。[狀態](#early-16-ui-shell)。
+
+2026-10-29 **EARLY-16-INTEGRATION-L3 DONE（L3）**：148/148 runner 全尺寸矩陣、presentation parity、Web 匯出／Brotli 與桌面三橫式實際點擊通過。
+
+2026-10-29 **EARLY-16-UI-ACTION-R1**：無框入口實作／L1與原生完成，Web待驗；集中工作台主介面尚未正式接入。
+
 - 預設築基後三分頁示意，可由設計控制查看練氣隱藏製造／運輸；庫存及所有數值為示例。三案沿相同紙面／青玉樣式、單一關閉入口，保留既有圖像。製造／運輸只示範同容器切頁，非完整領域重設。
 - **L1靜態**：Node v20.20.0 `vm.Script` 語法檢查PASS、三variant／378KB以下；visualize `render.py` 包裝成功。首次重包因目的檔已存在exit2，後以 `--force` 重包成功。`python tools/delivery_check.py` RESULT PASS，受保護證據目錄變更0。無遊戲runner、Godot啟動、Web匯出或L3；本次不需引擎環境操作。
 - **未驗證**：CUA開啟本機file協定遭瀏覽器URL政策拒絕，未改走其他管道繞過；因此沒有目視／滑鼠／尺寸驗證通過聲稱。可先在對話原型比較，由使用者選案後再正式實作及領域驗收。

@@ -65,7 +65,7 @@ static func _level(buildings: Dictionary, building_id: String) -> int:
 # Read-only current-life goals. Optional alchemy never becomes a historical
 # completion gate, so reloads and older saves need no new persisted fields.
 static func early_guidance(state: GameState, era: Variant, resources: Dictionary, can_level_up: bool, can_breakthrough: bool, next_required: float) -> Dictionary:
-	if state.era_id == 2 and state.economy.get("version") == IslandProgression.VERSION:
+	if state.era_id == 2 and (IslandEconomy.hub(state) or state.economy.get("version") == IslandProgression.VERSION):
 		var supply := supply_guidance(state)
 		if supply.step in ["complete", "legacy"]:
 			return golden_guidance(state, era, resources, can_level_up, can_breakthrough, next_required)
@@ -73,7 +73,7 @@ static func early_guidance(state: GameState, era: Variant, resources: Dictionary
 	if state.era_id == 3 and era is Dictionary and not era.is_empty():
 		return golden_guidance(state, era, resources, can_level_up, can_breakthrough, next_required)
 	if state.era_id == 2 and state.economy.get("version") != IslandProgression.VERSION:
-		return {"title": "下一步：開拓青木島", "text": "已入築基。前往經營→空島，先支付祖島靈木20＋下品靈石10開拓青木島，再開拓玄礦島。首次付款會同時啟用產業，祖島庫存與建築保留、不複製；輪迴清除當世島嶼、加工與貨物。", "route": "outposts", "optional_alchemy": false}
+		return {"title": "下一步：開拓玄礦島", "text": "已入築基。前往經營→空島，先支付祖島靈木20＋下品靈石10開拓玄礦島，將原料運回祖島製造銅精，再介紹青木供給。首次付款會同時啟用產業，祖島庫存與建築保留、不複製；輪迴清除當世島嶼、加工與貨物。", "route": "outposts", "optional_alchemy": false}
 	if state.era_id != 1 or not (era is Dictionary) or era.is_empty():
 		return {}
 	var chain := unlock_state(state.era_id, state.onboarding_version, state.buildings)
@@ -142,6 +142,7 @@ static func supply_completed(state: GameState, island: String, recipe: String) -
 		state.economy.early_supply.bronze_done = true
 
 static func supply_guidance(state: GameState) -> Dictionary:
+	if IslandEconomy.hub(state): return hub_guidance(state)
 	var islands: Dictionary = state.economy.get("islands", {})
 	var missing: Array[String] = []
 	for id in ["wood", "ore"]:
@@ -173,6 +174,42 @@ static func supply_guidance(state: GameState) -> Dictionary:
 		goal.route_id = "timber_home" if float(p.timber_home) < 1 else "bronze_home"
 		return goal
 	return _supply_goal("complete", "雙島供給已接通", "靈材與銅精首批已真正回到祖島，可維持加工與回運。接著可選研習技能或宗門任務；也可繼續修至築基十層、提升靈力容量至2000，準備金丹。支線不阻擋升境。", "cultivation")
+
+# Hub goals are derived from authoritative inventory/history, never from UI visits.
+static func hub_guidance(state: GameState) -> Dictionary:
+	if not state.economy.has("early_supply"):
+		return _supply_goal("legacy", "祖島集中加工", "既有進度保留，無須補做教學。外島採集原料送祖島，各工作線在祖島加工；可直接繼續修行。", "manufacturing")
+	var p: Dictionary = state.economy.early_supply
+	var islands: Dictionary = state.economy.islands
+	if not bool(islands.get("ore", {}).get("opened", false)):
+		var goal := _supply_goal("H1", "開拓玄礦島", "祖島支付靈木20與下品靈石10。玄礦採集玄銅與下品靈石，運回祖島供精煉使用。", "outposts")
+		goal.island_id = "ore"
+		return goal
+	if not bool(p.bronze_done) and IslandEconomy.value(state, "home", "bronze_essence") < 1:
+		for pair in [["black_copper", 10, "copper_home", "玄銅"], ["stone_low", 5, "raw_stone_home", "下品靈石"]]:
+			if IslandEconomy.value(state, "home", pair[0]) < float(pair[1]):
+				var goal := _supply_goal("H2", "原料送達祖島", "銅精在祖島加工，尚缺%s。啟用玄礦→祖島原料補給；已在途時等待抵達，啟航不代表材料已可用。" % pair[3], "transport")
+				goal.route_id = pair[2]
+				goal.island_id = "ore"
+				return goal
+		var goal := _supply_goal("H3", "祖島製造一批銅精", "祖島玄銅10＋下品靈石5→銅精1。先完成單批，再選持續製造；完工產物直接留在祖島。", "manufacturing")
+		goal.island_id = "ore"
+		goal.recipe_id = "bronze_essence"
+		return goal
+	if not bool(islands.get("wood", {}).get("opened", false)):
+		var goal := _supply_goal("H4", "開拓青木供應靈木", "銅精小循環已完成，可選持續製造並維持原料補給。接著開拓青木島，將靈木運回祖島供木作使用。", "outposts")
+		goal.island_id = "wood"
+		return goal
+	if not bool(p.timber_done) and IslandEconomy.value(state, "home", "spirit_timber") < 1:
+		if IslandEconomy.value(state, "home", "wood") < 10:
+			var goal := _supply_goal("H5", "青木原料補給", "靈材在祖島加工。啟用青木→祖島靈木補給；保留原配方，到貨後即可製造。", "transport")
+			goal.route_id = "wood_home"
+			return goal
+		var goal := _supply_goal("H6", "祖島製造靈材", "祖島靈木10＋下品靈石5→靈材1。缺石沿用玄礦補給；木作與精煉可平行運作，成品直接用於祖島建設與修行。", "manufacturing")
+		goal.island_id = "wood"
+		goal.recipe_id = "spirit_timber"
+		return goal
+	return _supply_goal("complete", "祖島供給已接通", "銅精與靈材已完成，可持續加工並按需補給；技能與宗門可稍後，主線繼續準備金丹。", "cultivation")
 
 static func _supply_goal(step: String, title: String, text: String, route: String) -> Dictionary:
 	return {"step": step, "title": "下一步：" + title, "text": text, "route": route, "optional_alchemy": false}
@@ -209,9 +246,14 @@ static func golden_guidance(state: GameState, era: Variant, resources: Dictionar
 			return _supply_goal("G4", "可選首次餵食", "已結契，尚未首次餵食。到修行→靈獸查看實際餵食成本；靈狐無天賦時需祖島低階靈草50，缺料回靈植場或丹霞原料回運。餵食可稍後，不阻擋修行。", "beasts")
 		var stage := String(BeastSystem.STAGE_CONFIGS.get(beast.get("stage", "egg"), {}).get("name", "靈卵"))
 		return _supply_goal("complete", "首段供給與修行完成", "金丹首次晉階與首次餵食已完成；目前為%s。無天賦首次餵食得50經驗，仍是靈卵；基礎冷卻300秒，冷卻後可再餵養。繼續修行與維持供給，無須等孵化。" % stage, "cultivation")
-	if state.economy.get("version") != IslandProgression.VERSION:
+	if not IslandEconomy.hub(state) and state.economy.get("version") != IslandProgression.VERSION:
 		return _supply_goal("G1", "啟用金丹產業", "此已有金丹進度的檔案未啟用目前空島產業。前往經營→空島保留原檔並啟用；不要求補做練氣、技能、宗門或雙島首批教學。", "outposts")
-	if not state.economy.get("islands", {}).get("herb", {}).get("opened", false):
+	if IslandEconomy.hub(state) and IslandEconomy.value(state, "home", "liquid") < 1:
+		var goal := _supply_goal("G1", "祖島煉製丹液", "丹液在祖島使用低階靈草5與靈力50煉製。缺草可由丹霞運回祖島；祖島已有材料可直接加工。", "manufacturing")
+		goal.island_id = "home"
+		goal.recipe_id = "liquid"
+		return goal
+	if not IslandEconomy.hub(state) and not state.economy.get("islands", {}).get("herb", {}).get("opened", false):
 		return _supply_goal("G1", "開拓丹霞供給", "已入金丹。開拓丹霞從祖島支付靈木20＋下品靈石10；丹液需丹霞地方低階草5＋全域靈力50，基礎10秒。丹霞不是進入金丹的前置。", "outposts")
 	if IslandEconomy.value(state, "home", "liquid") < 1:
 		var goal := _supply_goal("G1", "丹液製作與回運", "金丹首次晉階需祖島丹液1。丹霞以地方低階草5＋全域靈力50製作，基礎10秒，完工後開啟丹液→祖島航線。設定／出發不算到貨；祖島要有可用丹液。草回運若搶料，先停航或保留5；停航仍完成在途。", "manufacturing")

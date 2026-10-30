@@ -381,6 +381,7 @@ func pick(point: Vector2) -> bool:
 
 func _all_routes() -> Dictionary:
 	var routes := IslandEconomy.ROUTES.duplicate()
+	routes.merge(IslandEconomy.HUB_ROUTES)
 	routes.merge(IslandEconomy.supply_data().routes)
 	return routes
 

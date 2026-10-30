@@ -72,6 +72,8 @@ func run() -> void:
 			check(card.feed.size.x >= 44 and card.feed.size.y >= 44,"44px feed")
 			check(page.scroll.get_global_rect().encloses(card.feed.get_global_rect()),"feed reachable")
 			check(card.card.size.x <= page.scroll.size.x+1,"no horizontal overflow")
+			check(card.card.size.x <= 860,"bounded beast reading width")
+			check(card.feed.global_position.x - card.cost.global_position.x <= 180,"feed beside actual cost")
 			if DisplayServer.get_name() != "headless":
 				await RenderingServer.frame_post_draw
 				root.get_texture().get_image().save_png(OUT+"native-"+str(vp.x)+"-"+id+".png")

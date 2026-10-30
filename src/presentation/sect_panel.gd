@@ -154,7 +154,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		layout.box.content_margin_top = 4 if short_card else 8
 		layout.box.content_margin_bottom = 4 if short_card else 8
 	for grid in _grids:
-		if is_instance_valid(grid): grid.columns = 2 if size.x >= 1040 else 1
+		if is_instance_valid(grid): _fit_card_grid(grid)
 	_margin.size = size
 	_scroll.custom_minimum_size = Vector2.ZERO
 
@@ -924,13 +924,18 @@ func _add_art(row: HBoxContainer, id: String) -> void:
 
 func _new_grid() -> GridContainer:
 	var grid := GridContainer.new()
-	grid.columns = 2 if size.x >= 1040 else 1
-	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 10)
 	_tab_content_container.add_child(grid)
 	_grids.append(grid)
+	_fit_card_grid(grid)
 	return grid
+
+func _fit_card_grid(grid: GridContainer) -> void:
+	var available := maxf(0, size.x - 72)
+	grid.columns = 2 if available >= 1000 else 1
+	grid.custom_minimum_size.x = minf(available, 1120 if grid.columns == 2 else 860)
 
 func _add_market_art(row: HBoxContainer, id: String) -> void:
 	if id == "herb_nurture_supply":

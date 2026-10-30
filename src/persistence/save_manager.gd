@@ -8,6 +8,7 @@ const SAVE_PRE_V2_RESCUE_KEY := "save_pre_v2_rescue"
 const SCHEMA2_ARCHIVE_KEY := "save_schema2_original"
 const ISLAND_ARCHIVE_KEY := "save_before_islands"
 const D2_ARCHIVE_KEY := "save_before_d2"
+const HUB_ARCHIVE_KEY := "save_before_ancestral_hub"
 
 static var _content: GameContent = null
 static var _slots: SaveSlots = null
@@ -41,7 +42,50 @@ static func migration_error(state: GameState) -> String:
 static func supply_pending(state: GameState) -> bool:
 	return not _supply_original.is_empty() and state == _supply_candidate
 
-static func activate_islands(session: GameSession, meta: Dictionary, first_island: String = "") -> Dictionary:
+static func activate_hub(session: GameSession, meta: Dictionary) -> Dictionary:
+	# Archive the exact committed source; replace the live Session only after a
+	# verified two-slot candidate save. Retrying a failure never replays payments.
+	if IslandEconomy.hub(session.state): return {"ok": false, "error": "ALREADY_MIGRATED"}
+	var candidate := GameSession.new()
+	candidate.content = session.content
+	candidate.clock = GameClock.create(session.state.total_elapsed_seconds)
+	candidate.state = session.state.duplicate_state()
+	var result := candidate.submit({"command_id": "activate-hub-" + str(session.state.revision), "type": "activate_hub", "expected_revision": session.state.revision, "payload": {}})
+	if not result.ok: return result
+	var saved := save(session.state, meta)
+	if not saved.ok: return saved
+	var source := slots().read_best(func(raw: String) -> int:
+		var decoded := SaveCodec.decode(raw)
+		return decoded.state.revision if decoded.ok else -1)
+	if not source.ok: return source
+	# Source-addressed archives prevent another imported save or life sharing a
+	# save_id from silently reusing an unrelated recovery snapshot.
+	var archive_key := HUB_ARCHIVE_KEY + "_" + String(source.json).sha256_text()
+	var archive := adapter().read(archive_key)
+	if archive.ok and archive.data != source.json:
+		var damaged_key := archive_key + "_damaged_" + String(archive.data).sha256_text()
+		if not adapter().write(damaged_key, archive.data).ok: return {"ok":false,"error":"HUB_ARCHIVE_RESCUE_WRITE_FAILED"}
+		var damaged := adapter().read(damaged_key)
+		if not damaged.ok or damaged.data != archive.data: return {"ok":false,"error":"HUB_ARCHIVE_RESCUE_READBACK"}
+		if not adapter().write(archive_key, source.json).ok: return {"ok":false,"error":"HUB_ARCHIVE_WRITE_FAILED"}
+		archive = adapter().read(archive_key)
+	if not archive.ok:
+		if archive.get("error") != "missing": return {"ok": false, "error": "HUB_ARCHIVE_READ_FAILED"}
+		var written := adapter().write(archive_key, source.json)
+		if not written.ok: return {"ok": false, "error": "HUB_ARCHIVE_WRITE_FAILED"}
+		archive = adapter().read(archive_key)
+		if not archive.ok or archive.data != source.json: return {"ok": false, "error": "HUB_ARCHIVE_READBACK"}
+	if archive.data != source.json: return {"ok":false,"error":"HUB_ARCHIVE_READBACK"}
+	var decoded := SaveCodec.decode(String(archive.data))
+	if not decoded.ok or decoded.envelope.save_id != String(meta.get("save_id", "local")) or IslandEconomy.hub(decoded.state):
+		return {"ok": false, "error": "HUB_ARCHIVE_CONFLICT"}
+	var committed := save(candidate.state, meta)
+	if not committed.ok: return committed
+	session.state = candidate.state
+	result.archive_key = archive_key
+	return result
+
+static func activate_islands(session: GameSession, meta: Dictionary, first_island: String = "", hub_enabled: bool = true) -> Dictionary:
 	# Persist the current source first; archive those exact bytes before C activation.
 	# The live Session is only replaced after a verified two-slot commit.
 	var checked := IslandProgression.preview(session.state, session.content)
@@ -77,7 +121,7 @@ static func activate_islands(session: GameSession, meta: Dictionary, first_islan
 	candidate.content = session.content
 	candidate.clock = GameClock.create(session.state.total_elapsed_seconds)
 	candidate.state = session.state.duplicate_state()
-	var result := candidate.submit({"command_id": "activate-islands-" + str(session.state.revision), "type": "activate_islands", "expected_revision": session.state.revision, "payload": {}})
+	var result := candidate.submit({"command_id": "activate-islands-" + str(session.state.revision), "type": "activate_islands", "expected_revision": session.state.revision, "payload": {"hub":hub_enabled}})
 	if not result.ok:
 		return result
 	if not first_island.is_empty():

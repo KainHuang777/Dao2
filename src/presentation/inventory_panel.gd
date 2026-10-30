@@ -17,6 +17,11 @@ var _selected_key := ""
 var _context := ""
 var _layout_generation := 0
 var compact_hint := false
+var columns_hint := 0:
+	set(value):
+		if columns_hint == value: return
+		columns_hint = value
+		for grid in _grids: grid.columns = _columns()
 
 func _init() -> void:
 	name = "InventoryPanel"
@@ -232,6 +237,8 @@ func _first_key(groups: Array) -> String:
 	return ""
 
 func _columns() -> int:
+	if columns_hint > 0 and size.x >= columns_hint * 88 + (columns_hint-1) * 10 + 34:
+		return columns_hint
 	return maxi(2, floori((maxf(1.0, size.x) - 34.0) / 98.0))
 
 func _number(raw: Variant) -> float:

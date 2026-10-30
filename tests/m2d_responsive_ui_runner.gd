@@ -97,13 +97,13 @@ func _run() -> void:
 	_expect(abode.building_catalog.resource_buttons["lingli"].visible, "left resource list must show lingli")
 	_expect(abode.resource_ribbon.get_global_rect().end.x < abode.building_catalog.get_global_rect().position.x, "desktop resources and buildings must occupy separate columns")
 	_expect(abode.building_catalog.resource_buttons["lingli"].size.x > 100.0, "resource readout cards must fill the ribbon width instead of collapsing: %s" % abode.building_catalog.resource_buttons["lingli"].size)
-	_expect(abode.resource_ribbon.position.y >= abode.feature_navigation.shell.compact_hud.get_global_rect().end.y, "resource ribbon must not overlap header: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
+	_expect(abode.resource_ribbon.global_position.y >= abode.feature_navigation.shell.compact_hud.get_global_rect().end.y, "resource ribbon must not overlap header: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
 
 	# Test level up button appearance and dynamic reflow without overlap
 	abode.level_up_button.visible = true
 	abode._reflow_header()
 	await process_frame
-	_expect(abode.resource_ribbon.position.y >= abode.feature_navigation.shell.compact_hud.get_global_rect().end.y, "resource ribbon must dynamically move down when header expands with level up button: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
+	_expect(abode.resource_ribbon.global_position.y >= abode.feature_navigation.shell.compact_hud.get_global_rect().end.y, "resource ribbon must dynamically move down when header expands with level up button: ribbon_y=%s header_bottom=%s" % [abode.resource_ribbon.position.y, abode.header.position.y + abode.header.size.y])
 	abode.level_up_button.visible = false
 	abode._reflow_header()
 	await process_frame

@@ -41,6 +41,8 @@ func run() -> void:
 			check(row.action.size.x >= 44 and row.action.size.y >= 44,"44px "+id)
 			check(row.card.size.x <= page.scroll.size.x+1,"width "+id)
 			check(row.effect.size.y >= row.effect.get_minimum_size().y,"effect not clipped "+id)
+			check(row.action.global_position.x - row.cost.global_position.x < 200,"cost and action grouped "+id)
+			check(row.card.size.x <= 760,"bounded reading width "+id)
 			page.scroll.ensure_control_visible(row.card)
 			await frames()
 			check(page.scroll.get_global_rect().encloses(row.action.get_global_rect()),"action reachable "+id)

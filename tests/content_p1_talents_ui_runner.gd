@@ -26,6 +26,7 @@ func run() -> void:
 		await frames()
 		check(not page._feedback_row.visible if vp.y < 500 else page._feedback_row.visible,"saved feedback fits "+str(vp))
 		check(page._talent_rows.size() == TalentSystem.TALENTS.size(),"all current cards "+str(vp))
+		check(page._talents_list.columns == (2 if page._body_scroll.size.x - 14 >= 1000 else 1),"responsive card columns "+str(vp))
 		for id in TalentSystem.TALENTS:
 			var row = page._talent_rows[id]
 			var button: Button = row.find_child("LearnButton",true,false)
@@ -34,10 +35,12 @@ func run() -> void:
 			check(button.size.x >= 44 and button.size.y >= 44,"44px "+id)
 			check(row.size.x <= page._body_scroll.size.x+1,"width "+id)
 			check(desc.size.y >= desc.get_minimum_size().y,"description not clipped "+id)
+			check(button.global_position.x >= desc.global_position.x and button.global_position.x - desc.global_position.x < 200,"action beside cost under description "+id)
+			check(row.size.x <= 760,"bounded reading width "+id)
 			page._body_scroll.ensure_control_visible(row)
 			await frames()
 			check(page._body_scroll.get_global_rect().encloses(button.get_global_rect()),"reachable "+id)
-			check(page._body_scroll.size.y >= row.size.y,"full card "+id+str(vp))
+			check(row.size.y >= row.get_combined_minimum_size().y,"full card content height "+id+str(vp))
 			if id in TalentSystem.P1_IDS and DisplayServer.get_name() != "headless":
 				await RenderingServer.frame_post_draw
 				root.get_texture().get_image().save_png(DIR+"native-"+str(vp.x)+"-"+id+".png")
