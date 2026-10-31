@@ -138,6 +138,9 @@ func _run() -> void:
 	nav.open("beasts")
 	nav.action_panel.buttons["acquire:jade_fox"].pressed.emit()
 	check(abode.session.state.beasts.get("active", {}).get("id", "") == "jade_fox", "UI acquires via Session")
+	# Reform-active commands commit a durable candidate and replace the live
+	# state, so rebuild the panel before driving the next action.
+	nav.open("beasts")
 	var herb: float = abode.session.state.resources.spirit_grass_low.value.to_float()
 	nav.action_panel.buttons["feed:"].pressed.emit()
 	check(abode.session.state.resources.spirit_grass_low.value.to_float() == herb - 50, "UI feed charges exactly the shared preview cost")

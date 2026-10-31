@@ -1,8 +1,8 @@
-2026-10-30 **ERA2-HUB-ECONOMY IN_PROGRESS**：祖島集中加工與玄礦先行已接入，收尾驗證見[狀態](docs/development-status.md#era2-hub-economy)。
+2026-10-31 **SECT-REFORM DONE（L3 160/160 全尺寸通過；現行 Web 包與三橫式桌面瀏覽器驗證完成）**：[狀態與交接](docs/development-status.md#sect-reform-ui)。
 
-2026-10-29 **UI-ISLAND-LIST-R3**：空島共用工作分頁、點島圖切對象與左側配方原料／產物庫存，L2見[狀態](docs/development-status.md#ui-island-list-r3)。
+2026-10-31 **SECT-REFORM-BEAST IN_PROGRESS（BEAST-3 祖父權利／完整遷移與保存完成，L2）**：[狀態與交接](docs/development-status.md#sect-reform-beast)。
 
-2026-10-29 **UI-ISLAND-LIST-R2**：Era2同清單展開製造／運輸／設施、完整管理按鈕收窄，L2見[狀態](docs/development-status.md#ui-island-list-r2)。
+2026-10-30 **ITCH-DEPLOY-WORKFLOW DONE（草稿部署）**：一鍵更新與實際線上採集／重載通過，未公開；見[狀態](docs/development-status.md#itch-deploy-workflow)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
 

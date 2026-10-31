@@ -105,8 +105,8 @@ static func rate(state: GameState, island: String, id: String) -> float:
 	if expanded(state) and not bool(state.economy.get("islands", {}).get(island, {}).get("opened", false)): return 0.0
 	if expanded(state) and supply_data().islands.has(island):
 		var focus: String = supply_data().dispatch[island]
-		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills) * TalentSystem.local_rate_multiplier(state, island, id) * AlchemySystem.local_multiplier(state, island, id) * BeastSystem.local_rate_multiplier(state, island, id)
-	return float(ISLANDS[island].rates.get(id, 0)) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1)
+		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills) * TalentSystem.local_rate_multiplier(state, island, id) * AlchemySystem.local_multiplier(state, island, id) * BeastSystem.local_rate_multiplier(state, island, id) * (1.0 + SectSpecialization.gather_bonus(state, island, id))
+	return float(ISLANDS[island].rates.get(id, 0)) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1) * (1.0 + SectSpecialization.gather_bonus(state, island, id))
 
 static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float:
 	var cap := float(catalog.resources[id].cap)
@@ -122,7 +122,7 @@ static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float
 		var caps := Production.compute_caps(Supply.runtime_content(), state.buildings, state.era_id, state.onboarding_version, state.skills)
 		if caps.has(id): cap = caps[id].to_float()
 		var beast := BeastSystem.compute_multipliers(copy)
-		var bonus := float(beast.all_capacity_mult) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus)
+		var bonus := SectSpecialization.capacity_bonus(state, id) + float(beast.all_capacity_mult) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus)
 		if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
 		cap *= 1.0 + bonus
 	return floor(cap) + AlchemySystem.capacity_bonus(state, id)

@@ -50,6 +50,13 @@ static func _apply(content: GameContent, state: GameState, command: Dictionary) 
 			return _apply_upgrade_realm_outpost(content, state, command.payload)
 		"join_sect":
 			return _apply_join_sect(content, state, command.payload)
+		"resolve_legacy_sect_identity":
+			var id: Variant = command.payload.get("sect_id", "")
+			if not (id is String): return _failure("INVALID_SECT_ID", {})
+			return SectSystem.resolve_legacy_identity(state, id)
+		"redeem_guardian_permit":
+			if payload_guardian_invalid(command.payload): return _failure("INVALID_GUARDIAN_PAYLOAD", {})
+			return GuardianDiscovery.redeem(state, command.payload.target_id)
 		"refresh_sect_tasks":
 			return _apply_refresh_sect_tasks(content, state, command.payload)
 		"start_sect_expedition":
@@ -224,6 +231,7 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 				"required_capacity": needed,
 				"current_capacity": current_cap.to_float()
 			})
+	SectLineage.observe(state)
 	var from_era := state.era_id
 	var tribulation := TribulationRules.requires_tribulation(from_era)
 	var probability := -1.0
@@ -245,6 +253,7 @@ static func _apply_breakthrough(content: GameContent, state: GameState, _payload
 				"changed_ids": ["era_id", "cultivation_level", "buffs", "pill_effects"]
 			}
 	state.era_id += 1
+	SectLineage.observe(state)
 	_sync_processing_unlocks(content, state)
 	state.level = 1
 	state.training_seconds = 0.0
@@ -379,7 +388,13 @@ static func _apply_upgrade_realm_outpost(_content: GameContent, state: GameState
 	}
 
 static func _apply_join_sect(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
-	var sect_name := String(payload.get("sect_name", ""))
+	var value: Variant = payload.get("sect_id", payload.get("sect_name", ""))
+	if not (value is String): return _failure("INVALID_SECT_ID", {})
+	if payload.has("sect_id") and not SectIdentity.NAMES.has(value): return _failure("UNKNOWN_SECT", {})
+	if payload.has("sect_id") and payload.has("sect_name"):
+		if not (payload.sect_name is String) or SectIdentity.canonical_id(payload.sect_name) != value:
+			return _failure("SECT_IDENTITY_MISMATCH", {})
+	var sect_name: String = value
 	var res := SectSystem.join_sect(state, sect_name)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "JOIN_SECT_FAILED")), {})
@@ -390,8 +405,8 @@ static func _apply_join_sect(_content: GameContent, state: GameState, payload: D
 	}
 
 static func _apply_refresh_sect_tasks(_content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
-	var force := bool(payload.get("force", false))
-	var res := SectSystem.refresh_tasks(state, force)
+	# force is internal to first join only; player payload cannot skip cooldown.
+	var res := SectSystem.refresh_tasks(state, false)
 	if not bool(res.get("ok", false)):
 		return _failure(String(res.get("error", "REFRESH_TASKS_FAILED")), {})
 	return {
@@ -546,3 +561,6 @@ static func _failure(error: String, detail: Dictionary) -> Dictionary:
 	if not detail.is_empty():
 		result.detail = detail
 	return result
+
+static func payload_guardian_invalid(payload: Dictionary) -> bool:
+	return payload.size() != 1 or not (payload.get("target_id") is String)

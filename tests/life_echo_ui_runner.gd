@@ -25,6 +25,8 @@ func run() -> void:
 	abode.session.state.reincarnation_count = 1
 	StoryProgress.next_life(abode.session.state) # Keep synthetic life fixture consistent with story v1.
 	LifeEchoFixture.apply(abode.session)
+	var fixture_save: Dictionary = abode._save_game()
+	assert(fixture_save.get("ok", false), "fixture save: " + String(fixture_save.get("error", "")))
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	var panel = abode.reincarnation_panel
 	abode.feature_navigation.open("reincarnation")
@@ -56,7 +58,8 @@ func run() -> void:
 	panel._on_reincarnate_action_pressed()
 	panel._cancel_confirmation()
 	check(snapshot == abode.session.state.to_snapshot_dict(), "cancel does not seal")
-	check(abode.session.reincarnate().ok, "real seal")
+	var seal: Dictionary = abode.session.reincarnate()
+	check(seal.ok, "real seal: " + String(seal.get("error", "")))
 	abode._pending_life_report = abode.session.get_life_report(abode.session.state.reincarnation_count)
 	abode._show_storage_block("隔離測試：保存失敗，回聲仍可讀。")
 	await frames()

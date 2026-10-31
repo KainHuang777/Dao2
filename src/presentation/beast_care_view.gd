@@ -10,11 +10,15 @@ var scroll: ScrollContainer
 var grid: GridContainer
 var heading: Label
 var compact := false
+var tokens: Label
+const GUARDIAN_ART := "res://assets/ui/beasts-painted/sect-reform/"
 
 func _ready() -> void:
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	heading = label("本世僅能結契一獸，不能放生或更換；成熟後輪迴才得同種獸魂。")
 	add_child(heading)
+	tokens = label("")
+	add_child(tokens)
 	scroll = ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -25,6 +29,7 @@ func _ready() -> void:
 	grid.add_theme_constant_override("v_separation", 12)
 	scroll.add_child(grid)
 	for id in BeastSystem.BEAST_CONFIGS: make_card(id)
+	for id in GuardianBeasts.SPECIES: make_card(id)
 	resized.connect(layout)
 	scroll.resized.connect(layout)
 	layout()
@@ -37,6 +42,14 @@ func label(value: String, font_size: int = 16) -> Label:
 	return node
 
 func art(id: String, edge: int) -> Control:
+	if GuardianBeasts.SPECIES.has(id):
+		var image := UiIllustration.new()
+		image.custom_minimum_size = Vector2.ONE * edge
+		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		set_growth_art(image, id, "mature")
+		return image
 	if ResourceLoader.exists(ART+id+".png"):
 		var image := UiIllustration.new()
 		image.texture = load(ART+id+".png")
@@ -88,12 +101,19 @@ func make_card(id: String) -> void:
 	actions.add_child(cost)
 	var soul := label("", 15)
 	info.add_child(soul)
+	var permit := label("")
+	info.add_child(permit)
+	var redeem := action(info,"redeem",id)
+	redeem.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	var acquire := action(actions,"acquire",id)
 	var feed := action(actions,"feed",id)
 	# The public feed alias is kept for existing navigation/command consumers.
 	var talents := {}
-	for tid in BeastSystem.BEAST_TALENTS:
-		var t: Dictionary = BeastSystem.BEAST_TALENTS[tid]
+	var definitions := BeastSystem.BEAST_TALENTS.duplicate(true)
+	for tid in GuardianBeasts.TALENTS:
+		definitions[tid] = {"beast_id": GuardianBeasts.TALENTS[tid][0]}
+	for tid in definitions:
+		var t: Dictionary = definitions[tid]
 		if t.beast_id != id: continue
 		var tr := HBoxContainer.new()
 		body.add_child(tr)
@@ -103,7 +123,7 @@ func make_card(id: String) -> void:
 		tr.add_child(desc)
 		var learn := action(tr,"talent",tid)
 		talents[tid] = {"desc":desc,"button":learn}
-	cards[id] = {"card":card,"art":image,"title":title,"detail":detail,"cost":cost,"soul":soul,"acquire":acquire,"feed":feed,"talents":talents}
+	cards[id] = {"permit":permit,"redeem":redeem,"card":card,"art":image,"title":title,"detail":detail,"cost":cost,"soul":soul,"acquire":acquire,"feed":feed,"talents":talents}
 
 func layout() -> void:
 	if grid == null: return
@@ -121,12 +141,26 @@ func refresh(view: Dictionary) -> void:
 	var active: Dictionary = data.get("active",{})
 	var active_id: String = active.get("id", "")
 	buttons.erase("feed:")
+	var ledger: Dictionary = data.get("guardian_permits", {})
+	tokens.text = "守護信物 %d／120 · 每12枚指定兌換；合格新委託領取+1、重複資格再+2，滿額溢出不補償。\n發現／兌換只得永久資格，跨世保留；結契不消耗資格，仍須當世境界、供給及空名額。" % int(ledger.get("guardian_tokens", 0))
+	tokens.visible = not ledger.is_empty()
 	for id in cards:
 		var c: Dictionary = cards[id]
-		var config: Dictionary = BeastSystem.BEAST_CONFIGS[id]
+		var guardian: bool = GuardianBeasts.SPECIES.has(id)
+		var config: Dictionary = BeastSystem.BEAST_CONFIGS.get(id, {})
+		if guardian: config = {"name": GuardianBeasts.SPECIES[id][0], "unlock_era": 3, "desc": guardian_effect(id), "feed_resource": {"spirit_grass_low": 50}}
 		var current: bool = id == active_id
 		c.title.text = "%s · %s · 同種獸魂 %d" % [config.name, "本世結契" if current else "第%d境" % config.unlock_era, int(data.get("souls",{}).get(id,0))]
 		var req: Dictionary = data.get("acquire_requirements",{}).get(id,{"ok":false})
+		var owned: bool = ledger.get("permits", {}).has(id)
+		var legacy: bool = ledger.get("legacy_permits", {}).has(id)
+		c.permit.text = "資格來源：" + ("新手免費靈狐" if id == "jade_fox" else ("舊檔既有權利" if legacy else ("委託發現／信物兌換（永久）" if owned else "尚未取得；由宗門合格委託發現或12信物兌換")))
+		c.permit.visible = not ledger.is_empty()
+		c.redeem.visible = id != "jade_fox" and not ledger.is_empty()
+		var redeem_req: Dictionary = data.get("redeem_requirements", {}).get(id, {"ok": false, "error": "GUARDIAN_RELEASE_REQUIRED"})
+		c.redeem.disabled = not redeem_req.ok
+		c.redeem.text = "已持永久資格" if owned or legacy else "兌換資格 · 12信物"
+		c.redeem.tooltip_text = requirement_text(redeem_req) if not redeem_req.ok else "只取得資格，不自動結契；不須加入該代表獸宗門。"
 		c.acquire.visible = not current
 		c.acquire.disabled = not bool(req.get("ok",false))
 		c.acquire.text = "結契" if req.get("ok",false) else requirement_text(req)
@@ -145,8 +179,11 @@ func refresh(view: Dictionary) -> void:
 			effect = "%s採集 +%s%%；永久地方容量 +%d" % [scope, str(snappedf(float(projection.get("rate_bonus",0))*100,0.01)), int(projection.get("capacity_bonus",0))]
 			if current: effect += "\n%s · 累積XP %d / 1000 · 下次 +%dXP" % [BeastSystem.STAGE_CONFIGS[stage].name,int(active.get("exp",0)),int(projection.get("next_xp",50))]
 			else: effect += "\n需當世第%d境及%s已開拓；成熟基礎 +20%%" % [config.unlock_era,"寒銀島" if id == "frost_stag" else "古藥島"]
+		if guardian:
+			if current: effect += "\n%s · XP %d／1000 · 下餵 +%dXP" % [BeastSystem.STAGE_CONFIGS[stage].name, int(active.get("exp", 0)), int(data.get("guardian_care", {}).get(id, {}).get("next_xp", 50))]
+			set_growth_art(c.art, id, stage if current else "mature")
 		c.detail.text = effect
-		var costs: Dictionary = data.get("care",{}).get(id,{}).get("costs",config.feed_resource)
+		var costs: Dictionary = data.get("guardian_care" if guardian else "care",{}).get(id,{}).get("costs",config.feed_resource)
 		var names := {}
 		var available := {}
 		var sources := {}
@@ -178,7 +215,7 @@ func refresh(view: Dictionary) -> void:
 	layout()
 
 func requirement_text(req: Dictionary) -> String:
-	return {"ALREADY_HAS_ACTIVE_BEAST":"本世已有靈獸","INSUFFICIENT_ERA":"境界未達","LIFESPAN_EXHAUSTED":"壽元已盡","BEAST_SAVE_REQUIRED":"需先保存","SUPPLY_REQUIRED":"需啟用供給","ISLAND_NOT_OPEN":"需先開島"}.get(req.get("error",""),"尚未開放")
+	return {"ALREADY_HAS_ACTIVE_BEAST":"本世已有靈獸","INSUFFICIENT_ERA":"境界未達","LIFESPAN_EXHAUSTED":"壽元已盡","BEAST_SAVE_REQUIRED":"需先保存","SUPPLY_REQUIRED":"需啟用供給","ISLAND_NOT_OPEN":"需先開島", "GUARDIAN_PERMIT_REQUIRED":"需永久資格", "GUARDIAN_SUPPLY_REQUIRED":"需當世境界與餵料產地", "INSUFFICIENT_GUARDIAN_TOKENS":"信物不足12枚", "GUARDIAN_PERMIT_OWNED":"已有永久資格", "SECT_LOCKED":"需先入宗", "SECT_IDENTITY_PENDING":"需確認宗門身分", "GUARDIAN_RELEASE_REQUIRED":"需完成改版保存"}.get(req.get("error",""),"尚未開放")
 
 func cost_text(costs: Dictionary) -> String:
 	var parts: Array[String] = []
@@ -189,3 +226,20 @@ func cost_text(costs: Dictionary) -> String:
 func _amount(raw: Variant) -> float:
 	var parsed := AmountCompat.try_parse(str(raw))
 	return parsed.value.to_float() if bool(parsed.get("ok", false)) else 0.0
+
+func guardian_effect(id: String) -> String:
+	return {"taixu_baize":"成熟修速 +4%", "tianjian_suanni":"成熟玄礦下石／玄銅、寒銀精鐵／秘銀／寒鐵採集 +8%", "piaomiao_jade_hare":"成熟丹霞低草／百草、古藥千草採集 +8%", "wanfo_lotus_elephant":"成熟壽元比例 +4%", "zixiao_star_tapir":"成熟祖島靈力容量 +8%"}[id] + "；卵無被動，幼獸50%、成長75%倍率；獸固有被動不限宗門。需金丹及丹霞已開拓。"
+
+func set_growth_art(image: TextureRect, id: String, stage: String) -> void:
+	var path := GUARDIAN_ART + id + ".png"
+	if not ResourceLoader.exists(path): return
+	var index: int = ["egg", "young", "growing", "mature"].find(stage)
+	if index < 0: index = 2
+	if image.has_meta("stage") and image.get_meta("stage") == index: return
+	var source: Texture2D = load(path)
+	var atlas := AtlasTexture.new()
+	atlas.atlas = source
+	var cell := source.get_size() / 2
+	atlas.region = Rect2(Vector2(index % 2, index / 2) * cell, cell)
+	image.texture = atlas
+	image.set_meta("stage", index)

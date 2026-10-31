@@ -50,16 +50,19 @@ const TALENTS := {
 }
 
 static func get_definition(talent_id: String) -> Variant:
-	return TALENTS.get(talent_id, null)
+	return SectLineage.definition(talent_id) if talent_id in SectLineage.talent_ids() else TALENTS.get(talent_id, null)
 
 static func view(state: GameState) -> Dictionary:
 	var options := {}
 	for id in TALENTS:
 		var eligibility := can_learn(state, id)
 		options[id] = {"can_learn":bool(eligibility.get("can_learn", false)), "reason":String(eligibility.get("reason", ""))}
+	for id in SectLineage.talent_ids():
+		if SectLineage.completed(state, String(id).trim_suffix("_lineage") + "_sect") > 0: options[id] = SectLineage.can_learn(state, id)
 	return options
 
 static func get_cost(talent_id: String, current_level: int) -> AmountCompat:
+	if talent_id in SectLineage.talent_ids(): return AmountCompat.from_number(SectLineage.COSTS[current_level]) if current_level >= 0 and current_level < 3 else AmountCompat.zero()
 	var def: Variant = get_definition(talent_id)
 	if def == null:
 		return AmountCompat.zero()
@@ -69,6 +72,7 @@ static func get_cost(talent_id: String, current_level: int) -> AmountCompat:
 	return AmountCompat.from_number(cost_val)
 
 static func can_learn(state: GameState, talent_id: String) -> Dictionary:
+	if talent_id in SectLineage.talent_ids(): return SectLineage.can_learn(state, talent_id)
 	var invalid := validate_state(state)
 	if not invalid.is_empty():
 		return {"can_learn": false, "reason": invalid}
@@ -96,6 +100,7 @@ static func can_learn(state: GameState, talent_id: String) -> Dictionary:
 
 
 static func learn(state: GameState, talent_id: String) -> Dictionary:
+	if talent_id in SectLineage.talent_ids(): return SectLineage.learn(state, talent_id)
 	var check := can_learn(state, talent_id)
 	if not bool(check.get("can_learn", false)):
 		return {
@@ -140,7 +145,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 	}
 
 static func validate(version: int, talents: Dictionary) -> String:
-	if version not in [1, 2, VERSION]: return "TALENT_VERSION"
+	if version not in [1, 2, VERSION, 4]: return "TALENT_VERSION"
 	if talents.size() > TALENTS.size(): return "TALENT_LIMIT"
 	for id in talents:
 		if not id is String or not TALENTS.has(id): return "TALENT_ID"
@@ -152,7 +157,7 @@ static func validate(version: int, talents: Dictionary) -> String:
 
 static func reconcile(state: GameState) -> bool:
 	if not validate_state(state).is_empty(): return false
-	if state.talent_version == VERSION: return false
+	if state.talent_version >= VERSION: return false
 	state.talent_version = VERSION
 	return true
 

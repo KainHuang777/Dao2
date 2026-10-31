@@ -34,10 +34,7 @@ static func run_offline_projection(session: GameSession, simulated_seconds: floa
 	var start_beast_cd: float = float(original_state.beasts.get("cooldown_remaining", 0.0))
 
 	# 計算壽元上限
-	var multipliers := TalentSystem.compute_multipliers(original_state)
-	var buff_multipliers := BuffSystem.compute_multipliers(original_state)
-	var pill_lifespan_bonus := float(original_state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(buff_multipliers.lifespan_bonus_years)
-	var max_lifespan_sec := float(Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), original_state.era_id, float(multipliers.lifespan_bonus), pill_lifespan_bonus))
+	var max_lifespan_sec := float(Lifespan.for_state(content.era_lifespan_entries(), original_state))
 	var initial_remaining_lifespan := maxf(0.0, max_lifespan_sec - start_elapsed)
 
 	# 2. 執行推進（分批或單次調用 GameSession.advance_time）

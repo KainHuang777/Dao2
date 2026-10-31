@@ -21,6 +21,12 @@ func run() -> void:
 	abode.reduced = true
 	for mode in ["exhausted", "early", "living", "partial"]:
 		LifeReportFixture.apply(abode.session.state, mode)
+		SectLineage.next_life(abode.session.state)
+		abode.session.state.revision += 1
+		# Persist the synthetic fixture so the page renders without the
+		# save-failure banner and the final seal matches durable state.
+		var fixture_save: Dictionary = abode._save_game()
+		check(fixture_save.get("ok", false), "fixture save " + mode + ": " + String(fixture_save.get("error", "")))
 		abode.feature_navigation.open("reincarnation")
 		for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 			root.size = vp

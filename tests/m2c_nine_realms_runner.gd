@@ -52,6 +52,9 @@ func _run() -> void:
 	state.era_id = 2
 	state.buildings["rebirth_lotus"] = 1
 	abode._on_reincarnate_requested("normal")
+	# Reform-active commands commit through a durable candidate, replacing the
+	# live state object. Re-read it before asserting on the result.
+	state = session.state
 
 	if not state.tutorial_flags.get("seen_nine_realms_hook", false):
 		_fail("seen_nine_realms_hook must be true after first reincarnation")

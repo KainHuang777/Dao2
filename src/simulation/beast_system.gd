@@ -1,7 +1,7 @@
 class_name BeastSystem
 extends RefCounted
 
-const VERSION := 1
+const VERSION := 1 # Historical baseline; full release versions live in SectReformRelease.
 const P2_IDS := ["frost_stag", "herb_crane"]
 const MAX_SOULS := 2147483647
 
@@ -408,6 +408,7 @@ static func acquire_beast(state: GameState, beast_id: String) -> Dictionary:
 	}
 
 static func feed_beast(state: GameState) -> Dictionary:
+	if GuardianBeasts.SPECIES.has(state.beasts.get("active", {}).get("id", "")): return GuardianBeasts.feed(state)
 	var beast: Dictionary = state.beasts.get("active", {})
 	if beast.is_empty():
 		return {"ok": false, "error": "NO_ACTIVE_BEAST"}
@@ -509,6 +510,7 @@ static func feed_beast(state: GameState) -> Dictionary:
 	}
 
 static func unlock_talent(state: GameState, talent_id: String) -> Dictionary:
+	if GuardianBeasts.TALENTS.has(talent_id): return GuardianBeasts.unlock(state, talent_id)
 	if BEAST_TALENTS.has(talent_id) and BEAST_TALENTS[talent_id].beast_id in P2_IDS and state.beast_version < VERSION:
 		return {"ok": false, "error": "BEAST_SAVE_REQUIRED"}
 	if not BEAST_TALENTS.has(talent_id):
@@ -602,6 +604,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 	}
 	if state == null:
 		return res
+	res.cultivation_speed_bonus += GuardianBeasts.bonus(state, "cultivation")
 	ensure_initialized(state)
 
 	# 1. Active Beast Passive
@@ -640,6 +643,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 	return res
 
 static func feed_costs(state: GameState, beast_id: String) -> Dictionary:
+	if GuardianBeasts.SPECIES.has(beast_id): return GuardianBeasts.feed_costs(state, beast_id)
 	var discount := 0.0
 	for talent_id in state.beast_talents:
 		if int(state.beast_talents[talent_id]) > 0 and BEAST_TALENTS.has(talent_id):
@@ -659,7 +663,10 @@ static func get_view(state: GameState) -> Dictionary:
 	# Read-only projection: opening a tab does not initialize or acquire a beast.
 	var active: Dictionary = state.beasts.get("active", {}).duplicate(true)
 	var requirements := {}
-	for id in BEAST_CONFIGS: requirements[id] = acquire_requirements(state, id)
+	var release := SectReformRelease.active(state)
+	var release_error := SectReformRelease.validate(state) if release else ""
+	for id in BEAST_CONFIGS:
+		requirements[id] = legacy_acquire_requirements(state, id) if not release else (_released_acquire_requirements(state, id) if release_error.is_empty() else {"ok": false, "error": release_error})
 	var costs := feed_costs(state, String(active.get("id", "")))
 	var can_feed := not active.is_empty() and String(active.get("stage", "egg")) != "mature"
 	var reason := "已成熟" if not active.is_empty() else "尚未結契"
@@ -673,7 +680,7 @@ static func get_view(state: GameState) -> Dictionary:
 			for id in costs:
 				var amount: AmountCompat = state.resources.get(id, {}).get("value", AmountCompat.zero())
 				can_feed = can_feed and amount.compare_to(AmountCompat.from_number(float(costs[id]))) >= 0
-	if String(active.get("id", "")) in P2_IDS and not SectSystem.p2_life_error(state).is_empty():
+	if (String(active.get("id", "")) in P2_IDS or GuardianBeasts.SPECIES.has(active.get("id", ""))) and not SectSystem.p2_life_error(state).is_empty():
 		can_feed = false
 		reason = "壽元已盡"
 	var care := {}
@@ -700,19 +707,60 @@ static func get_view(state: GameState) -> Dictionary:
 		if String(item.beast_id) in P2_IDS:
 			item.can_unlock = item.can_unlock and state.beast_version >= VERSION and SectSystem.p2_life_error(state).is_empty()
 		talents.append(item)
-	return {"care": care, "acquire_requirements": requirements, "active": active, "feed_costs": costs, "can_feed": can_feed, "feed_reason": reason, "cooldown_remaining": cooldown, "souls": state.beast_souls.duplicate(true), "talents_view": talents}
+	var guardians := {}
+	if SectReformRelease.active(state):
+		for id in GuardianBeasts.SPECIES:
+			requirements[id] = _released_acquire_requirements(state, id) if release_error.is_empty() else {"ok": false, "error": release_error}
+			guardians[id] = {"name": GuardianBeasts.SPECIES[id][0], "costs": feed_costs(state, id), "next_xp": GuardianBeasts.feed_xp(state, id), "permit_owned": release_error.is_empty() and state.sect.guardian.permits.has(id)}
+	var redeem_requirements := {}
+	if release and release_error.is_empty():
+		for id in GuardianDiscovery.TARGETS:
+			redeem_requirements[id] = GuardianDiscovery._redeem_eligibility(state, id)
+		for tid in GuardianBeasts.TALENTS:
+			var def: Array = GuardianBeasts.TALENTS[tid]
+			var id: String = def[0]
+			var tier: int = def[1]
+			var owned := GuardianBeasts.owns(state, id, tier)
+			var previous := tier == 1 or GuardianBeasts.owns(state, id, tier - 1)
+			talents.append({"id": tid, "beast_id": id, "tier": tier, "name": ["靈應", "慧長", "辟穀", "宿憶"][tier - 1], "desc": ["本獸被動階段倍率 +0.05；卵仍無被動", "本獸每餵經驗 +30%", "本獸草費降至基礎60%（向下取整，至少1）", "本獸每餵再 +10XP"][tier - 1], "cost": GuardianBeasts.COSTS[tier - 1], "owned": owned, "can_unlock": not owned and previous and int(state.beast_souls.get(id, 0)) >= GuardianBeasts.COSTS[tier - 1] and SectSystem.p2_life_error(state).is_empty()})
+	return {"redeem_requirements": redeem_requirements, "guardian_care": guardians, "guardian_permits": state.sect.get("guardian", {}).duplicate(true), "care": care, "acquire_requirements": requirements, "active": active, "feed_costs": costs, "can_feed": can_feed, "feed_reason": reason, "cooldown_remaining": cooldown, "souls": state.beast_souls.duplicate(true), "talents_view": talents}
 
 ## Pure projection shared by commands and Views; rejection cannot initialize state.
 static func acquire_requirements(state: GameState, beast_id: String) -> Dictionary:
-	if not state.beasts.get("active", {}).is_empty(): return {"ok": false, "error": "ALREADY_HAS_ACTIVE_BEAST"}
+	if not SectReformRelease.active(state): return legacy_acquire_requirements(state, beast_id)
+	var error := SectReformRelease.validate(state)
+	if not error.is_empty(): return {"ok": false, "error": error}
+	return _released_acquire_requirements(state, beast_id)
+
+## Shared by commands and View after one complete validation of the ledger.
+static func _released_acquire_requirements(state: GameState, beast_id: String) -> Dictionary:
+	if GuardianBeasts.SPECIES.has(beast_id):
+		return GuardianBeasts.acquire_requirements(state, beast_id, state.sect.guardian.permits.has(beast_id))
+	var eligibility := legacy_acquire_requirements(state, beast_id)
+	if not eligibility.ok: return eligibility
+	if beast_id == "jade_fox" or state.sect.guardian.legacy_permits.has(beast_id): return eligibility
+	if not SectSystem.p2_life_error(state).is_empty(): return {"ok": false, "error": "LIFESPAN_EXHAUSTED"}
+	if not state.sect.guardian.permits.has(beast_id): return {"ok": false, "error": "GUARDIAN_PERMIT_REQUIRED"}
+	if beast_id not in GuardianDiscovery.pool(state.era_id, GuardianDiscovery.conditions(state)): return {"ok": false, "error": "GUARDIAN_SUPPLY_REQUIRED"}
+	return {"ok": true}
+
+## Exact historical species gates, excluding occupied slot and life age.
+## Used only to freeze grandfather rights from the unmodified source.
+static func legacy_species_requirements(state: GameState, beast_id: String) -> Dictionary:
 	if not BEAST_CONFIGS.has(beast_id): return {"ok": false, "error": "UNKNOWN_BEAST"}
 	var config: Dictionary = BEAST_CONFIGS[beast_id]
 	if state.era_id < int(config.unlock_era): return {"ok": false, "error": "INSUFFICIENT_ERA", "required_era": config.unlock_era}
 	if beast_id in P2_IDS:
-		if not SectSystem.p2_life_error(state).is_empty(): return {"ok": false, "error": "LIFESPAN_EXHAUSTED"}
 		if state.beast_version < VERSION: return {"ok": false, "error": "BEAST_SAVE_REQUIRED"}
 		if not IslandEconomy.expanded(state): return {"ok": false, "error": "SUPPLY_REQUIRED"}
 		if not state.economy.get("islands", {}).get(config.island, {}).get("opened", false): return {"ok": false, "error": "ISLAND_NOT_OPEN", "island": config.island}
+	return {"ok": true}
+
+static func legacy_acquire_requirements(state: GameState, beast_id: String) -> Dictionary:
+	if not state.beasts.get("active", {}).is_empty(): return {"ok": false, "error": "ALREADY_HAS_ACTIVE_BEAST"}
+	var eligibility := legacy_species_requirements(state, beast_id)
+	if not eligibility.ok: return eligibility
+	if beast_id in P2_IDS and not SectSystem.p2_life_error(state).is_empty(): return {"ok": false, "error": "LIFESPAN_EXHAUSTED"}
 	return {"ok": true}
 
 static func local_rate_multiplier(state: GameState, island: String, resource: String) -> float:

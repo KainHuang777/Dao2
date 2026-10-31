@@ -23,6 +23,9 @@ func run() -> void:
 	abode.v2_rules_notice.hide()
 	abode.reduced = true
 	LifeHistoryFixture.apply(abode.session)
+	# Persist the synthetic fixture so the reform seal matches durable state.
+	var fixture_save: Dictionary = abode._save_game()
+	check(fixture_save.get("ok", false), "fixture save: " + String(fixture_save.get("error", "")))
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	var panel = abode.reincarnation_panel
 	abode.feature_navigation.open("reincarnation")
@@ -87,7 +90,8 @@ func run() -> void:
 	check(not panel._confirming, "switch cancels confirmation")
 	view.show_record({})
 	check(view.plot.samples.is_empty() and view.table.text == "未有紀錄", "empty replacement removes stale chart")
-	check(abode.session.reincarnate().ok, "isolation transfer")
+	var transfer: Dictionary = abode.session.reincarnate()
+	check(transfer.ok, "isolation transfer: " + String(transfer.get("error", "")))
 	abode._pending_life_report = abode.session.get_life_report(abode.session.state.reincarnation_count)
 	abode._show_storage_block("隔離測試：保存失敗，歷世仍可讀。")
 	await frames()

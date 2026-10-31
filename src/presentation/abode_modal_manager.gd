@@ -82,6 +82,7 @@ func create_panels() -> void:
 	_abode.sect_panel.claim_expedition_requested.connect(_abode._on_sect_claim_expedition_requested)
 	_abode.sect_panel.learn_technique_requested.connect(_abode._on_sect_learn_technique_requested)
 	_abode.sect_panel.buy_market_item_requested.connect(_abode._on_sect_buy_market_item_requested)
+	_abode.sect_panel.reform_action_requested.connect(_on_sect_reform_action)
 	_abode.sect_panel.close_requested.connect(_abode._on_sect_closed)
 	_abode.sect_panel.retry_save_requested.connect(func(): _abode.sect_panel.set_save_result(_abode._save_game()))
 	_abode.hud.add_child(_abode.sect_panel)
@@ -700,4 +701,12 @@ func _on_learn_talent_requested(talent_id: String) -> void:
 		_abode.hint.text = "參悟受阻：%s" % str(res.get("error", "FAIL"))
 
 func _on_reincarnation_closed() -> void:
+	_abode._refresh_hud()
+
+func _on_sect_reform_action(kind: String, id: String) -> void:
+	var result: Dictionary
+	if kind == "lineage": result = _abode.session.learn_talent(id)
+	elif kind == "identity": result = _abode.session.resolve_legacy_sect_identity(id)
+	else: return
+	_abode.sect_panel.set_command_result(result, _abode._save_game() if result.get("ok", false) else {})
 	_abode._refresh_hud()

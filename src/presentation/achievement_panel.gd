@@ -205,6 +205,10 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	var path := BADGE_DIR + String(ach.id) + ".png"
 	if ResourceLoader.exists(path):
 		badge.texture = load(path)
+	if SectLineage.ACHIEVEMENTS.has(ach.id):
+		var def: Dictionary = SectLineage.ACHIEVEMENTS[ach.id]
+		var key := String(def.get("sect_id", "taixu_sect")).trim_suffix("_sect")
+		badge.texture = load("res://assets/ui/sects-painted/" + key + ".png")
 	box.add_child(badge)
 	var info := VBoxContainer.new()
 	info.name = "Info"
@@ -244,6 +248,9 @@ func _update_card(card: PanelContainer, ach: Dictionary) -> void:
 	var stamp: Label = card.get_node("HBox/Info/State")
 	stamp.text = "領訖 · 已領取" if claimed else status
 	stamp.add_theme_color_override("font_color", GraphicAction.JADE if ready or claimed else UiMaterial.DISABLED_INK)
+	if ach.has("lineage_progress"):
+		card.get_node("HBox/Info/Reason").text = String(ach.lineage_progress)
+		card.get_node("HBox/Info/Reason").show()
 	if bool(stamp.get_meta("claimed", false)) != claimed:
 		stamp.set_meta("claimed", claimed)
 		if claimed:

@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "source": "OpenAI built-in image_gen, 2026-10-31",
+  "usage": "Godot beast care UI, 2x2 AtlasTexture growth regions",
+  "layers": [
+    "egg (top left)",
+    "young (top right)",
+    "growing (bottom left)",
+    "mature (bottom right)"
+  ],
+  "license": "AI-generated project assets; no third-party reference image used. Commercial legal clearance is not asserted.",
+  "art_acceptance": "ACCEPTED by user, 2026-10-31",
+  "assets": [
+    {
+      "id": "taixu_baize",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a18da2-2234-7b21-9daa-e502135b8a5d\\exec-f29380a4-fad9-461b-8e97-bbc27d412bd1.png",
+      "prompt": "Use case: stylized-concept. Asset: Chinese cultivation game UI bestiary growth atlas. Paint one Baize, a wise white-furred Chinese auspicious beast with a small horn, cloudlike mane and a subtle forehead sigil; pale ivory and soft teal. A precise 2 by 2 equal square cell atlas, no borders or text. Top left: its distinctive egg with matching markings. Top right: young baby. Bottom left: adolescent. Bottom right: mature majestic beast. Each entire subject centered safely within its cell, generous 15 percent clear margins, all limbs visible, three quarter view. Chinese gongbi watercolor game illustration, detailed brush fur and mineral pigments, gentle restrained light, clean readable silhouette at small UI size, cohesive hand-painted quality. Genuinely transparent background, no scenery, no ground slab, no captions, no watermark. Each cell self-contained; no crossing cell boundaries.",
+      "runtime": "assets/ui/beasts-painted/sect-reform/taixu_baize.png",
+      "sha256": "881d06ab0bc7121a216488f4ce6ea78b9f752d636f793bdc29da2a2a3674e90c",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "tianjian_suanni",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a18da2-2234-7b21-9daa-e502135b8a5d\\exec-773b1953-9f69-4ce3-829a-59c0211bb044.png",
+      "prompt": "Use case: stylized-concept. Asset: Chinese cultivation game UI bestiary growth atlas. Paint one Suanni, a lion-shaped Chinese auspicious beast with a golden mineral mane and restrained blade-shaped markings; ochre gold and stone gray. A precise 2 by 2 equal square cell atlas, no borders or text. Top left: its distinctive egg with matching markings. Top right: young baby. Bottom left: adolescent. Bottom right: mature majestic beast. Each entire subject centered safely within its cell, generous 15 percent clear margins, all limbs visible, three quarter view. Chinese gongbi watercolor game illustration, detailed brush fur and mineral pigments, gentle restrained light, clean readable silhouette at small UI size, cohesive hand-painted quality. Genuinely transparent background, no scenery, no ground slab, no captions, no watermark. Each cell self-contained; no crossing cell boundaries.",
+      "runtime": "assets/ui/beasts-painted/sect-reform/tianjian_suanni.png",
+      "sha256": "5a9c074ad773d52f603dacba4db2ff3f2ee3f8980c50c622541e8d3b1a870c77",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "piaomiao_jade_hare",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a18da2-2234-7b21-9daa-e502135b8a5d\\exec-fcbf8c18-d977-4e1b-8a19-47140e76789a.png",
+      "prompt": "Use case: stylized-concept. Asset: Chinese cultivation game UI bestiary growth atlas. Paint one Jade medicinal hare, long jade-colored ears, lingzhi mushroom and dew spots on fur; white and muted celadon. A precise 2 by 2 equal square cell atlas, no borders or text. Top left: its distinctive egg with matching markings. Top right: young baby. Bottom left: adolescent. Bottom right: mature majestic beast. Each entire subject centered safely within its cell, generous 15 percent clear margins, all limbs visible, three quarter view. Chinese gongbi watercolor game illustration, detailed brush fur and mineral pigments, gentle restrained light, clean readable silhouette at small UI size, cohesive hand-painted quality. Genuinely transparent background, no scenery, no ground slab, no captions, no watermark. Each cell self-contained; no crossing cell boundaries.",
+      "runtime": "assets/ui/beasts-painted/sect-reform/piaomiao_jade_hare.png",
+      "sha256": "d667e54fca474e0b8521acc9f562dd92b09ce68b084c9fc3b951683c13e7a818",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "wanfo_lotus_elephant",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a18da2-2234-7b21-9daa-e502135b8a5d\\exec-31b47850-887a-4368-b284-f09a2b0569f3.png",
+      "prompt": "Use case: stylized-concept. Asset: Chinese cultivation game UI bestiary growth atlas. Paint one Lotus-hearted elephant, a small Asian elephant with a lotus forehead marking and warm gold patterns; warm ivory and muted antique gold. A precise 2 by 2 equal square cell atlas, no borders or text. Top left: its distinctive egg with matching markings. Top right: young baby. Bottom left: adolescent. Bottom right: mature majestic beast. Each entire subject centered safely within its cell, generous 15 percent clear margins, all limbs visible, three quarter view. Chinese gongbi watercolor game illustration, detailed brush fur and mineral pigments, gentle restrained light, clean readable silhouette at small UI size, cohesive hand-painted quality. Genuinely transparent background, no scenery, no ground slab, no captions, no watermark. Each cell self-contained; no crossing cell boundaries.",
+      "runtime": "assets/ui/beasts-painted/sect-reform/wanfo_lotus_elephant.png",
+      "sha256": "40dfd9e4e0e9632ef8ab7ac7fdccaa2e4e22c368c01aac9db08e5ab905c6a097",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "zixiao_star_tapir",
+      "source": "C:\\Users\\asus\\.codex\\generated_images\\01a18da2-2234-7b21-9daa-e502135b8a5d\\exec-ec5abb56-3a1e-442a-b9bd-25b37178ee7c.png",
+      "prompt": "Use case: stylized-concept. Asset: Chinese cultivation game UI bestiary growth atlas. Paint one Star-patterned tapir, unmistakable rounded tapir body and short proboscis with constellation markings; indigo gray and muted lavender. A precise 2 by 2 equal square cell atlas, no borders or text. Top left: its distinctive egg with matching markings. Top right: young baby. Bottom left: adolescent. Bottom right: mature majestic beast. Each entire subject centered safely within its cell, generous 15 percent clear margins, all limbs visible, three quarter view. Chinese gongbi watercolor game illustration, detailed brush fur and mineral pigments, gentle restrained light, clean readable silhouette at small UI size, cohesive hand-painted quality. Genuinely transparent background, no scenery, no ground slab, no captions, no watermark. Each cell self-contained; no crossing cell boundaries.",
+      "runtime": "assets/ui/beasts-painted/sect-reform/zixiao_star_tapir.png",
+      "sha256": "77fb4cd13a20ef1955c3cbd91c79e55a0c1d1210f55f1d652b6e24be06959f5d",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ],
+  "art_acceptance_statement": "五獸美術與閱讀密度接受。L3 我會交給OPENCODE 運行"
+}

@@ -212,8 +212,8 @@ static func capacity(state: GameState, island: String) -> float:
 static func duration(state: GameState, island: String, recipe: String) -> int:
 	var base: int = IslandEconomy.durations(state)[recipe]
 	if not active(state):
-		return base
-	return maxi(1, int(ceil(float(base) / int(state.economy.islands[island].facilities.workshop))))
+		return SectSpecialization.duration(state, recipe, base)
+	return SectSpecialization.duration(state, recipe, maxi(1, int(ceil(float(base) / int(state.economy.islands[island].facilities.workshop)))))
 
 static func _fail(error: String) -> Dictionary:
 	return {"ok": false, "error": error, "events": [], "changed_ids": []}

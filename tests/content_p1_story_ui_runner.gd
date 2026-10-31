@@ -25,7 +25,7 @@ func run() -> void:
 	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp; root.content_scale_size = vp
 		abode._layout_for_size(Vector2(vp)); abode.feature_navigation.open("achievements"); await frames()
-		check(panel._achievement_items.size()==48,"48 formal cards retain P1 "+str(vp))
+		check(panel._achievement_items.size()==64,"64 achievement cards retain P1 "+str(vp))
 		for id in AchievementSystem.P1_DEFINITIONS:
 			var card: Control = panel._achievement_items[id]
 			panel._scroll.ensure_control_visible(card); await frames()

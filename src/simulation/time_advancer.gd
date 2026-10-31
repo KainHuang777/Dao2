@@ -11,7 +11,23 @@ static func ticks_for_elapsed(elapsed_seconds: float) -> int:
 static func advance(state: GameState, content: GameContent, ticks: int, prepared: Dictionary = {}) -> Dictionary:
 	if ticks > 0:
 		LifeLedger.initialize(state)
+	if not prepared.is_empty() and prepared.get("sect_signature", []) != SectSpecialization.signature(state): prepared.clear()
+	if not prepared.is_empty() and prepared.get("beast_signature", []) != BeastSystem.effect_signature(state): prepared.clear()
 	if state.economy.is_empty():
+		# Methods can be learned before island activation. Keep timed effect and
+		# lifespan boundaries identical to online one-second settlement there too.
+		if (state.sect.has("techniques_version") or state.sect.has("lineage") or state.beast_version == GuardianBeasts.VERSION) and ticks > 1:
+			if prepared.is_empty(): prepared = prepare_advance(state, content)
+			var combined := {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null}
+			for _i in range(ticks):
+				var step := _advance_legacy(state, content, 1, prepared)
+				combined.ticks_advanced += int(step.ticks_advanced)
+				combined.events.append_array(step.events)
+				for id in step.changed_ids:
+					if id not in combined.changed_ids: combined.changed_ids.append(id)
+				combined.stopped = step.stopped
+				if step.stopped != null: break
+			return combined
 		return _advance_legacy(state, content, ticks)
 	if content.processing_catalog.is_empty():
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "processing_content_missing"}
@@ -56,7 +72,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 static func prepare_advance(state: GameState, content: GameContent) -> Dictionary:
 	# Scoped to one command-free settlement. Never persist or reuse after commands.
 	# Timers and observed stock still advance at one-second boundaries.
-	return {"beast_signature": BeastSystem.effect_signature(state), "talents": TalentSystem.compute_multipliers(state),
+	return {"sect_signature": SectSpecialization.signature(state), "beast_signature": BeastSystem.effect_signature(state), "talents": TalentSystem.compute_multipliers(state),
 		"caps": Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills),
 		"lifespans": content.era_lifespan_entries(),
 		"sect": SectSystem.compute_multipliers(state), "economy": {},
@@ -80,7 +96,6 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 			prepared.buff_count = state.buffs.size()
 			prepared.erase("max_seconds")
 			prepared.erase("training_speed")
-	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(buff_multipliers.lifespan_bonus_years)
 	var lifespans: Array = prepared.get("lifespans", [])
 	if lifespans.is_empty():
 		lifespans = content.era_lifespan_entries()
@@ -88,7 +103,7 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 	if prepared.has("max_seconds"):
 		max_seconds = prepared.max_seconds
 	else:
-		max_seconds = float(Lifespan.max_lifespan_seconds(lifespans, state.era_id, float(multipliers.lifespan_bonus), pill_lifespan_bonus))
+		max_seconds = float(Lifespan.for_state(lifespans, state))
 		if not prepared.is_empty():
 			prepared.max_seconds = max_seconds
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
@@ -192,10 +207,11 @@ static func _produce_uncached(state: GameState, content: GameContent, rates: Dic
 			rate = rate.multiply(AmountCompat.from_number(1.0 + float(beast_multipliers.production_stone_iron)))
 		if resource_id == "money" and float(beast_multipliers.money_rate) > 0.0:
 			rate = rate.multiply(AmountCompat.from_number(1.0 + float(beast_multipliers.money_rate)))
+		if resource_id == "lingli" and SectSpecialization.level(state, "taixu_qi_spring") > 0: rate = rate.multiply(AmountCompat.from_number(1.0 + 0.03 * SectSpecialization.level(state, "taixu_qi_spring")))
 		var delta: AmountCompat = rate.multiply(AmountCompat.from_number(elapsed))
 		var new_value: AmountCompat = entry.value.add(delta)
 		var cap_limit: AmountCompat = caps.get(resource_id, AmountCompat.zero())
-		var total_storage_bonus: float = float(sect_multipliers.storage_bonus) + float(chrono_multipliers.storage_bonus) + float(beast_multipliers.all_capacity_mult)
+		var total_storage_bonus: float = SectSpecialization.capacity_bonus(state, resource_id) + float(sect_multipliers.storage_bonus) + float(chrono_multipliers.storage_bonus) + float(beast_multipliers.all_capacity_mult)
 		if (resource_id == "stone_low" or resource_id == "refined_iron") and float(beast_multipliers.cap_stone_iron) > 0.0:
 			total_storage_bonus += float(beast_multipliers.cap_stone_iron)
 		if total_storage_bonus > 0.0 and cap_limit.compare_to(AmountCompat.zero()) > 0:
@@ -208,6 +224,7 @@ static func _produce_uncached(state: GameState, content: GameContent, rates: Dic
 			var effective_cap := (cap_limit.to_float() if IslandEconomy.expanded(state) else minf(cap_limit.to_float(), float(content.processing_catalog.resources[resource_id].cap))) - held
 			# Capacity contraction stops future production; never deletes existing stock.
 			cap_limit = AmountCompat.from_number(maxf(entry.value.to_float(), maxf(0, effective_cap)))
+		if entry.value.compare_to(cap_limit) > 0: cap_limit = entry.value
 		if caps.has(resource_id) and new_value.compare_to(cap_limit) > 0:
 			new_value = cap_limit
 		ResourceLedger.change(state, "home", resource_id, entry.value, new_value if new_value.compare_to(entry.value) != 0 else entry.value, "production", delta)
@@ -234,10 +251,11 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 				rate = rate.multiply(AmountCompat.from_number(1.0 + float(beast.production_stone_iron)))
 			if id == "money" and float(beast.money_rate) > 0.0:
 				rate = rate.multiply(AmountCompat.from_number(1.0 + float(beast.money_rate)))
+			if id == "lingli" and SectSpecialization.level(state, "taixu_qi_spring") > 0: rate = rate.multiply(AmountCompat.from_number(1.0 + 0.03 * SectSpecialization.level(state, "taixu_qi_spring")))
 			# Keep the reference multiply(1) normalization, rather than float arithmetic.
 			var delta := rate.multiply(AmountCompat.from_number(1.0))
 			var cap: AmountCompat = caps.get(id, AmountCompat.zero())
-			var bonus := float(sect.storage_bonus) + float(chrono.storage_bonus) + float(beast.all_capacity_mult)
+			var bonus := SectSpecialization.capacity_bonus(state, id) + float(sect.storage_bonus) + float(chrono.storage_bonus) + float(beast.all_capacity_mult)
 			if (id == "stone_low" or id == "refined_iron") and float(beast.cap_stone_iron) > 0.0:
 				bonus += float(beast.cap_stone_iron)
 			if bonus > 0.0 and cap.sign > 0:
@@ -277,6 +295,7 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 		if item.limited and delta.sign >= 0 and current.compare_to(cap) == 0:
 			ResourceLedger.change(state, "home", id, current, current, "production", delta)
 			continue
+		if current.compare_to(cap) > 0: cap = current
 		var next := current.add(delta)
 		if item.limited and next.compare_to(cap) > 0:
 			next = cap
@@ -293,10 +312,8 @@ static func advance_time_only(state: GameState, content: GameContent, ticks: int
 		LifeLedger.initialize(state)
 	if ticks <= 0:
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null}
-	var lifespan_bonus := float(TalentSystem.compute_multipliers(state).lifespan_bonus)
 	var buff_multipliers := BuffSystem.compute_multipliers(state)
-	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(buff_multipliers.lifespan_bonus_years)
-	var max_seconds := float(Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, lifespan_bonus, pill_lifespan_bonus))
+	var max_seconds := float(Lifespan.for_state(content.era_lifespan_entries(), state))
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		return {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "lifespan_exhausted"}
 	var executed := mini(ticks, maxi(1, int(ceil((max_seconds - state.total_elapsed_seconds) / float(SECONDS_PER_TICK)))))

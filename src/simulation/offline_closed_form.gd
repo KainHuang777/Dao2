@@ -5,10 +5,11 @@ const LAYER_LIMIT := 9.0e15
 const INT_LIMIT := 9007199254740992.0
 
 static func advance(state: GameState, content: GameContent, ticks: int, prepared: Dictionary = {}) -> Dictionary:
+	if not prepared.is_empty() and prepared.get("sect_signature", []) != SectSpecialization.signature(state): prepared.clear()
 	# The original jump proof assumes integer gathering and local workshops.
 	# R46 fractional gathering uses the authoritative one-second path until a
 	# separate proof covers its event/capacity boundaries.
-	if IslandEconomy.expanded(state):
+	if IslandEconomy.expanded(state) or state.sect.has("techniques_version") or state.sect.has("lineage") or state.beast_version == GuardianBeasts.VERSION:
 		var result := TimeAdvancer.advance(state, content, ticks, prepared)
 		result.exact = true
 		return result
@@ -140,7 +141,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 			max_cached = max_seconds
 			max_count = count_now
 		else:
-			max_seconds = float(Lifespan.max_lifespan_seconds(lifespans as Array, state.era_id, float(talents["lifespan_bonus"]), float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(buff_m["lifespan_bonus_years"])))
+			max_seconds = float(Lifespan.for_state(lifespans as Array, state))
 			max_cached = max_seconds
 			max_count = count_now
 		if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):

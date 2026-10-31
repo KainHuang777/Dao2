@@ -34,7 +34,7 @@ func run() -> void:
 		abode.feature_navigation.open("beasts")
 		await frames()
 		var page: Control = panel.beast_view
-		check(page.cards.size() == 6,"six persistent cards")
+		check(page.cards.size() == 11,"eleven persistent cards (six legacy, five guardians)")
 		for id in BeastSystem.P2_IDS:
 			var config: Dictionary = BeastSystem.BEAST_CONFIGS[id]
 			var card: Dictionary = page.cards[id]

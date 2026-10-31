@@ -102,9 +102,13 @@ func _run() -> void:
 	check(not world.landmarks.herb.visible and world.bodies.herb.visible, "unopened Danxia has empty foundation")
 	check(world.title.text.contains("待開拓"), "Era3 pending opening visible")
 	diagnostic.era_id = 2
+	abode._refresh_hud()
 	world.refresh()
 	check(world.title.text.contains("金丹解鎖"), "Era2 preview distinguishes locked Danxia")
 	world.manage_current()
+	# The management panel is refreshed by HUD updates only while visible; the
+	# headless runner can hold it hidden, so refresh with the current view first.
+	abode.feature_navigation.island_panel.refresh(abode.session.get_view(), abode.content.processing_catalog)
 	check(abode.feature_navigation.island_panel.opening.disabled, "Era2 cannot open Danxia from world route")
 	diagnostic.era_id = 1
 	world.refresh()

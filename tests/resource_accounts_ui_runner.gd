@@ -23,6 +23,10 @@ func run() -> void:
 	abode.v2_rules_notice.hide()
 	abode.reduced = true
 	ResourceAccountsFixture.apply(abode.session)
+	# Persist the synthetic fixture so the seal matches durable state.
+	SectLineage.next_life(abode.session.state)
+	var fixture_save: Dictionary = abode._save_game()
+	check(fixture_save.get("ok", false), "fixture save: " + String(fixture_save.get("error", "")))
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	var panel = abode.reincarnation_panel
 	abode.feature_navigation.open("reincarnation")
@@ -61,14 +65,16 @@ func run() -> void:
 	panel._accounts_view.show_book(precise)
 	check(panel._accounts_view.copy.text.contains("1999.998"), "table keeps fractional amounts near integers")
 	# Existing save protection reads the exact sealed book and keeps its retry fixed.
-	check(abode.session.reincarnate().ok, "transfer")
+	var transfer: Dictionary = abode.session.reincarnate()
+	check(transfer.ok, "transfer: " + String(transfer.get("error", "")))
 	abode._pending_life_report = abode.session.get_life_report(abode.session.state.reincarnation_count)
 	abode._show_storage_block("隔離驗收：此世已結算；保存失敗。")
 	await frames()
 	var views: Array = abode._storage_block_layer.find_children("*", "ResourceAccountsView", true, false)
 	var sealed_views := 0
+	var sealed_book: Dictionary = abode._pending_life_report.get("life", {}).get("accounts", {})
 	for view in views:
-		if view._book == abode._pending_life_report.life.get("accounts", {}): sealed_views += 1
+		if view._book == sealed_book: sealed_views += 1
 	check(sealed_views == 1, "sealed account readable under protection")
 	for vp in ([Vector2i(1280,720), Vector2i(844,390), Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):
 		root.size = vp

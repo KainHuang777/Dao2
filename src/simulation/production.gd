@@ -104,11 +104,12 @@ static func _is_capacity_key(key: String) -> bool:
 ## The flat pill extension is always applied after existing multipliers/rounding.
 static func add_pill_capacity(state: GameState, id: String, cap: AmountCompat) -> AmountCompat:
 	var flat := AlchemySystem.capacity_bonus(state, id)
+	if SectSpecialization.capacity_bonus(state, id) > 0: cap = cap.floor_amount()
 	return cap.floor_amount().add(AmountCompat.from_number(flat)) if flat > 0 else cap
 
 static func pill_caps(state: GameState, caps: Dictionary) -> Dictionary:
 	for id in caps:
-		if AlchemySystem.capacity_bonus(state, id) <= 0: continue
+		if AlchemySystem.capacity_bonus(state, id) <= 0 and SectSpecialization.capacity_bonus(state, id) <= 0: continue
 		var cap: AmountCompat = caps[id]
 		var copy := GameState.new()
 		copy.era_id = state.era_id
@@ -120,7 +121,8 @@ static func pill_caps(state: GameState, caps: Dictionary) -> Dictionary:
 		var beast := BeastSystem.compute_multipliers(copy)
 		var sect := SectSystem.compute_multipliers(copy)
 		var chrono := ChronoSystem.compute_multipliers(copy)
-		var bonus := float(beast.all_capacity_mult) + float(sect.storage_bonus) + float(chrono.storage_bonus)
+		var bonus := SectSpecialization.capacity_bonus(state, id) + float(beast.all_capacity_mult) + float(sect.storage_bonus) + float(chrono.storage_bonus)
+		if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
 		if bonus > 0 and cap.sign > 0: cap = cap.multiply(AmountCompat.from_number(1.0 + bonus))
 		caps[id] = add_pill_capacity(state, id, cap)
 	return caps

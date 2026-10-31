@@ -64,6 +64,7 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 		return
 	panel.position = bounds.position
 	panel.size = bounds.size
+	column.add_theme_constant_override("separation", 8 if wide else 4)
 	var nav = abode.feature_navigation
 	_move(nav.bar, column)
 	column.move_child(nav.bar, 0)

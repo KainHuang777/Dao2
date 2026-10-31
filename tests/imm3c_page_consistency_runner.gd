@@ -329,6 +329,16 @@ func _check_reincarnation(nav, vp: Vector2) -> void:
 	check(String(shell.effective.get("resource_context", "")) == "none", "reincarnate tab keeps narrative-only layout " + str(vp))
 
 func _check_sect(nav, vp: Vector2) -> void:
+	# Legacy P1 cost strips remain the non-reform presentation; pin this page so
+	# the shared contribution seal stays covered.
+	var saved_sect_version := int(abode.session.state.sect_version)
+	abode.session.state.sect_version = 2
+	abode.session.state.sect.unlocked = true
+	# A freshly unlocked sect without an affiliation renders the identity
+	# prompt instead of the technique/market cards; pin the legacy taixu id.
+	SectIdentity.write(abode.session.state.sect, "taixu_sect")
+	abode.session.state.sect.contribution = "5000"
+	if not abode.session.state.sect.has("techniques"): abode.session.state.sect["techniques"] = {}
 	nav.open("sect")
 	abode._layout_for_size(vp)
 	await frames()
@@ -363,6 +373,7 @@ func _check_sect(nav, vp: Vector2) -> void:
 	panel._tab_expeditions_btn.pressed.emit()
 	abode._layout_for_size(vp)
 	await frames()
+	abode.session.state.sect_version = saved_sect_version
 
 func _check_fortune(nav, vp: Vector2) -> void:
 	nav.open("fortune")

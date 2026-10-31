@@ -17,6 +17,7 @@ signal learn_technique_requested(tech_id: String)
 signal buy_market_item_requested(item_id: String)
 signal close_requested()
 signal retry_save_requested()
+signal reform_action_requested(kind: String, id: String)
 
 enum TabMode { EXPEDITIONS, TECHNIQUES, MARKET }
 
@@ -54,6 +55,7 @@ var _art_nodes: Array[TextureRect] = []
 var _p1_tech_layouts: Array[Dictionary] = []
 var _p2_card_layouts: Array[Dictionary] = []
 var _p2_market_layouts: Array[Dictionary] = []
+var _join_card_layouts: Array[Dictionary] = []
 var _dynamic: Array[Callable] = []
 var _feedback: Label
 var _retry: Button
@@ -153,6 +155,19 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		layout.art.custom_minimum_size = Vector2.ONE * (44 if short_card else 80)
 		layout.box.content_margin_top = 4 if short_card else 8
 		layout.box.content_margin_bottom = 4 if short_card else 8
+	for layout in _join_card_layouts:
+		layout.desc.visible = not _compact
+		layout.art.custom_minimum_size = Vector2.ONE * (44 if _compact else 112)
+		layout.box.content_margin_top = 4 if _compact else 8
+		layout.box.content_margin_bottom = 4 if _compact else 8
+		layout.box.content_margin_left = 8 if _compact else 12
+		layout.box.content_margin_right = 8 if _compact else 12
+		layout.info.add_theme_constant_override("separation", 0 if _compact else 4)
+		if _compact:
+			layout.title.add_theme_font_size_override("font_size", 14)
+		else:
+			layout.title.remove_theme_font_size_override("font_size")
+		layout.row.add_theme_constant_override("separation", 6 if _compact else 10)
 	for grid in _grids:
 		if is_instance_valid(grid): _fit_card_grid(grid)
 	_margin.size = size
@@ -320,7 +335,7 @@ func update_view(state: GameState) -> void:
 	var active = structural.get("active_expedition")
 	if active is Dictionary:
 		active.erase("elapsed")
-	var signature := JSON.stringify([structural, _cached_is_eligible_to_join, state.era_id, state.beast_talents, state.sect_version, state.economy.get("version"), _p2_effect_signature(state)])
+	var signature := JSON.stringify([structural, _cached_is_eligible_to_join, state.era_id, state.beast_talents, state.dao_heart.serialize(), state.sect_version, state.economy.get("version"), _p2_effect_signature(state)])
 	if signature != _render_signature and not _has_pressed_button(_tab_content_container):
 		_render_signature = signature
 		_render_current_tab()
@@ -343,6 +358,7 @@ func _render_current_tab() -> void:
 	_p1_tech_layouts.clear()
 	_p2_card_layouts.clear()
 	_p2_market_layouts.clear()
+	_join_card_layouts.clear()
 	_grids.clear()
 	_join_intro = null
 	# 清空容器
@@ -354,6 +370,16 @@ func _render_current_tab() -> void:
 	if not is_unlocked:
 		_render_join_panel()
 		_wrap_card_labels(_tab_content_container)
+		return
+
+	if _cached_state != null and SectIdentity.view(_cached_state.sect).identity_pending:
+		SectReformUi.text(_tab_content_container, "舊檔宗門身分未明：請確認本世山門；不重置貢獻、功法或派遣。")
+		for id in SectIdentity.NAMES:
+			var button := Button.new()
+			button.text = "確認為" + SectIdentity.NAMES[id]
+			button.custom_minimum_size.y = 44
+			button.pressed.connect(func(): reform_action_requested.emit("identity", id))
+			_tab_content_container.add_child(button)
 		return
 
 	# 高亮分頁按鈕樣式
@@ -448,7 +474,7 @@ func _render_join_panel() -> void:
 		s_info.add_child(s_title)
 
 		var s_desc := Label.new()
-		s_desc.text = SECT_FLAVORS.get(s_name, "玄門妙法，各顯神通。")
+		s_desc.text = SECT_FLAVORS.get(s_name, "玄門妙法，各顯神通。") + "\n" + SectReformUi.TRADEOFFS.get(SectIdentity.canonical_id(s_name), "") + "\n每世選一次；八項共通功法保留，專法僅當世同宗啟用。"
 		s_desc.add_theme_color_override("font_color", UiMaterial.INK)
 		s_desc.add_theme_font_size_override("font_size", 16)
 		s_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -465,6 +491,7 @@ func _render_join_panel() -> void:
 		j_btn.custom_minimum_size = Vector2(96, 44)
 		j_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		s_row.add_child(j_btn)
+		_join_card_layouts.append({"box":s_box,"row":s_row,"info":s_info,"art":s_row.get_child(0),"title":s_title,"desc":s_desc})
 
 func _queue_header_reflow() -> void:
 	if not _header_reflow_pending:
@@ -480,6 +507,7 @@ func _on_join_pressed(s_name: String) -> void:
 
 # ================= 歷練委託分頁 =================
 func _render_expeditions_tab() -> void:
+	SectReformUi.progress(_tab_content_container, _cached_state)
 	var active = _cached_sect_data.get("active_expedition")
 	var is_active: bool = (active != null and active is Dictionary)
 
@@ -514,6 +542,7 @@ func _render_expeditions_tab() -> void:
 		active_title_row.add_child(a_title)
 
 		_add_rewards(act_vb, active.get("rewards", {}))
+		SectReformUi.task_reward(act_vb, active, _cached_state)
 		var duration := int(active.get("duration", 0))
 		var elapsed := int(active.get("elapsed", 0))
 		var is_finished := elapsed >= duration
@@ -627,6 +656,7 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 	name_lbl.tooltip_text = String(task.get("desc", ""))
 	title_row.add_child(name_lbl)
 	_add_rewards(info_vb, task.get("rewards", {}))
+	SectReformUi.task_reward(info_vb, task, _cached_state)
 
 	var start_btn := Button.new()
 	start_btn.name = "Dispatch"
@@ -649,6 +679,7 @@ func _create_task_card(task: Dictionary, is_active: bool) -> PanelContainer:
 
 # ================= 秘術傳承分頁 =================
 func _render_techniques_tab() -> void:
+	SectReformUi.render(self)
 	var techs: Dictionary = _cached_sect_data.get("techniques", {})
 	var grid := _new_grid()
 
@@ -1017,7 +1048,8 @@ func _amount(raw: Variant) -> float:
 func set_command_result(result: Dictionary, saved: Dictionary = {}) -> void:
 	_feedback_row.show()
 	if not bool(result.get("ok",false)):
-		_feedback.text = "操作未完成：" + str(result.get("error","未知"))
+		_pending_save = SaveManager.core_save_pending(_cached_state)
+		_feedback.text = ("操作待保存：" if _pending_save else "操作未完成：") + str(result.get("error","未知"))
 		_retry.visible = _pending_save
 	elif not bool(saved.get("ok",false)):
 		_pending_save = true
@@ -1025,7 +1057,7 @@ func set_command_result(result: Dictionary, saved: Dictionary = {}) -> void:
 		_retry.show()
 	else:
 		_pending_save = false
-		_feedback.text = "操作已完成並保存。"
+		_feedback.text = SectReformUi.result_text(result)
 		_retry.hide()
 	_feedback.tooltip_text = _feedback.text
 	_queue_header_reflow()
@@ -1038,6 +1070,7 @@ func storage_recovered() -> void:
 	if _pending_save:
 		_pending_save = false
 		_feedback.text = "保存已恢復，操作結果已保存。"
+		_feedback.tooltip_text = _feedback.text
 		_retry.hide()
 		_queue_header_reflow()
 

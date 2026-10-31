@@ -1,0 +1,6 @@
+2026-10-30 TOOL-ITCH-WEB-PACKAGING; ITCH.IO WEB DEPLOYMENT UTILITY.
+Created tools/package_itch_web.ps1 and package_itch_web.bat for one-click Godot 4.7.2 Web distribution.
+Packages clean web build excluding .br, .import, compression.json, and internal logs into build/dao2-itch-web.zip.
+Archive verified: index.html at root, index.wasm, index.pck (120MB), runtime scripts, icons, and audio/bgm MP3 tracks properly staged. Total package size: 136.49 MB.
+Compatible with itch.io HTML project upload specifications and bypasses Vercel 100MB static file limit.
+Documented full deployment guide and settings SOP in docs/45-web-deployment-itch-guide.md.

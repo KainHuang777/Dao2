@@ -305,6 +305,7 @@ var _is_reincarnating: bool = false
 
 var update_elapsed: float = 0.0
 var auto_save_elapsed: float = 0.0
+var _core_save_retry_reported := false
 var _background_retry_cursor: int = 0
 var _storage_block_layer: CanvasLayer = null
 var _pending_life_report: Dictionary = {}
@@ -338,6 +339,7 @@ var _frame_view_state: GameState
 var _frame_view_revision: int = -1
 
 static func _web_storage_namespace() -> String:
+	if OS.has_feature("sect_reform_ui_review"): return "dao2_sect_reform_ui_review_v1"
 	if OS.has_feature("world46_review"): return "dao2_world46_review"
 	if OS.has_feature("story2_acceptance"): return "dao2_story2_acceptance_" + String(JavaScriptBridge.eval("parent.caseId", true))
 	if OS.has_feature("beast2_acceptance"): return "dao2_beast2_acceptance_v2_" + String(JavaScriptBridge.eval("parent.caseId", true))
@@ -465,6 +467,11 @@ func _init_core() -> void:
 		var saved := SaveManager.commit_supply_startup()
 		if saved.ok: break
 		await _wait_supply_retry(String(saved.get("error", "SAVE_FAILED")))
+	if migration_state != null:
+		var core_saved := SaveManager.commit_sect_reform_startup()
+		while not core_saved.ok:
+			await _wait_supply_retry(String(core_saved.get("error", "SAVE_FAILED")))
+			core_saved = SaveManager.commit_sect_reform_startup()
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var offline_res: Dictionary
 	if OS.has_feature("web"):
@@ -887,6 +894,19 @@ func _process(delta: float) -> void:
 		RuntimeProfile.end("preflight", profile_preflight)
 		RuntimeProfile.end_frame()
 		return
+	if SaveManager.core_save_pending(session.state):
+		# Reuse the existing save failure/retry presentation. Neither simulation
+		# nor background settlement may advance the live source while frozen.
+		auto_save_elapsed += delta
+		if not _core_save_retry_reported or auto_save_elapsed >= 15.0:
+			_core_save_retry_reported = true
+			auto_save_elapsed = 0.0
+			_save_game()
+		_last_process_ticks_msec = Time.get_ticks_msec()
+		RuntimeProfile.end("preflight", profile_preflight)
+		RuntimeProfile.end_frame()
+		return
+	_core_save_retry_reported = false
 
 	var now_ticks: int = Time.get_ticks_msec()
 	var step_delta := delta
@@ -1843,6 +1863,10 @@ func _save_game() -> Dictionary:
 	return result
 
 func _settle_web_background(cursor: int) -> bool:
+	if SaveManager.core_save_pending(session.state):
+		var committed := SaveManager.save(session.state, SaveManager.envelope())
+		if not committed.ok: return false
+		cursor = SaveManager.last_settled_utc_ms()
 	_begin_settlement_progress()
 	var result := await OfflineCoordinator.settle_state_async(session.state, content, int(Time.get_unix_time_from_system() * 1000.0), cursor, get_tree(), _settlement_progress)
 	_end_settlement_progress()

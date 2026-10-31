@@ -483,6 +483,7 @@ static func is_unlocked(state: GameState) -> bool:
 	return state.era_id >= UNLOCK_ERA or state.reincarnation_count >= 1
 
 static func active_level(state: GameState, id: String) -> int:
+	if SectSpecialization.METHODS.has(id): return SectSpecialization.level(state, id)
 	if state == null or id not in P1_TECHNIQUES + P2_TECHNIQUES: return 0
 	if id in P2_TECHNIQUES and not p2_ready(state): return 0
 	if not bool(state.sect.get("unlocked", false)) or state.era_id < int(TECHNIQUES[id].min_era): return 0
@@ -493,12 +494,14 @@ static func p2_ready(state: GameState) -> bool:
 
 static func p2_life_error(state: GameState) -> String:
 	var content := SupplyContent.runtime_content()
-	var maximum := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus), float(state.pill_effects.get("lifespan_bonus_years", 0)) + float(BuffSystem.compute_multipliers(state).lifespan_bonus_years))
+	var maximum := Lifespan.for_state(content.era_lifespan_entries(), state)
 	return "LIFESPAN_EXHAUSTED" if Lifespan.is_exhausted(state.total_elapsed_seconds, maximum) else ""
 
 static func eligible_templates(state: GameState, rarity: String) -> Array:
 	var result: Array = TASK_TEMPLATES[rarity].duplicate(true)
 	if state == null or not bool(state.sect.get("unlocked", false)): return result
+	if GuardianDiscovery.active(state):
+		for i in range(result.size()): result[i]["guardian_template_id"] = "legacy_%s_%02d" % [rarity, i]
 	var registered := P1_TASKS.duplicate(true)
 	if p2_ready(state): registered.merge(P2_TASKS)
 	for id in registered:
@@ -509,7 +512,11 @@ static func eligible_templates(state: GameState, rarity: String) -> Array:
 			eligible = eligible and bool(state.economy.get("islands", {}).get(island, {}).get("opened", false))
 		if not String(t.requires_active_beast).is_empty():
 			eligible = eligible and state.beasts.get("active", {}).get("id", "") == t.requires_active_beast
-		if eligible: result.append(t.duplicate(true))
+		if eligible:
+			var entry := t.duplicate(true)
+			if GuardianDiscovery.active(state): entry["guardian_template_id"] = id
+			result.append(entry)
+	if GuardianDiscovery.active(state): result.sort_custom(func(a, b): return a.guardian_template_id < b.guardian_template_id)
 	return result
 
 static func market_destination_error(state: GameState, id: String, content: GameContent = null) -> String:
@@ -568,6 +575,10 @@ static func ensure_sect_state(state: GameState) -> Dictionary:
 static func join_sect(state: GameState, sect_name: String = "") -> Dictionary:
 	if not is_unlocked(state):
 		return {"ok": false, "error": "SECT_LOCKED"}
+	var id := SectIdentity.canonical_id(sect_name if not sect_name.is_empty() else SECT_NAMES[0])
+	if id.is_empty(): return {"ok": false, "error": "UNKNOWN_SECT"}
+	var lineage_error := SectLineage.validate_state(state)
+	if not lineage_error.is_empty(): return {"ok": false, "error": lineage_error}
 	var sect: Dictionary = ensure_sect_state(state)
 	if bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "ALREADY_JOINED_SECT"}
@@ -575,10 +586,8 @@ static func join_sect(state: GameState, sect_name: String = "") -> Dictionary:
 		return {"ok": false, "error": "TASK_COUNTER_EXHAUSTED"}
 	
 	sect["unlocked"] = true
-	if not sect_name.is_empty():
-		sect["sect_name"] = sect_name
-	else:
-		sect["sect_name"] = SECT_NAMES[0]
+	SectIdentity.write(sect, id)
+	SectLineage.observe(state)
 	
 	# Generate initial tasks
 	refresh_tasks(state, true)
@@ -587,15 +596,33 @@ static func join_sect(state: GameState, sect_name: String = "") -> Dictionary:
 		"ok": true,
 		"events": [{
 			"kind": "joined_sect",
+			"sect_id": id,
 			"sect_name": sect["sect_name"],
 		}],
 	}
+
+static func resolve_legacy_identity(state: GameState, id: String) -> Dictionary:
+	if not SectIdentity.NAMES.has(id): return {"ok": false, "error": "UNKNOWN_SECT"}
+	if not SectIdentity.view(state.sect).identity_pending:
+		return {"ok": false, "error": "SECT_IDENTITY_NOT_PENDING"}
+	# No task refresh, RNG draw, fee, reward, or progress counter.
+	SectIdentity.write(state.sect, id)
+	SectLineage.observe(state)
+	return {"ok": true, "events": [{"kind": "sect_identity_resolved", "sect_id": id}], "changed_ids": ["sect"]}
 
 static func refresh_tasks(state: GameState, force: bool = false) -> Dictionary:
 	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
+	if SectIdentity.view(sect).identity_pending:
+		return {"ok": false, "error": "SECT_IDENTITY_PENDING"}
 	
+	if GuardianDiscovery.active(state):
+		var guardian_error := GuardianDiscovery.state_error(state)
+		if not guardian_error.is_empty(): return {"ok": false, "error": guardian_error}
+		if not p2_life_error(state).is_empty(): return {"ok": false, "error": "LIFESPAN_EXHAUSTED"}
+	var lineage_error := SectLineage.validate_state(state)
+	if not lineage_error.is_empty(): return {"ok": false, "error": lineage_error}
 	var current_tasks: Array = sect.get("available_tasks", [])
 	if not force and not current_tasks.is_empty() and int(sect.get("next_refresh_seconds", 0)) > 0:
 		return {"ok": false, "error": "REFRESH_COOLDOWN"}
@@ -617,10 +644,10 @@ static func refresh_tasks(state: GameState, force: bool = false) -> Dictionary:
 	}
 
 static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary = {}, state: GameState = null) -> Dictionary:
-	var rarity_key := _pick_rarity()
+	var rarity_key := _pick_rarity(sect)
 	var r_cfg: Dictionary = RARITY_CONFIGS[rarity_key]
 	var templates: Array = eligible_templates(state, rarity_key)
-	var t_index := randi() % templates.size()
+	var t_index := _draw(sect, templates.size())
 	var tmpl: Dictionary = templates[t_index]
 	
 	var task_seq: int = int(sect.get("task_counter", 0)) + 1
@@ -629,7 +656,7 @@ static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary
 	var task_id := "task_%d_%d_%d" % [era_id, slot_index, task_seq]
 	var contrib_min := int(r_cfg.get("contrib_min", 10))
 	var contrib_max := int(r_cfg.get("contrib_max", 20))
-	var contrib := contrib_min + (randi() % (contrib_max - contrib_min + 1))
+	var contrib := contrib_min + _draw(sect, contrib_max - contrib_min + 1)
 	
 	var rewards := {
 		"contribution": contrib,
@@ -666,22 +693,42 @@ static func _generate_random_task(era_id: int, slot_index: int, sect: Dictionary
 	if tmpl.has("template_id"):
 		task["template_id"] = tmpl.template_id
 		task["generation_era"] = era_id
+	if state != null: SectLineage.stamp(state, task)
+	if GuardianDiscovery.active(state):
+		task.guardian_template_id = tmpl.guardian_template_id
+		var event_value := _unit_draw(sect)
+		var species_value := _unit_draw(sect)
+		GuardianDiscovery.stamp(state, task, event_value, species_value)
 	return task
 
-static func _pick_rarity() -> String:
+static func _unit_draw(sect: Dictionary) -> float:
+	var rng := SeededRandom.from_state(int(sect.rng.state))
+	var value := rng.next()
+	sect.rng.state = rng.state
+	return value
+
+static func _draw(sect: Dictionary, bound: int) -> int:
+	if not sect.has("core_save"): return randi() % bound
+	var rng := SeededRandom.from_state(int(sect.rng.state))
+	var value := rng.int_range(0, bound - 1)
+	sect.rng.state = rng.state
+	return value
+
+static func _pick_rarity(sect: Dictionary = {}) -> String:
 	var total_weight := 0
-	for key in RARITY_CONFIGS:
+	for key in GuardianDiscovery.RARITIES:
 		total_weight += int(RARITY_CONFIGS[key].weight)
 	
-	var roll := randi() % total_weight
+	var roll := _draw(sect, total_weight)
 	var current := 0
-	for key in RARITY_CONFIGS:
+	for key in GuardianDiscovery.RARITIES:
 		current += int(RARITY_CONFIGS[key].weight)
 		if roll < current:
 			return key
 	return "common"
 
 static func start_expedition(state: GameState, task_id: String) -> Dictionary:
+	if GuardianDiscovery.active(state) and not p2_life_error(state).is_empty(): return {"ok": false, "error": "LIFESPAN_EXHAUSTED"}
 	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
@@ -700,6 +747,8 @@ static func start_expedition(state: GameState, task_id: String) -> Dictionary:
 	if target_index < 0:
 		return {"ok": false, "error": "TASK_NOT_FOUND"}
 	
+	var guardian_error := GuardianDiscovery.claim_error(state, target_task)
+	if not guardian_error.is_empty(): return {"ok": false, "error": guardian_error}
 	tasks.remove_at(target_index)
 	target_task["elapsed"] = 0
 	sect["active_expedition"] = target_task
@@ -730,6 +779,10 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 	if elapsed < duration:
 		return {"ok": false, "error": "EXPEDITION_NOT_FINISHED", "remaining": duration - elapsed}
 	
+	var lineage_error := SectLineage.claim_error(state, active)
+	if not lineage_error.is_empty(): return {"ok": false, "error": lineage_error}
+	var guardian_error := GuardianDiscovery.claim_error(state, active)
+	if not guardian_error.is_empty(): return {"ok": false, "error": guardian_error}
 	var rewards: Dictionary = active.get("rewards", {})
 	# Previous snapshots may still carry the old task reward names.
 	var reward_aliases := {"herb": "spirit_grass_low", "bronze": "black_copper"}
@@ -767,6 +820,8 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 	
 	if active.get("template_id", "") in ["home_supply_register", "wood_ore_convoy"]: StoryProgress.mark(state, "new_supply_claimed")
 	StoryProgressP2.mark_id(state, "task_mask", StoryProgressP2.TASKS, str(active.get("template_id", "")))
+	SectLineage.claimed(state, active)
+	var guardian_event := GuardianDiscovery.claimed(state, active)
 	sect["active_expedition"] = null
 	
 	return {
@@ -776,10 +831,11 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 			"kind": "expedition_claimed",
 			"task_name": active.get("name", ""),
 			"granted": granted,
-		}],
+		}] + ([guardian_event] if not guardian_event.is_empty() else []),
 	}
 
 static func technique_requirements(state: GameState, tech_id: String) -> Dictionary:
+	if SectSpecialization.METHODS.has(tech_id): return SectSpecialization.requirements(state, tech_id)
 	var sect: Dictionary = state.sect
 	if not bool(sect.get("unlocked", false)):
 		return {"ok": false, "error": "SECT_LOCKED"}
@@ -826,6 +882,7 @@ static func technique_requirements(state: GameState, tech_id: String) -> Diction
 	return {"ok":true,"next_level":next_lvl,"scale":scale,"contribution":req_contrib}
 
 static func learn_technique(state: GameState, tech_id: String) -> Dictionary:
+	if SectSpecialization.METHODS.has(tech_id): return SectSpecialization.learn(state, tech_id)
 	var requirements := technique_requirements(state, tech_id)
 	if not requirements.ok: return requirements
 	var sect: Dictionary = state.sect
@@ -937,6 +994,7 @@ static func compute_multipliers(state: GameState) -> Dictionary:
 		mults.storage_bonus += float(techs["storage_talisman"]) * 0.10
 	if techs.has("essence_array"):
 		mults.lingqi_cap_bonus += float(techs["essence_array"]) * 0.20
+	mults.cultivation_speed_bonus += 0.02 * SectSpecialization.level(state, "taixu_inner_cycle") + SectLineage.bonus(state, "taixu")
 	return mults
 
 static func tick(state: GameState, elapsed_seconds: float, start_age: float = -1.0) -> void:
@@ -971,3 +1029,5 @@ static func on_reincarnate(state: GameState) -> void:
 	sect["next_refresh_seconds"] = 0
 	# Sect membership requires re-joining in new mortal life
 	sect["unlocked"] = false
+	if sect.has("identity_version"): sect["sect_id"] = ""
+	SectLineage.next_life(state)

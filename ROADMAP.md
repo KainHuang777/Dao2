@@ -1,12 +1,19 @@
-2026-10-30 **ERA2-HUB-ECONOMY IN_PROGRESS**：祖島集中加工與玄礦先行已接入，收尾驗證見[狀態](docs/development-status.md#era2-hub-economy)。
+2026-10-31 **SECT-REFORM DONE（L3 160/160 全尺寸通過；現行 Web 包與三橫式桌面瀏覽器驗證完成）**：[狀態與交接](docs/development-status.md#sect-reform-ui)。
 
-2026-10-29 **UI-ISLAND-LIST-R3**：空島共用工作分頁、點島圖切對象與左側配方原料／產物庫存，L2見[狀態](docs/development-status.md#ui-island-list-r3)。
+2026-10-31 **SECT-REFORM-BEAST IN_PROGRESS（BEAST-3 祖父權利／完整遷移與保存完成，L2）**：[狀態與交接](docs/development-status.md#sect-reform-beast)。
 
-2026-10-29 **UI-ISLAND-LIST-R2**：Era2同清單展開製造／運輸／設施、完整管理按鈕收窄，L2見[狀態](docs/development-status.md#ui-island-list-r2)。
+2026-10-30 **ITCH-DEPLOY-WORKFLOW DONE（草稿部署）**：一鍵更新與實際線上採集／重載通過，未公開；見[狀態](docs/development-status.md#itch-deploy-workflow)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 
 # 修仙問道 v2 — 可執行開發 Roadmap
+
+## SECT-REFORM — 五宗差異與跨世傳承（DONE）
+
+- 使用者2026-10-30插入核定；規格與分段見[宗門改版計畫](docs/46-sect-identity-and-inheritance-plan.md)，交付狀態見[紀錄](docs/development-status.md#sect-reform-plan)。
+- 使用者2026-10-30接續BEAST；CORE-1／2／3／SAVE及BEAST-1／2／3規則與保存完成，UI的L2桌面Web抽驗已通過，美術／閱讀密度已由使用者接受，整批L3已完成（160/160，全尺寸）；見[狀態](docs/development-status.md#sect-reform-beast)。
+- 順序 PLAN→DESIGN→CORE→BEAST→UI→CLOSE，各子段L1／L2，整批收尾才一次L3。原hub剩餘失敗保持未通過，不以本規劃結案覆蓋。
+
 
 ## 2026-10-10 優先方向：前期開放順序與引導
 

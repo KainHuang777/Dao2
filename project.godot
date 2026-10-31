@@ -4,6 +4,8 @@ config_version=5
 
 [application]
 
+run/main_scene.sect_reform_ui_review="res://tests/sect_reform_ui_review.tscn"
+
 run/main_scene.world46_review="res://tests/world46_review.tscn"
 
 run/main_scene.story2_acceptance="res://src/verification/story2_acceptance.tscn"

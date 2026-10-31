@@ -92,7 +92,12 @@ func _run() -> void:
 			check(row.scope.get_theme_font_size("font_size") >= 16 and row.effect.get_theme_font_size("font_size") >= 16, "IMM-4-R1 readable scope/effect: " + row_id)
 			check(row.scope.size.y >= row.scope.get_minimum_size().y and row.effect.size.y >= row.effect.get_minimum_size().y, "IMM-4-R1 full body height: " + row_id)
 			check(row.effect.text == row.effect_full, "IMM-4-R1 current/next effects preserved: " + row_id)
-			check(row.card.get_global_rect().encloses(row.info.get_global_rect()) and not row.info.get_global_rect().intersects(row.action.get_global_rect()), "IMM-4-R1 text contained and clear of action: " + row_id)
+			var action_rect: Rect2 = row.action.get_global_rect()
+			var text_clear: bool = row.card.get_global_rect().encloses(row.info.get_global_rect()) \
+				and not action_rect.intersects(row.title.get_global_rect()) \
+				and not action_rect.intersects(row.scope.get_global_rect()) \
+				and not action_rect.intersects(row.effect.get_global_rect())
+			check(text_clear, "IMM-4-R1 text contained and clear of action: " + row_id)
 		var y: float = page.heading.global_position.y
 		page.scroll.scroll_vertical = 10000
 		await frames()

@@ -26,6 +26,8 @@ const KNOWN_COMMAND_TYPES := [
 	"switch_realm",
 	"upgrade_realm_outpost",
 	"join_sect",
+	"resolve_legacy_sect_identity",
+	"redeem_guardian_permit",
 	"refresh_sect_tasks",
 	"start_sect_expedition",
 	"claim_sect_expedition",
@@ -44,6 +46,7 @@ const COMMAND_REGISTRY_LIMIT := GameState.COMMAND_RECEIPT_LIMIT
 var content: GameContent
 var state: GameState
 var clock: GameClock
+var _executing_save_candidate := false
 
 static func create_new_game(content: GameContent, tribulation_seed: int = -1) -> GameSession:
 	var session := GameSession.new()
@@ -75,6 +78,8 @@ static func create_new_game(content: GameContent, tribulation_seed: int = -1) ->
 func submit(command: Dictionary) -> Dictionary:
 	if SaveManager.migration_pending(state):
 		return _error_result(SaveManager.migration_error(state), {})
+	if SectReformSave.active(state) and command.get("type") in SectReformSave.COMMANDS and not _executing_save_candidate:
+		return SaveManager.submit_sect_reform(self, command)
 	if not _is_valid_shape(command):
 		return _error_result("INVALID_COMMAND", {})
 	if not (String(command.type) in KNOWN_COMMAND_TYPES):
@@ -109,8 +114,7 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 	if is_nan(elapsed_seconds) or is_inf(elapsed_seconds) or elapsed_seconds <= 0.0:
 		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null, "new_revision": state.revision}
 	clock.advance(elapsed_seconds)
-	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(BuffSystem.compute_multipliers(state).lifespan_bonus_years)
-	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus), pill_lifespan_bonus)
+	var max_seconds := Lifespan.for_state(content.era_lifespan_entries(), state)
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds):
 		state.tick_remainder_seconds = 0.0
 		return {"ok": true, "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "lifespan_exhausted", "new_revision": state.revision}
@@ -199,9 +203,7 @@ func get_view() -> Dictionary:
 		}
 	var era_def = content.era(state.era_id)
 	var buff_multipliers := BuffSystem.compute_multipliers(state)
-	var talent_lifespan_bonus := float(state.talents.get("lifespan_extension", 0)) * 0.1
-	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0)) + float(buff_multipliers.lifespan_bonus_years)
-	var max_lifespan := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus, pill_lifespan_bonus)
+	var max_lifespan := Lifespan.for_state(content.era_lifespan_entries(), state)
 	var next_required := 0.0
 	var era_view := {}
 	var can_level_up := false
@@ -271,7 +273,7 @@ func get_view() -> Dictionary:
 		"tribulation_preview": _tribulation_preview(),
 		"era": era_view,
 		"resources": resources,
-		"sect": {"contribution": state.sect.get("contribution", "0"), "unlocked": bool(state.sect.get("unlocked", false))},
+		"sect": {"contribution": state.sect.get("contribution", "0"), "unlocked": bool(state.sect.get("unlocked", false)), "identity": SectIdentity.view(state.sect), "specializations": SectSpecialization.view(state), "lineage": SectLineage.view(state)},
 		"skills": SkillSystem.view(content, state),
 		"buildings": buildings,
 		"next_objective": unlock.next_objective,
@@ -520,6 +522,14 @@ func join_sect(sect_name: String = "") -> Dictionary:
 		"type": "join_sect",
 		"expected_revision": state.revision,
 		"payload": {"sect_name": sect_name},
+	})
+
+func resolve_legacy_sect_identity(sect_id: String) -> Dictionary:
+	return submit({
+		"command_id": "resolve_sect_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "resolve_legacy_sect_identity",
+		"expected_revision": state.revision,
+		"payload": {"sect_id": sect_id},
 	})
 
 func refresh_sect_tasks(force: bool = false) -> Dictionary:

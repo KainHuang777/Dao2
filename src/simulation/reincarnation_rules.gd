@@ -42,13 +42,7 @@ static func compute_start_amount(cap_val: float, rebirth_count: int, inheritance
 	return floor(cap_val * inheritance_ratio(rebirth_count, inheritance_bonus))
 
 static func check_eligibility(state: GameState, content: GameContent) -> Dictionary:
-	var talent_lifespan_bonus := 0.0
-	if state.talents.has("lifespan_extension"):
-		talent_lifespan_bonus = float(state.talents["lifespan_extension"]) * 0.1
-	var pill_lifespan_bonus := float(state.pill_effects.get("lifespan_bonus_years", 0.0))
-	var buff_multipliers := BuffSystem.compute_multipliers(state)
-	pill_lifespan_bonus += float(buff_multipliers.lifespan_bonus_years)
-	var max_seconds := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, talent_lifespan_bonus, pill_lifespan_bonus)
+	var max_seconds := Lifespan.for_state(content.era_lifespan_entries(), state)
 	var exhausted := Lifespan.is_exhausted(state.total_elapsed_seconds, max_seconds)
 	if exhausted:
 		return {"can_reincarnate": true, "reason": "lifespan_exhausted"}
@@ -68,6 +62,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			"detail": check,
 		}
 
+	var lineage_error := SectLineage.settlement_error(state)
+	if not lineage_error.is_empty(): return {"ok": false, "error": lineage_error, "events": [], "changed_ids": []}
 	var beast_error := BeastSystem.reincarnation_error(state)
 	if not beast_error.is_empty(): return {"ok": false, "error": beast_error, "events": [], "changed_ids": []}
 	var b_sum := building_level_sum(state.buildings)
@@ -84,6 +80,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.life_ledger.current.settlement = {"dao_heart": (reward.dao_heart as AmountCompat).serialize(), "dao_proof": reward.dao_proof}
 	LifeLedger.seal(state, String(check.reason), source if not source.is_empty() else "reincarnation:" + str(state.reincarnation_count + 1))
 
+	SectLineage.settle(state)
 	# Update meta progress
 	state.reincarnation_count += 1
 	state.highest_era = maxi(state.highest_era, previous_era)
@@ -189,6 +186,6 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	return {
 		"ok": true,
 		"events": [event_payload],
-		"changed_ids": ["reincarnation_count", "dao_heart", "dao_proof", "era_id", "cultivation_level", "resources", "buildings", "beasts", "beast_souls"],
+		"changed_ids": ["reincarnation_count", "dao_heart", "dao_proof", "era_id", "cultivation_level", "resources", "buildings", "beasts", "beast_souls", "sect", "achievements", "talents"],
 		"reward": reward,
 	}

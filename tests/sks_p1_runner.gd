@@ -132,7 +132,7 @@ func _run() -> void:
 	var snapshot: Dictionary = old.state.to_snapshot_dict()
 	snapshot.skill_version = 1
 	snapshot.skills = {"basic_meditation": 2, "qi_condensation": 1, "foundation_building": 1, "qi_storage_1": 1, "body_strengthening_1": 1, "building_mastery_1": 1}
-	var legacy_envelope: Dictionary = {"schema_version": SaveCodec.SCHEMA_VERSION, "game_version": SaveCodec.GAME_VERSION, "content_version": c.content_version, "rules_version": SaveCodec.RULES_VERSION, "amount_format_version": SaveCodec.AMOUNT_FORMAT_VERSION, "generator_version": SaveCodec.GENERATOR_VERSION, "save_id": meta.save_id, "revision": int(old.state.revision), "saved_at_utc_ms": meta.saved_at_utc_ms, "settled_until_utc_ms": meta.settled_until_utc_ms, "sim_tick": meta.sim_tick, "state": snapshot, "rng_streams": {}, "last_offline_report": null}
+	var legacy_envelope: Dictionary = {"schema_version": 5, "game_version": SaveCodec.GAME_VERSION, "content_version": c.content_version, "rules_version": SaveCodec.RULES_VERSION, "amount_format_version": SaveCodec.AMOUNT_FORMAT_VERSION, "generator_version": SaveCodec.GENERATOR_VERSION, "save_id": meta.save_id, "revision": int(old.state.revision), "saved_at_utc_ms": meta.saved_at_utc_ms, "settled_until_utc_ms": meta.settled_until_utc_ms, "sim_tick": meta.sim_tick, "state": snapshot, "rng_streams": {}, "last_offline_report": null}
 	legacy_envelope.checksum = SaveCodec.compute_checksum(legacy_envelope)
 	var original := JSON.stringify(legacy_envelope)
 	check(SaveCodec.RULES_VERSION == "core-flow-17-content-p1-story", "rules version content p1 story")

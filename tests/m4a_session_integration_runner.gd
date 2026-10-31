@@ -16,10 +16,12 @@ func _init() -> void:
 	_reject(s, "remove_buff", {"buff_id": ""}, "EMPTY_BUFF_ID")
 	s.state.era_id = 2
 	_reject(s, "upgrade_realm_outpost", {"outpost_id": "celestial_hub"}, "INSUFFICIENT_HUMAN_RESOURCE")
-	_success(s, "join_sect", {"sect_name": "整合驗收宗門"})
+	_success(s, "join_sect", {"sect_name": "太虛天闕"})
 	_reject(s, "join_sect", {}, "ALREADY_JOINED_SECT")
 	_reject(s, "refresh_sect_tasks", {}, "REFRESH_COOLDOWN")
-	_success(s, "refresh_sect_tasks", {"force": true})
+	_reject(s, "refresh_sect_tasks", {"force": true}, "REFRESH_COOLDOWN")
+	SectSystem.tick(s.state, 300)
+	_success(s, "refresh_sect_tasks", {})
 	_reject(s, "start_sect_expedition", {"task_id": "missing"}, "TASK_NOT_FOUND")
 	var task: Dictionary = s.state.sect.available_tasks[0]
 	_success(s, "start_sect_expedition", {"task_id": task.id})
@@ -152,7 +154,9 @@ class MemoryStorage extends StorageAdapter:
 	var data := {}
 	var fail_writes := false
 	func read(key: String) -> Dictionary:
-		return {"ok": data.has(key), "data": data.get(key, ""), "error": ""}
+		if data.has(key):
+			return {"ok": true, "data": data[key], "error": ""}
+		return {"ok": false, "data": "", "error": "missing"}
 	func write(key: String, value: String) -> Dictionary:
 		if fail_writes:
 			return {"ok": false, "error": "fixture_write_failure"}
@@ -165,7 +169,8 @@ class MemoryStorage extends StorageAdapter:
 func _test_receipt_recovery(s: GameSession) -> void:
 	var storage := MemoryStorage.new()
 	SaveManager.configure(content, storage)
-	_check(SaveManager.save(s.state, {}).ok, "initial isolated save")
+	var initial_save := SaveManager.save(s.state, {})
+	_check(initial_save.ok, "initial isolated save: " + String(initial_save.get("error", "")))
 	var command := _command(s, "buy_sect_market_item", {"item_id": "stone_bundle"})
 	_check(s.submit(command).ok, "market before failed save")
 	var before := _snapshot(s)

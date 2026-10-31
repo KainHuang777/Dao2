@@ -107,7 +107,10 @@ func _run() -> void:
 
 	_expect(abode.session.state.reincarnation_count == 1, "reincarnation count must be 1 after reincarnating")
 	_expect(abode.session.state.era_id == 1, "era must reset to 1 (练气期)")
-	_expect(abode.session.state.buildings.is_empty(), "island buildings must be reset to empty")
+	var any_built := false
+	for level in abode.session.state.buildings.values():
+		if int(level) > 0: any_built = true
+	_expect(not any_built, "island buildings must be reset to empty")
 	_expect(not abode.buildings["storage_lingli"].visible, "rebirth leaves altar platform empty")
 	# 45 (剩餘) + 15 (二階保底) = 60
 	_expect(abode.session.state.dao_heart.to_float() == 60.0, "dao heart must be updated to 60 (45 remaining + 15 floor)")

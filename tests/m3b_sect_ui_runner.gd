@@ -152,7 +152,9 @@ func test_gamesession_sect_command_integration() -> void:
 	assert(session.state.sect.get("sect_name", "") == "天劍聖宗", "State sect name correctly set")
 	
 	# Test refresh_sect_tasks via session
-	var ref_res := session.refresh_sect_tasks(true)
+	assert(not session.refresh_sect_tasks(true).ok, "Public force cannot bypass refresh cooldown")
+	SectSystem.tick(session.state, 300)
+	var ref_res := session.refresh_sect_tasks()
 	assert(bool(ref_res.get("ok", false)), "session.refresh_sect_tasks should succeed")
 	
 	# Test start_sect_expedition via session

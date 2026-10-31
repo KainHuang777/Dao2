@@ -188,7 +188,8 @@ func _run() -> void:
 		IslandEconomy._put(abode.session.state, entry[1], entry[0], IslandProgression.capacity(abode.session.state, entry[1]))
 		nav.open_manufacturing(entry[1], entry[0])
 		nav.manufacturing_panel.supply_button.pressed.emit()
-		check(nav.page == "transport" and panel.selected_route == entry[2], "exact output full route " + entry[2])
+		# A full output needs island storage, not an outgoing trip.
+		check(nav.page == "outposts" and nav.island_panel.island == entry[1], "full output opens island storage " + entry[2])
 	reset()
 	IslandEconomy._put(abode.session.state, "herb", "spirit_grass_low", 0)
 	nav.open_manufacturing("herb", "liquid")

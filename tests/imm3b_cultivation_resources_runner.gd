@@ -62,10 +62,10 @@ func _run() -> void:
 		root.content_scale_size = Vector2i(vp)
 		abode._layout_for_size(vp)
 		await frames()
-		_check_skills(nav, vp)
-		_check_beasts(nav, vp)
-		_check_decisions(nav, vp)
-		_check_sect(nav, vp)
+		await _check_skills(nav, vp)
+		await _check_beasts(nav, vp)
+		await _check_decisions(nav, vp)
+		await _check_sect(nav, vp)
 	_check_decision_lifespan()
 	await _check_reincarnation()
 	await _check_fortune()
@@ -154,8 +154,14 @@ func _check_decisions(nav, vp: Vector2) -> void:
 		check(lifespan_ok, "lifespan stays a labelled second cost, not a resource tile " + str(vp))
 
 func _check_sect(nav, vp: Vector2) -> void:
+	# Legacy P1 cost strips remain the non-reform presentation; reform-active
+	# saves render specialization cards instead. Pin this section to the legacy
+	# path so the shared contribution seal stays covered.
+	var saved_sect_version := int(abode.session.state.sect_version)
+	abode.session.state.sect_version = 2
 	abode.session.state.sect.unlocked = true
 	abode.session.state.sect.contribution = "5000"
+	SectIdentity.write(abode.session.state.sect, "taixu_sect")
 	if not abode.session.state.sect.has("techniques"): abode.session.state.sect["techniques"] = {}
 	nav.open("sect")
 	abode._layout_for_size(vp)
@@ -183,6 +189,7 @@ func _check_sect(nav, vp: Vector2) -> void:
 		contrib_ok = contrib_ok and tile != null and tile.visible and tile.caption.text.contains("宗門")
 	check(contrib_ok, "market price uses the sect contribution seal " + str(vp))
 	panel._tab_expeditions_btn.pressed.emit()
+	abode.session.state.sect_version = saved_sect_version
 
 func _check_decision_lifespan() -> void:
 	var view := DecisionView.new()

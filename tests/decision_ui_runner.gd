@@ -33,7 +33,12 @@ func run() -> void:
 	for enc in FortuneSystem.get_encounters():
 		if enc.id == "enc_wandering_taoist": state.fortune.pending_encounter = enc.duplicate(true)
 	state.resources.spirit_grass_low.value = AmountCompat.from_number(50)
+	SectLineage.next_life(state)
 	state.revision += 1
+	# Persist the synthetic fixture so settlement saves succeed; a failed save
+	# reserves the banner strip and collapses the compact body.
+	var fixture_save: Dictionary = abode._save_game()
+	check(fixture_save.get("ok", false), "fixture save: " + String(fixture_save.get("error", "")))
 	abode.feature_navigation.open("fortune")
 	abode._refresh_hud()
 	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX") == "full" else [Vector2i(1280,720)]):

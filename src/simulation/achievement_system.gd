@@ -374,6 +374,7 @@ static func _definitions() -> Dictionary:
 	var definitions := LEGACY_DEFINITIONS.duplicate(true)
 	definitions.merge(P1_DEFINITIONS)
 	definitions.merge(P2_DEFINITIONS)
+	definitions.merge(SectLineage.achievement_definitions())
 	return definitions
 
 const LEGACY_DEFINITIONS := {
@@ -605,6 +606,7 @@ static func check_achievements(state: GameState, content: GameContent = null) ->
 
 		if P1_DEFINITIONS.has(id) or P2_DEFINITIONS.has(id):
 			is_met = StoryProgress.achievement_met(state, id)
+		if SectLineage.achievement_definitions().has(id): is_met = SectLineage.achievement_met(state, id)
 		if is_met:
 			unlocked[id] = 0.0 if P1_DEFINITIONS.has(id) or P2_DEFINITIONS.has(id) else state.total_elapsed_seconds
 			newly_unlocked.append(id)
@@ -615,6 +617,8 @@ static func claim_reward(state: GameState, content: GameContent, achievement_id:
 	if not DEFINITIONS.has(achievement_id):
 		return {"ok": false, "error": "UNKNOWN_ACHIEVEMENT", "message": "未知成就 ID"}
 	var def: Dictionary = DEFINITIONS[achievement_id]
+	if SectLineage.ACHIEVEMENTS.has(achievement_id) and not SectLineage.achievement_met(state, achievement_id):
+		return {"ok": false, "error": "ACHIEVEMENT_NOT_UNLOCKED"}
 	var ach := ensure_achievements_state(state)
 	var unlocked: Dictionary = ach["unlocked"]
 	var claimed: Dictionary = ach["claimed"]
@@ -688,6 +692,11 @@ static func get_achievement_view(state: GameState, content: GameContent = null) 
 	var list: Array[Dictionary] = []
 	for id in DEFINITIONS:
 		var def: Dictionary = DEFINITIONS[id]
+		if SectLineage.achievement_definitions().has(id) and not SectLineage.revealed(state, id):
+			def = def.duplicate(true)
+			def.name = "未明傳承"
+			def.desc = "傳承尚未揭露"
+			def.rewards_desc = "紀念稱號"
 		var is_unlocked := unlocked.has(id)
 		var is_claimed := bool(claimed.get(id, false))
 		if is_unlocked and not is_claimed:
@@ -711,6 +720,13 @@ static func get_achievement_view(state: GameState, content: GameContent = null) 
 		})
 
 	var completion_percent := (float(unlocked_count) / float(total_count) * 100.0) if total_count > 0 else 0.0
+
+	for item in list:
+		if SectLineage.ACHIEVEMENTS.has(item.id):
+			var definition: Dictionary = SectLineage.ACHIEVEMENTS[item.id]
+			item.lineage_progress = "首次有效世後揭露；需築基、同宗新委託領3件，再完成輪迴。"
+			if SectLineage.revealed(state, item.id):
+				item.lineage_progress = ("五宗各至少1有效世；只獎稱號。" if item.id == "sect_five_paths" else "有效世 %d／%d · 只獎稱號。" % [SectLineage.completed(state, definition.sect_id), definition.required_lives])
 
 	return {
 		"total_count": total_count,

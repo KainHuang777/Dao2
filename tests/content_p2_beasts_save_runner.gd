@@ -107,7 +107,7 @@ func _validation() -> void:
 	check(JSON.parse_string(encode(branch)).rules_version==SaveCodec.PILL_RULES_VERSION,"legacy beast preserves pill branch")
 	branch.pill_version=1
 	check(JSON.parse_string(encode(branch)).rules_version==SaveCodec.TALENT_RULES_VERSION,"legacy beast preserves talent branch")
-	for version in [-1,2,true,0.5,"1",INF,NAN]: check(not BeastSaveContract.validate(version,{},{},{}).is_empty(),"invalid version")
+	for version in [-1,3,true,0.5,"1",INF,NAN]: check(not BeastSaveContract.validate(version,{},{},{}).is_empty(),"invalid version")
 	for id in BeastSystem.BEAST_CONFIGS:
 		for exp_value in [0,99,100,499,500,999,1000,2147483647]:
 			var stage: String="egg" if exp_value<100 else "young" if exp_value<500 else "growing" if exp_value<1000 else "mature"

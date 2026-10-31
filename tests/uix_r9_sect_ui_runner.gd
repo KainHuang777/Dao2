@@ -50,6 +50,9 @@ func _run() -> void:
 	var adapter := ToggleAdapter.new()
 	SaveSlots.new(adapter).reset()
 	SaveManager.configure(abode.content,adapter)
+	# This legacy retry flow asserts the in-memory mutation survives a failed
+	# write; reform sessions otherwise stage commands through a candidate.
+	abode.session._executing_save_candidate = true
 	panel._switch_tab(SectPanel.TabMode.TECHNIQUES)
 	adapter.fail_writes = true
 	buttons(panel,"參悟提升")[0].pressed.emit()

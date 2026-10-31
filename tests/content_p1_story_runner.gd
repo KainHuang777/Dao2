@@ -64,7 +64,7 @@ func valid_old(raw: String) -> String:
 func run() -> void:
 	content = ContentLoader.load_directory("res://content").content
 	check(IslandProgression.attach(content).ok, "content attach")
-	check(AchievementSystem.DEFINITIONS.size() == 48, "48 achievements including Y")
+	check(AchievementSystem.DEFINITIONS.size() == 64, "64 achievements (48 formal + 16 lineage)")
 	check(FortuneSystem.get_encounters().size() == 56, "56 encounters including Y")
 	var new_defs: Array = []
 	for def in FortuneSystem.get_encounters():

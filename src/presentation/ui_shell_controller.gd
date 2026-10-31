@@ -386,7 +386,7 @@ func apply(vp: Vector2) -> void:
 		context_paper.size = abode.resource_ribbon.size
 	if integrated and not drawer:
 		var work_width := minf(1160.0, vp.x - margin * 2)
-		var work_top := 16.0 if wide else 72.0
+		var work_top := 16.0 if wide else 64.0
 		var work_bounds := Rect2(Vector2((vp.x - work_width) * 0.5, work_top), Vector2(work_width, maxf(80, bottom - work_top - (52 if save_failed else 0))))
 		workbench.apply(true, work_bounds, wide, rail)
 		if integrated_identity:

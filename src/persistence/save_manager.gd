@@ -32,11 +32,136 @@ static var _supply_original: String = ""
 static var _supply_candidate: GameState = null
 static var _load_error: String = ""
 static var _forced_reset := false
+static var _core_pending: Dictionary = {}
+static var _core_owner: GameSession = null
+
+static func core_save_pending(state: GameState) -> bool:
+	return _core_owner != null and not _core_pending.is_empty() and state == _core_owner.state
+
+static func sect_reform_original() -> String:
+	return String(_core_pending.get("original", ""))
+
+static func commit_sect_reform_startup() -> Dictionary:
+	if _core_owner != null: return _commit_core()
+	var source := current_state()
+	if source == null: return {"ok": false, "error": "NO_STATE"}
+	if SectReformRelease.active(source): return {"ok": true, "committed": false}
+	if migration_pending(source): return {"ok": false, "error": migration_error(source)}
+	# A brand-new game needs a durable baseline before source-addressed archival.
+	if _envelope.is_empty():
+		var baseline := save(source, {})
+		if not baseline.ok: return baseline
+	var session := GameSession.new()
+	session.content = content()
+	session.clock = GameClock.create(source.total_elapsed_seconds)
+	session.state = source
+	return activate_sect_reform_release(session, _envelope.duplicate(true))
+
+static func activate_sect_reform_release(session: GameSession, meta: Dictionary) -> Dictionary:
+	if SectReformRelease.active(session.state): return {"ok": false, "error": "ALREADY_MIGRATED"}
+	return _activate_sect_reform(session, meta, true)
+
+static func activate_sect_reform(session: GameSession, meta: Dictionary) -> Dictionary:
+	return _activate_sect_reform(session, meta, false)
+
+static func _activate_sect_reform(session: GameSession, meta: Dictionary, release: bool) -> Dictionary:
+	if _core_owner != null: return {"ok": false, "error": "SECT_CORE_SAVE_REQUIRED"}
+	if migration_pending(session.state): return {"ok": false, "error": migration_error(session.state)}
+	if not release and SectReformSave.active(session.state): return {"ok": false, "error": "ALREADY_MIGRATED"}
+	if session.state.sect_version < 2: return {"ok": false, "error": "SECT_CORE_BASE_VERSION"}
+	var source := slots().read_best(func(raw: String) -> int:
+		var decoded := SaveCodec.decode(raw)
+		return decoded.state.revision if decoded.ok else -1)
+	if not source.ok: return source
+	var decoded := SaveCodec.decode(source.json)
+	if decoded.envelope.save_id != String(meta.get("save_id", "local")):
+		return {"ok": false, "error": "SECT_CORE_SOURCE_SAVE_ID"}
+	if JSON.parse_string(JSON.stringify(decoded.state.to_snapshot_dict())) != JSON.parse_string(JSON.stringify(session.state.to_snapshot_dict())):
+		return {"ok": false, "error": "SECT_CORE_SOURCE_STATE_MISMATCH"}
+	var candidate := SectReformRelease.prepare(session.state, source.json, decoded.envelope.save_id) if release else SectReformSave.prepare(session.state, source.json, decoded.envelope.save_id)
+	return _stage_core(session, candidate, meta, {"ok": true, "new_revision": candidate.revision, "events": [], "changed_ids": ["sect"]}, source.json)
+
+static func submit_sect_reform(session: GameSession, command: Dictionary) -> Dictionary:
+	# Use the same whitelist/revision/receipt path on an isolated candidate.
+	if _core_owner != null: return {"ok": false, "error": "SECT_CORE_SAVE_REQUIRED"}
+	var candidate := GameSession.new()
+	candidate.content = session.content
+	candidate.clock = GameClock.create(session.clock.now() if session.clock != null else session.state.total_elapsed_seconds)
+	candidate.state = session.state.duplicate_state()
+	candidate._executing_save_candidate = true
+	var result := candidate.submit(command)
+	if not result.ok or result.get("duplicate", false): return result
+	# Reincarnation clears buildings. Reconcile zero-level skill facilities in
+	# this same candidate, so loading cannot manufacture an extra migration.
+	SkillSystem.reconcile(session.content, candidate.state)
+	candidate.state.command_receipts[command.command_id] = SectReformSave.receipt_value(candidate.state.command_receipts[command.command_id])
+	var meta := _envelope.duplicate(true)
+	meta.save_id = String(_envelope.get("save_id", session.state.sect.core_save.save_id))
+	var durable := slots().read_best(func(raw: String) -> int:
+		var decoded := SaveCodec.decode(raw)
+		return decoded.state.revision if decoded.ok else -1)
+	if not durable.ok: return {"ok": false, "error": durable.error}
+	var previous := SaveCodec.decode(durable.json)
+	if previous.envelope.save_id != meta.save_id or previous.state.revision > session.state.revision:
+		return {"ok": false, "error": "SECT_CORE_DURABLE_CONFLICT"}
+	if previous.state.reincarnation_count != session.state.reincarnation_count:
+		return {"ok": false, "error": "SECT_CORE_DURABLE_CONFLICT"}
+	meta.settled_until_utc_ms = str(int(previous.envelope.settled_until_utc_ms) + maxi(0, int(round((session.state.total_elapsed_seconds - previous.state.total_elapsed_seconds) * 1000.0))))
+	meta.sim_tick = str(int(floor(candidate.state.total_elapsed_seconds / float(TimeAdvancer.SECONDS_PER_TICK))))
+	return _stage_core(session, candidate.state, meta, result)
+
+static func _stage_core(session: GameSession, candidate: GameState, meta: Dictionary, result: Dictionary, original := "") -> Dictionary:
+	if not _load_error.is_empty(): return {"ok": false, "error": "LOAD_NOT_TRUSTED"}
+	var normalized := _normalize_meta(meta)
+	var encoded := SaveCodec.encode(candidate, session.content.content_version, normalized)
+	if not encoded.ok: return {"ok": false, "error": encoded.error}
+	_core_owner = session
+	_core_pending = {"candidate": candidate, "json": encoded.json, "meta": normalized, "result": result.duplicate(true), "original": original}
+	return _commit_core()
+
+static func _commit_core() -> Dictionary:
+	if _core_owner == null: return {"ok": false, "error": "SECT_CORE_NO_CANDIDATE"}
+	var schema_error := _future_schema_error()
+	if not schema_error.is_empty(): return {"ok": false, "error": schema_error}
+	var original := sect_reform_original()
+	if not original.is_empty():
+		var archived := SectReformSave.archive(adapter(), original)
+		if not archived.ok: return archived
+	var pending := _core_pending
+	var raw := String(pending.json)
+	# Exact bytes include save_id, revision, RNG and the immutable receipt.
+	var best := slots().read_best(func(value: String) -> int:
+		var decoded := SaveCodec.decode(value)
+		return decoded.state.revision if decoded.ok else -1)
+	if not best.ok and best.error != "empty_storage": return {"ok": false, "error": best.error}
+	var reconciled: bool = best.ok and best.json == raw
+	if not reconciled:
+		if best.ok and int(best.revision) >= pending.candidate.revision:
+			return {"ok": false, "error": "SECT_CORE_DURABLE_CONFLICT"}
+		var saved := slots().commit(raw, pending.candidate.revision)
+		# An error may follow a durable write. Recover/rotate away from that slot.
+		best = slots().read_best(func(value: String) -> int:
+			var decoded := SaveCodec.decode(value)
+			return decoded.state.revision if decoded.ok else -1)
+		if not best.ok or best.json != raw:
+			return {"ok": false, "error": saved.get("error", "SECT_CORE_READBACK") if not saved.ok else "SECT_CORE_READBACK"}
+		reconciled = not saved.ok
+	_core_owner.state = pending.candidate
+	_current_state = pending.candidate
+	_envelope = SaveCodec.decode(raw).envelope
+	var result: Dictionary = pending.result.duplicate(true)
+	result.committed = true
+	result.reconciled = reconciled
+	if not original.is_empty(): result.archive_key = SectReformSave.ARCHIVE_PREFIX + original.sha256_text()
+	_core_pending = {}
+	_core_owner = null
+	return result
 
 static func migration_pending(state: GameState) -> bool:
-	return (not _story_original.is_empty() and state == _story_candidate) or (not _beasts_original.is_empty() and state == _beasts_candidate) or (not _sect_original.is_empty() and state == _sect_candidate) or (not _pills_original.is_empty() and state == _pills_candidate) or supply_pending(state) or (not _talents_original.is_empty() and state == _talents_candidate)
+	return core_save_pending(state) or (not _story_original.is_empty() and state == _story_candidate) or (not _beasts_original.is_empty() and state == _beasts_candidate) or (not _sect_original.is_empty() and state == _sect_candidate) or (not _pills_original.is_empty() and state == _pills_candidate) or supply_pending(state) or (not _talents_original.is_empty() and state == _talents_candidate)
 
 static func migration_error(state: GameState) -> String:
+	if core_save_pending(state): return "SECT_CORE_SAVE_REQUIRED"
 	return "STORY_SAVE_REQUIRED" if not _story_original.is_empty() and state == _story_candidate else "BEAST_SAVE_REQUIRED" if not _beasts_original.is_empty() and state == _beasts_candidate else "SUPPLY_SAVE_REQUIRED" if supply_pending(state) else "PILL_SAVE_REQUIRED" if not _pills_original.is_empty() and state == _pills_candidate else "SECT_SAVE_REQUIRED" if not _sect_original.is_empty() and state == _sect_candidate else "TALENT_SAVE_REQUIRED"
 
 static func supply_pending(state: GameState) -> bool:
@@ -135,6 +260,8 @@ static func activate_islands(session: GameSession, meta: Dictionary, first_islan
 	return result
 
 static func configure(content: GameContent, adapter: StorageAdapter = null) -> void:
+	_core_owner = null
+	_core_pending = {}
 	_content = content
 	var use_adapter: StorageAdapter = adapter
 	if use_adapter == null:
@@ -191,8 +318,12 @@ static func load_state() -> Variant:
 	return current_state()
 
 static func save(state: GameState, meta: Dictionary) -> Dictionary:
+	if _core_owner != null:
+		return _commit_core() if core_save_pending(state) else {"ok": false, "error": "SECT_CORE_CANDIDATE_REQUIRED"}
 	if not _load_error.is_empty():
 		return {"ok": false, "error": "LOAD_NOT_TRUSTED"}
+	var schema_error := _future_schema_error()
+	if not schema_error.is_empty(): return {"ok": false, "error": schema_error}
 	if state == null:
 		return {"ok": false, "error": "STATE_MISSING"}
 	if _story_candidate != null and state != _story_candidate:
@@ -374,7 +505,7 @@ static func save(state: GameState, meta: Dictionary) -> Dictionary:
 	return commit_result
 
 static func import_legacy_text(input_text: String) -> Dictionary:
-	if _story_candidate != null or _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
+	if _core_owner != null or _story_candidate != null or _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
 		return {"ok": false, "state": null, "report": {}, "error": "MIGRATION_PENDING"}
 	var content_obj: GameContent = content()
 	if content_obj == null:
@@ -436,6 +567,10 @@ static func envelope() -> Dictionary:
 	return _envelope
 
 static func export_share_string(state: Variant = null, meta: Dictionary = {}) -> String:
+	# During activation, export the immutable source bytes, not a re-encoded
+	# candidate or a snapshot with different metadata/checksum/whitespace.
+	if not sect_reform_original().is_empty() and (state == null or (state is GameState and core_save_pending(state))):
+		return Marshalls.utf8_to_base64(sect_reform_original())
 	var exported: GameState = null
 	if state is GameState:
 		exported = state as GameState
@@ -454,7 +589,7 @@ static func export_share_string(state: Variant = null, meta: Dictionary = {}) ->
 static func import_share_string(share: String) -> Dictionary:
 	# An outstanding migration owns its exact original and candidate. A second
 	# import must not replace references used by the eventual atomic save.
-	if _story_candidate != null or _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
+	if _core_owner != null or _story_candidate != null or _beasts_candidate != null or _sect_candidate != null or _pills_candidate != null or _talents_candidate != null or _supply_candidate != null:
 		return {"ok": false, "state": null, "error": "MIGRATION_PENDING"}
 	if share.is_empty():
 		return {"ok": false, "state": null, "error": "EMPTY"}
@@ -493,6 +628,8 @@ static func import_share_string(share: String) -> Dictionary:
 	return {"ok": true, "state": decode_result["state"], "error": ""}
 
 static func reset_for_tests() -> void:
+	_core_owner = null
+	_core_pending = {}
 	_content = null
 	_slots = null
 	_current_state = null
@@ -516,7 +653,23 @@ static func reset_for_tests() -> void:
 	_load_error = ""
 	_forced_reset = false
 
+## Unknown future generations must not be overwritten by falling back to an
+## older valid slot. Read-only guard also applies to pending release retries.
+static func _future_schema_error() -> String:
+	for key in [SaveSlots.SLOT_MAIN, SaveSlots.SLOT_BACKUP]:
+		var raw := adapter().read(key)
+		if not raw.ok:
+			if raw.get("error") != "missing": return "storage_read_failed"
+			continue
+		var parsed: Variant = JSON.parse_string(raw.data)
+		if SaveCodec.classify_envelope(parsed) == "newer": return "SCHEMA_VERSION_UNKNOWN"
+	return ""
+
 static func _load_from_slots() -> GameState:
+	var schema_error := _future_schema_error()
+	if not schema_error.is_empty():
+		_load_error = schema_error
+		return null
 	var adapter_obj: StorageAdapter = adapter()
 	for slot_name in [SaveSlots.SLOT_MAIN, SaveSlots.SLOT_BACKUP]:
 		var raw: Dictionary = adapter_obj.read(slot_name)
@@ -559,7 +712,7 @@ static func _load_from_slots() -> GameState:
 	if not bool(decode_result.get("ok", false)):
 		return null
 	_envelope = decode_result["envelope"]
-	if int(_envelope.schema_version) < SaveCodec.SCHEMA_VERSION:
+	if int(_envelope.schema_version) < 5:
 		_ledger_original = String(best["json"])
 	if int(_envelope.schema_version) == 2:
 		_schema2_original = String(best["json"])

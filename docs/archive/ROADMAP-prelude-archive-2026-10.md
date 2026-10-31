@@ -1,3 +1,15 @@
+2026-10-30 **ERA2-HUB-ECONOMY IN_PROGRESS**：祖島集中加工與玄礦先行已接入，收尾驗證見[狀態](docs/development-status.md#era2-hub-economy)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-29 **UI-ISLAND-LIST-R3**：空島共用工作分頁、點島圖切對象與左側配方原料／產物庫存，L2見[狀態](../development-status.md#ui-island-list-r3)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-10-29 **UI-ISLAND-LIST-R2**：Era2同清單展開製造／運輸／設施、完整管理按鈕收窄，L2見[狀態](docs/development-status.md#ui-island-list-r2)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
 2026-10-29 **UI-ISLAND-LIST-R1**：Era2開拓改島圖清單、列內開拓／管理與製造續接，L2驗收見[狀態](docs/development-status.md#ui-island-list-r1)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。

@@ -113,7 +113,7 @@ static func cap(state: GameState, content: GameContent, id: String) -> AmountCom
 	var value: AmountCompat = Production.compute_caps(content, state.buildings, state.era_id, state.onboarding_version, state.skills).get(id, AmountCompat.zero())
 	var copy := state.duplicate_state()
 	var beast := BeastSystem.compute_multipliers(copy)
-	var bonus := float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus) + float(beast.all_capacity_mult)
+	var bonus := SectSpecialization.capacity_bonus(state, id) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus) + float(beast.all_capacity_mult)
 	if id in ["stone_low", "refined_iron"]: bonus += float(beast.cap_stone_iron)
 	if bonus > 0: value = value.multiply(AmountCompat.from_number(1 + bonus))
 	if not state.economy.is_empty() and content.processing_catalog.get("resources", {}).has(id):

@@ -38,6 +38,7 @@ func _run() -> void:
 	abode.camera.set_process(false)
 	abode.session = GameSession.create_new_game(abode.content)
 	abode.state = abode.AbodeStateCompat.new(abode.session)
+	slots.reset()
 	SaveManager.configure(abode.content, adapter)
 	abode._refresh_hud()
 	var before: Dictionary = abode.session.state.to_snapshot_dict()

@@ -452,6 +452,7 @@ func _on_action(kind: String, id: String) -> void:
 	match kind:
 		"skill": result = abode.session.submit({"command_id": "skill-" + str(Time.get_ticks_usec()), "type": "learn_skill", "expected_revision": abode.session.state.revision, "payload": {"skill_id": id}})
 		"acquire": result = abode.session.acquire_beast(id)
+		"redeem": result = abode.session.submit({"command_id": "guardian-" + str(Time.get_ticks_usec()), "type": "redeem_guardian_permit", "expected_revision": abode.session.state.revision, "payload": {"target_id": id}})
 		"feed": result = abode.session.feed_beast()
 		"talent": result = abode.session.unlock_beast_talent(id)
 		"decision": result = abode.session.execute_realm_decision(abode.session.state.current_realm, id)

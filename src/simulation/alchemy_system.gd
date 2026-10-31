@@ -249,6 +249,8 @@ static func refinement_cost(state: GameState, pill_id: String, count: int = 1) -
 				amount = amount.multiply(AmountCompat.from_number(100 - 2 * SectSystem.active_level(state, "p2_pill_qi_conservation"))).divide(AmountCompat.from_number(100))
 			if res_id == "spirit_grass_low" and pill_id in SectSystem.HERB_DISCOUNT_PILLS:
 				amount = amount.multiply(AmountCompat.from_number(100 - 2 * SectSystem.active_level(state, "alchemy_herb_conservation"))).divide(AmountCompat.from_number(100))
+			var sect_level := SectSpecialization.pill_discount_level(state, pill_id, res_id)
+			if sect_level > 0: amount = amount.multiply(AmountCompat.from_number(100 - 2 * sect_level)).divide(AmountCompat.from_number(100))
 			amount = amount.multiply(AmountCompat.from_number(TalentSystem.herb_cost_multiplier(state, pill_id, res_id)))
 			costs[res_id] = amount.multiply(AmountCompat.from_number(count))
 	return costs
@@ -546,7 +548,7 @@ static func p2_gate(state: GameState, id: String) -> String:
 	if not is_unlocked(state): return "ALCHEMY_LOCKED"
 	if state.era_id < int(PILLS[id].min_era): return "PILL_LOCKED"
 	var content := SupplyContent.runtime_content()
-	var maximum := Lifespan.max_lifespan_seconds(content.era_lifespan_entries(), state.era_id, float(TalentSystem.compute_multipliers(state).lifespan_bonus), float(state.pill_effects.get("lifespan_bonus_years", 0)) + float(BuffSystem.compute_multipliers(state).lifespan_bonus_years))
+	var maximum := Lifespan.for_state(content.era_lifespan_entries(), state)
 	if Lifespan.is_exhausted(state.total_elapsed_seconds, maximum): return "LIFESPAN_EXHAUSTED"
 	if id in P2_CAPACITY and int(state.buildings.get(P2_CAPACITY[id].building, 0)) < 1: return "PILL_BUILDING_REQUIRED"
 	var island := "ancient" if id == "ancient_herb_dew_pill" else "void" if id == "void_gathering_pill" else ""

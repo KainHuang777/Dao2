@@ -1,0 +1,138 @@
+{
+  "utc": "2026-10-31T03:10:40.283Z",
+  "url": "http://127.0.0.1:4492/index.html",
+  "screens": [
+    {
+      "vp": [
+        1280,
+        720
+      ],
+      "metrics": {
+        "inner": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          1279,
+          719
+        ],
+        "doc": [
+          1280,
+          720
+        ],
+        "body": [
+          1280,
+          0
+        ],
+        "storage": "ready",
+        "keys": 4
+      },
+      "overflow": false,
+      "canvasFits": true,
+      "shot": "docs\\verification\\artifacts\\sect-reform-l3-web\\abode-1280x720.png",
+      "save": {
+        "slot": "save_backup",
+        "indexed": true,
+        "revision": 3,
+        "schema": 6,
+        "empty": false
+      }
+    },
+    {
+      "vp": [
+        844,
+        390
+      ],
+      "metrics": {
+        "inner": [
+          844,
+          390
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          843,
+          389
+        ],
+        "doc": [
+          844,
+          390
+        ],
+        "body": [
+          844,
+          0
+        ],
+        "storage": "ready",
+        "keys": 4
+      },
+      "overflow": false,
+      "canvasFits": true,
+      "shot": "docs\\verification\\artifacts\\sect-reform-l3-web\\abode-844x390.png",
+      "save": {
+        "slot": "save_main",
+        "indexed": true,
+        "revision": 4,
+        "schema": 6,
+        "empty": false
+      }
+    },
+    {
+      "vp": [
+        800,
+        360
+      ],
+      "metrics": {
+        "inner": [
+          800,
+          360
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          799,
+          359
+        ],
+        "doc": [
+          800,
+          360
+        ],
+        "body": [
+          800,
+          0
+        ],
+        "storage": "ready",
+        "keys": 4
+      },
+      "overflow": false,
+      "canvasFits": true,
+      "shot": "docs\\verification\\artifacts\\sect-reform-l3-web\\abode-800x360.png",
+      "save": {
+        "slot": "save_backup",
+        "indexed": true,
+        "revision": 5,
+        "schema": 6,
+        "empty": false
+      }
+    }
+  ],
+  "interaction": {
+    "designPoint": [
+      88,
+      664
+    ],
+    "viewportPoint": [
+      87.87777777777778,
+      663.0777777777778
+    ],
+    "changed": true,
+    "before": "docs\\verification\\artifacts\\sect-reform-l3-web\\interaction-before.png",
+    "after": "docs\\verification\\artifacts\\sect-reform-l3-web\\interaction-after.png"
+  },
+  "consoleIssues": [],
+  "errors": []
+}

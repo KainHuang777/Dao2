@@ -21,7 +21,9 @@ func send(kind: String, payload: Dictionary = {}) -> Dictionary:
 	return s.submit({"type":kind,"payload":payload,"command_id":"supply3-flow-"+str(serial),"expected_revision":s.state.revision})
 func value(id: String) -> float: return IslandEconomy.value(s.state,"home",id)
 func tick(seconds: float, reason: String) -> bool:
-	if not maintenance and s.get_view().max_lifespan_seconds - s.state.total_elapsed_seconds < 2000:
+	# Only the lifespan boundary is needed here; the full view is far costlier
+	# and this helper runs thousands of times across the ladder.
+	if not maintenance and Lifespan.for_state(content.era_lifespan_entries(), s.state) - s.state.total_elapsed_seconds < 2000:
 		maintenance = true
 		var materials := {"spirit_grass_low":25,"wood":20,"money":30}
 		for id in materials:
@@ -40,6 +42,9 @@ func tick(seconds: float, reason: String) -> bool:
 func ensure(id: String, target: float, depth: int = 0) -> bool:
 	if depth > 12: print("DEPTH ",id); return false
 	var recipe := "stone_mid_bulk" if id == "stone_mid" and s.state.era_id >= 4 else id
+	# Caps are fixed until a building changes, so resolve the view once here
+	# instead of once per attempt.
+	var view := s.get_view()
 	for attempt in 2000:
 		if value(id) + 0.000001 >= target: return true
 		if content.processing_catalog.recipes.has(recipe):
@@ -48,7 +53,7 @@ func ensure(id: String, target: float, depth: int = 0) -> bool:
 			var count := mini(100, maxi(1,int(ceil((target-value(id))/float(def.output)))))
 			# Bound each ingredient batch by its true capacity.
 			for input in def.inputs:
-				var cap := float(s.get_view().resources[input].cap)
+				var cap := float(view.resources[input].cap)
 				count = mini(count,maxi(1,int(floor(cap/float(def.inputs[input])))))
 			for input in def.inputs:
 				if not ensure(input,float(def.inputs[input])*count,depth+1): return false
@@ -110,7 +115,10 @@ func ladder(era: int) -> bool:
 				print("BILL SHORTFALL era",era," lvl",s.state.level)
 				return false
 			print("TRACE ladder era",era," lvl",s.state.level)
-			while not s.get_view().training_complete:
+			# Training progress is monotonic within a level; avoid a full view
+			# rebuild on every one-minute tick.
+			var required := Cultivation.next_level_required_seconds(content.eras[era], s.state.level, 0.0, SkillSystem.effect(content, s.state.skills, "time_multiplier"))
+			while s.state.training_seconds < required - CommandProcessor.AFFORD_TOLERANCE:
 				if not tick(60,"training:era"+str(era)): return false
 			var result := send("level_up_cultivation")
 			check(result.ok,"earned era%d level%d" % [era,s.state.level])

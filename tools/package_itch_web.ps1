@@ -1,103 +1,75 @@
-# Tools/package_itch_web.ps1
-# Packages the Godot Web export into an itch.io compatible zip archive.
-param (
-    [string]$OutputDir = "build",
-    [string]$ZipName = "dao2-itch-web.zip",
-    [switch]$ForceExport = $false
+<# Fresh isolated export + verified itch ZIP; no upload. #>
+param(
+    [string]$OutputDir = 'build',
+    [string]$ZipName = 'dao2-itch-web.zip',
+    [string]$EnginePath = 'tools/godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe',
+    [string]$Version = '',
+    [switch]$ReuseExport,
+    [switch]$ForceExport
 )
-
-$ErrorActionPreference = "Stop"
-Set-Location "$PSScriptRoot\.."
-
-$webDir = ".\build\web"
-$indexFile = "$webDir\index.html"
-$pckFile = "$webDir\index.pck"
-
-# 1. Ensure latest export exists
-$needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Path $pckFile))
-
-if (-not $needExport) {
-    $pckTime = (Get-Item $pckFile).LastWriteTime
-    $latestSrc = Get-ChildItem -Path @(".\src", ".\scenes", ".\assets", ".\content", ".\project.godot", ".\export_presets.cfg") -Recurse -File -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTime -Descending |
-        Select-Object -First 1
-    if ($latestSrc -and ($latestSrc.LastWriteTime -gt $pckTime)) {
-        Write-Host "[INFO] Source files updated, exporting Web..." -ForegroundColor Yellow
-        $needExport = $true
-    }
+$ErrorActionPreference = 'Stop'
+$daoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+Set-Location -LiteralPath $daoRoot
+function Assert-Exit([string]$Step) {
+    if ($LASTEXITCODE -ne 0) { throw "$Step failed (exit $LASTEXITCODE)." }
 }
-
-if ($needExport) {
-    Write-Host "[INFO] Exporting Godot Web Release..." -ForegroundColor Yellow
-    New-Item -ItemType Directory -Path $webDir -Force | Out-Null
-    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-release Web $indexFile
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "Godot Web Export Failed."
-        exit 1
-    }
-    Write-Host "[SUCCESS] Web Release exported successfully!" -ForegroundColor Green
+if ($ZipName -ne [IO.Path]::GetFileName($ZipName) -or $ZipName -notmatch '\.zip$') {
+    throw 'ZipName must be a ZIP filename, without a directory.'
 }
-
-# 2. Ensure Audio is in place
-$webAudioDir = Join-Path $webDir 'audio/bgm'
-New-Item -ItemType Directory -Path $webAudioDir -Force | Out-Null
-$webAudioCatalog = Get-Content -LiteralPath assets/audio/bgm/library.json -Raw -Encoding UTF8 | ConvertFrom-Json
-foreach ($track in $webAudioCatalog) {
-    if ($track.filename -notmatch '^0[1-4]_[A-Za-z_]+\.mp3$') { throw 'Invalid BGM filename' }
-    $src = Join-Path 'src/BGM' $track.filename
-    $dst = Join-Path $webAudioDir $track.filename
-    if (-not (Test-Path $dst) -or ((Get-Item $src).LastWriteTime -gt (Get-Item $dst).LastWriteTime)) {
-        Copy-Item -LiteralPath $src -Destination $dst -Force
-    }
+$daoBuild = [IO.Path]::GetFullPath((Join-Path $daoRoot 'build'))
+$daoOutput = [IO.Path]::GetFullPath((Join-Path $daoRoot $OutputDir))
+if ($daoOutput -ne $daoBuild -and -not $daoOutput.StartsWith($daoBuild + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'OutputDir must stay inside this project build directory.'
 }
-
-# 3. Create staging directory for itch.io (clean distribution)
-$stagingDir = Join-Path $OutputDir "itch-staging"
-if (Test-Path $stagingDir) {
-    Remove-Item -Path $stagingDir -Recurse -Force
+New-Item -ItemType Directory -Path $daoOutput -Force | Out-Null
+$daoZip = Join-Path $daoOutput $ZipName
+$daoEngine = [IO.Path]::GetFullPath((Join-Path $daoRoot $EnginePath))
+if (-not (Test-Path -LiteralPath $daoEngine -PathType Leaf)) { throw "Godot not found: $daoEngine" }
+$daoEngineVersion = (& $daoEngine --version | Out-String).Trim()
+Assert-Exit 'Godot version check'
+if ($daoEngineVersion -notmatch '^4\.7\.2\.') { throw "Expected Godot 4.7.2; found $daoEngineVersion" }
+Write-Host "[ENGINE] $daoEngineVersion"
+if ($ReuseExport -and -not $ForceExport) {
+    & python tools/itch_web_package.py verify --zip $daoZip
+    Assert-Exit 'Existing package/source verification'
+    Write-Host "[READY] $daoZip (verified reuse)"
+    exit 0
 }
-New-Item -ItemType Directory -Path $stagingDir -Force | Out-Null
-
-Write-Host "[INFO] Staging files for itch.io..." -ForegroundColor Cyan
-
-# Files to copy (exclude .br, .import, compression.json, logs)
-$filesToCopy = Get-ChildItem -Path $webDir -Recurse -File | Where-Object {
-    $_.Extension -ne ".br" -and
-    $_.Extension -ne ".import" -and
-    $_.Extension -ne ".log" -and
-    $_.Name -ne "compression.json"
+if (-not $Version) {
+    $daoCommit = (& git rev-parse --short HEAD | Out-String).Trim()
+    Assert-Exit 'Git version lookup'
+    $Version = (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + $daoCommit
 }
-
-$fullWeb = (Resolve-Path $webDir).Path
-foreach ($file in $filesToCopy) {
-    $relPath = $file.FullName.Substring($fullWeb.Length).TrimStart('\', '/')
-    $targetPath = Join-Path $stagingDir $relPath
-    $targetParent = [System.IO.Path]::GetDirectoryName($targetPath)
-    if (-not (Test-Path $targetParent)) {
-        New-Item -ItemType Directory -Path $targetParent -Force | Out-Null
-    }
-    Copy-Item -LiteralPath $file.FullName -Destination $targetPath -Force
+$daoFingerprint = (& python tools/itch_web_package.py fingerprint | Out-String).Trim()
+Assert-Exit 'Source fingerprint'
+$daoWeb = Join-Path $daoBuild 'itch-web'
+$daoLogs = Join-Path $daoRoot ('.test-output/itch-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
+New-Item -ItemType Directory -Path $daoWeb,$daoLogs -Force | Out-Null
+$daoExportLog = Join-Path $daoLogs 'export.log'
+$daoPreviousAppdata = $env:APPDATA
+$daoPreviousErrors = $ErrorActionPreference
+try {
+    $env:APPDATA = Join-Path $daoLogs 'appdata'
+    New-Item -ItemType Directory -Path $env:APPDATA -Force | Out-Null
+    # Native stderr is an ErrorRecord in Windows PowerShell; check exit and log below.
+    $ErrorActionPreference = 'Continue'
+    & $daoEngine --headless --path $daoRoot --export-release Web (Join-Path $daoWeb 'index.html') *> $daoExportLog
+    $daoExportExit = $LASTEXITCODE
+} finally {
+    $env:APPDATA = $daoPreviousAppdata
+    $ErrorActionPreference = $daoPreviousErrors
 }
-
-# 4. Create ZIP archive
-$targetZip = Join-Path $OutputDir $ZipName
-if (Test-Path $targetZip) {
-    Remove-Item -Path $targetZip -Force
+if ($daoExportExit -ne 0 -or (Select-String -LiteralPath $daoExportLog -Pattern 'SCRIPT ERROR:|Parse Error:|Failed to export' -Quiet)) {
+    throw "Godot export failed. See $daoExportLog"
 }
-
-Write-Host "[INFO] Compressing into $targetZip ..." -ForegroundColor Cyan
-# Compress using System.IO.Compression with fastest or optimal level
-Add-Type -AssemblyName System.IO.Compression.FileSystem
-[System.IO.Compression.ZipFile]::CreateFromDirectory($stagingDir, $targetZip, [System.IO.Compression.CompressionLevel]::Fastest, $false)
-
-# Clean staging directory
-Remove-Item -Path $stagingDir -Recurse -Force
-
-# 5. Summary
-$zipItem = Get-Item $targetZip
-$sizeMB = [math]::Round($zipItem.Length / 1MB, 2)
-Write-Host "===================================================" -ForegroundColor Green
-Write-Host "  itch.io Package Ready!" -ForegroundColor Green
-Write-Host "  File: $($zipItem.FullName)" -ForegroundColor White
-Write-Host "  Size: $sizeMB MB" -ForegroundColor Yellow
-Write-Host "===================================================" -ForegroundColor Green
+Write-Host "[EXPORT] PASS; log=$daoExportLog"
+& node tools/prepare_web_compression.mjs $daoWeb > (Join-Path $daoLogs 'compression.json')
+Assert-Exit 'Compression and BGM companions'
+& python tools/itch_web_package.py pack --web-dir $daoWeb --zip $daoZip --version $Version --source-fingerprint $daoFingerprint
+Assert-Exit 'itch.io package'
+& python tools/itch_web_package.py verify --zip $daoZip
+Assert-Exit 'Package/source verification'
+& python tools/delivery_check.py --web $daoWeb
+Assert-Exit 'Delivery check'
+Write-Host "[READY] $daoZip"
+Write-Host "[LOGS] $daoLogs"

@@ -44,7 +44,7 @@ func run() -> void:
 	check(loaded.ok,"content load "+str(loaded.get("errors")))
 	content = loaded.content
 	check(IslandProgression.attach_supply(content).ok,"attach supply")
-	check(AchievementSystem.DEFINITIONS.size() == 48,"48 achievements")
+	check(AchievementSystem.DEFINITIONS.size() == 64,"64 achievements (48 formal + 16 lineage)")
 	check(FortuneSystem.get_encounters().size() == 56,"56 encounters")
 	var count := 0
 	for def in FortuneSystem.get_encounters():

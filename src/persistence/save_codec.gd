@@ -1,7 +1,7 @@
 class_name SaveCodec
 extends RefCounted
 
-const SCHEMA_VERSION := 5
+const SCHEMA_VERSION := 6
 const GAME_VERSION := "0.1.0"
 const RULES_VERSION := "core-flow-17-content-p1-story"
 const HUB_RULES_VERSION := "core-flow-25-ancestral-hub"
@@ -18,10 +18,14 @@ const GENERATOR_VERSION := 1
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
 		return {"ok": false, "json": "", "error": "STATE_MISSING"}
+	var release_error := SectReformRelease.validate(state)
+	if not release_error.is_empty(): return {"ok": false, "json": "", "error": release_error}
 	var beast_error := BeastSaveContract.validate(state.beast_version, state.beasts, state.beast_souls, state.beast_talents)
 	if not beast_error.is_empty(): return {"ok": false, "json": "", "error": beast_error}
 	var story_error := StorySaveContract.validate(state)
 	if not story_error.is_empty(): return {"ok": false, "json": "", "error": story_error}
+	var lineage_error := SectLineage.validate_state(state)
+	if not lineage_error.is_empty(): return {"ok": false, "json": "", "error": lineage_error}
 	var sect_error := SectSaveContract.validate(state.sect_version, state.sect)
 	if not sect_error.is_empty(): return {"ok": false, "json": "", "error": sect_error}
 	var pill_error := AlchemySystem.validate(state.pill_version, state.pills, state.buffs, state.pill_effects)
@@ -53,10 +57,10 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 	var snapshot := state.to_snapshot_dict()
 	RuntimeProfile.end("encode_snapshot", profile_snapshot)
 	var envelope := {
-		"schema_version": SCHEMA_VERSION,
+		"schema_version": SCHEMA_VERSION if SectReformRelease.active(state) else 5,
 		"game_version": GAME_VERSION,
-		"content_version": content_version,
-		"rules_version": HUB_RULES_VERSION if IslandEconomy.hub(state) else STORY2_RULES_VERSION if state.story_version >= 2 else BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
+		"content_version": content_version + (SectReformRelease.CONTENT_TAG if SectReformRelease.active(state) and not content_version.ends_with(SectReformRelease.CONTENT_TAG) else ""),
+		"rules_version": SectReformRelease.RULES_VERSION if SectReformRelease.active(state) else HUB_RULES_VERSION if IslandEconomy.hub(state) else STORY2_RULES_VERSION if state.story_version >= 2 else BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
 		"amount_format_version": AMOUNT_FORMAT_VERSION,
 		"generator_version": GENERATOR_VERSION,
 		"save_id": meta["save_id"],
@@ -94,9 +98,9 @@ static func decode(json_text: String) -> Dictionary:
 	if not (parsed is Dictionary):
 		return {"ok": false, "state": null, "envelope": {}, "error": "ENVELOPE_TYPE"}
 	var envelope: Dictionary = parsed
-	if not envelope.has("schema_version") or not _is_int(envelope["schema_version"]):
+	if not envelope.has("schema_version") or not SectSaveContract.integer(envelope["schema_version"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_TYPE"}
-	if not _to_int(envelope["schema_version"]) in [2, 3, 4, SCHEMA_VERSION]:
+	if not _to_int(envelope["schema_version"]) in [2, 3, 4, 5, SCHEMA_VERSION]:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_UNKNOWN"}
 	if not verify_checksum(envelope):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "CHECKSUM"}
@@ -105,13 +109,17 @@ static func decode(json_text: String) -> Dictionary:
 		return {"ok": false, "state": null, "envelope": envelope, "error": type_error}
 	if int(envelope.schema_version) == 2 and envelope.state.get("economy", {}) != {}:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA2_ECONOMY"}
-	if int(envelope.schema_version) == SCHEMA_VERSION and not envelope.state.has("life_ledger"):
+	if int(envelope.schema_version) >= 5 and not envelope.state.has("life_ledger"):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "LEDGER_MISSING"}
 	var state_result := _state_from_snapshot(envelope["state"])
 	if not bool(state_result["ok"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": String(state_result["error"])}
-	if int(envelope.schema_version) < SCHEMA_VERSION and not envelope.state.has("life_ledger"):
+	if int(envelope.schema_version) < 5 and not envelope.state.has("life_ledger"):
 		LifeLedger.initialize(state_result.state)
+	var is_release := SectReformRelease.active(state_result.state)
+	if is_release != (int(envelope.schema_version) == SCHEMA_VERSION): return {"ok": false, "state": null, "envelope": envelope, "error": "SECT_REFORM_SCHEMA"}
+	if is_release and (envelope.rules_version != SectReformRelease.RULES_VERSION or not envelope.content_version.ends_with(SectReformRelease.CONTENT_TAG)):
+		return {"ok": false, "state": null, "envelope": envelope, "error": "SECT_REFORM_CONTENT"}
 	if _to_int(state_result["state"].revision) != _to_int(envelope["revision"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "REVISION_MISMATCH"}
 	return {"ok": true, "state": state_result["state"], "envelope": envelope, "error": ""}
@@ -300,7 +308,7 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:talents"}
 		state.talents = (snapshot_dict["talents"] as Dictionary).duplicate(true)
 	var talent_version: Variant = snapshot_dict.get("talent_version", 1)
-	if not _is_int(talent_version): return {"ok": false, "state": null, "error": "TALENT_VERSION"}
+	if not SectSaveContract.integer(talent_version, 4): return {"ok": false, "state": null, "error": "TALENT_VERSION"}
 	state.talent_version = int(talent_version)
 	var talent_error := TalentSystem.validate_state(state)
 	if not talent_error.is_empty(): return {"ok": false, "state": null, "error": talent_error}
@@ -436,6 +444,10 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	state.story_version = int(story_version)
 	var story_error := StorySaveContract.validate(state)
 	if not story_error.is_empty(): return {"ok": false, "state": null, "error": story_error}
+	var lineage_error := SectLineage.validate_state(state)
+	if not lineage_error.is_empty(): return {"ok": false, "state": null, "error": lineage_error}
+	var release_error := SectReformRelease.validate(state)
+	if not release_error.is_empty(): return {"ok": false, "state": null, "error": release_error}
 	StorySaveContract.normalize(state)
 	return {"ok": true, "state": state, "error": ""}
 
