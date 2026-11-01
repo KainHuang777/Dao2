@@ -25,6 +25,7 @@ func _init() -> void:
     _test_determinism()
     _test_duplicate_state_isolation()
     _test_summary_no_reward()
+    _test_maid_offline()
     SaveManager.reset_for_tests()
     if failures.is_empty():
         print("PASS: M1-D offline settlement, cap 24h, cursor commit, no double grant.")
@@ -390,6 +391,76 @@ func _test_summary_no_reward() -> void:
     _expect(text.contains("停止原因：壽元耗盡"), "summary text: stop reason translated to user friendly term")
     _expect(text.contains("是否套用上限：否"), "summary text: cap flag displayed")
     summary.free()
+
+func _maid_prepared(era: int = 8) -> GameState:
+    var state: GameState = GameSession.create_new_game(_content, 1).state
+    MaidSystem.ensure_state(state)
+    state.era_id = era
+    state.buildings.hut = 1
+    state.buildings.herb_farm = 3
+    for id in ["spirit_grass_low", "black_copper", "lingli", "money", "wood", "stone_low"]:
+        state.resources[id] = {"value": AmountCompat.from_number(100000.0), "unlocked": true, "ever_obtained": true}
+    state.resources["foundation_pill"] = {"value": AmountCompat.from_number(0.0), "unlocked": true, "ever_obtained": true}
+    return state
+
+func _maid_assign(state: GameState) -> void:
+    _expect(bool(MaidSystem.recruit(state, "qingheng").get("ok", false)), "maid offline: qingheng recruited")
+    var duty := {"kind": "steward_stock", "recipe_id": "foundation_pill", "target": 100, "reserve": {}}
+    _expect(bool(MaidSystem.assign_duty(state, _content, "qingheng", duty).get("ok", false)), "maid offline: steward duty assigned")
+
+func _maid_actions(state: GameState) -> int:
+    return int(state.maid.get("maids", {}).get("qingheng", {}).get("duty_actions", 0))
+
+func _test_maid_offline() -> void:
+    if _content == null:
+        _expect(false, "maid offline: content not loaded")
+        return
+    IslandProgression.attach_supply(_content)
+    var twelve_hours_ms := 43200000
+    var running := _maid_prepared()
+    _maid_assign(running)
+    var settled: Dictionary = OfflineSettlement.settle(running, _content, BASE_CURSOR_MS + twelve_hours_ms, BASE_CURSOR_MS)
+    var report: Dictionary = settled["report"]
+    var maid: Dictionary = report.get("maid", {})
+    _expect_equal(int(maid.get("actions", 0)), MaidRules.MAX_ACTIONS_PER_CALL, "maid offline: 12h runs exactly MAX_ACTIONS_PER_CALL actions")
+    _expect_equal(_maid_actions(running), MaidRules.MAX_ACTIONS_PER_CALL, "maid offline: action count is persisted")
+    _expect_equal(int(maid.get("first_duty", 0)), 1, "maid offline: first duty bond is granted once")
+
+    var paused := _maid_prepared()
+    _maid_assign(paused)
+    MaidSystem.set_duty_paused(paused, "qingheng", true)
+    var paused_settled: Dictionary = OfflineSettlement.settle(paused, _content, BASE_CURSOR_MS + twelve_hours_ms, BASE_CURSOR_MS)
+    _expect(not (paused_settled["report"] as Dictionary).has("maid"), "maid offline: paused duty omits the maid report")
+    _expect_equal(_maid_actions(paused), 0, "maid offline: paused duty runs no actions")
+
+    var missing: GameState = GameSession.create_new_game(_content, 1).state
+    missing.era_id = 8
+    var missing_settled: Dictionary = OfflineSettlement.settle(missing, _content, BASE_CURSOR_MS + twelve_hours_ms, BASE_CURSOR_MS)
+    _expect(missing.maid.is_empty(), "maid offline: missing block is never initialized")
+    _expect(not (missing_settled["report"] as Dictionary).has("maid"), "maid offline: missing block omits the maid report")
+
+    var stopped := _maid_prepared(1)
+    _maid_assign(stopped)
+    var stopped_settled: Dictionary = OfflineSettlement.settle(stopped, _content, BASE_CURSOR_MS + twelve_hours_ms, BASE_CURSOR_MS)
+    _expect_equal(String((stopped_settled["report"] as Dictionary).get("stopped", "")), "lifespan_exhausted", "maid offline: lifespan stop is reported")
+    _expect(not (stopped_settled["report"] as Dictionary).has("maid"), "maid offline: lifespan stop skips maid work")
+    _expect_equal(_maid_actions(stopped), 0, "maid offline: lifespan stop leaves actions untouched")
+
+    var reborn := _maid_prepared()
+    _maid_assign(reborn)
+    MaidSystem.on_reincarnate(reborn)
+    var reborn_settled: Dictionary = OfflineSettlement.settle(reborn, _content, BASE_CURSOR_MS + twelve_hours_ms, BASE_CURSOR_MS)
+    var reborn_entry: Dictionary = reborn.maid.get("maids", {}).get("qingheng", {})
+    _expect(not (reborn_settled["report"] as Dictionary).has("maid"), "maid offline: rebirth pause omits the maid report")
+    _expect_equal(_maid_actions(reborn), 0, "maid offline: rebirth pause runs no actions")
+    _expect(bool(reborn_entry.get("duty", {}).get("paused", false)), "maid offline: rebirth pause keeps the duty paused")
+
+    var capped := _maid_prepared()
+    _maid_assign(capped)
+    var capped_settled: Dictionary = OfflineSettlement.settle(capped, _content, BASE_CURSOR_MS + TWO_DAYS_MS, BASE_CURSOR_MS)
+    var capped_report: Dictionary = capped_settled["report"]
+    _expect(bool(capped_report.get("cap_applied", false)), "maid offline: 24h cap flag is set")
+    _expect_equal(int((capped_report.get("maid", {}) as Dictionary).get("actions", 0)), MaidRules.MAX_ACTIONS_PER_CALL, "maid offline: 24h cap keeps the action budget")
 
 class ToggleAdapter extends StorageAdapter:
     var inner: FileStorageAdapter = null

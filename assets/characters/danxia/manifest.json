@@ -1,0 +1,49 @@
+{
+  "task": "MAID-ART-ND",
+  "date": "2026-11-01",
+  "acceptance": "DELIVERED_PENDING_USER_REVIEW",
+  "integration": "NOT_INTEGRATED; staged runtime copies only; OpenCode continues",
+  "generator": "built-in image_gen; four generation calls total; originals copied byte-for-byte",
+  "prompts": "docs/maid-art/danxia/prompts-r1.json",
+  "license": "Original AI-generated character using Qingheng as style reference; Qingheng upstream user reference author/license remains unknown. No new external reference; no third-party commercial clearance or exclusive-rights claim.",
+  "assets": [
+    {
+      "id": "danxia-portrait",
+      "original": "docs/maid-art/danxia/portrait-r1.png",
+      "runtime": "assets/characters/danxia/portrait.png",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-8c673835-fe90-4375-940b-1a3a004d4000.png",
+      "sha256": "6007efec4531bc95d3e94d59f98456cb60981fb89dbbf8d05228f2926f42a181",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "layers": "Single RGBA character including hair/clothing/props",
+      "purpose": "Character page and full-art contain viewer",
+      "reference": "assets/characters/qingheng/portrait.png",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha128_bbox": [
+        12,
+        9,
+        1007,
+        1522
+      ],
+      "fully_transparent_pixels": 498205,
+      "qc_note": "Visible figure is complete but margin is below requested 7%; preserve full image with contain. Soft semi-transparent fringe remains; not user-accepted."
+    },
+    {
+      "id": "danxia-first-meeting",
+      "original": "docs/maid-art/danxia/first-meeting-r1.png",
+      "runtime": "assets/characters/danxia/first-meeting.png",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-ceccb1db-1f76-4852-8ae2-80ab6d4c3951.png",
+      "sha256": "71712c1e5a01449aade934bc8496840de412ad5be651517eb77b885a02df2b68",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "layers": "Flattened character and environment; dialogue and UI remain separate Godot Controls",
+      "purpose": "Replayable first-meeting CG",
+      "reference": "docs/maid-art/danxia/portrait-r1.png"
+    }
+  ]
+}

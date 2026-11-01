@@ -1,3 +1,47 @@
+2026-11-01 **MAID-CLOSE 仙侍整批收尾完成（L3 限定：MAID 領域 runner 5/5、桌面三橫式瀏覽器流程）**：[驗收](docs/verification/maid-close.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-ART-ND-R2 Web 匯出與桌面瀏覽器流程已驗（L3 限定 Web＋瀏覽器；字型子集已補 17 缺字）**：[Web驗收](docs/verification/maid-art-r2-web.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-ART-ND-R2 糯美子／丹霞立繪與初遇已接入（L1）**：[整合與交接狀態](docs/development-status.md#maid-art-nd-r2-integration)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-ART-ND 四張美術已提供（待接受／OpenCode 接續）**：[素材與交接狀態](docs/development-status.md#maid-art-nd)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-UI-2 DONE（呈現階段，L2）**：職掌／羈絆分頁修正、配方名稱與錯誤中文化、離線摘要仙侍行經桌面 Chrome 抽驗；[狀態與驗收](docs/development-status.md#maid-ui-2)、[驗收](docs/verification/maid-ui-2.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-CORE-2 DONE（離線職掌有限補算，L1）**：已核定 §11；離線職掌最多 5 次有界動作，線上與離線共用預算，報告加 `maid` 鍵；[狀態與驗收](docs/development-status.md#maid-core-2)、[驗收](docs/verification/maid-core-2.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-CORE-1 DONE（核心階段，L1）**：三位前期仙侍、招募／職掌／羈絆／跨世暫停與保存已接入；職掌v1僅線上推進，[狀態與驗收](docs/development-status.md#maid-core-1)、[設計](docs/49-maid-companion-system-design.md)。
+
+2026-11-01 **MAID-UI-1 DONE（呈現階段，L2）**：已接受R3接入遊歷→人物、完整立繪與初遇重溫；[狀態與驗收](docs/development-status.md#maid-ui-1)。
+
+2026-11-01 **MAID-ART 人物裝飾版R3美術已接受（直式題字／書籤小傳）**：[審閱稿](docs/maid-art/qingheng/layout-review-r3.html)；[狀態](docs/development-status.md#maid-art-r3)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-31 **SECT-REFORM DONE（L3 160/160 全尺寸通過；現行 Web 包與三橫式桌面瀏覽器驗證完成）**：[狀態與交接](docs/development-status.md#sect-reform-ui)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-31 **SECT-REFORM-BEAST IN_PROGRESS（BEAST-3 祖父權利／完整遷移與保存完成，L2）**：[狀態與交接](docs/development-status.md#sect-reform-beast)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-10-30 **ITCH-DEPLOY-WORKFLOW DONE（草稿部署）**：一鍵更新與實際線上採集／重載通過，未公開；見[狀態](docs/development-status.md#itch-deploy-workflow)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
 2026-10-30 **ERA2-HUB-ECONOMY IN_PROGRESS**：祖島集中加工與玄礦先行已接入，收尾驗證見[狀態](docs/development-status.md#era2-hub-economy)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。

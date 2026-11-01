@@ -49,6 +49,10 @@ func manual_settle(state: GameState, content: GameContent, now_utc_ms: int, last
 		stopped = time_only_result["stopped"]
 	if away_ms > 0:
 		state.tick_remainder_seconds = 0.0 if stopped != null else maxf(0.0, carry + away_seconds - float(away_ticks) * float(TimeAdvancer.SECONDS_PER_TICK))
+	var maid_report := {}
+	if full_ticks > 0 and stopped == null:
+		var maid_result := MaidSystem.advance(content, state, full_ticks, MaidRules.MAX_ACTIONS_PER_CALL)
+		maid_report = MaidSystem.offline_report(maid_result.get("events", []))
 	var report := {
 		"left_at_utc_ms": last_settled_utc_ms,
 		"settled_at_utc_ms": now_utc_ms,
@@ -64,7 +68,22 @@ func manual_settle(state: GameState, content: GameContent, now_utc_ms: int, last
 		"stopped": stopped,
 		"report_id": "offline:" + str(now_utc_ms),
 	}
+	if not maid_report.is_empty():
+		report["maid"] = maid_report
 	return {"report": report, "stopped": stopped}
+
+func _maid_state(content: GameContent) -> GameState:
+	var state: GameState = GameSession.create_new_game(content, 20261101).state
+	MaidSystem.ensure_state(state)
+	state.era_id = 8
+	state.buildings.hut = 1
+	state.buildings.herb_farm = 3
+	for id in ["spirit_grass_low", "black_copper", "lingli", "money", "wood", "stone_low"]:
+		state.resources[id] = {"value": AmountCompat.from_number(100000.0), "unlocked": true, "ever_obtained": true}
+	state.resources["foundation_pill"] = {"value": AmountCompat.from_number(0.0), "unlocked": true, "ever_obtained": true}
+	MaidSystem.recruit(state, "qingheng")
+	MaidSystem.assign_duty(state, content, "qingheng", {"kind": "steward_stock", "recipe_id": "foundation_pill", "target": 100, "reserve": {}})
+	return state
 
 func _run() -> void:
 	var content: GameContent = ContentLoader.load_directory("res://content").content
@@ -114,6 +133,13 @@ func _run() -> void:
 	OfflineSettlement.settle(state_c, content, LAST_MS + 600000, LAST_MS)
 	manual_settle(state_d, content, LAST_MS + 600000, LAST_MS)
 	expect(snapshot(state_c) == snapshot(state_d), "non-integer buff fallback parity")
+	var maid_a: GameState = _maid_state(content)
+	var maid_b: GameState = _maid_state(content)
+	var maid_settle_a: Dictionary = OfflineSettlement.settle(maid_a, content, LAST_MS + 600000, LAST_MS)
+	var maid_settle_b: Dictionary = manual_settle(maid_b, content, LAST_MS + 600000, LAST_MS)
+	expect(bool((maid_settle_a["report"] as Dictionary).has("maid")), "maid offline report present")
+	expect(maid_settle_a["report"] == maid_settle_b["report"], "maid offline report parity")
+	expect(snapshot(maid_a) == snapshot(maid_b), "maid offline snapshot parity")
 	print("CLOSED_FORM_MS=%.3f REFERENCE_MS=%.3f" % [closed_form_ms, reference_ms])
 	if failures.is_empty():
 		print("PASS: OFFLINE_CLOSED_FORM_PARITY ", checks, " checks")

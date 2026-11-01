@@ -165,6 +165,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 			if resource_id == "skill_point":
 				entry.ever_obtained = false
 
+	var maid_reincarnate_res := MaidSystem.on_reincarnate(state)
 	StoryProgress.next_life(state)
 	LifeLedger.begin_next(state)
 	var event_payload := {
@@ -183,9 +184,12 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 		"previous_level": previous_level,
 	}
 
+	var changed: Array = ["reincarnation_count", "dao_heart", "dao_proof", "era_id", "cultivation_level", "resources", "buildings", "beasts", "beast_souls", "sect", "achievements", "talents"]
+	if not maid_reincarnate_res.get("changed_ids", []).is_empty():
+		changed.append("maid")
 	return {
 		"ok": true,
 		"events": [event_payload],
-		"changed_ids": ["reincarnation_count", "dao_heart", "dao_proof", "era_id", "cultivation_level", "resources", "buildings", "beasts", "beast_souls", "sect", "achievements", "talents"],
+		"changed_ids": changed,
 		"reward": reward,
 	}

@@ -4,7 +4,7 @@ extends RefCounted
 const GROUPS := {
 	"management": {"title": "經營", "pages": [["buildings", "洞府建築"], ["outposts", "空島"], ["manufacturing", "製造"], ["transport", "運輸"]]},
 	"cultivation": {"title": "修行", "pages": [["skills", "技能"], ["alchemy", "煉丹"], ["beasts", "靈獸"], ["achievements", "成就"], ["reincarnation", "輪迴天賦"]]},
-	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"]]},
+	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"], ["characters", "人物"]]},
 }
 const INVENTORY_ROUTES := ["buildings", "outposts", "manufacturing", "transport", "alchemy"]
 const FOCUSED_ROUTES := ["skills", "beasts", "fortune", "decisions"]

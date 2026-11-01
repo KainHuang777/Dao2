@@ -1,0 +1,32 @@
+{
+  "task": "MAID-ART-BOND-CG",
+  "date": "2026-11-01",
+  "status": "ACCEPTED",
+  "user_statement": "三張羈絆終章 CG 接受",
+  "scope": "Three chapter-three bond finale CGs: Qingheng, Nuomeizi and Danxia. Art acceptance only; game integration remains with OpenCode.",
+  "manifest": "docs/maid-art/bond-cg-manifest-r1.json",
+  "agent_visual_review": "Completed, not user acceptance; character/costume continuity, hands, narrative props, no visible UI/text checked against supplied references. Full contain required.",
+  "resolution_status": "Actual delivered 1672x941 single-layer originals accepted as presented on 2026-11-01; production target remains 2560x1440, not a native-resolution claim.",
+  "game_integration_review": "NOT_PERFORMED; delegated to OpenCode by user",
+  "assets": [
+    {
+      "id": "qingheng-bond-r1",
+      "original": "docs/maid-art/qingheng/bond-lamplight-r1.png",
+      "runtime": "assets/characters/qingheng/bond-lamplight-r1.png",
+      "sha256": "b8162d45c1c4c23917b893a77e182c422ae3880bdc72cbd1d802a319cc2d3697"
+    },
+    {
+      "id": "nuomeizi-bond-r1",
+      "original": "docs/maid-art/nuomeizi/bond-sword-rain-r1.png",
+      "runtime": "assets/characters/nuomeizi/bond-sword-rain-r1.png",
+      "sha256": "cb16a65c0240aa413ca967d97d8d5c236a32c88e2dc6d034df37d8afce29f744"
+    },
+    {
+      "id": "danxia-bond-r1",
+      "original": "docs/maid-art/danxia/bond-night-vigil-r1.png",
+      "runtime": "assets/characters/danxia/bond-night-vigil-r1.png",
+      "sha256": "e0fa2beb7199d3275355dba6c2b357a17f72aad62321c170382ea4e6c6917e96"
+    }
+  ],
+  "acceptance_date": "2026-11-01"
+}

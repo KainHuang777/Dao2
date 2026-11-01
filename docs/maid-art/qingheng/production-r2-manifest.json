@@ -1,0 +1,108 @@
+{
+  "task": "MAID-ART-BASELINE-R2",
+  "date": "2026-10-31",
+  "generator": "built-in image_gen",
+  "acceptance": "PENDING_USER_REVIEW",
+  "selected_portrait_for_review": "portrait-r2",
+  "upstream": "reference-r1-manifest.json; accepted E art direction only",
+  "license": "Generated with accepted E as reference; E upstream user reference author/license unknown. No commercial clearance or exclusive rights claim.",
+  "assets": [
+    {
+      "id": "baseline-r2",
+      "file": "qingheng-baseline-r2.png",
+      "sha256": "ebd2b3b1e07cecc34888b4a35bfdaa719b2da73378403b3b95d84d68079b94db",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "has_alpha": false,
+      "source": "C:/Users/asus/.codex/generated_images/01a191e1-068a-7021-9873-509c360e5da5/exec-cc6c5ad8-8ff8-4cad-b2d7-d32cbe29d757.png",
+      "reference": "qingheng-e-blue-scholar.png",
+      "layers": "character reference sheet; flattened; no runtime integration",
+      "acceptance": "PENDING_USER_REVIEW"
+    },
+    {
+      "id": "portrait-r2",
+      "file": "qingheng-portrait-r2.png",
+      "sha256": "2aa806486a16f4f63a5f2b36397e7989b83c66efdce3cb8e36f49e83470502c5",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "has_alpha": true,
+      "source": "C:/Users/asus/.codex/generated_images/01a191e1-068a-7021-9873-509c360e5da5/exec-ae55481f-b9d0-42c1-a401-e446f5a74a73.png",
+      "reference": "qingheng-e-blue-scholar.png",
+      "layers": "single RGBA character layer incl. book/brush; selected review portrait",
+      "acceptance": "PENDING_USER_REVIEW",
+      "alpha_qc": {
+        "range": [
+          0,
+          254
+        ],
+        "transparent_pixels": 545069,
+        "total_pixels": 1572864,
+        "bbox_alpha_128": [
+          21,
+          22,
+          1004,
+          1516
+        ],
+        "border_max_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "note": "Body near-opaque max254; tiny alpha1 at left edge. Visible silhouette inset ~2%, not requested5%. No claim of pixel-perfect production edge acceptance."
+      }
+    },
+    {
+      "id": "first-meeting-r2",
+      "file": "qingheng-first-meeting-r2.png",
+      "sha256": "97705d162cee3d9cff901491b30c633cd07b4262c840955f48d06ad976238ab9",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "has_alpha": false,
+      "source": "C:/Users/asus/.codex/generated_images/01a191e1-068a-7021-9873-509c360e5da5/exec-fb42f17b-9ed7-4f9c-8453-945c8b348437.png",
+      "reference": "qingheng-e-blue-scholar.png",
+      "layers": "flattened character and rainy environment; UI text separate in HTML",
+      "acceptance": "PENDING_USER_REVIEW"
+    },
+    {
+      "id": "portrait-r2b",
+      "file": "qingheng-portrait-r2b.png",
+      "sha256": "1b04eaae6537a61cfbbf52e82271156f988757f4233d31757ba035de59d7139d",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "has_alpha": true,
+      "source": "C:/Users/asus/.codex/generated_images/01a191e1-068a-7021-9873-509c360e5da5/exec-df87d6da-11eb-4bed-91d7-8551681c9c42.png",
+      "reference": "qingheng-portrait-r2.png",
+      "layers": "cleanup alternative; not selected; no material margin improvement",
+      "acceptance": "NOT_SELECTED",
+      "alpha_qc": {
+        "range": [
+          0,
+          254
+        ],
+        "transparent_pixels": 540318,
+        "total_pixels": 1572864,
+        "bbox_alpha_128": [
+          20,
+          21,
+          1006,
+          1517
+        ],
+        "border_max_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "note": "Body near-opaque max254; tiny alpha1 at left edge. Visible silhouette inset ~2%, not requested5%. No claim of pixel-perfect production edge acceptance."
+      }
+    }
+  ],
+  "review_tool": "layout-review-r2.html",
+  "runtime_integration": false,
+  "browser_verification": "NOT_RUN: native control approval timed out; IAB file protocol blocked by browser security policy; no workaround attempted."
+}

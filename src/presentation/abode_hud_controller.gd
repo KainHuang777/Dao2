@@ -574,6 +574,8 @@ func _build_hud() -> void:
 	_abode._modal_manager.create_panels()
 	_abode.feature_navigation = preload("res://src/presentation/feature_navigation.gd").new(_abode)
 	_abode.feature_navigation.build()
+	_abode.maid_stand = preload("res://src/presentation/maid_stand_display.gd").new(_abode)
+	_abode.hud.add_child(_abode.maid_stand)
 
 	var prompt_script = preload("res://src/presentation/orientation_prompt.gd")
 	_abode.orientation_prompt = prompt_script.new()
@@ -626,6 +628,8 @@ func _layout_for_size(vp: Vector2) -> void:
 
 	_abode._reflow_header()
 	_abode._layout_overlay_panels(vp, margin, portrait)
+	if _abode.maid_stand != null:
+		_abode.maid_stand.update_layout(vp)
 	print("ABODE_LAYOUT mode=", _abode._layout_mode_name(), " size=", vp.round())
 
 func _dock_button(text: String, action: Callable) -> Button:
@@ -1112,6 +1116,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		_abode.feature_navigation.refresh(view)
 		_abode.feature_navigation.layout(_abode.hud.size, view)
 		_layout_hud_components(_abode.hud.size, 28.0 if _abode.layout_mode == _abode.HudLayout.WIDE else 16.0)
+		if _abode.maid_stand != null:
+			_abode.maid_stand.refresh(view)
 		RuntimeProfile.end("hud_navigation", profile_navigation)
 
 func _update_onboarding_guidance(view: Dictionary) -> void:

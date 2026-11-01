@@ -66,10 +66,17 @@ func show_report(report: Dictionary) -> void:
 	var stopped_text: String = _format_stopped_reason(stopped)
 	var cap_text: String = "是" if cap_applied else "否"
 
+	var maid: Variant = report.get("maid", {})
+	var maid_actions := 0
+	if maid is Dictionary:
+		maid_actions = int((maid as Dictionary).get("actions", 0))
+	var maid_line: String = "仙侍職掌：離線完成 %d 次\n" % maid_actions if maid_actions > 0 else ""
+
 	_body_label.text = (
 		"實際離開時間：%s\n" % away_sec_str
 		+ "有效收益時間：%s\n" % eff_sec_str
 		+ "目前年歲：%s\n" % age_year_str
+		+ maid_line
 		+ "停止原因：%s\n" % stopped_text
 		+ "是否套用上限：%s" % cap_text
 	)

@@ -1,0 +1,123 @@
+{
+  "task": "MAID-ART-BOND-CG",
+  "date": "2026-11-01",
+  "acceptance": "ACCEPTED",
+  "acceptance_record": "docs/maid-art/bond-cg-acceptance-r1.json",
+  "integration": "NOT_INTEGRATED; versioned assets staged only; OpenCode owns gameplay/UI wiring",
+  "generator": "built-in image_gen; 3 scene generations + 3 targeted edits = 6 calls",
+  "production_target": [
+    2560,
+    1440
+  ],
+  "actual_output_note": "All selected outputs 1672x941, approximately 16:9; target 2560x1440 not reached natively; originals retained without upscaling. User accepted the delivered three CGs on 2026-11-01.",
+  "license": {
+    "source": "AI-generated using built-in image_gen and existing project character references; no newly sourced external images",
+    "upstream": "Qingheng upstream user-provided reference author/license unspecified; inherited provenance limitation also retained for the R2 character lineage",
+    "rights_status": "No independent third-party commercial clearance or exclusivity claim; follow existing character manifests",
+    "reference_manifests": [
+      "assets/characters/qingheng/manifest.json",
+      "assets/characters/nuomeizi/manifest-r2.json",
+      "assets/characters/danxia/manifest-r2.json"
+    ]
+  },
+  "assets": [
+    {
+      "id": "qingheng-bond-r1",
+      "character_id": "qingheng",
+      "chapter": 3,
+      "chapter_title": "前世燈火",
+      "original": "docs/maid-art/qingheng/bond-lamplight-r1.png",
+      "runtime": "assets/characters/qingheng/bond-lamplight-r1.png",
+      "sha256": "b8162d45c1c4c23917b893a77e182c422ae3880bdc72cbd1d802a319cc2d3697",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "bytes": 2731622,
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a1967e-5abe-7043-a32d-821ebef833d6/exec-5d3073e4-4113-4f30-9e04-b185c23f40ba.png",
+      "prompt_record": "docs/maid-art/bond-cg-prompts-r1.json",
+      "revision_records": [],
+      "references": [
+        {
+          "path": "assets/characters/qingheng/portrait.png",
+          "sha256": "2aa806486a16f4f63a5f2b36397e7989b83c66efdce3cb8e36f49e83470502c5"
+        },
+        {
+          "path": "docs/maid-art/qingheng/qingheng-baseline-r2.png",
+          "sha256": "ebd2b3b1e07cecc34888b4a35bfdaa719b2da73378403b3b95d84d68079b94db"
+        }
+      ],
+      "purpose": "Accepted chapter 3 bond finale CG; staged for OpenCode gameplay/UI integration",
+      "layers": "One flattened opaque RGB scene: character + background + foreground light; UI/text separate; no extracted layers",
+      "derivation": "Unchanged byte-for-byte copy of selected built-in image_gen output; no resampling, crop, upscaling or programmatic image editing",
+      "qc_note": "Face, hands, closed book, cup and lamp safely inset. Top hair ornament approaches upper edge; use full contain. Costume embroidery is generated, not a pixel-exact replica."
+    },
+    {
+      "id": "nuomeizi-bond-r1",
+      "character_id": "nuomeizi",
+      "chapter": 3,
+      "chapter_title": "劍鳴舊世",
+      "original": "docs/maid-art/nuomeizi/bond-sword-rain-r1.png",
+      "runtime": "assets/characters/nuomeizi/bond-sword-rain-r1.png",
+      "sha256": "cb16a65c0240aa413ca967d97d8d5c236a32c88e2dc6d034df37d8afce29f744",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "bytes": 2791346,
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a1967e-5abe-7043-a32d-821ebef833d6/exec-f4f11fde-13d6-4c30-8812-34ebe318d37b.png",
+      "prompt_record": "docs/maid-art/bond-cg-prompts-r1.json",
+      "revision_records": [
+        "docs/maid-art/bond-cg-revisions-r1.json"
+      ],
+      "references": [
+        {
+          "path": "assets/characters/nuomeizi/portrait-r2.png",
+          "sha256": "4265cf1d6759ea4f770808cfe3662b3c8e9cb2aa90948b8d552457c05a0378ec"
+        },
+        {
+          "path": "docs/maid-art/nuomeizi/turnaround-r2.png",
+          "sha256": "6afd650bdb801f8d62e375b075d7feb5d1d04f63ca831d36dbd5ed2f128fd326"
+        }
+      ],
+      "purpose": "Accepted chapter 3 bond finale CG; staged for OpenCode gameplay/UI integration",
+      "layers": "One flattened opaque RGB scene: character + background + foreground light; UI/text separate; no extracted layers",
+      "derivation": "Unchanged byte-for-byte copy of selected built-in image_gen output; no resampling, crop, upscaling or programmatic image editing",
+      "qc_note": "Revision raises continuous complete sword and tip into central safe area; both hands readable. Empty scabbard remains near right edge (tip about 94%, decorative tassel about 98% of width); full contain required, no cover crop. Fine gold motifs vary from reference."
+    },
+    {
+      "id": "danxia-bond-r1",
+      "character_id": "danxia",
+      "chapter": 3,
+      "chapter_title": "丹心照夜",
+      "original": "docs/maid-art/danxia/bond-night-vigil-r1.png",
+      "runtime": "assets/characters/danxia/bond-night-vigil-r1.png",
+      "sha256": "e0fa2beb7199d3275355dba6c2b357a17f72aad62321c170382ea4e6c6917e96",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "bytes": 2459663,
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a1967e-5abe-7043-a32d-821ebef833d6/exec-d2a45008-0eab-4a44-95f6-803e8575b0aa.png",
+      "prompt_record": "docs/maid-art/bond-cg-prompts-r1.json",
+      "revision_records": [
+        "docs/maid-art/bond-cg-revisions-r1.json",
+        "docs/maid-art/bond-cg-cleanup-r1.json"
+      ],
+      "references": [
+        {
+          "path": "assets/characters/danxia/portrait-r2.png",
+          "sha256": "22f4f21d78ca3e91c2ecb33977f002cb8158e0c1508bb3d07dfafea6f4b91c4b"
+        },
+        {
+          "path": "docs/maid-art/danxia/turnaround-r2.png",
+          "sha256": "ec97981b6a37a859fc42d708b9fff0a2111c1eb255bff89bb6c1d7b374d2443d"
+        }
+      ],
+      "purpose": "Accepted chapter 3 bond finale CG; staged for OpenCode gameplay/UI integration",
+      "layers": "One flattened opaque RGB scene: character + background + foreground light; UI/text separate; no extracted layers",
+      "derivation": "Unchanged byte-for-byte copy of selected built-in image_gen output; no resampling, crop, upscaling or programmatic image editing",
+      "qc_note": "Mature face, both hands, celadon lidded jar and complete furnace visible. Paper sign removed in second cleanup. Top hair bun approaches edge; full contain required. Embroidery details vary from reference."
+    }
+  ],
+  "acceptance_date": "2026-11-01",
+  "user_statement": "三張羈絆終章 CG 接受",
+  "acceptance_scope": "Three chapter-three bond finale CGs: Qingheng, Nuomeizi and Danxia. Art acceptance only; game integration remains with OpenCode."
+}

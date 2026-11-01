@@ -1,0 +1,12 @@
+[
+  {
+    "character": "nuomeizi",
+    "source": "C:/Users/asus/.codex/generated_images/01a1967e-5abe-7043-a32d-821ebef833d6/exec-bd31792a-eb39-47d8-8bf7-713006c26432.png",
+    "prompt": "Use case: precise-object-edit. Revise only the weapon placement in this existing finished CG. Keep the same woman, face, eyes, round youthful adult cheeks, hair, costume, pose, scene, rain, lighting, painterly style and landscape canvas. The complete drawn straight silver sword and complete empty black/gold scabbard MUST now both fit inside x=15%-85%, y=45%-80%, with all blade tip, pommel, hilt, guard and scabbard tip visible. Change the angle of her right wrist and sword gently so the blade lies much more horizontally across her lap, its ONE sharp tip ending near x=82%, y=76%, not at the lower edge; keep continuous blade/guard/usable grip/pommel structure, not a shortened dagger. Reposition the empty scabbard to the bench beside and slightly behind her, nearly horizontal and entirely inside that same safe zone, not protruding beyond right edge. Keep her other hand relaxed on knee away from sharp blade and anatomically correct. Lower15% must contain no required weapon parts or narrative props. Single flattened landscape CG, no text, no UI, no watermark. Preserve all other details."
+  },
+  {
+    "character": "danxia",
+    "source": "C:/Users/asus/.codex/generated_images/01a1967e-5abe-7043-a32d-821ebef833d6/exec-28bca961-a911-48a0-af9a-72d8574e51e3.png",
+    "prompt": "Use case: precise-object-edit. Remove ONLY the narrow hanging paper decoration with pseudo-calligraphy / writing on the left wall, next to and partly behind the glowing square lantern. Replace that paper strip with naturally matching plain dark wooden wall panel, unmarked. Keep the entire same woman, mature face, violet eyes, plum hair, hairpin, lilac costume, both hands holding blossom celadon lidded jar, bronze glowing furnace, moonlit window, shelves, composition, dimensions, textures and lighting unchanged. No text, pseudo-writing, lettering, UI, logos or watermark anywhere. Single flattened scene CG."
+  }
+]

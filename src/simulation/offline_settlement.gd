@@ -60,6 +60,10 @@ static func settle(state: GameState, content: GameContent, now_utc_ms: int, last
 		stopped = time_only_result["stopped"]
 	if away_ms > 0:
 		state.tick_remainder_seconds = 0.0 if stopped != null else maxf(0.0, carry + away_seconds - float(away_ticks) * float(TimeAdvancer.SECONDS_PER_TICK))
+	var maid_report := {}
+	if full_ticks > 0 and stopped == null:
+		var maid_result := MaidSystem.advance(content, state, full_ticks, MaidRules.MAX_ACTIONS_PER_CALL)
+		maid_report = MaidSystem.offline_report(maid_result.get("events", []))
 	var report := {
 		"left_at_utc_ms": last_settled_utc_ms,
 		"settled_at_utc_ms": now_utc_ms,
@@ -75,4 +79,6 @@ static func settle(state: GameState, content: GameContent, now_utc_ms: int, last
 		"stopped": stopped,
 		"report_id": "offline:" + str(now_utc_ms),
 	}
+	if not maid_report.is_empty():
+		report["maid"] = maid_report
 	return {"report": report, "stopped": stopped}

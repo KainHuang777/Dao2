@@ -28,6 +28,8 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 	if not lineage_error.is_empty(): return {"ok": false, "json": "", "error": lineage_error}
 	var sect_error := SectSaveContract.validate(state.sect_version, state.sect)
 	if not sect_error.is_empty(): return {"ok": false, "json": "", "error": sect_error}
+	var maid_error := MaidSaveContract.validate(state.maid)
+	if not maid_error.is_empty(): return {"ok": false, "json": "", "error": maid_error}
 	var pill_error := AlchemySystem.validate(state.pill_version, state.pills, state.buffs, state.pill_effects)
 	if not pill_error.is_empty(): return {"ok": false, "json": "", "error": pill_error}
 	var talent_error := TalentSystem.validate_state(state)
@@ -355,6 +357,12 @@ static func _state_from_snapshot(snapshot: Variant) -> Dictionary:
 	var sect_error := SectSaveContract.validate(sect_version, state.sect)
 	if not sect_error.is_empty(): return {"ok": false, "state": null, "error": sect_error}
 	state.sect_version = int(sect_version)
+	var maid_data: Variant = snapshot_dict.get("maid", {})
+	if not (maid_data is Dictionary):
+		return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:maid"}
+	var maid_error := MaidSaveContract.validate(maid_data)
+	if not maid_error.is_empty(): return {"ok": false, "state": null, "error": maid_error}
+	state.maid = MaidSaveContract.normalize(maid_data)
 	if snapshot_dict.has("chrono"):
 		if not (snapshot_dict["chrono"] is Dictionary):
 			return {"ok": false, "state": null, "error": "STATE_FIELD_TYPE:chrono"}

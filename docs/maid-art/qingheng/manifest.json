@@ -1,0 +1,59 @@
+{
+  "task": "MAID-ART-SAMPLES",
+  "date": "2026-10-31",
+  "generator": "built-in image_gen",
+  "use": "art-direction review only; not runtime",
+  "acceptance": "PENDING_USER_REVIEW",
+  "license_status": "AI-generated original candidate; no external reference; no exclusivity or legal clearance claimed",
+  "assets": [
+    {
+      "id": "A",
+      "file": "qingheng-a-gongbi.png",
+      "sha256": "a87e3fb5fe010c4261e0788a04d6cafc07f1f5de0d7e7f44a0c465e55e503181",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGB",
+      "has_alpha": false,
+      "prompt_id": "A",
+      "source": "C:/Users/asus/.codex/generated_images/01a19184-de88-72c0-aaa2-8e9443b0fdb2/exec-b7212d24-2da7-4c07-9af4-183429f93890.png",
+      "reference": null,
+      "layers": "single flattened style sample; character/background/light not separated",
+      "acceptance": "PENDING_USER_REVIEW"
+    },
+    {
+      "id": "B",
+      "file": "qingheng-b-anime.png",
+      "sha256": "d0db3022643023b40cbd8ec1ae7b9a318577e30dde7660fe7b0432e47cb244d6",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGB",
+      "has_alpha": false,
+      "prompt_id": "B-r2",
+      "source": "C:/Users/asus/.codex/generated_images/01a19184-de88-72c0-aaa2-8e9443b0fdb2/exec-396410b2-a6d6-41b7-b664-612074ea908f.png",
+      "reference": "qingheng-a-gongbi.png",
+      "layers": "single flattened style sample; character/background/light not separated",
+      "acceptance": "PENDING_USER_REVIEW"
+    },
+    {
+      "id": "C",
+      "file": "qingheng-c-luxury.png",
+      "sha256": "a1748490dbb3a4bea322e9dc07949870ee23e2a4f61544e33101c57c7033e748",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGB",
+      "has_alpha": false,
+      "prompt_id": "C",
+      "source": "C:/Users/asus/.codex/generated_images/01a19184-de88-72c0-aaa2-8e9443b0fdb2/exec-4923a2b5-2b9f-49c7-b224-a399f81ef5a6.png",
+      "reference": "qingheng-a-gongbi.png",
+      "layers": "single flattened style sample; character/background/light not separated",
+      "acceptance": "PENDING_USER_REVIEW"
+    }
+  ],
+  "discarded": [
+    {
+      "prompt_id": "B",
+      "reason": "Style too similar to A; replaced by B-r2",
+      "source": "C:/Users/asus/.codex/generated_images/01a19184-de88-72c0-aaa2-8e9443b0fdb2/exec-8032fed9-7ff5-42bf-843a-ccae31e59ca8.png"
+    }
+  ]
+}

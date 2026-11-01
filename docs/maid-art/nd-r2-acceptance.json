@@ -1,0 +1,39 @@
+{
+  "task": "MAID-ART-ND-R2",
+  "date": "2026-11-01",
+  "status": "ACCEPTED",
+  "user_statement": "美術確認",
+  "scope": "Nuomeizi and Danxia R2 turnaround, transparent full-body portrait, first-meeting CG; character face/body distinction and complete sword structure. Art acceptance only; game integration remains with OpenCode.",
+  "assets": [
+    {
+      "id": "nuomeizi-turnaround-r2",
+      "original": "docs/maid-art/nuomeizi/turnaround-r2.png",
+      "sha256": "6afd650bdb801f8d62e375b075d7feb5d1d04f63ca831d36dbd5ed2f128fd326"
+    },
+    {
+      "id": "nuomeizi-portrait-r2",
+      "original": "docs/maid-art/nuomeizi/portrait-r2.png",
+      "sha256": "4265cf1d6759ea4f770808cfe3662b3c8e9cb2aa90948b8d552457c05a0378ec"
+    },
+    {
+      "id": "nuomeizi-first-meeting-r2",
+      "original": "docs/maid-art/nuomeizi/first-meeting-r2.png",
+      "sha256": "63abec9763b4ae8587e860bba328906ab15bd3609285d3748cdb803439ab4cc6"
+    },
+    {
+      "id": "danxia-turnaround-r2",
+      "original": "docs/maid-art/danxia/turnaround-r2.png",
+      "sha256": "ec97981b6a37a859fc42d708b9fff0a2111c1eb255bff89bb6c1d7b374d2443d"
+    },
+    {
+      "id": "danxia-portrait-r2",
+      "original": "docs/maid-art/danxia/portrait-r2.png",
+      "sha256": "22f4f21d78ca3e91c2ecb33977f002cb8158e0c1508bb3d07dfafea6f4b91c4b"
+    },
+    {
+      "id": "danxia-first-meeting-r2",
+      "original": "docs/maid-art/danxia/first-meeting-r2.png",
+      "sha256": "0b911d5015b3afa4064c7da60113a9eaa3bf994ab44e3cd90ce8acaafcd29eb2"
+    }
+  ]
+}

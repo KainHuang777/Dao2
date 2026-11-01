@@ -1,0 +1,49 @@
+{
+  "task": "MAID-ART-ND",
+  "date": "2026-11-01",
+  "acceptance": "DELIVERED_PENDING_USER_REVIEW",
+  "integration": "NOT_INTEGRATED; staged runtime copies only; OpenCode continues",
+  "generator": "built-in image_gen; four generation calls total; originals copied byte-for-byte",
+  "prompts": "docs/maid-art/nuomeizi/prompts-r1.json",
+  "license": "Original AI-generated character using Qingheng as style reference; Qingheng upstream user reference author/license remains unknown. No new external reference; no third-party commercial clearance or exclusive-rights claim.",
+  "assets": [
+    {
+      "id": "nuomeizi-portrait",
+      "original": "docs/maid-art/nuomeizi/portrait-r1.png",
+      "runtime": "assets/characters/nuomeizi/portrait.png",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-fe6a138f-9a67-45ee-8d14-14387e312e32.png",
+      "sha256": "2e3bad8c94cf8c50ed4a41ff5f1702e5d950af267294e2096e0bd043018c2888",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "layers": "Single RGBA character including hair/clothing/props",
+      "purpose": "Character page and full-art contain viewer",
+      "reference": "assets/characters/qingheng/portrait.png",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha128_bbox": [
+        32,
+        8,
+        1013,
+        1524
+      ],
+      "fully_transparent_pixels": 650980,
+      "qc_note": "Visible figure is complete but margin is below requested 7%; preserve full image with contain. Soft semi-transparent fringe remains; not user-accepted."
+    },
+    {
+      "id": "nuomeizi-first-meeting",
+      "original": "docs/maid-art/nuomeizi/first-meeting-r1.png",
+      "runtime": "assets/characters/nuomeizi/first-meeting.png",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-c0e56fbe-15cd-4ded-a427-ffe01268d913.png",
+      "sha256": "e64e59e6191106b1c23173e0df8bdfc3a142e5f30ed6c4bb43c173ae18d85b00",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "layers": "Flattened character and environment; dialogue and UI remain separate Godot Controls",
+      "purpose": "Replayable first-meeting CG",
+      "reference": "docs/maid-art/nuomeizi/portrait-r1.png"
+    }
+  ]
+}

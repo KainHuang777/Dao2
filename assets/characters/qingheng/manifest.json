@@ -1,0 +1,33 @@
+{
+  "task": "MAID-UI-1",
+  "date": "2026-11-01",
+  "acceptance": "ACCEPTED",
+  "acceptance_scope": "Existing R3 character art and ornamental layout accepted by user on 2026-11-01. Runtime UI feedback is separate; no gameplay/system acceptance inferred.",
+  "acceptance_record": "docs/maid-art/qingheng/layout-r3-acceptance.json",
+  "source_manifest": "docs/maid-art/qingheng/production-r2-manifest.json",
+  "prompts": "docs/maid-art/qingheng/production-r2-prompts.json",
+  "generator": "built-in image_gen; existing accepted assets copied byte-for-byte, no new image generation or image editing",
+  "license": "Generated from selected E reference. Upstream user reference author/license remains unknown; no commercial clearance or exclusive rights claim. Existing OFL fonts and code-native decorations rendered separately.",
+  "assets": [
+    {
+      "id": "qingheng-portrait",
+      "original": "docs/maid-art/qingheng/qingheng-portrait-r2.png",
+      "runtime": "assets/characters/qingheng/portrait.png",
+      "sha256": "2aa806486a16f4f63a5f2b36397e7989b83c66efdce3cb8e36f49e83470502c5",
+      "width": 1024,
+      "height": 1536,
+      "layers": "Single existing RGBA character including book/brush; native title, biography, frame and seals remain separate. No crop or resizing. Existing alpha QC limits preserved.",
+      "purpose": "Character page and full-art contain viewer"
+    },
+    {
+      "id": "qingheng-first-meeting",
+      "original": "docs/maid-art/qingheng/qingheng-first-meeting-r2.png",
+      "runtime": "assets/characters/qingheng/first-meeting.png",
+      "sha256": "97705d162cee3d9cff901491b30c633cd07b4262c840955f48d06ad976238ab9",
+      "width": 1672,
+      "height": 941,
+      "layers": "Existing flattened RGB rainy scene; dialogue and responses are independent native Controls. Illustration only, not an interactive world scene.",
+      "purpose": "Replayable first-meeting presentation; loaded on first opening"
+    }
+  ]
+}

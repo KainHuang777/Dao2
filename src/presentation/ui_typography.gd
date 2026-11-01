@@ -29,6 +29,10 @@ static func epilogue_seal_font() -> Font:
 static func biography_font() -> Font:
 	return reincarnation_font()
 
+static func character_title_font() -> Font:
+	# Accepted R3 vertical identity/name only; copy and actions use the shared sans.
+	return reincarnation_font()
+
 static func chapter_font() -> Font:
 	if _chapter == null:
 		# UI headings share the same sans family as body text and controls.

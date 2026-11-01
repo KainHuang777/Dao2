@@ -1,8 +1,8 @@
-2026-10-31 **SECT-REFORM DONE（L3 160/160 全尺寸通過；現行 Web 包與三橫式桌面瀏覽器驗證完成）**：[狀態與交接](docs/development-status.md#sect-reform-ui)。
+2026-11-01 **MAID-BOND-CG-INTEGRATION 三張羈絆終章 CG 已接入回憶重播（L1）**：[狀態](docs/development-status.md#maid-bond-cg-integration)。
 
-2026-10-31 **SECT-REFORM-BEAST IN_PROGRESS（BEAST-3 祖父權利／完整遷移與保存完成，L2）**：[狀態與交接](docs/development-status.md#sect-reform-beast)。
+2026-11-01 **MAID-ART-BOND-CG 三張終章 CG 美術已接受；程式交 OpenCode**：[狀態](docs/development-status.md#maid-art-bond-cg)。
 
-2026-10-30 **ITCH-DEPLOY-WORKFLOW DONE（草稿部署）**：一鍵更新與實際線上採集／重載通過，未公開；見[狀態](docs/development-status.md#itch-deploy-workflow)。
+2026-11-01 **MAID-STAND 洞府侍立可收合展示（L1）**：[狀態](docs/development-status.md#maid-stand)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
 

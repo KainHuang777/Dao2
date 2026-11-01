@@ -26,6 +26,8 @@ var back_button: Button
 var tabs: HBoxContainer
 var tab_buttons: Dictionary = {}
 var action_panel: Control
+var character_panel: Control
+var portrait_viewer: Control
 var island_panel: Control
 var manufacturing_panel: Control
 var transport_panel: Control
@@ -84,6 +86,19 @@ func build() -> void:
 	action_panel.action_requested.connect(_on_action)
 	abode.hud.add_child(action_panel)
 	action_panel.visible = false
+	character_panel = preload("res://src/presentation/maid_character_panel.gd").new()
+	abode.hud.add_child(character_panel)
+	character_panel.hide()
+	portrait_viewer = preload("res://src/presentation/maid_portrait_viewer.gd").new()
+	abode.hud.add_child(portrait_viewer)
+	portrait_viewer.hide()
+	character_panel.portrait_requested.connect(func(texture: Texture2D, owner: String):
+		portrait_viewer.present(texture, owner)
+		shell.open_tool(portrait_viewer))
+	character_panel.memory_requested.connect(func(texture: Texture2D, title: String, lines: Array):
+		portrait_viewer.present_memory(texture, title, lines)
+		shell.open_tool(portrait_viewer))
+	character_panel.action_requested.connect(_on_maid_action)
 	island_panel = preload("res://src/presentation/island_management_panel.gd").new()
 	abode.hud.add_child(island_panel)
 	island_panel.visible = false
@@ -204,6 +219,7 @@ func open(route: String) -> void:
 		"reincarnation": abode.reincarnation_panel.visible = true
 		"sect": abode.sect_panel.visible = true
 		"fortune": abode.fortune_modal.visible = true
+		"characters": character_panel.show()
 		"realms": abode._modal_manager._open_nine_realms_overview()
 		"beasts", "decisions", "skills":
 			action_panel.mode = page
@@ -219,6 +235,7 @@ func _hide_pages() -> void:
 	for key in PANEL_KEYS:
 		abode.get(key).visible = false
 	action_panel.visible = false
+	character_panel.hide()
 	if is_instance_valid(island_flow): island_flow.hide()
 	island_panel.visible = false
 	manufacturing_panel.visible = false
@@ -405,6 +422,8 @@ func refresh(view: Dictionary) -> void:
 	_refresh_tabs(view)
 	if is_instance_valid(action_panel) and action_panel.visible:
 		action_panel.refresh(view)
+	if is_instance_valid(character_panel) and character_panel.visible:
+		character_panel.refresh(view)
 	if is_instance_valid(island_panel) and island_panel.visible:
 		island_panel.expire_success()
 		island_panel.refresh(view, abode.content.processing_catalog)
@@ -467,6 +486,56 @@ func _on_action(kind: String, id: String) -> void:
 		if not saved.ok:
 			action_panel.show_save_failure("操作已生效，但保存失敗：%s；恢復儲存後請重試保存。" % saved.get("error", "未知"))
 	abode._refresh_hud()
+
+func _on_maid_action(kind: String, payload: Dictionary) -> void:
+	var result: Dictionary = abode.session.submit({"command_id": "maid-" + str(Time.get_ticks_usec()), "type": kind, "expected_revision": abode.session.state.revision, "payload": payload})
+	var save_failed := false
+	if bool(result.get("ok", false)):
+		var saved: Dictionary = abode._save_game()
+		if not bool(saved.get("ok", false)):
+			result = saved
+			save_failed = true
+	var errors := {
+		"MAID_REQUIREMENT": "緣分或境界尚未具足。",
+		"ALCHEMY_LOCKED": "丹道未開，尚不能結識丹霞。",
+		"UNKNOWN_MAID": "查無此位仙侍。",
+		"ALREADY_RECRUITED": "已結識，不需再招募。",
+		"DUTY_BUSY": "已有仙侍在職掌，請先暫停或清除。",
+		"DUTY_KIND": "職掌內容與此仙侍不符。",
+		"DUTY_NONE": "尚未指派職掌。",
+		"INVALID_TARGET": "目標數量不符合規則。",
+		"INVALID_RESERVE": "保留量不符合規則。",
+		"UNKNOWN_RECIPE": "查無此配方。",
+		"BUILDING_UNKNOWN": "查無此建築。",
+		"BUILDING_LOCKED": "建築尚未解鎖。",
+		"UNKNOWN_PILL": "查無此丹藥。",
+		"LEVEL_CAP": "已達上限。",
+		"TARGET_REACHED": "已達目標。",
+		"INSUFFICIENT_RESOURCE": "材料不足，或保留量不可動用。",
+		"OUTPUT_FULL": "庫存已滿。",
+		"BLOCKED": "產線忙碌，請稍後再試。",
+		"PAUSED": "職掌已暫停。",
+		"CHAPTER_LOCKED": "請先完成前一篇。",
+		"CHAPTER_REQUIREMENT": "羈絆篇章條件尚未達成。",
+		"CHAPTER_CLAIMED": "此篇已領取。",
+		"NO_REUNION": "目前沒有重逢可敘。",
+	}
+	if not bool(result.get("ok", false)):
+		var error := String(result.get("error", "原因不明"))
+		character_panel.show_result(("操作未保存：%s。恢復儲存後重試。" if save_failed else "操作未完成：%s") % errors.get(error, error))
+	else:
+		var success := "仙侍記事已更新。"
+		match kind:
+			"recruit_maid": success = "仙侍已入府。"
+			"assign_maid_duty": success = "職掌已指派，將按時循序執行。"
+			"clear_maid_duty": success = "職掌已清除。"
+			"set_maid_duty_paused": success = "職掌狀態已更新。"
+			"execute_maid_duty": success = "已執行一次職掌。"
+			"claim_maid_chapter": success = "羈絆篇章已記入。"
+			"maid_reunion": success = "舊世燈火，無需再謝。"
+		character_panel.show_result(success)
+	abode._refresh_hud()
+
 
 func _on_island_action(kind: String, payload: Dictionary) -> void:
 	var target_panel: Control = island_flow if island_flow.visible else manufacturing_panel if page == "manufacturing" else transport_panel if page == "transport" else island_panel
@@ -555,6 +624,8 @@ func open_transport(route_id: String) -> void:
 func back() -> void:
 	if shell != null and shell.managed() and shell.back():
 		return
+	if page == "characters" and character_panel.back():
+		return
 	if page == "reincarnation" and abode.reincarnation_panel._confirming:
 		abode.reincarnation_panel._cancel_confirmation()
 	elif abode.info_panel.visible:
@@ -586,6 +657,7 @@ func layout_page(bounds: Rect2) -> void:
 			"reincarnation": panel = abode.reincarnation_panel
 			"sect": panel = abode.sect_panel
 			"fortune": panel = abode.fortune_modal
+			"characters": panel = character_panel
 		panel.set_layout_bounds(bounds)
 
 func storage_recovered() -> void:

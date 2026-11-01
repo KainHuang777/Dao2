@@ -30,6 +30,7 @@ var buffs: Dictionary = {}
 var current_realm: String = "realm_human"
 var realms_data: Dictionary = {}
 var sect: Dictionary = {}
+var maid: Dictionary = {}
 var chrono: Dictionary = {}
 var world_address: String = "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
 var aspiration_realm: String = ""
@@ -75,6 +76,7 @@ func duplicate_state() -> GameState:
 	copy.current_realm = current_realm
 	copy.realms_data = realms_data.duplicate(true)
 	copy.sect = sect.duplicate(true)
+	copy.maid = maid.duplicate(true)
 	copy.chrono = chrono.duplicate(true)
 	copy.world_address = world_address
 	copy.aspiration_realm = aspiration_realm
@@ -143,6 +145,7 @@ func to_snapshot_dict() -> Dictionary:
 		"current_realm": current_realm,
 		"realms_data": realms_data.duplicate(true),
 		"sect": sect.duplicate(true),
+		"maid": maid.duplicate(true),
 		"chrono": chrono.duplicate(true),
 		"world_address": world_address,
 		"aspiration_realm": aspiration_realm,

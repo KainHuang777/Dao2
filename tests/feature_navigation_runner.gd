@@ -45,7 +45,7 @@ func _run() -> void:
 	check(nav.page == "achievements", "available remembered page restored")
 	nav.home()
 	nav.open_group("journey")
-	check(nav.page == "sect" and nav.tab_buttons.sect.text.ends_with("·未開"), "Era1 journey falls back to visibly locked sect preview")
+	check(nav.page == "characters" and nav.tab_buttons.sect.text.ends_with("·未開"), "Era1 journey falls back to available character presentation, retaining locked sect preview")
 	nav.home()
 	nav.open_group("management")
 	for route in ["outposts", "manufacturing", "transport"]:
@@ -76,7 +76,7 @@ func _run() -> void:
 			await process_frame
 			check(nav.bar.get_global_rect().end.y <= abode.toolbar.position.y, "fixed page navigation fits " + route)
 			check(abode.toolbar.get_global_rect().end.x <= viewport.x, "main navigation fits landscape")
-			var count := int(abode.building_catalog.visible) + int(nav.action_panel.visible) + int(abode.nine_realms_preview.visible) + int(nav.island_panel.visible) + int(nav.manufacturing_panel.visible) + int(nav.transport_panel.visible)
+			var count := int(nav.character_panel.visible) + int(abode.building_catalog.visible) + int(nav.action_panel.visible) + int(abode.nine_realms_preview.visible) + int(nav.island_panel.visible) + int(nav.manufacturing_panel.visible) + int(nav.transport_panel.visible)
 			for key in nav.PANEL_KEYS:
 				count += int(abode.get(key).visible)
 			check(count == 1, "exactly one gameplay page is visible: " + route)

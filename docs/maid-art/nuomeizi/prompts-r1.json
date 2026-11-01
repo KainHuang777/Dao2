@@ -1,0 +1,21 @@
+{
+  "task": "MAID-ART-ND",
+  "date": "2026-11-01",
+  "generator": "built-in image_gen",
+  "prompts": [
+    {
+      "id": "portrait",
+      "prompt": "Use case: stylized-concept. Asset: original xianxia game companion Nuomeizi / 糯美子 transparent full-body portrait. Reference image is Qingheng, STYLE ONLY, not identity: match its polished high-detail anime face, elegant silk rendering, gold ornament detail and clear silhouette. Create a distinctly different adult woman, age 25, confident lively swordswoman, warm amber eyes, long ink-black hair in a high ponytail with a crimson ribbon, asymmetric fringe, small gold sword-shaped hairpin. Ink-black and ivory fitted layered hanfu, short dark crimson shoulder cape, restrained antique-gold cloud embroidery, practical wrist guards, opaque layered skirt and dark boots, tasteful feminine elegance. Relaxed upright three-quarter pose, friendly assured smile, left hand resting on a sheathed straight Chinese jian at her hip, right hand open naturally near waist; one sword only, sheathed, no magic. Whole figure including ponytail, ribbons, sword scabbard and boots inside frame with at least 7% empty margin on ALL sides. Portrait 2:3. Genuinely transparent alpha background, no backdrop, no ground, no glow halo, no vignette, no text, no logos, no UI, no watermark. Anatomically natural hands. Single character layer with hair/clothing/props together.",
+      "reference": "assets/characters/qingheng/portrait.png",
+      "reference_role": "style only",
+      "transparent_background": true
+    },
+    {
+      "id": "first-meeting",
+      "prompt": "Use case: stylized-concept. Asset: landscape first-meeting CG for original xianxia companion Nuomeizi. Input image is identity reference: preserve this exact adult swordswoman's face, amber eyes, black high ponytail with crimson ribbon, ornate gold hairpin, ivory and black hanfu, crimson short shoulder cape and black gold boots. Match its polished detailed anime illustration and silk rendering. Scene: early morning on a quiet stone sword-practice terrace on a floating mountain above a vast sea of clouds, misty Chinese peaks, an old pine, a few warm sunrise rays. Medium-full view of Nuomeizi at center-right, standing after practice, one hand loosely resting on her sheathed Chinese jian at the hip, the other extending an open friendly greeting toward the unseen viewer, confident warm smile. One sword only. Eye level, coherent natural hands. Keep head and hands safely inside central 80% of picture; bottom 22% is quiet mist and terrace for separate game dialogue overlay. Airy left third for scenery, beautiful restrained ink landscape. Wide 16:9 composition. Single flattened scene, no UI, no text, no captions, no watermark, no other people, no battle, no modern objects. Character remains unmistakably same woman as input.",
+      "reference": "docs/maid-art/nuomeizi/portrait-r1.png",
+      "reference_role": "identity",
+      "transparent_background": false
+    }
+  ]
+}

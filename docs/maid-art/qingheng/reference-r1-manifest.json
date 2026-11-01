@@ -1,0 +1,47 @@
+{
+  "task": "MAID-ART-REFERENCE-R1",
+  "date": "2026-10-31",
+  "generator": "built-in image_gen",
+  "acceptance": "E_ART_DIRECTION_SELECTED",
+  "reference": {
+    "path": "C:/Users/asus/Downloads/843591898_1632681411979538_147729111335781839_n.jpg",
+    "sha256": "7bb7b34b6ac0554c5b47de7ed24013d8432abb2765f586e30aa49c9e6f3542ba",
+    "provided_by": "user",
+    "panels": [
+      "GPT",
+      "文心一言"
+    ],
+    "license": "author and license not supplied; commercial reuse clearance not established"
+  },
+  "assets": [
+    {
+      "id": "D",
+      "file": "qingheng-d-silver-fairy.png",
+      "sha256": "fa6b83979d540860cd9bae994f78cfdef898ea376a9bdb4643c8c1f4368c8bd1",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGB",
+      "has_alpha": false,
+      "source": "C:/Users/asus/.codex/generated_images/01a19184-de88-72c0-aaa2-8e9443b0fdb2/exec-0bdee9d2-8c64-4b67-a23e-ea4d7d499015.png",
+      "layers": "flattened character/background; review only",
+      "acceptance": "NOT_SELECTED"
+    },
+    {
+      "id": "E",
+      "file": "qingheng-e-blue-scholar.png",
+      "sha256": "d27b8f9c7728b8d65f997027776ac4ba7072db951e701f8bce4ce6a45f52bc7f",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGB",
+      "has_alpha": false,
+      "source": "C:/Users/asus/.codex/generated_images/01a19184-de88-72c0-aaa2-8e9443b0fdb2/exec-df32f1c5-b5ed-45ba-9a24-ee19d38a1aad.png",
+      "layers": "flattened character/background; review only",
+      "acceptance": "ACCEPTED_ART_DIRECTION",
+      "accepted_on": "2026-10-31",
+      "user_confirmation": "接受 推薦"
+    }
+  ],
+  "selected_asset": "E",
+  "acceptance_date": "2026-10-31",
+  "acceptance_scope": "E visual direction and appearance only; production assets and layouts incomplete; no system rules acceptance inferred"
+}

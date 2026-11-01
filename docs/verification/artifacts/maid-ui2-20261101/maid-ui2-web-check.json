@@ -1,0 +1,153 @@
+{
+  "ok": true,
+  "steps": [
+    {
+      "name": "screenshot-01-offline-summary",
+      "file": "docs\\verification\\artifacts\\maid-ui2-20261101\\01-offline-summary.png"
+    },
+    {
+      "name": "offline-report-maid-actions",
+      "ok": true,
+      "detail": "actions=4"
+    },
+    {
+      "name": "save-qingheng-recruited",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "screenshot-02-world",
+      "file": "docs\\verification\\artifacts\\maid-ui2-20261101\\02-world.png"
+    },
+    {
+      "name": "screenshot-03-characters",
+      "file": "docs\\verification\\artifacts\\maid-ui2-20261101\\03-characters.png"
+    },
+    {
+      "name": "screenshot-04-work",
+      "file": "docs\\verification\\artifacts\\maid-ui2-20261101\\04-work.png"
+    },
+    {
+      "name": "screenshot-05-bond",
+      "file": "docs\\verification\\artifacts\\maid-ui2-20261101\\05-bond.png"
+    },
+    {
+      "name": "console-no-script-error",
+      "ok": true,
+      "detail": "lines=24"
+    }
+  ],
+  "console": [
+    {
+      "utc": "2026-11-01T01:08:19.813Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.814Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.815Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T01:08:19.815Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.815Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.816Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.816Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.816Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.817Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.817Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:19.817Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T01:08:20.699Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T01:08:20.893Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T01:08:21.016Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T01:08:23.822Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T01:08:25.455Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T01:08:26.831Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:26.832Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T01:08:26.879Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T01:08:26.887Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:26.972Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:27.884Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T01:08:30.115Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T01:08:30.234Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1284.0, 720.0)"
+    }
+  ],
+  "checks": {
+    "offline-report-maid-actions": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "save-qingheng-recruited": {
+      "ok": true,
+      "detail": ""
+    },
+    "console-no-script-error": {
+      "ok": true,
+      "detail": "lines=24"
+    }
+  },
+  "errors": []
+}

@@ -13,7 +13,7 @@ static func check(route: String, view: Dictionary) -> Dictionary:
 	var reinc := int(view.get("reincarnation_count", 0))
 	
 	match route:
-		"buildings", "alchemy", "achievements":
+		"buildings", "alchemy", "achievements", "characters":
 			state = State.AVAILABLE
 		"outposts", "manufacturing", "transport":
 			state = State.AVAILABLE if era >= 2 else State.HIDDEN

@@ -1,0 +1,21 @@
+{
+  "task": "MAID-ART-ND",
+  "date": "2026-11-01",
+  "generator": "built-in image_gen",
+  "prompts": [
+    {
+      "id": "portrait",
+      "prompt": "Use case: stylized-concept. Asset: original xianxia game companion Danxia / 丹霞 transparent full-body portrait. Reference is Qingheng, STYLE ONLY not identity; match detailed polished anime illustration, clear expressive face, exquisite silk and translucent oversleeves, antique gold ornaments. A distinctly different adult woman, age 28, poised reserved herbal alchemist with a gentle inner warmth, narrow violet eyes, long dark plum-brown hair half-up in a coiled bun with trailing straight hair, pale mauve medicinal blossom hairpin and simple gold pin. Lotus-mauve, dusty violet and warm ivory layered medicinal hanfu, opaque fitted inner dress, refined gold botanical embroidery, sage-green jade waist pendant, small herb pouch. Calm three-quarter standing pose, slight knowing smile, right hand holding a small CLOSED celadon medicine jar near chest, left hand supporting its base, natural five-finger hands, no floating objects. Full figure head to embroidered shoes, all hair, hems and accessories entirely inside frame with 7% transparent margin on all sides. Portrait 2:3. True transparent alpha background, no backdrop, no halo, no floor shadow, no vignette. Single character layer, clothing/hair/jar together. No text, UI, logo, watermark. Not a swordswoman; no sword. Elegantly feminine, non-explicit, unmistakably adult.",
+      "reference": "assets/characters/qingheng/portrait.png",
+      "reference_role": "style only",
+      "transparent_background": true
+    },
+    {
+      "id": "first-meeting",
+      "prompt": "Use case: stylized-concept. Asset: wide 16:9 first-meeting CG of original adult xianxia alchemist Danxia. Input is exact character identity reference. Preserve her adult face, violet eyes, long plum-brown half-up hair with mauve medicinal flower and gold hairpin, lotus-mauve/ivory medicinal hanfu with gold botanical embroidery and sage jade pendants, small celadon medicine jar. Match refined detailed anime rendering. Scene: intimate tranquil traditional Chinese alchemy room at blue evening, open latticed window looking out to a misty medicinal garden and distant mountains, wooden shelf with a few ceramic jars, small bronze lidded incense-like alchemy furnace giving a restrained amber glow on table to left. Danxia at center-right in waist-up to knee view, holding the same small CLOSED celadon medicine jar with natural hands, turning toward the arriving unseen viewer with composed slightly warm welcoming gaze. Face and both hands within central 80%, no flame covering her. Warm furnace rim light and cool blue garden light. Leave bottom 22% mostly quiet table edge/shadow for independent dialogue UI, left third atmospheric room. Single flattened illustration, character/environment together. No printed text, labels, glyphs, UI, watermark, modern equipment, other people, giant magical objects or extra limbs.",
+      "reference": "docs/maid-art/danxia/portrait-r1.png",
+      "reference_role": "identity",
+      "transparent_background": false
+    }
+  ]
+}

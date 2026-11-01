@@ -1,5 +1,184 @@
 # 開發狀態與交接紀錄
 
+<a id="maid-bond-cg-integration"></a>
+## 2026-11-01 MAID-BOND-CG-INTEGRATION：三張羈絆終章 CG 接入回憶重播（L1，DONE）
+
+- **範圍／交付**：依 [交接](handoffs/2026-11-01-maid-bond-cg-opencode.md)，把三張已接受的第三章羈絆終章 CG 接進人物頁羈絆分頁：青蘅「前世燈火」、糯美子「劍鳴舊世」、丹霞「丹心照夜」。每列章節新增「回憶」按鈕，僅在該角色已招募、第三章已領取且為最後一章時顯示；領取前與第一／二章不顯示。沿用既有 `chapters[<id>_3]` 永久旗標，未新增規則、旗標、schema 或存檔格式。
+- **按需載入／呈現**：`maid_character_panel.gd` 新增 `BOND_CG` 表（只存路徑、標題、敘事），點擊時才 `load(path)`，三張 CG 均未 `preload`；缺檔不開啟。`maid_portrait_viewer.gd` 新增 `present_memory()`，沿用共用 tool overlay、遮罩、`CloseSeal` 與 Escape／返回，圖像維持 `EXPAND_IGNORE_SIZE`＋`STRETCH_KEEP_ASPECT_CENTERED` 完整 contain（不裁切頭飾、劍尖、右側劍鞘／流蘇，不拉伸），圖下敘事 `Label` 在檢視器內捲動；一般立繪 `present()` 會隱藏並清空敘事區。`feature_navigation.gd` 接 `memory_requested` 訊號。
+- **純重播邊界**：開關回憶只發呈現訊號，不送命令、不改庫存、不重新領取、不發羈絆或資源；測試以 `to_snapshot_dict()` 比對開啟／關閉前後完全一致。第三章領取後按鈕只重播，不重複給獎。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`、`src/presentation/maid_portrait_viewer.gd`、`src/presentation/feature_navigation.gd`、`tests/maid_bond_cg_runner.gd`（新增）、`tools/run_all_runners.ps1`、`docs/49-maid-companion-system-design.md`（新增 §14）、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`；Godot import 產生三張 CG 的 `.import` sidecar。未改規則、`maid_system.gd`、schema、存檔、美術原圖或字型。
+- **驗收級別／結果（L1，單一 1280×720）**：`--headless --path . --import` exit0；`tools\run_all_runners.ps1 -Only 'maid_bond_cg_runner,maid_ui_runner,maid_ui2_runner,maid_art_r2_runner' -TimeoutSeconds 180` → 4/4 PASS，MAID-BOND-CG 68、MAID-UI 53、MAID-UI2 62、MAID-ART-R2 78，共 261 checks，failures=`[]`，無 SCRIPT ERROR。新 runner 斷言涵蓋：無預載 CG、三張路徑可解析且互異、第三章領取前／第一二章不顯示回憶、領取後顯示且命中 ≥44px、開啟後為共用 overlay 與正確 CG 路徑／標題／敘事、`KEEP_ASPECT_CENTERED`、1672×941、關閉後回到羈絆頁、狀態與章節旗標不變且不重複領取。測試以直接設定第三章門檻後呼叫 `MaidSystem.claim_chapter` 建立旗標，避開直接改狀態觸發的 durable save 衝突。
+- **未驗證／下一步**：本輪使用者只要求 L1，未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器 1280×720 抽驗或觸控實機（觸控依 2026-10-17 延期）；交接中的桌面瀏覽器抽驗留待需要出包或 L2 時補做，不宣稱已通過。仙侍大型任務仍非本次結案。可手動 commit：本次為羈絆 CG 接入階段結束，非大型任務結案；代理未 commit／push。
+
+<a id="maid-art-bond-cg"></a>
+## 2026-11-01 MAID-ART-BOND-CG：三位仙侍羈絆終章 CG 美術接受（美術階段 DONE）
+
+- **分工／範圍**：使用者指定 P1 三張終章 CG，美術由 Codex 完成，其餘程式交 OpenCode。使用者於 2026-11-01 明確表示「三張羈絆終章 CG 接受」；三張交付稿已標 `ACCEPTED`，美術階段 DONE，正式程式接入尚未完成。依 docs/48 §7、docs/49 §3：青蘅「前世燈火／燈下候歸」、糯美子「劍鳴舊世／劍廬夜雨」、丹霞「丹心照夜／丹爐守夜」。
+- **交付檔案**：`docs/maid-art/<id>/bond-*-r1.png` 原稿與 `assets/characters/<id>/bond-*-r1.png` 原樣複本各三張。完整提示詞 `docs/maid-art/bond-cg-prompts-r1.json`；局部修訂 `bond-cg-revisions-r1.json`、`bond-cg-cleanup-r1.json`；生成紀錄 `bond-cg-generation-record-r1.json`；SHA256／參照 hash／尺寸／用途／切層／來源及授權 `bond-cg-manifest-r1.json`；審閱紀錄 `bond-cg-acceptance-r1.json`。交接：[OpenCode](handoffs/2026-11-01-maid-bond-cg-opencode.md)。未覆寫舊立繪、初遇、既有 manifest 或 nd-r2 接受紀錄。
+- **生成與目視**：內建 image_gen，三次場景生成＋三次局部修訂，共六次；以青蘅正式 portrait＋baseline、糯美子／丹霞正式 portrait-r2＋turnaround-r2 作參照。糯美子修訂將完整劍刃／劍尖移入中段；丹霞第一次移除背景字牌未成功，第二次精確定位移除成功。選稿已核對臉型／髮瞳衣飾辨識、手與書燈／劍／藥罐丹爐，未見明顯多肢或可見 UI／文字。細部刺繡／髮飾仍有生成差異；糯美子空鞘尖端約在寬度94%、裝飾流蘇約98%，頭頂髮飾也接近上緣，後續必須完整 contain，不能宣稱任意 cover 裁切皆安全。
+- **尺寸／切層／授權**：三張都是 1672×941 RGB、約16:9單層場景（人物／背景／前景光效未拆層），保留內建原始輸出，未程式修圖／放大／裁切。製作目標2560×1440未達原生尺寸，差異已隨交付說明，使用者接受現有三張稿；仍不冒充高解析原稿。來源為 AI 生成＋專案既有角色參照，沿用青蘅上游使用者參照作者／授權未明的限制；未新增外部圖片，不主張獨占或第三方商用清查完成。
+- **驗證（靜態素材交付，非 L1／L2／L3 遊戲回歸）**：本機引擎 `--version` → `4.7.2.stable.official.ed1daf0bf`／exit0；Python/Pillow PNG 解碼、尺寸／模式與原始來源＝原稿＝專案複本 SHA256核對3/3通過；JSON／參照／提示詞核對通過。`python tools/delivery_check.py --manifest docs/maid-art/bond-cg-manifest-r1.json` → assets ok=3/3，exit1唯一原因為 acceptance 尚非 ACCEPTED（保留待確認狀態，不偽造放行）；`python tools/delivery_check.py` → RESULT PASS／exit0；`git diff --check` → exit0（既有 LF→CRLF 提醒）。`python tools/trim_status_docs.py` 依共用工具整理索引。未跑 runner、Web 匯出或遊戲互動驗收，本輪只有美術／metadata／交接。
+- **接受後檢查（純 metadata，非遊戲回歸）**：acceptance JSON 記錄使用者原句、日期與三張原始 SHA256，manifest 同步 `ACCEPTED`；接受後 `delivery_check.py --manifest docs/maid-art/bond-cg-manifest-r1.json` → assets ok=3/3、RESULT PASS／exit0；`git diff --check` → exit0。圖片內容未更動，未重跑遊戲回歸。前項 exit1 為接受前歷史結果。
+- **下一步／Checkpoint**：三張美術已接受，由 OpenCode 按既有第三章旗標接回憶／重播並完成受影響驗證；不把放進 assets 當已接入。英文 checkpoint 已更新 `updata.txt` 並保留最近5筆。本輪為美術階段結束，非整體仙侍里程碑結案；可手動 commit，代理未 commit／push。後續大型工作請用 New Chat，OpenCode 可直接讀本輪交接。
+
+
+<a id="maid-stand"></a>
+## 2026-11-01 MAID-STAND：洞府侍立可收合展示（L1，DONE）
+
+- **範圍／交付**：使用者要求「洞府內的仙侍展示（可收合）」，並順手修正 docs/49 第 4 行過時的「待 OpenCode 接入」。新增 `src/presentation/maid_stand_display.gd`：寬式洞府首頁在訊息面板右側顯示已驗收立繪的上半身（`AtlasTexture` 裁切 540×780、`STRETCH_KEEP_ASPECT_COVERED`）、角色名、職位與職掌狀態；「前／後」切換展示角色、「人物頁 · 初遇」走既有 `characters` route、`CloseSeal` 收合成右下「仙侍」小籤。預設展示 `active_duty`，玩家手動切換後以手動選擇為準；切換只讀 `view.maid`，不派工、不發羈絆、不寫 `GameState`。
+- **安全區**：只在洞府首頁、無 overlay、WIDE 版面、選島器關閉，且展開區不與訊息面板／底部工具列重疊時顯示；空間不足（短橫式、窄橫式、選島器展開）整個元件讓位，不遮住突破、保存恢復、訊息或核心世界目標，也不改相機 `world_safe_rect` 契約。
+- **修改檔案**：`src/presentation/maid_stand_display.gd`（新增）、`src/abode/living_abode.gd`（`maid_stand` 欄位）、`src/presentation/abode_hud_controller.gd`（建構、layout、refresh 掛鉤）、`tests/maid_stand_runner.gd`（新增）、`tools/run_all_runners.ps1`、`docs/49`（第 4 行狀態＋§13）、`docs/48`（實作註記）、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`。未改規則、schema、`maid_save_contract.gd`、`save_codec.gd`、美術或字型。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_stand' -TimeoutSeconds 180` → 1/1 PASS，`MAID-STAND checks=26 failures=[]`，無 SCRIPT ERROR。收尾再跑受影響的 `maid_ui_runner`、`ui_shell_integration_runner`、`living_abode_runner` → 4/4 PASS（MAID-UI 53、UI-SHELL-1 44 checks，皆 failures=`[]`）。新增斷言：寬式展開、立繪裁切來源與載入、訊息面板右側不重疊、底部工具列上方、44px 命中、前／後切換與手動選擇優先於當值、收合／展開、人物頁往返後展示回歸、狀態 snapshot 完全不變、844×390 短橫式讓位。另以非 headless 原生 1280×720 跑同一 runner 產生 `stand`／`collapsed` 兩張截圖（`.test-output/maid-stand/`），目視確認半身、標題、訊息區與工具列版面。
+- **未驗證／下一步**：未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。展示偏好目前只在當次遊戲內有效，未跨存檔／輪迴保存；若要落實 docs/48 §8 需另開 `MaidSaveContract`／schema 任務。短橫式目前直接讓位，未做緊湊展開變體。可手動 commit：本次為仙侍後續小功能，非大型任務結案；未 commit／push。
+
+<a id="maid-roster-browse"></a>
+## 2026-11-01 MAID-ROSTER-BROWSE：未招募仙侍可切換閱覽（L1，DONE）
+
+- **範圍／交付**：使用者要求「換下一位仙侍」，並選定「未招募也能切換查看」。三位仙侍選擇列（青蘅／糯美子／丹霞）原本只在人物分頁顯示，現在職掌、羈絆分頁與非緊湊版面的初遇重溫頁也會顯示（緊湊版面的初遇頁為保留對話高度仍隱藏），任何分頁都能直接換仙侍；未招募角色仍可閱覽立繪、小傳與初遇，其選擇鈕加上「尚未招募 · 可先閱覽人物與初遇」提示。切換僅改呈現，`select_maid` 重置對話與職掌選擇，不寫狀態。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`（`_sync` 選擇列常駐＋未招募 tooltip）、`tests/maid_ui_runner.gd`、`tests/maid_ui2_runner.gd`、`docs/49-maid-companion-system-design.md`、`docs/development-status.md`、`updata.txt`。未改規則、`maid_system.gd`、schema、存檔、美術、字型或 Web 匯出。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_ui_runner,maid_ui2_runner,maid_art_r2_runner' -TimeoutSeconds 180` → 3/3 PASS，MAID-UI 53 checks（新增 16）、MAID-UI2 62 checks（新增 6）、MAID-ART-R2 78 checks，共 193 checks，failures=`[]`，無 SCRIPT ERROR。新增斷言：空存檔下三位角色皆可切換且立繪／小傳／招募條件可見並標示未招募、切換不改變 `to_snapshot_dict()`；職掌頁與羈絆頁切換列仍可見且切換後職掌文字跟隨新角色、留在原分頁。
+- **未驗證／下一步**：只跑 L1 三支 runner 與單一尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。另以 `DAO_VIEWPORT_MATRIX=full` 直接跑 `maid_ui_runner` 作診斷（非验收）：僅 `page clears main navigation` 在緊湊人物頁失敗，已用原始 `mode == "person"` 版本對照確認屬既有項目，非本次改動引入。`tools/maid_art_r2_web_check.mjs` 的職掌／羈絆滾輪座標以舊版面量測，新增選擇列可能使緊湊尺寸座標需重校，未宣稱 Web 流程仍通過。可手動 commit：本次為仙侍後續小改，非大型任務結案；未 commit／push。
+
+<a id="maid-close"></a>
+## 2026-11-01 MAID-CLOSE：仙侍整批收尾（L3 限定：MAID 領域 runner＋桌面三橫式瀏覽器，DONE）
+
+- **範圍／交付**：使用者選定「MAID-CLOSE 收尾」，補完前一輪未做的短橫式人物面板點擊流程。`tools/maid_art_r2_web_check.mjs` 新增 `COMPACT` 座標表（844×390、800×360）與 canvas 空間點擊／滾輪；緊湊版面由面板自行重排（`_compact = bounds.size.y < 400 or bounds.size.x < 960`），故座標以實際截圖量測，不沿用 1280×720 等比換算。每個緊湊尺寸跑完整流程：關閉離線摘要→遊歷→人物→三位侍女→完整立繪開／關→初遇重溫→職掌（滾輪）→羈絆（滾輪）→關閉面板。
+- **修改檔案**：`tools/maid_art_r2_web_check.mjs`（擴充）、新增 `docs/verification/maid-close.md`、`docs/verification/artifacts/maid-close-web/`（38 張截圖＋報告）；`README.md`、`ROADMAP.md`、`updata.txt`。未改遊戲程式、規則、schema、美術或字型；沿用已修正字型的 `build/web-maid-art-r2`，未重新匯出。
+- **驗收級別／結果**：Chrome `156.0.8078.79`（CDP 9251、靜態伺服器 48351）。`node --experimental-websocket tools/maid_art_r2_web_check.mjs` → `MAID-ART-R2-WEB PASS errors=[]`：1280×720（canvas 1279×719，11 張流程截圖）、844×390（843×389）、800×360（799×359）皆無頁面溢出、存檔還原 `actions=4`、流程後存檔完整 schema=6；緊湊尺寸另斷言切換角色／立繪開關有變化、職掌與羈絆頁滾輪可捲動並露出操作項；主控台無 SCRIPT ERROR。`tools\run_all_runners.ps1 -Only 'maid' -TimeoutSeconds 180` → 5/5 PASS（37＋179＋62＋56＋78＝412 checks，failures=`[]`）。`delivery_check.py --web build/web-maid-art-r2` RESULT PASS（7/7）、`subset_game_fonts.py --check` exit 0、`git diff --check` exit 0。證據見 [MAID-CLOSE 驗收](verification/maid-close.md)。
+- **未驗證／下一步**：未跑全專案 L3 runner 矩陣與全尺寸矩陣，不稱「全量回歸通過」；未驗觸控、實機、DPR 2／3、實機旋轉、FPS、IndexedDB 落盤（依 2026-10-17 指令延期）。緊湊尺寸座標為截圖量測值，版面變動需重校。`build/web-maid-art-r2` 仍是本機測試包，非交付候選包；`index.pck` 152.9 MB 屬已延後的冷啟動／資產預算議題。仙侍首位角色（青蘅／糯美子／丹霞）整批收尾完成，後續可另開新 Chat 決定下一位角色或回到 EARLY-FLOW1-D。可手動 commit：本次為仙侍 MAID-CLOSE 里程碑結束（含先前未提交的 R2／UI／CORE 工作），未 commit／push。
+
+<a id="maid-art-nd-r2-web"></a>
+## 2026-11-01 MAID-ART-ND-R2 Web 匯出與桌面瀏覽器流程（L3 限定：Web＋瀏覽器，階段 DONE）
+
+- **範圍／交付**：使用者指定本輪「只跑 Web 匯出與瀏覽器流程」，故只做 Web 匯出、桌面 Chrome 點擊流程與字型子集修正；未跑全量 runner、全尺寸 runner 矩陣、觸控實機。新增 `tools/maid_art_r2_web_fixture.gd`（離線 10 分鐘、青蘅職掌執行中，自檢 `actions=4 units=20`）與 `tools/maid_art_r2_web_check.mjs`（注入存檔、等待新的 `ABODE_READY:`、canvas 換算點擊、逐尺寸斷言）。
+- **瀏覽器驗收發現並修正**：人物頁小傳出現豆腐方塊，`subset_game_fonts.py --check` 指出 17 個缺字碼位；依工具既定流程重建 `assets/fonts/runtime` 兩個子集字型（覆蓋 1980→1997 碼位）後 `--check` 通過，重新匯出再截圖已無缺字。另確認小傳捲動區可用滾輪捲到收束句第二行，預設視窗的下緣裁切屬預期捲動行為。
+- **修改檔案**：`assets/fonts/runtime/Dao2Sans-VF.ttf`、`assets/fonts/runtime/Dao2Serif-VF.ttf`、`assets/fonts/runtime/manifest.json`；新增 `tools/maid_art_r2_web_fixture.gd`、`tools/maid_art_r2_web_check.mjs`、`docs/verification/maid-art-r2-web.md`、`docs/verification/artifacts/maid-art-r2-l3-fixture.json`、`docs/verification/artifacts/maid-art-r2-l3-web/`；`README.md`、`ROADMAP.md`、`updata.txt`。
+- **驗收級別／結果**：Web 匯出＋桌面瀏覽器（Chrome `156.0.8078.79`，CDP 9250，靜態伺服器 48350）。`--import` exit 0；`--export-release Web build/web-maid-art-r2` exit 0；`prepare_web_compression` exit 0（pck 152,965,544 B、sha256 `8ba70e3c…37d380`、br 合計 160,332,407）；`node --experimental-websocket tools/maid_art_r2_web_check.mjs` → `MAID-ART-R2-WEB PASS errors=[]`：1280×720 canvas 1279×719、無頁面溢出、存檔還原 `actions=4`、流程後存檔完整 schema=6，並完成世界→人物→糯美子／丹霞切換→完整立繪開啟／Escape 關閉→初遇重溫→職掌→羈絆→關閉面板 11 張截圖；844×390（843×389）與 800×360（799×359）canvas 貼合、無溢出、存檔還原皆 PASS，主控台無 SCRIPT ERROR。`delivery_check.py --web build/web-maid-art-r2` RESULT PASS（7/7）、`subset_game_fonts.py --check` exit 0、`git diff --check` exit 0。證據見 [Web驗收](verification/maid-art-r2-web.md)。
+- **未驗證／下一個任務**：短橫式兩尺寸未執行人物面板點擊流程（離線摘要關閉鈕座標未按緊湊版面校準，不宣稱通過）；未驗觸控、實機、DPR 2／3、FPS、IndexedDB 落盤（依 2026-10-17 指令延期）；`build/web-maid-art-r2` 為本機測試包，非交付候選包。pck 因 R2 角色圖增至 152.9 MB，屬已延後的冷啟動／資產預算議題。MAID-CLOSE 仍未宣稱完成，仙侍任務維持 IN_PROGRESS。可手動 commit：本次為 R2 整合的 Web／瀏覽器驗證階段結束，非整個仙侍任務結案；未 commit／push。
+
+<a id="maid-art-nd-r2-integration"></a>
+## 2026-11-01 MAID-ART-ND-R2 接入：糯美子／丹霞立繪與初遇正式接入（L1＋原生渲染抽驗，整合階段 DONE）
+
+- **範圍／交付**：依 [R2交接](handoffs/2026-11-01-maid-art-nd-r2-opencode.md)，以 Fusion 流程把已接受六張 R2 美術接入人物頁。`ART` 表按角色路由（青蘅 canonical；糯美子／丹霞 `portrait-r2.png`、`first-meeting-r2.png`），沿用 `EXPAND_IGNORE_SIZE`＋`STRETCH_KEEP_ASPECT_CENTERED` 完整 contain；`STORIES` 為每位角色提供小傳、引句、標籤、結語、印章、初遇場景／開場／兩則回覆與選項；`select_maid` 切換時重置對話並刷新立繪／CG；完整立繪檢視器標題顯示當前角色；`MaidSystem.ART_READY` 僅供應 View 的 `art_ready`，不參與招募／羈絆／職掌判定，規則層無 Texture／Node。
+- **敘事邊界**：糯美子「雲海試劍」、丹霞「丹房夜話」只作叙事文案，無獎勵、無狀態、無 schema 變更；青蘅雨夜書卷文案保留。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`、`src/presentation/maid_portrait_viewer.gd`、`src/presentation/feature_navigation.gd`、`src/simulation/maid_system.gd`、`tests/maid_art_r2_runner.gd`（新增）、`tools/run_all_runners.ps1`；Godot import 產生四位角色共八份 `.import` sidecar。
+- **驗證級別／結果（L1＋原生渲染抽驗）**：`--headless --path . --import` exit0、無 SCRIPT ERROR；`tools\run_all_runners.ps1 -Only 'maid_ui_runner,maid_ui2_runner,maid_art_r2_runner'` 3/3 PASS（MAID-UI 37、MAID-UI2 56、MAID-ART-R2 78 checks，全 failures=[]，無 SCRIPT ERROR）。另以非 headless 原生 1280×720 跑同一 runner 產生六張截圖，目視確認劍尖／鞋／髮與 CG 完整、標題與小傳正確；證據見 [驗收](verification/maid-art-nd-r2.md) 與 `docs/verification/artifacts/maid-art-r2-20261101/`。
+- **未驗證／下一步**：未跑 L3 全量、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（依 2026-10-17 指令延期）；未宣稱 MAID-CLOSE。整體仙侍任務仍 IN_PROGRESS；下一步可做跨尺寸抽驗或待使用者指示。可手動 commit：本次為 R2 接入階段結束，非大型仙侍任務結束；未 commit／push。
+
+<a id="maid-art-nd-r2"></a>
+## 2026-11-01 MAID-ART-ND-R2：三向設定／體型與劍結構修訂（美術已接受，OpenCode 接續接入）
+
+- **2026-11-01 使用者接受（最新）**：使用者「美術確認」，接受糯美子／丹霞 R2 三向設定、透明立繪與初遇 CG 共六張，包含年齡體型差異與完整劍結構；[接受紀錄](maid-art/nd-r2-acceptance.json) 保存原話與六張 SHA256，兩份 manifest-r2 標為 ACCEPTED。本次僅更新接受metadata／索引／交接，圖片與程式原樣，未執行遊戲測試。下一步直接由 OpenCode 依 [R2交接](handoffs/2026-11-01-maid-art-nd-r2-opencode.md) 接入，不重做美術選擇；整體 MAID-CLOSE 未完成。接受metadata靜態檢查：六張原圖與四張副本SHA256不變；兩份 `delivery_check.py --manifest .../manifest-r2.json` 最終均exit0／ACCEPTED、2/2 PASS，trim與diff-check均exit0。初次manifest檢查因參照三向圖沒有runtime鍵而KeyError／exit1，已將三向圖移至reference_assets、保留六圖接受範圍後修正，未改檢查工具或圖片。以下待接受文字保留為本日較早歷史。可手動 commit：美術接受階段結束，非大型仙侍任務結束；未 commit／push。
+
+- **最新要求**：使用者指出 R1 三人體型近似、糯美子像只有劍鞘，要求約20歲嬰兒肥的糯美子及成熟御姐丹霞。R1 確未製作兩人的多向圖；本輪補正／側／背設定，並同步重作兩位立繪與初遇 CG。此子階段素材已交付，不等於使用者已接受或整體 MAID-CLOSE 完成；青蘅沿已接受稿、不重畫。
+- **設定差異**：[三人比例設定 R2](maid-art/character-proportions-r2.md) 記錄糯美子成年約20歲、圓頰笑容、較短頭身／頸腿、短披與長褲平靴；丹霞成年約32–35歲、長橢圓臉／細長眼、長頸長腿、較明確肩腰胯與合身長衣。158／176cm、6.5／8頭身是設計目標而非精確量測保證。糯美子三向附完整出鞘劍＋空鞘；立繪／CG 已能辨認劍首、黑柄、金護手、銀刃與獨立空鞘，修正 R1 被遮擋的結構。
+- **檔案／參照鏈**：`docs/maid-art/{nuomeizi,danxia}/` 各新增 `turnaround-r2.png`、`portrait-r2.png`、`first-meeting-r2.png` 與各自 `*-r2-prompt.json`；兩位 README 指向 R2。`assets/characters/{nuomeizi,danxia}/` 新增 `portrait-r2.png`、`first-meeting-r2.png`、`manifest-r2.json`，保留所有 R1 及舊 canonical 副本。另新增 [OpenCode R2交接](handoffs/2026-11-01-maid-art-nd-r2-opencode.md)，R1交接標示後續版本。docs49、根README／ROADMAP索引與英文updata同步。沒有 Godot來源、規則、schema、玩家進度或build修改。
+- **生成與目視**：使用內建 image_gen 技能共六次；R1僅作服裝／色系基礎並明確改臉體，R2三向→立繪→初遇沿同一角色參照。三向圖各1536×1024 RGB，立繪各1024×1536 RGBA，CG各1672×941 RGB。正／側／背與臉部、道具可讀，角色無明顯多肢；頭身、臉與輪廓差異比 R1 清楚，但不能把生成圖視為正投影精密藍圖，刺繡／小配件有變化。糯美子立繪 alpha≥128 bbox `(33,11,949,1498)`、丹霞 `(109,13,1001,1514)`；未達提示詞各邊8%留白，保留完整contain並標註，不聲稱邊緣已接受。未程式去背／合成／裁切；設定圖非動畫幀。上游青蘅使用者例圖授權未知限制延續，未新增第三方圖參照。
+- **命令／範圍**：PowerShell `Copy-Item` 保存六張原稿；Python/Pillow 讀取尺寸／alpha、SHA256、六份完整prompt／參照存在與四份原樣接入副本檢查 exit0。通用 `python tools/delivery_check.py` exit0／RESULT PASS（受保護證據目錄7筆皆為本輪開始前已有變更）；`python tools/trim_status_docs.py` exit0，歸檔 README／ROADMAP 舊索引；`git diff --check` exit0，僅既有 LF→CRLF 提醒。未執行引擎、import、遊戲runner、L1／L2／L3、Web匯出或瀏覽器測試，沿使用者本輪前指示，不宣稱遊戲驗收或美術接受。
+- **下一步**：先收本輪圓頰／成熟度／體型與劍的視覺回饋，之後交 OpenCode 依 R2 manifest 接人物圖片／專用小傳／初遇文字及 art_ready；R1體型方向已被此回饋取代，不得混接舊稿。不自行開始下一功能。可手動commit：本次為美術修訂子階段結束，非大型仙侍任務結束；代理未commit／push。後續使用New Chat。
+
+<a id="maid-art-nd"></a>
+## 2026-11-01 MAID-ART-ND：糯美子／丹霞四張美術提供階段 DONE（美術待接受，OpenCode 接續）
+
+- **授權／範圍**：使用者澄清由 Codex 提供 Nuomeizi／丹霞美術，完成後轉 OpenCode 繼續，並指定本輪不進行測試。交付兩位各一張透明全身立繪及一張橫式初遇 CG；不延伸遊戲接入或其他功能。此處 DONE 僅指四張素材提供階段，使用者美術接受仍待確認，整體仙侍／MAID-CLOSE 未完成。
+- **檔案**：`docs/maid-art/{nuomeizi,danxia}/` 各含 `portrait-r1.png`、`first-meeting-r1.png`、`prompts-r1.json`、README；`assets/characters/{nuomeizi,danxia}/` 各含 byte-identical 的 `portrait.png`／`first-meeting.png` 及 manifest（原稿、來源路徑、SHA256、用途、切層、參照與授權限制）。另有 [OpenCode 交接](handoffs/2026-11-01-maid-art-nd-opencode.md)。根 README／ROADMAP 一行索引與英文 updata 同步；docs49 的美術待提供狀態更新。既有 dirty 程式、測試、字型及驗證資料均保留。
+- **美術**：內建 image_gen 共四次。糯美子沿墨紅短披／黑髮高馬尾／琥珀瞳／佩劍，初遇為雲海試劍；丹霞沿藕紫藥衣／梅棕半挽髮／紫瞳／青瓷藥瓶，初遇為丹房夜話。青蘅僅作畫風參照，兩張 CG 各沿自己的主立繪作身分參照。延續青蘅上游例圖作者／授權未知的限制，未新增外部圖參照，不宣稱第三方商用授權或獨占性。
+- **目視與靜態素材檢查**：兩張立繪皆 1024×1536 RGBA、兩張 CG 皆 1672×941 RGB；人物／髮衣／道具合層，CG 人物／環境合層，無嵌入 UI 文字。臉髮、衣色與主要道具在各自兩圖保持辨識，未見明顯多肢；刺繡／細部飾物有生成差異。兩張立繪 alpha≥128 包圍盒分別為 `(32,8,1013,1524)`、`(12,9,1007,1522)`，留白未達提示詞 7%，接入須完整 contain，不宣稱邊緣已獲接受；未以程式去背或修圖。未製作三視設定、表情差分、終章 CG 或世界小像。
+- **命令／結果**：PowerShell `Copy-Item` 保存四張內建原稿；Python/Pillow 讀取尺寸／alpha、hash 與原樣複製、JSON 提示詞完整性靜態檢查 exit0。`delivery_check.py --manifest assets/characters/nuomeizi/manifest.json` 與丹霞同命令各為 assets ok=2/2，但各 exit1，原因僅為 acceptance 尚非 ACCEPTED；保留 `DELIVERED_PENDING_USER_REVIEW`，不偽造使用者接受。`git diff --check` exit0（既有 LF→CRLF 提醒）。中途補提示詞的兩次 apply_patch 因同檔重複操作／預期內容不匹配失敗，改用精確 patch 後四份提示詞已完整保存。`python tools/trim_status_docs.py` 完成 README／ROADMAP 舊段落歸檔；`python tools/delivery_check.py` exit0／RESULT PASS，所列受保護證據目錄 7 筆為本輪開始前即存在的變更。收尾 diff 首次發現 ROADMAP 末尾空行，移除並將本輪索引移至頂部後重查。
+- **驗收邊界／下一步**：僅美術目視與檔案靜態檢查；依本次使用者要求未執行 Godot、import、runner、L1／L2／L3、Web 匯出或瀏覽器驗收，沒有全量通過主張。`maid_character_panel.gd` 仍只接青蘅圖像／敘事，`maid_system.gd` 的 art_ready 仍只對青蘅為 true，正式接入未完成。現在可轉交 OpenCode，先承接使用者美術回饋，再按交接完成兩位圖片、簡介與初遇專用文字。可手動 commit：本次是美術提供階段結束，非大型仙侍任務結束；代理未 commit／push。後續用 New Chat 接續。
+
+<a id="maid-ui-2"></a>
+## 2026-11-01 MAID-UI-2：職掌／羈絆呈現修正與桌面 Web 抽驗（L2，呈現階段 DONE）
+
+- **範圍／交付**：使用者「使用 fusion skill 接 MAID-UI-2」。修正 MAID-CORE-1 啟用後未經視覺驗證的職掌／羈絆分頁，並驗證 MAID-CORE-2 的離線摘要仙侍行；不新增規則、資源或 schema，`save_codec.gd`／`save_manager.gd`／`maid_save_contract.gd` 零變更。
+- **呈現修正**：回饋列移入職掌／羈絆捲動區，短橫式不再撐到底部工具列下；目標 `SpinBox` 只在 View 值變動且未取得焦點時同步；捲動區 `follow_focus`；移除重複「已暫停」並改用強調字重；`duty_picker` 補 44px 列高與 tooltip；目標欄可見性改由職掌種類推導；切換分頁／角色清除殘留回饋。
+- **文字／錯誤**：`MaidSystem.status_text()` 補 `UNKNOWN_RECIPE`／`UNKNOWN_PILL`；職掌配方選單改顯示名稱並以 `_plain_name()` 去除 emoji 前綴（不再出現 `foundation_pill`）；`feature_navigation` 仙侍錯誤鍵改為核心實際回傳的 `BUILDING_UNKNOWN`。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`、`src/simulation/maid_system.gd`、`src/presentation/feature_navigation.gd`、`tests/maid_ui2_runner.gd`（新增）、`tools/maid_ui2_web_fixture.gd`（新增）、`tools/maid_ui2_web_check.mjs`（新增）、`tools/run_all_runners.ps1`、`docs/49`、`docs/verification/maid-ui-2.md`（新增）、`README.md`、`ROADMAP.md`、`updata.txt`。
+- **驗證級別／命令與結果**：L2。`--headless --path . --import` exit 0；`tools\run_all_runners.ps1 -Only 'maid'` → 4/4 PASS（`maid_ui2` 56 checks、failures=[]、exit 0）。Web 匯出 `build/web-maid-ui2` 與壓縮 exit 0；fixture 自檢 `actions=4 units=20`；桌面 Chrome `156.0.8078.79` 1280×720 抽驗 `MAID-UI2-WEB PASS errors=[]`（離線摘要「仙侍職掌：離線完成 4 次」、職掌頁顯示「築基丹」、羈絆頁「青蘅・初識 30 點」）。`delivery_check.py --web build/web-maid-ui2` RESULT PASS、`subset_game_fonts.py --check` exit 0、`git diff --check` 無誤。
+- **未驗證／界線**：未跑 L3、全量 runner、全尺寸矩陣；未驗觸控、實機、DPR 2／3、FPS 或 IndexedDB 落盤；`build/web-maid-ui2` 為本機測試包，非交付候選包，`build/web` 未更新。糯美子／丹霞美術仍待補。可手動 commit：本次為 MAID-UI-2 呈現階段結束，非整個仙侍大型任務結束。詳見[驗收](verification/maid-ui-2.md)。
+
+<a id="maid-core-2"></a>
+## 2026-11-01 MAID-CORE-2：離線職掌有限補算（L1，核定並實作，核心階段 DONE）
+
+- **範圍／交付**：使用者「核定 §11；補 docs/rule-differences.md 的 V2-MAID-CORE-2 並依 §11.9 實作＋跑 4 支 L1 runner」。完成設計核定、規則帳本條目、核心／離線／UI 實作與 L1 驗收。
+- **核心決策**：離線只讓已存在且 `paused == false` 的職掌以結算後庫存執行至多 `MAX_ACTIONS_PER_CALL := 5` 次動作；`MAX_ACTIONS_PER_ADVANCE := 1000` 僅留作絕對上限。`MaidSystem.advance` 改為必填 `max_actions`，內部 `clampi`，`<= 0` 直接回空且不扣冷卻。同步 `OfflineSettlement.settle`、非同步 `OfflineCoordinator.compute_async` 於時間結算後各呼叫一次；線上 `GameSession.advance_time` 同步改傳 5。`stopped != null`、bootstrap、rollback、`full_ticks == 0` 與 `time_only_ticks` 一律 0 次。不自動招募／指派／恢復／領章／重逢；跨世維持暫停；只沿用既有一次性首次職掌 +10 羈絆；不新增資源、倍率、貨幣或 schema（維持 6）。
+- **報告／UI**：`report.maid = {actions, units, kinds, first_duty}` 只由 `MaidSystem.advance` 回傳 events 推導，0 次時整個鍵省略；`OfflineSummary` 只在有鍵時於「目前年歲」與「停止原因」間加一行，0 次輸出逐字不變；保留 autowrap 與 ScrollContainer，不新增控制項。`last_offline_report` 仍只作留痕、不讀回。
+- **明確界線**：離線職掌在時間結算後一次執行，**不宣稱與線上逐 tick 等價**；經濟已展開時只記派工，成品回線後才完成。`MAX_ACTIONS_PER_CALL` 為平衡常數，體感平衡待實機後調整。桌面聚焦長間距的舊漏洞由共用 5 次上限封頂；改走 `OfflineCoordinator` 仍列非阻擋後續。
+- **修改檔案**：`src/simulation/maid_rules.gd`、`src/simulation/maid_system.gd`、`src/simulation/offline_settlement.gd`、`src/application/offline_coordinator.gd`、`src/application/game_session.gd`、`src/presentation/offline_summary.gd`、`tests/maid_offline_runner.gd`（新增）、`tests/maid_core_runner.gd`、`tests/m1d_offline_runner.gd`、`tests/offline_closed_form_parity_runner.gd`、`tools/run_all_runners.ps1`、`docs/49`、`docs/rule-differences.md`、`docs/verification/maid-core-2.md`（新增）、`README.md`、`ROADMAP.md`、`updata.txt`。`save_codec.gd`、`save_manager.gd`、`maid_save_contract.gd` 零變更。
+- **驗證級別／命令與結果**：L1，單一 1280×720，`tools\run_all_runners.ps1 -Only 'maid_core_runner.gd','maid_offline_runner.gd','m1d_offline_runner.gd','offline_closed_form_parity_runner.gd' -TimeoutSeconds 180` → 4/4 PASS。`maid_core_runner` 179 checks、`maid_offline_runner` 62 checks、`offline_closed_form_parity_runner` 16 checks，全部 failures=[]、exit 0。延長 timeout 僅因 parity runner 既有的 48h 參考結算約 80–90 秒，非本次新增成本。
+- **未驗證／下一步**：未跑 L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機，不宣稱全量回歸。可手動 commit：本次為 MAID-CORE-2 核心階段結束，非整個仙侍大型任務結束。
+
+<a id="maid-core-1"></a>
+## 2026-11-01 MAID-CORE-1：三位仙侍核心、職掌與羈絆（L1，核心階段DONE）
+
+- **範圍／交付**：使用者選定方案B後，完成前期三位仙侍的可玩核心：青蘅「定量備料」、糯美子「定量監造」、丹霞「定量煉丹」。每位角色有具名招募條件、四階羈絆（初識0／相知40／信任100／同道200）、三章一次性羈絆章節，章節只給羈絆點與記憶旗標，不發資源。同一時間僅一位仙侍有生效職掌；每次最多5批次，備料／煉丹保留量不足即停，監造只升單一指定建築且受既有等級上限約束。職掌透過既有`craft`／`upgrade_building`／`refine_pill`命令執行，不直接改資源、建築或庫存。
+- **跨世／時間邊界**：`state.maid`為永久區塊，羈絆、章節、選擇與重逢旗標跨世保留；輪迴時職掌暫停、冷卻歸零、設定重逢待確認，重逢只清旗標不重發首次獎勵。職掌v1只在線上`GameSession.advance_time`依固定節奏推進（備料／煉丹10秒、監造30秒），離線結算不執行，屬明確v1邊界。未新增被動產量倍率、天賦ID、宗門token／市集品、靈獸槽或好感貨幣。
+- **保存**：新增可選頂層`state.maid`，`MaidSaveContract`嚴格驗證與正規化，上限16384 bytes，非法資料不修復；schema維持6，release候選交易白名單加入7個仙侍命令。`GameState`duplicate／snapshot、`SaveCodec`encode／decode、`GameSession`命令與View、`CommandProcessor`分派、`ReincarnationRules`跨世掛鉤均同步。
+- **介面**：人物頁四分頁（人物／初遇重溫／職掌／羈絆）、三角色選擇、職掌目標與操作、章節領取、招募與重逢；標準`action_requested`信封經`feature_navigation`送出，成功後存檔並刷新HUD。糯美子／丹霞立繪與初遇CG暫顯示「待Codex補完」，未捏造美術。
+- **修改檔案**：新增`src/simulation/maid_rules.gd`、`maid_system.gd`、`src/persistence/maid_save_contract.gd`、`tests/maid_core_runner.gd`及UID、`docs/49-maid-companion-system-design.md`、`docs/verification/maid-core-1.md`；修改`game_state.gd`、`save_codec.gd`、`game_session.gd`、`command_processor.gd`、`sect_reform_save.gd`、`reincarnation_rules.gd`、`maid_character_panel.gd`、`feature_navigation.gd`、`maid_ui_runner.gd`、`run_all_runners.ps1`。新介面字串使runtime字型子集新增8字，原始字型未改。
+- **L1命令與結果**：Godot`4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import` 最終exit0、無SCRIPT ERROR。`maid_core_runner.gd` 172 checks／failures=[]／exit0；`maid_ui_runner.gd` 37 checks／exit0。`run_all_runners.ps1 -Only 'maid_core_runner.gd,maid_ui_runner.gd,feature_navigation_runner.gd,ui_shell_policy_runner.gd'` 4/4 PASS；另跑共用核心6支（release／save／m1c／m3a／ledger／talents）6/6 PASS。`subset_game_fonts.py --check`、`delivery_check.py`、`git diff --check`通過。刻意NaN契約測試有無害JSON警告。
+- **未驗證／界線**：未跑L3全量、全尺寸矩陣、Web匯出、桌面瀏覽器或觸控實機；release候選存檔路徑未做真實瀏覽器重載；離線職掌與糯美子／丹霞美術仍待後續。整體仙侍大型任務維持IN_PROGRESS。下一任務建議Codex補糯美子／丹霞立繪與初遇CG，再作MAID-UI-2桌面瀏覽器抽驗或MAID-CORE-2離線職掌設計。可手動commit：本次為核心階段結束，非大型仙侍任務結束。詳見[驗收](verification/maid-core-1.md)。
+
+<a id="maid-ui-1"></a>
+## 2026-11-01 MAID-UI-1：R3人物頁與初遇重溫接入（L2，呈現階段DONE）
+
+- **範圍／交付**：使用者「接MAID-UI-1，沿已接受R3接入Godot人物頁與初遇展示」。新增唯一canonical `characters` route於「遊歷→人物」，Era1可見；四主入口不變。青蘅沿R3透明全身立繪、直式文楷題字、淡墨畫框、朱色書香印及有缺口的書籤小傳；正文／對話／操作仍為共用黑體，文字獨立渲染。人物／初遇重溫沿GameTab，職掌／羈絆明示未開且禁用。既有docs48經營職掌歸屬只是未核定候選，本次先接敘事歸屬，不開第二入口。
+- **互動／響應式**：初遇兩個回應、重新相遇、人物返回均為記憶體呈現。CG首次進初遇才載入，圖片皆contain；完整立繪走共用shell工具遮罩、固定CloseSeal與Escape，較頁面取得更大高度，工具關閉恢復原route。頁內Escape先從初遇回人物，再回洞府。短橫式收裝飾／題字內距，初遇改場景與對話並排、選項同行；正文維持18px及單區內捲、操作≥44px。補上容器最小高度改變後重新套用bounds，修復首次排版舊高度蓋住主導覽。
+- **修改檔案**：新增`src/presentation/maid_character_panel.gd`、`maid_portrait_viewer.gd`及UID；接`feature_navigation.gd`／`ui_shell_policy.gd`／`feature_unlocks.gd`；`ui_typography.gd`集中新增`character_title_font()`。`assets/characters/qingheng`包含兩張原圖逐byte複製、import與來源／用途／分層／提示詞／授權manifest。保留R2原稿／R3接受紀錄；原參考圖商用授權狀態不提升。runtime字型補本次缺字，原始OFL字型不改。新增`tests/maid_ui_runner.gd`及UID並登錄runner；既有navigation測試更新Era1遊歷回退／單頁計數，policy測試更新14route。docs19／12／48、README／ROADMAP／英文updata同步。
+- **L1／L2 CLI**：本機`Godot_v4.7.2-stable_win64_console.exe --version`為`4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import` exit0。先執行`run_all_runners.ps1 -Only 'maid_ui_runner.gd,feature_navigation_runner.gd,ui_shell_policy_runner.gd,ui_shell_matrix_runner.gd' -List`，精選4支。初輪新頁高度／舊route數斷言失敗均已修正；matrix初次並行45秒逾時，工具自動串行重試41.4秒PASS，並未將逾時算成功。其後3支（maid／feature_navigation／ui_shell_policy）單尺寸L1全部PASS，最終新頁改共用看圖overlay後再精選maid runner PASS（37 checks，exit0、無SCRIPT ERROR），日誌`dao2_runners_33a6882a6cdc42d995ae010d2888d869`。狀態快照對照涵蓋兩分支、重播、看圖，未改GameState；保存工具遮罩／返回、跨頁互斥、洞府相機與群組記憶也通過。這是受影響領域L2，未跑L3、不宣稱全量回歸。
+- **原生渲染**：使用隔離`DAO_TEST_STORAGE_ROOT`跑`--script res://tests/maid_ui_runner.gd`（1280×720），及僅新頁的`-- --maid-short`（800×360單尺寸診斷）；最後短式37 checks／exit0，人物／初遇／完整立繪原生PNG檢視通過。輸出在`.test-output/maid-native-final2/maid-ui`及`.test-output/maid-viewer-short/maid-ui`。新增短式診斷不擴成其他領域全尺寸矩陣；新runner預設仍按DAO_VIEWPORT_MATRIX只跑首尺寸。記錄了user://／shader-cache受限，以及既有場景anchor、退出時RID／ObjectDB告警；沒有把exit0當作記憶體無洩漏保證。
+- **Web L2實測**：`--headless --path . --export-release Web build/web-maid-ui1/index.html` exit0（局部本機測試匯出，不是交付候選包）；`node tools/prepare_web_compression.mjs build/web-maid-ui1`完成。沙箱48341服務對Chrome不可達；正常權限僅綁本機的`python tools/web_static_server.py --port 48342 --directory build/web-maid-ui1`後連線成功。Chrome重載最終匯出，viewport讀值1280×720／DPR約1、canvas buffer1280×720（CSS讀值約1279×719）；瀏覽器error／warn紀錄空；使用滑鼠走遊歷→人物、點完整立繪、Escape回人物、初遇重溫、避雨回應→重新相遇→書卷回應、Escape回人物、CloseSeal回洞府，畫面與回應均正常。截圖在本次工具對話中；不將原生PNG稱為瀏覽器截圖。此獨立origin從空白建立測試進度，不讀／覆寫其他origin的玩家檔。沒有FPS或存檔落盤專項主張。48341沙箱測試服務已停止（Ctrl+C／exit1為人工中止）；48342本機試玩服務及人物頁分頁保留，暫時viewport override已重設。
+- **通用收尾**：`python tools/subset_game_fonts.py --check`初次缺20字，生成runtime衍生字型後通過；原始字型保持。`python tools/trim_status_docs.py`、`python tools/delivery_check.py --web build/web-maid-ui1 --manifest assets/characters/qingheng/manifest.json`及`git diff --check`全部exit0／PASS，Web 7/7、原圖hash 2/2、受保護證據目錄0變更；清理由Godot import新產生的5份證據PNG import sidecar，既有JSON／PNG證據未改。工作區本輪前已存在美術／文件dirty成果，均保留；未commit／push。
+- **界線／下一步**：本次MAID-UI-1呈現DoD完成，整體MAID-ART／仙侍大型任務仍IN_PROGRESS。沒有首次自動觸發、角色保存／遷移、好感、委派、任何收益或新schema；未開入口不推定核定核心。下一New Chat收正式Godot人物頁／初遇視覺回饋，再按需求補同立繪表情差分；首次觸發／系統核心仍須另行定義。可手動commit：本次為呈現階段結束，並非大型仙侍任務結束。
+
+<a id="maid-art-r3"></a>
+## 2026-11-01 MAID-ART-LAYOUT-R3：人物裝飾版（美術已接受）
+
+- **使用者接受（最新）**：2026-11-01「美術接受，告訴我下一步」，R3人物美術／布局標 **ACCEPTED_ART_LAYOUT**，涵蓋本版人物、直式題字、畫框、朱印及書籤介紹；接受紀錄為 `docs/maid-art/qingheng/layout-r3-acceptance.json`。不將此回寫成代理瀏覽器測試已通過，也不推定仙侍委派／好感／收益已核定。此次僅更新接受metadata與交接，未改圖像／HTML／遊戲來源；JSON／UTF-8靜態檢查、delivery_check及diff-check通過。下方待審文字為當時歷史。
+- **範圍／狀態**：使用者指定補人物裝飾介面、直式毛筆筆意「侍女・青蘅」與書籤字版。R3檔案已交，視覺／響應式審閱仍待完成，完整MAID-ART維持 **IN_PROGRESS**；未標正式Godot接入或整體DONE。
+- **修改檔案**：新增 `docs/maid-art/qingheng/layout-review-r3.html`，保留R2原稿；人物左側直式身分／姓名、朱印、淡墨雙線框，右側燕尾書籤小傳與卷末句。沿原R2立繪／CG，未改圖像。復用既有LXGWWenKaiTC題字／敘事短句及SourceHanSansTW正文／操作；CSS裝飾、文字與圖像獨立。維持完整contain看圖、既有切換／回應／關閉預覽，短橫式縮內距／名籤與收朱印，正文內捲。docs19同步限定人物敘事題字方向；樣張README、根README／ROADMAP與updata更新，舊updata第5筆移archive。既有未提交成果保留。
+- **驗收級別／命令結果**：僅HTML／文件靜態驗證，非L1／L2／L3遊戲驗收。Python檢查UTF-8、ID唯一、本地圖片／字型引用存在、直式題字及JS提取PASS；`node --check .test-output/maid-layout-r3/review.js` exit0；`python tools/trim_status_docs.py` exit0、無新增狀態歸檔；`python tools/delivery_check.py` RESULT PASS，受保護驗證目錄0變更。首次 `git diff --check`發現updata末尾多空行，移除後重查。
+- **未完成／工具限制**：本機 `python -m http.server 48331 --bind 127.0.0.1` 與額外正常權限48332服務已嘗試；PowerShell探測48331通訊端遭權限拒絕，IAB第一次localhost導航逾時，第二次導航遭既有錯誤頁data URL政策拒絕，停止瀏覽器嘗試。未取得有效畫面、桌面滑鼠或尺寸驗證，不宣稱實際排版已通過。可雙擊R3 HTML檢視，切人物／初遇、點完整立繪及Escape返回，縮短橫式觀察正文內捲／固定關閉。未跑Godot runner或匯出，未改規則／schema／玩家存檔／build，未部署／commit／push。
+- **下一任務（接受後）**：`MAID-UI-1`，建議New Chat接Godot人物頁與初遇展示，復用共用入口／GameTab／CloseSeal／UiTypography，實作直式題字、書籤字版與完整看圖；初遇先作可重播展示，不設首次觸發／保存／獎勵。L1精選受影響runner（先-List），功能完成一次L2桌面Web 1280×720抽驗；不因本階段升L3。先完成呈現，再按需要補同立繪表情差分；系統核心另議。可手動commit（本輪設計審閱稿checkpoint，整體大型任務未結束）。
+
+
+<a id="maid-art"></a>
+## 2026-10-31 MAID-ART-BASELINE-R2：E設定／透明立繪／角色頁與初遇構圖（審稿交付）
+
+- **範圍與狀態**：依使用者「接角色設定基準、透明立繪與角色頁／初遇構圖」，完成本輪可審閱產物；新稿／布局接受仍待回饋，完整MAID-ART **IN_PROGRESS**，未將仙侍B／MAID-CORE視為核定。下方同日「設定／布局待製作」為本輪前歷史。
+- **修改檔案**：`docs/maid-art/qingheng/character-baseline-r2.md`固定E成年身分、臉髮／衣飾／配色／性格、初遇文案與Godot容器接入對照；同目錄新增正側設定圖、透明立繪初稿／清理替代稿、雨夜初遇CG、`layout-review-r2.html`與`production-r2-prompts.json`／`production-r2-manifest.json`。README索引、根README／ROADMAP一行狀態與updata同步；既有未提交內容完整保留。
+- **美術與切層**：內建image_gen共4次，均沿已接受E或本輪主立繪作參照。設定1536×1024 RGB、初遇1672×941 RGB（人物環境合層）；主立繪1024×1536 RGBA（人物／書筆合層）。上游例圖來源／授權未知沿R1保留，未新增外部圖參照。完整提示詞、原稿來源／hash、用途與接受邊界已保存。
+- **目視／透明檢查**：主要臉型、藍髮藍瞳、白花金飾、青白竹紋衣與書筆連貫，初遇改護書姿態；未見明顯多肢，細部髮簪／刺繡仍有生成差異。主立繪alpha0–254、545069個全透明像素；alpha≥128包圍盒(21,22,1004,1516)，可見輪廓內縮約2%，未達提示詞5%目標。四邊最大alpha為0／0／1／0，左邊有極淡殘點。R2b清理替代稿未明顯改善留白，列NOT_SELECTED並保留；主立繪仍用R2供審。不能宣稱邊緣已獲正式美術接受。
+- **布局**：寬式立繪46%＋右側人物介紹；緊湊橫式160px預覽＋內捲正文、獨立完整看圖；初遇CG與底部對話／兩回應分層。固定頁首／圖形關閉、18px正文、44px動作與直式旋轉提示沿既有方向。職掌／羈絆僅未開示位，無虛構好感、庫存與獎勵。HTML只是審閱工具，正式GameTab／CloseSeal／canonical route仍待Godot實作，不更改docs19共用通則。
+- **驗收級別與命令**：美術目視＋文件／資產靜態檢查，非L1／L2／L3遊戲驗收。PowerShell Copy-Item保存4張內建原稿；Python/Pillow verify、尺寸／hash／alpha檢查4/4 PASS；Godot `--version`為4.7.2.stable.official.ed1daf0bf。僅版本查詢，未啟動遊戲runner或匯出。4組prompt／asset對應、SHA256／參照檔、嚴格UTF-8、HTML圖片／字型及Markdown本地連結、updata最近5筆檢查PASS；`node --check .test-output/maid-art-r2/review-script.js` exit0。`python tools/trim_status_docs.py` exit0、無新增歸檔；`python tools/delivery_check.py` RESULT PASS（12筆工作區變更、受保護驗證目錄0變更）；`git diff --check` exit0。
+- **未驗／工具限制**：computer-use的Chrome新分頁控制回傳`Computer Use app approval timed out`；IAB開本地file URL被瀏覽器安全政策拒絕（僅准http/https），未繞過限制。沒有瀏覽器截圖、滑鼠或尺寸實測證據；HTML可雙擊人工審閱。首次嘗試讀取不存在的`docs/04-asset-production.md`失敗後以rg確認實際文件名稱，未影響產物。未改Godot來源、規則、schema、玩家進度或build，未部署／commit／push。
+- **下一任務**：先審閱本輪臉／衣飾、透明輪廓、角色占屏與雨夜氣氛，若需修訂沿E及同一立繪局部調整；接受後另開New Chat接表情差分／正式接入範圍，不自動啟動CORE。可手動commit（本輪美術／構圖子階段交付，完整仙侍大型任務未結束）。
+
+## 2026-10-31 MAID-ART：首位青蘅三畫風樣張（人物比較子階段交付，待選定）
+
+- **使用者選定（最新，覆蓋下方待選歷史）**：使用者「接受 推薦」，採用推薦的 **E青藍書卷** 作青蘅主方向，確認成年女性、深藍長髮／藍瞳、青白漢服、溫柔書卷氣與細緻二次元呈現。D僅保留未採用候選，不視為核定另一角色。樣張畫風／造型選定子階段完成；完整MAID-ART仍IN_PROGRESS，角色設定基準、透明主立繪／差分與角色頁／初遇布局待下一階段。不由美術接受推定系統B／CORE已核定。
+- **接受紀錄與驗收**：reference-r1-manifest.json記錄E的ACCEPTED_ART_DIRECTION、日期、原話與選定範圍；原PNG、提示詞與來源授權紀錄未變。樣張README、README／ROADMAP一行狀態與英文updata同步。純metadata／文件更新，僅JSON／原圖hash與通用delivery_check、git diff --check靜態檢查通過；未重跑遊戲測試、生成圖片、匯出或部署。下一New Chat沿E接設定與布局，不重問畫風。可手動commit（美術選定階段結束，完整仙侍任務未完成），代理未commit／push。
+
+- **使用者例圖修訂R1（最新）**：使用者提供AI娘對照圖，指定參考GPT與文心一言角色風格。內建image_gen直接參照該圖各生成D銀白仙姬、E青藍書卷，保留成年角色定位，依例圖改為大眼二次元臉、銀白／深藍髮與繁複衣飾；不是原青蘅髮色／眼色鎖定稿。兩張已交付，風格／角色設定仍待使用者接受，整體MAID-ART IN_PROGRESS。
+- **R1檔案與來源**：docs/maid-art/qingheng新增D／E原圖、reference-r1-prompts.json與reference-r1-manifest.json，樣張README新增兩圖對照；輸出均1024×1536 RGB、單層帶背景。參照為使用者Downloads原檔，只記路徑與SHA256，不複製為正式遊戲素材；其作者／授權未知，未聲稱第三方商用授權或生成圖獨占性。前輪A–C與其無外部參照紀錄原樣保留。
+- **R1檢視／驗收**：臉、手與書筆／茶杯未見明顯畸形，全身可見；飄帶部分仍貼畫邊，正式立繪須補留白。PowerShell Copy-Item保存2張原稿；Python/Pillow verify、格式與hash／UTF-8／JSON／索引連結靜態檢查通過；通用delivery_check與git diff --check通過。僅美術／文件靜態檢查，未執行引擎、遊戲runner、Web匯出或瀏覽器驗收；未改遊戲／存檔／build。下一步由使用者選D／E或提出混合修訂，再於New Chat接設定與布局。本次修訂子階段結束，可手動commit，未commit／push。
+
+- **授權與範圍**：使用者「接續首位角色樣張」，沿docs48首位候選青蘅製作同角三畫風比較。人物樣張交付子階段完成；完整MAID-ART仍 **IN_PROGRESS**，使用者尚未選畫風、臉型、魅力尺度與占屏比例；本指令不等同採納B系統規則或授權CORE實作。
+- **交付**：[樣張索引](maid-art/qingheng/README.md)含A工筆仙氣、B日系仙俠、C成熟華麗，三張原稿均1024×1536 RGB；同目錄保存prompts.json與manifest.json（來源、參照關係、SHA256、格式、用途／切層與授權狀態）。內建image_gen共四次：A生成；B／C參照A轉畫風；B初稿過於接近A，再作B-r2，初稿未列正式交付。無第三方圖參照。
+- **目視檢查與限制**：三圖成年人物、臉、茶具、雙手與服飾未見明顯畸形，B-r2線條／色塊與A、C有明顯差異；同角主要特徵保持，臉部比例仍隨風格變化。托盤遮住部分手指；左側飄帶觸及畫邊，正式立繪須擴留白。C以材質與光影加強華麗，臉型仍接近A。皆為單層帶背景樣張，非透明全身成品或正式UI截圖；角色頁／初遇布局尚未製作。
+- **修改與驗收級別**：僅新增docs/maid-art/qingheng原圖與metadata、README／ROADMAP一行狀態、本節、英文updata與溢出歸檔。美術目視＋文件靜態檢查，非L1／L2／L3遊戲驗收；無Godot來源、規則、schema、玩家存檔、現有資產或build變更，未跑引擎／runner／匯出／遊戲瀏覽器驗收。
+- **命令與結果**：PowerShell Copy-Item將三張內建生成原稿保存專案，Python/Pillow verify確認3/3可解碼、尺寸與RGB格式，manifest保存SHA256。Python靜態檢查UTF-8／JSON／原圖hash／樣張索引本地連結；`python tools/trim_status_docs.py` exit0、無需新增歸檔；`python tools/delivery_check.py` RESULT PASS（9筆變更，受保護證據0）；`git diff --check` exit0。沒有遊戲全量回歸聲稱。
+- **下一步**：使用者比較A／B／C或指定混合，再以選定設計做角色基準與角色頁／初遇布局；選定前不批量產表情／CG、不接CORE。本次為人物樣張子階段結束，可手動commit；代理未commit／push。依Context Guard，後續布局／實作請New Chat接續。
+
+<a id="maid-design"></a>
+## 2026-10-31 MAID-DESIGN：侍女／仙侍系統與大型角色插圖（提案交付，待使用者選定）
+
+- **範圍與狀態**：使用者表示現有工作已完成，itch.io 回饋畫面吸引力與女性角色不足，要求先提供DAO1侍女系統優化方案。本輪僅設計，提案已交付；系統／畫風／角色均 **PROPOSED**，未視為核定或遊戲實作DONE。
+- **提案**：[docs48](48-maid-companion-system-proposal.md) 核對DAO1的maid／sword_maid糯美子、自動合成／建築／功法來源與Era3門檻，推薦首位前移練氣、具名女性角色＋有界委任＋三章羈絆＋大型立繪／兩張CG。首版一位青蘅，劍侍與丹師列候選擴充；保留現有持續製造，不另設新產出乘區。大圖覆蓋初遇、人物頁、可收合洞府展示與回憶，沿共用UI與canonical route。
+- **檔案**：新增docs48，README／ROADMAP僅加狀態連結，updata頂部英文checkpoint並維持五筆；舊日期段落按既有trim工具處理。未修改Godot來源、規則、保存schema、現有資產或Web包；DAO1保持唯讀。
+- **驗收級別與結果**：文件靜態檢查，非L1／L2／L3遊戲驗收。`python tools/trim_status_docs.py`僅歸檔README多出的舊日期段落；`python tools/delivery_check.py`為RESULT PASS，7筆變更且受保護證據0；7份變更文件嚴格UTF-8與提案／狀態本地目標存在檢查PASS。初次`git diff --check`指出updata末尾空行，修正後重跑exit0；無遊戲失敗結果。不啟動引擎、runner、Web匯出或瀏覽器。方案接受與美術效果尚未驗證，沒有新市場／留存數據。
+- **下一步**：先收使用者對A純美術／B仙侍系統／C完整道侶的選擇，推薦B與首位同角三種畫風樣張。後續大型MAID-ART／CORE須New Chat接續，不在本輪展開；未commit／push，可手動commit（提案階段結束，系統大型任務尚未開始）。
+
 <a id="sect-reform-ui"></a>
 ## 2026-10-31 SECT-REFORM-UI：宗門／守護獸操作與五獸四階圖稿接入（UI與美術已接受，L3完成）
 

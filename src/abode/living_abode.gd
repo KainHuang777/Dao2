@@ -318,6 +318,7 @@ var detail_scroll: ScrollContainer
 var return_to_catalog_after_detail: bool = false
 var help_button: Button
 var island_world: Node2D
+var maid_stand: Control
 var feature_navigation: RefCounted
 var more_menu: MenuButton
 var settings_menu: MenuButton

@@ -1,0 +1,71 @@
+{
+  "task": "MAID-ART-ND-R2",
+  "date": "2026-11-01",
+  "acceptance": "ACCEPTED",
+  "integration": "NOT_INTEGRATED; versioned runtime siblings staged; R1/canonical staged copies unchanged",
+  "generator": "built-in image_gen; six calls total in R2; copied unchanged; no programmatic image modification",
+  "supersedes": "R1 face/body/weapon direction for this character; R2 accepted by user",
+  "license": "AI-generated redesign from own R1 costume/color reference. Qingheng upstream user reference author/license unknown; inherited limitation retained. No newly introduced third-party images, no commercial clearance or exclusive-rights claim.",
+  "design_spec": "docs/maid-art/character-proportions-r2.md",
+  "assets": [
+    {
+      "id": "danxia-portrait-r2",
+      "original": "docs/maid-art/danxia/portrait-r2.png",
+      "sha256": "22f4f21d78ca3e91c2ecb33977f002cb8158e0c1508bb3d07dfafea6f4b91c4b",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-a1f8cc89-3aad-4318-abe6-0dd7ab51836f.png",
+      "prompt_record": "docs/maid-art/danxia/portrait-r2-prompt.json",
+      "reference": "docs/maid-art/danxia/turnaround-r2.png",
+      "layers": "Single RGBA character including clothing/hair/prop",
+      "purpose": "Full-body contain viewer / character page",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha128_bbox": [
+        109,
+        13,
+        1001,
+        1514
+      ],
+      "transparent_pixels": 670866,
+      "qc_note": "Complete silhouette and props observed; requested8% margin not achieved on every edge. Full contain required; soft alpha fringe retained. User accepted this art on 2026-11-01; preserve full contain and existing alpha fringe.",
+      "runtime": "assets/characters/danxia/portrait-r2.png"
+    },
+    {
+      "id": "danxia-first-meeting-r2",
+      "original": "docs/maid-art/danxia/first-meeting-r2.png",
+      "sha256": "0b911d5015b3afa4064c7da60113a9eaa3bf994ab44e3cd90ce8acaafcd29eb2",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-8778731e-c712-4b00-b770-7c38e9021cbb.png",
+      "prompt_record": "docs/maid-art/danxia/first-meeting-r2-prompt.json",
+      "reference": "docs/maid-art/danxia/portrait-r2.png",
+      "layers": "Flattened character+environment; UI and dialogue separate",
+      "purpose": "First-meeting replay illustration",
+      "runtime": "assets/characters/danxia/first-meeting-r2.png"
+    }
+  ],
+  "acceptance_date": "2026-11-01",
+  "acceptance_record": "docs/maid-art/nd-r2-acceptance.json",
+  "acceptance_scope": "Nuomeizi and Danxia R2 turnaround, transparent full-body portrait, first-meeting CG; character face/body distinction and complete sword structure. Art acceptance only; game integration remains with OpenCode.",
+  "user_statement": "美術確認",
+  "reference_assets": [
+    {
+      "id": "danxia-turnaround-r2",
+      "original": "docs/maid-art/danxia/turnaround-r2.png",
+      "sha256": "ec97981b6a37a859fc42d708b9fff0a2111c1eb255bff89bb6c1d7b374d2443d",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-20216218-6fbd-4fcd-96c9-4bf7b653fa69.png",
+      "prompt_record": "docs/maid-art/danxia/turnaround-r2-prompt.json",
+      "reference": "docs/maid-art/danxia/portrait-r1.png",
+      "layers": "Flattened three-view reference sheet with face/prop details",
+      "purpose": "Character identity and costume construction reference; not animation"
+    }
+  ]
+}

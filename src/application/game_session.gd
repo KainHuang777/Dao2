@@ -40,6 +40,13 @@ const KNOWN_COMMAND_TYPES := [
 	"feed_beast",
 	"unlock_beast_talent",
 	"claim_achievement",
+	"recruit_maid",
+	"assign_maid_duty",
+	"clear_maid_duty",
+	"set_maid_duty_paused",
+	"execute_maid_duty",
+	"claim_maid_chapter",
+	"maid_reunion",
 ]
 const COMMAND_REGISTRY_LIMIT := GameState.COMMAND_RECEIPT_LIMIT
 
@@ -131,6 +138,13 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 			"new_revision": state.revision,
 		}
 	var result: Dictionary = TimeAdvancer.advance(state, content, ticks)
+	if result.get("stopped", null) == null:
+		var maid_result := MaidSystem.advance(content, state, ticks, MaidRules.MAX_ACTIONS_PER_CALL)
+		for maid_event in maid_result.get("events", []):
+			result.events.append(maid_event)
+		for changed_id in maid_result.get("changed_ids", []):
+			if not result.changed_ids.has(changed_id):
+				result.changed_ids.append(changed_id)
 	state.tick_remainder_seconds = 0.0 if result.stopped != null else maxf(0.0, accumulated - float(ticks) * float(TimeAdvancer.SECONDS_PER_TICK))
 	state.revision += 1
 	result.ok = true
@@ -310,6 +324,7 @@ func get_view() -> Dictionary:
 		},
 		"realm_decisions": RealmDecisionSystem.get_realm_decisions_view(state, state.current_realm),
 		"beast": BeastSystem.get_view(state),
+		"maid": MaidSystem.get_view(state, content),
 		"world_address": state.world_address,
 		"achievements": AchievementSystem.get_achievement_view(state, content),
 	}
@@ -456,6 +471,27 @@ func _is_valid_shape(command: Dictionary) -> bool:
 			if typeof(decision_id) != TYPE_STRING or String(decision_id).is_empty():
 				return false
 			return true
+		"recruit_maid", "clear_maid_duty", "execute_maid_duty", "maid_reunion":
+			var maid_id = payload.get("maid_id")
+			if typeof(maid_id) != TYPE_STRING or String(maid_id).is_empty():
+				return false
+			return true
+		"assign_maid_duty":
+			var assigned_id = payload.get("maid_id")
+			if typeof(assigned_id) != TYPE_STRING or String(assigned_id).is_empty():
+				return false
+			return typeof(payload.get("duty")) == TYPE_DICTIONARY
+		"set_maid_duty_paused":
+			var paused_id = payload.get("maid_id")
+			if typeof(paused_id) != TYPE_STRING or String(paused_id).is_empty():
+				return false
+			return typeof(payload.get("paused")) == TYPE_BOOL
+		"claim_maid_chapter":
+			var chapter_maid = payload.get("maid_id")
+			var chapter_id = payload.get("chapter_id")
+			if typeof(chapter_maid) != TYPE_STRING or String(chapter_maid).is_empty():
+				return false
+			return typeof(chapter_id) == TYPE_STRING and not String(chapter_id).is_empty()
 	return true
 
 
@@ -629,6 +665,63 @@ func claim_achievement(achievement_id: String) -> Dictionary:
 		"type": "claim_achievement",
 		"expected_revision": state.revision,
 		"payload": {"achievement_id": achievement_id},
+	})
+
+
+func recruit_maid(maid_id: String) -> Dictionary:
+	return submit({
+		"command_id": "recruit_maid_" + maid_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "recruit_maid",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id},
+	})
+
+func assign_maid_duty(maid_id: String, duty: Dictionary) -> Dictionary:
+	return submit({
+		"command_id": "assign_maid_" + maid_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "assign_maid_duty",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id, "duty": duty},
+	})
+
+func clear_maid_duty(maid_id: String) -> Dictionary:
+	return submit({
+		"command_id": "clear_maid_" + maid_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "clear_maid_duty",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id},
+	})
+
+func set_maid_duty_paused(maid_id: String, paused: bool) -> Dictionary:
+	return submit({
+		"command_id": "pause_maid_" + maid_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "set_maid_duty_paused",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id, "paused": paused},
+	})
+
+func execute_maid_duty(maid_id: String) -> Dictionary:
+	return submit({
+		"command_id": "execute_maid_" + maid_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "execute_maid_duty",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id},
+	})
+
+func claim_maid_chapter(maid_id: String, chapter_id: String) -> Dictionary:
+	return submit({
+		"command_id": "maid_chapter_" + maid_id + "_" + chapter_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "claim_maid_chapter",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id, "chapter_id": chapter_id},
+	})
+
+func maid_reunion(maid_id: String) -> Dictionary:
+	return submit({
+		"command_id": "maid_reunion_" + maid_id + "_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "maid_reunion",
+		"expected_revision": state.revision,
+		"payload": {"maid_id": maid_id},
 	})
 
 

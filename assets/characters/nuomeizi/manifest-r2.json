@@ -1,0 +1,71 @@
+{
+  "task": "MAID-ART-ND-R2",
+  "date": "2026-11-01",
+  "acceptance": "ACCEPTED",
+  "integration": "NOT_INTEGRATED; versioned runtime siblings staged; R1/canonical staged copies unchanged",
+  "generator": "built-in image_gen; six calls total in R2; copied unchanged; no programmatic image modification",
+  "supersedes": "R1 face/body/weapon direction for this character; R2 accepted by user",
+  "license": "AI-generated redesign from own R1 costume/color reference. Qingheng upstream user reference author/license unknown; inherited limitation retained. No newly introduced third-party images, no commercial clearance or exclusive-rights claim.",
+  "design_spec": "docs/maid-art/character-proportions-r2.md",
+  "assets": [
+    {
+      "id": "nuomeizi-portrait-r2",
+      "original": "docs/maid-art/nuomeizi/portrait-r2.png",
+      "sha256": "4265cf1d6759ea4f770808cfe3662b3c8e9cb2aa90948b8d552457c05a0378ec",
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-7f5c0e51-9e32-4fb9-951f-e04498dfcf20.png",
+      "prompt_record": "docs/maid-art/nuomeizi/portrait-r2-prompt.json",
+      "reference": "docs/maid-art/nuomeizi/turnaround-r2.png",
+      "layers": "Single RGBA character including clothing/hair/prop",
+      "purpose": "Full-body contain viewer / character page",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha128_bbox": [
+        33,
+        11,
+        949,
+        1498
+      ],
+      "transparent_pixels": 945728,
+      "qc_note": "Complete silhouette and props observed; requested8% margin not achieved on every edge. Full contain required; soft alpha fringe retained. User accepted this art on 2026-11-01; preserve full contain and existing alpha fringe.",
+      "runtime": "assets/characters/nuomeizi/portrait-r2.png"
+    },
+    {
+      "id": "nuomeizi-first-meeting-r2",
+      "original": "docs/maid-art/nuomeizi/first-meeting-r2.png",
+      "sha256": "63abec9763b4ae8587e860bba328906ab15bd3609285d3748cdb803439ab4cc6",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-2a4b5942-3f5a-492f-ac24-e117d264faa8.png",
+      "prompt_record": "docs/maid-art/nuomeizi/first-meeting-r2-prompt.json",
+      "reference": "docs/maid-art/nuomeizi/portrait-r2.png",
+      "layers": "Flattened character+environment; UI and dialogue separate",
+      "purpose": "First-meeting replay illustration",
+      "runtime": "assets/characters/nuomeizi/first-meeting-r2.png"
+    }
+  ],
+  "acceptance_date": "2026-11-01",
+  "acceptance_record": "docs/maid-art/nd-r2-acceptance.json",
+  "acceptance_scope": "Nuomeizi and Danxia R2 turnaround, transparent full-body portrait, first-meeting CG; character face/body distinction and complete sword structure. Art acceptance only; game integration remains with OpenCode.",
+  "user_statement": "美術確認",
+  "reference_assets": [
+    {
+      "id": "nuomeizi-turnaround-r2",
+      "original": "docs/maid-art/nuomeizi/turnaround-r2.png",
+      "sha256": "6afd650bdb801f8d62e375b075d7feb5d1d04f63ca831d36dbd5ed2f128fd326",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "generated_source": "C:/Users/asus/.codex/generated_images/01a194b8-3400-7b72-8515-0f64e73cf2c5/exec-e3365eef-bd54-4b52-a770-969fbe404d4e.png",
+      "prompt_record": "docs/maid-art/nuomeizi/turnaround-r2-prompt.json",
+      "reference": "docs/maid-art/nuomeizi/portrait-r1.png",
+      "layers": "Flattened three-view reference sheet with face/prop details",
+      "purpose": "Character identity and costume construction reference; not animation"
+    }
+  ]
+}

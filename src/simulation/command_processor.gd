@@ -81,6 +81,20 @@ static func _apply(content: GameContent, state: GameState, command: Dictionary) 
 			return _apply_unlock_beast_talent(content, state, command.payload)
 		"claim_achievement":
 			return _apply_claim_achievement(content, state, command.payload)
+		"recruit_maid":
+			return _apply_recruit_maid(state, command.payload)
+		"assign_maid_duty":
+			return _apply_assign_maid_duty(content, state, command.payload)
+		"clear_maid_duty":
+			return _apply_clear_maid_duty(state, command.payload)
+		"set_maid_duty_paused":
+			return _apply_set_maid_duty_paused(state, command.payload)
+		"execute_maid_duty":
+			return _apply_execute_maid_duty(content, state, command.payload)
+		"claim_maid_chapter":
+			return _apply_claim_maid_chapter(state, command.payload)
+		"maid_reunion":
+			return _apply_maid_reunion(state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -555,6 +569,44 @@ static func _apply_claim_achievement(content: GameContent, state: GameState, pay
 		"events": [{"kind": "achievement_claimed", "achievement_id": achievement_id, "rewards": res.get("rewards", {}), "contribution": res.get("contribution", {}), "receipt": res.get("receipt", {})}],
 		"changed_ids": ["achievements", "resources", "dao_heart", "dao_proof", "sect"],
 	}
+
+static func _maid_id_valid(payload: Dictionary) -> bool:
+	var maid_id: Variant = payload.get("maid_id")
+	return maid_id is String and not String(maid_id).is_empty()
+
+static func _apply_recruit_maid(state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	return MaidSystem.recruit(state, String(payload.maid_id))
+
+static func _apply_assign_maid_duty(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	var duty: Variant = payload.get("duty")
+	if not duty is Dictionary: return _failure("INVALID_DUTY", {})
+	return MaidSystem.assign_duty(state, content, String(payload.maid_id), duty)
+
+static func _apply_clear_maid_duty(state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	return MaidSystem.clear_duty(state, String(payload.maid_id))
+
+static func _apply_set_maid_duty_paused(state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	var paused: Variant = payload.get("paused")
+	if not paused is bool: return _failure("INVALID_PAUSED", {})
+	return MaidSystem.set_duty_paused(state, String(payload.maid_id), paused)
+
+static func _apply_execute_maid_duty(content: GameContent, state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	return MaidSystem.execute_duty(state, content, String(payload.maid_id))
+
+static func _apply_claim_maid_chapter(state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	var chapter_id: Variant = payload.get("chapter_id")
+	if not chapter_id is String or String(chapter_id).is_empty(): return _failure("INVALID_CHAPTER", {})
+	return MaidSystem.claim_chapter(state, String(payload.maid_id), String(chapter_id))
+
+static func _apply_maid_reunion(state: GameState, payload: Dictionary) -> Dictionary:
+	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
+	return MaidSystem.reunion(state, String(payload.maid_id))
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:
 	var result := {"ok": false, "error": error, "events": [], "changed_ids": []}

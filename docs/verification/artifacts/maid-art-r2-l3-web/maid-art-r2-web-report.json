@@ -1,0 +1,558 @@
+{
+  "ok": true,
+  "utc": "2026-11-01T03:12:26.164Z",
+  "url": "http://127.0.0.1:48350/index.html",
+  "screens": [
+    {
+      "vp": [
+        1280,
+        720
+      ],
+      "clicks": [
+        {
+          "label": "close-offline-summary",
+          "logical": [
+            439,
+            79
+          ],
+          "css": [
+            438.3902777777778,
+            78.89027777777778
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "dock-characters",
+          "logical": [
+            360,
+            664
+          ],
+          "css": [
+            359.5,
+            663.0777777777778
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "select-nuomeizi",
+          "logical": [
+            154,
+            221
+          ],
+          "css": [
+            153.78611111111113,
+            220.69305555555556
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "select-danxia",
+          "logical": [
+            241,
+            221
+          ],
+          "css": [
+            240.6652777777778,
+            220.69305555555556
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "select-qingheng",
+          "logical": [
+            78,
+            221
+          ],
+          "css": [
+            77.89166666666667,
+            220.69305555555556
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "open-art-viewer",
+          "logical": [
+            449,
+            374
+          ],
+          "css": [
+            448.37638888888887,
+            373.48055555555555
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "tab-meeting",
+          "logical": [
+            1027,
+            170
+          ],
+          "css": [
+            1025.5736111111112,
+            169.76388888888889
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "tab-work",
+          "logical": [
+            1122,
+            170
+          ],
+          "css": [
+            1120.4416666666666,
+            169.76388888888889
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "tab-bond",
+          "logical": [
+            1204,
+            170
+          ],
+          "css": [
+            1202.3277777777778,
+            169.76388888888889
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "close-panel",
+          "logical": [
+            1166,
+            101
+          ],
+          "css": [
+            1164.3805555555555,
+            100.85972222222222
+          ],
+          "scale": 0.9986111111111111
+        }
+      ],
+      "shots": [
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-01-offline-summary.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-02-world.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-03-characters.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-04-nuomeizi-person.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-05-danxia-person.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-06-art-viewer.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-07-art-viewer-closed.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-08-meeting.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-09-work.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-10-bond.png",
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\1280x720-11-world-after-close.png"
+      ],
+      "checks": {
+        "canvas_fits": true,
+        "no_page_overflow": true,
+        "save_restored": true,
+        "save_intact": true
+      },
+      "metrics": {
+        "inner": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          1279,
+          719
+        ],
+        "buffer": [
+          1280,
+          720
+        ],
+        "doc": [
+          1280,
+          720
+        ],
+        "body": [
+          1280,
+          0
+        ]
+      }
+    },
+    {
+      "vp": [
+        844,
+        390
+      ],
+      "clicks": [],
+      "shots": [
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\844x390-01-offline-summary.png"
+      ],
+      "checks": {
+        "canvas_fits": true,
+        "no_page_overflow": true,
+        "save_restored": true
+      },
+      "metrics": {
+        "inner": [
+          844,
+          390
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          843,
+          389
+        ],
+        "buffer": [
+          844,
+          390
+        ],
+        "doc": [
+          844,
+          390
+        ],
+        "body": [
+          844,
+          0
+        ]
+      },
+      "compact_note": "canvas/overflow/save only; maid panel click flow at compact heights not calibrated"
+    },
+    {
+      "vp": [
+        800,
+        360
+      ],
+      "clicks": [],
+      "shots": [
+        "docs\\verification\\artifacts\\maid-art-r2-l3-web\\800x360-01-offline-summary.png"
+      ],
+      "checks": {
+        "canvas_fits": true,
+        "no_page_overflow": true,
+        "save_restored": true
+      },
+      "metrics": {
+        "inner": [
+          800,
+          360
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          799,
+          359
+        ],
+        "buffer": [
+          800,
+          360
+        ],
+        "doc": [
+          800,
+          360
+        ],
+        "body": [
+          800,
+          0
+        ]
+      },
+      "compact_note": "canvas/overflow/save only; maid panel click flow at compact heights not calibrated"
+    }
+  ],
+  "checks": {
+    "1280x720-canvas-fits": {
+      "ok": true,
+      "detail": "canvas=0,0,1279,719"
+    },
+    "1280x720-no-page-overflow": {
+      "ok": true,
+      "detail": "doc=1280x720 inner=1280x720"
+    },
+    "1280x720-save-restored": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "1280x720-save-intact-after-flow": {
+      "ok": true,
+      "detail": "schema=6"
+    },
+    "844x390-canvas-fits": {
+      "ok": true,
+      "detail": "canvas=0,0,843,389"
+    },
+    "844x390-no-page-overflow": {
+      "ok": true,
+      "detail": "doc=844x390 inner=844x390"
+    },
+    "844x390-save-restored": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "800x360-canvas-fits": {
+      "ok": true,
+      "detail": "canvas=0,0,799,359"
+    },
+    "800x360-no-page-overflow": {
+      "ok": true,
+      "detail": "doc=800x360 inner=800x360"
+    },
+    "800x360-save-restored": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "console-no-script-error": {
+      "ok": true,
+      "detail": "lines=62"
+    }
+  },
+  "errors": [],
+  "console": [
+    {
+      "utc": "2026-11-01T03:12:26.235Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.236Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.237Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T03:12:26.238Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.238Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.239Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.239Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.240Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.240Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.240Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.241Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.241Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.242Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.242Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 789.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.242Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:12:26.242Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 789.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:27.118Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T03:12:27.322Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T03:12:27.462Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T03:12:30.294Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T03:12:31.208Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T03:12:32.561Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:32.561Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:12:32.607Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T03:12:32.613Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:32.643Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:33.159Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T03:12:38.761Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:38.872Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:44.494Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:45.831Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:51.576Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:51.591Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:51.596Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:54.072Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T03:12:54.284Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T03:12:54.400Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T03:12:57.150Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T03:12:58.072Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.423Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.423Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.428Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.467Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.473Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.473Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:12:59.563Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:13:00.091Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T03:13:03.487Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:13:03.488Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:13:04.478Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T03:13:04.691Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T03:13:04.807Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T03:13:07.607Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T03:13:08.523Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.843Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.844Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.848Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.894Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.901Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.901Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T03:13:09.932Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T03:13:10.458Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "task_id": "MAID-ART-LAYOUT-R3",
+  "status": "ACCEPTED_ART_LAYOUT",
+  "accepted_date": "2026-11-01",
+  "user_confirmation": "美術接受，告訴我下一步",
+  "artifact": "layout-review-r3.html",
+  "scope": "R3人物展示美術與布局：現有青蘅立繪、直式身分姓名、淡墨畫框、朱印及書籤小傳。",
+  "next_task": "MAID-UI-1: Godot人物頁與初遇展示接入",
+  "boundaries": [
+    "不視為自動化／好感／收益規則核定",
+    "不取代Godot操作與響應式驗證",
+    "未逐項核定R2設定圖或初遇文案／CG"
+  ]
+}

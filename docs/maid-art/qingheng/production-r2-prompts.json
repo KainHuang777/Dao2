@@ -1,0 +1,30 @@
+{
+  "task": "MAID-ART-BASELINE-R2",
+  "date": "2026-10-31",
+  "generator": "built-in image_gen",
+  "prompts": [
+    {
+      "id": "portrait-r2",
+      "prompt": "Use case: identity-preserve. Asset type: transparent full-body character portrait for Godot xianxia game. Input image 1 is the ACCEPTED Qingheng E design and identity reference. Create one polished standalone full body portrait of EXACTLY this adult woman, apparent age 25+, same blue eyes, navy long partly pinned hair, white-blue flower and gold hair ornaments, high blue collar, blue fitted bodice, white/sky-blue layered hanfu skirt with bamboo print, detachable flowing sleeves, jade waist pendant, embroidered blue shoes. Preserve face, refined anime painting and scholarly warmth. She holds closed navy book against torso with left hand and writing brush near face with right hand. Preserve appealing elegant mature proportions. Fit ALL hair, sleeves, ribbons, skirt, shoes inside frame with generous clear margin on every side, simplify outer hair sweep slightly to avoid edge tangencies. Genuinely transparent alpha background. Character only: NO bamboo background, NO floating leaves, NO floor, NO shadow plate, NO atmosphere, NO text, NO UI, NO checkerboard painted into image. Fine clean anti-aliased hair edges, opaque white costume, translucent fabric only where intentional. Single coherent illustration, not a sheet.",
+      "reference": "qingheng-e-blue-scholar.png",
+      "transparent_background": true
+    },
+    {
+      "id": "baseline-r2",
+      "prompt": "Use case: stylized-concept. Input image 1 is the accepted Qingheng E character design, use as exact identity reference. Produce a professional wide landscape character model reference sheet on plain warm ivory paper: left large full-body FRONT view, center full-body LEFT PROFILE view, right three clear isolated close-ups of her face, white flower/gold/jade hairpin, and blue bamboo-pattern waist/sleeve. Same adult woman age25+, navy long half-up hair, blue eyes, white and blue layered hanfu with high blue collar, fitted navy waist, detached wide sleeves, fine gold trim and jade pendant, blue embroidered shoes, book and brush. Consistent SAME face, SAME costume across views. Side view exposes how sleeves attach and hair half-up bun works. Front pose calm standing with hands holding closed book low; side pose relaxed. Preserve refined detailed anime style of E, avoid chibi. Spacious orderly composition, all feet and hair within frame, no edge cropping. No UI, no writing, no labels, no color swatch text. This is a visual reference sheet, not game screenshot. Landscape 3:2 or wider.",
+      "reference": "qingheng-e-blue-scholar.png",
+      "transparent_background": false
+    },
+    {
+      "id": "first-meeting-r2",
+      "prompt": "Use case: illustration-story. Asset type: wide landscape FIRST MEETING CG composition candidate for xianxia game. Input image 1 is the locked identity and costume of Qingheng E: adult woman25+, navy half-up long hair, blue eyes, white flower gold jade hair ornament, high collar blue bodice, detached white flowing sleeves, white-blue layered bamboo-pattern hanfu, jade waist pendant. Preserve exact face and refined anime rendering. Scene: rainy early evening outside a modest newly built mountain cultivation cottage, warm amber lantern under timber eaves at left, wet stone steps and bamboo, misty blue mountains far away. Qingheng stands sheltered under eaves, slightly RIGHT of center, visible head to knees, cradling the closed navy book carefully with both hands to protect it from rain, looking toward viewer with gentle self-possessed shy smile. Not distress, not battle, not palace, not modern. Her fingers and book anatomically coherent. Composition wide16:9 or3:2 landscape: her face and book within upper60% of picture, reserve lower25% as quiet dim wet ground for later independent dialogue layer; clear breathing room to left and right. Main focus beautiful readable face and book, cool rainy atmosphere against warm lantern, detailed silk and soft painterly environment. NO text, UI, buttons, logos or floating magic. A single coherent scene, no multiple panels.",
+      "reference": "qingheng-e-blue-scholar.png",
+      "transparent_background": false
+    },
+    {
+      "id": "portrait-r2b",
+      "reference": "qingheng-portrait-r2.png",
+      "transparent_background": true
+    }
+  ]
+}

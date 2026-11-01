@@ -33,7 +33,7 @@ func _init() -> void:
 				check(layout.hud == ("hidden" if vp.x < vp.y else "compact"), "consistent feature HUD " + route)
 			check(shell.snapshot() == before, "resize never mutates intent " + route)
 			check(shell.snapshot().home_preferences == prefs, "navigation keeps home preferences " + route)
-	check(route_count == 13, "all13 current routes registered")
+	check(route_count == 14, "all14 current routes registered including character presentation")
 	check(Policy.resolve(shell.snapshot(), Vector2(1280, 390)).layout == "compact", "height pressure overrides width")
 	check(Policy.resolve(shell.snapshot(), Vector2(960, 600)).layout == "wide", "docs07 shared width threshold")
 	for route in Policy.INVENTORY_ROUTES:
