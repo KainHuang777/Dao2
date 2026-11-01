@@ -1,5 +1,54 @@
 # 開發狀態與交接紀錄
 
+<a id="maid-parallel"></a>
+## 2026-11-01 MAID-PARALLEL-1：多仙侍並行職掌（L1，DONE）
+
+- **範圍／交付**：兌現 docs/49 §10「多仙侍並行職掌」。以使用者核定的「全面並行＋公平輪轉」解掉舊 `DUTY_BUSY` 全府鎖：三位仙侍可同時持有職掌，每位仍最多一個；重新指派只取代自己的職掌。不改羈絆、章節、獎勵、庫存、schema 或存檔格式，也不新增 persisted 欄位。
+- **推進／公平性**：`MaidSystem.advance` 改為就緒者輪轉——先收集所有未暫停且非空的職掌並依 `ids.sort()` 排序，將共享 `remaining` 推進到最早到齊的冷卻，再從冷卻歸零者中挑「累計 `duty_actions` 最少、其次 id 較小」者執行一次，成功後重置自己的節奏。共享 `MAX_ACTIONS_PER_CALL` 不變，並行不放大單次結算收益；冷卻剛好在本次剩餘時間用完時歸零者仍會執行該次動作，維持與單一職掌相同的邊界語意。決定性只依 state＋content，無 RNG／系統時鐘／幀率相依。
+- **產線／建築**：備料與煉丹若同時佔用同一條 home 產線，後到者沿用既有 `craft`／`refine_pill` 的 `JOB_BUSY` 記為 `BLOCKED`，於下一冷卻週期重試；不排隊、不搶佔、不改經濟 schema。監造走既有即時 `upgrade_building`，仍受可見、解鎖、資源、前置與等級上限檢查，可與產線職掌並行。
+- **View／UI**：`get_view()["maid"]` 新增唯讀 `active_duties`（生效中仙侍 id，順序同 `MaidRules.MAIDS`），`active_duty` 保留為其第一個值供侍立展示與舊 UI 相容。職掌分頁「生效中」列改列全部值班仙侍並標註所選角色；`DUTY_BUSY` 文案改為「產線暫時忙碌，稍後會自動重試。」，指派成功改為「職掌已指派，將按時自動推進。」；指派按鈕不再因他人值班而停用。
+- **修改檔案**：`src/simulation/maid_system.gd`、`src/presentation/maid_character_panel.gd`、`src/presentation/feature_navigation.gd`、`tests/maid_core_runner.gd`、`docs/49-maid-companion-system-design.md`（§2、§10、§11.2、§11.3、§11.10，新增 §18）、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`。未改 `maid_rules.gd`、`maid_save_contract.gd`、`save_codec.gd`、`save_manager.gd`、`SCHEMA_VERSION`、美術、字型或 Web 匯出。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_core,maid_duty_preset,maid_offline,maid_ui2,maid_stand' -TimeoutSeconds 90` → 5/5 PASS（MAID-CORE 266、MAID-DUTY-PRESET 34、MAID-OFFLINE PASS、MAID-UI2 62、MAID-STAND 33 checks，failures=`[]`，無 SCRIPT ERROR）；另以 `-Only 'maid_ui'` 補跑受影響的 `maid_ui_runner`、`maid_ui2_runner` → 2/2 PASS。新案例涵蓋三位同時指派、`active_duties` 三筆且 `active_duty == active_duties[0]`、暫停一位後剩兩筆、恢復不再被他人值班阻擋、60 秒共享 5 次預算下三位 `duty_actions` 皆 >0、契約有效；既有單一職掌推進、離線 `BLOCKED` 經濟案例與 UI「生效中：」斷言皆維持通過。
+- **邊界／未驗證**：只跑 L1 單尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。公平性以「少服務者優先」的無狀態規則達成，未新增每輪輪值游標、佇列或經濟調度器；`active_duty` 的單值語意仍供侍立展示使用，未改為多值。可手動 commit：本次為仙侍職掌階段結束，非大型任務結案；代理未 commit／push。
+
+<a id="maid-duty-preset"></a>
+## 2026-11-01 MAID-DUTY-PRESET：職掌預設組合、保留量 UI、材料不足提示細化（L1，DONE）
+
+- **範圍／交付**：兌現 docs/49 §10「職掌預設組合、保留量 UI、材料不足提示細化」。`MaidRules` 新增 `DUTY_PRESETS`／`duty_presets(kind)`：管家備貨與丹藥補給各有常備（目標 5、保留 20%）、充裕（10、10%）、趕工（20、0%）三個確定性組合，監工為空；只作 UI 起點，不自動指派。職掌分頁新增 44px 預設按鈕列與逐材料「保留量」步進器（≥150×44），套用預設只改本機目標與 `floor(庫存 × 比例)` 保留值，不送命令、不寫狀態。
+- **命令／讀取**：指派時 `assign_maid_duty` 的 `duty.reserve` 改由保留量步進器收集（>0 才寫入，鍵為資源／丹藥 id），管家備貨與丹藥補給皆適用，監工不受影響；命令型別、`GameSession._is_valid_shape` 與契約鍵集不變。`MaidSystem.get_view()` 的選項補上配方 `inputs`（`per_batch`、現有 `stock`）與丹藥 `cost`（`per_unit`、現有 `stock`）；既有職掌另附唯讀 `shortage`／`shortage_text`，以實際批次或預估批次挑出最吃緊輸入，文字如「低階靈草不足 60（需 60，現有 0，保留 40）」，無保留時省略保留子句。`shortage` 不落盤，`to_snapshot_dict()` 的 `maid` 區塊不含該鍵；`MaidSaveContract` 嚴格鍵集、`save_codec.gd` 與 `SCHEMA_VERSION` 均未更動。
+- **UI 提示**：分頁在「尚無可用目標」以外，優先顯示已指派職掌的 `shortage_text`；尚未指派或剛調整目標／保留量時，以同一批次規則在本機預覽不足，材料足夠即隱藏。切換仙侍會清空保留量列並依新職掌重建；短橫式沿用既有堆疊規則，預設列與保留量列一併改為垂直排列，按鈕與步進器維持 44px 命中。
+- **修改檔案**：`src/simulation/maid_rules.gd`、`src/simulation/maid_system.gd`、`src/presentation/maid_character_panel.gd`、`tests/maid_core_runner.gd`、`tests/maid_duty_preset_runner.gd`（新增，含 Godot import 產生的 `.gd.uid`）、`tools/run_all_runners.ps1`、`docs/49-maid-companion-system-design.md`（新增 §17）、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`。未改 `maid_save_contract.gd`、`save_codec.gd`、`save_manager.gd`、`SCHEMA_VERSION`、美術、字型或 Web 匯出。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_core,maid_duty_preset,maid_ui2'` → 3/3 PASS（MAID-CORE 251、MAID-DUTY-PRESET 34、MAID-UI2 62 checks，failures=`[]`，無 SCRIPT ERROR）。新案例涵蓋：預設組合常數與未知職掌、配方輸入／丹藥成本與現有庫存、三種職掌的 `shortage` 最吃緊輸入與保留量文字、存檔 JSON 不含 `shortage`、分頁預設列 3 顆 44px 按鈕、保留量三個 ≥150×44 步進器、常備套用後目標 5 與保留 40/40/400 且狀態零變更、指派負載帶非空 `reserve` 並落盤、材料不足時顯示含「不足／保留」的提示、補足後隱藏、監工不顯示預設與保留量、切換仙侍後重建，以及短橫式堆疊。
+- **邊界／未驗證**：只跑 L1 單尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。不足提示為 View 即時計算，未新增離線報告欄位或新命令；材料足夠時不顯示「已足夠」等新文案。可手動 commit：本次為仙侍小功能階段結束，非大型任務結案；代理未 commit／push。
+
+<a id="maid-bond-chapter"></a>
+## 2026-11-01 MAID-BOND-CHAPTER：羈絆章節對話分歧與已讀回放（L1，DONE）
+
+- **範圍／交付**：兌現 docs/49 §10「羈絆章節對話分歧與已讀回放（仍不得改規則）」，在 MAID-BOND-CG 之後補上章節對話本身。`maid_character_panel.gd` 新增 `BOND_SCRIPT`：以既有九個章節 id 為鍵（每位仙侍三章），每章含兩行開場、兩個分歧選項、每個選項各有專屬回應，最後收束到共同結語；章節標題與 `MaidRules.CHAPTERS` 完全一致。已招募且該章已領取（沿用 `claim_chapter` 既有永久旗標，即已讀）時，章節列新增 44px「重溫」；未領取／未招募時隱藏。第三章同時保留既有「回憶」CG 入口。
+- **分歧／純重播**：按下「重溫」只發 `chapter_requested(title, script)`，由 `maid_portrait_viewer.present_chapter()` 在共用 shell tool overlay 顯示純對話檢視器（隱藏立繪）：開場＋兩個 44px 分支按鈕，選定後只顯示該分支回應與共同結語，並提供 44px「重新閱讀」回到開場重選。分支選擇只存在本次檢視器內，不新增旗標、schema 或存檔欄位；不送命令、不發羈絆／獎勵、不重領章節，`to_snapshot_dict()` 在開場、選分支、重讀、關閉前後完全相同。一般立繪與 CG 回憶會隱藏分支區，`present_chapter` 也清空圖像，互不殘留。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`、`src/presentation/maid_portrait_viewer.gd`、`src/presentation/feature_navigation.gd`、`tests/maid_bond_chapter_runner.gd`（新增，含 Godot import 產生的 `.gd.uid`）、`tools/run_all_runners.ps1`、`docs/49-maid-companion-system-design.md`（新增 §16）、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`。未動 `maid_rules.gd`、`maid_system.gd`、`maid_save_contract.gd`、`save_codec.gd`、`save_manager.gd`、美術、字型或 Web 匯出。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_bond_chapter,maid_bond_cg_runner,maid_ui_runner,maid_ui2_runner' -TimeoutSeconds 240` → 4/4 PASS（MAID-BOND-CHAPTER 138、MAID-BOND-CG 68、MAID-UI 53、MAID-UI2 62 checks，failures=`[]`，無 SCRIPT ERROR）。新案例涵蓋九份腳本的標題對齊、兩行開場、兩個相異選項、每分支專屬回應、共同結語、同角色章節不重複文案、未領取章節隱藏重溫、44px 命中、共用遮罩純對話檢視器、兩分支互不顯示對方內容、重新閱讀復原選項、第三章重溫與 CG 回憶並存、換仙侍後標題與文案跟隨，以及全程快照零變更。另跑受影響的 `maid_stand_runner`、`ui_shell_integration_runner` → 2/2 PASS（MAID-STAND 33、UI-SHELL-1 44 checks）。`python tools\delivery_check.py` → RESULT PASS（受保護證據零變更）。
+- **邊界／驗證下限**：只跑 L1 單尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延後）。分支選擇刻意不持久化（「不得改規則」），「已讀」僅由既有章節領取旗標表示；未新增第二次獎勵或戰鬥／數值判定。可手動 commit：本次為仙侍小功能階段結束，非大型任務結案；代理未 commit／push。
+
+<a id="maid-display-pref"></a>
+## 2026-11-01 MAID-DISPLAY-PREF：洞府侍立展示偏好跨存檔／輪迴（L1，DONE）
+
+- **範圍／交付**：兌現 docs/48 §8「展示偏好跨世保留」，並補上 docs/49 §13 原本標為「未跨存檔／輪迴保存」的缺口。`state.maid` 巢狀區塊升為 `version = 2`，新增 `display: {expanded: bool, maid_id: String}`；`maid_id == ""` 表示自動跟隨當值職掌。`MaidSaveContract` 接受舊版 v1 並在 `normalize` 一律升級為 v2、補預設 `{expanded: true, maid_id: ""}`；v2 必須恰好三鍵，`display` 的鍵集、型別與非空角色 id 皆須合法，否則回 `MAID_DISPLAY` 由 `SaveCodec` 拒絕。最上層 `SCHEMA_VERSION` 維持 6，存檔外層格式不變。
+- **命令／讀取**：新增 `set_maid_display`（payload `{expanded, maid_id}`，`maid_id` 可空），已加入 `KNOWN_COMMAND_TYPES`、`GameSession._is_valid_shape`、`CommandProcessor._apply`、`SectReformSave.COMMANDS`；只寫 `state.maid.version` 與 `display`，不動 `maids`、羈絆、章節、庫存或職掌，相同值為 no-op，未知角色回 `UNKNOWN_MAID`。`MaidSystem.get_view()["maid"]` 新增 `display`，`MaidSystem.display()` 對缺欄或損壞值回預設且不寫狀態。
+- **UI／輪迴**：`maid_stand_display.refresh()` 讀取 `view.maid.display` 還原展開與手動選角；`cycle()`／`set_expanded()` 本地更新後送命令，成功即存檔並刷新 HUD，失敗由刷新回退。合成 view 無 `display` 時保留原「手動優先、否則跟隨當值」行為。`MaidSystem.on_reincarnate` 與 `ReincarnationRules.apply_reincarnation` 不碰 `display`，展開狀態與手動選角跨世保留。
+- **修改檔案**：`src/persistence/maid_save_contract.gd`、`src/simulation/maid_system.gd`、`src/simulation/command_processor.gd`、`src/application/game_session.gd`、`src/persistence/sect_reform_save.gd`、`src/presentation/maid_stand_display.gd`、`tests/maid_core_runner.gd`、`tests/maid_stand_runner.gd`、`docs/49-maid-companion-system-design.md`（§5／§6／§7／§8／§13，新增 §15）、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`。未改 `save_codec.gd`、`save_manager.gd`、美術、字型或 Web 匯出。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_core,maid_stand,maid_ui_runner,maid_ui2_runner' -TimeoutSeconds 240` → 4/4 PASS（MAID-CORE 210、MAID-STAND 33、MAID-UI 53、MAID-UI2 62 checks，failures=`[]`，無 SCRIPT ERROR）。新案例涵蓋：v1→v2 遷移與預設值、`MAID_DISPLAY` 各類非法值、命令 no-op／未知角色／壞 payload、存檔編解碼往返保留 `display`、`on_reincarnate` 與完整 `apply_reincarnation` 後保留、洞府收合後磁碟存檔為 `{expanded: false, maid_id: "qingheng"}`、展開後 `expanded: true`、view 可還原展示狀態，且仙侍名冊（羈絆／章節／職掌）完全未變。`python tools\delivery_check.py` → RESULT PASS（受保護證據目錄變動 0）。
+- **未驗證／下一步**：只跑 L1 單尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。舊存檔實際落盤遷移僅以 runner 內的 v1 合成存檔驗證，未以歷史存檔樣本重跑；`SCHEMA_VERSION` 未升版，跨版本回退（新版存檔給舊程式）不保證可讀。可手動 commit：本次為仙侍展示偏好階段結束，非大型任務結案；代理未 commit／push。
+
+<a id="maid-first-meeting"></a>
+## 2026-11-01 MAID-FIRST-MEETING：招募成功後自動進入首次相遇（L1，DONE）
+
+- **範圍／交付**：使用者要求「首次相遇自動觸發（目前只有人物頁的『初遇重溫』，未自動觸發）」，並選定「招募成功後自動播放」。人物頁新增 `play_first_meeting(maid_id)`：切到該仙侍、重設對話與捲動、進入初遇分頁並把焦點放在第一個選項；`feature_navigation._on_maid_action` 在 `recruit_maid` 命令成功且存檔成功後、刷新 View 之後呼叫，成功訊息「仙侍已入府。」在自動切頁後仍保留。未新增持久旗標、schema 或存檔格式：`recruit_maid` 本身一次性，重逢／輪迴不會重播。
+- **邊界**：招募失敗、條件不足或存檔失敗時不切換；其他仙侍命令（指派／暫停／領章／重逢等）行為不變。自動播放入口只發呈現動作，不送新命令、不重複給獎；手動「初遇重溫」與「重新相遇」維持原樣。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`（新增 `play_first_meeting`）、`src/presentation/feature_navigation.gd`（招募成功後刷新並自動播放）、`tests/maid_first_meeting_runner.gd`（新增，含 Godot import 產生的 `.gd.uid`）、`tools/run_all_runners.ps1`、`docs/49-maid-companion-system-design.md`（§9）、`docs/development-status.md`、`updata.txt`。未改 `maid_system.gd`、`maid_save_contract.gd`、`save_codec.gd`、美術、字型或 Web 匯出。
+- **驗收級別／結果（L1，單一 1280×720）**：`tools\run_all_runners.ps1 -Only 'maid_first_meeting,maid_ui_runner,maid_ui2_runner' -TimeoutSeconds 180` → 3/3 PASS（MAID-FIRST-MEETING 27、MAID-UI 53、MAID-UI2 62 checks，failures=`[]`，無 SCRIPT ERROR）；受影響的 `maid_art_r2_runner` 另跑 → PASS（78 checks）。新 runner 以空白存檔建茅屋、從羈絆分頁按招募，斷言：招募成功自動切到初遇分頁、選中該仙侍、`selected_reply == -1`、青蘅 `first-meeting.png` 與開場白正確、選項顯示且「重新相遇」隱藏、成功訊息保留；只允許 `maid`／`revision`／`command_receipts` 及刷新時既有的 `achievements`／`life_ledger` 記帳變動，其餘狀態切片不變；回覆→重播→回到人物頁的流程可逆且刷新不再改動狀態。`python tools\delivery_check.py` → RESULT PASS（受保護證據目錄變動 0）。
+- **未驗證／下一步**：只跑 L1 單尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。緊湊版面沿用既有隱藏選擇列規則，未另做自動播放專用版面；未在 Web 包重跑招募流程。可手動 commit：本次為仙侍小功能階段結束，非大型任務結案；代理未 commit／push。
+
 <a id="maid-bond-cg-integration"></a>
 ## 2026-11-01 MAID-BOND-CG-INTEGRATION：三張羈絆終章 CG 接入回憶重播（L1，DONE）
 
@@ -40,12 +89,15 @@
 - **未驗證／下一步**：只跑 L1 三支 runner 與單一尺寸；未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）。另以 `DAO_VIEWPORT_MATRIX=full` 直接跑 `maid_ui_runner` 作診斷（非验收）：僅 `page clears main navigation` 在緊湊人物頁失敗，已用原始 `mode == "person"` 版本對照確認屬既有項目，非本次改動引入。`tools/maid_art_r2_web_check.mjs` 的職掌／羈絆滾輪座標以舊版面量測，新增選擇列可能使緊湊尺寸座標需重校，未宣稱 Web 流程仍通過。可手動 commit：本次為仙侍後續小改，非大型任務結案；未 commit／push。
 
 <a id="maid-close"></a>
-## 2026-11-01 MAID-CLOSE：仙侍整批收尾（L3 限定：MAID 領域 runner＋桌面三橫式瀏覽器，DONE）
+## 2026-11-02 MAID-CLOSE：仙侍整批收尾完整 L3（全量 runner＋全尺寸矩陣＋Web 三橫式，DONE）
 
-- **範圍／交付**：使用者選定「MAID-CLOSE 收尾」，補完前一輪未做的短橫式人物面板點擊流程。`tools/maid_art_r2_web_check.mjs` 新增 `COMPACT` 座標表（844×390、800×360）與 canvas 空間點擊／滾輪；緊湊版面由面板自行重排（`_compact = bounds.size.y < 400 or bounds.size.x < 960`），故座標以實際截圖量測，不沿用 1280×720 等比換算。每個緊湊尺寸跑完整流程：關閉離線摘要→遊歷→人物→三位侍女→完整立繪開／關→初遇重溫→職掌（滾輪）→羈絆（滾輪）→關閉面板。
-- **修改檔案**：`tools/maid_art_r2_web_check.mjs`（擴充）、新增 `docs/verification/maid-close.md`、`docs/verification/artifacts/maid-close-web/`（38 張截圖＋報告）；`README.md`、`ROADMAP.md`、`updata.txt`。未改遊戲程式、規則、schema、美術或字型；沿用已修正字型的 `build/web-maid-art-r2`，未重新匯出。
-- **驗收級別／結果**：Chrome `156.0.8078.79`（CDP 9251、靜態伺服器 48351）。`node --experimental-websocket tools/maid_art_r2_web_check.mjs` → `MAID-ART-R2-WEB PASS errors=[]`：1280×720（canvas 1279×719，11 張流程截圖）、844×390（843×389）、800×360（799×359）皆無頁面溢出、存檔還原 `actions=4`、流程後存檔完整 schema=6；緊湊尺寸另斷言切換角色／立繪開關有變化、職掌與羈絆頁滾輪可捲動並露出操作項；主控台無 SCRIPT ERROR。`tools\run_all_runners.ps1 -Only 'maid' -TimeoutSeconds 180` → 5/5 PASS（37＋179＋62＋56＋78＝412 checks，failures=`[]`）。`delivery_check.py --web build/web-maid-art-r2` RESULT PASS（7/7）、`subset_game_fonts.py --check` exit 0、`git diff --check` exit 0。證據見 [MAID-CLOSE 驗收](verification/maid-close.md)。
-- **未驗證／下一步**：未跑全專案 L3 runner 矩陣與全尺寸矩陣，不稱「全量回歸通過」；未驗觸控、實機、DPR 2／3、實機旋轉、FPS、IndexedDB 落盤（依 2026-10-17 指令延期）。緊湊尺寸座標為截圖量測值，版面變動需重校。`build/web-maid-art-r2` 仍是本機測試包，非交付候選包；`index.pck` 152.9 MB 屬已延後的冷啟動／資產預算議題。仙侍首位角色（青蘅／糯美子／丹霞）整批收尾完成，後續可另開新 Chat 決定下一位角色或回到 EARLY-FLOW1-D。可手動 commit：本次為仙侍 MAID-CLOSE 里程碑結束（含先前未提交的 R2／UI／CORE 工作），未 commit／push。
+- **範圍／交付**：使用者指示「進 L2＋L3（即 docs/48 的 MAID-CLOSE）」。本輪補齊 2026-11-01 L3 限定輪未做的全專案 runner 矩陣、全尺寸矩陣、重新匯出與新包桌面三橫式。唯一遊戲程式修正：800×360 人物面板最小高度 189px 大於可用 156px，`PanelContainer` 長出底部導覽；`maid_character_panel.set_layout_bounds()` 於緊湊版面把名冊選擇列併入標題列（單列四頁籤＋三位仙侍），寬式仍還原兩列。修正後 800×360 最小尺寸 620×141、面板 768×156，完全落在紙面內。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`（緊湊單列標題）、`assets/fonts/runtime/Dao2Sans-VF.ttf`／`Dao2Serif-VF.ttf`／`manifest.json`（仙侍文案缺字，子集重建至 2048 碼位）、`docs/verification/maid-close.md`（改寫為完整 L3＋保留 11-01 歷史）、新增 `docs/verification/artifacts/maid-close-web-l3/`（38 張截圖＋報告）與 `docs/verification/artifacts/maid-art-r2-l3-fixture.json`、`docs/development-status.md`、`README.md`、`ROADMAP.md`、`updata.txt`。未改規則、schema、存檔、美術或經濟數值；`tests/maid_ui_runner.gd` 最終未留診斷輸出。
+- **L2（MAID 領域，1280×720）**：`tools\run_all_runners.ps1 -Only 'maid' -TimeoutSeconds 240` → 10/10 PASS：MAID-UI 53、MAID-CORE 266、MAID-OFFLINE 62、MAID-UI2 62、MAID-DUTY-PRESET 34、MAID-FIRST-MEETING 27、MAID-ART-R2 78、MAID-BOND-CG 68、MAID-BOND-CHAPTER 138、MAID-STAND 33，共 821 checks，failures=`[]`，無 SCRIPT ERROR。
+- **L3 全量與全尺寸**：`-Full -Parallel 3 -TimeoutSeconds 120`（170 支、`DAO_VIEWPORT_MATRIX=full`）首輪 9 支未過——`maid_ui` 真實失敗（800×360，修正後 153 checks 全過），其餘 8 支為 120 秒逾時（story／beasts／pills／talents／supply_progression／content_p1_accept／early_flow1d／sks_p2_flow），逾時時皆持續推進、無 SCRIPT ERROR。修正後 `-Only 'maid' -Matrix full -Parallel 3 -TimeoutSeconds 300` → 10/10 PASS；8 支長流程以 600 秒重跑 7 支 PASS（260–494s），`content_p2_supply_progression` 以 1800 秒重跑 PASS 1135.9s；`early_flow1d` 為 8 支中唯一讀 `DAO_VIEWPORT_MATRIX` 者，另以 `-Matrix full` 重跑 PASS 134.1s，其餘 7 支無尺寸分支，單尺寸結果等同全尺寸。
+- **Web／瀏覽器**：`--import` exit 0；`--export-release Web build/web-maid-close` exit 0（pck 159,007,356 B、wasm 39,514,754 B）；`prepare_web_compression` exit 0（br 合計 166,377,244 B）。fixture PASS（actions=4 units=20）。Chrome `156.0.8078.79`（CDP 9252、伺服器 48352）跑 `maid_art_r2_web_check.mjs` → `MAID-ART-R2-WEB PASS errors=[]`：1280×720（1279×719）、844×390（843×389）、800×360（799×359）皆無溢出、存檔還原 `actions=4`、流程後 schema=6；緊湊尺寸切換角色／立繪開關有變化、職掌與羈絆可捲動；主控台 92 行無 SCRIPT ERROR。首次自訂 `SAVE_NAMESPACE` 未還原存檔，因應用固定使用 `dao2_saves`（`living_abode.gd:354`），改回預設後通過。800×360 截圖確認單列標題列與完整小傳收束。
+- **收尾檢查**：`python tools/delivery_check.py --web build/web-maid-close` → RESULT PASS／exit 0（Web 7/7、head `b6130f35`、34 筆變更）；`subset_game_fonts.py --check` exit 0（2048 碼位）；`git diff --check` exit 0。證據見 [MAID-CLOSE 驗收](verification/maid-close.md)。
+- **邊界／下一步**：首輪 9 支未過已逐一修正或提高上限重跑通過，未再整批重跑第二次 `-Full`，故記錄為「170 支皆已於全尺寸矩陣或等效重跑通過」，不寫成單次 `-Full` 零失敗。未驗觸控、實機、DPR 2／3、旋轉、FPS、IndexedDB 落盤（依 2026-10-17 延期）。`build/web-maid-close` 為本機測試包，非交付候選包，pck 159.0 MB 屬已延後的冷啟動議題。依 docs/48 第 128 行，下一位角色或是否回到 EARLY-FLOW1-D 由使用者選定（先前建議 B＋青蘅）；仙侍首位角色整批收尾完成。可手動 commit：本次為大型里程碑（MAID-CLOSE）結束，適合手動 commit 整批仙侍工作；代理未 commit／push。
 
 <a id="maid-art-nd-r2-web"></a>
 ## 2026-11-01 MAID-ART-ND-R2 Web 匯出與桌面瀏覽器流程（L3 限定：Web＋瀏覽器，階段 DONE）

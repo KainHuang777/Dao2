@@ -1,3 +1,15 @@
+2026-11-01 **MAID-BOND-CHAPTER 羈絆章節對話分歧與已讀回放（L1）**：[狀態](docs/development-status.md#maid-bond-chapter)。
+
+2026-11-01 **MAID-DISPLAY-PREF 洞府侍立展示偏好跨存檔／輪迴（L1）**：[狀態](docs/development-status.md#maid-display-pref)。
+
+2026-11-01 **MAID-BOND-CG-INTEGRATION 三張羈絆終章 CG 已接入回憶重播（L1）**：[狀態](docs/development-status.md#maid-bond-cg-integration)。
+
+2026-11-01 **MAID-ART-BOND-CG 三張終章 CG 美術已接受；程式交 OpenCode**：[狀態](docs/development-status.md#maid-art-bond-cg)。
+
+2026-11-01 **MAID-STAND 洞府侍立可收合展示（L1）**：[狀態](docs/development-status.md#maid-stand)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
 2026-11-01 **MAID-CLOSE 仙侍整批收尾完成（L3 限定：MAID 領域 runner 5/5、桌面三橫式瀏覽器流程）**：[驗收](docs/verification/maid-close.md)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。

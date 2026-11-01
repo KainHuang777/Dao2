@@ -32,6 +32,19 @@ const CHAPTERS := {
 	],
 }
 const DUTY_CADENCE_SECONDS := {"steward_stock": 10, "oversee_build": 30, "restock_pills": 10}
+const DUTY_PRESETS := {
+	"steward_stock": [
+		{"id": "steady", "name": "常備", "target": 5, "reserve_ratio": 0.2},
+		{"id": "ample", "name": "充裕", "target": 10, "reserve_ratio": 0.1},
+		{"id": "rush", "name": "趕工", "target": 20, "reserve_ratio": 0.0},
+	],
+	"oversee_build": [],
+	"restock_pills": [
+		{"id": "steady", "name": "常備", "target": 5, "reserve_ratio": 0.2},
+		{"id": "ample", "name": "充裕", "target": 10, "reserve_ratio": 0.1},
+		{"id": "rush", "name": "趕工", "target": 20, "reserve_ratio": 0.0},
+	],
+}
 const MAX_UNITS_PER_ACTION := 5
 const MAX_ACTIONS_PER_CALL := 5
 const FIRST_DUTY_BOND := 10
@@ -41,6 +54,9 @@ static func maid(maid_id: String) -> Dictionary:
 
 static func chapters(maid_id: String) -> Array:
 	return CHAPTERS.get(maid_id, [])
+
+static func duty_presets(kind: String) -> Array:
+	return DUTY_PRESETS.get(kind, [])
 
 static func chapter(maid_id: String, chapter_id: String) -> Dictionary:
 	for entry in chapters(maid_id):

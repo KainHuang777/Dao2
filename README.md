@@ -1,8 +1,8 @@
-2026-11-01 **MAID-BOND-CG-INTEGRATION 三張羈絆終章 CG 已接入回憶重播（L1）**：[狀態](docs/development-status.md#maid-bond-cg-integration)。
+2026-11-02 **MAID-CLOSE 仙侍整批收尾完整 L3（全量 runner＋全尺寸矩陣＋Web 三橫式）**：[狀態](docs/development-status.md#maid-close)；[驗收](docs/verification/maid-close.md)。
 
-2026-11-01 **MAID-ART-BOND-CG 三張終章 CG 美術已接受；程式交 OpenCode**：[狀態](docs/development-status.md#maid-art-bond-cg)。
+2026-11-01 **MAID-PARALLEL-1 多仙侍並行職掌（L1）**：[狀態](docs/development-status.md#maid-parallel)。
 
-2026-11-01 **MAID-STAND 洞府侍立可收合展示（L1）**：[狀態](docs/development-status.md#maid-stand)。
+2026-11-01 **MAID-DUTY-PRESET 職掌預設組合、保留量 UI 與材料不足提示（L1）**：[狀態](docs/development-status.md#maid-duty-preset)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
 

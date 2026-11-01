@@ -1,0 +1,1030 @@
+{
+  "ok": true,
+  "utc": "2026-11-01T17:02:31.155Z",
+  "url": "http://127.0.0.1:48352/index.html",
+  "screens": [
+    {
+      "vp": [
+        1280,
+        720
+      ],
+      "clicks": [
+        {
+          "label": "close-offline-summary",
+          "logical": [
+            439,
+            79
+          ],
+          "css": [
+            438.3902777777778,
+            78.89027777777778
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "dock-characters",
+          "logical": [
+            360,
+            664
+          ],
+          "css": [
+            359.5,
+            663.0777777777778
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "select-nuomeizi",
+          "logical": [
+            154,
+            221
+          ],
+          "css": [
+            153.78611111111113,
+            220.69305555555556
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "select-danxia",
+          "logical": [
+            241,
+            221
+          ],
+          "css": [
+            240.6652777777778,
+            220.69305555555556
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "select-qingheng",
+          "logical": [
+            78,
+            221
+          ],
+          "css": [
+            77.89166666666667,
+            220.69305555555556
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "open-art-viewer",
+          "logical": [
+            449,
+            374
+          ],
+          "css": [
+            448.37638888888887,
+            373.48055555555555
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "tab-meeting",
+          "logical": [
+            1027,
+            170
+          ],
+          "css": [
+            1025.5736111111112,
+            169.76388888888889
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "tab-work",
+          "logical": [
+            1122,
+            170
+          ],
+          "css": [
+            1120.4416666666666,
+            169.76388888888889
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "tab-bond",
+          "logical": [
+            1204,
+            170
+          ],
+          "css": [
+            1202.3277777777778,
+            169.76388888888889
+          ],
+          "scale": 0.9986111111111111
+        },
+        {
+          "label": "close-panel",
+          "logical": [
+            1166,
+            101
+          ],
+          "css": [
+            1164.3805555555555,
+            100.85972222222222
+          ],
+          "scale": 0.9986111111111111
+        }
+      ],
+      "shots": [
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-01-offline-summary.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-02-world.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-03-characters.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-04-nuomeizi-person.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-05-danxia-person.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-06-art-viewer.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-07-art-viewer-closed.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-08-meeting.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-09-work.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-10-bond.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\1280x720-11-world-after-close.png"
+      ],
+      "checks": {
+        "canvas_fits": true,
+        "no_page_overflow": true,
+        "save_restored": true,
+        "save_intact": true
+      },
+      "metrics": {
+        "inner": [
+          1280,
+          720
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          1279,
+          719
+        ],
+        "buffer": [
+          1280,
+          720
+        ],
+        "doc": [
+          1280,
+          720
+        ],
+        "body": [
+          1280,
+          0
+        ]
+      }
+    },
+    {
+      "vp": [
+        844,
+        390
+      ],
+      "clicks": [
+        {
+          "label": "close-offline-summary",
+          "logical": [
+            475,
+            69
+          ],
+          "css": [
+            475,
+            69
+          ]
+        },
+        {
+          "label": "dock-characters",
+          "logical": [
+            361,
+            342
+          ],
+          "css": [
+            361,
+            342
+          ]
+        },
+        {
+          "label": "select-nuomeizi",
+          "logical": [
+            175,
+            215
+          ],
+          "css": [
+            175,
+            215
+          ]
+        },
+        {
+          "label": "select-danxia",
+          "logical": [
+            263,
+            215
+          ],
+          "css": [
+            263,
+            215
+          ]
+        },
+        {
+          "label": "select-qingheng",
+          "logical": [
+            75,
+            215
+          ],
+          "css": [
+            75,
+            215
+          ]
+        },
+        {
+          "label": "open-art-viewer",
+          "logical": [
+            150,
+            300
+          ],
+          "css": [
+            150,
+            300
+          ]
+        },
+        {
+          "label": "close-art-viewer",
+          "logical": [
+            790,
+            35
+          ],
+          "css": [
+            790,
+            35
+          ]
+        },
+        {
+          "label": "tab-meeting",
+          "logical": [
+            175,
+            165
+          ],
+          "css": [
+            175,
+            165
+          ]
+        },
+        {
+          "label": "tab-work",
+          "logical": [
+            263,
+            165
+          ],
+          "css": [
+            263,
+            165
+          ]
+        },
+        {
+          "label": "wheel",
+          "css": [
+            400,
+            250
+          ],
+          "deltaY": 300,
+          "steps": 3
+        },
+        {
+          "label": "tab-bond",
+          "logical": [
+            363,
+            165
+          ],
+          "css": [
+            363,
+            165
+          ]
+        },
+        {
+          "label": "wheel",
+          "css": [
+            400,
+            250
+          ],
+          "deltaY": 300,
+          "steps": 3
+        },
+        {
+          "label": "close-panel",
+          "logical": [
+            723,
+            100
+          ],
+          "css": [
+            723,
+            100
+          ]
+        }
+      ],
+      "shots": [
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-01-offline-summary.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-02-world.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-03-characters.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-04-nuomeizi-person.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-05-danxia-person.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-06-art-viewer.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-07-art-viewer-closed.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-08-meeting.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-09-work.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-09b-work-scrolled.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-10-bond.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-10b-bond-scrolled.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\844x390-11-world-after-close.png"
+      ],
+      "checks": {
+        "canvas_fits": true,
+        "no_page_overflow": true,
+        "save_restored": true,
+        "maid_switch_differs": true,
+        "viewer_toggled": true,
+        "work_scrolled": true,
+        "bond_scrolled": true,
+        "save_intact": true
+      },
+      "metrics": {
+        "inner": [
+          844,
+          390
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          843,
+          389
+        ],
+        "buffer": [
+          844,
+          390
+        ],
+        "doc": [
+          844,
+          390
+        ],
+        "body": [
+          844,
+          0
+        ]
+      }
+    },
+    {
+      "vp": [
+        800,
+        360
+      ],
+      "clicks": [
+        {
+          "label": "close-offline-summary",
+          "logical": [
+            446,
+            68
+          ],
+          "css": [
+            446,
+            68
+          ]
+        },
+        {
+          "label": "dock-characters",
+          "logical": [
+            343,
+            316
+          ],
+          "css": [
+            343,
+            316
+          ]
+        },
+        {
+          "label": "select-nuomeizi",
+          "logical": [
+            157,
+            195
+          ],
+          "css": [
+            157,
+            195
+          ]
+        },
+        {
+          "label": "select-danxia",
+          "logical": [
+            246,
+            195
+          ],
+          "css": [
+            246,
+            195
+          ]
+        },
+        {
+          "label": "select-qingheng",
+          "logical": [
+            62,
+            195
+          ],
+          "css": [
+            62,
+            195
+          ]
+        },
+        {
+          "label": "open-art-viewer",
+          "logical": [
+            120,
+            270
+          ],
+          "css": [
+            120,
+            270
+          ]
+        },
+        {
+          "label": "close-art-viewer",
+          "logical": [
+            747,
+            32
+          ],
+          "css": [
+            747,
+            32
+          ]
+        },
+        {
+          "label": "tab-meeting",
+          "logical": [
+            160,
+            148
+          ],
+          "css": [
+            160,
+            148
+          ]
+        },
+        {
+          "label": "tab-work",
+          "logical": [
+            246,
+            148
+          ],
+          "css": [
+            246,
+            148
+          ]
+        },
+        {
+          "label": "wheel",
+          "css": [
+            380,
+            235
+          ],
+          "deltaY": 300,
+          "steps": 3
+        },
+        {
+          "label": "tab-bond",
+          "logical": [
+            344,
+            148
+          ],
+          "css": [
+            344,
+            148
+          ]
+        },
+        {
+          "label": "wheel",
+          "css": [
+            380,
+            235
+          ],
+          "deltaY": 300,
+          "steps": 3
+        },
+        {
+          "label": "close-panel",
+          "logical": [
+            689,
+            88
+          ],
+          "css": [
+            689,
+            88
+          ]
+        }
+      ],
+      "shots": [
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-01-offline-summary.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-02-world.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-03-characters.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-04-nuomeizi-person.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-05-danxia-person.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-06-art-viewer.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-07-art-viewer-closed.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-08-meeting.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-09-work.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-09b-work-scrolled.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-10-bond.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-10b-bond-scrolled.png",
+        "docs\\verification\\artifacts\\maid-close-web-l3\\800x360-11-world-after-close.png"
+      ],
+      "checks": {
+        "canvas_fits": true,
+        "no_page_overflow": true,
+        "save_restored": true,
+        "maid_switch_differs": true,
+        "viewer_toggled": true,
+        "work_scrolled": true,
+        "bond_scrolled": true,
+        "save_intact": true
+      },
+      "metrics": {
+        "inner": [
+          800,
+          360
+        ],
+        "dpr": 1.0000000149011612,
+        "canvas": [
+          0,
+          0,
+          799,
+          359
+        ],
+        "buffer": [
+          800,
+          360
+        ],
+        "doc": [
+          800,
+          360
+        ],
+        "body": [
+          800,
+          0
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "1280x720-canvas-fits": {
+      "ok": true,
+      "detail": "canvas=0,0,1279,719"
+    },
+    "1280x720-no-page-overflow": {
+      "ok": true,
+      "detail": "doc=1280x720 inner=1280x720"
+    },
+    "1280x720-save-restored": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "1280x720-save-intact-after-flow": {
+      "ok": true,
+      "detail": "schema=6"
+    },
+    "844x390-canvas-fits": {
+      "ok": true,
+      "detail": "canvas=0,0,843,389"
+    },
+    "844x390-no-page-overflow": {
+      "ok": true,
+      "detail": "doc=844x390 inner=844x390"
+    },
+    "844x390-save-restored": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "844x390-maid-switch-differs": {
+      "ok": true,
+      "detail": "nuomeizi vs danxia screenshots"
+    },
+    "844x390-viewer-open-close-differs": {
+      "ok": true,
+      "detail": "viewer screenshots"
+    },
+    "844x390-work-page-scrolls": {
+      "ok": true,
+      "detail": "wheel over duty page"
+    },
+    "844x390-bond-page-scrolls": {
+      "ok": true,
+      "detail": "wheel over bond page"
+    },
+    "844x390-save-intact-after-flow": {
+      "ok": true,
+      "detail": "schema=6"
+    },
+    "800x360-canvas-fits": {
+      "ok": true,
+      "detail": "canvas=0,0,799,359"
+    },
+    "800x360-no-page-overflow": {
+      "ok": true,
+      "detail": "doc=800x360 inner=800x360"
+    },
+    "800x360-save-restored": {
+      "ok": true,
+      "detail": "actions=4"
+    },
+    "800x360-maid-switch-differs": {
+      "ok": true,
+      "detail": "nuomeizi vs danxia screenshots"
+    },
+    "800x360-viewer-open-close-differs": {
+      "ok": true,
+      "detail": "viewer screenshots"
+    },
+    "800x360-work-page-scrolls": {
+      "ok": true,
+      "detail": "wheel over duty page"
+    },
+    "800x360-bond-page-scrolls": {
+      "ok": true,
+      "detail": "wheel over bond page"
+    },
+    "800x360-save-intact-after-flow": {
+      "ok": true,
+      "detail": "schema=6"
+    },
+    "console-no-script-error": {
+      "ok": true,
+      "detail": "lines=92"
+    }
+  },
+  "errors": [],
+  "console": [
+    {
+      "utc": "2026-11-01T17:02:31.227Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.227Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.228Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T17:02:31.228Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.229Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.229Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.230Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.230Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.231Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.231Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.231Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.231Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.232Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.232Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.232Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.232Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.233Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.233Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.233Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.233Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.233Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.233Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.234Z",
+      "text": "ABODE_LAYOUT mode=compact size=(1280.0, 938.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.234Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.234Z",
+      "text": "ABODE_LAYOUT mode=compact size=(1280.0, 938.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.264Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.264Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:31.303Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:32.187Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T17:02:32.359Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T17:02:32.458Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T17:02:34.846Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T17:02:35.305Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T17:02:36.491Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:36.491Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:02:36.532Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T17:02:36.537Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:36.567Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:37.083Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T17:02:42.762Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:42.863Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:48.357Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:49.724Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:55.486Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:55.502Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:55.506Z",
+      "text": "ABODE_LAYOUT mode=wide size=(1280.0, 720.0)"
+    },
+    {
+      "utc": "2026-11-01T17:02:57.914Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T17:02:58.078Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T17:02:58.185Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T17:03:00.564Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T17:03:01.026Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.188Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.188Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.192Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.231Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.236Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.236Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.303Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:02.801Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T17:03:07.855Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:07.971Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:07.972Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:09.528Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:14.446Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:22.996Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:22.996Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:23.013Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:23.017Z",
+      "text": "ABODE_LAYOUT mode=compact size=(779.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:24.252Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:24.253Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:25.193Z",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "utc": "2026-11-01T17:03:25.364Z",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "utc": "2026-11-01T17:03:25.460Z",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "utc": "2026-11-01T17:03:27.888Z",
+      "text": "OFFLINE_SETTLEMENT_BEGIN"
+    },
+    {
+      "utc": "2026-11-01T17:03:28.347Z",
+      "text": "OFFLINE_SETTLEMENT_END: ok=true"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.501Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.502Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.506Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.546Z",
+      "text": "ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.552Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.552Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:29.579Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:30.097Z",
+      "text": "BGM_WEB_READY: 01_The_Unresolved_Ascent.mp3 seconds=62.4319953918457"
+    },
+    {
+      "utc": "2026-11-01T17:03:35.091Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:35.207Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:35.207Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:36.699Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:41.529Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:50.136Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:50.136Z",
+      "text": "ABODE_CAMERA_HOME"
+    },
+    {
+      "utc": "2026-11-01T17:03:50.160Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    },
+    {
+      "utc": "2026-11-01T17:03:50.167Z",
+      "text": "ABODE_LAYOUT mode=compact size=(800.0, 360.0)"
+    }
+  ]
+}

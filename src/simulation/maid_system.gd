@@ -1,10 +1,11 @@
 class_name MaidSystem
 extends RefCounted
 
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
 const MAX_ACTIONS_PER_ADVANCE := 1000
 const XIANGZHI_BOND := 40
 const ART_READY := ["qingheng", "nuomeizi", "danxia"]
+const DISPLAY_DEFAULT := {"expanded": true, "maid_id": ""}
 
 static func ensure_state(state: GameState) -> void:
 	if state == null:
@@ -12,7 +13,32 @@ static func ensure_state(state: GameState) -> void:
 	var raw: Variant = state.get("maid")
 	if raw is Dictionary and not raw.is_empty():
 		return
-	state.set("maid", {"version": SAVE_VERSION, "maids": {}})
+	state.set("maid", {"version": SAVE_VERSION, "maids": {}, "display": DISPLAY_DEFAULT.duplicate(true)})
+
+static func display(state: GameState) -> Dictionary:
+	if state == null: return DISPLAY_DEFAULT.duplicate(true)
+	return _normalize_display(_maid_state(state).get("display"))
+
+static func set_display(state: GameState, expanded: bool, maid_id: String) -> Dictionary:
+	if not maid_id.is_empty() and not MaidRules.MAID_IDS.has(maid_id):
+		return {"ok": false, "error": "UNKNOWN_MAID", "events": [], "changed_ids": []}
+	var root := _maid_state(state).duplicate(true)
+	if root.is_empty():
+		root = {"version": SAVE_VERSION, "maids": {}}
+	var current := _normalize_display(root.get("display"))
+	var upgraded := int(root.get("version", 0)) != SAVE_VERSION or not (root.get("display") is Dictionary)
+	if not upgraded and bool(current["expanded"]) == expanded and String(current["maid_id"]) == maid_id:
+		return {"ok": true, "events": [], "changed_ids": []}
+	root["version"] = SAVE_VERSION
+	if not root.get("maids") is Dictionary:
+		root["maids"] = {}
+	root["display"] = {"expanded": expanded, "maid_id": maid_id}
+	state.set("maid", root)
+	return {
+		"ok": true,
+		"events": [{"kind": "maid_display_set", "expanded": expanded, "maid_id": maid_id}],
+		"changed_ids": ["maid"],
+	}
 
 static func _plain_name(raw: String) -> String:
 	var start := -1
@@ -22,6 +48,65 @@ static func _plain_name(raw: String) -> String:
 			start = index
 			break
 	return raw.substr(start) if start > 0 else raw
+
+static func _resource_label(catalog: Dictionary, resource_id: String) -> String:
+	var raw_defs: Variant = catalog.get("resources", {})
+	if raw_defs is Dictionary:
+		var def: Variant = (raw_defs as Dictionary).get(resource_id)
+		if def is Dictionary:
+			var name := String(def.get("name", resource_id))
+			if not name.is_empty():
+				return _plain_name(name)
+	var raw_pill: Variant = AlchemySystem.PILLS.get(resource_id)
+	if raw_pill is Dictionary:
+		var pill_name := String(raw_pill.get("name", resource_id))
+		if not pill_name.is_empty():
+			return _plain_name(pill_name)
+	return resource_id
+
+static func _owned_state_amount(state: GameState, resource_id: String) -> float:
+	var raw_pill: Variant = AlchemySystem.PILLS.get(resource_id)
+	if raw_pill is Dictionary:
+		return float(_pill_units(state, resource_id))
+	return IslandEconomy.value(state, "home", resource_id)
+
+static func _recipe_option(state: GameState, catalog: Dictionary, recipe_id: String, recipe_name: String, recipe: Dictionary) -> Dictionary:
+	var input_rows: Array = []
+	var inputs: Variant = recipe.get("inputs")
+	if inputs is Dictionary:
+		for input_id in inputs:
+			var input_key := String(input_id)
+			input_rows.append({
+				"id": input_key,
+				"name": _resource_label(catalog, input_key),
+				"per_batch": _amount_number(inputs[input_id]),
+				"stock": IslandEconomy.value(state, "home", input_key),
+			})
+	var output := _amount_number(recipe.get("output"))
+	if not is_finite(output) or output <= 0.0:
+		output = 1.0
+	var product := ProcessingCatalog.product_id(catalog, recipe_id)
+	return {
+		"id": recipe_id,
+		"name": recipe_name,
+		"output": output,
+		"stock": _stock_units(state, catalog, product),
+		"inputs": input_rows,
+	}
+
+static func _pill_option(state: GameState, catalog: Dictionary, pill_id: String, pill_name: String) -> Dictionary:
+	var cost_rows: Array = []
+	var cost: Variant = AlchemySystem.refinement_cost(state, pill_id, 1)
+	if cost is Dictionary:
+		for resource_id in cost:
+			var cost_key := String(resource_id)
+			cost_rows.append({
+				"id": cost_key,
+				"name": _resource_label(catalog, cost_key),
+				"per_unit": _amount_number(cost[resource_id]),
+				"stock": _owned_state_amount(state, cost_key),
+			})
+	return {"id": pill_id, "name": pill_name, "stock": _pill_units(state, pill_id), "cost": cost_rows}
 
 static func get_view(state: GameState, content: GameContent) -> Dictionary:
 	var catalog: Dictionary = content.processing_catalog if content != null else {}
@@ -40,7 +125,7 @@ static func get_view(state: GameState, content: GameContent) -> Dictionary:
 						var product_def: Variant = (catalog_resources as Dictionary).get(product)
 						if product_def is Dictionary:
 							recipe_name = String(product_def.get("name", recipe_name))
-			recipes_opts.append({"id": String(recipe_id), "name": _plain_name(recipe_name)})
+			recipes_opts.append(_recipe_option(state, catalog, String(recipe_id), _plain_name(recipe_name), raw_recipe if raw_recipe is Dictionary else {}))
 	var buildings_opts: Array = []
 	var building_defs: Dictionary = content.buildings if content != null else {}
 	var buildings_raw: Variant = state.buildings
@@ -58,11 +143,13 @@ static func get_view(state: GameState, content: GameContent) -> Dictionary:
 		var pill_name := String(pill_id)
 		if raw_pill is Dictionary:
 			pill_name = String(raw_pill.get("name", pill_id))
-		pills_opts.append({"id": String(pill_id), "name": pill_name})
+		pills_opts.append(_pill_option(state, catalog, String(pill_id), pill_name))
 	var result := {
 		"version": SAVE_VERSION,
 		"bond_levels": MaidRules.BOND_LEVELS.duplicate(true),
 		"active_duty": "",
+		"active_duties": [],
+		"display": display(state),
 		"maids": {},
 	}
 	for maid_id in MaidRules.MAIDS:
@@ -89,9 +176,11 @@ static func get_view(state: GameState, content: GameContent) -> Dictionary:
 				"can_claim": bool(hint.can),
 				"reason": String(hint.reason),
 			})
-		var duty_view := _duty_view(entry)
-		if not duty_view.is_empty() and not bool(duty_view.get("paused", false)) and String(result.get("active_duty", "")).is_empty():
-			result.active_duty = mid
+		var duty_view := _duty_view(entry, state, content)
+		if not duty_view.is_empty() and not bool(duty_view.get("paused", false)):
+			result.active_duties.append(mid)
+			if String(result.get("active_duty", "")).is_empty():
+				result.active_duty = mid
 		var options := {
 			"recipes": recipes_opts.duplicate(true),
 			"buildings": buildings_opts.duplicate(true),
@@ -153,8 +242,6 @@ static func assign_duty(state: GameState, content: GameContent, maid_id: String,
 	var expected := String(MaidRules.MAIDS[maid_id].get("duty", ""))
 	if not kind is String or String(kind) != expected:
 		return _fail("DUTY_KIND")
-	if _active_other(state, maid_id):
-		return _fail("DUTY_BUSY")
 	var cleaned := {}
 	match expected:
 		"steward_stock":
@@ -218,8 +305,6 @@ static func set_duty_paused(state: GameState, maid_id: String, paused: bool) -> 
 	if not raw is Dictionary or raw.is_empty():
 		return _fail("DUTY_NONE")
 	var duty: Dictionary = raw
-	if not paused and _active_other(state, maid_id):
-		return _fail("DUTY_BUSY")
 	duty.paused = paused
 	duty.status = "PAUSED" if paused else "RUNNING"
 	return {"ok": true, "events": [], "changed_ids": ["maid"]}
@@ -304,54 +389,77 @@ static func advance(content: GameContent, state: GameState, ticks: int, max_acti
 		return {"ok": true, "events": events, "changed_ids": []}
 	var ids: Array = maids.keys()
 	ids.sort()
-	var actions := 0
-	var touched := false
+	var lanes: Array = []
 	for maid_id in ids:
-		if actions >= limit:
-			break
 		var entry_var: Variant = maids.get(maid_id)
 		if not entry_var is Dictionary:
 			continue
 		var entry: Dictionary = entry_var
 		var raw: Variant = entry.get("duty")
-		if not raw is Dictionary or raw.is_empty():
+		if not raw is Dictionary or (raw as Dictionary).is_empty():
 			continue
 		var duty: Dictionary = raw
 		if bool(duty.get("paused", false)):
 			continue
-		touched = true
+		lanes.append({"id": String(maid_id), "entry": entry, "duty": duty})
+	if lanes.is_empty():
+		return {"ok": true, "events": events, "changed_ids": []}
+	var actions := 0
+	while actions < limit:
+		if remaining > 0:
+			var step := remaining
+			for lane in lanes:
+				var tick_duty: Dictionary = lane.duty
+				step = mini(step, maxi(0, _int_of(tick_duty.get("cooldown", 0))))
+			if step > 0:
+				for lane in lanes:
+					var tick_duty: Dictionary = lane.duty
+					tick_duty.cooldown = maxi(0, _int_of(tick_duty.get("cooldown", 0)) - step)
+				remaining -= step
+		var pick: Dictionary = {}
+		for lane in lanes:
+			var ready_duty: Dictionary = lane.duty
+			if _int_of(ready_duty.get("cooldown", 0)) > 0:
+				continue
+			if pick.is_empty() or _less_served(lane, pick):
+				pick = lane
+		if pick.is_empty():
+			break
+		var maid_id := String(pick.id)
+		var entry: Dictionary = pick.entry
+		var duty: Dictionary = pick.duty
 		var cadence := _cadence(duty)
-		while remaining > 0 and actions < limit:
-			var cooldown := maxi(0, _int_of(duty.get("cooldown", 0)))
-			var step := mini(remaining, cooldown)
-			duty.cooldown = cooldown - step
-			remaining -= step
-			if cooldown - step > 0:
-				break
-			var action := _run_action(state, content, String(maid_id), duty)
-			actions += 1
-			if bool(action.get("ok", false)):
-				duty.cooldown = cadence
-				if bool(action.get("noop", false)):
-					duty.status = String(action.get("status", "RUNNING"))
-				else:
-					duty.status = "RUNNING"
-					_record_success(String(maid_id), entry, duty, int(action.get("units", 0)), events)
-					var action_extras: Variant = action.get("extras", [])
-					if action_extras is Array:
-						for extra in action_extras:
-							if not extras.has(extra):
-								extras.append(extra)
+		var action := _run_action(state, content, maid_id, duty)
+		actions += 1
+		if bool(action.get("ok", false)):
+			duty.cooldown = cadence
+			if bool(action.get("noop", false)):
+				duty.status = String(action.get("status", "RUNNING"))
 			else:
-				duty.cooldown = cadence
-				duty.status = String(action.get("error", "INSUFFICIENT_RESOURCE"))
-	if touched:
-		var changed: Array = ["maid"]
-		for extra in extras:
-			if not changed.has(extra):
-				changed.append(extra)
-		return {"ok": true, "events": events, "changed_ids": changed}
-	return {"ok": true, "events": [], "changed_ids": []}
+				duty.status = "RUNNING"
+				_record_success(maid_id, entry, duty, int(action.get("units", 0)), events)
+				var action_extras: Variant = action.get("extras", [])
+				if action_extras is Array:
+					for extra in action_extras:
+						if not extras.has(extra):
+							extras.append(extra)
+		else:
+			duty.cooldown = cadence
+			duty.status = String(action.get("error", "INSUFFICIENT_RESOURCE"))
+	var changed: Array = ["maid"]
+	for extra in extras:
+		if not changed.has(extra):
+			changed.append(extra)
+	return {"ok": true, "events": events, "changed_ids": changed}
+
+static func _less_served(candidate: Dictionary, current: Dictionary) -> bool:
+	var candidate_entry: Dictionary = candidate.entry
+	var current_entry: Dictionary = current.entry
+	var candidate_actions := _int_of(candidate_entry.get("duty_actions", 0))
+	var current_actions := _int_of(current_entry.get("duty_actions", 0))
+	if candidate_actions != current_actions:
+		return candidate_actions < current_actions
+	return String(candidate.id) < String(current.id)
 
 static func offline_report(events: Array) -> Dictionary:
 	var actions := 0
@@ -443,6 +551,16 @@ static func _maid_state(state: GameState) -> Dictionary:
 		return raw
 	return {}
 
+static func _normalize_display(value: Variant) -> Dictionary:
+	var result := DISPLAY_DEFAULT.duplicate(true)
+	if not (value is Dictionary): return result
+	var display: Dictionary = value
+	var expanded: Variant = display.get("expanded")
+	if expanded is bool: result["expanded"] = bool(expanded)
+	var maid_id: Variant = display.get("maid_id")
+	if maid_id is String and MaidRules.MAID_IDS.has(String(maid_id)): result["maid_id"] = String(maid_id)
+	return result
+
 static func _maids_map(state: GameState) -> Dictionary:
 	var raw: Variant = _maid_state(state).get("maids")
 	if raw is Dictionary:
@@ -459,6 +577,9 @@ static func _ensure_entry(state: GameState, maid_id: String) -> Dictionary:
 	var root := _maid_state(state)
 	if root.is_empty():
 		root = {"version": SAVE_VERSION, "maids": {}}
+	root["version"] = SAVE_VERSION
+	if not (root.get("display") is Dictionary):
+		root["display"] = DISPLAY_DEFAULT.duplicate(true)
 	var maids: Variant = root.get("maids")
 	if not maids is Dictionary:
 		maids = {}
@@ -490,26 +611,13 @@ static func _ensure_entry(state: GameState, maid_id: String) -> Dictionary:
 	state.set("maid", root)
 	return current
 
-static func _active_other(state: GameState, maid_id: String) -> bool:
-	var maids := _maids_map(state)
-	for other_id in maids:
-		if String(other_id) == maid_id:
-			continue
-		var other: Variant = maids.get(other_id)
-		if not other is Dictionary:
-			continue
-		var duty: Variant = other.get("duty")
-		if duty is Dictionary and not duty.is_empty() and not bool(duty.get("paused", false)):
-			return true
-	return false
-
 static func _cadence(duty: Dictionary) -> int:
 	return _cadence_for(String(duty.get("kind", "")))
 
 static func _cadence_for(kind: String) -> int:
 	return maxi(1, _int_of(MaidRules.DUTY_CADENCE_SECONDS.get(kind, 10)))
 
-static func _duty_view(entry: Dictionary) -> Dictionary:
+static func _duty_view(entry: Dictionary, state: GameState, content: GameContent) -> Dictionary:
 	var raw: Variant = entry.get("duty")
 	if not raw is Dictionary or raw.is_empty():
 		return {}
@@ -532,7 +640,177 @@ static func _duty_view(entry: Dictionary) -> Dictionary:
 		view.pill_id = String(duty.get("pill_id", ""))
 		view.target = _int_of(duty.get("target", 0))
 		view.reserve = _safe_dict(duty.get("reserve", {}))
+	var shortage := _duty_shortage(state, content, duty)
+	if not shortage.is_empty():
+		view.shortage = shortage
+		view.shortage_text = _shortage_text(shortage)
 	return view
+
+static func _duty_shortage(state: GameState, content: GameContent, duty: Dictionary) -> Dictionary:
+	match String(duty.get("kind", "")):
+		"steward_stock":
+			return _steward_shortage(state, content, duty)
+		"restock_pills":
+			return _restock_shortage(state, content, duty)
+		"oversee_build":
+			return _oversee_shortage(state, content, duty)
+	return {}
+
+static func _shortage_row(state: GameState, catalog: Dictionary, resource_id: String, required: float, reserve: float, pill_based: bool) -> Dictionary:
+	var owned := float(_pill_units(state, resource_id)) if pill_based else IslandEconomy.value(state, "home", resource_id)
+	var available := maxf(0.0, owned - reserve)
+	return {
+		"id": resource_id,
+		"name": _resource_label(catalog, resource_id),
+		"required": required,
+		"stock": owned,
+		"reserve": reserve,
+		"missing": maxf(0.0, required - available),
+	}
+
+static func _shortage_text(shortage: Dictionary) -> String:
+	var rows: Variant = shortage.get("inputs", [])
+	if not rows is Array or (rows as Array).is_empty():
+		return ""
+	var row: Dictionary = (rows as Array)[0]
+	var name := String(row.get("name", row.get("id", "")))
+	var missing := _amount_string(row.get("missing", 0.0))
+	var required := _amount_string(row.get("required", 0.0))
+	var stock := _amount_string(row.get("stock", 0.0))
+	var reserve := _amount_string(row.get("reserve", 0.0))
+	if float(row.get("reserve", 0.0)) > 0.0:
+		return "%s不足 %s（需 %s，現有 %s，保留 %s）" % [name, missing, required, stock, reserve]
+	return "%s不足 %s（需 %s，現有 %s）" % [name, missing, required, stock]
+
+static func _amount_string(raw: Variant) -> String:
+	return AmountCompat.from_number(_amount_number(raw)).to_display_string()
+
+static func _steward_shortage(state: GameState, content: GameContent, duty: Dictionary) -> Dictionary:
+	var catalog: Dictionary = content.processing_catalog if content != null else {}
+	var recipes: Variant = catalog.get("recipes")
+	var recipe_id := String(duty.get("recipe_id", ""))
+	if not recipes is Dictionary or not (recipes as Dictionary).has(recipe_id):
+		return {}
+	var recipe: Dictionary = (recipes as Dictionary)[recipe_id]
+	var product := ProcessingCatalog.product_id(catalog, recipe_id)
+	var stock := _stock_units(state, catalog, product)
+	var need := _int_of(duty.get("target", 0)) - stock
+	if need <= 0:
+		return {}
+	var output := _amount_number(recipe.get("output"))
+	if not is_finite(output) or output < 1.0:
+		output = 1.0
+	var desired := maxi(1, int(ceilf(float(need) / output)))
+	var batches := mini(MaidRules.MAX_UNITS_PER_ACTION, desired)
+	var inputs: Variant = recipe.get("inputs")
+	if not inputs is Dictionary:
+		return {}
+	var reserve: Variant = duty.get("reserve", {})
+	var worst: Dictionary = {}
+	var worst_ratio := 2.0
+	for input_id in inputs:
+		var per_batch := _amount_number(inputs[input_id])
+		if not is_finite(per_batch) or per_batch <= 0.0:
+			continue
+		var input_key := String(input_id)
+		var required := per_batch * float(batches)
+		var reserve_amount := _reserve_number(reserve, input_key)
+		var owned := IslandEconomy.value(state, "home", input_key)
+		var available := maxf(0.0, owned - reserve_amount)
+		if available + CommandProcessor.AFFORD_TOLERANCE >= required:
+			continue
+		var ratio := available / required if required > 0.0 else 0.0
+		if worst.is_empty() or ratio < worst_ratio:
+			worst_ratio = ratio
+			worst = _shortage_row(state, catalog, input_key, required, reserve_amount, false)
+	if worst.is_empty():
+		return {}
+	return {"code": "INSUFFICIENT_RESOURCE", "requested": batches, "output": output, "target": _int_of(duty.get("target", 0)), "stock": stock, "inputs": [worst]}
+
+static func _restock_shortage(state: GameState, content: GameContent, duty: Dictionary) -> Dictionary:
+	var pill_id := String(duty.get("pill_id", ""))
+	if not AlchemySystem.PILLS.has(pill_id):
+		return {}
+	var stock := _pill_units(state, pill_id)
+	var need := _int_of(duty.get("target", 0)) - stock
+	if need <= 0:
+		return {}
+	var desired := mini(MaidRules.MAX_UNITS_PER_ACTION, need)
+	var reserve: Variant = duty.get("reserve", {})
+	var last_reason := ""
+	var count := desired
+	while count >= 1:
+		var check := AlchemySystem.can_refine(state, pill_id, count)
+		if bool(check.get("can_refine", false)):
+			var cost: Variant = AlchemySystem.refinement_cost(state, pill_id, count)
+			if cost is Dictionary and _reserve_allows(state, reserve, cost):
+				return {}
+			last_reason = "INSUFFICIENT_RESOURCE"
+		else:
+			last_reason = String(check.get("reason", "INSUFFICIENT_RESOURCE"))
+		count -= 1
+	if last_reason != "INSUFFICIENT_RESOURCE":
+		return {}
+	var unit_cost: Variant = AlchemySystem.refinement_cost(state, pill_id, 1)
+	if not unit_cost is Dictionary:
+		return {}
+	var catalog: Dictionary = content.processing_catalog if content != null else {}
+	var worst: Dictionary = {}
+	var worst_ratio := 2.0
+	for resource_id in unit_cost:
+		var resource_key := String(resource_id)
+		var per_unit := _amount_number(unit_cost[resource_id])
+		var required := per_unit * float(desired)
+		var reserve_amount := _reserve_number(reserve, resource_key)
+		var pill_based: bool = unit_cost[resource_id] is int
+		var owned := float(_pill_units(state, resource_key)) if pill_based else IslandEconomy.value(state, "home", resource_key)
+		var available := maxf(0.0, owned - reserve_amount)
+		if available + CommandProcessor.AFFORD_TOLERANCE >= required:
+			continue
+		var ratio := available / required if required > 0.0 else 0.0
+		if worst.is_empty() or ratio < worst_ratio:
+			worst_ratio = ratio
+			worst = _shortage_row(state, catalog, resource_key, required, reserve_amount, pill_based)
+	if worst.is_empty():
+		return {}
+	return {"code": "INSUFFICIENT_RESOURCE", "requested": desired, "target": _int_of(duty.get("target", 0)), "stock": stock, "inputs": [worst]}
+
+static func _oversee_shortage(state: GameState, content: GameContent, duty: Dictionary) -> Dictionary:
+	if content == null:
+		return {}
+	var building_id := String(duty.get("building_id", ""))
+	var raw_level: Variant = state.buildings.get(building_id)
+	if not (raw_level is int or raw_level is float):
+		return {}
+	var level := int(raw_level)
+	var def: Variant = content.buildings.get(building_id)
+	if not def is Dictionary:
+		return {}
+	var building_def: Dictionary = def
+	if level >= CommandProcessor.level_cap(building_def, content, state):
+		return {}
+	var onboarding_active := Onboarding.is_active(state.onboarding_version, state.era_id)
+	var base_cost := BuildingCosts.resolve_base_cost(building_id, building_def.get("base_cost", {}), onboarding_active)
+	var costs := BuildingCosts.compute_cost(base_cost, level, float(building_def.get("cost_factor", 1.0)))
+	var catalog: Dictionary = content.processing_catalog
+	var worst: Dictionary = {}
+	var worst_ratio := 2.0
+	for resource_id in costs:
+		var resource_key := String(resource_id)
+		var required := _amount_number(costs[resource_id])
+		if required <= 0.0:
+			continue
+		var owned := IslandEconomy.value(state, "home", resource_key)
+		if owned + CommandProcessor.AFFORD_TOLERANCE >= required:
+			continue
+		var ratio := owned / required
+		if worst.is_empty() or ratio < worst_ratio:
+			worst_ratio = ratio
+			worst = _shortage_row(state, catalog, resource_key, required, 0.0, false)
+	if worst.is_empty():
+		return {}
+	return {"code": "INSUFFICIENT_RESOURCE", "building_id": building_id, "level": level, "inputs": [worst]}
+
 
 static func _safe_dict(raw: Variant) -> Dictionary:
 	return raw.duplicate(true) if raw is Dictionary else {}
@@ -693,6 +971,8 @@ static func _pill_units(state: GameState, pill_id: String) -> int:
 	return maxi(0, _int_of(state.pills.get(pill_id, 0)))
 
 static func _amount_number(raw: Variant) -> float:
+	if raw is AmountCompat:
+		return (raw as AmountCompat).to_float()
 	if raw is int or raw is float:
 		var direct := float(raw)
 		return direct if is_finite(direct) else 0.0

@@ -47,6 +47,7 @@ const KNOWN_COMMAND_TYPES := [
 	"execute_maid_duty",
 	"claim_maid_chapter",
 	"maid_reunion",
+	"set_maid_display",
 ]
 const COMMAND_REGISTRY_LIMIT := GameState.COMMAND_RECEIPT_LIMIT
 
@@ -492,6 +493,11 @@ func _is_valid_shape(command: Dictionary) -> bool:
 			if typeof(chapter_maid) != TYPE_STRING or String(chapter_maid).is_empty():
 				return false
 			return typeof(chapter_id) == TYPE_STRING and not String(chapter_id).is_empty()
+		"set_maid_display":
+			if typeof(payload.get("expanded")) != TYPE_BOOL:
+				return false
+			var display_maid = payload.get("maid_id", "")
+			return typeof(display_maid) == TYPE_STRING
 	return true
 
 
@@ -722,6 +728,14 @@ func maid_reunion(maid_id: String) -> Dictionary:
 		"type": "maid_reunion",
 		"expected_revision": state.revision,
 		"payload": {"maid_id": maid_id},
+	})
+
+func set_maid_display(expanded: bool, maid_id: String = "") -> Dictionary:
+	return submit({
+		"command_id": "maid_display_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
+		"type": "set_maid_display",
+		"expected_revision": state.revision,
+		"payload": {"expanded": expanded, "maid_id": maid_id},
 	})
 
 

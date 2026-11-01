@@ -2,6 +2,7 @@ extends PanelContainer
 ## MAID-UI-2 presentation: reads the maid View, sends commands, owns no state or rewards.
 signal portrait_requested(texture: Texture2D, owner: String)
 signal memory_requested(texture: Texture2D, title: String, lines: Array)
+signal chapter_requested(title: String, script: Dictionary)
 signal action_requested(kind: String, payload: Dictionary)
 const PORTRAIT := "res://assets/characters/qingheng/portrait.png"
 const MEETING := "res://assets/characters/qingheng/first-meeting.png"
@@ -67,6 +68,131 @@ const BOND_CG := {
 		"lines": ["丹爐的火照著長夜。她說，前世也是這樣守著一爐未成的丹。", "這一夜，火候終於到了，人也終於等到。"],
 	},
 }
+const BOND_SCRIPT := {
+	"qingheng": {
+		"qingheng_1": {
+			"title": "一盞燈",
+			"lines": [
+				"她把燈芯挑亮一寸，屋裡的影子便退到牆角。",
+				"「這盞燈是替晚歸的人留的。」她說，「你不必每次都趕在夜裡回來。」",
+			],
+			"choices": ["我會早些回來。", "留著燈也好，山路上看得見。"],
+			"branches": [
+				["她怔了怔，低頭笑了：「那我便少添些油，燈芯也剪短些。」"],
+				["「嗯。」她把燈挪到窗邊，「這樣，從山道上抬頭就看得見了。」"],
+			],
+			"closing": "燈火不明不滅，恰好照見兩人的影子落在同一處。",
+		},
+		"qingheng_2": {
+			"title": "宗門來信",
+			"lines": [
+				"宗門的來信壓在書案一角，封泥未拆。",
+				"「信裡未必都是好事。」她把裁紙刀推到你手邊，「但總該有人陪你一起看。」",
+			],
+			"choices": ["那就一起拆。", "先擱著吧，今晚不談宗門。"],
+			"branches": [
+				["她點了點頭，指尖按住封泥：「拆壞了也不打緊，我再替你抄一份。」"],
+				["她把信推進抽屜，動作很輕：「也好。茶還熱著，先喝茶。」"],
+			],
+			"closing": "燈下無言，信未拆，茶卻續了兩回。",
+		},
+		"qingheng_3": {
+			"title": "前世燈火",
+			"lines": [
+				"燈火忽然晃了一下，像是有人從很遠的地方吹了口氣。",
+				"「我夢見過這盞燈。」她盯著火苗，「夢裡我也這樣等過一個人。」",
+			],
+			"choices": ["那個人，等到了嗎？", "這一世，燈不會滅。"],
+			"branches": [
+				["她沉默了很久，才輕聲說：「記不清了。只記得燈一直亮著。」"],
+				["她抬眼看你，眼裡映著火光：「你說的話，我記下了。」"],
+			],
+			"closing": "前世與今生的燈在同一張桌上亮著，誰也沒有先去吹熄它。",
+		},
+	},
+	"nuomeizi": {
+		"nuomeizi_1": {
+			"title": "第一道劍痕",
+			"lines": [
+				"院中的木樁上多了一道新痕，深淺正好，一看就是反覆練過的。",
+				"「第一道劍痕要留得直。」她把劍收回鞘裡，「歪了，之後每一劍都會跟著歪。」",
+			],
+			"choices": ["那這一道，夠直嗎？", "再試一次，我幫你看。"],
+			"branches": [
+				["她挑眉看了半晌，忽然笑出聲：「還行。至少沒丟我的臉。」"],
+				["「好。」她把劍遞到你手裡，「站穩了，手別抖——我可不等人。」"],
+			],
+			"closing": "劍痕留在木上，劍鳴卻像是留在了兩個人的耳朵裡。",
+		},
+		"nuomeizi_2": {
+			"title": "功法相印",
+			"lines": [
+				"她把兩卷功法並排攤開，墨色一新一舊，字跡卻隱隱相合。",
+				"「同一路數。」她指尖敲了敲紙面，「你說，是巧合，還是本來就該遇上？」",
+			],
+			"choices": ["不是巧合。", "該不該遇上，得看往後。"],
+			"branches": [
+				["她愣了一下，隨即別過臉：「……說得這麼乾脆，倒讓我不知道怎麼接。」"],
+				["「說得好。」她收起功法，「那往後，我就多看著你一點。」"],
+			],
+			"closing": "兩卷功法收在一處，邊角壓在同一枚鎮紙下。",
+		},
+		"nuomeizi_3": {
+			"title": "劍鳴舊世",
+			"lines": [
+				"劍鳴穿過雨幕，聲音在舊世的某處也曾這樣響過。",
+				"「這一式，我好像練過很多遍。」她收勢站定，「只是那時候，身邊沒有人看。」",
+			],
+			"choices": ["那我以後都在。", "這一次，劍勢收得漂亮。"],
+			"branches": [
+				["她握劍的手緊了緊，半晌才說：「記住你自己說的話。」"],
+				["「當然。」她甩了甩劍上的雨水，嘴角壓不住，「我練了很久。」"],
+			],
+			"closing": "雨停時，劍尖最後一滴水落下，正落在兩人之間。",
+		},
+	},
+	"danxia": {
+		"danxia_1": {
+			"title": "爐火初溫",
+			"lines": [
+				"丹爐的火剛穩下來，藥香一層一層漫出來。",
+				"「頭一爐不必求成。」她遞來一柄蒲扇，「先把火看住，比什麼都要緊。」",
+			],
+			"choices": ["我來看著火。", "若煉壞了呢？"],
+			"branches": [
+				["她側過身讓出爐前的位置：「記住這個火色，往後你便能自己判斷。」"],
+				["「壞了就再起一爐。」她語氣平淡，「火候這回事，急不來，也省不得。」"],
+			],
+			"closing": "爐火溫著，兩個人的影子在丹房牆上輕輕晃動。",
+		},
+		"danxia_2": {
+			"title": "靈獸銜丹",
+			"lines": [
+				"小靈獸銜著一枚丹藥，蹲在門檻上不肯進來。",
+				"「它挑得很。」她放下藥碾，「肯銜來的，多半是成了的。」",
+			],
+			"choices": ["那這一枚，算成了？", "它倒是比你還先知道。"],
+			"branches": [
+				["她接過丹藥，就著光看了看：「成色尚可。賞它一粒糖豆罷。」"],
+				["她難得彎了彎嘴角：「它鼻子靈。你若肯學，也能這麼靈。」"],
+			],
+			"closing": "靈獸把丹藥吐在掌心，尾巴一掃，藥香又濃了一分。",
+		},
+		"danxia_3": {
+			"title": "丹心照夜",
+			"lines": [
+				"夜已深，丹爐的火卻比白日更穩。",
+				"「這一爐，我守了很久。」她沒有回頭，「久到有時候會想，前世是不是也這樣守著。」",
+			],
+			"choices": ["那前世，有人陪你守嗎？", "這一夜，我陪你守。"],
+			"branches": [
+				["她搖了搖頭，聲音很輕：「記不得了。只記得火不能斷。」"],
+				["她終於回頭看你，目光在火光裡軟了一瞬：「……嗯。那你坐近些。」"],
+			],
+			"closing": "爐火照著長夜，也照著兩個不肯先走的人。",
+		},
+	},
+}
 const MODES := ["person", "meeting", "work", "bond"]
 const MAID_ORDER := ["qingheng", "nuomeizi", "danxia"]
 const MAID_NAMES := {"qingheng": "青蘅", "nuomeizi": "糯美子", "danxia": "丹霞"}
@@ -85,7 +211,7 @@ const REASONS := {
 	"ALCHEMY_LOCKED": "丹道未開",
 	"ALREADY_RECRUITED": "已在洞府",
 	"UNKNOWN_MAID": "尚未可招募",
-	"DUTY_BUSY": "另有仙侍值守中",
+	"DUTY_BUSY": "產線暫時忙碌",
 	"DUTY_NONE": "尚未指派",
 }
 const RECRUIT_TEXTS := {
@@ -135,6 +261,13 @@ var work_status: Label
 var work_owner: Label
 var duty_picker: OptionButton
 var duty_target: SpinBox
+var preset_row: BoxContainer
+var preset_buttons: Array = []
+var reserve_row: BoxContainer
+var reserve_heading: Label
+var reserve_entries: Array = []
+var reserve_spins: Dictionary = {}
+var _reserve_signature := ""
 var duty_hint: Label
 var action_row: BoxContainer
 var assign_button: InscriptionAction
@@ -369,8 +502,21 @@ func _ready() -> void:
 	duty_target.prefix = "目標 "
 	duty_target.suffix = " 個"
 	duty_target.custom_minimum_size.y = 44
-	duty_target.value_changed.connect(func(_value: float): _update_actions())
+	duty_target.value_changed.connect(func(_value: float): _refresh_preview())
 	work_fields.add_child(duty_target)
+	preset_row = BoxContainer.new()
+	preset_row.add_theme_constant_override("separation", 8)
+	work_box.add_child(preset_row)
+	for preset in MaidRules.duty_presets("steward_stock"):
+		var preset_button := _action(preset_row, "%s %d" % [String(preset.get("name", "")), int(preset.get("target", 1))], _apply_preset.bind(preset))
+		preset_button.add_theme_font_size_override("font_size", 16)
+		preset_button.tooltip_text = "目標 %d・各材料保留 %d%%" % [int(preset.get("target", 1)), int(roundf(float(preset.get("reserve_ratio", 0.0)) * 100.0))]
+		preset_buttons.append(preset_button)
+	reserve_row = BoxContainer.new()
+	reserve_row.add_theme_constant_override("separation", 8)
+	work_box.add_child(reserve_row)
+	reserve_heading = _label("保留量", 18)
+	reserve_row.add_child(reserve_heading)
 	duty_hint = _label("尚無可用目標", 18)
 	work_box.add_child(duty_hint)
 	action_row = BoxContainer.new()
@@ -405,11 +551,14 @@ func _ready() -> void:
 		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(info)
 		var claim := _action(row, "領取", _claim.bind(index))
+		var replay := _action(row, "重溫", _replay_chapter.bind(index))
+		replay.tooltip_text = "重溫此章羈絆對話"
+		replay.visible = false
 		var memory := _action(row, "回憶", _memory.bind(index))
 		memory.tooltip_text = "重溫此章羈絆 CG"
 		memory.visible = false
 		chapter_box.add_child(row)
-		chapter_rows.append({"row": row, "info": info, "claim": claim, "memory": memory, "id": ""})
+		chapter_rows.append({"row": row, "info": info, "claim": claim, "replay": replay, "memory": memory, "id": ""})
 	reunion_box = BoxContainer.new()
 	reunion_box.add_theme_constant_override("separation", 8)
 	bond_box.add_child(reunion_box)
@@ -490,6 +639,7 @@ func select_maid(value: String) -> void:
 	_duty_choice = ""
 	_option_signature = ""
 	_last_duty_target = -1
+	_clear_reserve_rows()
 	selected_reply = -1
 	_clear_feedback()
 	if line != null: line.text = _opening()
@@ -540,6 +690,15 @@ func restart_meeting() -> void:
 	line_scroll.scroll_vertical = 0
 	_sync()
 	choices.get_child(0).grab_focus()
+
+func play_first_meeting(maid_id: String) -> void:
+	if maid_id not in MAID_ORDER: return
+	if maid_id != selected_maid: select_maid(maid_id)
+	selected_reply = -1
+	line.text = _opening()
+	line_scroll.scroll_vertical = 0
+	show_mode("meeting")
+	if choices.get_child_count() > 0: choices.get_child(0).grab_focus()
 
 func _as_dict(raw: Variant) -> Dictionary:
 	if raw is Dictionary:
@@ -626,6 +785,12 @@ func _duty() -> Dictionary:
 	if String(duty.get("kind", "")) != String(DUTY_KINDS.get(selected_maid, "")): return {}
 	return duty
 
+func _active_duty_ids() -> Array:
+	var ids := _as_array(_maid_view.get("active_duties", []))
+	if not ids.is_empty(): return ids
+	var single := String(_maid_view.get("active_duty", ""))
+	return [single] if not single.is_empty() else []
+
 func _vertical(value: String) -> String:
 	var chars := PackedStringArray()
 	for index in value.length():
@@ -675,15 +840,20 @@ func _sync_work(entry: Dictionary) -> void:
 		var cooldown := int(duty.get("cooldown", 0))
 		if cooldown > 0: count += "・倒數 %d 秒" % cooldown
 		work_status.text = "%s（%s）・%s%s" % [display_name, plain, status, count]
-	var active := String(_maid_view.get("active_duty", ""))
+	var active := _active_duty_ids()
 	if active.is_empty():
 		work_owner.text = "目前沒有生效中的職掌。"
 	else:
-		var active_name := String(MAID_NAMES.get(active, active))
-		var note := "（就是眼前這位）" if active == selected_maid else "；同一時間只能有一位仙侍值守"
-		work_owner.text = "生效中：%s%s" % [active_name, note]
+		var names := PackedStringArray()
+		for maid_id in active:
+			var label := String(MAID_NAMES.get(maid_id, maid_id))
+			if String(maid_id) == selected_maid: label += "（就是眼前這位）"
+			names.append(label)
+		work_owner.text = "生效中：%s" % "、".join(names)
 	_fill_options(entry, duty)
 	duty_target.visible = String(DUTY_KINDS.get(selected_maid, "")) in TARGET_DUTIES
+	_sync_reserve_rows(duty)
+	_update_shortage_hint(duty)
 	_update_actions_state(recruited, duty)
 
 func _options(entry: Dictionary) -> Array:
@@ -724,9 +894,173 @@ func _fill_options(entry: Dictionary, duty: Dictionary) -> void:
 		if wanted != float(_last_duty_target) and not duty_target.has_focus():
 			duty_target.value = wanted
 	_last_duty_target = int(wanted)
-	duty_hint.text = "尚無可用目標"
-	duty_hint.visible = _duty_ids.is_empty()
 	duty_picker.visible = not _duty_ids.is_empty()
+
+func _chosen_option() -> Dictionary:
+	var chosen := _chosen_id()
+	if chosen.is_empty(): return {}
+	for option in _options(_maid_entry()):
+		var item := _as_dict(option)
+		if String(item.get("id", "")) == chosen: return item
+	return {}
+
+func _selected_input_rows() -> Array:
+	var item := _chosen_option()
+	if item.is_empty(): return []
+	var kind := String(DUTY_KINDS.get(selected_maid, ""))
+	if kind == "steward_stock": return _as_array(item.get("inputs", []))
+	if kind == "restock_pills": return _as_array(item.get("cost", []))
+	return []
+
+func _input_signature(rows: Array) -> String:
+	var signature := _chosen_id()
+	for row in rows:
+		signature += "|" + String(_as_dict(row).get("id", ""))
+	return signature
+
+func _clear_reserve_rows() -> void:
+	for entry in reserve_entries:
+		var spin: SpinBox = entry.get("spin")
+		if spin != null and is_instance_valid(spin) and spin.get_parent() == reserve_row:
+			reserve_row.remove_child(spin)
+			spin.queue_free()
+	reserve_entries.clear()
+	reserve_spins.clear()
+	_reserve_signature = ""
+
+func _sync_reserve_rows(duty: Dictionary) -> void:
+	var kind := String(DUTY_KINDS.get(selected_maid, ""))
+	var presets := MaidRules.duty_presets(kind)
+	preset_row.visible = kind in TARGET_DUTIES and not presets.is_empty()
+	var rows := _selected_input_rows()
+	if kind not in TARGET_DUTIES or rows.is_empty():
+		_clear_reserve_rows()
+		reserve_row.visible = false
+		return
+	if _input_signature(rows) != _reserve_signature:
+		_rebuild_reserve_rows(rows, duty)
+	else:
+		for entry in reserve_entries:
+			var entry_id := String(entry.get("id", ""))
+			for row in rows:
+				var item := _as_dict(row)
+				if String(item.get("id", "")) == entry_id:
+					entry["stock"] = float(item.get("stock", 0.0))
+					break
+	reserve_heading.visible = not reserve_entries.is_empty()
+	reserve_row.visible = not reserve_entries.is_empty()
+
+func _rebuild_reserve_rows(rows: Array, duty: Dictionary) -> void:
+	_clear_reserve_rows()
+	var chosen := _chosen_id()
+	var field := String(DUTY_FIELDS.get(selected_maid, ""))
+	var duty_item := String(duty.get(field, "")) if not duty.is_empty() else ""
+	var seed := _as_dict(duty.get("reserve", {})) if duty_item == chosen else {}
+	for row in rows:
+		var item := _as_dict(row)
+		var id := String(item.get("id", ""))
+		if id.is_empty(): continue
+		var display_name := String(item.get("name", id))
+		var spin := SpinBox.new()
+		spin.min_value = 0
+		spin.max_value = 999999
+		spin.step = 1
+		spin.prefix = "%s 保留 " % display_name
+		spin.custom_minimum_size = Vector2(150, 44)
+		spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		spin.value = clampf(_to_number(seed.get(id, 0)), 0.0, 999999.0)
+		spin.tooltip_text = "至少保留的%s數量；職掌不會動用這部分。" % display_name
+		spin.value_changed.connect(func(_value: float): _refresh_preview())
+		reserve_row.add_child(spin)
+		reserve_entries.append({"id": id, "name": display_name, "stock": float(item.get("stock", 0.0)), "spin": spin})
+		reserve_spins[id] = spin
+	_reserve_signature = _input_signature(rows)
+
+func _reserve_value(id: String) -> float:
+	var spin: Variant = reserve_spins.get(id)
+	if spin is SpinBox: return float((spin as SpinBox).value)
+	return 0.0
+
+func _apply_preset(preset: Dictionary) -> void:
+	if duty_target.visible:
+		duty_target.value = clampf(float(preset.get("target", 1)), 1.0, 999.0)
+	var ratio := float(preset.get("reserve_ratio", 0.0))
+	for entry in reserve_entries:
+		var spin: SpinBox = entry.get("spin")
+		if spin == null or not is_instance_valid(spin): continue
+		var keep := int(floor(maxf(0.0, float(entry.get("stock", 0.0))) * ratio))
+		spin.value = clampf(float(keep), 0.0, spin.max_value)
+	_refresh_preview()
+
+func _refresh_preview() -> void:
+	_update_actions()
+	_update_shortage_hint(_duty())
+
+func _to_number(raw: Variant) -> float:
+	if raw is int or raw is float:
+		var direct := float(raw)
+		return direct if is_finite(direct) else 0.0
+	if raw is String:
+		var parsed := AmountCompat.try_parse(raw)
+		if bool(parsed.get("ok", false)) and parsed.get("value") is AmountCompat:
+			return (parsed.get("value") as AmountCompat).to_float()
+	return 0.0
+
+func _fmt_number(value: float) -> String:
+	return AmountCompat.from_number(value).to_display_string()
+
+func _shortage_preview() -> String:
+	if not duty_target.visible: return ""
+	var item := _chosen_option()
+	if item.is_empty(): return ""
+	var kind := String(DUTY_KINDS.get(selected_maid, ""))
+	var target := int(duty_target.value)
+	var stock := float(item.get("stock", 0.0))
+	var need := target - int(floor(stock))
+	if need <= 0: return ""
+	var batches := 0
+	var rows: Array = []
+	var per_key := ""
+	if kind == "steward_stock":
+		var output := maxf(1.0, float(item.get("output", 1.0)))
+		batches = mini(MaidRules.MAX_UNITS_PER_ACTION, int(ceilf(float(need) / output)))
+		rows = _as_array(item.get("inputs", []))
+		per_key = "per_batch"
+	elif kind == "restock_pills":
+		batches = mini(MaidRules.MAX_UNITS_PER_ACTION, need)
+		rows = _as_array(item.get("cost", []))
+		per_key = "per_unit"
+	if batches <= 0 or rows.is_empty(): return ""
+	for row in rows:
+		var input := _as_dict(row)
+		var id := String(input.get("id", ""))
+		var per := float(input.get(per_key, 0.0))
+		if per <= 0.0: continue
+		var required := per * float(batches)
+		var reserve := _reserve_value(id)
+		var owned := float(input.get("stock", 0.0))
+		var available := maxf(0.0, owned - reserve)
+		if available + 0.000001 >= required: continue
+		var display_name := String(input.get("name", id))
+		if reserve > 0.0:
+			return "%s不足 %s（需 %s，現有 %s，保留 %s）" % [display_name, _fmt_number(required - available), _fmt_number(required), _fmt_number(owned), _fmt_number(reserve)]
+		return "%s不足 %s（需 %s，現有 %s）" % [display_name, _fmt_number(required - available), _fmt_number(required), _fmt_number(owned)]
+	return ""
+
+func _update_shortage_hint(duty: Dictionary) -> void:
+	var text := ""
+	if _duty_ids.is_empty():
+		text = "尚無可用目標"
+	else:
+		var field := String(DUTY_FIELDS.get(selected_maid, ""))
+		var chosen := _chosen_id()
+		var duty_text := String(duty.get("shortage_text", ""))
+		if not duty_text.is_empty() and not chosen.is_empty() and String(duty.get(field, "")) == chosen:
+			text = duty_text
+		else:
+			text = _shortage_preview()
+	duty_hint.text = text
+	duty_hint.visible = not text.is_empty()
 
 func _update_actions_state(recruited: bool, duty: Dictionary) -> void:
 	var has_options := not _duty_ids.is_empty()
@@ -759,6 +1093,8 @@ func _chosen_id() -> String:
 func _on_option_selected(index: int) -> void:
 	if index < 0 or index >= _duty_ids.size(): return
 	_duty_choice = String(_duty_ids[index])
+	_sync_reserve_rows(_duty())
+	_update_shortage_hint(_duty())
 	_update_actions()
 
 func _sync_bond(entry: Dictionary) -> void:
@@ -779,9 +1115,11 @@ func _sync_bond(entry: Dictionary) -> void:
 		var row: BoxContainer = row_data["row"]
 		var info: Label = row_data["info"]
 		var claim: InscriptionAction = row_data["claim"]
+		var replay: InscriptionAction = row_data["replay"]
 		var memory: InscriptionAction = row_data["memory"]
 		if index >= chapters.size():
 			row.visible = false
+			replay.visible = false
 			memory.visible = false
 			row_data["id"] = ""
 			continue
@@ -798,6 +1136,8 @@ func _sync_bond(entry: Dictionary) -> void:
 		info.text = "%s・+%d 點・%s" % [String(chapter.get("title", chapter_id)), int(chapter.get("bond", 0)), state]
 		claim.visible = recruited and can_claim
 		claim.disabled = not can_claim
+		replay.visible = recruited and claimed
+		replay.disabled = not replay.visible
 		var final_chapter := index == chapters.size() - 1
 		memory.visible = recruited and claimed and final_chapter
 		memory.disabled = not memory.visible
@@ -846,7 +1186,7 @@ func _sync() -> void:
 	dialogue.visible = art
 	choices.visible = art and selected_reply < 0
 	replay.visible = art and selected_reply >= 0
-	var active := String(_maid_view.get("active_duty", ""))
+	var active := _active_duty_ids()
 	work_owner.visible = not _compact or not active.is_empty()
 	feedback.visible = mode == "work" and not feedback.text.is_empty()
 	bond_feedback.visible = mode == "bond" and not bond_feedback.text.is_empty()
@@ -854,11 +1194,17 @@ func _sync() -> void:
 func _assign() -> void:
 	var option_id := _chosen_id()
 	if option_id.is_empty(): return
+	var reserve := {}
+	for entry in reserve_entries:
+		var spin: SpinBox = entry.get("spin")
+		if spin == null or not is_instance_valid(spin): continue
+		var keep := int(spin.value)
+		if keep > 0: reserve[String(entry.get("id", ""))] = keep
 	var duty := {}
 	match selected_maid:
-		"qingheng": duty = {"kind": "steward_stock", "recipe_id": option_id, "target": int(duty_target.value), "reserve": {}}
+		"qingheng": duty = {"kind": "steward_stock", "recipe_id": option_id, "target": int(duty_target.value), "reserve": reserve}
 		"nuomeizi": duty = {"kind": "oversee_build", "building_id": option_id}
-		"danxia": duty = {"kind": "restock_pills", "pill_id": option_id, "target": int(duty_target.value), "reserve": {}}
+		"danxia": duty = {"kind": "restock_pills", "pill_id": option_id, "target": int(duty_target.value), "reserve": reserve}
 		_: return
 	action_requested.emit("assign_maid_duty", {"maid_id": selected_maid, "duty": duty})
 
@@ -881,6 +1227,20 @@ func _claim(index: int) -> void:
 	var chapter_id := String(row_data.get("id", ""))
 	if chapter_id.is_empty(): return
 	action_requested.emit("claim_maid_chapter", {"maid_id": selected_maid, "chapter_id": chapter_id})
+
+func _replay_chapter(index: int) -> void:
+	if index < 0 or index >= chapter_rows.size(): return
+	var chapters := _as_array(_maid_entry().get("chapters", []))
+	if index >= chapters.size(): return
+	var chapter := _as_dict(chapters[index])
+	if not bool(chapter.get("claimed", false)): return
+	var script := chapter_script(selected_maid, String(chapter.get("id", "")))
+	if script.is_empty(): return
+	chapter_requested.emit("%s · %s" % [_maid_name(_maid_entry()), String(script.get("title", ""))], script)
+
+func chapter_script(maid_id: String, chapter_id: String) -> Dictionary:
+	var scripts := _as_dict(BOND_SCRIPT.get(maid_id, {}))
+	return _as_dict(scripts.get(chapter_id, {})).duplicate(true)
 
 func _memory(index: int) -> void:
 	if index != chapter_rows.size() - 1: return
@@ -916,6 +1276,15 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	frame.set_content_margin_all(4 if _compact else 12)
 	portrait_frame.add_theme_stylebox_override("panel", frame)
 	column.add_theme_constant_override("separation", 4 if _compact else 10)
+	var header: HBoxContainer = title.get_parent() as HBoxContainer
+	if _compact and maid_row.get_parent() != header:
+		maid_row.get_parent().remove_child(maid_row)
+		header.add_child(maid_row)
+	elif not _compact and maid_row.get_parent() != column:
+		maid_row.get_parent().remove_child(maid_row)
+		column.add_child(maid_row)
+		column.move_child(maid_row, 1)
+	header.add_theme_constant_override("separation", 2 if _compact else 4)
 	name_column.vertical = not _compact
 	name_column.custom_minimum_size.x = 44 if _compact else 72
 	person.add_theme_constant_override("separation", 12 if _compact else 24)
@@ -961,6 +1330,17 @@ func _apply_field_layout() -> void:
 	duty_target.custom_minimum_size = Vector2(110 if _compact else 140, 44)
 	work_fields.vertical = _compact
 	work_fields.add_theme_constant_override("separation", 4 if _compact else 8)
+	preset_row.vertical = _compact
+	reserve_row.vertical = _compact
+	preset_row.add_theme_constant_override("separation", 4 if _compact else 8)
+	reserve_row.add_theme_constant_override("separation", 4 if _compact else 8)
+	for button in preset_buttons:
+		(button as Control).custom_minimum_size.y = 44
+	for entry in reserve_entries:
+		var spin: SpinBox = entry.get("spin")
+		if spin != null and is_instance_valid(spin):
+			spin.custom_minimum_size = Vector2(150, 44)
+			spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 func _compact_labels() -> void:
 	var heading_size := 18 if _compact else 20

@@ -67,10 +67,28 @@ func _run() -> void:
 	check(stand.visible and not stand.panel.visible and stand.tab.visible, "collapse leaves a lone reopen tab")
 	check(stand.tab.get_global_rect().end.y <= abode.toolbar.global_position.y + 0.5, "collapsed tab clears navigation")
 	check(stand.tab_button.size.y >= 44.0, "reopen tab keeps a 44px target")
+	var slots := SaveSlots.new(FileStorageAdapter.new(script.save_dir_override))
+	var collapsed_save: Dictionary = slots.read_best()
+	var collapsed_decoded: Dictionary = SaveCodec.decode(String(collapsed_save.get("json", "")))
+	check(bool(collapsed_decoded.get("ok", false)), "collapse writes a decodable save")
+	if bool(collapsed_decoded.get("ok", false)):
+		var collapsed_state: GameState = collapsed_decoded.get("state")
+		check(collapsed_state.maid.get("display") == {"expanded": false, "maid_id": "qingheng"}, "collapse and manual choice persist to disk")
+	var seeded = load("res://src/presentation/maid_stand_display.gd").new(abode)
+	abode.hud.add_child(seeded)
+	seeded.refresh(abode.session.get_view())
+	check(not seeded.is_expanded() and seeded.selected_id() == "qingheng", "view seeds the persisted display")
+	seeded.queue_free()
+	await process_frame
 	await capture("collapsed", vp)
 	stand.tab_button.pressed.emit()
 	await frames()
 	check(stand.panel.visible and not stand.tab.visible, "tab reopens the half-body stand")
+	var reopened_decoded: Dictionary = SaveCodec.decode(String(slots.read_best().get("json", "")))
+	check(bool(reopened_decoded.get("ok", false)), "reopen writes a decodable save")
+	if bool(reopened_decoded.get("ok", false)):
+		var reopened_state: GameState = reopened_decoded.get("state")
+		check(reopened_state.maid.get("display") == {"expanded": true, "maid_id": "qingheng"}, "reopen persists expanded display")
 	stand.open_button.pressed.emit()
 	await frames()
 	check(abode.feature_navigation.group == "journey" and abode.feature_navigation.page == "characters", "stand opens the canonical character page")
@@ -79,7 +97,17 @@ func _run() -> void:
 	await frames()
 	abode._layout_for_size(Vector2(vp))
 	check(stand.visible and stand.panel.visible, "stand returns with the abode")
-	check(abode.session.state.to_snapshot_dict() == before, "display, switching and navigation never change state")
+	var after: Dictionary = abode.session.state.to_snapshot_dict()
+	var before_rest := before.duplicate(true)
+	var after_rest := after.duplicate(true)
+	for key in ["revision", "command_receipts", "life_ledger", "achievements", "maid"]:
+		before_rest.erase(key)
+		after_rest.erase(key)
+	check(after_rest == before_rest, "stand interaction only persists the display preference")
+	var before_maids: Variant = (before.get("maid", {}) as Dictionary).get("maids", {}) if before.get("maid") is Dictionary else {}
+	var after_maids: Variant = (after.get("maid", {}) as Dictionary).get("maids", {}) if after.get("maid") is Dictionary else {}
+	check(JSON.stringify(after_maids) == JSON.stringify(before_maids), "display persistence leaves maid gameplay untouched")
+	check(MaidSaveContract.validate(abode.session.state.maid) == "", "persisted display block is contract valid")
 	vp = Vector2i(844, 390)
 	root.size = vp
 	root.content_scale_size = vp

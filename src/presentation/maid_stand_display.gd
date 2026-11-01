@@ -145,7 +145,18 @@ func refresh(view: Dictionary) -> void:
 	var entries: Variant = maid.get("maids", {})
 	_maids = entries if entries is Dictionary else {}
 	_active_duty = String(maid.get("active_duty", ""))
-	if not _manual and ORDER.has(_active_duty):
+	var saved: Variant = maid.get("display")
+	if saved is Dictionary:
+		_expanded = bool(saved.get("expanded", true))
+		var saved_id := String(saved.get("maid_id", ""))
+		if ORDER.has(saved_id):
+			_selected = saved_id
+			_manual = true
+		else:
+			_manual = false
+			if ORDER.has(_active_duty):
+				_selected = _active_duty
+	elif not _manual and ORDER.has(_active_duty):
 		_selected = _active_duty
 	_apply_selection()
 	if _abode != null and _abode.hud != null and _abode.hud.size.x > 0.0:
@@ -158,6 +169,7 @@ func cycle(step: int) -> void:
 	_selected = ORDER[(index + step + ORDER.size()) % ORDER.size()]
 	_manual = true
 	_apply_selection()
+	_persist_display()
 
 func set_expanded(value: bool) -> void:
 	if _expanded == value:
@@ -165,6 +177,20 @@ func set_expanded(value: bool) -> void:
 	_expanded = value
 	if _abode != null and _abode.hud != null and _abode.hud.size.x > 0.0:
 		_abode._layout_for_size(_abode.hud.size)
+	_persist_display()
+
+func _persist_display() -> void:
+	if _abode == null or _abode.session == null or _abode.session.state == null:
+		return
+	var result: Dictionary = _abode.session.submit({
+		"command_id": "maid-display-" + str(Time.get_ticks_usec()),
+		"type": "set_maid_display",
+		"expected_revision": _abode.session.state.revision,
+		"payload": {"expanded": _expanded, "maid_id": _selected if _manual else ""},
+	})
+	if bool(result.get("ok", false)):
+		_abode._save_game()
+	_abode._refresh_hud()
 
 func is_expanded() -> bool:
 	return _expanded

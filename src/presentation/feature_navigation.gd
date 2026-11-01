@@ -98,6 +98,9 @@ func build() -> void:
 	character_panel.memory_requested.connect(func(texture: Texture2D, title: String, lines: Array):
 		portrait_viewer.present_memory(texture, title, lines)
 		shell.open_tool(portrait_viewer))
+	character_panel.chapter_requested.connect(func(title: String, script: Dictionary):
+		portrait_viewer.present_chapter(title, script)
+		shell.open_tool(portrait_viewer))
 	character_panel.action_requested.connect(_on_maid_action)
 	island_panel = preload("res://src/presentation/island_management_panel.gd").new()
 	abode.hud.add_child(island_panel)
@@ -490,6 +493,7 @@ func _on_action(kind: String, id: String) -> void:
 func _on_maid_action(kind: String, payload: Dictionary) -> void:
 	var result: Dictionary = abode.session.submit({"command_id": "maid-" + str(Time.get_ticks_usec()), "type": kind, "expected_revision": abode.session.state.revision, "payload": payload})
 	var save_failed := false
+	var success := ""
 	if bool(result.get("ok", false)):
 		var saved: Dictionary = abode._save_game()
 		if not bool(saved.get("ok", false)):
@@ -500,7 +504,7 @@ func _on_maid_action(kind: String, payload: Dictionary) -> void:
 		"ALCHEMY_LOCKED": "丹道未開，尚不能結識丹霞。",
 		"UNKNOWN_MAID": "查無此位仙侍。",
 		"ALREADY_RECRUITED": "已結識，不需再招募。",
-		"DUTY_BUSY": "已有仙侍在職掌，請先暫停或清除。",
+		"DUTY_BUSY": "產線暫時忙碌，稍後會自動重試。",
 		"DUTY_KIND": "職掌內容與此仙侍不符。",
 		"DUTY_NONE": "尚未指派職掌。",
 		"INVALID_TARGET": "目標數量不符合規則。",
@@ -524,17 +528,21 @@ func _on_maid_action(kind: String, payload: Dictionary) -> void:
 		var error := String(result.get("error", "原因不明"))
 		character_panel.show_result(("操作未保存：%s。恢復儲存後重試。" if save_failed else "操作未完成：%s") % errors.get(error, error))
 	else:
-		var success := "仙侍記事已更新。"
+		success = "仙侍記事已更新。"
 		match kind:
 			"recruit_maid": success = "仙侍已入府。"
-			"assign_maid_duty": success = "職掌已指派，將按時循序執行。"
+			"assign_maid_duty": success = "職掌已指派，將按時自動推進。"
 			"clear_maid_duty": success = "職掌已清除。"
 			"set_maid_duty_paused": success = "職掌狀態已更新。"
 			"execute_maid_duty": success = "已執行一次職掌。"
 			"claim_maid_chapter": success = "羈絆篇章已記入。"
 			"maid_reunion": success = "舊世燈火，無需再謝。"
-		character_panel.show_result(success)
 	abode._refresh_hud()
+	if success.is_empty(): return
+	if kind == "recruit_maid":
+		if page != "characters": open("characters")
+		character_panel.play_first_meeting(String(payload.get("maid_id", "")))
+	character_panel.show_result(success)
 
 
 func _on_island_action(kind: String, payload: Dictionary) -> void:

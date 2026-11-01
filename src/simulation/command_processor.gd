@@ -95,6 +95,8 @@ static func _apply(content: GameContent, state: GameState, command: Dictionary) 
 			return _apply_claim_maid_chapter(state, command.payload)
 		"maid_reunion":
 			return _apply_maid_reunion(state, command.payload)
+		"set_maid_display":
+			return _apply_set_maid_display(state, command.payload)
 	return _failure("UNKNOWN_COMMAND", {})
 
 
@@ -607,6 +609,16 @@ static func _apply_claim_maid_chapter(state: GameState, payload: Dictionary) -> 
 static func _apply_maid_reunion(state: GameState, payload: Dictionary) -> Dictionary:
 	if not _maid_id_valid(payload): return _failure("INVALID_MAID", {})
 	return MaidSystem.reunion(state, String(payload.maid_id))
+
+static func _apply_set_maid_display(state: GameState, payload: Dictionary) -> Dictionary:
+	var expanded: Variant = payload.get("expanded")
+	if not expanded is bool: return _failure("INVALID_DISPLAY", {})
+	var maid_id: Variant = payload.get("maid_id", "")
+	if not maid_id is String: return _failure("INVALID_DISPLAY", {})
+	var res := MaidSystem.set_display(state, bool(expanded), String(maid_id))
+	if not bool(res.get("ok", false)):
+		return _failure(String(res.get("error", "SET_MAID_DISPLAY_FAILED")), res)
+	return res
 
 static func _failure(error: String, detail: Dictionary) -> Dictionary:
 	var result := {"ok": false, "error": error, "events": [], "changed_ids": []}

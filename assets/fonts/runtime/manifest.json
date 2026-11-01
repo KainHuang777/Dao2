@@ -8,10 +8,10 @@
       "source": "assets/fonts/SourceHanSansTW-VF.ttf",
       "source_sha256": "cf6889f4c0f1adeaf814ca3e98cc692d9e2d706501cf7545b9b58f6e3966b6ac",
       "output": "assets/fonts/runtime/Dao2Sans-VF.ttf",
-      "output_sha256": "d9af46731a94979bbf3e509db55fe102ea9f38a65400fe1979a80ac85e573130",
+      "output_sha256": "a6b632f91f5914ab61065c7122e580c026363749b955cea45230322918f56b03",
       "source_bytes": 11911704,
-      "output_bytes": 1029552,
-      "covered_codepoints": 1997,
+      "output_bytes": 1053712,
+      "covered_codepoints": 2048,
       "family": "Dao2 Sans",
       "axes": {
         "wght": [
@@ -77,10 +77,10 @@
       "source": "assets/fonts/NotoSerifTC-VF.ttf",
       "source_sha256": "c8b7df78de02c2c35875de707d1d336762fd4db8864a66e249940879fb6859d8",
       "output": "assets/fonts/runtime/Dao2Serif-VF.ttf",
-      "output_sha256": "c592dadeed71c37d1fc5e87a2e7554b5f21f7e2f18f26df3af3e3bf0100123cb",
+      "output_sha256": "9d05915d83a5001b097d289159b066e1be6f865033228d27d8d0f429c66f462d",
       "source_bytes": 16855236,
-      "output_bytes": 1444056,
-      "covered_codepoints": 1997,
+      "output_bytes": 1479256,
+      "covered_codepoints": 2048,
       "family": "Dao2 Serif",
       "axes": {
         "wght": [
@@ -249,6 +249,7 @@
     "src/presentation/life_report_view.gd",
     "src/presentation/maid_character_panel.gd",
     "src/presentation/maid_portrait_viewer.gd",
+    "src/presentation/maid_stand_display.gd",
     "src/presentation/management_workbench.gd",
     "src/presentation/manufacturing_panel.gd",
     "src/presentation/native_vfx.gd",
