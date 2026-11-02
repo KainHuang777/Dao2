@@ -248,7 +248,7 @@ func get_view() -> Dictionary:
 				var upg_caps: Dictionary = upg.get("capacity", {})
 				breakthrough_req = upg_caps
 				can_breakthrough = true
-				if state.era_id == 2 and content.buildings.has("foundation_reservoir") and state.economy.get("version") != IslandProgression.VERSION:
+				if state.era_id == 2 and content.buildings.has("foundation_reservoir") and not IslandProgression.era3_extension_active(state):
 					can_breakthrough = false
 				for r_id in upg_caps:
 					var req_val: float = float(upg_caps[r_id])

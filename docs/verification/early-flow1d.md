@@ -1,9 +1,11 @@
+2026-11-02 **現行 SUPPLY 檔案突破與引導修復（L1，DONE；補丁）**：2026-10-24 供給制啟用後，舊 `DANXIA_ACTIVATION_REQUIRED` 閘門只接受 `res1-d-2`，使現行 `res1-e-46-1`（含 hub 啟用）檔案在築基十層無法突破金丹，F7→G1–G4 不可達；原 `early_flow1d_runner` 只因使用舊 profile 而保持綠燈。本輪放寬閘門至 D2／SUPPLY、修正遷移檔 era2／era3 目標路由、hub G1 改指丹霞產線丹液、F7 補列築基晉階材料，並新增 `tests/early_flow1d_hub_runner.gd`（48 checks）覆蓋 SUPPLY+hub 全段。命令：`tools\run_all_runners.ps1 -Only 'early_flow1d,early_flow1b,early_flow1c,early_v1c_skills,content_p1_accept' -TimeoutSeconds 600` → 6/6 PASS（early_flow1d 108.0s、hub 8.9s），無 SCRIPT ERROR。僅 headless L1；Web、自然時間、人類節奏與觸控／實機沿用既有界線，未重跑。下方 2026-10-10 段落保留為歷史。
+
 2026-10-10 **EARLY-FLOW1-D 自然流程有界 PASS；完整 D 仍 IN_PROGRESS**：同一隔離Web進度、真實滑鼠與自然時間，築基一層／F7→十層→金丹→丹液加工回運→中品石50／陣芯1→金丹二層→靈狐首次餵養成長50及最終重載通過。修復築基圓滿主突破按鈕隱藏與離線累計年歲標示；D132、R2 HUD52、B110、responsive、M2-B／離線回歸及Web匯出壓縮exit0。約41分鐘至十層、中品石规则500秒；全觀測約69分鐘含修復／診斷，非純玩家預算。使用者決定「先保留基線，試玩後判定」，未調成本或工時。人類節奏／實體觸控／高DPR仍待驗；R2有界DONE保持。下一New Chat收試玩節奏／裝置結果，不開R3或後段、不重做已過保存／FPS。較早自然流程待驗聲明保留為歷史。
 [本輪驗收與證據](early-flow1d-natural.md)
 
 # EARLY-FLOW1-D：可延後支線與金丹首段
 
-日期：2026-10-10。**IN_PROGRESS：F5–G4來源與CLI接入；桌面Web有界驗證，整段自然時間／人類接受／實機仍待驗。**
+日期：2026-10-10（2026-11-02 補丁見上）。**F5–G4來源與CLI接入；桌面Web有界驗證；現行 SUPPLY 檔突破缺口已於 2026-11-02 修復。整段自然時間／人類接受／實機仍待驗。**
 
 ## 交付
 
@@ -37,6 +39,14 @@ CUA IAB、DPR約1，使用三個新隔離origin，玩家4175未觸碰。每個or
 
 服務命令：bundled Python `tools/island_preview_server.py --port <48175|48176|48177> --normal-build --gzip --fixture <上述檔名>`。這些是CLI正常命令earned checkpoint起點，不是Debug／贈料；也不能當作完整新檔F5–G4自然通關。
 
-**DoD尚缺**：同一正常玩家進度從F7築基準備到G4的整段自然等待／壽元餘裕與人類節奏接受；實體觸控／高DPR。完整EARLY-FLOW1、原UI1-C／C／D門檻不提升。不重做已通過FPS／保存矩陣，不因暫緩冷啟動阻擋。
+**DoD尚缺**（2026-10-10 原文；現行 SUPPLY 路徑已於 2026-11-02 補 headless 全段證據，自然時間仍缺）：同一正常玩家進度從F7築基準備到G4的整段自然等待／壽元餘裕與人類節奏接受；實體觸控／高DPR。完整EARLY-FLOW1、原UI1-C／C／D門檻不提升。不重做已通過FPS／保存矩陣，不因暫緩冷啟動阻擋。
 
-依Context Guard於本接入／有界驗證階段checkpoint，下一New Chat仍續EARLY-FLOW1-D剩餘自然流程與回饋；不展開Era4或其他大型任務。
+依Context Guard於本接入／有界驗證階段checkpoint。D已於2026-10-21有界收結；2026-11-02完成現行SUPPLY檔突破／引導補丁（L1），不再以「續D自然流程」為下一任務。
+
+## 2026-11-02 補丁：現行 SUPPLY／hub 路徑
+
+- 缺陷：`src/simulation/command_processor.gd:237` 與 `src/application/game_session.gd:251` 僅接受 `IslandProgression.VERSION`（`res1-d-2`）；生產存檔自 2026-10-24 起為 `SUPPLY_VERSION`（`res1-e-46-1`，hub 預設開啟），因此築基十層突破一律回 `DANXIA_ACTIVATION_REQUIRED`，HUD 亦顯示容量未足。舊 runner 用 `attach`／空 payload 建立 `res1-d-2`，無法發現。
+- 修改：新增 `IslandProgression.era3_extension_active()`（接受 D2／SUPPLY）；指令與 View 同步改用。`onboarding.gd` 的 era2 遷移檔改走「啟用金丹產業」或正常供給鏈，無 D2／SUPPLY 產業版本時才保留開拓玄礦島；era3 G1 對未具金丹產業版本者才要求啟用，hub 先開丹霞再以丹霞產線煉丹液，非 hub 的丹霞目標補 `island_id="herb"`；F7 補列靈材20＋銅精10（五層起丹液5）。
+- 測試：新增 `tests/early_flow1d_hub_runner.gd`（48 checks）— golden fixture 轉 SUPPLY、非 hub 起步、`activate_hub`、開丹霞、丹霞煉丹液落祖島、無 `liquid_home` 航線、中品石50／陣芯1、金丹首升精確扣料、靈狐免費結契／首次餵食扣草50仍為卵／冷卻拒絕、編碼重載一致；另以 era2 十層檢驗 F7、can_breakthrough、hub 前後突破、非 hub SUPPLY 突破與 G1 不落死路。已註冊於 `tools/run_all_runners.ps1`。
+- 結果：上述 6 支 runner 全 PASS；`content_p1_accept` 119.7s、`early_flow1b` 23.2s、`early_flow1c` 32.9s、`early_v1c_skills` 42.7s。無 SCRIPT ERROR。
+- 界線：只有 headless L1（1280×720），不是瀏覽器／自然時間／觸控證據；未改 schema 或存檔格式。

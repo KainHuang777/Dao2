@@ -1,5 +1,16 @@
 # 開發狀態與交接紀錄
 
+<a id="early-flow1d-supply-fix"></a>
+## 2026-11-02 EARLY-FLOW1-D 現行 SUPPLY 檔突破與引導修復（L1，DONE）
+
+- **任務**：使用者指定以 fusion skill 處理 EARLY-FLOW1-D。D 已於 2026-10-21 放行，但 2026-10-24 供給制啟用後出現「現行存檔無法築基→金丹」的真實回歸。
+- **缺陷**：`src/simulation/command_processor.gd:237` 與 `src/application/game_session.gd:251` 僅接受 `res1-d-2`；現行存檔為 `res1-e-46-1`（hub 預設開啟），突破一律回 `DANXIA_ACTIVATION_REQUIRED`，HUD 亦顯示容量未足。舊 `early_flow1d_runner` 只用 `attach` 的 `res1-d-2` 路徑，因此維持綠燈而無法發現。
+- **修改**：`src/simulation/island_progression.gd`（新增 `era3_extension_active()` 接受 D2／SUPPLY）、`src/simulation/command_processor.gd`、`src/application/game_session.gd`、`src/simulation/onboarding.gd`（era2 遷移檔路由、F7 晉階材料文案、G1 hub 丹霞產線與非 hub 丹霞目標）、新增 `tests/early_flow1d_hub_runner.gd`（48 checks）、`tools/run_all_runners.ps1` 註冊。未改 schema、存檔格式或經濟規則。
+- **命令與結果（L1，1280×720）**：`tools\run_all_runners.ps1 -Only 'early_flow1d,early_flow1b,early_flow1c,early_v1c_skills,content_p1_accept' -TimeoutSeconds 600` → 6/6 PASS：content_p1_accept 119.7s、early_flow1b 23.2s、early_flow1c 32.9s、early_flow1d 108.0s、early_flow1d_hub 8.9s、early_v1c_skills 42.7s；無 SCRIPT ERROR。
+- **獨立稽核**：fusion-auditor 靜態核對 diff，確認指令／View 閘門一致、舊 `res1-d-2` 不受影響、hub G1 產物回祖島；其指出 legacy era3 G1 使用 `active()` 的邊角，已改為 `era3_extension_active()`。剩餘：hub 開丹霞成本未逐項斷言、自然時間與裝置仍延期。
+- **未通過／未驗**：無瀏覽器、自然時間、觸控、高 DPR、Web 匯出證據；本輪僅 headless L1。
+- **下一任務**：由使用者選定（docs/48 下一角色或下一里程碑）；D 不再列為待續自然流程。此為功能階段，可手動 commit。
+
 <a id="maid-parallel"></a>
 ## 2026-11-01 MAID-PARALLEL-1：多仙侍並行職掌（L1，DONE）
 

@@ -163,6 +163,7 @@ $runners = @(
     'tests/early_flow1b_runner.gd',
     'tests/early_flow1c_runner.gd',
     'tests/early_flow1d_runner.gd',
+    'tests/early_flow1d_hub_runner.gd',
     'tests/m4a_realm_runner.gd',
     'tests/m4a_session_integration_runner.gd',
     'tests/bgm_era_playlist_runner.gd',

@@ -1,3 +1,5 @@
+2026-11-02 **EARLY-FLOW1-D 現行 SUPPLY 補丁（L1 DONE）**：築基→金丹閘門已接受現行 `res1-e-46-1`，遷移檔 era2／era3 目標及 hub G1 丹霞丹液路徑已修正；新增 hub 全段 runner。下方 2026-10-10 的「D 自然流程待驗」為歷史，D 已於 2026-10-21 有界收結。證據見[驗收](verification/early-flow1d.md)。
+
 2026-10-17 **UIX-R7-REINCARNATION DONE（桌面／Web有界；使用者美術接受）**：使用者明確回覆「R7 美術接受」，接受含F1圖像式壽盡／自動開頁、F2卷軸安全邊界與F3移除空白壽元槽的最終呈現。既有最終75 checks、三橫式原生／桌面Web、確認取消／天賦保存恢復／轉世重載與相關回歸證據有效，一般Web PCK hash與F3驗收一致。本輪只更新文件並核對既有log／hash，未改遊戲／匯出／玩家資料，未重跑Godot或Web。觸控／實機延期，非當前阻擋；未commit/push。下一候選為UIX-R8-SKILLS，待新對話明確開工，本輪不實作。[最終驗收](verification/uix-r7-f3.md)。
 
 2026-10-17 **UIX-R7-REINCARNATION 實作／技術驗收已交付，IN_PROGRESS（美術待接受）**：使用者「R7開工」已覆蓋歷史不開R7指示。四張ImageGen透明手繪圖、固定GameTab／內捲／確認取消、天賦圖卡與保存重試已接入；修復轉世結算世次與導覽遮擋／輸入順序。R7專項55 checks、輪迴核心／UI及四相關回歸皆exit0，三尺寸15張原生圖、隔離Web實付參悟／拒寫恢復不重扣／確認取消／新世重載與返回已驗。一般Web與獨立驗收版匯出／壓縮成功，既有退出診斷及中間失敗如實保留。未commit/push；下一New Chat只接R7美術回饋，不開R8。[驗收與命令](verification/uix-r7.md)。

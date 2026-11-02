@@ -1,6 +1,6 @@
 # EARLY-FLOW1-D 自然流程與節奏 — 2026-10-10
 
-**同一隔離 Web 進度 F7→G4 自然時間／桌面操作有界驗收 PASS；EARLY-FLOW1-D 仍 IN_PROGRESS。** 使用者決定「先保留基線，試玩後判定」，人類節奏接受、實體觸控／高 DPR 待驗；不提升完整 EARLY-FLOW1 或原 UI1-C／C／D。
+**同一隔離 Web 進度 F7→G4 自然時間／桌面操作有界驗收 PASS；D 已於 2026-10-21 經使用者放行，2026-11-02 另修復現行 SUPPLY 檔突破閘門（見[主驗收](early-flow1d.md)）。** 使用者決定「先保留基線，試玩後判定」，人類節奏接受、實體觸控／高 DPR 待驗；不提升完整 EARLY-FLOW1 或原 UI1-C／C／D。
 
 ## 方法與起點
 
@@ -68,4 +68,4 @@
 - 更新 README、ROADMAP、docs17、原D驗收、development-status、ai-handoff、updata。保留歷史結果和開工既有dirty。
 - 本輪48214服務已以Ctrl+C停止（刻意中止exit1）、臨時分頁關閉、viewport reset；4175玩家進度未操作。
 
-依 Context Guard，本階段停止並交接。**下一 New Chat：使用者試玩後判定等待節奏，補實體觸控／高 DPR 驗收。** R2有界DONE保持；D完整DoD尚未滿足，不開UIX-R3或Era4–12，不重做B／C自然接入、已過保存／FPS或暫緩冷啟動。
+依 Context Guard，本階段停止並交接。**下一 New Chat：使用者試玩後判定等待節奏，補實體觸控／高 DPR 驗收（依 2026-10-17 政策延期）。** R2有界DONE保持；D已於2026-10-21放行，2026-11-02補丁另記於主驗收；不開UIX-R3或Era4–12，不重做B／C自然接入、已過保存／FPS或暫緩冷啟動。

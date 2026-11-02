@@ -1,3 +1,5 @@
+2026-11-02 **EARLY-FLOW1-D 現行 SUPPLY 檔突破與引導修復（L1）**：[狀態](docs/development-status.md#early-flow1d-supply-fix)；[驗收](docs/verification/early-flow1d.md)。
+
 2026-11-02 **MAID-CLOSE 仙侍整批收尾完整 L3（全量 runner＋全尺寸矩陣＋Web 三橫式）**：[狀態](docs/development-status.md#maid-close)；[驗收](docs/verification/maid-close.md)。
 
 2026-11-01 **MAID-PARALLEL-1 多仙侍並行職掌（L1）**：[狀態](docs/development-status.md#maid-parallel)。

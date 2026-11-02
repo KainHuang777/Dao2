@@ -56,6 +56,9 @@ static func attach(content: GameContent) -> Dictionary:
 static func active(state: GameState) -> bool:
 	return state.economy.get("version", "") in [VERSION, LEGACY_VERSION, SUPPLY_VERSION]
 
+static func era3_extension_active(state: GameState) -> bool:
+	return state.economy.get("version") in [VERSION, SUPPLY_VERSION]
+
 static func attach_supply(content: GameContent) -> Dictionary:
 	# Formal supply entry; attach() remains available for legacy contracts.
 	if content.processing_catalog.get("version") == SUPPLY_VERSION:

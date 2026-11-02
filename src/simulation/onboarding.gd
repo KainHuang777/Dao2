@@ -65,14 +65,16 @@ static func _level(buildings: Dictionary, building_id: String) -> int:
 # Read-only current-life goals. Optional alchemy never becomes a historical
 # completion gate, so reloads and older saves need no new persisted fields.
 static func early_guidance(state: GameState, era: Variant, resources: Dictionary, can_level_up: bool, can_breakthrough: bool, next_required: float) -> Dictionary:
-	if state.era_id == 2 and (IslandEconomy.hub(state) or state.economy.get("version") == IslandProgression.VERSION):
+	if state.era_id == 2 and (IslandEconomy.hub(state) or state.economy.get("version") in [IslandProgression.VERSION, IslandProgression.SUPPLY_VERSION]):
 		var supply := supply_guidance(state)
 		if supply.step in ["complete", "legacy"]:
 			return golden_guidance(state, era, resources, can_level_up, can_breakthrough, next_required)
 		return supply
 	if state.era_id == 3 and era is Dictionary and not era.is_empty():
 		return golden_guidance(state, era, resources, can_level_up, can_breakthrough, next_required)
-	if state.era_id == 2 and state.economy.get("version") != IslandProgression.VERSION:
+	if state.era_id == 2 and state.economy.get("version") == IslandProgression.LEGACY_VERSION:
+		return {"title": "下一步：啟用金丹產業", "text": "此檔仍是舊版雙島產業。前往經營→空島保留原檔並啟用金丹產線；不要求補做練氣、技能或宗門，也不重複扣料。", "route": "outposts", "optional_alchemy": false}
+	if state.era_id == 2 and not IslandProgression.era3_extension_active(state):
 		return {"title": "下一步：開拓玄礦島", "text": "已入築基。前往經營→空島，先支付祖島靈木20＋下品靈石10開拓玄礦島，將原料運回祖島製造銅精，再介紹青木供給。首次付款會同時啟用產業，祖島庫存與建築保留、不複製；輪迴清除當世島嶼、加工與貨物。", "route": "outposts", "optional_alchemy": false}
 	if state.era_id != 1 or not (era is Dictionary) or era.is_empty():
 		return {}
@@ -228,9 +230,10 @@ static func golden_guidance(state: GameState, era: Variant, resources: Dictionar
 			route = "storage_lingli" if _level(state.buildings, "storage_lingli") < 2 else "foundation_reservoir"
 			text += "先將聚靈壇升至2階，解鎖築基靈池；靈池2階提供2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
 		if state.level < int(era.max_level):
-			text += "修煉與建設可並行；本次需修煉 %.0f 秒，晉階仍支付靈力。%s\n" % [next_required, "本次已足，可晉階。" if can_level_up else "等待修煉條與扣料條件。"]
+			text += "修煉與建設可並行；本次需修煉 %.0f 秒，晉階支付靈力，另付靈材20＋銅精10（五層起加丹液5）。%s\n" % [next_required, "本次已足，可晉階。" if can_level_up else "等待修煉條與扣料條件。"]
 		else:
 			text += "條件已足，可突破至金丹。\n" if can_breakthrough else "層級已足，補足容量即可突破。\n"
+			text += "築基晉階成本：靈力，另付靈材20＋銅精10（五層起丹液5）。\n"
 		var goal := _supply_goal("F7", "準備金丹" if not can_breakthrough else "突破至金丹", text + optional_branches(state, resources), route)
 		goal.optional_skills = int(state.skills.get("basic_meditation", 0)) < 1
 		goal.optional_sect = state.sect.get("active_expedition") == null
@@ -246,15 +249,21 @@ static func golden_guidance(state: GameState, era: Variant, resources: Dictionar
 			return _supply_goal("G4", "可選首次餵食", "已結契，尚未首次餵食。到修行→靈獸查看實際餵食成本；靈狐無天賦時需祖島低階靈草50，缺料回靈植場或丹霞原料回運。餵食可稍後，不阻擋修行。", "beasts")
 		var stage := String(BeastSystem.STAGE_CONFIGS.get(beast.get("stage", "egg"), {}).get("name", "靈卵"))
 		return _supply_goal("complete", "首段供給與修行完成", "金丹首次晉階與首次餵食已完成；目前為%s。無天賦首次餵食得50經驗，仍是靈卵；基礎冷卻300秒，冷卻後可再餵養。繼續修行與維持供給，無須等孵化。" % stage, "cultivation")
-	if not IslandEconomy.hub(state) and state.economy.get("version") != IslandProgression.VERSION:
+	if not IslandEconomy.hub(state) and not IslandProgression.era3_extension_active(state):
 		return _supply_goal("G1", "啟用金丹產業", "此已有金丹進度的檔案未啟用目前空島產業。前往經營→空島保留原檔並啟用；不要求補做練氣、技能、宗門或雙島首批教學。", "outposts")
+	if IslandEconomy.hub(state) and not state.economy.get("islands", {}).get("herb", {}).get("opened", false):
+		var goal := _supply_goal("G1", "開拓丹霞供給", "已入金丹。先從祖島支付靈木20＋下品靈石10開拓丹霞；丹霞產線以地方低階草5＋靈力50製作丹液，原料自祖島扣、成品回祖島。", "outposts")
+		goal.island_id = "herb"
+		return goal
 	if IslandEconomy.hub(state) and IslandEconomy.value(state, "home", "liquid") < 1:
-		var goal := _supply_goal("G1", "祖島煉製丹液", "丹液在祖島使用低階靈草5與靈力50煉製。缺草可由丹霞運回祖島；祖島已有材料可直接加工。", "manufacturing")
-		goal.island_id = "home"
+		var goal := _supply_goal("G1", "丹霞產線煉製丹液", "丹霞產線用低階靈草5與靈力50煉製丹液，原料自祖島扣、成品直接回祖島；基礎10秒。缺草先補給祖島。", "manufacturing")
+		goal.island_id = "herb"
 		goal.recipe_id = "liquid"
 		return goal
 	if not IslandEconomy.hub(state) and not state.economy.get("islands", {}).get("herb", {}).get("opened", false):
-		return _supply_goal("G1", "開拓丹霞供給", "已入金丹。開拓丹霞從祖島支付靈木20＋下品靈石10；丹液需丹霞地方低階草5＋全域靈力50，基礎10秒。丹霞不是進入金丹的前置。", "outposts")
+		var goal := _supply_goal("G1", "開拓丹霞供給", "已入金丹。開拓丹霞從祖島支付靈木20＋下品靈石10；丹液需丹霞地方低階草5＋全域靈力50，基礎10秒。丹霞不是進入金丹的前置。", "outposts")
+		goal.island_id = "herb"
+		return goal
 	if IslandEconomy.value(state, "home", "liquid") < 1:
 		var goal := _supply_goal("G1", "丹液製作與回運", "金丹首次晉階需祖島丹液1。丹霞以地方低階草5＋全域靈力50製作，基礎10秒，完工後開啟丹液→祖島航線。設定／出發不算到貨；祖島要有可用丹液。草回運若搶料，先停航或保留5；停航仍完成在途。", "manufacturing")
 		goal.island_id = "herb"
