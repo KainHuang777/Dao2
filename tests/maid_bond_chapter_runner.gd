@@ -53,7 +53,7 @@ func _run() -> void:
 	check(nav.portrait_viewer.choices != null and not nav.portrait_viewer.choices.visible, "chapter choices stay hidden before any replay")
 	for id in IDS:
 		var chapters: Array = MaidRules.chapters(id)
-		check(chapters.size() == 3, "bond chapter list stays at three entries for " + id)
+		check(chapters.size() == 4, "bond chapter list holds the four entries for " + id)
 		var seen_titles: Array = []
 		var seen_lines: Array = []
 		for chapter_def in chapters:
@@ -91,6 +91,7 @@ func _run() -> void:
 	check(replay0.size.y >= 44, "chapter replay keeps a 44px target")
 	check(not (panel.chapter_rows[1] as Dictionary)["replay"].visible, "unclaimed chapters keep replay hidden")
 	check(not (panel.chapter_rows[2] as Dictionary)["replay"].visible, "the third chapter keeps replay hidden before its claim")
+	check(not (panel.chapter_rows[3] as Dictionary)["replay"].visible, "the fourth chapter keeps replay hidden before its claim")
 	check(not (row0["claim"] as InscriptionAction).visible, "claimed chapter hides its claim action")
 	var before: Dictionary = abode.session.state.to_snapshot_dict().duplicate(true)
 	replay0.pressed.emit()
@@ -125,19 +126,23 @@ func _run() -> void:
 	await frames()
 	check(not viewer.visible and panel.bond.visible, "closing the chapter replay returns to the bond page")
 	check(abode.session.state.to_snapshot_dict() == before, "closing the replay also leaves state untouched")
-	_prepare(abode.session.state, "qingheng", ["qingheng_1", "qingheng_2", "qingheng_3"])
+	_prepare(abode.session.state, "qingheng", ["qingheng_1", "qingheng_2", "qingheng_3", "qingheng_4"])
 	abode._refresh_hud()
 	await frames()
 	var row2: Dictionary = panel.chapter_rows[2]
 	check((row2["replay"] as InscriptionAction).visible, "the final chapter exposes chapter replay too")
-	check((row2["memory"] as InscriptionAction).visible, "the final chapter still exposes its CG memory")
+	check(not (row2["memory"] as InscriptionAction).visible, "only the last row carries the CG memory")
+	var row3: Dictionary = panel.chapter_rows[3]
+	check(String(row3.get("id", "")) == "qingheng_4", "the fourth row maps to the capstone chapter")
+	check((row3["replay"] as InscriptionAction).visible, "the capstone chapter exposes chapter replay too")
+	check((row3["memory"] as InscriptionAction).visible, "the final chapter still exposes its CG memory")
 	(row2["replay"] as InscriptionAction).pressed.emit()
 	await frames()
 	check(String(viewer.title_label.text) == "青蘅 · 前世燈火", "third chapter replay opens the third chapter copy")
 	check(not viewer.image.visible, "third chapter replay is dialogue only")
 	nav.back()
 	await frames()
-	(row2["memory"] as InscriptionAction).pressed.emit()
+	(row3["memory"] as InscriptionAction).pressed.emit()
 	await frames()
 	check(viewer.image.visible and viewer.image.texture != null, "the CG memory still shows its artwork")
 	check(not viewer.choices.visible, "the CG memory exposes no chapter branches")
@@ -158,7 +163,7 @@ func _run() -> void:
 	await frames()
 	panel.select_maid("danxia")
 	await frames()
-	for row_index in 3:
+	for row_index in 4:
 		check(not ((panel.chapter_rows[row_index] as Dictionary)["replay"] as InscriptionAction).visible, "unread chapters stay unplayable for danxia")
 	abode.queue_free()
 	await process_frame

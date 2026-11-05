@@ -25,6 +25,12 @@ var _body_scroll: ScrollContainer
 var _title_row: HBoxContainer
 var _title_label: Label
 var _close_button: Button
+var embedded := false
+
+func set_embedded(value: bool) -> void:
+	embedded = value
+	_background.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell()))
+	_close_button.visible = not embedded
 var _encounter_panel: HBoxContainer
 var _story: VBoxContainer
 var _story_header: HBoxContainer
@@ -178,7 +184,8 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	size = bounds.size
 	_background.size = size
 	_compact = size.y < 350
-	_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell())
+	_background.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell()))
+	_close_button.visible = not embedded
 	UiMaterial.apply_scroll_content_margins(_margin, _compact)
 	_margin.size = size
 	_stats_label.visible = not _compact

@@ -9,7 +9,10 @@ var _body_scroll: ScrollContainer
 var _background: Panel
 var _content: VBoxContainer
 var _title_row: HBoxContainer
-var _tab_row: HBoxContainer
+var _tab_row: BoxContainer
+var _main_body_row: HBoxContainer
+var _content_column: VBoxContainer
+var _top_bar: HBoxContainer
 var _reincarnate_button: Button
 var _talents_button: Button
 var _close_button: Button
@@ -33,6 +36,7 @@ var _talent_rows: Dictionary = {}
 var _active_tab: String = "reincarnate" # "reincarnate" | "talents"
 const ART_DIR := "res://assets/ui/reincarnation-painted/"
 const CostStrip = preload("res://src/presentation/cost_strip.gd")
+const ArrowBookmarkTab = preload("res://src/presentation/components/arrow_bookmark_tab.gd")
 var _root_box: VBoxContainer
 var _hero: TextureRect
 var _footer: HBoxContainer
@@ -113,10 +117,10 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		_reward_cards.hide()
 		_compact_rewards.visible = _active_tab == "reincarnate"
 		_details_button.text = "保留／重置" if compact else "傳承與重置詳情"
-		var tabs_parent: Node = _footer if compact else _root_box
-		if _tab_row.get_parent() != tabs_parent:
+		var tabs_parent: Node = _main_body_row
+		if _tab_row != null and _main_body_row != null and _tab_row.get_parent() != tabs_parent:
 			_tab_row.reparent(tabs_parent)
-			tabs_parent.move_child(_tab_row, 0 if compact else 1)
+			tabs_parent.move_child(_tab_row, 0)
 		_currency_label.visible = not compact
 		_reincarnate_button.text = "輪迴" if compact else "轉世輪迴"
 		_talents_button.text = "天賦" if compact else "道心天賦"
@@ -217,29 +221,55 @@ func _build_ui() -> void:
 	_close_button = CloseSeal.new()
 	_close_button.pressed.connect(_on_close_pressed)
 	_title_row.add_child(_close_button)
-	_currency_label = _label("道心: 0  |  道證: 0", 17)
-	_tab_row = HBoxContainer.new()
-	_root_box.add_child(_tab_row)
-	_reincarnate_button = GameTab.new()
+	_currency_label = _label("道心: 0  |  道證: 0", 15)
+	_currency_label.add_theme_color_override("font_color", Color(0.42, 0.38, 0.30, 0.9))
+	_currency_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
+	_main_body_row = HBoxContainer.new()
+	_main_body_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_main_body_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_body_row.add_theme_constant_override("separation", 10)
+	_root_box.add_child(_main_body_row)
+
+	_tab_row = VBoxContainer.new()
+	_tab_row.name = "ArrowBookmarkColumn"
+	_tab_row.custom_minimum_size.x = 48
+	_tab_row.add_theme_constant_override("separation", 8)
+	_tab_row.draw.connect(_on_tab_row_draw)
+	_main_body_row.add_child(_tab_row)
+
+	_reincarnate_button = ArrowBookmarkTab.new()
 	_reincarnate_button.text = "轉世輪迴"
 	_reincarnate_button.pressed.connect(func(): _switch_tab("reincarnate"))
 	_tab_row.add_child(_reincarnate_button)
-	_talents_button = GameTab.new()
+
+	_talents_button = ArrowBookmarkTab.new()
 	_talents_button.text = "道心天賦"
 	_talents_button.pressed.connect(func(): _switch_tab("talents"))
 	_tab_row.add_child(_talents_button)
-	_history_button = GameTab.new()
+
+	_history_button = ArrowBookmarkTab.new()
 	_history_button.text = "歷世"
 	_history_button.pressed.connect(func(): _switch_tab("history"))
 	_tab_row.add_child(_history_button)
+
+	_content_column = VBoxContainer.new()
+	_content_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content_column.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_content_column.add_theme_constant_override("separation", 6)
+	_main_body_row.add_child(_content_column)
+
+	_top_bar = HBoxContainer.new()
 	_currency_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_currency_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_tab_row.add_child(_currency_label)
+	_top_bar.add_child(_currency_label)
+	_content_column.add_child(_top_bar)
+
 	_body_scroll = ScrollContainer.new()
 	_body_scroll.resized.connect(_fit_talents)
 	_body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_body_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_root_box.add_child(_body_scroll)
+	_content_column.add_child(_body_scroll)
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override("separation", 12)
@@ -413,6 +443,11 @@ func _fit_save_feedback() -> void:
 func storage_recovered() -> void:
 	if _pending_save:
 		set_save_result({"ok":true})
+
+func _on_tab_row_draw() -> void:
+	if _tab_row == null: return
+	var line_x := _tab_row.size.x + 4.0
+	_tab_row.draw_line(Vector2(line_x, 0), Vector2(line_x, _tab_row.size.y), Color(0.48, 0.42, 0.32, 0.35), 1.0, true)
 
 func refresh(view: Dictionary) -> void:
 	_last_view = view

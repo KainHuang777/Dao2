@@ -62,7 +62,7 @@ func _run() -> void:
 	check(panel.line_scroll.scroll_vertical == 0, "opening line starts at the top")
 	check(panel.choices.visible, "choices wait at the opening")
 	check(not panel.replay.visible, "replay stays hidden before a reply")
-	check(String(panel.feedback.text) == "仙侍已入府。", "recruit feedback survives the auto switch")
+	check(String(panel.feedback.text) == "已入府。案上那盞燈，替您亮著。", "recruit feedback survives the auto switch")
 	check(panel.get_global_rect().end.y <= abode.toolbar.global_position.y + 1, "meeting page clears main navigation")
 	check(fits(panel, panel.meeting), "meeting page is enclosed by the panel")
 	var after: Dictionary = abode.session.state.to_snapshot_dict().duplicate(true)

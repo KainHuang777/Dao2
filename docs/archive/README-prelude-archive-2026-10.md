@@ -1,3 +1,23 @@
+2026-11-05 **MAID-GUIDE-DOCK 經營仙侍陪伴與常駐引導氣泡（L1/L2）**：[狀態](docs/development-status.md#maid-guide-dock)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-04 **MAID-VOICE 仙侍語音文案、第四章收束與引導侍女相伴（L1/L2）**：[狀態](docs/development-status.md#maid-voice)；[驗收](docs/verification/maid-voice.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-02 **EARLY-FLOW1-D 現行 SUPPLY 檔突破與引導修復（L1）**：[狀態](docs/development-status.md#early-flow1d-supply-fix)；[驗收](docs/verification/early-flow1d.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-02 **MAID-CLOSE 仙侍整批收尾完整 L3（全量 runner＋全尺寸矩陣＋Web 三橫式）**：[狀態](docs/development-status.md#maid-close)；[驗收](docs/verification/maid-close.md)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-DUTY-PRESET 職掌預設組合、保留量 UI 與材料不足提示（L1）**：[狀態](docs/development-status.md#maid-duty-preset)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
 2026-11-01 **MAID-BOND-CHAPTER 羈絆章節對話分歧與已讀回放（L1）**：[狀態](docs/development-status.md#maid-bond-chapter)。
 
 2026-11-01 **MAID-DISPLAY-PREF 洞府侍立展示偏好跨存檔／輪迴（L1）**：[狀態](docs/development-status.md#maid-display-pref)。

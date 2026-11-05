@@ -1,5 +1,74 @@
 # 開發狀態與交接紀錄
 
+<a id="journey-ui-integrate"></a>
+## 2026-11-05 JOURNEY-UI-INTEGRATE：宗門／機緣／天道決策同紙面（L1/L2，DONE）
+
+- **需求／交付**：使用者回報遊歷只有人物完成整合，要求其他幾頁一併處理。將宗門、機緣、天道決策與人物列為共用 `JOURNEY_FOLIOS`，主分頁與當頁主體由同一工作台紙面管理；卷首只有一個CloseSeal。宗門／機緣子頁撤下自身外框與重複關閉，天道決策共用actions面板取消嵌入時的第二層紙；離開整合頁還原父節點與材質。局部修行HUD仍在卷首上方，沒有庫存需求時不留空白左欄；有需求時保留原庫存／資源抽屜。內部分頁、拜宗、委託／功法／坊市、機緣待決／抉擇簿、決策施行、保存失敗與重試及未開放條件保持。九界地圖預覽維持原場景呈現，不在本輪功能頁整合範圍。
+- **修改檔案**：`src/presentation/ui_shell_policy.gd`（四頁共用清單）、`ui_shell_controller.gd`（工作台路由及局部HUD避讓）、`management_workbench.gd`（掛載／恢復、按需求顯示stock）、`sect_panel.gd`、`fortune_modal.gd`、`system_actions_panel.gd`（嵌入材質與關閉策略）；`tests/ui_shell_matrix_runner.gd`（同祖先、紙面、單一關閉、底部避讓斷言）；docs/19、此紀錄、README／ROADMAP一行連結與updata。未改規則、存檔、資產或其他內頁布局；保留開工前未提交工作。
+- **L2領域驗證**：Godot `4.7.2.stable.official.ed1daf0bf`。先 `tools\run_all_runners.ps1 -Only 'sect_reform_ui,uix_r10_fortune_ui,uix_r11_decisions_ui,ui_shell_matrix,maid_ui_runner' -List` 核對5支，再同參數 `-TimeoutSeconds 90` →5/5 PASS（matrix=single）。涵蓋三頁操作／未開預覽、人物回歸與共用Shell資源／覆層／跨頁矩陣。記錄 `.test-output/journey-ui-integrate-l2.log`，stdout/stderr見 `[LOGS] C:/Users/asus/AppData/Local/Temp/dao2_runners_1b619eb929964aedafde8c5b09a47bd4`。非headless執行 `ui_shell_matrix_runner.gd` →653 checks PASS，1280×720原生截圖在 `.test-output/journey-ui-integrate-native/docs/verification/artifacts/ui-shell-2/`；包含已開放診斷fixture的宗門、待決機緣及決策，非真實玩家通關。
+
+- **Web／交付檢查**：`--headless --path . --export-release Web build/web/index.html` 與 `node tools/prepare_web_compression.mjs build/web` exit0，一般Web同步，僅本機測試更新，非候選包／發佈。Chrome隔離origin `127.0.0.1:49189`、1280×720／DPR約1：真實滑鼠關摘要→遊歷人物→宗門→機緣→天道決策→卷首CloseSeal回洞府通過；三頁同紙面與禁用預覽狀態有截圖，未注入玩家進度或宣稱瀏覽器已完成全部玩法。截圖 `.test-output/journey-ui-integrate-browser/sect-1280x720.png`、`fortune-1280x720.png`、`decisions-1280x720.png`、`home-after-close.png`；console warn/error查詢空，viewport已還原、隔離分頁關閉。`python tools/delivery_check.py --web build/web` → RESULT PASS，7/7hash符合；相關來源／文件 `git diff --check` exit0，受保護tracked證據零變更，37個開工前既有未追蹤`.png.import`保持。
+- **邊界／交接**：本輪L2五支runner、單一1280×720原生與桌面瀏覽器，未跑L3／全尺寸矩陣／效能／實機；既有RID／ObjectDB退出診斷保持，不宣稱零錯誤日誌。README／ROADMAP保留一行狀態連結，日期前言透過 `trim_status_docs.py` 歸檔；updata最新5筆外歸檔至 `docs/archive/updata-2026-11-05-journey-ui-integrate.txt`。下一步只收整合畫面的使用者回饋，新的大型工作請開New Chat。可手動commit：這是遊歷UI整合階段結束，非大型里程碑結案；代理未commit／push。
+
+<a id="maid-guide-stable"></a>
+## 2026-11-05 MAID-GUIDE-STABLE：外置氣泡與人物大小固定（L1/L2，DONE）
+
+- **需求／交付**：使用者回報升級提示讓仙侍忽大忽小，要求外置氣泡、避免遮蓋及可關閉。`maid_stand_display.gd` 將氣泡從人物VBox移出，人物圖、狀態與人物頁操作不再隨氣泡顯隱重新分配。經營在邏輯寬度≥1600／高度≥600時，左側固定增留312px氣泡欄（300＋12間距）；關閉不回收欄寬。洞府使用左側安全空間，候選矩形須避開完整工作台、HUD、庫存、詳情、訊息、設定、底部入口；沒有安全空間時不顯示自動氣泡、不消耗提醒額度。取消仙侍整面板跨卡片的長TIP，姓名／狀態／動作TIP保持。
+- **手動／關閉**：空間不足（含1280經營）時，「引」開共用Shell遮罩閱讀區，保留目標、詳情與自動提示開關；只有Shell單一關閉入口。外置氣泡的「×」收起且本步不再自動提醒，下一目標才恢復資格；取消自動提示則整次執行靜默，手動仍可讀。手動閱讀清除待播並重設間隔，避免點目標後立即重播；7秒／50秒／同一步兩次上限保持。沒有改遊戲規則、玩家存檔、角色選擇偏好或資產。
+- **修改範圍**：`src/presentation/maid_stand_display.gd`、`maid_guidance_dock.gd`（外置呈現／Shell閱讀host／顯式詳情覆層／關閉去重）、`tests/maid_guidance_dock_runner.gd`；docs/19、此狀態、README／ROADMAP一行連結及updata。保留開工前未提交成果。
+- **L1／L2**：Godot `4.7.2.stable.official.ed1daf0bf`；每組先 `-Only ... -List`。首組 `tools\run_all_runners.ps1 -Only 'maid_guidance_dock,maid_stand,ui_shell_integration' -TimeoutSeconds 90`：stand／integration PASS，dock因改用洞府驗證外置提醒後的覆層斷言及手動待播重現而FAIL，未算通過。修正詳情走顯式messages覆層與手動清待播後，`-Only 'maid_guidance_dock,m2d_responsive_ui,ui_shell_matrix' -TimeoutSeconds 90` →3/3 PASS（dock37 checks），matrix=single；合計受影響5支runner。日誌首輪 `.test-output/dao2_runners_1d924a42b8ae4b30bb61fa7bdc1a7bad`，最後 `.test-output/maid-guide-stable-l2.log`／`dao2_runners_e5165c2bf67c4a08924fb1fd6897f14e`；中間headless重現紀錄 `.test-output/maid-guide-stable-rerun.log` 保留，不以native成功掩蓋headless失敗。
+- **布局證據**：native `--path . --resolution 1280x720 --script res://tests/maid_guidance_dock_runner.gd -- --maid-bubble-wide` →41 checks PASS；該指定診斷額外檢查1920×1080使用者截圖相關的寬式專用欄，不是全尺寸矩陣。截圖於 `.test-output/maid-guide-stable-native/maid-guide/`。同一人物圖global rect在出現、到期、手動關閉、閱讀覆層返回前後完全一致；寬式氣泡不與整張工作台或仙侍面板相交；1280經營不自動蓋卡片。這組native在最後僅清手動待播的修正前產出，證明布局；最終待播契約由上述headless37檢查確認。
+
+- **Web／交付**：最終來源 `--export-release Web build/web/index.html`、`node tools/prepare_web_compression.mjs build/web` exit0，一般Web同步；僅本機局部測試更新，非發佈／候選包。Chrome隔離origin `127.0.0.1:49188`，1280×720滑鼠開經營→引→單一CloseSeal關閱讀區通過。追加1920×720有額外橫向空間的抽驗：引打開左側獨立氣泡→外置×收起，人物與工作台保持原大小及位置，氣泡不蓋工作台；1920×1080雖CSS較大，但Godot保持1280×720邏輯縮放，不誤記為已達外置欄條件。Web證據於 `.test-output/maid-guide-stable-browser/reader-1280x720.png`、`wide-before.png`、`wide-outside.png`、`wide-after.png`。`python tools/delivery_check.py --web build/web` → RESULT PASS，7/7檔案hash符合；相關來源／文件diff-check exit0，受保護tracked證據零變更，37個既存未追蹤`.png.import`保持。updata最新5筆外歸檔至 `docs/archive/updata-2026-11-05-maid-guide-stable.txt`，README／ROADMAP前言由 `trim_status_docs.py` 保留最新3筆。
+- **邊界／下一步**：L1／L2相關5支runner與有理由的單一寬式布局抽驗，未跑L3／全尺寸矩陣／長效能或實機。既有Font RID／CanvasItem／ObjectDB退出診斷與沙箱log寫入錯誤保留，不宣稱零錯誤日誌。下一步只收使用者對外置提示與空間不足時手動閱讀的回饋；下一大型工作請開New Chat。可手動commit：這是仙侍提示修正階段結束，非大型里程碑結案，代理未commit／push。
+
+<a id="maid-ui-integrate"></a>
+## 2026-11-05 MAID-UI-INTEGRATE：人物頁同紙面與直排書籤（L1/L2，DONE）
+
+- **使用者要求／交付**：參考建造清單，將人物頁外層遊歷分頁與主體整合；內層「人物／初遇／職掌／羈絆」改共用ArrowBookmarkTab左側直排，角色選擇集中於人物標題旁。主分頁仍橫向、內頁書籤縱向，兩層有明確方向與位置；卷首共用CloseSeal，撤下人物自己的第二層紙底。敘事頁不放庫存／空白個人卡左欄，局部HUD仍位於整張紙上方。短高度時書籤欄內捲跟隨焦點，人物正文與原有內捲保持。
+- **修改檔案**：`src/presentation/maid_character_panel.gd`（embedded呈現、共用直排書籤、內容容器與角色列）、`management_workbench.gd`（同紙面掛載與恢復、不為人物放stock）、`ui_shell_controller.gd`（characters納入整合、避讓局部HUD）、`tests/maid_ui_runner.gd`（新增5項布局斷言）；docs/19、此紀錄、README／ROADMAP與updata。未改角色美術、共用書籤繪圖、招募／職掌／羈絆規則、命令或存檔；保留開工前其他未提交成果。
+- **L1／L2證據**：Godot版本 `4.7.2.stable.official.ed1daf0bf`。每組先以同selector `-List` 確認；`tools\run_all_runners.ps1 -Only 'maid_ui_runner,maid_ui2_runner,maid_bond_chapter,ui_shell_integration,maid_voice_runner' -TimeoutSeconds 90` →5/5 PASS；補上新布局斷言後 `-Only 'maid_ui_runner,ui_shell_matrix,maid_art_r2_runner' -TimeoutSeconds 90` →3/3 PASS，合計7支相關runner，matrix=single。日誌在 `.test-output/dao2_runners_08e643824adc4072a356ba598f31f004`、`dao2_runners_56272bc852e84703ac2aecda8e22486e`；各輪stdout/stderr見[LOGS]指定路徑。非headless執行maid_ui_runner →58 checks PASS，截圖於 `.test-output/maid-ui-integrate-native/maid-ui/`；人物頁主分頁與內容同祖先、單一外紙、無stock、共用書籤、書籤在內容左側及上到下順序已驗證。
+
+- **Web／交付檢查**：本輪來源 `--headless --path . --export-release Web build/web/index.html` 與 `node tools/prepare_web_compression.mjs build/web` exit0，一般Web已同步；這是局部測試更新，非候選包／發佈。Chrome隔離origin `127.0.0.1:49187`、CSS 1280×720／DPR約1，實際滑鼠關閉摘要→遊歷人物→左側初遇／職掌→人物→完整立繪→Escape返回同一人物頁通過；主分頁、角色選擇、內頁書籤與內容保持同紙。截圖在 `.test-output/maid-ui-integrate-browser/`，`person-1280x720.png` 與 `person-return-1280x720.png` 為最終同版證據；console warn/error查詢空，已還原viewport並關閉隔離分頁。`python tools/delivery_check.py --web build/web` → RESULT PASS、7/7檔案hash符合；`git diff --check` 相關來源／文件exit0，受保護證據tracked diff空，37個開工前既有未追蹤`.png.import`保留。README／ROADMAP由 `python tools/trim_status_docs.py` 保留最新3筆前言；updata最新5筆以外歸檔至 `docs/archive/updata-2026-11-05-maid-ui-integrate.txt`。
+- **邊界／下一步**：只執行相關L1／L2與1280×720桌面抽驗，未跑L3／全尺寸矩陣或實機；既有RID／ObjectDB退出診斷保持，不宣稱零錯誤日誌。沒有改動既有職掌表單本身、章節對話或規則／存檔。下一步收使用者對同紙面與書籤大小／位置的視覺回饋；後續大型工作使用New Chat。可手動commit：此為人物UI階段結束，非大型里程碑結案；代理未commit／push。
+
+<a id="maid-guide-dock"></a>
+## 2026-11-05 MAID-GUIDE-DOCK：經營仙侍陪伴與常駐引導氣泡（L1/L2，DONE）
+
+- **範圍／相依**：使用者接受建築／經營頁保留仙侍、常駐引導圖印、間隔提醒的方案後要求執行；延續既有 MAID 侍立與前期引導，不另開規則或大型里程碑。
+- **交付**：洞府與經營共用侍立；足夠寬高時為經營工作台預留252px陪伴欄（含12px間距），仙侍避讓設定與底部導覽。其餘收為頭像＋44px「引」圖印，加入原Shell入口容器；人物敘事及重要覆層維持原布局。嵌入建築頁撤下重複下一步長條。氣泡放真實目標／缺料摘要、查看目標、詳情、自動提示開關與共用CloseSeal；完整文案留TIP及既有訊息閱讀覆層，導航送呈現動作，不直接建造或改庫存。未招募時仍為純立繪展示，提示署名「修行指引」。
+- **提醒契約**：新目標／就緒狀態先提示一次，7秒收起；同一步停留50秒再提示一次，上限兩次。刷新／換頁不重置計數；覆層、演出、設定選單及隱藏期間不累計、不補播；手動氣泡不自動消失。自動提示可取消，手動入口仍可用；此開關與計數只在本次執行有效，沒有新增玩家存檔欄位、規則或收益。
+- **修改檔案**：`src/presentation/maid_guidance_dock.gd`（新增及引擎產生.uid）、`maid_stand_display.gd`、`building_catalog.gd`、`ui_shell_controller.gd`；`tests/maid_guidance_dock_runner.gd`（新增及.uid）、`maid_stand_runner.gd`、`m2d_responsive_ui_runner.gd`；`tools/run_all_runners.ps1`；docs/19、docs/49、此狀態、README／ROADMAP一行連結與updata。保留本輪開始前尚未提交的MAID-VOICE／書籤等工作，不回退、不代為commit。
+- **L1／L2命令與結果**：Godot `--version` = `4.7.2.stable.official.ed1daf0bf`；`--headless --path . --import` exit0。所有選取先用同參數 `-List` 核對。首組 `tools\run_all_runners.ps1 -Only 'maid_stand,maid_guidance_dock,ui_shell_integration,m2d_responsive_ui,gather_guidance_highlight' -TimeoutSeconds 90`：沙箱內舊runner的user://寫入失敗，integration／gather逾時，不算通過；正常授權執行後integration／gather通過，侍立／響應式舊布局斷言及建築embedded即時可見性問題已修正。補跑 `-Only 'maid_stand,maid_guidance_dock,m2d_responsive_ui'` →3/3 PASS（33／28 checks及responsive）；`-Only 'maid_guidance_voice,early16_ui_shell,ui_shell_matrix'` →3/3 PASS。合計受影響8支runner通過，matrix=single，未跑L3或全量。最後僅精簡氣泡文案後 `-Only 'maid_guidance_dock'` →1/1 PASS（28 checks）。日誌分別在 `.test-output/dao2_runners_ed69a1f6503d4c1ca2167759563727a9`、`dao2_runners_e37cc75b2437470c9baf0f79375611d1`、`dao2_runners_d1b87475ce784b4cae8b9be864e2feae`；stdout/stderr位置由各輪[LOGS]列出。
+- **原生／桌面Web**：非headless執行同一dock runner →28 checks PASS，1280×720原生截圖於 `.test-output/maid-guide-native-final/maid-guide/`（這組在最後氣泡摘要文字精簡前，僅證明布局）。本輪來源局部匯出 `build/web-maid-guide` exit0，Chrome隔離origin `127.0.0.1:49186`、CSS 1280×720、DPR約1，真實滑鼠關摘要→經營→引圖印→取消自動提示→詳情閱讀；覆層隱藏仙侍並保留建築頁，刷新後以最終摘要版本補驗圖印／目標。最終截圖於 `.test-output/maid-guide-browser/management-guide-1280x720.png`。IAB與沙箱服務連線失敗，改用桌面Chrome與正常授權loopback服務完成，未繞過安全警告；瀏覽器控制台warn/error查詢空。一般Web包同步同版來源，僅本機測試更新，非候選包／發佈。
+- **交付檢查**：一般Web `--export-release Web build/web/index.html`、`node tools/prepare_web_compression.mjs build/web` exit0；`python tools/trim_status_docs.py` 將README／ROADMAP超過最新3筆的前言歸檔；updata保留最新5筆，其餘存 `docs/archive/updata-2026-11-05-maid-guide-dock.txt`。`python tools/delivery_check.py --web build/web` → RESULT PASS，7/7來源／壓縮及音訊hash符合manifest。受保護證據目錄的37個既有未追蹤`.png.import`保持原樣，tracked diff為空；相關來源／文件 `git diff --check` exit0。
+- **邊界／交接**：既有Font RID／CanvasItem／ObjectDB退出診斷與沙箱log寫入失敗保留；不宣稱零錯誤日誌。新runner驗證摘要缺料、提示期限／間隔／上限、手動入口、關閉自動提示、遮罩暫停、原頁恢復、目標導航與全快照零變更。既有受保護證據目錄未有tracked變更，開工前既存`.png.import`不列為本輪成果。未重做L3、效能或觸控實機（延期，非當前阻擋）。下一步只收使用者對陪伴欄與提示頻率的回饋；新大型工作請用New Chat。可手動commit：這是仙侍引導功能階段結束，非大型里程碑結案；代理未commit／push。
+
+<a id="maid-voice"></a>
+## 2026-11-04 MAID-VOICE：仙侍語音文案、第四章收束與新手引導侍女相伴（L1/L2，DONE）
+
+- **任務背景**：使用者要求「針對目前侍女系統的文案以及相關互動內容再進行更多補充，另外將新手引導的對話也加入侍女的頭像，像侍女在引導你一樣」。以 fusion skill 分工：worker A 補仙侍文案與互動語音，worker B 給新手引導加侍女頭像與語音，orchestrator fuse 後統一引擎驗收。
+- **第四章收束（規則層唯一變更）**：`MaidRules.CHAPTERS` 每位新增第四章——青蘅「燈影同行」（羈絆 90、職掌動作 20）、糯美子「以劍為盟」（90、15）、丹霞「同守一爐」（90、20）。首次職掌 10＋20＋30＋50＋90＝200，`同道`（200）首次可達；`BOND_LEVELS`、章節旗標鍵集、`maid_save_contract.gd`、`SCHEMA_VERSION` 全部不動，舊存檔向後相容。
+- **互動語音**：`maid_character_panel.gd`（1364→1515 行）新增 `VOICE_LINES`（7 種命令 × 3 位＝21 句，≤22 字）、`GREETINGS`／`DUTY_GREETINGS`（各 4 句，依羈絆初識／相知／信任／同道分層）、`REUNION_LINES`（每位一句）、`static voice_line(kind, maid_id)`；人物頁新增分層問候列，章節列擴為 4 行並補 `BOND_SCRIPT *_4` 三份腳本，回憶 CG 按鈕隨最後一章移至第四章列。`feature_navigation._on_maid_action` 成功訊息改用角色語音（錯誤映射與自動初遇流程不變）。
+- **引導相伴**：`abode_hud_controller.gd`（1423→1526 行）在訊息面板標題列加入青蘅 40×40 頭像與名籤（僅已招募且頭像載入成功時顯示）；`GUIDE_VOICE` 21 鍵（era1 八項、F1–F7、G1–G4、complete、legacy，≤30 字）在引導 key 變更時以 `青蘅：「…」` 推入訊息記錄（紫色 `6b4a7a`、去重）；`hint.text`／`hint_heading` 既有字串逐位元組不變。orchestrator 並攔截修正 `_speak_guidance_voice` 誤引用 `GUIDE_MID` 的解析錯誤。
+- **修改檔案**：`src/simulation/maid_rules.gd`、`src/presentation/maid_character_panel.gd`、`src/presentation/feature_navigation.gd`、`src/presentation/abode_hud_controller.gd`、`tests/maid_bond_chapter_runner.gd`、`tests/maid_bond_cg_runner.gd`、`tests/maid_core_runner.gd`、`tests/maid_first_meeting_runner.gd`、新增 `tests/maid_voice_runner.gd`／`tests/maid_guidance_voice_runner.gd`、`tools/run_all_runners.ps1`、`docs/49`（新增 §19）、`docs/verification/maid-voice.md`、`docs/development-status.md`、`updata.txt`。未動 `maid_system.gd`、`maid_save_contract.gd`、`onboarding.gd`、`save_codec.gd`、美術、字型或 Web 匯出。
+- **命令與結果（L1/L2，單一 1280×720）**：`Godot --headless --path . --import` → exit 0。`tools\run_all_runners.ps1 -Only 'maid,m2d_responsive,gather_guidance' -List` → 14 支（>5 依共用核心 `maid_rules.gd`／`abode_hud_controller.gd` 認定 L2 領域級）；首輪 `-TimeoutSeconds 120` → 11/14 PASS、3 FAIL（皆 runner 斷言側：回憶按壓點隨第四章移位、反射靜態旗標不可靠、引導 runner 誤觸直建路徑），無 SCRIPT ERROR；修 runner 後 `-Only 'maid_bond_chapter,maid_voice,maid_guidance_voice'` → 3/3 PASS。合併 14/14：MAID-UI 53、MAID-CORE 266、MAID-OFFLINE 62、MAID-UI2 62、MAID-DUTY-PRESET 34、MAID-FIRST-MEETING 27、MAID-ART-R2 78、MAID-BOND-CG 71、MAID-STAND 33、GATHER GUIDANCE HIGHLIGHT 11、M2-D responsive、MAID-BOND-CHAPTER 176、MAID-VOICE 248、MAID-GUIDANCE-VOICE 46 checks，failures 全空。
+- **邊界／未驗證**：未跑 L3 全量、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機（觸控依 2026-10-17 延期）；第四章 200 同道僅由規則與 runner 證明，未走實機全流程；hub H1–H6 引導鍵靜默屬首波刻意範圍。招募成功文案改為角色語音屬呈現層 v2 變更，`maid_first_meeting_runner` 釘選已同步。
+- **下一任務**：由使用者指定（docs/48 後續角色、下一里程碑，或先實機體驗新語音）。本階段為仙侍功能階段結束（非大型任務結案），可手動 commit；代理未 commit／push。
+
+<a id="reincarnation-vertical-tabs"></a>
+## 2026-11-02 REINCARNATION-VERTICAL-TABS：轉世次分頁改直立排列分隔 HUD 與內文（L1，DONE）
+
+- **任務背景**：使用者指正轉世內容的二級分頁（轉世、天賦、歷世）應採用直立式排列（由上往下），作為左側 HUD 狀態欄與右側轉世內容本文之間的分隔書籤，解決原本橫置於上方與外層 HUD 分頁疊合的問題。
+- **方案與實作（方案 B：垂直垂掛箭籤條）**：
+  1. `src/presentation/components/arrow_bookmark_tab.gd`：維持垂直垂掛箭籤形態（底部倒三角箭頭 ▼，直排文字「轉\n世」、「天\n賦」）；尺寸調整為 46×58px（滿足 ≥44px 命中規範）；選中時籤條向右微探 3px、hover 時微探 1.5px，深青玉底描金線，未選中古宣紙墨線，具備立體抽拉層次感。
+  2. `src/presentation/reincarnation_panel.gd`：重構內部佈局為水平結構 `_main_body_row`，左側為直立書籤欄 `_tab_row`（VBoxContainer，由上往下放置轉世、天賦、歷世），右側為 `_content_column`（包含頂部右對齊的題記列「道心／道證」與 `_body_scroll` 滾動本文），右側外緣繪製古籍書脊墨線；底部保留水平居中的操作列。
+- **修改檔案**：`src/presentation/components/arrow_bookmark_tab.gd`、`src/presentation/reincarnation_panel.gd`、`updata.txt`、`docs/development-status.md`。
+- **命令與結果（L1，1280×720）**：`tools\run_all_runners.ps1 -Only 'm3a_reincarnation_ui,content_p1_talents_ui,content_p2_talents_ui,ui_shell_integration,reincarnation_motion' -TimeoutSeconds 120` → 5/5 PASS（content_p2_talents_ui 9.9s、content_p1_talents_ui 8.5s、ui_shell_integration 9.1s、reincarnation_motion 2.0s、m3a_reincarnation_ui 8.2s，failures=`[]`，無 SCRIPT ERROR）。
+- **Web 匯出更新**：已透過 Godot console 匯出更新至 `build/web/index.html`，並經 Brotli 壓縮處理完畢，提供使用者即時檢視。
+- **未通過／未驗**：無 L2/L3、全尺寸矩陣、觸控或實機驗證（觸控依規範延期）。
+- **下一任務**：由使用者確認畫面效果後指定下一步。本階段已完成，可手動 commit。
+
 <a id="early-flow1d-supply-fix"></a>
 ## 2026-11-02 EARLY-FLOW1-D 現行 SUPPLY 檔突破與引導修復（L1，DONE）
 

@@ -1,7 +1,7 @@
 # 仙侍系統：前期三角色設計與核心介面
 
 - 日期：2026-11-01
-- 狀態：**MAID-CORE-1 IMPLEMENTED（L1）**；核心規則與介面已落地。**MAID-CORE-2 離線職掌邊界已於 2026-11-01 核定並 IMPLEMENTED（L1，§11）**；糯美子／丹霞 R2 各三張（三向設定／立繪／初遇）已獲使用者美術接受並完成接入，見 [MAID-ART-ND-R2 接入](development-status.md#maid-art-nd-r2-integration)。**洞府侍立可收合展示已於 2026-11-01 實作（L1，§13）**，見 [MAID-STAND](development-status.md#maid-stand)。**多仙侍並行職掌已於 2026-11-01 實作（L1，§18）**，見 [MAID-PARALLEL-1](development-status.md#maid-parallel)。
+- 狀態：**MAID-CORE-1 IMPLEMENTED（L1）**；核心規則與介面已落地。**MAID-CORE-2 離線職掌邊界已於 2026-11-01 核定並 IMPLEMENTED（L1，§11）**；糯美子／丹霞 R2 各三張（三向設定／立繪／初遇）已獲使用者美術接受並完成接入，見 [MAID-ART-ND-R2 接入](development-status.md#maid-art-nd-r2-integration)。**洞府侍立可收合展示已於 2026-11-01 實作（L1，§13）**，見 [MAID-STAND](development-status.md#maid-stand)。**多仙侍並行職掌已於 2026-11-01 實作（L1，§18）**，見 [MAID-PARALLEL-1](development-status.md#maid-parallel)。**互動語音、第四章收束與引導侍女相伴已於 2026-11-04 實作（L1/L2，§19）**，見 [MAID-VOICE](development-status.md#maid-voice)。
 - 上位文件：[docs/48](48-maid-companion-system-proposal.md)
 - 驗收：[maid-core-1](verification/maid-core-1.md)
 - 已完成前導：MAID-ART（青蘅 R3 美術）、MAID-UI-1（人物頁與初遇重播）
@@ -42,7 +42,7 @@
 | 信任 | 100 |
 | 同道 | 200 |
 
-每位角色三章，章節獎勵只有羈絆點與記憶／美術旗標，不發資源。
+每位角色原為三章；2026-11-04 起各追加第四章收束（見 §19），章節獎勵仍只有羈絆點與記憶／美術旗標，不發資源。
 
 | 角色 | 第一章 | 第二章 | 第三章 |
 | --- | --- | --- | --- |
@@ -388,3 +388,21 @@ static func offline_report(events: Array) -> Dictionary
 - UI：職掌分頁的「生效中」列改列全部值班仙侍，所選角色加註「（就是眼前這位）」；錯誤文案 `DUTY_BUSY` 改為「產線暫時忙碌，稍後會自動重試。」，指派成功改為「職掌已指派，將按時自動推進。」。指派按鈕不再因他人值班而停用。
 - 相容：`MaidSaveContract` 鍵集、`state.maid` v2 結構與 `SCHEMA_VERSION` 全部不變；舊存檔不會因本輪獲得職掌、羈絆或資源。
 - 驗收：改寫 `tests/maid_core_runner.gd` 的單一值班案例為 `_test_parallel_duties`（三位同時指派、`active_duties` 三筆且 `active_duty == active_duties[0]`、暫停一位後剩兩筆、恢復成功、共享 60 秒×5 次預算下三位 `duty_actions` 皆 >0、契約有效）。L1 單一 1280×720：`tools\run_all_runners.ps1 -Only 'maid_core,maid_duty_preset,maid_offline,maid_ui2,maid_stand'` → 5/5 PASS（MAID-CORE 266、MAID-DUTY-PRESET 34、MAID-OFFLINE PASS、MAID-UI2 62、MAID-STAND 33 checks，failures=`[]`，無 SCRIPT ERROR）；另以 `-Only 'maid_ui'` 補跑 `maid_ui_runner` 與 `maid_ui2_runner` 2/2 PASS。未跑 L2／L3、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機；實機觸控與 Web 體感依 AGENTS.md 暫緩。
+
+## 19. 互動語音、第四章收束與引導侍女相伴（MAID-VOICE，2026-11-04 L1/L2 實作）
+
+- 範圍：使用者要求「補充侍女文案與相關互動內容，並把新手引導加上侍女頭像，像侍女在引導你一樣」。規則層唯一變更是第四章收束章節；其餘全部是呈現層文案與既有流程的語音化。不改 `maid_system.gd`、`maid_save_contract.gd`、`onboarding.gd`、`save_codec.gd`、`SCHEMA_VERSION`、美術、字型或 Web 匯出。
+- 第四章收束：`MaidRules.CHAPTERS` 每位追加第四章——青蘅 `qingheng_4`「燈影同行」（羈絆 90、`duty_units` 20 次）、糯美子 `nuomeizi_4`「以劍為盟」（90、15 次）、丹霞 `danxia_4`「同守一爐」（90、20 次）。首次職掌 10＋20＋30＋50＋90＝200，`同道`（200）門檻首次可達；`BOND_LEVELS` 未動。章節旗標鍵集逐 id 對 `MaidRules.chapter()` 驗證，舊存檔載入不會獲得新章節旗標，向後相容。
+- 章節腳本：`BOND_SCRIPT` 補三份 `*_4`（兩行開場、兩個分歧選項、各分支專屬回應、共同結語），格式同 §16；標題與 `MaidRules.CHAPTERS` 完全一致。章節列擴為 4 行，回憶 CG 按鈕沿用「最後一章」泛用綁定移至第四章列（§14 的 `*_3` 旗標語意不變）。
+- 互動語音：`maid_character_panel.gd` 新增 `VOICE_LINES`（7 種命令 × 3 位＝21 句，皆 ≤22 字）：`recruit_maid`、`assign_maid_duty`、`clear_maid_duty`、`set_maid_duty_paused`、`execute_maid_duty`、`claim_maid_chapter`、`maid_reunion`。`feature_navigation._on_maid_action` 成功時以 `static voice_line(kind, maid_id)` 覆蓋通用成功文案（空值回退通用；錯誤映射與招募後自動初遇不變）；青蘅指派語音「職掌已指派，帳目我來按時核。」保留 `maid_ui2_runner` 的前綴釘選，招募成功由「仙侍已入府。」改為青蘅語音「已入府。案上那盞燈，替您亮著。」屬呈現層 v2 變更。
+- 分層問候：`GREETINGS`／`DUTY_GREETINGS` 各 4 句（初識／相知／信任／同道），以 view 的 `bond_name` 精確分層；人物頁在卷首語下方顯示所選仙侍的問候（值勤且未暫停時改用 `DUTY_GREETINGS`），緊湊版面沿用既有隱藏規則。`REUNION_LINES` 每位一句，重逢列跟隨所選角色。
+- 引導相伴：`abode_hud_controller.gd` 在訊息面板標題列 `hint_heading` 前加入青蘅 40×40 頭像（`assets/characters/qingheng/portrait.png`，`KEEP_ASPECT_CENTERED`、`MOUSE_FILTER_IGNORE`）與 15px 名籤；僅在 `view.maid.maids.qingheng.recruited` 且頭像載入成功時顯示（載入失敗隱藏且不說話）。`_refresh_hud` 於 `_update_onboarding_guidance` 前呼叫 `_update_guide_presence(view)`，引導中途招募會先說當前目標。
+- 引導語音：`GUIDE_VOICE` 21 鍵——era1 八項（`hut`／`wooden_house`／`forest_farm`／`stone_mine`／`herb_farm`／`storage_lingli`／`foundation_reservoir`／`cultivation`）、供給段 `F1`–`F7`、金丹段 `G1`–`G4`、`complete`、`legacy`，皆 ≤30 字且互異。`_guidance_voice_key(view)` 取 `early.step`（否則 `early.route`；era1 無目標時回 `cultivation`），於引導 key 變更處以 `青蘅：「…」` 推入 `_push_hint_log`，`_last_voice_key` 去重；未知鍵（hub `H1`–`H6` 等）靜默略過，屬首波刻意範圍。`_rebuild_hint_log_display` 新增首分支 `青蘅：「` → 紫 `6b4a7a`，既有分支優先序不變。
+- 凍結面：`hint.text`／`hint_heading` 所有字串與改前逐位元組相同；`gather_guidance_highlight`／`m2d_responsive_ui` 既有斷言全數通過。
+- 驗收：新增 `tests/maid_voice_runner.gd`（248 checks）與 `tests/maid_guidance_voice_runner.gd`（46 checks）並登錄 `run_all_runners.ps1`；`maid_bond_chapter_runner` 46→49 個 `check()` 呼叫（176 checks）、`maid_bond_cg_runner` 25→26（71 checks）、`maid_core_runner` 章節數 3→4、`maid_first_meeting_runner` 招募釘選改為新語音。L1/L2 單一 1280×720：`-Only 'maid,m2d_responsive,gather_guidance'` 首輪 11/14 PASS（3 支 runner 斷言側修正：回憶按壓點隨第四章移至 row3、反射靜態檢查改為 Script 資源行為檢查、引導 runner 以 `session.submit` 乾淨建房取代會觸發直建切頁的世界點擊），補跑 3/3 PASS；合併 14/14 runner 通過（MAID-UI 53、MAID-CORE 266、MAID-OFFLINE 62、MAID-UI2 62、MAID-DUTY-PRESET 34、MAID-FIRST-MEETING 27、MAID-ART-R2 78、MAID-BOND-CG 71、MAID-STAND 33、GATHER GUIDANCE HIGHLIGHT 11、M2-D responsive、MAID-BOND-CHAPTER 176、MAID-VOICE 248、MAID-GUIDANCE-VOICE 46 checks，failures 全空，無 SCRIPT ERROR）。證據見 [maid-voice](verification/maid-voice.md)。
+- 邊界：未跑 L3 全量、全尺寸矩陣、Web 匯出、桌面瀏覽器或觸控實機；第四章達 200 同道僅由規則與 runner 證明，未走實機全流程。
+
+
+## 20. 經營陪伴與引導圖印（2026-11-05 使用者核定）
+
+洞府／經營沿用同一個侍立選角與收合偏好；寬式預留側欄，空間不足則將頭像與「引」圖印放進共用入口容器。引導氣泡依正式View摘要當前目標與缺料，完整說明與目標導航沿既有HUD接線。新步驟先提醒一次，7秒收起；同一步停留50秒可再提醒一次，最多兩次，覆層期間暫停。手動氣泡可自行關閉；自動提示開關只在本次執行有效，不新增存檔欄位。未招募角色沿既有純展示規則，引導標為「修行指引」。共用UI規範見docs/19，交付與證據只記於[開發狀態](development-status.md#maid-guide-dock)。

@@ -65,7 +65,7 @@ func _run() -> void:
 	stand.collapse_button.pressed.emit()
 	await frames()
 	check(stand.visible and not stand.panel.visible and stand.tab.visible, "collapse leaves a lone reopen tab")
-	check(stand.tab.get_global_rect().end.y <= abode.toolbar.global_position.y + 0.5, "collapsed tab clears navigation")
+	check(not stand.tab.get_global_rect().intersects(abode.toolbar.get_global_rect()), "collapsed tab clears navigation")
 	check(stand.tab_button.size.y >= 44.0, "reopen tab keeps a 44px target")
 	var slots := SaveSlots.new(FileStorageAdapter.new(script.save_dir_override))
 	var collapsed_save: Dictionary = slots.read_best()
@@ -113,7 +113,7 @@ func _run() -> void:
 	root.content_scale_size = vp
 	abode._layout_for_size(Vector2(vp))
 	await frames()
-	check(not stand.visible, "short landscape keeps the world and messages unobstructed")
+	check(stand.visible and not stand.panel.visible and stand.tab.visible, "short landscape keeps a compact companion and guide entry")
 	abode.queue_free()
 	await process_frame
 	print("MAID-STAND checks=%d failures=%s" % [checks, JSON.stringify(failures)])

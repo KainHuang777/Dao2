@@ -27,6 +27,7 @@ func _prepare(state, maid_id: String) -> void:
 	entry.recruited = true
 	entry.bond = 50
 	entry.chapters = {maid_id + "_1": true, maid_id + "_2": true}
+	entry.duty_actions = 20
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
 	script.save_dir_override = RunnerResult.output_path("res://maid-bond-cg-save")
@@ -69,14 +70,16 @@ func _run() -> void:
 		await frames()
 		panel.select_maid(id)
 		await frames()
-		var row_data: Dictionary = panel.chapter_rows[2]
+		var row_data: Dictionary = panel.chapter_rows[3]
 		var claim: InscriptionAction = row_data["claim"]
 		var memory: InscriptionAction = row_data["memory"]
-		check(String(row_data.get("id", "")) == id + "_3", "third row maps to the final chapter for " + id)
+		check(String(row_data.get("id", "")) == id + "_4", "fourth row maps to the final chapter for " + id)
 		check(not memory.visible, "memory replay stays locked before the final chapter claim for " + id)
-		check(not (panel.chapter_rows[0] as Dictionary)["memory"].visible and not (panel.chapter_rows[1] as Dictionary)["memory"].visible, "earlier chapters expose no bond CG replay for " + id)
-		var claimed: Dictionary = MaidSystem.claim_chapter(abode.session.state, id, id + "_3")
-		check(bool(claimed.get("ok", false)), "the existing final chapter flag is claimed for " + id)
+		check(not (panel.chapter_rows[0] as Dictionary)["memory"].visible and not (panel.chapter_rows[1] as Dictionary)["memory"].visible and not (panel.chapter_rows[2] as Dictionary)["memory"].visible, "earlier chapters expose no bond CG replay for " + id)
+		var claim_three: Dictionary = MaidSystem.claim_chapter(abode.session.state, id, id + "_3")
+		check(bool(claim_three.get("ok", false)), "the third chapter clears its old gate for " + id)
+		var claimed: Dictionary = MaidSystem.claim_chapter(abode.session.state, id, id + "_4")
+		check(bool(claimed.get("ok", false)), "the new final chapter flag is claimed for " + id)
 		abode._refresh_hud()
 		await frames()
 		check(not claim.visible, "final chapter claim is consumed for " + id)

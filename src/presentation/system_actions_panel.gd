@@ -11,6 +11,12 @@ var buttons: Dictionary = {}
 var save_failed := false
 var _scroll: ScrollContainer
 var _surface: PanelContainer
+var embedded := false
+
+func set_embedded(value: bool) -> void:
+	embedded = value
+	if _surface != null:
+		_surface.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell()))
 var skill_view: Control
 var decision_view: Control
 var retry_button: Button
@@ -69,7 +75,7 @@ func _ready() -> void:
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
-	_surface.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if bounds.size.y < 350 else UiMaterial.scroll_shell())
+	_surface.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if bounds.size.y < 350 else UiMaterial.scroll_shell()))
 	box.add_theme_constant_override("separation", 0 if bounds.size.y < 350 else 4)
 	decision_view.add_theme_constant_override("separation", 0 if bounds.size.y < 350 else 6)
 	_sync_skill_feedback()

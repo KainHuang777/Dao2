@@ -5,6 +5,31 @@ extends RefCounted
 const ResourceIconScript = preload("res://src/presentation/resource_icon.gd")
 const CultivationLevelUpButtonScript = preload("res://src/presentation/cultivation_level_up_button.gd")
 const CostStrip = preload("res://src/presentation/cost_strip.gd")
+const GUIDE_VOICE := {
+	"hut": "避雨那日承你收留，從茅屋起，換我陪你。",
+	"wooden_house": "木屋的一樑一柱，我都替你記著，別急。",
+	"forest_farm": "林木如書頁，一頁一頁翻，我們慢慢來。",
+	"stone_mine": "山石硬，錘重，這趟我陪你穩穩敲下。",
+	"herb_farm": "靈草細小，澆水的活交給我，你先修煉。",
+	"storage_lingli": "聚靈壇再寬些，像書架留足餘地最好。",
+	"foundation_reservoir": "築基靈池將成，這一步我陪你一起跨。",
+	"cultivation": "你靜坐，我翻書，這樣的午後就很好。",
+	"F1": "開拓雙島，先從近的那座開始，不慌。",
+	"F2": "靈石一車車送到，我都替你點收了。",
+	"F3": "兩島各完工一批，穩穩的，不必趕。",
+	"F4": "首批產物回航，我同你一起驗收。",
+	"F5": "技能像新書，得空再翻，我替你留頁。",
+	"F6": "宗門的差事，你去我也去，有個照應。",
+	"F7": "金丹在望，要點我都替你標在頁邊。",
+	"G1": "丹霞的藥香，正好配你靜修的午後。",
+	"G2": "祖島加工我幫你盯著，你專心修煉。",
+	"G3": "金丹第一階，我們如約一同走上來。",
+	"G4": "靈狐要來，我替它先留一盞燈。",
+	"complete": "這一段走完了，小小約成，往後仍相伴。",
+	"legacy": "舊檔的進度我替你收好了，放心往前走。",
+}
+const GUIDE_PORTRAIT := "res://assets/characters/qingheng/portrait.png"
+const GUIDE_NAME := "青蘅"
 
 var _abode: Node
 var _dao_seal: Node
@@ -32,6 +57,11 @@ var _active_gatherable_missing: Array[String] = []
 var _current_guidance_text: String = ""
 var _rank_full_text := ""
 var _rank_compact_text := ""
+var _guide_avatar: TextureRect
+var _guide_name: Label
+var _guide_portrait: Texture2D = null
+var _guide_maid_id := ""
+var _last_voice_key := ""
 
 static func lifespan_color(elapsed: float, maximum: float) -> Color:
 	var used := maxf(0.0, elapsed)
@@ -373,6 +403,19 @@ func _build_hud() -> void:
 	var hint_title_row := HBoxContainer.new()
 	hint_title_row.add_theme_constant_override("separation", 6)
 	hint_box.add_child(hint_title_row)
+
+	_guide_avatar = TextureRect.new()
+	_guide_avatar.custom_minimum_size = Vector2(40, 40)
+	_guide_avatar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_guide_avatar.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_guide_avatar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_guide_avatar.visible = false
+	hint_title_row.add_child(_guide_avatar)
+
+	_guide_name = _abode._label(GUIDE_NAME, 15, UiMaterial.INK, 0)
+	_guide_name.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_guide_name.visible = false
+	hint_title_row.add_child(_guide_name)
 
 	_abode.hint_heading = _abode._label("系統訊息", 17, UiMaterial.INK, 0)
 	_abode.hint_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1071,6 +1114,7 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	if visible_resource_count != _abode.last_visible_resource_count:
 		_abode.last_visible_resource_count = visible_resource_count
 		_abode.call_deferred("_layout")
+	_update_guide_presence(view)
 	_abode._update_onboarding_guidance(view)
 	if _abode._message_history.is_empty():
 		_push_hint_log(_abode.hint.text)
@@ -1134,6 +1178,7 @@ func _update_onboarding_guidance(view: Dictionary) -> void:
 			_abode.hint.text = String(early.text)
 			_current_guidance_text = _abode.hint.text
 			_push_hint_log(_abode.hint.text)
+			_speak_guidance_voice(_guidance_voice_key(view))
 		return
 	if objective_value == null:
 		_active_gatherable_missing.clear()
@@ -1146,6 +1191,7 @@ func _update_onboarding_guidance(view: Dictionary) -> void:
 		_abode.hint.text = "已入築基。下一段可到經營→空島保留原檔並啟用產業，再開拓青木與玄礦。" if int(view.get("era_id", 1)) == 2 else "可在「經營」查看資源庫存、每秒產率與後續設施需求。"
 		_current_guidance_text = _abode.hint.text
 		_push_hint_log(_abode.hint.text)
+		_speak_guidance_voice(_guidance_voice_key(view))
 		return
 
 	var objective: Dictionary = objective_value
@@ -1207,6 +1253,61 @@ func _update_onboarding_guidance(view: Dictionary) -> void:
 		_abode.hint_heading.text = "系統訊息 · 新手引導"
 		_abode.hint.text = new_hint_text
 		_push_hint_log(_abode.hint.text)
+		_speak_guidance_voice(building_id)
+
+func _update_guide_presence(view: Dictionary) -> void:
+	var recruited := bool(view.get("maid", {}).get("maids", {}).get("qingheng", {}).get("recruited", false))
+	if not recruited:
+		_guide_maid_id = ""
+		_last_voice_key = ""
+		if _guide_avatar != null:
+			_guide_avatar.visible = false
+		if _guide_name != null:
+			_guide_name.visible = false
+		return
+	if _guide_maid_id == "qingheng":
+		return
+	if _guide_portrait == null:
+		var loaded: Variant = load(GUIDE_PORTRAIT)
+		if loaded is Texture2D:
+			_guide_portrait = loaded
+	if _guide_portrait == null:
+		if _guide_avatar != null:
+			_guide_avatar.visible = false
+		if _guide_name != null:
+			_guide_name.visible = false
+		return
+	_guide_maid_id = "qingheng"
+	if _guide_avatar != null:
+		_guide_avatar.texture = _guide_portrait
+		_guide_avatar.visible = true
+	if _guide_name != null:
+		_guide_name.visible = true
+	_speak_guidance_voice(_guidance_voice_key(view))
+
+func _guidance_voice_key(view: Dictionary) -> String:
+	var early: Dictionary = view.get("early_guidance", {})
+	if not early.is_empty():
+		var step := String(early.get("step", ""))
+		if not step.is_empty():
+			return step
+		return String(early.get("route", ""))
+	var objective_value: Variant = view.get("next_objective", null)
+	if objective_value is Dictionary:
+		return String((objective_value as Dictionary).get("id", ""))
+	if int(view.get("era_id", 1)) == 1:
+		return "cultivation"
+	return ""
+
+func _speak_guidance_voice(voice_key: String) -> void:
+	if _guide_maid_id != "qingheng" or voice_key.is_empty():
+		return
+	if not GUIDE_VOICE.has(voice_key):
+		return
+	if voice_key == _last_voice_key:
+		return
+	_last_voice_key = voice_key
+	_push_hint_log("%s：「%s」" % [GUIDE_NAME, String(GUIDE_VOICE[voice_key])])
 
 func _refresh_detail() -> void:
 	var view: Dictionary = _abode.session.get_view()
@@ -1405,7 +1506,9 @@ func _rebuild_hint_log_display() -> void:
 	var lines := []
 	for entry in _abode._message_history:
 		var col: String = "393e35"
-		if entry.contains("受阻") or entry.contains("不足"):
+		if entry.contains("青蘅：「"):
+			col = "6b4a7a"
+		elif entry.contains("受阻") or entry.contains("不足"):
 			col = "8a3028"
 		elif entry.contains("突破") or entry.contains("大圓滿"):
 			col = "735322"

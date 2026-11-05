@@ -1,10 +1,8 @@
-2026-11-02 **EARLY-FLOW1-D 現行 SUPPLY 檔突破與引導修復（L1）**：[狀態](docs/development-status.md#early-flow1d-supply-fix)；[驗收](docs/verification/early-flow1d.md)。
+2026-11-05 **JOURNEY-UI-INTEGRATE 遊歷三頁同紙面（L1/L2）**：[狀態](docs/development-status.md#journey-ui-integrate)。
 
-2026-11-02 **MAID-CLOSE 仙侍整批收尾完整 L3（全量 runner＋全尺寸矩陣＋Web 三橫式）**：[狀態](docs/development-status.md#maid-close)；[驗收](docs/verification/maid-close.md)。
+2026-11-05 **MAID-GUIDE-STABLE 外置氣泡與人物大小固定（L1/L2）**：[狀態](docs/development-status.md#maid-guide-stable)。
 
-2026-11-01 **MAID-PARALLEL-1 多仙侍並行職掌（L1）**：[狀態](docs/development-status.md#maid-parallel)。
-
-2026-11-01 **MAID-DUTY-PRESET 職掌預設組合、保留量 UI 與材料不足提示（L1）**：[狀態](docs/development-status.md#maid-duty-preset)。
+2026-11-05 **MAID-UI-INTEGRATE 人物頁同紙面與直排書籤（L1/L2）**：[狀態](docs/development-status.md#maid-ui-integrate)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
 

@@ -537,6 +537,9 @@ func _on_maid_action(kind: String, payload: Dictionary) -> void:
 			"execute_maid_duty": success = "已執行一次職掌。"
 			"claim_maid_chapter": success = "羈絆篇章已記入。"
 			"maid_reunion": success = "舊世燈火，無需再謝。"
+		var voiced: String = preload("res://src/presentation/maid_character_panel.gd").voice_line(kind, String(payload.get("maid_id", "")))
+		if not voiced.is_empty():
+			success = voiced
 	abode._refresh_hud()
 	if success.is_empty(): return
 	if kind == "recruit_maid":

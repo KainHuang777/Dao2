@@ -82,6 +82,7 @@ func set_embedded(value: bool) -> void:
 	if embedded == value: return
 	embedded = value
 	if is_instance_valid(_title_row): _title_row.visible = not value
+	if is_instance_valid(objective_button): objective_button.visible = _has_objective and not embedded and not short_mode and not detail_slot.visible
 	add_theme_stylebox_override("panel", StyleBoxEmpty.new() if value else _catalog_surface())
 
 func _catalog_surface() -> StyleBox:
@@ -261,14 +262,14 @@ func set_context(status: String, objective: String) -> void:
 	objective_button.text = objective
 	objective_button.tooltip_text = objective
 	_has_objective = not objective.is_empty()
-	objective_button.visible = _has_objective and not short_mode and not detail_slot.visible
+	objective_button.visible = _has_objective and not embedded and not short_mode and not detail_slot.visible
 
 func set_short_mode(short: bool) -> void:
 	if short_mode == short:
 		return
 	short_mode = short
 	status_label.visible = false
-	objective_button.visible = _has_objective and not short and not detail_slot.visible
+	objective_button.visible = _has_objective and not embedded and not short and not detail_slot.visible
 	filter_row.visible = not short and not detail_slot.visible
 	_apply_density()
 	_apply_resource_cards()
@@ -278,7 +279,7 @@ func show_detail(show: bool) -> void:
 		_list_scroll_position = scroll.scroll_vertical
 	detail_slot.visible = show
 	scroll.visible = not show
-	objective_button.visible = _has_objective and not short_mode and not show
+	objective_button.visible = _has_objective and not embedded and not short_mode and not show
 	filter_row.visible = not short_mode and not show
 	_apply_resource_cards()
 	if not show:

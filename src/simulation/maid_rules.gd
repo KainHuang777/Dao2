@@ -19,16 +19,19 @@ const CHAPTERS := {
 		{"id": "qingheng_1", "title": "一盞燈", "bond": 20, "requires": "duty_units", "amount": 10},
 		{"id": "qingheng_2", "title": "宗門來信", "bond": 30, "requires": "sect_unlocked"},
 		{"id": "qingheng_3", "title": "前世燈火", "bond": 50, "requires": "reincarnation_talent"},
+		{"id": "qingheng_4", "title": "燈影同行", "bond": 90, "requires": "duty_units", "amount": 20},
 	],
 	"nuomeizi": [
 		{"id": "nuomeizi_1", "title": "第一道劍痕", "bond": 20, "requires": "duty_units", "amount": 3},
 		{"id": "nuomeizi_2", "title": "功法相印", "bond": 30, "requires": "any_skill"},
 		{"id": "nuomeizi_3", "title": "劍鳴舊世", "bond": 50, "requires": "reincarnation_talent"},
+		{"id": "nuomeizi_4", "title": "以劍為盟", "bond": 90, "requires": "duty_units", "amount": 15},
 	],
 	"danxia": [
 		{"id": "danxia_1", "title": "爐火初溫", "bond": 20, "requires": "duty_units", "amount": 5},
 		{"id": "danxia_2", "title": "靈獸銜丹", "bond": 30, "requires": "beast_active"},
 		{"id": "danxia_3", "title": "丹心照夜", "bond": 50, "requires": "reincarnation_talent"},
+		{"id": "danxia_4", "title": "同守一爐", "bond": 90, "requires": "duty_units", "amount": 20},
 	],
 }
 const DUTY_CADENCE_SECONDS := {"steward_stock": 10, "oversee_build": 30, "restock_pills": 10}

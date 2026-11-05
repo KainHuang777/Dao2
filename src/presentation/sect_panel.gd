@@ -28,6 +28,13 @@ var _title_label: Label
 var _contrib_row: HBoxContainer
 var _contrib_label: Label
 var _close_button: Button
+var embedded := false
+
+func set_embedded(value: bool) -> void:
+	embedded = value
+	if _background != null:
+		_background.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell()))
+		_close_button.visible = not embedded and not _compact
 
 # 狀態橫幅或未解鎖/未加入提示
 var _banner_panel: PanelContainer
@@ -87,7 +94,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	if _background != null:
 		_background.size = size
 	_compact = size.y < 350
-	_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell())
+	_background.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell()))
 	UiMaterial.apply_scroll_content_margins(_margin, _compact)
 	_banner_panel.visible = not _compact and not bool(_cached_sect_data.get("unlocked", false))
 	_header_container.add_theme_constant_override("separation", 4 if _compact else 8)
@@ -97,7 +104,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	if not joined:
 		_title_label.text = ("擇一拜入山門" if _cached_is_eligible_to_join else "需達築基或歷經轉世") if _compact else "【尋仙訪道】· 拜入山門"
 	_title_row.visible = not (_compact and joined)
-	_close_button.visible = not _compact
+	_close_button.visible = not embedded and not _compact
 	var contribution_parent: Node = _tab_row if _compact and joined else _title_row
 	if _contrib_row.get_parent() != contribution_parent:
 		_contrib_row.reparent(contribution_parent)

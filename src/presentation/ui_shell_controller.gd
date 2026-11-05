@@ -318,6 +318,7 @@ func apply(vp: Vector2) -> void:
 	abode.settings_menu.visible = effective.navigation
 	abode.feature_navigation.bar.visible = not home and effective.navigation
 	entry.visible = not portrait and not cinematic and snapshot.overlay != "protection"
+	message_button.show()
 	resource_button.visible = effective.resource_entry
 	collapse_button.visible = not home and effective.resource_entry and not short_skills
 	collapse_button.text = "展開" if snapshot.resources_collapsed else "暫收"
@@ -331,9 +332,7 @@ func apply(vp: Vector2) -> void:
 	resource_button.custom_minimum_size.x = 64 if home or wide else (176 if short_skills else 156)
 	resource_button.clip_text = false
 	resource_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var entry_width: float = maxf(216, entry.get_combined_minimum_size().x)
-	entry.position = Vector2(vp.x - margin - entry_width, vp.y - margin - 48)
-	entry.size = Vector2(entry_width, 44)
+	layout_entries(vp)
 	var overlay: String = snapshot.overlay
 	var modal: bool = overlay in ["resources", "messages", "tool", "report"]
 	shield.visible = modal and not portrait
@@ -345,7 +344,7 @@ func apply(vp: Vector2) -> void:
 	var rail: bool = effective.resource_presentation == "rail"
 	var drawer: bool = effective.resource_presentation == "drawer"
 	var management: bool = abode.feature_navigation.group == "management"
-	var integrated: bool = management or snapshot.route == "reincarnation"
+	var integrated: bool = management or snapshot.route == "reincarnation" or snapshot.route in Policy.JOURNEY_FOLIOS
 	# Restore parents before the ordinary HUD lays out non-management routes or overlays.
 	if not integrated or drawer:
 		workbench.apply(false, Rect2(), wide, false)
@@ -385,9 +384,10 @@ func apply(vp: Vector2) -> void:
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
 	if integrated and not drawer:
-		var work_width := minf(1160.0, vp.x - margin * 2)
-		var work_top := 16.0 if wide else 64.0
-		var work_bounds := Rect2(Vector2((vp.x - work_width) * 0.5, work_top), Vector2(work_width, maxf(80, bottom - work_top - (52 if save_failed else 0))))
+		var companion: float = abode.maid_stand.workspace_reserve(vp) if abode.maid_stand != null else 0.0
+		var work_width := minf(1160.0, vp.x - margin * 2 - companion)
+		var work_top := 16.0 if wide and snapshot.route not in Policy.JOURNEY_FOLIOS else 68.0
+		var work_bounds := Rect2(Vector2((vp.x - work_width - companion) * 0.5, work_top), Vector2(work_width, maxf(80, bottom - work_top - (52 if save_failed else 0))))
 		workbench.apply(true, work_bounds, wide, rail)
 		if integrated_identity:
 			if compact_hud.get_parent() != workbench.stock: compact_hud.reparent(workbench.stock, false)
@@ -442,6 +442,11 @@ func apply(vp: Vector2) -> void:
 		abode.camera.dragging = false
 		abode.camera.contacts.clear()
 	_applying = false
+
+func layout_entries(vp: Vector2) -> void:
+	var entry_width: float = maxf(216, entry.get_combined_minimum_size().x)
+	entry.position = Vector2(vp.x - 16.0 - entry_width, vp.y - 16.0 - 48.0)
+	entry.size = Vector2(entry_width, 44)
 
 func _sync_subpage() -> void:
 	var route: String = state.snapshot().route

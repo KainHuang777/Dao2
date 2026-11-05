@@ -71,7 +71,7 @@ func _run() -> void:
 	abode.building_catalog.show_detail(false)
 	abode.building_catalog.set_short_mode(true)
 	abode.building_catalog.set_short_mode(false)
-	_expect(abode.building_catalog.objective_button.visible, "detail and density changes retain the cultivation objective")
+	_expect(not abode.building_catalog.objective_button.visible and abode.maid_stand.guidance.guide_button.is_visible_in_tree(), "embedded detail and density changes retain the companion guide entry")
 	abode._close_building_catalog()
 	abode.session.state.buildings = initial_buildings
 	abode._refresh_hud()

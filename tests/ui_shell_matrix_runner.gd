@@ -49,6 +49,14 @@ func _run() -> void:
 					abode._layout_for_size(Vector2(vp))
 					await frames()
 					check(nav.page == route and shell.state.snapshot().route == route, "canonical " + route)
+					if route in preload("res://src/presentation/ui_shell_policy.gd").JOURNEY_FOLIOS:
+						var folio: Control = {"characters": nav.character_panel, "sect": abode.sect_panel, "fortune": abode.fortune_modal, "decisions": nav.action_panel}[route]
+						check(shell.workbench.panel.is_ancestor_of(nav.bar) and shell.workbench.panel.is_ancestor_of(folio), "journey tabs and content share one paper " + route)
+						check(folio.embedded and folio.get_global_rect().end.y <= abode.toolbar.global_position.y + 1, "embedded folio clears navigation " + route)
+						if route in ["sect", "fortune"]:
+							check(not folio._close_button.visible and folio._background.get_theme_stylebox("panel") is StyleBoxEmpty, "only canonical close and outer paper " + route)
+						elif route == "decisions":
+							check(folio._surface.get_theme_stylebox("panel") is StyleBoxEmpty, "decision folio removes nested paper")
 					check(shell.compact_hud.visible and not abode.header.visible, "compact HUD " + route)
 					check(not abode.hint_panel.visible, "no home messages " + route)
 					check(not abode._hud_controller._goal_scroll.visible, "home goal hidden in workspace " + route)

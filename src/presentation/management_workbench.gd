@@ -60,6 +60,8 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 			if _styles.has(control): control.add_theme_stylebox_override("panel", _styles[control])
 		abode.building_catalog.set_embedded(false)
 		abode.reincarnation_panel.set_embedded(false)
+		abode.feature_navigation.character_panel.set_embedded(false)
+		for child in [abode.sect_panel, abode.fortune_modal, abode.feature_navigation.action_panel]: child.set_embedded(false)
 		for child in [abode.feature_navigation.island_panel, abode.feature_navigation.manufacturing_panel, abode.feature_navigation.transport_panel]: child.set_embedded(false)
 		return
 	panel.position = bounds.position
@@ -70,8 +72,14 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	column.move_child(nav.bar, 0)
 	nav.bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	nav.bar.custom_minimum_size.y = 44
-	nav.bar.add_theme_stylebox_override("panel", _flat)
-	stock.visible = wide
+	var head_style := StyleBoxFlat.new()
+	head_style.bg_color = Color.TRANSPARENT
+	head_style.border_width_bottom = 1
+	head_style.border_color = Color(0.48, 0.42, 0.32, 0.35)
+	head_style.content_margin_top = 4
+	head_style.content_margin_bottom = 6
+	nav.bar.add_theme_stylebox_override("panel", head_style)
+	stock.visible = wide and (nav.group == "management" or nav.page == "reincarnation" or show_stock)
 	stock.custom_minimum_size.x = 320 if wide else 236
 	stock_title.visible = wide and show_stock and not nav.island_flow.visible
 	stock_content.visible = wide and show_stock
@@ -84,6 +92,11 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 		child.set_embedded(true)
 	_move(abode.reincarnation_panel, pages)
 	abode.reincarnation_panel.set_embedded(true)
+	_move(nav.character_panel, pages)
+	nav.character_panel.set_embedded(true)
+	for child in [abode.sect_panel, abode.fortune_modal, nav.action_panel]:
+		_move(child, pages)
+		child.set_embedded(true)
 	_move(nav.island_flow, pages)
 	# Commands can open/close details within one frame. Supply the container's
 	# allocation immediately so feedback does not read yesterday's short layout.

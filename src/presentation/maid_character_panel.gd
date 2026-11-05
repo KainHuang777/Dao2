@@ -109,6 +109,19 @@ const BOND_SCRIPT := {
 			],
 			"closing": "前世與今生的燈在同一張桌上亮著，誰也沒有先去吹熄它。",
 		},
+		"qingheng_4": {
+			"title": "燈影同行",
+			"lines": [
+				"夜讀散了，她把燈台推到書案正中，火苗座椅般穩穩照著兩盞茶。",
+				"「能同坐到深夜的燈影不多。」她合上書，「我想讓你算一個。」",
+			],
+			"choices": ["那就一直同坐。", "哪天燈滅了呢？"],
+			"branches": [
+				["她笑意淺淺：「那我便一直守著燈芯，讓這盞燈亮成習慣。」"],
+				["「滅了我再點。」她把火剪放到你手邊，「往後，你也可以替我掌燈。」"],
+			],
+			"closing": "燈影與人影一路同行，書頁翻到何處，身邊都有一盞茶。",
+		},
 	},
 	"nuomeizi": {
 		"nuomeizi_1": {
@@ -149,6 +162,19 @@ const BOND_SCRIPT := {
 				["「當然。」她甩了甩劍上的雨水，嘴角壓不住，「我練了很久。」"],
 			],
 			"closing": "雨停時，劍尖最後一滴水落下，正落在兩人之間。",
+		},
+		"nuomeizi_4": {
+			"title": "以劍為盟",
+			"lines": [
+				"她把佩劍橫在石桌中央，劍身映出並排站著的兩道影子。",
+				"「劍前無虛誓。」她盯著劍身，「這一條道上的路，我要照劍誓算你一份。」",
+			],
+			"choices": ["這道誓，我接。", "比比看誰先走到下一城。"],
+			"branches": [
+				["「爽快。」她收劍入鞘，「那從今日起，你的道上有我這一劍開路。」"],
+				["她眼睛一亮，轉身便走：「也行！輸的人替對方磨一個月的劍。」"],
+			],
+			"closing": "劍誓落定，雲海之上，兩條路從此並作一條。",
 		},
 	},
 	"danxia": {
@@ -191,6 +217,19 @@ const BOND_SCRIPT := {
 			],
 			"closing": "爐火照著長夜，也照著兩個不肯先走的人。",
 		},
+		"danxia_4": {
+			"title": "同守一爐",
+			"lines": [
+				"最後一爐九轉的丹，她破例在爐前多擺了一把蒲扇與一張矮凳。",
+				"「丹爐的火不借人。」她卻把凳子往你身邊挪了挪，「但守夜的位置，可以多一個。」",
+			],
+			"choices": ["那我守下半夜。", "丹成之夜，記下時辰。"],
+			"branches": [
+				["「好。」她把丹方往你面前推了推，「換火便喚我，我就在簾子那邊。」"],
+				["她提筆在丹方末頁記下今日火候：「往後翻到這一頁，都算同守。」"],
+			],
+			"closing": "爐火亮了一整夜，簾內簾外，成了同道守候的兩人。",
+		},
 	},
 }
 const MODES := ["person", "meeting", "work", "bond"]
@@ -219,11 +258,97 @@ const RECRUIT_TEXTS := {
 	"nuomeizi": {"MAID_REQUIREMENT": "青蘅羈絆達相知、境界築基後，糯美子方可入府。"},
 	"danxia": {"MAID_REQUIREMENT": "青蘅羈絆達相知、境界築基後，丹霞方可入府。", "ALCHEMY_LOCKED": "丹道尚未解鎖，丹霞無法開爐。"},
 }
-const REUNION_LINE := "久別重逢。燈還亮著，舊約也還算數。"
+const GREETINGS := {
+	"qingheng": [
+		"書還在讀，茶先替您備好了。",
+		"您來了，案上的燈我留到現在。",
+		"這次的帳目我核過了，您放心。",
+		"路還長，我把燈芯又留長了一寸。",
+	],
+	"nuomeizi": [
+		"喚我？練劍的空檔都留給你。",
+		"站住別動——哎，是你。",
+		"今天手感好，你說去哪我就去哪。",
+		"你走路的聲音我聽得出來，一起走。",
+	],
+	"danxia": [
+		"……坐。火要一炷香，誰的話都可以等。",
+		"新茶在壺裡，趁火還穩著。",
+		"今天的丹色很好，值得多看一眼。",
+		"夜長，爐穩，你來了正好。",
+	],
+}
+const DUTY_GREETINGS := {
+	"qingheng": [
+		"庫房在核，您先忙別的。",
+		"帳目在走，成品快到目標了。",
+		"產線順著呢，今晚只須翻帳。",
+		"有我看著這本帳，您去歇著。",
+	],
+	"nuomeizi": [
+		"工程在盯，練劍回頭再說。",
+		"監工交給我，進度不會偏。",
+		"工地我看了三遍，你儘管去。",
+		"工在進，劍在鞘，路我倆同看。",
+	],
+	"danxia": [
+		"爐交我看，缺料我會說。",
+		"丹爐排程在走，火候不必盯。",
+		"成色上手便知，你不用陪夜。",
+		"兩盞守夜，爐火從沒這般安穩。",
+	],
+}
+const REUNION_LINES := {
+	"qingheng": "久別重逢。燈未滅，書也未收，就等你回來一敘。",
+	"nuomeizi": "回來啦！劍都快替你磨好了。舊路再走一輪？",
+	"danxia": "……火還溫著。回來得正好，陪我守完這一爐。",
+}
+const VOICE_LINES := {
+	"recruit_maid": {
+		"qingheng": "已入府。案上那盞燈，替您亮著。",
+		"nuomeizi": "入府了！劍在鞘，您說走哪。",
+		"danxia": "入府了。爐在溫著，不急。",
+	},
+	"assign_maid_duty": {
+		"qingheng": "職掌已指派，帳目我來按時核。",
+		"nuomeizi": "監工我領了，進度不會偏離。",
+		"danxia": "煉丹交付我，火候看我的。",
+	},
+	"clear_maid_duty": {
+		"qingheng": "帳先擱下，您想慢慢安排也好。",
+		"nuomeizi": "劍收回鞘，事由你做主。",
+		"danxia": "爐封停了，料都留著。",
+	},
+	"set_maid_duty_paused": {
+		"qingheng": "節奏放緩了，隨時可以續。",
+		"nuomeizi": "劍令暫止或再啟，一聲令下。",
+		"danxia": "爐火守著不熄，暫緩也無妨。",
+	},
+	"execute_maid_duty": {
+		"qingheng": "這趟做完，帳上又添一筆。",
+		"nuomeizi": "跑完一場，落點乾淨。",
+		"danxia": "出爐了。成色你看過再說。",
+	},
+	"claim_maid_chapter": {
+		"qingheng": "這一段，我也記在心上。",
+		"nuomeizi": "又多一條我們共同的路。",
+		"danxia": "篇章歸檔，火候不辜負人。",
+	},
+	"maid_reunion": {
+		"qingheng": "回來就好，燈與帳都在。",
+		"nuomeizi": "一天不見，劍都替你亮了。",
+		"danxia": "重逢不必多話，茶替我說。",
+	},
+}
 var mode := "person"
 var selected_maid := "qingheng"
 var selected_reply := -1
 var column: VBoxContainer
+var content: VBoxContainer
+var section_body: HBoxContainer
+var section_scroll: ScrollContainer
+var section_tabs: VBoxContainer
+var embedded := false
 var person: HBoxContainer
 var portrait_frame: PanelContainer
 var portrait_button: Button
@@ -242,6 +367,7 @@ var bio_quote_label: Label
 var bio_text_label: Label
 var bio_tags_label: Label
 var bio_closing_label: Label
+var greeting_label: Label
 var meeting: BoxContainer
 var meeting_image: TextureRect
 var missing_meeting: Label
@@ -328,16 +454,9 @@ func _ready() -> void:
 	title.add_theme_font_override("font", UiTypography.emphasis_font())
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(title)
-	for entry in [["person", "人物"], ["meeting", "初遇重溫"], ["work", "職掌"], ["bond", "羈絆"]]:
-		var button := GameTab.new()
-		button.text = entry[1]
-		button.focus_mode = Control.FOCUS_ALL
-		button.pressed.connect(show_mode.bind(entry[0]))
-		header.add_child(button)
-		tabs[entry[0]] = button
 	maid_row = BoxContainer.new()
 	maid_row.add_theme_constant_override("separation", 6)
-	column.add_child(maid_row)
+	header.add_child(maid_row)
 	for id in MAID_ORDER:
 		var selector := GameTab.new()
 		selector.text = String(MAID_NAMES.get(id, id))
@@ -345,10 +464,34 @@ func _ready() -> void:
 		selector.pressed.connect(select_maid.bind(id))
 		maid_row.add_child(selector)
 		maid_buttons[id] = selector
+	section_body = HBoxContainer.new()
+	section_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	section_body.add_theme_constant_override("separation", 12)
+	column.add_child(section_body)
+	section_scroll = ScrollContainer.new()
+	section_scroll.custom_minimum_size.x = 58
+	section_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	section_scroll.follow_focus = true
+	section_body.add_child(section_scroll)
+	section_tabs = VBoxContainer.new()
+	section_tabs.add_theme_constant_override("separation", 8)
+	section_scroll.add_child(section_tabs)
+	for entry in [["person", "人物", "人物介紹"], ["meeting", "初遇", "初遇重溫"], ["work", "職掌", "職掌"], ["bond", "羈絆", "羈絆"]]:
+		var button := ArrowBookmarkTab.new()
+		button.text = entry[1]
+		button.tooltip_text = entry[2]
+		button.accessibility_name = entry[2]
+		button.pressed.connect(show_mode.bind(entry[0]))
+		section_tabs.add_child(button)
+		tabs[entry[0]] = button
+	content = VBoxContainer.new()
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	section_body.add_child(content)
 	person = HBoxContainer.new()
 	person.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	person.add_theme_constant_override("separation", 24)
-	column.add_child(person)
+	content.add_child(person)
 	portrait_frame = PanelContainer.new()
 	portrait_frame.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	portrait_frame.size_flags_stretch_ratio = 1.3
@@ -403,6 +546,8 @@ func _ready() -> void:
 	bookmark = PanelContainer.new()
 	bookmark.add_theme_stylebox_override("panel", BookmarkPaper.new())
 	copy_box.add_child(bookmark)
+	greeting_label = _label("", 18)
+	copy_box.add_child(greeting_label)
 	var bio := VBoxContainer.new()
 	bio.add_theme_constant_override("separation", 14)
 	bookmark.add_child(bio)
@@ -423,7 +568,7 @@ func _ready() -> void:
 	meeting.vertical = true
 	meeting.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	meeting.add_theme_constant_override("separation", 14)
-	column.add_child(meeting)
+	content.add_child(meeting)
 	meeting_image = _image("")
 	meeting_image.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	meeting_image.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -544,7 +689,7 @@ func _ready() -> void:
 	chapter_box = VBoxContainer.new()
 	chapter_box.add_theme_constant_override("separation", 6)
 	bond_box.add_child(chapter_box)
-	for index in 3:
+	for index in 4:
 		var row := BoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
 		var info := _label("", 18)
@@ -562,7 +707,7 @@ func _ready() -> void:
 	reunion_box = BoxContainer.new()
 	reunion_box.add_theme_constant_override("separation", 8)
 	bond_box.add_child(reunion_box)
-	reunion_label = _label(REUNION_LINE, 18)
+	reunion_label = _label(_reunion_text(), 18)
 	reunion_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	reunion_box.add_child(reunion_label)
 	reunion_button = _action(reunion_box, "重逢", _reunion)
@@ -602,7 +747,7 @@ func _page(key: String) -> ScrollContainer:
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	column.add_child(scroll)
+	content.add_child(scroll)
 	return scroll
 
 func _action(parent: BoxContainer, value: String, handler: Callable) -> InscriptionAction:
@@ -770,6 +915,7 @@ func _sync_story(entry: Dictionary) -> void:
 	bio_tags_label.text = "　·　".join(tags)
 	bio_closing_label.text = String(story.get("closing", ""))
 	seal.text = String(story.get("seal", ""))
+	_sync_greeting(entry)
 	var scene := String(story.get("scene", ""))
 	speaker.text = ("%s · %s" % [_maid_name(entry), scene]) if not scene.is_empty() else _maid_name(entry)
 
@@ -1142,6 +1288,7 @@ func _sync_bond(entry: Dictionary) -> void:
 		memory.visible = recruited and claimed and final_chapter
 		memory.disabled = not memory.visible
 	reunion_box.visible = recruited and bool(entry.get("reunion_pending", false))
+	reunion_label.text = _reunion_text()
 	recruit_box.visible = not recruited
 	var recruit := _as_dict(entry.get("recruit", {}))
 	var can := bool(recruit.get("can", false))
@@ -1242,6 +1389,31 @@ func chapter_script(maid_id: String, chapter_id: String) -> Dictionary:
 	var scripts := _as_dict(BOND_SCRIPT.get(maid_id, {}))
 	return _as_dict(scripts.get(chapter_id, {})).duplicate(true)
 
+static func voice_line(kind: String, maid_id: String) -> String:
+	var lines: Variant = VOICE_LINES.get(kind, {})
+	if not lines is Dictionary:
+		return ""
+	return String((lines as Dictionary).get(maid_id, ""))
+
+func _reunion_text() -> String:
+	return String(REUNION_LINES.get(selected_maid, ""))
+
+func _greeting_tier(tier_name: String) -> int:
+	match tier_name:
+		"相知": return 1
+		"信任": return 2
+		"同道": return 3
+	return 0
+
+func _sync_greeting(entry: Dictionary) -> void:
+	if greeting_label == null: return
+	var tier := _greeting_tier(String(entry.get("bond_name", "")))
+	var duty := _as_dict(entry.get("duty", {}))
+	var table: Dictionary = DUTY_GREETINGS if not duty.is_empty() and not bool(duty.get("paused", false)) else GREETINGS
+	var lines := _as_array(table.get(selected_maid, []))
+	greeting_label.text = String(lines[tier]) if tier < lines.size() else ""
+	greeting_label.visible = bool(entry.get("recruited", false)) and not greeting_label.text.is_empty()
+
 func _memory(index: int) -> void:
 	if index != chapter_rows.size() - 1: return
 	var chapters := _as_array(_maid_entry().get("chapters", []))
@@ -1262,28 +1434,31 @@ func _recruit() -> void:
 	if not bool(recruit.get("can", false)): return
 	action_requested.emit("recruit_maid", {"maid_id": selected_maid})
 
+func set_embedded(value: bool) -> void:
+	embedded = value
+	if column != null: _apply_surface()
+
+func _apply_surface() -> void:
+	if embedded:
+		add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		return
+	var paper := UiMaterial.hud_paper()
+	paper.content_margin_top = 4 if _compact else 10
+	paper.content_margin_bottom = 4 if _compact else 10
+	add_theme_stylebox_override("panel", paper)
+
 func set_layout_bounds(bounds: Rect2) -> void:
 	_bounds = bounds
 	position = bounds.position
 	size = bounds.size
 	if column == null: return
 	_compact = bounds.size.y < 400 or bounds.size.x < 960
-	var paper := UiMaterial.hud_paper()
-	paper.content_margin_top = 4 if _compact else 10
-	paper.content_margin_bottom = 4 if _compact else 10
-	add_theme_stylebox_override("panel", paper)
+	_apply_surface()
 	var frame: StyleBoxFlat = portrait_frame.get_theme_stylebox("panel").duplicate()
 	frame.set_content_margin_all(4 if _compact else 12)
 	portrait_frame.add_theme_stylebox_override("panel", frame)
 	column.add_theme_constant_override("separation", 4 if _compact else 10)
 	var header: HBoxContainer = title.get_parent() as HBoxContainer
-	if _compact and maid_row.get_parent() != header:
-		maid_row.get_parent().remove_child(maid_row)
-		header.add_child(maid_row)
-	elif not _compact and maid_row.get_parent() != column:
-		maid_row.get_parent().remove_child(maid_row)
-		column.add_child(maid_row)
-		column.move_child(maid_row, 1)
 	header.add_theme_constant_override("separation", 2 if _compact else 4)
 	name_column.vertical = not _compact
 	name_column.custom_minimum_size.x = 44 if _compact else 72
@@ -1348,6 +1523,7 @@ func _compact_labels() -> void:
 	work_status.add_theme_font_size_override("font_size", body_size)
 	work_owner.add_theme_font_size_override("font_size", body_size)
 	duty_hint.add_theme_font_size_override("font_size", body_size)
+	greeting_label.add_theme_font_size_override("font_size", body_size)
 	bond_status.add_theme_font_size_override("font_size", body_size)
 	bond_next.add_theme_font_size_override("font_size", body_size)
 	reunion_label.add_theme_font_size_override("font_size", body_size)

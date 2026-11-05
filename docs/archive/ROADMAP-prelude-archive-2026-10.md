@@ -1,3 +1,19 @@
+2026-11-05 **MAID-GUIDE-DOCK 經營仙侍陪伴與常駐引導氣泡（L1/L2）**：[狀態](docs/development-status.md#maid-guide-dock)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-11-04 **MAID-VOICE 仙侍語音文案、第四章收束與引導侍女相伴（L1/L2）**：[狀態](docs/development-status.md#maid-voice)；[驗收](docs/verification/maid-voice.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-11-02 **MAID-CLOSE 仙侍整批收尾完整 L3（全量 runner＋全尺寸矩陣＋Web 三橫式）**：[狀態](docs/development-status.md#maid-close)；[驗收](docs/verification/maid-close.md)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
+2026-11-01 **MAID-PARALLEL-1 多仙侍並行職掌（L1）**：[狀態](docs/development-status.md#maid-parallel)。
+
+> 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
+
 2026-11-01 **MAID-BOND-CHAPTER 羈絆章節對話分歧與已讀回放（L1）**：[狀態](docs/development-status.md#maid-bond-chapter)。
 
 2026-11-01 **MAID-DISPLAY-PREF 洞府侍立展示偏好跨存檔／輪迴（L1）**：[狀態](docs/development-status.md#maid-display-pref)。
@@ -491,3 +507,5 @@
 
 2026-10-09 **RES1-UI1-R6 DONE（有界空島圖形化）**：沿用製造／運輸手繪物品框，採集庫存／實際產率／容量條、地方原料產物、開拓與升階成本框／缺料恢復、固定切島／前往與短式下拉已接入。最終56/56（A217／B220）、三橫式Web／實際採集與倉儲升階／重載保留通過，一般Web同步。[驗收](docs/verification/res1-ui1-r6.md)。人工美術／實機與完整UI1-C／C／D仍待驗；直式iframe提示偏小需後續核對。下一New Chat收空島回饋，不重做已過保存／FPS或暫緩冷啟動。
 
+
+2026-11-01 **MAID-DUTY-PRESET 職掌預設組合、保留量 UI 與材料不足提示（L1）**：[狀態](docs/development-status.md#maid-duty-preset)。

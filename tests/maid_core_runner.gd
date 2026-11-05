@@ -77,7 +77,7 @@ func _test_rules() -> void:
 		thresholds.append(int(level.at))
 	check(thresholds == [0, 40, 100, 200], "bond thresholds 0/40/100/200")
 	for id in MaidRules.MAID_IDS:
-		check(MaidRules.chapters(id).size() == 3, "three chapters " + String(id))
+		check(MaidRules.chapters(id).size() == 4, "four chapters " + String(id))
 	check(int(MaidRules.DUTY_CADENCE_SECONDS.steward_stock) == 10 and int(MaidRules.DUTY_CADENCE_SECONDS.oversee_build) == 30 and int(MaidRules.DUTY_CADENCE_SECONDS.restock_pills) == 10, "cadence 10/30/10")
 	check(MaidRules.FIRST_DUTY_BOND == 10 and MaidRules.MAX_UNITS_PER_ACTION == 5, "first duty bond and unit cap")
 	check(MaidRules.MAX_ACTIONS_PER_CALL == 5 and MaidSystem.MAX_ACTIONS_PER_ADVANCE == 1000, "advance budget constants")

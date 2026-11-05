@@ -7,6 +7,7 @@ const GROUPS := {
 	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"], ["characters", "人物"]]},
 }
 const INVENTORY_ROUTES := ["buildings", "outposts", "manufacturing", "transport", "alchemy"]
+const JOURNEY_FOLIOS := ["characters", "sect", "fortune", "decisions"]
 const FOCUSED_ROUTES := ["skills", "beasts", "fortune", "decisions"]
 const OVERLAY_PRIORITY := {"resources": 1, "messages": 1, "tool": 1, "report": 2, "sequence": 3, "protection": 4}
 
