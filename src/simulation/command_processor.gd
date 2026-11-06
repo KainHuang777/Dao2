@@ -50,6 +50,12 @@ static func _apply(content: GameContent, state: GameState, command: Dictionary) 
 			return _apply_upgrade_realm_outpost(content, state, command.payload)
 		"join_sect":
 			return _apply_join_sect(content, state, command.payload)
+		"skip_sect_tournament", "enter_sect_tournament", "choose_sect_trial", "claim_sect_tournament", "abandon_sect_tournament":
+			return SectTournament.execute(content,state,command.type,command.payload)
+		"resolve_sect_story":
+			return SectLife.resolve(content, state, command.payload)
+		"ack_sect_entry":
+			return SectEntry.acknowledge(state, String(command.payload.get("action", "")))
 		"resolve_legacy_sect_identity":
 			var id: Variant = command.payload.get("sect_id", "")
 			if not (id is String): return _failure("INVALID_SECT_ID", {})

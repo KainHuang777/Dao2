@@ -59,15 +59,16 @@ static func resolve(state: Dictionary, vp: Vector2, context: Dictionary = {}) ->
 		resource_context = "none"
 	var mode := clampi(int(prefs.get("resource_mode", 1)), 0, 2) if home else 1
 	var resource_open := resource_context != "none" and (mode > 0 if home else not bool(state.get("resources_collapsed", false)))
+	var full_folio := route in JOURNEY_FOLIOS
 	var presentation := "hidden"
 	if resource_open:
-		presentation = "rail" if wide and resource_context in ["home", "inventory"] else "summary"
+		presentation = "rail" if wide and resource_context in ["home", "inventory"] and not full_folio else "summary"
 	if overlay == "resources" and not portrait:
 		presentation = "drawer"
 	var cinematic := overlay == "sequence"
 	return {
 		"route": route, "layout": "portrait" if portrait else ("wide" if wide else "compact"),
-		"hud": "hidden" if portrait or cinematic or overlay == "protection" else ("full" if home else "compact"),
+		"hud": "hidden" if portrait or cinematic or overlay == "protection" or full_folio else ("full" if home else "compact"),
 		"navigation": not portrait and not cinematic and overlay != "protection",
 		"navigation_input": not blocking, "page_input": not blocking and not confirmation,
 		"confirmation_input": not blocking and confirmation,

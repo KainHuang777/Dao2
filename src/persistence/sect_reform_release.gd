@@ -9,16 +9,17 @@ const CONTENT_TAG := "+sect-reform-1"
 const RULES_VERSION := "core-flow-26-sect-reform-1"
 
 static func active(state: GameState) -> bool:
-	return state != null and state.sect_version == SECT_VERSION
+	return state != null and state.sect_version in [SECT_VERSION, 4, 5, 6, SectLife.SECT_VERSION]
 
 static func validate(state: GameState) -> String:
 	var requested := active(state) or state.talent_version == TALENT_VERSION or state.beast_version == BEAST_VERSION or state.sect.has("guardian")
 	if not requested: return ""
-	if state.sect_version != SECT_VERSION or state.talent_version != TALENT_VERSION or state.beast_version != BEAST_VERSION: return "SECT_REFORM_VERSION_SET"
+	if not active(state) or state.talent_version != TALENT_VERSION or state.beast_version != BEAST_VERSION: return "SECT_REFORM_VERSION_SET"
 	var structural := BeastSaveContract.validate(state.beast_version, state.beasts, state.beast_souls, state.beast_talents)
 	if not structural.is_empty(): return structural
 	structural = SectSaveContract.validate(state.sect_version, state.sect)
 	if not structural.is_empty(): return structural
+	if SectLife.active(state) and int(state.sect.life.life_seq) != state.reincarnation_count: return "SECT_LIFE_SEQUENCE"
 	structural = TalentSystem.validate_state(state)
 	if not structural.is_empty(): return structural
 	var error := GuardianDiscovery.state_error(state)

@@ -24,9 +24,10 @@ func _run() -> void:
 	root.add_child(abode)
 	await process_frame
 
-	# Setup isolated session
-	var session := GameSession.create_new_game(abode.content)
-	abode.session = session
+	# Use the migrated, save-valid session created by LivingAbode._init_core().
+	while abode.session == null:
+		await process_frame
+	var session: GameSession = abode.session
 	abode.state = abode.AbodeStateCompat.new(session)
 	abode._refresh_hud()
 
@@ -150,7 +151,10 @@ func _run() -> void:
 		return
 
 	# 6. Persistence Save & Reload
-	abode._save_game()
+	var saved: Dictionary = abode._save_game()
+	if not saved.get("ok", false):
+		_fail("Save before reload must succeed, got: " + String(saved.get("error", "")))
+		return
 	abode.queue_free()
 	await process_frame
 

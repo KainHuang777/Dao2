@@ -174,10 +174,10 @@ func test_era_eligibility_button_states() -> void:
 	panel.set_layout_bounds(Rect2(0, 0, 620, 600))
 	
 	var buttons_found := 0
-	for button in _join_buttons(panel._tab_content_container):
+	for button in _join_buttons(panel._folio):
 		buttons_found += 1
-		assert(button.disabled and button.text == "需達築基期", "Era1 joins explain requirement")
-	assert(buttons_found == 5, "5 sect cards should have disabled join buttons in Era 1")
+		assert(button.disabled and button.text.begins_with("立誓拜入"), "Era1 joins explain requirement")
+	assert(buttons_found == 1, "Single selected-sect oath is disabled in Era 1")
 	
 	# Era 2: Eligible (buttons must be enabled)
 	var state_era2 := _create_test_state(2)
@@ -185,15 +185,15 @@ func test_era_eligibility_button_states() -> void:
 	panel.set_layout_bounds(Rect2(0, 0, 620, 600))
 	
 	var enabled_buttons := 0
-	for button in _join_buttons(panel._tab_content_container):
+	for button in _join_buttons(panel._folio):
 		enabled_buttons += 1
-		assert(not button.disabled and button.text == "立誓拜入", "Era2 joins enabled")
-	assert(enabled_buttons == 5, "5 sect cards should have enabled join buttons in Era 2")
+		assert(not button.disabled and button.text.begins_with("立誓拜入"), "Era2 joins enabled")
+	assert(enabled_buttons == 1, "Single selected-sect oath is enabled in Era 2")
 	
 	panel.queue_free()
 
 func _join_buttons(node: Node) -> Array[Button]:
 	var result: Array[Button] = []
-	if node is Button and node.text in ["需達築基期", "立誓拜入"]: result.append(node)
+	if node is Button and node.text.begins_with("立誓拜入"): result.append(node)
 	for child in node.get_children(): result.append_array(_join_buttons(child))
 	return result

@@ -1,0 +1,102 @@
+{
+  "task": "SECT-LIFE-ART-UI-R1",
+  "date": "2026-11-05",
+  "acceptance": "ACCEPTED",
+  "generator": "Built-in image_gen, four independent calls",
+  "source": "Original AI-generated images, no external reference images",
+  "license_status": "Generated for this project; no third-party commercial license asserted",
+  "runtime_integration": true,
+  "processing": "Original copies in assets/ui/sect-life; no resizing, cropping, cleanup or painted edits; Godot TextureRect scales preserving aspect and alpha",
+  "remaining": "Optional separate mist/light and portrait derivatives are not part of the static folio integration. Four other sects and tournament/content have since been integrated; see development-status.",
+  "assets": [
+    {
+      "id": "taixu-gate",
+      "original": "docs/sect-life/art-v1/originals/taixu-gate.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "b04670303ab1b7e63adca6afa393dd5dbc2d84e9d2d51082e3eda7d48da2f866",
+      "prompt": "docs/sect-life/art-v1/prompts/taixu-gate.txt",
+      "layers": "Single static scenery",
+      "purpose": "Formal native Godot gate/fellow folio; original art preserved",
+      "runtime": "assets/ui/sect-life/taixu-gate.png"
+    },
+    {
+      "id": "shen-zhaowei",
+      "original": "docs/sect-life/art-v1/originals/shen-zhaowei.png",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "dda1296ed0f62d02579e8ea72ae6d7d9bd8cc309c23e929304d5fede20fb98bf",
+      "prompt": "docs/sect-life/art-v1/prompts/shen-zhaowei.txt",
+      "layers": "Independent transparent portrait; original generated alpha preserved",
+      "purpose": "Formal native Godot gate/fellow folio; original art preserved",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1062,
+        1448
+      ],
+      "runtime": "assets/ui/sect-life/shen-zhaowei.png"
+    },
+    {
+      "id": "lu-jingxing",
+      "original": "docs/sect-life/art-v1/originals/lu-jingxing.png",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "5ddec976db33da418ac47fcba348f244131929004b04544596a966197604b654",
+      "prompt": "docs/sect-life/art-v1/prompts/lu-jingxing.txt",
+      "layers": "Independent transparent portrait; original generated alpha preserved",
+      "purpose": "Formal native Godot gate/fellow folio; original art preserved",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1072,
+        1448
+      ],
+      "runtime": "assets/ui/sect-life/lu-jingxing.png"
+    },
+    {
+      "id": "tang-xihe",
+      "original": "docs/sect-life/art-v1/originals/tang-xihe.png",
+      "size": [
+        1081,
+        1455
+      ],
+      "mode": "RGBA",
+      "sha256": "0b78343787e54433a5571f546d29df9aca76ff3a0a0f96eea997eebd8dd83089",
+      "prompt": "docs/sect-life/art-v1/prompts/tang-xihe.txt",
+      "layers": "Independent transparent portrait; original generated alpha preserved",
+      "purpose": "Formal native Godot gate/fellow folio; original art preserved",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1081,
+        1455
+      ],
+      "runtime": "assets/ui/sect-life/tang-xihe.png"
+    }
+  ],
+  "accepted_date": "2026-11-05",
+  "accepted_by": "User",
+  "acceptance_scope": "Taixu gate and three NPC original illustrations only; does not certify UI layout, browser interaction or formal Godot integration"
+}

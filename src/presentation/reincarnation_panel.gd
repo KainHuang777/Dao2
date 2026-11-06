@@ -10,6 +10,7 @@ var _background: Panel
 var _content: VBoxContainer
 var _title_row: HBoxContainer
 var _tab_row: BoxContainer
+var _short_tab_row: HBoxContainer
 var _main_body_row: HBoxContainer
 var _content_column: VBoxContainer
 var _top_bar: HBoxContainer
@@ -86,12 +87,21 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_VISIBILITY_CHANGED and not visible and _cancel_button != null:
 		_cancel_confirmation()
+	elif what == NOTIFICATION_RESIZED:
+		_sync_inner_size()
+
+func _sync_inner_size() -> void:
+	if _margin == null: return
+	_margin.position = Vector2.ZERO
+	_margin.size = size
+	if _background != null:
+		_background.position = Vector2.ZERO
+		_background.size = size
 
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
-	if _background != null:
-		_background.size = size
+	_sync_inner_size()
 	if _body_scroll != null:
 		var compact := bounds.size.y < 350
 		_background.visible = not _embedded
@@ -121,6 +131,21 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		if _tab_row != null and _main_body_row != null and _tab_row.get_parent() != tabs_parent:
 			_tab_row.reparent(tabs_parent)
 			tabs_parent.move_child(_tab_row, 0)
+		var short := bounds.size.y < 260
+		if short:
+			for tab in [_reincarnate_button, _talents_button, _history_button]:
+				if tab != null and tab.get_parent() != _short_tab_row:
+					tab.reparent(_short_tab_row)
+					tab.custom_minimum_size = Vector2(46, 44)
+			_short_tab_row.visible = true
+			_tab_row.visible = false
+		else:
+			for tab in [_reincarnate_button, _talents_button, _history_button]:
+				if tab != null and tab.get_parent() != _tab_row:
+					tab.reparent(_tab_row)
+					tab.custom_minimum_size = Vector2(46, 58)
+			_short_tab_row.visible = false
+			_tab_row.visible = true
 		_currency_label.visible = not compact
 		_reincarnate_button.text = "輪迴" if compact else "轉世輪迴"
 		_talents_button.text = "天賦" if compact else "道心天賦"
@@ -130,8 +155,19 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		_root_box.add_theme_constant_override("separation", 4 if compact else 10)
 		for row in _talent_rows.values():
 			_update_talent_description(row)
+		_sync_inner_size.call_deferred()
 		_fit_talents.call_deferred()
 		if not _last_view.is_empty(): refresh(_last_view)
+		if _report_view != null and _report_view.visible:
+			_scroll_report_into_view.call_deferred()
+
+func _scroll_report_into_view() -> void:
+	if _body_scroll == null or _report_view == null: return
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not _report_view.visible: return
+	if not _body_scroll.get_global_rect().encloses(_report_view.title.get_global_rect()):
+		_body_scroll.ensure_control_visible(_report_view.title)
 
 func _fit_talents() -> void:
 	if _talents_list == null: return
@@ -205,11 +241,14 @@ func _build_ui() -> void:
 	_background = Panel.new()
 	_background.add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
 	add_child(_background)
-	_background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_background.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_background.position = Vector2.ZERO
 	var margin := MarginContainer.new()
 	_margin = margin
 	add_child(margin)
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	margin.position = Vector2.ZERO
+	resized.connect(_sync_inner_size)
 	UiMaterial.apply_scroll_content_margins(margin)
 	_root_box = VBoxContainer.new()
 	margin.add_child(_root_box)
@@ -274,6 +313,11 @@ func _build_ui() -> void:
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override("separation", 12)
 	_body_scroll.add_child(_content)
+	_short_tab_row = HBoxContainer.new()
+	_short_tab_row.name = "ShortTabRow"
+	_short_tab_row.add_theme_constant_override("separation", 6)
+	_short_tab_row.visible = false
+	_content.add_child(_short_tab_row)
 	_reincarnate_box = VBoxContainer.new()
 	_reincarnate_box.add_theme_constant_override("separation", 10)
 	_content.add_child(_reincarnate_box)
@@ -472,6 +516,8 @@ func refresh(view: Dictionary) -> void:
 		var identity := int(report_identity_provider.call()) if report_identity_provider.is_valid() else 0
 		if identity != _report_identity or revision != _report_revision or _report_view.get_meta("reason", "") != reason:
 			_report_view.show_report(report_provider.call(), reason)
+			if _report_view.visible and _body_scroll != null:
+				_scroll_report_into_view.call_deferred()
 			if accounts_provider.is_valid(): _accounts_view.show_book(accounts_provider.call())
 			if decision_provider.is_valid(): _decision_view.show_book(decision_provider.call())
 			_report_revision = revision

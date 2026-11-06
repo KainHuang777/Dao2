@@ -512,7 +512,7 @@ func _build_hud() -> void:
 	_abode.detail_title.add_theme_font_override("font", UiTypography.emphasis_font())
 	_abode.detail_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title_row.add_child(_abode.detail_title)
-	title_row.add_child(_abode._button("收起", _abode._close_detail))
+	title_row.add_child(_abode._button("返回建築清單", _abode._open_building_catalog))
 
 	_abode.detail_body = _abode._label("", 21, Color("eaf2ea"), 1)
 	_abode.detail_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -1062,7 +1062,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	_goal_action.visible = _has_guidance
 	_alchemy_action.visible = bool(early.get("optional_alchemy", false))
 	_skills_action.visible = bool(early.get("optional_skills", false))
-	_sect_action.visible = bool(early.get("optional_sect", false))
+	_sect_action.visible = FeatureUnlocks.check("sect", view).state == FeatureUnlocks.State.AVAILABLE and (bool(early.get("optional_sect", false)) or bool(view.get("sect_invitation", false)))
+	_sect_action.text = "山門訪帖" if bool(view.get("sect_invitation", false)) else "可選宗門"
 	_goal_action.text = "前往主目標" if _skills_action.visible or _sect_action.visible else "前往目標"
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
 	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)
@@ -1434,8 +1435,7 @@ func _open_current_goal() -> void:
 			_push_hint_log(_abode.hint.text)
 			_abode.building_catalog.call("highlight_gather_buttons", _active_gatherable_missing)
 		else:
-			_abode.feature_navigation.open("buildings")
-			_abode._select_building_from_catalog(target)
+			_abode.feature_navigation.open_buildings(target, true)
 
 func _open_optional_skills() -> void:
 	var target := String(_abode.session.get_view().early_guidance.get("skills_route", "skills"))
@@ -1443,8 +1443,7 @@ func _open_optional_skills() -> void:
 	if target == "skills":
 		_abode.feature_navigation.open("skills")
 	else:
-		_abode.feature_navigation.open("buildings")
-		_abode._select_building_from_catalog(target)
+		_abode.feature_navigation.open_buildings(target, true)
 
 func _close_goal_explanation() -> void:
 	_messages_open = false

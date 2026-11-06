@@ -32,17 +32,41 @@ func _run() -> void:
 	abode.set_process(false)
 	abode.offline_summary.hide()
 	abode.v2_rules_notice.hide()
+	abode.nine_realms_preview.hide()
+	abode.breakthrough_seq.hide()
+	abode.reincarnation_seq.hide()
+	abode.text_transition.hide()
 	abode.feature_navigation.shell.apply(abode.hud.size)
+	abode.feature_navigation.shell.close_overlay()
 	var nav = abode.feature_navigation
 	nav.open("sect")
-	var panel: SectPanel = abode.sect_panel
-	check(buttons(panel,"需達築基期").size() == 5,"five locked sect choices")
+	await frames()
+	check(not abode.sect_panel.visible, "sect hidden before era 2")
 	abode.session.state.era_id = 2
 	for id in abode.content.resource_ids:
 		abode.session.state.resources[id].value = AmountCompat.from_number(10000)
 	abode._refresh_hud()
-	check(buttons(panel,"立誓拜入").size() == 5,"five eligible sect choices")
-	buttons(panel,"立誓拜入")[0].pressed.emit()
+	abode.offline_summary.hide()
+	abode.v2_rules_notice.hide()
+	abode.nine_realms_preview.hide()
+	abode.breakthrough_seq.hide()
+	abode.reincarnation_seq.hide()
+	abode.text_transition.hide()
+	abode.feature_navigation.shell.close_overlay()
+	nav.open("sect")
+	await frames()
+	var panel: SectPanel = abode.sect_panel
+	var sect_tabs := buttons(panel).filter(func(b): return b is GameTab and b.text in SectSystem.SECT_NAMES)
+	var join_actions := buttons(panel).filter(func(b): return b.text.begins_with("立誓拜入"))
+	check(sect_tabs.size() == 5 and join_actions.size() == 1,"five eligible sect choices")
+	if join_actions.is_empty():
+		abode.queue_free()
+		await process_frame
+		print("UIX-R9 %d checks failed=true" % checks)
+		RunnerResult.finish(self, 1)
+		return
+	join_actions[0].pressed.emit()
+	await frames()
 	check(abode.session.state.sect.unlocked,"real routed join")
 	check(panel._feedback.text.contains("保存"),"join feedback in visible panel")
 	abode.session.state.sect.contribution = "1000"
@@ -127,11 +151,14 @@ func _run() -> void:
 		var joined: Dictionary = abode.session.state.sect.duplicate(true)
 		abode.session.state.sect = {}
 		abode._refresh_hud()
-		panel._scroll.scroll_vertical = 0
 		await frames()
-		check(panel._scroll.get_global_rect().encloses(buttons(panel,"立誓拜入")[0].get_global_rect()),"first join action visible without scroll vp=%s scroll=%s button=%s" % [vp,panel._scroll.get_global_rect(),buttons(panel,"立誓拜入")[0].get_global_rect()])
+		var reopened := buttons(panel).filter(func(b): return b.text.begins_with("立誓拜入"))
+		check(panel._folio.visible and not reopened.is_empty(),"gate returns after sect reset vp=%s" % vp)
+		if not reopened.is_empty():
+			check(panel.get_global_rect().encloses(reopened[0].get_global_rect()),"first join action visible without scroll vp=%s button=%s" % [vp,reopened[0].get_global_rect()])
 		abode.session.state.sect = joined
 		abode._refresh_hud()
+		await frames()
 	abode.session.state.sect.contribution = "0"
 	abode._refresh_hud()
 	panel._switch_tab(SectPanel.TabMode.MARKET)

@@ -16,7 +16,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 	if state.economy.is_empty():
 		# Methods can be learned before island activation. Keep timed effect and
 		# lifespan boundaries identical to online one-second settlement there too.
-		if (state.sect.has("techniques_version") or state.sect.has("lineage") or state.beast_version == GuardianBeasts.VERSION) and ticks > 1:
+		if (state.sect.has("life") or state.sect.has("techniques_version") or state.sect.has("lineage") or state.beast_version == GuardianBeasts.VERSION) and ticks > 1:
 			if prepared.is_empty(): prepared = prepare_advance(state, content)
 			var combined := {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null}
 			for _i in range(ticks):
@@ -183,6 +183,7 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 		events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": state.total_elapsed_seconds, "max_lifespan_seconds": max_seconds})
 		LifeLedger.exhausted(state)
 		stopped = "lifespan_exhausted"
+	SectLife.advance(state, executed, stopped == null)
 	LifeLedger.observe(state)
 	if state.economy.is_empty(): LifeHistory.observe(state, content)
 	return {"ticks_advanced": executed, "events": events, "changed_ids": changed_ids, "stopped": stopped}
@@ -308,6 +309,15 @@ static func _produce_prepared(state: GameState, content: GameContent, rates: Dic
 	return changed
 
 static func advance_time_only(state: GameState, content: GameContent, ticks: int) -> Dictionary:
+	if SectLife.active(state) and ticks > 1:
+		var combined := {"ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": null}
+		for _i in range(ticks):
+			var step := advance_time_only(state, content, 1)
+			combined.ticks_advanced += int(step.ticks_advanced)
+			combined.events.append_array(step.events)
+			combined.stopped = step.stopped
+			if step.stopped != null: break
+		return combined
 	if ticks > 0:
 		LifeLedger.initialize(state)
 	if ticks <= 0:
@@ -332,6 +342,7 @@ static func advance_time_only(state: GameState, content: GameContent, ticks: int
 		events.append({"kind": "lifespan_exhausted", "total_elapsed_seconds": state.total_elapsed_seconds, "max_lifespan_seconds": max_seconds})
 		LifeLedger.exhausted(state)
 		stopped = "lifespan_exhausted"
+	SectLife.advance(state, executed, stopped == null)
 	LifeLedger.observe(state)
 	LifeHistory.observe(state, content, true)
 	return {"ticks_advanced": executed, "events": events, "changed_ids": [], "stopped": stopped}

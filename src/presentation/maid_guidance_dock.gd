@@ -194,9 +194,11 @@ func show_bubble(manual: bool) -> void:
 		_pending = false
 		_elapsed = 0.0
 	bubble.show()
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	if manual and abode.maid_stand.bubble_bounds(abode.hud.size).size.x <= 0.0:
 		close_button.hide()
 		bubble.reparent(reader, false)
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		abode.feature_navigation.shell.open_tool(reader)
 		return
 	if bubble.get_parent() != self: bubble.reparent(self, false)
@@ -222,6 +224,7 @@ func dismiss() -> void:
 	_manual = false
 	_remaining = 0.0
 	bubble.hide()
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if is_instance_valid(reader) and reader.visible and abode.feature_navigation.shell._tool == reader:
 		abode.feature_navigation.shell.close_overlay()
 	if is_instance_valid(abode.maid_stand): abode.maid_stand.update_layout(abode.hud.size)

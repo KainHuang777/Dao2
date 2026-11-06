@@ -363,7 +363,7 @@ func update_layout(vp: Vector2) -> void:
 		return
 	# Compact/collapsed mode participates in the shell's entry container, so it
 	# cannot cover resource/messages buttons or the bottom navigation.
-	var entry: HBoxContainer = _abode.feature_navigation.shell.entry
+	var entry: BoxContainer = _abode.feature_navigation.shell.entry
 	_abode.feature_navigation.shell.message_button.hide()
 	if tab.get_parent() != entry:
 		tab.reparent(entry, false)

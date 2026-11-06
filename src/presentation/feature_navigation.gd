@@ -23,7 +23,8 @@ var page := ""
 var remembered := {"management": "buildings", "cultivation": "alchemy", "journey": "realms"}
 var bar: PanelContainer
 var back_button: Button
-var tabs: HBoxContainer
+var tabs: BoxContainer
+var tab_scroll: ScrollContainer
 var tab_buttons: Dictionary = {}
 var action_panel: Control
 var character_panel: Control
@@ -58,11 +59,12 @@ func build() -> void:
 	var row := HBoxContainer.new()
 	bar.add_child(row)
 	var scroll := ScrollContainer.new()
+	tab_scroll = scroll
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(scroll)
-	tabs = HBoxContainer.new()
+	tabs = BoxContainer.new()
 	tabs.add_theme_constant_override("separation", 4)
 	scroll.add_child(tabs)
 	var back := CloseSeal.new()
@@ -170,6 +172,7 @@ func open_group(id: String) -> void:
 	open(route)
 
 func open(route: String) -> void:
+	if route != page: _dismiss_sect_invitation()
 	# Contextual links must obey the same early island discovery gate.
 	if route in ["outposts", "manufacturing", "transport"] and abode.session.state.era_id < 2:
 		open("buildings")
@@ -247,6 +250,7 @@ func _hide_pages() -> void:
 func home() -> void:
 	if _changing or group == "home":
 		return
+	_dismiss_sect_invitation()
 	if shell != null and not shell.navigate("home"):
 		return
 	_changing = true
@@ -262,6 +266,12 @@ func home() -> void:
 	if shell != null:
 		abode._set_resource_display_mode(int(shell.state.snapshot().home_preferences.resource_mode))
 	abode._layout_for_size(abode.hud.size)
+
+func _dismiss_sect_invitation() -> void:
+	if page != "sect" or abode.session == null: return
+	var state: GameState = abode.session.state
+	if not SectSystem.is_unlocked(state) or bool(state.sect.get("unlocked", false)) or SectEntry.receipt(state).invite_seen: return
+	abode._modal_manager._on_sect_reform_action("entry", "later")
 
 func _on_realms_closed() -> void:
 	if page == "realms" and not _changing:
@@ -293,8 +303,20 @@ func _make_tabs() -> void:
 		button.pressed.connect(func(): open(route))
 		tabs.add_child(button)
 		tab_buttons[route] = button
+	set_vertical_tabs(tabs.vertical, true)
 	_tab_signature = ""
 	_refresh_tabs(abode._presentation_view())
+
+func set_vertical_tabs(vertical: bool, force: bool = false) -> void:
+	if tabs == null or (not force and tabs.vertical == vertical): return
+	tabs.vertical = vertical
+	if is_instance_valid(tab_scroll):
+		tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED if vertical else ScrollContainer.SCROLL_MODE_AUTO
+		tab_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	for button in tab_buttons.values():
+		if is_instance_valid(button):
+			button.size_flags_horizontal = Control.SIZE_EXPAND_FILL if vertical else Control.SIZE_SHRINK_BEGIN
+			button.custom_minimum_size = Vector2(0 if vertical else 80, 44)
 
 func _refresh_tabs(view: Dictionary) -> void:
 	if group == "home":
@@ -452,6 +474,8 @@ func _refresh_main_notifications(view: Dictionary) -> void:
 		journey.append("機緣待決")
 	if flags.sect:
 		journey.append("宗門任務待領")
+	if view.get("sect_life", {}).get("pending_story") != null:
+		journey.append("同門訪帖待讀")
 	abode.reincarnation_button.text = "修行"
 	abode.reincarnation_button.set_red_dot(not cultivation.is_empty())
 	abode.reincarnation_button.tooltip_text = "／".join(cultivation) + "；前往修行查看。" if not cultivation.is_empty() else "技能、煉丹、靈獸、成就與輪迴天賦"
@@ -707,11 +731,26 @@ func _flow_navigate(route: String, id: String) -> void:
 	open(route)
 	if route == "buildings": _focus_flow_building.call_deferred(id)
 
-func _focus_flow_building(id: String) -> void:
+func open_buildings(id: String = "", select_detail: bool = false) -> void:
+	open("buildings")
+	if select_detail and not id.is_empty():
+		_select_flow_building_now(id)
+	_focus_flow_building.call_deferred(id, select_detail)
+
+func _select_flow_building_now(id: String) -> void:
 	if page != "buildings" or id.is_empty() or id == "home": return
 	var target = abode.building_catalog
 	if not target.row_info.has(id): return
 	target._set_filter("all")
-	if target.expanded_row_id != id: target._select(id)
+	abode._select_building_from_catalog(id)
+
+func _focus_flow_building(id: String, select_detail: bool = false) -> void:
+	if page != "buildings" or id.is_empty() or id == "home": return
+	var target = abode.building_catalog
+	if not target.row_info.has(id): return
+	target._set_filter("all")
 	await abode.get_tree().process_frame
-	if page == "buildings" and target.row_info.has(id): target.scroll.ensure_control_visible(target.rows[id])
+	if page == "buildings" and target.row_info.has(id):
+		target.scroll.ensure_control_visible(target.rows[id])
+		if select_detail:
+			abode._select_building_from_catalog(id)

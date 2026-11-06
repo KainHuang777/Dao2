@@ -2,6 +2,7 @@ class_name SaveCodec
 extends RefCounted
 
 const SCHEMA_VERSION := 6
+const LIFE_SCHEMA_VERSION := 10
 const GAME_VERSION := "0.1.0"
 const RULES_VERSION := "core-flow-17-content-p1-story"
 const HUB_RULES_VERSION := "core-flow-25-ancestral-hub"
@@ -14,6 +15,14 @@ const TALENT_RULES_VERSION := "core-flow-20-content-p2-talents"
 const SKS_RULES_VERSION := "core-flow-19-content-sks-p2"
 const AMOUNT_FORMAT_VERSION := 1
 const GENERATOR_VERSION := 1
+
+static func life_rules(version: int) -> String:
+	return {4:SectLife.RULES_VERSION, 5:SectTournament.RULES, 6:SectLife.EXPANSION_RULES, 7:SectLife.ROUND_RULES}.get(version, "")
+
+static func feature_content_version(base: String, state: GameState) -> String:
+	while base.ends_with(SectLife.ROUND_TAG) or base.ends_with(SectLife.EXPANSION_TAG) or base.ends_with(SectTournament.TAG) or base.ends_with(SectLife.CONTENT_TAG) or base.ends_with(SectReformRelease.CONTENT_TAG):
+		base = base.trim_suffix(SectLife.ROUND_TAG).trim_suffix(SectLife.EXPANSION_TAG).trim_suffix(SectTournament.TAG).trim_suffix(SectLife.CONTENT_TAG).trim_suffix(SectReformRelease.CONTENT_TAG)
+	return base + (SectLife.ROUND_TAG if state.sect_version >= 7 else "") + (SectLife.EXPANSION_TAG if state.sect_version >= 6 else "") + (SectTournament.TAG if state.sect_version >= 5 else "") + (SectLife.CONTENT_TAG if SectLife.active(state) else "") + (SectReformRelease.CONTENT_TAG if SectReformRelease.active(state) else "")
 
 static func encode(state: GameState, content_version: String, meta: Dictionary) -> Dictionary:
 	if state == null:
@@ -59,10 +68,10 @@ static func encode(state: GameState, content_version: String, meta: Dictionary) 
 	var snapshot := state.to_snapshot_dict()
 	RuntimeProfile.end("encode_snapshot", profile_snapshot)
 	var envelope := {
-		"schema_version": SCHEMA_VERSION if SectReformRelease.active(state) else 5,
+		"schema_version": ({4:7, 5:8, 6:9, 7:10}[state.sect_version]) if SectLife.active(state) else SCHEMA_VERSION if SectReformRelease.active(state) else 5,
 		"game_version": GAME_VERSION,
-		"content_version": content_version + (SectReformRelease.CONTENT_TAG if SectReformRelease.active(state) and not content_version.ends_with(SectReformRelease.CONTENT_TAG) else ""),
-		"rules_version": SectReformRelease.RULES_VERSION if SectReformRelease.active(state) else HUB_RULES_VERSION if IslandEconomy.hub(state) else STORY2_RULES_VERSION if state.story_version >= 2 else BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
+		"content_version": feature_content_version(content_version, state),
+		"rules_version": life_rules(state.sect_version) if SectLife.active(state) else SectReformRelease.RULES_VERSION if SectReformRelease.active(state) else HUB_RULES_VERSION if IslandEconomy.hub(state) else STORY2_RULES_VERSION if state.story_version >= 2 else BEAST_RULES_VERSION if state.beast_version >= 1 else SECT_RULES_VERSION if state.sect_version >= 2 else PILL_RULES_VERSION if state.pill_version >= 2 else TALENT_RULES_VERSION if state.talent_version >= 3 else SKS_RULES_VERSION if int(state.skill_version) >= 4 else (SUPPLY_RULES_VERSION if IslandEconomy.expanded(state) else RULES_VERSION),
 		"amount_format_version": AMOUNT_FORMAT_VERSION,
 		"generator_version": GENERATOR_VERSION,
 		"save_id": meta["save_id"],
@@ -102,7 +111,7 @@ static func decode(json_text: String) -> Dictionary:
 	var envelope: Dictionary = parsed
 	if not envelope.has("schema_version") or not SectSaveContract.integer(envelope["schema_version"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_TYPE"}
-	if not _to_int(envelope["schema_version"]) in [2, 3, 4, 5, SCHEMA_VERSION]:
+	if not _to_int(envelope["schema_version"]) in [2, 3, 4, 5, SCHEMA_VERSION, 7, 8, 9, LIFE_SCHEMA_VERSION]:
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SCHEMA_VERSION_UNKNOWN"}
 	if not verify_checksum(envelope):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "CHECKSUM"}
@@ -118,9 +127,13 @@ static func decode(json_text: String) -> Dictionary:
 		return {"ok": false, "state": null, "envelope": envelope, "error": String(state_result["error"])}
 	if int(envelope.schema_version) < 5 and not envelope.state.has("life_ledger"):
 		LifeLedger.initialize(state_result.state)
+	if state_result.state.sect_version >= 6 and not SectLife.EXPANSION_TAG in envelope.content_version: return {"ok":false,"state":null,"envelope":envelope,"error":"SECT_LIFE_CONTENT"}
+	if state_result.state.sect_version >= 7 and not SectLife.ROUND_TAG in envelope.content_version: return {"ok":false,"state":null,"envelope":envelope,"error":"SECT_ROUND_CONTENT"}
 	var is_release := SectReformRelease.active(state_result.state)
-	if is_release != (int(envelope.schema_version) == SCHEMA_VERSION): return {"ok": false, "state": null, "envelope": envelope, "error": "SECT_REFORM_SCHEMA"}
-	if is_release and (envelope.rules_version != SectReformRelease.RULES_VERSION or not envelope.content_version.ends_with(SectReformRelease.CONTENT_TAG)):
+	if is_release != (int(envelope.schema_version) in [SCHEMA_VERSION, 7, 8, 9, LIFE_SCHEMA_VERSION]) or SectLife.active(state_result.state) != (int(envelope.schema_version) in [7, 8, 9, LIFE_SCHEMA_VERSION]): return {"ok": false, "state": null, "envelope": envelope, "error": "SECT_REFORM_SCHEMA"}
+	if SectLife.active(state_result.state) and int(envelope.schema_version) != ({4:7, 5:8, 6:9, 7:10}.get(state_result.state.sect_version)): return {"ok": false, "error": "SECT_TOURNAMENT_SCHEMA"}
+	if state_result.state.sect_version >= 5 and not SectTournament.TAG in envelope.content_version: return {"ok":false,"state":null,"envelope":envelope,"error":"SECT_TOURNAMENT_CONTENT"}
+	if is_release and (envelope.rules_version != (life_rules(state_result.state.sect_version) if SectLife.active(state_result.state) else SectReformRelease.RULES_VERSION) or not envelope.content_version.ends_with(SectReformRelease.CONTENT_TAG) or (SectLife.active(state_result.state) and not SectLife.CONTENT_TAG in envelope.content_version)):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "SECT_REFORM_CONTENT"}
 	if _to_int(state_result["state"].revision) != _to_int(envelope["revision"]):
 		return {"ok": false, "state": null, "envelope": envelope, "error": "REVISION_MISMATCH"}
@@ -162,9 +175,9 @@ static func classify_envelope(save_dict: Variant) -> String:
 		var sv: Variant = save_dict.get("schema_version")
 		if _is_int(sv):
 			var version := _to_int(sv)
-			if version == SCHEMA_VERSION:
+			if version in [SCHEMA_VERSION, 7, 8, 9, LIFE_SCHEMA_VERSION]:
 				return "current"
-			if version < SCHEMA_VERSION:
+			if version < LIFE_SCHEMA_VERSION:
 				return "older"
 			return "newer"
 	return "invalid"

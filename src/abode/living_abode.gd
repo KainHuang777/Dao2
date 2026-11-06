@@ -473,6 +473,10 @@ func _init_core() -> void:
 		while not core_saved.ok:
 			await _wait_supply_retry(String(core_saved.get("error", "SAVE_FAILED")))
 			core_saved = SaveManager.commit_sect_reform_startup()
+		var life_saved := SaveManager.commit_sect_life_startup()
+		while not life_saved.ok:
+			await _wait_supply_retry(String(life_saved.get("error", "SAVE_FAILED")))
+			life_saved = SaveManager.commit_sect_life_startup()
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var offline_res: Dictionary
 	if OS.has_feature("web"):
@@ -792,7 +796,7 @@ func _toggle_building_catalog() -> void:
 		_open_building_catalog()
 
 func _open_building_catalog() -> void:
-	feature_navigation.open("buildings")
+	feature_navigation.open_buildings()
 	building_catalog.visible = true
 	var view: Dictionary = session.get_view()
 	building_catalog.call("refresh", view.buildings, view.resources, int(view.era_id))

@@ -45,11 +45,43 @@ func _run() -> void:
 				check(not child.close_button.is_visible_in_tree(), "no page duplicate close")
 			check(nav.back_button.is_visible_in_tree() and nav.back_button.size.y >= 44, "single header close remains")
 			check(shell.compact_hud.size.x < vp.x * 0.65, "HUD stays local")
-			check(shell.compact_hud.get_global_rect().encloses(abode.header_box.get_global_rect()) if shell.integrated_identity else shell.life_metrics.global_position.y > shell.metrics.global_position.y, "identity content stays grouped")
+			check(shell.compact_hud.get_global_rect().encloses(abode.header_box.get_global_rect()) if shell.integrated_identity else shell.life_metrics.global_position.y > shell.metrics.global_position.y, "identity content stays grouped " + route + str(shell.compact_hud.get_global_rect()) + str(abode.header_box.get_global_rect()))
 			check(work.panel.get_global_rect().encloses(shell.compact_hud.get_global_rect()) if shell.integrated_identity else shell.compact_hud.get_global_rect().end.y <= work.panel.global_position.y, "HUD shares workbench paper or clears it")
 			if DisplayServer.get_name() != "headless":
 				await RenderingServer.frame_post_draw
 				root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/early16-ui-shell/%s-%dx%d.png" % [route, vp.x, vp.y]))
+			if route == "buildings":
+				if abode.maid_stand != null and abode.maid_stand.guidance != null:
+					abode.maid_stand.guidance.dismiss()
+					await frames()
+				abode._select_building_from_catalog("hut")
+				await frames()
+				var collapse: Button
+				for button in abode.info_panel.find_children("*", "Button", true, false):
+					if button.text == "返回建築清單": collapse = button
+				check(collapse != null, "building detail has collapse action")
+				if collapse != null:
+					var motion := InputEventMouseMotion.new()
+					motion.position = collapse.get_global_rect().get_center()
+					root.push_input(motion, true)
+					await frames()
+					var hovered := root.gui_get_hovered_control()
+					check(hovered == collapse, "pointer hits building return action")
+					for down in [true, false]:
+						var click := InputEventMouseButton.new()
+						click.position = motion.position
+						click.button_index = MOUSE_BUTTON_LEFT
+						click.pressed = down
+						root.push_input(click, true)
+						await process_frame
+					await frames()
+					check(not abode.info_panel.visible and abode.building_catalog.scroll.visible and nav.page == "buildings", "mouse return opens building list")
+				var before: Dictionary = abode.session.state.to_snapshot_dict()
+				nav.open_buildings("hut")
+				await frames()
+				check(abode.selected_id.is_empty() and not abode.info_panel.visible and abode.building_catalog.scroll.visible, "context destination stays on list")
+				check(abode.building_catalog.active_filter == "all", "context target visible in full list")
+				check(SectLifeSave.same(before, abode.session.state.to_snapshot_dict()), "building navigation is read-only")
 			# Open a real overlay and return: no stale parent, loss of route or stock.
 			shell.resource_button.pressed.emit()
 			await frames()

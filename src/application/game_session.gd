@@ -26,6 +26,8 @@ const KNOWN_COMMAND_TYPES := [
 	"switch_realm",
 	"upgrade_realm_outpost",
 	"join_sect",
+	"ack_sect_entry",
+	"skip_sect_tournament", "enter_sect_tournament", "choose_sect_trial", "claim_sect_tournament", "abandon_sect_tournament", "resolve_sect_story",
 	"resolve_legacy_sect_identity",
 	"redeem_guardian_permit",
 	"refresh_sect_tasks",
@@ -293,6 +295,8 @@ func get_view() -> Dictionary:
 		"buildings": buildings,
 		"next_objective": unlock.next_objective,
 		"early_guidance": Onboarding.early_guidance(state, era_def, resources, can_level_up, can_breakthrough, next_required),
+		"sect_invitation": SectEntry.invitation(state),
+		"sect_life": SectLife.view(state),
 		"reincarnation_count": state.reincarnation_count,
 		"highest_era": state.highest_era,
 		"dao_heart": state.dao_heart.serialize() if state.dao_heart != null else "0",
@@ -558,6 +562,12 @@ func upgrade_realm_outpost(outpost_id: String) -> Dictionary:
 		"payload": {"outpost_id": outpost_id},
 	})
 
+func resolve_sect_story(instance_id: String, option_id: String) -> Dictionary:
+	return submit({"command_id": "sect_story_%d_%d" % [state.revision, Time.get_ticks_usec()], "type": "resolve_sect_story", "expected_revision": state.revision, "payload": {"instance_id": instance_id, "option_id": option_id}})
+
+func ack_sect_entry(action: String) -> Dictionary:
+	return submit({"command_id": "sect_entry_%d_%d" % [state.revision, Time.get_ticks_usec()], "type": "ack_sect_entry", "expected_revision": state.revision, "payload": {"action": action}})
+
 func join_sect(sect_name: String = "") -> Dictionary:
 	return submit({
 		"command_id": "join_sect_" + str(state.revision) + "_" + str(Time.get_ticks_msec()),
@@ -746,3 +756,6 @@ func fortune_option_errors() -> Array:
 	for option in pending.get("options", []):
 		errors.append(FortuneSystem.story_option_error(state, content, pending, option))
 	return errors
+
+func sect_tournament(action: String, payload: Dictionary) -> Dictionary:
+	return submit({"command_id":"tournament_%d_%d" % [state.revision,Time.get_ticks_usec()],"type":action,"expected_revision":state.revision,"payload":payload})

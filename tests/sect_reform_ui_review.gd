@@ -22,6 +22,24 @@ func start() -> void:
   load("res://src/abode/living_abode.gd").save_dir_override = folder
  if not adapter.exists(SaveSlots.SLOT_MAIN):
   var state: GameState = preload("res://tests/sect_reform_ui_fixture.gd").create(content)
+  var life_case := str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('life')", true)) if OS.has_feature("web") else ""
+  if life_case == "gate":
+   state = GameSession.create_new_game(content, 31).state
+   state.era_id = 2
+   state.highest_era = 2
+  elif life_case in ["1","tournament"]:
+   var sect_case := str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('sect')", true)) if OS.has_feature("web") else ""
+   if SectIdentity.NAMES.has(sect_case):
+    SectIdentity.write(state.sect,sect_case)
+    SectLineage.observe(state)
+    state.sect.available_tasks = []
+    SectSystem.refresh_tasks(state)
+   state = SectLife.prepare(state)
+   state.sect.entry = SectEntry.initial()
+   state.sect.entry.skip = true
+   SectLife.advance(state, 300 if life_case == "tournament" else 1, true)
+  if OS.has_feature("web") and str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('entry')", true)) == "1":
+   state.sect.entry = SectEntry.initial()
   var now := str(int(Time.get_unix_time_from_system()*1000))
   var result := SaveCodec.encode(state, content.content_version, {"save_id":"sect-ui-review", "saved_at_utc_ms":now,"settled_until_utc_ms":now,"sim_tick":"0"})
   if not result.ok or not adapter.write(SaveSlots.SLOT_MAIN, result.get("json", "")).ok: push_error("isolated seed failed " + str(result)); return
@@ -35,6 +53,10 @@ func start() -> void:
  abode.offline_summary.hide()
  abode.v2_rules_notice.hide()
  abode.feature_navigation.open("sect")
+ if OS.has_feature("web") and str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('life')", true)) == "1":
+  abode.sect_panel._switch_tab(SectPanel.TabMode.FELLOWS)
+ if OS.has_feature("web") and str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('life')", true)) == "tournament":
+  abode.sect_panel._switch_tab(SectPanel.TabMode.TOURNAMENT)
  ready_review = true
  print("SECT_REFORM_UI_REVIEW_READY")
 func _process(delta: float) -> void:
@@ -51,6 +73,8 @@ func _process(delta: float) -> void:
  abode._refresh_hud()
  var state: GameState = abode.session.state
  var data := {"revision":state.revision,"tokens":state.sect.guardian.guardian_tokens,"permits":state.sect.guardian.permits,"active":state.beasts.active,"techniques":state.sect.techniques,"lineage":state.sect.lineage.learned,"souls":state.beast_souls,"pending":SaveManager.core_save_pending(state),"route":abode.feature_navigation.page,"buttons":[]}
+ data["sect_life"] = SectLife.view(state)
+ data["contribution"] = state.sect.contribution
  gather(abode.hud, data.buttons)
  if OS.has_feature("web"): JavaScriptBridge.eval("parent.receiveState("+JSON.stringify(data)+")", true)
 func gather(node: Node, result: Array) -> void:

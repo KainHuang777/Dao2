@@ -11,7 +11,7 @@ var metrics: Label
 var life_metrics: Label
 var progress: ProgressBar
 var actions: HBoxContainer
-var entry: HBoxContainer
+var entry: BoxContainer
 var resource_button: Button
 var collapse_button: Button
 var message_button: Button
@@ -80,7 +80,7 @@ func build() -> void:
 	_action_home = abode.level_up_button.get_parent()
 	_status_home = abode._hud_controller._status_row.get_parent()
 	state.set_home_preferences(abode.resource_display_mode, abode._hud_controller._messages_open)
-	entry = HBoxContainer.new()
+	entry = BoxContainer.new()
 	entry.name = "ShellEntries"
 	abode.hud.add_child(entry)
 	resource_button = _button("資源", func(): toggle_overlay("resources"))
@@ -147,7 +147,7 @@ func build() -> void:
 	context_inventory.hide()
 	context_paper.hide()
 	workbench = preload("res://src/presentation/management_workbench.gd").new(abode)
-	for button in [abode.reincarnation_panel._talents_button, abode.reincarnation_panel._reincarnate_button, abode.sect_panel._tab_expeditions_btn, abode.sect_panel._tab_techniques_btn, abode.sect_panel._tab_market_btn]:
+	for button in [abode.reincarnation_panel._talents_button, abode.reincarnation_panel._reincarnate_button, abode.sect_panel._tab_expeditions_btn, abode.sect_panel._tab_techniques_btn, abode.sect_panel._tab_market_btn, abode.sect_panel._tab_fellows_btn, abode.sect_panel._tab_tournament_btn]:
 		button.pressed.connect(func(): abode._layout_for_size(abode.hud.size))
 	for panel in [abode.feature_navigation.island_panel, abode.feature_navigation.manufacturing_panel, abode.feature_navigation.transport_panel]:
 		panel.context_changed.connect(func(): abode._layout_for_size(abode.hud.size))
@@ -310,17 +310,18 @@ func apply(vp: Vector2) -> void:
 	compact_seal.progress_ratio = hc._dao_seal.progress_ratio
 	# A local character card follows content width, including live actions/status.
 	# Reset to its current minimum so disappearing actions cannot leave a blank strip.
+	var full_folio: bool = snapshot.route in Policy.JOURNEY_FOLIOS
 	compact_hud.position = Vector2(margin, 6)
 	compact_hud.size = compact_hud.get_combined_minimum_size()
 	compact_hud.visible = not home and effective.hud == "compact"
 	abode.header.visible = home and effective.hud == "full"
-	abode.toolbar.visible = effective.navigation
-	abode.settings_menu.visible = effective.navigation
+	abode.toolbar.visible = effective.navigation and not full_folio
+	abode.settings_menu.visible = effective.navigation and not full_folio
 	abode.feature_navigation.bar.visible = not home and effective.navigation
 	entry.visible = not portrait and not cinematic and snapshot.overlay != "protection"
 	message_button.show()
 	resource_button.visible = effective.resource_entry
-	collapse_button.visible = not home and effective.resource_entry and not short_skills
+	collapse_button.visible = not home and effective.resource_entry and not short_skills and not full_folio
 	collapse_button.text = "展開" if snapshot.resources_collapsed else "暫收"
 	resource_button.text = resource_entry_title(snapshot.route) if not home else "資源"
 	resource_button.tooltip_text = context.details + "\n點開資源；費用與資格以操作旁即時資料為準。"
@@ -329,20 +330,27 @@ func apply(vp: Vector2) -> void:
 		if not feedback.is_empty():
 			resource_button.text += "・未完成" if feedback.begins_with("操作未完成") else "・已更新"
 			resource_button.tooltip_text += "\n" + feedback
-	resource_button.custom_minimum_size.x = 64 if home or wide else (176 if short_skills else 156)
-	resource_button.clip_text = false
-	resource_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	layout_entries(vp)
 	var overlay: String = snapshot.overlay
 	var modal: bool = overlay in ["resources", "messages", "tool", "report"]
+	var rail: bool = effective.resource_presentation == "rail"
+	var drawer: bool = effective.resource_presentation == "drawer"
+	var active_folio: Control = {"sect": abode.sect_panel, "fortune": abode.fortune_modal, "decisions": abode.feature_navigation.action_panel, "characters": abode.feature_navigation.character_panel}.get(snapshot.route, null)
+	var entry_in_rail: bool = full_folio and not drawer and active_folio != null and active_folio.get("left_entry_host") != null
+	resource_button.custom_minimum_size.x = 0 if entry_in_rail else (64 if home or wide else (176 if short_skills else 156))
+	resource_button.clip_text = false
+	resource_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var entry_host: Node = active_folio.left_entry_host if entry_in_rail else abode.hud
+	if entry.get_parent() != entry_host:
+		entry.reparent(entry_host, false)
+	entry.vertical = entry_in_rail
+	if not entry_in_rail:
+		layout_entries(vp)
 	shield.visible = modal and not portrait
 	shield.position = Vector2.ZERO
 	shield.size = vp
 	overlay_header.visible = shield.visible and overlay != "report"
 	overlay_header.position = Vector2(vp.x - margin - 52, 8)
 	overlay_header.size = Vector2(52, 52)
-	var rail: bool = effective.resource_presentation == "rail"
-	var drawer: bool = effective.resource_presentation == "drawer"
 	var management: bool = abode.feature_navigation.group == "management"
 	var integrated: bool = management or snapshot.route == "reincarnation" or snapshot.route in Policy.JOURNEY_FOLIOS
 	# Restore parents before the ordinary HUD lays out non-management routes or overlays.
@@ -384,11 +392,12 @@ func apply(vp: Vector2) -> void:
 		context_paper.position = abode.resource_ribbon.position
 		context_paper.size = abode.resource_ribbon.size
 	if integrated and not drawer:
-		var companion: float = abode.maid_stand.workspace_reserve(vp) if abode.maid_stand != null else 0.0
-		var work_width := minf(1160.0, vp.x - margin * 2 - companion)
-		var work_top := 16.0 if wide and snapshot.route not in Policy.JOURNEY_FOLIOS else 68.0
-		var work_bounds := Rect2(Vector2((vp.x - work_width - companion) * 0.5, work_top), Vector2(work_width, maxf(80, bottom - work_top - (52 if save_failed else 0))))
-		workbench.apply(true, work_bounds, wide, rail)
+		var companion: float = 0.0 if full_folio else (abode.maid_stand.workspace_reserve(vp) if abode.maid_stand != null else 0.0)
+		var work_width := minf(1248.0 if full_folio else 1160.0, vp.x - margin * 2 - companion)
+		var work_top := 16.0 if full_folio or (wide and snapshot.route not in Policy.JOURNEY_FOLIOS) else 68.0
+		var work_bottom := (vp.y - 16.0) if full_folio else bottom
+		var work_bounds := Rect2(Vector2((vp.x - work_width - companion) * 0.5, work_top), Vector2(work_width, maxf(80, work_bottom - work_top - (52 if save_failed else 0))))
+		workbench.apply(true, work_bounds, wide, rail and not full_folio)
 		if integrated_identity:
 			if compact_hud.get_parent() != workbench.stock: compact_hud.reparent(workbench.stock, false)
 			workbench.stock.move_child(compact_hud, 0)
@@ -431,8 +440,8 @@ func apply(vp: Vector2) -> void:
 			abode.hud.move_child(abode.hint_panel, -1)
 		if overlay == "tool" and is_instance_valid(_tool):
 			_tool.z_index = 75
-			var tool_top := 68.0
-			var tool_height := maxf(120.0, bottom - tool_top)
+			var tool_top := 8.0 if full_folio else 68.0
+			var tool_height := maxf(120.0, ((vp.y - 8.0) if full_folio else bottom) - tool_top)
 			_tool.set_layout_bounds(Rect2(margin, tool_top, minf(600, vp.x - 32), tool_height))
 			abode.hud.move_child(_tool, -1)
 		abode.hud.move_child(overlay_header, -1)
@@ -445,12 +454,19 @@ func apply(vp: Vector2) -> void:
 
 func layout_entries(vp: Vector2) -> void:
 	var entry_width: float = maxf(216, entry.get_combined_minimum_size().x)
-	entry.position = Vector2(vp.x - 16.0 - entry_width, vp.y - 16.0 - 48.0)
-	entry.size = Vector2(entry_width, 44)
+	var entry_height: float = maxf(44.0, entry.get_combined_minimum_size().y)
+	var entry_position := Vector2(vp.x - 16.0 - entry_width, vp.y - 16.0 - 48.0)
+	if abode != null and abode.toolbar != null:
+		var toolbar_rect: Rect2 = abode.toolbar.get_global_rect()
+		var entry_rect := Rect2(entry_position, Vector2(entry_width, entry_height))
+		if entry_rect.intersects(toolbar_rect):
+			entry_position.y = toolbar_rect.position.y - 8.0 - entry_height
+	entry.position = entry_position
+	entry.size = Vector2(entry_width, entry_height)
 
 func _sync_subpage() -> void:
 	var route: String = state.snapshot().route
 	var subpage := ""
 	if route == "reincarnation": subpage = abode.reincarnation_panel._active_tab
-	elif route == "sect": subpage = ["expeditions", "techniques", "market"][abode.sect_panel._current_tab]
+	elif route == "sect": subpage = ["expeditions", "techniques", "market", "fellows", "tournament"][clampi(int(abode.sect_panel._current_tab), 0, 4)]
 	state.set_subpage(subpage)

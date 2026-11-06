@@ -33,8 +33,7 @@ static func check(route: String, view: Dictionary) -> Dictionary:
 			if era >= 2 or reinc >= 1:
 				state = State.AVAILABLE
 			elif era == 1:
-				state = State.PREVIEW
-				reason = "築基期開放"
+				state = State.HIDDEN
 		"beasts":
 			if era >= 3:
 				state = State.AVAILABLE

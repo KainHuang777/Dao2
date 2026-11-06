@@ -1,0 +1,423 @@
+{
+  "task": "SECT-LIFE-ART-FOUR-R1",
+  "date": "2026-11-05",
+  "acceptance": "ACCEPTED",
+  "generator": "Built-in image_gen; sixteen independent asset calls",
+  "source": "Original AI generated images; local accepted Taixu originals visually inspected for style, not sent as image inputs; no external image references",
+  "license_status": "Generated for this project; no third-party commercial license asserted",
+  "runtime_integration": true,
+  "processing": "Byte-identical runtime copies; no crop, resize, painting or alpha cleanup. Godot TextureRect keeps aspect and transparency; only selected art is loaded.",
+  "assets": [
+    {
+      "id": "tianjian-gate",
+      "original": "docs/sect-life/art-four-v1/originals/tianjian-gate.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/tianjian-gate.txt",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "1ffe873ed698184f25b226d707e328f004167bf2c9d8b29e9d46c383567e882c",
+      "acceptance": "ACCEPTED",
+      "purpose": "Sect folio gate illustration",
+      "layers": "Single static landscape layer; foreground mist/light not separately generated; UI text separate",
+      "runtime": "assets/ui/sect-life/tianjian-gate.png"
+    },
+    {
+      "id": "piaomiao-gate",
+      "original": "docs/sect-life/art-four-v1/originals/piaomiao-gate.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/piaomiao-gate.txt",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "2aa09b3cd40cb556ccf8700158b350d5077f78bf54a6eea73d7c9f13e21fc72c",
+      "acceptance": "ACCEPTED",
+      "purpose": "Sect folio gate illustration",
+      "layers": "Single static landscape layer; foreground mist/light not separately generated; UI text separate",
+      "runtime": "assets/ui/sect-life/piaomiao-gate.png"
+    },
+    {
+      "id": "wanfo-gate",
+      "original": "docs/sect-life/art-four-v1/originals/wanfo-gate.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/wanfo-gate.txt",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "fa5671c16735af863ed82db82cdf405aa9f7a0a4e007cedcd444ed1320c8bf54",
+      "acceptance": "ACCEPTED",
+      "purpose": "Sect folio gate illustration",
+      "layers": "Single static landscape layer; foreground mist/light not separately generated; UI text separate",
+      "runtime": "assets/ui/sect-life/wanfo-gate.png"
+    },
+    {
+      "id": "zixiao-gate",
+      "original": "docs/sect-life/art-four-v1/originals/zixiao-gate.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/zixiao-gate.txt",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "9f17d46c53906dd1a4f2a363f1bb8f867f797b6898ad78632801150eb92fb735",
+      "acceptance": "ACCEPTED",
+      "purpose": "Sect folio gate illustration",
+      "layers": "Single static landscape layer; foreground mist/light not separately generated; UI text separate",
+      "runtime": "assets/ui/sect-life/zixiao-gate.png"
+    },
+    {
+      "id": "gu-yanshuang",
+      "pid": "tj_gu_yanshuang",
+      "sect": "天劍",
+      "name": "顧硯霜",
+      "original": "docs/sect-life/art-four-v1/originals/gu-yanshuang.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/gu-yanshuang.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "b06c58630ea8167e58ed79bb84c532bf4d296c1ee76ba94fd7da1da86c046193",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        4,
+        1068,
+        1448
+      ],
+      "transparent_fraction": 0.5056,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/gu-yanshuang.png"
+    },
+    {
+      "id": "pei-chengfeng",
+      "pid": "tj_pei_chengfeng",
+      "sect": "天劍",
+      "name": "裴承鋒",
+      "original": "docs/sect-life/art-four-v1/originals/pei-chengfeng.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/pei-chengfeng.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "59c4ca2372c6e949ca5ae131c9e6607a75560c3bbce1f28106a11b7cfa24d8c1",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        23,
+        1075,
+        1448
+      ],
+      "transparent_fraction": 0.3888,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/pei-chengfeng.png"
+    },
+    {
+      "id": "lin-sui",
+      "pid": "tj_lin_sui",
+      "sect": "天劍",
+      "name": "林穗",
+      "original": "docs/sect-life/art-four-v1/originals/lin-sui.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/lin-sui.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "c08e6a3a064156cd5cff2cb46c9d2c4b37b2e6da6e8fd5df76c475a47744890e",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        19,
+        1066,
+        1448
+      ],
+      "transparent_fraction": 0.3684,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/lin-sui.png"
+    },
+    {
+      "id": "wen-shuying",
+      "pid": "pm_wen_shuying",
+      "sect": "縹緲",
+      "name": "溫疏影",
+      "original": "docs/sect-life/art-four-v1/originals/wen-shuying.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/wen-shuying.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "96e6ec65443fb47943e30fba74c33f6634970f6da52e88b730867e1135a940e3",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        17,
+        0,
+        1072,
+        1448
+      ],
+      "transparent_fraction": 0.369,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/wen-shuying.png"
+    },
+    {
+      "id": "ji-heng",
+      "pid": "pm_ji_heng",
+      "sect": "縹緲",
+      "name": "紀衡",
+      "original": "docs/sect-life/art-four-v1/originals/ji-heng.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/ji-heng.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "02493bfecb154a11d5be846c7a73b2bd3e2c0a4fe63779faecf77a90b7ff355b",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        17,
+        1086,
+        1448
+      ],
+      "transparent_fraction": 0.4004,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/ji-heng.png"
+    },
+    {
+      "id": "su-yingzhou",
+      "pid": "pm_su_yingzhou",
+      "sect": "縹緲",
+      "name": "蘇映舟",
+      "original": "docs/sect-life/art-four-v1/originals/su-yingzhou.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/su-yingzhou.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "9fc5e1915953ea75fe7f3953bfc21346e5483f703ffeb5d6ad2145d4e272752e",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        23,
+        1058,
+        1448
+      ],
+      "transparent_fraction": 0.4586,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/su-yingzhou.png"
+    },
+    {
+      "id": "mingzhao",
+      "pid": "wf_mingzhao",
+      "sect": "萬佛",
+      "name": "明照",
+      "original": "docs/sect-life/art-four-v1/originals/mingzhao.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/mingzhao.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "5739ea61199725f5e692031a926487e79c793f670e80ceded52d3e315244ee7e",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1085,
+        1448
+      ],
+      "transparent_fraction": 0.42,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/mingzhao.png"
+    },
+    {
+      "id": "xingyuan",
+      "pid": "wf_xingyuan",
+      "sect": "萬佛",
+      "name": "行遠",
+      "original": "docs/sect-life/art-four-v1/originals/xingyuan.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/xingyuan.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "39208528809a1af7c86f9aced317d65d8147604d8d146cd31aa36bce8ea1a89f",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "transparent_fraction": 0.3571,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/xingyuan.png"
+    },
+    {
+      "id": "yuanqing",
+      "pid": "wf_yuanqing",
+      "sect": "萬佛",
+      "name": "圓清",
+      "original": "docs/sect-life/art-four-v1/originals/yuanqing.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/yuanqing.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "f8c307709d7c2c512637856169691a59a7d6e43315377dda0084a0a004560f43",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        31,
+        1072,
+        1448
+      ],
+      "transparent_fraction": 0.4377,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/yuanqing.png"
+    },
+    {
+      "id": "xie-guichen",
+      "pid": "zx_xie_guichen",
+      "sect": "紫霄",
+      "name": "謝歸辰",
+      "original": "docs/sect-life/art-four-v1/originals/xie-guichen.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/xie-guichen.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "8f1c225fa7416b4341e62f4ba47c6a7b174867e336bed94f7f8fd4203ba47b62",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        2,
+        1072,
+        1448
+      ],
+      "transparent_fraction": 0.4336,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/xie-guichen.png"
+    },
+    {
+      "id": "zhou-wenxu",
+      "pid": "zx_zhou_wenxu",
+      "sect": "紫霄",
+      "name": "周問序",
+      "original": "docs/sect-life/art-four-v1/originals/zhou-wenxu.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/zhou-wenxu.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "4660aac710737416404cdf7446c331999aeb482e753eac09d5ef54c98f49ae80",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "transparent_fraction": 0.3853,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/zhou-wenxu.png"
+    },
+    {
+      "id": "ning-zhaoye",
+      "pid": "zx_ning_zhaoye",
+      "sect": "紫霄",
+      "name": "寧照夜",
+      "original": "docs/sect-life/art-four-v1/originals/ning-zhaoye.png",
+      "prompt": "docs/sect-life/art-four-v1/prompts/ning-zhaoye.txt",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "78e6d7199477ce2a98a825e760f1cb1ea7da8fbfcf2296709c8edcc810aec38d",
+      "acceptance": "ACCEPTED",
+      "purpose": "Fellow disciple waist-up portrait",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        33,
+        1054,
+        1448
+      ],
+      "transparent_fraction": 0.441,
+      "layers": "Independent transparent character and held prop; generated alpha preserved; UI text separate",
+      "runtime": "assets/ui/sect-life/ning-zhaoye.png"
+    }
+  ],
+  "accepted_date": "2026-11-05",
+  "accepted_by": "User",
+  "acceptance_scope": "Four sect gate landscapes and twelve fellow disciple original portraits only; runtime integration and Godot UI verification remain separate"
+}

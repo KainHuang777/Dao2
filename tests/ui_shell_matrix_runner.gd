@@ -52,17 +52,25 @@ func _run() -> void:
 					if route in preload("res://src/presentation/ui_shell_policy.gd").JOURNEY_FOLIOS:
 						var folio: Control = {"characters": nav.character_panel, "sect": abode.sect_panel, "fortune": abode.fortune_modal, "decisions": nav.action_panel}[route]
 						check(shell.workbench.panel.is_ancestor_of(nav.bar) and shell.workbench.panel.is_ancestor_of(folio), "journey tabs and content share one paper " + route)
-						check(folio.embedded and folio.get_global_rect().end.y <= abode.toolbar.global_position.y + 1, "embedded folio clears navigation " + route)
+						check(folio.embedded and not abode.toolbar.visible, "embedded folio clears navigation " + route)
+						check(nav.tabs.vertical and nav.bar.get_parent() == folio.left_nav_host, "journey primary tabs vertical in left rail " + route)
+						check(nav.back_button.get_parent() == folio.close_host, "journey close seal in top-right host " + route)
+						check(shell.entry.vertical and shell.entry.get_parent() == folio.left_entry_host, "journey shell entries in left rail bottom " + route)
 						if route in ["sect", "fortune"]:
 							check(not folio._close_button.visible and folio._background.get_theme_stylebox("panel") is StyleBoxEmpty, "only canonical close and outer paper " + route)
 						elif route == "decisions":
 							check(folio._surface.get_theme_stylebox("panel") is StyleBoxEmpty, "decision folio removes nested paper")
-					check(shell.compact_hud.visible and not abode.header.visible, "compact HUD " + route)
+					var is_journey_folio: bool = route in preload("res://src/presentation/ui_shell_policy.gd").JOURNEY_FOLIOS
+					check((not shell.compact_hud.visible if is_journey_folio else shell.compact_hud.visible) and not abode.header.visible, "compact HUD " + route)
 					check(not abode.hint_panel.visible, "no home messages " + route)
 					check(not abode._hud_controller._goal_scroll.visible, "home goal hidden in workspace " + route)
 					check(shell.state.snapshot().home_preferences == prefs, "preferences " + route)
-					check(not shell.compact_hud.get_global_rect().intersects(nav.bar.get_global_rect()), "HUD clears tabs " + route)
-					check(nav.bar.get_global_rect().end.y <= 136, "tabs clear content " + route)
+					check(not shell.compact_hud.visible or not shell.compact_hud.get_global_rect().intersects(nav.bar.get_global_rect()), "HUD clears tabs " + route)
+					if is_journey_folio:
+						var folio_stage: Control = {"characters": nav.character_panel._right_stage, "sect": abode.sect_panel._right_stage, "fortune": abode.fortune_modal._right_stage, "decisions": nav.action_panel._right_stage}[route]
+						check(nav.bar.get_global_rect().end.x <= folio_stage.global_position.x + 1, "tabs clear content " + route)
+					else:
+						check(nav.bar.get_global_rect().end.y <= 136, "tabs clear content " + route)
 					check(abode.level_up_button.get_parent() == (shell._action_home if shell.integrated_identity else shell.actions), "single action host " + route)
 					check(abode.camera.input_locked, "workspace locks world " + route)
 					if mode == 0: await capture(route, vp)

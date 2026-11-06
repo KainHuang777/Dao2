@@ -73,7 +73,7 @@ func test_feature_unlocks() -> void:
 	# 3. Sect route
 	# Era 1, reinc 0 -> PREVIEW ("築基期開放")
 	var sect_era1 := FeatureUnlocks.check("sect", {"era_id": 1, "reincarnation_count": 0})
-	check(sect_era1.state == FeatureUnlocks.State.PREVIEW and sect_era1.reason == "築基期開放", "Sect preview at era 1")
+	check(sect_era1.state == FeatureUnlocks.State.HIDDEN, "First-life sect hidden at era 1")
 	# Era 2, reinc 0 -> AVAILABLE
 	var sect_era2 := FeatureUnlocks.check("sect", {"era_id": 2, "reincarnation_count": 0})
 	check(sect_era2.state == FeatureUnlocks.State.AVAILABLE, "Sect available at era 2")

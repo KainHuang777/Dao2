@@ -30,7 +30,7 @@ func _init() -> void:
 				var layout := Policy.resolve(shell.snapshot(), vp, {"has_costs": true, "save_failed": true})
 				check(layout == Policy.resolve(before, vp, {"has_costs": true, "save_failed": true}), "deterministic resize " + route)
 				check(layout.critical_alert and not layout.world_input, "save error survives every feature/size " + route)
-				check(layout.hud == ("hidden" if vp.x < vp.y else "compact"), "consistent feature HUD " + route)
+				check(layout.hud == ("hidden" if vp.x < vp.y or route in Policy.JOURNEY_FOLIOS else "compact"), "consistent feature HUD " + route)
 			check(shell.snapshot() == before, "resize never mutates intent " + route)
 			check(shell.snapshot().home_preferences == prefs, "navigation keeps home preferences " + route)
 	check(route_count == 14, "all14 current routes registered including character presentation")

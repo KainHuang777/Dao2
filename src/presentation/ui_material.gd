@@ -145,6 +145,28 @@ static func mark_paper_tab(button: Button, selected: bool) -> void:
 	button.add_theme_stylebox_override("disabled", surface("jade") if selected else idle)
 	_set_button_ink(button, LIGHT_TEXT if selected else INK, LIGHT_TEXT if selected else DISABLED_INK)
 
+static func mark_secondary_tab(button: Button, selected: bool) -> void:
+	mark_paper_tab(button, false)
+	for state in ["normal", "hover", "pressed", "hover_pressed", "disabled", "focus"]:
+		var key: String = "secondary_tab:" + state + (":selected" if selected else ":idle")
+		if not _styles.has(key):
+			var style := rounded(Color(0.22, 0.37, 0.31, 0.12 if selected else 0.045), 0)
+			style.set_content_margin_all(10)
+			style.content_margin_top = 4
+			style.content_margin_bottom = 4
+			style.border_color = Color(0.22, 0.37, 0.31, 0.32)
+			style.set_border_width_all(1)
+			style.border_width_bottom = 3 if selected else 1
+			if state in ["hover", "pressed", "hover_pressed"]:
+				style.bg_color = Color(0.22, 0.37, 0.31, 0.18)
+			if state == "focus":
+				style.bg_color = Color.TRANSPARENT
+				style.border_color = Color("426d5c")
+				style.set_border_width_all(2)
+			_styles[key] = style
+		button.add_theme_stylebox_override(state, _styles[key])
+	_set_button_ink(button, Color("264f43") if selected else INK, DISABLED_INK)
+
 static func apply_world_text(label: Label, font: Font, font_size: int, color: Color = Color("f9eccb"), scenic: bool = false) -> void:
 	label.add_theme_font_override("font", font)
 	label.add_theme_font_size_override("font_size", font_size)

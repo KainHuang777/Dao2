@@ -586,7 +586,10 @@ static func join_sect(state: GameState, sect_name: String = "") -> Dictionary:
 		return {"ok": false, "error": "TASK_COUNTER_EXHAUSTED"}
 	
 	sect["unlocked"] = true
+	sect["entry"] = SectEntry.initial()
+	sect.entry.invite_seen = true
 	SectIdentity.write(sect, id)
+	SectLife.reset_life(state)
 	SectLineage.observe(state)
 	
 	# Generate initial tasks
@@ -607,6 +610,7 @@ static func resolve_legacy_identity(state: GameState, id: String) -> Dictionary:
 		return {"ok": false, "error": "SECT_IDENTITY_NOT_PENDING"}
 	# No task refresh, RNG draw, fee, reward, or progress counter.
 	SectIdentity.write(state.sect, id)
+	SectLife.reset_life(state)
 	SectLineage.observe(state)
 	return {"ok": true, "events": [{"kind": "sect_identity_resolved", "sect_id": id}], "changed_ids": ["sect"]}
 
@@ -752,6 +756,7 @@ static func start_expedition(state: GameState, task_id: String) -> Dictionary:
 	tasks.remove_at(target_index)
 	target_task["elapsed"] = 0
 	sect["active_expedition"] = target_task
+	SectEntry.note(state, "first_dispatch")
 	
 	return {
 		"ok": true,
@@ -822,6 +827,7 @@ static func claim_expedition_reward(state: GameState) -> Dictionary:
 	StoryProgressP2.mark_id(state, "task_mask", StoryProgressP2.TASKS, str(active.get("template_id", "")))
 	SectLineage.claimed(state, active)
 	var guardian_event := GuardianDiscovery.claimed(state, active)
+	SectEntry.note(state, "first_claim")
 	sect["active_expedition"] = null
 	
 	return {
@@ -1028,6 +1034,8 @@ static func on_reincarnate(state: GameState) -> void:
 	sect["available_tasks"] = []
 	sect["next_refresh_seconds"] = 0
 	# Sect membership requires re-joining in new mortal life
+	sect.erase("entry")
 	sect["unlocked"] = false
 	if sect.has("identity_version"): sect["sect_id"] = ""
 	SectLineage.next_life(state)
+	SectLife.reset_life(state)

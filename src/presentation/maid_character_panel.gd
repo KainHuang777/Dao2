@@ -345,8 +345,15 @@ var selected_maid := "qingheng"
 var selected_reply := -1
 var column: VBoxContainer
 var content: VBoxContainer
+var _right_stage: Control
 var section_body: HBoxContainer
 var section_scroll: ScrollContainer
+var _left_rail: VBoxContainer
+var left_nav_host: VBoxContainer
+var _nav_sep: HSeparator
+var left_entry_host: VBoxContainer
+var close_host: HBoxContainer
+var _overlay_layer: Control
 var section_tabs: VBoxContainer
 var embedded := false
 var person: HBoxContainer
@@ -446,48 +453,95 @@ func _ready() -> void:
 	theme = UiTypography.create_theme()
 	add_theme_stylebox_override("panel", UiMaterial.hud_paper())
 	column = VBoxContainer.new()
-	column.add_theme_constant_override("separation", 10)
+	column.add_theme_constant_override("separation", 6)
 	add_child(column)
-	var header := HBoxContainer.new()
-	column.add_child(header)
-	title = _label("侍女 · 青蘅", 22)
+	section_body = HBoxContainer.new()
+	section_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	section_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	section_body.add_theme_constant_override("separation", 14)
+	column.add_child(section_body)
+	section_scroll = ScrollContainer.new()
+	section_scroll.name = "CharacterLeftRail"
+	section_scroll.custom_minimum_size.x = 168
+	section_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	section_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	section_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	section_scroll.follow_focus = true
+	section_body.add_child(section_scroll)
+	_left_rail = VBoxContainer.new()
+	_left_rail.name = "CharacterLeftRailBox"
+	_left_rail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_left_rail.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_rail.add_theme_constant_override("separation", 8)
+	section_scroll.add_child(_left_rail)
+	left_nav_host = VBoxContainer.new()
+	left_nav_host.name = "LeftNavHost"
+	left_nav_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_nav_host.add_theme_constant_override("separation", 4)
+	_left_rail.add_child(left_nav_host)
+	_nav_sep = HSeparator.new()
+	_nav_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_left_rail.add_child(_nav_sep)
+	title = _label("侍女 · 青蘅", 18)
 	title.add_theme_font_override("font", UiTypography.emphasis_font())
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	header.add_child(title)
+	_left_rail.add_child(title)
 	maid_row = BoxContainer.new()
-	maid_row.add_theme_constant_override("separation", 6)
-	header.add_child(maid_row)
+	maid_row.vertical = true
+	maid_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	maid_row.add_theme_constant_override("separation", 4)
+	_left_rail.add_child(maid_row)
 	for id in MAID_ORDER:
 		var selector := GameTab.new()
+		selector.secondary = true
 		selector.text = String(MAID_NAMES.get(id, id))
 		selector.focus_mode = Control.FOCUS_ALL
+		selector.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		selector.custom_minimum_size.y = 44
 		selector.pressed.connect(select_maid.bind(id))
 		maid_row.add_child(selector)
 		maid_buttons[id] = selector
-	section_body = HBoxContainer.new()
-	section_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	section_body.add_theme_constant_override("separation", 12)
-	column.add_child(section_body)
-	section_scroll = ScrollContainer.new()
-	section_scroll.custom_minimum_size.x = 58
-	section_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	section_scroll.follow_focus = true
-	section_body.add_child(section_scroll)
+	var sub_sep := HSeparator.new()
+	sub_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_left_rail.add_child(sub_sep)
 	section_tabs = VBoxContainer.new()
-	section_tabs.add_theme_constant_override("separation", 8)
-	section_scroll.add_child(section_tabs)
+	section_tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	section_tabs.add_theme_constant_override("separation", 6)
+	_left_rail.add_child(section_tabs)
 	for entry in [["person", "人物", "人物介紹"], ["meeting", "初遇", "初遇重溫"], ["work", "職掌", "職掌"], ["bond", "羈絆", "羈絆"]]:
 		var button := ArrowBookmarkTab.new()
 		button.text = entry[1]
 		button.tooltip_text = entry[2]
 		button.accessibility_name = entry[2]
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.pressed.connect(show_mode.bind(entry[0]))
 		section_tabs.add_child(button)
 		tabs[entry[0]] = button
+	var rail_spacer := Control.new()
+	rail_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_rail.add_child(rail_spacer)
+	left_entry_host = VBoxContainer.new()
+	left_entry_host.name = "LeftEntryHost"
+	left_entry_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_entry_host.add_theme_constant_override("separation", 6)
+	_left_rail.add_child(left_entry_host)
+	var split_sep := VSeparator.new()
+	split_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	section_body.add_child(split_sep)
 	content = VBoxContainer.new()
+	content.name = "CharacterRightStage"
 	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	section_body.add_child(content)
+	_right_stage = content
+	_overlay_layer = Control.new()
+	_overlay_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_overlay_layer)
+	close_host = HBoxContainer.new()
+	close_host.name = "CloseHost"
+	close_host.alignment = BoxContainer.ALIGNMENT_END
+	close_host.z_index = 20
+	_overlay_layer.add_child(close_host)
 	person = HBoxContainer.new()
 	person.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	person.add_theme_constant_override("separation", 24)
@@ -1300,7 +1354,7 @@ func _sync() -> void:
 	if column == null: return
 	var art := _has_art()
 	person.visible = mode == "person"
-	maid_row.visible = mode != "meeting" or not _compact
+	maid_row.visible = true
 	meeting.visible = mode == "meeting"
 	work.visible = mode == "work"
 	bond.visible = mode == "bond"
@@ -1448,18 +1502,29 @@ func _apply_surface() -> void:
 	add_theme_stylebox_override("panel", paper)
 
 func set_layout_bounds(bounds: Rect2) -> void:
+	if not is_visible_in_tree() and position == bounds.position and size == bounds.size:
+		return
 	_bounds = bounds
 	position = bounds.position
 	size = bounds.size
 	if column == null: return
 	_compact = bounds.size.y < 400 or bounds.size.x < 960
 	_apply_surface()
+	if is_instance_valid(section_scroll):
+		section_scroll.custom_minimum_size.x = 112.0 if bounds.size.x < 500.0 else (140.0 if _compact else 168.0)
+	if is_instance_valid(section_body):
+		section_body.add_theme_constant_override("separation", 8 if _compact else 14)
+	if is_instance_valid(_left_rail):
+		_left_rail.add_theme_constant_override("separation", 4 if _compact else 8)
+	if is_instance_valid(_nav_sep):
+		_nav_sep.visible = is_instance_valid(left_nav_host) and left_nav_host.get_child_count() > 0
+	if is_instance_valid(close_host):
+		close_host.position = Vector2(maxf(0.0, bounds.size.x - (12.0 if _compact else 18.0) - 44.0), 6.0 if _compact else 10.0)
+		close_host.size = Vector2(44.0, 44.0)
 	var frame: StyleBoxFlat = portrait_frame.get_theme_stylebox("panel").duplicate()
 	frame.set_content_margin_all(4 if _compact else 12)
 	portrait_frame.add_theme_stylebox_override("panel", frame)
-	column.add_theme_constant_override("separation", 4 if _compact else 10)
-	var header: HBoxContainer = title.get_parent() as HBoxContainer
-	header.add_theme_constant_override("separation", 2 if _compact else 4)
+	column.add_theme_constant_override("separation", 4 if _compact else 6)
 	name_column.vertical = not _compact
 	name_column.custom_minimum_size.x = 44 if _compact else 72
 	person.add_theme_constant_override("separation", 12 if _compact else 24)
@@ -1476,7 +1541,7 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	dialogue.size_flags_stretch_ratio = 1.2 if _compact else 1.0
 	dialogue.size_flags_vertical = Control.SIZE_EXPAND_FILL if _compact else Control.SIZE_FILL
 	line_scroll.custom_minimum_size.y = 0 if _compact else 64
-	maid_row.add_theme_constant_override("separation", 2 if _compact else 6)
+	maid_row.add_theme_constant_override("separation", 2 if _compact else 4)
 	_copy_scroll_layout()
 	work_box.add_theme_constant_override("separation", 4 if _compact else 10)
 	bond_box.add_theme_constant_override("separation", 4 if _compact else 10)

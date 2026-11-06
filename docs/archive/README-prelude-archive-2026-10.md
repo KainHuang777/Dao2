@@ -1,3 +1,71 @@
+2026-11-06 **SECT-LIFE-VISIT-ROUND 訪帖每輪三人／整輪完成後冷卻，規則與保存L1／L2階段DONE**：[狀態](docs/development-status.md#sect-life-visit-round)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-06 **SECT-LIFE-GATE-TEXT-R1 山門頁文字層級／操作與閱讀提示修訂，L1／L2階段DONE**：[狀態](docs/development-status.md#sect-life-gate-text-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-UI-TEXT-R2 姓名符號／閱讀提示／回應收穫修訂，L1／L2階段DONE**：[狀態](docs/development-status.md#sect-life-ui-text-r2)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-UI-TEXT-R1 同門姓名／交情／座右銘／正文層級修訂，L1／L2階段DONE**：[狀態](docs/development-status.md#sect-life-ui-text-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-UI-TABS-R1 內層分頁層級修訂，L1／L2階段DONE，待視覺回饋**：[狀態](docs/development-status.md#sect-life-ui-tabs-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-ART-INTEGRATE 四宗16張原畫正式Godot接入，階段DONE（L1/L2）**：[狀態](docs/development-status.md#sect-life-art-integrate)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-ART-FOUR-R1 四宗16張原畫美術已接受，正式接入待續**：[狀態](docs/development-status.md#sect-life-art-four-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-CONTENT 五宗15人／30章正式接入，階段DONE（L1/L2）**：[狀態](docs/development-status.md#sect-life-content)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-TOURNAMENT 宗門大比階段DONE（L1/L2）**：[狀態](docs/development-status.md#sect-life-tournament)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-UI 山門／同門正式Godot接入（L1/L2）**：[狀態](docs/development-status.md#sect-life-ui)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-ART-UI-R1 太虛四圖美術已接受（正式UI未接入）**：[審閱稿](docs/sect-life/art-v1/review.html)・[狀態](docs/development-status.md#sect-life-art-ui-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-CORE DONE（CORE-1／CORE-SAVE，L1/L2）**：[狀態](docs/development-status.md#sect-life-core)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-ENTRY DONE（L1/L2）**：首世隱藏、供給後訪帖、可略過入門與舊檔／返世路徑；[狀態](docs/development-status.md#sect-life-entry)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **SECT-LIFE-DESIGN 設計交付（正式實作未開始）**：[設計](docs/51-sect-life-design.md)・[狀態](docs/development-status.md#sect-life-design)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **JOURNEY-UI-INTEGRATE 遊歷三頁同紙面（L1/L2）**：[狀態](docs/development-status.md#journey-ui-integrate)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **MAID-GUIDE-STABLE 外置氣泡與人物大小固定（L1/L2）**：[狀態](docs/development-status.md#maid-guide-stable)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-05 **MAID-UI-INTEGRATE 人物頁同紙面與直排書籤（L1/L2）**：[狀態](docs/development-status.md#maid-ui-integrate)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
 2026-11-05 **MAID-GUIDE-DOCK 經營仙侍陪伴與常駐引導氣泡（L1/L2）**：[狀態](docs/development-status.md#maid-guide-dock)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。

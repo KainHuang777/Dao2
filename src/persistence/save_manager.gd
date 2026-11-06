@@ -57,6 +57,34 @@ static func commit_sect_reform_startup() -> Dictionary:
 	session.state = source
 	return activate_sect_reform_release(session, _envelope.duplicate(true))
 
+static func commit_sect_life_startup() -> Dictionary:
+	if _core_owner != null: return _commit_core()
+	var source := current_state()
+	if source == null: return {"ok": false, "error": "NO_STATE"}
+	if source.sect_version == SectLife.SECT_VERSION: return {"ok": true, "committed": false}
+	var session := GameSession.new()
+	session.content = content()
+	session.clock = GameClock.create(source.total_elapsed_seconds)
+	session.state = source
+	var result := activate_sect_life(session, _envelope.duplicate(true))
+	# Legal old payloads close to 32KB remain playable on their old version.
+	# The feature is unavailable; no truncation or false migration receipt.
+	if result.get("error") == "SECT_SIZE": return {"ok": true, "committed": false, "life_unavailable": "SECT_SIZE"}
+	return result
+
+static func activate_sect_life(session: GameSession, meta: Dictionary) -> Dictionary:
+	if _core_owner != null or migration_pending(session.state): return {"ok": false, "error": "SECT_CORE_SAVE_REQUIRED"}
+	if session.state.sect_version == SectLife.SECT_VERSION: return {"ok": false, "error": "ALREADY_MIGRATED"}
+	if not SectReformRelease.active(session.state): return {"ok": false, "error": "SECT_LIFE_RELEASE_REQUIRED"}
+	var source := slots().read_best(func(raw: String) -> int:
+		var decoded := SaveCodec.decode(raw)
+		return decoded.state.revision if decoded.ok else -1)
+	if not source.ok: return source
+	var decoded := SaveCodec.decode(source.json)
+	if decoded.envelope.save_id != String(meta.get("save_id", "local")) or not SectLifeSave.same(decoded.state.to_snapshot_dict(), session.state.to_snapshot_dict()): return {"ok": false, "error": "SECT_CORE_SOURCE_STATE_MISMATCH"}
+	var candidate := SectLife.prepare(session.state)
+	return _stage_core(session, candidate, meta, {"ok": true, "new_revision": candidate.revision, "events": [], "changed_ids": ["sect"]}, source.json)
+
 static func activate_sect_reform_release(session: GameSession, meta: Dictionary) -> Dictionary:
 	if SectReformRelease.active(session.state): return {"ok": false, "error": "ALREADY_MIGRATED"}
 	return _activate_sect_reform(session, meta, true)

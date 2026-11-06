@@ -17,7 +17,7 @@ const fault=document.getElementById('fault');fault.textContent='寫入：'+(shel
 fault.onclick=()=>{shellFail=!shellFail;fault.textContent='寫入：'+(shellFail?'拒絕':'正常')};
 document.getElementById('reload').onclick=()=>document.getElementById('game').src='/index.html?reload='+Date.now();
 window.receiveState=d=>{document.getElementById('state').textContent=JSON.stringify(d);document.getElementById('summary').textContent=JSON.stringify({revision:d.revision,tokens:d.tokens,permits:d.permits,active:d.active,techniques:d.techniques,lineage:d.lineage,pending:d.pending,route:d.route},null,2);const text=JSON.stringify(d);if(text!==last){last=text;fetch('/observation',{method:'POST',body:text})}};
-document.getElementById('game').src='/index.html';
+document.getElementById('game').src='/index.html'+location.search;
 </script>'''
 class Handler(CompressedStaticHandler):
     def __init__(self,*args,**kwargs): super().__init__(*args,directory=str(BUILD),**kwargs)

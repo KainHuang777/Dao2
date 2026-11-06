@@ -12,14 +12,21 @@ static func text(v: Variant, cap: int) -> bool:
 	return v is String and v.to_utf8_buffer().size() <= cap
 
 static func validate(version: Variant, sect: Dictionary) -> String:
-	if not integer(version, 3): return "SECT_VERSION"
+	if not integer(version, 7): return "SECT_VERSION"
 	if int(version) < 3 and sect.has("guardian"): return "GUARDIAN_RELEASE_REQUIRED"
-	if int(version) == 3:
+	if int(version) >= 3:
 		if not sect.has("core_save"): return "SECT_REFORM_CORE_REQUIRED"
 		var guardian_error := GuardianDiscovery.ledger_error(sect.get("guardian"))
 		if not guardian_error.is_empty(): return guardian_error
 		if not sect.guardian.has("legacy_permits"): return "SECT_REFORM_LEGACY_LEDGER"
 	if JSON.stringify(sect).to_utf8_buffer().size() > 32768: return "SECT_SIZE"
+	if int(version) < 4 and sect.has("life"): return "SECT_LIFE_BASE_VERSION"
+	if int(version) >= 4:
+		if sect.get("life", {}).get("version") != (4 if int(version) == 7 else 3 if int(version) == 6 else (2 if int(version) == 5 else 1)): return "SECT_LIFE_BASE_VERSION"
+		var life_error := SectLifeSave.validate(sect)
+		if not life_error.is_empty(): return life_error
+	var entry_error := SectEntry.validate(sect)
+	if not entry_error.is_empty(): return entry_error
 	var core_error := SectReformSave.validate(sect)
 	if not core_error.is_empty(): return core_error
 	if sect.has("core_save") and int(version) < 2: return "SECT_CORE_BASE_VERSION"

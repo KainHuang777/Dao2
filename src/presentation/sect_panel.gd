@@ -15,19 +15,31 @@ signal start_expedition_requested(task_id: String)
 signal claim_expedition_requested()
 signal learn_technique_requested(tech_id: String)
 signal buy_market_item_requested(item_id: String)
+signal tournament_requested(action: String, payload: Dictionary)
 signal close_requested()
 signal retry_save_requested()
 signal reform_action_requested(kind: String, id: String)
 
-enum TabMode { EXPEDITIONS, TECHNIQUES, MARKET }
+enum TabMode { EXPEDITIONS, TECHNIQUES, MARKET, FELLOWS, TOURNAMENT }
+var _tab_fellows_btn: Button
+var _folio: SectLifeFolio
+var _life_eras: Array = []
 
 var _background: Panel
 var _header_container: VBoxContainer
-var _title_row: HBoxContainer
+var _title_row: BoxContainer
 var _title_label: Label
 var _contrib_row: HBoxContainer
 var _contrib_label: Label
 var _close_button: Button
+var left_nav_host: VBoxContainer
+var _nav_sep: HSeparator
+var _sub_selector_host: VBoxContainer
+var left_entry_host: VBoxContainer
+var close_host: HBoxContainer
+var _main_split: HBoxContainer
+var _left_scroll: ScrollContainer
+var _right_stage: VBoxContainer
 var embedded := false
 
 func set_embedded(value: bool) -> void:
@@ -41,10 +53,12 @@ var _banner_panel: PanelContainer
 var _banner_label: Label
 
 # 分頁切換器
-var _tab_row: HBoxContainer
+var _tab_row: BoxContainer
 var _tab_expeditions_btn: Button
 var _tab_techniques_btn: Button
 var _tab_market_btn: Button
+var _tournament: SectTournamentFolio
+var _tab_tournament_btn: GameTab
 var _current_tab: TabMode = TabMode.EXPEDITIONS
 
 # 內容主捲軸
@@ -57,6 +71,7 @@ var _cached_resources: Dictionary = {}
 var _cached_state: GameState
 var _cached_is_eligible_to_join: bool = false
 var _header_reflow_pending := false
+var _in_layout := false
 var _compact := false
 var _art_nodes: Array[TextureRect] = []
 var _p1_tech_layouts: Array[Dictionary] = []
@@ -88,6 +103,9 @@ func _ready() -> void:
 		_build_ui()
 
 func set_layout_bounds(bounds: Rect2) -> void:
+	if not is_visible_in_tree() and position == bounds.position and size == bounds.size:
+		return
+	_in_layout = true
 	position = bounds.position
 	size = bounds.size
 	clip_contents = true
@@ -96,24 +114,31 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	_compact = size.y < 350
 	_background.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if _compact else UiMaterial.scroll_shell()))
 	UiMaterial.apply_scroll_content_margins(_margin, _compact)
-	_banner_panel.visible = not _compact and not bool(_cached_sect_data.get("unlocked", false))
+	_banner_panel.visible = false
 	_header_container.add_theme_constant_override("separation", 4 if _compact else 8)
 	_root_box.add_theme_constant_override("separation", 2 if _compact else 6)
+	if is_instance_valid(_main_split):
+		_main_split.add_theme_constant_override("separation", 8 if _compact else 14)
+	if is_instance_valid(_left_scroll):
+		_left_scroll.custom_minimum_size.x = 112.0 if size.x < 500.0 else (140.0 if _compact else 168.0)
+	if is_instance_valid(close_host):
+		close_host.position = Vector2(maxf(0.0, size.x - (12.0 if _compact else 18.0) - 44.0), 6.0 if _compact else 10.0)
+		close_host.size = Vector2(44.0, 44.0)
 	var joined := bool(_cached_sect_data.get("unlocked",false))
+	if is_instance_valid(_nav_sep):
+		_nav_sep.visible = is_instance_valid(left_nav_host) and left_nav_host.get_child_count() > 0
+	if is_instance_valid(_sub_selector_host):
+		_sub_selector_host.visible = not joined
 	if is_instance_valid(_join_intro): _join_intro.visible = not _compact
 	if not joined:
 		_title_label.text = ("擇一拜入山門" if _cached_is_eligible_to_join else "需達築基或歷經轉世") if _compact else "【尋仙訪道】· 拜入山門"
-	_title_row.visible = not (_compact and joined)
+	_title_row.visible = true
 	_close_button.visible = not embedded and not _compact
-	var contribution_parent: Node = _tab_row if _compact and joined else _title_row
-	if _contrib_row.get_parent() != contribution_parent:
-		_contrib_row.reparent(contribution_parent)
-	# Short workspaces share the fixed tab/title row with operation feedback.
-	# Keep the original result and retry controls, without a second header row.
-	var feedback_parent: Node = (_tab_row if joined else _title_row) if _compact else _feedback_row
+	if _contrib_row.get_parent() != _title_row:
+		_contrib_row.reparent(_title_row)
 	for control in [_feedback, _retry]:
-		if control.get_parent() != feedback_parent: control.reparent(feedback_parent)
-	_feedback_row.visible = not _compact and (_pending_save or not _feedback.text.is_empty())
+		if control.get_parent() != _feedback_row: control.reparent(_feedback_row)
+	_feedback_row.visible = _pending_save or not _feedback.text.is_empty()
 	_feedback.clip_text = _compact
 	_feedback.autowrap_mode = TextServer.AUTOWRAP_OFF if _compact else TextServer.AUTOWRAP_WORD_SMART
 	if _pending_save:
@@ -177,8 +202,9 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		layout.row.add_theme_constant_override("separation", 6 if _compact else 10)
 	for grid in _grids:
 		if is_instance_valid(grid): _fit_card_grid(grid)
-	_margin.size = size
 	_scroll.custom_minimum_size = Vector2.ZERO
+	if _folio != null: _folio.adapt()
+	_in_layout = false
 
 func _build_ui() -> void:
 	clip_contents = true
@@ -192,25 +218,56 @@ func _build_ui() -> void:
 	add_child(_margin)
 	_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root_box = VBoxContainer.new()
+	_root_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_root_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_root_box.add_theme_constant_override("separation",6)
 	_margin.add_child(_root_box)
 
+	_main_split = HBoxContainer.new()
+	_main_split.name = "SectMainSplit"
+	_main_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_main_split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_split.add_theme_constant_override("separation", 14)
+	_root_box.add_child(_main_split)
+
+	_left_scroll = ScrollContainer.new()
+	_left_scroll.name = "SectLeftRail"
+	_left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_left_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_left_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_scroll.custom_minimum_size = Vector2(168, 0)
+	_main_split.add_child(_left_scroll)
+
 	_header_container = VBoxContainer.new()
 	_header_container.name = "SectHeaderContainer"
-	_header_container.add_theme_constant_override("separation", 10)
+	_header_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_header_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_header_container.add_theme_constant_override("separation", 8)
 	_header_container.minimum_size_changed.connect(_queue_header_reflow)
-	_root_box.add_child(_header_container)
+	_left_scroll.add_child(_header_container)
 
-	# 1. 頂部標題列
-	_title_row = HBoxContainer.new()
+	left_nav_host = VBoxContainer.new()
+	left_nav_host.name = "LeftNavHost"
+	left_nav_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_nav_host.add_theme_constant_override("separation", 4)
+	_header_container.add_child(left_nav_host)
+
+	_nav_sep = HSeparator.new()
+	_nav_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_header_container.add_child(_nav_sep)
+
+	# 1. 標題與貢獻列（於左側欄垂直堆疊）
+	_title_row = BoxContainer.new()
+	_title_row.vertical = true
 	_title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_title_row.add_theme_constant_override("separation", 4)
 	_header_container.add_child(_title_row)
 
 	_title_label = Label.new()
 	_title_label.text = "宗門外務"
 	_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_title_label.add_theme_font_override("font", UiTypography.chapter_font())
-	_title_label.add_theme_font_size_override("font_size", 20)
+	_title_label.add_theme_font_size_override("font_size", 18)
 	_title_label.add_theme_color_override("font_color", UiMaterial.INK)
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_title_row.add_child(_title_label)
@@ -223,17 +280,7 @@ func _build_ui() -> void:
 	_contrib_label.add_theme_color_override("font_color", UiMaterial.INK)
 	_contrib_row.add_child(_contrib_label)
 
-	var space := Control.new()
-	space.custom_minimum_size = Vector2(10, 0)
-	_title_row.add_child(space)
-
-	_close_button = CloseSeal.new()
-
-	_close_button.custom_minimum_size = Vector2(44, 44)
-	_close_button.pressed.connect(func(): close_requested.emit())
-	_title_row.add_child(_close_button)
-
-	# 2. 狀態或概覽橫幅
+	# 2. 狀態或概覽橫幅（隱藏以釋放高度）
 	_banner_panel = PanelContainer.new()
 	var b_box := UiMaterial.hud_paper()
 	b_box.content_margin_left = 12
@@ -241,6 +288,7 @@ func _build_ui() -> void:
 	b_box.content_margin_top = 6
 	b_box.content_margin_bottom = 6
 	_banner_panel.add_theme_stylebox_override("panel", b_box)
+	_banner_panel.hide()
 	_header_container.add_child(_banner_panel)
 
 	_banner_label = Label.new()
@@ -249,32 +297,101 @@ func _build_ui() -> void:
 	_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_banner_panel.add_child(_banner_label)
 
-	# 3. 分頁標籤按鈕
-	_tab_row = HBoxContainer.new()
+	# 3. 宗門子分頁標籤按鈕（於左側欄垂直堆疊）
+	_tab_row = BoxContainer.new()
+	_tab_row.vertical = true
 	_tab_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_tab_row.add_theme_constant_override("separation", 8)
+	_tab_row.add_theme_constant_override("separation", 4)
 	_header_container.add_child(_tab_row)
 
 	_tab_expeditions_btn = GameTab.new()
 	_tab_expeditions_btn.text = "歷練委託"
-	_tab_expeditions_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_expeditions_btn.pressed.connect(func(): _switch_tab(TabMode.EXPEDITIONS))
 	_tab_row.add_child(_tab_expeditions_btn)
 
 	_tab_techniques_btn = GameTab.new()
 	_tab_techniques_btn.text = "秘術傳承"
-	_tab_techniques_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_techniques_btn.pressed.connect(func(): _switch_tab(TabMode.TECHNIQUES))
 	_tab_row.add_child(_tab_techniques_btn)
 
 	_tab_market_btn = GameTab.new()
 	_tab_market_btn.text = "宗門坊市"
-	_tab_market_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tab_market_btn.pressed.connect(func(): _switch_tab(TabMode.MARKET))
 	_tab_row.add_child(_tab_market_btn)
+	_tab_fellows_btn = GameTab.new()
+	_tab_fellows_btn.text = "同門"
+	_tab_fellows_btn.focus_mode = Control.FOCUS_ALL
+	_tab_fellows_btn.pressed.connect(func(): _switch_tab(TabMode.FELLOWS))
+	_tab_row.add_child(_tab_fellows_btn)
+	_tab_tournament_btn = GameTab.new()
+	_tab_tournament_btn.text = "大比"
+	_tab_tournament_btn.pressed.connect(func(): _switch_tab(TabMode.TOURNAMENT))
+	_tab_row.add_child(_tab_tournament_btn)
+	for tab in [_tab_expeditions_btn, _tab_techniques_btn, _tab_market_btn, _tab_fellows_btn, _tab_tournament_btn]:
+		tab.secondary = true
+		tab.focus_mode = Control.FOCUS_ALL
+		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		tab.custom_minimum_size.y = 44
+
+	_sub_selector_host = VBoxContainer.new()
+	_sub_selector_host.name = "SubSelectorHost"
+	_sub_selector_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_sub_selector_host.add_theme_constant_override("separation", 4)
+	_header_container.add_child(_sub_selector_host)
+
+	var rail_spacer := Control.new()
+	rail_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_header_container.add_child(rail_spacer)
+
+	left_entry_host = VBoxContainer.new()
+	left_entry_host.name = "LeftEntryHost"
+	left_entry_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_entry_host.add_theme_constant_override("separation", 6)
+	_header_container.add_child(left_entry_host)
+
+	var split_sep := VSeparator.new()
+	split_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_main_split.add_child(split_sep)
+
+	_right_stage = VBoxContainer.new()
+	_right_stage.name = "SectRightStage"
+	_right_stage.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_right_stage.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_right_stage.add_theme_constant_override("separation", 6)
+	_main_split.add_child(_right_stage)
+
+	# 4. 右側內容全高主區域
+	_scroll = ScrollContainer.new()
+	_scroll.name = "SectScroll"
+	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_right_stage.add_child(_scroll)
+
+	_tab_content_container = VBoxContainer.new()
+	_tab_content_container.name = "TabContent"
+	_tab_content_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_tab_content_container.add_theme_constant_override("separation", 10)
+	_scroll.add_child(_tab_content_container)
+	_folio = SectLifeFolio.new()
+	_folio.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_folio.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_folio.external_selector_host = _sub_selector_host
+	_folio.hide()
+	_right_stage.add_child(_folio)
+	_folio.join_requested.connect(_on_join_pressed)
+	_folio.story_requested.connect(func(instance: String, option: String): reform_action_requested.emit("story:" + instance, option))
+
+	_tournament = SectTournamentFolio.new()
+	_tournament.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_tournament.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_right_stage.add_child(_tournament)
+	_tournament.hide()
+	_tournament.requested.connect(func(action: String,payload: Dictionary): tournament_requested.emit(action,payload))
 
 	_feedback_row = HBoxContainer.new()
-	_header_container.add_child(_feedback_row)
+	_right_stage.add_child(_feedback_row)
 	_feedback = Label.new()
 	_feedback.add_theme_color_override("font_color", UiMaterial.INK)
 	_feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -289,20 +406,15 @@ func _build_ui() -> void:
 	_feedback_row.add_child(_retry)
 	_feedback_row.hide()
 
-	# 4. 滾動主區域（作為 SectPanel 同級子節點，獨立受控於 set_layout_bounds）
-	_scroll = ScrollContainer.new()
-	_scroll.name = "SectScroll"
-	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	_root_box.add_child(_scroll)
-
-	_tab_content_container = VBoxContainer.new()
-	_tab_content_container.name = "TabContent"
-	_tab_content_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_tab_content_container.add_theme_constant_override("separation", 10)
-	_scroll.add_child(_tab_content_container)
+	close_host = HBoxContainer.new()
+	close_host.name = "CloseHost"
+	close_host.alignment = BoxContainer.ALIGNMENT_END
+	close_host.z_index = 20
+	add_child(close_host)
+	_close_button = CloseSeal.new()
+	_close_button.custom_minimum_size = Vector2(44, 44)
+	_close_button.pressed.connect(func(): close_requested.emit())
+	close_host.add_child(_close_button)
 
 func _switch_tab(mode: TabMode) -> void:
 	_current_tab = mode
@@ -339,6 +451,8 @@ func update_view(state: GameState) -> void:
 
 	var structural := sect.duplicate(true)
 	structural.erase("next_refresh_seconds")
+	if structural.get("life") is Dictionary:
+		for key in ["tenure_seconds", "reward_epoch", "story_reserved", "rng"]: structural.life.erase(key)
 	var active = structural.get("active_expedition")
 	if active is Dictionary:
 		active.erase("elapsed")
@@ -347,7 +461,19 @@ func update_view(state: GameState) -> void:
 		_render_signature = signature
 		_render_current_tab()
 	for refresh in _dynamic: refresh.call()
+	var life_view := SectLife.view(state)
+	_tab_fellows_btn.text = "同門 · 訪帖" if life_view.get("pending_story") != null else "同門"
+	var exhausted := Lifespan.is_exhausted(state.total_elapsed_seconds, Lifespan.for_state(state_content_lifespans(), state))
+	var saving := _pending_save or SaveManager.core_save_pending(state)
+	life_view.blocked_reason = "保存未完成，請先重試保存。" if saving else ("壽元已盡；可閱讀記錄，請前往輪迴。" if exhausted else "")
+	_tournament.refresh(life_view,saving or exhausted)
+	_tab_tournament_btn.text = "大比 · 訪帖" if life_view.get("competition",{}).get("current") != null else "大比"
+	_folio.refresh(life_view, not is_unlocked, _cached_is_eligible_to_join, saving or exhausted)
 	set_layout_bounds(Rect2(position, size))
+
+func state_content_lifespans() -> Array:
+	if _life_eras.is_empty(): _life_eras = ContentLoader.load_directory("res://content").content.era_lifespan_entries()
+	return _life_eras
 
 var _render_signature := ""
 
@@ -374,12 +500,16 @@ func _render_current_tab() -> void:
 		child.queue_free()
 
 	var is_unlocked := bool(_cached_sect_data.get("unlocked", false))
+	var folio_visible := not is_unlocked or _current_tab == TabMode.FELLOWS
+	_folio.visible = folio_visible
+	_tournament.visible = is_unlocked and _current_tab == TabMode.TOURNAMENT
+	_scroll.visible = not folio_visible and not _tournament.visible
 	if not is_unlocked:
-		_render_join_panel()
-		_wrap_card_labels(_tab_content_container)
 		return
 
 	if _cached_state != null and SectIdentity.view(_cached_state.sect).identity_pending:
+		_folio.hide()
+		_scroll.show()
 		SectReformUi.text(_tab_content_container, "舊檔宗門身分未明：請確認本世山門；不重置貢獻、功法或派遣。")
 		for id in SectIdentity.NAMES:
 			var button := Button.new()
@@ -393,10 +523,13 @@ func _render_current_tab() -> void:
 	_tab_expeditions_btn.set_pressed_no_signal(_current_tab == TabMode.EXPEDITIONS)
 	_tab_techniques_btn.set_pressed_no_signal(_current_tab == TabMode.TECHNIQUES)
 	_tab_market_btn.set_pressed_no_signal(_current_tab == TabMode.MARKET)
-	for tab in [_tab_expeditions_btn, _tab_techniques_btn, _tab_market_btn]: tab._update_style()
+	_tab_fellows_btn.set_pressed_no_signal(_current_tab == TabMode.FELLOWS)
+	_tab_tournament_btn.set_pressed_no_signal(_current_tab == TabMode.TOURNAMENT)
+	for tab in [_tab_expeditions_btn, _tab_techniques_btn, _tab_market_btn, _tab_fellows_btn, _tab_tournament_btn]: tab._update_style()
 
 	match _current_tab:
 		TabMode.EXPEDITIONS:
+			_render_entry_guide()
 			_render_expeditions_tab()
 		TabMode.TECHNIQUES:
 			_render_techniques_tab()
@@ -405,6 +538,35 @@ func _render_current_tab() -> void:
 
 	_wrap_card_labels(_tab_content_container)
 	for refresh in _dynamic: refresh.call()
+
+func _render_entry_guide() -> void:
+	if _cached_state == null: return
+	var guide := SectEntry.guidance(_cached_state)
+	if guide.is_empty(): return
+	SectReformUi.text(_tab_content_container, guide.text)
+	var actions := HFlowContainer.new()
+	_tab_content_container.add_child(actions)
+	var choices: Dictionary = {"intro": "見禮", "skip": "略過入門導覽"}
+	match String(guide.step):
+		"invitation": choices = {"later": "稍後拜山"}
+		"review": choices = {"review": "已讀無獎回顧"}
+		"report": choices = {"finish": "完成入門導覽"}
+		"dispatch": choices = {"skip": "略過入門導覽"}
+	for action in choices:
+		var button := Button.new()
+		button.text = choices[action]
+		button.custom_minimum_size.y = 44
+		UiMaterial.apply_button(button)
+		button.pressed.connect(func(): reform_action_requested.emit("entry", action))
+		actions.add_child(button)
+	var task_id := String(guide.get("task_id", ""))
+	if not task_id.is_empty():
+		var dispatch := Button.new()
+		dispatch.text = "派遣推薦首務"
+		dispatch.custom_minimum_size.y = 44
+		UiMaterial.apply_button(dispatch)
+		dispatch.pressed.connect(func(): start_expedition_requested.emit(task_id))
+		actions.add_child(dispatch)
 
 # ================= 拜入宗門介面 =================
 func _render_join_panel() -> void:
@@ -501,13 +663,16 @@ func _render_join_panel() -> void:
 		_join_card_layouts.append({"box":s_box,"row":s_row,"info":s_info,"art":s_row.get_child(0),"title":s_title,"desc":s_desc})
 
 func _queue_header_reflow() -> void:
+	if _in_layout or not is_visible_in_tree():
+		return
 	if not _header_reflow_pending:
 		_header_reflow_pending = true
 		_reflow_header.call_deferred()
 
 func _reflow_header() -> void:
 	_header_reflow_pending = false
-	set_layout_bounds(Rect2(position, size))
+	if is_visible_in_tree():
+		set_layout_bounds(Rect2(position, size))
 
 func _on_join_pressed(s_name: String) -> void:
 	join_sect_requested.emit(s_name)
@@ -624,6 +789,9 @@ func _render_expeditions_tab() -> void:
 		refresh_btn.disabled = cd > 0
 	)
 	list_header.add_child(refresh_btn)
+	var close_pad := Control.new()
+	close_pad.custom_minimum_size = Vector2(48, 0)
+	list_header.add_child(close_pad)
 
 	# 3. 委託清單項目
 	var tasks: Array = _cached_sect_data.get("available_tasks", [])
@@ -971,9 +1139,12 @@ func _new_grid() -> GridContainer:
 	return grid
 
 func _fit_card_grid(grid: GridContainer) -> void:
-	var available := maxf(0, size.x - 72)
-	grid.columns = 2 if available >= 1000 else 1
-	grid.custom_minimum_size.x = minf(available, 1120 if grid.columns == 2 else 860)
+	var rail_w := _left_scroll.custom_minimum_size.x if is_instance_valid(_left_scroll) else 168.0
+	var pad_w := 64.0 if _compact else 88.0
+	var stage_w := maxf(0.0, size.x - rail_w - pad_w)
+	var available := stage_w
+	grid.columns = 2 if size.x >= 1000.0 and available >= 640.0 else 1
+	grid.custom_minimum_size.x = minf(available, 980.0 if grid.columns == 2 else 860.0)
 
 func _add_market_art(row: HBoxContainer, id: String) -> void:
 	if id == "herb_nurture_supply":
@@ -1056,7 +1227,9 @@ func set_command_result(result: Dictionary, saved: Dictionary = {}) -> void:
 	_feedback_row.show()
 	if not bool(result.get("ok",false)):
 		_pending_save = SaveManager.core_save_pending(_cached_state)
-		_feedback.text = ("操作待保存：" if _pending_save else "操作未完成：") + str(result.get("error","未知"))
+		var error := str(result.get("error","未知"))
+		var reasons := {"SECT_TOURNAMENT_INSTANCE":"本屆資料已更新，請重新查看大比。", "SECT_TOURNAMENT_PHASE":"此階段尚不可操作，請依目前試煉進度繼續。", "SECT_TOURNAMENT_PREPARATION":"請選擇一段準備。", "SECT_TOURNAMENT_STRATEGY":"請選擇目前段落的策略。", "SECT_TOURNAMENT_UNAVAILABLE":"宗門大比尚不可用。"}
+		_feedback.text = ("操作待保存：" if _pending_save else "操作未完成：") + str(reasons.get(error,error))
 		_retry.visible = _pending_save
 	elif not bool(saved.get("ok",false)):
 		_pending_save = true

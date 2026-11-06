@@ -1,0 +1,80 @@
+{
+  "task": "UI-SECT-GATE-PORTRAIT-R1",
+  "date": "2026-11-06",
+  "generator": "Built-in image_gen; five independent edits of project-owned AI-generated landscapes",
+  "acceptance": "PENDING_USER_VISUAL_REVIEW",
+  "license_status": "Generated for this project from existing project AI images; no third-party commercial license asserted",
+  "processing": "Byte-identical copy; no crop, resize or pixel edits",
+  "assets": [
+    {
+      "id": "taixu",
+      "generated_source": "C:\\Users\\asus\\.codex\\generated_images\\01a1b09a-5a1c-7e90-a8a5-84696b094e95\\exec-c0257bdc-68f2-482f-8270-732b44b52d21.png",
+      "reference": "assets/ui/sect-life/taixu-gate.png",
+      "runtime": "assets/ui/sect-life/taixu-gate-portrait.png",
+      "prompt": "docs/sect-life/gate-portrait-r1/prompts/taixu.txt",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "5fd49248566ba1d181ee7dc7f482a618040621b85d614f002704ea36bd2c2d3a",
+      "reference_sha256": "b04670303ab1b7e63adca6afa393dd5dbc2d84e9d2d51082e3eda7d48da2f866",
+      "layers": "Single opaque painted scenery; UI text and controls remain separate Godot nodes"
+    },
+    {
+      "id": "tianjian",
+      "generated_source": "C:\\Users\\asus\\.codex\\generated_images\\01a1b09a-5a1c-7e90-a8a5-84696b094e95\\exec-7f732c95-0f31-4e54-9cf4-9833ddab09fb.png",
+      "reference": "assets/ui/sect-life/tianjian-gate.png",
+      "runtime": "assets/ui/sect-life/tianjian-gate-portrait.png",
+      "prompt": "docs/sect-life/gate-portrait-r1/prompts/tianjian.txt",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "ccea8a3400219e0b642ecb5b854b6b648751d937a5c281e27de4c09d1c893473",
+      "reference_sha256": "1ffe873ed698184f25b226d707e328f004167bf2c9d8b29e9d46c383567e882c",
+      "layers": "Single opaque painted scenery; UI text and controls remain separate Godot nodes"
+    },
+    {
+      "id": "piaomiao",
+      "generated_source": "C:\\Users\\asus\\.codex\\generated_images\\01a1b09a-5a1c-7e90-a8a5-84696b094e95\\exec-48b242bf-a389-46ff-9549-450a077c66e7.png",
+      "reference": "assets/ui/sect-life/piaomiao-gate.png",
+      "runtime": "assets/ui/sect-life/piaomiao-gate-portrait.png",
+      "prompt": "docs/sect-life/gate-portrait-r1/prompts/piaomiao.txt",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "14fd094edf810a0db9c4a04a0670fac088357b48b13287fa5fac83333ed25c48",
+      "reference_sha256": "2aa09b3cd40cb556ccf8700158b350d5077f78bf54a6eea73d7c9f13e21fc72c",
+      "layers": "Single opaque painted scenery; UI text and controls remain separate Godot nodes"
+    },
+    {
+      "id": "wanfo",
+      "generated_source": "C:\\Users\\asus\\.codex\\generated_images\\01a1b09a-5a1c-7e90-a8a5-84696b094e95\\exec-733d515a-cda3-41d5-909e-632b9c0f4042.png",
+      "reference": "assets/ui/sect-life/wanfo-gate.png",
+      "runtime": "assets/ui/sect-life/wanfo-gate-portrait.png",
+      "prompt": "docs/sect-life/gate-portrait-r1/prompts/wanfo.txt",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "8c69af02bd76c702638dbd8f6a7781b0a43f5cf22903b5bfcdd94073501ab88b",
+      "reference_sha256": "fa5671c16735af863ed82db82cdf405aa9f7a0a4e007cedcd444ed1320c8bf54",
+      "layers": "Single opaque painted scenery; UI text and controls remain separate Godot nodes"
+    },
+    {
+      "id": "zixiao",
+      "generated_source": "C:\\Users\\asus\\.codex\\generated_images\\01a1b09a-5a1c-7e90-a8a5-84696b094e95\\exec-3028c8c0-bde6-4ac0-b040-7aa482e3a8fc.png",
+      "reference": "assets/ui/sect-life/zixiao-gate.png",
+      "runtime": "assets/ui/sect-life/zixiao-gate-portrait.png",
+      "prompt": "docs/sect-life/gate-portrait-r1/prompts/zixiao.txt",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "3d60f3f9d31c529030aeada9c3a492163420ab39470a0430a4003d15d82ecb3e",
+      "reference_sha256": "9f17d46c53906dd1a4f2a363f1bb8f867f797b6898ad78632801150eb92fb735",
+      "layers": "Single opaque painted scenery; UI text and controls remain separate Godot nodes"
+    }
+  ]
+}

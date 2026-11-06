@@ -241,7 +241,7 @@ func _versions_and_old_schemas() -> void:
 		fractional.erase("checksum"); fractional.checksum = SaveCodec.compute_checksum(fractional)
 		check(not SaveCodec.decode(JSON.stringify(fractional)).ok, "fractional release version rejected exactly")
 	SaveManager.reset_for_tests()
-	var future: Dictionary = envelope.duplicate(true); future.schema_version = 7
+	var future: Dictionary = envelope.duplicate(true); future.schema_version = SaveCodec.LIFE_SCHEMA_VERSION + 1
 	future.erase("checksum"); future.checksum = SaveCodec.compute_checksum(future)
 	mem = Memory.new(); mem.data[SaveSlots.SLOT_MAIN] = JSON.stringify(future)
 	mem.data[SaveSlots.SLOT_BACKUP] = raw

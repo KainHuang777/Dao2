@@ -156,7 +156,7 @@ func _effects(effects: Dictionary, resources: Dictionary) -> String:
 func _layout() -> void:
 	if grid == null: return
 	compact = size.y < 340
-	grid.columns = 2 if size.x >= 1000 else 1
+	grid.columns = 2 if size.x >= 960 else 1
 	for row in cards.values():
 		row.art.custom_minimum_size = Vector2.ONE * (80 if compact else 112)
 

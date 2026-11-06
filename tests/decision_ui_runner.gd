@@ -34,6 +34,7 @@ func run() -> void:
 		if enc.id == "enc_wandering_taoist": state.fortune.pending_encounter = enc.duplicate(true)
 	state.resources.spirit_grass_low.value = AmountCompat.from_number(50)
 	SectLineage.next_life(state)
+	SectLife.reset_life(state)
 	state.revision += 1
 	# Persist the synthetic fixture so settlement saves succeed; a failed save
 	# reserves the banner strip and collapses the compact body.

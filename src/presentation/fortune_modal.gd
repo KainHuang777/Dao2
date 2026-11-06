@@ -14,12 +14,21 @@ var identity_provider: Callable
 var displayed_instance := ""
 var _book: DecisionBookView
 var _book_button: Button
+var _encounter_tab_button: GameTab
 var _book_open := false
 var _book_revision := -1
 var _book_identity := -1
 var _book_data: Dictionary = {}
 var _background: Panel
 var _margin: MarginContainer
+var _main_split: HBoxContainer
+var _left_scroll: ScrollContainer
+var _left_rail: VBoxContainer
+var left_nav_host: VBoxContainer
+var _nav_sep: HSeparator
+var left_entry_host: VBoxContainer
+var close_host: HBoxContainer
+var _right_stage: VBoxContainer
 var _content: VBoxContainer
 var _body_scroll: ScrollContainer
 var _title_row: HBoxContainer
@@ -84,19 +93,95 @@ func _build_ui() -> void:
 	_margin = MarginContainer.new()
 	add_child(_margin)
 	_margin.minimum_size_changed.connect(func(): _fit_margin.call_deferred())
-	_content = VBoxContainer.new()
-	_content.name = "FortuneContent"
-	_content.add_theme_constant_override("separation", 8)
-	_margin.add_child(_content)
+	_main_split = HBoxContainer.new()
+	_main_split.name = "FortuneMainSplit"
+	_main_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_main_split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_split.add_theme_constant_override("separation", 14)
+	_margin.add_child(_main_split)
+	_left_scroll = ScrollContainer.new()
+	_left_scroll.name = "FortuneLeftRail"
+	_left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_left_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_left_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_scroll.custom_minimum_size = Vector2(168, 0)
+	_main_split.add_child(_left_scroll)
+	_left_rail = VBoxContainer.new()
+	_left_rail.name = "FortuneLeftRailBox"
+	_left_rail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_left_rail.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_rail.add_theme_constant_override("separation", 8)
+	_left_scroll.add_child(_left_rail)
+	left_nav_host = VBoxContainer.new()
+	left_nav_host.name = "LeftNavHost"
+	left_nav_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_nav_host.add_theme_constant_override("separation", 4)
+	_left_rail.add_child(left_nav_host)
+	_nav_sep = HSeparator.new()
+	_nav_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_left_rail.add_child(_nav_sep)
 	_title_row = HBoxContainer.new()
-	_content.add_child(_title_row)
-	_title_label = _label(_title_row, 20)
+	_left_rail.add_child(_title_row)
+	_title_label = _label(_title_row, 18)
 	_title_label.text = "天人感應 · 機緣奇遇"
 	_title_label.add_theme_font_override("font", UiTypography.emphasis_font())
 	_close_button = CloseSeal.new()
 	_close_button.pressed.connect(func(): close_requested.emit())
 	_title_row.add_child(_close_button)
-	_stats_label = _label(_content)
+	_stats_label = _label(_left_rail, 15)
+	var sub_tabs := VBoxContainer.new()
+	sub_tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sub_tabs.add_theme_constant_override("separation", 4)
+	_left_rail.add_child(sub_tabs)
+	_encounter_tab_button = GameTab.new()
+	_encounter_tab_button.secondary = true
+	_encounter_tab_button.text = "當前機緣"
+	_encounter_tab_button.focus_mode = Control.FOCUS_ALL
+	_encounter_tab_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_encounter_tab_button.custom_minimum_size.y = 44
+	_encounter_tab_button.button_pressed = true
+	_encounter_tab_button._update_style()
+	_encounter_tab_button.pressed.connect(func():
+		_book_open = false
+		_book_button.button_pressed = false
+		_encounter_tab_button.button_pressed = true
+		refresh(_last_view_data))
+	sub_tabs.add_child(_encounter_tab_button)
+	_book_button = GameTab.new()
+	_book_button.secondary = true
+	_book_button.text = "抉擇簿"
+	_book_button.focus_mode = Control.FOCUS_ALL
+	_book_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_book_button.custom_minimum_size.y = 44
+	_book_button.pressed.connect(func():
+		_book_open = not _book_open
+		_book_button.button_pressed = _book_open
+		_encounter_tab_button.button_pressed = not _book_open
+		refresh(_last_view_data))
+	sub_tabs.add_child(_book_button)
+	var rail_spacer := Control.new()
+	rail_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_rail.add_child(rail_spacer)
+	left_entry_host = VBoxContainer.new()
+	left_entry_host.name = "LeftEntryHost"
+	left_entry_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_entry_host.add_theme_constant_override("separation", 6)
+	_left_rail.add_child(left_entry_host)
+	var split_sep := VSeparator.new()
+	split_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_main_split.add_child(split_sep)
+	_content = VBoxContainer.new()
+	_content.name = "FortuneContent"
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_content.add_theme_constant_override("separation", 8)
+	_main_split.add_child(_content)
+	_right_stage = _content
+	close_host = HBoxContainer.new()
+	close_host.name = "CloseHost"
+	close_host.alignment = BoxContainer.ALIGNMENT_END
+	close_host.z_index = 20
+	add_child(close_host)
 	_body_scroll = ScrollContainer.new()
 	_body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_body_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
@@ -131,13 +216,6 @@ func _build_ui() -> void:
 	_story.add_child(_options_container)
 	_book = DecisionBookView.new()
 	_story.add_child(_book)
-	_book_button = GameTab.new()
-	_book_button.text = "抉擇簿"
-	_book_button.pressed.connect(func():
-		_book_open = not _book_open
-		_book_button.button_pressed = _book_open
-		refresh(_last_view_data))
-	_story_header.add_child(_book_button)
 	_trigger_btn = GraphicAction.new()
 	UiIcon.decorate_button(_trigger_btn, UiIcon.Kind.SPARKLE, GraphicAction.JADE, 32)
 	_trigger_btn.custom_minimum_size = Vector2(200,44)
@@ -180,6 +258,8 @@ func _build_ui() -> void:
 	_retry.hide()
 
 func set_layout_bounds(bounds: Rect2) -> void:
+	if not is_visible_in_tree() and position == bounds.position and size == bounds.size:
+		return
 	position = bounds.position
 	size = bounds.size
 	_background.size = size
@@ -188,6 +268,17 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	_close_button.visible = not embedded
 	UiMaterial.apply_scroll_content_margins(_margin, _compact)
 	_margin.size = size
+	if is_instance_valid(_main_split):
+		_main_split.add_theme_constant_override("separation", 8 if _compact else 14)
+	if is_instance_valid(_left_scroll):
+		_left_scroll.custom_minimum_size.x = 112.0 if size.x < 500.0 else (140.0 if _compact else 168.0)
+	if is_instance_valid(_left_rail):
+		_left_rail.add_theme_constant_override("separation", 4 if _compact else 8)
+	if is_instance_valid(_nav_sep):
+		_nav_sep.visible = is_instance_valid(left_nav_host) and left_nav_host.get_child_count() > 0
+	if is_instance_valid(close_host):
+		close_host.position = Vector2(maxf(0.0, size.x - (12.0 if _compact else 18.0) - 44.0), 6.0 if _compact else 10.0)
+		close_host.size = Vector2(44.0, 44.0)
 	_stats_label.visible = not _compact
 	_title_row.visible = not _compact
 	_content.add_theme_constant_override("separation", 4 if _compact else 8)
@@ -287,6 +378,11 @@ func refresh(view_data: Dictionary) -> void:
 	_book.visible = _book_open or (not has_pending and not _book_data.get("receipts", []).is_empty())
 	_book.show_book(_book_data, not _book_open)
 	_book_button.button_pressed = _book_open
+	if _book_button is GameTab:
+		(_book_button as GameTab)._update_style()
+	if is_instance_valid(_encounter_tab_button):
+		_encounter_tab_button.button_pressed = not _book_open
+		_encounter_tab_button._update_style()
 	_stats_label.text = "每小時 %d 次 · 已結算 %d 次" % [int(fortune.get("max_per_hour",1)),int(fortune.get("total_fortunes_claimed",0))]
 	_options_container.visible = has_pending
 	_trigger_btn.visible = not has_pending

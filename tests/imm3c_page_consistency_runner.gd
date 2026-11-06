@@ -348,13 +348,10 @@ func _check_sect(nav, vp: Vector2) -> void:
 	abode._layout_for_size(vp)
 	await frames()
 	check(String(nav.shell.effective.get("resource_context", "")) == "inventory", "technique subpage requests inventory resources " + str(vp))
-	if vp.x >= 960.0 and vp.y >= 500.0:
-		check(nav.shell.context_paper.visible and nav.shell.context_inventory.visible, "technique drawer uses inventory icons " + str(vp))
-	else:
-		check(nav.shell.resource_button.visible and not nav.shell.context_paper.visible, "compact technique summary " + str(vp))
-		await _open_drawer(nav, vp)
-		check(nav.shell.context_paper.visible and nav.shell.context_inventory.visible, "technique drawer uses inventory icons " + str(vp))
-		await _close_drawer(nav, vp)
+	check(nav.shell.resource_button.visible and not nav.shell.context_paper.visible, "technique summary uses rail resource entry " + str(vp))
+	await _open_drawer(nav, vp)
+	check(nav.shell.context_paper.visible and nav.shell.context_inventory.visible, "technique drawer uses inventory icons " + str(vp))
+	await _close_drawer(nav, vp)
 	var strips: Array = []
 	_find_strips(panel._tab_content_container, strips)
 	check(not strips.is_empty() and _strips_are_seals(strips), "technique costs keep contribution seal cells " + str(vp))

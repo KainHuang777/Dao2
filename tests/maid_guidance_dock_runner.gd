@@ -134,7 +134,7 @@ func _run() -> void:
 		check(guide.guide_button.get_global_rect().end.x <= vp.x, "guide entry stays inside viewport at %s" % vp)
 		if not stand.panel.visible:
 			check(stand.tab.visible and stand.tab.get_parent() == abode.feature_navigation.shell.entry, "compact companion participates in the entry container")
-			check(stand.tab.get_global_rect().position.x >= abode.toolbar.get_global_rect().end.x, "compact dock clears bottom navigation")
+			check(not stand.tab.get_global_rect().intersects(abode.toolbar.get_global_rect()), "compact dock clears bottom navigation")
 		guide.guide_button.pressed.emit()
 		await frames()
 		check(guide.bubble.is_visible_in_tree(), "manual reading remains available at %s" % vp)

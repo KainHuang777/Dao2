@@ -12,9 +12,16 @@ var active := false
 var _parents := {}
 var _styles := {}
 var _flat := StyleBoxEmpty.new()
+var _head_style: StyleBoxFlat
 
 func _init(scene: Node) -> void:
 	abode = scene
+	_head_style = StyleBoxFlat.new()
+	_head_style.bg_color = Color.TRANSPARENT
+	_head_style.border_width_bottom = 1
+	_head_style.border_color = Color(0.48, 0.42, 0.32, 0.35)
+	_head_style.content_margin_top = 4
+	_head_style.content_margin_bottom = 6
 	panel = PanelContainer.new()
 	panel.name = "ManagementWorkbench"
 	panel.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell())
@@ -38,6 +45,7 @@ func _init(scene: Node) -> void:
 	stock.add_child(stock_content)
 	pages = Control.new()
 	pages.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	pages.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(pages)
 	panel.hide()
 	pages.resized.connect(_fit_page)
@@ -55,6 +63,7 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	active = enabled
 	panel.visible = enabled
 	if not enabled:
+		abode.feature_navigation.set_vertical_tabs(false)
 		for control in _parents:
 			if control.get_parent() != _parents[control]: control.reparent(_parents[control], false)
 			if _styles.has(control): control.add_theme_stylebox_override("panel", _styles[control])
@@ -68,21 +77,27 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	panel.size = bounds.size
 	column.add_theme_constant_override("separation", 8 if wide else 4)
 	var nav = abode.feature_navigation
-	_move(nav.bar, column)
-	column.move_child(nav.bar, 0)
-	nav.bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	nav.bar.custom_minimum_size.y = 44
-	var head_style := StyleBoxFlat.new()
-	head_style.bg_color = Color.TRANSPARENT
-	head_style.border_width_bottom = 1
-	head_style.border_color = Color(0.48, 0.42, 0.32, 0.35)
-	head_style.content_margin_top = 4
-	head_style.content_margin_bottom = 6
-	nav.bar.add_theme_stylebox_override("panel", head_style)
-	stock.visible = wide and (nav.group == "management" or nav.page == "reincarnation" or show_stock)
+	var active_folio: Control = {"sect": abode.sect_panel, "fortune": abode.fortune_modal, "decisions": nav.action_panel, "characters": nav.character_panel}.get(nav.page, null)
+	var left_rail_mode: bool = active_folio != null and active_folio.get("left_nav_host") != null
+	nav.set_vertical_tabs(left_rail_mode)
+	if left_rail_mode:
+		_move(nav.bar, active_folio.left_nav_host)
+		_move(nav.back_button, active_folio.close_host)
+		nav.bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		nav.bar.custom_minimum_size.y = 0
+		nav.bar.add_theme_stylebox_override("panel", _flat)
+	else:
+		if _parents.has(nav.back_button):
+			_move(nav.back_button, _parents[nav.back_button])
+		_move(nav.bar, column)
+		column.move_child(nav.bar, 0)
+		nav.bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		nav.bar.custom_minimum_size.y = 44
+		nav.bar.add_theme_stylebox_override("panel", _head_style)
+	stock.visible = wide and not left_rail_mode and (nav.group == "management" or nav.page == "reincarnation" or show_stock)
 	stock.custom_minimum_size.x = 320 if wide else 236
-	stock_title.visible = wide and show_stock and not nav.island_flow.visible
-	stock_content.visible = wide and show_stock
+	stock_title.visible = wide and not left_rail_mode and show_stock and not nav.island_flow.visible
+	stock_content.visible = wide and not left_rail_mode and show_stock
 	stock_title.text = "祖島可用庫存" if nav.page == "buildings" else "當地與付款庫存"
 	for resource_panel in [abode.resource_ribbon, nav.shell.context_paper]:
 		_move(resource_panel, stock_content)
@@ -103,7 +118,8 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	# Normal container sorting refines the same allocation on the next frame.
 	var inner: Vector2 = bounds.size - panel.get_theme_stylebox("panel").get_minimum_size()
 	var stock_width: float = stock.get_combined_minimum_size().x + body.get_theme_constant("separation") if stock.visible else 0.0
-	pages.size = Vector2(maxf(80, inner.x - stock_width), maxf(80, inner.y - nav.bar.get_combined_minimum_size().y - column.get_theme_constant("separation")))
+	var top_bar_h: float = 0.0 if left_rail_mode else (nav.bar.get_combined_minimum_size().y + column.get_theme_constant("separation"))
+	pages.size = Vector2(maxf(80, inner.x - stock_width), maxf(80, inner.y - top_bar_h))
 	_fit_page()
 	_fit_stock()
 

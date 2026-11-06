@@ -156,6 +156,8 @@ python -m http.server 4175 --bind 127.0.0.1 --directory '.\build\web'
 
 ## 瀏覽器驗收的正確做法
 
+- **瀏覽器測試指定 Chrome（2026-11-06 使用者指令）**：後續桌面 Web 操作、滑鼠、響應式尺寸及其他瀏覽器驗收統一使用 Google Chrome，不再使用 Microsoft Edge。Chrome 工具不可用時標示待驗，不自行切回 Edge；歷史 Edge 證據保留原日期與範圍，不改稱 Chrome 已驗。
+
 - 先等實際場景可互動；loader 截圖與 console 的 ABODE_READY 都不足以證明畫面品質。
 - 從當次截圖／viewport 確認座標，記錄 CSS 尺寸和 DPR；不要複用上一回的固定座標。Godot 畫布內部文字通常不在 DOM，不能把 AX 的 canvas fallback 文字視為畫面錯誤。
 - 真實點建築／按鈕並核對文字與狀態；拖曳檢查位置、縮放檢查比例及命中；UI 上拖放後再點世界，確認不黏住拖曳。

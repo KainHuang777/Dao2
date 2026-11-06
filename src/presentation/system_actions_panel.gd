@@ -3,6 +3,18 @@ extends Control
 signal action_requested(kind: String, id: String)
 var mode := "beasts"
 var box: VBoxContainer
+var _right_stage: VBoxContainer
+var _main_split: HBoxContainer
+var _left_scroll: ScrollContainer
+var _left_rail: VBoxContainer
+var left_nav_host: VBoxContainer
+var _nav_sep: HSeparator
+var _rail_title: Label
+var _rail_subtitle: Label
+var left_entry_host: VBoxContainer
+var _split_sep: VSeparator
+var close_host: HBoxContainer
+var _margin: MarginContainer
 var content: VBoxContainer
 var status: Label
 var _signature := ""
@@ -16,7 +28,7 @@ var embedded := false
 func set_embedded(value: bool) -> void:
 	embedded = value
 	if _surface != null:
-		_surface.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell()))
+		set_layout_bounds(Rect2(position, size))
 var skill_view: Control
 var decision_view: Control
 var retry_button: Button
@@ -31,8 +43,77 @@ func _ready() -> void:
 	surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	surface.add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
 	add_child(surface)
+	_margin = MarginContainer.new()
+	_margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_margin.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	surface.add_child(_margin)
+	_main_split = HBoxContainer.new()
+	_main_split.name = "ActionMainSplit"
+	_main_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_main_split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_split.add_theme_constant_override("separation", 14)
+	_margin.add_child(_main_split)
+	_left_scroll = ScrollContainer.new()
+	_left_scroll.name = "DecisionLeftRail"
+	_left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_left_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_left_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_scroll.custom_minimum_size = Vector2(168, 0)
+	_main_split.add_child(_left_scroll)
+	_left_rail = VBoxContainer.new()
+	_left_rail.name = "DecisionLeftRailBox"
+	_left_rail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_left_rail.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_rail.add_theme_constant_override("separation", 8)
+	_left_scroll.add_child(_left_rail)
+	left_nav_host = VBoxContainer.new()
+	left_nav_host.name = "LeftNavHost"
+	left_nav_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_nav_host.add_theme_constant_override("separation", 4)
+	_left_rail.add_child(left_nav_host)
+	_nav_sep = HSeparator.new()
+	_nav_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_left_rail.add_child(_nav_sep)
+	_rail_title = Label.new()
+	_rail_title.text = "天道決策"
+	_rail_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_rail_title.add_theme_font_override("font", UiTypography.chapter_font())
+	_rail_title.add_theme_font_size_override("font_size", 18)
+	_rail_title.add_theme_color_override("font_color", UiMaterial.INK)
+	_rail_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_left_rail.add_child(_rail_title)
+	_rail_subtitle = Label.new()
+	_rail_subtitle.text = "施行界域法令，引動天地氣機。"
+	_rail_subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_rail_subtitle.add_theme_font_size_override("font_size", 15)
+	_rail_subtitle.add_theme_color_override("font_color", UiMaterial.INK)
+	_rail_subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_left_rail.add_child(_rail_subtitle)
+	var rail_spacer := Control.new()
+	rail_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_rail.add_child(rail_spacer)
+	left_entry_host = VBoxContainer.new()
+	left_entry_host.name = "LeftEntryHost"
+	left_entry_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_entry_host.add_theme_constant_override("separation", 6)
+	_left_rail.add_child(left_entry_host)
+	_split_sep = VSeparator.new()
+	_split_sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_main_split.add_child(_split_sep)
 	box = VBoxContainer.new()
-	surface.add_child(box)
+	box.name = "ActionRightStage"
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_split.add_child(box)
+	_right_stage = box
+	close_host = HBoxContainer.new()
+	close_host.name = "CloseHost"
+	close_host.alignment = BoxContainer.ALIGNMENT_END
+	close_host.z_index = 20
+	add_child(close_host)
+	_left_scroll.hide()
+	_split_sep.hide()
+	close_host.hide()
 	var feedback_row := HBoxContainer.new()
 	box.add_child(feedback_row)
 	status = Label.new()
@@ -75,9 +156,33 @@ func _ready() -> void:
 func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
-	_surface.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if bounds.size.y < 350 else UiMaterial.scroll_shell()))
-	box.add_theme_constant_override("separation", 0 if bounds.size.y < 350 else 4)
-	decision_view.add_theme_constant_override("separation", 0 if bounds.size.y < 350 else 6)
+	var compact := bounds.size.y < 350
+	_surface.add_theme_stylebox_override("panel", StyleBoxEmpty.new() if embedded else (UiMaterial.compact_scroll_shell() if compact else UiMaterial.scroll_shell()))
+	if is_instance_valid(_margin):
+		if embedded:
+			UiMaterial.apply_scroll_content_margins(_margin, compact)
+		else:
+			for side in ["left", "top", "right", "bottom"]:
+				_margin.add_theme_constant_override("margin_" + side, 0)
+	if is_instance_valid(_main_split):
+		_main_split.add_theme_constant_override("separation", (8 if compact else 14) if embedded else 0)
+	if is_instance_valid(_left_scroll):
+		_left_scroll.visible = embedded
+		_left_scroll.custom_minimum_size.x = 112.0 if bounds.size.x < 500.0 else (140.0 if compact else 168.0)
+	if is_instance_valid(_left_rail):
+		_left_rail.add_theme_constant_override("separation", 4 if compact else 8)
+	if is_instance_valid(_nav_sep):
+		_nav_sep.visible = is_instance_valid(left_nav_host) and left_nav_host.get_child_count() > 0
+	if is_instance_valid(_rail_subtitle):
+		_rail_subtitle.visible = not compact
+	if is_instance_valid(_split_sep):
+		_split_sep.visible = embedded
+	if is_instance_valid(close_host):
+		close_host.visible = embedded
+		close_host.position = Vector2(maxf(0.0, bounds.size.x - (12.0 if compact else 18.0) - 44.0), 6.0 if compact else 10.0)
+		close_host.size = Vector2(44.0, 44.0)
+	box.add_theme_constant_override("separation", 0 if compact else 4)
+	decision_view.add_theme_constant_override("separation", 0 if compact else 6)
 	_sync_skill_feedback()
 
 func _sync_skill_feedback() -> void:

@@ -9,7 +9,7 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 	# The original jump proof assumes integer gathering and local workshops.
 	# R46 fractional gathering uses the authoritative one-second path until a
 	# separate proof covers its event/capacity boundaries.
-	if IslandEconomy.expanded(state) or state.sect.has("techniques_version") or state.sect.has("lineage") or state.beast_version == GuardianBeasts.VERSION:
+	if state.sect.has("life") or IslandEconomy.expanded(state) or state.sect.has("techniques_version") or state.sect.has("lineage") or state.beast_version == GuardianBeasts.VERSION:
 		var result := TimeAdvancer.advance(state, content, ticks, prepared)
 		result.exact = true
 		return result

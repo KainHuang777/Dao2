@@ -1,8 +1,8 @@
-2026-11-05 **JOURNEY-UI-INTEGRATE 遊歷三頁同紙面（L1/L2）**：[狀態](docs/development-status.md#journey-ui-integrate)。
+2026-11-06 **UI-SECT-GATE-PORTRAIT-R1 五宗首頁直式圖與自適應接入，3支相關runner及原生155檢查通過，Chrome／美術接受待驗**：[狀態](docs/development-status.md#ui-sect-gate-portrait-r1)。
 
-2026-11-05 **MAID-GUIDE-STABLE 外置氣泡與人物大小固定（L1/L2）**：[狀態](docs/development-status.md#maid-guide-stable)。
+2026-11-06 **UI-JOURNEY-LAYOUT-B-R1 遊歷四頁全蓋板＋主／子分頁全靠左＋右側100%全高內容，實作與L1完成，L2待驗**：[狀態](docs/development-status.md#ui-journey-layout-b-r1)。
 
-2026-11-05 **MAID-UI-INTEGRATE 人物頁同紙面與直排書籤（L1/L2）**：[狀態](docs/development-status.md#maid-ui-integrate)。
+2026-11-06 **UI-BUILDING-NAV-R1 建築前往直達清單／明確返回，實作與L1完成，L2待驗**：[狀態](docs/development-status.md#ui-building-nav-r1)。
 
 > 較舊的日期化結案段落已原文搬至 [ROADMAP-prelude-archive-2026-10.md](docs/archive/ROADMAP-prelude-archive-2026-10.md)。
 

@@ -25,6 +25,7 @@ func run() -> void:
 	ResourceAccountsFixture.apply(abode.session)
 	# Persist the synthetic fixture so the seal matches durable state.
 	SectLineage.next_life(abode.session.state)
+	SectLife.reset_life(abode.session.state)
 	var fixture_save: Dictionary = abode._save_game()
 	check(fixture_save.get("ok", false), "fixture save: " + String(fixture_save.get("error", "")))
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED

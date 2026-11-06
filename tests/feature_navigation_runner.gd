@@ -45,7 +45,7 @@ func _run() -> void:
 	check(nav.page == "achievements", "available remembered page restored")
 	nav.home()
 	nav.open_group("journey")
-	check(nav.page == "characters" and nav.tab_buttons.sect.text.ends_with("·未開"), "Era1 journey falls back to available character presentation, retaining locked sect preview")
+	check(nav.page == "characters" and not nav.tab_buttons.sect.visible, "Era1 journey falls back to characters and hides sect")
 	nav.home()
 	nav.open_group("management")
 	for route in ["outposts", "manufacturing", "transport"]:

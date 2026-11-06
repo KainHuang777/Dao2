@@ -3,7 +3,7 @@ extends RefCounted
 ## Atomic CORE/release contract: source archive, frozen candidate, exact readback.
 const VERSION := 1
 const ARCHIVE_PREFIX := "save_before_sect_reform_"
-const COMMANDS := ["redeem_guardian_permit", "join_sect", "resolve_legacy_sect_identity", "refresh_sect_tasks", "start_sect_expedition", "claim_sect_expedition", "learn_sect_technique", "buy_sect_market_item", "learn_talent", "claim_achievement", "reincarnate", "acquire_beast", "feed_beast", "unlock_beast_talent", "recruit_maid", "assign_maid_duty", "clear_maid_duty", "set_maid_duty_paused", "execute_maid_duty", "claim_maid_chapter", "maid_reunion", "set_maid_display"]
+const COMMANDS := ["skip_sect_tournament", "enter_sect_tournament", "choose_sect_trial", "claim_sect_tournament", "abandon_sect_tournament", "resolve_sect_story", "ack_sect_entry", "redeem_guardian_permit", "join_sect", "resolve_legacy_sect_identity", "refresh_sect_tasks", "start_sect_expedition", "claim_sect_expedition", "learn_sect_technique", "buy_sect_market_item", "learn_talent", "claim_achievement", "reincarnate", "acquire_beast", "feed_beast", "unlock_beast_talent", "recruit_maid", "assign_maid_duty", "clear_maid_duty", "set_maid_duty_paused", "execute_maid_duty", "claim_maid_chapter", "maid_reunion", "set_maid_display"]
 
 static func receipt_value(value: Variant) -> Variant:
 	if value is AmountCompat: return value.serialize()
