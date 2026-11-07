@@ -20,6 +20,16 @@ $ErrorActionPreference = 'Stop'
 $daoEngine = $EnginePath
 $matrix = if ($Matrix -ne 'auto') { $Matrix } elseif ($Full) { 'full' } else { 'single' }
 $runners = @(
+ 'tests/econ_r1_comparison_runner.gd',
+ 'tests/econ_r1_frontier_runner.gd',
+ 'tests/econ_r1_play_runner.gd',
+ 'tests/econ_r1_deep_runner.gd',
+ 'tests/econ_r1_slice_runner.gd',
+ 'tests/econ_r1_contract_runner.gd',
+ 'tests/econ_r1_baseline_runner.gd',
+ 'tests/econ_r1_optional_purchase_runner.gd',
+ 'tests/econ_r1_freeze_runner.gd',
+ 'tests/econ_r1_release_runner.gd',
  'tests/sect_life_content_runner.gd',
  'tests/sect_tournament_runner.gd',
  'tests/sect_tournament_ui_runner.gd',

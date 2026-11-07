@@ -1,3 +1,35 @@
+2026-11-07 **ECON-R1-D IN_PROGRESS；D1 DONE：R08–R11／分階深採，散修Era4十層；D2待續**：[狀態](docs/development-status.md#econ-r1-d)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-07 **ECON-R1-C DONE：Era1–3兩世散修／R01–R07與設備閉環；D／E未開始**：[狀態](docs/development-status.md#econ-r1-c)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-07 **ECON-R1-B DONE：獨立profile／DR／每世研究與保存故障契約；C未開始**：[狀態](docs/development-status.md#econ-r1-b)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-07 **ECON-R1-A DONE：Era1–6三策略均到煉虛十層、22/22首購容量已證；B未開始**：[狀態](docs/development-status.md#econ-r1-a)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-07 **ECON-R1-PLAN 數值／工藝／多世經濟重構參考完成，正式實作未開始**：[狀態](docs/development-status.md#econ-r1-plan)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-06 **UI-SECT-GATE-PORTRAIT-R1 五宗首頁直式圖與自適應接入，3支相關runner及原生155檢查通過，Chrome／美術接受待驗**：[狀態](docs/development-status.md#ui-sect-gate-portrait-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-06 **UI-JOURNEY-LAYOUT-B-R1 遊歷四頁全蓋板＋主／子分頁全靠左＋右側100%全高內容，實作與L1完成，L2待驗**：[狀態](docs/development-status.md#ui-journey-layout-b-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
+2026-11-06 **UI-BUILDING-NAV-R1 建築前往直達清單／明確返回，實作與L1完成，L2待驗**：[狀態](docs/development-status.md#ui-building-nav-r1)。
+
+> 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
+
 2026-11-06 **SECT-LIFE-VISIT-ROUND 訪帖每輪三人／整輪完成後冷卻，規則與保存L1／L2階段DONE**：[狀態](docs/development-status.md#sect-life-visit-round)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。

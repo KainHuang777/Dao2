@@ -1,0 +1,125 @@
+{
+  "version": "econ-r1-research-1",
+  "nodes": [
+    {
+      "id": "R01",
+      "era": 2,
+      "prerequisites": [],
+      "cost": {
+        "wood": 30,
+        "stone_low": 10
+      },
+      "seconds": 120,
+      "unlocks": [
+        "recipe:spirit_timber",
+        "building:craft_workshop"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    {
+      "id": "R02",
+      "era": 2,
+      "prerequisites": [
+        "R01"
+      ],
+      "cost": {
+        "black_copper": 30,
+        "stone_low": 20
+      },
+      "seconds": 180,
+      "unlocks": [
+        "recipe:bronze_essence"
+      ],
+      "facility": "research_seat",
+      "island": "ore"
+    },
+    {
+      "id": "R03",
+      "era": 2,
+      "prerequisites": [
+        "R02"
+      ],
+      "cost": {
+        "spirit_timber": 4,
+        "bronze_essence": 2
+      },
+      "seconds": 300,
+      "unlocks": [
+        "engineering:workshop"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    {
+      "id": "R04",
+      "era": 2,
+      "prerequisites": [
+        "R01"
+      ],
+      "cost": {
+        "spirit_timber": 3,
+        "wood": 40
+      },
+      "seconds": 180,
+      "unlocks": [
+        "engineering:storage"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    {
+      "id": "R05",
+      "era": 2,
+      "prerequisites": [
+        "R03"
+      ],
+      "cost": {
+        "spirit_timber": 6,
+        "bronze_essence": 4
+      },
+      "seconds": 600,
+      "unlocks": [
+        "recipe:formation_core",
+        "recipe:talisman"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    {
+      "id": "R06",
+      "era": 3,
+      "prerequisites": [
+        "R02"
+      ],
+      "cost": {
+        "spirit_grass_low": 60,
+        "spirit_grass_100y": 2
+      },
+      "seconds": 480,
+      "unlocks": [
+        "recipe:liquid",
+        "recipe:golden_core_pill"
+      ],
+      "facility": "research_seat",
+      "island": "herb"
+    },
+    {
+      "id": "R07",
+      "era": 3,
+      "prerequisites": [
+        "R05"
+      ],
+      "cost": {
+        "stone_low": 100,
+        "lingli": 200
+      },
+      "seconds": 600,
+      "unlocks": [
+        "recipe:stone_mid"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    }
+  ]
+}

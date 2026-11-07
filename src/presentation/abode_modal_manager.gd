@@ -236,15 +236,25 @@ func _open_nine_realms_overview() -> void:
 	_abode.nine_realms_preview.show_overview(_abode.camera, current_aspire, Callable(_abode, "_on_nine_realms_closed"))
 
 func _on_nine_realms_aspiration_changed(realm_id: String) -> void:
-	if _abode.session and _abode.session.state:
-		_abode.session.state.tutorial_flags["aspired_realm"] = realm_id
+	if _abode.session and _abode.session.state and _record_tutorial("aspired_realm", realm_id):
 		_abode._save_game()
 		_abode.hint.text = "已標記心之所向，大道在前，且行眼前事。"
+
+func _record_tutorial(flag: String, value: Variant) -> bool:
+	if not _abode.economy_edition:
+		_abode.session.state.tutorial_flags[flag] = value
+		return true
+	var result: Dictionary = _abode.session.submit({
+		"command_id":"tutorial-" + str(Time.get_ticks_usec()), "type":"record_tutorial",
+		"expected_revision":_abode.session.state.revision, "payload":{"flag":flag, "value":value},
+	})
+	return result.ok
 
 func _on_nine_realms_closed() -> void:
 	_abode._refresh_hud()
 
 func _toggle_save_controls() -> void:
+	if _abode.economy_edition: return
 	if _abode.feature_navigation.shell.managed():
 		_abode.feature_navigation.shell.open_tool(_abode.save_controls)
 		return
@@ -265,13 +275,21 @@ func show_v2_rules_notice() -> void:
 
 func _on_v2_notice_closed() -> void:
 	if _abode.session and _abode.session.state != null:
-		_abode.session.state.tutorial_flags["v2_rules_notice_seen"] = true
+		_record_tutorial("v2_rules_notice_seen", true)
 	_abode._refresh_hud()
 
 func _on_settings_menu_pressed(id: int) -> void:
 	if id in [2, 8, 102, 103] and (_abode.feature_navigation.shell == null or not _abode.feature_navigation.shell.managed()):
 		_abode.feature_navigation.home()
 	match id:
+		105:
+			if OS.has_feature("web"):
+				JavaScriptBridge.eval("""(() => {
+					const url = new URL(location.href);
+					if (url.searchParams.get("edition") === "econ-r1") url.searchParams.delete("edition");
+					else url.searchParams.set("edition", "econ-r1");
+					location.href = url.href;
+				})()""", true)
 		5:
 			if _abode.session.state.era_id >= 2:
 				_abode.feature_navigation.home()
@@ -565,6 +583,7 @@ func _on_fortune_closed() -> void:
 
 
 func _toggle_debug_panel() -> void:
+	if _abode.economy_edition: return
 	if _abode.feature_navigation.shell.managed():
 		_abode.feature_navigation.shell.open_tool(_abode.debug_panel)
 		return
@@ -656,8 +675,7 @@ func _on_reincarnate_requested(mode: String) -> void:
 		_abode._refresh_hud()
 		print("ABODE_REINCARNATION: cycle=", _abode.session.state.reincarnation_count)
 		var is_first_reincarnation: bool = not bool(_abode.session.state.tutorial_flags.get("seen_nine_realms_hook", false))
-		if is_first_reincarnation:
-			_abode.session.state.tutorial_flags["seen_nine_realms_hook"] = true
+		if is_first_reincarnation and _record_tutorial("seen_nine_realms_hook", true):
 			_abode._save_game()
 			_abode.trigger_nine_realms_hook(false)
 

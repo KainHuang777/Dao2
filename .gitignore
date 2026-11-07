@@ -34,3 +34,6 @@ desktop.ini
 
 # Isolated test output (run_all_runners.ps1)
 .test-output/
+
+# Local third-party reverse-engineering research snapshot (large vendored sources + REA evidence)
+research/

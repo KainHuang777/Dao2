@@ -503,6 +503,12 @@ func refresh(buildings: Dictionary, resources: Dictionary = {}, era_id: int = 1,
 			upgrade.disabled = true
 			upgrade.tooltip_text = "%s｜已達等階上限（%d階）" % [role, level_cap]
 			row_info[id].label.text = "%s｜已達上限（%d階）" % [role, level_cap]
+		elif not String(view.get("required_research", "")).is_empty():
+			status = "先研習 " + String(view.required_research)
+			upgrade.text = "待研習"
+			upgrade.disabled = true
+			upgrade.tooltip_text = status + "｜" + cost_line
+			row_info[id].label.text = status + "｜需求：" + cost_line
 		elif not bool(view.get("island_open", true)):
 			var required_name: String = IslandProgression.NAMES.get(view.get("required_island", ""), "空島")
 			status = "先開拓" + required_name

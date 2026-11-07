@@ -72,7 +72,7 @@ static func durations(state: GameState) -> Dictionary:
 	if _durations.is_empty():
 		_durations = DURATIONS.duplicate()
 		_durations.merge(supply_data().durations)
-	return _durations
+	return _durations.merged(EconomySlice.component_data().durations) if EconomySlice.frontier_state(state) else _durations
 
 static func route_level_cap(state: GameState, id: String) -> int:
 	return 3 if expanded(state) and supply_data().routes.has(id) else 2
@@ -101,11 +101,15 @@ static func _seed_supply_routes(state: GameState) -> int:
 			seeded += 1
 	return seeded
 
-static func rate(state: GameState, island: String, id: String) -> float:
+static func rate(state: GameState, island: String, id: String, catalog: Dictionary = {}) -> float:
+	if catalog.has("econ_r1") and island == "deep":
+		var required: String = EconomySlice.DEEP_GATES.get(id, "")
+		if not required.is_empty() and not catalog.econ_r1.completed.has(required): return 0.0
 	if expanded(state) and not bool(state.economy.get("islands", {}).get(island, {}).get("opened", false)): return 0.0
 	if expanded(state) and supply_data().islands.has(island):
 		var focus: String = supply_data().dispatch[island]
-		return float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills) * TalentSystem.local_rate_multiplier(state, island, id) * AlchemySystem.local_multiplier(state, island, id) * BeastSystem.local_rate_multiplier(state, island, id) * (1.0 + SectSpecialization.gather_bonus(state, island, id))
+		var frontier_bonus := 1.5 if EconomySlice.frontier_state(state) and island == "void" and int(state.buildings.get("void_harvester", 0)) > 0 else 1.0
+		return frontier_bonus * float(supply_data().islands[island].rates.get(id, 0)) * (2.0 if int(state.buildings.get(focus, 0)) > 0 else 1.0) * SksP2Rules.local_rate_multiplier(island, state.skills) * TalentSystem.local_rate_multiplier(state, island, id) * AlchemySystem.local_multiplier(state, island, id) * BeastSystem.local_rate_multiplier(state, island, id) * (1.0 + SectSpecialization.gather_bonus(state, island, id))
 	return float(ISLANDS[island].rates.get(id, 0)) * (int(state.economy.islands[island].facilities.extractor) if IslandProgression.active(state) else 1) * (1.0 + SectSpecialization.gather_bonus(state, island, id))
 
 static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float:
@@ -119,7 +123,7 @@ static func home_cap(state: GameState, id: String, catalog: Dictionary) -> float
 		copy.total_elapsed_seconds = state.total_elapsed_seconds
 		copy.era_id = state.era_id
 		copy.sect = state.sect
-		var caps := Production.compute_caps(Supply.runtime_content(), state.buildings, state.era_id, state.onboarding_version, state.skills)
+		var caps := Production.compute_caps(EconomySlice.frontier_content() if EconomySlice.frontier_state(state) else Supply.runtime_content(), state.buildings, state.era_id, state.onboarding_version, state.skills)
 		if caps.has(id): cap = caps[id].to_float()
 		var beast := BeastSystem.compute_multipliers(copy)
 		var bonus := SectSpecialization.capacity_bonus(state, id) + float(beast.all_capacity_mult) + float(SectSystem.compute_multipliers(copy).storage_bonus) + float(ChronoSystem.compute_multipliers(copy).storage_bonus)
@@ -172,7 +176,10 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 			return preview
 		for id in content.processing_catalog.resources:
 			if not state.resources.has(id):
-				state.resources[id] = {"value": AmountCompat.zero(), "unlocked": int(content.processing_catalog.resources[id].era) <= state.era_id, "ever_obtained": false}
+				state.resources[id] = {"value": AmountCompat.zero(), "unlocked": false, "ever_obtained": false}
+			# Fresh games already contain locked slots. Activation must apply the
+			# same Era gate to those slots while preserving stock and history.
+			state.resources[id].unlocked = int(content.processing_catalog.resources[id].era) <= state.era_id
 		state.economy = initial()
 		if content.processing_catalog.get("version") == Supply.VERSION:
 			state.economy.version = Supply.VERSION
@@ -328,6 +335,7 @@ static func free_space(state: GameState, island: String, id: String, catalog: Di
 	return maxf(0, cap - value(state, island, id) - reserved(state, island, id, catalog))
 
 static func effective_inputs(state: GameState, catalog: Dictionary, island: String, recipe_id: String) -> Dictionary:
+	if catalog.has("econ_r1"): return EconomySlice.inputs(state, catalog, island, recipe_id)
 	var result := {}
 	for id in catalog.recipes[recipe_id].inputs:
 		result[id] = SksP2Rules.discounted_amount(recipe_id, island, String(id), String(catalog.recipes[recipe_id].inputs[id]), state.skills)
@@ -341,13 +349,15 @@ static func _start(state: GameState, catalog: Dictionary, island: String, job: D
 	var scope := processing_scope(state, island)
 	for id in inputs:
 		_put(state, scope, id, value(state, scope, id) - float(inputs[id]))
-	job.remaining = IslandProgression.duration(state, island, job.recipe_id)
+	job.remaining = EconomySlice.duration(state, catalog, island, job.recipe_id)
 	job.batches = maxi(0, int(job.batches) - 1)
 	job.status = "running"
 	return ""
 
 static func _check_start(state: GameState, catalog: Dictionary, island: String, job: Dictionary) -> String:
 	# Shared read-only eligibility: presentation and execution use the same gates.
+	var gate := EconomySlice.recipe_gate(state, catalog, String(job.recipe_id))
+	if not gate.is_empty(): return gate
 	var recipe: Dictionary = catalog.recipes[job.recipe_id]
 	if IslandProgression.active(state) and not IslandProgression.owns(state, island, job.recipe_id):
 		return "RECIPE_ISLAND_REQUIREMENT"
@@ -389,7 +399,7 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 		var level := int(facilities.get("extractor", 1))
 		var rates := {}
 		for id in island_defs(state)[island].rates:
-			rates[id] = rate(state, island, id) if opened else 0.0
+			rates[id] = rate(state, island, id, catalog) if opened else 0.0
 		result.islands[island] = {"opened": opened, "capacity": IslandProgression.capacity(state, island) if active else 100.0, "rates": rates}
 	for id in catalog.recipes:
 		var island := "home"
@@ -413,7 +423,7 @@ static func manufacturing_view(state: GameState, catalog: Dictionary) -> Diction
 		for resource in recipe.inputs:
 			inputs[resource] = {"available": value(state, scope, resource) if scope == "home" or resource in GLOBAL or active else 0.0, "required": float(effective[resource]), "source": "home" if resource in GLOBAL else scope}
 		var duration: int = durations(state).get(id, supply_data().durations.get(id, 1))
-		result.recipes[id] = {"island": island, "duration": IslandProgression.duration(state, island, id) if active and durations(state).has(id) else duration, "reason": reason, "inputs": inputs, "output": float(recipe.output), "product_id": ProcessingCatalog.product_id(catalog, id), "capacity": home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog) if island == "home" else result.islands[island].capacity}
+		result.recipes[id] = {"island": island, "duration": EconomySlice.duration(state, catalog, island, id) if active and durations(state).has(id) else duration, "reason": reason, "inputs": inputs, "output": float(recipe.output), "product_id": ProcessingCatalog.product_id(catalog, id), "capacity": home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog) if island == "home" else result.islands[island].capacity}
 		result.recipes[id].output_island = output_scope(state, island)
 		if hub(state): result.recipes[id].capacity = home_cap(state, ProcessingCatalog.product_id(catalog, id), catalog)
 	return result
@@ -430,7 +440,8 @@ static func tick_prepared(state: GameState, catalog: Dictionary, prepared: Dicti
 		for island in island_defs(state):
 			if island == "home" or not state.economy.islands[island].opened: continue
 			for id in island_defs(state)[island].rates:
-				var rate: float = local_rates.get(island + ":" + id, rate(state, island, id))
+				var rate: float = rate(state, island, id, catalog)
+				if rate > 0.0: rate = local_rates.get(island + ":" + id, rate)
 				var held := AmountCompat.from_number(value(state, island, id))
 				ResourceLedger.change(state, island, id, held, held, "production", AmountCompat.from_number(rate))
 		prepared.idle_ticks = int(prepared.get("idle_ticks", 0)) + 1
@@ -482,7 +493,8 @@ static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary 
 		if island == "home" or not state.economy.islands[island].opened:
 			continue
 		for id in island_defs(state)[island].rates:
-			var rate: float = local_rates.get(island + ":" + id, rate(state, island, id))
+			var rate: float = rate(state, island, id, catalog)
+			if rate > 0.0: rate = local_rates.get(island + ":" + id, rate)
 			var delta := minf(rate, free_space(state, island, id, catalog))
 			_put(state, island, id, value(state, island, id) + delta, "production", rate)
 	var routes: Array = state.economy.trips.keys()
@@ -539,7 +551,7 @@ static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary 
 		var cargo: float = departure_info(state, catalog, id, route).cargo
 		if cargo > 0:
 			_put(state, def[0], def[2], value(state, def[0], def[2]) - cargo, "transfer", -cargo)
-			state.economy.trips[id] = {"version": 1, "cargo": AmountCompat.from_number(cargo).serialize(), "remaining": 10}
+			state.economy.trips[id] = {"version": 1, "cargo": String.num(cargo, 6) if catalog.has("econ_r1") else AmountCompat.from_number(cargo).serialize(), "remaining": 10}
 			events.append({"kind": "cargo_departed", "route_id": id})
 	return events
 
@@ -553,7 +565,11 @@ static func departure_info(state: GameState, catalog: Dictionary, id: String, ro
 	var need := maxf(0, float(route.target) - destination - reservation)
 	var space := free_space(state, def[1], def[2], catalog)
 	var throughput := 10.0 * int(route.level)
-	return {"source": source, "destination": destination, "reserved": reservation, "surplus": surplus, "need": need, "space": space, "throughput": throughput, "cargo": minf(minf(surplus, need), minf(throughput, space))}
+	# Cargo is paid and stored at the same bounded decimal precision.
+	# Display Amount serialization may round a tiny positive load to zero.
+	var cargo: float = minf(minf(surplus, need), minf(throughput, space))
+	if catalog.has("econ_r1"): cargo = floor(cargo * 1000000.0) / 1000000.0
+	return {"source": source, "destination": destination, "reserved": reservation, "surplus": surplus, "need": need, "space": space, "throughput": throughput, "cargo": cargo}
 
 static func transport_view(state: GameState, catalog: Dictionary) -> Dictionary:
 	var result := {}
@@ -639,7 +655,7 @@ static func validate(state: GameState) -> String:
 	var loaded := Supply.load_file() if expanded(state) else ProcessingCatalog.load_file()
 	if not loaded.ok:
 		return "ECONOMY_CONTENT"
-	var catalog: Dictionary = loaded.catalog
+	var catalog: Dictionary = EconomySlice.extend_catalog(loaded.catalog) if EconomySlice.frontier_state(state) else loaded.catalog
 	for id in catalog.resources:
 		if not ProcessingInventory.read(state, id).ok:
 			return "ECONOMY_RESOURCE:" + id
@@ -714,7 +730,9 @@ static func validate(state: GameState) -> String:
 			var held := reserved(state, island, id, catalog)
 			var cap := home_cap(state, id, catalog) if island == "home" else IslandProgression.capacity(state, island)
 			# Existing home stock may exceed the B prototype cap, but no new reservation may.
-			if held > 0 and value(state, island, id) + held > cap:
+			# Serialized decimal cargo and Amount stock can sum a few ULPs above cap.
+			# Match the existing 1e-6 payment precision; material overflow still rejects.
+			if held > 0 and value(state, island, id) + held > cap + 0.000001:
 				return "ECONOMY_RESERVATION_OVERFLOW"
 	return ""
 

@@ -1,0 +1,37 @@
+{
+  "task": "ECON-R1-D1",
+  "date": "2026-11-07",
+  "scope": "isolated Era1-4 solo; D remains incomplete",
+  "rules_version": "econ-r1-rules-3",
+  "economy_version": "econ-r1-economy-3",
+  "runtime_sources": {
+    "content/research/econ_r1.json": "c36fa391b0107a8dd9d086a8f4424e373aed5aceef29a8615e3b9a170e30da9e",
+    "content/recipes/era1_3.json": "167e2ac7530cbb69b9e8d202be4bcbeb44b5740e14728305bd726af2ff229f32",
+    "content/eras/era2.json": "08117dc87d093ebdcdc399a9b3e19e5fc86a22608090ce8ea85cd1e6caea653b",
+    "content/eras/era3.json": "0ffd94974e4909800663e089098c1750598792c4ec1c742d8a73b5a1617a172e",
+    "content/supply/era4_6.json": "16aff31416624bc20c0994d9264481a80f2e4586b1b94b82b7c9d4c9e3bf17ce",
+    "src/economy/economy_slice.gd": "9ef49a88a263c8782cb256b99d21f4d53733cc1d37e315a38047b5963b32c413",
+    "src/economy/economy_profile.gd": "620417c30461e235cc82de28872af2b3dafab7377551629d2955aa47d14a502a",
+    "src/economy/economy_profile_storage.gd": "4a2dd399f2166ad7413f4d9aa5e03eef75c3fb23f2d57d7eb79e484935415936",
+    "src/economy/economy_effects.gd": "3184c5e5210bc711da7bcde178125b9e969d0baa73e34d9f66e497910e5fd5ae",
+    "src/economy/research_system.gd": "49f14100d9f6b334ea4635617332c98c98f30e10d3373772d1d79b091e7b2aaa",
+    "src/application/game_session.gd": "2092a881396186c224a6c3cd93ab7c1a1c4b9c87079f408dce4400a1caf23042",
+    "src/simulation/command_processor.gd": "962a8b498705170eb40d9b5d7609f938f152bc7aa673218e63eb02c138da4f6b",
+    "src/simulation/island_economy.gd": "16cc1e91d5c38d1f0eac663852b34b9f38f128a8edca7326fbc66eeb6a3fa866",
+    "src/simulation/island_progression.gd": "558fd1909f965ec4d7cfc18c16d8886ec6fd050102415d306492c0fc7956a412",
+    "src/simulation/time_advancer.gd": "5b23ed23391992fc356701d3272a5527543b99b233597ffa018cc8bd02b4ad40",
+    "src/simulation/cultivation.gd": "4294c43f4f62699e6c7145816d809e8765777561cc8ec3bf8b349adbdffb26d6",
+    "src/simulation/production.gd": "97724d3b6bac5cfe7c796c172b84a48159ff416ea7ab9cba74f6dc859672be9c",
+    "src/domain/life_history.gd": "dadf260bba4387e428ff399af506cd78b97d24c7b4cc5ef92ff81c85d4480f26",
+    "content/research/econ_r1_d1.json": "38709d1f1c534620b900e7c0b6216a6166aa1f3869032006c7706e0050db73a6"
+  },
+  "evidence_note": "Final smoke adds exact production boundary and split/UTC assertions after long analysis started; earned controller and runtime did not change.",
+  "endpoint": {
+    "seconds": 41497.0,
+    "era": 4,
+    "level": 10,
+    "failures": [],
+    "snapshot_sha256": "1f703695458445694eb2f05aa4884a32a11829702dd60133cf6d7fda7da13e83"
+  },
+  "earned_controller_note": "Long run used the same earned controller and runtime; final smoke independently strengthened local production and split/UTC assertions."
+}

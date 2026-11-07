@@ -1,0 +1,390 @@
+{
+  "version": "econ-r1-freeze-1",
+  "research_version": "econ-r1-research-1",
+  "profile": {
+    "profile": "dao2-econ-r1",
+    "schema": 1,
+    "rules": "econ-r1-rules-2",
+    "economy": "econ-r1-economy-2"
+  },
+  "effects": {
+    "limits": {
+      "building_cost": 0.8,
+      "processing_cost": 0.5,
+      "work_time": 0.7,
+      "research_inheritance": 0.7
+    },
+    "precision": 1000000.0,
+    "max_amount": 1000000000000.0
+  },
+  "inheritance": {
+    "limit": 0.7,
+    "effect_id": "research_frontier",
+    "source": "unique_completed_frontier",
+    "tiers": [
+      {"frontier": 0, "raw": 0.0},
+      {"frontier": 1, "raw": 0.15},
+      {"frontier": 3, "raw": 0.3},
+      {"frontier": 6, "raw": 0.5}
+    ]
+  },
+  "research": {
+    "max_seconds": 604800,
+    "min_seconds": 10
+  },
+  "files": {
+    "res://content/research/econ_r1.json": "c36fa391b0107a8dd9d086a8f4424e373aed5aceef29a8615e3b9a170e30da9e",
+    "res://content/research/econ_r1_d1.json": "38709d1f1c534620b900e7c0b6216a6166aa1f3869032006c7706e0050db73a6",
+    "res://content/research/econ_r1_d2.json": "ffa680e7fc354ffe6d5b7f29f701572d076343a7a6b75b0ac1b069ceb3acf808",
+    "res://content/research/econ_r1_d2_components.json": "9e4eadbe50f4f6b7fe9a211275597d803146b7be63753fe58b531941ff8bfd48"
+  },
+  "nodes": {
+    "R01": {
+      "era": 2,
+      "prereq": [],
+      "cost": {
+        "wood": 30,
+        "stone_low": 10
+      },
+      "seconds": 120,
+      "unlocks": [
+        "recipe:spirit_timber",
+        "building:craft_workshop"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    "R02": {
+      "era": 2,
+      "prereq": ["R01"],
+      "cost": {
+        "black_copper": 30,
+        "stone_low": 20
+      },
+      "seconds": 180,
+      "unlocks": [
+        "recipe:bronze_essence"
+      ],
+      "facility": "research_seat",
+      "island": "ore"
+    },
+    "R03": {
+      "era": 2,
+      "prereq": ["R02"],
+      "cost": {
+        "spirit_timber": 4,
+        "bronze_essence": 2
+      },
+      "seconds": 300,
+      "unlocks": [
+        "engineering:workshop"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    "R04": {
+      "era": 2,
+      "prereq": ["R01"],
+      "cost": {
+        "spirit_timber": 3,
+        "wood": 40
+      },
+      "seconds": 180,
+      "unlocks": [
+        "engineering:storage"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    "R05": {
+      "era": 2,
+      "prereq": ["R03"],
+      "cost": {
+        "spirit_timber": 6,
+        "bronze_essence": 4
+      },
+      "seconds": 600,
+      "unlocks": [
+        "recipe:formation_core",
+        "recipe:talisman"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    "R06": {
+      "era": 3,
+      "prereq": ["R02"],
+      "cost": {
+        "spirit_grass_low": 60,
+        "spirit_grass_100y": 2
+      },
+      "seconds": 480,
+      "unlocks": [
+        "recipe:liquid",
+        "recipe:golden_core_pill"
+      ],
+      "facility": "research_seat",
+      "island": "herb"
+    },
+    "R07": {
+      "era": 3,
+      "prereq": ["R05"],
+      "cost": {
+        "stone_low": 100,
+        "lingli": 200
+      },
+      "seconds": 600,
+      "unlocks": [
+        "recipe:stone_mid"
+      ],
+      "facility": "research_seat",
+      "island": ""
+    },
+    "R08": {
+      "era": 3,
+      "prereq": ["R07"],
+      "cost": {
+        "stone_mid": 20,
+        "formation_core": 2
+      },
+      "seconds": 1800,
+      "unlocks": [
+        "recipe:stone_mid_bulk"
+      ],
+      "facility": "research_seat",
+      "island": "",
+      "produced": ["stone_mid"]
+    },
+    "R09": {
+      "era": 4,
+      "prereq": ["R05"],
+      "cost": {
+        "formation_core": 3,
+        "bronze_essence": 10
+      },
+      "seconds": 2400,
+      "unlocks": [
+        "gather:refined_iron"
+      ],
+      "facility": "research_seat",
+      "island": "deep"
+    },
+    "R10": {
+      "era": 4,
+      "prereq": ["R09"],
+      "cost": {
+        "refined_iron": 10,
+        "formation_core": 2
+      },
+      "seconds": 3600,
+      "unlocks": [
+        "gather:cold_iron"
+      ],
+      "facility": "research_seat",
+      "island": "deep"
+    },
+    "R11": {
+      "era": 4,
+      "prereq": ["R10"],
+      "cost": {
+        "cold_iron": 10,
+        "talisman": 10
+      },
+      "seconds": 5400,
+      "unlocks": [
+        "gather:mithril"
+      ],
+      "facility": "research_seat",
+      "island": "deep"
+    },
+    "R12": {
+      "era": 5,
+      "prereq": ["R06", "R11"],
+      "cost": {
+        "golden_core_pill": 2,
+        "mithril": 4
+      },
+      "seconds": 7200,
+      "facility": "research_seat",
+      "island": "ancient",
+      "unlocks": [
+        "recipe:trans_pill"
+      ]
+    },
+    "R13": {
+      "era": 5,
+      "prereq": ["R08"],
+      "cost": {
+        "stone_mid": 60,
+        "formation_core": 5
+      },
+      "seconds": 7200,
+      "facility": "research_seat",
+      "island": "",
+      "unlocks": [
+        "recipe:stone_high"
+      ]
+    },
+    "R14": {
+      "era": 6,
+      "prereq": ["R11", "R13"],
+      "cost": {
+        "mithril_matrix": 2,
+        "stone_high": 10,
+        "void_essence": 5
+      },
+      "seconds": 14400,
+      "facility": "research_seat",
+      "island": "void",
+      "unlocks": [
+        "recipe:void_array"
+      ]
+    }
+  },
+  "components": {
+    "resources": {
+      "mithril_matrix": {
+        "name": "秘銀陣匣",
+        "era": 4,
+        "tier": 3,
+        "cap": "60",
+        "source": "home paid recipe mithril_matrix; R11",
+        "sinks": [
+          "research_instruments",
+          "matrix_storehouse",
+          "R14 sample",
+          "void_array"
+        ]
+      },
+      "void_array": {
+        "name": "太虛陣樞",
+        "era": 6,
+        "tier": 3,
+        "cap": "30",
+        "source": "home paid recipe void_array; R14",
+        "sinks": [
+          "void_condenser",
+          "void_harvester"
+        ]
+      }
+    },
+    "recipes": {
+      "mithril_matrix": {
+        "version": 1,
+        "era": 4,
+        "product": "mithril_matrix",
+        "inputs": {
+          "formation_core": "2",
+          "refined_iron": "5",
+          "mithril": "2"
+        },
+        "output": "1",
+        "facility": {
+          "stone_mine": 3
+        },
+        "skills": {}
+      },
+      "void_array": {
+        "version": 1,
+        "era": 6,
+        "product": "void_array",
+        "inputs": {
+          "mithril_matrix": "2",
+          "talisman": "4",
+          "stone_high": "10",
+          "void_essence": "5"
+        },
+        "output": "1",
+        "facility": {
+          "stone_mine": 3
+        },
+        "skills": {}
+      }
+    },
+    "durations": {
+      "mithril_matrix": 40,
+      "void_array": 90
+    },
+    "buildings": [
+      {
+        "id": "research_instruments",
+        "name": "秘銀研習儀",
+        "era": 4,
+        "max_level": 1,
+        "cost_factor": 1.0,
+        "prereq": {
+          "building": "research_seat",
+          "level": 1
+        },
+        "base_cost": {
+          "mithril_matrix": 2,
+          "wood": 40
+        },
+        "effect_weight": 0.0,
+        "effects": {
+          "wood": 4,
+          "stone_low": 4
+        }
+      },
+      {
+        "id": "matrix_storehouse",
+        "name": "陣匣儲運庫",
+        "era": 5,
+        "max_level": 1,
+        "cost_factor": 1.0,
+        "prereq": {
+          "building": "core_storehouse_4",
+          "level": 1
+        },
+        "base_cost": {
+          "mithril_matrix": 3,
+          "stone_mid": 20
+        },
+        "effect_weight": 0.0,
+        "effects": {
+          "wood_max": 500,
+          "stone_mid_max": 5000
+        }
+      },
+      {
+        "id": "void_condenser",
+        "name": "太虛凝石坊",
+        "era": 6,
+        "max_level": 1,
+        "cost_factor": 1.0,
+        "prereq": {
+          "building": "craft_workshop",
+          "level": 1
+        },
+        "base_cost": {
+          "void_array": 2,
+          "stone_mid": 100
+        },
+        "effect_weight": 0.0,
+        "effects": {
+          "lingli": 100,
+          "stone_low": 30
+        }
+      },
+      {
+        "id": "void_harvester",
+        "name": "太虛採集儀",
+        "era": 6,
+        "max_level": 1,
+        "cost_factor": 1.0,
+        "prereq": {
+          "building": "void_focus",
+          "level": 1
+        },
+        "base_cost": {
+          "void_array": 2,
+          "cold_iron": 10
+        },
+        "effect_weight": 0.0,
+        "effects": {
+          "money": 50
+        }
+      }
+    ]
+  }
+}

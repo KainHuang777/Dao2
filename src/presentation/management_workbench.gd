@@ -71,7 +71,7 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 		abode.reincarnation_panel.set_embedded(false)
 		abode.feature_navigation.character_panel.set_embedded(false)
 		for child in [abode.sect_panel, abode.fortune_modal, abode.feature_navigation.action_panel]: child.set_embedded(false)
-		for child in [abode.feature_navigation.island_panel, abode.feature_navigation.manufacturing_panel, abode.feature_navigation.transport_panel]: child.set_embedded(false)
+		for child in [abode.feature_navigation.island_panel, abode.feature_navigation.manufacturing_panel, abode.feature_navigation.transport_panel, abode.feature_navigation.research_panel]: child.set_embedded(false)
 		return
 	panel.position = bounds.position
 	panel.size = bounds.size
@@ -98,11 +98,11 @@ func apply(enabled: bool, bounds: Rect2, wide: bool, show_stock: bool) -> void:
 	stock.custom_minimum_size.x = 320 if wide else 236
 	stock_title.visible = wide and not left_rail_mode and show_stock and not nav.island_flow.visible
 	stock_content.visible = wide and not left_rail_mode and show_stock
-	stock_title.text = "祖島可用庫存" if nav.page == "buildings" else "當地與付款庫存"
+	stock_title.text = "祖島可用庫存" if nav.page in ["buildings", "research"] else "當地與付款庫存"
 	for resource_panel in [abode.resource_ribbon, nav.shell.context_paper]:
 		_move(resource_panel, stock_content)
 		resource_panel.add_theme_stylebox_override("panel", _flat)
-	for child in [abode.building_catalog, nav.island_panel, nav.manufacturing_panel, nav.transport_panel]:
+	for child in [abode.building_catalog, nav.island_panel, nav.manufacturing_panel, nav.transport_panel, nav.research_panel]:
 		_move(child, pages)
 		child.set_embedded(true)
 	_move(abode.reincarnation_panel, pages)

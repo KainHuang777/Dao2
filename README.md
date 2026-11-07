@@ -1,8 +1,8 @@
-2026-11-06 **UI-SECT-GATE-PORTRAIT-R1 五宗首頁直式圖與自適應接入，3支相關runner及原生155檢查通過，Chrome／美術接受待驗**：[狀態](docs/development-status.md#ui-sect-gate-portrait-r1)。
+2026-11-08 **ECON-R1-F 收尾證據完成（分批 L3 190/190＋候選 Web＋Chrome 三橫式 30/30）**：[狀態](docs/development-status.md#econ-r1-f-l3-batches)。
 
-2026-11-06 **UI-JOURNEY-LAYOUT-B-R1 遊歷四頁全蓋板＋主／子分頁全靠左＋右側100%全高內容，實作與L1完成，L2待驗**：[狀態](docs/development-status.md#ui-journey-layout-b-r1)。
+2026-11-07 **ECON-R1-E DONE（新版獨立入口、研習與製造引導）**：[狀態](docs/development-status.md#econ-r1-e)。
 
-2026-11-06 **UI-BUILDING-NAV-R1 建築前往直達清單／明確返回，實作與L1完成，L2待驗**：[狀態](docs/development-status.md#ui-building-nav-r1)。
+2026-11-07 **ECON-R1-D DONE（核心／首輪量測）；D-2：R12–R14、兩種構件、散修Era6十層／五宗與跨世**：[狀態](docs/development-status.md#econ-r1-d2)。
 
 > 較舊的日期化結案段落已原文搬至 [README-prelude-archive-2026-10.md](docs/archive/README-prelude-archive-2026-10.md)。
 

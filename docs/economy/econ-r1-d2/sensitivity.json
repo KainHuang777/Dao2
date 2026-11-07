@@ -1,0 +1,222 @@
+{
+	"era_lifespans_seconds": {
+		"1": 4800.0,
+		"2": 12000.0,
+		"3": 44400.0,
+		"4": 65400.0,
+		"5": 101400.0,
+		"6": 158400.0
+	},
+	"failures": [],
+	"research_rebuild": [
+		{
+			"first_seconds": 120,
+			"id": "R01",
+			"next_seconds": 60,
+			"paid": {
+				"stone_low": 10.0,
+				"wood": 30.0
+			}
+		},
+		{
+			"first_seconds": 180,
+			"id": "R02",
+			"next_seconds": 90,
+			"paid": {
+				"black_copper": 30.0,
+				"stone_low": 20.0
+			}
+		},
+		{
+			"first_seconds": 300,
+			"id": "R03",
+			"next_seconds": 150,
+			"paid": {
+				"bronze_essence": 2.0,
+				"spirit_timber": 4.0
+			}
+		},
+		{
+			"first_seconds": 180,
+			"id": "R04",
+			"next_seconds": 90,
+			"paid": {
+				"spirit_timber": 3.0,
+				"wood": 40.0
+			}
+		},
+		{
+			"first_seconds": 600,
+			"id": "R05",
+			"next_seconds": 300,
+			"paid": {
+				"bronze_essence": 4.0,
+				"spirit_timber": 6.0
+			}
+		},
+		{
+			"first_seconds": 480,
+			"id": "R06",
+			"next_seconds": 240,
+			"paid": {
+				"spirit_grass_100y": 2.0,
+				"spirit_grass_low": 60.0
+			}
+		},
+		{
+			"first_seconds": 600,
+			"id": "R07",
+			"next_seconds": 300,
+			"paid": {
+				"lingli": 200.0,
+				"stone_low": 100.0
+			}
+		},
+		{
+			"first_seconds": 1800,
+			"id": "R08",
+			"next_seconds": 900,
+			"paid": {
+				"formation_core": 2.0,
+				"stone_mid": 20.0
+			}
+		},
+		{
+			"first_seconds": 2400,
+			"id": "R09",
+			"next_seconds": 1200,
+			"paid": {
+				"bronze_essence": 10.0,
+				"formation_core": 3.0
+			}
+		},
+		{
+			"first_seconds": 3600,
+			"id": "R10",
+			"next_seconds": 1800,
+			"paid": {
+				"formation_core": 2.0,
+				"refined_iron": 10.0
+			}
+		},
+		{
+			"first_seconds": 5400,
+			"id": "R11",
+			"next_seconds": 2700,
+			"paid": {
+				"cold_iron": 10.0,
+				"talisman": 10.0
+			}
+		},
+		{
+			"first_seconds": 7200,
+			"id": "R12",
+			"next_seconds": 3600,
+			"paid": {
+				"golden_core_pill": 2.0,
+				"mithril": 4.0
+			}
+		},
+		{
+			"first_seconds": 7200,
+			"id": "R13",
+			"next_seconds": 3600,
+			"paid": {
+				"formation_core": 5.0,
+				"stone_mid": 60.0
+			}
+		},
+		{
+			"first_seconds": 14400,
+			"id": "R14",
+			"next_seconds": 7200,
+			"paid": {
+				"mithril_matrix": 2.0,
+				"stone_high": 10.0,
+				"void_essence": 5.0
+			}
+		}
+	],
+	"scope": "funded sensitivity and death-boundary fixture; not earned five-sect/multi-life playthrough",
+	"sects": [
+		{
+			"basis": "funded Era6 / A3+B3; 60 authoritative seconds; not earned playthrough",
+			"budget_contribution": 0,
+			"bulk_seconds": 10,
+			"core_seconds": 20,
+			"herb_delta": 2.40000000000001,
+			"iron_delta": 6.0,
+			"lifespan_seconds": 158400.0,
+			"lingli_cap": 100.0,
+			"sect": "solo",
+			"spent_contribution": 0,
+			"training_delta": 60.0
+		},
+		{
+			"basis": "funded Era6 / A3+B3; 60 authoritative seconds; not earned playthrough",
+			"budget_contribution": 5000,
+			"bulk_seconds": 10,
+			"core_seconds": 20,
+			"herb_delta": 2.40000000000001,
+			"iron_delta": 6.0,
+			"lifespan_seconds": 158400.0,
+			"lingli_cap": 100.0,
+			"sect": "taixu_sect",
+			"spent_contribution": 950.0,
+			"training_delta": 63.6000000000001
+		},
+		{
+			"basis": "funded Era6 / A3+B3; 60 authoritative seconds; not earned playthrough",
+			"budget_contribution": 5000,
+			"bulk_seconds": 10,
+			"core_seconds": 19,
+			"herb_delta": 2.40000000000001,
+			"iron_delta": 6.72,
+			"lifespan_seconds": 158400.0,
+			"lingli_cap": 100.0,
+			"sect": "tianjian_sect",
+			"spent_contribution": 950.0,
+			"training_delta": 60.0
+		},
+		{
+			"basis": "funded Era6 / A3+B3; 60 authoritative seconds; not earned playthrough",
+			"budget_contribution": 5000,
+			"bulk_seconds": 10,
+			"core_seconds": 20,
+			"herb_delta": 2.68799999999999,
+			"iron_delta": 6.0,
+			"lifespan_seconds": 158400.0,
+			"lingli_cap": 100.0,
+			"sect": "piaomiao_sect",
+			"spent_contribution": 950.0,
+			"training_delta": 60.0
+		},
+		{
+			"basis": "funded Era6 / A3+B3; 60 authoritative seconds; not earned playthrough",
+			"budget_contribution": 5000,
+			"bulk_seconds": 10,
+			"core_seconds": 20,
+			"herb_delta": 2.40000000000001,
+			"iron_delta": 6.0,
+			"lifespan_seconds": 168240.0,
+			"lingli_cap": 100.0,
+			"sect": "wanfo_sect",
+			"spent_contribution": 950.0,
+			"training_delta": 60.0
+		},
+		{
+			"basis": "funded Era6 / A3+B3; 60 authoritative seconds; not earned playthrough",
+			"budget_contribution": 5000,
+			"bulk_seconds": 10,
+			"core_seconds": 20,
+			"herb_delta": 2.40000000000001,
+			"iron_delta": 6.0,
+			"lifespan_seconds": 158400.0,
+			"lingli_cap": 112.0,
+			"sect": "zixiao_sect",
+			"spent_contribution": 950.0,
+			"training_delta": 60.0
+		}
+	],
+	"task": "ECON-R1-D2"
+}

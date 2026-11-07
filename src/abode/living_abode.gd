@@ -22,8 +22,16 @@ const GROUNDED_ALTAR: Texture2D = preload("res://assets/abode/altar-grounded/alt
 const CameraScript = preload("res://src/abode/abode_camera.gd")
 const BuildingScript = preload("res://src/abode/abode_building.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
+const EconomyPlaySession = preload("res://src/economy/economy_play_session.gd")
+const ECONOMY_WEB_NAMESPACE := "dao2_econ_r1_frontier"
 
 const BUILDING_NAMES := {
+	"research_seat": "研習席",
+	"craft_workshop": "工藝坊",
+	"research_instruments": "秘銀研習儀",
+	"matrix_storehouse": "陣匣儲運庫",
+	"void_condenser": "太虛凝石坊",
+	"void_harvester": "太虛採集儀",
 	"core_storehouse_3": "三階聚靈庫",
 	"core_storehouse_4": "元嬰聚靈庫",
 	"core_storehouse_5": "化神聚靈庫",
@@ -49,6 +57,8 @@ const BUILDING_NAMES := {
 }
 
 const RESOURCE_NAMES := {
+	"mithril_matrix": "秘銀陣匣",
+	"void_array": "太虛陣樞",
 	"mithril": "秘銀",
 	"cold_iron": "寒鐵",
 	"trans_pill": "化神丹",
@@ -80,6 +90,12 @@ const RESOURCE_NAMES := {
 }
 
 const BUILDING_DESCRIPTIONS := {
+	"research_seat": "開放單一研習槽，每世重新研習。",
+	"craft_workshop": "開放已研習且具備產線的配方。二階縮短下一批工時。",
+	"research_instruments": "使用秘銀陣匣建造，改善祖島靈木與下品靈石供給。",
+	"matrix_storehouse": "使用秘銀陣匣擴充祖島靈木與中品靈石容量。",
+	"void_condenser": "使用太虛陣樞建造，縮短凝石產線的下一批工時。",
+	"void_harvester": "使用太虛陣樞建造，提升太虛島虛空精華產率。",
 	"core_storehouse_3": "增加靈氣容量10000、下品靈石容量5000與金錢容量10000；金丹即可建造。",
 	"core_storehouse_4": "增加靈氣容量50000、下品靈石容量20000、金錢容量20000與技能點容量30000。",
 	"core_storehouse_5": "增加靈氣容量200000、下品靈石容量100000、金錢容量100000與技能點容量50000。",
@@ -117,7 +133,7 @@ class AbodeStateCompat extends RefCounted:
 
 	func _init(p_session: GameSession) -> void:
 		session = p_session
-		if session != null and session.state != null:
+		if session != null and session.state != null and not session is EconomyPlaySession:
 			ChronoSystem.unlock_chrono(session.state)
 
 	var qi: float:
@@ -353,10 +369,27 @@ static func _web_storage_namespace() -> String:
 	if OS.has_feature("content_p1_sect_acceptance"): return "dao2_content_p1_sect_acceptance"
 	return "dao2_islands_preview" if OS.has_feature("island_progression_preview") else "dao2_saves"
 
+var economy_edition := false
+var _economy_session: EconomyPlaySession
+var _economy_web: WebStorageAdapter
+var _economy_start_error := ""
+
+func _requested_economy_edition() -> bool:
+	if OS.has_feature("web"):
+		return String(JavaScriptBridge.eval("new URLSearchParams(location.search).get('edition')", true)) == "econ-r1"
+	return "--econ-r1" in OS.get_cmdline_user_args()
+
+func _web_writer_lost() -> bool:
+	var adapter: StorageAdapter = _economy_web if economy_edition else SaveManager.adapter()
+	return OS.has_feature("web") and adapter is WebStorageAdapter and adapter.session_status() != "ready"
+
 func _ready() -> void:
 	RuntimeProfile.configure_web()
+	economy_edition = _requested_economy_edition()
+	print("ABODE_EDITION: ", "econ-r1" if economy_edition else "legacy")
 	if OS.has_feature("web") and save_dir_override.is_empty():
-		var web_adapter := WebStorageAdapter.new(_web_storage_namespace())
+		var web_adapter := WebStorageAdapter.new(ECONOMY_WEB_NAMESPACE if economy_edition else _web_storage_namespace())
+		if economy_edition: _economy_web = web_adapter
 		var status := web_adapter.begin_session()
 		while status == "pending":
 			await get_tree().process_frame
@@ -364,8 +397,14 @@ func _ready() -> void:
 		if status != "ready":
 			_show_storage_block("另一個分頁正在遊玩，請先關閉它再重試。" if status == "writer_busy" else "瀏覽器無法取得存檔保護，請以支援的安全連線瀏覽器重試。")
 			return
-	await _init_core()
+	if economy_edition:
+		await _init_economy()
+	else:
+		await _init_core()
 	if session == null:
+		if economy_edition:
+			_show_storage_block("工藝新版無法開啟。請確認存檔版本及儲存權限。\n" + _economy_start_error)
+			return
 		var detail := "\n宗門資料驗證：" + SaveManager.load_error() if SaveManager.load_error().begins_with("SECT_") else ""
 		_show_storage_block("存檔讀取或離線保存失敗，原有進度已保留。請恢復儲存權限或空間後重試。" + detail)
 		return
@@ -424,6 +463,7 @@ func _ready() -> void:
 	camera.world_clicked.connect(_pick_world)
 
 	_build_hud()
+	if economy_edition: sect_panel.session_content = content
 	if not content.processing_catalog.is_empty():
 		island_world = preload("res://src/presentation/island_world.gd").new()
 		add_child(island_world)
@@ -438,6 +478,48 @@ func _ready() -> void:
 
 static var save_dir_override: String = ""
 static var island_preview_override := false
+
+func _init_economy() -> void:
+	var loaded := EconomySlice.create_frontier()
+	if not loaded.ok:
+		_economy_start_error = String(loaded.get("error", "CONTENT_UNAVAILABLE"))
+		return
+	var adapter: StorageAdapter = _economy_web
+	if adapter == null:
+		var directory := "user://econ-r1-frontier" if save_dir_override.is_empty() else save_dir_override.path_join("econ-r1-frontier")
+		adapter = FileStorageAdapter.new(directory)
+	var opened := EconomyProfile.open(loaded.content, adapter, loaded.catalog)
+	if opened.get("error") == "empty_storage":
+		await _wait_startup_action("工藝新版 · 獨立存檔\n從練氣開啟新的一世。\n研究與製造進度儲存在新版專用存檔。", "建立工藝新檔")
+		opened = EconomyProfile.open(loaded.content, adapter, loaded.catalog, true, GameSession.draw_tribulation_seed())
+	var profile: EconomyProfile = opened.get("profile")
+	var result := opened
+	if profile == null:
+		_economy_start_error = String(opened.get("error", "PROFILE_UNAVAILABLE"))
+		return
+	while profile.save_pending():
+		await _wait_economy_retry(result)
+		result = profile.retry_save()
+	var play := EconomyPlaySession.new(profile)
+	_begin_settlement_progress()
+	result = await play.settle_background(get_tree(), _settlement_progress)
+	_end_settlement_progress()
+	while profile.save_pending():
+		await _wait_economy_retry(result)
+		result = play.retry_save()
+	if not result.ok:
+		_economy_start_error = String(result.get("error", "PROFILE_SETTLEMENT_FAILED"))
+		return
+	session = play
+	_economy_session = play
+	content = play.content
+	state = AbodeStateCompat.new(session)
+	if int(result.report.get("away_ms", 0)) >= 15000:
+		call_deferred("_display_offline_summary", result.report)
+	_init_bgm()
+
+func _wait_economy_retry(result: Dictionary) -> void:
+	await _wait_startup_action("工藝存檔尚未寫入。請恢復儲存權限或空間。\n" + String(result.get("cause", result.get("error", ""))), "重試保存")
 
 func _init_core() -> void:
 	var content_loaded: Dictionary = ContentLoader.load_directory("res://content")
@@ -587,7 +669,7 @@ func _show_storage_block(message: String) -> void:
 	retry.custom_minimum_size.y = 44
 	column.add_child(retry)
 	retry.pressed.connect(func() -> void:
-		if OS.has_feature("web") and SaveManager.adapter() is WebStorageAdapter and SaveManager.adapter().session_status() != "ready":
+		if _web_writer_lost():
 			Engine.get_singleton("JavaScriptBridge").eval("window.location.reload()")
 			return
 		if _background_retry_cursor > 0:
@@ -602,6 +684,8 @@ func _show_storage_block(message: String) -> void:
 			return
 		if OS.has_feature("web"):
 			Engine.get_singleton("JavaScriptBridge").eval("window.location.reload()")
+		elif economy_edition:
+			get_tree().reload_current_scene()
 	)
 
 func _setup_buildings(props: Node2D) -> void:
@@ -863,7 +947,7 @@ func _layout_mode_name() -> String:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
-		if OS.has_feature("web"):
+		if OS.has_feature("web") or economy_edition:
 			return # Web recovery is performed once by _process through OfflineCoordinator.
 		if _process_ticks_initialized:
 			var now_ticks: int = Time.get_ticks_msec()
@@ -888,7 +972,7 @@ func _process(delta: float) -> void:
 		RuntimeProfile.end("preflight", profile_preflight)
 		RuntimeProfile.end_frame()
 		return
-	if OS.has_feature("web") and SaveManager.adapter() is WebStorageAdapter and SaveManager.adapter().session_status() != "ready":
+	if _web_writer_lost():
 		get_tree().paused = true
 		_show_storage_block("存檔保護已釋放，請重新載入以讀取最新進度。")
 		RuntimeProfile.end("preflight", profile_preflight)
@@ -899,7 +983,14 @@ func _process(delta: float) -> void:
 		RuntimeProfile.end("preflight", profile_preflight)
 		RuntimeProfile.end_frame()
 		return
-	if SaveManager.core_save_pending(session.state):
+	if economy_edition and _economy_session.profile.save_pending():
+		if not feature_navigation.shell.save_failed:
+			feature_navigation.shell.set_save_result({"ok":false, "error":"PROFILE_SAVE_REQUIRED"})
+		_last_process_ticks_msec = Time.get_ticks_msec()
+		RuntimeProfile.end("preflight", profile_preflight)
+		RuntimeProfile.end_frame()
+		return
+	if not economy_edition and SaveManager.core_save_pending(session.state):
 		# Reuse the existing save failure/retry presentation. Neither simulation
 		# nor background settlement may advance the live source while frozen.
 		auto_save_elapsed += delta
@@ -921,7 +1012,15 @@ func _process(delta: float) -> void:
 			step_delta = elapsed_real if OS.has_feature("web") else clampf(elapsed_real, delta, 86400.0)
 	_last_process_ticks_msec = now_ticks
 	RuntimeProfile.end("preflight", profile_preflight)
-	if OS.has_feature("web") and step_delta > 2.0:
+	if economy_edition and EconomyPlaySession.now_ms() - _economy_session.profile.settled_until() > 2000:
+		RuntimeProfile.end_frame()
+		_begin_settlement_progress()
+		var settled := await _economy_session.settle_background(get_tree(), _settlement_progress)
+		_end_settlement_progress()
+		feature_navigation.shell.set_save_result(settled)
+		_refresh_hud()
+		return
+	if OS.has_feature("web") and not economy_edition and step_delta > 2.0:
 		# A suspended coroutine is not synchronous CPU work. End before await.
 		RuntimeProfile.end_frame()
 		var now_ms := int(Time.get_unix_time_from_system() * 1000.0)
@@ -964,11 +1063,11 @@ func _process(delta: float) -> void:
 	var max_era_lvl := int(view.get("era", {}).get("max_level", 10))
 	var can_bt_flag: bool = bool(view.get("can_breakthrough", false))
 	var can_lvl_flag: bool = bool(view.get("can_level_up", false))
-	if can_bt_flag or cur_lvl >= max_era_lvl:
+	if not economy_edition and (can_bt_flag or cur_lvl >= max_era_lvl):
 		if session.state.training_seconds != 0.0:
 			session.state.training_seconds = 0.0
 			_frame_view = {}
-	elif can_lvl_flag:
+	elif not economy_edition and can_lvl_flag:
 		var needed_sec := float(view.get("next_level_required_seconds", 0.0))
 		if needed_sec > 0.0 and session.state.training_seconds > needed_sec:
 			session.state.training_seconds = needed_sec
@@ -1822,6 +1921,17 @@ func _on_reincarnation_closed() -> void:
 func _save_game() -> Dictionary:
 	if session == null or session.state == null:
 		return {"ok": false, "error": "STATE_MISSING"}
+	if economy_edition:
+		var saved := _economy_session.retry_save() if _economy_session.profile.save_pending() else {"ok":true}
+		feature_navigation.shell.set_save_result(saved)
+		if saved.ok:
+			_pending_life_report.clear()
+			feature_navigation.storage_recovered()
+			feature_navigation.action_panel.storage_recovered()
+			for panel in [achievement_panel, reincarnation_panel, sect_panel, fortune_modal]:
+				if panel != null: panel.storage_recovered()
+			_refresh_hud()
+		return saved
 	var profile_save := RuntimeProfile.begin()
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var sim_tick: int = int(floor(session.state.total_elapsed_seconds / float(TimeAdvancer.SECONDS_PER_TICK)))
@@ -2034,8 +2144,12 @@ func _end_settlement_progress() -> void:
 	_last_process_ticks_msec = Time.get_ticks_msec()
 
 func _wait_supply_retry(detail: String) -> void:
-	# Startup has no session yet. Keep the same migration candidate and cursor.
+	await _wait_startup_action("遷移資料保存失敗，原檔與離線時間已保留。\n恢復儲存後重試：" + detail, "重試保存")
+
+func _wait_startup_action(message: String, action: String) -> void:
+	_adapt_viewport_scale()
 	var layer := CanvasLayer.new()
+	layer.name = "StartupAction"
 	layer.layer = 120
 	layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(layer)
@@ -2044,13 +2158,16 @@ func _wait_supply_retry(detail: String) -> void:
 	center.theme = UiTypography.create_theme()
 	layer.add_child(center)
 	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 16)
 	center.add_child(column)
 	var text := Label.new()
-	text.text = "遷移資料保存失敗，原檔與離線時間已保留。\n恢復儲存後重試：" + detail
+	text.text = message
+	text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	column.add_child(text)
 	var retry := Button.new()
-	retry.text = "重試保存"
+	retry.text = action
 	retry.custom_minimum_size = Vector2(160, 44)
+	UiMaterial.apply_button(retry)
 	column.add_child(retry)
 	await retry.pressed
 	layer.queue_free()

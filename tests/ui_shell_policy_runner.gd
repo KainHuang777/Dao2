@@ -12,7 +12,7 @@ func check(ok: bool, message: String) -> void:
 		push_error(message)
 
 func _init() -> void:
-	var view := {"era_id": 3, "reincarnation_count": 1, "buildings": {"library": {"level": 1}}, "fortune": {"has_pending": true, "pending_encounter": {"id": "unchanged"}}}
+	var view := {"era_id": 3, "reincarnation_count": 1, "buildings": {"library": {"level": 1}}, "fortune": {"has_pending": true, "pending_encounter": {"id": "unchanged"}}, "research": {}}
 	var original_view := view.duplicate(true)
 	var shell := ShellState.new()
 	shell.set_home_preferences(0, false)
@@ -33,7 +33,8 @@ func _init() -> void:
 				check(layout.hud == ("hidden" if vp.x < vp.y or route in Policy.JOURNEY_FOLIOS else "compact"), "consistent feature HUD " + route)
 			check(shell.snapshot() == before, "resize never mutates intent " + route)
 			check(shell.snapshot().home_preferences == prefs, "navigation keeps home preferences " + route)
-	check(route_count == 14, "all14 current routes registered including character presentation")
+	check(route_count == 15, "all 15 current routes including opt-in research")
+	check(Policy.legal_route("research", {"era_id": 3}) == "buildings", "legacy profiles have no research route")
 	check(Policy.resolve(shell.snapshot(), Vector2(1280, 390)).layout == "compact", "height pressure overrides width")
 	check(Policy.resolve(shell.snapshot(), Vector2(960, 600)).layout == "wide", "docs07 shared width threshold")
 	for route in Policy.INVENTORY_ROUTES:

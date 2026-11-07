@@ -129,12 +129,14 @@ func _configure_settings_menu() -> void:
 	popup.add_item("演出音效：開" if _abode.is_sfx_enabled else "演出音效：關", 104)
 	var motion_text: String = "低特效：開" if _abode.reduced_motion else "低特效：關"
 	popup.add_item(motion_text, 1)
-	popup.add_item("存檔管理", 2)
+	if not _abode.economy_edition: popup.add_item("存檔管理", 2)
+	if OS.has_feature("web") and not OS.has_feature("island_progression_preview"):
+		popup.add_item("返回原版" if _abode.economy_edition else "工藝新版（獨立存檔）", 105)
 	popup.add_item("操作說明", 4)
 	popup.add_item("重溫突破", 5)
 	popup.add_item("過場文字樣板（試播）", 102)
 	popup.add_item("引擎特效樣板（試播）", 103)
-	popup.add_item("調試工具 (DEBUG)", 8)
+	if not _abode.economy_edition: popup.add_item("調試工具 (DEBUG)", 8)
 	popup.id_pressed.connect(_abode._on_settings_menu_pressed)
 	_abode.hud.add_child(_abode.settings_menu)
 
@@ -927,6 +929,9 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 			_abode.level_up_button.tooltip_text += "\n缺少%s：持有 %s／需要 %s" % [_abode.RESOURCE_NAMES.get(resource_id, resource_id), avail_str, req_str]
 		if _abode.level_up_button.has_method("update_tooltip_data"):
 			_abode.level_up_button.update_tooltip_data(cost_dict, missing, can_lvl, remain_life <= 0.0)
+		if remain_life > 0.0 and not String(view.get("cultivation_research", "")).is_empty():
+			_abode.level_up_button.text = "晉階 · 待研習"
+			_abode.level_up_button.tooltip_text = "前往經營的工藝研習，先完成 " + String(view.cultivation_research)
 
 	var cur_era: int = int(view.get("era_id", 1))
 	var breakthrough_target := String(view.get("breakthrough_target_name", ""))
@@ -1344,7 +1349,10 @@ func _refresh_detail() -> void:
 			if int(view.buildings.get(prereq_id, {}).get("level", 0)) < prereq_level:
 				_abode.upgrade_button.text = "需先將%s升至 %d 階" % [_abode.BUILDING_NAMES.get(prereq_id, prereq_id), prereq_level]
 
-	if not bool(b_data.get("island_open", true)):
+	if not String(b_data.get("required_research", "")).is_empty():
+		_abode.upgrade_button.text = "先研習 " + String(b_data.required_research)
+		_abode.upgrade_button.disabled = true
+	elif not bool(b_data.get("island_open", true)):
 		_abode.upgrade_button.text = "先開拓" + IslandProgression.NAMES.get(b_data.get("required_island", ""), "空島")
 		_abode.upgrade_button.disabled = true
 	_refresh_detail_costs(view, b_data, cur_lvl, lvl_cap)

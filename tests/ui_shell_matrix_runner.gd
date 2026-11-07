@@ -45,6 +45,8 @@ func _run() -> void:
 			for group in nav.GROUPS:
 				for entry in nav.GROUPS[group].pages:
 					var route: String = entry[0]
+					if preload("res://src/presentation/ui_shell_policy.gd").legal_route(route, abode._presentation_view()) != route:
+						continue
 					nav.open(route)
 					abode._layout_for_size(Vector2(vp))
 					await frames()

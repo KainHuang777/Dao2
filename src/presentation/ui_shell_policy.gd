@@ -2,11 +2,11 @@ extends RefCounted
 ## Pure presentation policy. No Node, Session, RNG, cost or persistence access.
 ## SHELL-2 applies effective display to the full canonical route matrix.
 const GROUPS := {
-	"management": {"title": "經營", "pages": [["buildings", "洞府建築"], ["outposts", "空島"], ["manufacturing", "製造"], ["transport", "運輸"]]},
+	"management": {"title": "經營", "pages": [["buildings", "洞府建築"], ["outposts", "空島"], ["manufacturing", "製造"], ["transport", "運輸"], ["research", "工藝研習"]]},
 	"cultivation": {"title": "修行", "pages": [["skills", "技能"], ["alchemy", "煉丹"], ["beasts", "靈獸"], ["achievements", "成就"], ["reincarnation", "輪迴天賦"]]},
 	"journey": {"title": "遊歷", "pages": [["realms", "九界"], ["sect", "宗門"], ["fortune", "機緣"], ["decisions", "天道決策"], ["characters", "人物"]]},
 }
-const INVENTORY_ROUTES := ["buildings", "outposts", "manufacturing", "transport", "alchemy"]
+const INVENTORY_ROUTES := ["buildings", "outposts", "manufacturing", "transport", "alchemy", "research"]
 const JOURNEY_FOLIOS := ["characters", "sect", "fortune", "decisions"]
 const FOCUSED_ROUTES := ["skills", "beasts", "fortune", "decisions"]
 const OVERLAY_PRIORITY := {"resources": 1, "messages": 1, "tool": 1, "report": 2, "sequence": 3, "protection": 4}

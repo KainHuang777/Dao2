@@ -1,0 +1,76 @@
+{
+  "version": "econ-r1-research-1",
+  "nodes": [
+    {
+      "id": "R08",
+      "era": 3,
+      "prerequisites": [
+        "R07"
+      ],
+      "cost": {
+        "stone_mid": 20,
+        "formation_core": 2
+      },
+      "seconds": 1800,
+      "unlocks": [
+        "recipe:stone_mid_bulk"
+      ],
+      "facility": "research_seat",
+      "island": "",
+      "produced": [
+        "stone_mid"
+      ]
+    },
+    {
+      "id": "R09",
+      "era": 4,
+      "prerequisites": [
+        "R05"
+      ],
+      "cost": {
+        "formation_core": 3,
+        "bronze_essence": 10
+      },
+      "seconds": 2400,
+      "unlocks": [
+        "gather:refined_iron"
+      ],
+      "facility": "research_seat",
+      "island": "deep"
+    },
+    {
+      "id": "R10",
+      "era": 4,
+      "prerequisites": [
+        "R09"
+      ],
+      "cost": {
+        "refined_iron": 10,
+        "formation_core": 2
+      },
+      "seconds": 3600,
+      "unlocks": [
+        "gather:cold_iron"
+      ],
+      "facility": "research_seat",
+      "island": "deep"
+    },
+    {
+      "id": "R11",
+      "era": 4,
+      "prerequisites": [
+        "R10"
+      ],
+      "cost": {
+        "cold_iron": 10,
+        "talisman": 10
+      },
+      "seconds": 5400,
+      "unlocks": [
+        "gather:mithril"
+      ],
+      "facility": "research_seat",
+      "island": "deep"
+    }
+  ]
+}

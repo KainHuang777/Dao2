@@ -1,0 +1,59 @@
+{
+  "version": "econ-r1-research-1",
+  "nodes": [
+    {
+      "id": "R12",
+      "era": 5,
+      "prerequisites": [
+        "R06",
+        "R11"
+      ],
+      "cost": {
+        "golden_core_pill": 2,
+        "mithril": 4
+      },
+      "seconds": 7200,
+      "island": "ancient",
+      "facility": "research_seat",
+      "unlocks": [
+        "recipe:trans_pill"
+      ]
+    },
+    {
+      "id": "R13",
+      "era": 5,
+      "prerequisites": [
+        "R08"
+      ],
+      "cost": {
+        "stone_mid": 60,
+        "formation_core": 5
+      },
+      "seconds": 7200,
+      "island": "",
+      "facility": "research_seat",
+      "unlocks": [
+        "recipe:stone_high"
+      ]
+    },
+    {
+      "id": "R14",
+      "era": 6,
+      "prerequisites": [
+        "R11",
+        "R13"
+      ],
+      "cost": {
+        "mithril_matrix": 2,
+        "stone_high": 10,
+        "void_essence": 5
+      },
+      "seconds": 14400,
+      "island": "void",
+      "facility": "research_seat",
+      "unlocks": [
+        "recipe:void_array"
+      ]
+    }
+  ]
+}

@@ -6,6 +6,8 @@ const AFFORD_TOLERANCE := 0.000001
 const ZERO_SNAP := 0.000000001
 
 static func apply(content: GameContent, state: GameState, command: Dictionary) -> Dictionary:
+	var gate := EconomySlice.guard(content, state, String(command.type), command.payload)
+	if not gate.is_empty(): return _failure(gate, {})
 	var result := _apply(content, state, command)
 	if bool(result.get("ok", false)):
 		LifeLedger.command_committed(state, command, result.get("events", []))
@@ -162,6 +164,10 @@ static func _apply_upgrade(content: GameContent, state: GameState, payload: Dict
 	var onboarding_active := Onboarding.is_active(state.onboarding_version, state.era_id)
 	var base_cost := BuildingCosts.resolve_base_cost(building_id, definition.base_cost, onboarding_active)
 	var costs := BuildingCosts.compute_cost(base_cost, level, float(definition.cost_factor))
+	if EconomySlice.active(content):
+		var quote := EconomySlice.building_quote(content, state, building_id)
+		if not quote.ok: return _failure(quote.error, {})
+		costs = quote.costs
 	for resource_id in costs:
 		var cost_entry: Dictionary = state.resources[resource_id]
 		var available: AmountCompat = cost_entry.value.add(AmountCompat.from_number(AFFORD_TOLERANCE))

@@ -118,7 +118,7 @@ func submit(command: Dictionary) -> Dictionary:
 		result.new_revision = state.revision
 	return result
 
-func advance_time(elapsed_seconds: float) -> Dictionary:
+func advance_time(elapsed_seconds: float, prepared: Dictionary = {}) -> Dictionary:
 	if SaveManager.migration_pending(state):
 		return {"ok": false, "error": SaveManager.migration_error(state), "ticks_advanced": 0, "events": [], "changed_ids": [], "stopped": "save_required", "new_revision": state.revision}
 	if is_nan(elapsed_seconds) or is_inf(elapsed_seconds) or elapsed_seconds <= 0.0:
@@ -140,7 +140,7 @@ func advance_time(elapsed_seconds: float) -> Dictionary:
 			"stopped": null,
 			"new_revision": state.revision,
 		}
-	var result: Dictionary = TimeAdvancer.advance(state, content, ticks)
+	var result: Dictionary = TimeAdvancer.advance(state, content, ticks, prepared)
 	if result.get("stopped", null) == null:
 		var maid_result := MaidSystem.advance(content, state, ticks, MaidRules.MAX_ACTIONS_PER_CALL)
 		for maid_event in maid_result.get("events", []):
@@ -176,6 +176,7 @@ func get_view() -> Dictionary:
 			"ever_obtained": bool(entry.ever_obtained),
 		}
 	var buildings := {}
+	var economy_edition := EconomySlice.active(content)
 	for building_id in content.building_ids:
 		var definition: Dictionary = content.buildings[building_id]
 		var level := int(state.buildings.get(building_id, 0))
@@ -185,10 +186,15 @@ func get_view() -> Dictionary:
 		var visible: bool = level > 0 or (unlock.active and (building_id in unlock.buildings)) or (not unlock.active and int(definition.era) <= state.era_id)
 		var costs := {}
 		var affordable := false
+		var required_research := ""
 		if level < cap:
 			var onboarding_active := Onboarding.is_active(state.onboarding_version, state.era_id)
 			var base_cost := BuildingCosts.resolve_base_cost(building_id, definition.base_cost, onboarding_active)
 			var next_costs := BuildingCosts.compute_cost(base_cost, level, float(definition.cost_factor))
+			if economy_edition:
+				var quote := EconomySlice.building_quote(content, state, building_id)
+				if quote.ok: next_costs = quote.costs
+				required_research = EconomySlice.guard(content, state, "upgrade_building", {"building_id":building_id}).get_slice(":", 1)
 			affordable = visible and (level > 0 or state.era_id >= int(definition.era))
 			if level == 0 and definition.prereq != null:
 				var required_level := int(definition.prereq.level)
@@ -205,7 +211,7 @@ func get_view() -> Dictionary:
 			for island in IslandEconomy.supply_data().dispatch:
 				if IslandEconomy.supply_data().dispatch[island] == building_id: required_island = island
 		var island_open: bool = required_island.is_empty() or bool(state.economy.get("islands", {}).get(required_island, {}).get("opened", false))
-		affordable = affordable and island_open
+		affordable = affordable and island_open and required_research.is_empty()
 		buildings[building_id] = {
 			"level": level,
 			"level_cap": cap,
@@ -218,6 +224,7 @@ func get_view() -> Dictionary:
 			"required_island": required_island,
 			"island_open": island_open,
 		}
+		if not required_research.is_empty(): buildings[building_id]["required_research"] = required_research
 	var era_def = content.era(state.era_id)
 	var buff_multipliers := BuffSystem.compute_multipliers(state)
 	var max_lifespan := Lifespan.for_state(content.era_lifespan_entries(), state)
@@ -230,12 +237,16 @@ func get_view() -> Dictionary:
 	var level_up_costs := {}
 	var breakthrough_req := {}
 	var breakthrough_target_name := ""
+	var cultivation_research := ""
 	if era_def != null:
 		if state.level < int(era_def.max_level):
 			next_required = Cultivation.next_level_required_seconds(era_def, state.level, 0.0, SkillSystem.effect(content, state.skills, "time_multiplier"))
 			var costs: Dictionary = Cultivation.level_up_cost(era_def, state.level, 0.0)
 			training_complete = state.training_seconds >= next_required - CommandProcessor.AFFORD_TOLERANCE
 			can_level_up = training_complete
+			if economy_edition:
+				cultivation_research = EconomySlice.guard(content, state, "level_up_cultivation", {}).get_slice(":", 1)
+				can_level_up = can_level_up and cultivation_research.is_empty()
 			for r_id in costs:
 				level_up_costs[r_id] = costs[r_id].serialize()
 				var res_entry: Dictionary = state.resources.get(r_id, {})
@@ -244,7 +255,7 @@ func get_view() -> Dictionary:
 					level_up_missing_resources[r_id] = {"required": costs[r_id].serialize(), "available": res_entry.get("value", AmountCompat.zero()).serialize()}
 		else:
 			var next_era = content.era(state.era_id + 1)
-			if next_era != null:
+			if next_era != null and (not economy_edition or EconomySlice.guard(content, state, "breakthrough_era", {}).is_empty()):
 				breakthrough_target_name = String(next_era.name)
 				var upg: Dictionary = era_def.get("upgrade_requirements", {})
 				var upg_caps: Dictionary = upg.get("capacity", {})
@@ -283,6 +294,7 @@ func get_view() -> Dictionary:
 		"can_level_up": can_level_up,
 		"training_complete": training_complete,
 		"level_up_missing_resources": level_up_missing_resources,
+		"cultivation_research": cultivation_research,
 		"can_breakthrough": can_breakthrough,
 		"level_up_costs": level_up_costs,
 		"breakthrough_requirements": breakthrough_req,

@@ -1,0 +1,2681 @@
+{
+	"online": {
+		"economy": "econ-r1-economy-4",
+		"profile": "dao2-econ-r1",
+		"research": {
+			"completed": {
+				"R01": true,
+				"R02": true,
+				"R03": true,
+				"R04": true,
+				"R05": true,
+				"R06": true,
+				"R07": true,
+				"R08": true,
+				"R09": true,
+				"R10": true,
+				"R11": true,
+				"R12": true,
+				"R13": true,
+				"R14": true
+			},
+			"inherited_depth": 0.0,
+			"job": {},
+			"mastered": {
+				"R01": true,
+				"R02": true,
+				"R03": true,
+				"R04": true,
+				"R05": true,
+				"R06": true,
+				"R07": true,
+				"R08": true,
+				"R09": true,
+				"R10": true,
+				"R11": true,
+				"R12": true,
+				"R13": true,
+				"R14": true
+			}
+		},
+		"research_version": "econ-r1-research-1",
+		"rules": "econ-r1-rules-4",
+		"save_pending": false,
+		"settled_until_utc_ms": 0,
+		"state": {
+			"abode_scenery": {
+				"active": [],
+				"remaining": 8.0,
+				"rng_state": 3556026109,
+				"serial": 0,
+				"version": 1
+			},
+			"achievements": {
+				"story": {
+					"current": {
+						"consumed_mask": 0,
+						"new_supply_claimed": false,
+						"positive_home_arrival": false,
+						"refined_mask": 0,
+						"timber_completed": false
+					},
+					"current_life_id": 1,
+					"lifetime": {
+						"bronze_arrived": false,
+						"consumed_mask": 0,
+						"fox_matured": false,
+						"new_supply_claimed": false,
+						"positive_home_arrival": false,
+						"refined_mask": 0,
+						"timber_arrived": false,
+						"timber_completed": false
+					},
+					"p2": {
+						"current": {
+							"arrival_mask": 0,
+							"consumed_mask": 0,
+							"market_mask": 0,
+							"mature_mask": 0,
+							"refined_mask": 0,
+							"task_mask": 0
+						},
+						"lifetime": {
+							"arrival_mask": 0,
+							"consumed_mask": 0,
+							"market_mask": 0,
+							"mature_mask": 0,
+							"refined_mask": 0,
+							"task_mask": 0
+						},
+						"started_age_seconds": 0.0,
+						"started_life_id": 1
+					},
+					"started_age_seconds": 0.0,
+					"started_life_id": 1,
+					"version": 2
+				}
+			},
+			"aspiration_realm": "",
+			"beast_souls": {},
+			"beast_talents": {},
+			"beast_version": 1,
+			"beasts": {
+				"active": {},
+				"cooldown_remaining": 0.0
+			},
+			"buffs": {},
+			"buildings": {
+				"ancient_focus": 0,
+				"core_storehouse_3": 0,
+				"core_storehouse_4": 0,
+				"core_storehouse_5": 0,
+				"craft_workshop": 1,
+				"cultivation_focus_4": 0,
+				"cultivation_focus_5": 0,
+				"cultivation_focus_6": 0,
+				"forest_farm": 0,
+				"foundation_reservoir": 0,
+				"herb_farm": 3,
+				"hut": 0,
+				"library": 0,
+				"matrix_storehouse": 0,
+				"mineral_focus": 0,
+				"research_instruments": 0,
+				"research_seat": 1,
+				"scripture_hall": 0,
+				"stone_mine": 3,
+				"storage_herb": 0,
+				"storage_lingli": 0,
+				"storage_money": 0,
+				"storage_stone": 0,
+				"storage_wood": 0,
+				"void_condenser": 0,
+				"void_focus": 0,
+				"void_harvester": 0,
+				"wooden_house": 0
+			},
+			"chrono": {
+				"cycle_day": 1.0,
+				"shichen_index": 0.0,
+				"shichen_progress": 0.0666666666666667,
+				"unlocked": false,
+				"weather_id": "water"
+			},
+			"command_receipts": {},
+			"current_realm": "realm_human",
+			"dao_heart": "0",
+			"dao_proof": 0,
+			"discovered_worlds": {},
+			"economy": {
+				"early_supply": {
+					"bronze_done": false,
+					"bronze_home": 0,
+					"ore_delivered": 0,
+					"timber_done": false,
+					"timber_home": 0,
+					"version": 1
+				},
+				"hub_legacy_jobs": {},
+				"hub_version": 1,
+				"islands": {
+					"ancient": {
+						"inventory": {
+							"spirit_grass_1000y": "0.12"
+						},
+						"opened": true
+					},
+					"deep": {
+						"inventory": {
+							"cold_iron": "0.15",
+							"mithril": "0.15",
+							"refined_iron": "0.3"
+						},
+						"opened": true
+					},
+					"herb": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"spirit_grass_100y": "4",
+							"spirit_grass_low": "8"
+						},
+						"opened": true
+					},
+					"home": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {},
+						"opened": true
+					},
+					"ore": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"black_copper": "8",
+							"stone_low": "8"
+						},
+						"opened": true
+					},
+					"void": {
+						"inventory": {
+							"void_essence": "0.15"
+						},
+						"opened": true
+					},
+					"wood": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"wood": "8"
+						},
+						"opened": true
+					}
+				},
+				"jobs": {},
+				"routes": {
+					"ancient_grass_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_cold_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_iron_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_mithril_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"void_essence_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					}
+				},
+				"tick": 4,
+				"trips": {
+					"ancient_grass_home": {
+						"cargo": "0.04",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_cold_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_iron_home": {
+						"cargo": "0.1",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_mithril_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					},
+					"void_essence_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					}
+				},
+				"version": "res1-e-46-1"
+			},
+			"era_id": 6,
+			"fortune": {
+				"cooldown_remaining": 596.0,
+				"encounter_history_count": 0.0,
+				"pending_encounter": {},
+				"rng_state": 4253956922,
+				"rng_version": 1,
+				"total_fortunes_claimed": 0.0
+			},
+			"highest_era": 1,
+			"level": 1,
+			"life_ledger": {
+				"archive": [],
+				"current": {
+					"accounts": {
+						"coverage": "complete",
+						"estimated_bytes": 5333,
+						"omitted": 0,
+						"rows": {
+							"ancient:spirit_grass_1000y": {
+								"adjustment": "0",
+								"closing": "0.12",
+								"expense": {
+									"transfer": "0.04"
+								},
+								"income": {
+									"production": "0.15999999999999998"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:cold_iron": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:mithril": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:refined_iron": {
+								"adjustment": "0",
+								"closing": "0.3",
+								"expense": {
+									"transfer": "0.1"
+								},
+								"income": {
+									"production": "0.4"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"herb:spirit_grass_100y": {
+								"adjustment": "0",
+								"closing": "4",
+								"expense": {},
+								"income": {
+									"production": "4"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"herb:spirit_grass_low": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:black_copper": {
+								"adjustment": "100",
+								"closing": "107.19369724133566",
+								"expense": {},
+								"income": {
+									"production": "7.193697241335656"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:bronze_essence": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:cold_iron": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:formation_core": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:foundation_pill": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:golden_core_pill": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:lingli": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:liquid": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:mithril": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:mithril_matrix": {
+								"adjustment": "8",
+								"closing": "8",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:money": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:refined_iron": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:skill_point": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_1000y": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_100y": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_low": {
+								"adjustment": "50",
+								"closing": "50",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "13.099471745074304"
+							},
+							"home:spirit_timber": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_high": {
+								"adjustment": "90",
+								"closing": "90",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_low": {
+								"adjustment": "100",
+								"closing": "114.38739448267125",
+								"expense": {},
+								"income": {
+									"production": "14.387394482671253"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_mid": {
+								"adjustment": "200",
+								"closing": "200",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:talisman": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:trans_pill": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:void_array": {
+								"adjustment": "10",
+								"closing": "10",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:void_essence": {
+								"adjustment": "95",
+								"closing": "95",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:wood": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"ore:black_copper": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"ore:stone_low": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"realm_spirit:azure_nectar": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"realm_spirit:spirit_crystal": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:cold_iron": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:mithril": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:refined_iron": {
+								"adjustment": "0",
+								"closing": "0.1",
+								"expense": {},
+								"income": {
+									"transfer": "0.1"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:spirit_grass_1000y": {
+								"adjustment": "0",
+								"closing": "0.04",
+								"expense": {},
+								"income": {
+									"transfer": "0.04"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:void_essence": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"void:void_essence": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"wood:wood": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							}
+						},
+						"started_at": 0.0,
+						"version": 1
+					},
+					"beast_instance": "",
+					"coverage": "complete",
+					"economy_origin": 0.0,
+					"end_state": {},
+					"events": [],
+					"frozen_text": "",
+					"history": {
+						"omitted": 0,
+						"samples": [
+							{
+								"at": 0.0,
+								"rows": {
+									"home:lingli": [
+										"0",
+										"100"
+									]
+								}
+							}
+						],
+						"started_at": 0.0,
+						"version": 1
+					},
+					"life_id": 1,
+					"next_sequence": 1,
+					"omitted_count": 0,
+					"peak": {
+						"at": 1.0,
+						"era_id": 6,
+						"level": 1
+					},
+					"started_at": 0.0,
+					"text_version": "",
+					"until": 4.0
+				},
+				"version": 1
+			},
+			"maid": {},
+			"onboarding_version": 0,
+			"pill_effects": {},
+			"pill_version": 2,
+			"pills": {},
+			"realm_decisions": {
+				"cooldowns": {},
+				"total_decisions_executed": 0.0,
+				"usage_counts": {}
+			},
+			"realms_data": {
+				"realm_spirit": {
+					"azure_nectar": 0.0,
+					"outposts": {
+						"celestial_hub": 0.0,
+						"pure_pool": 0.0,
+						"void_beacon": 0.0
+					},
+					"spirit_crystal": 0.0,
+					"unlocked": true
+				}
+			},
+			"reincarnation_count": 0,
+			"resources": {
+				"black_copper": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "107.193697241336"
+				},
+				"bronze_essence": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"cold_iron": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"formation_core": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"foundation_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "0"
+				},
+				"golden_core_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"lingli": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"liquid": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"mithril": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"mithril_matrix": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "8"
+				},
+				"money": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"refined_iron": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"skill_point": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_1000y": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_100y": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_low": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "50"
+				},
+				"spirit_timber": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"stone_high": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "90"
+				},
+				"stone_low": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "114.387394482671"
+				},
+				"stone_mid": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "200"
+				},
+				"talisman": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"trans_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"void_array": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "10"
+				},
+				"void_essence": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "95"
+				},
+				"wood": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				}
+			},
+			"revision": 4,
+			"sect": {},
+			"sect_version": 2,
+			"skill_version": 4,
+			"skills": {},
+			"story_version": 2,
+			"talent_version": 3,
+			"talents": {},
+			"tick_remainder_seconds": 0.0,
+			"total_elapsed_seconds": 4.0,
+			"training_seconds": 4.0,
+			"tribulation_roll_index": 0,
+			"tribulation_seed": 1,
+			"tutorial_flags": {},
+			"world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
+		}
+	},
+	"split": {
+		"economy": "econ-r1-economy-4",
+		"profile": "dao2-econ-r1",
+		"research": {
+			"completed": {
+				"R01": true,
+				"R02": true,
+				"R03": true,
+				"R04": true,
+				"R05": true,
+				"R06": true,
+				"R07": true,
+				"R08": true,
+				"R09": true,
+				"R10": true,
+				"R11": true,
+				"R12": true,
+				"R13": true,
+				"R14": true
+			},
+			"inherited_depth": 0.0,
+			"job": {},
+			"mastered": {
+				"R01": true,
+				"R02": true,
+				"R03": true,
+				"R04": true,
+				"R05": true,
+				"R06": true,
+				"R07": true,
+				"R08": true,
+				"R09": true,
+				"R10": true,
+				"R11": true,
+				"R12": true,
+				"R13": true,
+				"R14": true
+			}
+		},
+		"research_version": "econ-r1-research-1",
+		"rules": "econ-r1-rules-4",
+		"save_pending": false,
+		"settled_until_utc_ms": 0,
+		"state": {
+			"abode_scenery": {
+				"active": [],
+				"remaining": 8.0,
+				"rng_state": 3556026109,
+				"serial": 0,
+				"version": 1
+			},
+			"achievements": {
+				"story": {
+					"current": {
+						"consumed_mask": 0,
+						"new_supply_claimed": false,
+						"positive_home_arrival": false,
+						"refined_mask": 0,
+						"timber_completed": false
+					},
+					"current_life_id": 1,
+					"lifetime": {
+						"bronze_arrived": false,
+						"consumed_mask": 0,
+						"fox_matured": false,
+						"new_supply_claimed": false,
+						"positive_home_arrival": false,
+						"refined_mask": 0,
+						"timber_arrived": false,
+						"timber_completed": false
+					},
+					"p2": {
+						"current": {
+							"arrival_mask": 0,
+							"consumed_mask": 0,
+							"market_mask": 0,
+							"mature_mask": 0,
+							"refined_mask": 0,
+							"task_mask": 0
+						},
+						"lifetime": {
+							"arrival_mask": 0,
+							"consumed_mask": 0,
+							"market_mask": 0,
+							"mature_mask": 0,
+							"refined_mask": 0,
+							"task_mask": 0
+						},
+						"started_age_seconds": 0.0,
+						"started_life_id": 1
+					},
+					"started_age_seconds": 0.0,
+					"started_life_id": 1,
+					"version": 2
+				}
+			},
+			"aspiration_realm": "",
+			"beast_souls": {},
+			"beast_talents": {},
+			"beast_version": 1,
+			"beasts": {
+				"active": {},
+				"cooldown_remaining": 0.0
+			},
+			"buffs": {},
+			"buildings": {
+				"ancient_focus": 0,
+				"core_storehouse_3": 0,
+				"core_storehouse_4": 0,
+				"core_storehouse_5": 0,
+				"craft_workshop": 1,
+				"cultivation_focus_4": 0,
+				"cultivation_focus_5": 0,
+				"cultivation_focus_6": 0,
+				"forest_farm": 0,
+				"foundation_reservoir": 0,
+				"herb_farm": 3,
+				"hut": 0,
+				"library": 0,
+				"matrix_storehouse": 0,
+				"mineral_focus": 0,
+				"research_instruments": 0,
+				"research_seat": 1,
+				"scripture_hall": 0,
+				"stone_mine": 3,
+				"storage_herb": 0,
+				"storage_lingli": 0,
+				"storage_money": 0,
+				"storage_stone": 0,
+				"storage_wood": 0,
+				"void_condenser": 0,
+				"void_focus": 0,
+				"void_harvester": 0,
+				"wooden_house": 0
+			},
+			"chrono": {
+				"cycle_day": 1.0,
+				"shichen_index": 0.0,
+				"shichen_progress": 0.0666666666666667,
+				"unlocked": false,
+				"weather_id": "water"
+			},
+			"command_receipts": {},
+			"current_realm": "realm_human",
+			"dao_heart": "0",
+			"dao_proof": 0,
+			"discovered_worlds": {},
+			"economy": {
+				"early_supply": {
+					"bronze_done": false,
+					"bronze_home": 0,
+					"ore_delivered": 0,
+					"timber_done": false,
+					"timber_home": 0,
+					"version": 1
+				},
+				"hub_legacy_jobs": {},
+				"hub_version": 1,
+				"islands": {
+					"ancient": {
+						"inventory": {
+							"spirit_grass_1000y": "0.12"
+						},
+						"opened": true
+					},
+					"deep": {
+						"inventory": {
+							"cold_iron": "0.15",
+							"mithril": "0.15",
+							"refined_iron": "0.3"
+						},
+						"opened": true
+					},
+					"herb": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"spirit_grass_100y": "4",
+							"spirit_grass_low": "8"
+						},
+						"opened": true
+					},
+					"home": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {},
+						"opened": true
+					},
+					"ore": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"black_copper": "8",
+							"stone_low": "8"
+						},
+						"opened": true
+					},
+					"void": {
+						"inventory": {
+							"void_essence": "0.15"
+						},
+						"opened": true
+					},
+					"wood": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"wood": "8"
+						},
+						"opened": true
+					}
+				},
+				"jobs": {},
+				"routes": {
+					"ancient_grass_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_cold_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_iron_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_mithril_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"void_essence_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					}
+				},
+				"tick": 4,
+				"trips": {
+					"ancient_grass_home": {
+						"cargo": "0.04",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_cold_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_iron_home": {
+						"cargo": "0.1",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_mithril_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					},
+					"void_essence_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					}
+				},
+				"version": "res1-e-46-1"
+			},
+			"era_id": 6,
+			"fortune": {
+				"cooldown_remaining": 596.0,
+				"encounter_history_count": 0.0,
+				"pending_encounter": {},
+				"rng_state": 4253956922,
+				"rng_version": 1,
+				"total_fortunes_claimed": 0.0
+			},
+			"highest_era": 1,
+			"level": 1,
+			"life_ledger": {
+				"archive": [],
+				"current": {
+					"accounts": {
+						"coverage": "complete",
+						"estimated_bytes": 5333,
+						"omitted": 0,
+						"rows": {
+							"ancient:spirit_grass_1000y": {
+								"adjustment": "0",
+								"closing": "0.12",
+								"expense": {
+									"transfer": "0.04"
+								},
+								"income": {
+									"production": "0.15999999999999998"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:cold_iron": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:mithril": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:refined_iron": {
+								"adjustment": "0",
+								"closing": "0.3",
+								"expense": {
+									"transfer": "0.1"
+								},
+								"income": {
+									"production": "0.4"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"herb:spirit_grass_100y": {
+								"adjustment": "0",
+								"closing": "4",
+								"expense": {},
+								"income": {
+									"production": "4"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"herb:spirit_grass_low": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:black_copper": {
+								"adjustment": "100",
+								"closing": "107.19369724133574",
+								"expense": {},
+								"income": {
+									"production": "7.193697241335656"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:bronze_essence": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:cold_iron": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:formation_core": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:foundation_pill": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:golden_core_pill": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:lingli": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:liquid": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:mithril": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:mithril_matrix": {
+								"adjustment": "8",
+								"closing": "8",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:money": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:refined_iron": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:skill_point": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_1000y": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_100y": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_low": {
+								"adjustment": "50",
+								"closing": "50",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "13.099471745074304"
+							},
+							"home:spirit_timber": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_high": {
+								"adjustment": "90",
+								"closing": "90",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_low": {
+								"adjustment": "100",
+								"closing": "114.38739448267144",
+								"expense": {},
+								"income": {
+									"production": "14.387394482671253"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_mid": {
+								"adjustment": "200",
+								"closing": "200",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:talisman": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:trans_pill": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:void_array": {
+								"adjustment": "10",
+								"closing": "10",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:void_essence": {
+								"adjustment": "95",
+								"closing": "95",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:wood": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"ore:black_copper": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"ore:stone_low": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"realm_spirit:azure_nectar": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"realm_spirit:spirit_crystal": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:cold_iron": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:mithril": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:refined_iron": {
+								"adjustment": "0",
+								"closing": "0.1",
+								"expense": {},
+								"income": {
+									"transfer": "0.1"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:spirit_grass_1000y": {
+								"adjustment": "0",
+								"closing": "0.04",
+								"expense": {},
+								"income": {
+									"transfer": "0.04"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:void_essence": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"void:void_essence": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"wood:wood": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							}
+						},
+						"started_at": 0.0,
+						"version": 1
+					},
+					"beast_instance": "",
+					"coverage": "complete",
+					"economy_origin": 0.0,
+					"end_state": {},
+					"events": [],
+					"frozen_text": "",
+					"history": {
+						"omitted": 0,
+						"samples": [
+							{
+								"at": 0.0,
+								"rows": {
+									"home:lingli": [
+										"0",
+										"100"
+									]
+								}
+							}
+						],
+						"started_at": 0.0,
+						"version": 1
+					},
+					"life_id": 1,
+					"next_sequence": 1,
+					"omitted_count": 0,
+					"peak": {
+						"at": 1.0,
+						"era_id": 6,
+						"level": 1
+					},
+					"started_at": 0.0,
+					"text_version": "",
+					"until": 4.0
+				},
+				"version": 1
+			},
+			"maid": {},
+			"onboarding_version": 0,
+			"pill_effects": {},
+			"pill_version": 2,
+			"pills": {},
+			"realm_decisions": {
+				"cooldowns": {},
+				"total_decisions_executed": 0.0,
+				"usage_counts": {}
+			},
+			"realms_data": {
+				"realm_spirit": {
+					"azure_nectar": 0.0,
+					"outposts": {
+						"celestial_hub": 0.0,
+						"pure_pool": 0.0,
+						"void_beacon": 0.0
+					},
+					"spirit_crystal": 0.0,
+					"unlocked": true
+				}
+			},
+			"reincarnation_count": 0,
+			"resources": {
+				"black_copper": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "107.193697241336"
+				},
+				"bronze_essence": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"cold_iron": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"formation_core": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"foundation_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "0"
+				},
+				"golden_core_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"lingli": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"liquid": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"mithril": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"mithril_matrix": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "8"
+				},
+				"money": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"refined_iron": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"skill_point": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_1000y": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_100y": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_low": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "50"
+				},
+				"spirit_timber": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"stone_high": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "90"
+				},
+				"stone_low": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "114.387394482671"
+				},
+				"stone_mid": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "200"
+				},
+				"talisman": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"trans_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"void_array": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "10"
+				},
+				"void_essence": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "95"
+				},
+				"wood": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				}
+			},
+			"revision": 4,
+			"sect": {},
+			"sect_version": 2,
+			"skill_version": 4,
+			"skills": {},
+			"story_version": 2,
+			"talent_version": 3,
+			"talents": {},
+			"tick_remainder_seconds": 0.0,
+			"total_elapsed_seconds": 4.0,
+			"training_seconds": 4.0,
+			"tribulation_roll_index": 0,
+			"tribulation_seed": 1,
+			"tutorial_flags": {},
+			"world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
+		}
+	},
+	"utc": {
+		"economy": "econ-r1-economy-4",
+		"profile": "dao2-econ-r1",
+		"research": {
+			"completed": {
+				"R01": true,
+				"R02": true,
+				"R03": true,
+				"R04": true,
+				"R05": true,
+				"R06": true,
+				"R07": true,
+				"R08": true,
+				"R09": true,
+				"R10": true,
+				"R11": true,
+				"R12": true,
+				"R13": true,
+				"R14": true
+			},
+			"inherited_depth": 0.0,
+			"job": {},
+			"mastered": {
+				"R01": true,
+				"R02": true,
+				"R03": true,
+				"R04": true,
+				"R05": true,
+				"R06": true,
+				"R07": true,
+				"R08": true,
+				"R09": true,
+				"R10": true,
+				"R11": true,
+				"R12": true,
+				"R13": true,
+				"R14": true
+			}
+		},
+		"research_version": "econ-r1-research-1",
+		"rules": "econ-r1-rules-4",
+		"save_pending": false,
+		"settled_until_utc_ms": 1004000,
+		"state": {
+			"abode_scenery": {
+				"active": [],
+				"remaining": 8.0,
+				"rng_state": 3556026109,
+				"serial": 0,
+				"version": 1
+			},
+			"achievements": {
+				"story": {
+					"current": {
+						"consumed_mask": 0,
+						"new_supply_claimed": false,
+						"positive_home_arrival": false,
+						"refined_mask": 0,
+						"timber_completed": false
+					},
+					"current_life_id": 1,
+					"lifetime": {
+						"bronze_arrived": false,
+						"consumed_mask": 0,
+						"fox_matured": false,
+						"new_supply_claimed": false,
+						"positive_home_arrival": false,
+						"refined_mask": 0,
+						"timber_arrived": false,
+						"timber_completed": false
+					},
+					"p2": {
+						"current": {
+							"arrival_mask": 0,
+							"consumed_mask": 0,
+							"market_mask": 0,
+							"mature_mask": 0,
+							"refined_mask": 0,
+							"task_mask": 0
+						},
+						"lifetime": {
+							"arrival_mask": 0,
+							"consumed_mask": 0,
+							"market_mask": 0,
+							"mature_mask": 0,
+							"refined_mask": 0,
+							"task_mask": 0
+						},
+						"started_age_seconds": 0.0,
+						"started_life_id": 1
+					},
+					"started_age_seconds": 0.0,
+					"started_life_id": 1,
+					"version": 2
+				}
+			},
+			"aspiration_realm": "",
+			"beast_souls": {},
+			"beast_talents": {},
+			"beast_version": 1,
+			"beasts": {
+				"active": {},
+				"cooldown_remaining": 0.0
+			},
+			"buffs": {},
+			"buildings": {
+				"ancient_focus": 0,
+				"core_storehouse_3": 0,
+				"core_storehouse_4": 0,
+				"core_storehouse_5": 0,
+				"craft_workshop": 1,
+				"cultivation_focus_4": 0,
+				"cultivation_focus_5": 0,
+				"cultivation_focus_6": 0,
+				"forest_farm": 0,
+				"foundation_reservoir": 0,
+				"herb_farm": 3,
+				"hut": 0,
+				"library": 0,
+				"matrix_storehouse": 0,
+				"mineral_focus": 0,
+				"research_instruments": 0,
+				"research_seat": 1,
+				"scripture_hall": 0,
+				"stone_mine": 3,
+				"storage_herb": 0,
+				"storage_lingli": 0,
+				"storage_money": 0,
+				"storage_stone": 0,
+				"storage_wood": 0,
+				"void_condenser": 0,
+				"void_focus": 0,
+				"void_harvester": 0,
+				"wooden_house": 0
+			},
+			"chrono": {
+				"cycle_day": 1.0,
+				"shichen_index": 0.0,
+				"shichen_progress": 0.0666666666666667,
+				"unlocked": false,
+				"weather_id": "water"
+			},
+			"command_receipts": {},
+			"current_realm": "realm_human",
+			"dao_heart": "0",
+			"dao_proof": 0,
+			"discovered_worlds": {},
+			"economy": {
+				"early_supply": {
+					"bronze_done": false,
+					"bronze_home": 0,
+					"ore_delivered": 0,
+					"timber_done": false,
+					"timber_home": 0,
+					"version": 1
+				},
+				"hub_legacy_jobs": {},
+				"hub_version": 1,
+				"islands": {
+					"ancient": {
+						"inventory": {
+							"spirit_grass_1000y": "0.12"
+						},
+						"opened": true
+					},
+					"deep": {
+						"inventory": {
+							"cold_iron": "0.15",
+							"mithril": "0.15",
+							"refined_iron": "0.3"
+						},
+						"opened": true
+					},
+					"herb": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"spirit_grass_100y": "4",
+							"spirit_grass_low": "8"
+						},
+						"opened": true
+					},
+					"home": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {},
+						"opened": true
+					},
+					"ore": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"black_copper": "8",
+							"stone_low": "8"
+						},
+						"opened": true
+					},
+					"void": {
+						"inventory": {
+							"void_essence": "0.15"
+						},
+						"opened": true
+					},
+					"wood": {
+						"facilities": {
+							"extractor": 1,
+							"storage": 1,
+							"workshop": 1
+						},
+						"inventory": {
+							"wood": "8"
+						},
+						"opened": true
+					}
+				},
+				"jobs": {},
+				"routes": {
+					"ancient_grass_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_cold_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_iron_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"deep_mithril_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					},
+					"void_essence_home": {
+						"enabled": true,
+						"level": 1,
+						"reserve": "0",
+						"target": "3000"
+					}
+				},
+				"tick": 4,
+				"trips": {
+					"ancient_grass_home": {
+						"cargo": "0.04",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_cold_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_iron_home": {
+						"cargo": "0.1",
+						"remaining": 7,
+						"version": 1
+					},
+					"deep_mithril_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					},
+					"void_essence_home": {
+						"cargo": "0.05",
+						"remaining": 7,
+						"version": 1
+					}
+				},
+				"version": "res1-e-46-1"
+			},
+			"era_id": 6,
+			"fortune": {
+				"cooldown_remaining": 596.0,
+				"encounter_history_count": 0.0,
+				"pending_encounter": {},
+				"rng_state": 4253956922,
+				"rng_version": 1,
+				"total_fortunes_claimed": 0.0
+			},
+			"highest_era": 1,
+			"level": 1,
+			"life_ledger": {
+				"archive": [],
+				"current": {
+					"accounts": {
+						"coverage": "complete",
+						"estimated_bytes": 5333,
+						"omitted": 0,
+						"rows": {
+							"ancient:spirit_grass_1000y": {
+								"adjustment": "0",
+								"closing": "0.12",
+								"expense": {
+									"transfer": "0.04"
+								},
+								"income": {
+									"production": "0.15999999999999998"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:cold_iron": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:mithril": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"deep:refined_iron": {
+								"adjustment": "0",
+								"closing": "0.3",
+								"expense": {
+									"transfer": "0.1"
+								},
+								"income": {
+									"production": "0.4"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"herb:spirit_grass_100y": {
+								"adjustment": "0",
+								"closing": "4",
+								"expense": {},
+								"income": {
+									"production": "4"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"herb:spirit_grass_low": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:black_copper": {
+								"adjustment": "100",
+								"closing": "107.19369724133566",
+								"expense": {},
+								"income": {
+									"production": "7.193697241335656"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:bronze_essence": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:cold_iron": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:formation_core": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:foundation_pill": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:golden_core_pill": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:lingli": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:liquid": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:mithril": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:mithril_matrix": {
+								"adjustment": "8",
+								"closing": "8",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:money": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:refined_iron": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:skill_point": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_1000y": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_100y": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:spirit_grass_low": {
+								"adjustment": "50",
+								"closing": "50",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "13.099471745074304"
+							},
+							"home:spirit_timber": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_high": {
+								"adjustment": "90",
+								"closing": "90",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_low": {
+								"adjustment": "100",
+								"closing": "114.38739448267125",
+								"expense": {},
+								"income": {
+									"production": "14.387394482671253"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:stone_mid": {
+								"adjustment": "200",
+								"closing": "200",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:talisman": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:trans_pill": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:void_array": {
+								"adjustment": "10",
+								"closing": "10",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:void_essence": {
+								"adjustment": "95",
+								"closing": "95",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"home:wood": {
+								"adjustment": "100",
+								"closing": "100",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"ore:black_copper": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"ore:stone_low": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"realm_spirit:azure_nectar": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"realm_spirit:spirit_crystal": {
+								"adjustment": "0",
+								"closing": "0",
+								"expense": {},
+								"income": {},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:cold_iron": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:mithril": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:refined_iron": {
+								"adjustment": "0",
+								"closing": "0.1",
+								"expense": {},
+								"income": {
+									"transfer": "0.1"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:spirit_grass_1000y": {
+								"adjustment": "0",
+								"closing": "0.04",
+								"expense": {},
+								"income": {
+									"transfer": "0.04"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"transit:void_essence": {
+								"adjustment": "0",
+								"closing": "0.05",
+								"expense": {},
+								"income": {
+									"transfer": "0.05"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"void:void_essence": {
+								"adjustment": "0",
+								"closing": "0.15",
+								"expense": {
+									"transfer": "0.05"
+								},
+								"income": {
+									"production": "0.2"
+								},
+								"opening": "0",
+								"overflow": "0"
+							},
+							"wood:wood": {
+								"adjustment": "0",
+								"closing": "8",
+								"expense": {},
+								"income": {
+									"production": "8"
+								},
+								"opening": "0",
+								"overflow": "0"
+							}
+						},
+						"started_at": 0.0,
+						"version": 1
+					},
+					"beast_instance": "",
+					"coverage": "complete",
+					"economy_origin": 0.0,
+					"end_state": {},
+					"events": [],
+					"frozen_text": "",
+					"history": {
+						"omitted": 0,
+						"samples": [
+							{
+								"at": 0.0,
+								"rows": {
+									"home:lingli": [
+										"0",
+										"100"
+									]
+								}
+							}
+						],
+						"started_at": 0.0,
+						"version": 1
+					},
+					"life_id": 1,
+					"next_sequence": 1,
+					"omitted_count": 0,
+					"peak": {
+						"at": 1.0,
+						"era_id": 6,
+						"level": 1
+					},
+					"started_at": 0.0,
+					"text_version": "",
+					"until": 4.0
+				},
+				"version": 1
+			},
+			"maid": {},
+			"onboarding_version": 0,
+			"pill_effects": {},
+			"pill_version": 2,
+			"pills": {},
+			"realm_decisions": {
+				"cooldowns": {},
+				"total_decisions_executed": 0.0,
+				"usage_counts": {}
+			},
+			"realms_data": {
+				"realm_spirit": {
+					"azure_nectar": 0.0,
+					"outposts": {
+						"celestial_hub": 0.0,
+						"pure_pool": 0.0,
+						"void_beacon": 0.0
+					},
+					"spirit_crystal": 0.0,
+					"unlocked": true
+				}
+			},
+			"reincarnation_count": 0,
+			"resources": {
+				"black_copper": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "107.193697241336"
+				},
+				"bronze_essence": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"cold_iron": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"formation_core": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"foundation_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "0"
+				},
+				"golden_core_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"lingli": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"liquid": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"mithril": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"mithril_matrix": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "8"
+				},
+				"money": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"refined_iron": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"skill_point": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_1000y": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_100y": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"spirit_grass_low": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "50"
+				},
+				"spirit_timber": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"stone_high": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "90"
+				},
+				"stone_low": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "114.387394482671"
+				},
+				"stone_mid": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "200"
+				},
+				"talisman": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"trans_pill": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				},
+				"void_array": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "10"
+				},
+				"void_essence": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "95"
+				},
+				"wood": {
+					"ever_obtained": true,
+					"unlocked": true,
+					"value": "100"
+				}
+			},
+			"revision": 4,
+			"sect": {},
+			"sect_version": 2,
+			"skill_version": 4,
+			"skills": {},
+			"story_version": 2,
+			"talent_version": 3,
+			"talents": {},
+			"tick_remainder_seconds": 0.0,
+			"total_elapsed_seconds": 4.0,
+			"training_seconds": 4.0,
+			"tribulation_roll_index": 0,
+			"tribulation_seed": 1,
+			"tutorial_flags": {},
+			"world_address": "universe_0/sector_human_0/realm_human/region_cloud_peak/loc_home_island"
+		}
+	}
+}

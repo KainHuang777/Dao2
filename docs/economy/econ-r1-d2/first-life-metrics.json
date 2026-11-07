@@ -1,0 +1,309 @@
+{
+  "scope": "Derived from earned D2 first-life checkpoint and complete ResourceLedger. Transfer is internal; research bills are separately counted because the existing ledger records research in adjustments. Wait labels describe the controller; research, cultivation and production can overlap. Condenser comparison is work-slot seconds for these batches at identical base inputs, not a no-equipment run.",
+  "first_era3_lv10_seconds": 14417.0,
+  "era5_entry_seconds": 39017,
+  "era6_entry_seconds": 64737,
+  "era6_lv10_seconds": 149017.0,
+  "era6_lifespan_seconds": 158400,
+  "remaining_seconds": 9383.0,
+  "research_slot_seconds": 44460.0,
+  "research_slot_fraction_of_first_path": 0.2983552212163713,
+  "r14": {
+    "start_seconds": 68697.0,
+    "end_seconds": 83097.0,
+    "paid_levelups_during": 3
+  },
+  "era6_explicit_training_wait_seconds": 58110.0,
+  "era6_explicit_training_wait_share": 0.6894874228761272,
+  "controller_send_count": 673,
+  "research_and_building_capacity_witnesses": 57,
+  "condenser": {
+    "built_at": 84837.0,
+    "same_duration_recipes_batch_count_after_build": 313,
+    "base_workshop_seconds": 8,
+    "new_seconds": 5,
+    "work_slot_seconds_saved_for_these_batches": 939
+  },
+  "accounts": {
+    "coverage": "complete",
+    "omitted": 0,
+    "rows": 47,
+    "non_realm_totals": {
+      "spirit_grass_1000y": {
+        "opening": "0",
+        "closing": "3299.999999",
+        "overflow": "5055.999999997221",
+        "adjustment": "0",
+        "income_excluding_transfer": "3447.9999989982407",
+        "expense_excluding_transfer_and_research": "148",
+        "research_paid": "0",
+        "known_spent": "148",
+        "earned_per_spent": 23.297297290528654
+      },
+      "cold_iron": {
+        "opening": "0",
+        "closing": "3300",
+        "overflow": "9119.000000016948",
+        "adjustment": "-10",
+        "income_excluding_transfer": "3440.999999999076",
+        "expense_excluding_transfer_and_research": "131",
+        "research_paid": "10.0",
+        "known_spent": "141.0",
+        "earned_per_spent": 24.404255319142383
+      },
+      "mithril": {
+        "opening": "0",
+        "closing": "3300",
+        "overflow": "8055.000000013481",
+        "adjustment": "-4",
+        "income_excluding_transfer": "3599.999999999076",
+        "expense_excluding_transfer_and_research": "296",
+        "research_paid": "4.0",
+        "known_spent": "300.0",
+        "earned_per_spent": 11.99999999999692
+      },
+      "refined_iron": {
+        "opening": "0",
+        "closing": "3300",
+        "overflow": "22491.00000000471",
+        "adjustment": "-10",
+        "income_excluding_transfer": "3414.9999999988327",
+        "expense_excluding_transfer_and_research": "105",
+        "research_paid": "10.0",
+        "known_spent": "115.0",
+        "earned_per_spent": 29.695652173902893
+      },
+      "spirit_grass_100y": {
+        "opening": "0",
+        "closing": "3150",
+        "overflow": "139260",
+        "adjustment": "-2",
+        "income_excluding_transfer": "3360",
+        "expense_excluding_transfer_and_research": "208",
+        "research_paid": "2.0",
+        "known_spent": "210.0",
+        "earned_per_spent": 16.0
+      },
+      "spirit_grass_low": {
+        "opening": "0",
+        "closing": "360",
+        "overflow": "662519.8607201643",
+        "adjustment": "-60",
+        "income_excluding_transfer": "16179.999999999492",
+        "expense_excluding_transfer_and_research": "15760",
+        "research_paid": "60.0",
+        "known_spent": "15820.0",
+        "earned_per_spent": 1.0227560050568578
+      },
+      "black_copper": {
+        "opening": "0",
+        "closing": "450",
+        "overflow": "501874.77935531216",
+        "adjustment": "-30",
+        "income_excluding_transfer": "9549.999999999775",
+        "expense_excluding_transfer_and_research": "9070",
+        "research_paid": "30.0",
+        "known_spent": "9100.0",
+        "earned_per_spent": 1.0494505494505246
+      },
+      "bronze_essence": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-16",
+        "income_excluding_transfer": "283",
+        "expense_excluding_transfer_and_research": "267",
+        "research_paid": "16.0",
+        "known_spent": "283.0",
+        "earned_per_spent": 1.0
+      },
+      "formation_core": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-12",
+        "income_excluding_transfer": "68",
+        "expense_excluding_transfer_and_research": "56",
+        "research_paid": "12.0",
+        "known_spent": "68.0",
+        "earned_per_spent": 1.0
+      },
+      "foundation_pill": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "0",
+        "income_excluding_transfer": "312",
+        "expense_excluding_transfer_and_research": "312",
+        "research_paid": "0",
+        "known_spent": "312",
+        "earned_per_spent": 1.0
+      },
+      "golden_core_pill": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-2",
+        "income_excluding_transfer": "104",
+        "expense_excluding_transfer_and_research": "102",
+        "research_paid": "2.0",
+        "known_spent": "104.0",
+        "earned_per_spent": 1.0
+      },
+      "lingli": {
+        "opening": "0",
+        "closing": "226700",
+        "overflow": "331092973.0139571",
+        "adjustment": "-200",
+        "income_excluding_transfer": "1261082.9462776782",
+        "expense_excluding_transfer_and_research": "1034176",
+        "research_paid": "200.0",
+        "known_spent": "1034376.0",
+        "earned_per_spent": 1.2191726666876244
+      },
+      "liquid": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "0",
+        "income_excluding_transfer": "14",
+        "expense_excluding_transfer_and_research": "14",
+        "research_paid": "0",
+        "known_spent": "14",
+        "earned_per_spent": 1.0
+      },
+      "mithril_matrix": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-2",
+        "income_excluding_transfer": "15",
+        "expense_excluding_transfer_and_research": "13",
+        "research_paid": "2.0",
+        "known_spent": "15.0",
+        "earned_per_spent": 1.0
+      },
+      "money": {
+        "opening": "0",
+        "closing": "115460",
+        "overflow": "99816479.00221968",
+        "adjustment": "0",
+        "income_excluding_transfer": "305797.1000030001",
+        "expense_excluding_transfer_and_research": "190334.100003",
+        "research_paid": "0",
+        "known_spent": "190334.100003",
+        "earned_per_spent": 1.6066332832539214
+      },
+      "skill_point": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "0",
+        "income_excluding_transfer": "0",
+        "expense_excluding_transfer_and_research": "0",
+        "research_paid": "0",
+        "known_spent": "0",
+        "earned_per_spent": null
+      },
+      "spirit_timber": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-13",
+        "income_excluding_transfer": "370",
+        "expense_excluding_transfer_and_research": "357",
+        "research_paid": "13.0",
+        "known_spent": "370.0",
+        "earned_per_spent": 1.0
+      },
+      "stone_high": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-10",
+        "income_excluding_transfer": "85",
+        "expense_excluding_transfer_and_research": "75",
+        "research_paid": "10.0",
+        "known_spent": "85.0",
+        "earned_per_spent": 1.0
+      },
+      "stone_low": {
+        "opening": "0",
+        "closing": "125300",
+        "overflow": "27832491.73686171",
+        "adjustment": "-130",
+        "income_excluding_transfer": "371365.8218703718997",
+        "expense_excluding_transfer_and_research": "245918",
+        "research_paid": "130.0",
+        "known_spent": "246048.0",
+        "earned_per_spent": 1.5093226600922256
+      },
+      "stone_mid": {
+        "opening": "0",
+        "closing": "50",
+        "overflow": "0",
+        "adjustment": "-80",
+        "income_excluding_transfer": "48375",
+        "expense_excluding_transfer_and_research": "48245",
+        "research_paid": "80.0",
+        "known_spent": "48325.0",
+        "earned_per_spent": 1.001034661148474
+      },
+      "talisman": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "-10",
+        "income_excluding_transfer": "36",
+        "expense_excluding_transfer_and_research": "26",
+        "research_paid": "10.0",
+        "known_spent": "36.0",
+        "earned_per_spent": 1.0
+      },
+      "trans_pill": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "0",
+        "income_excluding_transfer": "37",
+        "expense_excluding_transfer_and_research": "37",
+        "research_paid": "0",
+        "known_spent": "37",
+        "earned_per_spent": 1.0
+      },
+      "void_array": {
+        "opening": "0",
+        "closing": "0",
+        "overflow": "0",
+        "adjustment": "0",
+        "income_excluding_transfer": "4",
+        "expense_excluding_transfer_and_research": "4",
+        "research_paid": "0",
+        "known_spent": "4",
+        "earned_per_spent": 1.0
+      },
+      "void_essence": {
+        "opening": "0",
+        "closing": "3299.999999",
+        "overflow": "7410.499999992531",
+        "adjustment": "-5",
+        "income_excluding_transfer": "3334.9999990003344",
+        "expense_excluding_transfer_and_research": "30",
+        "research_paid": "5.0",
+        "known_spent": "35.0",
+        "earned_per_spent": 95.2857142571524
+      },
+      "wood": {
+        "opening": "0",
+        "closing": "950",
+        "overflow": "3574757.0853907733",
+        "adjustment": "-70",
+        "income_excluding_transfer": "6988.2000020000546",
+        "expense_excluding_transfer_and_research": "5968.200002",
+        "research_paid": "70.0",
+        "known_spent": "6038.200002",
+        "earned_per_spent": 1.1573316550769088
+      }
+    }
+  }
+}

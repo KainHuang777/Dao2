@@ -12,6 +12,7 @@ const PAGE_POLICY := {
 	"buildings": {"workspace": "rail", "resources": "shared"},
 	"outposts": {"workspace": "rail", "resources": "shared"},
 	"manufacturing": {"workspace": "large", "resources": "wide_stock"},
+	"research": {"workspace": "large", "resources": "wide_stock"},
 	"transport": {"workspace": "large", "resources": "inline"},
 	"alchemy": {"workspace": "large", "resources": "hud_stock"},
 	"achievements": {"workspace": "large", "resources": "inline", "max_width": 1120.0},
@@ -31,6 +32,7 @@ var character_panel: Control
 var portrait_viewer: Control
 var island_panel: Control
 var manufacturing_panel: Control
+var research_panel: Control
 var transport_panel: Control
 var island_flow: Control
 var full_island_management := false
@@ -118,6 +120,18 @@ func build() -> void:
 		abode.realm_modal.visible = true
 		layout(abode.hud.size))
 	manufacturing_panel = preload("res://src/presentation/manufacturing_panel.gd").new()
+	manufacturing_panel.building_names = abode.BUILDING_NAMES
+	manufacturing_panel.building_definitions = abode.content.buildings
+	research_panel = preload("res://src/presentation/economy_research_panel.gd").new()
+	research_panel.resource_names = abode.RESOURCE_NAMES
+	research_panel.building_names = abode.BUILDING_NAMES
+	abode.hud.add_child(research_panel)
+	research_panel.hide()
+	research_panel.close_requested.connect(home)
+	research_panel.action_requested.connect(_on_research_action)
+	research_panel.target_requested.connect(_on_research_target)
+	manufacturing_panel.research_requested.connect(func(): open("research"))
+	if abode.economy_edition: full_island_management = true
 	transport_panel = preload("res://src/presentation/island_transport_panel.gd").new()
 	manufacturing_panel.transport_requested.connect(open_transport)
 	transport_panel.manufacturing_requested.connect(open_manufacturing)
@@ -219,6 +233,8 @@ func open(route: String) -> void:
 			abode.alchemy_panel.visible = true
 		"manufacturing":
 			manufacturing_panel.visible = true
+		"research":
+			research_panel.show()
 		"transport":
 			transport_panel.visible = true
 		"achievements": abode.achievement_panel.visible = true
@@ -245,6 +261,7 @@ func _hide_pages() -> void:
 	if is_instance_valid(island_flow): island_flow.hide()
 	island_panel.visible = false
 	manufacturing_panel.visible = false
+	research_panel.hide()
 	transport_panel.visible = false
 
 func home() -> void:
@@ -449,6 +466,8 @@ func refresh(view: Dictionary) -> void:
 		action_panel.refresh(view)
 	if is_instance_valid(character_panel) and character_panel.visible:
 		character_panel.refresh(view)
+	if research_panel.visible:
+		research_panel.refresh(view, abode.content)
 	if is_instance_valid(island_panel) and island_panel.visible:
 		island_panel.expire_success()
 		island_panel.refresh(view, abode.content.processing_catalog)
@@ -577,11 +596,11 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 	var result: Dictionary
 	var save_failed := false
 	var first_open: bool = kind == "open_island" and not IslandProgression.active(abode.session.state)
-	if kind == "activate_hub":
+	if kind == "activate_hub" and not abode.economy_edition:
 		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
 		result = SaveManager.activate_hub(abode.session,{"save_id":"local","saved_at_utc_ms":now,"settled_until_utc_ms":now,"sim_tick":str(int(abode.session.state.total_elapsed_seconds))})
 		if result.ok: abode.state = abode.AbodeStateCompat.new(abode.session)
-	elif kind == "activate_islands" or first_open:
+	elif not abode.economy_edition and (kind == "activate_islands" or first_open):
 		var now := str(int(Time.get_unix_time_from_system() * 1000.0))
 		result = SaveManager.activate_islands(abode.session, {"save_id": "local", "saved_at_utc_ms": now, "settled_until_utc_ms": now, "sim_tick": str(int(abode.session.state.total_elapsed_seconds))}, String(payload.get("island_id", "")) if first_open else "")
 		if result.ok:
@@ -600,6 +619,8 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 		errors["RECIPE_ISLAND_REQUIREMENT"] = "請先開拓對應產業島以取得此製造產線。"
 		errors["OUTPUT_FULL"] = "祖島產物滿倉；請使用材料或擴充容量。"
 	var error: String = String(result.get("error", "原因不明"))
+	if error.begins_with("RESEARCH_REQUIRED:"):
+		errors[error] = "請先完成工藝研習 " + error.get_slice(":", 1)
 	var feedback := ""
 	if not result.ok:
 		feedback = "操作未保存：%s。恢復儲存後重試保存。" % error if save_failed else errors.get(error, "啟用未完成：%s。原檔保留，修復後再次啟用。" % error if kind == "activate_islands" else "操作未完成：%s" % error)
@@ -625,6 +646,22 @@ func _on_island_action(kind: String, payload: Dictionary) -> void:
 		target_panel.show_success(success)
 	abode._refresh_hud()
 
+func _on_research_action(kind: String, payload: Dictionary) -> void:
+	var result: Dictionary = abode.session.submit({
+		"command_id": "research-" + str(Time.get_ticks_usec()), "type": kind,
+		"expected_revision": abode.session.state.revision, "payload": payload,
+	})
+	research_panel.show_result(result)
+	abode._refresh_hud()
+
+func _on_research_target(route: String, id: String) -> void:
+	match route:
+		"buildings": open_buildings(id)
+		"outposts": _open_island_page(route, id)
+		"manufacturing": open_manufacturing("", id)
+		"transport": open_transport(id)
+		_: open(route)
+
 func open_manufacturing(island_id: String, recipe_id: String = "") -> void:
 	if not recipe_id.is_empty(): island_flow.recipe = recipe_id
 	elif island_id in IslandProgression.RECIPES: island_flow.recipe = IslandProgression.RECIPES[island_id]
@@ -649,6 +686,7 @@ func _open_island_page(route: String, island_id: String) -> void:
 
 func open_transport(route_id: String) -> void:
 	if not transport_panel._routes().has(route_id):
+		if abode.economy_edition: open("transport")
 		return
 	island_flow.route = route_id
 	open("transport")
@@ -685,6 +723,7 @@ func layout_page(bounds: Rect2) -> void:
 		var panel: Control = action_panel
 		match page:
 			"manufacturing": panel = manufacturing_panel
+			"research": panel = research_panel
 			"transport": panel = transport_panel
 			"outposts": panel = abode.realm_modal if _legacy_outposts or abode.content.processing_catalog.is_empty() else island_panel
 			"alchemy": panel = abode.alchemy_panel
@@ -698,6 +737,7 @@ func layout_page(bounds: Rect2) -> void:
 func storage_recovered() -> void:
 	for panel in [island_panel, manufacturing_panel, transport_panel, island_flow]:
 		panel.storage_recovered()
+	research_panel.storage_recovered()
 
 func _retry_island_save() -> void:
 	var result: Dictionary = abode._save_game()

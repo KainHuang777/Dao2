@@ -1,0 +1,241 @@
+extends "res://tests/econ_r1_deep_runner.gd"
+## D2. Synthetic contract scenarios never feed the opt-in earned profile.
+var interleave := false
+var measurements: Array = []
+
+func rejected(kind: String, payload: Dictionary, error: String) -> void:
+	if kind == "breakthrough_era" and s.state.era_id < 6: return
+	super.rejected(kind, payload, error)
+
+func build(id: String) -> bool:
+	var required: String = EconomySlice.FRONTIER_BUILDINGS.get(id, "")
+	if not required.is_empty() and not research(required): return false
+	return super.build(id)
+
+func ensure(id: String, target: float, depth: int = 0) -> bool:
+	if value(id) + 0.000001 < target and EconomySlice.FRONTIER_GATES.has(id):
+		if not research(EconomySlice.FRONTIER_GATES[id]): return false
+	return super.ensure(id, target, depth)
+
+func ladder(era: int) -> bool:
+	var previous_interleave := interleave
+	interleave = false # The parent owns its quoted level/payment until submission.
+	var ok := super.ladder(era)
+	interleave = previous_interleave
+	return ok
+
+func tick(seconds: float, reason: String) -> bool:
+	# Spend accumulated training during research/supply waits instead of discarding
+	# an entire completed level's potential. No stock, time or success injection.
+	var remaining := seconds
+	while remaining > 0:
+		var step := minf(30, remaining) if interleave else remaining
+		if not super.tick(step, reason): return false
+		remaining -= step
+		if interleave and s.state.level < 10:
+			var costs := plain(Cultivation.level_up_cost(content.eras[s.state.era_id], s.state.level, 0))
+			var ready := s.state.training_seconds >= Cultivation.next_level_required_seconds(content.eras[s.state.era_id], s.state.level, 0, 1)
+			for id in costs:
+				if value(id) + 0.000001 < float(costs[id]): ready = false
+			if ready and not send("level_up_cultivation"): return false
+	return true
+
+func precision_snapshot(state: Dictionary) -> Dictionary:
+	# Ledger closing counters retain full JSON precision in numeric strings; round trips can differ by
+	# ~1e-13. Compare every field, rounding ONLY account closing observations to
+	# the existing 1e-6 payment precision. Inventory/research/revision stay exact.
+	var result := state.duplicate(true)
+	for row in result.get("life_ledger",{}).get("current",{}).get("accounts",{}).get("rows",{}).values():
+		row.closing = snappedf(float(row.closing),0.000001)
+	return result
+
+func fixture_profile() -> EconomyProfile:
+	var game := GameSession.create_new_game(content, 1)
+	game.state.era_id = 6; game.state.onboarding_version = 0
+	for id in game.state.resources:
+		game.state.resources[id].unlocked = true
+		game.state.resources[id].ever_obtained = true
+		game.state.resources[id].value = AmountCompat.from_number(minf(100, float(caps().get(id, 100))))
+	game.state.resources.foundation_pill.value = AmountCompat.zero()
+	for id in ["mithril_matrix", "void_array"]: game.state.resources[id].value = AmountCompat.from_number(10)
+	game.state.resources.stone_mid.value = AmountCompat.from_number(200)
+	for id in ["research_seat", "craft_workshop", "stone_mine", "herb_farm"]: game.state.buildings[id] = 3 if id in ["stone_mine", "herb_farm"] else 1
+	check(IslandProgression.command(content, game.state, "activate_islands", {"hub":true}).ok, "fixture activate")
+	for id in game.state.economy.islands: game.state.economy.islands[id].opened = true
+	var research_state := ResearchSystem.initial()
+	for node in catalog.nodes: research_state.completed[node.id] = true; research_state.mastered[node.id] = true
+	game.content = EconomySlice.bind(content, research_state)
+	var probe := EconomyProfile.open(content, SliceMemory.new(), catalog, true).profile as EconomyProfile
+	check(probe._stage(game, research_state, {"ok":true}).ok, "fixture stage")
+	return probe
+
+func smoke() -> void:
+	check(catalog.nodes.size() == 14 and ResearchSystem.validate_catalog(catalog, content).is_empty(), "14-node DAG")
+	check(ProcessingCatalog.validate(content.processing_catalog).ok, "component recipe closure")
+	var d1 := EconomySlice.create_late()
+	var previous := EconomyProfile.open(d1.content, SliceMemory.new(), d1.catalog, true).profile as EconomyProfile
+	check(p.inspect_save(previous._source).get("error") == "PROFILE_VERSION:rules_version", "D1 explicit version rejection")
+	check(previous.inspect_save(p._source).get("error") == "PROFILE_VERSION:rules_version", "D2 no downgrade")
+	for id in EconomySlice.FRONTIER_GATES:
+		super.rejected("craft", {"recipe_id":id,"island_id":"home"}, "RESEARCH_REQUIRED:"+EconomySlice.FRONTIER_GATES[id])
+		super.rejected("switch_processing", {"recipe_id":id,"island_id":"home"}, "RESEARCH_REQUIRED:"+EconomySlice.FRONTIER_GATES[id])
+	var probe := fixture_profile()
+	for recipe in ["mithril_matrix", "void_array"]:
+		var before := probe.view()
+		var mem := SliceMemory.new()
+		# Clone exact fixture bytes into a fault-capable isolated adapter.
+		mem.data["econ_r1_" + SaveSlots.SLOT_MAIN] = probe._source
+		probe = EconomyProfile.open(content, mem, catalog).profile
+		var cmd := {"type":"craft", "payload":{"recipe_id":recipe,"island_id":"home"}, "command_id":"fixture:"+recipe, "expected_revision":probe._game.state.revision}
+		mem.reject_candidate = true
+		var denied := probe.submit(cmd)
+		check(not denied.ok and ResearchSystem.same(before.state, probe.view().state), "component refusal preserves stock "+recipe)
+		var frozen := probe._pending
+		mem.reject_candidate = false
+		check(probe.retry_save().ok and probe._source == frozen, "component exact-byte retry "+recipe)
+		check(probe.submit(cmd).get("duplicate", false), "component receipt "+recipe)
+		var reloaded := EconomyProfile.open(content, mem, catalog)
+		check(reloaded.ok and ResearchSystem.same(probe.view(), reloaded.profile.view()), "paid component job reload "+recipe)
+		var held: float = probe._game.state.resources[recipe].value.to_float()
+		check(probe.advance_time(IslandEconomy.durations(probe._game.state)[recipe]).ok, "component elapsed production "+recipe)
+		check(probe._game.state.resources[recipe].value.to_float() == held + 1, "one actual output "+recipe)
+	# Both components are paid into two useful, functioning equipment sinks.
+	for id in ["research_instruments", "matrix_storehouse", "void_condenser", "void_harvester"]:
+		var state := probe._game.state
+		var data: Dictionary = content.buildings[id]
+		if data.prereq != null: state.buildings[data.prereq.building] = 1 # explicit unit fixture
+		var before_rates := Production.compute_rates(probe._game.content, state.buildings)
+		var before_caps := Production.compute_caps(content, state.buildings, 6, 0)
+		var before_void := IslandEconomy.rate(state, "void", "void_essence", probe._game.content.processing_catalog)
+		var before_time := EconomySlice.duration(state, probe._game.content.processing_catalog, "home", "stone_mid_bulk")
+		var paid: float = state.resources["mithril_matrix" if id in ["research_instruments", "matrix_storehouse"] else "void_array"].value.to_float()
+		var result := probe.submit({"type":"upgrade_building", "payload":{"building_id":id}, "command_id":"sink:"+id, "expected_revision":state.revision})
+		check(result.ok, "paid real sink "+id+":"+str(result))
+		state = probe._game.state
+		var resource := "mithril_matrix" if id in ["research_instruments", "matrix_storehouse"] else "void_array"
+		check(state.resources[resource].value.to_float() < paid, "sink consumes component "+id)
+		if id == "research_instruments": check(Production.compute_rates(content,state.buildings).wood.compare_to(before_rates.wood) > 0, "matrix improves economy")
+		if id == "matrix_storehouse": check(Production.compute_caps(content,state.buildings,6,0).stone_mid.compare_to(before_caps.stone_mid) > 0 and IslandEconomy.home_cap(state,"stone_mid",content.processing_catalog) == before_caps.stone_mid.to_float()+5000, "matrix shared actual storage cap")
+		if id == "void_condenser": check(EconomySlice.duration(state,probe._game.content.processing_catalog,"home","stone_mid_bulk") < before_time, "void improves stone work")
+		if id == "void_harvester": check(IslandEconomy.rate(state,"void","void_essence",probe._game.content.processing_catalog) > before_void, "void improves local supply")
+	# New research completion and already-paid component work share online/split/UTC.
+	var boundary := fixture_profile()
+	var r := boundary._research.duplicate(true)
+	r.completed.erase("R14"); r.mastered.erase("R14")
+	check(ResearchSystem.start(catalog,r,boundary._game.state,"R14",content).ok,"paid R14 boundary fixture")
+	r.job.remaining = 3
+	boundary._game.content = EconomySlice.bind(content,r)
+	check(boundary._stage(boundary._game,r,{"ok":true}).ok,"persist R14 boundary")
+	var branches: Array = []
+	for i in 3:
+		var mem := SliceMemory.new()
+		mem.data["econ_r1_"+SaveSlots.SLOT_MAIN] = boundary._source
+		var opened := EconomyProfile.open(content,mem,catalog)
+		check(opened.ok,"R14 branch load")
+		branches.append(opened.profile)
+	check(branches[0].advance_time(4).ok,"R14 online")
+	check(branches[1].advance_time(1.5).ok and branches[1].advance_time(2.5).ok,"R14 fractional split")
+	check(branches[2].settle_to(1000000).ok and branches[2].settle_to(1004000).ok,"R14 UTC")
+	write_report("boundary-parity", {"online":branches[0].view(),"split":branches[1].view(),"utc":branches[2].view()})
+	for branch in branches:
+		check(branch._research.completed.has("R14"),"R14 actual completion")
+		check(ResearchSystem.same(precision_snapshot(branches[0].view().state),precision_snapshot(branch.view().state)) and ResearchSystem.same(branches[0].view().research,branch.view().research),"R14 all fields; ledger closing at 1e-6 precision")
+	print("ECON-D2 smoke failures=", failures)
+
+func setup(id: String) -> bool:
+	return true if int(s.state.buildings.get(id,0)) > 0 else build(id)
+
+func opening(id: String) -> bool:
+	return true if s.state.economy.get("islands",{}).get(id,{}).get("opened",false) else super.opening(id)
+
+func checkpoint() -> void:
+	write_report("checkpoint", {"storage":memory.data,"trace":trace,"waits_seconds":waits,"witnesses":witnesses,"first_quotes":first_quotes,"commands":commands,"serial":serial,"failures":failures})
+
+func earned_late() -> bool:
+	if s.state.era_id < 3 and not life(): return false
+	if s.state.era_id == 3 and (not research("R08") or not ladder(3)): return false
+	interleave = true
+	if s.state.era_id == 4:
+		if not opening("deep") or not research("R09") or not setup("mineral_focus") or not research("R10") or not setup("core_storehouse_4") or not setup("cultivation_focus_4"): return false
+		if not p._research.completed.has("R11"):
+			interleave = false
+			var reserves := {}
+			for level in range(s.state.level,10):
+				var costs := plain(Cultivation.level_up_cost(content.eras[4],level,0))
+				for resource in costs: reserves[resource] = float(reserves.get(resource,0))+float(costs[resource])
+			if not bill(reserves): return false
+			interleave = true
+			if not research("R11"): return false
+		if not setup("research_instruments") or not ladder(4): return false
+		checkpoint()
+	if s.state.era_id == 5:
+		if not opening("ancient") or not research("R12") or not setup("ancient_focus") or not research("R13") or not setup("matrix_storehouse") or not setup("core_storehouse_5") or not setup("cultivation_focus_5") or not ladder(5): return false
+		checkpoint()
+	if s.state.era_id == 6:
+		if not opening("void"): return false
+		if not p._research.completed.has("R14"):
+			interleave = false
+			var reserves: Dictionary = ResearchSystem.node_for(catalog,"R14").cost.duplicate(true)
+			# Prefetch three level bills within measured authoritative capacity.
+			# Include research inputs so making its high stones cannot eat this reserve.
+			for level in range(s.state.level,mini(10,s.state.level+3)):
+				var costs := plain(Cultivation.level_up_cost(content.eras[6],level,0))
+				for resource in costs: reserves[resource] = float(reserves.get(resource,0))+float(costs[resource])
+			if not bill(reserves): return false
+			interleave = true
+			if not research("R14"): return false
+		if not setup("void_focus") or not setup("void_harvester") or not setup("void_condenser") or not setup("cultivation_focus_6") or not ladder(6): return false
+	return true
+
+func write_report(name: String, data: Dictionary) -> void:
+	var file := FileAccess.open(RunnerResult.output_path("res://econ-r1-d2/"+name+".json"),FileAccess.WRITE)
+	check(file != null, "report "+name)
+	if file != null: file.store_string(JSON.stringify(data,"\t",true)); file.close()
+
+func run() -> void:
+	policy = "econ-d2-solo-interleaved"
+	var loaded := EconomySlice.create_frontier()
+	check(loaded.ok,"frontier factory")
+	content = loaded.content; catalog = loaded.catalog
+	var opened := EconomyProfile.open(content,memory,catalog,true,1)
+	check(opened.ok,"fresh frontier")
+	if not opened.ok: print(opened); RunnerResult.finish(self,1); return
+	p = opened.profile; s = p._game
+	smoke()
+	var rebuild := OS.get_environment("DAO_ECON_D2_REBUILD")
+	var resume := rebuild if not rebuild.is_empty() else OS.get_environment("DAO_ECON_D2_RESUME")
+	if not resume.is_empty():
+		var saved: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(resume))
+		memory.data = saved.storage
+		var restored := EconomyProfile.open(content,memory,catalog)
+		check(restored.ok,"authentic D2 continuation")
+		if not restored.ok: print(restored); RunnerResult.finish(self,1); return
+		p = restored.profile; s = p._game
+		trace = saved.trace; waits = saved.waits_seconds; witnesses = saved.witnesses
+		first_quotes = saved.first_quotes; commands = int(saved.commands); serial = int(saved.serial)
+	if not rebuild.is_empty() and failures.is_empty():
+		var first_seconds := s.state.total_elapsed_seconds
+		check(s.state.era_id==6 and s.state.level==10 and p._research.completed.size()==14,"authentic first-life frontier")
+		var remaining := Lifespan.for_state(content.era_lifespan_entries(),s.state)-s.state.total_elapsed_seconds
+		var death := p.advance_time(remaining+1)
+		s = p._game
+		check(death.ok and death.get("stopped")=="lifespan_exhausted","earned natural first-life death")
+		check(send("reincarnate",{"mode":"normal"}),"earned official next life")
+		check(p._research.completed.is_empty() and p._research.job.is_empty(),"earned research reset")
+		for id in ["mithril_matrix","void_array"]: check(value(id)==0,"earned no material inheritance "+id)
+		for id in ["research_seat","craft_workshop","research_instruments","matrix_storehouse","void_condenser","void_harvester"]: check(int(s.state.buildings.get(id,0))==0,"earned no free equipment "+id)
+		interleave = false
+		var ok := life()
+		check(ok and s.state.era_id==3 and s.state.level==10,"earned second-life early rebuild:"+blocked)
+		write_report("rebuild",{"task":"ECON-R1-D2","scope":"authentic first-life Era6 checkpoint, natural death, official second-life Era1-3 rebuild; not second-life Era6","first_seconds":first_seconds,"second_seconds":s.state.total_elapsed_seconds,"research":p._research,"trace":trace,"waits_seconds":waits,"witnesses":witnesses,"first_quotes":first_quotes,"failures":failures,"blocked":blocked})
+		checkpoint()
+		print("ECON-D2 rebuild seconds=",s.state.total_elapsed_seconds," endpoint=",s.state.era_id,":",s.state.level," failures=",failures)
+		RunnerResult.finish(self,0 if failures.is_empty() else 1)
+		return
+	if (OS.get_environment("DAO_ECON_D2_EARNED") == "1" or not resume.is_empty()) and failures.is_empty():
+		var ok := earned_late()
+		check(ok and s.state.era_id == 6 and s.state.level == 10 and p._research.completed.size() == 14,"earned Era6:"+blocked)
+		write_report("earned-path", {"task":"ECON-R1-D2", "seconds":s.state.total_elapsed_seconds,"era":s.state.era_id,"level":s.state.level,"research":p._research,"trace":trace,"waits_seconds":waits,"witnesses":witnesses,"failures":failures,"blocked":blocked})
+		write_report("checkpoint", {"storage":memory.data,"trace":trace,"waits_seconds":waits,"witnesses":witnesses,"first_quotes":first_quotes,"commands":commands,"serial":serial,"failures":failures})
+		print("ECON-D2 earned seconds=",s.state.total_elapsed_seconds," endpoint=",s.state.era_id,":",s.state.level," blocked=",blocked," failures=",failures)
+	RunnerResult.finish(self,0 if failures.is_empty() else 1)

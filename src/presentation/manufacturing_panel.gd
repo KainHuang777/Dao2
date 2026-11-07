@@ -19,6 +19,9 @@ var detail_costs
 var workshop_costs
 var detail_stock: Label
 var detail_status: Label
+var detail_uses: Label
+var building_names: Dictionary
+var building_definitions: Dictionary
 var detail_materials: Dictionary = {}
 var start_button: Button
 var stop_button: Button
@@ -34,6 +37,7 @@ var compact_cards := false
 var production := ProductionController.new()
 var recipe_drafts := {}
 signal transport_requested(route_id: String)
+signal research_requested()
 
 func _ready() -> void:
 	super._ready()
@@ -106,6 +110,8 @@ func select_recipe(id: String) -> void:
 	detail_materials = cards[id]
 	detail_stock = _label("")
 	detail_box.add_child(detail_stock)
+	detail_uses = _label("")
+	detail_box.add_child(detail_uses)
 	detail_status = _label("")
 	detail_box.add_child(detail_status)
 	detail_progress = cards[id].progress
@@ -409,6 +415,8 @@ func _update_progress(bar: ProgressBar, job: Dictionary, duration: float) -> voi
 		bar.value = value
 
 static func reason_text(code: String) -> String:
+	if code.begins_with("RESEARCH_REQUIRED:"): return "先完成工藝研習 " + code.get_slice(":", 1)
+	if code == "HUB_REQUIRED": return "先啟用祖島集中製造"
 	return {"ECONOMY_NOT_MIGRATED": "先啟用空島", "ISLAND_NOT_OPEN": "先開拓此島", "ERA_REQUIREMENT": "境界未解鎖", "FACILITY_REQUIREMENT": "先升級洞府設施", "RESOURCE_LOCKED": "資源未解鎖", "RECIPE_ISLAND_REQUIREMENT": "先接續丹霞版本", "INSUFFICIENT_RESOURCE": "缺料・查看詳情", "OUTPUT_FULL": "產物滿倉"}.get(code, code)
 
 func _refresh_detail() -> void:
@@ -431,6 +439,9 @@ func _refresh_detail() -> void:
 	var processing := float(_catalog.recipes[selected_recipe].output) if job.get("recipe_id") == selected_recipe and int(job.get("remaining", 0)) > 0 else 0.0
 	stock.append("產物可用 %.1f／容量 %.0f\n在途 %.1f・加工待完成 %.1f・容量預留 %.1f" % [float(slot.get("available", 0)), float(info.capacity), incoming, processing, float(slot.get("reserved", 0))])
 	detail_stock.text = "\n".join(stock)
+	detail_uses.visible = _view.has("research")
+	if detail_uses.visible:
+		detail_uses.text = _material_uses(String(info.product_id))
 	_refresh_detail_costs(info)
 	detail_status.text = "尚未開始" if job.is_empty() else _job_text(job)
 	var duration: float = _view.manufacturing.recipes.get(job.get("recipe_id", ""), {}).get("duration", info.duration)
@@ -450,8 +461,11 @@ func _refresh_detail() -> void:
 	var workshop_text := "加工坊%d階・%d→%d秒／批" % [level, int(info.duration), int(ceil(10.0 / mini(3, level + 1)))]
 	workshop_button.text = "祖島設施・洞府建築" if island == "home" else workshop_text + ("\n已達上限" if level >= 3 else "")
 	workshop_button.disabled = island != "home" and (level >= 3 or not bool(_view.manufacturing.islands[island].opened))
+	if island != "home" and _view.has("research") and not _view.research.state.completed.has("R03"):
+		workshop_button.text = "升階需研習 R03"
+		workshop_button.disabled = true
 	_refresh_workshop_costs(level)
-	supply_button.text = "處理缺料／滿倉"
+	supply_button.text = "前往工藝研習" if String(info.reason).begins_with("RESEARCH_REQUIRED:") else "前往工藝坊" if _view.has("research") and info.reason == "FACILITY_REQUIREMENT" and int(_view.buildings.craft_workshop.level) == 0 else "處理製造瓶頸"
 	supply_button.visible = not String(info.reason).is_empty()
 
 func _refresh_detail_costs(info: Dictionary) -> void:
@@ -498,6 +512,16 @@ func _production_label(lane: String) -> String:
 
 func _open_supply() -> void:
 	var info: Dictionary = _view.manufacturing.recipes[selected_recipe]
+	if _view.has("research"):
+		if String(info.reason).begins_with("RESEARCH_REQUIRED:"):
+			research_requested.emit()
+			return
+		if info.reason == "FACILITY_REQUIREMENT" and int(_view.buildings.craft_workshop.level) == 0:
+			page_requested.emit("buildings", "craft_workshop")
+			return
+		if info.reason in ["ISLAND_NOT_OPEN", "ECONOMY_NOT_MIGRATED", "HUB_REQUIRED"]:
+			page_requested.emit("outposts", "wood" if island == "home" else island)
+			return
 	if info.reason == "OUTPUT_FULL":
 		page_requested.emit("buildings" if _central() or island == "home" else "outposts","home" if _central() else island)
 		return
@@ -507,6 +531,22 @@ func _open_supply() -> void:
 	elif fix.page == "transport": transport_requested.emit(fix.id)
 	elif fix.page == "manufacturing": select_recipe(fix.id)
 	else: page_requested.emit(fix.page,fix.id)
+
+func _material_uses(resource: String) -> String:
+	var uses := PackedStringArray()
+	for node in _view.research.nodes:
+		if int(node.era) <= int(_view.era_id) + 1 and node.cost.has(resource):
+			uses.append("研習 " + node.id)
+	for id in _catalog.recipes:
+		if int(_catalog.recipes[id].era) <= int(_view.era_id) + 1 and _catalog.recipes[id].inputs.has(resource):
+			uses.append("製造" + _recipe_name(id))
+	for id in building_definitions:
+		var definition: Dictionary = building_definitions[id]
+		if int(definition.era) <= int(_view.era_id) + 1 and definition.base_cost.has(resource):
+			uses.append("營造" + String(building_names.get(id, id)))
+	if resource in ["spirit_timber", "bronze_essence"]: uses.append("築基後段晉階、工藝坊二階")
+	if resource.ends_with("_pill"): uses.append("煉丹頁服用")
+	return "材料用途  " + "、".join(uses) if not uses.is_empty() else ""
 
 func set_layout_bounds(bounds: Rect2) -> void:
 	super.set_layout_bounds(bounds)

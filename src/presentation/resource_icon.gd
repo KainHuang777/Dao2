@@ -8,10 +8,12 @@ const TEXTURES := {
 	"contribution": preload("res://assets/ui/resources-painted/imm4-r2/contribution.png"),
 	"refined_iron": preload("res://assets/ui/resources-painted/imm4-r2/refined_iron.png"),
 	"mithril": preload("res://assets/ui/resources-painted/imm4-r2/mithril.png"),
+	"mithril_matrix": preload("res://assets/ui/resources-painted/imm4-r2/mithril_matrix.png"),
 	"cold_iron": preload("res://assets/ui/resources-painted/imm4-r2/cold_iron.png"),
 	"spirit_grass_1000y": preload("res://assets/ui/resources-painted/imm4-r2/spirit_grass_1000y.png"),
 	"trans_pill": preload("res://assets/ui/resources-painted/imm4-r2/trans_pill.png"),
 	"void_essence": preload("res://assets/ui/resources-painted/imm4-r2/void_essence.png"),
+	"void_array": preload("res://assets/ui/resources-painted/imm4-r2/void_array.png"),
 	"star_metal": preload("res://assets/ui/resources-painted/imm4-r2/star_metal.png"),
 	"void_crystal": preload("res://assets/ui/resources-painted/imm4-r2/void_crystal.png"),
 	"spirit_crystal": preload("res://assets/ui/resources-painted/imm4-r2/spirit_crystal.png"),
@@ -54,6 +56,8 @@ const TEXTURES := {
 }
 
 const NAMES := {
+	"mithril_matrix": "秘銀陣匣",
+	"void_array": "太虛陣樞",
 	"dao_heart": "道心",
 	"dao_proof": "道證",
 	"contribution": "貢獻",

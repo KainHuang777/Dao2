@@ -91,7 +91,7 @@ static func validate(h: Variant, life: Dictionary) -> String:
 	if not LifeLedger._integer(h.version, 1) or int(h.version) != VERSION: return "HISTORY_VERSION"
 	if not LifeLedger._number(h.started_at) or not LifeLedger._integer(h.omitted): return "HISTORY_COVERAGE"
 	if not LifeLedger._number(life.get("started_at")) or not LifeLedger._number(life.get("until")) or float(h.started_at) < float(life.started_at) or float(h.started_at) > float(life.until): return "HISTORY_TIME"
-	if not h.samples is Array or h.samples.size() > LIMIT or LifeLedger.bytes(h) > BUDGET: return "HISTORY_LIMIT"
+	if not h.samples is Array or h.samples.size() > LIMIT or _encoded_bytes(h) > BUDGET: return "HISTORY_LIMIT"
 	var previous := -1.0
 	for s in h.samples:
 		if not s is Dictionary or not LifeLedger._keys(s, ["at", "rows"]) or not LifeLedger._number(s.at): return "HISTORY_SAMPLE"
@@ -105,6 +105,15 @@ static func validate(h: Variant, life: Dictionary) -> String:
 			var row: Variant = s.rows[key]
 			if not row is Array or row.size() != 2 or not ResourceLedger._valid_amount(row[0], false) or (row[1] != null and not ResourceLedger._valid_amount(row[1], false)): return "HISTORY_AMOUNT"
 	return ""
+
+static func _encoded_bytes(h: Dictionary) -> int:
+	# JSON parses the declared integer fields as floats (1 -> 1.0), adding four
+	# bytes to a valid near-budget history before from_snapshot restores them.
+	# Measure the writer's declared types without changing the observations.
+	var wire := h.duplicate()
+	wire.version = int(h.version)
+	wire.omitted = int(h.omitted)
+	return LifeLedger.bytes(wire)
 
 static func interval(life: Dictionary, start: float, finish: float) -> Dictionary:
 	var result := {"samples": [], "events": [], "decisions": []}

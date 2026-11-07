@@ -10,6 +10,7 @@ const RECIPES := {"wood": "spirit_timber", "ore": "bronze_essence", "herb": "liq
 const HOME_RECIPES := ["liquid", "formation_core", "foundation_pill", "stone_mid", "golden_core_pill", "talisman"]
 
 static func owns(state: GameState, island: String, recipe: String) -> bool:
+	if EconomySlice.frontier_state(state) and island == "home" and recipe in ["mithril_matrix", "void_array"]: return true
 	if state.economy.get("version") == SUPPLY_VERSION and island == "home" and recipe in ["stone_mid_bulk", "stone_high", "trans_pill"]:
 		return true
 	if state.economy.get("version") == LEGACY_VERSION:

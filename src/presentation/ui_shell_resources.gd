@@ -13,6 +13,10 @@ static func describe(snapshot: Dictionary, view: Dictionary, nav: RefCounted) ->
 			summary = "靈草 %s" % _value(resources, "spirit_grass_low") if route == "alchemy" else "建設材料"
 			for id in ["lingli", "wood", "stone_low", "spirit_grass_low"]:
 				lines.append("%s %s" % [_name(id), _value(resources, id)])
+		"research":
+			summary = "研習材料"
+			for id in _research_materials(view):
+				lines.append("%s %s" % [_name(id), _value(resources, id)])
 		"outposts", "manufacturing", "transport":
 			var islands: Array = []
 			if route == "outposts": islands = [nav.island_panel.island]
@@ -100,6 +104,12 @@ static func inventory(snapshot: Dictionary, view: Dictionary, nav: RefCounted) -
 		return result
 	if route in ["skills", "beasts", "fortune", "decisions", "reincarnation"]:
 		return _focused_inventory(snapshot, view)
+	if route == "research":
+		var items := []
+		for id in _research_materials(view):
+			items.append(_resource_item(view, id, "home:" + id))
+		return {"supported":true, "context":route, "scope":"research", "title":"研習材料",
+			"groups":[{"id":"home", "title":"祖島可用庫存", "items":items}], "notes":[]}
 	if route not in ["outposts", "manufacturing", "transport"]:
 		result.notes.append("TODO IMM-1B／1C：此頁尚未接入圖像庫存")
 		return result
@@ -190,6 +200,14 @@ static func inventory(snapshot: Dictionary, view: Dictionary, nav: RefCounted) -
 	result.scope = route + "|" + ",".join(context_islands)
 	result.groups = groups
 	return result
+
+static func _research_materials(view: Dictionary) -> Array:
+	var ids := {}
+	for node in view.get("research", {}).get("nodes", []):
+		if int(node.era) <= int(view.era_id):
+			for id in node.cost:
+				ids[id] = true
+	return ids.keys()
 
 static func _ordered_ids(stock: Dictionary) -> Array:
 	var ordered: Array = []

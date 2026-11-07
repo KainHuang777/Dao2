@@ -236,6 +236,34 @@
         1231
       ],
       "sha256": "6825936616204321e93836685576e3762d49e37a49f4d2fa0125341529a39ee2"
+    },
+    {
+      "id": "mithril_matrix",
+      "file": "mithril_matrix.png",
+      "source_region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "sha256": "5ba012dbea693f3512fcec62d65304564b91329d685359bfb0ca5d84f89d127c",
+      "raw_source": "docs/artwork/imm4-r2/mithril_matrix-raw.png",
+      "raw_sha256": "dd0861e5b6b5f51093ad623c964cff4287e4e166825181764b08beb7a08a51d6",
+      "qc": "docs/artwork/imm4-r2/mithril_matrix-qc.json"
+    },
+    {
+      "id": "void_array",
+      "file": "void_array.png",
+      "source_region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "sha256": "b761df89b671ff7ba206aae983de0d81d01dc6b5b3b8d6bf27a984efc5f33c08",
+      "raw_source": "docs/artwork/imm4-r2/void_array-raw.png",
+      "raw_sha256": "1fa397a835be2ea05f3ffad044424d35da30acba31cf8fa8083eef4bb8b8ef59",
+      "qc": "docs/artwork/imm4-r2/void_array-qc.json"
     }
   ]
 }

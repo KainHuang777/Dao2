@@ -69,6 +69,7 @@ var _tab_content_container: VBoxContainer
 var _cached_sect_data: Dictionary = {}
 var _cached_resources: Dictionary = {}
 var _cached_state: GameState
+var session_content: GameContent
 var _cached_is_eligible_to_join: bool = false
 var _header_reflow_pending := false
 var _in_layout := false
@@ -1058,7 +1059,7 @@ func _render_market_tab() -> void:
 			if market_strip != null:
 				_refresh_cost_strip(market_strip, {"contribution": float(def.cost)}, "兌換價格", "貢獻不足", {"contribution": "宗門"})
 			var enough := _has_contribution(float(def.cost))
-			var destination := SectSystem.market_destination_error(_cached_state, item_id, SaveManager.content())
+			var destination := SectSystem.market_destination_error(_cached_state, item_id, session_content if session_content != null else SaveManager.content())
 			buy_btn.disabled = is_sold_out or not enough or not destination.is_empty()
 			buy_btn.text = "售罄" if is_sold_out else (_market_status(destination) if not destination.is_empty() else ("兌換物資" if enough else "貢獻不足"))
 			buy_btn.tooltip_text = cost_lbl.text + "；含在途預留的祖島有效容量足夠才整包交付，不扣款或占次數於拒絕時。" if item_id in SectSystem.P2_MARKET else ("需當世築基；全額交付，空間不足不扣貢獻也不占次數。" if def.has("min_era") else "")

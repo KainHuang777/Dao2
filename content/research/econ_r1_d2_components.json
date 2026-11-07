@@ -1,0 +1,146 @@
+{
+  "resources": {
+    "mithril_matrix": {
+      "name": "秘銀陣匣",
+      "era": 4,
+      "tier": 3,
+      "cap": "60",
+      "source": "home paid recipe mithril_matrix; R11",
+      "sinks": [
+        "research_instruments",
+        "matrix_storehouse",
+        "R14 sample",
+        "void_array"
+      ]
+    },
+    "void_array": {
+      "name": "太虛陣樞",
+      "era": 6,
+      "tier": 3,
+      "cap": "30",
+      "source": "home paid recipe void_array; R14",
+      "sinks": [
+        "void_condenser",
+        "void_harvester"
+      ]
+    }
+  },
+  "recipes": {
+    "mithril_matrix": {
+      "version": 1,
+      "era": 4,
+      "product": "mithril_matrix",
+      "inputs": {
+        "formation_core": "2",
+        "refined_iron": "5",
+        "mithril": "2"
+      },
+      "output": "1",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {}
+    },
+    "void_array": {
+      "version": 1,
+      "era": 6,
+      "product": "void_array",
+      "inputs": {
+        "mithril_matrix": "2",
+        "talisman": "4",
+        "stone_high": "10",
+        "void_essence": "5"
+      },
+      "output": "1",
+      "facility": {
+        "stone_mine": 3
+      },
+      "skills": {}
+    }
+  },
+  "durations": {
+    "mithril_matrix": 40,
+    "void_array": 90
+  },
+  "buildings": [
+    {
+      "id": "research_instruments",
+      "name": "秘銀研習儀",
+      "era": 4,
+      "max_level": 1,
+      "cost_factor": 1.0,
+      "prereq": {
+        "building": "research_seat",
+        "level": 1
+      },
+      "base_cost": {
+        "mithril_matrix": 2,
+        "wood": 40
+      },
+      "effect_weight": 0.0,
+      "effects": {
+        "wood": 4,
+        "stone_low": 4
+      }
+    },
+    {
+      "id": "matrix_storehouse",
+      "name": "陣匣儲運庫",
+      "era": 5,
+      "max_level": 1,
+      "cost_factor": 1.0,
+      "prereq": {
+        "building": "core_storehouse_4",
+        "level": 1
+      },
+      "base_cost": {
+        "mithril_matrix": 3,
+        "stone_mid": 20
+      },
+      "effect_weight": 0.0,
+      "effects": {
+        "wood_max": 500,
+        "stone_mid_max": 5000
+      }
+    },
+    {
+      "id": "void_condenser",
+      "name": "太虛凝石坊",
+      "era": 6,
+      "max_level": 1,
+      "cost_factor": 1.0,
+      "prereq": {
+        "building": "craft_workshop",
+        "level": 1
+      },
+      "base_cost": {
+        "void_array": 2,
+        "stone_mid": 100
+      },
+      "effect_weight": 0.0,
+      "effects": {
+        "lingli": 100,
+        "stone_low": 30
+      }
+    },
+    {
+      "id": "void_harvester",
+      "name": "太虛採集儀",
+      "era": 6,
+      "max_level": 1,
+      "cost_factor": 1.0,
+      "prereq": {
+        "building": "void_focus",
+        "level": 1
+      },
+      "base_cost": {
+        "void_array": 2,
+        "cold_iron": 10
+      },
+      "effect_weight": 0.0,
+      "effects": {
+        "money": 50
+      }
+    }
+  ]
+}

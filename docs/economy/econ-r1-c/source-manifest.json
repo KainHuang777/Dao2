@@ -1,0 +1,31 @@
+{
+  "task": "ECON-R1-C",
+  "date": "2026-11-07",
+  "scope": "isolated Era1-3 solo slice; accelerated authoritative simulation",
+  "content_version": "d570c2c4d09f499b82e4ffcc646193376300600a153b6b4cd5f298a0f029a00a+res1-e-46-1+content-p2-sect+content-p2-beasts+content-p2-story+econ-r1-c-1",
+  "rules_version": "econ-r1-rules-2",
+  "economy_version": "econ-r1-economy-2",
+  "catalog_sha256": "640b465bd6182b6841b83b6f0cdddc820951a13e2199879354751fbeeb6e2c19",
+  "runtime_sources": {
+    "content/research/econ_r1.json": "c36fa391b0107a8dd9d086a8f4424e373aed5aceef29a8615e3b9a170e30da9e",
+    "content/recipes/era1_3.json": "167e2ac7530cbb69b9e8d202be4bcbeb44b5740e14728305bd726af2ff229f32",
+    "content/eras/era2.json": "08117dc87d093ebdcdc399a9b3e19e5fc86a22608090ce8ea85cd1e6caea653b",
+    "content/eras/era3.json": "0ffd94974e4909800663e089098c1750598792c4ec1c742d8a73b5a1617a172e",
+    "content/supply/era4_6.json": "16aff31416624bc20c0994d9264481a80f2e4586b1b94b82b7c9d4c9e3bf17ce",
+    "src/economy/economy_slice.gd": "d7bee9eedfbc9347da610d74e76e1e23212864778f3ac641a348bcbdce1bc3ec",
+    "src/economy/economy_profile.gd": "f6d09d8a2814cc8dba4914f4460230c64f0acd80de383189948861fb327cc38b",
+    "src/economy/economy_profile_storage.gd": "4a2dd399f2166ad7413f4d9aa5e03eef75c3fb23f2d57d7eb79e484935415936",
+    "src/economy/economy_effects.gd": "3184c5e5210bc711da7bcde178125b9e969d0baa73e34d9f66e497910e5fd5ae",
+    "src/economy/research_system.gd": "faea3daf8c3959fd3239a1f39c8cf583acd91ed0f41bb8334e5578d3aa760a36",
+    "src/application/game_session.gd": "2092a881396186c224a6c3cd93ab7c1a1c4b9c87079f408dce4400a1caf23042",
+    "src/simulation/command_processor.gd": "962a8b498705170eb40d9b5d7609f938f152bc7aa673218e63eb02c138da4f6b",
+    "src/simulation/island_economy.gd": "e6f649cd3e41256d68670ec81988bfd0889cf6caf8d774da7c0884c96aea40b8",
+    "src/simulation/island_progression.gd": "558fd1909f965ec4d7cfc18c16d8886ec6fd050102415d306492c0fc7956a412",
+    "src/simulation/time_advancer.gd": "5b23ed23391992fc356701d3272a5527543b99b233597ffa018cc8bd02b4ad40",
+    "src/simulation/cultivation.gd": "4294c43f4f62699e6c7145816d809e8765777561cc8ec3bf8b349adbdffb26d6",
+    "src/simulation/production.gd": "97724d3b6bac5cfe7c796c172b84a48159ff416ea7ab9cba74f6dc859672be9c",
+    "src/domain/life_history.gd": "dadf260bba4387e428ff399af506cd78b97d24c7b4cc5ef92ff81c85d4480f26"
+  },
+  "engine_version": "4.7.2.stable.official.ed1daf0bf",
+  "earned_first_life_checkpoint_sha256": "2e4bb2f4538433b2010736e31e12ad498907a9ff4f09d9713a18094aded52617"
+}

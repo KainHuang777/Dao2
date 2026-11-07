@@ -134,6 +134,29 @@ func run() -> void:
 		check(ReincarnationRules.apply_reincarnation(retention.state, content, "normal", "retain" + str(n)).ok, "seal retention")
 	check(retention.state.life_ledger.archive.size() == 9 and retention.state.life_ledger.archive[0].life_id == 4, "retains latest nine lives only")
 	check(LifeLedger.bytes(retention.state.life_ledger) <= LifeLedger.TOTAL_BYTES and LifeLedger.validate(retention.state.life_ledger, 13).is_empty(), "nine lives within inherited total budget")
+	# A legal wire history exactly at the limit must survive JSON integer->float
+	# representation changes; a real extra byte still exceeds the same budget.
+	var boundary := {"version":1, "started_at":0.0, "omitted":0, "samples":[]}
+	for index in 3:
+		var rows := {}
+		for resource in 12: rows["home:r"+str(resource)] = ["1", "2"]
+		boundary.samples.append({"at":float(index * 60), "rows":rows})
+	for sample in boundary.samples:
+		for row in sample.rows.values():
+			for field in 2:
+				while row[field].length() < 96 and LifeLedger.bytes(boundary) < LifeHistory.BUDGET:
+					row[field] += "0"
+	var scope := {"started_at":0.0, "until":120.0}
+	check(LifeLedger.bytes(boundary) == LifeHistory.BUDGET and LifeHistory.validate(boundary, scope).is_empty(), "exact history wire budget valid")
+	var wire_boundary: Dictionary = JSON.parse_string(JSON.stringify(boundary, "", true))
+	check(LifeLedger.bytes(wire_boundary) > LifeHistory.BUDGET, "reproduced JSON numeric byte expansion")
+	var before_boundary := JSON.stringify(wire_boundary, "", true)
+	check(LifeHistory.validate(wire_boundary, scope).is_empty(), "exact boundary reload valid")
+	check(JSON.stringify(wire_boundary, "", true) == before_boundary, "budget validation is read only")
+	var extra := boundary.duplicate(true)
+	extra.samples[0].rows["home:r0x"] = extra.samples[0].rows["home:r0"]
+	extra.samples[0].rows.erase("home:r0")
+	check(LifeHistory.validate(extra, scope) == "HISTORY_LIMIT", "one genuine extra byte rejected")
 	print("REPORT-2 ", checks, " checks failures=", failures)
 	RunnerResult.finish(self, 0 if failures.is_empty() else 1)
 
