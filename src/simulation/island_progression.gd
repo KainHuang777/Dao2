@@ -152,7 +152,7 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 			for id in IslandEconomy.supply_data().islands:
 				state.economy.islands[id] = {"opened": false, "inventory": {}}
 			if bool(p.get("hub", false)):
-				var hub_result := IslandEconomy.activate_hub(state)
+				var hub_result := IslandEconomy.activate_hub(state, true)
 				if not hub_result.ok: return hub_result
 			return _ok("islands_activated")
 		var checked := preview(state, content)

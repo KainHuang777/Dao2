@@ -1,0 +1,11 @@
+2026-11-08 ERA2-PLAYTEST-R1 INITIAL FINDINGS; PLAYER COMPARISON PENDING.
+
+Player screenshot shows Era2 level 1, full training, the pre-hub ore-to-home bronze route with 0 source and 1 home, and a shortage notice. Reproduced with the default rules and a command-earned isolated save. The two lanes can run in parallel. From the reproduced point, the scripted continuation reached the bronze quota at +100 simulated seconds and paid for level 2 at +221. Timber was the last requirement. Two targeted runners passed at 1280x720. The Chrome loopback connection was denied in this sandbox. See docs/development-status.md#era2-playtest-r1 for the distinction between guidance, handoffs, and batch time.
+
+NEXT New Chat: compare at the same checkpoint with a one-sentence hint, and time waiting once the route is understood. Confirm player edition and inventory before any balance changes. Manual commit is available for the initial diagnosis substage.
+
+2026-11-08 ERA2-PLAYTEST-PLAN COMPLETE; NEXT ERA2-PLAYTEST-R1.
+
+Installed repository-scoped dao2-playtest-review and dao2-evidence-review. The Era2 plan isolates wayfinding, unproductive wait, and mandatory handoffs. Observe the first bronze essence in the home inventory, then use a same-edition level-five checkpoint for the R03 gate. The existing D2 command trace and E browser fixture are bounded references. No new playtest or gameplay change in this planning stage.
+
+NEXT New Chat: run ERA2-PLAYTEST-R1 with the existing ECON-R1-F candidate, isolated save and desktop Chrome 1280x720. Record the player's edition and first stuck step. See docs/53-era2-playtest-plan.md and docs/development-status.md#era2-playtest-plan. Manual commit is available for this planning stage.

@@ -30,6 +30,7 @@ class ReadingHost extends VBoxContainer:
 func _init(scene: Node) -> void:
 	abode = scene
 	name = "MaidGuidanceDock"
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_theme_constant_override("separation", 6)
 	bubble = PanelContainer.new()
 	bubble.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
@@ -194,7 +195,7 @@ func show_bubble(manual: bool) -> void:
 		_pending = false
 		_elapsed = 0.0
 	bubble.show()
-	mouse_filter = Control.MOUSE_FILTER_PASS
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if manual and abode.maid_stand.bubble_bounds(abode.hud.size).size.x <= 0.0:
 		close_button.hide()
 		bubble.reparent(reader, false)
@@ -211,6 +212,9 @@ func layout_bubble(bounds: Rect2) -> void:
 	if bounds.size.x <= 0.0:
 		bubble.hide()
 		_manual = false
+		position = Vector2(-9999, -9999)
+		size = Vector2.ZERO
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		return
 	position = bounds.position
 	size = bounds.size
@@ -224,6 +228,8 @@ func dismiss() -> void:
 	_manual = false
 	_remaining = 0.0
 	bubble.hide()
+	position = Vector2(-9999, -9999)
+	size = Vector2.ZERO
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if is_instance_valid(reader) and reader.visible and abode.feature_navigation.shell._tool == reader:
 		abode.feature_navigation.shell.close_overlay()

@@ -1,6 +1,7 @@
 extends RefCounted
 ## Canonical ownership of player features. Routes share the existing Session.
 const ShellPolicy = preload("res://src/presentation/ui_shell_policy.gd")
+const LevelUpSupply = preload("res://src/presentation/level_up_supply_panel.gd")
 const GROUPS := ShellPolicy.GROUPS
 const PANEL_KEYS := ["alchemy_panel", "reincarnation_panel", "realm_modal", "sect_panel", "fortune_modal", "achievement_panel"]
 ## Page presentation policy; costs and command eligibility remain in Session.
@@ -37,6 +38,10 @@ var transport_panel: Control
 var island_flow: Control
 var full_island_management := false
 var flow_return: Button
+var supply_return: Button
+var level_up_supply: PanelContainer
+var _level_up_target := Vector2i.ZERO
+var _restore_focused_recipe := false
 var _legacy_outposts := false
 var _shared_resource_count := 0
 var _changing := false
@@ -84,8 +89,31 @@ func build() -> void:
 		full_island_management = false
 		_tab_signature = ""
 		open(page))
+	supply_return = Button.new()
+	supply_return.custom_minimum_size.y = 44
+	UiMaterial.apply_button(supply_return)
+	row.add_child(supply_return)
+	supply_return.hide()
+	supply_return.pressed.connect(_return_to_supply_target)
 	abode.hud.add_child(bar)
 	bar.visible = false
+	level_up_supply = LevelUpSupply.new()
+	abode.hud.add_child(level_up_supply)
+	level_up_supply.hide()
+	level_up_supply.recipe_requested.connect(func(id: String):
+		_level_up_target = Vector2i(abode.session.state.era_id, abode.session.state.level)
+		shell.close_overlay()
+		if abode.session.state.economy.is_empty():
+			island_flow.island = IslandProgression.RECIPES.find_key(id)
+			island_flow.managing_island = false
+			island_flow.resume_recipe = id
+			open("outposts")
+		else:
+			open_manufacturing("", id))
+	level_up_supply.level_up_requested.connect(func():
+		shell.close_overlay()
+		_level_up_target = Vector2i.ZERO
+		abode._level_up_cultivation())
 	action_panel = preload("res://src/presentation/system_actions_panel.gd").new()
 	action_panel.action_requested.connect(_on_action)
 	abode.hud.add_child(action_panel)
@@ -133,7 +161,10 @@ func build() -> void:
 	manufacturing_panel.research_requested.connect(func(): open("research"))
 	if abode.economy_edition: full_island_management = true
 	transport_panel = preload("res://src/presentation/island_transport_panel.gd").new()
-	manufacturing_panel.transport_requested.connect(open_transport)
+	manufacturing_panel.transport_requested.connect(func(id: String):
+		_remember_recipe()
+		open_transport(id))
+	manufacturing_panel.supply_settings_requested.connect(_open_supply_settings)
 	transport_panel.manufacturing_requested.connect(open_manufacturing)
 	for panel in [manufacturing_panel, transport_panel]:
 		abode.hud.add_child(panel)
@@ -279,6 +310,9 @@ func home() -> void:
 	abode.camera.contacts.clear()
 	group = "home"
 	page = ""
+	_level_up_target = Vector2i.ZERO
+	island_flow.resume_recipe = ""
+	_restore_recipe_mode()
 	_changing = false
 	if shell != null:
 		abode._set_resource_display_mode(int(shell.state.snapshot().home_preferences.resource_mode))
@@ -423,6 +457,7 @@ func layout(vp: Vector2, view: Dictionary = {}) -> void:
 	abode.toolbar.size.x = minf(480.0, vp.x - nav_margin * 2.0)
 	if shell != null and shell.managed():
 		if group != "home": _refresh_tabs(view)
+		_refresh_supply_return(view)
 		shell.apply(vp)
 		return
 
@@ -478,6 +513,50 @@ func refresh(view: Dictionary) -> void:
 
 	_sync_flow()
 	if island_flow.visible: island_flow.refresh(view, abode.content.processing_catalog)
+	_refresh_supply_return(view)
+	if level_up_supply.visible: level_up_supply.refresh(view, abode.RESOURCE_NAMES)
+
+func request_level_up() -> void:
+	var view: Dictionary = abode._presentation_view()
+	if bool(view.get("can_level_up", false)):
+		abode._level_up_cultivation()
+	elif LevelUpSupply.offers_help(view):
+		level_up_supply.refresh(view, abode.RESOURCE_NAMES)
+		shell.open_tool(level_up_supply)
+
+func _refresh_supply_return(view: Dictionary) -> void:
+	var level_matches: bool = _level_up_target == Vector2i(int(view.era_id), int(view.level)) and bool(view.get("training_complete", false)) and not abode.lifespan_banner.visible
+	var recipe_pending: bool = _can_resume_recipe(view)
+	supply_return.visible = group == "management" and (level_matches or recipe_pending)
+	supply_return.text = "繼續原配方" if recipe_pending else "返回晉階"
+
+func _return_to_supply_target() -> void:
+	if _can_resume_recipe(abode._presentation_view()):
+		open_manufacturing("", island_flow.resume_recipe)
+	else:
+		level_up_supply.refresh(abode._presentation_view(), abode.RESOURCE_NAMES)
+		shell.open_tool(level_up_supply)
+
+func _can_resume_recipe(view: Dictionary) -> bool:
+	return page != "manufacturing" and not island_flow.resume_recipe.is_empty() and not view.economy.is_empty()
+
+func _remember_recipe() -> void:
+	if page != "manufacturing": return
+	island_flow.resume_recipe = island_flow.recipe if island_flow.visible else manufacturing_panel.selected_recipe
+
+func _restore_recipe_mode() -> void:
+	if not _restore_focused_recipe: return
+	_restore_focused_recipe = false
+	full_island_management = false
+	_tab_signature = ""
+
+func _open_supply_settings(id: String) -> void:
+	_remember_recipe()
+	if not full_island_management:
+		_restore_focused_recipe = true
+		full_island_management = true
+		_tab_signature = ""
+	open_transport(id)
 
 func _refresh_main_notifications(view: Dictionary) -> void:
 	var flags := FeatureUnlocks.notification_flags(view, abode.session.state.sect)
@@ -663,6 +742,8 @@ func _on_research_target(route: String, id: String) -> void:
 		_: open(route)
 
 func open_manufacturing(island_id: String, recipe_id: String = "") -> void:
+	_restore_recipe_mode()
+	island_flow.resume_recipe = ""
 	if not recipe_id.is_empty(): island_flow.recipe = recipe_id
 	elif island_id in IslandProgression.RECIPES: island_flow.recipe = IslandProgression.RECIPES[island_id]
 	open("manufacturing")
@@ -675,6 +756,7 @@ func _open_island_page(route: String, island_id: String) -> void:
 	if route == "manufacturing":
 		open_manufacturing(island_id)
 	else:
+		_remember_recipe()
 		if route == "outposts" and island_id in ["wood","ore"]: island_flow.island = island_id
 		open(route)
 		if route == "buildings": _focus_flow_building.call_deferred(island_id)
@@ -685,13 +767,14 @@ func _open_island_page(route: String, island_id: String) -> void:
 			transport_panel.select_island(island_id)
 
 func open_transport(route_id: String) -> void:
-	if not transport_panel._routes().has(route_id):
+	var routes: Dictionary = preload("res://src/presentation/island_flow_model.gd").routes(abode._presentation_view())
+	if not routes.has(route_id):
 		if abode.economy_edition: open("transport")
 		return
 	island_flow.route = route_id
 	open("transport")
 	if page != "transport" or not shell.state.snapshot().overlay.is_empty(): return
-	transport_panel.select_island(transport_panel._routes()[route_id][0])
+	transport_panel.select_island(routes[route_id][0])
 	transport_panel.select_route(route_id)
 
 func back() -> void:
@@ -757,16 +840,18 @@ func _sync_flow() -> void:
 		transport_panel.hide()
 
 func _flow_navigate(route: String, id: String) -> void:
+	if route == "transport_settings":
+		_open_supply_settings(id)
+		return
+	if route == "manufacturing" and not id.is_empty():
+		open_manufacturing("", id)
+		return
+	if route in ["outposts", "transport", "buildings", "research"]: _remember_recipe()
 	if route == "outposts" and id in ["wood","ore"]:
-		if page == "manufacturing": island_flow.resume_recipe = island_flow.recipe
 		island_flow.island = id
 		island_flow.managing_island = preload("res://src/presentation/island_flow_model.gd").opened(abode.session.get_view(),id)
 		island_flow.facility.select(0)
-	elif route == "manufacturing" and not id.is_empty():
-		island_flow.recipe = id
-		island_flow.resume_recipe = ""
 	elif route == "transport" and not id.is_empty():
-		if page == "manufacturing": island_flow.resume_recipe = island_flow.recipe
 		island_flow.route = id
 	open(route)
 	if route == "buildings": _focus_flow_building.call_deferred(id)

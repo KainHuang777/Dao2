@@ -72,6 +72,7 @@ func _run() -> void:
 	var before_home := value(s,"wood")
 	check(send(s,"activate_hub").ok,"explicit migration")
 	check(IslandEconomy.hub(s.state),"versioned hub active")
+	check(not s.state.economy.routes.has("copper_home"),"legacy conversion leaves raw routes manual")
 	check(s.state.economy.trips.ore_wood == original_trip and s.state.economy.routes.ore_wood == settings,"migration preserves trip and exact policy")
 	check(value(s,"wood","wood") == before_local and value(s,"wood") == before_home,"migration no inventory move/grant/payment")
 	check(s.state.economy.hub_legacy_jobs.has("wood"),"already paid batch keeps original output reservation")
@@ -130,6 +131,7 @@ func _run() -> void:
 	check(IslandEconomy.hub(formal.state),"formal new activation defaults hub")
 	check(IslandEconomy.route_defs(formal.state).has("copper_home"),"formal raw routes exposed")
 	_test_persistence()
+	_test_auto_haul()
 	_browser_fixture()
 	for failure in failures: push_error(failure)
 	print("HUB ECONOMY: %d checks; failures=%s" % [checks,str(failures)])
@@ -166,6 +168,99 @@ func _test_persistence() -> void:
 	SaveManager.configure(s.content,adapter)
 	var reloaded: GameState = SaveManager.load_state()
 	check(reloaded != null and IslandEconomy.hub(reloaded),"saved hub survives reload")
+
+func _test_auto_haul() -> void:
+	var content: GameContent = ContentLoader.load_directory("res://content").content
+	check(IslandProgression.attach_supply(content).ok,"auto haul supply content")
+	var decoded := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-c-earned-era2.json"))
+	check(decoded.ok,"auto haul earned Era2 source")
+	if not decoded.ok: return
+	var prepared := IslandProgression.prepare_supply(content,decoded.state)
+	check(prepared.ok,"auto haul source reconciles")
+	if not prepared.ok: return
+	var s := GameSession.new()
+	s.content = content
+	s.state = prepared.state
+	s.clock = GameClock.create(s.state.total_elapsed_seconds)
+	# Isolate a copper shortage from the earned opening fixture.
+	IslandEconomy._put(s.state,"home","black_copper",0)
+	var adapter := MemoryAdapter.new()
+	SaveManager.configure(content,adapter)
+	var before := s.state.to_snapshot_dict()
+	var wood := value(s,"wood")
+	var stone := value(s,"stone_low")
+	check(not SaveManager.activate_islands(s,META,"herb").ok,"Era2 first opening rejects later island")
+	check(s.state.to_snapshot_dict() == before,"rejected opening leaves stock and economy untouched")
+	adapter.fail_hub = true
+	check(not SaveManager.activate_islands(s,META,"ore").ok,"first opening reports rejected candidate write")
+	check(s.state.to_snapshot_dict() == before,"rejected write leaves payment and route unpublished")
+	adapter.fail_hub = false
+	check(SaveManager.activate_islands(s,META,"ore").ok,"first opening retries successfully")
+	check(value(s,"wood") == wood-20 and value(s,"stone_low") == stone-10,"opening pays exactly once")
+	var route: Dictionary = s.get_view().transport.copper_home.settings
+	check(route == {"enabled":true,"reserve":"0","target":"100","level":1},"opening immediately exposes the default copper route")
+	check(s.state.economy.routes.get("raw_stone_home") == route and not s.state.economy.routes.has("wood_home"),"ore opens both its raw routes and leaves wood closed")
+	var opened := s.state.to_snapshot_dict()
+	check(not send(s,"open_island",{"island_id":"ore"}).ok and s.state.to_snapshot_dict() == opened,"repeated opening keeps stock and route")
+	check(s.state.economy.jobs.is_empty() and s.state.economy.trips.is_empty(),"opening creates only the route policy")
+	var full := s.state.duplicate_state()
+	var catalog := content.processing_catalog
+	IslandEconomy._put(full,"home","black_copper",IslandEconomy.home_cap(full,"black_copper",catalog))
+	TimeAdvancer.advance(full,content,5)
+	check(not full.economy.trips.has("copper_home") and IslandEconomy.transport_view(full,catalog).copper_home.reason == "DESTINATION_FULL","full destination prevents departure")
+	IslandEconomy._put(full,"home","black_copper",0)
+	TimeAdvancer.advance(full,content,1)
+	check(full.economy.trips.has("copper_home"),"freeing destination storage resumes shipping")
+	s.advance_time(1)
+	var trip: Dictionary = s.get_view().transport.copper_home.trip
+	check(int(trip.get("remaining",0)) == 10 and float(trip.get("cargo",0)) > 0 and float(trip.get("cargo",0)) <= 10,"automatic departure uses normal travel time and cargo limit")
+	check(value(s,"black_copper") < 1 and work(s,"ore","bronze_essence").get("error") == "INSUFFICIENT_RESOURCE","cargo cannot be spent in transit")
+	check(SaveManager.save(s.state,META).ok,"in-transit state persists")
+	SaveManager.configure(content,adapter)
+	var reloaded: GameState = SaveManager.load_state()
+	check(reloaded != null and reloaded.economy.trips.get("copper_home") == trip,"reloaded cargo and timer match")
+	if reloaded == null: return
+	check(SaveManager.commit_supply_startup().ok,"finish any earned fixture startup reconciliation")
+	s.state = reloaded
+	var offline := reloaded.duplicate_state()
+	s.advance_time(20)
+	OfflineSettlement.settle(offline,content,21000,1000)
+	check(s.state.economy == offline.economy and is_equal_approx(value(s,"black_copper"),IslandEconomy.value(offline,"home","black_copper")),"online and offline logistics agree from the same saved state")
+	check(value(s,"black_copper") >= 10 and value(s,"bronze_essence") == 0,"copper arrives automatically and waits for player order")
+	check(work(s,"ore","bronze_essence").ok,"player uses delivered copper for central manufacturing")
+	s.advance_time(10)
+	check(value(s,"bronze_essence") == 1 and value(s,"bronze_essence","ore") == 0,"finished bronze enters ancestor inventory")
+	# Fund the route upgrade separately from the single-batch proof above.
+	IslandEconomy._put(s.state,"home","spirit_timber",10)
+	IslandEconomy._put(s.state,"home","bronze_essence",11)
+	check(send(s,"configure_route",{"route_id":"copper_home","enabled":false,"reserve":"3","target":"27","level":2}).ok,"manual pause and upgrade on automatic route")
+	var paused: Dictionary = s.state.economy.routes.copper_home.duplicate(true)
+	check(send(s,"open_island",{"island_id":"wood"}).ok and s.state.economy.routes.get("wood_home") == route,"wood opening enables its own route")
+	IslandEconomy._put(s.state,"home","wood",0)
+	IslandEconomy._put(s.state,"home","stone_low",0)
+	var deliveries: Array = s.advance_time(21).events
+	for id in ["wood_home","raw_stone_home"]:
+		check(deliveries.any(func(event: Dictionary) -> bool: return event.kind == "cargo_arrived" and event.route_id == id),"automatic delivery " + id)
+	check(s.state.economy.routes.copper_home == paused and not s.state.economy.trips.has("copper_home"),"opening and ticks preserve paused custom policy")
+	var saved := SaveManager.save(s.state,META)
+	check(saved.ok,"custom policies persist: " + str(saved.get("error","")))
+	SaveManager.configure(content,adapter)
+	reloaded = SaveManager.load_state()
+	check(reloaded != null and reloaded.economy.routes.copper_home == paused,"reload keeps stopped route, reserves, target and level")
+	IslandEconomy._put(s.state,"home","black_copper",10)
+	check(work(s,"ore","bronze_essence",true).ok,"player explicitly starts repeat manufacturing")
+	s.advance_time(10)
+	check(s.state.economy.jobs.get("ore",{}).get("status") == "INSUFFICIENT_RESOURCE","paid repeat job waits when the next batch lacks copper")
+	paused.enabled = true
+	paused.route_id = "copper_home"
+	check(send(s,"configure_route",paused).ok,"player resumes copper shipping")
+	s.advance_time(20)
+	check(int(s.state.economy.jobs.get("ore",{}).get("remaining",0)) > 0 or value(s,"bronze_essence") > 2,"delivered copper resumes the existing repeat order")
+	check(s.state.economy.trips.has("copper_home"),"reincarnation fixture has actual cargo")
+	s.state.total_elapsed_seconds = Lifespan.for_state(content.era_lifespan_entries(),s.state)
+	check(send(s,"reincarnate",{"mode":"normal"}).ok,"reincarnation commits normally")
+	check(s.state.economy.routes.is_empty() and s.state.economy.trips.is_empty() and s.state.economy.jobs.is_empty() and not s.state.economy.islands.ore.opened,"reincarnation clears current-life openings, jobs and shipments")
+	check(s.state.economy.get("hub_version") == IslandEconomy.HUB_AUTO_HAUL_VERSION,"next life retains the automatic opening policy")
 
 func _browser_fixture() -> void:
 	# Reuse the audited normal-command Era2 fixture; no injected resources.

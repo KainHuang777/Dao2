@@ -1,6 +1,6 @@
 # ECON-R1-F 契約：調參凍結、隔離候選與舊入口驗證
 
-狀態：執行中（2026-11-07）
+狀態：收尾完成（2026-11-08）。實跑採分批 L3，見[結案證據](../development-status.md#econ-r1-f-l3-batches)。
 上游：`docs/52-economy-reconstruction-reference.md` §13（ECON-R1-F 整批收尾）
 相依：ECON-R1-D／E 已完成（見 `docs/development-status.md`）
 

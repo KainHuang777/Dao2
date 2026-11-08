@@ -8,6 +8,8 @@
 
 # 修仙問道 v2
 
+2026-11-08 **ERA2-AUTO-HAUL R2 功能驗收完成**，自動補給、兩項製造及升築基二層已驗，等待分析暫緩。[狀態](docs/development-status.md#era2-auto-haul-r2)
+
 2026-10-09 **RES1-UI1-R5 DONE（有界運輸圖形化）**：七航線套用製造R4手繪物品框，來源→目的可用庫存、缺貨朱紅與真實载貨／倒數／進度；寬式雙欄、短式並排／固定成功回饋。56/56（B210）、最後B220／parity／responsive、精確Web三橫式／補料回運／自訂設定重載通過，一般Web同步。[驗收](docs/verification/res1-ui1-r5.md)。最終美術／實機待驗，下一New Chat收運輸回饋。
 
 2026-10-09 **RES1-UI1-R4 DONE（有界物品框修訂）**：依使用者示意恢復ICON＋數量＋來源整格2px框與淡底；材料灰青／產出青玉／缺料朱紅。207／parity／responsive、原生三尺寸與Web三橫式／實際製作通過，一般Web同步。[驗收](docs/verification/res1-ui1-r4.md)。最終美術／實機待驗；下一New Chat收回饋。下方R3無框為歷史版本。

@@ -700,8 +700,10 @@ func _ready() -> void:
 	duty_target.value = 1
 	duty_target.prefix = "目標 "
 	duty_target.suffix = " 個"
-	duty_target.custom_minimum_size.y = 44
+	duty_target.custom_minimum_size = Vector2(140, 44)
+	duty_target.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	duty_target.value_changed.connect(func(_value: float): _refresh_preview())
+	_style_paper_spin(duty_target)
 	work_fields.add_child(duty_target)
 	preset_row = BoxContainer.new()
 	preset_row.add_theme_constant_override("separation", 8)
@@ -711,11 +713,13 @@ func _ready() -> void:
 		preset_button.add_theme_font_size_override("font_size", 16)
 		preset_button.tooltip_text = "目標 %d・各材料保留 %d%%" % [int(preset.get("target", 1)), int(roundf(float(preset.get("reserve_ratio", 0.0)) * 100.0))]
 		preset_buttons.append(preset_button)
+	reserve_heading = _label("原料保留量（低於此數量不予動用）", 16)
+	reserve_heading.autowrap_mode = TextServer.AUTOWRAP_OFF
+	reserve_heading.add_theme_font_override("font", UiTypography.emphasis_font())
+	work_box.add_child(reserve_heading)
 	reserve_row = BoxContainer.new()
 	reserve_row.add_theme_constant_override("separation", 8)
 	work_box.add_child(reserve_row)
-	reserve_heading = _label("保留量", 18)
-	reserve_row.add_child(reserve_heading)
 	duty_hint = _label("尚無可用目標", 18)
 	work_box.add_child(duty_hint)
 	action_row = BoxContainer.new()
@@ -1135,6 +1139,7 @@ func _sync_reserve_rows(duty: Dictionary) -> void:
 	var rows := _selected_input_rows()
 	if kind not in TARGET_DUTIES or rows.is_empty():
 		_clear_reserve_rows()
+		reserve_heading.visible = false
 		reserve_row.visible = false
 		return
 	if _input_signature(rows) != _reserve_signature:
@@ -1168,13 +1173,51 @@ func _rebuild_reserve_rows(rows: Array, duty: Dictionary) -> void:
 		spin.prefix = "%s 保留 " % display_name
 		spin.custom_minimum_size = Vector2(150, 44)
 		spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		spin.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		spin.value = clampf(_to_number(seed.get(id, 0)), 0.0, 999999.0)
 		spin.tooltip_text = "至少保留的%s數量；職掌不會動用這部分。" % display_name
 		spin.value_changed.connect(func(_value: float): _refresh_preview())
+		_style_paper_spin(spin)
 		reserve_row.add_child(spin)
 		reserve_entries.append({"id": id, "name": display_name, "stock": float(item.get("stock", 0.0)), "spin": spin})
 		reserve_spins[id] = spin
 	_reserve_signature = _input_signature(rows)
+
+static func _style_paper_spin(spin: SpinBox) -> void:
+	spin.custom_minimum_size.y = 44
+	spin.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	spin.alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
+	var line_edit := spin.get_line_edit()
+	if line_edit == null:
+		return
+	var normal_box := StyleBoxFlat.new()
+	normal_box.bg_color = Color("f5f0e4")
+	normal_box.border_color = Color("a89b84")
+	normal_box.set_border_width_all(1)
+	normal_box.set_corner_radius_all(4)
+	normal_box.content_margin_left = 10
+	normal_box.content_margin_right = 10
+	normal_box.content_margin_top = 4
+	normal_box.content_margin_bottom = 4
+	
+	var focus_box := StyleBoxFlat.new()
+	focus_box.bg_color = Color("faf6ed")
+	focus_box.border_color = Color("2e5c4d")
+	focus_box.set_border_width_all(2)
+	focus_box.set_corner_radius_all(4)
+	focus_box.content_margin_left = 10
+	focus_box.content_margin_right = 10
+	focus_box.content_margin_top = 4
+	focus_box.content_margin_bottom = 4
+	
+	line_edit.add_theme_stylebox_override("normal", normal_box)
+	line_edit.add_theme_stylebox_override("focus", focus_box)
+	line_edit.add_theme_color_override("font_color", UiMaterial.INK)
+	line_edit.add_theme_color_override("font_placeholder_color", UiMaterial.DISABLED_INK)
+	line_edit.add_theme_color_override("caret_color", Color("2e5c4d"))
+	line_edit.add_theme_color_override("selection_color", Color(0.18, 0.36, 0.3, 0.25))
+	line_edit.add_theme_font_override("font", UiTypography.body_font())
+	line_edit.add_theme_font_size_override("font_size", 16)
 
 func _reserve_value(id: String) -> float:
 	var spin: Variant = reserve_spins.get(id)
@@ -1568,6 +1611,7 @@ func _apply_field_layout() -> void:
 	duty_picker.custom_minimum_size = Vector2(140 if _compact else 220, 44)
 	duty_picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	duty_target.custom_minimum_size = Vector2(110 if _compact else 140, 44)
+	duty_target.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	work_fields.vertical = _compact
 	work_fields.add_theme_constant_override("separation", 4 if _compact else 8)
 	preset_row.vertical = _compact
@@ -1581,6 +1625,7 @@ func _apply_field_layout() -> void:
 		if spin != null and is_instance_valid(spin):
 			spin.custom_minimum_size = Vector2(150, 44)
 			spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			spin.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 
 func _compact_labels() -> void:
 	var heading_size := 18 if _compact else 20
@@ -1588,6 +1633,7 @@ func _compact_labels() -> void:
 	work_status.add_theme_font_size_override("font_size", body_size)
 	work_owner.add_theme_font_size_override("font_size", body_size)
 	duty_hint.add_theme_font_size_override("font_size", body_size)
+	reserve_heading.add_theme_font_size_override("font_size", heading_size)
 	greeting_label.add_theme_font_size_override("font_size", body_size)
 	bond_status.add_theme_font_size_override("font_size", body_size)
 	bond_next.add_theme_font_size_override("font_size", body_size)

@@ -183,13 +183,18 @@ static func hub_guidance(state: GameState) -> Dictionary:
 		return _supply_goal("legacy", "祖島集中加工", "既有進度保留，無須補做教學。外島採集原料送祖島，各工作線在祖島加工；可直接繼續修行。", "manufacturing")
 	var p: Dictionary = state.economy.early_supply
 	var islands: Dictionary = state.economy.islands
+	var automatic: bool = state.economy.get("hub_version") == IslandEconomy.HUB_AUTO_HAUL_VERSION
 	if not bool(islands.get("ore", {}).get("opened", false)):
-		var goal := _supply_goal("H1", "開拓玄礦島", "祖島支付靈木20與下品靈石10。玄礦採集玄銅與下品靈石，運回祖島供精煉使用。", "outposts")
+		var text := "祖島支付靈木20與下品靈石10。玄礦採集玄銅與下品靈石，運回祖島供精煉使用。"
+		if automatic: text += "開拓時即開通兩條原料航線。"
+		var goal := _supply_goal("H1", "開拓玄礦島", text, "outposts")
 		goal.island_id = "ore"
 		return goal
 	if not bool(p.bronze_done) and IslandEconomy.value(state, "home", "bronze_essence") < 1:
 		for pair in [["black_copper", 10, "copper_home", "玄銅"], ["stone_low", 5, "raw_stone_home", "下品靈石"]]:
-			if IslandEconomy.value(state, "home", pair[0]) < float(pair[1]):
+			if IslandEconomy.value(state, "home", pair[0]) < float(pair[1]) and not (automatic and _hub_first_batch_running(state, "ore", "bronze_essence")):
+				if automatic:
+					return _hub_recipe_goal("H2", "原料送達祖島", "玄礦已開通原料回運。銅精尚缺%s，可在銅精配方查看祖島可用量、到貨或航線阻擋。" % pair[3], "ore", "bronze_essence")
 				var goal := _supply_goal("H2", "原料送達祖島", "銅精在祖島加工，尚缺%s。啟用玄礦→祖島原料補給；已在途時等待抵達，啟航不代表材料已可用。" % pair[3], "transport")
 				goal.route_id = pair[2]
 				goal.island_id = "ore"
@@ -203,7 +208,10 @@ static func hub_guidance(state: GameState) -> Dictionary:
 		goal.island_id = "wood"
 		return goal
 	if not bool(p.timber_done) and IslandEconomy.value(state, "home", "spirit_timber") < 1:
-		if IslandEconomy.value(state, "home", "wood") < 10:
+		if automatic and not _hub_first_batch_running(state, "wood", "spirit_timber"):
+			if IslandEconomy.value(state, "home", "wood") < 10 or IslandEconomy.value(state, "home", "stone_low") < 5:
+				return _hub_recipe_goal("H5", "青木原料補給", "開拓青木後靈木自動回運，靈材也需要玄礦供應的下品靈石。到靈材配方查看缺料與到貨。", "wood", "spirit_timber")
+		elif not automatic and IslandEconomy.value(state, "home", "wood") < 10:
 			var goal := _supply_goal("H5", "青木原料補給", "靈材在祖島加工。啟用青木→祖島靈木補給；保留原配方，到貨後即可製造。", "transport")
 			goal.route_id = "wood_home"
 			return goal
@@ -212,6 +220,16 @@ static func hub_guidance(state: GameState) -> Dictionary:
 		goal.recipe_id = "spirit_timber"
 		return goal
 	return _supply_goal("complete", "祖島供給已接通", "銅精與靈材已完成，可持續加工並按需補給；技能與宗門可稍後，主線繼續準備金丹。", "cultivation")
+
+static func _hub_first_batch_running(state: GameState, lane: String, recipe: String) -> bool:
+	var job: Dictionary = state.economy.get("jobs", {}).get(lane, {})
+	return job.get("recipe_id") == recipe and int(job.get("remaining", 0)) > 0
+
+static func _hub_recipe_goal(step: String, title: String, message: String, island: String, recipe: String) -> Dictionary:
+	var goal := _supply_goal(step, title, message, "manufacturing")
+	goal.island_id = island
+	goal.recipe_id = recipe
+	return goal
 
 static func _supply_goal(step: String, title: String, text: String, route: String) -> Dictionary:
 	return {"step": step, "title": "下一步：" + title, "text": text, "route": route, "optional_alchemy": false}

@@ -1,0 +1,6 @@
+2026-11-08 ERA2-AUTO-HAUL PLAN COMPLETE; NEXT CORE.
+
+Added docs/54-era2-auto-haul-plan.md and linked the roadmap, status and UI guidelines. Start with copper_home in the existing hub opening transaction on an isolated default-edition save. Verify automatic delivery and player-initiated crafting, then extend to stone and wood. Preserve saved route policies, paid jobs and in-transit cargo. Codex owns UI and independent acceptance. AGY CLI 1.1.13 is available for a bounded core task.
+
+NEXT New Chat: use the CORE checks in the plan. Confirm the one-route slice with targeted runners before Codex connects the recipe and level-up UI. Compare manual and automatic routing in the same hub edition before tuning production or transit time. Manual commit is available for the planning stage.
+

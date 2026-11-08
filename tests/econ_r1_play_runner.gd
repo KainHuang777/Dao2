@@ -70,6 +70,8 @@ func _run() -> void:
 	nav.open("outposts")
 	nav._on_island_action("open_island", {"island_id":"wood"})
 	_check(IslandEconomy.hub(session.state) and session.state.economy.islands.wood.opened, "first opening activates hub and opens island together")
+	_check(session.get_view().transport.wood_home.settings.enabled, "first opening also commits automatic wood shipping")
+	_check(session.get_view().manufacturing.recipes.spirit_timber.reason == "RESEARCH_REQUIRED:R01", "automatic shipping leaves recipe research gate in place")
 	nav.open("research")
 	await process_frame
 	var panel: Control = nav.research_panel

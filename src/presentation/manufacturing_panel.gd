@@ -2,6 +2,7 @@ extends "res://src/presentation/island_management_panel.gd"
 ## Presentation-only recipe rows with one shared inline settings accordion.
 const MaterialTile = preload("res://src/presentation/recipe_material_tile.gd")
 const RecipeRow = preload("res://src/presentation/recipe_row.gd")
+const Flow = preload("res://src/presentation/island_flow_model.gd")
 var island_filter := ""
 var category := "精煉"
 var filter_picker: OptionButton
@@ -38,6 +39,7 @@ var production := ProductionController.new()
 var recipe_drafts := {}
 signal transport_requested(route_id: String)
 signal research_requested()
+signal supply_settings_requested(route_id: String)
 
 func _ready() -> void:
 	super._ready()
@@ -467,6 +469,13 @@ func _refresh_detail() -> void:
 	_refresh_workshop_costs(level)
 	supply_button.text = "前往工藝研習" if String(info.reason).begins_with("RESEARCH_REQUIRED:") else "前往工藝坊" if _view.has("research") and info.reason == "FACILITY_REQUIREMENT" and int(_view.buildings.craft_workshop.level) == 0 else "處理製造瓶頸"
 	supply_button.visible = not String(info.reason).is_empty()
+	if Flow.auto_haul(_view):
+		var supply := Flow.recipe_supply(_view, info, _routes(), _catalog.get("resources", {}))
+		if not String(supply.text).is_empty():
+			detail_status.text += "\n" + String(supply.text)
+		if info.reason in ["INSUFFICIENT_RESOURCE", "ISLAND_NOT_OPEN"]:
+			supply_button.visible = not supply.remedy.is_empty()
+			supply_button.text = supply.remedy.get("label", "")
 
 func _refresh_detail_costs(info: Dictionary) -> void:
 	if detail_costs == null:
@@ -525,10 +534,16 @@ func _open_supply() -> void:
 	if info.reason == "OUTPUT_FULL":
 		page_requested.emit("buildings" if _central() or island == "home" else "outposts","home" if _central() else island)
 		return
-	var fix := preload("res://src/presentation/island_flow_model.gd").shortage(_view,info,_routes())
+	var fix: Dictionary
+	if Flow.auto_haul(_view) and info.reason in ["INSUFFICIENT_RESOURCE", "ISLAND_NOT_OPEN"]:
+		fix = Flow.recipe_supply(_view, info, _routes(), _catalog.get("resources", {})).remedy
+		if fix.is_empty(): return
+	else:
+		fix = Flow.shortage(_view, info, _routes())
 	if fix.is_empty():
 		page_requested.emit("buildings","home")
 	elif fix.page == "transport": transport_requested.emit(fix.id)
+	elif fix.page == "transport_settings": supply_settings_requested.emit(fix.id)
 	elif fix.page == "manufacturing": select_recipe(fix.id)
 	else: page_requested.emit(fix.page,fix.id)
 

@@ -75,6 +75,7 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	var had_progression := IslandProgression.active(state)
 	var had_supply_history := state.economy.has("early_supply")
 	var progression_version: String = state.economy.get("version", "")
+	var had_auto_haul: bool = state.economy.get("hub_version") == IslandEconomy.HUB_AUTO_HAUL_VERSION
 
 	LifeHistory.observe(state, content, true)
 	state.life_ledger.current.settlement = {"dao_heart": (reward.dao_heart as AmountCompat).serialize(), "dao_proof": reward.dao_proof}
@@ -94,6 +95,8 @@ static func apply_reincarnation(state: GameState, content: GameContent, mode: St
 	state.economy = IslandEconomy.initial() if had_economy else {}
 	if had_progression:
 		state.economy.version = progression_version
+		if had_auto_haul:
+			state.economy.hub_version = IslandEconomy.HUB_AUTO_HAUL_VERSION
 		if had_supply_history:
 			state.economy.early_supply = Onboarding.initial_supply()
 		for island in state.economy.islands:

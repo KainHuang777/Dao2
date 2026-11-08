@@ -5,6 +5,7 @@ extends RefCounted
 
 const VERSION := "res1-b-1"
 const HUB_VERSION := 1
+const HUB_AUTO_HAUL_VERSION := 2
 const HUB_ROUTES := {
 	"wood_home": ["wood", "home", "wood"],
 	"raw_stone_home": ["ore", "home", "stone_low"],
@@ -26,7 +27,8 @@ static func expanded(state: GameState) -> bool:
 	return state.economy.get("version") == Supply.VERSION
 
 static func hub(state: GameState) -> bool:
-	return state.economy.get("hub_version", 0) == HUB_VERSION
+	var version: Variant = state.economy.get("hub_version", 0)
+	return version == HUB_VERSION or version == HUB_AUTO_HAUL_VERSION
 
 static func processing_scope(state: GameState, lane: String) -> String:
 	return "home" if hub(state) else lane
@@ -34,14 +36,14 @@ static func processing_scope(state: GameState, lane: String) -> String:
 static func output_scope(state: GameState, lane: String) -> String:
 	return lane if state.economy.get("hub_legacy_jobs", {}).has(lane) else processing_scope(state, lane)
 
-static func activate_hub(state: GameState) -> Dictionary:
+static func activate_hub(state: GameState, fresh_supply := false) -> Dictionary:
 	if not IslandProgression.active(state): return _fail("ECONOMY_NOT_MIGRATED")
 	if hub(state): return _fail("ALREADY_MIGRATED")
 	var error := validate(state)
 	if not error.is_empty(): return _fail(error)
 	# Keep local stock and already-paid work/cargo in their original scopes.
 	# New home-bound routes drain old stocks without a grant or capacity overflow.
-	state.economy.hub_version = HUB_VERSION
+	state.economy.hub_version = HUB_AUTO_HAUL_VERSION if fresh_supply else HUB_VERSION
 	state.economy.hub_legacy_jobs = {}
 	for lane in state.economy.jobs:
 		if lane != "home" and int(state.economy.jobs[lane].remaining) > 0:
@@ -209,6 +211,11 @@ static func command(content: GameContent, state: GameState, kind: String, p: Dic
 			_put(state, "home", id, value(state, "home", id) - float(costs[id]), "building")
 		state.economy.islands[island].opened = true
 		_seed_supply_routes(state)
+		# Seed only on the paid opening, inside the same saved candidate.
+		if state.economy.get("hub_version") == HUB_AUTO_HAUL_VERSION:
+			for id in HUB_ROUTES:
+				if HUB_ROUTES[id][0] == island and not state.economy.routes.has(id):
+					state.economy.routes[id] = {"enabled": true, "reserve": "0", "target": "100", "level": 1}
 		return _success("island_opened")
 	if kind == "configure_route":
 		return _configure_route(state, p)
@@ -636,7 +643,9 @@ static func validate(state: GameState) -> String:
 	var e := state.economy
 	if e.is_empty():
 		return ""
-	if e.has("hub_version") and (not _integer(e.hub_version, HUB_VERSION, HUB_VERSION) or not IslandProgression.active(state)):
+	if e.has("hub_version") and (not _integer(e.hub_version, HUB_VERSION, HUB_AUTO_HAUL_VERSION) or not IslandProgression.active(state)):
+		return "ECONOMY_HUB_VERSION"
+	if e.get("hub_version") == HUB_AUTO_HAUL_VERSION and not expanded(state):
 		return "ECONOMY_HUB_VERSION"
 	if e.has("early_supply") and not Onboarding.validate_supply(e.early_supply):
 		return "ECONOMY_EARLY_SUPPLY"

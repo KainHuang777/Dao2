@@ -25,6 +25,9 @@
 
 ### EARLY-FLOW1 — 練氣至金丹前期流程整理（A–D 有界完成；2026-11-02 現行 SUPPLY 補丁）
 
+- 2026-11-08 **ERA2-PLAYTEST-R1** 已重現築基一層材料卡點，待做玩家提示對照。[狀態](docs/development-status.md#era2-playtest-r1)
+- 2026-11-08 **ERA2-AUTO-HAUL CORE／UI／R2 功能驗收完成**，等待分析暫緩。[同版對照與驗收](docs/development-status.md#era2-auto-haul-r2)
+
 2026-10-10 **A 現況稽核與流程提案已交付**：[門檻／相依／建議順序／完成與下一提示](docs/17-early-progression-and-onboarding-plan.md)、[命令與證據](docs/verification/early-flow1.md)。建議先雙島供給，再可延後技能／宗門，金丹首升級後介紹靈狐；具體排序尚未核定，未新增規則門檻或教學程式。D2正常命令215 checks、煉丹／靈獸回歸exit0；自然等待與新引導Web操作仍待實作验收，整體不標DONE。
 
 - 相依：現有宗門／技能／煉丹／靈獸與四島規則，以及已交付的空島／製造／運輸介面；可先整理流程，不以未持有的實機驗收阻擋規劃。

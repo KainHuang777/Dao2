@@ -573,13 +573,14 @@ func _manufacture() -> void:
 	_tile(String(info.get("product_id",recipe)),float(info.output),float(slot.get("available",0)),"產物 · "+IslandProgression.NAMES[owner],true)
 	var job: Dictionary = view.get("economy",{}).get("jobs",{}).get(info.island,{})
 	var reason := String(info.get("reason",""))
-	var fix := Flow.shortage(view,info,_routes())
+	var supply := Flow.recipe_supply(view, info, _routes(), catalog.get("resources", {})) if Flow.auto_haul(view) else {}
+	var fix: Dictionary = supply.get("remedy", {}) if not supply.is_empty() else Flow.shortage(view,info,_routes())
 	if not job.is_empty():
 		status.text = ("持續製造・" if bool(job.get("repeat",false)) else "") + "%s · %d秒 · %s庫存%s" % [_name(job.recipe_id),int(job.get("remaining",0)),IslandProgression.NAMES[owner],str(slot.get("available",0))]
 		progress.visible = int(job.get("remaining",0)) > 0
 		progress.value = 100.0*(1.0-float(job.get("remaining",0))/maxf(1,float(info.duration))) if job.recipe_id == recipe else 0
 		if int(job.get("remaining",0)) == 0 and not fix.is_empty():
-			status.text = "持續製造等待原料・" + String(fix.get("status",fix.label))
+			if supply.is_empty(): status.text = "持續製造等待原料・" + String(fix.get("status",fix.label))
 			_nav(fix.label,fix.page,fix.id)
 		var action := ProductionController.stop_action(job,info.island)
 		_command("本批後停止" if int(job.get("remaining",0))>0 else "停止", "stop_processing", {"island_id":info.island},String(action.command).is_empty())
@@ -588,6 +589,9 @@ func _manufacture() -> void:
 		if reason == "OUTPUT_FULL":
 			status.text = "祖島產物滿倉・先使用材料或擴充容量" if central else "產物滿倉 → 運回祖島"
 			_nav("查看祖島建設","buildings","home") if central else _nav("運回產物", "transport", _outbound(info.island,String(info.get("product_id",recipe))))
+		elif reason.begins_with("RESEARCH_REQUIRED:"):
+			status.text = "先完成工藝研習 " + reason.get_slice(":", 1)
+			_nav("前往工藝研習", "research")
 		elif not fix.is_empty():
 			status.text = String(fix.get("status","缺料 → " + String(fix.label)))
 			if central and bool(fix.get("quick",false)):
@@ -595,6 +599,8 @@ func _manufacture() -> void:
 				_command("啟用補給","configure_route",{"route_id":fix.id,"enabled":true,"reserve":String(settings.get("reserve","0")),"target":String(settings.get("target","100")),"level":int(settings.get("level",1))})
 				_nav("查看航線","transport",fix.id)
 			else: _nav(fix.label,fix.page,fix.id)
+		elif reason == "INSUFFICIENT_RESOURCE" and not supply.is_empty():
+			status.text = "等待原料補給"
 		elif not reason.is_empty():
 			status.text = "先升級祖島設施" if reason == "FACILITY_REQUIREMENT" else reason
 			_nav("洞府建築", "buildings")
@@ -603,6 +609,12 @@ func _manufacture() -> void:
 	if central:
 		if not job.is_empty() and owner != "home": _nav("清空舊島產物","transport",_outbound(info.island,String(info.get("product_id",recipe))))
 	elif info.island != "home" and not (reason == "OUTPUT_FULL" and job.is_empty()): _nav("運回產物", "transport", _outbound(info.island,String(info.get("product_id",recipe))))
+	if not String(supply.get("text", "")).is_empty():
+		if job.is_empty() and reason in ["ISLAND_NOT_OPEN", "INSUFFICIENT_RESOURCE"]:
+			status.text = ""
+		if int(job.get("remaining", 0)) == 0 and bool(job.get("repeat", false)) and reason == "INSUFFICIENT_RESOURCE":
+			status.text = "持續製造等待原料"
+		status.text = (status.text + "\n" if not status.text.is_empty() else "") + String(supply.text)
 
 func _outbound(source: String, resource: String) -> String:
 	for id in _routes():

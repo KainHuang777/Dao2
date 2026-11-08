@@ -194,7 +194,7 @@ func _build_hud() -> void:
 	lvl_btn.add_theme_color_override("font_color", Color("f4e7be"))
 	lvl_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lvl_btn.visible = false
-	lvl_btn.pressed.connect(_abode._level_up_cultivation)
+	lvl_btn.pressed.connect(func(): _abode.feature_navigation.request_level_up())
 	_abode.level_up_button = lvl_btn
 	identity.add_child(_abode.level_up_button)
 
@@ -912,7 +912,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	var was_lvl_disabled: bool = _abode.level_up_button.disabled
 	var was_bt_vis: bool = _abode.breakthrough_button.visible
 	_abode.level_up_button.visible = training_complete
-	_abode.level_up_button.disabled = not can_lvl or remain_life <= 0.0
+	var supply_help: bool = preload("res://src/presentation/level_up_supply_panel.gd").offers_help(view)
+	_abode.level_up_button.disabled = (not can_lvl and not supply_help) or remain_life <= 0.0
 	if training_complete:
 		var cost_dict: Dictionary = view.get("level_up_costs", {})
 		var cost_strs := []
@@ -932,6 +933,8 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 		if remain_life > 0.0 and not String(view.get("cultivation_research", "")).is_empty():
 			_abode.level_up_button.text = "晉階 · 待研習"
 			_abode.level_up_button.tooltip_text = "前往經營的工藝研習，先完成 " + String(view.cultivation_research)
+		if remain_life > 0.0 and supply_help:
+			_abode.level_up_button.tooltip_text += "\n查看晉階缺料與配方。"
 
 	var cur_era: int = int(view.get("era_id", 1))
 	var breakthrough_target := String(view.get("breakthrough_target_name", ""))

@@ -1,0 +1,8 @@
+2026-11-08 ERA2-AUTO-HAUL CORE DONE; NEXT UI.
+
+Fresh SUPPLY hub activation records hub_version 2. Paid ore and wood openings seed copper_home, raw_stone_home and wood_home in the opening transaction. Existing ticks move cargo; the player starts crafting. Hub v1 keeps manual policies. Reincarnation clears this life's industry and carries the v2 opening policy into the next life.
+
+Godot 4.7.2 targeted L1 passed 5/5 at 1280x720. Checks cover opening refusal and retry, exact first payment, receipt replay, reload with cargo, full storage and resumed shipping, continuous work resuming after delivery, online/offline logistics, reincarnation and ECON-R1 research gates. Details and logs are linked from docs/development-status.md#era2-auto-haul.
+
+NEXT New Chat: ERA2-AUTO-HAUL UI. Connect shortages and return navigation in recipes and level-up, update H2 arrival guidance and run L2 Chrome at 1280x720 with a build that includes CORE. Then do the same-edition R2 comparison. Manual commit is available for the CORE phase.
+

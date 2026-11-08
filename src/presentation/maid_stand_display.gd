@@ -295,7 +295,10 @@ func bubble_bounds(vp: Vector2) -> Rect2:
 	if candidate.position.x < 16.0 or candidate.end.y > _abode.toolbar.position.y - 8.0: return Rect2()
 	var nav = _abode.feature_navigation
 	var avoid: Array = [_abode.header, _abode.hint_panel, _abode.resource_ribbon, _abode.info_panel, _abode.toolbar, _abode.settings_menu, nav.shell.entry]
-	if nav.group == "management": avoid.append(nav.shell.workbench.panel)
+	if nav != null and nav.shell != null and nav.shell.workbench != null and nav.shell.workbench.panel != null:
+		avoid.append(nav.shell.workbench.panel)
+	if _abode.building_catalog != null:
+		avoid.append(_abode.building_catalog)
 	for control in avoid:
 		if control.is_visible_in_tree() and candidate.intersects(control.get_global_rect()): return Rect2()
 	return candidate

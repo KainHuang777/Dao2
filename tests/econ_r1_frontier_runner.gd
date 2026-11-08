@@ -69,9 +69,38 @@ func fixture_profile() -> EconomyProfile:
 	check(probe._stage(game, research_state, {"ok":true}).ok, "fixture stage")
 	return probe
 
+func check_first_opening() -> void:
+	var memory_adapter := SliceMemory.new()
+	var profile := EconomyProfile.open(content, memory_adapter, catalog, true).profile as EconomyProfile
+	var game := profile.committed_game()
+	game.state.era_id = 2
+	for id in ["wood", "stone_low"]:
+		game.state.resources[id].value = AmountCompat.from_number(50)
+	check(profile._stage(game, ResearchSystem.initial(), {"ok":true}).ok, "stage isolated first-opening fixture")
+	var before := profile.view().state as Dictionary
+	var cmd := {"type":"open_island", "payload":{"island_id":"ore"}, "command_id":"fixture:open-ore", "expected_revision":profile.committed_game().state.revision}
+	memory_adapter.reject_candidate = true
+	check(profile.submit(cmd).get("error") == "PROFILE_SAVE_REQUIRED", "first opening reports profile write refusal")
+	check(ResearchSystem.same(profile.view().state, before) and not profile.advance_time(20).ok, "refused first opening keeps costs and routes unpublished and blocks ticks")
+	var pending := profile._pending
+	memory_adapter.reject_candidate = false
+	check(profile.retry_save().ok and profile._source == pending, "first opening retries exact candidate bytes")
+	var reopened := EconomyProfile.open(content, memory_adapter, catalog)
+	check(reopened.ok, "first-opening profile reloads")
+	if not reopened.ok: return
+	profile = reopened.profile
+	game = profile.committed_game()
+	check(game.state.resources.wood.value.to_float() == 30 and game.state.resources.stone_low.value.to_float() == 40, "profile paid first opening only once")
+	check(game.state.economy.routes.get("copper_home", {}).get("enabled", false) and game.state.economy.routes.get("raw_stone_home", {}).get("enabled", false), "profile reload publishes both ore routes")
+	var committed := profile._source
+	check(profile.submit(cmd).get("duplicate", false) and profile._source == committed, "first-opening receipt survives reload and prevents replay")
+	var craft := {"type":"craft", "payload":{"island_id":"ore", "recipe_id":"bronze_essence"}, "command_id":"fixture:craft-bronze", "expected_revision":game.state.revision}
+	check(profile.submit(craft).get("error") == "RESEARCH_REQUIRED:R02", "ore shipping leaves bronze research gate in place")
+
 func smoke() -> void:
 	check(catalog.nodes.size() == 14 and ResearchSystem.validate_catalog(catalog, content).is_empty(), "14-node DAG")
 	check(ProcessingCatalog.validate(content.processing_catalog).ok, "component recipe closure")
+	check_first_opening()
 	var d1 := EconomySlice.create_late()
 	var previous := EconomyProfile.open(d1.content, SliceMemory.new(), d1.catalog, true).profile as EconomyProfile
 	check(p.inspect_save(previous._source).get("error") == "PROFILE_VERSION:rules_version", "D1 explicit version rejection")

@@ -1,5 +1,56 @@
 # 開發狀態與交接紀錄
 
+<a id="era2-auto-haul-r2"></a>
+## 2026-11-08 ERA2-AUTO-HAUL R2（功能驗收 DONE；等待分析暫緩）
+
+- **使用者回饋與收尾判準**：「暫時不用管等待問題，只要確定沒有卡住就可以。目前看起來可以正常供應」。本輪以自動補給能接續祖島製造和晉階為判準，等候時間、玩家切頁與求助的完整 A／B 量測暫緩。玩家回饋支持供應正常，未作為玩家已升二層的證據。
+- **L1 功能補驗**。Godot 4.7.2 `--headless --path . --script .test-output/era2-playtest/r2/functional.gd`，1280×720，**16/16 PASS，exit 0**，無 `SCRIPT ERROR:`；既有錨點與退出 RID／ObjectDB 診斷仍在。用相同 B 組隔離檔，在實際洞府場景從「晉階缺料」進兩個配方，確認自動到貨才開放下單、兩條持續製造皆啟動、可返回原晉階面板，全程不開運輸頁。以模擬時間推進至材料達標，原面板出現可用的「修為晉階」，觸發按鈕訊號後成功升築基二層，扣銅精 10／靈材 20。此輪使用 Godot 控件訊號；Chrome 實點的證據範圍仍為入口、到貨及首批製造。日誌 `.test-output/era2-playtest/r2/functional.log`。
+- **隔離入口（供重現）**：[A](http://127.0.0.1:4280/launcher)、[B](http://127.0.0.1:4281/launcher)。使用同一桌面 Chrome 視窗與相同大小，一次只啟動一組。兩組目標相同：祖島取得首份銅精、首份靈材、升築基二層。
+- **同版檢查點**。沿用 UI 階段預設版 PCK `880fe1ccfd8921e33ad53b44b2ce040d1582e36c99ed65149fee20e96f948e2e`。從命令賺得的 Era2 檔分岔，兩組同為集中製造、築基一層、修煉 120/120、無工藝研習分支。兩島由正式命令付款開拓。每組共扣靈木 40、下品靈石 20；檢查點的兩島地方庫存、祖島三項原料及兩種產物皆為零，無在途和工作。開島後才在兩份試玩檔移除祖島伐木與採礦設施，排除祖島產出掩蓋物流的影響。JSON 核對兩組狀態除 `hub_version` 和三條原料線設定外完全相同。A 為舊集中製造手動政策；B 為開島自動啟航。兩組均使用正常遊戲操作與原配方。
+- **對照範圍**。正式玩家對照從兩島剛開拓開始，未開島引導另看 [UI 階段 Chrome 與 runner](#era2-auto-haul-ui)；首個試檔提前移除採石場，Chrome 顯示玄礦被三階前置擋住，已停用該入口。曾試保留前置做未開島起點，Chrome 載入結算已累積祖島原料，不能用該起點判斷航線。最終入口在 Web 資產載入後才播種存檔；不改匯出檔或規則。
+- **L1 加速對照**。Godot 4.7.2，以 `--headless --path . --script .test-output/era2-playtest/r2/fixture.gd` 驗正式命令，exit 0。手動組在模擬第 0 秒開齊航線時，兩組都在第 31 秒入庫首份銅精和靈材、第 121 秒銅精達標、第 221 秒靈材達標並可升二層。開島後腳本分別用了 6／3 個正式命令，差額為三次啟航。這是指定路徑的命令數，不是玩家點擊或切頁數；221 秒含並行製造，不是實測空等。記錄在 `.test-output/era2-playtest/r2/control.log`。
+- **Chrome 排演**。在另兩個隔離來源 4282／4283 各由啟動頁實點進洞府，兩組載入成功；A 的祖島沒有原料，B 可見自動送達的靈木與石料。瀏覽器啟動報 7／6 秒離線摘要，摘要顯示期間遊戲仍會推進，玩家應在可操作時立即關閉並另記離線秒數。此觀察僅驗入口，沒有以代理操作計玩家時間或判定玩家已能完成流程。
+- **驗收邊界**。本輪不變更正式遊戲、數值或存檔 schema，沿用上一輪的 L2 遊戲證據，沒有重跑 runner 群組或 L3。隔離服務只綁 loopback。若本機服務已停，從專案根目錄執行 `python .test-output/era2-playtest/r2/serve.py`。先前重複監聽造成 Chrome 連線逾時，停止重複服務後恢復。舊測試包未做候選壓縮，`delivery_check.py --web` 缺 `compression.json`，本次以 `python tools/delivery_check.py`、實際 HTTP 及包指紋核對。
+- **下一步**。依使用者指示結束本階段，不安排等待量測或調整製造／航運秒數。若之後出現卡點，以相同隔離檔重現並記錄當時的缺料、在途或製造狀態。R2 功能驗收階段可手動 commit；沒有開下一個大型任務。
+
+<a id="era2-auto-haul-ui"></a>
+## 2026-11-08 ERA2-AUTO-HAUL UI（DONE）
+
+- **介面**。築基晉階缺料可開啟共用紙面與成本格，同時查看靈材、銅精缺額。首次啟用先定位到對應產地，開島後回原配方。已啟用的檔可從晉階直接進配方，補料後返回同一層目標。自動航線在配方區呈現祖島可用量、每批需求、採集、待出航、實際在途或容量與政策阻擋。停航、保留量及目標捷徑開啟指定航線的完整管理。既有 hub v1 快速啟航沿用原設定。
+- **引導與檔案**。H2、H5 回到銅精、靈材配方。已付的首批加工不退回到貨步驟。修改 `onboarding.gd`、`abode_hud_controller.gd`、`feature_navigation.gd`、`island_flow_model.gd`、`island_flow_panel.gd`、`manufacturing_panel.gd`，新增 `level_up_supply_panel.gd` 與 UID。擴充 `hub_onboarding_runner.gd`、`era2_island_flow_runner.gd`，同步 UI 規範。
+- **L2 runner**。Godot `4.7.2.stable.official.ed1daf0bf`。先以 `tools/run_all_runners.ps1 -Only 'era2_island_flow_runner.gd,hub_onboarding_runner.gd,econ_r1_play_runner.gd,hub_economy_runner.gd' -List` 列選取，再加 `-Parallel 3` 實跑，**4/4 PASS、exit 0**。版面調整後先列再以 `-Only 'era2_island_flow_runner.gd,econ_r1_play_runner.gd' -Parallel 2` 補驗，**2/2 PASS、exit 0**，集中製造場景 75 項、工藝版 30 項。另有 H1–H6 及舊檔引導 19 項、hub 規則 110 項。均為單尺寸 1280×720，證據目錄 guard 通過。日誌在 `.test-output/era2-auto-haul-ui/temp/` 下的 `dao2_runners_753028db094341d3b3d59b92c43dc57b` 與 `dao2_runners_602fbf897a704438996a8ff87994064a`。場景仍有既有世界錨點及退出 RID／ObjectDB 診斷。
+- **L2 Chrome**。用 `--headless --path . --export-release Web build/era2-auto-haul-ui-web/index.html` 匯出本輪隔離包，exit 0。最終 PCK SHA-256 為 `880fe1ccfd8921e33ad53b44b2ce040d1582e36c99ed65149fee20e96f948e2e`。Chrome 桌面 1280×720、DPR 約 1，畫布 backing 1280×720、CSS 1279×719。使用命令賺得的築基一層檔，測試前設定修煉條已滿。實點晉階缺料、玄礦開拓、回銅精配方，等祖島收料後下單。銅精入庫 1，返回同一晉階目標後缺額由 10 降至 9，重載仍為 9。最終包複驗靈材配方的青木入口完整可見，實點開拓、回配方、下單及完工，靈材入庫 1，返回晉階缺額由 20 降至 19。兩段皆跳過運輸頁。倒數、政策捷徑與 H2／H5 轉場由 runner 驗證。
+- **過程修正**。初次匯入發現導航布林型別推斷錯誤，已補型別並以 runner 驗證。Chrome 首次 loopback 連線逾時，停止重複監聽後在隔離來源 4267 通過。先前抽驗發現標題反差不足、配方動作被捲動邊界擠住，縮短缺料摘要並改為共用墨色，重匯後實點複驗。初次測試包音樂回應 404，依現有清單補上 companions，重載後回應 200。字型覆蓋 `python tools/subset_game_fonts.py --check` 通過。
+- **靜態交付**。`python tools/trim_status_docs.py`、`git diff --check`、`python tools/delivery_check.py` 通過，既有驗收證據目錄零變更。
+- **下一階段 R2**。用同版、同庫存檔比較手動與自動啟航到首批銅精、首批靈材及築基二層，分記切頁、求助、可並行等待及空等。這是 UI 階段，可手動 commit。依 Context Guard 用 New Chat 接 R2。[計畫](54-era2-auto-haul-plan.md)
+
+<a id="era2-auto-haul"></a>
+## 2026-11-08 ERA2-AUTO-HAUL CORE（DONE）
+
+- **v2 規則**。首次啟用 SUPPLY 集中製造採 `hub_version=2`。玄礦開拓同時開通 `copper_home`、`raw_stone_home`，青木開通 `wood_home`。沿用一階每趟最多 10、航程 10 秒、保留 0、目標 100。開島付款和航線同一候選，實際出貨由既有 tick 處理，祖島製造由玩家下單。讀取 hub v1 或舊外島轉集中製造仍走既有手動設定，`hub_version=2` 隨輪迴保留，新一世需重新開島。詳見[開發計畫](54-era2-auto-haul-plan.md)。
+- **修改檔案**。`island_economy.gd` 負責政策版本與開島播種，`island_progression.gd` 接新啟用入口，`reincarnation_rules.gd` 保留下一世政策。擴充 `hub_economy_runner.gd`、`era2_island_flow_runner.gd`、`econ_r1_play_runner.gd`、`econ_r1_frontier_runner.gd`。狀態索引與英文交接同步更新。
+- **L1**。本機 Godot `4.7.2.stable.official.ed1daf0bf`。先用 `tools/run_all_runners.ps1 -Only 'hub_economy_runner.gd' -List` 及同選取實跑確認玄銅單線，再用 `-Only 'hub_economy_runner.gd,hub_onboarding_runner.gd,era2_island_flow_runner.gd,econ_r1_play_runner.gd,econ_r1_frontier_runner.gd' -List` 確認範圍，同選取加 `-Parallel 3` 實跑。最終 **5/5 首輪 PASS**（1280×720、exit 0、證據目錄 guard 通過）。Hub 110 checks、引導 11、集中製造場景 62、工藝版場景 30、Frontier smoke 無失敗。日誌位於 `.test-output/era2-auto-haul-core-459a9347813e44c68030f4dea0206be5/temp/dao2_runners_a94b1a6e60624cb295eb6f4261de1cfc/`。
+- **驗收範圍**。確認開島拒絕／拒寫／重試／重送／重載、三線到貨、在途庫存不可扣料、滿倉與續運、線上／離線物流等價、手動停航與自訂升階政策、銅精單批與持續訂單補料、輪迴清除本世物流、工藝版 R01／R02。早期測試發現 JSON 版本判定及隔離 fixture 設定問題，修正後重跑通過。兩支場景 runner 仍有既有錨點與退出 RID／ObjectDB 診斷。
+- **交付檢查**。`git diff --check`、`python tools/delivery_check.py` 通過。
+- **下一階段 ERA2-AUTO-HAUL UI**。接配方缺料與晉階回跳、調整 H2 到貨引導，再用含本次核心的版本做 L2 Chrome 1280×720 抽驗。整體任務的同版玩家對照留 R2。本次 CORE 階段可手動 commit，請以 New Chat 接 UI。
+
+<a id="era2-playtest-r1"></a>
+## 2026-11-08 ERA2-PLAYTEST-R1（築基一層卡點已重現）
+
+- **玩家回饋**：「應該是在 ear2 lv1 卡進階材料／但製造跟運輸 不確定是設計問題還數值問題」。截圖為築基 1/10、修煉 120/120、HUD「缺靈材等」。運輸頁的「銅精・玄礦島 → 祖島」為玄礦 0、祖島 1，顯示「來源缺貨」及「停航」按鈕。「改用祖島集中製造（保留原檔）」表明仍用外島加工。玩家實際版號、點擊順序、已等多久和完整庫存未知。本輪用候選包預設版對應的規則重現。
+- **根因判讀**：航線的「來源缺貨」表示玄礦沒有可出貨的銅精，祖島的 1 份仍可用。它只回答該航線的狀態。升築基二層另看祖島的靈力 200、靈材 20、銅精 10。首要假設是引導沒把升階目標和兩條供給鏈接起來，信心中等。外島流程確實要分別安排青木島石料補給、兩島加工及成品回運，這些交接不會隨降價消失。數值亦有可重現的累積時間，以工坊一階、每批 10 秒產 1 份計，靈材從 0 起需 20 批。實際玩家空等及兩個原因的占比待驗。
+- **L1 重現**：Godot 4.7.2 `--headless --path . --script .test-output/era2-playtest/r1-probe/probe.gd`，exit 0。從命令賺得的 `res1-c-earned-era2.json` 用正式命令啟用外島加工、開拓玄礦、啟航與製作單批。修煉滿後重現銅精 0 → 1、來源缺貨。從該點按已知路線操作，以加速模擬計時，兩條產線並行，青木於 +11 秒可開工、+31 秒首份靈材抵祖島、+100 秒銅精滿 10、+221 秒滿足升階並成功升到二層。這組時間來自隔離存檔及特定操作排程，沒有量到玩家尋路、可並行等待或純空等。
+- **交付檢查**：`tools/run_all_runners.ps1 -Only 'res1c_progression_runner.gd,era2_island_flow_runner.gd' -List` 確認兩支，實跑 **2/2 PASS**（1280×720，exit 0，guard 通過），分別驗外島鏈和集中製造。既有 F Web 包用 `python tools/delivery_check.py --web build/econ-r1-f-web` 檢查 7/7。Chrome 隔離啟動後，本機 CDP loopback 連線被沙箱拒絕，本輪 Chrome 操作待驗。變更限本節、README／ROADMAP 索引與英文交接。
+- **下一步**：回到同一外島加工檢查點，只補一句「祖島要靈材 20、銅精 10，兩島各開持續加工及回運，靈材線先給青木島補下品靈石」。觀察玩家能否自行開齊供給並回到晉階，再計已知道路線後的空等。新版五層 R03 另用同版存檔驗。R1 初判子階段可手動 commit，玩家對照仍待驗。
+
+<a id="era2-playtest-plan"></a>
+## 2026-11-08 ERA2-PLAYTEST-PLAN（規劃與工具完成）
+
+- **範圍**：ECON-R1-F 已收尾，接續 EARLY-FLOW1 的築基體感。新增 [築基體驗診斷計畫](53-era2-playtest-plan.md) 與專案技能 `dao2-playtest-review`、`dao2-evidence-review`，並更新 ROADMAP、F 契約狀態與交接。沿用上游的試玩分類與逐條驗收對照，按 Dao2 的 Chrome／隔離存檔／分級驗收規則改寫。
+- **初判**：新版先追首次築基→工藝研習／開拓→首份銅精，以及五層升層遇 R03。記錄尋路時間、可並行等待與空等，先用口頭提示對照，再以資助檔區分材料壓力與必要流程。先前 E 的資助檔 Chrome 操作和 D2 的控制器模擬各提供有限對照。玩家回報所屬版本與實際卡點仍待辨認。
+- **L1 靜態**：兩支技能的 UTF-8、frontmatter、計畫連結及交接保留五筆檢查通過。`quick_validate.py` 缺 PyYAML，改以本機靜態檢查及 `codex debug prompt-input` 核對，CLI 成功列出兩支專案技能。`git diff --check` 通過。`python tools/delivery_check.py --web build/econ-r1-f-web` 既有包 7/7 符合壓縮清單，受保護驗證目錄 0 變動。本輪是工具與計畫，實際試玩列 R1。
+- **下一步**：New Chat 接 **ERA2-PLAYTEST-R1**，用現有 F 候選包與 Chrome 1280×720，取得一條實際操作軌跡或一個可重現的早期卡點。使用者可直接貼原話或截圖，附版本與境界層數。此為規劃階段，可手動 commit。
+
 <a id="econ-r1-f-l3-batches"></a>
 ## 2026-11-08 ECON-R1-F 分批 L3 全數通過（B1–B8）
 
@@ -11,7 +62,7 @@
 - 共用證據目錄為 `.test-output/econ-r1-f-l3-b1-20261107-225918/`。查看 `runner-console.log` 追蹤進度、`runner-exit.txt` 確認結束、`temp/dao2_runners_174f749c3b244768905835725c55d6b5/` 查逐支日誌；AGY 的拒絕事件留在 `agy.stdout.ndjson`。
 - B1 後接 B2，先用 `tools\run_all_runners.ps1 -Only 'content_p1,content_p2' -Matrix full -List` 核對 40 支，再以同一選取值搭配 `-Matrix full -Parallel 3 -TimeoutSeconds 900` 執行。每批用各自的輸出目錄與隔離 APPDATA，Codex、OpenCode 或 AGY 皆從本節接手。AGY 要能核准確切的本機啟動命令才會執行。
 - 覆蓋稽核以當前 registry 為準。`-Full -List` 列出 **191 個唯一入口**，其中 B1／B2／B3／B4／B5／B8 的 22／40／28／27／16／7 支經 `-List` 核對互不重疊。B4 的 selector 為 `tests/m[0-5][a-z]*`。剩下 **51 支**供 B6／B7 核對，原分配合計 50；差集包含唯一位於 `tests/` 之外的 `tools/test_runner.gd`。證據目錄已保留 `registry.txt`、各批 `*-selection.txt` 與 `b6-b7-unassigned.txt`，B6／B7 執行前應依精確路徑核對 191 支聯集。
-- ECON-R1-F 仍 IN_PROGRESS。分批 L3 已完成（B1–B8 全過，見下方）；候選 Web 已重匯＋Brotli 壓縮＋delivery_check PASS；Chrome 三橫式 30/30 檢查 ALL PASS（見下方 Chrome 節）。整體里程碑已達 F contract 收尾條件，可手動 commit。
+- ECON-R1-F DONE。分批 L3 已完成（B1–B8 全過，見下方）；候選 Web 已重匯＋Brotli 壓縮＋delivery_check PASS；Chrome 三橫式 30/30 檢查 ALL PASS（見下方 Chrome 節）。整體里程碑已達 F contract 收尾條件。
 
 ### B3–B8 完成紀錄（2026-11-08）
 
