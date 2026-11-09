@@ -826,7 +826,7 @@ func _image(path: String) -> TextureRect:
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if not path.is_empty(): image.texture = load(path)
+	if not path.is_empty() and ResourceLoader.exists(path): image.texture = load(path)
 	return image
 
 func show_mode(value: String) -> void:
@@ -955,12 +955,12 @@ func _load_portrait() -> void:
 	if _portrait_id == selected_maid: return
 	_portrait_id = selected_maid
 	var path := _art_path("portrait")
-	portrait_image.texture = load(path) if not path.is_empty() else null
+	portrait_image.texture = load(path) if not path.is_empty() and ResourceLoader.exists(path) else null
 
 func _load_meeting() -> void:
 	_meeting_id = selected_maid
 	var path := _art_path("meeting")
-	meeting_image.texture = load(path) if not path.is_empty() else null
+	meeting_image.texture = load(path) if not path.is_empty() and ResourceLoader.exists(path) else null
 
 func _sync_story(entry: Dictionary) -> void:
 	var story := _story()

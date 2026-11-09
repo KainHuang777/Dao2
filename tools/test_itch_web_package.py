@@ -43,7 +43,8 @@ class ItchPackageTest(unittest.TestCase):
         self.assertEqual(package.verify(self.root, self.output), report)
         with zipfile.ZipFile(self.output) as archive:
             self.assertIn('index.html', archive.namelist())
-            self.assertEqual(len(archive.namelist()), 13)
+            self.assertIn('dlc_sect_lore.pck', archive.namelist())
+            self.assertEqual(len(archive.namelist()), len(package.REQUIRED) + len(package.OPTIONAL) + 4)
             self.assertFalse(any(n.endswith(('.env', '.log', '.json', '.br')) for n in archive.namelist()))
 
     def test_tampered_zip_rejected(self):
@@ -88,7 +89,7 @@ class ItchPackageTest(unittest.TestCase):
                         [('a', 1), ('A', 1)], [('a', package.MAX_FILE + 1)],
                         [('x' * 241, 1)], [('a', 0)],
                         [(str(i), 1) for i in range(1001)],
-                        [('a', 200_000_000), ('b', 200_000_000), ('c', 200_000_000)]):
+                        [('a', package.MAX_TOTAL // 2 + 1), ('b', package.MAX_TOTAL // 2 + 1)]):
             with self.subTest(entries=str(entries)[:80]), self.assertRaises(ValueError):
                 package.validate_entries(entries)
 

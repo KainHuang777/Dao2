@@ -95,7 +95,8 @@ func _build_ui() -> void:
 	_center_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	center.add_child(_center_box)
 	_mandala = preload("res://src/presentation/reincarnation_mandala.gd").new()
-	_mandala.texture = preload("res://assets/ui/reincarnation-painted/reincarnation_wheel.png")
+	if ResourceLoader.exists("res://assets/ui/reincarnation-painted/reincarnation_wheel.png"):
+		_mandala.texture = load("res://assets/ui/reincarnation-painted/reincarnation_wheel.png")
 	_mandala.ceremonial = true
 	_mandala.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_center_box.add_child(_mandala)

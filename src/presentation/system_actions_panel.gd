@@ -164,10 +164,11 @@ func set_layout_bounds(bounds: Rect2) -> void:
 		else:
 			for side in ["left", "top", "right", "bottom"]:
 				_margin.add_theme_constant_override("margin_" + side, 0)
+	var decision_rail: bool = embedded and mode == "decisions"
 	if is_instance_valid(_main_split):
-		_main_split.add_theme_constant_override("separation", (8 if compact else 14) if embedded else 0)
+		_main_split.add_theme_constant_override("separation", (8 if compact else 14) if decision_rail else 0)
 	if is_instance_valid(_left_scroll):
-		_left_scroll.visible = embedded
+		_left_scroll.visible = decision_rail
 		_left_scroll.custom_minimum_size.x = 112.0 if bounds.size.x < 500.0 else (140.0 if compact else 168.0)
 	if is_instance_valid(_left_rail):
 		_left_rail.add_theme_constant_override("separation", 4 if compact else 8)
@@ -176,9 +177,9 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	if is_instance_valid(_rail_subtitle):
 		_rail_subtitle.visible = not compact
 	if is_instance_valid(_split_sep):
-		_split_sep.visible = embedded
+		_split_sep.visible = decision_rail
 	if is_instance_valid(close_host):
-		close_host.visible = embedded
+		close_host.visible = decision_rail
 		close_host.position = Vector2(maxf(0.0, bounds.size.x - (12.0 if compact else 18.0) - 44.0), 6.0 if compact else 10.0)
 		close_host.size = Vector2(44.0, 44.0)
 	box.add_theme_constant_override("separation", 0 if compact else 4)
@@ -218,6 +219,7 @@ func refresh(view: Dictionary) -> void:
 		if not save_failed: status.text = ""
 		status.visible = save_failed
 		_last_mode = mode
+		if embedded: set_layout_bounds(Rect2(position, size))
 	skill_view.visible = mode == "skills"
 	decision_view.visible = mode == "decisions"
 	_scroll.visible = mode not in ["skills", "decisions", "beasts"]

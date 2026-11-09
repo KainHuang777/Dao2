@@ -8,6 +8,7 @@ const RARITY_ICON = preload("res://assets/ui/icons/sect-rarity.svg")
 const RARITY_COLORS := {"common":Color("ffffff"), "uncommon":Color("65b765"), "rare":Color("539ee8"), "epic":Color("b476d6"), "legendary":Color("edc052")}
 const UiIconScript = preload("res://src/presentation/ui_icon.gd")
 const CostStrip = preload("res://src/presentation/cost_strip.gd")
+const AssetPackLoaderScript = preload("res://src/platform/asset_pack_loader.gd")
 
 signal join_sect_requested(sect_name: String)
 signal refresh_tasks_requested()
@@ -1121,7 +1122,14 @@ func _add_rewards(parent: Node, rewards: Dictionary) -> void:
 
 func _add_art(row: HBoxContainer, id: String) -> void:
 	var art := UiIllustration.new()
-	art.texture = load(ART_DIR + id + ".png")
+	var path := ART_DIR + id + ".png"
+	if ResourceLoader.exists(path):
+		art.texture = load(path)
+	elif AssetPackLoaderScript.get_instance():
+		AssetPackLoaderScript.get_instance().ensure_pack("dlc_sect_lore", func(ok: bool):
+			if ok and is_instance_valid(art) and ResourceLoader.exists(path):
+				art.texture = load(path)
+		)
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE

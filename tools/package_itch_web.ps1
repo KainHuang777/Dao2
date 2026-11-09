@@ -55,6 +55,12 @@ try {
     $ErrorActionPreference = 'Continue'
     & $daoEngine --headless --path $daoRoot --export-release Web (Join-Path $daoWeb 'index.html') *> $daoExportLog
     $daoExportExit = $LASTEXITCODE
+    if ($daoExportExit -eq 0) {
+        & $daoEngine --headless --path $daoRoot --export-pack WebDLC_Sect (Join-Path $daoWeb 'dlc_sect_lore.pck') *>> $daoExportLog
+        if ($LASTEXITCODE -ne 0) { $daoExportExit = $LASTEXITCODE }
+        & $daoEngine --headless --path $daoRoot --export-pack WebDLC_Beasts (Join-Path $daoWeb 'dlc_beasts_features.pck') *>> $daoExportLog
+        if ($LASTEXITCODE -ne 0) { $daoExportExit = $LASTEXITCODE }
+    }
 } finally {
     $env:APPDATA = $daoPreviousAppdata
     $ErrorActionPreference = $daoPreviousErrors

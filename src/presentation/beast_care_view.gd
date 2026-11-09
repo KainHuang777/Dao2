@@ -75,7 +75,7 @@ func action(parent: Node, kind: String, id: String) -> Button:
 
 func make_card(id: String) -> void:
 	var card := PanelContainer.new()
-	card.add_theme_stylebox_override("panel",UiMaterial.hud_paper())
+	card.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card(false))
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	grid.add_child(card)
 	var body := VBoxContainer.new()

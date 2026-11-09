@@ -268,7 +268,7 @@ func apply(vp: Vector2) -> void:
 	effective = Policy.resolve(snapshot, vp, {"save_failed": save_failed, "lifespan_exhausted": abode.lifespan_banner.visible, "home_message_obstructs": obstructs, "has_costs": context.has_costs})
 	var home: bool = snapshot.route == "home"
 	var wide: bool = effective.layout == "wide"
-	integrated_identity = wide and (abode.feature_navigation.group == "management" or snapshot.route == "reincarnation") and effective.resource_presentation != "drawer"
+	integrated_identity = wide and (abode.feature_navigation.group in ["management", "cultivation"]) and effective.resource_presentation != "drawer"
 	# Reuse the original identity nodes and callbacks inside the shared paper.
 	var identity_host: Node = compact_hud if integrated_identity else abode.header
 	if abode.header_box.get_parent() != identity_host: abode.header_box.reparent(identity_host, false)
@@ -282,7 +282,7 @@ func apply(vp: Vector2) -> void:
 	var study_host: Node = entry if short_skills else skill_top
 	if study.get_parent() != study_host: study.reparent(study_host, false)
 	study.custom_minimum_size.x = 64 if short_skills else 112
-	study.text = "藏經閣" if short_skills else "經營建築"
+	study.text = "藏經閣" if short_skills else "營造藏經閣"
 	skill_top.visible = not short_skills
 	var portrait: bool = effective.layout == "portrait"
 	var cinematic: bool = snapshot.overlay == "sequence"
@@ -352,7 +352,8 @@ func apply(vp: Vector2) -> void:
 	overlay_header.position = Vector2(vp.x - margin - 52, 8)
 	overlay_header.size = Vector2(52, 52)
 	var management: bool = abode.feature_navigation.group == "management"
-	var integrated: bool = management or snapshot.route == "reincarnation" or snapshot.route in Policy.JOURNEY_FOLIOS
+	var cultivation: bool = abode.feature_navigation.group == "cultivation"
+	var integrated: bool = management or cultivation or snapshot.route in Policy.JOURNEY_FOLIOS
 	# Restore parents before the ordinary HUD lays out non-management routes or overlays.
 	if not integrated or drawer:
 		workbench.apply(false, Rect2(), wide, false)

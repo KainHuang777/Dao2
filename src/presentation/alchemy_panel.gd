@@ -20,6 +20,12 @@ var _feedback_success := false
 var _last_view := {}
 var _short := false
 var _margin: MarginContainer
+var _embedded := false
+
+func set_embedded(value: bool) -> void:
+	if _embedded == value: return
+	_embedded = value
+	if _background != null: set_layout_bounds(Rect2(position, size))
 
 func _ready() -> void:
 	_build_ui()
@@ -29,11 +35,16 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
 	if _pills_list != null:
-		_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell())
-		UiMaterial.apply_scroll_content_margins(_margin, size.y < 350)
+		_background.visible = not _embedded
+		if _embedded:
+			for side in ["left", "right", "top", "bottom"]:
+				_margin.add_theme_constant_override("margin_" + side, 4)
+		else:
+			_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell())
+			UiMaterial.apply_scroll_content_margins(_margin, size.y < 350)
 		_pills_list.columns = 2 if size.x >= 850.0 else 1
-		_summary_label.visible = size.y >= 350.0
-		_title_row.visible = size.y >= 350.0
+		_summary_label.visible = not _embedded and size.y >= 350.0
+		_title_row.visible = not _embedded and size.y >= 350.0
 		_feedback.visible = not _feedback.text.is_empty() and not (_short and _feedback_success)
 		if not _last_view.is_empty(): update_view(_last_view)
 
@@ -111,7 +122,7 @@ func _create_pill_row(p: Dictionary) -> PanelContainer:
 	var id := String(p.id)
 	var row := PanelContainer.new()
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
+	row.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card(false))
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 6)
 	row.add_child(column)
@@ -190,9 +201,7 @@ func _update_pill_row(p: Dictionary, view: Dictionary) -> void:
 		w.consume.reparent(side_actions)
 	w.actions.visible = not micro
 	w.actions_col.visible = micro
-	var paper: StyleBoxTexture = UiMaterial.hud_paper()
-	if micro:
-		for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]: paper.set_content_margin(side, 4)
+	var paper: StyleBox = UiMaterial.slim_paper_card(false)
 	_pill_rows[String(p.id)].add_theme_stylebox_override("panel", paper)
 	w.column.add_theme_constant_override("separation", 2 if micro else 6)
 	var compact_p2 := micro and String(p.id) in AlchemySystem.P2_IDS

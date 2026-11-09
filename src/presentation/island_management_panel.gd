@@ -217,7 +217,7 @@ func refresh(view: Dictionary, catalog: Dictionary) -> void:
 		return
 	var e: Dictionary = view.get("economy", {})
 	var enabled: bool = e.get("version") in [IslandProgression.VERSION, IslandProgression.LEGACY_VERSION, IslandProgression.SUPPLY_VERSION]
-	hub_activation.visible = enabled and not preload("res://src/presentation/island_flow_model.gd").hub(view)
+	hub_activation.visible = false
 	var info: Dictionary = view.get("manufacturing", {}).get("islands", {}).get(island, {})
 	var opened := bool(info.get("opened", false))
 	for id in island_buttons:

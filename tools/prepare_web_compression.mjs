@@ -1,6 +1,6 @@
 // Build companions only; existing export bytes remain immutable.
 // No Node dependency in game rules or runtime. Built-in zlib/filesystem only.
-import { readFileSync, writeFileSync, realpathSync, mkdirSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, realpathSync, mkdirSync, copyFileSync, existsSync } from 'node:fs';
 import { resolve, relative, sep, isAbsolute } from 'node:path';
 import { createHash } from 'node:crypto';
 import { brotliCompressSync, brotliDecompressSync, constants } from 'node:zlib';
@@ -21,8 +21,11 @@ for (const entry of JSON.parse(readFileSync(resolve(root,'assets/audio/bgm/libra
   audioFiles.push({file:'audio/bgm/'+entry.filename, era_req:entry.era_req, bytes:data.length, sha256:sha(data)});
 }
 const files = [];
-for (const file of ['index.js', 'index.wasm', 'index.pck']) {
-  const original = readFileSync(resolve(directory, file));
+const targetFiles = ['index.js', 'index.wasm', 'index.pck', 'dlc_sect_lore.pck', 'dlc_beasts_features.pck'];
+for (const file of targetFiles) {
+  const filePath = resolve(directory, file);
+  if (!existsSync(filePath)) continue;
+  const original = readFileSync(filePath);
   const compressed = brotliCompressSync(original, {params:{
     [constants.BROTLI_PARAM_QUALITY]: 9,
     [constants.BROTLI_PARAM_SIZE_HINT]: original.length,

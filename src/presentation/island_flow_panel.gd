@@ -418,7 +418,7 @@ func refresh(next_view: Dictionary, next_catalog: Dictionary) -> void:
 	view = next_view
 	catalog = next_catalog
 	if picker == null or view.is_empty(): return
-	hub_upgrade.visible = not Flow.hub(view) and not String(view.get("economy",{}).get("version","")).is_empty()
+	hub_upgrade.visible = false
 	var listing := page == "outposts" and not managing_island
 	island_scroll.show()
 	content_row.visible = not listing

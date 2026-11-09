@@ -72,6 +72,21 @@ static func commit_sect_life_startup() -> Dictionary:
 	if result.get("error") == "SECT_SIZE": return {"ok": true, "committed": false, "life_unavailable": "SECT_SIZE"}
 	return result
 
+static func commit_hub_startup() -> Dictionary:
+	if _core_owner != null: return _commit_core()
+	var source := current_state()
+	if source == null: return {"ok": false, "error": "NO_STATE"}
+	if IslandEconomy.hub(source) or not IslandProgression.active(source): return {"ok": true, "committed": false}
+	var session := GameSession.new()
+	session.content = content()
+	session.clock = GameClock.create(source.total_elapsed_seconds)
+	session.state = source
+	var meta := _envelope.duplicate(true) if not _envelope.is_empty() else {"save_id": "local"}
+	var result := activate_hub(session, meta)
+	if result.ok:
+		_current_state = session.state
+	return result
+
 static func activate_sect_life(session: GameSession, meta: Dictionary) -> Dictionary:
 	if _core_owner != null or migration_pending(session.state): return {"ok": false, "error": "SECT_CORE_SAVE_REQUIRED"}
 	if session.state.sect_version == SectLife.SECT_VERSION: return {"ok": false, "error": "ALREADY_MIGRATED"}

@@ -35,8 +35,8 @@ func _ready() -> void:
 	source = _label("藏經閣產點 · 經書殿擴容 · 當世選修，輪迴重置")
 	info.add_child(source)
 	var study := Button.new()
-	study.text = "經營建築"
-	study.tooltip_text = "前往建造／升級藏經閣與經書殿；技能為選修，不限制空島或配方。"
+	study.text = "營造藏經閣"
+	study.tooltip_text = "前往洞府營造藏經閣產出技能點，營造經書殿擴充點數上限。"
 	study.custom_minimum_size = Vector2(112, 44)
 	UiMaterial.apply_button(study)
 	study.pressed.connect(func(): action_requested.emit("study", ""))
@@ -75,7 +75,7 @@ func _art(id: String, edge: int) -> TextureRect:
 func _card(item: Dictionary) -> void:
 	var card := PanelContainer.new()
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var box: StyleBoxTexture = UiMaterial.hud_paper()
+	var box: StyleBox = UiMaterial.slim_paper_card(false).duplicate()
 	card.add_theme_stylebox_override("panel", box)
 	grid.add_child(card)
 	var row := HBoxContainer.new()
@@ -124,9 +124,13 @@ func refresh(view: Dictionary) -> void:
 		var scope_note := String(item.get("scope_note", ""))
 		row.scope.text = "" if scope_text.is_empty() else "作用：" + scope_text + (" · " + scope_note if not scope_note.is_empty() else "")
 		row.scope.visible = not scope_text.is_empty()
-		row.effect.text = item.get("current_effect", item.description)
+		var cur_effect: String = item.get("current_effect", item.description)
+		var effect_text: String = "當前加成：" + cur_effect
 		if item.level < item.max_level:
-			row.effect.text += "\n下階：" + item.get("next_effect", item.description)
+			effect_text += "\n下階演繹：" + item.get("next_effect", item.description)
+		else:
+			effect_text += "\n功法已臻圓滿"
+		row.effect.text = effect_text
 		row.effect_full = row.effect.text
 		row.effect.tooltip_text = item.description if scope_text.is_empty() else item.description + "\n作用：" + scope_text + ("\n" + scope_note if not scope_note.is_empty() else "")
 		row.cost.show_costs({"skill_point": float(item.cost)}, {"skill_point": "技能點"}, {"skill_point": skill_points}, {"skill_point": "當世"}, "每階研習", "", UiMaterial.INK)
@@ -150,7 +154,7 @@ func _layout() -> void:
 		heading.tooltip_text = _heading_full + "\n藏經閣產點 · 經書殿擴容\n" + feedback_message
 	heading.add_theme_font_size_override("font_size", 18 if compact else 20)
 	for row in cards.values():
-		var box: StyleBoxTexture = row.box
+		var box: StyleBox = row.box
 		row.cost.set_compact(compact)
 		row.art.custom_minimum_size = Vector2.ONE * (56 if compact else 112)
 		row.row.add_theme_constant_override("separation", 6 if compact else 12)

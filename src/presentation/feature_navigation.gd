@@ -356,7 +356,11 @@ func _make_tabs() -> void:
 		button.button_pressed = route == page
 		button._update_style()
 		button.set_meta("selected", route == page)
-		button.pressed.connect(func(): open(route))
+		button.pressed.connect(func():
+			if route in ["manufacturing", "transport"]:
+				full_island_management = true
+				_tab_signature = ""
+			open(route))
 		tabs.add_child(button)
 		tab_buttons[route] = button
 	set_vertical_tabs(tabs.vertical, true)
@@ -409,11 +413,6 @@ func _refresh_tabs(view: Dictionary) -> void:
 		button.modulate = Color(0.72, 0.72, 0.72) if availability.state == FeatureUnlocks.State.PREVIEW else Color.WHITE
 		button.tooltip_text = ""
 		button.set_meta("availability", availability.state)
-		if not full_island_management and int(view.get("era_id",1))==2 and route in ["outposts","manufacturing","transport"]:
-			button.visible = route == "outposts"
-			button.button_pressed = route == "outposts" and page in ["outposts","manufacturing","transport"]
-			button._update_style()
-			label = "空島"
 		button.text = label + ("·未開" if availability.state == FeatureUnlocks.State.PREVIEW else "")
 	# Stable partition: keep the canonical order inside each availability group.
 	# Reuse buttons so unlock refreshes preserve input connections and page state.
@@ -530,7 +529,7 @@ func request_level_up() -> void:
 		shell.open_tool(level_up_supply)
 
 func _refresh_supply_return(view: Dictionary) -> void:
-	var level_matches: bool = _level_up_target == Vector2i(int(view.era_id), int(view.level)) and bool(view.get("training_complete", false)) and not abode.lifespan_banner.visible
+	var level_matches: bool = _level_up_target == Vector2i(int(view.get("era_id", 0)), int(view.get("level", 0))) and bool(view.get("training_complete", false)) and not abode.lifespan_banner.visible
 	var recipe_pending: bool = _can_resume_recipe(view)
 	supply_return.visible = group == "management" and (level_matches or recipe_pending)
 	supply_return.text = "繼續原配方" if recipe_pending else "返回晉階"

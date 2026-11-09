@@ -24,6 +24,12 @@ var _retry_button: Button
 var _feedback_row: HBoxContainer
 var _margin: MarginContainer
 var reduced_motion := false
+var _embedded := false
+
+func set_embedded(value: bool) -> void:
+	if _embedded == value: return
+	_embedded = value
+	if _background != null: set_layout_bounds(Rect2(position, size))
 
 func _ready() -> void:
 	_build_ui()
@@ -32,11 +38,16 @@ func set_layout_bounds(bounds: Rect2) -> void:
 	position = bounds.position
 	size = bounds.size
 	if _achievements_list != null:
-		_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell())
-		UiMaterial.apply_scroll_content_margins(_margin, size.y < 350)
+		_background.visible = not _embedded
+		if _embedded:
+			for side in ["left", "right", "top", "bottom"]:
+				_margin.add_theme_constant_override("margin_" + side, 4)
+		else:
+			_background.add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell() if size.y < 350 else UiMaterial.scroll_shell())
+			UiMaterial.apply_scroll_content_margins(_margin, size.y < 350)
 		_achievements_list.columns = 2 if size.x >= 1000 else 1
-		_title_row.visible = size.y >= 350
-		_summary_label.visible = size.y >= 350
+		_title_row.visible = not _embedded and size.y >= 350
+		_summary_label.visible = not _embedded and size.y >= 350
 		_filters_scroll.custom_minimum_size.y = 44 if size.y < 350 else 52
 		_content.add_theme_constant_override("separation", 4 if size.y < 350 else 10)
 		_fit_badges.call_deferred()
@@ -189,7 +200,7 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	var card := PanelContainer.new()
 	card.name = "Card_" + String(ach.id)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	card.add_theme_stylebox_override("panel", UiMaterial.surface("paper"))
+	card.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card(false))
 	card.set_meta("category", String(ach.get("category", "")))
 	var box := HBoxContainer.new()
 	box.name = "HBox"
@@ -208,7 +219,9 @@ func _create_achievement_card(ach: Dictionary) -> PanelContainer:
 	if SectLineage.ACHIEVEMENTS.has(ach.id):
 		var def: Dictionary = SectLineage.ACHIEVEMENTS[ach.id]
 		var key := String(def.get("sect_id", "taixu_sect")).trim_suffix("_sect")
-		badge.texture = load("res://assets/ui/sects-painted/" + key + ".png")
+		var sect_path := "res://assets/ui/sects-painted/" + key + ".png"
+		if ResourceLoader.exists(sect_path):
+			badge.texture = load(sect_path)
 	box.add_child(badge)
 	var info := VBoxContainer.new()
 	info.name = "Info"

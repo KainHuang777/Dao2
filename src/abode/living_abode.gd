@@ -22,6 +22,7 @@ const GROUNDED_ALTAR: Texture2D = preload("res://assets/abode/altar-grounded/alt
 const CameraScript = preload("res://src/abode/abode_camera.gd")
 const BuildingScript = preload("res://src/abode/abode_building.gd")
 const BuildingCatalogScript = preload("res://src/presentation/building_catalog.gd")
+const AssetPackLoaderScript = preload("res://src/platform/asset_pack_loader.gd")
 const EconomyPlaySession = preload("res://src/economy/economy_play_session.gd")
 const ECONOMY_WEB_NAMESPACE := "dao2_econ_r1_frontier"
 
@@ -478,6 +479,11 @@ func _ready() -> void:
 	_layout()
 	_refresh_hud()
 
+	var pack_loader = AssetPackLoaderScript.new()
+	pack_loader.name = "AssetPackLoader"
+	add_child(pack_loader)
+	pack_loader.start_background_prefetch()
+
 	print("ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords")
 	_last_process_ticks_msec = Time.get_ticks_msec()
 	_process_ticks_initialized = true
@@ -565,6 +571,10 @@ func _init_core() -> void:
 		while not life_saved.ok:
 			await _wait_supply_retry(String(life_saved.get("error", "SAVE_FAILED")))
 			life_saved = SaveManager.commit_sect_life_startup()
+		var hub_saved := SaveManager.commit_hub_startup()
+		while not hub_saved.ok and hub_saved.get("error") != "ALREADY_MIGRATED":
+			await _wait_supply_retry(String(hub_saved.get("error", "SAVE_FAILED")))
+			hub_saved = SaveManager.commit_hub_startup()
 	var now_ms: int = int(Time.get_unix_time_from_system() * 1000.0)
 	var offline_res: Dictionary
 	if OS.has_feature("web"):

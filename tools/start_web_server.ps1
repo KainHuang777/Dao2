@@ -9,8 +9,10 @@ Set-Location "$PSScriptRoot\.."
 $webDir = ".\build\web"
 $indexFile = "$webDir\index.html"
 $pckFile = "$webDir\index.pck"
+$dlcSectFile = "$webDir\dlc_sect_lore.pck"
+$dlcBeastsFile = "$webDir\dlc_beasts_features.pck"
 
-$needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Path $pckFile))
+$needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Path $pckFile)) -or (-not (Test-Path $dlcSectFile)) -or (-not (Test-Path $dlcBeastsFile))
 
 if (-not $needExport) {
     $pckTime = (Get-Item $pckFile).LastWriteTime
@@ -31,6 +33,9 @@ if ($needExport) {
         Write-Error "Godot Web Export Failed."
         exit 1
     }
+    Write-Host "[INFO] Exporting Web DLC Packs..." -ForegroundColor Yellow
+    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-pack WebDLC_Sect $dlcSectFile
+    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-pack WebDLC_Beasts $dlcBeastsFile
     Write-Host "[SUCCESS] Web Release exported successfully!" -ForegroundColor Green
 }
 

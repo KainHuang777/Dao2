@@ -1,5 +1,43 @@
 # 開發狀態與交接紀錄
 
+<a id="cultivation-ui-workbench-integration"></a>
+## 2026-11-10 CULTIVATION-UI-WORKBENCH-INTEGRATION（修行介面集中工作台整合與薄框宣紙整改 DONE）
+
+- **任務目標**：響應使用者審查需求，將「修行（Cultivation）」群組全部子分頁（技能、煉丹、成就、輪迴天賦、靈獸）全面納入統一集中工作台（ManagementWorkbench），解決頂部分頁懸浮割裂、重複外層底紙與重複關閉按鈕問題，全面升級為薄框宣紙風格並重整修仙道韻內文。
+- **具體變更**：
+  1. **集中工作台路由整合（Workbench Integration）**：
+     - `src/presentation/ui_shell_controller.gd`：將 `cultivation` 納入 `integrated` 與 `integrated_identity` 判定。寬螢幕下修為個人卡（道印、境界、壽元、晉階）整齊收入工作台左欄，頂部分頁條嵌入宣紙卷首，右上單一 CloseSeal 統一返回。
+     - `src/presentation/management_workbench.gd`：納入 `abode.alchemy_panel` 與 `abode.achievement_panel` 嵌入管理與生命週期還原。左欄庫存標題在修行群組下智慧適配為「丹房庫存」與「修行資質」。
+  2. **事件穿透與左欄防護（Ghost Blocker Defense）**：
+     - `src/presentation/system_actions_panel.gd`：將左側導航欄（LeftRail）與關閉按鈕顯示嚴格限定於 `mode == "decisions"`，避免在技能研習或靈獸培育時出現異常雙欄割裂。
+  3. **嵌入模式支援（Embedded Lifecycle）**：
+     - `src/presentation/alchemy_panel.gd` & `src/presentation/achievement_panel.gd`：實作 `set_embedded(value: bool)`，嵌入工作台時自動隱藏重複標題列、自帶 CloseSeal 與外層卷軸底板，緊湊內距邊緣。
+  4. **薄框宣紙卡片升級（Slim Paper Aesthetic）**：
+     - `src/presentation/skill_study_view.gd`、`src/presentation/alchemy_panel.gd`、`src/presentation/beast_care_view.gd`：全面將舊木軸厚重留白的 `hud_paper()` 升級為 `UiMaterial.slim_paper_card(false)`，大幅提升雙欄閱讀與操作密度。
+  5. **內文層級與仙修道韻整改（Text Polish）**：
+     - `skill_study_view.gd`：右上導覽按鈕整改為「營造藏經閣」，明確提示前往洞府營造藏經閣產點與經書殿擴容；卡片效果文字重構為「當前加成：...」與「下階演繹：...」/「功法已臻圓滿」；按鈕狀態嚴格保留契約。
+- **驗收命令與結果**：
+  - **L1 Runners**：`powershell -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only 'uix_r8_skills_ui_runner,content_p1_skills_runner,content_p1_skills_progression_runner,ui_shell_policy_runner,ui_shell_integration_runner'`，**5/5 PASS，exit 0**（耗時分別為 18.7s、6.5s、20.8s、4.9s、18.6s），無任何 SCRIPT ERROR。
+  - **靜態交付檢查**：`python tools/delivery_check.py` 稽核通過，受保護之 verification artifacts 0 變更。
+- **下一步**：階段任務已通過，可手動 commit。請使用者在桌面 Chrome 瀏覽器中按 Ctrl+F5 強制刷新確認全新修行集中工作台介面！
+
+- **任務目標**：依據使用者指令，實現標準版本更新操作：存檔讀取後自動完成向下相容遷移，舊進度（原料、在途貨物與進行中加工）100% 保留，全面直通使用最新雙欄薄框宣紙製造工坊與運輸管理介面，杜絕過渡性技術按鈕困擾玩家。
+- **具體變更**：
+  1. **存檔自動平滑遷移（Seamless Data Migration）**：
+     - `src/persistence/save_manager.gd`：新增 `commit_hub_startup()`，在 `living_abode.gd` 開局啟動迴圈中自動調用。檢測到築基期（Era 2+）舊檔未升級 Hub 時，自動調用候選二階段提交 `activate_hub` 升級為 `HUB_AUTO_HAUL_VERSION`（自動補給模式），就地保留 `hub_legacy_jobs` 原料與在途批次。
+  2. **全面解鎖與直通最新介面（Direct Modern UI Routing）**：
+     - `src/presentation/feature_navigation.gd`：移除築基期強制隱藏「製造」與「運輸」分頁的硬編碼折疊邏輯；在分頁點擊時直接導航至最新雙欄薄框宣紙製造工坊（`manufacturing_panel.gd`）與運輸管理（`transport_panel.gd`）。
+     - 防禦性修復：在 `_refresh_supply_return` 加上 `get("era_id")` 與 `get("level")` 防空指針。
+  3. **除役過渡按鈕（Decommission Transition Buttons）**：
+     - `src/presentation/island_flow_panel.gd` 與 `src/presentation/island_management_panel.gd`：徹底隱藏「改用祖島集中製造（保留原檔）」按鈕。
+  4. **工具相容性更新**：
+     - `tools/web_static_server.py`：調整 `prewarm` 斷言允許 DLC pck 檔案。
+- **驗收命令與結果**：
+  - **L1 Runners**：`powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only "era2_island_flow_runner.gd,early_flow1d_hub_runner.gd,hub_economy_runner.gd,mfg3_inline_runner.gd,feature_navigation_runner.gd" -Parallel 2`，**5/5 PASS，exit 0**（耗時分別為 22.7s、13.2s、6.7s、16.0s、22.4s），無任何 `SCRIPT ERROR:`。
+  - **靜態交付檢查**：`python tools/delivery_check.py` 稽核通過，受保護之 verification artifacts 0 變動。
+  - **Web 構建**：`build/web` 已重新匯出並完成 Brotli 壓縮（9/9 檔案完全相符）。
+- **下一步**：本階段改造驗收已全數通過，可進行手動 commit。本地 Web 伺服器已更新，請在 Chrome 中刷新瀏覽器（建議 Ctrl+F5 強制刷新避免快取）即可看見全新製造介面！
+
 <a id="ui-ipm-refactor"></a>
 ## 2026-11-09 UI-IPM-REFACTOR（薄框宣紙、有圖不用字與有界雙欄重構 DONE）
 

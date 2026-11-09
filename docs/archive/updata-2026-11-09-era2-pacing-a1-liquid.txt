@@ -1,0 +1,9 @@
+2026-11-09 ERA2-PACING-A1 UNBLOCK LIQUID ADVANCEMENT (L1 PASS).
+
+Fixed Era2 Lv5 advancement deadlock by completing the home-island liquid ("丹液") synthesis pipeline:
+- Expanded LevelUpSupplyPanel.RECIPES to include "liquid", updated offers_help() to support missing liquid in Era 2, and dynamically set button label to "煉製丹液" bound to home island.
+- In feature_navigation.gd, connected liquid recipe request to open_buildings("herb_farm", true) if herb_farm < 3, or direct to open_manufacturing("", "liquid") if herb_farm >= 3, retaining _level_up_target for easy return.
+- In manufacturing_panel.gd, enhanced FACILITY_REQUIREMENT handling so missing facilities (such as herb_farm Lv3) show clear status ("需靈植場達到3階（目前%d階）") and provide an "升級靈植場" remedy button directly navigating to the building catalog.
+- In onboarding.gd, added Level 4 guidance tip: "五層晉階需丹液。可先在祖島將藥田建至三級產靈草，再於祖島工坊煉製丹液。".
+- Extended tests/era2_island_flow_runner.gd with end-to-end assertions. L1 runners (era2_island_flow_runner.gd, early_flow1d_hub_runner.gd) passed 2/2 (exit 0).
+

@@ -1,0 +1,10 @@
+2026-11-09 ERA2-PACING-B2 ERA2 BUILDINGS & STAT BONUSES (L1 PASS).
+
+Enriched Era2 content and pacing by introducing three practical buildings with integrated mechanical bonuses:
+- In content/buildings/era2.json, added alchemy_chamber (煉丹靜室, prereq: foundation_reservoir 1), spirit_array_plate (聚靈陣盤, prereq: storage_lingli 2), and dock_post (飛舟渡口, prereq: stone_mine 3) with cost curves and effect_weight: null, effects: {}.
+- In living_abode.gd and building_catalog.gd, registered Chinese display names, descriptions, and management catalog roles under production/functional facilities.
+- In economy_slice.gd and island_progression.gd, applied alchemy_chamber crafting duration reduction (15% per tier) to liquid and pill recipes.
+- In time_advancer.gd and offline_closed_form.gd, applied spirit_array_plate cultivation speed boost (+10% per tier) to online and offline closed-form simulation alike.
+- In island_economy.gd and offline_economy_jump.gd, added transit_duration(state) reducing transport duration from 10s to 8s with dock_post, adapting progress bars across island_flow_panel.gd and island_transport_panel.gd.
+- Extended tests/era2_island_flow_runner.gd with assertions for prerequisites, crafting duration discount, cultivation speed boost, transit reduction, and save compatibility. L1 verification (era2_island_flow_runner.gd, early_flow1d_hub_runner.gd) passed 2/2 (exit 0).
+

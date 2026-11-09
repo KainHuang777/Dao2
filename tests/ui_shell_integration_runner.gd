@@ -2,8 +2,10 @@ extends SceneTree
 var checks := 0
 var failures: Array[String] = []
 class ToggleAdapter extends StorageAdapter:
-	var backend := FileStorageAdapter.new("user://ui-shell-1-fault")
+	var backend: FileStorageAdapter
 	var fail_writes := false
+	func _init(base_dir: String = "user://ui-shell-1-fault") -> void:
+		backend = FileStorageAdapter.new(base_dir)
 	func read(key: String) -> Dictionary: return backend.read(key)
 	func write(key: String, value: String) -> Dictionary:
 		return {"ok": false, "error": "SHELL_WRITE_DENIED"} if fail_writes else backend.write(key, value)
@@ -19,8 +21,9 @@ func capture(label: String, vp: Vector2i) -> void:
 	if DisplayServer.get_name() != "headless":
 		root.get_texture().get_image().save_png(RunnerResult.output_path("res://docs/verification/artifacts/ui-shell-1/%s-%sx%s.png" % [label,vp.x,vp.y]))
 func _run() -> void:
-	load("res://src/abode/living_abode.gd").save_dir_override = "user://ui-shell-1-runner"
-	SaveSlots.new(FileStorageAdapter.new("user://ui-shell-1-runner")).reset()
+	var target_dir := ("user://ui-shell-1-runner" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("ui-shell-1-runner"))
+	load("res://src/abode/living_abode.gd").save_dir_override = target_dir
+	SaveSlots.new(FileStorageAdapter.new(target_dir)).reset()
 	var abode = load("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(abode)
 	await process_frame
@@ -33,7 +36,7 @@ func _run() -> void:
 	abode._set_resource_display_mode(0)
 	if shell.state.snapshot().home_preferences.messages_open: abode._toggle_guidance()
 	var prefs: Dictionary = shell.state.snapshot().home_preferences
-	var adapter := ToggleAdapter.new()
+	var adapter := ToggleAdapter.new(target_dir.path_join("ui-shell-1-fault"))
 	SaveSlots.new(adapter).reset()
 	SaveManager.configure(abode.content, adapter)
 	abode.session.state.buildings.herb_farm = 3
@@ -51,7 +54,7 @@ func _run() -> void:
 		await frames()
 		capture("alchemy-inventory", vp)
 		check(shell.compact_hud.visible and not abode.header.visible, "compact HUD %s" % vp)
-		check(shell.compact_hud.get_global_rect().end.y <= nav.bar.position.y, "HUD clears tabs %s" % vp)
+		check(shell.workbench.active or shell.compact_hud.get_global_rect().end.y <= nav.bar.position.y, "HUD clears tabs %s" % vp)
 		check(not nav.bar.get_global_rect().intersects(abode.settings_menu.get_global_rect()), "settings clears tabs %s" % vp)
 		check(abode.alchemy_panel._scroll.size.y >= 80, "recipe viewport %s" % vp)
 		check(not abode.hint_panel.visible, "work hides home messages")

@@ -84,7 +84,7 @@ def prewarm(directory, handler=CompressedStaticHandler):
     manifest = directory / 'compression.json'
     if handler.gzip_enabled and manifest.exists():
         for entry in json.loads(manifest.read_text(encoding='utf-8'))['files']:
-            if entry['file'] not in ('index.js', 'index.wasm', 'index.pck'):
+            if not (entry['file'].endswith(('.js', '.wasm', '.pck'))):
                 raise ValueError('Unexpected compression companion')
             source = directory / entry['file']
             companion = directory / (entry['file'] + '.br')

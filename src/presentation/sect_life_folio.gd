@@ -3,6 +3,7 @@ extends VBoxContainer
 ## Native paper folio. Only emits commands; all rewards come from the frozen View.
 signal story_requested(instance_id: String, option_id: String)
 signal join_requested(sect_name: String)
+const AssetPackLoaderScript = preload("res://src/platform/asset_pack_loader.gd")
 const ART := "res://assets/ui/sect-life/"
 const SECT_ART := {
  "taixu_sect": ["taixu-gate", "shen-zhaowei", "lu-jingxing", "tang-xihe"],
@@ -258,7 +259,14 @@ func _people_page() -> void:
 		_label(_reading, "同門篇章尚未開放。可繼續使用歷練、功法與坊市。")
 		return
 	var npc: String = SectLife.table(String(view.sect_id), "npcs")[selected_npc]
-	_art.texture = load(ART + SECT_ART[view.sect_id][selected_npc + 1] + ".png")
+	var art_path: String = ART + String(SECT_ART[view.sect_id][selected_npc + 1]) + ".png"
+	if ResourceLoader.exists(art_path):
+		_art.texture = load(art_path)
+	elif AssetPackLoaderScript.get_instance():
+		AssetPackLoaderScript.get_instance().ensure_pack("dlc_sect_lore", func(ok: bool):
+			if ok and is_instance_valid(_art) and ResourceLoader.exists(art_path):
+				_art.texture = load(art_path)
+		)
 	var affinity := int(view.npcs[npc].affinity)
 	_person_heading(affinity)
 	if records:
