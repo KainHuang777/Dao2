@@ -12,9 +12,12 @@ var style: StyleBoxFlat
 var shortage := false
 var show_source_caption := false
 var compact := false
+var show_ratio_mode := false
 var _reserved: Control
 var _reserved_value := 0.0
 var _amount_value: Variant = 0.0
+var _available_value: float = 0.0
+var _is_output := false
 
 func _init() -> void:
 	custom_minimum_size = Vector2(72, 72)
@@ -91,6 +94,8 @@ func refresh(resource: String, name_text: String, amount: float, available: floa
 	if icon.resource_id != resource:
 		icon.resource_id = resource
 		icon.queue_redraw()
+	_available_value = available
+	_is_output = output
 	shortage = not output and available < amount
 	var color := SHORTAGE if shortage else NORMAL
 	style.bg_color = Color("f0ddd0") if shortage else Color("dbe7dc") if output else Color("eee8d8")
@@ -130,7 +135,13 @@ func set_compact(enabled: bool) -> void:
 
 func _refresh_quantity() -> void:
 	var width := cell.custom_minimum_size.x - 4 - (6 if compact else 8)
-	quantity.text = NumberFormatter.fit_amount(_amount_value, quantity.get_theme_font("font"), 16, width)
+	if show_ratio_mode and not _is_output:
+		var font := quantity.get_theme_font("font")
+		var avail_str := NumberFormatter.fit_amount(_available_value, font, 14, width * 0.48)
+		var req_str := NumberFormatter.fit_amount(_amount_value, font, 14, width * 0.48)
+		quantity.text = "%s/%s" % [avail_str, req_str]
+	else:
+		quantity.text = NumberFormatter.fit_amount(_amount_value, quantity.get_theme_font("font"), 16, width)
 
 func set_quantity(value: Variant) -> void:
 	_amount_value = value

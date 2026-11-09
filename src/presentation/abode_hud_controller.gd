@@ -630,7 +630,7 @@ func _build_hud() -> void:
 	_abode.header.resized.connect(_abode._reflow_header)
 
 func _layout_for_size(vp: Vector2) -> void:
-	if vp.x <= 0.0 or vp.y <= 0.0:
+	if vp.x <= 0.0 or vp.y <= 0.0 or _abode == null or _abode.hud == null:
 		return
 	if _abode.orientation_prompt != null:
 		_abode.orientation_prompt.update_layout(vp)
@@ -848,6 +848,8 @@ func _layout_mode_name() -> String:
 			return "portrait"
 
 func _refresh_hud(view: Dictionary = {}) -> void:
+	if _abode == null or _abode.hud == null or _abode.realm_label == null:
+		return
 	var profile_status := RuntimeProfile.begin()
 	if view.is_empty():
 		view = _abode.session.get_view()
@@ -1406,6 +1408,8 @@ func _toggle_guidance() -> void:
 	_abode._layout_for_size(_abode.hud.size)
 
 func _open_current_goal() -> void:
+	if _abode == null or _abode.feature_navigation == null:
+		return
 	if _abode.feature_navigation.shell.managed() and _abode.feature_navigation.shell.state.snapshot().overlay == "messages":
 		_abode.feature_navigation.shell.close_overlay()
 	var view: Dictionary = _abode.session.get_view()

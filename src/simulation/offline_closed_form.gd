@@ -193,7 +193,8 @@ static func advance(state: GameState, content: GameContent, ticks: int, prepared
 				var u2: Dictionary = _unsupported("non_layer0")
 				u2["executed"] = executed
 				return u2
-		var training_speed: float = 1.0 + float(talents["cultivation_speed_bonus"]) + float(buff_m["cultivation_speed_bonus"]) + float(sect_m["cultivation_speed_bonus"]) + float(chrono_m["cultivation_speed_bonus"]) + float(beast_m["cultivation_speed_bonus"]) + feedback_boost
+		var building_cultivation_boost := 0.1 * float(state.buildings.get("spirit_array_plate", 0))
+		var training_speed: float = 1.0 + float(talents["cultivation_speed_bonus"]) + float(buff_m["cultivation_speed_bonus"]) + float(sect_m["cultivation_speed_bonus"]) + float(chrono_m["cultivation_speed_bonus"]) + float(beast_m["cultivation_speed_bonus"]) + feedback_boost + building_cultivation_boost
 		state.training_seconds = _seq_add(state.training_seconds, training_speed, n)
 		BuffSystem.tick(state, float(n))
 		RealmDecisionSystem.advance_time(state, float(n))

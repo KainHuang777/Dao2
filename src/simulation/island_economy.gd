@@ -76,6 +76,11 @@ static func durations(state: GameState) -> Dictionary:
 		_durations.merge(supply_data().durations)
 	return _durations.merged(EconomySlice.component_data().durations) if EconomySlice.frontier_state(state) else _durations
 
+static func transit_duration(state: GameState) -> int:
+	if int(state.buildings.get("dock_post", 0)) > 0:
+		return 8
+	return 10
+
 static func route_level_cap(state: GameState, id: String) -> int:
 	return 3 if expanded(state) and supply_data().routes.has(id) else 2
 
@@ -558,7 +563,7 @@ static func tick(state: GameState, catalog: Dictionary, local_rates: Dictionary 
 		var cargo: float = departure_info(state, catalog, id, route).cargo
 		if cargo > 0:
 			_put(state, def[0], def[2], value(state, def[0], def[2]) - cargo, "transfer", -cargo)
-			state.economy.trips[id] = {"version": 1, "cargo": String.num(cargo, 6) if catalog.has("econ_r1") else AmountCompat.from_number(cargo).serialize(), "remaining": 10}
+			state.economy.trips[id] = {"version": 1, "cargo": String.num(cargo, 6) if catalog.has("econ_r1") else AmountCompat.from_number(cargo).serialize(), "remaining": transit_duration(state)}
 			events.append({"kind": "cargo_departed", "route_id": id})
 	return events
 

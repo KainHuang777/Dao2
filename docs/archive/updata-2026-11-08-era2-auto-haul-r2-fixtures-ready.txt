@@ -1,0 +1,8 @@
+2026-11-08 ERA2-AUTO-HAUL R2 FIXTURES READY; PLAYER TRACES PENDING.
+
+Use Chrome on one arm at a time: A http://127.0.0.1:4280/launcher and B http://127.0.0.1:4281/launcher. Both load the same default-edition PCK and the same controlled Era2 level-one checkpoint, after paid island openings. Only the haul policy and its three routes differ. Both Chrome rehearsal origins reached the game. Reopen the service if needed with python .test-output/era2-playtest/r2/serve.py. The previous trial ports are retired.
+
+The Godot 4.7.2 accelerated control reached both first products at 31 seconds and level two at 221 in both arms when manual routes were enabled at simulation second zero. It demonstrates the three extra route commands in A under this strategy. It does not measure player navigation, elapsed time or idle waiting. The release package and production code were unchanged.
+
+NEXT New Chat: collect the actual player sequence, three milestones, page switches, help, and parallel versus idle wait for both arms. Record the offline summary and run order. Then assess remaining friction before tuning. See docs/development-status.md#era2-auto-haul-r2. Manual commit is available for the setup phase.
+

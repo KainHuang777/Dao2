@@ -1,5 +1,7 @@
 extends SceneTree
 const Flow = preload("res://src/presentation/island_flow_model.gd")
+const LevelUpSupply = preload("res://src/presentation/level_up_supply_panel.gd")
+const Onboarding = preload("res://src/simulation/onboarding.gd")
 var checks := 0
 var failures: Array[String] = []
 func _init() -> void: _run.call_deferred()
@@ -174,6 +176,99 @@ func _run() -> void:
 	nav.flow_return.pressed.emit()
 	await frames()
 	check(panel.visible,"return to focused mode")
+
+	# ERA2-PACING-A1: liquid button, ancestor routing, and herb farm prerequisite
+	var mock_view: Dictionary = abode.session.get_view().duplicate(true)
+	mock_view.era_id = 2
+	mock_view.level = 5
+	mock_view.level_up_missing_resources = {"liquid": 5.0}
+	check(LevelUpSupply.offers_help(mock_view), "LevelUpSupply offers help for missing liquid in Era 2")
+	nav.level_up_supply.refresh(mock_view, abode.RESOURCE_NAMES)
+	check(nav.level_up_supply.recipe_buttons.has("liquid"), "LevelUpSupply has liquid button")
+	check(nav.level_up_supply.recipe_buttons.liquid.visible, "liquid button visible when missing liquid")
+	check(nav.level_up_supply.recipe_buttons.liquid.text == "煉製丹液", "liquid button shows 煉製丹液 in Era 2")
+
+	abode.session.state.buildings.herb_farm = 1
+	nav.level_up_supply.recipe_buttons.liquid.pressed.emit()
+	await frames()
+	check(nav.page == "buildings", "missing herb_farm 3 redirects to buildings page")
+
+	abode.session.state.buildings.herb_farm = 3
+	nav.level_up_supply.recipe_buttons.liquid.pressed.emit()
+	await frames()
+	check(nav.page == "manufacturing", "herb_farm 3 navigates to manufacturing")
+
+	var mock_era := {"max_level": 10, "upgrade_requirements": {"capacity": {"lingli": 2000}}}
+	abode.session.state.era_id = 2
+
+	# E1 guidance (Levels 1-3)
+	abode.session.state.level = 2
+	var g_e1 := Onboarding.golden_guidance(abode.session.state, mock_era, abode.session.get_view().resources, false, false, 60.0)
+	check(g_e1.step == "F7" and g_e1.substep == "E1", "E1 step is F7 with substep E1")
+	check(g_e1.title.contains("穩固產線"), "E1 title guides steady supply line")
+	check(g_e1.text.contains("飛舟渡口") and g_e1.text.contains("聚靈陣盤"), "E1 text recommends pacing buildings")
+
+	# E2 guidance (Level 4, liquid gate)
+	abode.session.state.level = 4
+	abode.session.state.buildings.herb_farm = 1
+	var g_e2_pre := Onboarding.golden_guidance(abode.session.state, mock_era, abode.session.get_view().resources, false, false, 60.0)
+	check(g_e2_pre.substep == "E2" and g_e2_pre.route == "herb_farm", "E2 routes to herb_farm when under tier 3")
+	abode.session.state.buildings.herb_farm = 3
+	var g_e2 := Onboarding.golden_guidance(abode.session.state, mock_era, abode.session.get_view().resources, false, false, 60.0)
+	check(g_e2.substep == "E2" and g_e2.route == "manufacturing" and g_e2.recipe_id == "liquid", "E2 routes to home liquid manufacturing")
+	check(g_e2.text.contains("五層晉階需丹液"), "onboarding golden guidance provides level 4 liquid tip")
+
+	# E3 guidance (Levels 5-9)
+	abode.session.state.level = 6
+	var g_e3 := Onboarding.golden_guidance(abode.session.state, mock_era, abode.session.get_view().resources, false, false, 60.0)
+	check(g_e3.substep == "E3" and g_e3.title.contains("擴充洞府"), "E3 guides abode expansion")
+
+	# E4 guidance (Level 10)
+	abode.session.state.level = 10
+	var g_e4 := Onboarding.golden_guidance(abode.session.state, mock_era, abode.session.get_view().resources, false, true, 0.0)
+	check(g_e4.substep == "E4" and g_e4.title.contains("突破至金丹"), "E4 guides golden core breakthrough when ready")
+
+	# ERA2-PACING-B2: new buildings, prerequisites, and effect bonuses
+	check(abode.content.buildings.has("alchemy_chamber"), "alchemy_chamber in building catalog")
+	check(abode.content.buildings.has("spirit_array_plate"), "spirit_array_plate in building catalog")
+	check(abode.content.buildings.has("dock_post"), "dock_post in building catalog")
+
+	# The catalog tolerates missing portrait files, so verify the displayed textures.
+	nav.open_buildings()
+	await frames()
+	var catalog = abode.building_catalog
+	for id in ["alchemy_chamber", "spirit_array_plate", "dock_post"]:
+		var card: Button = catalog.rows.get(id)
+		var portrait: UiIllustration = card.get_child(0) as UiIllustration if card else null
+		check(
+			card != null and card.is_visible_in_tree() and portrait != null
+			and portrait.is_visible_in_tree() and portrait.texture != null
+			and portrait.texture.resource_path == "res://assets/ui/buildings-painted/%s.png" % id
+			and portrait.texture.get_size() == Vector2(192, 192),
+			"%s displays its 192px portrait in the Era 2 catalog" % id
+		)
+
+	var cmd_state: GameState = abode.session.state.duplicate_state()
+	cmd_state.buildings.foundation_reservoir = 0
+	var fail_cmd: Dictionary = CommandProcessor.apply(abode.content, cmd_state, {"type": "upgrade_building", "payload": {"building_id": "alchemy_chamber"}})
+	check(not fail_cmd.ok and fail_cmd.error == "PREREQ_UNSATISFIED", "alchemy_chamber blocked without foundation_reservoir")
+
+	var dur_base: int = IslandProgression.duration(cmd_state, "home", "liquid")
+	cmd_state.buildings.alchemy_chamber = 1
+	var dur_reduced: int = IslandProgression.duration(cmd_state, "home", "liquid")
+	check(dur_reduced < dur_base, "alchemy_chamber reduces liquid crafting duration")
+
+	var train_state: GameState = abode.session.state.duplicate_state()
+	train_state.buildings.spirit_array_plate = 1
+	train_state.training_seconds = 0.0
+	TimeAdvancer.advance(train_state, abode.content, 10)
+	check(train_state.training_seconds > 10.0, "spirit_array_plate boosts cultivation speed above 1.0x")
+
+	check(IslandEconomy.transit_duration(abode.session.state) == 10, "default transit is 10s")
+	var dock_state: GameState = abode.session.state.duplicate_state()
+	dock_state.buildings.dock_post = 1
+	check(IslandEconomy.transit_duration(dock_state) == 8, "dock_post reduces transit to 8s")
+
 	root.content_scale_mode=Window.CONTENT_SCALE_MODE_DISABLED
 	for vp in ([Vector2i(1280,720),Vector2i(844,390),Vector2i(800,360)] if OS.get_environment("DAO_VIEWPORT_MATRIX")=="full" else [Vector2i(1280,720)]):
 		root.size=vp

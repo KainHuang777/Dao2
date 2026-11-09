@@ -2,7 +2,7 @@ extends PanelContainer
 ## Uses the shell tool overlay for modality, responsive bounds and CloseSeal.
 const Costs = preload("res://src/presentation/cost_strip.gd")
 const Icon = preload("res://src/presentation/resource_icon.gd")
-const RECIPES := ["spirit_timber", "bronze_essence"]
+const RECIPES := ["spirit_timber", "bronze_essence", "liquid"]
 
 signal recipe_requested(id: String)
 signal level_up_requested()
@@ -14,7 +14,7 @@ var level_up: Button
 
 static func offers_help(view: Dictionary) -> bool:
 	var missing: Dictionary = view.get("level_up_missing_resources", {})
-	return int(view.get("era_id", 0)) == 2 and (missing.has("spirit_timber") or missing.has("bronze_essence"))
+	return int(view.get("era_id", 0)) == 2 and (missing.has("spirit_timber") or missing.has("bronze_essence") or missing.has("liquid"))
 
 func _ready() -> void:
 	theme = UiTypography.create_theme()
@@ -52,10 +52,14 @@ func refresh(view: Dictionary, names: Dictionary) -> void:
 		note += "\n尚需完成工藝研習 " + research
 	costs.show_costs(amounts, names, available, {}, "祖島晉階材料", note)
 	var missing: Dictionary = view.get("level_up_missing_resources", {})
+	var era_id := int(view.get("era_id", 0))
 	for id in recipe_buttons:
 		recipe_buttons[id].visible = missing.has(id)
-		var producer: String = IslandProgression.RECIPES.find_key(id)
-		recipe_buttons[id].text = "開拓" + IslandProgression.NAMES[producer] if view.economy.is_empty() else "製造" + Icon.get_resource_name(id)
+		if id == "liquid" and era_id == 2:
+			recipe_buttons[id].text = "煉製丹液"
+		else:
+			var producer: String = IslandProgression.RECIPES.find_key(id)
+			recipe_buttons[id].text = "開拓" + IslandProgression.NAMES[producer] if view.economy.is_empty() else "製造" + Icon.get_resource_name(id)
 	level_up.visible = bool(view.get("can_level_up", false))
 
 func set_layout_bounds(bounds: Rect2) -> void:

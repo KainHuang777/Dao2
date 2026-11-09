@@ -221,7 +221,7 @@ static func _lean_tick(state: GameState, catalog: Dictionary) -> Variant:
 		if cargo > 0:
 			var def: Array = IslandEconomy.route_defs(state)[id]
 			IslandEconomy._put(state, def[0], def[2], IslandEconomy.value(state, def[0], def[2]) - cargo, "transfer", -cargo)
-			state.economy.trips[id] = {"version": 1, "cargo": AmountCompat.from_number(cargo).serialize(), "remaining": 10}
+			state.economy.trips[id] = {"version": 1, "cargo": AmountCompat.from_number(cargo).serialize(), "remaining": IslandEconomy.transit_duration(state)}
 			events.append({"kind": "cargo_departed", "route_id": id})
 	return events
 

@@ -1,5 +1,88 @@
 # 開發狀態與交接紀錄
 
+<a id="ui-ipm-refactor"></a>
+## 2026-11-09 UI-IPM-REFACTOR（薄框宣紙、有圖不用字與有界雙欄重構 DONE）
+
+- **任務目標**：解決介面改版三次後文字依然偏多、空間利用率不足與長 Bar 條問題，依據《Idle Planet Miner》介面特點，遵循「有圖不用字（僅留 Title 與品項名稱）」、「薄框宣紙」、「有界雙欄（760~840px）」進行精煉/製造、工藝研習與空島管理介面重構。
+- **具體變更**：
+  1. **UI-IPM-1（共用薄框宣紙與緊湊格）**：
+     - `src/presentation/ui_material.gd`：新增 `slim_paper_panel()` 與 `slim_paper_card(active)`，使用 1.5px 古金 `#bfa15f` / 翡翠青 `#3b6e5c` 細線與米白宣紙底色，消除 20px 厚卷軸內外留白。
+     - `src/presentation/recipe_material_tile.gd`：新增 `show_ratio_mode`，啟用時以「持有/需求」簡約格式呈現，去除重複贅字。
+     - `docs/19-ui-ux-guidelines.md`：寫入「薄框宣紙、有圖不用字與有界雙欄」核心規範。
+  2. **UI-IPM-2（製造雙欄方卡與有界短條）**：
+     - `src/presentation/recipe_row.gd`：改用 `slim_paper_card()`，進度條短化（`Vector2(140, 10)`，`SIZE_SHRINK_BEGIN`），邊框依狀態動態著色。
+     - `src/presentation/manufacturing_panel.gd`：卡片清單自適應雙欄（寬螢幕 `columns = 2` 一行兩個品項並排，窄螢幕回退 `1` 欄），材料格啟用 `show_ratio_mode`。
+  3. **UI-IPM-3（工藝研習緊湊薄框樣式）**：
+     - `src/presentation/economy_research_panel.gd`：面板與卡片改用 `slim_paper_panel()` 和 `slim_paper_card()`，縮減操作與詳情空隙。
+  4. **UI-IPM-4（空島管理儀表板）**：
+     - `src/presentation/island_flow_panel.gd` & `src/presentation/island_management_panel.gd`：開拓島嶼列、聚焦操作區與設施卡片全面套用 `slim_paper_card()`，短化進度條，材料格啟用比例模式。
+- **驗收命令與結果**：
+  - **L1/L2 Runners**：`era2_island_flow_runner.gd` (19.5s)、`res1c_progression_runner.gd` (16.7s)、`content_p2_supply_ui_runner.gd` (6.7s)、`hub_onboarding_runner.gd` (2.4s)、`mfg3_inline_runner.gd` (15.6s)、`econ_r1_play_runner.gd` (15.9s)，**全數 PASS，exit 0**。
+  - **靜態交付檢查**：`delivery_check.py` 稽核通過，受保護之 verification artifacts 0 變更。
+- **下一步**：四階段重構全面完成。本階段任務已結束，可進行手動 commit；後續若需三頁桌面 Chrome 走查或新功能開發，建議在新對話（New Chat）接續。
+
+<a id="early-flow1-e"></a>
+## 2026-11-09 EARLY-FLOW1-E（築基修煉與營造節奏串接 DONE）
+
+- **任務目標**：將築基期（Era 2）引導從大跨度單一目標 F7 細化為平滑的層級分段（E1~E4），融入飛舟渡口、聚靈陣盤、煉丹靜室三棟新建築推薦與精準跳轉，解決前期發呆與指引斷層。
+- **具體變更**：
+  1. `src/simulation/onboarding.gd`：在 `golden_guidance` 中保留 `step = "F7"`（向下相容既有 runner 與語音系統），新增 `substep` 欄位（E1~E4）：
+     - **E1（築基 1~3 層）**：主目標引導雙島產線穩定（靈材 20、銅精 10），推薦營造飛舟渡口（航程 -20%）與聚靈陣盤（修煉 +10%）。
+     - **E2（築基 4 層）**：籌備丹液突破五層，前置藥田 < 3 階時 `route = "herb_farm"` 直達升級；已達標缺丹液時 `route = "manufacturing"` 直達祖島丹液配方；推薦營造煉丹靜室（丹液工時 -15%）。
+     - **E3（築基 5~9 層）**：擴充洞府邁向金丹，引導聚靈壇 2 階與築基靈池（逐步擴容至 2000 門檻），靈池與聚靈壇不足時精確路由。
+     - **E4（築基 10 層）**：容量達 2000 時導向金丹突破，一鍵銜接至金丹 G1~G4 引導。
+  2. `src/presentation/abode_hud_controller.gd` & `src/abode/living_abode.gd`：增加非同步載入保護守護，避免在 `hud` 或 `realm_label` 未就緒前調用 `_layout_for_size` 或 `_refresh_hud` 引發空指針。
+  3. `tests/era2_island_flow_runner.gd`：新增 E1~E4 子階段目標標題、文案與動態跳轉路徑的端到端斷言。
+  4. `tests/early_flow1d_runner.gd`：沙箱存檔目錄改用 `RunnerResult.output_path`，解決沙箱內 `user://` 寫入受限問題，並確保 HUD 元件完整就緒。
+- **L1 驗證結果**：Godot 4.7.2，`powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only "era2_island_flow_runner.gd,early_flow1d_hub_runner.gd,early_flow1d_runner.gd"`，**3/3 PASS，exit 0**（耗時分別為 18.3s、9.9s、111.2s），無 `SCRIPT ERROR:`。
+- **交付檢查**：`python tools/delivery_check.py` 與 `git diff --check` 通過，受保護證據目錄 0 變動。
+- **下一步**：本階段已完整串接築基期前中後期節奏與導航，本階段可手動 commit。下一階段可進行金丹首段（G1~G4）體驗回歸或玩家試玩對照。
+
+<a id="era2-buildings-art"></a>
+## 2026-11-09 ERA2-BUILDINGS-ART（築基建築縮圖 DONE）
+
+- **交付**　[煉丹靜室](../assets/ui/buildings-painted/alchemy_chamber.png)、[聚靈陣盤](../assets/ui/buildings-painted/spirit_array_plate.png)、[飛舟渡口](../assets/ui/buildings-painted/dock_post.png) 皆為 192×192 RGBA PNG，含 Godot 產生的 `.png.import`。三張圖由內建 ImageGen 分別生成，聚靈陣盤與飛舟渡口各修訂一次以突出陣盤及舟身。以 64px 紙色圓框預覽檢視輪廓，三張均通過透明外緣、圓框留白與尺寸檢查。原圖來源、完整提示詞及 SHA-256 見 [manifest](../assets/ui/buildings-painted/manifest.json) 與 [生成紀錄](../assets/ui/buildings-painted/prompt-used.txt)。
+- **營造簿接入**　沿用建築 ID 對應紋理與共用 `UiIllustration`。靜態審查確認插圖使用 `MOUSE_FILTER_IGNORE`，卡片與建造按鈕最小命中均達 44px，沿用紙面卡與工作台返回動線。`tests/era2_island_flow_runner.gd` 新增三項檢查，由築基遊戲場景開啟營造簿，確認可見卡片的插圖路徑與實際載入的紋理尺寸。
+- **L1 驗收**　Godot `4.7.2.stable.official.ed1daf0bf`，`--headless --path . --import` 匯入三張圖，exit 0。`powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_all_runners.ps1 -Only "era2_island_flow_runner.gd" -List` 命中一支。正式單尺寸 1280×720 執行 **1/1 runner、93/93 檢查通過，exit 0**，無 `SCRIPT ERROR:`。日誌保留於 `.test-output/era2-buildings-art/`，含沙箱 `user://` 及既有錨點、RID、ObjectDB 診斷。Manifest 的 15/15 筆 PNG SHA-256 全數吻合。
+- **下一步**　此美術階段結束，可手動 commit。下一項開發任務由使用者在 New Chat 指定。
+
+`python tools/delivery_check.py` 與 `git diff --check` 均通過，受保護證據目錄 0 變動。
+
+<a id="era2-pacing-b2"></a>
+## 2026-11-09 ERA2-PACING-B2（Era2 建築充實與加成接入 DONE）
+
+- **任務目標**：在 `content/buildings/era2.json` 充實三棟實用建築（煉丹靜室、聚靈陣盤、飛舟渡口），提供工時、修煉與物流加成，解決築基前中期節奏發呆問題。
+- **具體變更**：
+  1. `content/buildings/era2.json`：新增 `alchemy_chamber`（煉丹靜室，前置靈池 1 級）、`spirit_array_plate`（聚靈陣盤，前置聚靈壇 2 級）、`dock_post`（飛舟渡口，前置採石場 3 級），配置成長成本與標準 `effect_weight: null, effects: {}`。
+  2. `src/abode/living_abode.gd` & `src/presentation/building_catalog.gd`：補齊三棟建築的繁體中文名稱、詳細描述與營造清單生產分類角色。
+  3. `src/economy/economy_slice.gd` & `src/simulation/island_progression.gd`：接入 `alchemy_chamber` 效果，丹液與丹藥配方工時每階縮短 15%。
+  4. `src/simulation/time_advancer.gd` & `src/simulation/offline_closed_form.gd`：接入 `spirit_array_plate` 效果，修煉速度每階提升 10%（線上離線等價）。
+  5. `src/simulation/island_economy.gd` & `src/simulation/offline_economy_jump.gd`：新增 `transit_duration(state)`，建造 `dock_post` 後全航線航程由 10 秒縮短至 8 秒；`island_flow_panel.gd` 與 `island_transport_panel.gd` 進度條適配動態航程。
+  6. `tests/era2_island_flow_runner.gd`：擴充前置未滿足阻擋、工時減免、修煉加速、航運縮短與存檔編解碼端到端斷言。
+- **L1 驗證結果**：Godot 4.7.2，`tools/run_all_runners.ps1 -Only "era2_island_flow_runner.gd,early_flow1d_hub_runner.gd"`，**2/2 PASS，exit 0**。受保護證據目錄 0 變動。
+- **下一步**：整體 `ERA2-PACING-EXPANSION` 里程碑（A1 丹液解除死鎖 + B2 建築充實）子任務均已完成。本階段可手動 commit。
+
+<a id="era2-pacing-a1"></a>
+## 2026-11-09 ERA2-PACING-A1（祖島丹液鏈路打通 DONE）
+
+- **任務目標**：解決 Era2 Lv5 丹液死鎖，打通祖島丹液製造與靈植場 3 級引導鏈路。
+- **具體變更**：
+  1. `src/presentation/level_up_supply_panel.gd`：`RECIPES` 擴充 `["spirit_timber", "bronze_essence", "liquid"]`；`offers_help` 支援 Era 2 缺 `liquid`；按鈕動態呈現「煉製丹液」。
+  2. `src/presentation/feature_navigation.gd`：點擊「煉製丹液」時，若靈植場未滿 3 級則調用 `open_buildings("herb_farm", true)` 聚焦並引導升級；若已滿 3 級則直達祖島丹液配方卡片；保留 `_level_up_target` 以支援「返回晉階」。
+  3. `src/presentation/manufacturing_panel.gd`：增強 `FACILITY_REQUIREMENT` 瓶頸處理，當配方前置設施（如靈植場 3 級）未滿足時，狀態標籤顯示具體階數缺額，瓶頸按鈕顯示「升級靈植場」，點擊跳轉營造清單。
+  4. `src/simulation/onboarding.gd`：築基四層進階文案提示：「五層晉階需丹液。可先在祖島將藥田建至三級產靈草，再於祖島工坊煉製丹液。」
+  5. `tests/era2_island_flow_runner.gd`：擴充缺丹液時的求助判定、按鈕可見性、文字、設施不足跳轉與已達標導航等端到端斷言。
+- **L1 驗證結果**：Godot 4.7.2，`tools/run_all_runners.ps1 -Only "era2_island_flow_runner.gd,early_flow1d_hub_runner.gd"`，**2/2 PASS，exit 0**。受保護證據目錄 0 變動。
+- **下一步**：推進子階段 2 `ERA2-PACING-B2`（在 `content/buildings/era2.json` 充實煉丹靜室、聚靈陣盤、飛舟渡口三棟建築並接入數值加成）。本階段可手動 commit。
+
+<a id="era2-pacing-expansion"></a>
+## 2026-11-09 ERA2-PACING-EXPANSION 計畫全數完成（DONE）
+
+- **任務目標**：解決 Era2 Lv5 丹液死鎖與前中期發呆問題（對標《貓國建設者》節奏）。
+  - **子階段 1（`ERA2-PACING-A1`）**：打通祖島丹液鏈路（DONE）。
+  - **子階段 2（`ERA2-PACING-B2`）**：在 `content/buildings/era2.json` 充實三棟實用建築（煉丹靜室、聚靈陣盤、飛舟渡口），提供修煉與物流加成（DONE）。
+- **參考計畫**：詳見 [`docs/55-era2-pacing-and-buildings-plan.md`](55-era2-pacing-and-buildings-plan.md)。
+
 <a id="era2-auto-haul-r2"></a>
 ## 2026-11-08 ERA2-AUTO-HAUL R2（功能驗收 DONE；等待分析暫緩）
 

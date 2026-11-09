@@ -52,7 +52,7 @@ signal mode_requested(recipe_id: String, index: int)
 
 func _init() -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	add_theme_stylebox_override("panel", UiMaterial.hud_paper())
+	add_theme_stylebox_override("panel", UiMaterial.slim_paper_card())
 
 	column = VBoxContainer.new()
 	column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -258,6 +258,9 @@ func set_island(p_island: String) -> void:
 func set_state_visual(p_color: Color, glow: bool = false) -> void:
 	_state_border_color = p_color
 	_state_glow = glow
+	var card_style := UiMaterial.slim_paper_card(glow)
+	card_style.border_color = p_color
+	add_theme_stylebox_override("panel", card_style)
 	recipe_badge.queue_redraw()
 
 ## Backwards-compatible layout helper for compact landscape mode.

@@ -167,6 +167,7 @@ static func duration(state: GameState, catalog: Dictionary, lane: String, recipe
 	var sources: Array = [effect("island_workshop", "work_time", recipe, 1.0 - 1.0 / level)]
 	if int(state.buildings.get("craft_workshop", 0)) >= 2: sources.append(effect("craft_workshop", "work_time", recipe, 0.2))
 	if frontier_state(state) and int(state.buildings.get("void_condenser", 0)) > 0 and recipe in ["stone_mid", "stone_mid_bulk", "stone_high"]: sources.append(effect("void_condenser", "work_time", recipe, 0.3))
+	if int(state.buildings.get("alchemy_chamber", 0)) > 0 and (recipe == "liquid" or recipe.ends_with("_pill")): sources.append(effect("alchemy_chamber", "work_time", recipe, 0.15 * float(state.buildings.get("alchemy_chamber", 0))))
 	var sect_seconds := SectSpecialization.duration(state, recipe, base)
 	sources.append(effect("sect", "work_time", recipe, maxf(0.0, 1.0 - float(sect_seconds) / base)))
 	return EconomyEffects.duration(base, EconomyEffects.resolve("work_time", recipe, sources)).seconds

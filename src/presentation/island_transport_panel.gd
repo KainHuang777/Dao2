@@ -191,7 +191,8 @@ func _refresh_visual(visual: Dictionary, id: String) -> void:
 func _refresh_progress(progress: ProgressBar, info: Dictionary) -> void:
 	var trip: Dictionary = info.get("trip", {})
 	progress.visible = not trip.is_empty()
-	progress.value = (10.0 - float(trip.get("remaining", 10))) * 10.0
+	var total_sec: float = 8.0 if int(_view.get("buildings", {}).get("dock_post", {}).get("level", 0)) > 0 else 10.0
+	progress.value = clampf((total_sec - float(trip.get("remaining", total_sec))) * (100.0 / total_sec), 0.0, 100.0)
 	progress.tooltip_text = "當趟運送・%d秒後到達" % int(trip.get("remaining", 0))
 
 func _field() -> LineEdit:

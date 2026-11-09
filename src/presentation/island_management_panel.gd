@@ -59,7 +59,7 @@ func set_embedded(value: bool) -> void:
 
 func _ready() -> void:
 	theme = UiTypography.create_theme()
-	add_theme_stylebox_override("panel", UiMaterial.scroll_shell())
+	add_theme_stylebox_override("panel", UiMaterial.slim_paper_panel())
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 8)
 	add_child(column)
@@ -184,7 +184,7 @@ func _rebuild() -> void:
 	if island in ["wood", "ore", "herb"]:
 		for id in ["extractor", "storage"]:
 			var card := PanelContainer.new()
-			card.add_theme_stylebox_override("panel", UiMaterial.hud_paper())
+			card.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card())
 			body.add_child(card)
 			var content := HBoxContainer.new()
 			content.add_theme_constant_override("separation", 12)

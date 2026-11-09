@@ -37,13 +37,14 @@ func capture(name_text: String) -> void:
 
 func _run() -> void:
 	var script = load("res://src/abode/living_abode.gd")
-	script.save_dir_override = "user://mfg3-inline-runner"
+	script.save_dir_override = RunnerResult.output_path("res://mfg3-inline-save")
 	SaveSlots.new(FileStorageAdapter.new(script.save_dir_override)).reset()
 	abode = script.new()
 	root.add_child(abode)
 	await settle()
 	abode.set_process(false)
-	abode.offline_summary.hide()
+	if is_instance_valid(abode.offline_summary):
+		abode.offline_summary.hide()
 	var decoded := SaveCodec.decode(FileAccess.get_file_as_string("res://docs/verification/artifacts/res1-d2-earned-era3.json"))
 	check(decoded.ok, "diagnostic fixture decodes")
 	if not decoded.ok: RunnerResult.finish(self, 1); return

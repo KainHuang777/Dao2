@@ -103,7 +103,12 @@ func build() -> void:
 	level_up_supply.recipe_requested.connect(func(id: String):
 		_level_up_target = Vector2i(abode.session.state.era_id, abode.session.state.level)
 		shell.close_overlay()
-		if abode.session.state.economy.is_empty():
+		if id == "liquid" and abode.session.state.era_id == 2:
+			if int(abode.session.state.buildings.get("herb_farm", 0)) < 3:
+				open_buildings("herb_farm", true)
+			else:
+				open_manufacturing("", id)
+		elif abode.session.state.economy.is_empty():
 			island_flow.island = IslandProgression.RECIPES.find_key(id)
 			island_flow.managing_island = false
 			island_flow.resume_recipe = id

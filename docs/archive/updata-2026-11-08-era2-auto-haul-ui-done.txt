@@ -1,0 +1,8 @@
+2026-11-08 ERA2-AUTO-HAUL UI DONE; NEXT R2.
+
+Recipe shortages now show home stock, batch cost and actual transport status. A stopped or policy-limited route links to its full settings. The level-up cost panel shows timber and bronze deficits, links to the producer or recipe, and returns to the original level target. H2 and H5 point to recipes and a paid first batch keeps its production step.
+
+L2 passed four targeted runners at 1280x720, then reran the two affected scene runners after layout fixes. The isolated Chrome smoke produced one bronze essence and one timber without opening Transport. Returning to level-up showed the deficits drop from 10 to 9 and from 20 to 19. The bronze result survived reload. See docs/development-status.md#era2-auto-haul-ui for the Web build and logs.
+
+NEXT New Chat: run the same-edition R2 manual-versus-auto haul comparison from equivalent checkpoints. Record required actions, page switches, help and parallel versus idle waiting through the first products and level 2. Manual commit is available for the UI stage.
+

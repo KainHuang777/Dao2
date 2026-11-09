@@ -217,7 +217,11 @@ static func duration(state: GameState, island: String, recipe: String) -> int:
 	var base: int = IslandEconomy.durations(state)[recipe]
 	if not active(state):
 		return SectSpecialization.duration(state, recipe, base)
-	return SectSpecialization.duration(state, recipe, maxi(1, int(ceil(float(base) / int(state.economy.islands[island].facilities.workshop)))))
+	var seconds := maxi(1, int(ceil(float(base) / int(state.economy.islands[island].facilities.workshop))))
+	if int(state.buildings.get("alchemy_chamber", 0)) > 0 and (recipe == "liquid" or recipe.ends_with("_pill")):
+		var mult: float = maxf(0.3, 1.0 - 0.15 * float(state.buildings.get("alchemy_chamber", 0)))
+		seconds = maxi(1, int(ceil(float(seconds) * mult)))
+	return SectSpecialization.duration(state, recipe, seconds)
 
 static func _fail(error: String) -> Dictionary:
 	return {"ok": false, "error": error, "events": [], "changed_ids": []}

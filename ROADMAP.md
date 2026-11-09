@@ -25,6 +25,8 @@
 
 ### EARLY-FLOW1 — 練氣至金丹前期流程整理（A–D 有界完成；2026-11-02 現行 SUPPLY 補丁）
 
+- 2026-11-09 **EARLY-FLOW1-E DONE**，築基層級指引細化（E1~E4）與新建築推薦通過 L1。[狀態](docs/development-status.md#early-flow1-e)
+- 2026-11-09 **ERA2-BUILDINGS-ART DONE**，築基三棟建築的營造簿縮圖通過 L1。[狀態](docs/development-status.md#era2-buildings-art)
 - 2026-11-08 **ERA2-PLAYTEST-R1** 已重現築基一層材料卡點，待做玩家提示對照。[狀態](docs/development-status.md#era2-playtest-r1)
 - 2026-11-08 **ERA2-AUTO-HAUL CORE／UI／R2 功能驗收完成**，等待分析暫緩。[同版對照與驗收](docs/development-status.md#era2-auto-haul-r2)
 

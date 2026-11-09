@@ -34,7 +34,7 @@ var building_names: Dictionary
 
 func _ready() -> void:
 	theme = UiTypography.create_theme()
-	add_theme_stylebox_override("panel", UiMaterial.compact_scroll_shell())
+	add_theme_stylebox_override("panel", UiMaterial.slim_paper_panel())
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 6)
 	add_child(column)
@@ -92,6 +92,7 @@ func refresh(view: Dictionary, content: GameContent) -> void:
 		var timing := EconomyEffects.duration(int(node.seconds), effect, 10)
 		var unlocks := _unlocks(node, content)
 		var costs := _costs(job.paid if running else node.cost, view.resources, running)
+		row.root.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card(running))
 		row.title.text = "%s · %s｜%s" % [id, TITLES[id], "研習中" if running else "當世已完成" if completed else REASONS.get(code, "可研習")]
 		row.detail.text = "%s\n%s\n工時 %d → %d 秒" % [unlocks, costs, int(node.seconds), int(job.duration if running else timing.seconds)]
 		if running:
@@ -122,18 +123,23 @@ func refresh(view: Dictionary, content: GameContent) -> void:
 
 func _add_research(id: String) -> void:
 	var card := PanelContainer.new()
-	card.add_theme_stylebox_override("panel", UiMaterial.surface("paper"))
+	card.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card())
 	_list.add_child(card)
 	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 4)
 	card.add_child(column)
 	var title := _label(column, 18)
 	var detail := _label(column, 16)
 	var actions := HFlowContainer.new()
+	actions.add_theme_constant_override("h_separation", 6)
+	actions.add_theme_constant_override("v_separation", 4)
 	column.add_child(actions)
 	var start := _button(actions, "開始研習", func(): action_requested.emit("start_research", {"research_id": id}))
+	start.custom_minimum_size = Vector2(100, 44)
 	var link := _button(actions, "", func():
 		var target: Dictionary = _rows[id].link.get_meta("target")
 		target_requested.emit(target.route, target.id))
+	link.custom_minimum_size.y = 44
 	_rows[id] = {"root":card, "title":title, "detail":detail, "start":start, "link":link}
 
 func _target(node: Dictionary, code: String, view: Dictionary, content: GameContent) -> Dictionary:

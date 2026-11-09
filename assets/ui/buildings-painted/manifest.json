@@ -16,6 +16,36 @@
     "foundation_reservoir.png": "a2a6dc6a3561fbbeea9943e17701171f6cba5908e7aa3e9977721d73c1cdd948",
     "library.png": "7179bfe1807b8192404ce977fca19a2ee0146ef34ba637753d05bae4d370bc05",
     "scripture_hall.png": "cd7b80ea748d769d5c850a1af9ed334ec81246ec0a8d1e4d356670e0e2412381",
-    "courtyard.png": "115925a3867fc3b46ccf3a2eb4a91f3c8c5421ceb5b0f9d3328ad33d1162be40"
+    "courtyard.png": "115925a3867fc3b46ccf3a2eb4a91f3c8c5421ceb5b0f9d3328ad33d1162be40",
+    "alchemy_chamber.png": "773b4048b1b76bdfb107072d25c45cd5d3d72392ee55f77aceb234c077a9e038",
+    "spirit_array_plate.png": "4522784cb36e38d999db4b9a19809593fdaf09db69149f0707c7e3b2981b913d",
+    "dock_post.png": "4255e9ce687050f18a3abf6f7ebbfb8edafdb6a7c6959317721610c9135301f1"
+  },
+  "generation_batches": {
+    "ERA2-BUILDINGS-ART": {
+      "source": "Built-in OpenAI ImageGen, generated 2026-11-09",
+      "usage": "Era 2 building catalog thumbnails",
+      "processing": "Built-in alpha matte with low-opacity speckle cleanup (alpha < 7/255 before resizing, < 3/255 after resizing), centered with circular clearance from the alpha >= 24/255 silhouette, and Lanczos-resampled to 192×192 RGBA PNG.",
+      "layers": "3 standalone RGBA portraits with transparency. Text, progress rings, and pips are separate Godot UI.",
+      "license": "Original generated Dao2 artwork using existing Dao2 images as style references. No new third-party assets.",
+      "prompt_record": "prompt-used.txt",
+      "source_files": {
+        "alchemy_chamber.png": {
+          "style_reference": "scripture_hall.png",
+          "generated_image": "exec-dea15608-62ae-441d-aea2-d889d1c49f42.png",
+          "generated_sha256": "658bf5595adff77da387079d6d3ad130c9187627421b75d12618f444f1b68289"
+        },
+        "spirit_array_plate.png": {
+          "style_reference": "foundation_reservoir.png",
+          "generated_image": "exec-a0b3eed0-4fc2-4060-9d4f-9a9e10e78a0e.png",
+          "generated_sha256": "596419e8cb83374ae55859d88bf962cf518a4c2af02d07e18a43c0671378ea90"
+        },
+        "dock_post.png": {
+          "style_reference": "herb_farm.png",
+          "generated_image": "exec-eeff5b32-ad5d-4981-80c5-b6b350db85ae.png",
+          "generated_sha256": "777f129236eb4358438042fb34cc45893f8867b4b0543a46d6c7e3c40b713963"
+        }
+      }
+    }
   }
 }

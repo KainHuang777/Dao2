@@ -18,4 +18,8 @@ description: 整理 Dao2 試玩紀錄或設計一輪有界試玩，定位玩家�
 
 輸出每個卡點的主因候選、共因、信心與下一項最小驗證。可用「待驗」保留假設。若沒有試玩紀錄，只交付試玩步驟及靜態假設。調整方案回到相同檢查點重測，一輪只改一類變因，並標記使用的 fixture 與真實玩家紀錄。
 
-流程參考 [Claude Code Game Studios 的 playtest-report](https://github.com/Donchitos/Claude-Code-Game-Studios/blob/main/.claude/skills/playtest-report/SKILL.md)。
+若歸因為特定領域，可無縫銜接對應的專精技能深入分析：
+- 若屬 **介面／引導／點擊阻塞**：銜接調用 `dao2-ui-ux-review` 審查元件邊界與導航返回動線。
+- 若屬 **數值節奏／產銷失衡／空等**：銜接調用 `dao2-economy-balance` 計算產銷速率、運輸吞吐與門檻平滑度。
+
+流程參考 [Claude Code Game Studios 的 playtest-report 與 qa-tester 規範](https://github.com/Donchitos/Claude-Code-Game-Studios)。

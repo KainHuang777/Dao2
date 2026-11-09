@@ -160,7 +160,8 @@ func _ready() -> void:
 	content_row.add_child(operation_box)
 	progress = ProgressBar.new()
 	progress.show_percentage = false
-	progress.custom_minimum_size.y = 6
+	progress.custom_minimum_size = Vector2(140, 10)
+	progress.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	operation_box.add_child(progress)
 	status = _label(operation_box)
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -184,9 +185,12 @@ func _ready() -> void:
 func _add_island_row(parent: VBoxContainer, id: String) -> void:
 	var group := VBoxContainer.new()
 	parent.add_child(group)
+	var card := PanelContainer.new()
+	card.add_theme_stylebox_override("panel", UiMaterial.slim_paper_card())
+	group.add_child(card)
 	var row := BoxContainer.new()
 	row.add_theme_constant_override("separation",16)
-	group.add_child(row)
+	card.add_child(row)
 	var art := UiIllustration.new()
 	art.custom_minimum_size = Vector2(128,96)
 	var select := Button.new()
@@ -393,6 +397,7 @@ func _tile(id: String, amount: float, available: float, source: String, output :
 	if output and index > 0:
 		materials.move_child(flow_arrow,cell.get_index() - (1 if flow_arrow.get_index() < cell.get_index() else 0))
 		flow_arrow.show()
+	cell.show_ratio_mode = not output
 	cell.refresh(id,_name(id),amount,available,source,output)
 	cell.tooltip_text += "\n" + source
 	materials.set_meta("used",index+1)
@@ -636,7 +641,8 @@ func _transport() -> void:
 	if not trip.is_empty():
 		status.text = "運送%s · %d秒到達%s" % [str(trip.cargo),int(trip.remaining),IslandProgression.NAMES[def[1]]]
 		progress.show()
-		progress.value = 100.0*(1.0-float(trip.remaining)/10.0)
+		var total_sec: float = 8.0 if int(view.get("buildings", {}).get("dock_post", {}).get("level", 0)) > 0 else 10.0
+		progress.value = clampf(100.0 * (1.0 - float(trip.remaining) / total_sec), 0.0, 100.0)
 	_command("停航" if settings.enabled else "啟航", "configure_route", {"route_id":route,"enabled":not bool(settings.enabled),"reserve":String(settings.reserve),"target":String(settings.target),"level":int(settings.level)},not bool(info.get("ready",false)))
 	if Flow.hub(view):
 		if reason == "NO_SURPLUS":

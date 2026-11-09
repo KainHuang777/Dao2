@@ -229,12 +229,16 @@ func run() -> void:
 func ui(s: GameSession) -> void:
 	var original := s.state
 	var facade = preload("res://src/abode/living_abode.gd")
-	facade.save_dir_override = "user://early-flow1d-ui"
+	facade.save_dir_override = RunnerResult.output_path("res://early-flow1d-ui-save")
 	SaveSlots.new(FileStorageAdapter.new(facade.save_dir_override)).reset()
 	var scene = preload("res://scenes/living_abode.tscn").instantiate()
 	root.add_child(scene)
-	await process_frame
-	scene.offline_summary.visible = false # Goal layout fixture; startup summary has separate runners.
+	while scene.feature_navigation == null:
+		await process_frame
+	for _n in 8:
+		await process_frame
+	if scene.offline_summary != null:
+		scene.offline_summary.visible = false # Goal layout fixture; startup summary has separate runners.
 	scene.session = s
 	scene.state = scene.AbodeStateCompat.new(s)
 	scene.set_process(false)

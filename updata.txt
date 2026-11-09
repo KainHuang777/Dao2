@@ -1,29 +1,46 @@
-2026-11-08 MAID GUIDANCE GHOST BLOCKER FIX (L1 PASS).
+2026-11-09 UI-IPM-REFACTOR COMPACT SLIM PAPER THEME & BOUNDED LAYOUTS (L1/L2 PASS).
 
-Fixed a click-interception bug where the gathering pool ("聚靈壇") upgrade button became unclickable due to an invisible MaidGuidanceDock overlay. In maid_stand_display.gd, unconditionally included workbench.panel and building_catalog in bubble_bounds avoid list regardless of nav.group, correctly suppressing outside bubbles when the building workbench occupies the canvas. In maid_guidance_dock.gd, set container mouse_filter to MOUSE_FILTER_IGNORE, and reset position/size to (-9999, -9999)/(0, 0) upon dismissal or empty layout bounds so hidden speech bubble hosts never trap underlying mouse clicks. L1 runners (maid_ui2, maid_stand, maid_guidance_dock, maid_guidance_voice) passed 4/4 (exit 0).
+Completed UI refactor adhering to "graphic-first, minimal text" and compact bounded layouts inspired by Idle Planet Miner:
+- UI-IPM-1: Added UiMaterial.slim_paper_panel() and slim_paper_card(active) with 1.5px gold/jade borders, eliminating massive padding. Added show_ratio_mode to RecipeMaterialTile to display concise "owned/required" numbers without redundant text. Updated docs/19-ui-ux-guidelines.md.
+- UI-IPM-2: Refactored recipe cards in manufacturing_panel.gd and recipe_row.gd with slim paper cards, short bounded progress bars (140px max width), dynamic status tinting, and dual-column grid (columns = 2 when width >= 680px), reducing whitespace.
+- UI-IPM-3: Refactored economy_research_panel.gd with slim paper panel and cards, streamlined research action buttons and detail layouts.
+- UI-IPM-4: Applied slim paper cards to island_flow_panel.gd and island_management_panel.gd. Enhanced island rows and work surface with ratio-based material tiles and bounded short progress meters.
+- Verified with L1/L2 runners: era2_island_flow_runner.gd (19.5s), res1c_progression_runner.gd (16.7s), content_p2_supply_ui_runner.gd (6.7s), hub_onboarding_runner.gd (2.4s), mfg3_inline_runner.gd (15.6s), econ_r1_play_runner.gd (15.9s), all PASS (exit 0).
 
-2026-11-08 MAID DUTY UI POLISH COMPLETE (L1 PASS).
+2026-11-09 EARLY-FLOW1-E ERA2 LEVEL-BY-LEVEL GUIDANCE & PACING (L1 PASS).
 
-Fixed deformed reserve inputs and broken label wrap in MaidCharacterPanel. Decoupled reserve_heading from the horizontal reserve_row into an independent header line ("原料保留量（低於此數量不予動用）") with AUTOWRAP_OFF. Constrained reserve and target SpinBoxes to vertical SIZE_SHRINK_CENTER at 44px to eliminate excessive 80px stretching. Added _style_paper_spin to skin SpinBox LineEdits with classical paper background (#f5f0e4), ink text and jade/bronze borders, replacing discordant black rects. L1 runners tests/maid_duty_preset_runner.gd and tests/maid_ui2_runner.gd both passed (14.2s / 12.9s, exit 0).
+Refined Era 2 (Foundation) onboarding progression from broad F7 into smooth, level-stratified sub-phases (E1 to E4) while preserving full backward compatibility:
+- In src/simulation/onboarding.gd, introduced structured substep tags ("E1" to "E4") under F7 golden_guidance:
+  * E1 (Levels 1-3): Steers players to stabilize dual-island supply lines (timber 20, bronze 10), recommending dock_post (haul -20%) and spirit_array_plate (cultivation +10%).
+  * E2 (Level 4): Pinpoints the liquid 5 bottleneck to break through into Level 5, intelligently routing to herb_farm Lv3 if prerequisites are unmet or directly to home liquid crafting, recommending alchemy_chamber (-15% crafting duration).
+  * E3 (Levels 5-9): Guides home abode expansion to reach the 2000 lingli capacity gate (storage_lingli Lv2 -> foundation_reservoir Lv2) while continuing 3-line advancement.
+  * E4 (Level 10): Prompts golden core breakthrough when capacity is satisfied.
+- In src/presentation/abode_hud_controller.gd and living_abode.gd, added defensive guards for uninitialized HUD nodes during asynchronous core bootstrap.
+- Updated tests/era2_island_flow_runner.gd with end-to-end assertions for E1-E4 guidance text, substep tags, and dynamic routing.
+- Fixed sandboxed fixture isolation in tests/early_flow1d_runner.gd by using RunnerResult.output_path instead of user://.
+- L1 runners passed 3/3 (era2_island_flow_runner.gd 18.3s, early_flow1d_hub_runner.gd 9.9s, early_flow1d_runner.gd 111.2s, exit 0). delivery_check passed with 0 evidence changes.
 
-2026-11-08 ERA2-AUTO-HAUL R2 FUNCTIONAL CHECK COMPLETE.
+2026-11-09 ERA2-BUILDINGS-ART CATALOG PORTRAITS (L1 PASS).
 
-The player reported normal supply and asked to defer waiting analysis. A focused Godot 4.7.2 scene check on the same automatic-arm fixture passed 16/16 at 1280x720. The live HUD and recipe controls reached both continuous jobs and the original advancement dialog without opening Transport. Simulated time brought both outputs to quota; the advancement action reached Era2 level two and charged 10 bronze essence and 20 timber. Earlier Chrome evidence covers delivery and first products. No production code or balance change.
+Added 192x192 RGBA catalog portraits for alchemy_chamber, spirit_array_plate, and dock_post. Generated each with built-in ImageGen using existing catalog art as style references. Revised the array and dock silhouettes for legibility at 64px. The building-art manifest records source images and SHA-256 hashes. The prompt log preserves the complete generation and revision prompts.
+Godot 4.7.2 imported all three textures. The Era 2 island flow runner passed 93 checks at 1280x720 (exit 0), including three checks for visible catalog cards and their correct textures. The catalog art manifest matched all 15 PNG hashes.
+This art phase is complete and ready for a manual commit. Start the next development task in a new chat.
 
-No further timing study is scheduled. See docs/development-status.md#era2-auto-haul-r2. Manual commit is available for the R2 functional phase. Use a New Chat for the next task; reopen this fixture only if a blocker reappears.
+2026-11-09 ERA2-PACING-B2 ERA2 BUILDINGS & STAT BONUSES (L1 PASS).
 
-2026-11-08 ERA2-AUTO-HAUL R2 FIXTURES READY; PLAYER TRACES PENDING.
+Enriched Era2 content and pacing by introducing three practical buildings with integrated mechanical bonuses:
+- In content/buildings/era2.json, added alchemy_chamber (煉丹靜室, prereq: foundation_reservoir 1), spirit_array_plate (聚靈陣盤, prereq: storage_lingli 2), and dock_post (飛舟渡口, prereq: stone_mine 3) with cost curves and effect_weight: null, effects: {}.
+- In living_abode.gd and building_catalog.gd, registered Chinese display names, descriptions, and management catalog roles under production/functional facilities.
+- In economy_slice.gd and island_progression.gd, applied alchemy_chamber crafting duration reduction (15% per tier) to liquid and pill recipes.
+- In time_advancer.gd and offline_closed_form.gd, applied spirit_array_plate cultivation speed boost (+10% per tier) to online and offline closed-form simulation alike.
+- In island_economy.gd and offline_economy_jump.gd, added transit_duration(state) reducing transport duration from 10s to 8s with dock_post, adapting progress bars across island_flow_panel.gd and island_transport_panel.gd.
+- Extended tests/era2_island_flow_runner.gd with assertions for prerequisites, crafting duration discount, cultivation speed boost, transit reduction, and save compatibility. L1 verification (era2_island_flow_runner.gd, early_flow1d_hub_runner.gd) passed 2/2 (exit 0).
 
-Use Chrome on one arm at a time: A http://127.0.0.1:4280/launcher and B http://127.0.0.1:4281/launcher. Both load the same default-edition PCK and the same controlled Era2 level-one checkpoint, after paid island openings. Only the haul policy and its three routes differ. Both Chrome rehearsal origins reached the game. Reopen the service if needed with python .test-output/era2-playtest/r2/serve.py. The previous trial ports are retired.
+2026-11-09 ERA2-PACING-A1 UNBLOCK LIQUID ADVANCEMENT (L1 PASS).
 
-The Godot 4.7.2 accelerated control reached both first products at 31 seconds and level two at 221 in both arms when manual routes were enabled at simulation second zero. It demonstrates the three extra route commands in A under this strategy. It does not measure player navigation, elapsed time or idle waiting. The release package and production code were unchanged.
-
-NEXT New Chat: collect the actual player sequence, three milestones, page switches, help, and parallel versus idle wait for both arms. Record the offline summary and run order. Then assess remaining friction before tuning. See docs/development-status.md#era2-auto-haul-r2. Manual commit is available for the setup phase.
-
-2026-11-08 ERA2-AUTO-HAUL UI DONE; NEXT R2.
-
-Recipe shortages now show home stock, batch cost and actual transport status. A stopped or policy-limited route links to its full settings. The level-up cost panel shows timber and bronze deficits, links to the producer or recipe, and returns to the original level target. H2 and H5 point to recipes and a paid first batch keeps its production step.
-
-L2 passed four targeted runners at 1280x720, then reran the two affected scene runners after layout fixes. The isolated Chrome smoke produced one bronze essence and one timber without opening Transport. Returning to level-up showed the deficits drop from 10 to 9 and from 20 to 19. The bronze result survived reload. See docs/development-status.md#era2-auto-haul-ui for the Web build and logs.
-
-NEXT New Chat: run the same-edition R2 manual-versus-auto haul comparison from equivalent checkpoints. Record required actions, page switches, help and parallel versus idle waiting through the first products and level 2. Manual commit is available for the UI stage.
+Fixed Era2 Lv5 advancement deadlock by completing the home-island liquid ("丹液") synthesis pipeline:
+- Expanded LevelUpSupplyPanel.RECIPES to include "liquid", updated offers_help() to support missing liquid in Era 2, and dynamically set button label to "煉製丹液" bound to home island.
+- In feature_navigation.gd, connected liquid recipe request to open_buildings("herb_farm", true) if herb_farm < 3, or direct to open_manufacturing("", "liquid") if herb_farm >= 3, retaining _level_up_target for easy return.
+- In manufacturing_panel.gd, enhanced FACILITY_REQUIREMENT handling so missing facilities (such as herb_farm Lv3) show clear status ("需靈植場達到3階（目前%d階）") and provide an "升級靈植場" remedy button directly navigating to the building catalog.
+- In onboarding.gd, added Level 4 guidance tip: "五層晉階需丹液。可先在祖島將藥田建至三級產靈草，再於祖島工坊煉製丹液。".
+- Extended tests/era2_island_flow_runner.gd with end-to-end assertions. L1 runners (era2_island_flow_runner.gd, early_flow1d_hub_runner.gd) passed 2/2 (exit 0).

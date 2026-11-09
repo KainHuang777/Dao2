@@ -4,5 +4,23 @@
     "cost_factor": 1.5, "prereq": {"building": "storage_lingli", "level": 2},
     "base_cost": {"money": 100, "wood": 50, "stone_low": 20},
     "effect_weight": null, "effects": {"lingli_max": 1000}
+  },
+  {
+    "id": "alchemy_chamber", "era": 2, "max_level": 3,
+    "cost_factor": 1.5, "prereq": {"building": "foundation_reservoir", "level": 1},
+    "base_cost": {"wood": 30, "black_copper": 15, "stone_low": 10},
+    "effect_weight": null, "effects": {}
+  },
+  {
+    "id": "spirit_array_plate", "era": 2, "max_level": 3,
+    "cost_factor": 1.5, "prereq": {"building": "storage_lingli", "level": 2},
+    "base_cost": {"money": 50, "black_copper": 20, "stone_low": 20},
+    "effect_weight": null, "effects": {}
+  },
+  {
+    "id": "dock_post", "era": 2, "max_level": 3,
+    "cost_factor": 1.5, "prereq": {"building": "stone_mine", "level": 3},
+    "base_cost": {"wood": 40, "black_copper": 20},
+    "effect_weight": null, "effects": {}
   }
 ]

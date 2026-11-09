@@ -86,6 +86,41 @@ static func compact_scroll_shell() -> StyleBoxTexture:
 	style.content_margin_bottom = 14
 	return style
 
+static func slim_paper_panel() -> StyleBoxFlat:
+	var key := "slim_paper_panel"
+	if _styles.has(key):
+		return _styles[key]
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("f4efe4")
+	style.border_color = Color("bfa15f")
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	style.shadow_color = Color(0.12, 0.15, 0.12, 0.12)
+	style.shadow_size = 4
+	style.shadow_offset = Vector2(0, 2)
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 8
+	style.content_margin_bottom = 8
+	_styles[key] = style
+	return style
+
+static func slim_paper_card(active: bool = false) -> StyleBoxFlat:
+	var key := "slim_paper_card:active" if active else "slim_paper_card:idle"
+	if _styles.has(key):
+		return _styles[key]
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("e7efe9") if active else Color("eae2d0")
+	style.border_color = Color("3b6e5c") if active else Color("bfa15f")
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(6)
+	style.content_margin_left = 8
+	style.content_margin_right = 8
+	style.content_margin_top = 6
+	style.content_margin_bottom = 6
+	_styles[key] = style
+	return style
+
 ## Paper is supplied by the parent scroll; only interaction states add ink.
 ## Keep the existing button content margins and hit rectangles.
 static func apply_scroll_button(button: Button, selected: bool = false) -> void:

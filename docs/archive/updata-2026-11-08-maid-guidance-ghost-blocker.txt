@@ -1,0 +1,3 @@
+2026-11-08 MAID GUIDANCE GHOST BLOCKER FIX (L1 PASS).
+
+Fixed a click-interception bug where the gathering pool ("聚靈壇") upgrade button became unclickable due to an invisible MaidGuidanceDock overlay. In maid_stand_display.gd, unconditionally included workbench.panel and building_catalog in bubble_bounds avoid list regardless of nav.group, correctly suppressing outside bubbles when the building workbench occupies the canvas. In maid_guidance_dock.gd, set container mouse_filter to MOUSE_FILTER_IGNORE, and reset position/size to (-9999, -9999)/(0, 0) upon dismissal or empty layout bounds so hidden speech bubble hosts never trap underlying mouse clicks. L1 runners (maid_ui2, maid_stand, maid_guidance_dock, maid_guidance_voice) passed 4/4 (exit 0).

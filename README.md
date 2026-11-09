@@ -8,6 +8,8 @@
 
 # 修仙問道 v2
 
+2026-11-09 **ERA2-BUILDINGS-ART DONE**，築基三棟建築的營造簿縮圖已接入。[狀態](docs/development-status.md#era2-buildings-art)
+
 2026-11-08 **ERA2-AUTO-HAUL R2 功能驗收完成**，自動補給、兩項製造及升築基二層已驗，等待分析暫緩。[狀態](docs/development-status.md#era2-auto-haul-r2)
 
 2026-10-09 **RES1-UI1-R5 DONE（有界運輸圖形化）**：七航線套用製造R4手繪物品框，來源→目的可用庫存、缺貨朱紅與真實载貨／倒數／進度；寬式雙欄、短式並排／固定成功回饋。56/56（B210）、最後B220／parity／responsive、精確Web三橫式／補料回運／自訂設定重載通過，一般Web同步。[驗收](docs/verification/res1-ui1-r5.md)。最終美術／實機待驗，下一New Chat收運輸回饋。

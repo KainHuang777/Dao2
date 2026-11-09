@@ -44,6 +44,9 @@ const BUILDING_NAMES := {
 
 	"library": "藏經閣", "scripture_hall": "經書殿",
 	"foundation_reservoir": "築基靈池",
+	"alchemy_chamber": "煉丹靜室",
+	"spirit_array_plate": "聚靈陣盤",
+	"dock_post": "飛舟渡口",
 	"hut": "茅屋",
 	"wooden_house": "木屋",
 	"forest_farm": "林場",
@@ -107,6 +110,9 @@ const BUILDING_DESCRIPTIONS := {
 	"void_focus": "先開拓太虛島；只讓太虛島虛空精華產率×2。",
 
 	"foundation_reservoir": "築基後拓建靈池，每階增加1000靈氣容量，最高三階。金丹突破需容量2000；使用祖島木石與金錢建造。",
+	"alchemy_chamber": "專設靜室參悟丹道，煉丹與丹液配方週期縮短15%（每階疊加）。",
+	"spirit_array_plate": "鐫刻聚靈古陣之陣盤，修煉速度提升10%（每階疊加）。",
+	"dock_post": "設立飛舟起降碼頭，改善航路調度，全航線運輸時間縮短至8秒。",
 	"hut": "窗內一盞燈，是你的修行根基。初期手動引氣，升級後持續產出靈氣並提供容納空間。",
 	"wooden_house": "簡樸居所。安身立命，產出並儲存金錢。",
 	"forest_farm": "造林伐木，持續產出修築洞府必備之原木。",
@@ -841,6 +847,8 @@ func _adapt_viewport_scale() -> void:
 			root_win.content_scale_size = Vector2i(1280, 720)
 
 func _layout_for_size(vp: Vector2) -> void:
+	if hud == null or header == null:
+		return
 	_hud_controller._layout_for_size(vp)
 	# Automatic home tips yield to world navigation; explicit reading keeps its overlay.
 	if island_world != null and (island_world.rail.visible or island_world.selector.visible) and not _hud_controller.messages_are_explicit() and feature_navigation.shell.state.snapshot().overlay.is_empty():
@@ -918,6 +926,9 @@ func _catalog_groups() -> Array:
 	]
 	var roles := {
 		"foundation_reservoir": "築基擴容・每階靈氣容量1000",
+		"alchemy_chamber": "丹道靜室・工時-15%",
+		"spirit_array_plate": "聚靈法陣・修煉+10%",
+		"dock_post": "雲舟碼頭・航時縮短",
 		"hut": "靈氣與居所", "wooden_house": "金錢產出",
 		"forest_farm": "靈木產出", "stone_mine": "下品靈石與玄銅",
 		"herb_farm": "靈草產出", "storage_lingli": "靈氣容量",

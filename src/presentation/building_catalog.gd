@@ -37,6 +37,10 @@ const BUILDING_NAMES := {
 	"void_focus": "太虛調度",
 
 	"library": "藏經閣", "scripture_hall": "經書殿",
+	"foundation_reservoir": "築基靈池",
+	"alchemy_chamber": "煉丹靜室",
+	"spirit_array_plate": "聚靈陣盤",
+	"dock_post": "飛舟渡口",
 	"hut": "茅屋",
 	"wooden_house": "木屋",
 	"forest_farm": "林場",

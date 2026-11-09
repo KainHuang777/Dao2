@@ -271,6 +271,7 @@ func _job_text(job: Dictionary) -> String:
 func _refresh_cards() -> void:
 	if grid == null:
 		return
+	grid.columns = 2 if size.x >= 680.0 else 1
 	if filter_picker != null:
 		filter_picker.select(0 if island_filter.is_empty() else IslandProgression.NAMES.keys().find(island_filter) + 1)
 	for text in category_buttons:
@@ -390,6 +391,7 @@ func _refresh_materials(widgets: Dictionary, id: String, info: Dictionary) -> vo
 		for resource in info.inputs:
 			var tile := MaterialTile.new()
 			tile.show_source_caption = false
+			tile.show_ratio_mode = true
 			widgets.materials.add_child(tile)
 			widgets.tiles[resource] = tile
 		var arrow := UiIcon.new()
@@ -467,7 +469,26 @@ func _refresh_detail() -> void:
 		workshop_button.text = "升階需研習 R03"
 		workshop_button.disabled = true
 	_refresh_workshop_costs(level)
-	supply_button.text = "前往工藝研習" if String(info.reason).begins_with("RESEARCH_REQUIRED:") else "前往工藝坊" if _view.has("research") and info.reason == "FACILITY_REQUIREMENT" and int(_view.buildings.craft_workshop.level) == 0 else "處理製造瓶頸"
+	var needed_facility := ""
+	if info.reason == "FACILITY_REQUIREMENT":
+		if _view.has("research") and int(_view.buildings.craft_workshop.level) == 0:
+			needed_facility = "craft_workshop"
+		else:
+			var recipe_facility: Dictionary = _catalog.get("recipes", {}).get(selected_recipe, {}).get("facility", {})
+			for f_id in recipe_facility:
+				if int(_view.get("buildings", {}).get(f_id, {}).get("level", 0)) < int(recipe_facility[f_id]):
+					needed_facility = f_id
+					break
+	if not needed_facility.is_empty():
+		var fac_name: String = building_names.get(needed_facility, "洞府設施")
+		supply_button.text = "前往" + fac_name if needed_facility == "craft_workshop" else "升級" + fac_name
+		var target_lvl: int = int(_catalog.get("recipes", {}).get(selected_recipe, {}).get("facility", {}).get(needed_facility, 1))
+		var cur_lvl: int = int(_view.get("buildings", {}).get(needed_facility, {}).get("level", 0))
+		detail_status.text = "需%s達到%d階（目前%d階）" % [fac_name, target_lvl, cur_lvl]
+	elif String(info.reason).begins_with("RESEARCH_REQUIRED:"):
+		supply_button.text = "前往工藝研習"
+	else:
+		supply_button.text = "處理製造瓶頸"
 	supply_button.visible = not String(info.reason).is_empty()
 	if Flow.auto_haul(_view):
 		var supply := Flow.recipe_supply(_view, info, _routes(), _catalog.get("resources", {}))
@@ -531,6 +552,12 @@ func _open_supply() -> void:
 		if info.reason in ["ISLAND_NOT_OPEN", "ECONOMY_NOT_MIGRATED", "HUB_REQUIRED"]:
 			page_requested.emit("outposts", "wood" if island == "home" else island)
 			return
+	if info.reason == "FACILITY_REQUIREMENT":
+		var recipe_facility: Dictionary = _catalog.get("recipes", {}).get(selected_recipe, {}).get("facility", {})
+		for f_id in recipe_facility:
+			if int(_view.get("buildings", {}).get(f_id, {}).get("level", 0)) < int(recipe_facility[f_id]):
+				page_requested.emit("buildings", f_id)
+				return
 	if info.reason == "OUTPUT_FULL":
 		page_requested.emit("buildings" if _central() or island == "home" else "outposts","home" if _central() else island)
 		return

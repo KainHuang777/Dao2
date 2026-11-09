@@ -162,7 +162,8 @@ static func _advance_legacy(state: GameState, content: GameContent, ticks: int, 
 		training_speed = prepared.training_speed
 	else:
 		var feedback_boost: float = prepared.get("feedback_boost", RealmSystem.get_feedback_cultivation_boost(state))
-		training_speed = 1.0 + float(multipliers.cultivation_speed_bonus) + float(buff_multipliers.cultivation_speed_bonus) + float(sect_multipliers.cultivation_speed_bonus) + float(chrono_multipliers.cultivation_speed_bonus) + float(beast_multipliers.cultivation_speed_bonus) + feedback_boost
+		var building_cultivation_boost := 0.1 * float(state.buildings.get("spirit_array_plate", 0))
+		training_speed = 1.0 + float(multipliers.cultivation_speed_bonus) + float(buff_multipliers.cultivation_speed_bonus) + float(sect_multipliers.cultivation_speed_bonus) + float(chrono_multipliers.cultivation_speed_bonus) + float(beast_multipliers.cultivation_speed_bonus) + feedback_boost + building_cultivation_boost
 		if not prepared.is_empty():
 			prepared.training_speed = training_speed
 	# Keep the original addition every second, including floating-point rounding.

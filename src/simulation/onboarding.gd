@@ -243,16 +243,86 @@ static func golden_guidance(state: GameState, era: Variant, resources: Dictionar
 		var capacity := _resource_number(resources, "lingli", "cap")
 		var required := float(era.get("upgrade_requirements", {}).get("capacity", {}).get("lingli", 2000))
 		var route := "cultivation"
-		var text := "主目標：築基 %d/%d 層；靈力容量 %.0f/%.0f。容量是儲存上限，升境不用滿倉，也不需要金丹道具。\n" % [state.level, int(era.max_level), capacity, required]
+		var substep := "E1"
+		var title := "下一步：準備金丹"
+		var text := ""
+		var recipe_id := ""
+		var island_id := "home"
+
+		var capacity_route := "storage_lingli" if _level(state.buildings, "storage_lingli") < 2 else "foundation_reservoir"
 		if capacity < required:
-			route = "storage_lingli" if _level(state.buildings, "storage_lingli") < 2 else "foundation_reservoir"
-			text += "先將聚靈壇升至2階，解鎖築基靈池；靈池2階提供2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
+			route = capacity_route
+
 		if state.level < int(era.max_level):
-			text += "修煉與建設可並行；本次需修煉 %.0f 秒，晉階支付靈力，另付靈材20＋銅精10（五層起加丹液5）。%s\n" % [next_required, "本次已足，可晉階。" if can_level_up else "等待修煉條與扣料條件。"]
+			if state.level < 4:
+				substep = "E1"
+				title = "下一步：築基初期 · 穩固產線"
+				text = "主目標：築基 %d/%d 層；靈力容量 %.0f/%.0f。\n" % [state.level, int(era.max_level), capacity, required]
+				if capacity < required:
+					text += "先將聚靈壇升至2階，解鎖築基靈池；靈池2階提供2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
+				text += "修煉與建設可並行；本次需修煉 %.0f 秒，晉階支付靈力，另付靈材20＋銅精10（五層起加丹液5）。%s\n" % [next_required, "本次已足，可晉階。" if can_level_up else "等待修煉條與扣料條件。"]
+				var rec_buildings: Array[String] = []
+				if _level(state.buildings, "dock_post") < 1:
+					rec_buildings.append("【飛舟渡口】縮減航運至8秒")
+				if _level(state.buildings, "spirit_array_plate") < 1:
+					rec_buildings.append("【聚靈陣盤】修煉速度+10%")
+				if not rec_buildings.is_empty():
+					text += "營造推薦：可在營造簿建造%s。\n" % "與".join(rec_buildings)
+
+			elif state.level == 4:
+				substep = "E2"
+				title = "下一步：籌備丹液 · 突破五層"
+				text = "主目標：築基 4/%d 層；靈力容量 %.0f/%.0f。\n" % [int(era.max_level), capacity, required]
+				var liquid_val := IslandEconomy.value(state, "home", "liquid")
+				var herb_farm_lvl := _level(state.buildings, "herb_farm")
+				if herb_farm_lvl < 3:
+					route = "herb_farm"
+					text += "前置未達標：先將祖島靈植場升至3階（目前%d階）以產出靈草。\n" % herb_farm_lvl
+				elif liquid_val < 5:
+					route = "manufacturing"
+					recipe_id = "liquid"
+					island_id = "home"
+					text += "丹液尚缺：祖島丹液可用 %.0f/5。五層晉階需丹液。可先在祖島將藥田建至三級產靈草，再於祖島工坊煉製丹液。\n" % liquid_val
+				else:
+					if capacity < required:
+						route = capacity_route
+					text += "丹液已備足！五層晉階需丹液。\n"
+				text += "修煉與建設可並行；本次需修煉 %.0f 秒，晉階支付靈力，另付靈材20＋銅精10（五層起加丹液5）。%s\n" % [next_required, "本次已足，可晉階。" if can_level_up else "等待修煉條與扣料條件。"]
+				if _level(state.buildings, "alchemy_chamber") < 1 and _level(state.buildings, "foundation_reservoir") >= 1:
+					text += "營造推薦：可在營造簿建造【煉丹靜室】縮短丹液工時15%。\n"
+
+			else:
+				substep = "E3"
+				title = "下一步：擴充洞府 · 邁向金丹"
+				text = "主目標：築基 %d/%d 層；靈力容量 %.0f/%.0f。\n" % [state.level, int(era.max_level), capacity, required]
+				if capacity < required:
+					route = capacity_route
+					if _level(state.buildings, "storage_lingli") < 2:
+						text += "先將聚靈壇升至2階，解鎖築基靈池；靈池2階提供2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
+					else:
+						text += "建造並升級【築基靈池】至2階以達成2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
+				text += "修煉與建設可並行；本次需修煉 %.0f 秒，晉階支付靈力，另付靈材20＋銅精10（五層起加丹液5）。%s\n" % [next_required, "本次已足，可晉階。" if can_level_up else "等待修煉條與扣料條件。"]
+
 		else:
-			text += "條件已足，可突破至金丹。\n" if can_breakthrough else "層級已足，補足容量即可突破。\n"
-			text += "築基晉階成本：靈力，另付靈材20＋銅精10（五層起丹液5）。\n"
-		var goal := _supply_goal("F7", "準備金丹" if not can_breakthrough else "突破至金丹", text + optional_branches(state, resources), route)
+			substep = "E4"
+			title = "下一步：突破至金丹" if can_breakthrough else "下一步：補足金丹容量"
+			text = "主目標：築基 10/%d 層；靈力容量 %.0f/%.0f。容量是儲存上限，升境不用滿倉，也不需要金丹道具。\n" % [int(era.max_level), capacity, required]
+			if capacity < required:
+				route = capacity_route
+				if _level(state.buildings, "storage_lingli") < 2:
+					text += "先將聚靈壇升至2階，解鎖築基靈池；靈池2階提供2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
+				else:
+					text += "建造並升級【築基靈池】至2階以達成2000容量增量。缺料查看建築詳情；庫容不足先擴對應庫房。\n"
+				text += "築基晉階成本：靈力，另付靈材20＋銅精10（五層起丹液5）。層級已足，補足容量即可突破。\n"
+			else:
+				route = "cultivation"
+				text += "條件已足，可突破至金丹。\n築基晉階成本：靈力，另付靈材20＋銅精10（五層起丹液5）。\n"
+
+		var goal := _supply_goal("F7", title.trim_prefix("下一步："), text + optional_branches(state, resources), route)
+		goal.substep = substep
+		if not recipe_id.is_empty():
+			goal.recipe_id = recipe_id
+			goal.island_id = island_id
 		goal.optional_skills = int(state.skills.get("basic_meditation", 0)) < 1
 		goal.optional_sect = state.sect.get("active_expedition") == null
 		goal.skills_route = "skills" if _level(state.buildings, "library") > 0 else ("storage_wood" if _resource_number(resources, "wood", "cap") < 200 else ("storage_money" if _resource_number(resources, "money", "cap") < 500 else "library"))
