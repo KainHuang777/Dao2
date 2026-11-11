@@ -1,3 +1,38 @@
+2026-11-11 DAO PROOF ERA FLOOR & BACKGROUND DEBUG AUTO-BUILD CATCH-UP (L1 PASS).
+
+Addressed reincarnation reward progression feedback and background/minimized execution for debug auto-building:
+- Reincarnation Dao Proof Era Floor:
+  * In reincarnation_rules.gd, introduced era_dao_proof_floor(era_id) providing guaranteed minimum Dao Proof upon rebirth (Era 1: 0, Era 2 Foundation: 1, Era 3 Golden Core: 2, Era 4+ Nascent Soul: 3).
+  * Upgraded compute_reward() to take maxi(building_sum / divisor, era_dao_proof_floor(era_id)), resolving the issue where Era 2 rebirth yielded 0 Dao Proof when total building level was below 50.
+  * In game_session.gd, included era_proof_floor in get_reincarnation_preview().
+  * In reincarnation_panel.gd, updated tooltip to inform players of both building level sum and realm floor guarantees.
+  * In reincarnation_sequence.gd and abode_modal_manager.gd, enriched rebirth ceremony result card to explicitly display gained Dao Proof alongside Dao Hearts.
+- Minimized Browser Debug Auto-Build Catch-Up:
+  * In living_abode.gd, enhanced time step advancement for web background settlements and focus-in notifications.
+  * When debug_auto_build_active is enabled, elapsed real seconds during browser minimization/tab backgrounding are accumulated into a catch-up trigger loop (up to 60 iterations safe cap), executing _debug_perform_random_upgrade() sequentially so automated building and cultivation breakthroughs proceed properly even when requestAnimationFrame is suspended.
+- Test Hardening & Verification:
+  * Updated tests/m3a_reincarnation_runner.gd and tests/early_v1b_talents_runner.gd to assert v2 Dao Proof era floors.
+  * Fixed runner storage path isolation and null safety in tests/m3a_reincarnation_ui_runner.gd.
+  * L1 verification passed 4/4 (reincarnation_motion_runner 2.2s, m3a_reincarnation_runner 3.2s, m3a_reincarnation_ui_runner 15.2s, early_v1b_talents_runner 21.3s, exit 0).
+
+2026-11-11 ERA-BASED ASSET SPLIT (EAR 1/2+) & ERA 2 SECT JOINING GUIDANCE (L1 PASS).
+
+Refactored graphic asset packaging and prefetch pipeline strictly by progression Eras (EAR 1/2+) and integrated prominent Era 2 Sect joining guidance:
+- Era-Based Asset Packaging:
+  * Restored achievements (assets/ui/achievements-painted/*) into core Web bundle (index.pck / EAR 1) so all early-game interfaces are 100% complete and populated upon initial game launch.
+  * Replaced monolithic DLC presets with WebEra2 (era2_assets.pck: 62.89 MB for sect-life, sects-painted, fortune-painted, decisions-painted, skills-painted) and WebEra3 (era3_assets.pck: 19.47 MB for beasts-painted, reincarnation-painted, reincarnation-layered-f5a/f5b).
+- Background Prefetch Pipeline:
+  * In asset_pack_loader.gd, implemented prefetch_for_era(current_era) where EAR 1 preloads EAR 2 assets in background, and reaching EAR 2 preloads EAR 3+ assets.
+  * Connected living_abode.gd bootstrap and breakthrough/era transition hooks to prefetch_for_era.
+  * In sect_life_folio.gd, upgraded _update_gate_art() and _people_page() to asynchronously load and bind textures upon pack mount with signal listeners, completely fixing blank artwork on sect gate entry folios.
+- Era 2 Sect Joining Guidance:
+  * In sect_entry.gd, decoupled invitation from late supply gates so invitations trigger immediately upon reaching Era 2 (Foundation realm).
+  * In abode_hud_controller.gd, surfaced prominent '拜入宗門' quick-action button on HUD when reaching Era 2 with unjoined sects, directly routing to the sect gate folio.
+  * In onboarding.gd, enriched guidance texts to explicitly instruct players to inspect the five sect doctrines and take the oath of entry.
+- Build & Verification:
+  * Updated package_itch_web.ps1, start_web_server.ps1, prepare_web_compression.mjs, and itch_web_package.py to handle era2_assets and era3_assets.
+  * Unit tests in test_itch_web_package.py passed 8/8. L1 runner suite passed 3/3 (sect_life_ui_runner 10.5s, era2_island_flow_runner 17.8s, ui_shell_integration_runner 17.6s, exit 0). Static delivery_check passed (11/11 files matched, 0 evidence modified).
+
 2026-11-10 CULTIVATION WORKBENCH INTEGRATION & SLIM PAPER REFACTOR (L1 PASS).
 
 Integrated the entire Cultivation tab group into the shared ManagementWorkbench and polished UI typography/aesthetics:
@@ -25,30 +60,3 @@ Fixed missing maid character portrait and artwork in Web release:
 - Synchronized tools/start_web_server.ps1 to automatically export WebDLC_Sect and WebDLC_Beasts packs into build/web/ upon export, preventing 404s during local development.
 - Hardened maid_character_panel.gd with ResourceLoader existence checks before loading textures.
 - Verified: L1 maid runners (maid_ui_runner, maid_ui2_runner, maid_art_r2_runner) passed 3/3 (20.2s). Web packaging compression matched 9/9 files, delivery_check PASSED.
-
-2026-11-10 WEB-DLC-LAZY-LOADING CORE SPLIT & RUNTIME PREFETCH (PASS).
-
-Implemented dynamic DLC split and background lazy loading for late-game graphics, slashing initial Web cold-start load:
-- Built src/platform/asset_pack_loader.gd with async HTTPRequest download, user:// caching, and ProjectSettings.load_resource_pack mounting. Direct res:// fallback maintains zero overhead and 100% compatibility for desktop runners.
-- Split late-game assets out of core bundle into two dedicated packs: dlc_sect_lore.pck (77.33 MB: sect-life, sects-painted, characters) and dlc_beasts_features.pck (48.30 MB: beasts-painted, reincarnation-painted, achievements-painted).
-- In export_presets.cfg, excluded DLC paths from preset 0 (Web) and added export presets 35 (WebDLC_Sect) and 36 (WebDLC_Beasts).
-- Core index.pck shrank by 63% from 205.88 MB (196.34 MiB) to 76.97 MB (73.41 MiB), reducing cold start download footprint to ~80 MB.
-- Updated living_abode.gd with auto-mounting AssetPackLoader running idle background prefetch.
-- Hardened reincarnation_sequence.gd, sect_life_folio.gd, sect_panel.gd, and achievement_panel.gd against missing runtime textures with ResourceLoader guards and async mount hooks.
-- Updated prepare_web_compression.mjs, package_itch_web.ps1, itch_web_package.py, and test_itch_web_package.py. Unit tests (8/8) and L1 runners (era2_island_flow_runner 18.1s, sect_life_ui_runner 10.4s) all passed with 0 evidence changes. Butler dry-run confirmed 15 payload files (242.13 MiB) verified.
-
-2026-11-09 FIX-ITCH-DEPLOY PACK MAX_FILE THRESHOLD RAISED TO 300MB (PASS).
-
-Resolved itch.io packaging failure during .\deploy_itch_web.bat:
-- Root cause: Godot Web release export index.pck reached 205,882,516 bytes (196.34 MiB) following Era2 content and visual assets addition, tripping the legacy MAX_FILE limit (200,000,000 bytes) in tools/itch_web_package.py.
-- Adjusted MAX_FILE to 300,000,000 (300 MB) and MAX_TOTAL to 600,000,000 (600 MB) in tools/itch_web_package.py to accommodate organic game asset growth while retaining sanity bounds against erroneous large payloads.
-- Updated unit test test_html5_limits_and_unsafe_paths_rejected in tools/test_itch_web_package.py to dynamically test against MAX_TOTAL threshold. Unit tests passed 8/8 (exit 0).
-- Ran package_itch_web.ps1 and deploy_itch_web.ps1 -ReuseExport -DryRun: export passed, compression passed, package verified, delivery check passed, and butler dry-run confirmed 239.45 MiB payload ready for push.
-  * E1 (Levels 1-3): Steers players to stabilize dual-island supply lines (timber 20, bronze 10), recommending dock_post (haul -20%) and spirit_array_plate (cultivation +10%).
-  * E2 (Level 4): Pinpoints the liquid 5 bottleneck to break through into Level 5, intelligently routing to herb_farm Lv3 if prerequisites are unmet or directly to home liquid crafting, recommending alchemy_chamber (-15% crafting duration).
-  * E3 (Levels 5-9): Guides home abode expansion to reach the 2000 lingli capacity gate (storage_lingli Lv2 -> foundation_reservoir Lv2) while continuing 3-line advancement.
-  * E4 (Level 10): Prompts golden core breakthrough when capacity is satisfied.
-- In src/presentation/abode_hud_controller.gd and living_abode.gd, added defensive guards for uninitialized HUD nodes during asynchronous core bootstrap.
-- Updated tests/era2_island_flow_runner.gd with end-to-end assertions for E1-E4 guidance text, substep tags, and dynamic routing.
-- Fixed sandboxed fixture isolation in tests/early_flow1d_runner.gd by using RunnerResult.output_path instead of user://.
-- L1 runners passed 3/3 (era2_island_flow_runner.gd 18.3s, early_flow1d_hub_runner.gd 9.9s, early_flow1d_runner.gd 111.2s, exit 0). delivery_check passed with 0 evidence changes.

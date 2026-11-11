@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = ('index.html', 'index.js', 'index.wasm', 'index.pck')
 OPTIONAL = ('index.audio.worklet.js', 'index.audio.position.worklet.js',
             'index.icon.png', 'index.apple-touch-icon.png', 'index.png',
+            'era2_assets.pck', 'era3_assets.pck',
             'dlc_sect_lore.pck', 'dlc_beasts_features.pck')
 MAX_FILE = 300_000_000
 MAX_TOTAL = 600_000_000

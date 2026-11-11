@@ -680,6 +680,7 @@ func _on_reincarnate_requested(mode: String) -> void:
 			_abode.trigger_nine_realms_hook(false)
 
 		var dao_heart_gain := 0
+		var dao_proof_gain := 0
 		var events: Array = res.get("events", [])
 		for ev in events:
 			if ev is Dictionary and ev.get("kind") == "reincarnated":
@@ -690,6 +691,7 @@ func _on_reincarnate_requested(mode: String) -> void:
 						dao_heart_gain = int((p["value"] as AmountCompat).to_float())
 				elif dh_val is int or dh_val is float:
 					dao_heart_gain = int(dh_val)
+				dao_proof_gain = int(ev.get("gained_dao_proof", 0))
 				break
 		if dao_heart_gain <= 0 and _abode.session != null:
 			var prev_reward: Dictionary = _abode.session.get_reincarnation_preview()
@@ -700,8 +702,10 @@ func _on_reincarnate_requested(mode: String) -> void:
 					dao_heart_gain = int((p["value"] as AmountCompat).to_float())
 			elif prev_dh is int or prev_dh is float:
 				dao_heart_gain = int(prev_dh)
+			if dao_proof_gain <= 0:
+				dao_proof_gain = int(prev_reward.get("dao_proof", 0))
 		if _abode.reincarnation_seq != null:
-			_abode.reincarnation_seq.play(_abode.camera, _abode.session.state.reincarnation_count, dao_heart_gain, Callable(), _abode.reduced)
+			_abode.reincarnation_seq.play(_abode.camera, _abode.session.state.reincarnation_count, dao_heart_gain, Callable(), _abode.reduced, dao_proof_gain)
 		else:
 			_abode._refresh_hud()
 	else:

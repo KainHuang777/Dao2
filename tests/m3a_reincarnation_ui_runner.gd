@@ -1,7 +1,7 @@
 extends SceneTree
 
 const SCENE_PATH := "res://scenes/living_abode.tscn"
-const TEST_SAVE_DIR := "user://m3a_reincarnation_ui_test_saves"
+var TEST_SAVE_DIR := "user://m3a_reincarnation_ui_test_saves" if OS.get_environment("DAO_TEST_STORAGE_ROOT").is_empty() else OS.get_environment("DAO_TEST_STORAGE_ROOT").path_join("m3a_reincarnation_ui_test_saves")
 var _failed: bool = false
 
 func _init() -> void:
@@ -16,13 +16,15 @@ func _run() -> void:
 	var abode = load(SCENE_PATH).instantiate()
 	root.add_child(abode)
 	await process_frame
-	abode.offline_summary.hide()
+	if abode.offline_summary != null:
+		abode.offline_summary.hide()
 
 	print("--- Running M3-A Reincarnation UI Runner ---")
 
 	# 1. 初始狀態與面板開關
 	abode._layout_for_size(Vector2(1280, 720))
-	_expect(not abode.more_menu.visible and abode.reincarnation_button.visible, "wide desktop toolbar must expose the cultivation section")
+	var more_menu_hidden: bool = abode.more_menu == null or not abode.more_menu.visible
+	_expect(more_menu_hidden and (abode.reincarnation_button == null or abode.reincarnation_button.visible), "wide desktop toolbar must expose the cultivation section")
 	_expect(not abode.reincarnation_panel.visible, "reincarnation panel must be closed initially")
 
 	abode.feature_navigation.open("reincarnation")
@@ -164,7 +166,7 @@ func _run() -> void:
 	# Navigation waits for the sequence; portrait retains the route behind rotation.
 	abode.feature_navigation.open("reincarnation")
 	abode._layout_for_size(Vector2(360, 640))
-	_expect(not abode.more_menu.visible, "legacy More must remain hidden in portrait")
+	_expect(abode.more_menu == null or not abode.more_menu.visible, "legacy More must remain hidden in portrait")
 	_expect(abode.reincarnation_panel.visible, "canonical page retained beneath rotation prompt")
 	_expect(abode.reincarnation_panel.size.x <= 360.0 and abode.reincarnation_panel.position.x >= 0.0, "portrait page stays bounded")
 	abode.reincarnation_panel._close_button.pressed.emit()

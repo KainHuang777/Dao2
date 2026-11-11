@@ -204,7 +204,7 @@ func _run_preview_choice(content: GameContent) -> void:
 	check(bool(preview["eligible"]) and String(preview["reason"]) == "rebirth_lotus", "fixture preview eligible via rebirth_lotus fixture")
 	check(int(preview["building_sum"]) == 1, "fixture preview building sum 1")
 	check(String(preview["dao_heart"]) == str(ReincarnationRules.era_dao_heart_floor(3)), "fixture preview dao heart equals era3 floor")
-	check(int(preview["dao_proof"]) == 0, "fixture preview dao proof 0")
+	check(int(preview["dao_proof"]) == ReincarnationRules.era_dao_proof_floor(3), "fixture preview dao proof equals era3 proof floor")
 	check(int(preview["era_floor"]) == ReincarnationRules.era_dao_heart_floor(3), "fixture preview era floor")
 	check(int(preview["current_reincarnation_count"]) == 0 and int(preview["next_reincarnation_count"]) == 1, "preview counts 0 to 1")
 	var view0: Dictionary = s.get_view()

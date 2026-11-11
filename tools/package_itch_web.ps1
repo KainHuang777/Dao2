@@ -44,7 +44,7 @@ $daoFingerprint = (& python tools/itch_web_package.py fingerprint | Out-String).
 Assert-Exit 'Source fingerprint'
 $daoWeb = Join-Path $daoBuild 'itch-web'
 $daoLogs = Join-Path $daoRoot ('.test-output/itch-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
-New-Item -ItemType Directory -Path $daoWeb,$daoLogs -Force | Out-Null
+New-Item -ItemType Directory -Path $daoWeb, $daoLogs -Force | Out-Null
 $daoExportLog = Join-Path $daoLogs 'export.log'
 $daoPreviousAppdata = $env:APPDATA
 $daoPreviousErrors = $ErrorActionPreference
@@ -56,12 +56,13 @@ try {
     & $daoEngine --headless --path $daoRoot --export-release Web (Join-Path $daoWeb 'index.html') *> $daoExportLog
     $daoExportExit = $LASTEXITCODE
     if ($daoExportExit -eq 0) {
-        & $daoEngine --headless --path $daoRoot --export-pack WebDLC_Sect (Join-Path $daoWeb 'dlc_sect_lore.pck') *>> $daoExportLog
+        & $daoEngine --headless --path $daoRoot --export-pack WebEra2 (Join-Path $daoWeb 'era2_assets.pck') *>> $daoExportLog
         if ($LASTEXITCODE -ne 0) { $daoExportExit = $LASTEXITCODE }
-        & $daoEngine --headless --path $daoRoot --export-pack WebDLC_Beasts (Join-Path $daoWeb 'dlc_beasts_features.pck') *>> $daoExportLog
+        & $daoEngine --headless --path $daoRoot --export-pack WebEra3 (Join-Path $daoWeb 'era3_assets.pck') *>> $daoExportLog
         if ($LASTEXITCODE -ne 0) { $daoExportExit = $LASTEXITCODE }
     }
-} finally {
+}
+finally {
     $env:APPDATA = $daoPreviousAppdata
     $ErrorActionPreference = $daoPreviousErrors
 }

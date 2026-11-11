@@ -37,6 +37,12 @@ var _reading_col: VBoxContainer
 
 func _ready() -> void:
 	resized.connect(adapt)
+	if AssetPackLoaderScript.get_instance() and not AssetPackLoaderScript.get_instance().pack_loaded.is_connected(_on_pack_loaded):
+		AssetPackLoaderScript.get_instance().pack_loaded.connect(_on_pack_loaded)
+
+func _on_pack_loaded(pack_id: String, success: bool) -> void:
+	if success and (pack_id == "era2_assets" or pack_id == "dlc_sect_lore"):
+		adapt.call_deferred()
 
 func refresh(data: Dictionary, show_gate: bool, can_join: bool, locked: bool) -> void:
 	if view.get("life_seq", -1) != data.get("life_seq", -1) or view.get("sect_id", "") != data.get("sect_id", ""):
@@ -214,7 +220,13 @@ func _update_gate_art() -> void:
 	var suffix := "-portrait" if size.y >= 300 else ""
 	var filename: String = ART + SECT_ART[id][0] + suffix + ".png"
 	if _art.texture != null and _art.texture.resource_path == filename: return
-	if ResourceLoader.exists(filename): _art.texture = load(filename)
+	if ResourceLoader.exists(filename):
+		_art.texture = load(filename)
+	elif AssetPackLoaderScript.get_instance():
+		AssetPackLoaderScript.get_instance().ensure_pack("era2_assets", func(ok: bool):
+			if ok and is_instance_valid(_art) and ResourceLoader.exists(filename):
+				_art.texture = load(filename)
+		)
 
 func _gate_page() -> void:
 	var id := SectIdentity.canonical_id(selected_sect)
@@ -263,7 +275,7 @@ func _people_page() -> void:
 	if ResourceLoader.exists(art_path):
 		_art.texture = load(art_path)
 	elif AssetPackLoaderScript.get_instance():
-		AssetPackLoaderScript.get_instance().ensure_pack("dlc_sect_lore", func(ok: bool):
+		AssetPackLoaderScript.get_instance().ensure_pack("era2_assets", func(ok: bool):
 			if ok and is_instance_valid(_art) and ResourceLoader.exists(art_path):
 				_art.texture = load(art_path)
 		)

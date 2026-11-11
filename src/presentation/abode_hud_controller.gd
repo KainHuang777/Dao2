@@ -1072,8 +1072,16 @@ func _refresh_hud(view: Dictionary = {}) -> void:
 	_goal_action.visible = _has_guidance
 	_alchemy_action.visible = bool(early.get("optional_alchemy", false))
 	_skills_action.visible = bool(early.get("optional_skills", false))
-	_sect_action.visible = FeatureUnlocks.check("sect", view).state == FeatureUnlocks.State.AVAILABLE and (bool(early.get("optional_sect", false)) or bool(view.get("sect_invitation", false)))
-	_sect_action.text = "山門訪帖" if bool(view.get("sect_invitation", false)) else "可選宗門"
+	var sect_unlocked: bool = bool(view.get("sect", {}).get("unlocked", false))
+	var sect_avail: bool = FeatureUnlocks.check("sect", view).state == FeatureUnlocks.State.AVAILABLE
+	var needs_sect_join: bool = sect_avail and not sect_unlocked
+	_sect_action.visible = needs_sect_join or (sect_unlocked and (bool(early.get("optional_sect", false)) or bool(view.get("sect_invitation", false))))
+	if needs_sect_join:
+		_sect_action.text = "拜入宗門"
+	elif bool(view.get("sect_invitation", false)):
+		_sect_action.text = "山門訪帖"
+	else:
+		_sect_action.text = "可選宗門"
 	_goal_action.text = "前往主目標" if _skills_action.visible or _sect_action.visible else "前往目標"
 	var short_compact: bool = _abode.layout_mode == _abode.HudLayout.COMPACT and _abode.hud.size.y < 500.0
 	_abode.objective_button.visible = _has_guidance and not (_abode.building_catalog.visible or short_compact)

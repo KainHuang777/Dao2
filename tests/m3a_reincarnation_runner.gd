@@ -56,10 +56,10 @@ func _test_golden_fixture_parity() -> bool:
 	ok = _expect_equal(int((adv_reward["dao_heart"] as AmountCompat).to_float()), int(reinc_fixture["advanced"]["daoHeart"]), "Golden parity: advanced daoHeart") and ok
 	ok = _expect_equal(int(adv_reward["dao_proof"]), int(reinc_fixture["advanced"]["daoProof"]), "Golden parity: advanced daoProof") and ok
 
-	# 3. era floor: B=5, era=4+ (floor=25)
+	# 3. era floor: B=5, era=4+ (floor=25, proof_floor=3)
 	var floor_reward := ReincarnationRules.compute_reward(5, 4, "normal")
 	ok = _expect_equal(int((floor_reward["dao_heart"] as AmountCompat).to_float()), int(reinc_fixture["era_floor"]["daoHeart"]), "Golden parity: era floor daoHeart") and ok
-	ok = _expect_equal(int(floor_reward["dao_proof"]), int(reinc_fixture["era_floor"]["daoProof"]), "Golden parity: era floor daoProof") and ok
+	ok = _expect_equal(int(floor_reward["dao_proof"]), 3, "v2 enhanced era floor daoProof (min 3 for era>=4)") and ok
 
 	# Keep the legacy golden fixture intact, explicitly record the v2 deviation.
 	var expected_starts: Array = reinc_fixture["start"]
@@ -137,9 +137,10 @@ func _test_reincarnation_execution_and_reset() -> bool:
 	# Verify eligibility at Era 2 with rebirth_lotus
 	var preview := session.get_reincarnation_preview("normal")
 	ok = _expect(bool(preview["eligible"]), "Player with rebirth_lotus should be eligible to reincarnate") and ok
-	# Building sum = 2 + 1 + 1 = 4, Era 2 floor = 15 => dao_heart = 15, dao_proof = 0
+	# Building sum = 2 + 1 + 1 = 4, Era 2 floor = 15 => dao_heart = 15, dao_proof = 1 (Era 2 floor)
 	ok = _expect_equal(int(preview["building_sum"]), 4, "Building sum should be 4") and ok
 	ok = _expect_equal(String(preview["dao_heart"]), "15", "Dao heart should use Era 2 floor (15)") and ok
+	ok = _expect_equal(int(preview["dao_proof"]), 1, "Dao proof should use Era 2 floor (1)") and ok
 
 	# Execute reincarnation
 	var reinc_res := session.reincarnate("normal")
@@ -150,6 +151,7 @@ func _test_reincarnation_execution_and_reset() -> bool:
 	ok = _expect_equal(s.reincarnation_count, 1, "Reincarnation count should increment to 1") and ok
 	ok = _expect_equal(s.highest_era, 2, "Highest era should be recorded as 2") and ok
 	ok = _expect_equal(s.dao_heart.serialize(), "15", "Dao heart should be 15") and ok
+	ok = _expect_equal(s.dao_proof, 1, "Dao proof should be 1 from Era 2 floor") and ok
 	ok = _expect_equal(s.era_id, 1, "Era should reset to 1") and ok
 	ok = _expect_equal(s.level, 1, "Level should reset to 1") and ok
 	ok = _expect_equal(s.training_seconds, 0.0, "Training seconds should reset to 0") and ok

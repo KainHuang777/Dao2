@@ -1126,7 +1126,7 @@ func _add_art(row: HBoxContainer, id: String) -> void:
 	if ResourceLoader.exists(path):
 		art.texture = load(path)
 	elif AssetPackLoaderScript.get_instance():
-		AssetPackLoaderScript.get_instance().ensure_pack("dlc_sect_lore", func(ok: bool):
+		AssetPackLoaderScript.get_instance().ensure_pack("era2_assets", func(ok: bool):
 			if ok and is_instance_valid(art) and ResourceLoader.exists(path):
 				art.texture = load(path)
 		)

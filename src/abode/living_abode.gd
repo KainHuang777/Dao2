@@ -482,7 +482,8 @@ func _ready() -> void:
 	var pack_loader = AssetPackLoaderScript.new()
 	pack_loader.name = "AssetPackLoader"
 	add_child(pack_loader)
-	pack_loader.start_background_prefetch()
+	var init_era: int = session.state.era_id if (session != null and session.state != null) else 1
+	pack_loader.prefetch_for_era(init_era)
 
 	print("ABODE_READY: native Camera2D, home landmark and managed building catalogue, autonomous state and flying swords")
 	_last_process_ticks_msec = Time.get_ticks_msec()
@@ -982,8 +983,11 @@ func _notification(what: int) -> void:
 					if debug_auto_build_active:
 						debug_auto_build_timer -= step_time
 						if debug_auto_build_timer <= 0.0:
-							debug_auto_build_timer = 30.0
-							_debug_perform_random_upgrade()
+							var extra_triggers := int(-debug_auto_build_timer / 30.0) + 1
+							var safe_triggers := mini(extra_triggers, 60)
+							debug_auto_build_timer = 30.0 - fposmod(-debug_auto_build_timer, 30.0)
+							for _i in range(safe_triggers):
+								_debug_perform_random_upgrade()
 					_refresh_hud()
 
 func _process(delta: float) -> void:
@@ -1041,11 +1045,13 @@ func _process(delta: float) -> void:
 		feature_navigation.shell.set_save_result(settled)
 		_refresh_hud()
 		return
+	var web_bg_elapsed := 0.0
 	if OS.has_feature("web") and not economy_edition and step_delta > 2.0:
 		# A suspended coroutine is not synchronous CPU work. End before await.
 		RuntimeProfile.end_frame()
 		var now_ms := int(Time.get_unix_time_from_system() * 1000.0)
 		_background_retry_cursor = maxi(SaveManager.last_settled_utc_ms(), now_ms - int(step_delta * 1000.0))
+		web_bg_elapsed = step_delta
 		if not await _settle_web_background(_background_retry_cursor):
 			get_tree().paused = true
 			_show_storage_block("背景結算尚未存妥，請保留此畫面。恢復儲存權限或空間後，按重試完成結算。")
@@ -1070,12 +1076,16 @@ func _process(delta: float) -> void:
 			_push_hint_log(_last_hint_text)
 
 	if debug_auto_build_active:
-		debug_auto_build_timer -= step_delta
+		var elapsed_for_build := step_delta + web_bg_elapsed
+		debug_auto_build_timer -= elapsed_for_build
+		if debug_auto_build_timer <= 0.0:
+			var extra_triggers := int(-debug_auto_build_timer / 30.0) + 1
+			var safe_triggers := mini(extra_triggers, 60)
+			debug_auto_build_timer = 30.0 - fposmod(-debug_auto_build_timer, 30.0)
+			for _i in range(safe_triggers):
+				_debug_perform_random_upgrade()
 		if debug_panel != null and debug_panel.visible:
 			debug_panel.call("update_auto_build_ui", debug_auto_build_timer)
-		if debug_auto_build_timer <= 0.0:
-			debug_auto_build_timer = 30.0
-			_debug_perform_random_upgrade()
 
 	var view: Dictionary = _presentation_view()
 
@@ -1676,6 +1686,8 @@ func _check_and_update_bgm_era() -> void:
 	if cur_era == _last_known_era_id:
 		return
 	_last_known_era_id = cur_era
+	if AssetPackLoaderScript.get_instance():
+		AssetPackLoaderScript.get_instance().prefetch_for_era(cur_era)
 	var playlist := _get_bgm_playlist_for_era(cur_era)
 	if playlist.is_empty():
 		return

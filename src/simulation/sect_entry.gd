@@ -20,12 +20,7 @@ static func receipt(state: GameState) -> Dictionary:
 
 static func invitation(state: GameState) -> bool:
 	if not SectSystem.is_unlocked(state) or bool(state.sect.get("unlocked", false)) or receipt(state).invite_seen: return false
-	# Missing historical supply data is never fabricated or required again.
-	if state.reincarnation_count > 0 or state.era_id > 2 or not state.economy.has("early_supply"): return true
-	var p: Dictionary = state.economy.early_supply
-	if not bool(p.get("bronze_done", false)) or not bool(p.get("timber_done", false)): return false
-	if IslandEconomy.hub(state): return true
-	return float(p.get("bronze_home", 0)) >= 1 and float(p.get("timber_home", 0)) >= 1
+	return true
 
 static func acknowledge(state: GameState, action: String) -> Dictionary:
 	if not SectSystem.is_unlocked(state): return {"ok": false, "error": "SECT_LOCKED"}

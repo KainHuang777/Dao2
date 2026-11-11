@@ -554,6 +554,7 @@ func refresh(view: Dictionary) -> void:
 	var gain_dh: String = String(preview.get("dao_heart", "0"))
 	var gain_dp: int = int(preview.get("dao_proof", 0))
 	var floor_val: int = int(preview.get("era_floor", 0))
+	var proof_floor_val: int = int(preview.get("era_proof_floor", 0))
 
 	# 起手傳承比例計算
 	var talents: Dictionary = view.get("talents", {})
@@ -565,7 +566,7 @@ func refresh(view: Dictionary) -> void:
 	_reward_proof.text = "道證  +%d" % gain_dp
 	_compact_rewards.text = "道心 +%s    道證 +%d" % [_format_amount_str(gain_dh), gain_dp]
 	_reward_heart.tooltip_text = "預期道心；建築等階總和 %d，境界保底 %d。" % [b_sum, floor_val]
-	_reward_proof.tooltip_text = "本次轉世預期獲得的道證。"
+	_reward_proof.tooltip_text = "預期道證；建築等階總和 %d，境界保底 %d。" % [b_sum, proof_floor_val]
 	_preview_label.text = "資源傳承 %.0f%% · 道心與天賦長存" % inher_ratio
 	_preview_label.tooltip_text = "資源按新開局庫容的 %.0f%% 起算，無自動補給。" % inher_ratio
 

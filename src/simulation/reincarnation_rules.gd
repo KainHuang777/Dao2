@@ -20,17 +20,30 @@ static func era_dao_heart_floor(era_id: int) -> int:
 	else:
 		return 25
 
+static func era_dao_proof_floor(era_id: int) -> int:
+	if era_id <= 1:
+		return 0
+	elif era_id == 2:
+		return 1
+	elif era_id == 3:
+		return 2
+	else:
+		return 3
+
 static func compute_reward(building_sum: int, era_id: int, mode: String = "normal") -> Dictionary:
 	var floor_val := era_dao_heart_floor(era_id)
+	var proof_floor_val := era_dao_proof_floor(era_id)
 	var from_buildings := int(floor(float(building_sum) / 10.0))
 	var dao_heart_amount := maxi(from_buildings, floor_val)
 	var divisor := ADVANCED_DAO_PROOF_DIVISOR if mode == "advanced" else NORMAL_DAO_PROOF_DIVISOR
-	var dao_proof_amount := int(floor(float(building_sum) / divisor))
+	var from_buildings_proof := int(floor(float(building_sum) / divisor))
+	var dao_proof_amount := maxi(from_buildings_proof, proof_floor_val)
 	return {
 		"building_sum": building_sum,
 		"dao_heart": AmountCompat.from_number(float(dao_heart_amount)),
 		"dao_proof": dao_proof_amount,
 		"era_floor": floor_val,
+		"era_proof_floor": proof_floor_val,
 	}
 
 static func inheritance_ratio(rebirth_count: int, inheritance_bonus: float = 0.0) -> float:

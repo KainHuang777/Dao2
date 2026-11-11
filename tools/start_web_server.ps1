@@ -9,16 +9,16 @@ Set-Location "$PSScriptRoot\.."
 $webDir = ".\build\web"
 $indexFile = "$webDir\index.html"
 $pckFile = "$webDir\index.pck"
-$dlcSectFile = "$webDir\dlc_sect_lore.pck"
-$dlcBeastsFile = "$webDir\dlc_beasts_features.pck"
+$era2File = "$webDir\era2_assets.pck"
+$era3File = "$webDir\era3_assets.pck"
 
-$needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Path $pckFile)) -or (-not (Test-Path $dlcSectFile)) -or (-not (Test-Path $dlcBeastsFile))
+$needExport = $ForceExport -or (-not (Test-Path $indexFile)) -or (-not (Test-Path $pckFile)) -or (-not (Test-Path $era2File)) -or (-not (Test-Path $era3File))
 
 if (-not $needExport) {
     $pckTime = (Get-Item $pckFile).LastWriteTime
     $latestSrc = Get-ChildItem -Path @(".\src", ".\scenes", ".\assets", ".\content", ".\project.godot", ".\export_presets.cfg") -Recurse -File -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTime -Descending |
-        Select-Object -First 1
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1
     if ($latestSrc -and ($latestSrc.LastWriteTime -gt $pckTime)) {
         Write-Host "[INFO] Source files updated, exporting Web..." -ForegroundColor Yellow
         $needExport = $true
@@ -33,9 +33,9 @@ if ($needExport) {
         Write-Error "Godot Web Export Failed."
         exit 1
     }
-    Write-Host "[INFO] Exporting Web DLC Packs..." -ForegroundColor Yellow
-    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-pack WebDLC_Sect $dlcSectFile
-    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-pack WebDLC_Beasts $dlcBeastsFile
+    Write-Host "[INFO] Exporting Web Era Asset Packs..." -ForegroundColor Yellow
+    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-pack WebEra2 $era2File
+    & ".\tools\godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe" --headless --path . --export-pack WebEra3 $era3File
     Write-Host "[SUCCESS] Web Release exported successfully!" -ForegroundColor Green
 }
 
@@ -50,7 +50,8 @@ foreach ($track in $webAudioCatalog) {
 if (Get-Command node -ErrorAction SilentlyContinue) {
     node tools/prepare_web_compression.mjs $webDir
     if ($LASTEXITCODE -ne 0) { throw 'Web compression preparation failed' }
-} else {
+}
+else {
     Write-Host '[INFO] Node compression tool unavailable; HTTP server uses gzip.' -ForegroundColor Yellow
 }
 # Clean up any dangling process on port 4175 before starting

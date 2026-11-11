@@ -1,5 +1,50 @@
 # 開發狀態與交接紀錄
 
+<a id="dao-proof-era-floor-and-debug-autobuild"></a>
+## 2026-11-11 DAO-PROOF-ERA-FLOOR-AND-DEBUG-AUTOBUILD（轉生道證境界保底與瀏覽器最小化 DEBUG 自動建造追趕 DONE）
+
+- **任務目標**：修復轉生道心道證計算（解決 ERA 2 轉生道證為 0 的回饋斷層），並解決瀏覽器最小化時 `requestAnimationFrame` 暫停導致 DEBUG 自動建造與修為突破不生效的問題。
+- **具體變更**：
+  1. **轉生道證境界保底機制（Era Proof Floor）**：
+     - `src/simulation/reincarnation_rules.gd`：新增 `era_dao_proof_floor(era_id)`（Era 1: 0, Era 2 築基: 1, Era 3 金丹: 2, Era 4+ 元嬰及以上: 3），並在 `compute_reward()` 中取建築產出與境界保底之最大值，使達到築基期以上的修行者轉世必定能凝練對應位格之「道證」。
+     - `src/application/game_session.gd`：在 `get_reincarnation_preview()` 中加入 `era_proof_floor`。
+     - `src/presentation/reincarnation_panel.gd`：道證提示 Tooltip 同步顯示建築等級總和與境界保底說明。
+     - `src/presentation/reincarnation_sequence.gd` 與 `src/presentation/abode_modal_manager.gd`：轉世演出結算卡片同步展示本次獲得之道證枚數。
+  2. **瀏覽器最小化/後台切回 DEBUG 自動建造追趕機制（Catch-up Loop）**：
+     - `src/abode/living_abode.gd`：在 Web 背景離線結算喚醒處及非 Web 焦點切回處，加入基於後台流逝真實時間的追趕循環。當 `debug_auto_build_active` 開啟時，將最小化期間累積的時長按每 30 秒一次進行批次補償（單次最高 60 次上限防卡死），連續呼叫 `_debug_perform_random_upgrade()` 自動推進建築建造與小境界突破，使最小化掛機時也能持續自動推進。
+  3. **測試適配與修復**：
+     - `tests/m3a_reincarnation_runner.gd` 與 `tests/early_v1b_talents_runner.gd`：更新斷言適配 v2 道證境界保底機制。
+     - `tests/m3a_reincarnation_ui_runner.gd`：修復測試隔離存檔路徑與部分元件安全檢查。
+- **驗收命令與結果**：
+  - **L1 Runners**：`powershell.exe -File tools\run_all_runners.ps1 -Only 'm3a_reincarnation_runner.gd,m3a_reincarnation_ui_runner.gd,reincarnation_motion_runner.gd,early_v1b_talents_runner.gd' -Parallel 2`，**4/4 PASS，exit 0**。
+- **下一步**：階段性修復與增強全數通過，可手動 commit。請使用者在桌面 Chrome 測試轉生結算與最小化掛機自動建造！
+
+<a id="era-based-asset-split-and-sect-guidance"></a>
+## 2026-11-11 ERA-BASED-ASSET-SPLIT（按 EAR 1/2+ 分批打包背景預載與 Era 2 宗門引導 DONE）
+
+- **任務目標**：響應使用者回饋，將專案圖檔分包架構由舊粗暴切分全面重構為基於境界進程的「EAR 1 / 2+」體系；EAR 1 首次進遊戲即載入，後續每個 EAR 在背景預下載下一個 EAR；同時將宗門系統明確設定於 EAR 2 開放並加入完整的「拜入宗門」主動引導。
+- **具體變更**：
+  1. **EAR 1 / 2+ 圖檔分批打包重構**：
+     - `export_presets.cfg`：
+       * 核心主包 Preset 0（`Web` / EAR 1）：將成就系統圖檔（`assets/ui/achievements-painted/*`）回歸主包，確保煉氣期所有介面首次進遊戲即 100% 完整無缺圖。
+       * Preset 35（`WebEra2`）：專門導出 `era2_assets.pck`（62.89 MB），包含 Era 2 解鎖的五大宗門百態、名山山門畫卷（`sect-life`、`sects-painted`）、天道決策（`decisions-painted`）、機緣奇遇（`fortune-painted`）與藏經閣功法（`skills-painted`）。
+       * Preset 36（`WebEra3`）：專門導出 `era3_assets.pck`（19.47 MB），包含 Era 3+ 解鎖的靈獸神獸（`beasts-painted`）與輪迴轉世（`reincarnation-painted`、`reincarnation-layered-f5a/f5b`）。
+  2. **動態背景預載管線（Background Prefetch Pipeline）**：
+     - `src/platform/asset_pack_loader.gd`：新增 `prefetch_for_era(current_era: int)`，在 Era 1 時自動背景預載 EAR 2 包，在 Era 2 時背景預載 EAR 3+ 包；加入別名相容映射。
+     - `src/abode/living_abode.gd`：啟動初始化與境界晉升突破時，自動驅動 `prefetch_for_era` 觸發下個 EAR 的背景下載。
+     - `src/presentation/sect_life_folio.gd`：在 `_update_gate_art()` 與 `_people_page()` 加入動態掛載回呼與 `pack_loaded` 信號監聽，徹底解決山門立繪空白問題。
+  3. **Era 2 宗門開放與加入宗門引導**：
+     - `src/simulation/sect_entry.gd`：解除 `invitation` 對雙島物流的過度綁定，玩家只要晉升至 Era 2（築基期）且尚未加入宗門，宗門訪帖與引導立即生效。
+     - `src/presentation/abode_hud_controller.gd`：在 Era 2 尚未加入宗門時，HUD 行動列醒目展示【拜入宗門】快捷按鈕，一鍵直達宗門立誓拜入介面。
+     - `src/simulation/onboarding.gd`：在 Era 2 目標說明與支線提示中，明確加入「【仙宗訪帖】五大名門送來山門訪帖，可按【拜入宗門】立誓拜入」之指引文字。
+  4. **打包與工具鏈同步**：
+     - `tools/package_itch_web.ps1`、`tools/start_web_server.ps1`、`tools/prepare_web_compression.mjs`、`tools/itch_web_package.py` 全面支援 `era2_assets.pck` 與 `era3_assets.pck`。
+- **驗收命令與結果**：
+  - **單元測試**：`$env:PYTHONPATH="tools"; python -m unittest tools/test_itch_web_package.py`，**8/8 PASS，exit 0**。
+  - **L1 Runners**：`powershell -File tools/run_all_runners.ps1 -Only 'sect_life_ui,era2_island_flow,ui_shell_integration'`，**3/3 PASS，exit 0**（`sect_life_ui_runner` 10.5s，`era2_island_flow_runner` 17.8s，`ui_shell_integration_runner` 17.6s）。
+  - **靜態交付檢查**：`python tools/delivery_check.py --web build/web`，**RESULT PASS**（11/11 檔案壓縮與雜湊完全相符，受保護證據 0 變更）。
+- **下一步**：本階段改造驗收全數通過，可手動 commit。請使用者在桌面 Chrome 瀏覽器按 Ctrl+F5 強制刷新確認全新的分批載入與宗門引導！
+
 <a id="cultivation-ui-workbench-integration"></a>
 ## 2026-11-10 CULTIVATION-UI-WORKBENCH-INTEGRATION（修行介面集中工作台整合與薄框宣紙整改 DONE）
 

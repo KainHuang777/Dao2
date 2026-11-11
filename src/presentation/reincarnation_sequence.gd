@@ -15,6 +15,7 @@ var _anim_time: float = 0.0
 var _reduced_motion: bool = false
 var _cycle: int = 1
 var _dao_heart_gain: int = 0
+var _dao_proof_gain: int = 0
 var _on_finished_callback: Callable
 
 var _bg_overlay: ColorRect
@@ -174,10 +175,11 @@ func _on_viewport_resized() -> void:
 	if _fx_layer != null:
 		_fx_layer.queue_redraw()
 
-func play(camera: Camera2D, cycle: int, dao_heart_gain: int, on_finished: Callable, reduced_motion: bool = false) -> void:
+func play(camera: Camera2D, cycle: int, dao_heart_gain: int, on_finished: Callable, reduced_motion: bool = false, dao_proof_gain: int = 0) -> void:
 	_camera = camera
 	_cycle = cycle
 	_dao_heart_gain = dao_heart_gain
+	_dao_proof_gain = dao_proof_gain
 	_on_finished_callback = on_finished
 	_reduced_motion = reduced_motion
 	_mandala.reduced_motion = reduced_motion
@@ -191,7 +193,10 @@ func play(camera: Camera2D, cycle: int, dao_heart_gain: int, on_finished: Callab
 	_skip_button.visible = true
 	_stage_badge.text = "【太虛出神】"
 	_couplet_label.text = "肉身有盡，道心無窮。"
-	_result_summary.text = "第 %d 世 · 練氣初境（肉身重塑）\n本次轉世凝聚道心：+%d 點" % [_cycle + 1, _dao_heart_gain]
+	if _dao_proof_gain > 0:
+		_result_summary.text = "第 %d 世 · 練氣初境（肉身重塑）\n本次轉世凝聚道心：+%d 點 · 獲得道證：+%d 枚" % [_cycle + 1, _dao_heart_gain, _dao_proof_gain]
+	else:
+		_result_summary.text = "第 %d 世 · 練氣初境（肉身重塑）\n本次轉世凝聚道心：+%d 點" % [_cycle + 1, _dao_heart_gain]
 
 	if _camera != null:
 		_camera.input_locked = true

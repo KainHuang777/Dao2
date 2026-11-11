@@ -440,6 +440,7 @@ func get_reincarnation_preview(mode: String = "normal") -> Dictionary:
 		"dao_heart": (reward["dao_heart"] as AmountCompat).serialize(),
 		"dao_proof": reward["dao_proof"],
 		"era_floor": reward["era_floor"],
+		"era_proof_floor": reward.get("era_proof_floor", 0),
 		"current_reincarnation_count": state.reincarnation_count,
 		"next_reincarnation_count": state.reincarnation_count + 1,
 	}
